@@ -4,9 +4,9 @@ import {
   RequestErrorAction,
   RequestExecuteAction,
   RequestRemoveAction,
+  RequestStaleAction,
   RequestSuccessAction,
-  ResetResponseTimestampsAction,
-  RequestStaleAction
+  ResetResponseTimestampsAction
 } from './request.actions';
 import { GetRequest } from './request.models';
 import { RequestEntryState, requestReducer, RequestState } from './request.reducer';
@@ -85,7 +85,7 @@ describe('requestReducer', () => {
     expect(newState[id1].request.uuid).toEqual(id1);
     expect(newState[id1].request.href).toEqual(link1);
     expect(newState[id1].state).toEqual(RequestEntryState.ResponsePending);
-    expect(newState[id1].response).toEqual(undefined)
+    expect(newState[id1].response).toEqual(undefined);
   });
 
   it('should set state to Success for the given RestRequest in the state, in response to a SUCCESS action', () => {
@@ -120,7 +120,7 @@ describe('requestReducer', () => {
         statusCode: 200
       }
     });
-    const state = Object.assign({}, testInitState, {[id1]: update});
+    const state = Object.assign({}, testInitState, { [id1]: update });
     const timeStamp = 1000;
     const action = new ResetResponseTimestampsAction(timeStamp);
     const newState = requestReducer(state, action);

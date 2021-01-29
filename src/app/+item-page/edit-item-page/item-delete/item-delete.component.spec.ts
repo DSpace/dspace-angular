@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../core/shared/item.model';
@@ -16,10 +16,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemDeleteComponent } from './item-delete.component';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipService } from '../../../core/data/relationship.service';
@@ -48,7 +45,7 @@ let notificationsServiceStub;
 let typesSelection;
 
 describe('ItemDeleteComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',
@@ -80,15 +77,15 @@ describe('ItemDeleteComponent', () => {
         id: '1',
         uuid: 'relationship-1',
         relationshipType: createSuccessfulRemoteDataObject$(type1),
-        leftItem:  createSuccessfulRemoteDataObject$(mockItem),
-        rightItem:  createSuccessfulRemoteDataObject$(new Item()),
+        leftItem: createSuccessfulRemoteDataObject$(mockItem),
+        rightItem: createSuccessfulRemoteDataObject$(new Item()),
       }),
       Object.assign(new Relationship(), {
         id: '2',
         uuid: 'relationship-2',
         relationshipType: createSuccessfulRemoteDataObject$(type2),
-        leftItem:  createSuccessfulRemoteDataObject$(mockItem),
-        rightItem:  createSuccessfulRemoteDataObject$(new Item()),
+        leftItem: createSuccessfulRemoteDataObject$(mockItem),
+        rightItem: createSuccessfulRemoteDataObject$(new Item()),
       }),
     ];
 

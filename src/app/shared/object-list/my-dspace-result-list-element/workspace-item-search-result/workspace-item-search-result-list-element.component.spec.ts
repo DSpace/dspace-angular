@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA} from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -57,7 +57,7 @@ mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: ob
 let linkService;
 
 describe('WorkspaceItemSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
@@ -73,7 +73,7 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(WorkspaceItemSearchResultListElementComponent);
     component = fixture.componentInstance;
   }));

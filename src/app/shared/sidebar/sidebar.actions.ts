@@ -46,4 +46,4 @@ export class SidebarToggleAction implements Action {
 export type SidebarAction
   = SidebarCollapseAction
   | SidebarExpandAction
-  | SidebarToggleAction
+  | SidebarToggleAction;

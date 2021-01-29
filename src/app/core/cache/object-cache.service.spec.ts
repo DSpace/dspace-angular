@@ -1,24 +1,36 @@
-import * as ngrx from '@ngrx/store';
-import { Store } from '@ngrx/store';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+
+import { cold } from 'jasmine-marbles';
+import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Operation } from 'fast-json-patch';
 import { empty, of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { CoreState } from '../core.reducers';
+
+import { coreReducers, CoreState } from '../core.reducers';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { Item } from '../shared/item.model';
-import { AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
+import {
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveFromObjectCacheAction
+} from './object-cache.actions';
 import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import { IndexName } from '../index/index.reducer';
 import { HALLink } from '../shared/hal-link.model';
-import { getTestScheduler } from 'jasmine-marbles';
+import { storeModuleConfig } from '../../app.reducer';
+import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
   let store: Store<CoreState>;
+  let mockStore: MockStore<CoreState>;
   let linkServiceStub;
+  let initialState: any;
 
   let selfLink;
   let anotherLink;
@@ -29,7 +41,7 @@ describe('ObjectCacheService', () => {
   let timestamp;
   let timestamp2;
   let msToLive;
-  let msToLive2
+  let msToLive2;
   let objectToCache;
   let cacheEntry;
   let cacheEntry2;
@@ -68,11 +80,35 @@ describe('ObjectCacheService', () => {
     };
     invalidCacheEntry = Object.assign({}, cacheEntry, { msToLive: -1 });
     operations = [{ op: 'replace', path: '/name', value: 'random string' } as Operation];
+    initialState = {
+      core: {
+        'cache/object': {},
+        'cache/syncbuffer': {},
+        'cache/object-updates': {},
+        'data/request': {},
+        'index': {}
+      }
+    };
   }
+
+  beforeEach(waitForAsync(() => {
+
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot(coreReducers, storeModuleConfig)
+      ],
+      providers: [
+        provideMockStore({ initialState }),
+        { provide: ObjectCacheService, useValue: service }
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     init();
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = TestBed.inject(Store);
+    mockStore = store as MockStore<CoreState>;
+    mockStore.setState(initialState);
     linkServiceStub = {
       removeResolvedLinks: (a) => a
     };
@@ -106,14 +142,14 @@ describe('ObjectCacheService', () => {
     it('should dispatch a REMOVE_BY_SUBSTRING action on the index state for each alternativeLink in the object', () => {
       service.remove(selfLink);
       cacheEntry.alternativeLinks.forEach(
-        (link: string) => expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, link)))
+        (link: string) => expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, link)));
     });
 
     it('should dispatch a REMOVE_BY_SUBSTRING action on the index state for each _links in the object, except the self link', () => {
       service.remove(selfLink);
       Object.entries(objectToCache._links).forEach(([key, value]: [string, HALLink]) => {
         if (key !== 'self') {
-          expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, value.href))
+          expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, value.href));
         }
       });
     });
@@ -128,7 +164,8 @@ describe('ObjectCacheService', () => {
 
       it('should return the object emitted by getBySelfLink', () => {
         const result = service.getByHref(selfLink);
-        getTestScheduler().expectObservable(result).toBe('(a|)', { a: cacheEntry })
+        const expected: TestColdObservable = cold('(a|)', { a: cacheEntry });
+        expect(result).toBeObservable(expected);
       });
     });
 
@@ -140,7 +177,8 @@ describe('ObjectCacheService', () => {
 
       it('should return the object emitted by getByAlternativeLink', () => {
         const result = service.getByHref(selfLink);
-        getTestScheduler().expectObservable(result).toBe('(a|)', { a: cacheEntry })
+        const expected: TestColdObservable = cold('(a|)', { a: cacheEntry });
+        expect(result).toBeObservable(expected);
       });
     });
 
@@ -152,7 +190,8 @@ describe('ObjectCacheService', () => {
 
       it('should return the object emitted by getByAlternativeLink', () => {
         const result = service.getByHref(selfLink);
-        getTestScheduler().expectObservable(result).toBe('(a|)', { a: cacheEntry2 })
+        const expected: TestColdObservable = cold('(a|)', { a: cacheEntry2 });
+        expect(result).toBeObservable(expected);
       });
     });
   });
@@ -175,7 +214,7 @@ describe('ObjectCacheService', () => {
 
     describe('getByHref emits an object', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf(cacheEntry))
+        spyOn(service, 'getByHref').and.returnValue(observableOf(cacheEntry));
       });
 
       it('should return true', () => {
@@ -185,39 +224,50 @@ describe('ObjectCacheService', () => {
 
     describe('getByHref emits nothing', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(empty())
+        spyOn(service, 'getByHref').and.returnValue(empty());
       });
 
       it('should return false', () => {
         expect(service.hasByHref(selfLink)).toBe(false);
       });
-    })
+    });
   });
 
   describe('getBySelfLink', () => {
     it('should return the entry returned by the select method', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(cacheEntry);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            [selfLink]: cacheEntry
+          }
+        })
       });
-
-      getTestScheduler().expectObservable((service as any).getBySelfLink(selfLink)).toBe('(a|)', { a: cacheEntry });
+      mockStore.setState(state);
+      const expected: TestColdObservable = cold('a', { a: cacheEntry });
+      expect((service as any).getBySelfLink(selfLink)).toBeObservable(expected);
     });
   });
 
   describe('getByAlternativeLink', () => {
     beforeEach(() => {
-      spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
+      spyOn(service as any, 'getBySelfLink').and.callThrough();
     });
     it('should call getBySelfLink with the value returned by the select method', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(anotherLink);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            [selfLink]: cacheEntry
+          },
+          'index': {
+            'object/alt-link-to-self-link': {
+              [anotherLink]: selfLink
+            }
+          }
+        })
       });
-      (service as any).getByAlternativeLink(selfLink).subscribe();
-      expect((service as any).getBySelfLink).toHaveBeenCalledWith(anotherLink);
+      mockStore.setState(state);
+      (service as any).getByAlternativeLink(anotherLink).subscribe();
+      expect((service as any).getBySelfLink).toHaveBeenCalledWith(selfLink);
     });
   });
 

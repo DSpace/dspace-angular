@@ -23,6 +23,10 @@ export interface MyDSpaceActionsResult {
 /**
  * Abstract class for all different representations of mydspace actions
  */
+// @Component({
+//   selector: 'ds-mydspace-actions-abstract',
+//   template: ''
+// })
 export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends DataService<T>> {
 
   /**
@@ -119,8 +123,6 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    *    true on success, false otherwise
    */
   handleActionResponse(result: boolean): void {
-    debugger;
-
     if (result) {
       this.reload();
       this.notificationsService.success(null,

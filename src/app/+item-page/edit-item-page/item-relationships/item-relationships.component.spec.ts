@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -12,18 +12,13 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import {
-  INotification,
-  Notification
-} from '../../../shared/notifications/models/notification.model';
+import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { RouterStub } from '../../../shared/testing/router.stub';
@@ -68,7 +63,7 @@ let relationships;
 let relationshipType;
 
 describe('ItemRelationshipsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const date = new Date();
 
     relationshipType = Object.assign(new RelationshipType(), {

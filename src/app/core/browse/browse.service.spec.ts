@@ -86,7 +86,7 @@ describe('BrowseService', () => {
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: browseDefinitions } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
 
   function initTestService() {

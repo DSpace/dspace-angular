@@ -53,11 +53,11 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
       .subscribe((response: RemoteData<NoContent>) => {
         if (response.hasSucceeded) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
-          this.notifications.success(successMessage)
+          this.notifications.success(successMessage);
           this.dsoDataService.refreshCache(dso);
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
-          this.notifications.error(errorMessage)
+          this.notifications.error(errorMessage);
         }
         this.router.navigate(['/']);
       });

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -29,7 +29,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsEditMetadataComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({

@@ -29,7 +29,7 @@ describe('DSOBreadcrumbResolver', () => {
     it('should resolve a breadcrumb config for the correct DSO', () => {
       const resolvedConfig = resolver.resolve({ params: { id: uuid } } as any, { url: currentUrl } as any);
       const expectedConfig = { provider: dsoBreadcrumbService, key: testCollection, url: breadcrumbUrl };
-      getTestScheduler().expectObservable(resolvedConfig).toBe('(a|)', { a: expectedConfig})
+      getTestScheduler().expectObservable(resolvedConfig).toBe('(a|)', { a: expectedConfig });
     });
   });
 });

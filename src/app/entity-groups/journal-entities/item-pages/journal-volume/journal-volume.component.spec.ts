@@ -1,9 +1,7 @@
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { JournalVolumeComponent } from './journal-volume.component';
-import { of as observableOf } from 'rxjs';
 import {
   createRelationshipsObservable,
   getItemPageFieldsTest

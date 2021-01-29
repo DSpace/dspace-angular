@@ -2,9 +2,9 @@ import { FacetValue } from './facet-value.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import {
   addOperatorToFilterValue,
+  escapeRegExp,
   getFacetValueForType,
-  stripOperatorFromFilterValue,
-  escapeRegExp
+  stripOperatorFromFilterValue
 } from './search.utils';
 
 describe('Search Utils', () => {

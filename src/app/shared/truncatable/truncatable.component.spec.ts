@@ -1,5 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { mockTruncatableService } from '../mocks/mock-trucatable.service';
 import { TruncatableComponent } from './truncatable.component';
 import { TruncatableService } from './truncatable.service';
@@ -11,7 +10,7 @@ describe('TruncatableComponent', () => {
   let fixture: ComponentFixture<TruncatableComponent>;
   const identifier = '1234567890';
   let truncatableService;
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [TruncatableComponent],

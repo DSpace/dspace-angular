@@ -1,5 +1,4 @@
 import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
 import { DisabledFieldParser } from './disabled-field-parser';
 import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
@@ -54,7 +53,7 @@ describe('DisabledFieldParser test suite', () => {
         'test description',
       ],
     };
-    const expectedValue ='test description';
+    const expectedValue = 'test description';
 
     const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions);
 

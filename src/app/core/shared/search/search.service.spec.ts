@@ -54,7 +54,7 @@ describe('SearchService', () => {
           SearchService
         ],
       });
-      searchService = TestBed.get(SearchService);
+      searchService = TestBed.inject(SearchService);
     });
 
     it('should return list view mode', () => {
@@ -78,19 +78,19 @@ describe('SearchService', () => {
 
     const remoteDataBuildService = {
       toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
-        return observableCombineLatest(requestEntryObs, payloadObs).pipe(
+        return observableCombineLatest([requestEntryObs, payloadObs]).pipe(
           map(([req, pay]) => {
             return { req, pay };
           })
         );
       },
-      aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
+      aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
         return createSuccessfulRemoteDataObject$([]);
       },
       buildFromHref: (href: string): Observable<RemoteData<any>> => {
         return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
           page: []
-        }))
+        }));
       }
     };
 
@@ -116,8 +116,8 @@ describe('SearchService', () => {
           SearchService
         ],
       });
-      searchService = TestBed.get(SearchService);
-      routeService = TestBed.get(RouteService);
+      searchService = TestBed.inject(SearchService);
+      routeService = TestBed.inject(RouteService);
       const urlTree = Object.assign(new UrlTree(), { root: { children: { primary: 'search' } } });
       router.parseUrl.and.returnValue(urlTree);
     });
@@ -141,7 +141,7 @@ describe('SearchService', () => {
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
       let viewMode = ViewMode.GridElement;
       spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
-        [ 'view', ViewMode.ListElement ],
+        ['view', ViewMode.ListElement],
       ])));
 
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
@@ -151,7 +151,7 @@ describe('SearchService', () => {
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
       let viewMode = ViewMode.ListElement;
       spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
-        [ 'view', ViewMode.GridElement ],
+        ['view', ViewMode.GridElement],
       ])));
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
       expect(viewMode).toEqual(ViewMode.GridElement);

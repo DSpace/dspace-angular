@@ -6,9 +6,15 @@ describe('ClaimedTaskActions decorator function', () => {
   const option3 = 'test_option_3';
 
   /* tslint:disable:max-classes-per-file */
-  class Test1Action {};
-  class Test2Action {};
-  class Test3Action {};
+  class Test1Action {
+  }
+
+  class Test2Action {
+  }
+
+  class Test3Action {
+  }
+
   /* tslint:enable:max-classes-per-file */
 
   beforeAll(() => {

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -37,6 +37,8 @@ import { ResourcePolicyService } from '../../../core/resource-policy/resource-po
 import { Group } from '../../../core/eperson/models/group.model';
 import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
 function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {
@@ -87,8 +89,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
   let submissionState: SubmissionObjectState;
   let mockCollection: Collection;
   let mockDefaultAccessCondition: ResourcePolicy;
+  let prepareComp;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     sectionObject = {
       config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/upload',
       mandatory: true,
@@ -123,6 +126,40 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       id: 20,
       uuid: 'resource-policy-20'
     });
+    uploadsConfigService = getMockSubmissionUploadsConfigService();
+
+    submissionServiceStub = new SubmissionServiceStub();
+
+    collectionDataService = getMockCollectionDataService();
+
+    resourcePolicyService = getMockResourcePolicyService();
+
+    groupService = getMockGroupEpersonService();
+
+    bitstreamService = getMockSectionUploadService();
+
+    uploadsConfigService = getMockSubmissionUploadsConfigService();
+
+    prepareComp = () => {
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
+
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
+        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition)
+      })));
+
+      resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
+
+      uploadsConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(
+        buildPaginatedList(new PageInfo(), [mockUploadConfigResponse as any]))
+      );
+
+      groupService.findById.and.returnValues(
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+      );
+
+      bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -135,13 +172,13 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         TestComponent
       ],
       providers: [
-        { provide: CollectionDataService, useValue: getMockCollectionDataService() },
-        { provide: GroupDataService, useValue: getMockGroupEpersonService() },
-        { provide: ResourcePolicyService, useValue: getMockResourcePolicyService() },
-        { provide: SubmissionUploadsConfigService, useValue: getMockSubmissionUploadsConfigService() },
+        { provide: CollectionDataService, useValue: collectionDataService },
+        { provide: GroupDataService, useValue: groupService },
+        { provide: ResourcePolicyService, useValue: resourcePolicyService },
+        { provide: SubmissionUploadsConfigService, useValue: uploadsConfigService },
         { provide: SectionsService, useClass: SectionsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
-        { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: SectionUploadService, useValue: bitstreamService },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
@@ -157,6 +194,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      prepareComp();
+
       const html = `
         <ds-submission-section-upload></ds-submission-section-upload>`;
 
@@ -180,13 +219,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
-      collectionDataService = TestBed.get(CollectionDataService);
-      groupService = TestBed.get(GroupDataService);
-      resourcePolicyService = TestBed.get(ResourcePolicyService);
-      uploadsConfigService = TestBed.get(SubmissionUploadsConfigService);
-      bitstreamService = TestBed.get(SectionUploadService);
+      sectionsServiceStub = TestBed.inject(SectionsService as any);
     });
 
     afterEach(() => {

@@ -11,7 +11,7 @@ import { DsDynamicTextAreaModelConfig } from '../../form/builder/ds-dynamic-form
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 
-const policyTypeList: Array<DynamicFormOptionConfig<any>> = [
+const policyTypeList: DynamicFormOptionConfig<any>[] = [
   {
     label: PolicyType.TYPE_SUBMISSION,
     value: PolicyType.TYPE_SUBMISSION
@@ -30,7 +30,7 @@ const policyTypeList: Array<DynamicFormOptionConfig<any>> = [
   },
 ];
 
-const policyActionList: Array<DynamicFormOptionConfig<any>> = [
+const policyActionList: DynamicFormOptionConfig<any>[] = [
   {
     label: ActionType.READ.toString(),
     value: ActionType.READ

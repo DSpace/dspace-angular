@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -56,7 +56,7 @@ export class BundleDataService extends DataService<Bundle> {
    *                          the response becomes stale
    * @param linksToFollow     the {@link FollowLinkConfig}s for the request
    */
-  findAllByItem(item: Item, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
+  findAllByItem(item: Item, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<PaginatedList<Bundle>>> {
     return this.findAllByHref(item._links.bundles.href, options, reRequestOnStale, ...linksToFollow);
   }
 
@@ -70,7 +70,7 @@ export class BundleDataService extends DataService<Bundle> {
    * @param linksToFollow     the {@link FollowLinkConfig}s for the request
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
+  findByItemAndName(item: Item, bundleName: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
     return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
@@ -122,7 +122,7 @@ export class BundleDataService extends DataService<Bundle> {
    * @param searchOptions   The search options to use
    * @param linksToFollow   The {@link FollowLinkConfig}s for the request
    */
-  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     const hrefObs = this.getBitstreamsEndpoint(bundleId, searchOptions);
 
     hrefObs.pipe(

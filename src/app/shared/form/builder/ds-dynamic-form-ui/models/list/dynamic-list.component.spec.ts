@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,17 +22,16 @@ import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService
+} from '../../../../../testing/dynamic-form-mock-services';
 
 export const LAYOUT_TEST = {
   element: {
     group: ''
   }
 } as DynamicFormControlLayout;
-
-export const LIST_TEST_GROUP = new FormGroup({
-  listCheckbox: new FormGroup({}),
-  listRadio: new FormGroup({})
-});
 
 export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
@@ -75,8 +74,8 @@ describe('DsDynamicListComponent test suite', () => {
 
   const vocabularyServiceStub = new VocabularyServiceStub();
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -96,8 +95,8 @@ describe('DsDynamicListComponent test suite', () => {
         DynamicFormValidationService,
         FormBuilderService,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -120,6 +119,11 @@ describe('DsDynamicListComponent test suite', () => {
       testComp = testFixture.componentInstance;
     });
 
+    afterEach(() => {
+      testFixture.destroy();
+      testComp = null;
+    });
+
     it('should create DsDynamicListComponent', inject([DsDynamicListComponent], (app: DsDynamicListComponent) => {
 
       expect(app).toBeDefined();
@@ -132,7 +136,10 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = LIST_TEST_GROUP;
+        listComp.group = new FormGroup({
+          listCheckbox: new FormGroup({}),
+          listRadio: new FormGroup({})
+        });
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
         listFixture.detectChanges();
       });
@@ -156,7 +163,7 @@ describe('DsDynamicListComponent test suite', () => {
 
         item.nativeElement.click();
 
-        expect(listComp.model.value).toEqual(modelValue)
+        expect(listComp.model.value).toEqual(modelValue);
       });
 
       it('should emit blur Event onBlur', () => {
@@ -177,7 +184,10 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = LIST_TEST_GROUP;
+        listComp.group = new FormGroup({
+          listCheckbox: new FormGroup({}),
+          listRadio: new FormGroup({})
+        });
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
         modelValue = [Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 })];
         listComp.model.value = modelValue;
@@ -203,7 +213,7 @@ describe('DsDynamicListComponent test suite', () => {
 
         item.nativeElement.click();
 
-        expect(listComp.model.value).toEqual(modelValue)
+        expect(listComp.model.value).toEqual(modelValue);
       });
     });
   });
@@ -214,7 +224,10 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = LIST_TEST_GROUP;
+        listComp.group = new FormGroup({
+          listCheckbox: new FormGroup({}),
+          listRadio: new FormGroup({})
+        });
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
         listFixture.detectChanges();
       });
@@ -238,7 +251,7 @@ describe('DsDynamicListComponent test suite', () => {
 
         item.nativeElement.click();
 
-        expect(listComp.model.value).toEqual(modelValue)
+        expect(listComp.model.value).toEqual(modelValue);
       });
     });
 
@@ -247,7 +260,10 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = LIST_TEST_GROUP;
+        listComp.group = new FormGroup({
+          listCheckbox: new FormGroup({}),
+          listRadio: new FormGroup({})
+        });
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
         modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
         listComp.model.value = modelValue;
@@ -275,7 +291,10 @@ describe('DsDynamicListComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = LIST_TEST_GROUP;
+  group: FormGroup = new FormGroup({
+    listCheckbox: new FormGroup({}),
+    listRadio: new FormGroup({})
+  });
 
   model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
 

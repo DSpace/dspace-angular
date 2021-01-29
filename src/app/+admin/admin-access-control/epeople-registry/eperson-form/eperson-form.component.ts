@@ -7,8 +7,7 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, combineLatest, of } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -448,10 +447,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
                   this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
                 }
                 this.cancelForm.emit();
-              })
+              });
             }}
         });
-    })
+    });
   }
 
   /**

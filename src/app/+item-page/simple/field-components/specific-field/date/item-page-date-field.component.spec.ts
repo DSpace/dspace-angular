@@ -1,6 +1,6 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
@@ -13,7 +13,7 @@ const mockField = 'dc.date.issued';
 const mockValue = 'test value';
 
 describe('ItemPageDateFieldComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -24,11 +24,11 @@ describe('ItemPageDateFieldComponent', () => {
       declarations: [ItemPageDateFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageDateFieldComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemPageDateFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);

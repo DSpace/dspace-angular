@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,7 +26,7 @@ export function createSidebarSearchListElementTests(
 
     let linkService;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
           [object.indexableObject.getParentLinkKey()]: createSuccessfulRemoteDataObject$(parent)

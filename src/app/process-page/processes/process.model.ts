@@ -9,7 +9,7 @@ import { PROCESS } from './process.resource-type';
 import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { link, typedObject } from '../../core/cache/builders/build-decorators';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { SCRIPT } from '../scripts/script.resource-type';
 import { Script } from '../scripts/script.model';

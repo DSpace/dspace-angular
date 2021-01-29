@@ -1,8 +1,12 @@
 import * as deepFreeze from 'deep-freeze';
 import {
-  SearchFilterCollapseAction, SearchFilterExpandAction, SearchFilterIncrementPageAction,
-  SearchFilterToggleAction,
-  SearchFilterDecrementPageAction, SearchFilterResetPageAction, SearchFilterInitializeAction
+  SearchFilterCollapseAction,
+  SearchFilterDecrementPageAction,
+  SearchFilterExpandAction,
+  SearchFilterIncrementPageAction,
+  SearchFilterInitializeAction,
+  SearchFilterResetPageAction,
+  SearchFilterToggleAction
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 
@@ -99,7 +103,7 @@ describe('filterReducer', () => {
   it('should set filterCollapsed to true in response to the INITIALIZE action with isOpenByDefault to false when no state has been set for this filter', () => {
     const state = {};
     state[filterName2] = { filterCollapsed: false, page: 1 };
-    const filterConfig = {isOpenByDefault: false, name: filterName1} as any;
+    const filterConfig = { isOpenByDefault: false, name: filterName1 } as any;
     const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
 
@@ -109,7 +113,7 @@ describe('filterReducer', () => {
   it('should set filterCollapsed to false in response to the INITIALIZE action with isOpenByDefault to true when no state has been set for this filter', () => {
     const state = {};
     state[filterName2] = { filterCollapsed: true, page: 1 };
-    const filterConfig = {isOpenByDefault: true, name: filterName1} as any;
+    const filterConfig = { isOpenByDefault: true, name: filterName1 } as any;
     const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
     expect(newState[filterName1].filterCollapsed).toEqual(false);

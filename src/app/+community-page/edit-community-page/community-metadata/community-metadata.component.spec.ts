@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommunityMetadataComponent } from './community-metadata.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -15,7 +15,7 @@ describe('CommunityMetadataComponent', () => {
   let comp: CommunityMetadataComponent;
   let fixture: ComponentFixture<CommunityMetadataComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [CommunityMetadataComponent],
@@ -37,6 +37,6 @@ describe('CommunityMetadataComponent', () => {
   describe('frontendURL', () => {
     it('should have the right frontendURL set', () => {
       expect((comp as any).frontendURL).toEqual('/communities/');
-    })
+    });
   });
 });

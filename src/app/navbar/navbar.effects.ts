@@ -1,6 +1,6 @@
 import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as fromRouter from '@ngrx/router-store';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
@@ -48,7 +48,7 @@ export class NavbarEffects {
           map((menu: MenuState) => {
             if (menu.id === MenuID.ADMIN) {
               if (!menu.previewCollapsed && menu.collapsed) {
-                return new CollapseMenuAction(MenuID.PUBLIC)
+                return new CollapseMenuAction(MenuID.PUBLIC);
               }
             }
             return { type: 'NO_ACTION' };

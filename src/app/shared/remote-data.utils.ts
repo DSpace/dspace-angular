@@ -101,5 +101,5 @@ export function createNoContentRemoteDataObject<T>(timeCompleted?: number): Remo
  * @param timeCompleted the moment when the remoteData was completed
  */
 export function createNoContentRemoteDataObject$<T>(timeCompleted?: number): Observable<RemoteData<T>> {
-  return createSuccessfulRemoteDataObject$(undefined, timeCompleted)
+  return createSuccessfulRemoteDataObject$(undefined, timeCompleted);
 }

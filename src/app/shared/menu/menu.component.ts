@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { MenuService } from './menu.service';
 import { MenuID } from './initial-menus-state';
 import { MenuSection } from './menu.reducer';
@@ -8,8 +8,6 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { BehaviorSubject } from 'rxjs';
 import { compareArraysUsingIds } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 /**

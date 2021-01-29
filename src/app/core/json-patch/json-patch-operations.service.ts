@@ -1,23 +1,8 @@
 import { merge as observableMerge, Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  flatMap,
-  map,
-  partition,
-  take,
-  tap
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, partition, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined
-} from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -62,7 +47,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
     const requestId = this.requestService.generateRequestId();
     let startTransactionTime = null;
     const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => isNotEmpty(request.body))(hrefObs.pipe(
-      flatMap((endpointURL: string) => {
+      mergeMap((endpointURL: string) => {
         return this.store.select(jsonPatchOperationsByResourceType(resourceType)).pipe(
           take(1),
           filter((operationsList: JsonPatchOperationsResourceEntry) => isUndefined(operationsList) || !(operationsList.commitPending)),
@@ -85,7 +70,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
                     operationsList.children[key].body.forEach((entry) => {
                       body.push(entry.operation);
                     });
-                  })
+                  });
               }
             }
             return this.getRequestInstance(requestId, endpointURL, body);
@@ -101,7 +86,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
         filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
         tap((request: PatchRequestDefinition) => this.requestService.configure(request)),
-        flatMap(() => {
+        mergeMap(() => {
           return this.rdbService.buildFromRequestUUID(requestId).pipe(
             getFirstCompletedRemoteData(),
             find((rd: RemoteData<any>) => startTransactionTime < rd.timeCompleted),
@@ -115,7 +100,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
               }
             }),
             distinctUntilChanged()
-        )
+        );
         }))
     );
   }

@@ -1,5 +1,5 @@
 import { CollectionGridElementComponent } from './collection-grid-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
@@ -35,21 +35,21 @@ const linkService = jasmine.createSpyObj('linkService', {
 });
 
 describe('CollectionGridElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectionGridElementComponent ],
+      declarations: [CollectionGridElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract)},
-        { provide: LinkService, useValue: linkService}
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
+        { provide: LinkService, useValue: linkService }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CollectionGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CollectionGridElementComponent);
     collectionGridElementComponent = fixture.componentInstance;
   }));

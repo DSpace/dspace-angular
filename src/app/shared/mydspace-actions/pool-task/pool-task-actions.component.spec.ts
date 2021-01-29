@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -74,7 +74,7 @@ const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 
 describe('PoolTaskActionsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null)
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
@@ -106,8 +106,8 @@ describe('PoolTaskActionsComponent', () => {
     fixture = TestBed.createComponent(PoolTaskActionsComponent);
     component = fixture.componentInstance;
     component.object = mockObject;
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    router = TestBed.get(Router);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
+    router = TestBed.inject(Router as any);
     fixture.detectChanges();
   });
 
@@ -124,7 +124,7 @@ describe('PoolTaskActionsComponent', () => {
 
     expect(component.workflowitem$).toBeObservable(cold('(b|)', {
       b: rdWorkflowitem.payload
-    }))
+    }));
   });
 
   it('should display claim task button', () => {

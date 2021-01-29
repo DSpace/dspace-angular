@@ -2,7 +2,7 @@ import { LookupGuard } from './lookup-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, UrlSegment } from '@angular/router';
 import { ObjectNotFoundComponent } from './objectnotfound/objectnotfound.component';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { isNotEmpty } from '../shared/empty.util';
 
 @NgModule({
   imports: [

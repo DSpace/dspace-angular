@@ -24,7 +24,7 @@ export class ContentSourceResponseParsingService extends DspaceRestResponseParsi
     }
     deserialized.metadataConfigs = metadataConfigs;
 
-    this.addToObjectCache(deserialized, request, data)
+    this.addToObjectCache(deserialized, request, data);
 
     return new ParsedResponse(data.statusCode, deserialized._links.self);
   }

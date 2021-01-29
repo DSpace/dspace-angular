@@ -51,6 +51,7 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<TestTask> {
   }
 
 }
+
 /* tslint:enable:max-classes-per-file */
 
 describe('TasksService', () => {

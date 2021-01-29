@@ -76,7 +76,7 @@ export class MetadataPatchOperationService implements PatchOperationService {
       const val = {
         value: metadatum.value,
         language: metadatum.language
-      }
+      };
 
       let operation: MetadataPatchOperation;
       switch (update.changeType) {

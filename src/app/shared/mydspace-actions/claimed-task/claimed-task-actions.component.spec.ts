@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { of as observableOf } from 'rxjs';
@@ -92,7 +92,7 @@ function init() {
 }
 
 describe('ClaimedTaskActionsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -123,8 +123,8 @@ describe('ClaimedTaskActionsComponent', () => {
     fixture = TestBed.createComponent(ClaimedTaskActionsComponent);
     component = fixture.componentInstance;
     component.object = mockObject;
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    router = TestBed.get(Router);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
+    router = TestBed.inject(Router as any);
     fixture.detectChanges();
   });
 
@@ -139,7 +139,7 @@ describe('ClaimedTaskActionsComponent', () => {
     }));
   });
 
-  it('should reload page on process completed', async(() => {
+  it('should reload page on process completed', waitForAsync(() => {
     spyOn(router, 'navigateByUrl');
     router.url = 'test.url/test';
 
@@ -151,7 +151,7 @@ describe('ClaimedTaskActionsComponent', () => {
     });
   }));
 
-  it('should display an error notification on process failure', async(() => {
+  it('should display an error notification on process failure', waitForAsync(() => {
     component.handleActionResponse(false);
     fixture.detectChanges();
 

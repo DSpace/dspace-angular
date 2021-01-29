@@ -1,8 +1,8 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 import { RegistryService } from '../../../../core/registry/registry.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -29,23 +29,26 @@ describe('MetadataFieldFormComponent', () => {
     getActiveMetadataField: () => observableOf(undefined),
     createMetadataField: (field: MetadataField) => observableOf(field),
     updateMetadataField: (field: MetadataField) => observableOf(field),
-    cancelEditMetadataField: () => {},
-    cancelEditMetadataSchema: () => {},
+    cancelEditMetadataField: () => {
+    },
+    cancelEditMetadataSchema: () => {
+    },
     clearMetadataFieldRequests: () => observableOf(undefined)
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {
       return {
-        patchValue: () => {}
+        patchValue: () => {
+        }
       };
     }
   };
   /* tslint:enable:no-empty */
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ MetadataFieldFormComponent, EnumKeysPipe ],
+      declarations: [MetadataFieldFormComponent, EnumKeysPipe],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: FormBuilderService, useValue: formBuilderServiceStub }
@@ -67,8 +70,8 @@ describe('MetadataFieldFormComponent', () => {
 
   afterEach(() => {
     component = null;
-    registryService = null
-  })
+    registryService = null;
+  });
 
   describe('when submitting the form', () => {
     const element = 'fakeElement';
@@ -95,7 +98,7 @@ describe('MetadataFieldFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new field using the correct values', async(() => {
+      it('should emit a new field using the correct values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
         });
@@ -117,7 +120,7 @@ describe('MetadataFieldFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should edit the existing field using the correct values', async(() => {
+      it('should edit the existing field using the correct values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
         });

@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,7 +18,7 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
   const fileData: any = mockUploadFiles[0];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot()
@@ -96,5 +96,5 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 })
 class TestComponent {
 
-  fileData;
+  fileData = mockUploadFiles[0];
 }

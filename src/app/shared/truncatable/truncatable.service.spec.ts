@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { TruncatableService } from './truncatable.service';
 import { TruncatableCollapseAction, TruncatableExpandAction } from './truncatable.actions';
 import { TruncatablesState } from './truncatable.reducer';
@@ -15,7 +15,7 @@ describe('TruncatableService', () => {
     /* tslint:enable:no-empty */
     select: observableOf(true)
   });
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [

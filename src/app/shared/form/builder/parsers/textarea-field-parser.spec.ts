@@ -54,7 +54,7 @@ describe('TextareaFieldParser test suite', () => {
         new FormFieldMetadataValueObject('test description'),
       ],
     };
-    const expectedValue ='test description';
+    const expectedValue = 'test description';
 
     const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
 

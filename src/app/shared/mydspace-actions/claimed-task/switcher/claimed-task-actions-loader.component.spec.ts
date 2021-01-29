@@ -1,5 +1,5 @@
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, ComponentFactoryResolver, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import * as decorators from './claimed-task-actions-decorator';
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
@@ -22,6 +22,7 @@ const searchService = getMockSearchService();
 
 const requestService = getMockRequestService();
 
+//xdescribe
 describe('ClaimedTaskActionsLoaderComponent', () => {
   let comp: ClaimedTaskActionsLoaderComponent;
   let fixture: ComponentFixture<ClaimedTaskActionsLoaderComponent>;
@@ -29,7 +30,7 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
   const option = 'test_option';
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ClaimedTaskActionsLoaderComponent, ClaimedTaskActionsEditMetadataComponent, ClaimedTaskActionsDirective],
@@ -52,7 +53,7 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsLoaderComponent);
     comp = fixture.componentInstance;
 
@@ -65,6 +66,6 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
   describe('When the component is rendered', () => {
     it('should call the getComponentByWorkflowTaskOption function with the right option', () => {
       expect(decorators.getComponentByWorkflowTaskOption).toHaveBeenCalledWith(option);
-    })
+    });
   });
 });

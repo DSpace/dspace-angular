@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RoleType } from '../../core/roles/role-types';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 export class RoleServiceMock {
 

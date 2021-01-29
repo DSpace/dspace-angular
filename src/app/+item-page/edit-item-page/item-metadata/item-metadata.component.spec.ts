@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -11,10 +11,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { By } from '@angular/platform-browser';
-import {
-  INotification,
-  Notification
-} from '../../../shared/notifications/models/notification.model';
+import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
@@ -23,10 +20,7 @@ import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOSuccessResponse } from '../../../core/cache/response.models';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -108,7 +102,7 @@ const operation1 = { op: 'remove', path: '/metadata/dc.title/1' };
 let scheduler: TestScheduler;
 let item;
 describe('ItemMetadataComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
       item = Object.assign(new Item(), {
           metadata: {
             [metadatum1.key]: [metadatum1],
@@ -227,7 +221,7 @@ describe('ItemMetadataComponent', () => {
 
     it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct url and metadata', () => {
       expect(objectUpdatesService.createPatch).toHaveBeenCalledWith(url);
-      expect(itemService.patch).toHaveBeenCalledWith(comp.item, [ operation1 ]);
+      expect(itemService.patch).toHaveBeenCalledWith(comp.item, [operation1]);
       expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(url, comp.item.metadataAsList);
     });
   });

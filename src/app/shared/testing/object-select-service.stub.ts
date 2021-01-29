@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/internal/observable/of';
+import { Observable, of } from 'rxjs';
 
 export class ObjectSelectServiceStub {
 

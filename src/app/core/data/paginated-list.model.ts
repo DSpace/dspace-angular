@@ -37,7 +37,7 @@ export const buildPaginatedList = <T>(pageInfo: PageInfo, page: T[], normalized 
       } else {
         return null;
       }
-    })
+    });
     // if none of the objects in page are HALResources, don't set a page link
     if (pageLinks.every((link: HALLink) => hasNoValue(link))) {
       pageLinks = undefined;
@@ -70,7 +70,7 @@ export class PaginatedList<T> extends CacheableObject {
    * The type of objects in the list
    */
   @autoserialize
-  objectType?: ResourceType
+  objectType?: ResourceType;
 
   /**
    * The list of objects that represents the current page

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Process } from './processes/process.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';

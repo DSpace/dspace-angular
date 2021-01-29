@@ -1,10 +1,9 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
-import * as ngrx from '@ngrx/store';
 import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { cold, hot } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 
 import { MenuService } from './menu.service';
 import { MenuID } from './initial-menus-state';
@@ -27,7 +26,6 @@ import { storeModuleConfig } from '../../app.reducer';
 
 describe('MenuService', () => {
   let service: MenuService;
-  let selectSpy;
   let store: any;
   let fakeMenu;
   let visibleSection1;
@@ -55,9 +53,13 @@ describe('MenuService', () => {
     subSection4 = {
       id: 'section_4',
       visible: true,
-      parentID: 'section1'
+      parentID: 'section'
     };
-
+    subSection4 = {
+      id: 'section_4',
+      visible: true,
+      parentID: 'section'
+    };
     topSections = {
       section: visibleSection1,
       section_2: visibleSection2,
@@ -70,18 +72,21 @@ describe('MenuService', () => {
       collapsed: true,
       visible: false,
       sections: topSections,
-      previewCollapsed: true
+      previewCollapsed: true,
+      sectionToSubsectionIndex: {
+        'section': ['section_4']
+      }
     } as any;
 
     initialState = {
       menus: {
-        'admin-sidebar' : fakeMenu
+        'admin-sidebar': fakeMenu
       }
     };
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -95,9 +100,8 @@ describe('MenuService', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     service = new MenuService(store);
-    selectSpy = spyOnProperty(ngrx, 'select').and.callThrough();
     spyOn(store, 'dispatch');
   });
 
@@ -110,20 +114,11 @@ describe('MenuService', () => {
       });
 
       expect(result).toBeObservable(expected);
-    })
+    });
   });
 
   describe('getMenuTopSections', () => {
-    beforeEach(() => {
-      selectSpy.and.callFake(() => {
-        return () => {
-          return () => hot('a', {
-              a: topSections
-            }
-          );
-        };
-      });
-    });
+
     it('should return only the visible top MenuSections when mustBeVisible is true', () => {
 
       const result = service.getMenuTopSections(MenuID.ADMIN);
@@ -142,70 +137,38 @@ describe('MenuService', () => {
       });
 
       expect(result).toBeObservable(expected);
-    })
+    });
   });
 
   describe('getSubSectionsByParentID', () => {
     describe('when the subsection list is not empty', () => {
-
-      beforeEach(() => {
-        spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1 as MenuSection));
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', {
-                a: ['id1', 'id2']
-              }
-            );
-          };
-        });
-      });
       it('should return the MenuSections with the given parentID', () => {
 
-        const result = service.getSubSectionsByParentID(MenuID.ADMIN, 'fakeId');
+        const result = service.getSubSectionsByParentID(MenuID.ADMIN, 'section');
         const expected = cold('b', {
-          b: [visibleSection1, visibleSection1]
+          b: [subSection4]
         });
 
         expect(result).toBeObservable(expected);
-      })
+      });
     });
     describe('when the subsection list is undefined', () => {
-
-      beforeEach(() => {
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', {
-                a: undefined
-              }
-            );
-          };
-        });
-      });
       it('should return an observable that emits nothing', () => {
 
         const result = service.getSubSectionsByParentID(MenuID.ADMIN, 'fakeId');
         const expected = cold('');
 
         expect(result).toBeObservable(expected);
-      })
+      });
     });
   });
 
   describe('hasSubSections', () => {
     describe('when the subsection list is not empty', () => {
-      beforeEach(() => {
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', {
-                a: ['id1', 'id2']
-              }
-            );
-          };
-        });
-      });
+
       it('should return true', () => {
 
-        const result = service.hasSubSections(MenuID.ADMIN, 'fakeId');
+        const result = service.hasSubSections(MenuID.ADMIN, 'section');
         const expected = cold('b', {
           b: true
         });
@@ -215,16 +178,6 @@ describe('MenuService', () => {
     });
 
     describe('when the subsection list is empty', () => {
-      beforeEach(() => {
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', {
-                a: []
-              }
-            );
-          };
-        });
-      });
       it('should return false', () => {
 
         const result = service.hasSubSections(MenuID.ADMIN, 'fakeId');
@@ -234,7 +187,7 @@ describe('MenuService', () => {
 
         expect(result).toBeObservable(expected);
       });
-    })
+    });
   });
 
   describe('getMenuSection', () => {

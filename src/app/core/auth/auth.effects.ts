@@ -238,7 +238,7 @@ export class AuthEffects {
           .pipe(
             map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
             catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
-          )
+          );
       })
     );
 

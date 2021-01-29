@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RestResponse } from '../../../core/cache/response.models';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -101,7 +100,7 @@ describe('ItemCollectionMapperComponent', () => {
     onDefaultLangChange: new EventEmitter()
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [ItemCollectionMapperComponent, CollectionSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
@@ -194,7 +193,7 @@ describe('ItemCollectionMapperComponent', () => {
 
     it('should build a solr query to exclude the provided collection', () => {
       expect(result).toEqual(expected);
-    })
+    });
   });
 
   describe('onCancel', () => {

@@ -1,9 +1,8 @@
 import { FeatureAuthorizationGuard } from './feature-authorization.guard';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from '../../../auth/auth.service';
 
 /**

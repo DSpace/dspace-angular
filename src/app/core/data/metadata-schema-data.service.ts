@@ -12,7 +12,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RequestService } from './request.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { hasValue } from '../../shared/empty.util';
 import { tap } from 'rxjs/operators';
 import { RemoteData } from './remote-data';

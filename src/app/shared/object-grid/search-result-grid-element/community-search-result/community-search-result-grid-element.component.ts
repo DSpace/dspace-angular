@@ -33,6 +33,7 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
     super(truncatableService, bitstreamDataService);
   }
 
+  // @ts-ignore
   @Input() set dso(dso: Community) {
     this._dso = dso;
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {

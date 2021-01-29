@@ -31,19 +31,19 @@ describe(`AuthInterceptor`, () => {
       imports: [HttpClientTestingModule],
       providers: [
         DspaceRestService,
-        {provide: AuthService, useValue: authServiceStub},
-        {provide: Router, useClass: RouterStub},
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: Router, useClass: RouterStub },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,
           multi: true,
         },
-        {provide: Store, useValue: store},
+        { provide: Store, useValue: store },
       ],
     });
 
-    service = TestBed.get(DspaceRestService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   describe('when has a valid token', () => {
@@ -104,6 +104,6 @@ describe(`AuthInterceptor`, () => {
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
     });
-  })
+  });
 
 });

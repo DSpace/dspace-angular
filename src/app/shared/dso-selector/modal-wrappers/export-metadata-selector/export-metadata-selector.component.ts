@@ -4,10 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  ScriptDataService
-} from '../../../../core/data/processes/script-data.service';
+import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
@@ -18,10 +15,7 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import {
-  DSOSelectorModalWrapperComponent,
-  SelectorActionType
-} from '../dso-selector-modal-wrapper.component';
+import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -66,7 +60,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
             switchMap((r: boolean) => {
               return observableOf(r);
             })
-          )
+          );
         } else {
           const modalRefExport = this.modalService.open(ExportMetadataSelectorComponent);
           modalRefExport.componentInstance.dsoRD = createSuccessfulRemoteDataObject(dso);
@@ -82,7 +76,8 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
   /**
    * Start export-metadata script of dso & navigate to process if successful
    * Otherwise show error message
-   * @param dso   Dso to export
+   * @param dso    Dso to export
+   * @param handle Dso handle to export
    */
   private startScriptNotifyAndRedirect(dso: DSpaceObject, handle: string): Observable<boolean> {
     const parameterValues: ProcessParameter[] = [

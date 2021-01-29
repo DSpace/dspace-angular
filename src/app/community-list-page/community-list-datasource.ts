@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { FindListOptions } from '../core/data/request.models';
 import { hasValue } from '../shared/empty.util';
 import { CommunityListService, FlatNode } from './community-list-service';
-import { CollectionViewer, DataSource } from '@angular/cdk/typings/collections';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 

@@ -95,7 +95,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       map(([min, max]) => {
         const minimum = hasValue(min) ? min : this.min;
         const maximum = hasValue(max) ? max : this.max;
-        return [minimum, maximum]
+        return [minimum, maximum];
       })
     ).subscribe((minmax) => this.range = minmax);
   }

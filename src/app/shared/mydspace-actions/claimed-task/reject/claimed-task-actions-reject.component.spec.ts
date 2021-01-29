@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -9,7 +11,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -41,7 +42,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     submitTask: observableOf(new ProcessTaskResponse(true))
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
@@ -75,8 +76,8 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
-    formBuilder = TestBed.get(FormBuilder);
-    modalService = TestBed.get(NgbModal);
+    formBuilder = TestBed.inject(FormBuilder);
+    modalService = TestBed.inject(NgbModal);
     component.object = object;
     component.modalRef = modalService.open('ok');
     spyOn(component, 'initReloadAnchor').and.returnValue(undefined);
@@ -113,7 +114,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     expect(component.rejectForm.reset).toHaveBeenCalled();
     expect(component.modalRef).toBeDefined();
 
-    component.modalRef.close()
+    component.modalRef.close();
   });
 
   describe('on form submit', () => {

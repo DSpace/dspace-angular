@@ -1,4 +1,4 @@
-import { autoserializeAs, deserializeAs, deserialize, autoserialize } from 'cerialize';
+import { autoserializeAs, deserializeAs, deserialize } from 'cerialize';
 import { HALLink } from './hal-link.model';
 import { MetadataConfig } from './metadata-config.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -76,5 +76,5 @@ export class ContentSource extends CacheableObject {
   @deserialize
   _links: {
     self: HALLink
-  }
+  };
 }

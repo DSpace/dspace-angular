@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   DynamicFormControlModel,
+  DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
@@ -9,7 +10,7 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { combineLatest } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 
@@ -124,16 +125,20 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         required: false,
       });
       this.formModel = [
-        this.element,
-        this.qualifier,
-        this.scopeNote
+        new DynamicFormGroupModel(
+        {
+          id: 'metadatadatafieldgroup',
+          group:[this.element, this.qualifier, this.scopeNote]
+        })
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataField().subscribe((field) => {
         this.formGroup.patchValue({
-          element: field != null ? field.element : '',
-          qualifier: field != null ? field.qualifier : '',
-          scopeNote: field != null ? field.scopeNote : ''
+          metadatadatafieldgroup: {
+            element: field != null ? field.element : '',
+            qualifier: field != null ? field.qualifier : '',
+            scopeNote: field != null ? field.scopeNote : ''
+          }
         });
       });
     });
@@ -186,9 +191,11 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    */
   clearFields() {
     this.formGroup.patchValue({
-      element: '',
-      qualifier: '',
-      scopeNote: ''
+      metadatadatafieldgroup: {
+        element: '',
+        qualifier: '',
+        scopeNote: ''
+      }
     });
   }
 

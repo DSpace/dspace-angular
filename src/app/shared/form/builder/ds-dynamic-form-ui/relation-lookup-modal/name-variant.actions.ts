@@ -3,7 +3,6 @@
  */
 import { type } from '../../../../ngrx/type';
 import { Action } from '@ngrx/store';
-import { Item } from '../../../../../core/shared/item.model';
 
 export const NameVariantActionTypes = {
   SET_NAME_VARIANT: type('dspace/name-variant/SET_NAME_VARIANT'),
@@ -59,4 +58,4 @@ export class RemoveNameVariantAction extends NameVariantListAction {
  */
 export type NameVariantAction
   = SetNameVariantAction
-  | RemoveNameVariantAction
+  | RemoveNameVariantAction;

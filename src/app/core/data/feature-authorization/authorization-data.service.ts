@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AUTHORIZATION } from '../../shared/authorization.resource-type';
 import { dataService } from '../../cache/builders/build-decorators';
@@ -17,7 +17,6 @@ import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
 import { FindListOptions } from '../request.models';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list.model';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -86,7 +85,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param options       {@link FindListOptions} to provide pagination and/or additional arguments
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
+  searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
     return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
       addSiteObjectUrlIfEmpty(this.siteService),
       switchMap((params: AuthorizationSearchParams) => {
@@ -107,7 +106,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
     if (isNotEmpty(options.searchParams)) {
       params = [...options.searchParams];
     }
-    params.push(new RequestParam('uri', objectUrl))
+    params.push(new RequestParam('uri', objectUrl));
     if (hasValue(featureId)) {
       params.push(new RequestParam('feature', featureId));
     }

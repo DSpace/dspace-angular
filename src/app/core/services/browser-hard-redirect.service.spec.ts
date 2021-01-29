@@ -1,5 +1,5 @@
-import {TestBed} from '@angular/core/testing';
-import {BrowserHardRedirectService} from './browser-hard-redirect.service';
+import { TestBed } from '@angular/core/testing';
+import { BrowserHardRedirectService } from './browser-hard-redirect.service';
 
 describe('BrowserHardRedirectService', () => {
   const origin = 'test origin';
@@ -30,7 +30,7 @@ describe('BrowserHardRedirectService', () => {
 
     it('should update the location', () => {
       expect(mockLocation.href).toEqual(redirect);
-    })
+    });
   });
 
   describe('when requesting the current route', () => {

@@ -42,7 +42,7 @@ export abstract class Reorderable {
    * differs from the newIndex
    */
   get hasMoved(): boolean {
-    return this.oldIndex !== this.newIndex
+    return this.oldIndex !== this.newIndex;
   }
 }
 

@@ -10,7 +10,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
@@ -40,7 +40,7 @@ describe('BitstreamFormatDataService', () => {
   const objectCache = {} as ObjectCacheService;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
-      return cold('a', {a: bitstreamFormatsEndpoint});
+      return cold('a', { a: bitstreamFormatsEndpoint });
     }
   } as HALEndpointService;
 
@@ -70,12 +70,12 @@ describe('BitstreamFormatDataService', () => {
   }
 
   describe('getBrowseEndpoint', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -83,19 +83,19 @@ describe('BitstreamFormatDataService', () => {
     }));
     it('should get the browse endpoint', () => {
       const result = service.getBrowseEndpoint();
-      const expected = cold('b', {b: bitstreamFormatsEndpoint});
+      const expected = cold('b', { b: bitstreamFormatsEndpoint });
 
       expect(result).toBeObservable(expected);
     });
   });
 
   describe('getUpdateEndpoint', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -105,19 +105,19 @@ describe('BitstreamFormatDataService', () => {
       const formatId = 'format-id';
 
       const result = service.getUpdateEndpoint(formatId);
-      const expected = cold('b', {b: bitstreamFormatsIdEndpoint});
+      const expected = cold('b', { b: bitstreamFormatsIdEndpoint });
 
       expect(result).toBeObservable(expected);
     });
   });
 
   describe('getCreateEndpoint', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -126,19 +126,19 @@ describe('BitstreamFormatDataService', () => {
     it('should get the create endpoint ', () => {
 
       const result = service.getCreateEndpoint();
-      const expected = cold('b', {b: bitstreamFormatsEndpoint});
+      const expected = cold('b', { b: bitstreamFormatsEndpoint });
 
       expect(result).toBeObservable(expected);
     });
   });
 
   describe('updateBitstreamFormat', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -148,7 +148,7 @@ describe('BitstreamFormatDataService', () => {
       const updatedBistreamFormat = new BitstreamFormat();
       updatedBistreamFormat.uuid = 'updated-uuid';
 
-      const expected = cold('(b|)', {b: rd});
+      const expected = cold('(b|)', { b: rd });
       const result = service.updateBitstreamFormat(updatedBistreamFormat);
 
       expect(result).toBeObservable(expected);
@@ -157,12 +157,12 @@ describe('BitstreamFormatDataService', () => {
   });
 
   describe('createBitstreamFormat', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -172,7 +172,7 @@ describe('BitstreamFormatDataService', () => {
       const newFormat = new BitstreamFormat();
       newFormat.uuid = 'new-uuid';
 
-      const expected = cold('(b|)', {b: rd});
+      const expected = cold('(b|)', { b: rd });
       const result = service.createBitstreamFormat(newFormat);
 
       expect(result).toBeObservable(expected);
@@ -180,12 +180,12 @@ describe('BitstreamFormatDataService', () => {
   });
 
   describe('clearBitStreamFormatRequests', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -203,12 +203,12 @@ describe('BitstreamFormatDataService', () => {
   });
 
   describe('selectBitstreamFormat', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -225,12 +225,12 @@ describe('BitstreamFormatDataService', () => {
   });
 
   describe('deselectBitstreamFormat', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -247,12 +247,12 @@ describe('BitstreamFormatDataService', () => {
   });
 
   describe('deselectAllBitstreamFormats', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: cold('a', {a: responseCacheEntry}),
+        getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });
@@ -267,12 +267,12 @@ describe('BitstreamFormatDataService', () => {
   });
 
   describe('delete', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         configure: {},
         getByHref: observableOf(responseCacheEntry),
-        getByUUID: hot('a', {a: responseCacheEntry}),
+        getByUUID: hot('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {}
       });

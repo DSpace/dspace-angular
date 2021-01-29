@@ -17,7 +17,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       } else {
         return payload$.pipe(map((payload) => ({
           payload
-        } as RemoteData<any>)))
+        } as RemoteData<any>)));
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
@@ -25,7 +25,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       if (hasValue(buildList$)) {
         return buildList$;
       } else {
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       }
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({})
@@ -42,7 +42,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
       } else {
         return payload$.pipe(map((payload) => ({
           payload
-        } as RemoteData<any>)))
+        } as RemoteData<any>)));
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
@@ -51,7 +51,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
         if (hasValue(buildListHrefMap$[href$])) {
           return buildListHrefMap$[href$];
         } else {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       }
       href$.pipe(
@@ -59,7 +59,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
           if (hasValue(buildListHrefMap$[href])) {
             return buildListHrefMap$[href];
           } else {
-            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
           }
         })
       );

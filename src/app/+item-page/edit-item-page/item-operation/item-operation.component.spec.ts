@@ -1,5 +1,5 @@
 import { ItemOperation } from './itemOperation.model';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemOperationComponent } from './item-operation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ describe('ItemOperationComponent', () => {
   let fixture;
   let comp;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       declarations: [ItemOperationComponent]
@@ -19,7 +19,7 @@ describe('ItemOperationComponent', () => {
   }));
 
   beforeEach(() => {
-    itemOperation  = new ItemOperation('key1', 'url1');
+    itemOperation = new ItemOperation('key1', 'url1');
 
     fixture = TestBed.createComponent(ItemOperationComponent);
     comp = fixture.componentInstance;

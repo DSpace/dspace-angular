@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter, first, flatMap, take } from 'rxjs/operators';
+import { filter, first, mergeMap, take } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -141,7 +141,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * The [[SubmissionSectionUploadFileEditComponent]] reference
    * @type {SubmissionSectionUploadFileEditComponent}
    */
-  @ViewChild(SubmissionSectionUploadFileEditComponent, {static: false}) fileEditComp: SubmissionSectionUploadFileEditComponent;
+  @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
 
   /**
    * Initialize instance variables
@@ -250,9 +250,9 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
     this.subscriptions.push(this.formService.isValid(this.formId).pipe(
       take(1),
       filter((isValid) => isValid),
-      flatMap(() => this.formService.getFormData(this.formId)),
+      mergeMap(() => this.formService.getFormData(this.formId)),
       take(1),
-      flatMap((formData: any) => {
+      mergeMap((formData: any) => {
         // collect bitstream metadata
         Object.keys((formData.metadata))
           .filter((key) => isNotEmpty(formData.metadata[key]))
@@ -306,7 +306,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
           this.submissionService.getSubmissionObjectLinkName(),
           this.submissionId,
           this.pathCombiner.rootElement,
-          this.pathCombiner.subRootElement)
+          this.pathCombiner.subRootElement);
       })
     ).subscribe((result: SubmissionObject[]) => {
       if (result[0].sections.upload) {

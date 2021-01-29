@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -43,7 +43,7 @@ describe('FormatFormComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), NgbModule],
       declarations: [FormatFormComponent],
       providers: [
-        {provide: Router, useValue: router},
+        { provide: Router, useValue: router },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -58,7 +58,7 @@ describe('FormatFormComponent', () => {
   };
 
   describe('initialise', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should initialises the values in the form', () => {
 
@@ -82,7 +82,7 @@ describe('FormatFormComponent', () => {
     });
   });
   describe('onSubmit', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
 
     it('should emit the bitstreamFormat currently present in the form', () => {
@@ -93,7 +93,7 @@ describe('FormatFormComponent', () => {
     });
   });
   describe('onCancel', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
 
     it('should navigate back to the bitstream overview', () => {

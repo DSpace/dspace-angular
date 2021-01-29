@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -36,7 +36,7 @@ describe('WorkflowItemDeleteComponent', () => {
     id = 'de11b5e5-064a-4e98-a7ac-a1a6a65ddf80';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({

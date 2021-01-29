@@ -1,9 +1,9 @@
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of as observableOf } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -18,11 +18,8 @@ import { hasValue } from '../../shared/empty.util';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
-import {RouterStub} from '../../shared/testing/router.stub';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 
@@ -44,7 +41,7 @@ describe('EditBitstreamPageComponent', () => {
   let comp: EditBitstreamPageComponent;
   let fixture: ComponentFixture<EditBitstreamPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     allFormats = [
       Object.assign({
         id: '1',
@@ -238,7 +235,7 @@ describe('EditBitstreamPageComponent', () => {
   });
   describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
     it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
-      comp.itemId = 'some-uuid1'
+      comp.itemId = 'some-uuid1';
       comp.navigateToItemEditBitstreams();
       expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid1'), 'bitstreams']);
     });

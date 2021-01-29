@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LogoutPageComponent } from './logout-page.component';
@@ -8,7 +8,7 @@ describe('LogoutPageComponent', () => {
   let comp: LogoutPageComponent;
   let fixture: ComponentFixture<LogoutPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot()
@@ -25,7 +25,7 @@ describe('LogoutPageComponent', () => {
   });
 
   it('should create instance', () => {
-    expect(comp).toBeDefined()
+    expect(comp).toBeDefined();
   });
 
 });

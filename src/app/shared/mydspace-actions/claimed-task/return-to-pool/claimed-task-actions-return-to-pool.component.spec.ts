@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
@@ -35,7 +34,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
     returnToPoolTask: observableOf(new ProcessTaskResponse(true))
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [

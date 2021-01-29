@@ -1,4 +1,4 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import {
@@ -19,9 +19,12 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 /**
  * An abstract class to be extended by form components that handle vocabulary
  */
+@Component({
+  selector: 'ds-dynamic-vocabulary',
+  template: ''
+})
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
-  @Input() abstract bindId = true;
   @Input() abstract group: FormGroup;
   @Input() abstract model: DsDynamicInputModel;
 
@@ -53,9 +56,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject)) {
       let initEntry$: Observable<VocabularyEntry>;
       if (this.model.value.hasAuthority()) {
-        initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions)
+        initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions);
       } else {
-        initEntry$ = this.vocabularyService.getVocabularyEntryByValue(this.model.value.value, this.model.vocabularyOptions)
+        initEntry$ = this.vocabularyService.getVocabularyEntryByValue(this.model.value.value, this.model.vocabularyOptions);
       }
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
@@ -112,7 +115,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * @param updateValue
    */
   dispatchUpdate(updateValue: any) {
-    this.model.valueUpdates.next(updateValue);
+    this.model.value = updateValue;
     this.change.emit(updateValue);
   }
 

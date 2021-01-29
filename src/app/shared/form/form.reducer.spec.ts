@@ -1,12 +1,12 @@
 import { formReducer } from './form.reducer';
 import {
   FormAddError,
+  FormAddTouchedAction,
   FormChangeAction,
   FormClearErrorsAction,
   FormInitAction,
   FormRemoveAction,
   FormRemoveErrorAction,
-  FormAddTouchedAction,
   FormStatusChangeAction
 } from './form.actions';
 

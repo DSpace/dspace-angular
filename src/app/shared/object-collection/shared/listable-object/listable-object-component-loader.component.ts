@@ -161,6 +161,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(object): GenericConstructor<Component> {
-    return getListableObjectComponent(object.getRenderTypes(), this.viewMode, this.context)
+    return getListableObjectComponent(object.getRenderTypes(), this.viewMode, this.context);
   }
 }

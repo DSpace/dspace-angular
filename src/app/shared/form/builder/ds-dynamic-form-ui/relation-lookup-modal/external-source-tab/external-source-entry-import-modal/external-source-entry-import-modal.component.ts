@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../../../core/shared/metadata.utils';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { SearchResult } from '../../../../../../search/search-result.model';

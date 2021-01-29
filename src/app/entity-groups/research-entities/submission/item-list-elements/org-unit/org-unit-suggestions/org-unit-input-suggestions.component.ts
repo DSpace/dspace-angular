@@ -28,7 +28,7 @@ export class OrgUnitInputSuggestionsComponent extends InputSuggestionsComponent 
 
   ngOnInit() {
     if (this.suggestions.length > 0) {
-      this.value = this.suggestions[0]
+      this.value = this.suggestions[0];
     }
   }
 

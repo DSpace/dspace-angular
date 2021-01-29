@@ -5,15 +5,17 @@ import { AppState } from '../app.reducer';
 
 import { HostWindowService, WidthCategory } from './host-window.service';
 import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
+
 describe('HostWindowService', () => {
   let service: HostWindowService;
   let store: Store<AppState>;
+
   enum GridBreakpoint {
     SM_MIN = 576,
     MD_MIN = 768,
     LG_MIN = 992,
     XL_MIN = 1200
-  };
+  }
 
   describe('', () => {
     beforeEach(() => {
@@ -197,7 +199,7 @@ describe('HostWindowService', () => {
 
   describe('widthCategory', () => {
     beforeEach(() => {
-      service = new HostWindowService({} as Store<AppState>,  new CSSVariableServiceStub() as any);
+      service = new HostWindowService({} as Store<AppState>, new CSSVariableServiceStub() as any);
     });
 
     it('should call getWithObs to get the current width', () => {

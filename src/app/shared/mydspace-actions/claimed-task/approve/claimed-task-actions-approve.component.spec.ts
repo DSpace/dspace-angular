@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of, of as observableOf } from 'rxjs';
@@ -34,7 +34,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     submitTask: observableOf(new ProcessTaskResponse(true))
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [

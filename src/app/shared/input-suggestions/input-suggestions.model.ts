@@ -5,10 +5,10 @@ export interface InputSuggestion {
   /**
    * The displayed value of the suggestion
    */
-  displayValue: string,
+  displayValue: string;
 
   /**
    * The actual value of the suggestion
    */
-  value: string
+  value: string;
 }

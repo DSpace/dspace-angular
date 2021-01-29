@@ -18,7 +18,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
@@ -52,7 +52,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
+  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]) {
     const optionsWithSchema = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('schema', schema.prefix)]
     });
@@ -74,7 +74,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * @param reRequestOnStale  Whether or not the request should automatically be re-requested after the response becomes stale
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     const optionParams = Object.assign(new FindListOptions(), options, {
       searchParams: [
         new RequestParam('schema', hasValue(schema) ? schema : ''),

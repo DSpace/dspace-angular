@@ -17,12 +17,6 @@ export class Group extends DSpaceObject {
   static type = GROUP;
 
   /**
-   * A string representing the unique name of this Group
-   */
-  @autoserialize
-  public name: string;
-
-  /**
    * A string representing the unique handle of this Group
    */
   @autoserialize

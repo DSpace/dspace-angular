@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
@@ -23,7 +23,7 @@ describe('LogInContainerComponent', () => {
 
   let hardRedirectService: HardRedirectService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       redirect: {},
       getCurrentRoute: {}
@@ -41,7 +41,7 @@ describe('LogInContainerComponent', () => {
         TestComponent
       ],
       providers: [
-        {provide: AuthService, useClass: AuthServiceStub},
+        { provide: AuthService, useClass: AuthServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent
       ],
@@ -63,6 +63,7 @@ describe('LogInContainerComponent', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+
     });
 
     afterEach(() => {
@@ -112,5 +113,6 @@ describe('LogInContainerComponent', () => {
 class TestComponent {
 
   isStandalonePage = true;
+  authMethod = new AuthMethod('password');
 
 }

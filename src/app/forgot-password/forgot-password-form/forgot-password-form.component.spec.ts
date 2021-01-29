@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -34,7 +34,7 @@ describe('ForgotPasswordFormComponent', () => {
     token: 'test-token'
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     route = {data: observableOf({registration: registration})};
     router = new RouterStub();
@@ -113,5 +113,5 @@ describe('ForgotPasswordFormComponent', () => {
 
       expect(ePersonDataService.patchPasswordWithToken).not.toHaveBeenCalled();
     });
-  })
+  });
 });

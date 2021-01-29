@@ -4,7 +4,7 @@ import { RequestService } from './request.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
 import { PutRequest } from './request.models';

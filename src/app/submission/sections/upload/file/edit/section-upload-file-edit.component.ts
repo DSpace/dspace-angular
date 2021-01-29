@@ -127,7 +127,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
   /**
    * The FormComponent reference
    */
-  @ViewChild('formRef', {static: false}) public formRef: FormComponent;
+  @ViewChild('formRef') public formRef: FormComponent;
 
   /**
    * Initialize instance variables
@@ -254,7 +254,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
                 metadataModel.options.push({
                   label: group.name,
                   value: group.uuid
-                })
+                });
               });
             }
             if (metadataModel.type === DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER) {
@@ -263,7 +263,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
                 year: date.getFullYear(),
                 month: date.getMonth() + 1,
                 day: date.getDate()
-              }
+              };
             } else {
               metadataModel.value = accessCondition[key];
             }
@@ -332,7 +332,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
               groupOptions.push({
                 label: group.name,
                 value: group.uuid
-              })
+              });
             });
 
             // Due to a bug can't dynamically change the select options, so replace the model with a new one

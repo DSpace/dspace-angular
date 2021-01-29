@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { AuthService } from '../../core/auth/auth.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { isAuthenticated } from '../../core/auth/selectors';
 
 @Component({

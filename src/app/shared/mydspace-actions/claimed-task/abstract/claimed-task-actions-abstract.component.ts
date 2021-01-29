@@ -23,6 +23,10 @@ import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-ac
  * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
  * - Optionally overwrite createBody if the request body requires more than just the option
  */
+// @Component({
+//   selector: 'ds-calim-task-action-abstract',
+//   template: ''
+// })
 export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnDestroy {
 
   /**
