@@ -1,4 +1,4 @@
-import {Component, Injector, Input, OnDestroy} from '@angular/core';
+import { Component, Injector, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -92,7 +92,7 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
     return this.objectDataService.getPoolTaskEndpointById(this.object.id)
       .pipe(switchMap((poolTaskHref) => {
         return this.claimedTaskService.claimTask(this.object.id, poolTaskHref);
-    }))
+    }));
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
@@ -111,12 +111,12 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
       ))
       .subscribe((item: Item) => {
       this.itemUuid = item.uuid;
-    })
+    });
   }
 
   ngOnDestroy() {
     this.subs.forEach((sub) => sub.unsubscribe());
-    console.log('Destroy of PoolTaskActionsComponent', this.object)
+    console.log('Destroy of PoolTaskActionsComponent', this.object);
   }
 
 }

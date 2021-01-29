@@ -16,8 +16,8 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { SearchService } from '../../core/shared/search/search.service';
 
 export interface MyDSpaceActionsResult {
-  result: boolean,
-  reloadedObject: DSpaceObject,
+  result: boolean;
+  reloadedObject: DSpaceObject;
 }
 
 /**
@@ -86,7 +86,6 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Refresh current page
    */
   reload(): void {
-    debugger;
 
     this.router.navigated = false;
     const url = decodeURIComponent(this.router.url);
@@ -106,7 +105,6 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Override the target object with a refreshed one
    */
   refresh(): void {
-    debugger;
 
     // find object by id
     this.objectDataService.findById(this.object.id).pipe(

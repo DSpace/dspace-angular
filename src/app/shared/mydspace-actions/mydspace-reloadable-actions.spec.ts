@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -69,8 +69,8 @@ const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 
 describe('MyDSpaceReloadableActionsComponent', () => {
-  beforeEach(async(() => {
-    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null)
+  beforeEach(fakeAsync(() => {
+    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
@@ -118,7 +118,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       spyOn(component, 'initObjects');
     });
 
-    it('should call initReloadAnchor and initObjects on init', async(() => {
+    it('should call initReloadAnchor and initObjects on init', fakeAsync(() => {
       component.ngOnInit();
 
       fixture.detectChanges();
@@ -130,7 +130,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
 
     }));
 
-  })
+  });
 
   describe('on action execution fail', () => {
 
@@ -158,7 +158,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(notificationsServiceStub.error).toHaveBeenCalled();
         done();
-      })
+      });
     });
 
     it('should not call reloadObject', (done) => {
@@ -166,7 +166,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(component.reloadObjectExecution).not.toHaveBeenCalled();
         done();
-      })
+      });
 
     });
 
@@ -175,7 +175,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(component.processCompleted.emit).not.toHaveBeenCalled();
         done();
-      })
+      });
 
     });
 
@@ -206,7 +206,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(component.reloadObjectExecution).toHaveBeenCalled();
         done();
-      })
+      });
     });
 
     it('should convert the reloaded object', (done) => {
@@ -214,7 +214,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(component.convertReloadedObject).toHaveBeenCalled();
         done();
-      })
+      });
     });
 
     it('should emit the reloaded object in case of success', (done) => {
@@ -222,7 +222,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(component.processCompleted.emit).toHaveBeenCalledWith({result: true, reloadedObject: result as any});
         done();
-      })
+      });
     });
 
   });
@@ -252,7 +252,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       component.startActionExecution().subscribe( (result) => {
         expect(component.reload).toHaveBeenCalled();
         done();
-      })
+      });
     });
 
   });

@@ -101,7 +101,7 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     const actionPayload: any = { reloadedObject: {}};
 
     const actionsComponent = fixture.debugElement.query(By.css('ds-workspaceitem-actions'));
-    actionsComponent.triggerEventHandler('processCompleted', actionPayload)
+    actionsComponent.triggerEventHandler('processCompleted', actionPayload);
     tick();
 
     expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);

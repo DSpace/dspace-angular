@@ -162,7 +162,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    * Fetch the component depending on the item's relationship type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  getComponent(object, viewMode: ViewMode, context: Context): GenericConstructor<Component> {
-    return getListableObjectComponent(object.getRenderTypes(), viewMode, context);
+  getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],
+               viewMode: ViewMode,
+               context: Context): GenericConstructor<Component> {
+    return getListableObjectComponent(renderTypes, viewMode, context);
   }
 }

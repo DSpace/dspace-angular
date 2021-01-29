@@ -101,7 +101,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   }
 
   ngOnDestroy() {
-    console.log('Destroy of ClaimedTaskActionComponent', this.object)
+    console.log('Destroy of ClaimedTaskActionComponent', this.object);
   }
 
 }

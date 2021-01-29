@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -75,7 +75,7 @@ mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkfl
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
-    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null)
+    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
@@ -160,7 +160,7 @@ describe('PoolTaskActionsComponent', () => {
       expect(notificationsServiceStub.success).toHaveBeenCalled();
 
       done();
-    })
+    });
 
   }));
 

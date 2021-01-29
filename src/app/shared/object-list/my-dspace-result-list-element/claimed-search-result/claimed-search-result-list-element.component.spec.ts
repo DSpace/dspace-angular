@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -104,7 +104,7 @@ describe('ClaimedSearchResultListElementComponent', () => {
     const actionPayload: any = { reloadedObject: {}};
 
     const actionsComponent = fixture.debugElement.query(By.css('ds-claimed-task-actions'));
-    actionsComponent.triggerEventHandler('processCompleted', actionPayload)
+    actionsComponent.triggerEventHandler('processCompleted', actionPayload);
     tick();
 
     expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);

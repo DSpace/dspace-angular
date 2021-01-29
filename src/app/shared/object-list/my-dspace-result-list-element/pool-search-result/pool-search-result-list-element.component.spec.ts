@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -103,7 +103,7 @@ describe('PoolSearchResultListElementComponent', () => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
     const actionPayload: any = { reloadedObject: {}};
     const actionsComponents = fixture.debugElement.query(By.css('ds-pool-task-actions'));
-    actionsComponents.triggerEventHandler('processCompleted', actionPayload)
+    actionsComponents.triggerEventHandler('processCompleted', actionPayload);
     tick();
 
     expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
