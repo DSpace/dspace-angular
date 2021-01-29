@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { EventEmitter, Injector, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, Output } from '@angular/core';
 
 import { find, take, tap } from 'rxjs/operators';
 
@@ -23,10 +23,10 @@ export interface MyDSpaceActionsResult {
 /**
  * Abstract class for all different representations of mydspace actions
  */
-// @Component({
-//   selector: 'ds-mydspace-actions-abstract',
-//   template: ''
-// })
+@Component({
+  selector: 'ds-mydspace-actions-abstract',
+  template: ''
+})
 export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends DataService<T>> {
 
   /**

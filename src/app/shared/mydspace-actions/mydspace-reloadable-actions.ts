@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 
 import { map, switchMap, tap} from 'rxjs/operators';
 
@@ -18,11 +18,14 @@ import { ProcessTaskResponse } from '../../core/tasks/models/process-task-respon
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
-import {Subscription} from 'rxjs/internal/Subscription';
 
 /**
  * Abstract class for all different representations of mydspace actions
  */
+@Component({
+  selector: 'ds-mydspace-reloadable-actions',
+  template: ''
+})
 export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject, TService extends DataService<T>>
   extends MyDSpaceActionsComponent<T, TService> implements OnInit {
 
@@ -71,7 +74,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
                 this.handleReloadableActionResponse(res.hasSucceeded, reloadedObject);
                 return reloadedObject;
               })
-          )
+          );
         } else {
           this.processing$.next(false);
           this.handleReloadableActionResponse(res.hasSucceeded, null);
@@ -131,13 +134,13 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     return this.reloadObjectExecution().pipe(
       switchMap((res) => {
         if (res instanceof RemoteData) {
-          return of(res).pipe(getFirstCompletedRemoteData(), map((completed) => completed.payload))
+          return of(res).pipe(getFirstCompletedRemoteData(), map((completed) => completed.payload));
         } else {
           return of(res);
         }
       })).pipe(map((dso) => {
       return dso ? this.convertReloadedObject(dso) : dso;
-    }))
+    }));
   }
 
 }

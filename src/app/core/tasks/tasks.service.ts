@@ -1,18 +1,17 @@
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
-import { DeleteRequest, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
-import { isNotEmpty } from '../../shared/empty.util';
+import { DeleteRequest, FindListOptions, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 /**
  * An abstract class that provides methods to handle task requests.
@@ -131,14 +130,14 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
    * @param linksToFollow
    *   links to follow
    */
-  public searchTask(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
+  public searchTask(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
       switchMap((href) => this.findByHref(href).pipe(
         getFirstSucceededRemoteData(),
         tap(() => {
-        this.requestService.setStaleByHrefSubstring(searchMethod)
+        this.requestService.setStaleByHrefSubstring(searchMethod);
       }))),
     );
   }

@@ -59,7 +59,8 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
    * Fetch, create and initialize the relevant component
    */
   ngOnInit(): void {
-    const comp = getComponentByWorkflowTaskOption(this.option);
+
+    const comp = this.getComponentByWorkflowTaskOption(this.option);
     if (hasValue(comp)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
 
@@ -73,6 +74,10 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
         this.subs.push(componentInstance.processCompleted.subscribe((result) => this.processCompleted.emit(result)));
       }
     }
+  }
+
+  getComponentByWorkflowTaskOption(option: string) {
+    return getComponentByWorkflowTaskOption(option);
   }
 
   /**

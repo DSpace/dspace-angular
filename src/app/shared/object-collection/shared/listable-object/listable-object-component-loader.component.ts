@@ -111,7 +111,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
 
     this.initBadges();
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(object));
+    const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
+
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
@@ -160,7 +162,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    * Fetch the component depending on the item's relationship type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(object): GenericConstructor<Component> {
-    return getListableObjectComponent(object.getRenderTypes(), this.viewMode, this.context);
+  getComponent(object, viewMode: ViewMode, context: Context): GenericConstructor<Component> {
+    return getListableObjectComponent(object.getRenderTypes(), viewMode, context);
   }
 }

@@ -1,13 +1,11 @@
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, ComponentFactoryResolver, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import * as decorators from './claimed-task-actions-decorator';
+import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { spyOnExported } from '../../../testing/utils.test';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { Router } from '@angular/router';
@@ -22,7 +20,6 @@ const searchService = getMockSearchService();
 
 const requestService = getMockRequestService();
 
-//xdescribe
 describe('ClaimedTaskActionsLoaderComponent', () => {
   let comp: ClaimedTaskActionsLoaderComponent;
   let fixture: ComponentFixture<ClaimedTaskActionsLoaderComponent>;
@@ -42,8 +39,7 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
-        { provide: PoolTaskDataService, useValue: {} },
-        ComponentFactoryResolver
+        { provide: PoolTaskDataService, useValue: {} }
       ]
     }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
@@ -56,16 +52,16 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsLoaderComponent);
     comp = fixture.componentInstance;
-
     comp.object = object;
     comp.option = option;
-    spyOnExported(decorators, 'getComponentByWorkflowTaskOption').and.returnValue(ClaimedTaskActionsEditMetadataComponent);
+    spyOn(comp, 'getComponentByWorkflowTaskOption').and.returnValue(ClaimedTaskActionsEditMetadataComponent);
+
     fixture.detectChanges();
   }));
 
   describe('When the component is rendered', () => {
     it('should call the getComponentByWorkflowTaskOption function with the right option', () => {
-      expect(decorators.getComponentByWorkflowTaskOption).toHaveBeenCalledWith(option);
+      expect(comp.getComponentByWorkflowTaskOption).toHaveBeenCalledWith(option);
     });
   });
 });

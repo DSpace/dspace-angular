@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -31,7 +31,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    returnToPoolTask: observableOf(new ProcessTaskResponse(true))
+    returnToPoolTask: of(new ProcessTaskResponse(true))
   });
 
   beforeEach(waitForAsync(() => {
@@ -91,7 +91,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
     });
 
     it('should call claimedTaskService\'s returnToPoolTask', () => {
-      expect(claimedTaskService.returnToPoolTask).toHaveBeenCalledWith(object.id)
+      expect(claimedTaskService.returnToPoolTask).toHaveBeenCalledWith(object.id);
     });
 
   });

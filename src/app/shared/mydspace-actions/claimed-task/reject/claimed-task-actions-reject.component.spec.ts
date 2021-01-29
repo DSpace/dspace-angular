@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -39,7 +37,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsRejectComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: observableOf(new ProcessTaskResponse(true))
+    submitTask: of(new ProcessTaskResponse(true))
   });
 
   beforeEach(waitForAsync(() => {

@@ -5,10 +5,8 @@ import { ListableObject } from '../listable-object.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import * as listableObjectDecorators from './listable-object.decorator';
 import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
-import { spyOnExported } from '../../../testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../../core/shared/item.model';
@@ -23,7 +21,6 @@ class TestType extends ListableObject {
   }
 }
 
-//xdescribe
 describe('ListableObjectComponentLoaderComponent', () => {
   let comp: ListableObjectComponentLoaderComponent;
   let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
@@ -33,7 +30,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ComponentFactoryResolver]
+      providers: []
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
@@ -49,14 +46,14 @@ describe('ListableObjectComponentLoaderComponent', () => {
     comp.object = new TestType();
     comp.viewMode = testViewMode;
     comp.context = testContext;
-    spyOnExported(listableObjectDecorators, 'getListableObjectComponent').and.returnValue(ItemListElementComponent);
+    spyOn(comp, 'getComponent').and.returnValue(ItemListElementComponent as any);
     fixture.detectChanges();
 
   }));
 
   describe('When the component is rendered', () => {
     it('should call the getListableObjectComponent function with the right types, view mode and context', () => {
-      expect(listableObjectDecorators.getListableObjectComponent).toHaveBeenCalledWith([testType], testViewMode, testContext);
+      expect(comp.getComponent).toHaveBeenCalledWith([testType], testViewMode, testContext);
     });
   });
 
@@ -130,7 +127,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       tick();
 
       expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject);
-    }))
+    }));
 
   });
 
