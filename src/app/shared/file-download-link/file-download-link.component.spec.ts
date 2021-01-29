@@ -51,12 +51,12 @@ describe('FileDownloadLinkComponent', () => {
       it('should set the bitstreamPath based on the input bitstream', () => {
         expect(component.bitstreamPath).toEqual(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
       });
-    })
+    });
 
     it('should init the component', () => {
       const link = fixture.debugElement.query(By.css('a')).nativeElement;
       expect(link.href).toContain(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
-    })
+    });
 
   });
 });
