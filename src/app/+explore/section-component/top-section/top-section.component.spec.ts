@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -39,9 +39,9 @@ describe('TopSectionComponent', () => {
     }
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     searchServiceStub = jasmine.createSpyObj('SearchService', {
-      searchEntries: jasmine.createSpy('searchEntries'),
+      search: jasmine.createSpy('search'),
       getSearchLink: jasmine.createSpy('getSearchLink')
     });
 
@@ -65,7 +65,7 @@ describe('TopSectionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TopSectionComponent);
     component = fixture.componentInstance;
-    searchServiceStub.searchEntries.and.returnValue(createSuccessfulRemoteDataObject$({ page: [firstSearchResult, secondSearchResult] }));
+    searchServiceStub.search.and.returnValue(createSuccessfulRemoteDataObject$({ page: [firstSearchResult, secondSearchResult] }));
     searchServiceStub.getSearchLink.and.returnValue('/search');
     component.sectionId = 'publications';
     component.topSection = {

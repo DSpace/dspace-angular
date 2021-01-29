@@ -73,7 +73,7 @@ export class BoxDataService {
    * of the current user and available data in the items (empty boxes are not included).
    * @param itemUuid UUID of item
    * @param tabId id of tab
-   * @param linkToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findByItem(itemUuid: string, tabId: number, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();
@@ -88,7 +88,7 @@ export class BoxDataService {
    * It returns the boxes that are available for the items of the specified type.
    * This endpoint is reserved to system administrators
    * @param entityType label of entity type
-   * @param linkToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findByEntityType(entityType: string, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { flatMap, take } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -98,7 +98,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
    */
   setAudits() {
     this.auditsRD$ = this.isCurrentUserAdmin().pipe(
-      flatMap((isAdmin) => {
+      mergeMap((isAdmin) => {
         return this.auditService.findByObject(this.object.id, this.config);
       })
     );

@@ -43,7 +43,7 @@ export class TopSectionComponent implements OnInit {
       currentPage: 1
     });
 
-    this.topObjects = this.searchService.searchEntries(new PaginatedSearchOptions({
+    this.topObjects = this.searchService.search(new PaginatedSearchOptions({
       configuration: this.topSection.discoveryConfigurationName,
       pagination: pagination,
       sort: new SortOptions(this.topSection.sortField, sortDirection)
