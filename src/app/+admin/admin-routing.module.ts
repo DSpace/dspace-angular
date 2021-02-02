@@ -14,7 +14,8 @@ import { ACCESS_CONTROL_MODULE_PATH, NOTIFICATIONS_MODULE_PATH, REGISTRIES_MODUL
     RouterModule.forChild([
       {
         path: NOTIFICATIONS_MODULE_PATH,
-        loadChildren: './admin-notifications/admin-notifications.module#AdminNotificationsModule'
+        loadChildren: () => import('./admin-notifications/admin-notifications.module')
+          .then((m) => m.AdminNotificationsModule),
       },
       {
         path: REGISTRIES_MODULE_PATH,
