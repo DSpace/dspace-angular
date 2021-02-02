@@ -24,13 +24,15 @@ import { SuggestionEvidencesComponent } from './reciter-suggestions/suggestion-l
 import { SuggestionActionsComponent } from './reciter-suggestions/suggestion-actions/suggestion-actions.component';
 import { SuggestionsPopupComponent } from './reciter-suggestions/suggestions-popup/suggestions-popup.component';
 import { SuggestionsNotificationComponent } from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
   StoreModule.forFeature('openaire', openaireReducers, storeModuleConfig as StoreConfig<OpenaireState, Action>),
-  EffectsModule.forFeature(openaireEffects)
+  EffectsModule.forFeature(openaireEffects),
+  TranslateModule
 ];
 
 const COMPONENTS = [

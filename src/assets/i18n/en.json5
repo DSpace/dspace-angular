@@ -2844,7 +2844,7 @@
 
   "reciter.suggestion.table.actions": "Actions",
 
-  "reciter.suggestion.button.review": "Review Suggestions",
+  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
 
   "reciter.suggestion.noTargets": "No target found.",
 

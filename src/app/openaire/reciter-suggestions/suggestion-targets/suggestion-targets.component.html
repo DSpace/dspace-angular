@@ -37,7 +37,7 @@
                       <button (click)="redirectToSuggestions(targetElement.id, targetElement.display)"
                               class="btn btn-outline-primary btn-sm"
                               title="{{'reciter.suggestion.button.review' | translate }}">
-                        <span >{{'reciter.suggestion.button.review' | translate}}</span>
+                        <span >{{'reciter.suggestion.button.review' | translate: { total: targetElement.total.toString() } }} </span>
                         <i class="fas fa-lightbulb"></i>
                       </button>
                     </div>
