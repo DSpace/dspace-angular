@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SuggestionListElementComponent } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
@@ -39,7 +39,7 @@ describe('SuggestionPageComponent', () => {
     data: observableOf({
       suggestionTargets: createSuccessfulRemoteDataObject(mockSuggestionTargetsObjectOne)
     }),
-    queryParams: of({})
+    queryParams: observableOf({})
   };
   const workspaceitemServiceMock = jasmine.createSpyObj('WorkspaceitemDataService', {
     importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry')
@@ -83,10 +83,11 @@ describe('SuggestionPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SuggestionsPageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+    done();
   });
 });
