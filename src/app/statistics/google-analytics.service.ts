@@ -15,7 +15,7 @@ export class GoogleAnalyticsService {
   constructor(
     private angulartics: Angulartics2GoogleAnalytics,
     private configService: ConfigurationDataService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: any,
   ) { }
 
   /**
@@ -42,7 +42,7 @@ export class GoogleAnalyticsService {
                               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
                               })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-                              'ga('create', '${trackingId}', 'auto');`;
+                              ga('create', '${trackingId}', 'auto');`;
       this.document.body.appendChild(keyScript);
 
       // start tracking
