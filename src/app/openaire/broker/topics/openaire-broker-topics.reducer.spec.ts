@@ -1,15 +1,12 @@
 import {
+  AddTopicsAction,
   RetrieveAllTopicsAction,
-  RetrieveAllTopicsErrorAction,
-  AddTopicsAction
+  RetrieveAllTopicsErrorAction
 } from './openaire-broker-topics.actions';
+import { openaireBrokerTopicsReducer, OpenaireBrokerTopicState } from './openaire-broker-topics.reducer';
 import {
-  openaireBrokerTopicsReducer,
-  OpenaireBrokerTopicState
-} from './openaire-broker-topics.reducer';
-import {
-  openaireBrokerTopicObjectMorePid,
-  openaireBrokerTopicObjectMoreAbstract
+  openaireBrokerTopicObjectMoreAbstract,
+  openaireBrokerTopicObjectMorePid
 } from '../../../shared/mocks/openaire.mock';
 
 describe('openaireBrokerTopicsReducer test suite', () => {

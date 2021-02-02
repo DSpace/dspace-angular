@@ -16,7 +16,8 @@ import {
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
   ClearSuggestionTargetsAction,
-  MarkUserSuggestionsAsVisitedAction, RefreshUserSuggestionsAction,
+  MarkUserSuggestionsAsVisitedAction,
+  RefreshUserSuggestionsAction,
   RetrieveTargetsBySourceAction
 } from './suggestion-targets.actions';
 import { OpenaireState } from '../../openaire.reducer';

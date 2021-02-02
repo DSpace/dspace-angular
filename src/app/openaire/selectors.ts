@@ -1,6 +1,6 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
-import { OpenaireState, openaireSelector } from './openaire.reducer';
+import { openaireSelector, OpenaireState } from './openaire.reducer';
 import { OpenaireBrokerTopicObject } from '../core/openaire/broker/models/openaire-broker-topic.model';
 import { OpenaireBrokerTopicState } from './broker/topics/openaire-broker-topics.reducer';
 

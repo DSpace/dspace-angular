@@ -8,7 +8,8 @@ import { of as observableOf } from 'rxjs';
 
 import {
   AddTargetAction,
-  AddUserSuggestionsAction, RefreshUserSuggestionsAction,
+  AddUserSuggestionsAction,
+  RefreshUserSuggestionsAction,
   RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
   SuggestionTargetActionTypes,

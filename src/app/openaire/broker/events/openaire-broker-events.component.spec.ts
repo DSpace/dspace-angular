@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { OpenaireBrokerEventsComponent } from './openaire-broker-events.component';
 import {

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  openaireBrokerTopicsObjectSelector,
-  isOpenaireBrokerTopicsLoadedSelector,
   getOpenaireBrokerTopicsCurrentPageSelector,
+  getOpenaireBrokerTopicsTotalPagesSelector,
   getOpenaireBrokerTopicsTotalsSelector,
-  sOpenaireBrokerTopicsProcessingSelector,
-  getOpenaireBrokerTopicsTotalPagesSelector
+  isOpenaireBrokerTopicsLoadedSelector,
+  openaireBrokerTopicsObjectSelector,
+  sOpenaireBrokerTopicsProcessingSelector
 } from './selectors';
 import { OpenaireBrokerTopicObject } from '../core/openaire/broker/models/openaire-broker-topic.model';
 import { OpenaireState } from './openaire.reducer';

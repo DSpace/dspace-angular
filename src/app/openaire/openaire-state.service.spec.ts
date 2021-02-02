@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { StoreModule, Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 import { openaireReducers } from './openaire.reducer';
 import { OpenaireStateService } from './openaire-state.service';
 import {
-  openaireBrokerTopicObjectMorePid,
+  openaireBrokerTopicObjectMissingPid,
   openaireBrokerTopicObjectMoreAbstract,
-  openaireBrokerTopicObjectMissingPid
+  openaireBrokerTopicObjectMorePid
 } from '../shared/mocks/openaire.mock';
 import { RetrieveAllTopicsAction } from './broker/topics/openaire-broker-topics.actions';
 

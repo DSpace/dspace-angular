@@ -1,9 +1,8 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../../shared/selector.util';
-import { OpenaireState } from '../openaire.reducer';
+import { openaireSelector, OpenaireState } from '../openaire.reducer';
 import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
-import { openaireSelector } from '../openaire.reducer';
 
 /**
  * Returns the Reciter Suggestion Target state.

@@ -1,4 +1,4 @@
-import { SuggestionTargetsActions, SuggestionTargetActionTypes } from './suggestion-targets.actions';
+import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**

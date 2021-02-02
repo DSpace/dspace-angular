@@ -1,7 +1,10 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import { openaireBrokerTopicsReducer, OpenaireBrokerTopicState, } from './broker/topics/openaire-broker-topics.reducer';
-import { SuggestionTargetsReducer, SuggestionTargetState } from './reciter-suggestions/suggestion-targets/suggestion-targets.reducer';
+import {
+  SuggestionTargetsReducer,
+  SuggestionTargetState
+} from './reciter-suggestions/suggestion-targets/suggestion-targets.reducer';
 
 /**
  * The OpenAIRE State
