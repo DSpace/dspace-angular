@@ -14,7 +14,7 @@ export class GoogleAnalyticsService {
     @Inject(DOCUMENT) private document: Document
   ) { }
 
-  addTrackingIdToPage() {
+  addTrackingIdToPage(): void {
     this.configService.findByPropertyName('google.analytics.key').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
