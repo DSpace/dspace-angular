@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { flatMap, map, take } from 'rxjs/operators';
+import { map, mergeMap, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
@@ -120,7 +120,7 @@ export class SuggestionsPageComponent implements OnInit {
    */
   updatePage() {
     this.targetId$.pipe(
-      flatMap((targetId: string) => this.suggestionService.getSuggestions(
+      mergeMap((targetId: string) => this.suggestionService.getSuggestions(
         targetId,
         this.config.pageSize,
         this.config.currentPage,

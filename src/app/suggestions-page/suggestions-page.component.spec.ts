@@ -27,10 +27,13 @@ import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/s
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { PageInfo } from '../core/shared/page-info.model';
+import { TestScheduler } from 'rxjs/testing';
+import { getTestScheduler } from 'jasmine-marbles';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
   let fixture: ComponentFixture<SuggestionsPageComponent>;
+  let scheduler: TestScheduler;
   const mockSuggestionsService = getMockSuggestionsService();
   const mockSuggestionsTargetStateService = getMockOpenaireStateService();
   const suggestionTargetsList: PaginatedList<OpenaireSuggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
@@ -83,11 +86,18 @@ describe('SuggestionPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SuggestionsPageComponent);
     component = fixture.componentInstance;
+    scheduler = getTestScheduler();
   });
 
-  it('should create', (done) => {
-    fixture.detectChanges();
+  it('should create', () => {
+    spyOn(component, 'updatePage').and.stub();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+
     expect(component).toBeTruthy();
-    done();
+    expect(component.suggestionId).toBe(mockSuggestionTargetsObjectOne.id);
+    expect(component.researcherName).toBe(mockSuggestionTargetsObjectOne.display);
+    expect(component.updatePage).toHaveBeenCalled();
   });
 });
