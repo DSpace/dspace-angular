@@ -5,6 +5,10 @@ import {getFirstCompletedRemoteData} from '../core/shared/operators';
 import {isEmpty} from '../shared/empty.util';
 import {DOCUMENT} from '@angular/common';
 
+/**
+ * Set up Google Analytics on the client side.
+ * See: {@link addTrackingIdToPage}.
+ */
 @Injectable()
 export class GoogleAnalyticsService {
 
@@ -14,6 +18,12 @@ export class GoogleAnalyticsService {
     @Inject(DOCUMENT) private document: Document
   ) { }
 
+  /**
+   * Call this method once when Angular initializes on the client side.
+   * It requests a Google Analytics tracking id from the rest backend
+   * (property: google.analytics.key), adds the tracking snippet to the
+   * page and starts tracking.
+   */
   addTrackingIdToPage(): void {
     this.configService.findByPropertyName('google.analytics.key').pipe(
       getFirstCompletedRemoteData(),
