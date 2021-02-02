@@ -23,6 +23,7 @@ import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -160,6 +161,11 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
             path: PROCESS_MODULE_PATH,
             loadChildren: () => import('./process-page/process-page.module')
               .then((m) => m.ProcessPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          { path: SUGGESTION_MODULE_PATH,
+            loadChildren: () => import('./suggestions-page/suggestions-page.module')
+              .then((m) => m.SuggestionsPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
