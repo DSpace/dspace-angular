@@ -74,7 +74,7 @@ export class AuthInterceptor implements HttpInterceptor {
    * @param http
    */
   private isLoginResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
-    return http.url && http.url.endsWith('/authn/login')
+    return http.url && http.url.endsWith('/authn/login');
   }
 
   /**
@@ -161,7 +161,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (hasAuthMethodRendering(authMethodModel.authMethodType)) {
           authMethodModels.push(authMethodModel);
         }
-      })
+      });
 
       // make sure the email + password login component gets rendered first
       authMethodModels = this.sortAuthMethods(authMethodModels);
@@ -270,7 +270,7 @@ export class AuthInterceptor implements HttpInterceptor {
               body: Object.assign(response.body, {
                 authMethods: this.parseAuthMethodsFromHeaders(response.headers)
               })
-            })
+            });
           } else {
             // logout successfully
             authRes = response.clone({

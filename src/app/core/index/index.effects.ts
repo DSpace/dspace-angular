@@ -2,11 +2,7 @@ import { filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import {
-  AddToObjectCacheAction,
-  ObjectCacheActionTypes,
-  RemoveFromObjectCacheAction
-} from '../cache/object-cache.actions';
+import { AddToObjectCacheAction, ObjectCacheActionTypes, RemoveFromObjectCacheAction } from '../cache/object-cache.actions';
 import { RequestActionTypes, RequestConfigureAction } from '../data/request.actions';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
@@ -27,6 +23,28 @@ export class UUIDIndexEffects {
           action.payload.objectToCache.uuid,
           action.payload.objectToCache._links.self.href
         );
+      })
+    );
+
+  /**
+   * Adds an alternative link to an object to the ALTERNATIVE_OBJECT_LINK index
+   * When the self link of the objectToCache is not the same as the alternativeLink
+   */
+  @Effect() addAlternativeObjectLink$ = this.actions$
+    .pipe(
+      ofType(ObjectCacheActionTypes.ADD),
+      map((action: AddToObjectCacheAction) => {
+        const alternativeLink = action.payload.alternativeLink;
+        const selfLink = action.payload.objectToCache._links.self.href;
+        if (hasValue(alternativeLink) && alternativeLink !== selfLink) {
+          return new AddToIndexAction(
+            IndexName.ALTERNATIVE_OBJECT_LINK,
+            alternativeLink,
+            selfLink
+          );
+        } else {
+          return { type: 'NO_ACTION' };
+        }
       })
     );
 

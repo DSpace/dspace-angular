@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DsoPageEditButtonComponent } from './dso-page-edit-button.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
-import { TooltipModule } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('DsoPageEditButtonComponent', () => {
   let component: DsoPageEditButtonComponent;
@@ -17,7 +17,7 @@ describe('DsoPageEditButtonComponent', () => {
   let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
@@ -28,8 +28,8 @@ describe('DsoPageEditButtonComponent', () => {
       isAuthorized: observableOf(true)
     });
     TestBed.configureTestingModule({
-      declarations: [ DsoPageEditButtonComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), TooltipModule.forRoot()],
+      declarations: [DsoPageEditButtonComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService }
       ]

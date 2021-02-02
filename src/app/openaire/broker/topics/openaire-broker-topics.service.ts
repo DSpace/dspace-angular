@@ -5,7 +5,7 @@ import { OpenaireBrokerTopicRestService } from '../../../core/openaire/broker/to
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
 
 /**

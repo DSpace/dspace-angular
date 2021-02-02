@@ -7,7 +7,7 @@ import { HALLink } from '../../shared/hal-link.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
 import { EditItemMode } from './edititem-mode.model';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * A model class for a EditItem.

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,14 +29,14 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
-    object = new WorkflowItemSearchResult()
+    object = new WorkflowItemSearchResult();
     wfi = new WorkflowItem();
     wfi.item = itemRD$;
     object.indexableObject = wfi;
     linkService = getMockLinkService();
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule(
       {

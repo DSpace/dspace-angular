@@ -1,15 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NotificationsService } from './notifications.service';
 import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 import { NotificationComponent } from './notification/notification.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { notificationsReducer } from './notifications.reducers';
 import { of as observableOf } from 'rxjs';
-import {
-  NewNotificationAction,
-  RemoveAllNotificationsAction,
-  RemoveNotificationAction
-} from './notifications.actions';
+import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -36,10 +32,10 @@ describe('NotificationsService test', () => {
     },
   } as any;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({notificationsReducer}, storeModuleConfig),
+        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -55,8 +51,8 @@ describe('NotificationsService test', () => {
       ]
     });
 
-    service = TestBed.get(NotificationsService);
-  });
+    service = TestBed.inject(NotificationsService);
+  }));
 
   it('Success method should dispatch NewNotificationAction with proper parameter', () => {
     const notification = service.success('Title', observableOf('Content'));

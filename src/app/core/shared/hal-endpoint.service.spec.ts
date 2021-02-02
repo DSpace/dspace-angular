@@ -1,74 +1,103 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
-import { RequestEntry } from '../data/request.reducer';
-import { of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;
   let requestService: RequestService;
-  let requestEntry;
+  let rdbService: RemoteDataBuildService;
   let envConfig;
   const endpointMap = {
-    test: 'https://rest.api/test',
-    foo: 'https://rest.api/foo',
-    bar: 'https://rest.api/bar',
-    endpoint: 'https://rest.api/endpoint',
-    link: 'https://rest.api/link',
-    another: 'https://rest.api/another',
+    test: {
+      href: 'https://rest.api/test'
+    },
+    foo: {
+      href: 'https://rest.api/foo'
+    },
+    bar: {
+      href: 'https://rest.api/bar'
+    },
+    endpoint: {
+      href: 'https://rest.api/endpoint'
+    },
+    link: {
+      href: 'https://rest.api/link'
+    },
+    another: {
+      href: 'https://rest.api/another'
+    },
   };
   const start = 'http://start.com';
   const one = 'http://one.com';
   const two = 'http://two.com';
   const endpointMaps = {
     [start]: {
-      one: one,
-      two: 'empty',
-      endpoint: 'https://rest.api/endpoint',
-      link: 'https://rest.api/link',
-      another: 'https://rest.api/another',
+      one: {
+        href: one
+      },
+      two: {
+        href: 'empty'
+      },
+      endpoint: {
+        href: 'https://rest.api/endpoint'
+      },
+      link: {
+        href: 'https://rest.api/link'
+      },
+      another: {
+        href: 'https://rest.api/another'
+      },
     },
     [one]: {
-      one: 'empty',
-      two: two,
-      bar: 'https://rest.api/bar',
+      one: {
+        href: 'empty',
+      },
+      two: {
+        href: two,
+      },
+      bar: {
+        href: 'https://rest.api/bar',
+      }
     }
   };
   const linkPath = 'test';
 
   beforeEach(() => {
-    requestEntry = {
-      request: { responseMsToLive: 1000 } as any,
-      requestPending: false,
-      responsePending: false,
-      completed: true,
-      response: { endpointMap: endpointMap } as any
-    } as RequestEntry;
-    requestService = getMockRequestService(observableOf(requestEntry));
+    requestService = getMockRequestService();
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildFromHref: createSuccessfulRemoteDataObject$({
+        _links: endpointMap
+      })
+    });
 
     envConfig = {
       rest: { baseUrl: 'https://rest.api/' }
     } as any;
 
     service = new HALEndpointService(
-      requestService
+      requestService,
+      rdbService
     );
   });
 
   describe('getRootEndpointMap', () => {
     it('should configure a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl + '/api');
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl + 'api');
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
-    it('should return an Observable of the endpoint map', () => {
-      const result = (service as any).getRootEndpointMap();
-      const expected = '(b|)';
-      getTestScheduler().expectObservable(result).toBe(expected, { b: endpointMap });
+    it('should return an Observable of the endpoint map', (done) => {
+      (service as any).getRootEndpointMap().subscribe((result) => {
+        expect(result).toEqual(endpointMap);
+        done();
+      });
     });
 
   });
@@ -81,12 +110,12 @@ describe('HALEndpointService', () => {
       } as any;
     });
 
-    it('should return the endpoint URL for the service\'s linkPath', () => {
+    it(`should return the endpoint URL for the service's linkPath`, () => {
       spyOn(service as any, 'getEndpointAt').and
         .returnValue(hot('a-', { a: 'https://rest.api/test' }));
       const result = service.getEndpoint(linkPath);
 
-      const expected = cold('(b|)', { b: endpointMap.test });
+      const expected = cold('(b|)', { b: endpointMap.test.href });
       expect(result).toBeObservable(expected);
     });
 
@@ -102,7 +131,7 @@ describe('HALEndpointService', () => {
   describe('getEndpointAt', () => {
     it('should throw an error when the list of hal endpoint names is empty', () => {
       const endpointAtWithoutEndpointNames = () => {
-        (service as any).getEndpointAt('')
+        (service as any).getEndpointAt('');
       };
       expect(endpointAtWithoutEndpointNames).toThrow();
     });
@@ -128,17 +157,18 @@ describe('HALEndpointService', () => {
       expect((service as any).getEndpointAt.calls.count()).toBeGreaterThanOrEqual(5);
     });
 
-    it('should return the correct endpoint', () => {
+    it('should return the correct endpoint', (done) => {
       spyOn(service as any, 'getEndpointMapAt').and.callFake((param) => {
         return observableOf(endpointMaps[param]);
       });
 
-      (service as any).getEndpointAt(start, 'one').subscribe((endpoint) => {
-        expect(endpoint).toEqual(one);
-      });
-
-      (service as any).getEndpointAt(start, 'one', 'two').subscribe((endpoint) => {
-        expect(endpoint).toEqual(two);
+      observableCombineLatest([
+        (service as any).getEndpointAt(start, 'one'),
+        (service as any).getEndpointAt(start, 'one', 'two')
+      ]).subscribe(([endpoint1, endpoint2]) => {
+        expect(endpoint1).toEqual(one);
+        expect(endpoint2).toEqual(two);
+        done();
       });
     });
   });
@@ -146,7 +176,8 @@ describe('HALEndpointService', () => {
   describe('isEnabledOnRestApi', () => {
     beforeEach(() => {
       service = new HALEndpointService(
-        requestService
+        requestService,
+        rdbService
       );
 
     });

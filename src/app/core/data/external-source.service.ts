@@ -10,13 +10,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { FindListOptions, GetRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { configureRequest } from '../shared/operators';
 import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
@@ -60,6 +60,17 @@ export class ExternalSourceService extends DataService<ExternalSource> {
   }
 
   /**
+   * Get the endpoint for an external source's entryValues by given entry id
+   * @param externalSourceId  The id of the external source to fetch entry for
+   * @param entryId           The id of the external source entry to retrieve
+   */
+  getEntryIDHref(externalSourceId: string, entryId: string): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      map((href) => href + '/' + externalSourceId + '/entryValues/' + entryId)
+    );
+  }
+
+  /**
    * Get the entries for an external source
    * @param externalSourceId  The id of the external source to fetch entries for
    * @param searchOptions     The search options to limit results to
@@ -79,5 +90,26 @@ export class ExternalSourceService extends DataService<ExternalSource> {
     ).subscribe();
 
     return this.rdbService.buildList(href$);
+  }
+
+  /**
+   * Get an entry for an external source by given entry id
+   * @param externalSourceId  The id of the external source to fetch entries for
+   * @param entryId           The id of the entry to retrieve
+   */
+  getExternalSourceEntryById(externalSourceId: string, entryId: string): Observable<RemoteData<ExternalSourceEntry>> {
+    const requestUuid = this.requestService.generateRequestId();
+
+    const href$ = this.getEntryIDHref(externalSourceId, entryId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged()
+    );
+
+    href$.pipe(
+      map((endpoint: string) => new GetRequest(requestUuid, endpoint)),
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.rdbService.buildSingle(href$);
   }
 }

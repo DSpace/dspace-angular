@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
@@ -95,7 +95,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
         // user clicked cancel: use the name variant only for this relation, no further action required
       }).finally(() => {
         this.select(value);
-      })
+      });
     }
   }
 
@@ -117,9 +117,9 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   getPersonName(): string {
     let personName = this.dso.name;
     if (isNotEmpty(this.firstMetadataValue('person.familyName')) && isNotEmpty(this.firstMetadataValue('person.givenName'))) {
-      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName')
+      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
     }
 
-    return personName
+    return personName;
   }
 }

@@ -1,9 +1,9 @@
 import { StoreModule } from '@ngrx/store';
-import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { waitForAsync, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
@@ -15,12 +15,9 @@ import { SubmissionRestService } from '../core/submission/submission-rest.servic
 import { RouteService } from '../core/services/route.service';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse
-} from '../shared/mocks/submission.mock';
+import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/submission.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
@@ -35,11 +32,8 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { RemoteDataError } from '../core/data/remote-data-error';
-import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
 import { getMockSearchService } from '../shared/mocks/search-service.mock';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
@@ -48,6 +42,8 @@ import { SearchService } from '../core/shared/search/search.service';
 import { Item } from '../core/shared/item.model';
 import { storeModuleConfig } from '../app.reducer';
 import { environment } from '../../environments/environment';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 
@@ -351,6 +347,7 @@ describe('SubmissionService test suite', () => {
   const router = new RouterMock();
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
+  const submissionJsonPatchOperationsService = new SubmissionJsonPatchOperationsServiceStub();
 
   let scheduler: TestScheduler;
   let service: SubmissionService;
@@ -359,7 +356,7 @@ describe('SubmissionService test suite', () => {
 
   const requestServce = getMockRequestService();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -377,6 +374,7 @@ describe('SubmissionService test suite', () => {
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
+        { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
         ScrollToService,
         NotificationsService,
         RouteService,
@@ -387,7 +385,7 @@ describe('SubmissionService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SubmissionService);
+    service = TestBed.inject(SubmissionService);
     spyOn((service as any).store, 'dispatch').and.callThrough();
   });
 
@@ -413,7 +411,7 @@ describe('SubmissionService test suite', () => {
     });
 
     it('should create a new submission with entity type', () => {
-      const entityType = 'Publication'
+      const entityType = 'Publication';
       const params = new HttpParams({fromObject: {entityType: entityType}});
       const options: HttpOptions = Object.create({});
       options.params = params;
@@ -532,8 +530,15 @@ describe('SubmissionService test suite', () => {
 
   describe('dispatchSave', () => {
     it('should dispatch a new SaveSubmissionFormAction', () => {
-      service.dispatchSave(submissionId,);
+      service.dispatchSave(submissionId);
       const expected = new SaveSubmissionFormAction(submissionId);
+
+      expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
+    });
+
+    it('should dispatch a new SaveSubmissionFormAction with manual flag', () => {
+      service.dispatchSave(submissionId, true);
+      const expected = new SaveSubmissionFormAction(submissionId, true);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
     });
@@ -806,6 +811,20 @@ describe('SubmissionService test suite', () => {
     });
   });
 
+  describe('hasUnsavedModification', () => {
+    it('should call jsonPatchOperationService hasPendingOperation observable', () => {
+      (service as any).jsonPatchOperationService.hasPendingOperations = jasmine.createSpy('hasPendingOperations')
+        .and.returnValue(observableOf(true));
+
+      scheduler = getTestScheduler();
+      scheduler.schedule(() => service.hasUnsavedModification());
+      scheduler.flush();
+
+      expect((service as any).jsonPatchOperationService.hasPendingOperations).toHaveBeenCalledWith('sections');
+
+    });
+  });
+
   describe('isSectionHidden', () => {
     it('should return true/false when section is hidden/visible', () => {
       let section: any = {
@@ -971,8 +990,7 @@ describe('SubmissionService test suite', () => {
 
       const result = service.retrieveSubmission('826');
       const expected = cold('(b|)', {
-        b: createSuccessfulRemoteDataObject(
-          mockSubmissionRestResponse[0])
+        b: jasmine.objectContaining({ payload: mockSubmissionRestResponse[0] })
       });
 
       expect(result).toBeObservable(expected);
@@ -982,15 +1000,16 @@ describe('SubmissionService test suite', () => {
       (service as any).restService.getDataById.and.callFake(
         () => observableThrowError({
           statusCode: 500,
-          statusText: 'Internal Server Error',
-          errorMessage: 'Error message'
+          errorMessage: 'Internal Server Error',
         })
       );
 
       service.retrieveSubmission('826').subscribe((r) => {
-        expect(r).toEqual(createFailedRemoteDataObject(null,
-          new RemoteDataError(500, 'Internal Server Error', 'Error message')
-        ))
+        const expectedRD = createFailedRemoteDataObject('Internal Server Error',500) as any;
+        expect(r.payload).toEqual(expectedRD.payload);
+        expect(r.statusCode).toEqual(expectedRD.statusCode);
+        expect(r.errorMessage).toEqual(expectedRD.errorMessage);
+        expect(r.hasSucceeded).toEqual(expectedRD.hasSucceeded);
       });
     });
   });
@@ -1005,8 +1024,15 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('startAutoSave', () => {
+
+    let environmentAutoSaveTimerOriginalValue;
+
+    beforeEach(() => {
+      environmentAutoSaveTimerOriginalValue = environment.submission.autosave.timer;
+    });
+
     it('should start Auto Save', fakeAsync(() => {
-      const duration = environment.submission.autosave.timer * (1000 * 60);
+      const duration = environment.submission.autosave.timer;
 
       service.startAutoSave('826');
       const sub = (service as any).timer$.subscribe();
@@ -1020,6 +1046,19 @@ describe('SubmissionService test suite', () => {
       sub.unsubscribe();
       (service as any).autoSaveSub.unsubscribe();
     }));
+
+    it('should not start Auto Save if timer is 0', fakeAsync(() => {
+      environment.submission.autosave.timer = 0;
+
+      service.startAutoSave('826');
+
+      expect((service as any).autoSaveSub).toBeUndefined();
+    }));
+
+    afterEach(() => {
+      environment.submission.autosave.timer = environmentAutoSaveTimerOriginalValue;
+    });
+
   });
 
   describe('stopAutoSave', () => {

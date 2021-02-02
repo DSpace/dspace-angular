@@ -79,4 +79,4 @@ export class EmptySSBAction implements Action {
 export type ServerSyncBufferAction
   = AddToSSBAction
   | CommitSSBAction
-  | EmptySSBAction
+  | EmptySSBAction;

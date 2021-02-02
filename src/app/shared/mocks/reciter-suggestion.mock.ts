@@ -105,7 +105,7 @@ export const mockSuggestionPublicationOne: OpenaireSuggestion =  {
       href: 'https://dspace7.4science.cloud/server/api/integration/suggestions/reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26c:24694772'
     }
   }
-}
+};
 
 export const mockSuggestionPublicationTwo: OpenaireSuggestion =  {
   id: '24694772',
@@ -207,4 +207,4 @@ export const mockSuggestionPublicationTwo: OpenaireSuggestion =  {
       href: 'https://dspace7.4science.cloud/server/api/integration/suggestions/reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26c:24694772'
     }
   }
-}
+};

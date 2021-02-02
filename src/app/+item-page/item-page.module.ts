@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
-import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 
 import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
@@ -17,32 +16,34 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import { RelatedItemsComponent } from './simple/related-items/related-items-component';
-import { SearchPageModule } from '../+search-page/search-page.module';
 import { PublicationComponent } from './simple/item-types/publication/publication.component';
 import { ItemComponent } from './simple/item-types/shared/item.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
-import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
-import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
-import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
-import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
-import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
+import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
+  PublicationComponent,
+  UntypedItemComponent
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule.withEntryComponents(),
     ItemPageRoutingModule,
     EditItemPageModule,
-    SearchPageModule,
     StatisticsModule.forRoot(),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents(),
     CrisItemPageModule,
     SubmissionModule,
     ContextMenuModule
@@ -62,31 +63,21 @@ import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
     FullFileSectionComponent,
     PublicationComponent,
     UntypedItemComponent,
-    RelatedItemsComponent,
     ItemComponent,
-    GenericItemPageFieldComponent,
-    MetadataRepresentationListComponent,
-    RelatedEntitiesSearchComponent,
     UploadBitstreamComponent,
-    TabbedRelatedEntitiesSearchComponent,
-    AbstractIncrementalListComponent
-  ],
-  exports: [
-    ItemComponent,
-    MetadataValuesComponent,
-    MetadataFieldWrapperComponent,
-    GenericItemPageFieldComponent,
-    RelatedEntitiesSearchComponent,
-    RelatedItemsComponent,
-    MetadataRepresentationListComponent,
-    ItemPageTitleFieldComponent,
-    TabbedRelatedEntitiesSearchComponent
-  ],
-  entryComponents: [
-    PublicationComponent,
-    UntypedItemComponent
+    AbstractIncrementalListComponent,
   ]
 })
 export class ItemPageModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: ItemPageModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 
 }

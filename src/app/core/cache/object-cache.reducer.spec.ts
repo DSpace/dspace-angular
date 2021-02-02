@@ -26,15 +26,20 @@ describe('objectCacheReducer', () => {
   const selfLink1 = 'https://localhost:8080/api/core/items/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
   const selfLink2 = 'https://localhost:8080/api/core/items/28b04544-1766-4e82-9728-c4e93544ecd3';
   const newName = 'new different name';
+  const altLink1 = 'https://alternative.link/endpoint/1234';
+  const altLink2 = 'https://alternative.link/endpoint/5678';
+  const altLink3 = 'https://alternative.link/endpoint/9123';
+  const altLink4 = 'https://alternative.link/endpoint/4567';
   const testState = {
     [selfLink1]: {
       data: {
         type: Item.type,
         self: selfLink1,
         foo: 'bar',
-        _links: { self: { href: selfLink1 } }
+        _links: { self: { href: selfLink1 } },
       },
-      timeAdded: new Date().getTime(),
+      alternativeLinks: [altLink1, altLink2],
+      timeCompleted: new Date().getTime(),
       msToLive: 900000,
       requestUUID: requestUUID1,
       patches: [],
@@ -47,7 +52,8 @@ describe('objectCacheReducer', () => {
         foo: 'baz',
         _links: { self: { href: requestUUID2 } }
       },
-      timeAdded: new Date().getTime(),
+      alternativeLinks: [altLink3, altLink4],
+      timeCompleted: new Date().getTime(),
       msToLive: 900000,
       requestUUID: selfLink2,
       patches: [],
@@ -73,15 +79,16 @@ describe('objectCacheReducer', () => {
   it('should add the payload to the cache in response to an ADD action', () => {
     const state = Object.create(null);
     const objectToCache = { self: selfLink1, type: Item.type, _links: { self: { href: selfLink1 } } };
-    const timeAdded = new Date().getTime();
+    const timeCompleted = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
-    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestUUID);
+    const action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, altLink1);
     const newState = objectCacheReducer(state, action);
 
     expect(newState[selfLink1].data).toEqual(objectToCache);
-    expect(newState[selfLink1].timeAdded).toEqual(timeAdded);
+    expect(newState[selfLink1].timeCompleted).toEqual(timeCompleted);
     expect(newState[selfLink1].msToLive).toEqual(msToLive);
+    expect(newState[selfLink1].alternativeLinks.includes(altLink1)).toBeTrue();
   });
 
   it('should overwrite an object in the cache in response to an ADD action if it already exists', () => {
@@ -90,12 +97,12 @@ describe('objectCacheReducer', () => {
       foo: 'baz',
       somethingElse: true,
       type: Item.type,
-      _links: { self: { href: selfLink1 } }
+      _links: { self: { href: selfLink1 } },
     };
-    const timeAdded = new Date().getTime();
+    const timeCompleted = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
-    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestUUID);
+    const action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, altLink1);
     const newState = objectCacheReducer(testState, action);
 
     /* tslint:disable:no-string-literal */
@@ -107,10 +114,10 @@ describe('objectCacheReducer', () => {
   it('should perform the ADD action without affecting the previous state', () => {
     const state = Object.create(null);
     const objectToCache = { self: selfLink1, type: Item.type, _links: { self: { href: selfLink1 } } };
-    const timeAdded = new Date().getTime();
+    const timeCompleted = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
-    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestUUID);
+    const action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, altLink1);
     deepFreeze(state);
 
     objectCacheReducer(state, action);
@@ -144,7 +151,7 @@ describe('objectCacheReducer', () => {
     const action = new ResetObjectCacheTimestampsAction(newTimestamp);
     const newState = objectCacheReducer(testState, action);
     Object.keys(newState).forEach((key) => {
-      expect(newState[key].timeAdded).toEqual(newTimestamp);
+      expect(newState[key].timeCompleted).toEqual(newTimestamp);
     });
   });
 

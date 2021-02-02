@@ -1,10 +1,7 @@
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
+import { of as observableOf } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,6 +23,8 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -55,7 +54,7 @@ const bundle = Object.assign(new Bundle(), {
   _links: {
     self: { href: 'bundle1-selflink' }
   },
-  bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2])
+  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
 });
 const moveOperations = [
   {
@@ -79,7 +78,7 @@ let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
 
 describe('ItemBitstreamsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
@@ -120,7 +119,7 @@ describe('ItemBitstreamsComponent', () => {
       remove: jasmine.createSpy('remove')
     });
     requestService = getMockRequestService();
-    searchConfig = Object.assign( {
+    searchConfig = Object.assign({
       paginatedSearchOptions: observableOf({})
     });
 
@@ -130,17 +129,17 @@ describe('ItemBitstreamsComponent', () => {
       _links: {
         self: { href: 'item-selflink' }
       },
-      bundles: createMockRDPaginatedObs([bundle]),
+      bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
       lastModified: date
     });
-    itemService = Object.assign( {
-      getBitstreams: () => createMockRDPaginatedObs([bitstream1, bitstream2]),
-      findById: () => createMockRDObs(item),
-      getBundles: () => createMockRDPaginatedObs([bundle])
+    itemService = Object.assign({
+      getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
+      findById: () => createSuccessfulRemoteDataObject$(item),
+      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ dso: createMockRD(item) })
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
       },
       data: observableOf({}),
       url: url
@@ -196,7 +195,8 @@ describe('ItemBitstreamsComponent', () => {
       fromIndex: 0,
       toIndex: 50,
       // tslint:disable-next-line:no-empty
-      finish: () => {}
+      finish: () => {
+      }
     };
 
     beforeEach(() => {
@@ -213,7 +213,7 @@ describe('ItemBitstreamsComponent', () => {
         finish: () => {
           done();
         }
-      })
+      });
     });
 
     it('should send out a patch for the move operation', () => {
@@ -235,15 +235,3 @@ describe('ItemBitstreamsComponent', () => {
     });
   });
 });
-
-export function createMockRDPaginatedObs(list: any[]) {
-  return createMockRDObs(new PaginatedList(new PageInfo(), list));
-}
-
-export function createMockRDObs(obj: any) {
-  return observableOf(createMockRD(obj));
-}
-
-export function createMockRD(obj: any) {
-  return new RemoteData(false, false, true, null, obj);
-}

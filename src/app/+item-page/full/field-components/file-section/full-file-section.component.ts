@@ -7,13 +7,12 @@ import { Item } from '../../../../core/shared/item.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
-import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * This component renders the file section of the item
@@ -67,11 +66,12 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         this.item,
         'ORIGINAL',
         {elementsPerPage: this.pageSize, currentPage: pageNumber},
+        true,
         followLink('format')
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
-          if (hasValue(rd.error)) {
-            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.error.statusCode} ${rd.error.message}`);
+          if (hasValue(rd.errorMessage)) {
+            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
           }
         }
       )
@@ -82,11 +82,12 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         this.item,
         'LICENSE',
         {elementsPerPage: this.pageSize, currentPage: pageNumber},
+        true,
         followLink('format')
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
-          if (hasValue(rd.error)) {
-            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.error.statusCode} ${rd.error.message}`);
+          if (hasValue(rd.errorMessage)) {
+            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
           }
         }
       )

@@ -227,7 +227,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    *    Emits true whenever section is valid
    */
   public removeSection(submissionId: string, sectionId: string) {
-    this.sectionService.dispatchRemoveSection(submissionId, sectionId)
+    this.sectionService.dispatchRemoveSection(submissionId, sectionId);
   }
 
   /**
@@ -237,7 +237,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    *    Returns true when section has only generic errors
    */
   public hasGenericErrors(): boolean {
-    return this.genericSectionErrors && this.genericSectionErrors.length > 0
+    return this.genericSectionErrors && this.genericSectionErrors.length > 0;
   }
 
   /**
@@ -248,7 +248,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    */
   public hasErrors(): boolean {
     return (this.genericSectionErrors && this.genericSectionErrors.length > 0) ||
-      (this.allSectionErrors && this.allSectionErrors.length > 0)
+      (this.allSectionErrors && this.allSectionErrors.length > 0);
   }
 
   /**

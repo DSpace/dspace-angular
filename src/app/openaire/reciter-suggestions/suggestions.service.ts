@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { forkJoin, Observable, of as observableOf } from 'rxjs';
-import { catchError, flatMap, map, take } from 'rxjs/operators';
+import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
 import { OpenaireSuggestionsDataService } from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/request.models';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { AuthService } from '../../core/auth/auth.service';
@@ -16,15 +16,15 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFinishedRemoteData, getFirstSucceededRemoteDataPayload,
+  getFinishedRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
-import { RestResponse } from '../../core/cache/response.models';
 import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { of } from 'rxjs/internal/observable/of';
-import { tap } from 'rxjs/internal/operators/tap';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
+import { NoContent } from '../../core/shared/NoContent.model';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -124,10 +124,10 @@ export class SuggestionsService {
    * Used to delete Suggestion
    * @suggestionId
    */
-  public deleteReviewedSuggestion(suggestionId: string): Observable<RestResponse> {
+  public deleteReviewedSuggestion(suggestionId: string): Observable<RemoteData<NoContent>> {
     return this.suggestionsDataService.deleteSuggestion(suggestionId).pipe(
-      map((response: RestResponse) => {
-        if (response.isSuccessful) {
+      map((response: RemoteData<NoContent>) => {
+        if (response.isSuccess) {
           return response;
         } else {
           throw new Error('Can\'t delete Suggestion from the Search Target REST service');
@@ -145,21 +145,21 @@ export class SuggestionsService {
    */
   public retrieveCurrentUserSuggestions(user: EPerson): Observable<OpenaireSuggestionTarget[]> {
     return this.researcherProfileService.findById(user.uuid).pipe(
-      flatMap((profile: ResearcherProfile) => {
+      mergeMap((profile: ResearcherProfile) => {
         if (isNotEmpty(profile)) {
           return this.researcherProfileService.findRelatedItemId(profile).pipe(
-            flatMap((itemId: string) => {
+            mergeMap((itemId: string) => {
               return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
                 getFirstSucceededRemoteListPayload()
-              )
+              );
             })
           );
         } else {
-          return observableOf([])
+          return observableOf([]);
         }
       }),
       take(1)
-    )
+    );
   }
 
   /**
@@ -175,22 +175,18 @@ export class SuggestionsService {
     return workspaceitemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
       .pipe(
         getFirstSucceededRemoteDataPayload(),
-        tap((res) => {
-          console.log(res);
-        }),
         catchError((error) => of(null))
       );
-    ;
   }
 
   /**
    * Perform the delete operation over a single suggestion.
    * @param suggestionId
    */
-  public notMine(suggestionId): Observable<any> {
+  public notMine(suggestionId): Observable<RemoteData<NoContent>> {
     return this.deleteReviewedSuggestion(suggestionId).pipe(
       catchError((error) => of(null))
-    )
+    );
   }
 
   /**
@@ -209,7 +205,7 @@ export class SuggestionsService {
         return {
           success: results.filter((result) => result != null).length,
           fails: results.filter((result) => result == null).length
-        }
+        };
       }), take(1));
   }
 
@@ -219,11 +215,11 @@ export class SuggestionsService {
    */
   public notMineMultiple(suggestions: OpenaireSuggestion[]): Observable<SuggestionBulkResult> {
     return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.notMine(suggestion.id)))
-      .pipe(map((results: string[]) => {
+      .pipe(map((results: RemoteData<NoContent>[]) => {
         return {
           success: results.filter((result) => result != null).length,
           fails: results.filter((result) => result == null).length
-        }
+        };
       }), take(1));
   }
 
@@ -248,7 +244,7 @@ export class SuggestionsService {
       source: this.translateService.instant('reciter.suggestion.source.oaire'),
       suggestionId: suggestionTarget.id,
       displayName: suggestionTarget.display
-    }
+    };
   }
 
 }

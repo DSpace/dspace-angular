@@ -18,7 +18,7 @@ export const SuggestionTargetActionTypes = {
   ADD_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/ADD_USER_SUGGESTIONS'),
   REFRESH_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/REFRESH_USER_SUGGESTIONS'),
   MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED')
-}
+};
 
 /* tslint:disable:max-classes-per-file */
 

@@ -1,3 +1,7 @@
 <div class="col mb-3" *ngFor="let metric of metricRow.metrics">
-  <ds-metric [metric]="metric"></ds-metric>
+
+  <div class="container h-100" [ngClass]="getMetricClasses(metric)">
+    <ds-metric-loader [metric]="metric"></ds-metric-loader>
+  </div>
+
 </div>

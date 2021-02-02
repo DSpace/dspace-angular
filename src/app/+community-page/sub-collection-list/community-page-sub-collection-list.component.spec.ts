@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FindListOptions } from '../../core/data/request.models';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -97,7 +97,7 @@ describe('CommunityPageSubCollectionList Component', () => {
       let currentPage = options.currentPage;
       let elementsPerPage = options.elementsPerPage;
       if (currentPage === undefined) {
-        currentPage = 1
+        currentPage = 1;
       }
       elementsPerPage = 5;
       const startPageIndex = (currentPage - 1) * elementsPerPage;
@@ -105,12 +105,12 @@ describe('CommunityPageSubCollectionList Component', () => {
       if (endPageIndex > subCollList.length) {
         endPageIndex = subCollList.length;
       }
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subCollList.slice(startPageIndex, endPageIndex)));
+      return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), subCollList.slice(startPageIndex, endPageIndex)));
 
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),

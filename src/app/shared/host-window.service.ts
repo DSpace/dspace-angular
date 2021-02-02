@@ -49,15 +49,15 @@ export class HostWindowService {
     return this.getWidthObs().pipe(
       map((width: number) => {
         if (width < this.breakPoints.SM_MIN) {
-          return WidthCategory.XS
+          return WidthCategory.XS;
         } else if (width >= this.breakPoints.SM_MIN && width < this.breakPoints.MD_MIN) {
-          return WidthCategory.SM
+          return WidthCategory.SM;
         } else if (width >= this.breakPoints.MD_MIN && width < this.breakPoints.LG_MIN) {
-          return WidthCategory.MD
+          return WidthCategory.MD;
         } else if (width >= this.breakPoints.LG_MIN && width < this.breakPoints.XL_MIN) {
-          return WidthCategory.LG
+          return WidthCategory.LG;
         } else {
-          return WidthCategory.XL
+          return WidthCategory.XL;
         }
       }),
       distinctUntilChanged()

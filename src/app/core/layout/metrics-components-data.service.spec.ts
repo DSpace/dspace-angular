@@ -102,11 +102,11 @@ describe('MetricsComponentsDataService', () => {
 
     it('should filter metrics out of the box scope', () => {
 
-      const metrics: Metric[] = []
+      const metrics: Metric[] = [];
       const metricTypes: string[] = [];
 
-      metrics.push({...metricMock, metricType: 'views'});
-      metrics.push({...metricMock, metricType: 'downloads'});
+      metrics.push({ ...metricMock, metricType: 'views' });
+      metrics.push({ ...metricMock, metricType: 'downloads' });
       metricTypes.push('views');
 
       const result = service.computeMetricsRows(metrics, 1, metricTypes);
@@ -119,11 +119,11 @@ describe('MetricsComponentsDataService', () => {
 
     it('should order metrics based on metricType.position', () => {
 
-      const metrics: Metric[] = []
+      const metrics: Metric[] = [];
       const metricTypes: string[] = [];
 
-      metrics.push({...metricMock, metricType: 'views'});
-      metrics.push({...metricMock, metricType: 'downloads'});
+      metrics.push({ ...metricMock, metricType: 'views' });
+      metrics.push({ ...metricMock, metricType: 'downloads' });
 
       metricTypes.push('downloads');
       metricTypes.push('views');
@@ -139,14 +139,14 @@ describe('MetricsComponentsDataService', () => {
 
     it('should split rows based on maxColumn', () => {
 
-      const metrics: Metric[] = []
+      const metrics: Metric[] = [];
       const metricTypes: string[] = [];
 
-      metrics.push({...metricMock, metricType: 'views'});
-      metrics.push({...metricMock, metricType: 'views'});
-      metrics.push({...metricMock, metricType: 'views'});
-      metrics.push({...metricMock, metricType: 'views'});
-      metrics.push({...metricMock, metricType: 'views'});
+      metrics.push({ ...metricMock, metricType: 'views' });
+      metrics.push({ ...metricMock, metricType: 'views' });
+      metrics.push({ ...metricMock, metricType: 'views' });
+      metrics.push({ ...metricMock, metricType: 'views' });
+      metrics.push({ ...metricMock, metricType: 'views' });
 
       metricTypes.push('views');
 
@@ -158,10 +158,10 @@ describe('MetricsComponentsDataService', () => {
 
     it('should fill the last row with null values to reach maxColumn', () => {
 
-      const metrics: Metric[] = []
+      const metrics: Metric[] = [];
       const metricTypes: string[] = [];
 
-      metrics.push({...metricMock, metricType: 'views'});
+      metrics.push({ ...metricMock, metricType: 'views' });
 
       metricTypes.push('views');
 
@@ -193,4 +193,4 @@ const metricMock = {
   startDate: null,
   type: null,
   _links: null
-}
+};

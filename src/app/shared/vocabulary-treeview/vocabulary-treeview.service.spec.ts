@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { VocabularyOptions } from '../../core/submission/vocabularies/models/voc
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 
@@ -156,10 +156,10 @@ describe('VocabularyTreeviewService test suite', () => {
     searchNodeMap = new Map<string, TreeviewNode>([
       [item.id, searchItemNode],
     ]);
-    vocabularyOptions = new VocabularyOptions('vocabularyTest', false);
+    vocabularyOptions = new VocabularyOptions('vocabularyTest', null, null,false);
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -178,7 +178,7 @@ describe('VocabularyTreeviewService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(VocabularyTreeviewService);
+    service = TestBed.inject(VocabularyTreeviewService);
     serviceAsAny = service;
     scheduler = getTestScheduler();
     init();
@@ -187,7 +187,7 @@ describe('VocabularyTreeviewService test suite', () => {
   describe('initialize', () => {
     it('should set vocabularyName and call retrieveTopNodes method', () => {
       serviceAsAny.vocabularyService.searchTopEntries.and.returnValue(hot('-a', {
-        a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [item, item2, item3]))
+        a: createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, [item, item2, item3]))
       }));
 
       scheduler.schedule(() => service.initialize(vocabularyOptions, pageInfo));
@@ -200,7 +200,7 @@ describe('VocabularyTreeviewService test suite', () => {
 
     it('should set initValueHierarchy', () => {
       serviceAsAny.vocabularyService.searchTopEntries.and.returnValue(hot('-c', {
-        a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [item, item2, item3]))
+        a: createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, [item, item2, item3]))
       }));
       serviceAsAny.vocabularyService.findEntryDetailById.and.returnValue(
         hot('-a', {
@@ -254,7 +254,7 @@ describe('VocabularyTreeviewService test suite', () => {
         currentPage: 2
       });
       spyOn(serviceAsAny, 'getChildrenNodesByParent').and.returnValue(hot('a', {
-        a: new PaginatedList(pageInfo, [child2])
+        a: buildPaginatedList(pageInfo, [child2])
       }));
 
       serviceAsAny.dataChange.next(treeNodeListWithLoadMore);
@@ -275,7 +275,7 @@ describe('VocabularyTreeviewService test suite', () => {
         currentPage: 1
       });
       spyOn(serviceAsAny, 'getChildrenNodesByParent').and.returnValue(hot('a', {
-        a: new PaginatedList(pageInfo, [child2])
+        a: buildPaginatedList(pageInfo, [child2])
       }));
 
       serviceAsAny.dataChange.next(treeNodeListWithLoadMore);
@@ -300,7 +300,7 @@ describe('VocabularyTreeviewService test suite', () => {
         currentPage: 1
       });
       serviceAsAny.vocabularyService.getVocabularyEntriesByValue.and.returnValue(hot('-a', {
-        a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [childEntry3]))
+        a: createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, [childEntry3]))
       }));
 
       serviceAsAny.vocabularyService.findEntryDetailById.and.returnValue(hot('-a', {

@@ -21,7 +21,7 @@ export class LocaleInterceptor implements HttpInterceptor {
     let newReq: HttpRequest<any>;
     return this.localeService.getLanguageCodeList()
       .pipe(
-        scan((acc: any, value: any) => [...acc, ...value], []),
+        scan((acc: any, value: any) => [...acc, value], []),
         mergeMap((languages) => {
           // Clone the request to add the new header.
           newReq = req.clone({
@@ -30,6 +30,6 @@ export class LocaleInterceptor implements HttpInterceptor {
           });
           // Pass on the new request instead of the original request.
           return next.handle(newReq);
-        }))
+        }));
   }
 }

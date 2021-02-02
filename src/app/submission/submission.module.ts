@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -44,8 +43,7 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
     CoreModule.forRoot(),
     SharedModule,
     StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-    EffectsModule.forFeature(submissionEffects),
-    TranslateModule
+    EffectsModule.forFeature(submissionEffects)
   ],
   declarations: [
     SubmissionSectionUploadAccessConditionsComponent,
@@ -72,16 +70,6 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
     SubmissionImportExternalCollectionComponent,
     SubmissionSectionDetectDuplicateComponent,
     DuplicateMatchComponent
-  ],
-  entryComponents: [
-    SubmissionSectionUploadComponent,
-    SubmissionSectionformComponent,
-    SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent,
-    SubmissionImportExternalPreviewComponent,
-    SubmissionImportExternalCollectionComponent,
-    SubmissionSectionCcLicensesComponent,
-    SubmissionSectionDetectDuplicateComponent
   ],
   exports: [
     SubmissionEditComponent,

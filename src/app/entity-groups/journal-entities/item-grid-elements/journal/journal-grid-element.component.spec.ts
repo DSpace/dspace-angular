@@ -1,10 +1,10 @@
 import { Item } from '../../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { JournalGridElementComponent } from './journal-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 const mockItem = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
@@ -49,7 +49,7 @@ describe('JournalGridElementComponent', () => {
     isCollapsed: (id: number) => observableOf(true),
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [JournalGridElementComponent, TruncatePipe],
@@ -62,7 +62,7 @@ describe('JournalGridElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(JournalGridElementComponent);
     comp = fixture.componentInstance;
   }));

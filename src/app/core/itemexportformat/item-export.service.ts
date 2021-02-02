@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -17,7 +17,7 @@ import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemExportFormat } from './model/item-export-format.model';
 import { ITEM_EXPORT_FORMAT } from './model/item-export-format.resource-type';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
@@ -31,6 +31,8 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchOptions } from '../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { Process } from '../../process-page/processes/process.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -158,15 +160,15 @@ export class ItemExportFormatService {
   private launchScript(scriptName: string, parameterValues: ProcessParameter[]): Observable<number> {
     return this.scriptDataService.invoke(scriptName, parameterValues, [])
       .pipe(
-        take(1),
-        map((requestEntry: RequestEntry) => {
-          if (requestEntry.response.isSuccessful) {
+        getFirstCompletedRemoteData(),
+        map((rd: RemoteData<Process>) => {
+          if (rd.isSuccess) {
             const title = this.translate.get('process.new.notification.success.title');
             const content = this.translate.get('process.new.notification.success.content');
             this.notificationsService.success(title, content);
-            const response: any = requestEntry.response;
-            if (isNotEmpty(response.resourceSelfLinks)) {
-              const processNumber = response.resourceSelfLinks[0].split('/').pop();
+            const payload: any = rd.payload;
+            if (isNotEmpty(payload.resourceSelfLinks)) {
+              const processNumber = payload.resourceSelfLinks[0].split('/').pop();
               return processNumber;
             }
           } else {

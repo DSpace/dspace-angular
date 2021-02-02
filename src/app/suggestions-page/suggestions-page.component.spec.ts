@@ -4,22 +4,20 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SuggestionListElementComponent } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { getMockOpenaireStateService, getMockSuggestionsService } from '../shared/mocks/openaire.mock';
-import { PaginatedList } from '../core/data/paginated-list';
+import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
 import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
-import { createPaginatedList } from '../shared/testing/utils.test';
 import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/reciter-suggestion.mock';
 import { SuggestionEvidencesComponent } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../shared/testing/router.stub';
-import { RemoteData } from '../core/data/remote-data';
 import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
 import { AuthService } from '../core/auth/auth.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -27,18 +25,19 @@ import { NotificationsServiceStub } from '../shared/testing/notifications-servic
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import {of} from 'rxjs/internal/observable/of';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { PageInfo } from '../core/shared/page-info.model';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
   let fixture: ComponentFixture<SuggestionsPageComponent>;
   const mockSuggestionsService = getMockSuggestionsService();
   const mockSuggestionsTargetStateService = getMockOpenaireStateService();
-  const suggestionTargetsList: PaginatedList<OpenaireSuggestion> = createPaginatedList([mockSuggestionPublicationOne, mockSuggestionPublicationTwo])
+  const suggestionTargetsList: PaginatedList<OpenaireSuggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
   const router = new RouterStub();
   const routeStub = {
     data: observableOf({
-      suggestionTargets: new RemoteData(false, false, true, null, mockSuggestionTargetsObjectOne)
+      suggestionTargets: createSuccessfulRemoteDataObject(mockSuggestionTargetsObjectOne)
     }),
     queryParams: of({})
   };

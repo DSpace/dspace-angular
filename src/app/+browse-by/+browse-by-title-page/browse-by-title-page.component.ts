@@ -32,7 +32,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
 
   ngOnInit(): void {
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, this.sortConfig));
     this.subs.push(
       observableCombineLatest(
         this.route.params,
@@ -44,7 +44,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
         .subscribe((params) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.updatePageWithItems(browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.browseId), undefined);
-          this.updateParent(params.scope)
+          this.updateParent(params.scope);
         }));
     this.updateStartsWithTextOptions();
   }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { of as observableOf } from 'rxjs';
@@ -20,7 +20,7 @@ describe('CommunityCurateComponent', () => {
     metadata: {'dc.title': ['Community Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]}
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
         data: observableOf({

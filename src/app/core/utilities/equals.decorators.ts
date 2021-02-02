@@ -22,7 +22,7 @@ export function inheritEquatable(parentCo: GenericConstructor<EquatableObject<an
       .forEach((key) => {
         fieldsForEquals(...parentMappedFields.get(key))(new childCo(), key);
       });
-  }
+  };
 }
 
 /**
@@ -61,7 +61,7 @@ export function fieldsForEquals(...fields: string[]): any {
     }
     fieldMap.set(propertyName, fields);
     fieldsForEqualsMap.set(object.constructor, fieldMap);
-  }
+  };
 }
 
 // tslint:disable-next-line:ban-types

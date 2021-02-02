@@ -122,7 +122,7 @@ describe('ContextMenuComponent', () => {
   describe('when has not authentication', () => {
 
     beforeEach(() => {
-      store.setState(notAuthState)
+      store.setState(notAuthState);
       spyOn(component, 'getContextMenuEntries').and.returnValue([]);
       fixture.detectChanges();
     });

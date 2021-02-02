@@ -6,7 +6,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { BrowseSectionComponent } from './browse-section.component';
 
 describe('BrowseSectionComponent', () => {
@@ -38,7 +38,7 @@ describe('BrowseSectionComponent', () => {
       browseNames: ['rodept', 'author', 'title', 'type'],
       componentType: 'browse',
       style: 'col-md-4'
-    }
+    };
 
     fixture.detectChanges();
   });

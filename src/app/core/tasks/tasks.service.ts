@@ -1,17 +1,16 @@
 import { HttpHeaders } from '@angular/common/http';
 
-import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
-import { DeleteRequest, FindListOptions, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
+import { DeleteRequest, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
 import { isNotEmpty } from '../../shared/empty.util';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { ProcessTaskResponse } from './models/process-task-response';
-import { RemoteDataError } from '../data/remote-data-error';
-import { getResponseFromEntry } from '../shared/operators';
-import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response.models';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
+import { RemoteData } from '../data/remote-data';
 
 /**
  * An abstract class that provides methods to handle task requests.
@@ -27,23 +26,16 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
    *     server response
    */
   protected fetchRequest(requestId: string): Observable<ProcessTaskResponse> {
-    const responses = this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry()
+    return this.rdbService.buildFromRequestUUID(requestId).pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<any>) => {
+        if (response.hasFailed) {
+          return new ProcessTaskResponse(false, response.statusCode, response.errorMessage);
+        } else {
+          return new ProcessTaskResponse(true, response.statusCode);
+        }
+      })
     );
-    const errorResponses = responses.pipe(
-      filter((response: RestResponse) => !response.isSuccessful),
-      mergeMap((response: ErrorResponse) => observableOf(
-        new ProcessTaskResponse(
-          response.isSuccessful,
-          new RemoteDataError(response.statusCode, response.statusText, response.errorMessage)
-        ))
-      ));
-    const successResponses = responses.pipe(
-      filter((response: RestResponse) => response.isSuccessful),
-      map((response: MessageResponse) => new ProcessTaskResponse(response.isSuccessful)),
-      distinctUntilChanged()
-    );
-    return observableMerge(errorResponses, successResponses);
   }
 
   /**
@@ -80,7 +72,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       distinctUntilChanged(),
       map((endpointURL: string) => new TaskPostRequest(requestId, endpointURL, body, options)),
       tap((request: PostRequest) => this.requestService.configure(request)),
-      flatMap((request: PostRequest) => this.fetchRequest(requestId)),
+      mergeMap((request: PostRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 
@@ -104,7 +96,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
       map((endpointURL: string) => new TaskDeleteRequest(requestId, endpointURL, null, options)),
       tap((request: DeleteRequest) => this.requestService.configure(request)),
-      flatMap((request: DeleteRequest) => this.fetchRequest(requestId)),
+      mergeMap((request: DeleteRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 

@@ -8,7 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { ChartData } from '../../../../../charts/models/chart-data';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { FacetValue } from '../../../facet-value.model';
 import { isNotEmpty } from '../../../../empty.util';
 
@@ -32,8 +32,8 @@ export class SearchChartLineComponent extends SearchChartFilterComponent {
 
   protected getInitData(): Observable<ChartData[]> {
     return this.filterValues$.pipe(
-      filter((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => isNotEmpty(rd.payload)),
-      map((result: RemoteData<Array<PaginatedList<FacetValue>>>) => {
+      filter((rd: RemoteData<PaginatedList<FacetValue>[]>) => isNotEmpty(rd.payload)),
+      map((result: RemoteData<PaginatedList<FacetValue>[]>) => {
         return result.payload.map((res) => ({
           name: this.filter,
           series: res.page.map((item) => ({

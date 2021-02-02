@@ -3,13 +3,11 @@ import { RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RestResponse } from '../cache/response.models';
 import { RequestService } from './request.service';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { BrowseService } from '../browse/browse.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { cold } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -52,15 +50,15 @@ describe('ItemTemplateDataService', () => {
   const bs = {} as BrowseService;
   const objectCache = {
     getObjectBySelfLink(self) {
-      return observableOf({})
+      return observableOf({});
     },
     addPatch(self, operations) {
       // Do nothing
     }
-  } as ObjectCacheService;
+  } as any;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
-      return cold('a', {a: itemEndpoint});
+      return cold('a', { a: itemEndpoint });
     }
   } as HALEndpointService;
   const notificationsService = {} as NotificationsService;

@@ -10,6 +10,9 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { BundleDataService } from './bundle-data.service';
 import { HALLink } from '../shared/hal-link.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { Bundle } from '../shared/bundle.model';
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {
@@ -78,7 +81,54 @@ describe('BundleDataService', () => {
     });
 
     it('should call findAllByHref with the item\'s bundles link', () => {
-      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined);
-    })
+      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined, true);
+    });
+  });
+
+  describe('findByItemAndName', () => {
+    let bundles: Bundle[];
+
+    beforeEach(() => {
+      bundles = [
+        Object.assign(new Bundle(), {
+          id: 'ORIGINAL_BUNDLE',
+          metadata: {
+            'dc.title': [
+              {
+                value: 'ORIGINAL'
+              }
+            ]
+          }
+        }),
+        Object.assign(new Bundle(), {
+          id: 'THUMBNAIL_BUNDLE',
+          metadata: {
+            'dc.title': [
+              {
+                value: 'THUMBNAIL'
+              }
+            ]
+          }
+        }),
+        Object.assign(new Bundle(), {
+          id: 'EXTRA_BUNDLE',
+          metadata: {
+            'dc.title': [
+              {
+                value: 'EXTRA'
+              }
+            ]
+          }
+        }),
+      ];
+      spyOn(service, 'findAllByItem').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(bundles)));
+    });
+
+    it('should only return the requested bundle by name', (done) => {
+      service.findByItemAndName(undefined, 'THUMBNAIL').subscribe((result) => {
+        expect(result.payload.id).toEqual('THUMBNAIL_BUNDLE');
+        done();
+      });
+    });
   });
 });

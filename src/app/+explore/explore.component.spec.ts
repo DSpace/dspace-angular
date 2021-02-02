@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { RemoteData } from '../core/data/remote-data';
 import { BrowseSection, FacetSection, SearchSection, Section, TopSection } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
@@ -26,7 +26,7 @@ describe('ExploreComponent', () => {
     browseNames: ['rodept', 'author', 'title', 'type'],
     componentType: 'browse',
     style: 'col-md-4'
-  }
+  };
 
   const topComponent: TopSection = {
     discoveryConfigurationName: 'publication',
@@ -34,19 +34,19 @@ describe('ExploreComponent', () => {
     style: 'col-md-6',
     order: 'desc',
     sortField: 'dc.date.accessioned'
-  }
+  };
 
   const searchComponent: SearchSection = {
     discoveryConfigurationName: 'publication',
     componentType: 'search',
     style: 'col-md-8'
-  }
+  };
 
   const facetComponent: FacetSection = {
     discoveryConfigurationName: 'publication',
     componentType: 'facet',
     style: 'col-md-12'
-  }
+  };
 
   beforeEach(async(() => {
 
@@ -61,11 +61,11 @@ describe('ExploreComponent', () => {
           return of(null);
         }
       }
-    }
+    };
 
     route = {
       params :  of({ id: 'publications' })
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,

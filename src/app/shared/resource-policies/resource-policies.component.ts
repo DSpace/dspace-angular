@@ -2,14 +2,23 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
-import { concatMap, distinctUntilChanged, filter, map, reduce, scan, startWith, take } from 'rxjs/operators';
+import {
+  concatMap,
+  distinctUntilChanged,
+  filter,
+  map,
+  reduce,
+  scan,
+  startWith,
+  take
+} from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
-  getSucceededRemoteData
+  getAllSucceededRemoteData
 } from '../../core/shared/operators';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -29,7 +38,7 @@ import { ACCESS_CONTROL_MODULE_PATH } from '../../+admin/admin-routing-paths';
 interface ResourcePolicyCheckboxEntry {
   id: string;
   policy: ResourcePolicy;
-  checked: boolean
+  checked: boolean;
 }
 
 @Component({
@@ -123,10 +132,10 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   canDelete(): Observable<boolean> {
     return observableFrom(this.resourcePoliciesEntries$.value).pipe(
       filter((entry: ResourcePolicyCheckboxEntry) => entry.checked),
-      reduce((acc: any, value: any) => [...acc, ...value], []),
+      reduce((acc: any, value: any) => [...acc, value], []),
       map((entries: ResourcePolicyCheckboxEntry[]) => isNotEmpty(entries)),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -139,7 +148,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     this.subs.push(
       observableFrom(policiesToDelete).pipe(
         concatMap((entry: ResourcePolicyCheckboxEntry) => this.resourcePolicyService.delete(entry.policy.id)),
-        scan((acc: any, value: any) => [...acc, ...value], []),
+        scan((acc: any, value: any) => [...acc, value], []),
         filter((results: boolean[]) => results.length === policiesToDelete.length),
         take(1),
       ).subscribe((results: boolean[]) => {
@@ -149,10 +158,10 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         } else {
           this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
         }
-        this.initResourcePolicyLIst();
+        this.requestService.setStaleByHrefSubstring(this.resourceUUID);
         this.processingDelete$.next(false);
       })
-    )
+    );
   }
 
   /**
@@ -178,7 +187,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
       startWith('')
-    )
+    );
   }
 
   /**
@@ -194,7 +203,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((group: Group) => this.dsoNameService.getName(group)),
       startWith('')
-    )
+    );
   }
 
   /**
@@ -220,7 +229,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
       map((eperson: EPerson) => isNotEmpty(eperson)),
       startWith(false)
-    )
+    );
   }
 
   /**
@@ -237,18 +246,18 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
       map((group: Group) => isNotEmpty(group)),
       startWith(false)
-    )
+    );
   }
 
   /**
    * Initialize the resource's policies list
    */
   initResourcePolicyLIst() {
-    this.resourcePolicyService.searchByResource(this.resourceUUID, null,
+    this.requestService.setStaleByHrefSubstring(this.resourceUUID);
+    this.subs.push(this.resourcePolicyService.searchByResource(this.resourceUUID, null, true,
       followLink('eperson'), followLink('group')).pipe(
       filter(() => this.isActive),
-      getSucceededRemoteData(),
-      take(1)
+      getAllSucceededRemoteData()
     ).subscribe((result) => {
       const entries = result.payload.page.map((policy: ResourcePolicy) => ({
         id: policy.id,
@@ -257,9 +266,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       }));
       this.resourcePoliciesEntries$.next(entries);
       // Remove cached request
-      this.requestService.removeByHrefSubstring(this.resourceUUID);
       this.cdr.detectChanges();
-    });
+    }));
   }
 
   /**
@@ -281,7 +289,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         policyTargetId: this.resourceUUID,
         targetType: this.resourceType
       }
-    })
+    });
   }
 
   /**
@@ -295,7 +303,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       queryParams: {
         policyId: policy.id
       }
-    })
+    });
   }
 
   /**
@@ -311,9 +319,9 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         map((group: Group) => group.id)
       ).subscribe((groupUUID) => {
-        this.router.navigate([ADMIN_MODULE_PATH, ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID])
+        this.router.navigate([ADMIN_MODULE_PATH, ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID]);
       })
-    )
+    );
   }
 
   /**
@@ -339,7 +347,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     this.resourcePoliciesEntries$ = null;
     this.subs
       .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe())
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
 }

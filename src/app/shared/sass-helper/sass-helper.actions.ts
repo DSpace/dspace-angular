@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -24,6 +24,5 @@ export class AddCSSVariableAction implements Action {
     this.payload = {name, value};
   }
 }
-/* tslint:enable:max-classes-per-file */
 
-export type CSSVariableAction = AddCSSVariableAction
+export type CSSVariableAction = AddCSSVariableAction;

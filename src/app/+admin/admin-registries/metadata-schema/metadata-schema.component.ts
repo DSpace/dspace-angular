@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, combineLatest, Observable, zip } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { RestResponse } from '../../../core/cache/response.models';
-import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -92,7 +89,7 @@ export class MetadataSchemaComponent implements OnInit {
     this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate$).pipe(
       switchMap(([schema, update]: [MetadataSchema, boolean]) => {
         if (update) {
-          return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), followLink('schema'));
+          return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), true, followLink('schema'));
         }
       })
     );
@@ -168,12 +165,12 @@ export class MetadataSchemaComponent implements OnInit {
         const tasks$ = [];
         for (const field of fields) {
           if (hasValue(field.id)) {
-            tasks$.push(this.registryService.deleteMetadataField(field.id));
+            tasks$.push(this.registryService.deleteMetadataField(field.id).pipe(getFirstCompletedRemoteData()));
           }
         }
-        zip(...tasks$).subscribe((responses: RestResponse[]) => {
-          const successResponses = responses.filter((response: RestResponse) => response.isSuccessful);
-          const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+        zip(...tasks$).subscribe((responses: RemoteData<NoContent>[]) => {
+          const successResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
+          const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
             this.showNotification(true, successResponses.length);
           }
@@ -185,7 +182,7 @@ export class MetadataSchemaComponent implements OnInit {
           this.forceUpdateFields();
         });
       }
-    )
+    );
   }
 
   /**
@@ -202,9 +199,9 @@ export class MetadataSchemaComponent implements OnInit {
     );
     messages.subscribe(([head, content]) => {
       if (success) {
-        this.notificationsService.success(head, content)
+        this.notificationsService.success(head, content);
       } else {
-        this.notificationsService.error(head, content)
+        this.notificationsService.error(head, content);
       }
     });
   }

@@ -62,7 +62,7 @@ describe('BulkImportMenuComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy()
+    expect(component).toBeTruthy();
   });
 
   describe('when the user is collection admin', () => {

@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../../../core/cache/response.models';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { Group } from '../../../../../core/eperson/models/group.model';
@@ -16,7 +16,6 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../../../shared/testing/group-mock';
-import { of as observableOf } from 'rxjs';
 import { SubgroupsListComponent } from './subgroups-list.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { RouterMock } from '../../../../../shared/mocks/router.mock';
@@ -37,7 +36,7 @@ describe('SubgroupsListComponent', () => {
   let allGroups;
   let routerStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
     subgroups = [GroupMock2];
     allGroups = [GroupMock, GroupMock2];
@@ -52,16 +51,16 @@ describe('SubgroupsListComponent', () => {
         return this.activeGroup;
       },
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList<Group>(new PageInfo(), this.subgroups))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList<Group>(new PageInfo(), this.subgroups));
       },
       getGroupEditPageRouterLink(group: Group): string {
         return '/admin/access-control/groups/' + group.id;
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allGroups))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allGroups));
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
       addSubGroupToGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
         this.subgroups = [...this.subgroups, subgroup];
@@ -127,7 +126,7 @@ describe('SubgroupsListComponent', () => {
       expect(groupIdsFound.find((foundEl) => {
         return (foundEl.nativeElement.textContent.trim() === group.uuid);
       })).toBeTruthy();
-    })
+    });
   });
 
   describe('if first group delete button is pressed', () => {
@@ -165,7 +164,7 @@ describe('SubgroupsListComponent', () => {
           expect(groupIdsFound.find((foundEl) => {
             return (foundEl.nativeElement.textContent.trim() === group.uuid);
           })).toBeTruthy();
-        })
+        });
       });
 
       describe('if group is already a subgroup', () => {
@@ -181,7 +180,7 @@ describe('SubgroupsListComponent', () => {
                 expect(addButton).toBeUndefined();
                 expect(deleteButton).toBeDefined();
               }
-            })
+            });
           } else {
             getSubgroups.map((group: Group) => {
               groupsFound.map((foundGroupRowElement) => {
@@ -197,8 +196,8 @@ describe('SubgroupsListComponent', () => {
                     expect(addButton).toBeDefined();
                   }
                 }
-              })
-            })
+              });
+            });
           }
         });
       });

@@ -68,7 +68,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
       .subscribe(([selectedValues, searchOptions]) => {
-        this.updateRemoveParams(selectedValues)
+        this.updateRemoveParams(selectedValues);
       });
     this.searchLink = this.getSearchLink();
   }

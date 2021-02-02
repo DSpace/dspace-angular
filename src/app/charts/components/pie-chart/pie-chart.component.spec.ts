@@ -22,7 +22,7 @@ xdescribe('PieChartComponent', () => {
       name: 'France',
       value: 7200000
     }
-  ]
+  ];
   const animations = true;
   const legend = true;
   const legendTitle = '';

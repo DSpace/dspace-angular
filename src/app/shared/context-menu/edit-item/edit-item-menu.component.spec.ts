@@ -75,7 +75,7 @@ describe('EditItemMenuComponent', () => {
     });
 
     it('should init edit mode properly', () => {
-      expect(componentAsAny.editModes$.value).toEqual([editItemMode])
+      expect(componentAsAny.editModes$.value).toEqual([editItemMode]);
     });
 
     it('should render a button', () => {
@@ -95,7 +95,7 @@ describe('EditItemMenuComponent', () => {
     });
 
     it('should init edit mode properly', () => {
-      expect(componentAsAny.editModes$.value).toEqual([])
+      expect(componentAsAny.editModes$.value).toEqual([]);
     });
 
     it('should render a button', () => {

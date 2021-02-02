@@ -4,7 +4,7 @@ import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-f
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
-  DynamicFormControlLayout, DynamicFormControlLayoutConfig,
+  DynamicFormControlLayout,
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,

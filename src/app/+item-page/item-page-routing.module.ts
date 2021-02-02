@@ -21,7 +21,7 @@ export function getItemPageRoute(itemId: string) {
 }
 
 export function getItemEditPath(id: string) {
-  return new URLCombiner(getItemModuleRoute(), id, ITEM_EDIT_PATH).toString()
+  return new URLCombiner(getItemModuleRoute(), id, ITEM_EDIT_PATH).toString();
 }
 
 @NgModule({
@@ -47,7 +47,8 @@ export function getItemEditPath(id: string) {
           },
           {
             path: ITEM_EDIT_PATH,
-            loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
+            loadChildren: () => import('./edit-item-page/edit-item-page.module')
+              .then((m) => m.EditItemPageModule),
             canActivate: [ItemPageAdministratorGuard],
             data: { title: 'submission.edit.title' }
           },

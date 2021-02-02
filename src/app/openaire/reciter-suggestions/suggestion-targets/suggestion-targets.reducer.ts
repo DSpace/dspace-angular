@@ -11,8 +11,8 @@ export interface SuggestionTargetState {
   totalPages: number;
   currentPage: number;
   totalElements: number;
-  currentUserTargets: OpenaireSuggestionTarget[]
-  currentUserTargetsVisited: boolean
+  currentUserTargets: OpenaireSuggestionTarget[];
+  currentUserTargetsVisited: boolean;
 }
 
 /**

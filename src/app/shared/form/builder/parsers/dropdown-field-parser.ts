@@ -24,7 +24,7 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions
   ) {
-    super(submissionId, configData, initFormValues, parserOptions)
+    super(submissionId, configData, initFormValues, parserOptions);
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
@@ -32,7 +32,7 @@ export class DropdownFieldParser extends FieldParser {
     let layout: DynamicFormControlLayout;
 
     if (isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
-      this.setVocabularyOptions(dropdownModelConfig);
+      this.setVocabularyOptions(dropdownModelConfig, this.parserOptions.collectionUUID);
       if (isNotEmpty(fieldValue)) {
         dropdownModelConfig.value = fieldValue;
       }

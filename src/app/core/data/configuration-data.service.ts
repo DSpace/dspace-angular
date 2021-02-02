@@ -60,3 +60,4 @@ export class ConfigurationDataService {
     return this.dataService.findById(name);
   }
 }
+/* tslint:enable:max-classes-per-file */

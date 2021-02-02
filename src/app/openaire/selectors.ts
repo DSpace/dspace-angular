@@ -30,7 +30,7 @@ export function openaireBrokerTopicsStateSelector(): MemoizedSelector<OpenaireSt
  * @return {OpenaireBrokerTopicObject[]}
  */
 export function openaireBrokerTopicsObjectSelector(): MemoizedSelector<OpenaireState, OpenaireBrokerTopicObject[]> {
-  return subStateSelector<OpenaireState, OpenaireBrokerTopicObject[]>(openaireBrokerTopicsStateSelector(), 'topics')
+  return subStateSelector<OpenaireState, OpenaireBrokerTopicObject[]>(openaireBrokerTopicsStateSelector(), 'topics');
 }
 
 /**

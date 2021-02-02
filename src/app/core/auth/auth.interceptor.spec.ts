@@ -8,14 +8,14 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
-import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RestRequestMethod } from '../data/rest-request-method';
 
 describe(`AuthInterceptor`, () => {
-  let service: DSpaceRESTv2Service;
+  let service: DspaceRestService;
   let httpMock: HttpTestingController;
 
   const authServiceStub = new AuthServiceStub();
@@ -30,20 +30,20 @@ describe(`AuthInterceptor`, () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        DSpaceRESTv2Service,
-        {provide: AuthService, useValue: authServiceStub},
-        {provide: Router, useClass: RouterStub},
+        DspaceRestService,
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: Router, useClass: RouterStub },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,
           multi: true,
         },
-        {provide: Store, useValue: store},
+        { provide: Store, useValue: store },
       ],
     });
 
-    service = TestBed.get(DSpaceRESTv2Service);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   describe('when has a valid token', () => {
@@ -104,6 +104,6 @@ describe(`AuthInterceptor`, () => {
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
     });
-  })
+  });
 
 });

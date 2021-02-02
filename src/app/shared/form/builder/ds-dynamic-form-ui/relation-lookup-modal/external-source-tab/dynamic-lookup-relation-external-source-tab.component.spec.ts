@@ -1,12 +1,12 @@
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -91,7 +91,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     selectableListService = jasmine.createSpyObj('selectableListService', ['selectSingle']);
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
@@ -130,7 +130,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
 
   describe('when the external entries are loading', () => {
     beforeEach(() => {
-      component.entriesRD$ = createPendingRemoteDataObject$(undefined);
+      component.entriesRD$ = createPendingRemoteDataObject$();
       fixture.detectChanges();
     });
 
@@ -147,7 +147,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
 
   describe('when the external entries failed loading', () => {
     beforeEach(() => {
-      component.entriesRD$ = createFailedRemoteDataObject$(undefined);
+      component.entriesRD$ = createFailedRemoteDataObject$('server error', 500);
       fixture.detectChanges();
     });
 
@@ -186,7 +186,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should open a new ExternalSourceEntryImportModalComponent', () => {
-      expect(modalService.open).toHaveBeenCalledWith(ExternalSourceEntryImportModalComponent, jasmine.any(Object))
+      expect(modalService.open).toHaveBeenCalledWith(ExternalSourceEntryImportModalComponent, jasmine.any(Object));
     });
   });
 });

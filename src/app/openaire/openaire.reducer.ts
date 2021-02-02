@@ -7,8 +7,8 @@ import { SuggestionTargetsReducer, SuggestionTargetState } from './reciter-sugge
  * The OpenAIRE State
  */
 export interface OpenaireState {
-  'brokerTopic': OpenaireBrokerTopicState,
-  'suggestionTarget': SuggestionTargetState,
+  'brokerTopic': OpenaireBrokerTopicState;
+  'suggestionTarget': SuggestionTargetState;
 }
 
 export const openaireReducers: ActionReducerMap<OpenaireState> = {

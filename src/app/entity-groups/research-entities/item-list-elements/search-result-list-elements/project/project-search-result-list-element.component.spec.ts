@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
@@ -49,7 +49,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   });
 
 describe('ProjectSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProjectSearchResultListElementComponent, TruncatePipe],
       providers: [
@@ -62,7 +62,7 @@ describe('ProjectSearchResultListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ProjectSearchResultListElementComponent);
     projectListElementComponent = fixture.componentInstance;
 

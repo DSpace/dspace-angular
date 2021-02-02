@@ -34,34 +34,34 @@ export class Section extends CacheableObject {
    */
   @deserialize
   _links: {
-      self: HALLink,
+    self: HALLink,
   };
 
 }
 
 export interface SectionComponent {
-    componentType: string;
-    style: string;
+  componentType: string;
+  style: string;
 }
 
 export interface BrowseSection extends SectionComponent {
-    browseNames: string[];
-    componentType: 'browse';
+  browseNames: string[];
+  componentType: 'browse';
 }
 
 export interface TopSection extends SectionComponent {
-    discoveryConfigurationName: string;
-    sortField: string;
-    order: string;
-    componentType: 'top';
+  discoveryConfigurationName: string;
+  sortField: string;
+  order: string;
+  componentType: 'top';
 }
 
 export interface SearchSection extends SectionComponent {
-    discoveryConfigurationName: string;
-    componentType: 'search';
+  discoveryConfigurationName: string;
+  componentType: 'search';
 }
 
 export interface FacetSection extends SectionComponent {
-    discoveryConfigurationName: string;
-    componentType: 'facet';
+  discoveryConfigurationName: string;
+  componentType: 'facet';
 }

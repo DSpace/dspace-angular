@@ -1,4 +1,4 @@
-import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
+import { DynamicCheckboxModelConfig, DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
@@ -25,6 +25,12 @@ export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectMod
   errorMessages: {
     required: 'collection.form.errors.submissionDefinition.required'
   },
+};
+
+export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {
+  id: 'sharedWorkspace',
+  name: 'cris.workspace.shared',
+  disabled: false
 };
 
 /**
@@ -63,4 +69,4 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     id: 'license',
     name: 'dc.rights.license',
   })
-]
+];

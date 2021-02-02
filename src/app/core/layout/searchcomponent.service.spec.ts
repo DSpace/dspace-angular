@@ -1,8 +1,6 @@
-import { TestBed } from '@angular/core/testing';
-
 import { SearchcomponentService } from './searchcomponent.service';
 import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler, cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from '../data/request.reducer';
 import { RestResponse } from '../cache/response.models';
@@ -10,7 +8,7 @@ import { RequestService } from '../data/request.service';
 import { of } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { SearchComponent } from './models/search-component.model';
 import { SEARCH_COMPONENT } from './models/search-component.resource-type';

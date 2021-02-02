@@ -1,7 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
@@ -24,13 +24,16 @@ import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/
 import { OpenaireBrokerEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { RestResponse } from '../../../core/cache/response.models';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
 import { FindListOptions } from '../../../core/data/request.models';
-import {SortDirection, SortOptions} from '../../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 describe('OpenaireBrokerEventsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerEventsComponent>;
@@ -87,7 +90,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     };
   }
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -157,17 +160,17 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     });
 
     describe('setEventUpdated', () => {
-      it('should make a BehaviorSubject<OpenaireBrokerEventData[ ... ]>', () => {
-        const expected$: BehaviorSubject<OpenaireBrokerEventData[]> = new BehaviorSubject([
+      it('should update events', () => {
+        const expected = [
           getOpenAireBrokerEventData1(),
           getOpenAireBrokerEventData2()
-        ]);
+        ];
         scheduler.schedule(() => {
           compAsAny.setEventUpdated(events);
         });
         scheduler.flush();
 
-        expect(comp.eventsUpdated$).toEqual(expected$);
+        expect(comp.eventsUpdated$.value).toEqual(expected);
       });
     });
 
@@ -218,7 +221,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
         );
         scheduler.schedule(() => {
           comp.openModalLookup(getOpenAireBrokerEventData1());
-        })
+        });
         scheduler.flush();
 
         expect(compAsAny.modalService.open).toHaveBeenCalled();
@@ -230,7 +233,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
       it('should call getOpenaireBrokerEvents on 200 response from REST', () => {
         const action = 'ACCEPTED';
         spyOn(compAsAny, 'getOpenaireBrokerEvents');
-        openaireBrokerEventRestServiceStub.patchEvent.and.returnValue(observableOf(new RestResponse(true, 200, 'Success')));
+        openaireBrokerEventRestServiceStub.patchEvent.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
         scheduler.schedule(() => {
           comp.executeAction(action, getOpenAireBrokerEventData1());
@@ -242,12 +245,12 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     });
 
     describe('boundProject', () => {
-      it('should populate the project data inside "eventData", on 201 response from REST', () => {
+      it('should populate the project data inside "eventData"', () => {
         const eventData = getOpenAireBrokerEventData2();
         const projectId = 'UUID-23943-34u43-38344';
         const projectName = 'Test Project';
         const projectHandle = '1000/1000';
-        openaireBrokerEventRestServiceStub.boundProject.and.returnValue(observableOf(new RestResponse(true, 201, 'Created')));
+        openaireBrokerEventRestServiceStub.boundProject.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
         scheduler.schedule(() => {
           comp.boundProject(eventData, projectId, projectName, projectHandle);
@@ -262,9 +265,9 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     });
 
     describe('removeProject', () => {
-      it('should remove the project data inside "eventData", on 204 response from REST', () => {
+      it('should remove the project data inside "eventData"', () => {
         const eventData = getOpenAireBrokerEventData1();
-        openaireBrokerEventRestServiceStub.removeProject.and.returnValue(observableOf(new RestResponse(true, 204, 'No Content')));
+        openaireBrokerEventRestServiceStub.removeProject.and.returnValue(createNoContentRemoteDataObject$());
 
         scheduler.schedule(() => {
           comp.removeProject(eventData);
@@ -301,7 +304,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
           openaireBrokerEventObjectMissingProjectFound,
           openaireBrokerEventObjectMissingProjectNotFound,
         ];
-        const paginatedList = new PaginatedList(pageInfo, array);
+        const paginatedList = buildPaginatedList(pageInfo, array);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
         openaireBrokerEventRestServiceStub.getEventsByTopic.and.returnValue(observableOf(paginatedListRD));
         spyOn(compAsAny, 'setEventUpdated');

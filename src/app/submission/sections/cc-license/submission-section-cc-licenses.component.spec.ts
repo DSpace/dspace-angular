@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
 import { of as observableOf } from 'rxjs';
@@ -9,14 +9,13 @@ import { SharedModule } from '../../../shared/shared.module';
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
-import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateModule } from '@ngx-translate/core';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { cold } from 'jasmine-marbles';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
@@ -130,25 +129,15 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   ];
 
   const submissionCcLicensesDataService = jasmine.createSpyObj('submissionCcLicensesDataService', {
-    findAll: observableOf(new RemoteData(
-      false,
-      false,
-      true,
-      undefined,
-      new PaginatedList(new PageInfo(), submissionCcLicenses),
-    )),
+    findAll: createSuccessfulRemoteDataObject$(createPaginatedList(submissionCcLicenses)),
   });
 
   const submissionCcLicenseUrlDataService = jasmine.createSpyObj('submissionCcLicenseUrlDataService', {
-    getCcLicenseLink: observableOf(new RemoteData(
-      false,
-      false,
-      true,
-      undefined,
+    getCcLicenseLink: createSuccessfulRemoteDataObject$(
       {
         url: 'test cc license link',
       }
-      )),
+    ),
   });
 
   const sectionService = {
@@ -166,7 +155,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     remove: undefined,
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
@@ -181,7 +170,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: SectionsService, useValue: sectionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
-        { provide: 'sectionDataProvider', useValue: sectionObject },
+        { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
       ],
     })

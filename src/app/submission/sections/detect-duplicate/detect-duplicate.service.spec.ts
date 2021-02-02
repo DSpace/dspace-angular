@@ -1,8 +1,7 @@
-import * as ngrx from '@ngrx/store';
 import { Store, StoreModule } from '@ngrx/store';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { cold, hot } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { submissionReducers } from '../../submission.reducers';
@@ -11,14 +10,13 @@ import {
   mockDeduplicationSubmitterId,
   mockDeduplicationWorkflowId,
   mockSubmissionId,
-  mockSubmissionState
+  mockSubmissionState, mockSubmissionStateWithDuplicate
 } from '../../../shared/mocks/submission.mock';
 import { SetDuplicateDecisionAction } from '../../objects/submission-objects.actions';
 
 describe('DetectDuplicateService', () => {
   let service: DetectDuplicateService;
   let serviceAsAny: any;
-  let selectSpy: any;
   let store: any;
   let initialState: any;
   const sectionId = 'detect-duplicate';
@@ -27,7 +25,7 @@ describe('DetectDuplicateService', () => {
     initialState = { submission: { objects: mockSubmissionState } };
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -41,10 +39,9 @@ describe('DetectDuplicateService', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     service = new DetectDuplicateService(store);
     serviceAsAny = service;
-    selectSpy = spyOnProperty(ngrx, 'select').and.callThrough();
     spyOn(store, 'dispatch');
   });
 
@@ -101,15 +98,10 @@ describe('DetectDuplicateService', () => {
   });
 
   describe('Testing methods with deduplication matches', () => {
+
     beforeEach(() => {
-      selectSpy.and.callFake(() => {
-        return () => {
-          return () => hot('a', {
-              a: { matches: mockDeduplicationMatches }
-            }
-          );
-        };
-      });
+      initialState = { submission: { objects: mockSubmissionStateWithDuplicate } };
+      store.setState(initialState);
     });
 
     describe('getDuplicateMatches', () => {

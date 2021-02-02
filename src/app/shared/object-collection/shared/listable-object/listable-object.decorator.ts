@@ -37,7 +37,7 @@ export function listableObjectComponent(objectType: string | GenericConstructor<
  * @param viewMode The view mode that should match the components
  * @param context The context that should match the components
  */
-export function getListableObjectComponent(types: Array<string | GenericConstructor<ListableObject>>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
+export function getListableObjectComponent(types: (string | GenericConstructor<ListableObject>)[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
   let bestMatch;
   let bestMatchValue = 0;
   for (const type of types) {

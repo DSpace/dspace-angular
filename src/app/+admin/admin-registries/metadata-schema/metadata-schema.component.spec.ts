@@ -1,7 +1,7 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -100,18 +100,21 @@ describe('MetadataSchemaComponent', () => {
       schema: createSuccessfulRemoteDataObject$(mockSchemasList[1])
     }
   ];
-  const mockSchemas = createSuccessfulRemoteDataObject$(new PaginatedList(null, mockSchemasList));
+  const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(new PaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
+    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
     getMetadataSchemaByPrefix: (schemaName: string) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]),
     getActiveMetadataField: () => observableOf(undefined),
     getSelectedMetadataFields: () => observableOf([]),
-    editMetadataField: (schema) => {},
-    cancelEditMetadataField: () => {},
+    editMetadataField: (schema) => {
+    },
+    cancelEditMetadataField: () => {
+    },
     deleteMetadataField: () => observableOf(new RestResponse(true, 200, 'OK')),
-    deselectAllMetadataField: () => {},
+    deselectAllMetadataField: () => {
+    },
     clearMetadataFieldRequests: () => observableOf(undefined)
   };
   /* tslint:enable:no-empty */
@@ -122,7 +125,7 @@ describe('MetadataSchemaComponent', () => {
     })
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [MetadataSchemaComponent, PaginationComponent, EnumKeysPipe, VarDirective],
@@ -175,13 +178,13 @@ describe('MetadataSchemaComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should start editing the selected field', async(() => {
+    it('should start editing the selected field', waitForAsync(() => {
       fixture.whenStable().then(() => {
         expect(registryService.editMetadataField).toHaveBeenCalledWith(mockFieldsList[2] as MetadataField);
       });
     }));
 
-    it('should cancel editing the selected field when clicked again', async(() => {
+    it('should cancel editing the selected field when clicked again', waitForAsync(() => {
       spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(mockFieldsList[2] as MetadataField));
       spyOn(registryService, 'cancelEditMetadataField');
       row.click();
@@ -202,7 +205,7 @@ describe('MetadataSchemaComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should call deleteMetadataField with the selected id', async(() => {
+    it('should call deleteMetadataField with the selected id', waitForAsync(() => {
       fixture.whenStable().then(() => {
         expect(registryService.deleteMetadataField).toHaveBeenCalledWith(selectedFields[0].id);
       });

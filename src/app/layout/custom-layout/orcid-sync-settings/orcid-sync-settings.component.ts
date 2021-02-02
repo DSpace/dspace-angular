@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-layout-box.model';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { NgForm, FormGroup } from '@angular/forms';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { FormGroup } from '@angular/forms';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { Operation } from 'fast-json-patch';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { RequestService } from 'src/app/core/data/request.service';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { RequestService } from '../../../core/data/request.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-orcid-sync-settings.component',
@@ -30,13 +30,13 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
   currentSyncProfile: string[];
 
-  syncModes: Array<{value: string, label: string}>;
+  syncModes: {value: string, label: string}[];
 
-  syncPublicationOptions: Array<{value: string, label: string}>;
+  syncPublicationOptions: {value: string, label: string}[];
 
-  syncProjectOptions: Array<{value: string, label: string}>;
+  syncProjectOptions: {value: string, label: string}[];
 
-  syncProfileOptions: Array<{value: string, label: string, checked: boolean}>;
+  syncProfileOptions: {value: string, label: string, checked: boolean}[];
 
   constructor(private itemDataService: ItemDataService,
               private translateService: TranslateService,
@@ -138,9 +138,9 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
     this.itemDataService.patch(this.item, operations)
       .subscribe((restResponse) => {
-        if (restResponse.isSuccessful) {
+        if (restResponse.isSuccess) {
           this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
-          this.requestService.removeByHrefSubstring(this.item._links.self.href);
+          this.requestService.setStaleByHrefSubstring(this.item._links.self.href);
           this.itemDataService.findById(this.item.id)
             .pipe(getFirstSucceededRemoteDataPayload())
             .subscribe((item) => this.item = item);
@@ -159,6 +159,6 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       path: '/metadata/' + metadataField,
       op: !this.item.hasMetadata(metadataField) ? 'add' : 'replace',
       value: currentValue
-    })
+    });
   }
 }

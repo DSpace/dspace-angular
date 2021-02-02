@@ -1,12 +1,12 @@
 import { Component, Inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { SEARCH_CONFIG_SERVICE } from 'src/app/+my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
-import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { slide } from 'src/app/shared/animations/slide';
-import { isNotEmpty } from 'src/app/shared/empty.util';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { slide } from '../../../animations/slide';
+import { isNotEmpty } from '../../../empty.util';
 import { SearchFilterConfig } from '../../search-filter-config.model';
 
 @Component({
@@ -96,10 +96,10 @@ export class SearchChartComponent implements OnInit {
                 return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
                   map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0
-                  }),)
+                    return valuesRD.payload.totalElements > 0;
+                  }));
               }
-            ))
+            ));
         }
       }),
       startWith(true));

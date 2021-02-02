@@ -8,29 +8,26 @@ import { CommunityPageSubCollectionListComponent } from './sub-collection-list/c
 import { CommunityPageRoutingModule } from './community-page-routing.module';
 import { CommunityPageSubCommunityListComponent } from './sub-community-list/community-page-sub-community-list.component';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
-import { CommunityFormComponent } from './community-form/community-form.component';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { StatisticsModule } from '../statistics/statistics.module';
+import { CommunityFormModule } from './community-form/community-form.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        CommunityPageRoutingModule,
-        StatisticsModule.forRoot(),
-        ContextMenuModule
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    CommunityPageRoutingModule,
+    StatisticsModule.forRoot(),
+    CommunityFormModule,
+    ContextMenuModule
+  ],
   declarations: [
     CommunityPageComponent,
     CommunityPageSubCollectionListComponent,
     CommunityPageSubCommunityListComponent,
     CreateCommunityPageComponent,
-    DeleteCommunityPageComponent,
-    CommunityFormComponent
-  ],
-  exports: [
-    CommunityFormComponent
+    DeleteCommunityPageComponent
   ]
 })
 

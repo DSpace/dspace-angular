@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionSourceComponent } from './collection-source.component';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
@@ -17,10 +17,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RequestService } from '../../../core/data/request.service';
-import { RestResponse } from 'src/app/core/cache/response.models';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -43,7 +42,7 @@ describe('CollectionSourceComponent', () => {
   let comp: CollectionSourceComponent;
   let fixture: ComponentFixture<CollectionSourceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     date = new Date();
     contentSource = Object.assign(new ContentSource(), {
       uuid: uuid,
@@ -112,10 +111,12 @@ describe('CollectionSourceComponent', () => {
       uuid: 'fake-collection-id'
     });
     collectionService = jasmine.createSpyObj('collectionService', {
-      getContentSource: observableOf(contentSource),
+      getContentSource: createSuccessfulRemoteDataObject$(contentSource),
       updateContentSource: observableOf(contentSource),
       getHarvesterEndpoint: observableOf('harvester-endpoint'),
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
+        uuid: 'fake-collection-id'
+      }))
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
 
@@ -127,7 +128,7 @@ describe('CollectionSourceComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Location, useValue: location },
         { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: new RemoteData(false, false, true, null, collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: RequestService, useValue: requestService }
@@ -174,7 +175,7 @@ describe('CollectionSourceComponent', () => {
     });
 
     it('should send a field update', () => {
-      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource)
+      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource);
     });
 
     it('should display the form', () => {

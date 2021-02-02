@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction, RefreshTokenAndRedirectAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { AuthTokenInfo } from 'src/app/core/auth/models/auth-token-info.model';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -33,7 +33,7 @@ describe('EndUserAgreementComponent', () => {
     token = new AuthTokenInfo('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      hasCurrentUserOrCookieAcceptedAgreement : observableOf(false),
+      hasCurrentUserOrCookieAcceptedAgreement: observableOf(false),
       setUserAcceptedAgreement: observableOf(true)
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error', 'warning']);
@@ -50,11 +50,11 @@ describe('EndUserAgreementComponent', () => {
     }) as any;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ],
-      declarations: [ EndUserAgreementComponent ],
+      imports: [TranslateModule.forRoot()],
+      declarations: [EndUserAgreementComponent],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },

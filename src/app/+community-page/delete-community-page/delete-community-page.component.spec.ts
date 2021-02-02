@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,13 +9,13 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SharedModule } from '../../shared/shared.module';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
-import {RequestService} from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 
 describe('DeleteCommunityPageComponent', () => {
   let comp: DeleteCommunityPageComponent;
   let fixture: ComponentFixture<DeleteCommunityPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [DeleteCommunityPageComponent],
@@ -38,6 +38,6 @@ describe('DeleteCommunityPageComponent', () => {
   describe('frontendURL', () => {
     it('should have the right frontendURL set', () => {
       expect((comp as any).frontendURL).toEqual('/communities/');
-    })
+    });
   });
 });

@@ -2,21 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {flatMap, take} from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RouteService } from '../../../core/services/route.service';
 import { Community } from '../../../core/shared/community.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import {RequestService} from '../../../core/data/request.service';
+import { RequestService } from '../../../core/data/request.service';
 import {Collection} from '../../../core/shared/collection.model';
 
 /**
@@ -26,7 +23,7 @@ import {Collection} from '../../../core/shared/collection.model';
   selector: 'ds-create-comcol',
   template: ''
 })
-export class CreateComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
+export class CreateComColPageComponent<TDomain extends Collection | Community> implements OnInit {
   /**
    * Frontend endpoint for this type of DSO
    */
@@ -83,11 +80,11 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
 
     this.parentUUID$.pipe(
       take(1),
-      flatMap((uuid: string) => {
+      mergeMap((uuid: string) => {
       const params = uuid ? [new RequestParam('parent', uuid)] : [];
       return this.dsoDataService.create(dso, ...params)
         .pipe(getFirstSucceededRemoteDataPayload()
-        )
+        );
       }))
       .subscribe((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {

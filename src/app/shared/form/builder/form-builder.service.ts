@@ -8,6 +8,8 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DynamicFormArrayModel,
+  DynamicFormComponentService,
+  DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormService,
@@ -28,6 +30,7 @@ import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-inpu
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -40,15 +43,16 @@ export class FormBuilderService extends DynamicFormService {
   private formModels: Map<string, DynamicFormControlModel[]>;
 
   constructor(
+    componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
     protected rowParser: RowParser
   ) {
-    super(validationService);
+    super(componentService, validationService);
     this.formModels = new Map();
   }
 
   getTypeBindModel() {
-    return this.typeBindModel
+    return this.typeBindModel;
   }
 
   setTypeBindModel(model: DynamicFormControlModel) {
@@ -70,6 +74,13 @@ export class FormBuilderService extends DynamicFormService {
             result = controlModel;
           }
           break;
+        }
+
+        if (this.isConcatGroup(controlModel)) {
+          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
+            result = (controlModel as DynamicConcatModel).group[0];
+            break;
+          }
         }
 
         if (this.isGroup(controlModel)) {
@@ -105,8 +116,8 @@ export class FormBuilderService extends DynamicFormService {
           continue;
         }
 
-        if (controlModel.hasOwnProperty('valueUpdates')) {
-          (controlModel as any).valueUpdates.next(undefined);
+        if (controlModel.hasOwnProperty('valueChanges')) {
+          (controlModel as any).value = undefined;
         }
       }
     };
@@ -129,7 +140,7 @@ export class FormBuilderService extends DynamicFormService {
       if (isString(controlValue)) {
         return new FormFieldMetadataValueObject(controlValue, controlLanguage, null, null, controlModelIndex);
       } else if (isNgbDateStruct(controlValue)) {
-        return new FormFieldMetadataValueObject(dateToString(controlValue))
+        return new FormFieldMetadataValueObject(dateToString(controlValue));
       } else if (isObject(controlValue)) {
         const authority = (controlValue as any).authority || (controlValue as any).id || null;
         const place = controlModelIndex || (controlValue as any).place;
@@ -222,13 +233,13 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false, typeBindModel = null): DynamicFormControlModel[] | never {
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false, typeBindModel = null, isInnerForm = false): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly);
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -272,6 +283,10 @@ export class FormBuilderService extends DynamicFormService {
 
   isCustomGroup(model: DynamicFormControlModel): boolean {
     return model && ((model as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP && (model as any).isCustomGroup === true);
+  }
+
+  isConcatGroup(model: DynamicFormControlModel): boolean {
+    return this.isCustomGroup(model) && (model.id.indexOf(CONCAT_GROUP_SUFFIX) !== -1);
   }
 
   isRowGroup(model: DynamicFormControlModel): boolean {
@@ -359,10 +374,82 @@ export class FormBuilderService extends DynamicFormService {
     this.formModels.forEach( (model, formId) => {
       const fieldModel: any = this.findById(fieldId, model);
       if (hasValue(fieldModel)) {
-        fieldModel.valueUpdates.next(value);
+        fieldModel.value = value;
         return;
       }
     });
+  }
+
+  /**
+   * Calculate the metadata list related to the event.
+   * @param event
+   */
+  getMetadataIdsFromEvent(event: DynamicFormControlEvent): string[] {
+
+    let model = event.model;
+    while (model.parent) {
+      model = model.parent as any;
+    }
+
+    const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): string[] => {
+      let iterateResult = Object.create({});
+
+      // Iterate over all group's controls
+      for (const controlModel of findGroupModel) {
+
+        if (this.isRowGroup(controlModel) && !this.isCustomOrListGroup(controlModel)) {
+          iterateResult = mergeWith(iterateResult, iterateControlModels((controlModel as DynamicFormGroupModel).group));
+          continue;
+        }
+
+        if (this.isGroup(controlModel) && !this.isCustomOrListGroup(controlModel)) {
+          iterateResult[controlModel.name] = iterateControlModels((controlModel as DynamicFormGroupModel).group);
+          continue;
+        }
+
+        if (this.isRowArrayGroup(controlModel)) {
+          for (const arrayItemModel of (controlModel as DynamicRowArrayModel).groups) {
+            iterateResult = mergeWith(iterateResult, iterateControlModels(arrayItemModel.group, arrayItemModel.index));
+          }
+          continue;
+        }
+
+        if (this.isArrayGroup(controlModel)) {
+          iterateResult[controlModel.name] = [];
+          for (const arrayItemModel of (controlModel as DynamicFormArrayModel).groups) {
+            iterateResult[controlModel.name].push(iterateControlModels(arrayItemModel.group, arrayItemModel.index));
+          }
+          continue;
+        }
+
+        let controlId;
+        // Get the field's name
+        if (this.isQualdropGroup(controlModel)) {
+          // If is instance of DynamicQualdropModel take the qualdrop id as field's name
+          controlId = (controlModel as DynamicQualdropModel).qualdropId;
+        } else {
+          controlId = controlModel.name;
+        }
+
+        if (this.isRelationGroup(controlModel)) {
+          const values = (controlModel as DynamicRelationGroupModel).getGroupValue();
+          values.forEach((groupValue, groupIndex) => {
+            Object.keys(groupValue).forEach((key) => {
+              iterateResult[key] = true;
+            });
+          });
+        } else {
+          iterateResult[controlId] = true;
+        }
+
+      }
+
+      return iterateResult;
+    };
+
+    const result = iterateControlModels([model]);
+
+    return Object.keys(result);
   }
 
 }

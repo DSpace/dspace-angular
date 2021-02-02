@@ -7,16 +7,15 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from '../data/request.reducer';
 import { Box } from './models/box.model';
 import { BOX } from './models/box.resource-type';
-import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList } from '../data/paginated-list';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { getTestScheduler, cold, hot } from 'jasmine-marbles';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { RestResponse } from '../cache/response.models';
 import { of } from 'rxjs';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('BoxDataService', () => {
   let scheduler: TestScheduler;
@@ -110,9 +109,8 @@ describe('BoxDataService', () => {
   const boxId = '1';
   const tabId = 1;
 
-  const pageInfo = new PageInfo();
   const array = [boxMetadata, boxSearch, boxMetrics];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = createPaginatedList(array);
   const boxRD = createSuccessfulRemoteDataObject(boxMetadata);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
@@ -125,7 +123,6 @@ describe('BoxDataService', () => {
 
     responseCacheEntry = new RequestEntry();
     responseCacheEntry.request = { href: 'https://rest.api/' } as any;
-    responseCacheEntry.completed = true;
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
     requestService = jasmine.createSpyObj('requestService', {
@@ -191,7 +188,7 @@ describe('BoxDataService', () => {
       scheduler.schedule(() => service.findByItem(itemUUID, tabId));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true);
     });
 
     it('should return a RemoteData<PaginatedList<Box>> for the search', () => {
@@ -213,7 +210,7 @@ describe('BoxDataService', () => {
       scheduler.schedule(() => service.findByEntityType(entityType));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options, true);
     });
 
     it('should return a RemoteData<PaginatedList<Box>> for the search', () => {

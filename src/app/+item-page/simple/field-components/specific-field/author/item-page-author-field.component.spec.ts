@@ -1,6 +1,6 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
@@ -13,7 +13,7 @@ const mockFields = ['dc.contributor.author', 'dc.creator', 'dc.contributor'];
 const mockValue = 'test value';
 
 describe('ItemPageAuthorFieldComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -24,12 +24,12 @@ describe('ItemPageAuthorFieldComponent', () => {
       declarations: [ItemPageAuthorFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageAuthorFieldComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   for (const field of mockFields) {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(ItemPageAuthorFieldComponent);
       comp = fixture.componentInstance;
       comp.item = mockItemWithMetadataFieldAndValue(field, mockValue);

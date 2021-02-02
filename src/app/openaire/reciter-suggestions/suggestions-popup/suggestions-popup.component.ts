@@ -3,11 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
-import { takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { combineLatest } from 'rxjs';
-import { Subject } from 'rxjs/internal/Subject';
+import { combineLatest, Subject } from 'rxjs';
 
 @Component({
   selector: 'ds-suggestions-popup',
@@ -37,18 +36,15 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
       this.reciterSuggestionStateService.getCurrentUserSuggestionTargets(),
       this.reciterSuggestionStateService.hasUserVisitedSuggestions()
     ]).pipe(takeUntil(notifier)).subscribe(([suggestions, visited]) => {
-      console.log('suggestions', JSON.stringify(suggestions));
-      console.log('visited', visited);
       if (isNotEmpty(suggestions)) {
         if (!visited) {
-          console.log('here');
-          suggestions.forEach((suggestionTarget: OpenaireSuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget))
+          suggestions.forEach((suggestionTarget: OpenaireSuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget));
           this.reciterSuggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction();
           notifier.next();
-          notifier.complete()
+          notifier.complete();
         }
       }
-    })
+    });
   }
 
   /**
@@ -57,7 +53,6 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
    * @private
    */
   private showNotificationForNewSuggestions(suggestionTarget: OpenaireSuggestionTarget): void {
-    console.log('inside');
     const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion',
       this.suggestionsService.getNotificationSuggestionInterpolation(suggestionTarget));
     this.notificationsService.success('', content, {timeOut:0}, true);

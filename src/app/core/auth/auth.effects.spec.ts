@@ -37,7 +37,7 @@ import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { Router } from '@angular/router';
-import { RouterStub } from 'src/app/shared/testing/router.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { take } from 'rxjs/operators';
 
 describe('AuthEffects', () => {
@@ -56,7 +56,7 @@ describe('AuthEffects', () => {
     authServiceStub = new AuthServiceStub();
     token = authServiceStub.getToken();
     redirectUrl = '/redirect-url';
-    authStatus = Object.assign(new AuthStatus(), {})
+    authStatus = Object.assign(new AuthStatus(), {});
     initialState = {
       core: {
         auth: {
@@ -85,8 +85,8 @@ describe('AuthEffects', () => {
       ],
     });
 
-    authEffects = TestBed.get(AuthEffects);
-    store = TestBed.get(Store);
+    authEffects = TestBed.inject(AuthEffects);
+    store = TestBed.inject(Store as any);
   });
 
   describe('authenticate$', () => {
@@ -215,7 +215,7 @@ describe('AuthEffects', () => {
         expect(authEffects.checkToken$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('checkTokenCookie$', () => {
@@ -284,7 +284,7 @@ describe('AuthEffects', () => {
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('retrieveAuthenticatedEperson$', () => {
@@ -344,7 +344,7 @@ describe('AuthEffects', () => {
         expect(authEffects.refreshToken$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('retrieveToken$', () => {
@@ -406,7 +406,7 @@ describe('AuthEffects', () => {
         expect(authEffects.logOut$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('retrieveMethods$', () => {
@@ -577,5 +577,5 @@ describe('AuthEffects', () => {
       });
       done();
     });
-  })
+  });
 });

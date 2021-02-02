@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,14 +9,12 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { zip as observableZip, of as observableOf } from 'rxjs';
-import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
@@ -26,6 +23,8 @@ import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { Operation } from 'fast-json-patch';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -107,7 +106,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   postItemInit(): void {
     this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)
     );
@@ -125,10 +124,10 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Also re-initialize the original fields and updates
    */
   initializeItemUpdate(): void {
-    this.itemUpdateSubscription = this.requestService.hasByHrefObservable(this.item.self).pipe(
+    this.itemUpdateSubscription = this.requestService.hasByHref$(this.item.self).pipe(
       filter((exists: boolean) => !exists),
       switchMap(() => this.itemService.findById(this.item.uuid)),
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
     ).subscribe((itemRD: RemoteData<Item>) => {
       if (hasValue(itemRD)) {
         this.item = itemRD.payload;
@@ -173,7 +172,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     );
 
     // Perform the setup actions from above in order and display notifications
-    removedResponses$.pipe(take(1)).subscribe((responses: RestResponse[]) => {
+    removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
       this.reset();
       this.submitting = false;
@@ -190,12 +189,12 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   dropBitstream(bundle: Bundle, event: any) {
     this.zone.runOutsideAngular(() => {
       if (hasValue(event) && hasValue(event.fromIndex) && hasValue(event.toIndex) && hasValue(event.finish)) {
-        const moveOperation = Object.assign({
+        const moveOperation = {
           op: 'move',
           from: `/_links/bitstreams/${event.fromIndex}/href`,
           path: `/_links/bitstreams/${event.toIndex}/href`
-        });
-        this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RestResponse) => {
+        } as Operation;
+        this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RemoteData<Bundle>) => {
           this.zone.run(() => {
             this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
             // Remove all cached requests from this bundle and call the event's callback when the requests are cleared
@@ -216,12 +215,12 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * @param key       The i18n key for the notification messages
    * @param responses The returned responses to display notifications for
    */
-  displayNotifications(key: string, responses: RestResponse[]) {
+  displayNotifications(key: string, responses: RemoteData<any>[]) {
     if (isNotEmpty(responses)) {
-      const failedResponses = responses.filter((response: RestResponse) => hasValue(response) && !response.isSuccessful);
-      const successfulResponses = responses.filter((response: RestResponse) => hasValue(response) && response.isSuccessful);
+      const failedResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasFailed);
+      const successfulResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasSucceeded);
 
-      failedResponses.forEach((response: ErrorResponse) => {
+      failedResponses.forEach((response: RemoteData<Bundle>) => {
         this.notificationsService.error(this.translateService.instant(`${key}.failed.title`), response.errorMessage);
       });
       if (successfulResponses.length > 0) {

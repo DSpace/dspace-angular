@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
@@ -29,7 +28,7 @@ import { ItemSearchResultGridElementComponent } from './item-search-result-grid-
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
 mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
@@ -61,7 +60,7 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithoutMetadata.hitHighlights = {};
 mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
@@ -98,7 +97,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
       }
     };
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
         declarations: [component, TruncatePipe],
@@ -122,7 +121,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
       }).compileComponents();
     }));
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(component);
       comp = fixture.componentInstance;
     }));
@@ -152,5 +151,5 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         });
       });
     });
-  }
+  };
 }

@@ -42,8 +42,7 @@ import { ProcessFormComponent } from './form/process-form.component';
   providers: [
     ProcessBreadcrumbResolver,
     ProcessBreadcrumbsService
-  ],
-  entryComponents: []
+  ]
 })
 
 export class ProcessPageModule {

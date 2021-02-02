@@ -2,17 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { VersionHistory } from '../../../../core/shared/version-history.model';
 import { Version } from '../../../../core/shared/version.model';
-import { hasValue } from '../../../empty.util';
+import { hasValue, hasValueOperator } from '../../../empty.util';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 import { filter, map, startWith, switchMap } from 'rxjs/operators';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { AlertType } from '../../../alert/aletr-type';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { getItemPageRoute } from '../../../../+item-page/item-page-routing-paths';
 
 @Component({
@@ -78,6 +77,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
       this.versionHistoryRD$ = this.versionRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
+        hasValueOperator(),
         switchMap((version: Version) => version.versionhistory)
       );
       const versionHistory$ = this.versionHistoryRD$.pipe(
@@ -89,6 +89,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
           this.versionHistoryService.getVersions(versionHistory.id, latestVersionSearch, followLink('item'))),
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
+        hasValueOperator(),
         filter((versions) => versions.page.length > 0),
         map((versions) => versions.page[0])
       );
@@ -98,7 +99,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
       ).pipe(
         map(([itemVersion, latestVersion]: [Version, Version]) => itemVersion.id === latestVersion.id),
         startWith(true)
-      )
+      );
     }
   }
 

@@ -1,6 +1,6 @@
-<div class="mt-2" class="d-inline">
+<div class="d-inline">
   <div ngbDropdown class="d-inline">
-    <button class="btn btn-success mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
+    <button class="btn btn-success" id="dropdownSubmission" ngbDropdownToggle
             type="button">
       <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
       <span class="caret"></span>
@@ -12,7 +12,7 @@
       <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
     </div>
   </div>
-  <button (click)="notMine()" class="btn btn-danger mt-1 ml-2"><i class="fa fa-ban"></i>
+  <button (click)="notMine()" class="btn btn-danger ml-2"><i class="fa fa-ban"></i>
     {{ notMineLabel() | translate}}</button>
   <button *ngIf="!isBulk" (click)="toggleSeeEvidences()" [disabled]="!hasEvidence" class="btn btn-info mt-1 ml-2"><i class="fa fa-eye"></i>
     <ng-container *ngIf="!seeEvidence">{{'reciter.suggestion.seeEvidence' | translate}}</ng-container>

@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
@@ -59,7 +59,7 @@ describe('SectionFormOperationsService test suite', () => {
     type: 'remove'
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -78,9 +78,9 @@ describe('SectionFormOperationsService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SectionFormOperationsService);
+    service = TestBed.inject(SectionFormOperationsService);
     serviceAsAny = service;
-    formBuilderService = TestBed.get(FormBuilderService);
+    formBuilderService = TestBed.inject(FormBuilderService);
   });
 
   describe('dispatchOperationsFromEvent', () => {
@@ -758,6 +758,6 @@ describe('SectionFormOperationsService test suite', () => {
 
       expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('path'));
     });
-  })
+  });
 
 });

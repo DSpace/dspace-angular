@@ -12,7 +12,7 @@ import {
 } from './openaire-broker-topics.actions';
 
 import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { OpenaireBrokerTopicRestService } from '../../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
@@ -41,9 +41,9 @@ export class OpenaireBrokerTopicsEffects {
           if (error) {
             console.error(error.message);
           }
-          return observableOf(new RetrieveAllTopicsErrorAction())
+          return observableOf(new RetrieveAllTopicsErrorAction());
         })
-      )
+      );
     })
   );
 
@@ -53,7 +53,7 @@ export class OpenaireBrokerTopicsEffects {
   @Effect({ dispatch: false }) retrieveAllTopicsErrorAction$ = this.actions$.pipe(
     ofType(OpenaireBrokerTopicActionTypes.RETRIEVE_ALL_TOPICS_ERROR),
     tap(() => {
-      this.notificationsService.error(null, this.translate.get('openaire.broker.topic.error.service.retrieve'))
+      this.notificationsService.error(null, this.translate.get('openaire.broker.topic.error.service.retrieve'));
     })
   );
 

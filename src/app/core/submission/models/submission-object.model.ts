@@ -11,14 +11,13 @@ import { Collection } from '../../shared/collection.model';
 import { COLLECTION } from '../../shared/collection.resource-type';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
-import { Item } from '../../shared/item.model';
 import { ITEM } from '../../shared/item.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 export interface SubmissionObjectError {
-  message: string,
-  paths: string[],
+  message: string;
+  paths: string[];
 }
 
 /**

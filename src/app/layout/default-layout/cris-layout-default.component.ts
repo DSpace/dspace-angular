@@ -10,7 +10,7 @@ import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators'
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCrisLayoutTab } from '../decorators/cris-layout-tab.decorator';
 import { CrisLayoutPage } from '../decorators/cris-layout-page.decorator';
-import { CrisLayoutPage as CrisLayoutPageObj } from '../models/cris-layout-page.model';
+import { CrisLayoutPageModelComponent as CrisLayoutPageObj } from '../models/cris-layout-page.model';
 import { LayoutPage } from '../enums/layout-page.enum';
 import { isNotEmpty } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
@@ -18,7 +18,7 @@ import { AuthService } from '../../core/auth/auth.service';
 /**
  * This component defines the default layout for all DSpace Items.
  * This component can be overwritten for a specific Item type using
- * CrisLayoutPage decorator
+ * CrisLayoutPageModelComponent decorator
  */
 @Component({
   selector: 'ds-cris-layout-default',
@@ -74,7 +74,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
 
     // Init the sidebar status
     this.hasSidebar$.pipe(take(1)).subscribe((status) => {
-      this.sidebarStatus$.next(status)
+      this.sidebarStatus$.next(status);
     });
   }
 

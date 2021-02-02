@@ -22,7 +22,10 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.u
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -30,6 +33,7 @@ import { Vocabulary } from '../../../../../../core/submission/vocabularies/model
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a onebox input field.
@@ -41,7 +45,7 @@ import { FormBuilderService } from '../../../form-builder.service';
   templateUrl: './dynamic-onebox.component.html'
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
-  @Input() bindId = true;
+
   @Input() group: FormGroup;
   @Input() model: DynamicOneboxModel;
 
@@ -49,7 +53,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
+  @ViewChild('instance') instance: NgbTypeahead;
 
   pageInfo: PageInfo = new PageInfo();
   searching = false;
@@ -60,7 +64,6 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   inputValue: any;
   preloadLevel: number;
 
-  private vocabulary$: Observable<Vocabulary>;
   private isHierarchicalVocabulary$: Observable<boolean>;
   private subs: Subscription[] = [];
 
@@ -69,17 +72,18 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               protected layoutService: DynamicFormLayoutService,
               protected modalService: NgbModal,
               protected validationService: DynamicFormValidationService,
-              protected formBuilderService: FormBuilderService
+              protected formBuilderService: FormBuilderService,
+              protected submissionService: SubmissionService
   ) {
-    super(vocabularyService, layoutService, validationService, formBuilderService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**
    * Converts an item from the result list to a `string` to display in the `<input>` field.
    */
   formatter = (x: { display: string }) => {
-    return (typeof x === 'object') ? x.display : x
-  };
+    return (typeof x === 'object') ? x.display : x;
+  }
 
   /**
    * Converts a stream of text values from the `<input>` element to the stream of the array of items
@@ -104,7 +108,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(new PaginatedList(
+              return observableOf(buildPaginatedList(
                 new PageInfo(),
                 []
               ));
@@ -114,8 +118,8 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed$)
-    )
-  };
+    );
+  }
 
   /**
    * Initialize the component, setting up the init form value
@@ -125,12 +129,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       this.setCurrentValue(this.model.value, true);
     }
 
-    this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      distinctUntilChanged()
-    );
+    this.initVocabulary();
 
     this.isHierarchicalVocabulary$ = this.vocabulary$.pipe(
+      filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
       map((result: Vocabulary) => result.hierarchical)
     );
 
@@ -233,7 +235,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       }, () => {
         return;
       });
-    }))
+    }));
   }
 
   /**

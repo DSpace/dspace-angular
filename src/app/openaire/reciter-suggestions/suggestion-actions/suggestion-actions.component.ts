@@ -55,7 +55,7 @@ export class SuggestionActionsComponent {
           suggestion: this.isBulk ? undefined : this.object,
           collectionId: collection.id
         });
-      })
+      });
   }
 
   /**

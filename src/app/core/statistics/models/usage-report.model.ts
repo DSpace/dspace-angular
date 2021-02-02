@@ -45,7 +45,7 @@ export interface Point {
   id: string;
   label: string;
   type: string;
-  values: Array<{
+  values: {
     views: number;
-  }>;
+  }[];
 }

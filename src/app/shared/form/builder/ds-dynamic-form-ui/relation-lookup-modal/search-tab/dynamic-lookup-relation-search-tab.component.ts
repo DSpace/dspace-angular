@@ -3,7 +3,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspa
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/search-result.model';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Observable } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue } from '../../../../../empty.util';
 import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
@@ -146,10 +146,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Selects a page in the store
    * @param page The page to select
    */
-  selectPage(page: Array<SearchResult<Item>>) {
+  selectPage(page: SearchResult<Item>[]) {
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: Array<SearchResult<Item>>) => {
+      .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
         this.selectObject.emit(...filteredPage);
       });
@@ -160,11 +160,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Deselects a page in the store
    * @param page the page to deselect
    */
-  deselectPage(page: Array<SearchResult<Item>>) {
+  deselectPage(page: SearchResult<Item>[]) {
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: Array<SearchResult<Item>>) => {
+      .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0);
         this.deselectObject.emit(...filteredPage);
       });
@@ -182,15 +182,15 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       pageSize: 9999
     });
     const fullSearchConfig = Object.assign(this.lookupRelationService.searchConfig, { pagination: fullPagination });
-    const results$ = this.searchService.search(fullSearchConfig) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
+    const results$ = this.searchService.search<Item>(fullSearchConfig);
     results$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((resultsRD) => resultsRD.payload.page),
       tap(() => this.selectAllLoading = false),
     ).subscribe((results) => {
         this.selection$
           .pipe(take(1))
-          .subscribe((selection: Array<SearchResult<Item>>) => {
+          .subscribe((selection: SearchResult<Item>[]) => {
             const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
             this.selectObject.emit(...filteredResults);
           });
@@ -206,7 +206,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: Array<SearchResult<Item>>) => this.deselectObject.emit(...selection));
+      .subscribe((selection: SearchResult<Item>[]) => this.deselectObject.emit(...selection));
     this.selectableListService.deselectAll(this.listId);
   }
 

@@ -130,7 +130,7 @@ describe('SearchConfigurationService', () => {
 
     describe('when subscribeToSearchOptions is called', () => {
       beforeEach(() => {
-        (service as any).subscribeToSearchOptions(defaults)
+        (service as any).subscribeToSearchOptions(defaults);
       });
       it('should call all getters it needs, but not call any others', () => {
         expect(service.getCurrentPagination).not.toHaveBeenCalled();

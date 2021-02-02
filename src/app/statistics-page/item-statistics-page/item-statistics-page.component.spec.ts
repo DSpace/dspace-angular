@@ -1,11 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -15,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('ItemStatisticsPageComponent', () => {
 
@@ -22,18 +22,14 @@ describe('ItemStatisticsPageComponent', () => {
   let de: DebugElement;
   let fixture: ComponentFixture<ItemStatisticsPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const activatedRoute = {
       data: observableOf({
-        scope: new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
+        scope: createSuccessfulRemoteDataObject(
           Object.assign(new Item(), {
             id: 'item_id',
-          }),
+          })
         )
       })
     };

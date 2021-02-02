@@ -3,11 +3,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { isNotEmpty } from 'src/app/shared/empty.util';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -19,13 +19,12 @@ import { ItemDataService } from '../data/item-data.service';
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { configureRequest, getFinishedRemoteData, getResponseFromEntry } from '../shared/operators';
 import { OrcidHistory } from './model/orcid-history.model';
 import { ORCID_HISTORY } from './model/orcid-history.resource-type';
 import { OrcidQueue } from './model/orcid-queue.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -85,7 +84,7 @@ export class OrcidHistoryService {
         return new PostRequest(requestId, href, orcidQueue._links.self.href, options);
       }),
       configureRequest(this.requestService)
-    ).subscribe()
+    ).subscribe();
 
     return this.fetchCreateResponse(requestId).pipe(
       getFinishedRemoteData(),
@@ -113,7 +112,7 @@ export class OrcidHistoryService {
 
     return selfLink$.pipe(
       switchMap((selfLink: string) => this.dataService.findByHref(selfLink)),
-    )
+    );
   }
 
   getEndpoint() {

@@ -1,12 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
-import * as communityRouterPaths from '../../../../+community-page/community-page-routing-paths';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -19,13 +16,18 @@ describe('EditCommunitySelectorComponent', () => {
 
   const community = new Community();
   community.uuid = '1234-1234-1234-1234';
-  community.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Community title', language: undefined })] };
+  community.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Community title',
+      language: undefined
+    })]
+  };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const editPath = 'testEditPath';
+  const editPath = '/communities/1234-1234-1234-1234/edit';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [EditCommunitySelectorComponent],
@@ -53,10 +55,6 @@ describe('EditCommunitySelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(communityRouterPaths, 'getCommunityEditRoute').and.callFake(() => {
-        return () => editPath;
-    });
-
     fixture = TestBed.createComponent(EditCommunitySelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;

@@ -1,7 +1,7 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 
 import { CacheableObject } from '../../../cache/object-cache.reducer';
-import { SUGGESTION } from './openaire-suggestion-objects.resource-type'
+import { SUGGESTION } from './openaire-suggestion-objects.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';

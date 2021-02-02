@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';

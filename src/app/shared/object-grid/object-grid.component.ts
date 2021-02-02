@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
@@ -135,7 +135,7 @@ export class ObjectGridComponent implements OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-  columns$: Observable<ListableObject[]>
+  columns$: Observable<ListableObject[]>;
 
   constructor(private hostWindow: HostWindowService) {
     this._objects$ = new BehaviorSubject(undefined);

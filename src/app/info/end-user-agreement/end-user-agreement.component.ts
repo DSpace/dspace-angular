@@ -40,8 +40,8 @@ export class EndUserAgreementComponent implements OnInit {
    */
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'))
-    })
+      this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'));
+    });
     this.initAccepted();
   }
 

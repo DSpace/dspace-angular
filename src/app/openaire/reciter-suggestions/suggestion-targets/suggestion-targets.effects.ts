@@ -13,7 +13,7 @@ import {
   RetrieveTargetsBySourceAction,
   SuggestionTargetActionTypes,
 } from './suggestion-targets.actions';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { SuggestionsService } from '../suggestions.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
@@ -45,9 +45,9 @@ export class SuggestionTargetsEffects {
           if (error) {
             console.error(error.message);
           }
-          return observableOf(new RetrieveAllTargetsErrorAction())
+          return observableOf(new RetrieveAllTargetsErrorAction());
         })
-      )
+      );
     })
   );
 
@@ -57,7 +57,7 @@ export class SuggestionTargetsEffects {
   @Effect({ dispatch: false }) retrieveAllTargetsErrorAction$ = this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR),
     tap(() => {
-      this.notificationsService.error(null, this.translate.get('reciter.suggestion.target.error.service.retrieve'))
+      this.notificationsService.error(null, this.translate.get('reciter.suggestion.target.error.service.retrieve'));
     })
   );
 
@@ -69,7 +69,7 @@ export class SuggestionTargetsEffects {
     switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
       return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
         map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets))
-      )
+      );
     }));
 
   /**
@@ -85,10 +85,10 @@ export class SuggestionTargetsEffects {
               .pipe(
                 map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
                 catchError((errors) => of(errors))
-            )
+            );
           }),
           catchError((errors) => of(errors))
-        )
+        );
     }));
 
   /**

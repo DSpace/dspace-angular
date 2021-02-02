@@ -1,4 +1,4 @@
-import { browser, element, by, protractor, promise } from 'protractor';
+import { browser, by, element, promise, protractor } from 'protractor';
 
 export class ProtractorPage {
   navigateTo() {
@@ -15,7 +15,7 @@ export class ProtractorPage {
   }
 
   waitUntilNotLoading(): promise.Promise<unknown> {
-    const loading = element(by.css('.loader'))
+    const loading = element(by.css('.loader'));
     const EC = protractor.ExpectedConditions;
     const notLoading = EC.not(EC.presenceOf(loading));
     return browser.wait(notLoading, 10000);

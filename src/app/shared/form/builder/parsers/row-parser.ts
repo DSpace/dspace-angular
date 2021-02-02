@@ -31,7 +31,8 @@ export class RowParser {
                scopeUUID,
                initFormValues: any,
                submissionScope,
-               readOnly: boolean): DynamicRowGroupModel {
+               readOnly: boolean,
+               isInnerForm: boolean = false): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -47,7 +48,8 @@ export class RowParser {
     const parserOptions: ParserOptions = {
       readOnly: readOnly,
       submissionScope: submissionScope,
-      collectionUUID: scopeUUID
+      collectionUUID: scopeUUID,
+      isInnerForm: isInnerForm
     };
 
     // Iterate over row's fields
@@ -90,7 +92,7 @@ export class RowParser {
             fieldModel.forEach((model) => {
               parsedResult = model;
               return;
-            })
+            });
           } else {
             setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
             config.group.push(fieldModel);
@@ -108,7 +110,7 @@ export class RowParser {
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);
       if (Array.isArray(parsedResult)) {
-        parsedResult.push(groupModel)
+        parsedResult.push(groupModel);
       } else {
         parsedResult = groupModel;
       }

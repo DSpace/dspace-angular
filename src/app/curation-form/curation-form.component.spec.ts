@@ -1,14 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CurationFormComponent } from './curation-form.component';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { of as observableOf } from 'rxjs';
-import { RequestEntry } from '../core/data/request.reducer';
-import { DSOSuccessResponse, RestResponse } from '../core/cache/response.models';
 import { Process } from '../process-page/processes/process.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -17,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 
 describe('CurationFormComponent', () => {
   let comp: CurationFormComponent;
@@ -28,17 +26,12 @@ describe('CurationFormComponent', () => {
   let notificationsService;
   let router;
 
-  const requestEntry = Object.assign(new RequestEntry(),
-    {response: new DSOSuccessResponse(['process-link'], 200, 'success')});
-  const failedRequestEntry = Object.assign(new RequestEntry(),
-    {response: new RestResponse(false, 400, 'Bad Request')});
-
   const process = Object.assign(new Process(), {processId: 'process-id'});
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
-      invoke: observableOf(requestEntry)
+      invoke: createSuccessfulRemoteDataObject$(process)
     });
 
     processDataService = jasmine.createSpyObj('processDataService', {
@@ -80,6 +73,7 @@ describe('CurationFormComponent', () => {
     comp = fixture.componentInstance;
 
     fixture.detectChanges();
+    spyOn(router, 'navigateByUrl').and.callThrough();
   });
   describe('init', () => {
     it('should initialise the comp and contain the different tasks', () => {
@@ -113,11 +107,10 @@ describe('CurationFormComponent', () => {
         {name: '-i', value: 'test-handle'},
       ], []);
       expect(notificationsService.success).toHaveBeenCalled();
-      expect(processDataService.findByHref).toHaveBeenCalledWith('process-link');
-      expect(router.navigate).toHaveBeenCalledWith(['/processes', 'process-id']);
+      expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('process-id'));
     });
     it('should the selected process and handle to the scriptservice and stay on the page on error', () => {
-      (scriptDataService.invoke as jasmine.Spy).and.returnValue(observableOf(failedRequestEntry));
+      (scriptDataService.invoke as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
 
       comp.dsoHandle = 'test-handle';
       comp.submit();
@@ -128,7 +121,7 @@ describe('CurationFormComponent', () => {
       ], []);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(processDataService.findByHref).not.toHaveBeenCalled();
-      expect(router.navigate).not.toHaveBeenCalled();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
   });
   it('should use the handle provided by the form when no dsoHandle is provided', () => {

@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
-import { hasValue, isEmpty } from '../../empty.util';
+import { isEmpty } from '../../empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
 import { followLink } from '../../utils/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -33,8 +33,8 @@ export class ResourcePolicyResolver implements Resolve<RemoteData<ResourcePolicy
       this.router.navigateByUrl('/404', { skipLocationChange: true });
     }
 
-    return this.resourcePolicyService.findById(policyId, followLink('eperson'), followLink('group')).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+    return this.resourcePolicyService.findById(policyId, false, followLink('eperson'), followLink('group')).pipe(
+      getFirstCompletedRemoteData(),
     );
   }
 }

@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -82,7 +81,7 @@ export class ProcessDetailComponent implements OnInit {
     this.retrievingOutputLogs$ = new BehaviorSubject<boolean>(false);
     this.processRD$ = this.route.data.pipe(
       map((data) => {
-        return data.process as RemoteData<Process>
+        return data.process as RemoteData<Process>;
       }),
       redirectOn4xx(this.router, this.authService)
     );
@@ -129,7 +128,7 @@ export class ProcessDetailComponent implements OnInit {
               return hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url;
             }));
         })
-      )
+      );
     });
     this.outputLogs$ = this.outputLogFileUrl$.pipe(take(1),
       mergeMap((url: string) => {

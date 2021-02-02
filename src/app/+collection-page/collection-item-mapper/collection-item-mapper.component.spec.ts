@@ -1,6 +1,5 @@
-import { filter, tap } from 'rxjs/operators';
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -22,8 +21,6 @@ import { EventEmitter } from '@angular/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { By } from '@angular/platform-browser';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
@@ -31,14 +28,19 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf, of } from 'rxjs/internal/observable/of';
-import { RestResponse } from '../../core/cache/response.models';
+import { of as observableOf, of } from 'rxjs';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -60,7 +62,7 @@ describe('CollectionItemMapperComponent', () => {
       }
     }
   });
-  const mockCollectionRD: RemoteData<Collection> = new RemoteData<Collection>(false, false, true, null, mockCollection);
+  const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
   const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
@@ -81,7 +83,7 @@ describe('CollectionItemMapperComponent', () => {
     paginatedSearchOptions: mockSearchOptions
   };
   const itemDataServiceStub = {
-    mapToCollection: () => of(new RestResponse(true, 200, 'OK'))
+    mapToCollection: () => createSuccessfulRemoteDataObject$({})
   };
   const activatedRouteStub = new ActivatedRouteStub({}, { dso: mockCollectionRD });
   const translateServiceStub = {
@@ -90,7 +92,7 @@ describe('CollectionItemMapperComponent', () => {
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
   };
-  const emptyList = new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []));
+  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => of(emptyList),
     /* tslint:disable:no-empty */
@@ -108,19 +110,19 @@ describe('CollectionItemMapperComponent', () => {
       return observableOf('');
     },
     getQueryParameterValue: () => {
-      return observableOf('')
+      return observableOf('');
     },
     getQueryParamsWithPrefix: () => {
-      return observableOf('')
+      return observableOf('');
     }
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
-      return observableOf('')
+      return observableOf('');
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
@@ -167,7 +169,7 @@ describe('CollectionItemMapperComponent', () => {
     });
 
     it('should display an error message if at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, 404, 'Not Found')));
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(createFailedRemoteDataObject$('Not Found', 404));
       comp.mapItems(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
@@ -197,7 +199,7 @@ describe('CollectionItemMapperComponent', () => {
 
     it('should build a solr query to exclude the provided collection', () => {
       expect(result).toEqual(expected);
-    })
+    });
   });
 
   describe('onCancel', () => {

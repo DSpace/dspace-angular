@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Observable, of } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout-loader.directive';
+import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
 import { RowComponent } from '../components/row/row.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { boxMetadata } from 'src/app/shared/testing/box.mock';
+import { boxMetadata } from '../../../../shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 import { CrisLayoutMetricsBoxComponent, MetricRow } from './cris-layout-metrics-box.component';
 import { metricsComponent } from '../../../../shared/testing/metrics-components.mock';
 import { MetricsComponent } from '../../../../core/layout/models/metrics-component.model';
@@ -32,10 +32,25 @@ export const metric1Mock = {
   rank: null,
   remark: null,
   startDate: null,
-  type: null
+  type: null,
+  _links: null
 };
 
 export const metric2Mock = { ...metric1Mock, metricType: 'downloads' };
+
+const googleExample = '<a target="_blank" title="" \n' +
+  'href="https://scholar.google.com/scholar?as_q=&amp;as_epq=A strong regioregularity effect in self-organizing conjugated polymer films and high-efficiency polythiophene: fullerene solar cells&amp;as_occt=any"\n' +
+  ' >Check</a>';
+
+const altMetricExample = '<div class=\'altmetric-embed\' data-badge-popover=\'bottom\' data-badge-type=\'donut\' data-doi="10.1038/nature.2012.9872"></div>';
+
+const dimensionsExample = '<div class=\'__dimensions_badge_embed__\' data-doi="10.1038/nature.2012.9872"></div>';
+
+export const metricGoogleScholarMock = {...metric1Mock, metricType: 'googleScholar', remark: googleExample};
+
+export const metricAltmetricMock = {...metric1Mock, metricType: 'altmetric', remark: altMetricExample};
+
+export const metricDimensionsMock = {...metric1Mock, metricType: 'dimensions', remark: dimensionsExample};
 
 export const metricRowsMock = [{
   metrics: [metric1Mock, metric2Mock]
@@ -47,7 +62,7 @@ class MetricsComponentsDataServiceMock {
     return of(
       createSuccessfulRemoteDataObject(metricsComponent)
     );
-  };
+  }
   getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): MetricRow[] {
     return metricRowsMock as any;
   }
@@ -94,7 +109,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
 
     spyOn(itemDataService, 'getMetrics').and.returnValue(of(
       createSuccessfulRemoteDataObject({pageInfo: {}, page: ['views']} as any)
-    ))
+    ));
 
     fixture = TestBed.createComponent(CrisLayoutMetricsBoxComponent);
     component = fixture.componentInstance;
@@ -110,6 +125,6 @@ describe('CrisLayoutMetricsBoxComponent', () => {
     const rowsFound = fixture.debugElement.queryAll(By.css('div[ds-metric-row]'));
 
     expect(rowsFound.length).toEqual(1);
-    done()
+    done();
   });
 });

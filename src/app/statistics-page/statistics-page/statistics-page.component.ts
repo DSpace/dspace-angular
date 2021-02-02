@@ -1,10 +1,14 @@
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { getRemoteDataPayload, getSucceededRemoteData, redirectOn4xx } from '../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getFirstSucceededRemoteData,
+  redirectOn4xx
+} from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -13,6 +17,10 @@ import { AuthService } from '../../core/auth/auth.service';
 /**
  * Class representing an abstract statistics page component.
  */
+@Component({
+  selector: 'ds-statistics-page',
+  template: ''
+})
 export abstract class StatisticsPageComponent<T extends DSpaceObject> implements OnInit {
 
   /**
@@ -58,7 +66,7 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
     return this.route.data.pipe(
       map((data) => data.scope as RemoteData<T>),
       redirectOn4xx(this.router, this.authService),
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     );
   }

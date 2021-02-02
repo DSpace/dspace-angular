@@ -5,6 +5,11 @@ import { VOCABULARY } from './vocabularies.resource-type';
 import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { isNotEmpty } from '../../../../shared/empty.util';
+
+export interface VocabularyExternalSourceMap {
+  [metadata: string]: string;
+}
 
 /**
  * Model class for a Vocabulary
@@ -44,6 +49,19 @@ export class Vocabulary implements CacheableObject {
   preloadLevel: any;
 
   /**
+   * If externalSource is available represent the entity type that can be use to create a new entity from
+   * this vocabulary
+   */
+  @autoserialize
+  entity: string;
+
+  /**
+   * If available represent that this vocabulary can be use to create a new entity
+   */
+  @autoserialize
+  externalSource: VocabularyExternalSourceMap;
+
+  /**
    * A string representing the kind of Vocabulary model
    */
   @excludeFromEquals
@@ -58,4 +76,13 @@ export class Vocabulary implements CacheableObject {
     self: HALLink,
     entries: HALLink
   };
+
+  public getExternalSourceByMetadata(metadata): string {
+    let sourceIdentifier = null;
+    if (isNotEmpty(this.externalSource) && this.externalSource.hasOwnProperty(metadata)) {
+      sourceIdentifier = this.externalSource[metadata];
+    }
+
+    return sourceIdentifier;
+  }
 }

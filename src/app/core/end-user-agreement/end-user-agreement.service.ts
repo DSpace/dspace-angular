@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { EPersonDataService } from '../eperson/eperson-data.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
@@ -75,7 +75,8 @@ export class EndUserAgreementService {
               }
               return this.ePersonService.patch(user, [operation]);
             }),
-            map((response) => response.isSuccessful)
+            getFirstCompletedRemoteData(),
+            map((response) => response.hasSucceeded)
           );
         } else {
           this.setCookieAccepted(accepted);

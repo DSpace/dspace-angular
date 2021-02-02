@@ -1,10 +1,11 @@
 import { Observable, of as observableOf } from 'rxjs';
-import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../../core/dspace-rest/dspace-rest.service';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { isNotEmpty } from '../empty.util';
 import { EPersonMock } from './eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export class AuthRequestServiceStub {
   protected mockUser: EPerson = EPersonMock;
@@ -41,7 +42,7 @@ export class AuthRequestServiceStub {
     } else {
       authStatusStub.authenticated = false;
     }
-    return observableOf(authStatusStub);
+    return createSuccessfulRemoteDataObject$(authStatusStub);
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
@@ -68,7 +69,7 @@ export class AuthRequestServiceStub {
         }
         break;
     }
-    return observableOf(authStatusStub);
+    return createSuccessfulRemoteDataObject$(authStatusStub);
   }
 
   private validateToken(token): boolean {
@@ -79,7 +80,7 @@ export class AuthRequestServiceStub {
     const vars = query.split('&');
     for (const param of vars) {
       const pair = param.split('=');
-      obj[pair[0]] = pair[1]
+      obj[pair[0]] = pair[1];
     }
     return obj;
   }

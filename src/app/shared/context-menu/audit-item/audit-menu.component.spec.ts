@@ -55,7 +55,7 @@ describe('AuditItemMenuComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy()
+    expect(component).toBeTruthy();
   });
 
   it('should render a button', () => {

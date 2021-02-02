@@ -1,17 +1,14 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
-import {
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService
-} from '../../core/data/processes/script-data.service';
+import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -19,6 +16,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { MetadataImportPageComponent } from './metadata-import-page.component';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('MetadataImportPageComponent', () => {
   let comp: MetadataImportPageComponent;
@@ -36,13 +34,7 @@ describe('MetadataImportPageComponent', () => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: observableOf({
-          response:
-            {
-              isSuccessful: true,
-              resourceSelfLinks: ['https://localhost:8080/api/core/processes/45']
-            }
-        })
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
       }
     );
     user = Object.assign(new EPerson(), {
@@ -60,7 +52,7 @@ describe('MetadataImportPageComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -133,12 +125,7 @@ describe('MetadataImportPageComponent', () => {
     describe('if proceed is pressed; but script invoke fails', () => {
       beforeEach(fakeAsync(() => {
         jasmine.getEnv().allowRespy(true);
-        spyOn(scriptService, 'invoke').and.returnValue(observableOf({
-          response:
-            {
-              isSuccessful: false,
-            }
-        }));
+        spyOn(scriptService, 'invoke').and.returnValue(createFailedRemoteDataObject$('Error', 500));
         const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
         proceed.click();
         fixture.detectChanges();

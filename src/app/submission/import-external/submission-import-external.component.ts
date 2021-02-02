@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
-import { filter, flatMap, take } from 'rxjs/operators';
+import { filter, mergeMap, take } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ExternalSourceService } from '../../core/data/external-source.service';
 import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { Context } from '../../core/shared/context.model';
@@ -105,7 +105,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(new PaginatedList(new PageInfo(), [])));
+    this.routeData = { entity: '', sourceId: '', query: '' };
+    this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [])));
     this.isLoading$ = new BehaviorSubject(false);
     this.subs.push(combineLatest(
       [
@@ -184,7 +185,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
         this.searchConfigService.paginatedSearchOptions.pipe(
           filter((searchOptions) => searchOptions.query === query),
           take(1),
-          flatMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+          mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
             getFinishedRemoteData(),
             take(1)
           )),

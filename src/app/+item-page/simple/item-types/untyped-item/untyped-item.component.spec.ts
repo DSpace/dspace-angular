@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -31,7 +31,7 @@ import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: new MetadataMap(),
   relationships: createRelationshipsObservable()
 });
@@ -40,7 +40,7 @@ describe('UntypedItemComponent', () => {
   let comp: UntypedItemComponent;
   let fixture: ComponentFixture<UntypedItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const mockBitstreamDataService = {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
@@ -77,7 +77,7 @@ describe('UntypedItemComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(UntypedItemComponent);
     comp = fixture.componentInstance;
     comp.object = mockItem;

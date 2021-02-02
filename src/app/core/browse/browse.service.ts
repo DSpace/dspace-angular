@@ -1,35 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import {
-  ensureArrayHasValue,
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotEmptyOperator
-} from '../../shared/empty.util';
+import { distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { GenericSuccessResponse } from '../cache/response.models';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest, RestRequest } from '../data/request.models';
+import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
-  configureRequest,
-  filterSuccessfulResponses,
   getBrowseDefinitionLinks,
   getFirstOccurrence,
   getRemoteDataPayload,
-  getRequestFromRequestHref
+  getFirstSucceededRemoteData,
+  getPaginatedListPayload
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
+import { BrowseDefinitionDataService } from './browse-definition-data.service';
 
 /**
  * The service handling all browse requests
@@ -54,6 +45,7 @@ export class BrowseService {
   constructor(
     protected requestService: RequestService,
     protected halService: HALEndpointService,
+    private browseDefinitionDataService: BrowseDefinitionDataService,
     private rdb: RemoteDataBuildService,
   ) {
   }
@@ -61,27 +53,11 @@ export class BrowseService {
   /**
    * Get all BrowseDefinitions
    */
-  getBrowseDefinitions(): Observable<RemoteData<BrowseDefinition[]>> {
-    const request$ = this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpointURL: string) => new BrowseEndpointRequest(this.requestService.generateRequestId(), endpointURL)),
-      configureRequest(this.requestService)
+  getBrowseDefinitions(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+    // TODO properly support pagination
+    return this.browseDefinitionDataService.findAll({ elementsPerPage: 9999 }).pipe(
+      getFirstSucceededRemoteData(),
     );
-
-    const href$ = request$.pipe(map((request: RestRequest) => request.href));
-    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
-    const payload$ = requestEntry$.pipe(
-      filterSuccessfulResponses(),
-      map((response: GenericSuccessResponse<BrowseDefinition[]>) => response.payload),
-      ensureArrayHasValue(),
-      map((definitions: BrowseDefinition[]) => definitions
-        .map((definition: BrowseDefinition) => {
-          return Object.assign(new BrowseDefinition(), definition)
-        })),
-      distinctUntilChanged(),
-    );
-    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   /**
@@ -191,6 +167,7 @@ export class BrowseService {
         return href;
       }),
       getBrowseItemsFor(this.requestService, this.rdb),
+      getFirstSucceededRemoteData(),
       getFirstOccurrence()
     );
   }
@@ -244,6 +221,7 @@ export class BrowseService {
     const searchKeyArray = BrowseService.toSearchKeyArray(metadataKey);
     return this.getBrowseDefinitions().pipe(
       getRemoteDataPayload(),
+      getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
         .find((def: BrowseDefinition) => {
           const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
@@ -271,12 +249,16 @@ export class BrowseService {
  * @param rdb
  */
 export const getBrowseEntriesFor = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<string>): Observable<RemoteData<PaginatedList<BrowseEntry>>> =>
-    source.pipe(
-      map((href: string) => new BrowseEntriesRequest(requestService.generateRequestId(), href)),
-      configureRequest(requestService),
-      toRDPaginatedBrowseEntries(requestService, rdb)
-    );
+  (source: Observable<string>): Observable<RemoteData<PaginatedList<BrowseEntry>>> => {
+    const requestId = requestService.generateRequestId();
+
+    source.pipe(take(1)).subscribe((href: string) => {
+      const request = new GetRequest(requestId, href);
+      requestService.configure(request);
+    });
+
+    return rdb.buildList(source);
+  };
 
 /**
  * Operator for turning a href into a PaginatedList of Items
@@ -285,57 +267,13 @@ export const getBrowseEntriesFor = (requestService: RequestService, rdb: RemoteD
  * @param rdb
  */
 export const getBrowseItemsFor = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<string>): Observable<RemoteData<PaginatedList<Item>>> =>
-    source.pipe(
-      map((href: string) => new BrowseItemsRequest(requestService.generateRequestId(), href)),
-      configureRequest(requestService),
-      toRDPaginatedBrowseItems(requestService, rdb)
-    );
+  (source: Observable<string>): Observable<RemoteData<PaginatedList<Item>>> => {
+    const requestId = requestService.generateRequestId();
 
-/**
- * Operator for turning a RestRequest into a PaginatedList of Items
- * @param requestService
- * @param responseCache
- * @param rdb
- */
-export const toRDPaginatedBrowseItems = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<RestRequest>): Observable<RemoteData<PaginatedList<Item>>> => {
-    const href$ = source.pipe(map((request: RestRequest) => request.href));
+    source.pipe(take(1)).subscribe((href: string) => {
+      const request = new GetRequest(requestId, href);
+      requestService.configure(request);
+    });
 
-    const requestEntry$ = href$.pipe(getRequestFromRequestHref(requestService));
-
-    const payload$ = requestEntry$.pipe(
-      filterSuccessfulResponses(),
-      map((response: GenericSuccessResponse<Item[]>) => new PaginatedList(response.pageInfo, response.payload)),
-      map((list: PaginatedList<Item>) => Object.assign(list, {
-        page: list.page ? list.page.map((item: DSpaceObject) => Object.assign(new Item(), item)) : list.page
-      })),
-      distinctUntilChanged()
-    );
-
-    return rdb.toRemoteDataObservable(requestEntry$, payload$);
-  };
-
-/**
- * Operator for turning a RestRequest into a PaginatedList of BrowseEntries
- * @param requestService
- * @param responseCache
- * @param rdb
- */
-export const toRDPaginatedBrowseEntries = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<RestRequest>): Observable<RemoteData<PaginatedList<BrowseEntry>>> => {
-    const href$ = source.pipe(map((request: RestRequest) => request.href));
-
-    const requestEntry$ = href$.pipe(getRequestFromRequestHref(requestService));
-
-    const payload$ = requestEntry$.pipe(
-      filterSuccessfulResponses(),
-      map((response: GenericSuccessResponse<BrowseEntry[]>) => new PaginatedList(response.pageInfo, response.payload)),
-      map((list: PaginatedList<BrowseEntry>) => Object.assign(list, {
-        page: list.page ? list.page.map((entry: BrowseEntry) => Object.assign(new BrowseEntry(), entry)) : list.page
-      })),
-      distinctUntilChanged()
-    );
-
-    return rdb.toRemoteDataObservable(requestEntry$, payload$);
+    return rdb.buildList(source);
   };

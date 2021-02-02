@@ -2,21 +2,21 @@ import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { SectionsType } from '../../../submission/sections/sections-type';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
-import { ResourceType } from '../../shared/resource-type';
 import { ConfigObject } from './config.model';
+import { SUBMISSION_SECTION_TYPE } from './config-type';
 
 /**
  * An interface that define section visibility and its properties.
  */
 export interface SubmissionSectionVisibility {
-  main: any,
-  other: any
+  main: any;
+  other: any;
 }
 
 @typedObject
 @inheritSerialization(ConfigObject)
 export class SubmissionSectionModel extends ConfigObject {
-  static type = new ResourceType('submissionsection');
+  static type = SUBMISSION_SECTION_TYPE;
 
   /**
    * The header for this section
@@ -49,6 +49,6 @@ export class SubmissionSectionModel extends ConfigObject {
   _links: {
     self: HALLink;
     config: HALLink;
-  }
+  };
 
 }

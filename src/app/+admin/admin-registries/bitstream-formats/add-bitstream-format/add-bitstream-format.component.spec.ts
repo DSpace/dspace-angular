@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../../core/cache/response.models';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
@@ -14,6 +13,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
@@ -37,7 +37,7 @@ describe('AddBitstreamFormatComponent', () => {
     router = new RouterStub();
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-      createBitstreamFormat: observableOf(new RestResponse(true, 200, 'Success')),
+      createBitstreamFormat: createSuccessfulRemoteDataObject$({}),
       clearBitStreamFormatRequests: observableOf(null)
     });
 
@@ -45,9 +45,9 @@ describe('AddBitstreamFormatComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [AddBitstreamFormatComponent],
       providers: [
-        {provide: Router, useValue: router},
-        {provide: NotificationsService, useValue: notificationService},
-        {provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService},
+        { provide: Router, useValue: router },
+        { provide: NotificationsService, useValue: notificationService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -61,7 +61,7 @@ describe('AddBitstreamFormatComponent', () => {
   };
 
   describe('createBitstreamFormat success', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {
       comp.createBitstreamFormat(bitstreamFormat);
@@ -73,11 +73,11 @@ describe('AddBitstreamFormatComponent', () => {
     });
   });
   describe('createBitstreamFormat error', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       router = new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-        createBitstreamFormat: observableOf(new RestResponse(false, 400, 'Bad Request')),
+        createBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
         clearBitStreamFormatRequests: observableOf(null)
       });
 
@@ -85,9 +85,9 @@ describe('AddBitstreamFormatComponent', () => {
         imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [AddBitstreamFormatComponent],
         providers: [
-          {provide: Router, useValue: router},
-          {provide: NotificationsService, useValue: notificationService},
-          {provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService},
+          { provide: Router, useValue: router },
+          { provide: NotificationsService, useValue: notificationService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();

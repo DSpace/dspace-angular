@@ -1,9 +1,9 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
@@ -16,7 +16,13 @@ import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropd
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService
+} from '../../../../../testing/dynamic-form-mock-services';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
@@ -54,8 +60,8 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 
   const vocabularyServiceStub = new VocabularyServiceStub();
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -75,9 +81,11 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} },
-        { provide: FormBuilderService }
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

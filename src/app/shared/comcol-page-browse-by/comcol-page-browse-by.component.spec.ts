@@ -7,12 +7,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Collection } from 'src/app/core/shared/collection.model';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { MetadataValue } from 'src/app/core/shared/metadata.models';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { MetadataValue } from '../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
@@ -32,7 +32,7 @@ describe('ComcolPageBrowseByComponent', () => {
   beforeEach(async(() => {
 
     collectionServiceStub = {
-      findById(id: string, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<Collection>> {
+      findById(id: string, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<Collection>> {
         const relationshipTypeValue = new MetadataValue();
         relationshipTypeValue.value = id === orgUnitId ? 'OrgUnit' : 'Publication';
         const collection = Object.assign(new Collection(), {
@@ -42,17 +42,13 @@ describe('ComcolPageBrowseByComponent', () => {
         });
         return createSuccessfulRemoteDataObject$(collection);
       }
-    }
+    };
 
     configurationServiceStub = {
       findByPropertyName(name: string): Observable<RemoteData<ConfigurationProperty>> {
         switch ( name ) {
           case 'browse.community':
-            return createFailedRemoteDataObject$(undefined, {
-              statusCode: 404,
-              statusText: 'NOT FOUND',
-              message: 'NOT FOUND'
-            });
+            return createFailedRemoteDataObject$('NOT FOUND', 404);
           case 'browse.collection': {
             const collectionProperty = new ConfigurationProperty();
             collectionProperty.name = 'browse.collection';
@@ -60,11 +56,7 @@ describe('ComcolPageBrowseByComponent', () => {
             return createSuccessfulRemoteDataObject$(collectionProperty);
           }
           case 'browse.collection.Publication':
-            return createFailedRemoteDataObject$(undefined, {
-              statusCode: 404,
-              statusText: 'NOT FOUND',
-              message: 'NOT FOUND'
-            });
+            return createFailedRemoteDataObject$('NOT FOUND', 404,);
           case 'browse.collection.OrgUnit': {
             const collectionProperty = new ConfigurationProperty();
             collectionProperty.name = 'browse.collection.OrgUnit';
@@ -73,7 +65,7 @@ describe('ComcolPageBrowseByComponent', () => {
           }
         }
       }
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
@@ -184,4 +176,4 @@ describe('ComcolPageBrowseByComponent', () => {
     expect(navElement).toBeNull();
 
   });
-})
+});

@@ -20,7 +20,7 @@ import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.mo
  */
 export interface JsonPatchOperationObject {
   operation: JsonPatchOperationModel;
-  timeAdded: number;
+  timeCompleted: number;
 }
 
 /**
@@ -241,7 +241,7 @@ function hasValidBody(state: JsonPatchOperationsState, resourceType: any, resour
   return (hasValue(state[ resourceType ])
     && hasValue(state[ resourceType ].children)
     && hasValue(state[ resourceType ].children[ resourceId ])
-    && isNotEmpty(state[ resourceType ].children[ resourceId ].body))
+    && isNotEmpty(state[ resourceType ].children[ resourceId ].body));
 }
 
 /**
@@ -264,7 +264,7 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
         newChildren = Object.assign({}, state[ action.payload.resourceType ].children, {
           [action.payload.resourceId]: {
             body: state[ action.payload.resourceType ].children[ action.payload.resourceId ].body
-              .filter((entry) => entry.timeAdded > state[ action.payload.resourceType ].transactionStartTime)
+              .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime)
           }
         });
       } else {
@@ -278,10 +278,10 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
           newChildren = Object.assign({}, newChildren, {
             [resourceId]: {
               body: newChildren[ resourceId ].body
-                .filter((entry) => entry.timeAdded > state[ action.payload.resourceType ].transactionStartTime)
+                .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime)
             }
           });
-        })
+        });
     }
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
@@ -336,5 +336,5 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
 }
 
 function makeOperationEntry(operation) {
-  return { operation: operation, timeAdded: new Date().getTime() };
+  return { operation: operation, timeCompleted: new Date().getTime() };
 }

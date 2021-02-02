@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterConfig } from '../../../../search-filter-config.model';
@@ -54,7 +54,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   let router;
   const page = observableOf(0);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [SearchFacetRangeOptionComponent],

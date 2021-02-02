@@ -81,7 +81,7 @@ export function stringToNgbDateStruct(date: string): NgbDateStruct {
  */
 export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
   if (isNull(date) || isUndefined(date)) {
-    date = new Date()
+    date = new Date();
   }
 
   return {

@@ -10,7 +10,7 @@ import { ChartSeries } from '../../../../../charts/models/chart-series';
 import { FacetValue } from '../../../facet-value.model';
 import { isNotEmpty } from '../../../../empty.util';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-search-chart-filter',
@@ -42,8 +42,8 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
 
   protected getInitData(): Observable<ChartSeries[]|ChartData[]> {
     return this.filterValues$.pipe(
-      filter((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => isNotEmpty(rd.payload)),
-      map((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => rd.payload[0]),
+      filter((rd: RemoteData<PaginatedList<FacetValue>[]>) => isNotEmpty(rd.payload)),
+      map((rd: RemoteData<PaginatedList<FacetValue>[]>) => rd.payload[0]),
       map((values: PaginatedList<FacetValue>) => {
         return values.page.map((item) => ({
           name: item.value,

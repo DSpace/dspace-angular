@@ -1,13 +1,17 @@
-import { Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { hasValue } from '../empty.util';
 
 /**
  * An abstract component to render StartsWith options
  */
-export class StartsWithAbstractComponent implements OnInit, OnDestroy {
+@Component({
+  selector: 'ds-start-with-abstract',
+  template: ''
+})
+export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
   /**
    * The currently selected startsWith in string format
    */

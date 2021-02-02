@@ -1,9 +1,8 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { of as observableOf, Subscription } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
@@ -34,7 +33,7 @@ export interface OpenaireBrokerEventData {
   /**
    * The OpenAIRE Broker event
    */
-  event: OpenaireBrokerEventObject,
+  event: OpenaireBrokerEventObject;
   /**
    * The OpenAIRE Broker event Id (uuid)
    */
@@ -80,6 +79,10 @@ export interface OpenaireBrokerEventData {
  */
 export class ProjectEntryImportModalComponent implements OnInit {
   /**
+   * The external source entry
+   */
+  @Input() externalSourceEntry: OpenaireBrokerEventData;
+  /**
    * The number of results per page
    */
   pageSize = 3;
@@ -95,10 +98,6 @@ export class ProjectEntryImportModalComponent implements OnInit {
    * The label to use for all messages (added to the end of relevant i18n keys)
    */
   label: string;
-  /**
-   * The external source entry
-   */
-  externalSourceEntry: OpenaireBrokerEventData;
   /**
    * The project title from the parent object
    */

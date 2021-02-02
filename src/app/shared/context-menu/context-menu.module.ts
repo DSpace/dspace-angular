@@ -30,14 +30,14 @@ const ENTRY_COMPONENTS = [
   EditItemMenuComponent,
   ExportItemMenuComponent,
   ExportCollectionMenuComponent
-]
+];
 
 const MODULE = [
   CommonModule,
   NgbDropdownModule,
   RouterModule,
   TranslateModule
-]
+];
 @NgModule({
   imports: [
     MODULE

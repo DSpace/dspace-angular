@@ -4,12 +4,11 @@ import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { switchMap, take } from 'rxjs/operators';
-import { combineLatest as combineLatestObservable } from 'rxjs';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -54,7 +53,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
    */
   initTemplateItem() {
     this.itemTemplateRD$ = this.dsoRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid))
     );
@@ -65,13 +64,13 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
    */
   addItemTemplate() {
     const collection$ = this.dsoRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)
     );
     const template$ = collection$.pipe(
       switchMap((collection: Collection) => this.itemTemplateService.create(new Item(), collection.uuid)),
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)
     );
@@ -86,13 +85,13 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
    */
   deleteItemTemplate() {
     const collection$ = this.dsoRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)
     );
     const template$ = collection$.pipe(
       switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid)),
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)
     );

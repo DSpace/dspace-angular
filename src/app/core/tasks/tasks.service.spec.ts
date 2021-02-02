@@ -17,7 +17,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { compare, Operation } from 'fast-json-patch';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 
 const LINK_NAME = 'test';
 
@@ -47,6 +48,7 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<TestTask> {
   }
 
 }
+
 /* tslint:enable:max-classes-per-file */
 
 describe('TasksService', () => {
@@ -56,7 +58,7 @@ describe('TasksService', () => {
   const linkPath = 'testTask';
   const requestService = getMockRequestService();
   const halService: any = new HALEndpointServiceStub(taskEndpoint);
-  const rdbService = {} as RemoteDataBuildService;
+  const rdbService = getMockRemoteDataBuildService();
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = new DummyChangeAnalyzer() as any;

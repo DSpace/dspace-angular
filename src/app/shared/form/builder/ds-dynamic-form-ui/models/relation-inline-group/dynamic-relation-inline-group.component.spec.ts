@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -110,7 +110,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
   let event: DynamicFormControlEvent;
 
   // async beforeEach
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
 
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
@@ -378,7 +378,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
       }];
-      groupComp.model.valueUpdates.next(modelValue);
+      groupComp.model.value = modelValue;
       spyOn(groupCompAsAny, 'removeItemFromModelValue');
 
       groupComp.remove(event);
@@ -410,7 +410,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
       }];
-      groupComp.model.valueUpdates.next(modelValue);
+      groupComp.model.value = modelValue;
       spyOn(groupCompAsAny, 'removeItemFromModelValue');
 
       groupComp.remove(event);
@@ -459,7 +459,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
       }];
-      groupComp.model.valueUpdates.next(modelValue);
+      groupComp.model.value = modelValue;
 
       const expectedModelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
@@ -545,12 +545,11 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
       }];
 
-      spyOn(groupCompAsAny.model.valueUpdates, 'next');
       spyOn(groupCompAsAny.change, 'emit');
 
       groupCompAsAny.updateArrayModelValue(groupValue, 0);
 
-      expect(groupCompAsAny.model.valueUpdates.next).toHaveBeenCalledWith(expectedModelValue);
+      expect(groupCompAsAny.model.value).toEqual(expectedModelValue);
     });
 
     it('should update model properly when model value is not empty', () => {
@@ -564,7 +563,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
       }];
 
-      groupComp.model.valueUpdates.next(modelValue);
+      groupComp.model.value = modelValue;
 
       const expectedModelValue: any = [
         {
@@ -577,12 +576,11 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         }
       ];
 
-      spyOn(groupCompAsAny.model.valueUpdates, 'next');
       spyOn(groupCompAsAny.change, 'emit');
 
       groupCompAsAny.updateArrayModelValue(groupValue, 1);
 
-      expect(groupCompAsAny.model.valueUpdates.next).toHaveBeenCalledWith(expectedModelValue);
+      expect(groupCompAsAny.model.value).toEqual(expectedModelValue);
     });
   });
 

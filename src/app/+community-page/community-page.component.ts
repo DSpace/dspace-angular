@@ -1,8 +1,8 @@
 import { mergeMap, filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';

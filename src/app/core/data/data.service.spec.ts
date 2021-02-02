@@ -19,6 +19,7 @@ import { RequestService } from './request.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RequestParam } from '../cache/models/request-param.model';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 
 const endpoint = 'https://rest.api/core';
 
@@ -66,7 +67,7 @@ describe('DataService', () => {
   function initTestService(): TestService {
     requestService = getMockRequestService();
     halService = new HALEndpointServiceStub('url') as any;
-    rdbService = {} as RemoteDataBuildService;
+    rdbService = getMockRemoteDataBuildService();
     notificationsService = {} as NotificationsService;
     http = {} as HttpClient;
     comparator = new DummyChangeAnalyzer() as any;
@@ -95,7 +96,7 @@ describe('DataService', () => {
 
   beforeEach(() => {
     service = initTestService();
-  })
+  });
 
   describe('getFindAllHref', () => {
 
@@ -163,10 +164,12 @@ describe('DataService', () => {
     });
 
     it('should include all searchParams in href if any provided in options', () => {
-      options = { searchParams: [
-        new RequestParam('param1', 'test'),
-        new RequestParam('param2', 'test2'),
-        ] };
+      options = {
+        searchParams: [
+          new RequestParam('param1', 'test'),
+          new RequestParam('param2', 'test2'),
+        ]
+      };
       const expected = `${endpoint}?param1=test&param2=test2`;
 
       (service as any).getFindAllHref(options).subscribe((value) => {

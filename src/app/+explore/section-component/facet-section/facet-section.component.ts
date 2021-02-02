@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FacetSection } from 'src/app/core/layout/models/section.model';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { SearchFilterConfig } from 'src/app/shared/search/search-filter-config.model';
+import { FacetSection } from '../../../core/layout/models/section.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { FilterType } from '../../../shared/search/filter-type.model';
 
 /**
  * Component representing the Facet component section.
@@ -54,7 +55,7 @@ export class FacetSectionComponent implements OnInit {
             configuration: this.facetSection.discoveryConfigurationName,
             page: 1
         };
-        if ( facet.type === 'date') {
+        if ( facet.filterType === FilterType.range) {
             const dates = value.split('-');
             if ( dates.length === 2) {
                 queryParams[facet.paramName + '.min'] = dates[0].trim();

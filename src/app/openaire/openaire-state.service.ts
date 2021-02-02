@@ -89,7 +89,7 @@ export class OpenaireStateService {
    *    The number of the current OpenAIRE Broker topics page.
    */
   public getOpenaireBrokerTopicsCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getOpenaireBrokerTopicsCurrentPageSelector))
+    return this.store.pipe(select(getOpenaireBrokerTopicsCurrentPageSelector));
   }
 
   /**
@@ -99,7 +99,7 @@ export class OpenaireStateService {
    *    The number of the OpenAIRE Broker topics.
    */
   public getOpenaireBrokerTopicsTotals(): Observable<number> {
-    return this.store.pipe(select(getOpenaireBrokerTopicsTotalsSelector))
+    return this.store.pipe(select(getOpenaireBrokerTopicsTotalsSelector));
   }
 
   /**
@@ -111,6 +111,6 @@ export class OpenaireStateService {
    *    The number of the current page.
    */
   public dispatchRetrieveOpenaireBrokerTopics(elementsPerPage: number, currentPage: number): void {
-    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage))
+    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage));
   }
 }

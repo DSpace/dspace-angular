@@ -1,5 +1,4 @@
-import { Operation } from 'fast-json-patch/lib/core';
-import { compare } from 'fast-json-patch';
+import { compare, Operation } from 'fast-json-patch';
 import { ChangeAnalyzer } from './change-analyzer';
 import { Injectable } from '@angular/core';
 import { DSpaceObject } from '../shared/dspace-object.model';

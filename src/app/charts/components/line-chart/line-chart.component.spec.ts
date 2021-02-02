@@ -74,7 +74,7 @@ xdescribe('LineChartComponent', () => {
         }
       ]
     }
-  ]
+  ];
   const animations = true;
   const legend = true;
   const legendTitle = '';

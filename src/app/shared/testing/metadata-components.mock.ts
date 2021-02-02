@@ -1,5 +1,5 @@
-import { MetadataComponent } from 'src/app/core/layout/models/metadata-component.model';
-import { METADATACOMPONENT } from 'src/app/core/layout/models/metadata-component.resource-type';
+import { MetadataComponent } from '../../core/layout/models/metadata-component.model';
+import { METADATACOMPONENT } from '../../core/layout/models/metadata-component.resource-type';
 
 export const medataComponent: MetadataComponent = {
   id: '1',

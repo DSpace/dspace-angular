@@ -1,7 +1,7 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../../cache/builders/build-decorators';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 
 import { DSpaceObject } from '../../shared/dspace-object.model';
@@ -15,12 +15,6 @@ import { GROUP } from './group.resource-type';
 @inheritSerialization(DSpaceObject)
 export class Group extends DSpaceObject {
   static type = GROUP;
-
-  /**
-   * A string representing the unique name of this Group
-   */
-  @autoserialize
-  public name: string;
 
   /**
    * A string representing the unique handle of this Group

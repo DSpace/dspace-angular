@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
@@ -63,7 +63,7 @@ describe('MetadataRepresentationListComponent', () => {
     }
   );
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [MetadataRepresentationListComponent, VarDirective],
@@ -72,11 +72,11 @@ describe('MetadataRepresentationListComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRepresentationListComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(MetadataRepresentationListComponent);
     comp = fixture.componentInstance;
     comp.parentItem = parentItem;

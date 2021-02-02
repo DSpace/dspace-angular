@@ -63,7 +63,7 @@ describe('SuggestionsPopupComponent', () => {
 
       suggestionStateService.hasUserVisitedSuggestions.and.returnValue(observableOf(false));
       suggestionStateService.getCurrentUserSuggestionTargets.and.returnValue(observableOf([mockSuggestionTargetsObjectOne]));
-      suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction.and.returnValue(observableOf(null))
+      suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction.and.returnValue(observableOf(null));
 
       fixture = TestBed.createComponent(SuggestionsPopupComponent);
       component = fixture.componentInstance;

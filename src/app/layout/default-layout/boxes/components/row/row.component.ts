@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
-import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { getMetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
-import { Item } from 'src/app/core/shared/item.model';
-import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
-import { Box } from 'src/app/core/layout/models/box.model';
-import { Row } from 'src/app/core/layout/models/metadata-component.model';
-import { hasValue } from 'src/app/shared/empty.util';
+import { Item } from '../../../../../core/shared/item.model';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
+import { Box } from '../../../../../core/layout/models/box.model';
+import { Row } from '../../../../../core/layout/models/metadata-component.model';
+import { hasValue } from '../../../../../shared/empty.util';
 
 /**
  * This component renders the rows of metadata boxes

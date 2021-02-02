@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -13,7 +13,7 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -33,7 +33,7 @@ let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'creativeworkseries.issn': [
       {
@@ -62,7 +62,7 @@ describe('JournalComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -94,7 +94,7 @@ describe('JournalComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(JournalComponent);
     comp = fixture.componentInstance;
     comp.object = mockItem;

@@ -7,15 +7,15 @@ import { map, switchMap } from 'rxjs/operators';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 import { getCommunityPageRoute } from '../../+community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing-paths';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import {
   getFinishedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
-} from 'src/app/core/shared/operators';
+} from '../../core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;
@@ -72,7 +72,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
             label: `browse.comcol.by.${configValue}`,
             routerLink: `/browse/${configValue}`,
             params: { scope: this.id }
-          }))]
+          }))];
         }
         this.allOptions = options;
         return options;
@@ -108,7 +108,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
    * @param remoteData the remote data coming from the previous search
    */
   searchForBaseBrowseCollectionPropertyIfDataNotFound(remoteData: RemoteData<ConfigurationProperty>): Observable<RemoteData<ConfigurationProperty>> {
-    if (remoteData.hasFailed && remoteData.error.statusCode === 404 && this.contentType === 'collection') {
+    if (remoteData.hasFailed && remoteData.statusCode === 404 && this.contentType === 'collection') {
       return this.configurationService.findByPropertyName('browse.collection')
         .pipe(getFinishedRemoteData());
     } else {

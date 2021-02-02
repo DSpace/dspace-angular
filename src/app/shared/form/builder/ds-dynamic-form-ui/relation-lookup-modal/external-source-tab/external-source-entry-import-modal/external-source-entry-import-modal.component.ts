@@ -3,9 +3,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../../../core/shared/metadata.utils';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { SearchResult } from '../../../../../../search/search-result.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
@@ -18,7 +18,7 @@ import { ListableObject } from '../../../../../../object-collection/shared/lista
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../../../../core/shared/operators';
 import { take } from 'rxjs/operators';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
@@ -211,8 +211,8 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * Create and import a new entity from the external entry
    */
   importNewEntity() {
-    this.itemService.importExternalSourceEntry(this.externalSourceEntry._links.self.href, this.collectionId).pipe(
-      getSucceededRemoteData(),
+    this.itemService.importExternalSourceEntry(this.externalSourceEntry, this.collectionId).pipe(
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)
     ).subscribe((item: Item) => {

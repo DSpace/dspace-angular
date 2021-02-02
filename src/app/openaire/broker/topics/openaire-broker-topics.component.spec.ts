@@ -3,7 +3,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TestBed, async, ComponentFixture, inject } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   getMockOpenaireStateService,
@@ -18,6 +18,7 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerTopicsComponent>;
   let comp: OpenaireBrokerTopicsComponent;
   let compAsAny: any;
+  const mockOpenaireStateService = getMockOpenaireStateService();
   const activatedRouteParams = {
     openaireBrokerTopicsParams: {
       currentPage: 0,
@@ -25,7 +26,7 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
     }
   };
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -36,12 +37,23 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: OpenaireStateService, useClass: getMockOpenaireStateService },
+        { provide: OpenaireStateService, useValue: mockOpenaireStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
         OpenaireBrokerTopicsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    }).compileComponents().then(() => {
+      mockOpenaireStateService.getOpenaireBrokerTopics.and.returnValue(observableOf([
+        openaireBrokerTopicObjectMorePid,
+        openaireBrokerTopicObjectMoreAbstract
+      ]));
+      mockOpenaireStateService.getOpenaireBrokerTopicsTotalPages.and.returnValue(observableOf(1));
+      mockOpenaireStateService.getOpenaireBrokerTopicsCurrentPage.and.returnValue(observableOf(0));
+      mockOpenaireStateService.getOpenaireBrokerTopicsTotals.and.returnValue(observableOf(2));
+      mockOpenaireStateService.isOpenaireBrokerTopicsLoaded.and.returnValue(observableOf(true));
+      mockOpenaireStateService.isOpenaireBrokerTopicsLoading.and.returnValue(observableOf(false));
+      mockOpenaireStateService.isOpenaireBrokerTopicsProcessing.and.returnValue(observableOf(false));
+    });
   }));
 
   // First test to check the correct component creation
@@ -71,16 +83,7 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
       fixture = TestBed.createComponent(OpenaireBrokerTopicsComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      compAsAny.openaireStateService.getOpenaireBrokerTopics.and.returnValue(observableOf([
-        openaireBrokerTopicObjectMorePid,
-        openaireBrokerTopicObjectMoreAbstract
-      ]));
-      compAsAny.openaireStateService.getOpenaireBrokerTopicsTotalPages.and.returnValue(observableOf(1));
-      compAsAny.openaireStateService.getOpenaireBrokerTopicsCurrentPage.and.returnValue(observableOf(0));
-      compAsAny.openaireStateService.getOpenaireBrokerTopicsTotals.and.returnValue(observableOf(2));
-      compAsAny.openaireStateService.isOpenaireBrokerTopicsLoaded.and.returnValue(observableOf(true));
-      compAsAny.openaireStateService.isOpenaireBrokerTopicsLoading.and.returnValue(observableOf(false));
-      compAsAny.openaireStateService.isOpenaireBrokerTopicsProcessing.and.returnValue(observableOf(false));
+
     });
 
     afterEach(() => {

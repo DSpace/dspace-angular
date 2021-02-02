@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -13,14 +13,13 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -32,6 +31,7 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
+import { createPaginatedList } from '../../../testing/utils.test';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -44,7 +44,7 @@ let component: ItemDetailPreviewComponent;
 let fixture: ComponentFixture<ItemDetailPreviewComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), []))),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: {
     'dc.contributor.author': [
       {
@@ -78,11 +78,11 @@ describe('ItemDetailPreviewComponent', () => {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
-    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+      return createSuccessfulRemoteDataObject$(createPaginatedList([]));
     },
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
@@ -115,7 +115,7 @@ describe('ItemDetailPreviewComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemDetailPreviewComponent);
     component = fixture.componentInstance;
     component.object = { hitHighlights: {} } as any;
@@ -137,6 +137,6 @@ describe('ItemDetailPreviewComponent', () => {
     component.getFiles().subscribe((bitstreams) => {
       expect(bitstreams).toBeDefined();
       done();
-    })
+    });
   });
 });

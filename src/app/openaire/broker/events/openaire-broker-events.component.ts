@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, from, Observable, of as observableOf, Subscription } from 'rxjs';
-import { filter, flatMap, map, scan, take } from 'rxjs/operators';
+import { map, mergeMap, scan, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { FindListOptions } from '../../../core/data/request.models';
 import {
@@ -18,16 +18,14 @@ import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/ev
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue } from '../../../shared/empty.util';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { RestResponse } from '../../../core/cache/response.models';
 import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFinishedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { Item } from '../../../core/shared/item.model';
+import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { AdminNotificationsOpenaireEventsPageParams } from '../../../+admin/admin-notifications/admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.resolver';
 
 /**
@@ -118,18 +116,19 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
     private translateService: TranslateService
-  ) { }
+  ) {
+  }
 
   /**
    * Component initialization.
    */
   ngOnInit(): void {
-    this.isEventPageLoading.next(true)
+    this.isEventPageLoading.next(true);
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'openaire_broker_events';
     this.paginationConfig.pageSize = this.elementsPerPage;
     this.paginationConfig.currentPage = 1;
-    this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
+    this.paginationConfig.pageSizeOptions = [5, 10, 20, 30, 50];
     this.paginationSortConfig = new SortOptions('trust', SortDirection.DESC);
 
     this.subs.push(
@@ -141,14 +140,14 @@ export class OpenaireBrokerEventsComponent implements OnInit {
           map((data) => data.openaireBrokerEventsParams)
         )
       )
-      .subscribe(([id, openaireBrokerEventsRouteParams]: [string, any]) => {
-        this.updatePaginationFromRouteParams(openaireBrokerEventsRouteParams)
-        const regEx = /!/g;
-        this.showTopic = id.replace(regEx, '/');
-        this.topic = id;
-        this.isEventPageLoading.next(false);
-        this.getOpenaireBrokerEvents();
-      })
+        .subscribe(([id, openaireBrokerEventsRouteParams]: [string, any]) => {
+          this.updatePaginationFromRouteParams(openaireBrokerEventsRouteParams);
+          const regEx = /!/g;
+          this.showTopic = id.replace(regEx, '/');
+          this.topic = id;
+          this.isEventPageLoading.next(false);
+          this.getOpenaireBrokerEvents();
+        })
     );
   }
 
@@ -186,7 +185,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
       this.showTopic.indexOf('/PID') !== -1 ||
       this.showTopic.indexOf('/SUBJECT') !== -1 ||
       this.showTopic.indexOf('/ABSTRACT') !== -1
-    )
+    );
   }
 
   /**
@@ -255,7 +254,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
             projectTitle.value,
             object.indexableObject.handle
           );
-      })
+        })
     );
   }
 
@@ -271,8 +270,8 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     eventData.isRunning = true;
     this.subs.push(
       this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(take(1))
-        .subscribe((rd: RestResponse) => {
-          if (rd.isSuccessful && rd.statusCode === 200) {
+        .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
+          if (rd.isSuccess && rd.statusCode === 200) {
             this.notificationsService.success(
               this.translateService.instant('openaire.broker.event.action.saved')
             );
@@ -303,8 +302,8 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     eventData.isRunning = true;
     this.subs.push(
       this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(take(1))
-        .subscribe((rd: RestResponse) => {
-          if (rd.isSuccessful && rd.statusCode === 201) {
+        .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
+          if (rd.isSuccess) {
             this.notificationsService.success(
               this.translateService.instant('openaire.broker.event.project.bounded')
             );
@@ -332,30 +331,55 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     eventData.isRunning = true;
     this.subs.push(
       this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(take(1))
-      .subscribe((rd: RestResponse) => {
-        if (rd.isSuccessful && rd.statusCode === 204) {
-          this.notificationsService.success(
-            this.translateService.instant('openaire.broker.event.project.removed')
-          );
-          eventData.hasProject = false;
-          eventData.projectTitle = null;
-          eventData.handle = null;
-          eventData.projectId = null;
-        } else {
-          this.notificationsService.error(
-            this.translateService.instant('openaire.broker.event.project.error')
-          );
-        }
-        eventData.isRunning = false;
-      })
+        .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
+          if (rd.isSuccess) {
+            this.notificationsService.success(
+              this.translateService.instant('openaire.broker.event.project.removed')
+            );
+            eventData.hasProject = false;
+            eventData.projectTitle = null;
+            eventData.handle = null;
+            eventData.projectId = null;
+          } else {
+            this.notificationsService.error(
+              this.translateService.instant('openaire.broker.event.project.error')
+            );
+          }
+          eventData.isRunning = false;
+        })
     );
+  }
+
+  /**
+   * Check if the event has a valid href.
+   * @param event
+   */
+  public hasPIDHref(event: OpenaireBrokerEventMessageObject): boolean {
+    return this.getPIDHref(event) !== null;
+  }
+
+  /**
+   * Get the event pid href.
+   * @param event
+   */
+  public getPIDHref(event: OpenaireBrokerEventMessageObject): string {
+    return this.computePIDHref(event);
+  }
+
+  /**
+   * Unsubscribe from all subscriptions.
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
   /**
    * Dispatch the OpenAIRE Broker events retrival.
    */
   protected getOpenaireBrokerEvents(): void {
-    this.isEventLoading.next(true)
+    this.isEventLoading.next(true);
     this.eventsUpdated$ = new BehaviorSubject([]);
     const options: FindListOptions = {
       elementsPerPage: this.paginationConfig.pageSize,
@@ -366,19 +390,19 @@ export class OpenaireBrokerEventsComponent implements OnInit {
       this.openaireBrokerEventRestService.getEventsByTopic(
         this.topic,
         options,
-        followLink('target'),followLink('related')
+        followLink('target'), followLink('related')
       ).pipe(
         getFinishedRemoteData(),
         take(1)
       ).subscribe((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => {
         if (rd.hasSucceeded) {
-          this.isEventLoading.next(false)
+          this.isEventLoading.next(false);
           this.totalElements$ = observableOf(rd.payload.totalElements);
           this.setEventUpdated(rd.payload.page);
         } else {
           throw new Error('Can\'t retrieve OpenAIRE Broker events from the Broker events REST service');
         }
-        this.openaireBrokerEventRestService.clearFindByTopicRequests()
+        this.openaireBrokerEventRestService.clearFindByTopicRequests();
       })
     );
   }
@@ -392,10 +416,9 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   protected setEventUpdated(events: OpenaireBrokerEventObject[]): void {
     this.subs.push(
       from(events).pipe(
-        flatMap((event: OpenaireBrokerEventObject) => {
+        mergeMap((event: OpenaireBrokerEventObject) => {
           return event.related.pipe(
-            filter((rd: RemoteData<Item>) => (!rd.isResponsePending && isNotEmpty(rd.payload)) || rd.statusCode === 204),
-            getRemoteDataPayload(),
+            getFirstSucceededRemoteDataPayload(),
             map((subRelated) => {
               const data: OpenaireBrokerEventData = {
                 event: event,
@@ -418,7 +441,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
             })
           );
         }),
-        scan((acc: any, value: any) => [...acc, ...value], []),
+        scan((acc: any, value: any) => [...acc, value], []),
         take(events.length)
       ).subscribe(
         (eventsReduced) => {
@@ -444,22 +467,6 @@ export class OpenaireBrokerEventsComponent implements OnInit {
         this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
       }
     }
-  }
-
-  /**
-   * Check if the event has a valid href.
-   * @param event
-   */
-  public  hasPIDHref(event: OpenaireBrokerEventMessageObject): boolean {
-    return this.getPIDHref(event) !== null;
-  }
-
-  /**
-   * Get the event pid href.
-   * @param event
-   */
-  public getPIDHref(event: OpenaireBrokerEventMessageObject): string {
-    return this.computePIDHref(event);
   }
 
   protected computePIDHref(event: OpenaireBrokerEventMessageObject) {
@@ -503,14 +510,5 @@ export class OpenaireBrokerEventsComponent implements OnInit {
       return null;
     }
     return prefix + pid;
-  }
-
-  /**
-   * Unsubscribe from all subscriptions.
-   */
-  ngOnDestroy(): void {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
   }
 }

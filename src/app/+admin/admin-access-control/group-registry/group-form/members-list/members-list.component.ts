@@ -4,14 +4,17 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { RestResponse } from '../../../../../core/cache/response.models';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../../core/eperson/models/group.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload
+} from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
@@ -112,7 +115,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
       currentPage: event,
       elementsPerPage: this.config.pageSize
-    })
+    });
   }
 
   /**
@@ -160,14 +163,14 @@ export class MembersListComponent implements OnInit, OnDestroy {
             elementsPerPage: Number.MAX_SAFE_INTEGER
           })
             .pipe(
-              getSucceededRemoteData(),
+              getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
               map((listEPeopleInGroup: PaginatedList<EPerson>) => listEPeopleInGroup.page.filter((ePersonInList: EPerson) => ePersonInList.id === possibleMember.id)),
-              map((epeople: EPerson[]) => epeople.length > 0))
+              map((epeople: EPerson[]) => epeople.length > 0));
         } else {
           return observableOf(false);
         }
-      }))
+      }));
   }
 
   /**
@@ -208,7 +211,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
       currentPage: this.configSearch.currentPage,
       elementsPerPage: this.configSearch.pageSize
-    })
+    });
   }
 
   /**
@@ -225,14 +228,14 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param nameObject      Object request was about
    * @param activeGroup     Group currently being edited
    */
-  showNotifications(messageSuffix: string, response: Observable<RestResponse>, nameObject: string, activeGroup: Group) {
-    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
-      if (restResponse.isSuccessful) {
+  showNotifications(messageSuffix: string, response: Observable<RemoteData<any>>, nameObject: string, activeGroup: Group) {
+    response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<any>) => {
+      if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }
-    })
+    });
   }
 
   /**

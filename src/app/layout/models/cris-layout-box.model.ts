@@ -1,12 +1,15 @@
-import { CrisLayoutPage } from './cris-layout-page.model';
-import { Input, OnInit } from '@angular/core';
-import { Box } from 'src/app/core/layout/models/box.model';
-import { hasValue } from 'src/app/shared/empty.util';
+import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Box } from '../../core/layout/models/box.model';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * This class is a model to be extended for creating custom layouts for boxes
  */
-export class CrisLayoutBox extends CrisLayoutPage implements OnInit {
+@Component({
+  template: ''
+})
+export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelComponent implements OnInit {
   /**
    * Boxes list
    */

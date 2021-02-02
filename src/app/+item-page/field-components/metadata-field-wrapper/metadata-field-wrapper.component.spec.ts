@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.component';
 
@@ -41,7 +41,7 @@ describe('MetadataFieldWrapperComponent', () => {
   let component: MetadataFieldWrapperComponent;
   let fixture: ComponentFixture<MetadataFieldWrapperComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MetadataFieldWrapperComponent, NoContentComponent, SpanContentComponent, TextContentComponent, ImgContentComponent]
     }).compileComponents();

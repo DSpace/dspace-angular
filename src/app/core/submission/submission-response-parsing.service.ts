@@ -4,8 +4,8 @@ import { DSOResponseParsingService } from '../data/dso-response-parsing.service'
 
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { ParsedResponse } from '../cache/response.models';
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { ConfigObject } from '../config/models/config.model';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
@@ -26,7 +26,7 @@ export function isServerFormValue(obj: any): boolean {
     && obj.hasOwnProperty('value')
     && obj.hasOwnProperty('language')
     && obj.hasOwnProperty('authority')
-    && obj.hasOwnProperty('confidence'))
+    && obj.hasOwnProperty('confidence'));
 }
 
 /**
@@ -98,32 +98,27 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    * Parses data from the workspaceitems/workflowitems endpoints
    *
    * @param {RestRequest} request
-   * @param {DSpaceRESTV2Response} data
+   * @param {RawRestResponse} data
    * @returns {RestResponse}
    */
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     this.dsoParser.parse(deepClone(request), deepClone(data));
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
       && this.isSuccessStatus(data.statusCode)) {
       const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request);
-      return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
+      return new ParsedResponse(data.statusCode, undefined, { dataDefinition });
     } else if (isEmpty(data.payload) && this.isSuccessStatus(data.statusCode)) {
-      return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
+      return new ParsedResponse(data.statusCode);
     } else {
-      return new ErrorResponse(
-        Object.assign(
-          new Error('Unexpected response from server'),
-          { statusCode: data.statusCode, statusText: data.statusText }
-        )
-      );
+      throw new Error('Unexpected response from server');
     }
   }
 
   /**
    * Parses response and normalize it
    *
-   * @param {DSpaceRESTV2Response} data
+   * @param {RawRestResponse} data
    * @param {RestRequest} request
    * @returns {any[]}
    */

@@ -1,6 +1,7 @@
 import {
   SelectableListAction,
-  SelectableListDeselectAction, SelectableListDeselectAllAction,
+  SelectableListDeselectAction,
+  SelectableListDeselectAllAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,

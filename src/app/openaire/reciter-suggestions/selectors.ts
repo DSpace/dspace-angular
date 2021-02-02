@@ -31,7 +31,7 @@ export function reciterSuggestionTargetStateSelector(): MemoizedSelector<Openair
  * @return {OpenaireReciterSuggestionTarget[]}
  */
 export function reciterSuggestionTargetObjectSelector(): MemoizedSelector<OpenaireState, OpenaireSuggestionTarget[]> {
-  return subStateSelector<OpenaireState, OpenaireSuggestionTarget[]>(reciterSuggestionTargetStateSelector(), 'targets')
+  return subStateSelector<OpenaireState, OpenaireSuggestionTarget[]>(reciterSuggestionTargetStateSelector(), 'targets');
 }
 
 /**

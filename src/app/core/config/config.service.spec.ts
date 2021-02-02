@@ -3,9 +3,11 @@ import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
-import { ConfigRequest, FindListOptions } from '../data/request.models';
+import { FindListOptions, GetRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';
@@ -16,8 +18,9 @@ class TestService extends ConfigService {
 
   constructor(
     protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService) {
-    super();
+    super(requestService, rdbService, null, null, halService, null, null, null, BROWSE);
   }
 }
 
@@ -25,6 +28,7 @@ describe('ConfigService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
   let requestService: RequestService;
+  let rdbService: RemoteDataBuildService;
   let halService: any;
 
   const findOptions: FindListOptions = new FindListOptions();
@@ -39,6 +43,7 @@ describe('ConfigService', () => {
   function initTestService(): TestService {
     return new TestService(
       requestService,
+      rdbService,
       halService
     );
   }
@@ -46,41 +51,39 @@ describe('ConfigService', () => {
   beforeEach(() => {
     scheduler = getTestScheduler();
     requestService = getMockRequestService();
+    rdbService = getMockRemoteDataBuildService();
     halService = new HALEndpointServiceStub(configEndpoint);
     service = initTestService();
+    spyOn((service as any).dataService, 'findById');
+    spyOn((service as any).dataService, 'findAll');
   });
 
-  describe('getConfigByHref', () => {
+  describe('findByHref', () => {
 
-    it('should configure a new ConfigRequest', () => {
-      const expected = new ConfigRequest(requestService.generateRequestId(), scopedEndpoint);
-      scheduler.schedule(() => service.getConfigByHref(scopedEndpoint).subscribe());
+    it('should configure a new GetRequest', () => {
+      const expected = new GetRequest(requestService.generateRequestId(), scopedEndpoint);
+      scheduler.schedule(() => service.findByHref(scopedEndpoint).subscribe());
       scheduler.flush();
 
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });
 
-  describe('getConfigByName', () => {
-
-    it('should configure a new ConfigRequest', () => {
-      const expected = new ConfigRequest(requestService.generateRequestId(), scopedEndpoint);
-      scheduler.schedule(() => service.getConfigByName(scopeName).subscribe());
+  describe('findAll', () => {
+    it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
+      scheduler.schedule(() => service.findAll());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect((service as any).dataService.findAll).toHaveBeenCalledWith( {}, true);
     });
   });
 
-  describe('getConfigBySearch', () => {
-
-    it('should configure a new ConfigRequest', () => {
-      findOptions.scopeID = scopeID;
-      const expected = new ConfigRequest(requestService.generateRequestId(), searchEndpoint);
-      scheduler.schedule(() => service.getConfigBySearch(findOptions).subscribe());
+  describe('findByName', () => {
+    it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
+      scheduler.schedule(() => service.findByName('testConfig'));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith('testConfig', true);
     });
   });
 });

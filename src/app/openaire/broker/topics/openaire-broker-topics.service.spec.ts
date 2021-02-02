@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
-import { SortOptions, SortDirection } from '../../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { OpenaireBrokerTopicRestService } from '../../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { FindListOptions } from '../../../core/data/request.models';
 import {
   getMockOpenaireBrokerTopicRestService,
-  openaireBrokerTopicObjectMorePid,
-  openaireBrokerTopicObjectMoreAbstract
+  openaireBrokerTopicObjectMoreAbstract,
+  openaireBrokerTopicObjectMorePid
 } from '../../../shared/mocks/openaire.mock';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 
 describe('OpenaireBrokerTopicsService', () => {
   let service: OpenaireBrokerTopicsService;
@@ -22,7 +22,7 @@ describe('OpenaireBrokerTopicsService', () => {
 
   const pageInfo = new PageInfo();
   const array = [ openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract ];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = buildPaginatedList(pageInfo, array);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
   const elementsPerPage = 3;
   const currentPage = 0;

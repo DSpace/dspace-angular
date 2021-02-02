@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -59,7 +59,7 @@ describe('SectionsService test suite', () => {
     select: jasmine.createSpy('select')
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ submissionReducers } as any, storeModuleConfig),
@@ -82,11 +82,11 @@ describe('SectionsService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SectionsService);
-    submissionServiceStub = TestBed.get(SubmissionService);
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    scrollToService = TestBed.get(ScrollToService);
-    translateService = TestBed.get(TranslateService);
+    service = TestBed.inject(SectionsService);
+    submissionServiceStub = TestBed.inject(SubmissionService as any);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
+    scrollToService = TestBed.inject(ScrollToService);
+    translateService = TestBed.inject(TranslateService);
   });
 
   describe('checkSectionErrors', () => {
@@ -378,6 +378,27 @@ describe('SectionsService test suite', () => {
       scheduler.flush();
 
       expect(store.dispatch).toHaveBeenCalledWith(new UpdateSectionDataAction(submissionId, sectionId, data, []));
+    });
+  });
+
+  describe('computeSectionConfiguredMetadata', () => {
+    it('should return the configured metadata of the section from the form configuration', () => {
+
+      const formConfig = {
+        rows: [{
+          fields: [{
+            selectableMetadata: [{
+              metadata: 'dc.contributor.author'
+            }]
+          }]
+        }]
+      };
+
+      const expectedConfiguredMetadata =  [ 'dc.contributor.author' ];
+
+      const configuredMetadata = service.computeSectionConfiguredMetadata(formConfig as any);
+
+      expect(configuredMetadata).toEqual(expectedConfiguredMetadata);
     });
   });
 });

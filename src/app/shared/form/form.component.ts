@@ -226,14 +226,14 @@ export class FormComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-    this.formService.removeForm(this.formId)
+    this.formService.removeForm(this.formId);
   }
 
   /**
    * Method to check if the form status is valid or not
    */
   public isValid(): Observable<boolean> {
-    return this.formService.isValid(this.formId)
+    return this.formService.isValid(this.formId);
   }
 
   /**
@@ -253,6 +253,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onFocus(event: DynamicFormControlEvent): void {
+    this.formService.setTouched(this.formId, this.formModel, event);
     this.focus.emit(event);
   }
 

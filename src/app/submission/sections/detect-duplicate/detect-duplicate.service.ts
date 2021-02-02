@@ -8,6 +8,7 @@ import { SetDuplicateDecisionAction } from '../../objects/submission-objects.act
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { Observable } from 'rxjs/internal/Observable';
 
 /**
  * A service that provides methods used in the deduplication process.
@@ -56,7 +57,7 @@ export class DetectDuplicateService {
    * @return Observable<Object>
    *    Returns the list of the possible duplications
    */
-  getDuplicateMatchesByScope(submissionId: string, sectionId: string, isWorkFlow: boolean) {
+  getDuplicateMatchesByScope(submissionId: string, sectionId: string, isWorkFlow: boolean): Observable<WorkspaceitemSectionDetectDuplicateObject> {
     return this.getDuplicateMatches(submissionId, sectionId).pipe(
       map((item: WorkspaceitemSectionDetectDuplicateObject) => {
         const outputObject: WorkspaceitemSectionDetectDuplicateObject = {} as WorkspaceitemSectionDetectDuplicateObject;

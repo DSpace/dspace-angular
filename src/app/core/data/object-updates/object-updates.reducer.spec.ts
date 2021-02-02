@@ -4,12 +4,16 @@ import {
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction,
-  ReinstateObjectUpdatesAction, RemoveAllObjectUpdatesAction,
-  RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction,
-  SetEditableFieldUpdateAction, SetValidFieldUpdateAction
+  ReinstateObjectUpdatesAction,
+  RemoveAllObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  RemoveObjectUpdatesAction,
+  SelectVirtualMetadataAction,
+  SetEditableFieldUpdateAction,
+  SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
-import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;
@@ -45,7 +49,7 @@ const identifiable3 = {
   language: null,
   value: 'Unchanged value'
 };
-const relationship: Relationship = Object.assign(new Relationship(), {uuid: 'test relationship uuid'});
+const relationship: Relationship = Object.assign(new Relationship(), { uuid: 'test relationship uuid' });
 
 const modDate = new Date(2010, 2, 11);
 const uuid = identifiable1.uuid;
@@ -83,7 +87,7 @@ describe('objectUpdatesReducer', () => {
       },
       lastModified: modDate,
       virtualMetadataSources: {
-        [relationship.uuid]: {[identifiable1.uuid]: true}
+        [relationship.uuid]: { [identifiable1.uuid]: true }
       },
     }
   };
@@ -109,7 +113,7 @@ describe('objectUpdatesReducer', () => {
       },
       lastModified: modDate,
       virtualMetadataSources: {
-        [relationship.uuid]: {[identifiable1.uuid]: true}
+        [relationship.uuid]: { [identifiable1.uuid]: true }
       },
     },
     [url + OBJECT_UPDATES_TRASH_PATH]: {
@@ -143,7 +147,7 @@ describe('objectUpdatesReducer', () => {
       },
       lastModified: modDate,
       virtualMetadataSources: {
-        [relationship.uuid]: {[identifiable1.uuid]: true}
+        [relationship.uuid]: { [identifiable1.uuid]: true }
       },
     }
   };
@@ -232,7 +236,7 @@ describe('objectUpdatesReducer', () => {
         fieldUpdates: {},
         virtualMetadataSources: {},
         lastModified: modDate,
-        patchOperationServiceToken: undefined
+        patchOperationService: undefined
       }
     };
     const newState = objectUpdatesReducer(testState, action);

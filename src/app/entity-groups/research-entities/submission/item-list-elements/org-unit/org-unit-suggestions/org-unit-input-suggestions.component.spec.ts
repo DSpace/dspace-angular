@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OrgUnitInputSuggestionsComponent } from './org-unit-input-suggestions.component';
 import { FormsModule } from '@angular/forms';
@@ -10,12 +10,12 @@ let suggestions: string[];
 let testValue;
 
 function init() {
-  suggestions = ['test', 'suggestion', 'example']
+  suggestions = ['test', 'suggestion', 'example'];
   testValue = 'bla';
 }
 
 describe('OrgUnitInputSuggestionsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [OrgUnitInputSuggestionsComponent],
@@ -30,7 +30,7 @@ describe('OrgUnitInputSuggestionsComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(OrgUnitInputSuggestionsComponent);
     component = fixture.componentInstance;
     component.suggestions = suggestions;

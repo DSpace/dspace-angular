@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
 import { filter, find, map, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Registration } from '../shared/registration.model';
-import { filterSuccessfulResponses, getResponseFromEntry } from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
 import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
-import { RegistrationSuccessResponse } from '../cache/response.models';
+import { RemoteData } from './remote-data';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 @Injectable(
   {
@@ -27,6 +28,7 @@ export class EpersonRegistrationService {
 
   constructor(
     protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
   ) {
 
@@ -52,7 +54,7 @@ export class EpersonRegistrationService {
    * Register a new email address
    * @param email
    */
-  registerEmail(email: string) {
+  registerEmail(email: string): Observable<RemoteData<Registration>> {
     const registration = new Registration();
     registration.email = email;
 
@@ -68,8 +70,8 @@ export class EpersonRegistrationService {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry()
+    return this.rdbService.buildFromRequestUUID<Registration>(requestId).pipe(
+      getFirstCompletedRemoteData()
     );
   }
 
@@ -95,10 +97,10 @@ export class EpersonRegistrationService {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      filterSuccessfulResponses(),
-      map((restResponse: RegistrationSuccessResponse) => {
-        return Object.assign(new Registration(), {email: restResponse.registration.email, token: token, user: restResponse.registration.user});
+    return this.rdbService.buildFromRequestUUID<Registration>(requestId).pipe(
+      getFirstSucceededRemoteData(),
+      map((restResponse: RemoteData<Registration>) => {
+        return Object.assign(new Registration(), {email: restResponse.payload.email, token: token, user: restResponse.payload.user});
       }),
       take(1),
     );

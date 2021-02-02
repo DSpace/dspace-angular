@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CrisLayoutSearchBoxComponent } from './cris-layout-search-box.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { Item } from 'src/app/core/shared/item.model';
+import { SharedModule } from '../../../../shared/shared.module';
+import { Item } from '../../../../core/shared/item.model';
 import { of } from 'rxjs';
-import { Box } from 'src/app/core/layout/models/box.model';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { Box } from '../../../../core/layout/models/box.model';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 
 describe('CrisLayoutSearchBoxComponent', () => {
   let component: CrisLayoutSearchBoxComponent;
@@ -28,7 +28,7 @@ describe('CrisLayoutSearchBoxComponent', () => {
     configuration: of({ configuration: 'box-configuration-id' })
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({

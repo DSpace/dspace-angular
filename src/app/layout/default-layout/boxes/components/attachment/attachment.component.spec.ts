@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AttachmentComponent } from './attachment.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { Item } from 'src/app/core/shared/item.model';
+import { SharedModule } from '../../../../../shared/shared.module';
+import { Item } from '../../../../../core/shared/item.model';
 import { of, Observable } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { FindListOptions } from '../../../../../core/data/request.models';
+import { FollowLinkConfig } from '../../../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -49,8 +49,8 @@ describe('AttachmentComponent', () => {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
-    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+      return createSuccessfulRemoteDataObject$(createPaginatedList([]));
     },
   };
 

@@ -8,7 +8,7 @@ import { Item } from '../../../core/shared/item.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 
 export interface SuggestionApproveAndImport {
-  suggestion: OpenaireSuggestion,
+  suggestion: OpenaireSuggestion;
   collectionId: string;
 }
 
@@ -54,7 +54,7 @@ export class SuggestionListElementComponent implements OnInit {
     this.listableObject = {
       indexableObject: Object.assign(new Item(), {id: this.object.id, metadata: this.object.metadata}),
       hitHighlights: {}
-    }
+    };
   }
 
   /**

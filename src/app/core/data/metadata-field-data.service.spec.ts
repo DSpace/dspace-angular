@@ -1,7 +1,7 @@
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { FindListOptions } from './request.models';
@@ -59,7 +59,7 @@ describe('MetadataFieldDataService', () => {
       const expectedOptions = Object.assign(new FindListOptions(), {
         searchParams: [new RequestParam('schema', schema.prefix)]
       });
-      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions);
+      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true);
     });
   });
 

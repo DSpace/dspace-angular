@@ -2,7 +2,7 @@
   <div *ngIf="model.repeatable"
        class="form-row"
        [attr.tabindex]="model.tabIndex"
-       [dynamicId]="bindId && model.id"
+       [id]="id"
        [formGroupName]="model.id"
        [ngClass]="model.layout.element?.control">
 
@@ -10,18 +10,17 @@
 
       <div  *ngFor="let item of columnItems" class="custom-control custom-checkbox">
 
-        <input type="checkbox" class="custom-control-input"
-               [attr.tabindex]="item.index"
-               [checked]="item.value"
-               [id]="model.id + item.id"
-               [dynamicId]="model.id + item.id"
-               [formControlName]="item.id"
-               [name]="model.name"
-               [required]="model.required"
-               [value]="item.value"
-               (blur)="onBlur($event)"
-               (change)="onChange($event)"
-               (focus)="onFocus($event)"/>
+          <input type="checkbox" class="custom-control-input"
+                 [attr.tabindex]="item.index"
+                 [checked]="item.value"
+                 [id]="model.id + item.id"
+                 [formControlName]="item.id"
+                 [name]="model.name"
+                 [required]="model.required"
+                 [value]="item.value"
+                 (blur)="onBlur($event)"
+                 (change)="onChange($event)"
+                 (focus)="onFocus($event)"/>
         <label class="custom-control-label"
                [class.disabled]="model.disabled"
                [ngClass]="model.layout.element?.control"
@@ -38,7 +37,7 @@
        class="form-row"
        ngbRadioGroup
        [attr.tabindex]="model.tabIndex"
-       [dynamicId]="bindId && model.id"
+       [id]="id"
        [ngClass]="model.layout.element?.control"
        (change)="onChange($event)">
 
@@ -48,7 +47,6 @@
         <input type="radio" class="custom-control-input"
                [checked]="item.value"
                [id]="model.id + item.id"
-               [dynamicId]="model.id + item.id"
                [name]="model.id"
                [required]="model.required"
                [value]="item.index"

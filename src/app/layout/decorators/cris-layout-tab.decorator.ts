@@ -1,7 +1,7 @@
 import { LayoutPage } from '../enums/layout-page.enum';
 import { LayoutTab } from '../enums/layout-tab.enum';
-import { hasNoValue } from 'src/app/shared/empty.util';
-import { Item } from 'src/app/core/shared/item.model';
+import { hasNoValue } from '../../shared/empty.util';
+import { Item } from '../../core/shared/item.model';
 
 const layoutTabsMap = new Map();
 const ITEM_METADATA_TYPE = 'relationship.type';
@@ -17,7 +17,7 @@ export function CrisLayoutTab(objectType: LayoutPage, tabName: LayoutTab) {
     if (hasNoValue(layoutTabsMap.get(objectType).get(tabName))) {
       layoutTabsMap.get(objectType).set(tabName, component);
     }
-  }
+  };
 }
 
 export function getCrisLayoutTab(item: Item, tabName: LayoutTab | string): any {

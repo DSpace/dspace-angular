@@ -1,6 +1,7 @@
 import { formReducer } from './form.reducer';
 import {
   FormAddError,
+  FormAddTouchedAction,
   FormChangeAction,
   FormClearErrorsAction,
   FormInitAction,
@@ -21,7 +22,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -48,7 +50,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -67,7 +70,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
 
@@ -88,7 +92,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
     const state = {
@@ -100,7 +105,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -127,7 +133,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
     const state = {
@@ -139,7 +146,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: true,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -160,7 +168,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: true,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
 
@@ -204,7 +213,8 @@ describe('formReducer', () => {
             fieldIndex: 0,
             message: 'error.validation.required'
           }
-        ]
+        ],
+        touched: {}
       }
     };
 
@@ -236,7 +246,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: true,
-        errors: []
+        errors: [],
+        touched: {}
       }
     };
 
@@ -264,7 +275,8 @@ describe('formReducer', () => {
             fieldIndex: 0,
             message: 'error.validation.required'
           }
-        ]
+        ],
+        touched: {}
       }
     };
 
@@ -275,4 +287,84 @@ describe('formReducer', () => {
 
     expect(newState.testForm.errors).toEqual([]);
   });
+
+  it('should set new touched field to the form state', () => {
+    const initState = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        touched: {}
+      }
+    };
+    const state = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        touched: {
+          title: true
+        }
+      }
+    };
+    const formId = 'testForm';
+    const touched = ['title'];
+
+    const action = new FormAddTouchedAction(formId, touched);
+    const newState = formReducer(initState, action);
+
+    expect(newState).toEqual(state);
+  });
+
+  it('should add new touched field to the form state', () => {
+    const initState = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        touched: {
+          title: true
+        }
+      }
+    };
+    const state = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        touched: {
+          title: true,
+          author: true
+        }
+      }
+    };
+    const formId = 'testForm';
+    const touched = ['author'];
+
+    const action = new FormAddTouchedAction(formId, touched);
+    const newState = formReducer(initState, action);
+
+    expect(newState).toEqual(state);
+  });
+
 });

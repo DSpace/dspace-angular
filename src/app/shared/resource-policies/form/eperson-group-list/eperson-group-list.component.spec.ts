@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
@@ -16,7 +16,7 @@ import { EpersonGroupListComponent, SearchEvent } from './eperson-group-list.com
 import { EPersonMock } from '../../../testing/eperson.mock';
 import { GroupMock } from '../../../testing/group-mock';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -28,7 +28,7 @@ describe('EpersonGroupListComponent test suite', () => {
   let groupService: any;
   let epersonService: any;
 
-  const paginationOptions: PaginationComponentOptions = new PaginationComponentOptions()
+  const paginationOptions: PaginationComponentOptions = new PaginationComponentOptions();
   paginationOptions.id = uniqueId('eperson-group-list-pagination-test');
   paginationOptions.pageSize = 5;
 
@@ -54,13 +54,13 @@ describe('EpersonGroupListComponent test suite', () => {
     }
   );
 
-  const epersonPaginatedList = new PaginatedList(new PageInfo(), [EPersonMock, EPersonMock]);
+  const epersonPaginatedList = buildPaginatedList(new PageInfo(), [EPersonMock, EPersonMock]);
   const epersonPaginatedListRD = createSuccessfulRemoteDataObject(epersonPaginatedList);
 
-  const groupPaginatedList = new PaginatedList(new PageInfo(), [GroupMock, GroupMock]);
+  const groupPaginatedList = buildPaginatedList(new PageInfo(), [GroupMock, GroupMock]);
   const groupPaginatedListRD = createSuccessfulRemoteDataObject(groupPaginatedList);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
@@ -90,6 +90,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      mockEpersonService.searchByScope.and.returnValue(observableOf(epersonPaginatedListRD));
       const html = `
         <ds-eperson-group-list [isListOfEPerson]="isListOfEPerson" [initSelected]="initSelected"></ds-eperson-group-list>`;
 
@@ -113,7 +114,7 @@ describe('EpersonGroupListComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(EpersonGroupListComponent);
-      epersonService = TestBed.get(EPersonDataService);
+      epersonService = TestBed.inject(EPersonDataService);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.isListOfEPerson = true;
@@ -140,7 +141,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
       fixture.detectChanges();
 
-      expect(compAsAny.entrySelectedId.value).toBe(EPersonMock.id)
+      expect(compAsAny.entrySelectedId.value).toBe(EPersonMock.id);
     });
 
     it('should init the list of eperson', () => {
@@ -190,7 +191,7 @@ describe('EpersonGroupListComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(EpersonGroupListComponent);
-      groupService = TestBed.get(GroupDataService);
+      groupService = TestBed.inject(GroupDataService);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.isListOfEPerson = false;
@@ -217,7 +218,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
       fixture.detectChanges();
 
-      expect(compAsAny.entrySelectedId.value).toBe(GroupMock.id)
+      expect(compAsAny.entrySelectedId.value).toBe(GroupMock.id);
     });
 
     it('should init the list of group', () => {
@@ -262,11 +263,11 @@ describe('EpersonGroupListComponent test suite', () => {
     });
 
     it('should update list on search triggered', () => {
-      const options: PaginationComponentOptions = comp.paginationOptions
+      const options: PaginationComponentOptions = comp.paginationOptions;
       const event: SearchEvent = {
         scope: 'metadata',
         query: 'test'
-      }
+      };
       spyOn(comp, 'updateList');
       comp.onSearch(event);
 

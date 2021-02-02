@@ -93,7 +93,7 @@ export class SuggestionTargetsStateService {
    *    The number of the current Reciter Suggestion Targets page.
    */
   public getReciterSuggestionTargetsCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetCurrentPageSelector))
+    return this.store.pipe(select(getreciterSuggestionTargetCurrentPageSelector));
   }
 
   /**
@@ -117,7 +117,7 @@ export class SuggestionTargetsStateService {
    *    The number of the current page.
    */
   public dispatchRetrieveReciterSuggestionTargets(source: string, elementsPerPage: number, currentPage: number): void {
-    this.store.dispatch(new RetrieveTargetsBySourceAction(source, elementsPerPage, currentPage))
+    this.store.dispatch(new RetrieveTargetsBySourceAction(source, elementsPerPage, currentPage));
   }
 
   /**
@@ -144,20 +144,20 @@ export class SuggestionTargetsStateService {
    * Dispatch a new MarkUserSuggestionsAsVisitedAction
    */
   public dispatchMarkUserSuggestionsAsVisitedAction(): void {
-    this.store.dispatch(new MarkUserSuggestionsAsVisitedAction())
+    this.store.dispatch(new MarkUserSuggestionsAsVisitedAction());
   }
 
   /**
    * Dispatch an action to clear the Reciter Suggestion Targets state.
    */
   public dispatchClearSuggestionTargetsAction(): void {
-    this.store.dispatch(new ClearSuggestionTargetsAction())
+    this.store.dispatch(new ClearSuggestionTargetsAction());
   }
 
   /**
    * Dispatch an action to refresh the user suggestions.
    */
   public dispatchRefreshUserSuggestionsAction(): void {
-    this.store.dispatch(new RefreshUserSuggestionsAction())
+    this.store.dispatch(new RefreshUserSuggestionsAction());
   }
 }

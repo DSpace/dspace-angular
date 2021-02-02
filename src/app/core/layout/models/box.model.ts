@@ -1,8 +1,8 @@
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { BOX } from './box.resource-type';
-import { typedObject, link } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { autoserialize, deserializeAs, deserialize } from 'cerialize';
+import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
@@ -77,8 +77,8 @@ export class Box extends CacheableObject {
    */
   @deserialize
   _links: {
-      self: HALLink,
-      configuration: HALLink
+    self: HALLink,
+    configuration: HALLink
   };
 
   /**

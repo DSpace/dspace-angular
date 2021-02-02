@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RelationshipService } from '../../../core/data/relationship.service';

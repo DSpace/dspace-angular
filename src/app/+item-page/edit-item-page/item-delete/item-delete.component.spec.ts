@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../core/shared/item.model';
@@ -16,16 +16,14 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemDeleteComponent } from './item-delete.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -47,7 +45,7 @@ let notificationsServiceStub;
 let typesSelection;
 
 describe('ItemDeleteComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',
@@ -78,52 +76,16 @@ describe('ItemDeleteComponent', () => {
       Object.assign(new Relationship(), {
         id: '1',
         uuid: 'relationship-1',
-        relationshipType: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          type1
-        )),
-        leftItem:  observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          mockItem,
-        )),
-        rightItem:  observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          Object.assign(new Item(), {})
-        )),
+        relationshipType: createSuccessfulRemoteDataObject$(type1),
+        leftItem: createSuccessfulRemoteDataObject$(mockItem),
+        rightItem: createSuccessfulRemoteDataObject$(new Item()),
       }),
       Object.assign(new Relationship(), {
         id: '2',
         uuid: 'relationship-2',
-        relationshipType: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          type2
-        )),
-        leftItem:  observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          mockItem,
-        )),
-        rightItem:  observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          Object.assign(new Item(), {})
-        )),
+        relationshipType: createSuccessfulRemoteDataObject$(type2),
+        leftItem: createSuccessfulRemoteDataObject$(mockItem),
+        rightItem: createSuccessfulRemoteDataObject$(new Item()),
       }),
     ];
 
@@ -133,7 +95,7 @@ describe('ItemDeleteComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      delete: observableOf(true)
+      delete: createSuccessfulRemoteDataObject$({})
     });
 
     routeStub = {
@@ -149,20 +111,8 @@ describe('ItemDeleteComponent', () => {
 
     entityTypeService = jasmine.createSpyObj('entityTypeService',
       {
-        getEntityTypeByLabel: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          itemType,
-        )),
-        getEntityTypeRelationships: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          new PaginatedList(new PageInfo(), types),
-        )),
+        getEntityTypeByLabel: createSuccessfulRemoteDataObject$(itemType),
+        getEntityTypeRelationships: createSuccessfulRemoteDataObject$(createPaginatedList(types)),
       }
     );
 
@@ -236,5 +186,4 @@ describe('ItemDeleteComponent', () => {
       expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('fake-id')]);
     });
   });
-})
-;
+});

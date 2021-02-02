@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -12,8 +12,7 @@ import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { LayoutPage } from './enums/layout-page.enum';
 import { Item } from '../core/shared/item.model';
-import { spyOnExported } from '../shared/testing/utils.test';
-import * as CrisLayoutDecorators from './decorators/cris-layout-page.decorator';
+import { createPaginatedList } from '../shared/testing/utils.test';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { EditItemDataService } from '../core/submission/edititem-data.service';
@@ -22,8 +21,6 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { AuthService } from '../core/auth/auth.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { tabs } from '../shared/testing/tab.mock';
-import { PageInfo } from '../core/shared/page-info.model';
-import { PaginatedList } from '../core/data/paginated-list';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -71,7 +68,7 @@ describe('CrisPageLoaderComponent', () => {
   let component: CrisPageLoaderComponent;
   let fixture: ComponentFixture<CrisPageLoaderComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -81,14 +78,12 @@ describe('CrisPageLoaderComponent', () => {
       }), BrowserAnimationsModule],
       declarations: [CrisPageLoaderComponent, CrisLayoutDefaultComponent, CrisLayoutLoaderDirective],
       providers: [
-        ComponentFactoryResolver,
         { provide: TabDataService, useValue: tabDataServiceMock },
         { provide: EditItemDataService, useValue: editItemDataServiceMock },
         { provide: AuthorizationDataService, useValue: authorizationDataServiceMock },
         { provide: AuthService, useValue: authServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
-        { provide: ComponentFactoryResolver, useValue: {} },
         { provide: ChangeDetectorRef, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -103,26 +98,23 @@ describe('CrisPageLoaderComponent', () => {
     fixture = TestBed.createComponent(CrisPageLoaderComponent);
     component = fixture.componentInstance;
     component.item = mockItem;
-    spyOnExported(CrisLayoutDecorators, 'getCrisLayoutPage').and.returnValue(CrisLayoutDefaultComponent);
     tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-      a: createSuccessfulRemoteDataObject(
-        new PaginatedList(new PageInfo(), tabs)
-      )
+      a: createSuccessfulRemoteDataObject(createPaginatedList(tabs))
     }));
     editItemDataServiceMock.findById.and.returnValue(cold('a|', {
       a: createSuccessfulRemoteDataObject(
         editItem
       )
     }));
-    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true))
-    authServiceMock.isAuthenticated.and.returnValue(observableOf(true))
+    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true));
+    authServiceMock.isAuthenticated.and.returnValue(observableOf(true));
     fixture.detectChanges();
   });
 
   describe('When the component is rendered', () => {
     it('should call the getCrisLayoutPage function with the right types', (done) => {
-      expect(CrisLayoutDecorators.getCrisLayoutPage).toHaveBeenCalledWith(mockItem);
+      expect(component).toBeDefined();
       done();
-    })
+    });
   });
 });

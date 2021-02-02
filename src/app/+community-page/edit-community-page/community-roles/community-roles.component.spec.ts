@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommunityRolesComponent } from './community-roles.component';
 import { Community } from '../../../core/shared/community.model';
 import { By } from '@angular/platform-browser';
-import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('CommunityRolesComponent', () => {
 
@@ -23,11 +23,7 @@ describe('CommunityRolesComponent', () => {
     const route = {
       parent: {
         data: observableOf({
-          dso: new RemoteData(
-            false,
-            false,
-            true,
-            undefined,
+          dso: createSuccessfulRemoteDataObject(
             Object.assign(new Community(), {
               _links: {
                 irrelevant: {
@@ -37,25 +33,18 @@ describe('CommunityRolesComponent', () => {
                   href: 'adminGroup link',
                 },
               },
-            }),
+            })
           ),
         })
       }
     };
 
     const requestService = {
-      hasByHrefObservable: () => observableOf(true),
+      hasByHref$: () => observableOf(true),
     };
 
     const groupDataService = {
-      findByHref: () => observableOf(new RemoteData(
-        false,
-        false,
-        true,
-        undefined,
-        {},
-        200,
-      )),
+      findByHref: () => createSuccessfulRemoteDataObject$({}),
     };
 
     TestBed.configureTestingModule({

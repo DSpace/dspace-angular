@@ -18,7 +18,7 @@ class TestService extends BaseResponseParsingService {
   }
 
   public cache<ObjectDomain>(obj, request: RestRequest, data: any) {
-    super.cache(obj, request, data);
+    super.cache(obj, request, data, undefined);
   }
 }
 
@@ -42,7 +42,9 @@ describe('BaseResponseParsingService', () => {
   describe('cache', () => {
     describe('when the object is undefined', () => {
       it('should not throw an error', () => {
-        expect(() => { service.cache(obj, request, {}) }).not.toThrow();
+        expect(() => {
+          service.cache(obj, request, {});
+        }).not.toThrow();
       });
 
       it('should not call objectCache add', () => {
@@ -62,7 +64,7 @@ describe('BaseResponseParsingService', () => {
 
       it('should call objectCache add', () => {
         service.cache(obj, request, {});
-        expect(objectCache.add).toHaveBeenCalledWith(obj, request.responseMsToLive, request.uuid);
+        expect(objectCache.add).toHaveBeenCalledWith(obj, request.responseMsToLive, request.uuid, undefined);
       });
     });
   });
@@ -82,7 +84,9 @@ describe('BaseResponseParsingService', () => {
       });
 
       it('should not throw an error', () => {
-        expect(() => { result = service.process(data, request) }).not.toThrow();
+        expect(() => {
+          result = service.process(data, request);
+        }).not.toThrow();
       });
 
       it('should return undefined', () => {

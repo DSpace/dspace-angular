@@ -34,6 +34,6 @@ export class MetricsComponent extends CacheableObject {
    */
   @deserialize
   _links: {
-      self: HALLink
+    self: HALLink
   };
 }

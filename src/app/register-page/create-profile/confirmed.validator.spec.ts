@@ -1,11 +1,11 @@
 import { FormBuilder, FormControl } from '@angular/forms';
-import { async, fakeAsync } from '@angular/core/testing';
+import { fakeAsync, waitForAsync } from '@angular/core/testing';
 import { ConfirmedValidator } from './confirmed.validator';
 
 describe('ConfirmedValidator', () => {
   let passwordForm;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     passwordForm = (new FormBuilder()).group({
       password: new FormControl('', {}),

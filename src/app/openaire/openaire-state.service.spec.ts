@@ -265,11 +265,11 @@ describe('OpenaireStateService', () => {
     describe('dispatchRetrieveOpenaireBrokerTopics', () => {
       it('Should call store.dispatch', () => {
         const elementsPerPage = 3;
-        const currentPage = 1
+        const currentPage = 1;
         const action = new RetrieveAllTopicsAction(elementsPerPage, currentPage);
         service.dispatchRetrieveOpenaireBrokerTopics(elementsPerPage, currentPage);
         expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(action);
       });
     });
-  })
+  });
 });

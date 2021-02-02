@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -53,7 +53,7 @@ describe('CollectionMetadataComponent', () => {
     removeByHrefSubstring: {}
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [CollectionMetadataComponent],

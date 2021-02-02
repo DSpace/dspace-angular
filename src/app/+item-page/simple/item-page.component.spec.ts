@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -9,20 +9,21 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { Item } from '../../core/shared/item.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
 import {
-  createFailedRemoteDataObject$, createPendingRemoteDataObject$, createSuccessfulRemoteDataObject,
+  createFailedRemoteDataObject$,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -34,14 +35,15 @@ describe('ItemPageComponent', () => {
 
   const mockMetadataService = {
     /* tslint:disable:no-empty */
-    processRemoteData: () => {}
+    processRemoteData: () => {
+    }
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {}
@@ -56,20 +58,20 @@ describe('ItemPageComponent', () => {
       }), BrowserAnimationsModule],
       declarations: [ItemPageComponent, VarDirective],
       providers: [
-        {provide: ActivatedRoute, useValue: mockRoute},
-        {provide: ItemDataService, useValue: {}},
-        {provide: MetadataService, useValue: mockMetadataService},
-        {provide: Router, useValue: {}},
+        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ItemDataService, useValue: {} },
+        { provide: MetadataService, useValue: mockMetadataService },
+        { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -77,7 +79,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = createPendingRemoteDataObject$(undefined);
+      comp.itemRD$ = createPendingRemoteDataObject$();
       // comp.itemRD$ = observableOf(new RemoteData(true, true, true, null, undefined));
       fixture.detectChanges();
     });
@@ -90,7 +92,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item failed loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = createFailedRemoteDataObject$(undefined);
+      comp.itemRD$ = createFailedRemoteDataObject$('server error', 500);
       fixture.detectChanges();
     });
 

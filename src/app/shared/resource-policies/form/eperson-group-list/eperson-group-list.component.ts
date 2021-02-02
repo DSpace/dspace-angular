@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { uniqueId } from 'lodash'
+import { map } from 'rxjs/operators';
+import { uniqueId } from 'lodash';
 
 import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { DataService } from '../../../../core/data/data.service';
@@ -19,10 +19,11 @@ import { ResourceType } from '../../../../core/shared/resource-type';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { fadeInOut } from '../../../animations/fade';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 export interface SearchEvent {
   scope: string;
-  query: string
+  query: string;
 }
 
 @Component({
@@ -147,7 +148,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   isSelected(entry: DSpaceObject): Observable<boolean> {
     return this.entrySelectedId.asObservable().pipe(
       map((selectedId) => isNotEmpty(selectedId) && selectedId === entry.id)
-    )
+    );
   }
 
   /**
@@ -181,9 +182,9 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
       (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
       (this.dataService as GroupDataService).searchGroups(query, options);
 
-    this.subs.push(search$.pipe(take(1))
+    this.subs.push(search$.pipe(getFirstCompletedRemoteData())
       .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
-        this.list$.next(list)
+        this.list$.next(list);
       })
     );
   }
@@ -195,7 +196,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     this.list$ = null;
     this.subs
       .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe())
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
 }

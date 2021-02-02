@@ -1,9 +1,9 @@
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
 import { hasNoValue, hasValue } from '../shared/empty.util';
 import { map } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -32,7 +32,7 @@ export class BrowseByGuard implements CanActivate {
     const value = route.queryParams.value;
     const metadataTranslated = this.translate.instant('browse.metadata.' + id);
     if (hasValue(scope)) {
-      const dsoAndMetadata$ = this.dsoService.findById(scope).pipe(getSucceededRemoteData());
+      const dsoAndMetadata$ = this.dsoService.findById(scope).pipe(getFirstSucceededRemoteData());
       return dsoAndMetadata$.pipe(
         map((dsoRD) => {
           const name = dsoRD.payload.name;

@@ -5,10 +5,12 @@ import { AppState } from '../../app.reducer';
 import {
   ObjectSelectionDeselectAction,
   ObjectSelectionInitialDeselectAction,
-  ObjectSelectionInitialSelectAction, ObjectSelectionResetAction,
-  ObjectSelectionSelectAction, ObjectSelectionSwitchAction
+  ObjectSelectionInitialSelectAction,
+  ObjectSelectionResetAction,
+  ObjectSelectionSelectAction,
+  ObjectSelectionSwitchAction
 } from './object-select.actions';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 
 describe('ObjectSelectService', () => {
   let service: ObjectSelectService;

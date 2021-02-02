@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -12,7 +12,6 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -20,7 +19,6 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
@@ -31,6 +29,7 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 import { ItemComponent } from './item.component';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -44,7 +43,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     let comp: any;
     let fixture: ComponentFixture<any>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       const mockBitstreamDataService = {
         getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
           return createSuccessfulRemoteDataObject$(new Bitstream());
@@ -81,7 +80,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       }).compileComponents();
     }));
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(component);
       comp = fixture.componentInstance;
       comp.object = mockItem;
@@ -94,7 +93,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         expect(containsFieldInput(fields, key)).toBeTruthy();
       });
     }
-  }
+  };
 }
 
 /**
@@ -117,7 +116,7 @@ export function containsFieldInput(fields: DebugElement[], metadataKey: string):
 }
 
 export function createRelationshipsObservable() {
-  return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [
+  return createSuccessfulRemoteDataObject$(createPaginatedList([
     Object.assign(new Relationship(), {
       relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType()),
       leftItem: createSuccessfulRemoteDataObject$(new Item()),

@@ -1,14 +1,9 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { first, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService
-} from '../../core/data/processes/script-data.service';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
@@ -16,9 +11,7 @@ import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/mod
 import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
-import {
-  ExportMetadataSelectorComponent
-} from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import { ExportMetadataSelectorComponent } from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';

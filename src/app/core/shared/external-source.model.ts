@@ -1,4 +1,4 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
@@ -45,5 +45,5 @@ export class ExternalSource extends CacheableObject {
   _links: {
     self: HALLink;
     entries: HALLink;
-  }
+  };
 }

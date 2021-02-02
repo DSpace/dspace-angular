@@ -1,6 +1,6 @@
-import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -10,98 +10,98 @@ import { DsDatePickerInlineComponent } from './dynamic-date-picker-inline.compon
 
 describe('DsDatePickerInlineComponent test suite', () => {
 
-    const testModel = new DynamicDatePickerModel({id: 'datepicker'});
-    const formModel = [testModel];
-    let formGroup: FormGroup;
-    let fixture: ComponentFixture<DsDatePickerInlineComponent>;
-    let component: DsDatePickerInlineComponent;
-    let debugElement: DebugElement;
-    let testElement: DebugElement;
+  const testModel = new DynamicDatePickerModel({ id: 'datepicker' });
+  const formModel = [testModel];
+  let formGroup: FormGroup;
+  let fixture: ComponentFixture<DsDatePickerInlineComponent>;
+  let component: DsDatePickerInlineComponent;
+  let debugElement: DebugElement;
+  let testElement: DebugElement;
 
-    beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
-        TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
 
-            imports: [
-                ReactiveFormsModule,
-                NoopAnimationsModule,
-                TextMaskModule,
-                NgbDatepickerModule,
-                DynamicFormsCoreModule.forRoot()
-            ],
-            declarations: [DsDatePickerInlineComponent]
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        TextMaskModule,
+        NgbDatepickerModule,
+        DynamicFormsCoreModule.forRoot()
+      ],
+      declarations: [DsDatePickerInlineComponent]
 
-        }).compileComponents().then(() => {
+    }).compileComponents().then(() => {
 
-            fixture = TestBed.createComponent(DsDatePickerInlineComponent);
+      fixture = TestBed.createComponent(DsDatePickerInlineComponent);
 
-            component = fixture.componentInstance;
-            debugElement = fixture.debugElement;
-        });
-    }));
-
-    beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
-
-        formGroup = service.createFormGroup(formModel);
-
-        component.group = formGroup;
-        component.model = testModel;
-
-        fixture.detectChanges();
-
-        testElement = debugElement.query(By.css(`input[id='${testModel.id}']`));
-    }));
-
-    it('should initialize correctly', () => {
-
-        expect(component.bindId).toBe(true);
-        expect(component.control instanceof FormControl).toBe(true);
-        expect(component.group instanceof FormGroup).toBe(true);
-        expect(component.model instanceof DynamicDatePickerModel).toBe(true);
-
-        expect(component.blur).toBeDefined();
-        expect(component.change).toBeDefined();
-        expect(component.focus).toBeDefined();
-
-        expect(component.onBlur).toBeDefined();
-        expect(component.onChange).toBeDefined();
-        expect(component.onFocus).toBeDefined();
-
-        expect(component.hasFocus).toBe(false);
-        expect(component.isValid).toBe(true);
-        expect(component.isInvalid).toBe(false);
-        expect(component.showErrorMessages).toBe(false);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
     });
+  }));
 
-    it('should have an input element', () => {
+  beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
 
-        expect(testElement instanceof DebugElement).toBe(true);
-    });
+    formGroup = service.createFormGroup(formModel);
 
-    it('should emit blur event', () => {
+    component.group = formGroup;
+    component.model = testModel;
 
-        spyOn(component.blur, 'emit');
+    fixture.detectChanges();
 
-        component.onBlur(null);
+    testElement = debugElement.query(By.css(`input[id='${testModel.id}']`));
+  }));
 
-        expect(component.blur.emit).toHaveBeenCalled();
-    });
+  it('should initialize correctly', () => {
 
-    it('should emit change event', () => {
+    expect(component.bindId).toBe(true);
+    expect(component.control instanceof FormControl).toBe(true);
+    expect(component.group instanceof FormGroup).toBe(true);
+    expect(component.model instanceof DynamicDatePickerModel).toBe(true);
 
-        spyOn(component.change, 'emit');
+    expect(component.blur).toBeDefined();
+    expect(component.change).toBeDefined();
+    expect(component.focus).toBeDefined();
 
-        component.onChange(null);
+    expect(component.onBlur).toBeDefined();
+    expect(component.onChange).toBeDefined();
+    expect(component.onFocus).toBeDefined();
 
-        expect(component.change.emit).toHaveBeenCalled();
-    });
+    expect(component.hasFocus).toBe(false);
+    expect(component.isValid).toBe(true);
+    expect(component.isInvalid).toBe(false);
+    expect(component.showErrorMessages).toBe(false);
+  });
 
-    it('should emit focus event', () => {
+  it('should have an input element', () => {
 
-        spyOn(component.focus, 'emit');
+    expect(testElement instanceof DebugElement).toBe(true);
+  });
 
-        component.onFocus(null);
+  it('should emit blur event', () => {
 
-        expect(component.focus.emit).toHaveBeenCalled();
-    });
+    spyOn(component.blur, 'emit');
+
+    component.onBlur(null);
+
+    expect(component.blur.emit).toHaveBeenCalled();
+  });
+
+  it('should emit change event', () => {
+
+    spyOn(component.change, 'emit');
+
+    component.onChange(null);
+
+    expect(component.change.emit).toHaveBeenCalled();
+  });
+
+  it('should emit focus event', () => {
+
+    spyOn(component.focus, 'emit');
+
+    component.onFocus(null);
+
+    expect(component.focus.emit).toHaveBeenCalled();
+  });
 });

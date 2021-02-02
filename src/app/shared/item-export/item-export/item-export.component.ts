@@ -7,10 +7,10 @@ import { take, tap } from 'rxjs/operators';
 import {
   ItemExportFormatMolteplicity,
   ItemExportFormatService
-} from 'src/app/core/itemexportformat/item-export.service';
-import { ItemExportFormat } from 'src/app/core/itemexportformat/model/item-export-format.model';
-import { Item } from 'src/app/core/shared/item.model';
-import { isEmpty } from 'src/app/shared/empty.util';
+} from '../../../core/itemexportformat/item-export.service';
+import { ItemExportFormat } from '../../../core/itemexportformat/model/item-export-format.model';
+import { Item } from '../../../core/shared/item.model';
+import { isEmpty } from '../../empty.util';
 import { SearchOptions } from '../../search/search-options.model';
 
 @Component({
@@ -47,13 +47,13 @@ export class ItemExportComponent implements OnInit {
       const format = this.exportForm.value.format;
       if (this.molteplicity === ItemExportFormatMolteplicity.SINGLE) {
         this.itemExportFormatService.doExport(this.item.uuid, format).subscribe((processNumber) => {
-          this.routeToProcess(processNumber)
-        })
+          this.routeToProcess(processNumber);
+        });
       } else {
         const entityType = this.exportForm.value.entityType;
         this.itemExportFormatService.doExportMulti(entityType, format, this.searchOptions).subscribe((processNumber) => {
-          this.routeToProcess(processNumber)
-        })
+          this.routeToProcess(processNumber);
+        });
       }
       this.activeModal.close();
     }
@@ -87,7 +87,7 @@ export class ItemExportComponent implements OnInit {
       // listen for entityType selections in order to update the available formats
       this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
         this.fetchFormats(entityType).subscribe();
-      })
+      });
     });
   }
 

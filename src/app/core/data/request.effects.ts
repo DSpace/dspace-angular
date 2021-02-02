@@ -1,53 +1,56 @@
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, flatMap, map, take } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { ErrorResponse, RestResponse } from '../cache/response.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-
-import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction, ResetResponseTimestampsAction } from './request.actions';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import {
+  RequestActionTypes,
+  RequestErrorAction,
+  RequestExecuteAction,
+  RequestSuccessAction,
+  ResetResponseTimestampsAction
+} from './request.actions';
 import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-
-export const addToResponseCacheAndCompleteAction = (request: RestRequest) =>
-  (source: Observable<RestResponse>): Observable<RequestCompleteAction> =>
-    source.pipe(
-      map((response: RestResponse) => {
-        return new RequestCompleteAction(request.uuid, response);
-      })
-    );
+import { ParsedResponse } from '../cache/response.models';
 
 @Injectable()
 export class RequestEffects {
 
   @Effect() execute = this.actions$.pipe(
     ofType(RequestActionTypes.EXECUTE),
-    flatMap((action: RequestExecuteAction) => {
+    mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
         take(1)
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
     map((entry: RequestEntry) => entry.request),
-    flatMap((request: RestRequest) => {
+    mergeMap((request: RestRequest) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
         const serializer = new DSpaceSerializer(getClassForType(request.body.type));
         body = serializer.serialize(request.body);
       }
       return this.restApi.request(request.method, request.href, body, request.options, request.isMultipart).pipe(
-        map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
-        addToResponseCacheAndCompleteAction(request),
-        catchError((error: RequestError) => observableOf(new ErrorResponse(error)).pipe(
-          addToResponseCacheAndCompleteAction(request)
-        ))
+        map((data: RawRestResponse) => this.injector.get(request.getResponseParser()).parse(request, data)),
+        map((response: ParsedResponse) => new RequestSuccessAction(request.uuid, response.statusCode, response.link, response.unCacheableObject)),
+        catchError((error: RequestError) => {
+          if (hasValue(error.statusCode)) {
+            // if it's an error returned by the server, complete the request
+            return [new RequestErrorAction(request.uuid, error.statusCode, error.message)];
+          } else {
+            // if it's a client side error, throw it
+            throw error;
+          }
+        })
       );
     })
   );
@@ -67,10 +70,9 @@ export class RequestEffects {
 
   constructor(
     private actions$: Actions,
-    private restApi: DSpaceRESTv2Service,
+    private restApi: DspaceRestService,
     private injector: Injector,
     protected requestService: RequestService
   ) { }
 
 }
-/* tslint:enable:max-classes-per-file */

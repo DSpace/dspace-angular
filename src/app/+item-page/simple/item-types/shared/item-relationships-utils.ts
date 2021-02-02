@@ -1,11 +1,13 @@
-import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, flatMap, map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { combineLatest as observableCombineLatest, Observable, zip as observableZip } from 'rxjs';
+import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData
+} from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 
 /**
@@ -18,7 +20,7 @@ import { hasValue } from '../../../../shared/empty.util';
 export const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
     if (!Array.isArray(a) || ! Array.isArray(b)) {
-      return false
+      return false;
     }
 
     const aIds = a.map(mapFn);
@@ -43,7 +45,7 @@ export const compareArraysUsingIds = <T extends { id: string }>() =>
 export const relationsToItems = (thisId: string) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
-      flatMap((rels: Relationship[]) =>
+      mergeMap((rels: Relationship[]) =>
         observableZip(
           ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
         )
@@ -72,7 +74,7 @@ export const relationsToItems = (thisId: string) =>
 export const paginatedRelationsToItems = (thisId: string) =>
   (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
     source.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
         return observableCombineLatest(
           relationshipsRD.payload.page.map((rel: Relationship) =>
@@ -96,6 +98,6 @@ export const paginatedRelationsToItems = (thisId: string) =>
           map((relatedItems: Item[]) =>
             Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } )})
           )
-        )
+        );
       })
     );

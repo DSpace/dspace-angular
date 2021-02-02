@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  DynamicCheckboxModel,
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
@@ -20,16 +21,17 @@ import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/lib/model/dynami
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
 import { catchError, map } from 'rxjs/operators';
 import {
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
+  collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig
 } from './collection-form.models';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
 
 /**
  * Form used for creating and editing collections
@@ -62,6 +64,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
    */
   submissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormSubmissionDefinitionSelectionConfig);
 
+  sharedWorkspaceChekbox: DynamicCheckboxModel = new DynamicCheckboxModel(collectionFormSharedWorkspaceCheckboxConfig);
+
   /**
    * The dynamic form fields used for creating/editing a collection
    * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
@@ -85,9 +89,11 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
 
     let currentRelationshipValue: MetadataValue[];
     let currentDefinitionValue: MetadataValue[];
+    let currentSharedWorkspaceValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
       currentRelationshipValue = this.dso.metadata['relationship.type'];
       currentDefinitionValue = this.dso.metadata['cris.submission.definition'];
+      currentSharedWorkspaceValue = this.dso.metadata['cris.workspace.shared'];
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
@@ -95,12 +101,12 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     );
 
     const definitions$: Observable<SubmissionDefinitionModel[]> = this.submissionDefinitionService
-      .getConfigAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
+      .findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
         map((result: any) => result.payload as PaginatedList<SubmissionDefinitionModel>),
         map((result: PaginatedList<SubmissionDefinitionModel>) => result.page),
         catchError(() => observableOf([]))
       );
-    combineLatest([])
+    combineLatest([]);
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
     combineLatest([entities$, definitions$])
@@ -129,8 +135,13 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection];
+        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox];
+
         super.ngOnInit();
+
+        if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
+          this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
+        }
     });
 
   }

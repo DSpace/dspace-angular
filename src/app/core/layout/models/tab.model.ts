@@ -1,5 +1,5 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { typedObject, link } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { TAB } from './tab.resource-type';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
@@ -10,7 +10,7 @@ import { BOX } from './box.resource-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
 import { Box } from './box.model';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * Describes a type of Tab
@@ -66,8 +66,8 @@ export class Tab extends CacheableObject {
    */
   @deserialize
   _links: {
-      self: HALLink,
-      boxes: HALLink
+    self: HALLink,
+    boxes: HALLink
   };
 
   /**

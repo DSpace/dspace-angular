@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -16,6 +16,7 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { FindByIDRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 @Injectable()
 export class DsoRedirectDataService extends DataService<any> {
@@ -45,7 +46,7 @@ export class DsoRedirectDataService extends DataService<any> {
     }
   }
 
-  getIDHref(endpoint, resourceID, ...linksToFollow: Array<FollowLinkConfig<any>>): string {
+  getIDHref(endpoint, resourceID, ...linksToFollow: FollowLinkConfig<any>[]): string {
     // Supporting both identifier (pid) and uuid (dso) endpoints
     return this.buildHrefFromFindOptions( endpoint.replace(/\{\?id\}/, `?id=${resourceID}`)
         .replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
@@ -55,8 +56,7 @@ export class DsoRedirectDataService extends DataService<any> {
   findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
     this.setLinkPath(identifierType);
     return this.findById(id).pipe(
-      filter((response) => hasValue(response.error) || hasValue(response.payload)),
-      take(1),
+      getFirstCompletedRemoteData(),
       tap((response) => {
         if (response.hasSucceeded) {
           const uuid = response.payload.uuid;
@@ -72,11 +72,11 @@ export class DsoRedirectDataService extends DataService<any> {
   getEndpointFromDSOType(dsoType: string): string {
     // Are there other types to consider?
     if (dsoType.startsWith('item')) {
-      return 'items'
+      return 'items';
     } else if (dsoType.startsWith('community')) {
       return 'communities';
     } else if (dsoType.startsWith('collection')) {
-      return 'collections'
+      return 'collections';
     } else {
       return '';
     }

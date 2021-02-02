@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { cold, hot } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -39,6 +39,11 @@ import { Collection } from '../../../core/shared/collection.model';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import {
+  DetectDuplicateMatch,
+  WorkspaceitemSectionDetectDuplicateObject
+} from '../../../core/submission/models/workspaceitem-section-deduplication.model';
+import { Item } from '../../../core/shared/item.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -56,31 +61,61 @@ function getMockCollectionDataService(): CollectionDataService {
   });
 }
 
-const sectionObject: SectionDataObject = {
-  config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/license',
-  mandatory: true,
-  data: {
-    url: null,
-    acceptanceDate: null,
-    granted: false
+const mockItem = Object.assign(new Item(), {
+  id: 'fake-match-id',
+  handle: 'fake/handle',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'mockmatch'
+      }
+    ]
   },
+});
+
+const mockMatch: DetectDuplicateMatch = {
+  submitterDecision: null,
+  submitterNote: null,
+  submitterTime: null,
+
+  workflowDecision: null,
+  workflowNote: null,
+  workflowTime: null,
+
+  adminDecision: null,
+
+  matchObject: mockItem
+};
+
+const sectionData: WorkspaceitemSectionDetectDuplicateObject = {
+  matches: {
+    'fake-match-id': mockMatch
+  }
+};
+
+const sectionObject: SectionDataObject = {
+  config: 'https://dspace.org/api/config/submissionforms/detect-duplicate',
+  mandatory: true,
+  data: sectionData,
   errors: [],
-  header: 'submit.progressbar.describe.license',
-  id: 'license',
-  sectionType: SectionsType.License
+  header: 'submit.progressbar.detect-duplicate',
+  id: 'detect-duplicate',
+  sectionType: SectionsType.DetectDuplicate
 };
 
 describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
   let comp: SubmissionSectionDetectDuplicateComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionDetectDuplicateComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
-  let sectionsServiceStub: SectionsServiceStub;
+  let submissionServiceStub: any;
+  let sectionsServiceStub: any;
   let formService: any;
   let formOperationsService: any;
   let formBuilderService: any;
   let collectionDataService: any;
 
+  const mockDetectDuplicateService: any = getMockDetectDuplicateService();
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
@@ -102,7 +137,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
     license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -131,7 +166,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
+        { provide: DetectDuplicateService, useValue: mockDetectDuplicateService },
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionDetectDuplicateComponent
@@ -147,6 +182,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      mockDetectDuplicateService.getDuplicateMatchesByScope.and.returnValue(observableOf(sectionData));
       const html = `
         <ds-submission-section-detect-duplicate></ds-submission-section-detect-duplicate>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -167,12 +203,12 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionDetectDuplicateComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
-      formService = TestBed.get(FormService);
-      formBuilderService = TestBed.get(FormBuilderService);
-      formOperationsService = TestBed.get(SectionFormOperationsService);
-      collectionDataService = TestBed.get(CollectionDataService);
+      submissionServiceStub = TestBed.inject(SubmissionService);
+      sectionsServiceStub = TestBed.inject(SectionsService);
+      formService = TestBed.inject(FormService);
+      formBuilderService = TestBed.inject(FormBuilderService);
+      formOperationsService = TestBed.inject(SectionFormOperationsService);
+      collectionDataService = TestBed.inject(CollectionDataService);
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
     });
 
@@ -186,12 +222,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-
-      compAsAny.detectDuplicateService.getDuplicateMatchesByScope.and.returnValue(
-        hot('(a|)', {
-          a: { dummy: 1 }
-        })
-      );
+      mockDetectDuplicateService.getDuplicateMatchesByScope.and.returnValue(observableOf(sectionData));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
       spyOn(compAsAny, 'getSectionStatus').and.returnValue(observableOf(true));
 
@@ -200,7 +231,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
 
       expect(comp.isWorkFlow).toBeTruthy();
       expect(comp.sectionData$).toBeObservable(cold('(a|)', {
-        a: { dummy: 1 }
+        a: sectionData
       }));
     });
 
@@ -208,12 +239,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-
-      compAsAny.detectDuplicateService.getDuplicateMatchesByScope.and.returnValue(
-        hot('(a|)', {
-          a: { dummy: 1 }
-        })
-      );
+      mockDetectDuplicateService.getDuplicateMatchesByScope.and.returnValue(observableOf(sectionData));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn(compAsAny, 'getSectionStatus').and.returnValue(observableOf(true));
 
@@ -222,19 +248,19 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
 
       expect(comp.isWorkFlow).toBeFalsy();
       expect(comp.sectionData$).toBeObservable(cold('(a|)', {
-        a: { dummy: 1 }
+        a: sectionData
       }));
     });
 
     it('Should return TRUE if the sectionData is empty', () => {
-      compAsAny.sectionData$ = observableOf({ matches: [] });
+      compAsAny.sectionData$ = observableOf({ matches: { } });
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
         a: true
       }));
     });
 
     it('Should return FALSE if the sectionData is not empty', () => {
-      compAsAny.sectionData$ = observableOf({ matches: [{ dummy: 1 }] });
+      compAsAny.sectionData$ = observableOf(sectionData);
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
         a: false
       }));

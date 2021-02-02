@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { SidebarService } from './sidebar.service';
 import { AppState } from '../../app.reducer';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { SidebarCollapseAction, SidebarExpandAction } from './sidebar.actions';
 import { HostWindowService } from '../host-window.service';
@@ -20,7 +20,7 @@ describe('SidebarService', () => {
       isSm: observableOf(false),
       isXsOrSm: observableOf(true)
     });
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [
@@ -36,7 +36,7 @@ describe('SidebarService', () => {
 
   beforeEach(() => {
     service = new SidebarService(store, windowService);
-  }) ;
+  });
 
   describe('when the collapse method is triggered', () => {
     beforeEach(() => {

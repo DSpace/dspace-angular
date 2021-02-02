@@ -9,12 +9,12 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getSucceededRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { SITE } from '../shared/site.resource-type';
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
@@ -23,7 +23,7 @@ import { RequestService } from './request.service';
  */
 @Injectable()
 @dataService(SITE)
-export class SiteDataService extends DataService<Site> {​
+export class SiteDataService extends DataService<Site> {
   protected linkPath = 'sites';
 
   constructor(
@@ -44,7 +44,7 @@ export class SiteDataService extends DataService<Site> {​
    */
   find(): Observable<Site> {
     return this.findAll().pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((remoteData: RemoteData<PaginatedList<Site>>) => remoteData.payload),
       map((list: PaginatedList<Site>) => list.page[0])
     );

@@ -58,7 +58,7 @@ describe('openaireBrokerTopicsReducer test suite', () => {
       totalPages: 1,
       currentPage: 0,
       totalElements: 2
-    }
+    };
 
     const action = new AddTopicsAction(
       [ openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract ],

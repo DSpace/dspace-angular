@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { hasValue } from '../../shared/empty.util';
 import { dataService } from '../cache/builders/build-decorators';
 import { DataService } from './data.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -18,7 +18,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
@@ -46,15 +46,17 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
 
   /**
    * Find metadata fields belonging to a metadata schema
-   * @param schema        The metadata schema to list fields for
-   * @param options       The options info used to retrieve the fields
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param schema            The metadata schema to list fields for
+   * @param options           The options info used to retrieve the fields
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
+  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]) {
     const optionsWithSchema = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('schema', schema.prefix)]
     });
-    return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, ...linksToFollow);
+    return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -69,9 +71,10 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * schema.element if no qualifier exists (e.g. "dc.title", "dc.contributor.author"). It will only return one value
    * if there's an exact match
    * @param options   The options info used to retrieve the fields
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after the response becomes stale
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     const optionParams = Object.assign(new FindListOptions(), options, {
       searchParams: [
         new RequestParam('schema', hasValue(schema) ? schema : ''),
@@ -81,7 +84,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
         new RequestParam('exactName', hasValue(exactName) ? exactName : '')
       ]
     });
-    return this.searchBy(this.searchByFieldNameLinkPath, optionParams, ...linksToFollow);
+    return this.searchBy(this.searchByFieldNameLinkPath, optionParams, reRequestOnStale, ...linksToFollow);
   }
 
   /**

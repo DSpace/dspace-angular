@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import {
+  DynamicCheckboxModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
@@ -18,22 +19,20 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { FormGroup } from '@angular/forms';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { RequestService } from '../../../core/data/request.service';
 import { environment } from '../../../../environments/environment';
 import { Operation } from 'fast-json-patch';
-import { throwError } from 'rxjs';
 
 /**
  * Component for managing the content source of the collection
@@ -111,11 +110,41 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   });
 
   /**
+   * The Dynamic Input Model for enable/disable record validation
+   */
+  recordValidationEnabledModel = new DynamicCheckboxModel({
+    id: 'recordValidationEnabled',
+    name: 'recordValidationEnabled'
+  });
+
+  /**
+   * The Dynamic Input Model for enable/disable item validation
+   */
+  itemValidationEnabledModel = new DynamicCheckboxModel({
+    id: 'itemValidationEnabled',
+    name: 'itemValidationEnabled'
+  });
+
+  /**
+   * The Dynamic Input Model to force or not synchronization
+   */
+  forceSynchronizationModel = new DynamicCheckboxModel({
+    id: 'forceSynchronization',
+    name: 'forceSynchronization'
+  });
+
+  /**
    * The Dynamic Input Model for the Admin email
    */
   adminEmailModel = new DynamicInputModel({
     id: 'adminEmail',
     name: 'adminEmail',
+    required: false
+  });
+
+  ccAddressesModel = new DynamicInputModel({
+    id: 'ccAddresses',
+    name: 'ccAddresses',
     required: false
   });
 
@@ -159,8 +188,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.oaiSourceModel, this.oaiSetIdModel, this.metadataConfigIdModel, this.harvestTypeModel, this.adminEmailModel,
-    this.preTransformModel, this.postTransformModel];
+  inputModels = [this.oaiSourceModel, this.oaiSetIdModel, this.metadataConfigIdModel, this.recordValidationEnabledModel, this.itemValidationEnabledModel,
+    this.forceSynchronizationModel, this.harvestTypeModel, this.adminEmailModel, this.ccAddressesModel, this.preTransformModel, this.postTransformModel];
 
   /**
    * The dynamic form fields used for editing the content source of a collection
@@ -181,9 +210,28 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       ]
     }),
     new DynamicFormGroupModel({
+      id: 'validationContainer',
+      group: [
+        this.recordValidationEnabledModel,
+        this.itemValidationEnabledModel
+      ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'forceSynchronizationContainer',
+      group: [
+        this.forceSynchronizationModel
+      ]
+    }),
+    new DynamicFormGroupModel({
       id: 'adminEmailContainer',
       group: [
         this.adminEmailModel
+      ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'ccAddressesContainer',
+      group: [
+        this.ccAddressesModel
       ]
     }),
     new DynamicFormGroupModel({
@@ -207,38 +255,58 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   formLayout: DynamicFormLayout = {
     oaiSource: {
       grid: {
-        host: 'col-12 d-inline-block'
+        host: 'col-12 d-inline-block mb-3'
       }
     },
     oaiSetId: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
+        host: 'col col-sm-6 d-inline-block mb-3'
       }
     },
     metadataConfigId: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
+        host: 'col col-sm-6 d-inline-block mb-3'
+      }
+    },
+    recordValidationEnabled: {
+      grid: {
+        host: 'col col-sm-6 d-inline-block mb-3'
+      }
+    },
+    itemValidationEnabled: {
+      grid: {
+        host: 'col col-sm-6 d-inline-block mb-3'
+      }
+    },
+    forceSynchronization: {
+      grid: {
+        host: 'col-12 mb-3',
       }
     },
     harvestType: {
       grid: {
-        host: 'col-12',
+        host: 'col-12 mb-3',
         option: 'btn-outline-secondary'
       }
     },
     adminEmail: {
       grid: {
-        host: 'col-12',
+        host: 'col-12 mb-3',
+      }
+    },
+    ccAddresses: {
+      grid: {
+        host: 'col-12 mb-3',
       }
     },
     preTransform: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
+        host: 'col col-sm-6 d-inline-block mb-3'
       }
     },
     postTransform: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
+        host: 'col col-sm-6 d-inline-block mb-3'
       }
     },
     oaiSetContainer: {
@@ -256,7 +324,17 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         host: 'row mt-2'
       }
     },
+    forceSynchronizationContainer: {
+      grid: {
+        host: 'row mt-2'
+      }
+    },
     adminEmailContainer: {
+      grid: {
+        host: 'row mt-2'
+      }
+    },
+    ccAddressesContainer: {
       grid: {
         host: 'row mt-2'
       }
@@ -323,13 +401,14 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload),
       tap((col) => this.initializeEmailAndTransform(col)),
-      switchMap((col) => this.collectionService.getContentSource(col.uuid)),
-      take(1)
-    ).subscribe((contentSource: ContentSource) => {
-      this.initializeOriginalContentSource(contentSource);
+      map((col) => col.uuid),
+      switchMap((uuid) => this.collectionService.getContentSource(uuid)),
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<ContentSource>) => {
+      this.initializeOriginalContentSource(rd.payload);
     });
 
     this.updateFieldTranslations();
@@ -341,17 +420,35 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
   initializeEmailAndTransform(collection: Collection) {
 
-    const email = collection ? collection.firstMetadataValue('cris.harvesting.email') : '';
+    const adminAddress = collection ? collection.firstMetadataValue('cris.harvesting.email') : '';
     const preTransform = collection ? collection.firstMetadataValue('cris.harvesting.preTransform') : '';
     const postTransform = collection ? collection.firstMetadataValue('cris.harvesting.postTransform') : '';
+    const forceSynchronization = collection ? collection.firstMetadataValue('cris.harvesting.forceSynchronization') === 'true' : false;
+    const itemValidationEnabled = collection ? collection.firstMetadataValue('cris.harvesting.itemValidationEnabled') === 'true' : false;
+    const recordValidationEnabled = collection ? collection.firstMetadataValue('cris.harvesting.recordValidationEnabled') === 'true' : false;
+    const ccAddresses = collection ? collection.allMetadataValues('cris.harvesting.ccAddress').join(', ') : '';
 
-    this.adminEmailModel.value = email;
+    this.adminEmailModel.value = adminAddress;
     this.preTransformModel.value = preTransform;
     this.postTransformModel.value = postTransform;
+    this.forceSynchronizationModel.value = forceSynchronization;
+    this.itemValidationEnabledModel.value = itemValidationEnabled;
+    this.recordValidationEnabledModel.value = recordValidationEnabled;
+    this.ccAddressesModel.value = ccAddresses;
 
     this.formGroup.patchValue({
       adminEmailContainer: {
-        adminEmail: email,
+        adminEmail: adminAddress,
+      },
+      forceSynchronizationContainer: {
+        forceSynchronization : forceSynchronization
+      },
+      ccAddressesContainer: {
+        ccAddresses : ccAddresses
+      },
+      validationContainer: {
+        itemValidationEnabled: itemValidationEnabled,
+        recordValidationEnabled: recordValidationEnabled
       },
       transformContainer: {
         preTransform: preTransform,
@@ -466,7 +563,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   onSubmit() {
     // Remove cached harvester request to allow for latest harvester to be displayed when switching tabs
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.getHarvesterEndpoint(uuid)),
       take(1)
@@ -474,8 +571,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
     // Update harvester
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
-      switchMap((coll) => this.updateCollection(coll.payload)),
+      getFirstSucceededRemoteData(),
+      switchMap((coll) => this.updateCollection(coll.payload) as Observable<string>),
       take(1),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)
@@ -490,35 +587,54 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     });
   }
 
-  updateCollection(collection: Collection): Observable<any> {
+  updateCollection(collection: Collection): Observable<string|Observable<never>> {
 
     const operations: Operation[] = [];
     this.addOperation(operations, this.adminEmailModel, 'cris.harvesting.email', collection);
     this.addOperation(operations, this.preTransformModel, 'cris.harvesting.preTransform', collection);
     this.addOperation(operations, this.postTransformModel, 'cris.harvesting.postTransform', collection);
+    this.addOperation(operations, this.itemValidationEnabledModel, 'cris.harvesting.itemValidationEnabled', collection);
+    this.addOperation(operations, this.recordValidationEnabledModel, 'cris.harvesting.recordValidationEnabled', collection);
+    this.addOperation(operations, this.forceSynchronizationModel, 'cris.harvesting.forceSynchronization', collection);
+
+    operations.push({
+      op: 'remove',
+      path: '/metadata/cris.harvesting.ccAddress'
+    });
+
+    if (this.ccAddressesModel.value) {
+      this.ccAddressesModel.value.toString().split(',')
+        .map((address) => address.trim())
+        .forEach((address) =>  operations.push({
+          op: 'add',
+          value: address,
+          path: '/metadata/cris.harvesting.ccAddress'
+        }));
+    }
 
     return this.collectionService.patch(collection, operations).pipe(
+      getFirstCompletedRemoteData(),
       map((response) => {
-        if (!response.isSuccessful) {
+        if (!response.isSuccess) {
           return throwError('The collection update fails');
         }
-        return collection.id;
+        return collection.uuid;
       }));
   }
 
-  addOperation(operations: Operation[], inputModel: DynamicInputModel, metadata: string, collection: Collection) {
+  addOperation(operations: Operation[], inputModel: any, metadata: string, collection: Collection) {
     const value = inputModel.value;
     if (value) {
       operations.push({
         op: 'replace',
-        value: value,
+        value: value + '',
         path: '/metadata/' + metadata
-      })
+      });
     } else if (collection.hasMetadata(metadata)) {
       operations.push({
         op: 'remove',
         path: '/metadata/' + metadata
-      })
+      });
     }
   }
 
@@ -556,7 +672,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   updateContentSource(updateHarvestType: boolean) {
     this.inputModels.forEach(
       (fieldModel: DynamicInputModel) => {
-        this.updateContentSourceField(fieldModel, updateHarvestType)
+        this.updateContentSourceField(fieldModel, updateHarvestType);
       }
     );
     this.saveFieldUpdate();

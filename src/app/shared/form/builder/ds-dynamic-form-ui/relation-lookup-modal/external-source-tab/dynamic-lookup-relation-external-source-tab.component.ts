@@ -3,9 +3,9 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspa
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Router } from '@angular/router';
 import { ExternalSourceService } from '../../../../../../core/data/external-source.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { startWith, switchMap } from 'rxjs/operators';
@@ -17,7 +17,6 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { hasValue } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { Item } from '../../../../../../core/shared/item.model';

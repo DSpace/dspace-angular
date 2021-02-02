@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { CrisLayoutBox } from 'src/app/layout/decorators/cris-layout-box.decorator';
-import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
-import { LayoutTab } from 'src/app/layout/enums/layout-tab.enum';
-import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
-import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-layout-box.model';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
+import { LayoutPage } from '../../../enums/layout-page.enum';
+import { LayoutTab } from '../../../enums/layout-tab.enum';
+import { LayoutBox } from '../../../enums/layout-box.enum';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../models/cris-layout-box.model';
 import { Observable, Subscription } from 'rxjs';
-import { hasValue } from 'src/app/shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { hasValue } from '../../../../shared/empty.util';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -45,7 +45,7 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
     super.ngOnInit();
     this.searchFilter = `scope=${this.item.id}`;
     this.configuration$ = this.box.configuration.pipe(
-      getAllSucceededRemoteDataPayload(),
+      getFirstSucceededRemoteDataPayload(),
       map((config) => config.configuration)
     );
     this.subs.push(this.configuration$.subscribe((next) => {

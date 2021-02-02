@@ -5,7 +5,7 @@ import { of as observableOf } from 'rxjs';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 
 import { RequestService } from '../../../data/request.service';
-import { PaginatedList } from '../../../data/paginated-list';
+import { buildPaginatedList } from '../../../data/paginated-list.model';
 import { RequestEntry } from '../../../data/request.reducer';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -37,7 +37,7 @@ describe('OpenaireBrokerTopicRestService', () => {
 
   const pageInfo = new PageInfo();
   const array = [ openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract ];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = buildPaginatedList(pageInfo, array);
   const brokerTopicObjectRD = createSuccessfulRemoteDataObject(openaireBrokerTopicObjectMorePid);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
@@ -87,12 +87,13 @@ describe('OpenaireBrokerTopicRestService', () => {
   });
 
   describe('getTopics', () => {
-    it('should proxy the call to dataservice.findAllByHref', () => {
+    it('should proxy the call to dataservice.findAllByHref', (done) => {
       service.getTopics().subscribe(
         (res) => {
-          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {});
+          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {}, true);
         }
       );
+      done();
     });
 
     it('should return a RemoteData<PaginatedList<OpenaireBrokerTopicObject>> for the object with the given URL', () => {
@@ -105,12 +106,13 @@ describe('OpenaireBrokerTopicRestService', () => {
   });
 
   describe('getTopic', () => {
-    it('should proxy the call to dataservice.findByHref', () => {
+    it('should proxy the call to dataservice.findByHref', (done) => {
       service.getTopic(openaireBrokerTopicObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id);
+          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id, true);
         }
       );
+      done();
     });
 
     it('should return a RemoteData<OpenaireBrokerTopicObject> for the object with the given URL', () => {

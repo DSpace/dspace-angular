@@ -3,20 +3,19 @@ import { TestScheduler } from 'rxjs/testing';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { getTestScheduler, cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Tab } from './models/tab.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { RequestEntry } from '../data/request.reducer';
 import { TAB } from './models/tab.resource-type';
-import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList } from '../data/paginated-list';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { of } from 'rxjs';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('TabDataService', () => {
   let scheduler: TestScheduler;
@@ -91,9 +90,8 @@ describe('TabDataService', () => {
   const entityType = 'Person';
   const tabId = '1';
 
-  const pageInfo = new PageInfo();
   const array = [tabPersonProfile, tabPersonBiography, tabPersonBibliometrics];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = createPaginatedList(array);
   const tabRD = createSuccessfulRemoteDataObject(tabPersonProfile);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
@@ -106,7 +104,6 @@ describe('TabDataService', () => {
 
     responseCacheEntry = new RequestEntry();
     responseCacheEntry.request = { href: 'https://rest.api/' } as any;
-    responseCacheEntry.completed = true;
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
     requestService = jasmine.createSpyObj('requestService', {

@@ -10,14 +10,17 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindByIDRequest, FindListOptions } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import {createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$, createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
+import { BitstreamDataService } from './bitstream-data.service';
 
 const LINK_NAME = 'test';
 
@@ -32,6 +35,7 @@ class TestService extends ComColDataService<any> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
+    protected bitstreamDataService: BitstreamDataService,
     protected comparator: DSOChangeAnalyzer<Community>,
     protected linkPath: string
   ) {
@@ -51,10 +55,9 @@ describe('ComColDataService', () => {
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
   let halService: any = {};
+  let bitstreamDataService: BitstreamDataService;
+  let rdbService: RemoteDataBuildService;
 
-  const rdbService = {
-    buildSingle : () => null
-  } as any;
   const store = {} as Store<CoreState>;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
@@ -79,6 +82,18 @@ describe('ComColDataService', () => {
   const mockHalService = {
     getEndpoint: (linkPath) => observableOf(communitiesEndpoint)
   };
+
+  function initRdbService(): RemoteDataBuildService {
+    return jasmine.createSpyObj('rdbService', {
+      buildSingle : createFailedRemoteDataObject$('Error', 500)
+    });
+  }
+
+  function initBitstreamDataService(): BitstreamDataService {
+    return jasmine.createSpyObj('bitstreamDataService', {
+      deleteByHref: createSuccessfulRemoteDataObject$({})
+    });
+  }
 
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('responseCache', {
@@ -111,6 +126,7 @@ describe('ComColDataService', () => {
       halService,
       notificationsService,
       http,
+      bitstreamDataService,
       comparator,
       LINK_NAME
     );
@@ -120,6 +136,8 @@ describe('ComColDataService', () => {
     cds = initMockCommunityDataService();
     requestService = getMockRequestService();
     objectCache = initMockObjectCacheService();
+    bitstreamDataService = initBitstreamDataService();
+    rdbService = initRdbService();
     halService = mockHalService;
     service = initTestService();
   });
@@ -143,41 +161,13 @@ describe('ComColDataService', () => {
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
-    describe('if the scope Community can be found', () => {
-      beforeEach(() => {
-        cds = initMockCommunityDataService();
-        requestService = getMockRequestService(getRequestEntry$(true));
-        objectCache = initMockObjectCacheService();
-        service = initTestService();
-      });
-
-      it('should fetch the scope Community from the cache', () => {
-        scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
-        scheduler.flush();
-        expect(objectCache.getObjectByUUID).toHaveBeenCalledWith(scopeID);
-      });
-
-      it('should return the endpoint to fetch resources within the given scope', () => {
-        const result = service.getBrowseEndpoint(options);
-        const expected = '--e-';
-
-        scheduler.expectObservable(result).toBe(expected, { e: scopedEndpoint });
-      });
-    });
-
     describe('if the scope Community can\'t be found', () => {
-      beforeEach(() => {
-        cds = initMockCommunityDataService();
-        requestService = getMockRequestService(getRequestEntry$(false));
-        objectCache = initMockObjectCacheService();
-        service = initTestService();
-      });
-
-      it('should throw an error', () => {
+      it('should throw an error', (done) => {
         const result = service.getBrowseEndpoint(options);
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
 
         expect(result).toBeObservable(expected);
+        done();
       });
     });
 
@@ -186,16 +176,12 @@ describe('ComColDataService', () => {
       let data;
 
       beforeEach(() => {
-        scheduler = getTestScheduler();
-        halService = {
-          getEndpoint: (linkPath) => 'https://rest.api/core/' + linkPath
-        };
-        service = initTestService();
+        spyOn(halService, 'getEndpoint').and.returnValue(observableOf('https://rest.api/core/communities/search/top'));
+      });
 
-      })
       describe('cache refreshed top level community', () => {
         beforeEach(() => {
-          spyOn(rdbService, 'buildSingle').and.returnValue(createNoContentRemoteDataObject$());
+          (rdbService.buildSingle as jasmine.Spy).and.returnValue(createNoContentRemoteDataObject$());
           data = {
             dso: Object.assign(new Community(), {
               metadata: [{
@@ -222,12 +208,12 @@ describe('ComColDataService', () => {
         it('top level community cache refreshed', () => {
           scheduler.schedule(() => (service as any).refreshCache(data));
           scheduler.flush();
-          expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith('https://rest.api/core/communities/search/top');
+          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('https://rest.api/core/communities/search/top');
         });
         it('top level community without parent link, cache not refreshed', () => {
           scheduler.schedule(() => (service as any).refreshCache(communityWithoutParentHref));
           scheduler.flush();
-          expect(requestService.removeByHrefSubstring).not.toHaveBeenCalled();
+          expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalled();
         });
       });
 
@@ -242,7 +228,7 @@ describe('ComColDataService', () => {
             }],
             _links: {}
           });
-          spyOn(rdbService, 'buildSingle').and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
+          (rdbService.buildSingle as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
           data = {
             dso: Object.assign(new Community(), {
               metadata: [{
@@ -260,7 +246,7 @@ describe('ComColDataService', () => {
         it('child level community cache refreshed', () => {
           scheduler.schedule(() => (service as any).refreshCache(data));
           scheduler.flush();
-          expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
         });
       });
     });

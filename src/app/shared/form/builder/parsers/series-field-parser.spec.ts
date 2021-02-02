@@ -12,12 +12,13 @@ describe('SeriesFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    collectionUUID: null
+    collectionUUID: null,
+    isInnerForm: false
   };
 
   beforeEach(() => {
     field = {
-      input: {type: 'series'},
+      input: { type: 'series' },
       label: 'Series/Report No.',
       mandatory: 'false',
       repeatable: false,

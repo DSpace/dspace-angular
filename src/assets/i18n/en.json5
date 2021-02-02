@@ -507,13 +507,9 @@
 
   "admin.search.item.move": "Move",
 
-  "admin.search.item.private": "Private",
-
   "admin.search.item.reinstate": "Reinstate",
 
   "admin.search.item.withdraw": "Withdraw",
-
-  "admin.search.item.withdrawn": "Withdrawn",
 
   "admin.search.title": "Administrative Search",
 
@@ -847,7 +843,7 @@
 
   "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
 
-  "collection.edit.tabs.source.form.adminEmail": "Admin's email",
+  "collection.edit.tabs.source.form.adminEmail": "Admin's address",
 
   "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
 
@@ -870,6 +866,14 @@
   "collection.edit.tabs.source.form.preTransform": "Pre transformation name",
 
   "collection.edit.tabs.source.form.postTransform": "Post transformation name",
+
+  "collection.edit.tabs.source.form.forceSynchronization": "Force Synchronization",
+
+  "collection.edit.tabs.source.form.recordValidationEnabled": "Record validation",
+
+  "collection.edit.tabs.source.form.itemValidationEnabled": "Item validation",
+
+  "collection.edit.tabs.source.form.ccAddresses": "CC's addresses",
 
   "collection.edit.tabs.source.head": "Content Source",
 
@@ -926,6 +930,8 @@
   "collection.form.provenance": "Provenance",
 
   "collection.form.rights": "Copyright text (HTML)",
+
+  "collection.form.sharedWorkspace": "Shared workspace",
 
   "collection.form.tableofcontents": "News (HTML)",
 
@@ -1591,6 +1597,10 @@
 
   "form.edit-help": "Click here to edit the selected value",
 
+  "form.external.source-help": "Click here to create a new item from this field",
+
+  "form.external.source.group-help": "Click here to create a new item from this group of fields",
+
   "form.first-name": "First name",
 
   "form.group-collapse": "Collapse",
@@ -1672,9 +1682,21 @@
 
 
 
+  "item.alerts.private": "This item is private",
+
+  "item.alerts.withdrawn": "This item has been withdrawn",
+
+
+
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
+
+
+
+  "item.badge.private": "Private",
+
+  "item.badge.withdrawn": "Withdrawn",
 
 
 
@@ -3586,6 +3608,14 @@
 
   "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
 
+  "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
+
+  "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
+
+  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
+
+  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
+
   "search.filters.applied.charts.default.title": "Search Output",
 
   "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
@@ -3789,6 +3819,10 @@
   "search.view-switch.show-list": "Show as list",
 
 
+
+  "sorting.ASC": "Ascending",
+
+  "sorting.DESC": "Descending",
 
   "sorting.dc.title.ASC": "Title Ascending",
 
@@ -4460,7 +4494,37 @@
 
 
 
+  "vocabulary.import-external.preview.title.Dataset": "Dataset Preview",
 
+  "vocabulary.import-external.preview.title.Equipment": "Equipment Preview",
+
+  "vocabulary.import-external.preview.title.Event": "Event Preview",
+
+  "vocabulary.import-external.preview.title.Funding": "Funding Preview",
+
+  "vocabulary.import-external.preview.title.Journal": "Journal Preview",
+
+  "vocabulary.import-external.preview.title.Mainwork": "Mainwork Preview",
+
+  "vocabulary.import-external.preview.title.OrgUnit": "Publisher Preview",
+
+  "vocabulary.import-external.preview.title.Patent": "Patent Preview",
+
+  "vocabulary.import-external.preview.title.Person": "Person Preview",
+
+  "vocabulary.import-external.preview.title.Project": "Project Preview",
+
+  "vocabulary.import-external.preview.title.Publication": "Publication Preview",
+
+  "vocabulary.import-external.preview.subtitle": "The metadata below will be used to create the new entity.",
+
+  "vocabulary.import-external.preview.button.import": "Create entity",
+
+  "vocabulary.import-external.preview.not-found": "It's not possible to create an entity from given source.",
+
+  "vocabulary.import-external.preview.import.error": "An error occurs during the creation process.",
+
+  "vocabulary.import-external.preview.import.success": "Entity created successfully.",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 

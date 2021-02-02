@@ -1,58 +1,114 @@
-import { hasValue } from '../../shared/empty.util';
-import { RemoteDataError } from './remote-data-error';
-
-export enum RemoteDataState {
-  RequestPending = 'RequestPending',
-  ResponsePending = 'ResponsePending',
-  Failed = 'Failed',
-  Success = 'Success'
-}
+import {
+  RequestEntryState,
+  isStale,
+  hasCompleted,
+  hasSucceeded,
+  hasFailed,
+  isLoading,
+  isSuccessStale,
+  isErrorStale,
+  isSuccess,
+  isError,
+  isResponsePending,
+  isRequestPending
+} from './request.reducer';
 
 /**
  * A class to represent the state of a remote resource
  */
 export class RemoteData<T> {
   constructor(
-    private requestPending?: boolean,
-    private responsePending?: boolean,
-    private isSuccessful?: boolean,
-    public error?: RemoteDataError,
+    public timeCompleted: number,
+    public msToLive: number,
+    public lastUpdated: number,
+    public state: RequestEntryState,
+    public errorMessage?: string,
     public payload?: T,
     public statusCode?: number,
   ) {
   }
 
-  get state(): RemoteDataState {
-    if (this.isSuccessful === true && hasValue(this.payload)) {
-      return RemoteDataState.Success
-    } else if (this.isSuccessful === false) {
-      return RemoteDataState.Failed
-    } else if (this.requestPending === true) {
-      return RemoteDataState.RequestPending
-    } else {
-      return RemoteDataState.ResponsePending
-    }
-  }
-
+  /**
+   * Returns true if this.state is RequestPending, false otherwise
+   */
   get isRequestPending(): boolean {
-    return this.state === RemoteDataState.RequestPending;
+    return isRequestPending(this.state);
   }
 
+  /**
+   * Returns true if this.state is ResponsePending, false otherwise
+   */
   get isResponsePending(): boolean {
-    return this.state === RemoteDataState.ResponsePending;
+    return isResponsePending(this.state);
   }
 
+  /**
+   * Returns true if this.state is Error, false otherwise
+   */
+  get isError(): boolean {
+    return isError(this.state);
+  }
+
+  /**
+   * Returns true if this.state is Success, false otherwise
+   *
+   */
+  get isSuccess(): boolean {
+    return isSuccess(this.state);
+  }
+
+  /**
+   * Returns true if this.state is ErrorStale, false otherwise
+   */
+  get isErrorStale(): boolean {
+    return isErrorStale(this.state);
+  }
+
+  /**
+   * Returns true if this.state is SuccessStale, false otherwise
+   */
+  get isSuccessStale(): boolean {
+    return isSuccessStale(this.state);
+  }
+
+  /**
+   * Returns true if this.state is RequestPending or ResponsePending,
+   * false otherwise
+   */
   get isLoading(): boolean {
-    return this.state === RemoteDataState.RequestPending
-      || this.state === RemoteDataState.ResponsePending;
+    return isLoading(this.state);
   }
 
+  /**
+   * If this.isLoading is true, this method returns undefined, we can't know yet.
+   * If it isn't this method will return true if this.state is Error or ErrorStale,
+   * false otherwise
+   */
   get hasFailed(): boolean {
-    return this.state === RemoteDataState.Failed;
+    return hasFailed(this.state);
   }
 
+  /**
+   * If this.isLoading is true, this method returns undefined, we can't know yet.
+   * If it isn't this method will return true if this.state is Success or SuccessStale,
+   * false otherwise
+   */
   get hasSucceeded(): boolean {
-    return this.state === RemoteDataState.Success;
+    return hasSucceeded(this.state);
+  }
+
+  /**
+   * Returns true if this.state is not loading, false otherwise
+   */
+  get hasCompleted(): boolean {
+    return hasCompleted(this.state);
+  }
+
+  /**
+   * Returns true if this.state is SuccessStale or ErrorStale, false otherwise
+   */
+  get isStale(): boolean {
+    return isStale(this.state);
   }
 
   get hasNoContent(): boolean {

@@ -7,7 +7,6 @@ import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { of as observableOf } from 'rxjs';
 import { EPerson } from '../eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { RestResponse } from '../cache/response.models';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;
@@ -38,7 +37,7 @@ describe('EndUserAgreementService', () => {
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       update: createSuccessfulRemoteDataObject$(userWithMetadata),
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: createSuccessfulRemoteDataObject$({})
     });
 
     service = new EndUserAgreementService(cookie, authService, ePersonService);

@@ -6,11 +6,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
 
-import { EPerson } from 'src/app/core/eperson/models/eperson.model';
-import { ResearcherProfile } from 'src/app/core/profile/model/researcher-profile.model';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
-import { RouterStub } from 'src/app/shared/testing/router.stub';
-import { VarDirective } from 'src/app/shared/utils/var.directive';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';
 
 describe('ProfilePageResearcherFormComponent', () => {

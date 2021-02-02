@@ -3,7 +3,7 @@ import { Observable, of as observableOf } from 'rxjs';
 
 export class AuthServiceMock {
   public checksAuthenticationToken() {
-    return
+    return;
   }
   public buildAuthHeader() {
     return 'auth-header';

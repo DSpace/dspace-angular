@@ -9,6 +9,6 @@ import { environment } from '../../../environments/environment';
  */
 export class RESTURLCombiner extends URLCombiner {
   constructor(...parts: string[]) {
-    super(environment.rest.baseUrl, ...parts);
+    super(environment.rest.baseUrl, '/api', ...parts);
   }
 }

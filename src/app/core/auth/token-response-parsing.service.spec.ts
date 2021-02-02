@@ -1,5 +1,5 @@
 import { TokenResponseParsingService } from './token-response-parsing.service';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { TokenResponse } from '../cache/response.models';
 
 describe('TokenResponseParsingService', () => {
@@ -17,7 +17,7 @@ describe('TokenResponseParsingService', () => {
         },
         statusCode: 200,
         statusText: 'OK'
-      } as DSpaceRESTV2Response;
+      } as RawRestResponse;
       const expected = new TokenResponse(data.payload.token, true, 200, 'OK');
       expect(service.parse(undefined, data)).toEqual(expected);
     });
@@ -27,7 +27,7 @@ describe('TokenResponseParsingService', () => {
         payload: {},
         statusCode: 200,
         statusText: 'OK'
-      } as DSpaceRESTV2Response;
+      } as RawRestResponse;
       const expected = new TokenResponse(null, false, 200, 'OK');
       expect(service.parse(undefined, data)).toEqual(expected);
     });
@@ -37,7 +37,7 @@ describe('TokenResponseParsingService', () => {
         payload: {},
         statusCode: 400,
         statusText: 'BAD REQUEST'
-      } as DSpaceRESTV2Response;
+      } as RawRestResponse;
       const expected = new TokenResponse(null, false, 400, 'BAD REQUEST');
       expect(service.parse(undefined, data)).toEqual(expected);
     });

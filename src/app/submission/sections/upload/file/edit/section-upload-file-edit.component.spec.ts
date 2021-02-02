@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,6 +21,7 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
+  mockUploadConfigResponseMetadata,
   mockUploadFiles
 } from '../../../../../shared/mocks/submission.mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -47,12 +48,12 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
   ]);
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
-  const configMetadataForm: any = mockUploadConfigResponse.metadata;
+  const configMetadataForm: any = mockUploadConfigResponseMetadata;
   const fileIndex = '0';
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -115,8 +116,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileEditComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      formbuilderService = TestBed.get(FormBuilderService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      formbuilderService = TestBed.inject(FormBuilderService);
 
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;

@@ -1,12 +1,12 @@
 import { ForwardClientIpInterceptor } from './forward-client-ip.interceptor';
-import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpRequest } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 describe('ForwardClientIpInterceptor', () => {
-  let service: DSpaceRESTv2Service;
+  let service: DspaceRestService;
   let httpMock: HttpTestingController;
 
   let requestUrl;
@@ -19,18 +19,18 @@ describe('ForwardClientIpInterceptor', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        DSpaceRESTv2Service,
+        DspaceRestService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ForwardClientIpInterceptor,
           multi: true,
         },
-        { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } }}
+        { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } } }
       ],
     });
 
-    service = TestBed.get(DSpaceRESTv2Service);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should add an X-Forwarded-For header matching the client\'s IP', () => {

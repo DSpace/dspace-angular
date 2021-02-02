@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
 import { RestRequest } from './request.models';
 
@@ -20,7 +20,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     super();
   }
 
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+  parse(request: RestRequest, data: RawRestResponse): RestResponse {
     let processRequestDTO;
     // Prevent empty pages returning an error, initialize empty array instead.
     if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
@@ -31,7 +31,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     let objectList = processRequestDTO;
 
     if (hasNoValue(processRequestDTO)) {
-      return new DSOSuccessResponse([], data.statusCode, data.statusText, undefined)
+      return new DSOSuccessResponse([], data.statusCode, data.statusText, undefined);
     }
     if (hasValue(processRequestDTO.page)) {
       objectList = processRequestDTO.page;
@@ -39,7 +39,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
       objectList = [processRequestDTO];
     }
     const selfLinks = objectList.map((no) => no._links.self.href);
-    return new DSOSuccessResponse(selfLinks, data.statusCode, data.statusText, this.processPageInfo(data.payload))
+    return new DSOSuccessResponse(selfLinks, data.statusCode, data.statusText, this.processPageInfo(data.payload));
   }
 
 }

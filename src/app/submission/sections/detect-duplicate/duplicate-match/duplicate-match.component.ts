@@ -285,7 +285,7 @@ export class DuplicateMatchComponent implements OnInit {
       take(1))
       .subscribe(() => {
         this.operationsBuilder.add(this.pathCombiner.getPath(pathDecision), payload, false, true);
-        this.detectDuplicateService.saveDuplicateDecision(this.submissionId, this.sectionId)
+        this.detectDuplicateService.saveDuplicateDecision(this.submissionId, this.sectionId);
       });
   }
 

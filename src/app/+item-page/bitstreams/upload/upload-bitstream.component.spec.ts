@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -93,7 +93,7 @@ describe('UploadBistreamComponent', () => {
   });
 
   describe('when a file is uploaded', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({});
     }));
 
@@ -127,7 +127,7 @@ describe('UploadBistreamComponent', () => {
   });
 
   describe('when a bundle url parameter is present', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({
         bundle: bundle.id
       });
@@ -157,7 +157,7 @@ describe('UploadBistreamComponent', () => {
   });
 
   describe('when a name is filled in, but no ID is selected', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({});
     }));
 
@@ -192,7 +192,7 @@ describe('UploadBistreamComponent', () => {
   function createUploadBitstreamTestingModule(queryParams) {
     routeStub = {
       data: observableOf({
-        item: createSuccessfulRemoteDataObject(mockItem)
+        dso: createSuccessfulRemoteDataObject(mockItem)
       }),
       queryParams: observableOf(queryParams),
       snapshot: {

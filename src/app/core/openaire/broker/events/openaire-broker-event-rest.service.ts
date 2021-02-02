@@ -20,8 +20,9 @@ import { RemoteData } from '../../../data/remote-data';
 import { OpenaireBrokerEventObject } from '../models/openaire-broker-event.model';
 import { OPENAIRE_BROKER_EVENT_OBJECT } from '../models/openaire-broker-event-object.resource-type';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../data/paginated-list';
+import { PaginatedList } from '../../../data/paginated-list.model';
 import { ReplaceOperation } from 'fast-json-patch';
+import { NoContent } from '../../../shared/NoContent.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -102,14 +103,14 @@ export class OpenaireBrokerEventRestService {
    * @return Observable<RemoteData<PaginatedList<OpenaireBrokerEventObject>>>
    *    The list of OpenAIRE Broker events.
    */
-  public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<OpenaireBrokerEventObject>>): Observable<RemoteData<PaginatedList<OpenaireBrokerEventObject>>> {
+  public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<OpenaireBrokerEventObject>[]): Observable<RemoteData<PaginatedList<OpenaireBrokerEventObject>>> {
     options.searchParams = [
       {
         fieldName: 'topic',
         fieldValue: topic
       }
     ];
-    return this.dataService.searchBy('findByTopic', options, ...linksToFollow);
+    return this.dataService.searchBy('findByTopic', options, true, ...linksToFollow);
   }
 
   /**
@@ -129,8 +130,8 @@ export class OpenaireBrokerEventRestService {
    * @return Observable<RemoteData<OpenaireBrokerEventObject>>
    *    The OpenAIRE Broker event.
    */
-  public getEvent(id: string, ...linksToFollow: Array<FollowLinkConfig<OpenaireBrokerEventObject>>): Observable<RemoteData<OpenaireBrokerEventObject>> {
-    return this.dataService.findById(id, ...linksToFollow);
+  public getEvent(id: string, ...linksToFollow: FollowLinkConfig<OpenaireBrokerEventObject>[]): Observable<RemoteData<OpenaireBrokerEventObject>> {
+    return this.dataService.findById(id, true, ...linksToFollow);
   }
 
   /**
@@ -145,8 +146,8 @@ export class OpenaireBrokerEventRestService {
    * @return Observable<RestResponse>
    *    The REST response.
    */
-  public patchEvent(status, dso, reason?: string): Observable<RestResponse> {
-    const operation: Array<ReplaceOperation<string>> = [
+  public patchEvent(status, dso, reason?: string): Observable<RemoteData<OpenaireBrokerEventObject>> {
+    const operation: ReplaceOperation<string>[] = [
       {
         path: '/status',
         op: 'replace',
@@ -166,7 +167,7 @@ export class OpenaireBrokerEventRestService {
    * @return Observable<RestResponse>
    *    The REST response.
    */
-  public boundProject(itemId: string, projectId: string): Observable<RestResponse> {
+  public boundProject(itemId: string, projectId: string): Observable<RemoteData<OpenaireBrokerEventObject>> {
     return this.dataService.postOnRelated(itemId, projectId);
   }
 
@@ -178,7 +179,7 @@ export class OpenaireBrokerEventRestService {
    * @return Observable<RestResponse>
    *    The REST response.
    */
-  public removeProject(itemId: string): Observable<RestResponse> {
+  public removeProject(itemId: string): Observable<RemoteData<NoContent>> {
     return this.dataService.deleteOnRelated(itemId);
   }
 }

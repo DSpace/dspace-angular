@@ -3,11 +3,15 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { OpenaireBrokerTopicObject } from '../../core/openaire/broker/models/openaire-broker-topic.model';
 import { OpenaireBrokerEventObject } from '../../core/openaire/broker/models/openaire-broker-event.model';
 import { OpenaireBrokerTopicRestService } from '../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
-import { OpenaireBrokerEventRestService } from '../../core/openaire/broker/events/openaire-broker-event-rest.service'
+import { OpenaireBrokerEventRestService } from '../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { OpenaireStateService } from '../../openaire/openaire-state.service';
 import { Item } from '../../core/shared/item.model';
-import { createNoContentRemoteDataObject, createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import {
+  createNoContentRemoteDataObject, createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../remote-data.utils';
 import { SearchResult } from '../search/search-result.model';
 import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
 
@@ -1694,8 +1698,8 @@ export const openaireBrokerEventObjectMissingProjectFound: OpenaireBrokerEventOb
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid8)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  target: createSuccessfulRemoteDataObject$(ItemMockPid8),
+  related: createSuccessfulRemoteDataObject$(ItemMockPid10)
 };
 
 export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEventObject = {
@@ -1730,8 +1734,8 @@ export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEven
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid9)),
-  related: observableOf(createNoContentRemoteDataObject())
+  target: createSuccessfulRemoteDataObject$(ItemMockPid9),
+  related: createNoContentRemoteDataObject$()
 };
 
 // Classes
@@ -1740,8 +1744,7 @@ export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEven
 /**
  * Mock for [[OpenaireStateService]]
  */
-export function getMockOpenaireStateService():
-OpenaireStateService {
+export function getMockOpenaireStateService(): any {
   return jasmine.createSpyObj('OpenaireStateService', {
     getOpenaireBrokerTopics: jasmine.createSpy('getOpenaireBrokerTopics'),
     isOpenaireBrokerTopicsLoading: jasmine.createSpy('isOpenaireBrokerTopicsLoading'),

@@ -14,7 +14,7 @@ export const OpenaireBrokerTopicActionTypes = {
   ADD_TOPICS: type('dspace/integration/openaire/broker/topic/ADD_TOPICS'),
   RETRIEVE_ALL_TOPICS: type('dspace/integration/openaire/broker/topic/RETRIEVE_ALL_TOPICS'),
   RETRIEVE_ALL_TOPICS_ERROR: type('dspace/integration/openaire/broker/topic/RETRIEVE_ALL_TOPICS_ERROR'),
-}
+};
 
 /* tslint:disable:max-classes-per-file */
 

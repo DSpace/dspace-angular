@@ -1,10 +1,10 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ObjectDetailComponent } from './object-detail.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
@@ -13,24 +13,29 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
   let fixture: ComponentFixture<ObjectDetailComponent>;
-  const testEvent: any = {test: 'test'};
+  const testEvent: any = { test: 'test' };
 
   const testObjects = [
-    Object.assign (new DSpaceObject(), { one: 1 }),
-    Object.assign (new DSpaceObject(), { two: 2 }),
-    Object.assign (new DSpaceObject(), { three: 3 }),
-    Object.assign (new DSpaceObject(), { four: 4 }),
-    Object.assign (new DSpaceObject(), { five: 5 }),
-    Object.assign (new DSpaceObject(), { six: 6 }),
-    Object.assign (new DSpaceObject(), { seven: 7 }),
-    Object.assign (new DSpaceObject(), { eight: 8 }),
-    Object.assign (new DSpaceObject(), { nine: 9 }),
-    Object.assign (new DSpaceObject(), { ten: 10 }),
+    Object.assign(new DSpaceObject(), { one: 1 }),
+    Object.assign(new DSpaceObject(), { two: 2 }),
+    Object.assign(new DSpaceObject(), { three: 3 }),
+    Object.assign(new DSpaceObject(), { four: 4 }),
+    Object.assign(new DSpaceObject(), { five: 5 }),
+    Object.assign(new DSpaceObject(), { six: 6 }),
+    Object.assign(new DSpaceObject(), { seven: 7 }),
+    Object.assign(new DSpaceObject(), { eight: 8 }),
+    Object.assign(new DSpaceObject(), { nine: 9 }),
+    Object.assign(new DSpaceObject(), { ten: 10 }),
   ];
-  const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1});
-  const mockRD = createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, testObjects));
+  const pageInfo = Object.assign(new PageInfo(), {
+    elementsPerPage: 1,
+    totalElements: 10,
+    totalPages: 10,
+    currentPage: 1
+  });
+  const mockRD = createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, testObjects));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,

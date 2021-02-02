@@ -1,19 +1,21 @@
 import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-drag-and-drop-list.component';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { Component, ElementRef } from '@angular/core';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
-import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 
+@Component({
+  selector: 'ds-mock-paginated-drag-drop-abstract',
+  template: ''
+})
 class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDragAndDropListComponent<DSpaceObject> {
 
   constructor(protected objectUpdatesService: ObjectUpdatesService,

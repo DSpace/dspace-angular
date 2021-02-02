@@ -1,9 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { uniqueId } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { UploaderOptions } from '../uploader/uploader-options.model';
-import { of as observableOf } from 'rxjs';
 
 /**
  * Component to have a file dropzone without that dropping/choosing a file in browse automatically triggers

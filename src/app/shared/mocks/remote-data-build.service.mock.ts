@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -17,7 +17,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       } else {
         return payload$.pipe(map((payload) => ({
           payload
-        } as RemoteData<any>)))
+        } as RemoteData<any>)));
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
@@ -25,9 +25,10 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       if (hasValue(buildList$)) {
         return buildList$;
       } else {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       }
-    }
+    },
+    buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({})
   } as RemoteDataBuildService;
 
 }
@@ -41,7 +42,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
       } else {
         return payload$.pipe(map((payload) => ({
           payload
-        } as RemoteData<any>)))
+        } as RemoteData<any>)));
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
@@ -50,7 +51,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
         if (hasValue(buildListHrefMap$[href$])) {
           return buildListHrefMap$[href$];
         } else {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       }
       href$.pipe(
@@ -58,11 +59,12 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
           if (hasValue(buildListHrefMap$[href])) {
             return buildListHrefMap$[href];
           } else {
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
           }
         })
       );
-    }
+    },
+    buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({})
   } as RemoteDataBuildService;
 
 }

@@ -1,7 +1,11 @@
-import { autoserialize, autoserializeAs, deserializeAs, deserialize } from 'cerialize';
+import { autoserializeAs, deserializeAs, deserialize } from 'cerialize';
 import { HALLink } from './hal-link.model';
-import { HALResource } from './hal-resource.model';
 import { MetadataConfig } from './metadata-config.model';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { typedObject } from '../cache/builders/build-decorators';
+import { CONTENT_SOURCE } from './content-source.resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { ResourceType } from './resource-type';
 
 /**
  * The type of content harvesting used
@@ -16,7 +20,19 @@ export enum ContentSourceHarvestType {
 /**
  * A model class that holds information about the Content Source of a Collection
  */
-export class ContentSource implements HALResource {
+@typedObject
+export class ContentSource extends CacheableObject {
+  static type = CONTENT_SOURCE;
+
+  /**
+   * The object type
+   *
+   * The rest api doesn't provide one, so it's hardcoded here,
+   * and we need a custom responseparser for ContentSource responses
+   */
+  @excludeFromEquals
+  type: ResourceType = CONTENT_SOURCE;
+
   /**
    * Unique identifier, this is necessary to store the ContentSource in FieldUpdates
    * Because the ContentSource coming from the REST API doesn't have a UUID, we're using the selflink
@@ -60,5 +76,5 @@ export class ContentSource implements HALResource {
   @deserialize
   _links: {
     self: HALLink
-  }
+  };
 }

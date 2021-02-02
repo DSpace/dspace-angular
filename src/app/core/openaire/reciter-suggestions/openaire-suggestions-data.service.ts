@@ -18,12 +18,12 @@ import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.servic
 import { RemoteData } from '../../data/remote-data';
 import { SUGGESTION_TARGET } from './models/openaire-suggestion-objects.resource-type';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { OpenaireSuggestionSource } from './models/openaire-suggestion-source.model';
 import { OpenaireSuggestionTarget } from './models/openaire-suggestion-target.model';
 import { OpenaireSuggestion } from './models/openaire-suggestion.model';
-import { RestResponse } from '../../cache/response.models';
 import { RequestParam } from '../../cache/models/request-param.model';
+import { NoContent } from '../../shared/NoContent.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -188,7 +188,7 @@ export class OpenaireSuggestionsDataService {
    *    The list of Suggestion Sources.
    */
   public getSources(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<OpenaireSuggestionSource>>> {
-    return this.suggestionSourcesDataService.findAll(options)
+    return this.suggestionSourcesDataService.findAll(options);
   }
 
   /**
@@ -206,25 +206,11 @@ export class OpenaireSuggestionsDataService {
   public getTargets(
     source: string,
     options: FindListOptions = {},
-    ...linksToFollow: Array<FollowLinkConfig<OpenaireSuggestionTarget>>
+    ...linksToFollow: FollowLinkConfig<OpenaireSuggestionTarget>[]
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
     options.searchParams = [new RequestParam('source', source)];
 
-    return this.suggestionTargetsDataService.searchBy(this.searchFindBySourceMethod, options, ...linksToFollow);
-    // TEST
-    /*    const pageInfo = new PageInfo({
-          elementsPerPage: 10,
-          totalElements: 6,
-          totalPages: 1,
-          currentPage: 0
-        });
-        const array = [
-          suggestionTargetObjectBollini,
-          suggestionTargetObjectDigilio
-        ];
-        const paginatedList = new PaginatedList(pageInfo, array);
-        const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-        return observableOf(paginatedListRD);*/
+    return this.suggestionTargetsDataService.searchBy(this.searchFindBySourceMethod, options, true, ...linksToFollow);
   }
 
   /**
@@ -242,11 +228,11 @@ export class OpenaireSuggestionsDataService {
   public getTargetsByUser(
     userId: string,
     options: FindListOptions = {},
-    ...linksToFollow: Array<FollowLinkConfig<OpenaireSuggestionTarget>>
+    ...linksToFollow: FollowLinkConfig<OpenaireSuggestionTarget>[]
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
     options.searchParams = [new RequestParam('target', userId)];
 
-    return this.suggestionTargetsDataService.searchBy(this.searchFindByTargetMethod, options, ...linksToFollow);
+    return this.suggestionTargetsDataService.searchBy(this.searchFindByTargetMethod, options, true, ...linksToFollow);
   }
 
   /**
@@ -263,57 +249,19 @@ export class OpenaireSuggestionsDataService {
   }
 
   /**
-   * Return the list of Suggestion Target
-   *
-   * @param options
-   *    Find list options object.
-   * @param linksToFollow
-   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   * @return Observable<RemoteData<PaginatedList<OpenaireReciterSuggestionTarget>>>
-   *    The list of Suggestion Target.
-   */
-  /*  public getReviewSuggestions(options: FindListOptions = {}, reciterId: string, ...linksToFollow: Array<FollowLinkConfig<OpenaireReciterSuggestionTarget>>): Observable<RemoteData<PaginatedList<OpenaireReciterSuggestionTarget>>> {
-      return this.dataService.getBrowseEndpoint(options, `suggestions/${reciterId}`).pipe(
-        take(1),
-        flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
-      );*/
-  // TEST
-  /*    const pageInfo = new PageInfo({
-        elementsPerPage: 10,
-        totalElements: 6,
-        totalPages: 1,
-        currentPage: 0
-      });
-      const array = [
-        PUBLICATION_ONE,
-        PUBLICATION_TWO
-      ];
-      const paginatedList = new PaginatedList(pageInfo, array);
-      const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      return observableOf(paginatedListRD);*/
-
-  // }
-
-  /**
    * Used to delete Suggestion
    * @suggestionId
    */
-  public deleteSuggestion(suggestionId: string): Observable<RestResponse> {
+  public deleteSuggestion(suggestionId: string): Observable<RemoteData<NoContent>> {
     return this.suggestionsDataService.delete(suggestionId);
-    // TEST
-    /*    const res = createSuccessfulRemoteDataObject({});
-        return observableOf(res);*/
   }
 
   /**
    * Used to fetch Suggestion notification for user
    * @suggestionId
    */
-  public getSuggestion(suggestionId: string, ...linksToFollow: Array<FollowLinkConfig<OpenaireSuggestion>>): Observable<RemoteData<OpenaireSuggestion>> {
-    return this.suggestionsDataService.findById(suggestionId, ...linksToFollow);
-    // TEST
-    /*    const paginatedListRD = createSuccessfulRemoteDataObject(suggestionTargetObjectBollini);
-        return observableOf(paginatedListRD);*/
+  public getSuggestion(suggestionId: string, ...linksToFollow: FollowLinkConfig<OpenaireSuggestion>[]): Observable<RemoteData<OpenaireSuggestion>> {
+    return this.suggestionsDataService.findById(suggestionId, true, ...linksToFollow);
   }
 
   /**
@@ -334,20 +282,20 @@ export class OpenaireSuggestionsDataService {
     target: string,
     source: string,
     options: FindListOptions = {},
-    ...linksToFollow: Array<FollowLinkConfig<OpenaireSuggestion>>
+    ...linksToFollow: FollowLinkConfig<OpenaireSuggestion>[]
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
     options.searchParams = [
       new RequestParam('target', target),
       new RequestParam('source', source)
     ];
 
-    return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, ...linksToFollow);
+    return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, true, ...linksToFollow);
   }
 
   /**
    * Clear findByTargetAndSource suggestions requests from cache
    */
   public clearSuggestionRequests() {
-    this.requestService.removeByHrefSubstring(this.searchFindByTargetAndSourceMethod);
+    this.requestService.setStaleByHrefSubstring(this.searchFindByTargetAndSourceMethod);
   }
 }

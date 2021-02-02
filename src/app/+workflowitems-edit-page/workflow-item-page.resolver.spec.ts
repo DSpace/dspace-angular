@@ -1,7 +1,7 @@
 import { first } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 describe('WorkflowItemPageResolver', () => {
   describe('resolve', () => {
@@ -11,17 +11,18 @@ describe('WorkflowItemPageResolver', () => {
 
     beforeEach(() => {
       wfiService = {
-        findById: (id: string) => observableOf({ payload: { id }, hasSucceeded: true }) as any
+        findById: (id: string) => createSuccessfulRemoteDataObject$({ id })
       } as any;
       resolver = new WorkflowItemPageResolver(wfiService);
     });
 
-    it('should resolve a workflow item with the correct id', () => {
+    it('should resolve a workflow item with the correct id', (done) => {
       resolver.resolve({ params: { id: uuid } } as any, undefined)
         .pipe(first())
         .subscribe(
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
+            done();
           }
         );
     });

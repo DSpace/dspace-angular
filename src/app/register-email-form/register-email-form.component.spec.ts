@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../core/cache/response.models';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
 import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RegisterEmailFormComponent } from './register-email-form.component';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 describe('RegisterEmailComponent', () => {
 
@@ -23,13 +24,13 @@ describe('RegisterEmailComponent', () => {
   let epersonRegistrationService: EpersonRegistrationService;
   let notificationsService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      registerEmail: observableOf(new RestResponse(true, 200, 'Success'))
+      registerEmail: createSuccessfulRemoteDataObject$({})
     });
 
     TestBed.configureTestingModule({

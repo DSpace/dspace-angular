@@ -9,7 +9,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 
@@ -47,7 +47,7 @@ export class SearchFiltersComponent implements OnInit {
   /**
    * For chart regular expression
    */
-  chartReg = new RegExp(/^chart./, 'i')
+  chartReg = new RegExp(/^chart./, 'i');
 
   /**
    * Initialize instance variables
@@ -69,11 +69,11 @@ export class SearchFiltersComponent implements OnInit {
         switchMap((options) =>
           this.searchService
             .getConfig(options.scope, options.configuration)
-            .pipe(getSucceededRemoteData())
+            .pipe(getFirstSucceededRemoteData())
         ),
         map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
           payload: rd.payload.filter((filter: SearchFilterConfig) =>
-            !this.chartReg.test(filter.type)
+            !this.chartReg.test(filter.filterType)
           )})
         ),
       );

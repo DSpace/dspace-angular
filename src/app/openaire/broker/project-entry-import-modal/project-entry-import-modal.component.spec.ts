@@ -13,9 +13,51 @@ import { getMockSearchService } from '../../../shared/mocks/search-service.mock'
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { OpenaireMockDspaceObject } from '../../../shared/mocks/openaire.mock';
+import {
+  ItemMockPid10,
+  openaireBrokerEventObjectMissingProjectFound,
+  OpenaireMockDspaceObject
+} from '../../../shared/mocks/openaire.mock';
+
+const eventData = {
+  event: openaireBrokerEventObjectMissingProjectFound,
+  id: openaireBrokerEventObjectMissingProjectFound.id,
+  title: openaireBrokerEventObjectMissingProjectFound.title,
+  hasProject: true,
+  projectTitle: openaireBrokerEventObjectMissingProjectFound.message.title,
+  projectId: ItemMockPid10.id,
+  handle: ItemMockPid10.handle,
+  reason: null,
+  isRunning: false
+};
+
+const searchString = 'Test project to search';
+const pagination = Object.assign(
+  new PaginationComponentOptions(), {
+    id: 'openaire-project-bound',
+    pageSize: 3
+  }
+);
+const searchOptions = Object.assign(new PaginatedSearchOptions(
+  {
+    configuration: 'funding',
+    query: searchString,
+    pagination: pagination
+  }
+));
+const pageInfo = new PageInfo({
+  elementsPerPage: 3,
+  totalElements: 1,
+  totalPages: 1,
+  currentPage: 1
+});
+const array = [
+  OpenaireMockDspaceObject,
+];
+const paginatedList = buildPaginatedList(pageInfo, array);
+const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
 describe('ProjectEntryImportModalComponent test suite', () => {
   let fixture: ComponentFixture<ProjectEntryImportModalComponent>;
@@ -24,7 +66,8 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
   const modalStub = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   const uuid = '123e4567-e89b-12d3-a456-426614174003';
-  const searchServiceStub = getMockSearchService();
+  const searchServiceStub: any = getMockSearchService();
+
 
   beforeEach(async (() => {
     TestBed.configureTestingModule({
@@ -53,8 +96,9 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      searchServiceStub.search.and.returnValue(observableOf(paginatedListRD));
       const html = `
-        <ds-project-entry-import-modal></ds-project-entry-import-modal>`;
+        <ds-project-entry-import-modal [externalSourceEntry]="eventData"></ds-project-entry-import-modal>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
     });
@@ -85,32 +129,8 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     describe('search', () => {
       it('should call SearchService.search', () => {
-        const searchString = 'Test project to search';
-        const pagination = Object.assign(
-          new PaginationComponentOptions(), {
-            id: 'openaire-project-bound',
-            pageSize: comp.pageSize
-          }
-        );
-        const searchOptions = Object.assign(new PaginatedSearchOptions(
-          {
-            configuration: 'funding',
-            query: searchString,
-            pagination: pagination
-          }
-        ));
-        const pageInfo = new PageInfo({
-          elementsPerPage: comp.pageSize,
-          totalElements: 1,
-          totalPages: 1,
-          currentPage: 1
-        });
-        const array = [
-          OpenaireMockDspaceObject,
-        ];
-        const paginatedList = new PaginatedList(pageInfo, array);
-        const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-        (searchServiceStub as any).search.and.returnValue(observableOf(paginatedListRD))
+
+        (searchServiceStub as any).search.and.returnValue(observableOf(paginatedListRD));
         comp.pagination = pagination;
 
         comp.search(searchString);
@@ -186,5 +206,5 @@ describe('ProjectEntryImportModalComponent test suite', () => {
   template: ``
 })
 class TestComponent {
-
+  eventData = eventData;
 }

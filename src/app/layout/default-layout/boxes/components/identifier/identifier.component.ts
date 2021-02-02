@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RenderingTypeModel } from '../rendering-type.model';
+import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../services/resolver-strategy.service';
 import { hasValue } from '../../../../../shared/empty.util';
@@ -15,7 +15,7 @@ import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-
   styleUrls: ['./identifier.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRendetingType.IDENTIFIER)
-export class IdentifierComponent extends RenderingTypeModel implements OnInit {
+export class IdentifierComponent extends RenderingTypeModelComponent implements OnInit {
 
   /**
    * list of identifier values
@@ -39,7 +39,7 @@ export class IdentifierComponent extends RenderingTypeModel implements OnInit {
   }
 
   ngOnInit(): void {
-    const identifiers = []
+    const identifiers = [];
     this.metadataValues.forEach((metadataValue) => {
       let identifier: MetadataLinkValue;
       if ( hasValue(this.subtype) ) {
@@ -79,10 +79,10 @@ export class IdentifierComponent extends RenderingTypeModel implements OnInit {
       value = metadataValue.replace(rep, '');
     }
     const href = this.resolver.getBaseUrl(urn) + value;
-    const text = hasValue(value) && value !== '' ? value : href
+    const text = hasValue(value) && value !== '' ? value : href;
     return {
       href,
       text
-    }
+    };
   }
 }

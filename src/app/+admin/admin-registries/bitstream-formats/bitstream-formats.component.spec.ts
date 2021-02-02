@@ -1,8 +1,6 @@
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,6 +17,12 @@ import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -73,7 +77,7 @@ describe('BitstreamFormatsComponent', () => {
     bitstreamFormat3,
     bitstreamFormat4
   ];
-  const mockFormatsRD = new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFormatsList));
+  const mockFormatsRD = createSuccessfulRemoteDataObject(createPaginatedList(mockFormatsList));
 
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
@@ -82,12 +86,12 @@ describe('BitstreamFormatsComponent', () => {
 
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
       findAll: observableOf(mockFormatsRD),
-      find: observableOf(new RemoteData(false, false, true, undefined, mockFormatsList[0])),
-      getSelectedBitstreamFormats: hot('a', {a: mockFormatsList}),
+      find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
+      getSelectedBitstreamFormats: hot('a', { a: mockFormatsList }),
       selectBitstreamFormat: {},
       deselectBitstreamFormat: {},
       deselectAllBitstreamFormats: {},
-      delete: observableOf(true),
+      delete: createSuccessfulRemoteDataObject$({}),
       clearBitStreamFormatRequests: observableOf('cleared')
     });
 
@@ -95,9 +99,9 @@ describe('BitstreamFormatsComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
-        {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
-        {provide: HostWindowService, useValue: new HostWindowServiceStub(0)},
-        {provide: NotificationsService, useValue: notificationsServiceStub}
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: NotificationsService, useValue: notificationsServiceStub }
       ]
     }).compileComponents();
   };
@@ -109,7 +113,7 @@ describe('BitstreamFormatsComponent', () => {
   };
 
   describe('Bitstream format page content', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
 
     it('should contain four formats', () => {
@@ -133,17 +137,17 @@ describe('BitstreamFormatsComponent', () => {
   });
 
   describe('selectBitStreamFormat', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should select a bitstreamFormat if it was selected in the event', () => {
-      const event = {target: {checked: true}};
+      const event = { target: { checked: true } };
 
       comp.selectBitStreamFormat(bitstreamFormat1, event);
 
       expect(bitstreamFormatService.selectBitstreamFormat).toHaveBeenCalledWith(bitstreamFormat1);
     });
     it('should deselect a bitstreamFormat if it is deselected in the event', () => {
-      const event = {target: {checked: false}};
+      const event = { target: { checked: false } };
 
       comp.selectBitStreamFormat(bitstreamFormat1, event);
 
@@ -153,7 +157,7 @@ describe('BitstreamFormatsComponent', () => {
       spyOn(comp, 'selectBitStreamFormat');
       const unknownFormat = fixture.debugElement.query(By.css('#formats tr:nth-child(1) input'));
 
-      const event = {target: {checked: true}};
+      const event = { target: { checked: true } };
       unknownFormat.triggerEventHandler('change', event);
 
       expect(comp.selectBitStreamFormat).toHaveBeenCalledWith(bitstreamFormat1, event);
@@ -161,12 +165,12 @@ describe('BitstreamFormatsComponent', () => {
   });
 
   describe('isSelected', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should return an observable of true if the provided bistream is in the list returned by the service', () => {
       const result = comp.isSelected(bitstreamFormat1);
 
-      expect(result).toBeObservable(cold('b', {b: true}));
+      expect(result).toBeObservable(cold('b', { b: true }));
     });
     it('should return an observable of false if the provided bistream is not in the list returned by the service', () => {
       const format = new BitstreamFormat();
@@ -174,12 +178,12 @@ describe('BitstreamFormatsComponent', () => {
 
       const result = comp.isSelected(format);
 
-      expect(result).toBeObservable(cold('b', {b: false}));
+      expect(result).toBeObservable(cold('b', { b: false }));
     });
   });
 
   describe('deselectAll', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should deselect all bitstreamFormats', () => {
       comp.deselectAll();
@@ -197,19 +201,19 @@ describe('BitstreamFormatsComponent', () => {
   });
 
   describe('deleteFormats success', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         notificationsServiceStub = new NotificationsServiceStub();
 
         scheduler = getTestScheduler();
 
         bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
           findAll: observableOf(mockFormatsRD),
-          find: observableOf(new RemoteData(false, false, true, undefined, mockFormatsList[0])),
+          find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
           getSelectedBitstreamFormats: observableOf(mockFormatsList),
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},
           deselectAllBitstreamFormats: {},
-          delete: observableOf({ isSuccessful: true }),
+          delete: createNoContentRemoteDataObject$(),
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
@@ -217,9 +221,9 @@ describe('BitstreamFormatsComponent', () => {
           imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
-            {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
-            {provide: HostWindowService, useValue: new HostWindowServiceStub(0)},
-            {provide: NotificationsService, useValue: notificationsServiceStub}
+            { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+            { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+            { provide: NotificationsService, useValue: notificationsServiceStub }
           ]
         }).compileComponents();
       }
@@ -243,14 +247,14 @@ describe('BitstreamFormatsComponent', () => {
   });
 
   describe('deleteFormats error', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         notificationsServiceStub = new NotificationsServiceStub();
 
         scheduler = getTestScheduler();
 
         bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
           findAll: observableOf(mockFormatsRD),
-          find: observableOf(new RemoteData(false, false, true, undefined, mockFormatsList[0])),
+          find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
           getSelectedBitstreamFormats: observableOf(mockFormatsList),
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},
@@ -263,9 +267,9 @@ describe('BitstreamFormatsComponent', () => {
           imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
-            {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
-            {provide: HostWindowService, useValue: new HostWindowServiceStub(0)},
-            {provide: NotificationsService, useValue: notificationsServiceStub}
+            { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+            { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+            { provide: NotificationsService, useValue: notificationsServiceStub }
           ]
         }).compileComponents();
       }

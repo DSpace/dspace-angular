@@ -11,15 +11,15 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions, GetRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
 import { map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -65,7 +65,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    * @param searchOptions     The search options to use
    * @param linksToFollow     HAL Links to follow on the Versions
    */
-  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Version>>): Observable<RemoteData<PaginatedList<Version>>> {
+  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Version>[]): Observable<RemoteData<PaginatedList<Version>>> {
     const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );

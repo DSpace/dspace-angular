@@ -1,9 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RelatedItemsComponent } from './related-items-component';
 import { Item } from '../../../core/shared/item.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -11,19 +9,20 @@ import { RelationshipService } from '../../../core/data/relationship.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 const parentItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
 const mockItem1: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
 const mockItem2: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -35,10 +34,10 @@ describe('RelatedItemsComponent', () => {
   let comp: RelatedItemsComponent;
   let fixture: ComponentFixture<RelatedItemsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockItems)),
+        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(mockItems)),
       }
     );
 
@@ -50,11 +49,11 @@ describe('RelatedItemsComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(RelatedItemsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(RelatedItemsComponent);
     comp = fixture.componentInstance;
     comp.parentItem = parentItem;
@@ -81,7 +80,10 @@ describe('RelatedItemsComponent', () => {
     });
 
     it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments (second page)', () => {
-      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, { elementsPerPage: comp.incrementBy, currentPage: 2 }));
+      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, {
+        elementsPerPage: comp.incrementBy,
+        currentPage: 2
+      }));
     });
   });
 

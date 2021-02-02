@@ -51,7 +51,7 @@ export class ProcessParametersComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.script) {
-      this.initParameters()
+      this.initParameters();
     }
   }
 

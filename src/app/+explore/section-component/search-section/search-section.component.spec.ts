@@ -7,13 +7,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { SearchConfig, FilterConfig } from 'src/app/shared/search/search-filters/search-config.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
+import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { FilterType } from '../../../shared/search/filter-type.model';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;
@@ -22,36 +23,34 @@ describe('SearchSectionComponent', () => {
   let searchServiceStub: any;
   let router: any;
 
-  const firstFilterConfig: FilterConfig = {
-    filter: 'author',
+  const firstFilterConfig: any = {
+    name: 'author',
     hasFacets: true,
     operators: [],
-    openByDefault: true,
+    isOpenByDefault: true,
     pageSize: 5,
-    type: 'text',
+    filterType: FilterType.text,
   };
 
-  const secondFilterConfig: FilterConfig = {
-    filter: 'subject',
+  const secondFilterConfig: any = {
+    name: 'subject',
     hasFacets: true,
     operators: [],
-    openByDefault: true,
+    isOpenByDefault: true,
     pageSize: 5,
-    type: 'text',
+    filterType: FilterType.text
   };
 
   beforeEach(async(() => {
 
     searchServiceStub = {
-      getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
-        const config = new SearchConfig();
-        config.filters = [firstFilterConfig, secondFilterConfig];
-        return createSuccessfulRemoteDataObject$(config);
+      getConfig( scope?: string, configurationName?: string ): Observable<RemoteData<SearchFilterConfig[]>> {
+        return createSuccessfulRemoteDataObject$([firstFilterConfig, secondFilterConfig]);
       },
       getSearchLink(): string {
         return '/search';
       }
-    }
+    };
 
     router = {
       navigate: jasmine.createSpy('navigate')
@@ -84,7 +83,7 @@ describe('SearchSectionComponent', () => {
       discoveryConfigurationName: 'publication',
       componentType: 'search',
       style: 'col-md-8'
-    }
+    };
 
     fixture.detectChanges();
   });

@@ -3,7 +3,7 @@ import { getMockObjectCacheService } from '../../shared/mocks/object-cache.servi
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { GetRequest } from './request.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
 
 describe('FilteredDiscoveryPageResponseParsingService', () => {
@@ -26,11 +26,11 @@ describe('FilteredDiscoveryPageResponseParsingService', () => {
       },
       statusCode: 200,
       statusText: 'OK'
-    } as DSpaceRESTV2Response;
+    } as RawRestResponse;
 
     it('should return a FilteredDiscoveryQueryResponse containing the correct query', () => {
       const response = service.parse(request, mockResponse);
       expect((response as FilteredDiscoveryQueryResponse).filterQuery).toBe(mockResponse.payload['discovery-query']);
-    })
+    });
   });
 });

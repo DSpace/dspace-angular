@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import { coreSelector } from '../../core.selectors';
@@ -24,10 +24,17 @@ import {
   SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  hasValueOperator
+} from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { Operation } from 'fast-json-patch';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -59,10 +66,10 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are being mapped
    * @param fields The initial fields for the page's object
    * @param lastModified The date the object was last modified
-   * @param patchOperationServiceToken An InjectionToken referring to the {@link PatchOperationService} used for creating a patch
+   * @param patchOperationService A {@link PatchOperationService} used for creating a patch
    */
-  initialize(url, fields: Identifiable[], lastModified: Date, patchOperationServiceToken?: InjectionToken<PatchOperationService>): void {
-    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, patchOperationServiceToken));
+  initialize(url, fields: Identifiable[], lastModified: Date, patchOperationService?: GenericConstructor<PatchOperationService>): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, patchOperationService));
   }
 
   /**
@@ -72,7 +79,7 @@ export class ObjectUpdatesService {
    * @param changeType The last type of change applied to this field
    */
   private saveFieldUpdate(url: string, field: Identifiable, changeType: FieldChangeType) {
-    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType))
+    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType));
   }
 
   /**
@@ -129,7 +136,9 @@ export class ObjectUpdatesService {
    */
   getFieldUpdatesExclusive(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
+    return objectUpdates.pipe(
+      hasValueOperator(),
+      map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
       for (const object of initialFields) {
         let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
@@ -139,7 +148,7 @@ export class ObjectUpdatesService {
         fieldUpdates[object.uuid] = fieldUpdate;
       }
       return fieldUpdates;
-    }))
+    }));
   }
 
   /**
@@ -153,7 +162,7 @@ export class ObjectUpdatesService {
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.editable),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -167,7 +176,7 @@ export class ObjectUpdatesService {
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.isValid),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -178,10 +187,10 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(
       map((entry: ObjectUpdatesEntry) => {
-        return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0
+        return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0;
       }),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -317,7 +326,7 @@ export class ObjectUpdatesService {
         }
       });
       return fields;
-    }))
+    }));
   }
 
   /**
@@ -333,7 +342,7 @@ export class ObjectUpdatesService {
    * @param url The page's url to check for in the store
    */
   isReinstatable(url: string): Observable<boolean> {
-    return this.hasUpdates(url + OBJECT_UPDATES_TRASH_PATH)
+    return this.hasUpdates(url + OBJECT_UPDATES_TRASH_PATH);
   }
 
   /**
@@ -346,7 +355,7 @@ export class ObjectUpdatesService {
 
   /**
    * Create a patch from the current object-updates state
-   * The {@link ObjectUpdatesEntry} should contain a patchOperationServiceToken, in order to define how a patch should
+   * The {@link ObjectUpdatesEntry} should contain a patchOperationService, in order to define how a patch should
    * be created. If it doesn't, an empty patch will be returned.
    * @param url The URL of the page for which the patch should be created
    */
@@ -354,8 +363,8 @@ export class ObjectUpdatesService {
     return this.getObjectEntry(url).pipe(
       map((entry) => {
         let patch = [];
-        if (hasValue(entry.patchOperationServiceToken)) {
-          patch = this.injector.get(entry.patchOperationServiceToken).fieldUpdatesToPatchOperations(entry.fieldUpdates);
+        if (hasValue(entry.patchOperationService)) {
+          patch = this.injector.get(entry.patchOperationService).fieldUpdatesToPatchOperations(entry.fieldUpdates);
         }
         return patch;
       })

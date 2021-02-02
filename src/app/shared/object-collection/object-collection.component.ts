@@ -12,7 +12,7 @@ import { ListableObject } from './shared/listable-object.model';
 import { isNotEmpty } from '../empty.util';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Context } from '../../core/shared/context.model';
 
 /**

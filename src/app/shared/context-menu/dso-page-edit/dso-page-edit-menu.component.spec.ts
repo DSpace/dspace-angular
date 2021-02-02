@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
-import { TooltipModule } from 'ngx-bootstrap';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 
 describe('DsoPageEditMenuComponent', () => {
@@ -30,7 +29,7 @@ describe('DsoPageEditMenuComponent', () => {
     });
     TestBed.configureTestingModule({
       declarations: [ DsoPageEditMenuComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), TooltipModule.forRoot()],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: 'contextMenuObjectProvider', useValue: dso },

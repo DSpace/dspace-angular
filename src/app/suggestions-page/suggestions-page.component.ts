@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { flatMap, map, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
-import { PaginatedList } from '../core/data/paginated-list';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
 import { SuggestionBulkResult, SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
@@ -166,7 +166,7 @@ export class SuggestionsPageComponent implements OnInit {
             this.translateService.get('reciter.suggestion.notMine.bulk.error',
               {count: results.fails}));
         }
-      })
+      });
   }
 
   /**
@@ -205,7 +205,7 @@ export class SuggestionsPageComponent implements OnInit {
             this.translateService.get('reciter.suggestion.approveAndImport.bulk.error',
               {count: results.fails}));
         }
-    })
+    });
   }
 
   /**
@@ -231,7 +231,7 @@ export class SuggestionsPageComponent implements OnInit {
     } else {
       suggestions.forEach((suggestion) => {
         this.selectedSuggestions[suggestion.id] = suggestion;
-      })
+      });
     }
   }
 
@@ -239,7 +239,7 @@ export class SuggestionsPageComponent implements OnInit {
    * The current number of selected suggestions.
    */
   getSelectedSuggestionsCount(): number {
-    return Object.keys(this.selectedSuggestions).length
+    return Object.keys(this.selectedSuggestions).length;
   }
 
 }

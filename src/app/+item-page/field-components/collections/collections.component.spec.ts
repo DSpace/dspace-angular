@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -23,11 +23,14 @@ const mockCollection1: Collection = Object.assign(new Collection(), {
         value: 'Short description'
       }
     ]
+  },
+  _links: {
+    self: { href: 'collection-selflink' }
   }
 });
 
 const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: createSuccessfulRemoteDataObject$(mockCollection1)});
-const failedMockItem: Item = Object.assign(new Item(), {owningCollection: createFailedRemoteDataObject$(mockCollection1)});
+const failedMockItem: Item = Object.assign(new Item(), {owningCollection: createFailedRemoteDataObject$('error', 500)});
 
 describe('CollectionsComponent', () => {
   collectionDataServiceStub = {
@@ -35,11 +38,11 @@ describe('CollectionsComponent', () => {
       if (item === succeededMockItem) {
         return createSuccessfulRemoteDataObject$(mockCollection1);
       } else {
-        return createFailedRemoteDataObject$(mockCollection1);
+        return createFailedRemoteDataObject$('error', 500);
       }
     }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ CollectionsComponent ],
@@ -54,7 +57,7 @@ describe('CollectionsComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CollectionsComponent);
     collectionsComponent = fixture.componentInstance;
     collectionsComponent.label = 'test.test';

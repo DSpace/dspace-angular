@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Tab } from '../layout/models/tab.model';
+import { Tab } from './models/tab.model';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -7,16 +7,16 @@ import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { TAB } from '../layout/models/tab.resource-type';
+import { TAB } from './models/tab.resource-type';
 import { dataService } from '../cache/builders/build-decorators';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { PaginatedList } from '../data/paginated-list';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 
@@ -37,6 +37,7 @@ class DataServiceImpl extends DataService<Tab> {
     super();
   }
 }
+
 /**
  * A service responsible for fetching data from the REST API on the tabs endpoint
  */
@@ -55,8 +56,8 @@ export class TabDataService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Tab>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
-    }
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  }
 
   /**
    * Provide detailed information about a specific tab.
@@ -75,7 +76,7 @@ export class TabDataService {
    */
   findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
     const options = new FindListOptions();
-    options.searchParams = [new RequestParam('uuid', itemUuid)]
+    options.searchParams = [new RequestParam('uuid', itemUuid)];
     return this.dataService.searchBy(this.searchFindByItem, options);
   }
 
@@ -86,7 +87,7 @@ export class TabDataService {
    */
   findByEntityType(entityType: string): Observable<RemoteData<PaginatedList<Tab>>> {
     const options = new FindListOptions();
-    options.searchParams = [new RequestParam('type', entityType)]
+    options.searchParams = [new RequestParam('type', entityType)];
     return this.dataService.searchBy(this.searchFindByEntityType, options);
   }
 }

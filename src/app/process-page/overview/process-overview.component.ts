@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { flatMap, map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RoleService } from 'src/app/core/roles/role.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { of } from 'rxjs';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-process-overview',
@@ -67,7 +65,6 @@ export class ProcessOverviewComponent implements OnInit {
       currentPage: event,
     });
     this.pageConfig.currentPage = event;
-    console.log('onPageChange', this.config);
     this.setProcesses();
   }
 
@@ -76,14 +73,14 @@ export class ProcessOverviewComponent implements OnInit {
    */
   setProcesses() {
     this.processesRD$ = this.isCurrentUserAdmin().pipe(
-      flatMap((isAdmin) => {
+      mergeMap((isAdmin) => {
         if (isAdmin) {
           return this.processService.findAll(this.config);
         } else {
           return this.processService.searchBy('own', this.config);
         }
       })
-    )
+    );
   }
 
   isCurrentUserAdmin(): Observable<boolean> {

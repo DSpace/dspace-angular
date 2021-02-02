@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,7 +34,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
     resolveLink: {}
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -47,7 +47,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService}
+        { provide: LinkService, useValue: linkService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -72,5 +72,5 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
     const a = fixture.debugElement.query(By.css('a.edit-link'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCommunityEditRoute(id));
-  })
+  });
 });

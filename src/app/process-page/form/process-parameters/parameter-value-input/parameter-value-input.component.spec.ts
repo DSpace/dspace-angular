@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParameterValueInputComponent } from './parameter-value-input.component';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
@@ -32,7 +32,7 @@ describe('ParameterValueInputComponent', () => {
     outputParameter = Object.assign(new ScriptParameter(), { type: ScriptParameterType.OUTPUT });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [

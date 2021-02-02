@@ -5,12 +5,12 @@ import { AUDIT } from './audit.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { link, typedObject } from '../../cache/builders/build-decorators';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
-import { EPERSON } from 'src/app/core/eperson/models/eperson.resource-type';
-import { EPerson } from 'src/app/core/eperson/models/eperson.model';
-import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { ITEM } from 'src/app/core/shared/item.resource-type';
+import { EPERSON } from '../../eperson/models/eperson.resource-type';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { DSpaceObject } from '../../shared/dspace-object.model';
+import { ITEM } from '../../shared/item.resource-type';
 
 /**
  * Object representing an Audit.

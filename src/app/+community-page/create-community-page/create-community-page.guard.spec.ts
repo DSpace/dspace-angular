@@ -18,7 +18,7 @@ describe('CreateCommunityPageGuard', () => {
           } else if (id === 'invalid-id') {
             return createSuccessfulRemoteDataObject$(undefined);
           } else if (id === 'error-id') {
-            return createFailedRemoteDataObject$(new Community());
+            return createFailedRemoteDataObject$('not found', 404);
           }
         }
       };

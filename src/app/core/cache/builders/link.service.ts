@@ -25,7 +25,7 @@ export class LinkService {
    * @param model the {@link HALResource} to resolve the links for
    * @param linksToFollow the {@link FollowLinkConfig}s to resolve
    */
-  public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
+  public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: FollowLinkConfig<T>[]): T {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
         this.resolveLink(model, linkToFollow);
     });
@@ -39,6 +39,10 @@ export class LinkService {
    * @param linkToFollow the {@link FollowLinkConfig} to resolve
    */
   public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
+    if (typeof linkToFollow !== 'object') {
+      return model;
+    }
+
     const matchingLinkDef = getLinkDefinition(model.constructor, linkToFollow.name);
 
     if (hasNoValue(matchingLinkDef)) {
@@ -61,12 +65,13 @@ export class LinkService {
 
         try {
           if (matchingLinkDef.isList) {
-            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
+            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, true, ...linkToFollow.linksToFollow);
           } else {
-            model[linkToFollow.name] = service.findByHref(href, ...linkToFollow.linksToFollow);
+            model[linkToFollow.name] = service.findByHref(href, true, ...linkToFollow.linksToFollow);
           }
         } catch (e) {
-          throw new Error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} from ${href}`);
+          console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} at ${href}`);
+          throw e;
         }
       }
     }

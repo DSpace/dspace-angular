@@ -1,16 +1,31 @@
-import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ElementRef, Input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
+
 import { hasValue } from '../empty.util';
-import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, reduce, take } from 'rxjs/operators';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { Community } from 'src/app/core/shared/community.model';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { Community } from '../../core/shared/community.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
-import { getFirstSucceededRemoteDataPayload, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteWithNotEmptyData
+} from '../../core/shared/operators';
 
 /**
  * An interface to represent a collection entry
@@ -25,8 +40,8 @@ interface CollectionListEntryItem {
  * An interface to represent an entry in the collection list
  */
 export interface CollectionListEntry {
-  communities: CollectionListEntryItem[],
-  collection: CollectionListEntryItem
+  communities: CollectionListEntryItem[];
+  collection: CollectionListEntryItem;
 }
 
 @Component({
@@ -198,13 +213,14 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         query,
         this.entityType,
         findOptions,
+        false,
         followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, followLink('parentCommunity'));
+      .getAuthorizedCollection(query, findOptions, false, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
-        getSucceededRemoteWithNotEmptyData(),
+        getFirstSucceededRemoteWithNotEmptyData(),
         switchMap((collections: RemoteData<PaginatedList<Collection>>) => {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;
@@ -219,7 +235,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
           })
         ))),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
+        reduce((acc: any, value: any) => [...acc, value], []),
         startWith([])
         );
     this.subs.push(this.searchListCollection$.subscribe(
@@ -278,7 +294,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         this.theOnlySelectable.emit({
           communities: [{ id: community.id, name: community.name, uuid: community.id }],
           collection: { id: collection.id, uuid: collection.id, name: collection.name }
-        })
+        });
       });
     }
   }

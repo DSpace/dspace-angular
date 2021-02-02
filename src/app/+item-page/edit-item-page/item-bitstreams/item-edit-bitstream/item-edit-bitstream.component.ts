@@ -4,9 +4,9 @@ import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { cloneDeep } from 'lodash';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
@@ -74,7 +74,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
     this.bitstream = cloneDeep(this.fieldUpdate.field) as Bitstream;
     this.bitstreamName = this.dsoNameService.getName(this.bitstream);
     this.format$ = this.bitstream.format.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload()
     );
   }

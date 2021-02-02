@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -14,7 +13,7 @@ import { CommunityDataService } from '../../../../../core/data/community-data.se
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
@@ -43,7 +42,7 @@ function init() {
     new ItemSearchResult(),
     {
       indexableObject: Object.assign(new Item(), {
-        bundles: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [])),
+        bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [])),
         metadata: {
           'dc.title': [
             {
@@ -64,7 +63,7 @@ function init() {
     new ItemSearchResult(),
     {
       indexableObject: Object.assign(new Item(), {
-        bundles: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [])),
+        bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [])),
         metadata: {
           'dc.title': [
             {
@@ -88,7 +87,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
@@ -118,7 +117,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(PersonSearchResultListSubmissionElementComponent);
     personListElementComponent = fixture.componentInstance;
 

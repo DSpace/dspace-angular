@@ -33,9 +33,6 @@ const ENTRY_COMPONENTS = [
     ...COMPONENTS,
     ...ENTRY_COMPONENTS
   ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
-  ],
   exports: [
     ...COMPONENTS
   ]

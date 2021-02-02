@@ -12,7 +12,8 @@ describe('TextareaFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: null,
-    collectionUUID: null
+    collectionUUID: null,
+    isInnerForm: false
   };
 
   beforeEach(() => {
@@ -54,7 +55,7 @@ describe('TextareaFieldParser test suite', () => {
         new FormFieldMetadataValueObject('test description'),
       ],
     };
-    const expectedValue ='test description';
+    const expectedValue = 'test description';
 
     const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
 

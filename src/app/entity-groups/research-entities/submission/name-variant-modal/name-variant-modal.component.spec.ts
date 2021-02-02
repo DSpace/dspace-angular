@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NameVariantModalComponent } from './name-variant-modal.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,7 @@ describe('NameVariantModalComponent', () => {
   function init() {
     modal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   }
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [NameVariantModalComponent],

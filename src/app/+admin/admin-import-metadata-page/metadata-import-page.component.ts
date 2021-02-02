@@ -2,15 +2,18 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RequestEntry } from '../../core/data/request.reducer';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Process } from '../../process-page/processes/process.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 
 @Component({
   selector: 'ds-metadata-import-page',
@@ -78,29 +81,24 @@ export class MetadataImportPageComponent implements OnInit {
               Object.assign(new ProcessParameter(), { name: '-e', value: email }),
               Object.assign(new ProcessParameter(), { name: '-f', value: this.fileObject.name }),
             ];
-            return this.scriptDataService.invoke(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [this.fileObject])
-              .pipe(
-                take(1),
-                map((requestEntry: RequestEntry) => {
-                  if (requestEntry.response.isSuccessful) {
-                    const title = this.translate.get('process.new.notification.success.title');
-                    const content = this.translate.get('process.new.notification.success.content');
-                    this.notificationsService.success(title, content);
-                    const response: any = requestEntry.response;
-                    if (isNotEmpty(response.resourceSelfLinks)) {
-                      const processNumber = response.resourceSelfLinks[0].split('/').pop();
-                      this.router.navigateByUrl('/processes/' + processNumber);
-                    }
-                  } else {
-                    const title = this.translate.get('process.new.notification.error.title');
-                    const content = this.translate.get('process.new.notification.error.content');
-                    this.notificationsService.error(title, content);
-                  }
-                }));
+            return this.scriptDataService.invoke(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [this.fileObject]);
           }
         }),
-        take(1)
-      ).subscribe();
+        getFirstCompletedRemoteData(),
+      ).subscribe((rd: RemoteData<Process>) => {
+        if (rd.hasSucceeded) {
+          const title = this.translate.get('process.new.notification.success.title');
+          const content = this.translate.get('process.new.notification.success.content');
+          this.notificationsService.success(title, content);
+          if (isNotEmpty(rd.payload)) {
+            this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
+          }
+        } else {
+          const title = this.translate.get('process.new.notification.error.title');
+          const content = this.translate.get('process.new.notification.error.content');
+          this.notificationsService.error(title, content);
+        }
+      });
     }
   }
 }

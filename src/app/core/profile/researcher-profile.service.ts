@@ -6,7 +6,7 @@ import { ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
 
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -16,10 +16,16 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { ItemDataService } from '../data/item-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteDataPayload, getFinishedRemoteData } from '../shared/operators';
+import {
+    getFirstSucceededRemoteDataPayload,
+    getFinishedRemoteData,
+    getFirstCompletedRemoteData
+} from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 import { RestResponse } from '../cache/response.models';
+import { RemoteData } from '../data/remote-data';
+import { NoContent } from '../shared/NoContent.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -98,13 +104,13 @@ export class ResearcherProfileService {
      */
     delete(researcherProfile: ResearcherProfile): Observable<boolean> {
       return this.dataService.delete(researcherProfile.id).pipe(
-        take(1),
-        tap((response: RestResponse) => {
-          if (response.isSuccessful) {
-            this.requestService.removeByHrefSubstring(researcherProfile._links.self.href);
+        getFirstCompletedRemoteData(),
+        tap((response: RemoteData<NoContent>) => {
+          if (response.isSuccess) {
+            this.requestService.setStaleByHrefSubstring(researcherProfile._links.self.href);
           }
         }),
-        map((response: RestResponse) => response.isSuccessful)
+        map((response: RemoteData<NoContent>) => response.isSuccess)
       );
     }
 

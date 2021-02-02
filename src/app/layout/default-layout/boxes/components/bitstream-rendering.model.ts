@@ -1,16 +1,16 @@
-import { RenderingTypeModel } from './rendering-type.model';
+import { RenderingTypeModelComponent } from './rendering-type.model';
 import { Observable } from 'rxjs';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { hasValue } from 'src/app/shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { hasValue } from '../../../../shared/empty.util';
+import { getAllSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
 /**
  * This class defines the basic model to extends for create a new
  * bitstream field render component
  */
-export class BitstreamRenderingModel extends RenderingTypeModel {
+export class BitstreamRenderingModel extends RenderingTypeModelComponent {
 
   private TITLE_METADATA = 'dc.title';
   private SOURCE_METADATA = 'dc.source';

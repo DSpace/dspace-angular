@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { SearchComponent } from './models/search-component.model';
@@ -15,7 +15,7 @@ import { SEARCH_COMPONENT } from './models/search-component.resource-type';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<SearchComponent> {
@@ -47,8 +47,8 @@ export class SearchcomponentService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<SearchComponent>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
-    }
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  }
 
   /**
    * It provides the configuration for a box
@@ -58,7 +58,7 @@ export class SearchcomponentService {
     return this.dataService.findById(boxId.toString());
   }
 
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<SearchComponent>>): Observable<RemoteData<SearchComponent>> {
-    return this.dataService.findByHref(href, ...linksToFollow);
+  findByHref(href: string, ...linksToFollow: FollowLinkConfig<SearchComponent>[]): Observable<RemoteData<SearchComponent>> {
+    return this.dataService.findByHref(href, true, ...linksToFollow);
   }
 }

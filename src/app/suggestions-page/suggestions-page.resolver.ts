@@ -26,7 +26,7 @@ export class SuggestionsPageResolver implements Resolve<RemoteData<OpenaireSugge
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<OpenaireSuggestionTarget>> {
     return this.suggestionsDataService.getTargetById(route.params.targetId).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+      find((RD) => hasValue(RD.hasFailed) || RD.hasSucceeded),
     );
   }
 }

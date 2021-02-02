@@ -112,12 +112,14 @@ export abstract class FieldParser {
     }
   }
 
-  public setVocabularyOptions(controlModel) {
+  public setVocabularyOptions(controlModel, scope) {
     if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
+        this.configData.selectableMetadata[0].metadata,
+        scope,
         this.configData.selectableMetadata[0].closed
-      )
+      );
     }
   }
 
@@ -228,7 +230,7 @@ export abstract class FieldParser {
       });
       fieldCount = counter;
     }
-    return (fieldCount === 0) ? 1 : fieldCount + 1
+    return (fieldCount === 0) ? 1 : fieldCount + 1;
   }
 
   protected getFieldId(): string {
@@ -266,6 +268,7 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
@@ -277,7 +280,7 @@ export abstract class FieldParser {
     // Set label
     this.setLabel(controlModel, label);
     if (hint) {
-      controlModel.hint = this.configData.hints || '&nbsp;'
+      controlModel.hint = this.configData.hints || '&nbsp;';
     }
     controlModel.placeholder = this.configData.label;
 
@@ -300,7 +303,7 @@ export abstract class FieldParser {
         bindValues.push({
           id: 'dc_type',
           value: value
-        })
+        });
       });
       (controlModel as DsDynamicInputModel).typeBindRelations = [{
         match: MATCH_VISIBLE,

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TopLevelCommunityListComponent } from './top-level-community-list.component';
 import { Community } from '../../core/shared/community.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SharedModule } from '../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -87,7 +87,7 @@ describe('TopLevelCommunityList Component', () => {
       let currentPage = options.currentPage;
       let elementsPerPage = options.elementsPerPage;
       if (currentPage === undefined) {
-        currentPage = 1
+        currentPage = 1;
       }
       elementsPerPage = 5;
 
@@ -96,12 +96,12 @@ describe('TopLevelCommunityList Component', () => {
       if (endPageIndex > topCommList.length) {
         endPageIndex = topCommList.length;
       }
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), topCommList.slice(startPageIndex, endPageIndex)));
+      return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), topCommList.slice(startPageIndex, endPageIndex)));
 
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -140,7 +140,7 @@ describe('TopLevelCommunityList Component', () => {
 
   it('should update list of top-communities on pagination change', () => {
     const pagination = Object.create({
-      pagination:{
+      pagination: {
         id: comp.pageId,
         currentPage: 2,
         pageSize: 5

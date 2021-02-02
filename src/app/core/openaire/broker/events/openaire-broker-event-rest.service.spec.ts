@@ -5,7 +5,7 @@ import { of as observableOf } from 'rxjs';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 
 import { RequestService } from '../../../data/request.service';
-import { PaginatedList } from '../../../data/paginated-list';
+import { buildPaginatedList } from '../../../data/paginated-list.model';
 import { RequestEntry } from '../../../data/request.reducer';
 import { FindListOptions } from '../../../data/request.models';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
@@ -26,14 +26,11 @@ import { ReplaceOperation } from 'fast-json-patch';
 describe('OpenaireBrokerEventRestService', () => {
   let scheduler: TestScheduler;
   let service: OpenaireBrokerEventRestService;
-  let serviceB: OpenaireBrokerEventRestService;
-  let serviceC: OpenaireBrokerEventRestService;
+  let serviceASAny: any;
   let responseCacheEntry: RequestEntry;
   let responseCacheEntryB: RequestEntry;
   let responseCacheEntryC: RequestEntry;
   let requestService: RequestService;
-  let requestServiceB: RequestService;
-  let requestServiceC: RequestService;
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let halService: HALEndpointService;
@@ -47,12 +44,13 @@ describe('OpenaireBrokerEventRestService', () => {
 
   const pageInfo = new PageInfo();
   const array = [ openaireBrokerEventObjectMissingPid, openaireBrokerEventObjectMissingPid2 ];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = buildPaginatedList(pageInfo, array);
   const brokerEventObjectRD = createSuccessfulRemoteDataObject(openaireBrokerEventObjectMissingPid);
+  const brokerEventObjectMissingProjectRD = createSuccessfulRemoteDataObject(openaireBrokerEventObjectMissingProjectFound);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   const status = 'ACCEPTED';
-  const operation: Array<ReplaceOperation<string>> = [
+  const operation: ReplaceOperation<string>[] = [
     {
       path: '/status',
       op: 'replace',
@@ -65,39 +63,22 @@ describe('OpenaireBrokerEventRestService', () => {
 
     responseCacheEntry = new RequestEntry();
     responseCacheEntry.request = { href: 'https://rest.api/' } as any;
-    responseCacheEntry.completed = true;
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
       configure: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: jasmine.createSpy('getByHref'),
+      getByUUID: jasmine.createSpy('getByUUID')
     });
 
     responseCacheEntryB = new RequestEntry();
     responseCacheEntryB.request = { href: 'https://rest.api/' } as any;
-    responseCacheEntryB.completed = true;
     responseCacheEntryB.response = new RestResponse(true, 201, 'Created');
-    requestServiceB = jasmine.createSpyObj('requestService', {
-      generateRequestId: requestUUID,
-      configure: true,
-      removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntryB),
-      getByUUID: observableOf(responseCacheEntryB),
-    });
 
     responseCacheEntryC = new RequestEntry();
     responseCacheEntryC.request = { href: 'https://rest.api/' } as any;
-    responseCacheEntryC.completed = true;
     responseCacheEntryC.response = new RestResponse(true, 204, 'No Content');
-    requestServiceC = jasmine.createSpyObj('requestService', {
-      generateRequestId: requestUUID,
-      configure: true,
-      removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntryC),
-      getByUUID: observableOf(responseCacheEntryC),
-    });
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
@@ -106,6 +87,7 @@ describe('OpenaireBrokerEventRestService', () => {
       buildList: cold('(a)', {
         a: paginatedListRD
       }),
+      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID')
     });
 
     objectCache = {} as ObjectCacheService;
@@ -127,34 +109,22 @@ describe('OpenaireBrokerEventRestService', () => {
       comparator
     );
 
-    serviceB = new OpenaireBrokerEventRestService(
-      requestServiceB,
-      rdbService,
-      objectCache,
-      halService,
-      notificationsService,
-      http,
-      comparator
-    );
+    serviceASAny = service;
 
-    serviceC = new OpenaireBrokerEventRestService(
-      requestServiceC,
-      rdbService,
-      objectCache,
-      halService,
-      notificationsService,
-      http,
-      comparator
-    );
-
-    spyOn((service as any).dataService, 'searchBy').and.callThrough();
-    spyOn((service as any).dataService, 'findById').and.callThrough();
-    spyOn((service as any).dataService, 'patch').and.callThrough();
-    spyOn((serviceB as any).dataService, 'postOnRelated').and.callThrough();
-    spyOn((serviceC as any).dataService, 'deleteOnRelated').and.callThrough();
+    spyOn(serviceASAny.dataService, 'searchBy').and.callThrough();
+    spyOn(serviceASAny.dataService, 'findById').and.callThrough();
+    spyOn(serviceASAny.dataService, 'patch').and.callThrough();
+    spyOn(serviceASAny.dataService, 'postOnRelated').and.callThrough();
+    spyOn(serviceASAny.dataService, 'deleteOnRelated').and.callThrough();
   });
 
   describe('getEventsByTopic', () => {
+    beforeEach(() => {
+      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
+      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+    });
+
     it('should proxy the call to dataservice.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
@@ -165,7 +135,7 @@ describe('OpenaireBrokerEventRestService', () => {
         ]
       };
       service.getEventsByTopic(topic);
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith('findByTopic', options);
+      expect(serviceASAny.dataService.searchBy).toHaveBeenCalledWith('findByTopic', options, true);
     });
 
     it('should return a RemoteData<PaginatedList<OpenaireBrokerEventObject>> for the object with the given Topic', () => {
@@ -178,10 +148,16 @@ describe('OpenaireBrokerEventRestService', () => {
   });
 
   describe('getEvent', () => {
+    beforeEach(() => {
+      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
+      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+    });
+
     it('should proxy the call to dataservice.findById', () => {
       service.getEvent(openaireBrokerEventObjectMissingPid.id).subscribe(
         (res) => {
-          expect((service as any).dataService.findById).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid.id);
+          expect(serviceASAny.dataService.findById).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid.id, true);
         }
       );
     });
@@ -196,54 +172,72 @@ describe('OpenaireBrokerEventRestService', () => {
   });
 
   describe('patchEvent', () => {
+    beforeEach(() => {
+      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
+      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectRD));
+    });
+
     it('should proxy the call to dataservice.patch', () => {
       service.patchEvent(status, openaireBrokerEventObjectMissingPid).subscribe(
         (res) => {
-          expect((service as any).dataService.patch).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid, operation);
+          expect(serviceASAny.dataService.patch).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid, operation);
         }
       );
     });
 
-    it('should return a RestResponse with HTTP 200', () => {
+    it('should return a RemoteData with HTTP 200', () => {
       const result = service.patchEvent(status, openaireBrokerEventObjectMissingPid);
       const expected = cold('(a|)', {
-        a: new RestResponse(true, 200, 'Success')
+        a: createSuccessfulRemoteDataObject(openaireBrokerEventObjectMissingPid)
       });
       expect(result).toBeObservable(expected);
     });
   });
 
   describe('boundProject', () => {
+    beforeEach(() => {
+      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntryB));
+      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntryB));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(brokerEventObjectMissingProjectRD));
+    });
+
     it('should proxy the call to dataservice.postOnRelated', () => {
-      serviceB.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID).subscribe(
+      service.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID).subscribe(
         (res) => {
-          expect((serviceB as any).dataService.postOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
+          expect(serviceASAny.dataService.postOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
         }
       );
     });
 
     it('should return a RestResponse with HTTP 201', () => {
-      const result = serviceB.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
+      const result = service.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
       const expected = cold('(a|)', {
-        a: new RestResponse(true, 201, 'Created')
+        a: createSuccessfulRemoteDataObject(openaireBrokerEventObjectMissingProjectFound)
       });
       expect(result).toBeObservable(expected);
     });
   });
 
   describe('removeProject', () => {
+    beforeEach(() => {
+      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntryC));
+      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntryC));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(createSuccessfulRemoteDataObject({})));
+    });
+
     it('should proxy the call to dataservice.deleteOnRelated', () => {
-      serviceC.removeProject(openaireBrokerEventObjectMissingProjectFound.id).subscribe(
+      service.removeProject(openaireBrokerEventObjectMissingProjectFound.id).subscribe(
         (res) => {
-          expect((serviceC as any).dataService.deleteOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id);
+          expect(serviceASAny.dataService.deleteOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id);
         }
       );
     });
 
     it('should return a RestResponse with HTTP 204', () => {
-      const result = serviceC.removeProject(openaireBrokerEventObjectMissingProjectFound.id);
+      const result = service.removeProject(openaireBrokerEventObjectMissingProjectFound.id);
       const expected = cold('(a|)', {
-        a: new RestResponse(true, 204, 'No Content')
+        a: createSuccessfulRemoteDataObject({})
       });
       expect(result).toBeObservable(expected);
     });

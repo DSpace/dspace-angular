@@ -2,12 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * This component renders the parent collections section of the item
@@ -40,18 +41,23 @@ export class CollectionsComponent implements OnInit {
     // only the owning collection
     this.collectionsRD$ = this.cds.findOwningCollectionFor(this.item).pipe(
       map((rd: RemoteData<Collection>) => {
-        if (rd.hasSucceeded) {
+        if (hasValue(rd.payload)) {
           return new RemoteData(
-            false,
-            false,
-            true,
-            undefined,
-            new PaginatedList({
+            rd.timeCompleted,
+            rd.msToLive,
+            rd.lastUpdated,
+            rd.state,
+            rd.errorMessage,
+            buildPaginatedList({
               elementsPerPage: 10,
               totalPages: 1,
               currentPage: 1,
-              totalElements: 1
-            } as PageInfo, [rd.payload])
+              totalElements: 1,
+              _links: {
+                self: rd.payload._links.self
+              }
+            } as PageInfo, [rd.payload]),
+            rd.statusCode
           );
         } else {
           return rd as any;

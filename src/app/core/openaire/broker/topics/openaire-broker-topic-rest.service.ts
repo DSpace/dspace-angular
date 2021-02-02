@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
-import { flatMap, take } from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
 
 import { CoreState } from '../../../core.reducers';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
@@ -20,7 +20,7 @@ import { RemoteData } from '../../../data/remote-data';
 import { OpenaireBrokerTopicObject } from '../models/openaire-broker-topic.model';
 import { OPENAIRE_BROKER_TOPIC_OBJECT } from '../models/openaire-broker-topic-object.resource-type';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../data/paginated-list';
+import { PaginatedList } from '../../../data/paginated-list.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -99,10 +99,10 @@ export class OpenaireBrokerTopicRestService {
    * @return Observable<RemoteData<PaginatedList<OpenaireBrokerTopicObject>>>
    *    The list of OpenAIRE Broker topics.
    */
-  public getTopics(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<OpenaireBrokerTopicObject>>): Observable<RemoteData<PaginatedList<OpenaireBrokerTopicObject>>> {
+  public getTopics(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<OpenaireBrokerTopicObject>[]): Observable<RemoteData<PaginatedList<OpenaireBrokerTopicObject>>> {
     return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
       take(1),
-      flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+      mergeMap((href: string) => this.dataService.findAllByHref(href, options, true, ...linksToFollow)),
     );
   }
 
@@ -110,7 +110,7 @@ export class OpenaireBrokerTopicRestService {
    * Clear FindAll topics requests from cache
    */
   public clearFindAllTopicsRequests() {
-    this.requestService.removeByHrefSubstring('nbtopics');
+    this.requestService.setStaleByHrefSubstring('nbtopics');
   }
 
   /**
@@ -123,11 +123,11 @@ export class OpenaireBrokerTopicRestService {
    * @return Observable<RemoteData<OpenaireBrokerTopicObject>>
    *    The OpenAIRE Broker topic.
    */
-  public getTopic(id: string, ...linksToFollow: Array<FollowLinkConfig<OpenaireBrokerTopicObject>>): Observable<RemoteData<OpenaireBrokerTopicObject>> {
+  public getTopic(id: string, ...linksToFollow: FollowLinkConfig<OpenaireBrokerTopicObject>[]): Observable<RemoteData<OpenaireBrokerTopicObject>> {
     const options = {};
     return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
       take(1),
-      flatMap((href: string) => this.dataService.findByHref(href + '/' + id, ...linksToFollow))
+      mergeMap((href: string) => this.dataService.findByHref(href + '/' + id, true, ...linksToFollow))
     );
   }
 }

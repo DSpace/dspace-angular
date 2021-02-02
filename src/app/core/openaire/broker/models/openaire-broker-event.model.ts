@@ -10,7 +10,61 @@ import { ITEM } from '../../../shared/item.resource-type';
 import { link, typedObject } from '../../../cache/builders/build-decorators';
 import { RemoteData } from '../../../data/remote-data';
 
-/* tslint:disable:max-classes-per-file */
+/**
+ * The interface representing the OpenAIRE Broker event message
+ */
+export interface OpenaireBrokerEventMessageObject {
+  /**
+   * The type of 'value'
+   */
+  type: string;
+
+  /**
+   * The value suggested by OpenAIRE
+   */
+  value: string;
+
+  /**
+   * The abstract suggested by OpenAIRE
+   */
+  abstract: string;
+
+  /**
+   * The project acronym suggested by OpenAIRE
+   */
+  acronym: string;
+
+  /**
+   * The project code suggested by OpenAIRE
+   */
+  code: string;
+
+  /**
+   * The project funder suggested by OpenAIRE
+   */
+  funder: string;
+
+  /**
+   * The project program suggested by OpenAIRE
+   */
+  fundingProgram?: string;
+
+  /**
+   * The project jurisdiction suggested by OpenAIRE
+   */
+  jurisdiction: string;
+
+  /**
+   * The project title suggested by OpenAIRE
+   */
+  title: string;
+
+  /**
+   * The OpenAIRE ID.
+   */
+  openaireId: string;
+
+}
 
 /**
  * The interface representing the OpenAIRE Broker event model
@@ -101,61 +155,3 @@ export class OpenaireBrokerEventObject implements CacheableObject {
   @link(ITEM)
   related?: Observable<RemoteData<Item>>;
 }
-
-/**
- * The interface representing the OpenAIRE Broker event message
- */
-export class OpenaireBrokerEventMessageObject {
-  /**
-   * The type of 'value'
-   */
-  type: string;
-
-  /**
-   * The value suggested by OpenAIRE
-   */
-  value: string;
-
-  /**
-   * The abstract suggested by OpenAIRE
-   */
-  abstract: string;
-
-  /**
-   * The project acronym suggested by OpenAIRE
-   */
-  acronym: string;
-
-  /**
-   * The project code suggested by OpenAIRE
-   */
-  code: string;
-
-  /**
-   * The project funder suggested by OpenAIRE
-   */
-  funder: string;
-
-  /**
-   * The project program suggested by OpenAIRE
-   */
-  fundingProgram?: string;
-
-  /**
-   * The project jurisdiction suggested by OpenAIRE
-   */
-  jurisdiction: string;
-
-  /**
-   * The project title suggested by OpenAIRE
-   */
-  title: string;
-
-  /**
-   * The OpenAIRE ID.
-   */
-  openaireId: string;
-
-}
-
-/* tslint:enable:max-classes-per-file */

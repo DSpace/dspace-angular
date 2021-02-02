@@ -2,14 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, Observable, of as observableOf } from 'rxjs';
-import { filter } from 'rxjs/internal/operators/filter';
-import { ObservedValueOf } from 'rxjs/internal/types';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, Observable, ObservedValueOf, of as observableOf } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -19,11 +18,15 @@ import { GroupDtoModel } from '../../../core/eperson/models/group-dto.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import { RouteService } from '../../../core/services/route.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData
+} from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -98,7 +101,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.search({ query: this.currentSearchQuery })
+    this.search({ query: this.currentSearchQuery });
   }
 
   /**
@@ -115,7 +118,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     this.subs.push(this.groupService.searchGroups(this.currentSearchQuery.trim(), {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
-    }).subscribe((groupsRD: RemoteData<PaginatedList<Group>>) => {
+    }).pipe(getFirstCompletedRemoteData())
+      .subscribe((groupsRD: RemoteData<PaginatedList<Group>>) => {
         this.groups$.next(groupsRD);
         this.pageInfoState$.next(groupsRD.payload.pageInfo);
       }
@@ -134,10 +138,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               groupDtoModel.group = group;
               return groupDtoModel;
             }
-          )
+          );
         })).pipe(map((dtos: GroupDtoModel[]) => {
-          return new PaginatedList(groups.pageInfo, dtos);
-        }))
+          return buildPaginatedList(groups.pageInfo, dtos);
+        }));
       })).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
@@ -149,17 +153,17 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   deleteGroup(group: Group) {
     if (hasValue(group.id)) {
-      this.groupService.deleteGroup(group).pipe(take(1))
-        .subscribe(([success, optionalErrorMessage]: [boolean, string]) => {
-          if (success) {
+      this.groupService.delete(group.id).pipe(getFirstCompletedRemoteData())
+        .subscribe((rd: RemoteData<NoContent>) => {
+          if (rd.hasSucceeded) {
             this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.name }));
             this.reset();
           } else {
             this.notificationsService.error(
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.name }),
-              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: optionalErrorMessage }));
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
-        })
+      });
     }
   }
 
@@ -199,13 +203,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   hasLinkedDSO(group: Group): Observable<boolean> {
     return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
-      map((rd: RemoteData<DSpaceObject>) => {
-        if (hasValue(rd) && hasValue(rd.payload)) {
-          return true;
-        } else {
-          return false
-        }
-      }),
+      map((rd: RemoteData<DSpaceObject>) => hasValue(rd) && hasValue(rd.payload)),
       catchError(() => observableOf(false)),
     );
   }

@@ -187,7 +187,7 @@ export class SectionFormOperationsService {
         metadataValueMap.set(groupModel.qualdropId, metadataValueList);
       }
       if (index === fieldIndex) {
-        path = groupModel.qualdropId + '/' + (metadataValueList.length - 1)
+        path = groupModel.qualdropId + '/' + (metadataValueList.length - 1);
       }
     });
 
@@ -247,7 +247,7 @@ export class SectionFormOperationsService {
         fieldValue = new FormFieldMetadataValueObject(value, language);
       }
     } else if (isNgbDateStruct(value)) {
-      fieldValue = new FormFieldMetadataValueObject(dateToString(value))
+      fieldValue = new FormFieldMetadataValueObject(dateToString(value));
     } else if (value instanceof FormFieldLanguageValueObject || value instanceof VocabularyEntry
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
@@ -384,7 +384,7 @@ export class SectionFormOperationsService {
             this.operationsBuilder.move(
               moveTo,
               moveFrom.path
-            )
+            );
           }
         }
       } else if (!value.hasValue()) {

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Community } from '../../../core/shared/community.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { HALLink } from '../../../core/shared/hal-link.model';
 
@@ -23,9 +23,9 @@ export class CommunityRolesComponent implements OnInit {
    */
   get community$(): Observable<Community> {
     return this.dsoRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    )
+    );
   }
 
   /**

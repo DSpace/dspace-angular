@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
   const operator = 'authority';
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
-    type: FilterType.range,
+    filterType: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2,
@@ -36,7 +36,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
   });
   const mockAuthorityFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName2,
-    type: FilterType.authority,
+    filterType: FilterType.authority,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2
@@ -106,7 +106,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
   let router;
   const page = observableOf(0);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [SearchFacetSelectedOptionComponent],

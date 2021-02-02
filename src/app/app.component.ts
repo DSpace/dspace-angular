@@ -169,7 +169,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private initializeKlaro() {
     if (hasValue(this.cookiesService)) {
-      this.cookiesService.initialize()
+      this.cookiesService.initialize();
     }
   }
 }

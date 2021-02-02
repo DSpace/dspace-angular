@@ -1,16 +1,12 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
-import {
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -21,7 +17,13 @@ import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService
+} from '../../../../../testing/dynamic-form-mock-services';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 
 function createKeyUpEvent(key: number) {
   /* tslint:disable:no-empty */
@@ -71,8 +73,8 @@ describe('DsDynamicTagComponent test suite', () => {
   let chips: Chips;
   let modelValue: any;
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     const vocabularyServiceStub = new VocabularyServiceStub();
     init();
     TestBed.configureTestingModule({
@@ -91,9 +93,11 @@ describe('DsDynamicTagComponent test suite', () => {
         ChangeDetectorRef,
         DsDynamicTagComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} },
-        { provide: FormBuilderService }
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

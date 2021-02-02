@@ -1,5 +1,5 @@
 import { BrowseByComponent } from './browse-by.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -7,8 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../shared.module';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../core/shared/item.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
@@ -44,9 +43,9 @@ describe('BrowseByComponent', () => {
       ]
     })
   ];
-  const mockItemsRD$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockItems));
+  const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -74,7 +73,7 @@ describe('BrowseByComponent', () => {
     comp = fixture.componentInstance;
   });
 
-  it('should display a loading message when objects is empty',() => {
+  it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('ds-loading'))).toBeDefined();
@@ -99,7 +98,7 @@ describe('BrowseByComponent', () => {
       comp.paginationConfig = Object.assign(new PaginationComponentOptions(), {
         id: 'test-pagination',
         currentPage: 1,
-        pageSizeOptions: [5,10,15,20],
+        pageSizeOptions: [5, 10, 15, 20],
         pageSize: 15
       });
       comp.sortConfig = Object.assign(new SortOptions('dc.title', SortDirection.ASC));
@@ -113,7 +112,7 @@ describe('BrowseByComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter',() => {
+      it('should emit a signal to the EventEmitter', () => {
         expect(comp.prev.emit).toHaveBeenCalled();
       });
     });
@@ -125,7 +124,7 @@ describe('BrowseByComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter',() => {
+      it('should emit a signal to the EventEmitter', () => {
         expect(comp.next.emit).toHaveBeenCalled();
       });
     });
@@ -137,7 +136,7 @@ describe('BrowseByComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter',() => {
+      it('should emit a signal to the EventEmitter', () => {
         expect(comp.pageSizeChange.emit).toHaveBeenCalled();
       });
     });
@@ -149,7 +148,7 @@ describe('BrowseByComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter',() => {
+      it('should emit a signal to the EventEmitter', () => {
         expect(comp.sortDirectionChange.emit).toHaveBeenCalled();
       });
     });

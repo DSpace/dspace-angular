@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
@@ -18,7 +18,7 @@ describe('ProcessBreadcrumbsService', () => {
     exampleURL = 'example.com';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({}).compileComponents();
   }));
@@ -31,6 +31,6 @@ describe('ProcessBreadcrumbsService', () => {
     it('should return a breadcrumb based on a id and scriptName of the process', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleProcess, exampleURL);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [new Breadcrumb(exampleId + ' - ' + exampleScriptName, exampleURL)] });
-    })
+    });
   });
 });

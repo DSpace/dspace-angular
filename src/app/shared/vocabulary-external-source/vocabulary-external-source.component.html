@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h2>{{'vocabulary.import-external.preview.title.' + entityType | translate}}</h2>
+  <button type="button" class="close"
+          (click)="closeModal()" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <ds-loading *ngIf="(loading$ | async)"></ds-loading>
+    <div *ngIf="!(loading$ | async) && metadataList.length > 0">
+      <div class="row">
+        <div class="col-md-12">
+          <p>{{'vocabulary.import-external.preview.subtitle' | translate}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <hr>
+        </div>
+      </div>
+      <div *ngFor="let metadata of metadataList" class="row">
+        <div class="col-md-12">
+          <strong>{{'item.preview.' + metadata.key | translate}}</strong>
+          <p>{{metadata.value}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn btn-success" (click)="import()" role="button">
+            <i class="fa fa-file-import" aria-hidden="true"></i> {{'vocabulary.import-external.preview.button.import' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!(loading$ | async) && metadataList.length === 0">
+      <ds-alert [type]="'alert-danger'" [content]="'vocabulary.import-external.preview.not-found'"></ds-alert>
+    </div>
+  </div>
+</div>

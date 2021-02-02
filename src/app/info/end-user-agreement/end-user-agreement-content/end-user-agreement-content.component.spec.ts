@@ -1,11 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { SiteDataService } from 'src/app/core/data/site-data.service';
-import { LocaleService } from 'src/app/core/locale/locale.service';
-import { Site } from 'src/app/core/shared/site.model';
+import { SiteDataService } from '../../../core/data/site-data.service';
+import { LocaleService } from '../../../core/locale/locale.service';
+import { Site } from '../../../core/shared/site.model';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
 describe('EndUserAgreementContentComponent', () => {
@@ -28,21 +28,21 @@ describe('EndUserAgreementContentComponent', () => {
     }
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     localeServiceStub = {
       getCurrentLanguageCode(): string {
         return 'en';
       }
-    }
+    };
     siteServiceStub = {
       find(): Observable<Site> {
         return of(site);
       }
-    }
+    };
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ],
-      declarations: [ EndUserAgreementContentComponent],
+      imports: [TranslateModule.forRoot()],
+      declarations: [EndUserAgreementContentComponent],
       providers: [{ provide: SiteDataService, useValue: siteServiceStub },
                   { provide: LocaleService, useValue: localeServiceStub }],
       schemas: [NO_ERRORS_SCHEMA]

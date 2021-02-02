@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DsSelectComponent } from './ds-select.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -6,7 +6,7 @@ describe('DsSelectComponent', () => {
   let component: DsSelectComponent;
   let fixture: ComponentFixture<DsSelectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -15,7 +15,7 @@ describe('DsSelectComponent', () => {
         DsSelectComponent,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

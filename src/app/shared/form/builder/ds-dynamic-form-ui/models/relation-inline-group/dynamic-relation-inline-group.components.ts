@@ -70,7 +70,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
     const config = {
       id: this.model.id + '_array',
-      initialCount: isNotEmpty(this.model.value) ? this.model.value.length : 1,
+      initialCount: isNotEmpty(this.model.value) ? (this.model.value as any[]).length : 1,
       groupFactory: () => {
         let model;
         const fieldValue = isEmpty(this.model.value) || (arrayCounter === 0) ? {} : this.model.value[arrayCounter - 1];
@@ -101,7 +101,8 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
       initValues,
       this.model.submissionScope,
       this.model.readOnly,
-      this.formBuilderService.getTypeBindModel());
+      this.formBuilderService.getTypeBindModel(),
+      true);
 
     return formModel[0];
   }
@@ -138,7 +139,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   remove(event: DynamicFormControlEvent) {
     const index = event.model.parent.index;
     const size = (event.model.parent.parent as any).size;
-    if (isNotEmpty(this.model.value) && size === this.model.value.length) {
+    if (isNotEmpty(this.model.value) && size === (this.model.value as any[]).length) {
       this.removeItemFromModelValue(index);
     }
   }
@@ -158,15 +159,15 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
         if (!(valueObj[metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
           normValue[metadata] = [valueObj[metadata]];
         }
-      })
+      });
     }
 
-    return normValue
+    return normValue;
   }
 
   private removeItemFromModelValue(removeIndex) {
-    const newValue = this.model.value.filter((value, itemIndex) => itemIndex !== removeIndex);
-    this.model.valueUpdates.next(newValue);
+    const newValue = (this.model.value as any[]).filter((value, itemIndex) => itemIndex !== removeIndex);
+    this.model.value = newValue;
     this.change.emit();
   }
 
@@ -191,7 +192,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     } else {
       modelValue[index] = groupValue;
     }
-    this.model.valueUpdates.next(modelValue);
+    this.model.value = modelValue;
     this.change.emit();
   }
 

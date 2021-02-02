@@ -14,9 +14,9 @@ export function rendersContextMenuEntriesForType(type: DSpaceObjectType) {
     }
     let entryList: any[];
     if (contextMenuEntriesMap.has(type)) {
-      entryList = [...contextMenuEntriesMap.get(type), entryComponent]
+      entryList = [...contextMenuEntriesMap.get(type), entryComponent];
     } else {
-      entryList = [entryComponent]
+      entryList = [entryComponent];
     }
     contextMenuEntriesMap.set(type, entryList);
   };

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -64,7 +64,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
-    relationship = Object.assign(new RelationshipOptions(), { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true, searchConfiguration: 'personConfig' });
+    relationship = Object.assign(new RelationshipOptions(), {
+      filter: 'filter',
+      relationshipType: 'isAuthorOfPublication',
+      nameVariants: true,
+      searchConfiguration: 'personConfig'
+    });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});
@@ -78,7 +83,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     submissionId = '1234';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationModalComponent],
@@ -101,7 +106,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         {
           provide: Store, useValue: {
             // tslint:disable-next-line:no-empty
-            dispatch: () => {}
+            dispatch: () => {
+            }
           }
         },
         { provide: NgZone, useValue: new NgZone({}) },
@@ -135,7 +141,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     it('should call close on the modal', () => {
       component.close();
       expect(component.modal.close).toHaveBeenCalled();
-    })
+    });
   });
 
   describe('select', () => {
@@ -150,7 +156,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
-    })
+    });
   });
 
   describe('deselect', () => {
@@ -167,6 +173,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
-    })
+    });
   });
 });

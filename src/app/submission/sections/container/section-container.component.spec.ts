@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -48,8 +48,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionContainerComponent>;
 
-  let submissionServiceStub: SubmissionServiceStub;
-  let sectionsServiceStub: SectionsServiceStub;
+  const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
+  const sectionsServiceStub: SectionsServiceStub = new SectionsServiceStub();
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
@@ -60,16 +60,13 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   });
 
   function init() {
-    sectionsServiceStub = TestBed.get(SectionsService);
-    submissionServiceStub = TestBed.get(SubmissionService);
-
     sectionsServiceStub.isSectionValid.and.returnValue(observableOf(true));
     sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
     submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('traditionalpageone'));
   }
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -83,8 +80,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       ], // declare the test component
       providers: [
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
-        { provide: SectionsService, useClass: SectionsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         SubmissionSectionContainerComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -99,14 +96,15 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      init();
       html = `
         <ds-submission-section-container [collectionId]="collectionId"
-                                              [submissionId]="submissionId"
-                                              [sectionData]="object"></ds-submission-section-container>`;
+                                         [submissionId]="submissionId"
+                                         [sectionData]="object"></ds-submission-section-container>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
-      init();
+
     });
 
     it('should create SubmissionSectionContainerComponent', inject([SubmissionSectionContainerComponent], (app: SubmissionSectionContainerComponent) => {

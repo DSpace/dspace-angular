@@ -1,5 +1,5 @@
 import { ForgotEmailComponent } from './forgot-email.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ describe('ForgotEmailComponent', () => {
   let comp: ForgotEmailComponent;
   let fixture: ComponentFixture<ForgotEmailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [ForgotEmailComponent],

@@ -29,23 +29,23 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
-  SectionStatusChangeAction, SubmissionObjectAction,
-  UpdateSectionDataAction,
+  SectionStatusChangeAction,
   SetDuplicateDecisionAction,
-  SetDuplicateDecisionSuccessAction
+  SetDuplicateDecisionSuccessAction,
+  SubmissionObjectAction,
+  UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SectionsType } from '../sections/sections-type';
 import {
+  mockDeduplicationMatches,
   mockSubmissionCollectionId,
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
+  mockSubmissionObject,
   mockSubmissionSelfUrl,
-  mockSubmissionState,
-  mockDeduplicationMatches,
-  mockSubmissionObject
+  mockSubmissionState
 } from '../../shared/mocks/submission.mock';
 import { Item } from '../../core/shared/item.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 describe('submissionReducer test suite', () => {
 
@@ -348,6 +348,17 @@ describe('submissionReducer test suite', () => {
     const newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].sections.traditionalpageone.data).toEqual(data);
+  });
+
+  it('should update submission section metadata properly', () => {
+    const data = {
+    } as any;
+    const metadata = ['dc.title', 'dc.contributor.author'];
+
+    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', data, [], metadata);
+    const newState = submissionObjectReducer(initState, action);
+
+    expect(newState[826].sections.traditionalpageone.metadata).toEqual(metadata);
   });
 
   it('should add submission section errors properly', () => {
@@ -681,7 +692,7 @@ describe('submissionReducer test suite', () => {
           }
         }
       }
-    }
+    };
 
     const action = new SetDuplicateDecisionSuccessAction(submissionId, 'detect-duplicate', submissionObject as any);
     const newState = submissionObjectReducer(state, action);

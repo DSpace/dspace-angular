@@ -14,7 +14,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { find, map, switchMap } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PostRequest } from '../data/request.models';
@@ -63,16 +63,7 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      getResponseFromEntry(),
-      map((response: any) => {
-        if (isNotEmpty(response.resourceSelfLinks)) {
-          return response.resourceSelfLinks[0];
-        }
-      }),
-      switchMap((selfLink: string) => this.findByHref(selfLink))
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
 }

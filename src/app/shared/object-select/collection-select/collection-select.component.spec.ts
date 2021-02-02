@@ -1,8 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../shared.module';
@@ -14,7 +11,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CollectionSelectComponent } from './collection-select.component';
 import { Collection } from '../../../core/shared/collection.model';
-import { of } from 'rxjs/internal/observable/of';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { createPaginatedList } from '../../testing/utils.test';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -31,14 +29,14 @@ describe('CollectionSelectComponent', () => {
       name: 'name2'
     })
   ];
-  const mockCollections = of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockCollectionList)));
+  const mockCollections = createSuccessfulRemoteDataObject$(createPaginatedList(mockCollectionList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
     currentPage: 1
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
@@ -71,7 +69,7 @@ describe('CollectionSelectComponent', () => {
       checkbox = fixture.debugElement.query(By.css('input.collection-checkbox')).nativeElement;
     });
 
-    it('should initially be unchecked',() => {
+    it('should initially be unchecked', () => {
       expect(checkbox.checked).toBeFalsy();
     });
 
@@ -96,7 +94,7 @@ describe('CollectionSelectComponent', () => {
       spyOn(comp.confirm, 'emit').and.callThrough();
     });
 
-    it('should emit the selected collections',() => {
+    it('should emit the selected collections', () => {
       confirmButton.click();
       expect(comp.confirm.emit).toHaveBeenCalled();
     });
@@ -110,7 +108,7 @@ describe('CollectionSelectComponent', () => {
       spyOn(comp.cancel, 'emit').and.callThrough();
     });
 
-    it('should emit a cancel event',() => {
+    it('should emit a cancel event', () => {
       cancelButton.click();
       expect(comp.cancel.emit).toHaveBeenCalled();
     });

@@ -4,7 +4,7 @@ import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { PaginatedList } from '../core/data/paginated-list';
+import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { StoreMock } from '../shared/testing/store.mock';
 import { CommunityListService, FlatNode, toFlatNode } from './community-list-service';
@@ -68,28 +68,28 @@ describe('CommunityListService', () => {
       Object.assign(new Community(), {
         id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
         uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       }),
       Object.assign(new Community(), {
         id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
         uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
       }),
       Object.assign(new Community(), {
         id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
         uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       }),
     ];
     mockListOfTopCommunitiesPage2 = [
       Object.assign(new Community(), {
         id: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
         uuid: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       }),
     ];
     mockTopCommunitiesWithChildrenArraysPage1 = [
@@ -130,24 +130,24 @@ describe('CommunityListService', () => {
         let currentPage = options.currentPage;
         const elementsPerPage = 3;
         if (currentPage === undefined) {
-          currentPage = 1
+          currentPage = 1;
         }
         const startPageIndex = (currentPage - 1) * elementsPerPage;
         let endPageIndex = (currentPage * elementsPerPage);
         if (endPageIndex > allTopComs.length) {
           endPageIndex = allTopComs.length;
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allTopComs.slice(startPageIndex, endPageIndex)));
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allTopComs.slice(startPageIndex, endPageIndex)));
       },
       findByParent(parentUUID: string, options: FindListOptions = {}) {
         const foundCom = allCommunities.find((community) => (community.id === parentUUID));
         let currentPage = options.currentPage;
         let elementsPerPage = options.elementsPerPage;
         if (currentPage === undefined) {
-          currentPage = 1
+          currentPage = 1;
         }
         if (elementsPerPage === 0) {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), (foundCom.subcommunities as [Community])));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), (foundCom.subcommunities as [Community])));
         }
         elementsPerPage = standardElementsPerPage;
         if (foundCom !== undefined && foundCom.subcommunities !== undefined) {
@@ -157,7 +157,7 @@ describe('CommunityListService', () => {
           if (endPageIndex > coms.length) {
             endPageIndex = coms.length;
           }
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), coms.slice(startPageIndex, endPageIndex)));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), coms.slice(startPageIndex, endPageIndex)));
         } else {
           return createFailedRemoteDataObject$();
         }
@@ -169,10 +169,10 @@ describe('CommunityListService', () => {
         let currentPage = options.currentPage;
         let elementsPerPage = options.elementsPerPage;
         if (currentPage === undefined) {
-          currentPage = 1
+          currentPage = 1;
         }
         if (elementsPerPage === 0) {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), (foundCom.collections as [Collection])));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), (foundCom.collections as [Collection])));
         }
         elementsPerPage = standardElementsPerPage;
         if (foundCom !== undefined && foundCom.collections !== undefined) {
@@ -182,7 +182,7 @@ describe('CommunityListService', () => {
           if (endPageIndex > colls.length) {
             endPageIndex = colls.length;
           }
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), colls.slice(startPageIndex, endPageIndex)));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), colls.slice(startPageIndex, endPageIndex)));
         } else {
           return createFailedRemoteDataObject$();
         }
@@ -195,7 +195,7 @@ describe('CommunityListService', () => {
         { provide: Store, useValue: StoreMock },
       ],
     });
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store as any);
     service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
   });
 
@@ -361,7 +361,7 @@ describe('CommunityListService', () => {
         let flatNodeList;
         describe('None expanded: should return list containing only flatnodes of the communities in the test list', () => {
           beforeEach((done) => {
-            service.transformListOfCommunities(new PaginatedList(new PageInfo(), listOfCommunities), 0, null, null)
+            service.transformListOfCommunities(buildPaginatedList(new PageInfo(), listOfCommunities), 0, null, null)
               .pipe(take(1))
               .subscribe((value) => {
                 flatNodeList = value;
@@ -391,7 +391,7 @@ describe('CommunityListService', () => {
               communityFlatNode.currentCommunityPage = 1;
               expandedNodes.push(communityFlatNode);
             });
-            service.transformListOfCommunities(new PaginatedList(new PageInfo(), listOfCommunities), 0, null, expandedNodes)
+            service.transformListOfCommunities(buildPaginatedList(new PageInfo(), listOfCommunities), 0, null, expandedNodes)
               .pipe(take(1))
               .subscribe((value) => {
                 flatNodeList = value;
@@ -421,8 +421,8 @@ describe('CommunityListService', () => {
         const communityWithNoSubcomsOrColls = Object.assign(new Community(), {
           id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
           uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-          subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-          collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+          subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+          collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: 'no subcoms, 2 coll' }],
             'dc.title': [{ language: 'en_US', value: 'Community 2' }]
@@ -453,8 +453,8 @@ describe('CommunityListService', () => {
         const communityWithSubcoms = Object.assign(new Community(), {
           id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
           uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-          subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-          collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+          subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+          collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
             'dc.title': [{ language: 'en_US', value: 'Community 1' }]
@@ -487,8 +487,8 @@ describe('CommunityListService', () => {
           const communityWithSubcoms = Object.assign(new Community(), {
             id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
             uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-            subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-            collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+            subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+            collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
             metadata: {
               'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
               'dc.title': [{ language: 'en_US', value: 'Community 1' }]
@@ -532,8 +532,8 @@ describe('CommunityListService', () => {
             communityWithCollections = Object.assign(new Community(), {
               id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
               uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-              subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-              collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
+              subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+              collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
               metadata: {
                 'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
                 'dc.title': [{ language: 'en_US', value: 'Community 1' }]
@@ -561,7 +561,7 @@ describe('CommunityListService', () => {
             });
             mockCollectionsPage2.map((collection) => {
               expect(flatNodeList.find((flatnode) => (flatnode.id === collection.id))).toBeTruthy();
-            })
+            });
           });
           it('the collections of the test community are a level higher than the parent community', () => {
             mockCollectionsPage1.map((collection) => {
@@ -569,7 +569,7 @@ describe('CommunityListService', () => {
             });
             mockCollectionsPage2.map((collection) => {
               expect((flatNodeList.find((flatnode) => (flatnode.id === collection.id))).level).toEqual(flatNodeList[0].level + 1);
-            })
+            });
           });
         });
       });
@@ -583,8 +583,8 @@ describe('CommunityListService', () => {
         const communityWithSubcoms = Object.assign(new Community(), {
           id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
           uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-          subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-          collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+          subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+          collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
             'dc.title': [{ language: 'en_US', value: 'Community 1' }]
@@ -599,8 +599,8 @@ describe('CommunityListService', () => {
         const communityWithCollections = Object.assign(new Community(), {
           id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
           uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-          subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-          collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockCollectionsPage1)),
+          subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+          collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockCollectionsPage1)),
           metadata: {
             'dc.description': [{ language: 'en_US', value: 'no subcoms, 2 coll' }],
             'dc.title': [{ language: 'en_US', value: 'Community 2' }]
@@ -617,8 +617,8 @@ describe('CommunityListService', () => {
         const communityWithNoSubcomsOrColls = Object.assign(new Community(), {
           id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
           uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-          subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-          collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+          subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+          collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: 'no subcoms, no coll' }],
             'dc.title': [{ language: 'en_US', value: 'Community 3' }]

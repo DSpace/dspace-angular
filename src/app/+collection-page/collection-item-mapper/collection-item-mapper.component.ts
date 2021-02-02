@@ -1,13 +1,17 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
-import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getFirstSucceededRemoteData,
+  toDSpaceObjectListRD
+} from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -16,13 +20,12 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
-import { RestResponse } from '../../core/cache/response.models';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { NoContent } from '../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -49,7 +52,7 @@ export class CollectionItemMapperComponent implements OnInit {
    * A view on the tabset element
    * Used to switch tabs programmatically
    */
-  @ViewChild('tabs', {static: false}) tabs;
+  @ViewChild('tabs') tabs;
 
   /**
    * The collection to map items to
@@ -102,7 +105,7 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(map((data) => data.dso)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
+    this.collectionRD$ = this.route.data.pipe(map((data) => data.dso)).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Collection>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
   }
@@ -123,7 +126,7 @@ export class CollectionItemMapperComponent implements OnInit {
         if (shouldUpdate) {
           return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
             sort: this.defaultSortOptions
-          }),followLink('owningCollection'))
+          }),followLink('owningCollection'));
         }
       })
     );
@@ -151,7 +154,7 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   mapItems(ids: string[], remove?: boolean) {
     const responses$ = this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
       switchMap((collection: Collection) =>
         observableCombineLatest(ids.map((id: string) =>
@@ -168,12 +171,12 @@ export class CollectionItemMapperComponent implements OnInit {
    * @param {Observable<RestResponse[]>} responses$   The responses after adding/removing a mapping
    * @param {boolean} remove                          Whether or not the goal was to remove mappings
    */
-  private showNotifications(responses$: Observable<RestResponse[]>, remove?: boolean) {
+  private showNotifications(responses$: Observable<RemoteData<NoContent>[]>, remove?: boolean) {
     const messageInsertion = remove ? 'unmap' : 'map';
 
-    responses$.subscribe((responses: RestResponse[]) => {
-      const successful = responses.filter((response: RestResponse) => response.isSuccessful);
-      const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
+    responses$.subscribe((responses: RemoteData<NoContent>[]) => {
+      const successful = responses.filter((response: RemoteData<any>) => response.hasSucceeded);
+      const unsuccessful = responses.filter((response: RemoteData<any>) => response.hasFailed);
       if (successful.length > 0) {
         const successMessages = observableCombineLatest(
           this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.success.head`),
@@ -246,11 +249,11 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   onCancel() {
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)
     ).subscribe((collection: Collection) => {
-      this.router.navigate(['/collections/', collection.id])
+      this.router.navigate(['/collections/', collection.id]);
     });
   }
 

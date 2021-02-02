@@ -1,8 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RestResponse } from '../../core/cache/response.models';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,6 +16,7 @@ import { Registration } from '../../core/shared/registration.model';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 import { By } from '@angular/platform-browser';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -34,14 +34,14 @@ describe('ForgotPasswordFormComponent', () => {
     token: 'test-token'
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     route = {data: observableOf({registration: registration})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
     ePersonDataService = jasmine.createSpyObj('ePersonDataService', {
-      patchPasswordWithToken: observableOf(new RestResponse(true, 200, 'Success'))
+      patchPasswordWithToken: createSuccessfulRemoteDataObject$({})
     });
 
     store = jasmine.createSpyObj('store', {
@@ -92,7 +92,7 @@ describe('ForgotPasswordFormComponent', () => {
 
     it('should submit a patch request for the user uuid and stay on page on error', () => {
 
-      (ePersonDataService.patchPasswordWithToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
+      (ePersonDataService.patchPasswordWithToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
 
       comp.password = 'password';
       comp.isInValid = false;
@@ -113,5 +113,5 @@ describe('ForgotPasswordFormComponent', () => {
 
       expect(ePersonDataService.patchPasswordWithToken).not.toHaveBeenCalled();
     });
-  })
+  });
 });

@@ -4,11 +4,12 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { isNotEmpty, hasValue } from '../../shared/empty.util';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
+import { RemoteData } from '../data/remote-data';
 import { RetrieveAuthMethodsAction } from './auth.actions';
 
 /**
@@ -31,8 +32,9 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status: AuthStatus) => {
-        if (status.authenticated) {
+      map((rd: RemoteData<AuthStatus>) => {
+        const status = rd.payload;
+        if (hasValue(status) && status.authenticated) {
           return status._links.eperson.href;
         } else {
           throw(new Error('Not authenticated'));
@@ -56,7 +58,7 @@ export class ServerAuthService extends AuthService {
     options.headers = headers;
     options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status: AuthStatus) => Object.assign(new AuthStatus(), status))
+      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload))
     );
   }
 

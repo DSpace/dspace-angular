@@ -1,24 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../remote-data.utils';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {
-  let comp: ComcolMetadataComponent<DSpaceObject>;
-  let fixture: ComponentFixture<ComcolMetadataComponent<DSpaceObject>>;
+  let comp: ComcolMetadataComponent<any>;
+  let fixture: ComponentFixture<ComcolMetadataComponent<any>>;
   let dsoDataService;
   let router: Router;
 
@@ -60,14 +61,14 @@ describe('ComColMetadataComponent', () => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: new RemoteData(false, false, true, null, community)
+          dso: createSuccessfulRemoteDataObject(community)
         })
       }
     };
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
@@ -125,9 +126,7 @@ describe('ComColMetadataComponent', () => {
       describe('when successful', () => {
 
         beforeEach(() => {
-          spyOn(dsoDataService, 'patch').and.returnValue(observableOf({
-              isSuccessful: true,
-          }));
+          spyOn(dsoDataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$({}));
         });
 
         it('should navigate', () => {
@@ -140,9 +139,7 @@ describe('ComColMetadataComponent', () => {
       describe('on failure', () => {
 
         beforeEach(() => {
-          spyOn(dsoDataService, 'patch').and.returnValue(observableOf({
-              isSuccessful: false,
-            }));
+          spyOn(dsoDataService, 'patch').and.returnValue(createFailedRemoteDataObject$('Error', 500));
         });
 
         it('should not navigate', () => {
@@ -170,10 +167,11 @@ describe('ComColMetadataComponent', () => {
               {}
             ],
             /* tslint:disable:no-empty */
-            uploadAll: () => {}
+            uploadAll: () => {
+            }
             /* tslint:enable:no-empty */
           }
-        }
+        };
       });
 
       it('should not navigate', () => {

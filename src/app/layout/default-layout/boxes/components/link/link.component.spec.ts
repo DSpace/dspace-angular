@@ -1,11 +1,11 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { LinkComponent } from './link.component';
-import { Item } from 'src/app/core/shared/item.model';
+import { Item } from '../../../../../core/shared/item.model';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
+import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('LinkComponent', () => {

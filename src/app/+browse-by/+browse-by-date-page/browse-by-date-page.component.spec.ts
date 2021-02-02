@@ -1,5 +1,5 @@
 import { BrowseByDatePageComponent } from './browse-by-date-page.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
@@ -65,7 +65,7 @@ describe('BrowseByDatePageComponent', () => {
     detectChanges: () => fixture.detectChanges()
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],

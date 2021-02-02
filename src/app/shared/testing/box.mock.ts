@@ -1,5 +1,5 @@
-import { Box } from 'src/app/core/layout/models/box.model';
-import { BOX } from 'src/app/core/layout/models/box.resource-type';
+import { Box } from '../../core/layout/models/box.model';
+import { BOX } from '../../core/layout/models/box.resource-type';
 
 export const boxMetadata: Box = {
   type: BOX,

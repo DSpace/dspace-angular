@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
 import { concatMap, map, reduce } from 'rxjs/operators';
 
-import { RenderingTypeModel } from '../rendering-type.model';
+import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { hasValue } from '../../../../../shared/empty.util';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
@@ -12,9 +12,9 @@ import { environment } from '../../../../../../environments/environment';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 interface CrisRef {
-  id: string,
-  icon: string,
-  value: string
+  id: string;
+  icon: string;
+  value: string;
 }
 
 /**
@@ -27,7 +27,7 @@ interface CrisRef {
   styleUrls: ['./crisref.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRendetingType.CRISREF)
-export class CrisrefComponent extends RenderingTypeModel implements OnInit {
+export class CrisrefComponent extends RenderingTypeModelComponent implements OnInit {
 
   private entity2icon: Map<string, string>;
 
@@ -74,10 +74,10 @@ export class CrisrefComponent extends RenderingTypeModel implements OnInit {
               id: null,
               icon: null,
               value: metadataValue.value
-            })
+            });
           }
         }),
-        reduce((acc: any, value: any) => [...acc, ...value], [])
+        reduce((acc: any, value: any) => [...acc, value], [])
       );
     }
   }

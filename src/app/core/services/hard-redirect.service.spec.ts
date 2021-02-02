@@ -10,7 +10,7 @@ describe('HardRedirectService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [TestHardRedirectService] });
-    service = TestBed.get(TestHardRedirectService);
+    service = TestBed.inject(TestHardRedirectService);
   });
 
   describe('when calling rewriteDownloadURL', () => {
@@ -33,7 +33,7 @@ describe('HardRedirectService', () => {
 
     afterEach(() => {
       environment.rewriteDownloadUrls = originalValue;
-    })
+    });
   });
 });
 

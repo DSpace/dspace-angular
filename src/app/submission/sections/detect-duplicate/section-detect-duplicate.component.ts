@@ -15,6 +15,7 @@ import { SubmissionScopeType } from '../../../core/submission/submission-scope-t
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { SectionsService } from '../sections.service';
+import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
 
 /**
  * This component represents a section that contains possible duplications.
@@ -43,7 +44,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    * The object containing the list of the possible duplications.
    * @type {Observable}
    */
-  public sectionData$: Observable<any>;
+  public sectionData$: Observable<WorkspaceitemSectionDetectDuplicateObject>;
 
   /**
    * The list of the possible duplications.

@@ -42,10 +42,10 @@ describe('BulkImportPageComponent', () => {
 
   const file: File = new File(['test'], 'test.xls');
 
-  const fileList: FileList = Object.assign({}, {
+  const fileList: any = {
     item: (index: number) => file,
     length: 10
-  });
+  };
 
   const authService = jasmine.createSpyObj('authService', {
     isAuthenticated: of(true),
@@ -109,27 +109,27 @@ describe('BulkImportPageComponent', () => {
       component.form.value.abortOnError = true;
       component.form.value.file = fileList;
       component.submit();
-    })
+    });
 
     it('should invoke the bulk-import script', () => {
       expect(scriptDataService.invoke).toHaveBeenCalledWith('bulk-import', [
         { name: '-c', value: '626b80c5-ef15-4b29-8e69-bda89b0a7acf' },
         { name: '-f', value: 'test.xls' },
         { name: '-e', value: true }
-      ], [file])
-    })
+      ], [file]);
+    });
 
-  })
+  });
 
   describe('when the user click on back button', () => {
 
     beforeEach(() => {
       component.goBack();
-    })
+    });
 
     it('should nagivate to collection page', () => {
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/collections/626b80c5-ef15-4b29-8e69-bda89b0a7acf')
-    })
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/collections/626b80c5-ef15-4b29-8e69-bda89b0a7acf');
+    });
 
   });
 

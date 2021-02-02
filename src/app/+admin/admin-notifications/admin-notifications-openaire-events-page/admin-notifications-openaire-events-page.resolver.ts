@@ -27,6 +27,6 @@ export class AdminNotificationsOpenaireEventsPageResolver implements Resolve<Adm
       pageId: route.queryParams.pageId,
       pageSize: parseInt(route.queryParams.pageSize, 10),
       currentPage: parseInt(route.queryParams.page, 10)
-    }
+    };
   }
 }

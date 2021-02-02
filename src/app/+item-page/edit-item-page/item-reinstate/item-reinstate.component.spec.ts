@@ -1,8 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,8 +14,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemReinstateComponent } from './item-reinstate.component';
-import { RestResponse } from '../../../core/cache/response.models';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 let comp: ItemReinstateComponent;
 let fixture: ComponentFixture<ItemReinstateComponent>;
@@ -27,11 +25,9 @@ let routerStub;
 let mockItemDataService: ItemDataService;
 let routeStub;
 let notificationsServiceStub;
-let successfulRestResponse;
-let failRestResponse;
 
 describe('ItemReinstateComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',
@@ -46,7 +42,7 @@ describe('ItemReinstateComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setWithDrawn: observableOf(new RestResponse(true, 200, 'OK'))
+      setWithDrawn: createSuccessfulRemoteDataObject$(mockItem)
     });
 
     routeStub = {
@@ -74,9 +70,6 @@ describe('ItemReinstateComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, 200, 'OK');
-    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
-
     fixture = TestBed.createComponent(ItemReinstateComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -98,9 +91,8 @@ describe('ItemReinstateComponent', () => {
       spyOn(comp, 'processRestResponse');
       comp.performAction();
 
-      expect(mockItemDataService.setWithDrawn).toHaveBeenCalledWith(mockItem.id, false);
+      expect(mockItemDataService.setWithDrawn).toHaveBeenCalledWith(comp.item, false);
       expect(comp.processRestResponse).toHaveBeenCalled();
     });
   });
-})
-;
+});

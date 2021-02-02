@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DateComponent } from './date.component';
-import { Item } from 'src/app/core/shared/item.model';
+import { Item } from '../../../../../core/shared/item.model';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DsDatePipe } from 'src/app/layout/pipes/ds-date.pipe';
+import { DsDatePipe } from '../../../../pipes/ds-date.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
+import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 
 describe('DateComponent', () => {
   let component: DateComponent;

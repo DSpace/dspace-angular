@@ -9,13 +9,10 @@ import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from './request.reducer';
 import { FindListOptions } from './request.models';
 import { TestScheduler } from 'rxjs/testing';
-import { PaginatedList } from './paginated-list';
-import { RemoteData } from './remote-data';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;
@@ -32,28 +29,21 @@ describe('SiteDataService', () => {
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const options = Object.assign(new FindListOptions(), {});
 
-  const getRequestEntry$ = (successful: boolean, statusCode: number, statusText: string) => {
-    return observableOf({
-      response: new RestResponse(successful, statusCode, statusText)
-    } as RequestEntry);
-  };
-
   const siteLink = 'https://rest.api/rest/api/config/sites';
 
   beforeEach(() => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', {a: siteLink})
+      getEndpoint: cold('a', { a: siteLink })
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
       configure: true,
-      getByHref: getRequestEntry$(true, 200, 'Success')
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: cold('a', {
-        a: new RemoteData(false, false, true, undefined, new PaginatedList(null, [testObject]))
+        a: createSuccessfulRemoteDataObject(createPaginatedList([testObject]))
       })
     });
 
@@ -79,7 +69,7 @@ describe('SiteDataService', () => {
     it('should return the Static Page endpoint', () => {
 
       const result = service.getBrowseEndpoint(options);
-      const expected = cold('b', {b: siteLink});
+      const expected = cold('b', { b: siteLink });
 
       expect(result).toBeObservable(expected);
     });
@@ -89,10 +79,10 @@ describe('SiteDataService', () => {
     it('should return the Site object', () => {
 
       spyOn(service, 'findAll').and.returnValue(cold('a', {
-        a: new RemoteData(false, false, true, undefined, new PaginatedList(null, [testObject]))
+        a: createSuccessfulRemoteDataObject(createPaginatedList([testObject]))
       }));
 
-      const expected = cold('(b|)', {b: testObject});
+      const expected = cold('(b|)', { b: testObject });
       const result = service.find();
 
       expect(result).toBeObservable(expected);

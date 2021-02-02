@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
-import { find } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
+import { Observable } from 'rxjs';
 import { Process } from './processes/process.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific process before the route is activated
@@ -24,8 +23,8 @@ export class ProcessPageResolver implements Resolve<RemoteData<Process>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Process>> {
-    return this.processService.findById(route.params.id, followLink('script')).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+    return this.processService.findById(route.params.id, false, followLink('script')).pipe(
+      getFirstCompletedRemoteData(),
     );
   }
 }

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { filter, find, map, mergeMap, switchMap } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';
 import { isNotUndefined } from '../../shared/empty.util';
@@ -16,11 +15,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { configureRequest, getSucceededRemoteData } from '../shared/operators';
+import { configureRequest, getFirstSucceededRemoteData } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { FindListOptions, FindListRequest } from './request.models';
 import { RequestService } from './request.service';
@@ -43,7 +42,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<RelationshipType>,
               protected appStore: Store<AppState>) {
-    super()
+    super();
   }
 
   /**
@@ -73,7 +72,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   getRelationshipTypeByLabelAndTypes(label: string, firstType: string, secondType: string): Observable<RelationshipType> {
     return this.getAllRelationshipTypes({ currentPage: 1, elementsPerPage: Number.MAX_VALUE })
       .pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         /* Flatten the page so we can treat it like an observable */
         switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
         mergeMap((type: RelationshipType) => {
@@ -92,7 +91,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   // returns a void observable if there's not match
   // returns an observable that emits the relationship type when there is a match
   private checkType(type: RelationshipType, firstType: string, secondType: string): Observable<RelationshipType> {
-    const entityTypes = observableCombineLatest([type.leftType.pipe(getSucceededRemoteData()), type.rightType.pipe(getSucceededRemoteData())]);
+    const entityTypes = observableCombineLatest([type.leftType.pipe(getFirstSucceededRemoteData()), type.rightType.pipe(getFirstSucceededRemoteData())]);
     return entityTypes.pipe(
       find(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => leftTypeRD.payload.label === firstType && rightTypeRD.payload.label === secondType),
       filter((types) => isNotUndefined(types)),
