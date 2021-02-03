@@ -1,5 +1,5 @@
 import { of as observableOf } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -23,7 +23,7 @@ import { ExportMetadataSelectorComponent } from './export-metadata-selector.comp
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
-  imports: [ NgbModalModule,
+  imports: [NgbModalModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -36,7 +36,8 @@ import { ExportMetadataSelectorComponent } from './export-metadata-selector.comp
   providers: [],
   entryComponents: [ConfirmationModalComponent],
 })
-class ModelTestModule { }
+class ModelTestModule {
+}
 
 describe('ExportMetadataSelectorComponent', () => {
   let component: ExportMetadataSelectorComponent;
@@ -82,7 +83,7 @@ describe('ExportMetadataSelectorComponent', () => {
   const itemRD = createSuccessfulRemoteDataObject(mockItem);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     notificationService = new NotificationsServiceStub();
     router = jasmine.createSpyObj('router', {
       navigateByUrl: jasmine.createSpy('navigateByUrl')
@@ -124,7 +125,7 @@ describe('ExportMetadataSelectorComponent', () => {
     fixture = TestBed.createComponent(ExportMetadataSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    const modalService = TestBed.get(NgbModal);
+    const modalService = TestBed.inject(NgbModal);
     modalRef = modalService.open(ConfirmationModalComponent);
     modalRef.componentInstance.response = observableOf(true);
     fixture.detectChanges();
@@ -139,7 +140,7 @@ describe('ExportMetadataSelectorComponent', () => {
     beforeEach((done) => {
       component.navigate(mockItem).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('should not invoke metadata-export script', () => {
@@ -153,7 +154,7 @@ describe('ExportMetadataSelectorComponent', () => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCollection).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
@@ -178,7 +179,7 @@ describe('ExportMetadataSelectorComponent', () => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
@@ -205,7 +206,7 @@ describe('ExportMetadataSelectorComponent', () => {
       spyOn(scriptService, 'invoke').and.returnValue(createFailedRemoteDataObject$('Error', 500));
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('error notification is shown', () => {

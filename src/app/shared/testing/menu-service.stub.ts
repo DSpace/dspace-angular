@@ -1,6 +1,5 @@
 import { MenuID } from '../menu/initial-menus-state';
-import { of as observableOf } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { MenuSection } from '../menu/menu.reducer';
 
 export class MenuServiceStub {
@@ -24,73 +23,73 @@ export class MenuServiceStub {
   } as any;
 
   toggleMenu(): void { /***/
-  };
+  }
 
   expandMenu(): void { /***/
-  };
+  }
 
   collapseMenu(): void { /***/
-  };
+  }
 
   showMenu(): void { /***/
-  };
+  }
 
   hideMenu(): void { /***/
-  };
+  }
 
   expandMenuPreview(): void { /***/
-  };
+  }
 
   collapseMenuPreview(): void { /***/
-  };
+  }
 
   toggleActiveSection(): void { /***/
-  };
+  }
 
   activateSection(): void { /***/
-  };
+  }
 
   deactivateSection(): void { /***/
-  };
+  }
 
   addSection(): void { /***/
-  };
+  }
 
   removeSection(): void { /***/
-  };
+  }
 
   resetSections(): void { /***/
-  };
+  }
 
   isMenuVisible(id: MenuID): Observable<boolean> {
-    return observableOf(true)
-  };
+    return observableOf(true);
+  }
 
   isMenuCollapsed(id: MenuID): Observable<boolean> {
-    return observableOf(false)
-  };
+    return observableOf(false);
+  }
 
   isMenuPreviewCollapsed(id: MenuID): Observable<boolean> {
-    return observableOf(true)
-  };
+    return observableOf(true);
+  }
 
   hasSubSections(id: MenuID, sectionID: string): Observable<boolean> {
-    return observableOf(true)
-  };
+    return observableOf(true);
+  }
 
   getMenuTopSections(id: MenuID): Observable<MenuSection[]> {
-    return observableOf([this.visibleSection1, this.visibleSection2])
-  };
+    return observableOf([this.visibleSection1, this.visibleSection2]);
+  }
 
   getSubSectionsByParentID(id: MenuID): Observable<MenuSection[]> {
-    return observableOf([this.subSection4])
-  };
+    return observableOf([this.subSection4]);
+  }
 
   isSectionActive(id: MenuID, sectionID: string): Observable<boolean> {
-    return observableOf(true)
-  };
+    return observableOf(true);
+  }
 
   isSectionVisible(id: MenuID, sectionID: string): Observable<boolean> {
-    return observableOf(true)
-  };
+    return observableOf(true);
+  }
 }

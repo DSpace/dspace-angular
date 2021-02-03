@@ -61,4 +61,4 @@ export class BitstreamFormatsRegistryDeselectAllAction implements Action {
 export type BitstreamFormatsRegistryAction
   = BitstreamFormatsRegistrySelectAction
   | BitstreamFormatsRegistryDeselectAction
-  | BitstreamFormatsRegistryDeselectAllAction
+  | BitstreamFormatsRegistryDeselectAllAction;

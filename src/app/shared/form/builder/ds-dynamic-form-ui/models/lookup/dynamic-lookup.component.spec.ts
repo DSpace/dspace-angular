@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -22,6 +22,10 @@ import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService
+} from '../../../../../testing/dynamic-form-mock-services';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
@@ -132,8 +136,8 @@ describe('Dynamic Lookup component', () => {
   let html;
   let vocabularyServiceStub: VocabularyServiceStub;
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
     TestBed.configureTestingModule({
       imports: [
@@ -155,8 +159,8 @@ describe('Dynamic Lookup component', () => {
         ChangeDetectorRef,
         DsDynamicLookupComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -279,7 +283,7 @@ describe('Dynamic Lookup component', () => {
           lookupFixture.detectChanges();
 
           lookupComp.onChange(new Event('change'));
-          expect(lookupComp.model.value).toEqual(new FormFieldMetadataValueObject('test'))
+          expect(lookupComp.model.value).toEqual(new FormFieldMetadataValueObject('test'));
 
         }));
 

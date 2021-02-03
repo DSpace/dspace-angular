@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,10 +16,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { RequestService } from '../../../core/data/request.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
@@ -96,7 +93,7 @@ describe('UploadBistreamComponent', () => {
   });
 
   describe('when a file is uploaded', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({});
     }));
 
@@ -130,7 +127,7 @@ describe('UploadBistreamComponent', () => {
   });
 
   describe('when a bundle url parameter is present', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({
         bundle: bundle.id
       });
@@ -160,7 +157,7 @@ describe('UploadBistreamComponent', () => {
   });
 
   describe('when a name is filled in, but no ID is selected', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({});
     }));
 

@@ -1,5 +1,4 @@
-
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchSidebarComponent } from './search-sidebar.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,8 +8,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('SearchSidebarComponent', () => {
   let comp: SearchSidebarComponent;
   let fixture: ComponentFixture<SearchSidebarComponent>;
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NgbCollapseModule],
       declarations: [SearchSidebarComponent],

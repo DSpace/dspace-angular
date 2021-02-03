@@ -51,5 +51,5 @@ export class Root implements CacheableObject {
   _links: {
     self: HALLink;
     [k: string]: HALLink | HALLink[];
-  }
+  };
 }

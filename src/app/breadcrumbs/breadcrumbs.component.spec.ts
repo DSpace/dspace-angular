@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -60,11 +60,11 @@ describe('BreadcrumbsComponent', () => {
     expectedBreadcrumbs = [
       new Breadcrumb(breadcrumbConfigA.key, breadcrumbConfigA.url),
       new Breadcrumb(breadcrumbConfigB.key, breadcrumbConfigB.url)
-    ]
+    ];
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [BreadcrumbsComponent, VarDirective],
@@ -84,7 +84,7 @@ describe('BreadcrumbsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     component = fixture.componentInstance;
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -109,7 +109,7 @@ describe('BreadcrumbsComponent', () => {
   describe('resolveBreadcrumbs', () => {
     it('should return the correct breadcrumbs', () => {
       const breadcrumbs = component.resolveBreadcrumbs(route.root);
-      getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedBreadcrumbs })
-    })
-  })
+      getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedBreadcrumbs });
+    });
+  });
 });

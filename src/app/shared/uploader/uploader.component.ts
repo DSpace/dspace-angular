@@ -7,7 +7,7 @@ import {
   Input,
   Output,
   ViewEncapsulation,
-} from '@angular/core'
+} from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
@@ -131,7 +131,7 @@ export class UploaderComponent {
       this.onFileSelected.emit(items);
     });
     if (isUndefined(this.onBeforeUpload)) {
-      this.onBeforeUpload = () => {return};
+      this.onBeforeUpload = () => {return;};
     }
     this.uploader.onBeforeUploadItem = (item) => {
       if (item.url !== this.uploader.options.url) {
@@ -148,7 +148,7 @@ export class UploaderComponent {
     };
     if (hasValue(this.uploadProperties)) {
       this.uploader.onBuildItemForm = (item, form) => {
-        form.append('properties', JSON.stringify(this.uploadProperties))
+        form.append('properties', JSON.stringify(this.uploadProperties));
       };
     }
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {

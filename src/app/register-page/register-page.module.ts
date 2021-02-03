@@ -19,8 +19,7 @@ import { ProfilePageModule } from '../profile-page/profile-page.module';
     RegisterEmailComponent,
     CreateProfileComponent
   ],
-  providers: [],
-  entryComponents: []
+  providers: []
 })
 
 /**

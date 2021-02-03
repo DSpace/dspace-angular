@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -7,10 +7,7 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { CollectionsComponent } from './collections.component';
 
 let collectionsComponent: CollectionsComponent;
@@ -45,7 +42,7 @@ describe('CollectionsComponent', () => {
       }
     }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ CollectionsComponent ],
@@ -60,7 +57,7 @@ describe('CollectionsComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CollectionsComponent);
     collectionsComponent = fixture.componentInstance;
     collectionsComponent.label = 'test.test';

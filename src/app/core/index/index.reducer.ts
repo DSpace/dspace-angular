@@ -35,7 +35,7 @@ export enum IndexName {
  * The state of a single index
  */
 export interface IndexState {
-  [key: string]: any
+  [key: string]: any;
 }
 
 /**
@@ -43,7 +43,7 @@ export interface IndexState {
  */
 export type MetaIndexState = {
   [name in IndexName]: IndexState
-}
+};
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState: MetaIndexState = Object.create(null);
@@ -66,11 +66,11 @@ export function indexReducer(state = initialState, action: IndexAction): MetaInd
     }
 
     case IndexActionTypes.REMOVE_BY_VALUE: {
-      return removeFromIndexByValue(state, action as RemoveFromIndexByValueAction)
+      return removeFromIndexByValue(state, action as RemoveFromIndexByValueAction);
     }
 
     case IndexActionTypes.REMOVE_BY_SUBSTRING: {
-      return removeFromIndexBySubstring(state, action as RemoveFromIndexBySubstringAction)
+      return removeFromIndexBySubstring(state, action as RemoveFromIndexBySubstringAction);
     }
 
     default: {

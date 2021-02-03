@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,15 +9,13 @@ import { TestScheduler } from 'rxjs/testing';
 import { MetadataFieldDataService } from '../../../../core/data/metadata-field-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
-import {
-  createSuccessfulRemoteDataObject$
-} from '../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
 import { MockComponent, MockDirective } from 'ng-mocks';
@@ -63,7 +61,7 @@ let scheduler: TestScheduler;
 
 describe('EditInPlaceFieldComponent', () => {
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
 
     paginatedMetadataFields = buildPaginatedList(undefined, [mdField1, mdField2, mdField3]);
@@ -209,9 +207,18 @@ describe('EditInPlaceFieldComponent', () => {
 
     const metadataFieldSuggestions: InputSuggestion[] =
       [
-        { displayValue: ('dc.' + mdField1.toString()).split('.').join('.&#8203;'), value: ('dc.' + mdField1.toString()) },
-        { displayValue: ('dc.' + mdField2.toString()).split('.').join('.&#8203;'), value: ('dc.' + mdField2.toString()) },
-        { displayValue: ('dc.' + mdField3.toString()).split('.').join('.&#8203;'), value: ('dc.' + mdField3.toString()) }
+        {
+          displayValue: ('dc.' + mdField1.toString()).split('.').join('.&#8203;'),
+          value: ('dc.' + mdField1.toString())
+        },
+        {
+          displayValue: ('dc.' + mdField2.toString()).split('.').join('.&#8203;'),
+          value: ('dc.' + mdField2.toString())
+        },
+        {
+          displayValue: ('dc.' + mdField3.toString()).split('.').join('.&#8203;'),
+          value: ('dc.' + mdField3.toString())
+        }
       ];
 
     beforeEach(fakeAsync(() => {
@@ -269,7 +276,7 @@ describe('EditInPlaceFieldComponent', () => {
           const expected = '(a|)';
           scheduler.expectObservable(comp.canSetEditable()).toBe(expected, { a: false });
         });
-      })
+      });
     });
   });
 
@@ -412,7 +419,7 @@ describe('EditInPlaceFieldComponent', () => {
         const expected = '(a|)';
         scheduler.expectObservable(comp.canRemove()).toBe(expected, { a: false });
       });
-    })
+    });
   });
 
   describe('canUndo', () => {

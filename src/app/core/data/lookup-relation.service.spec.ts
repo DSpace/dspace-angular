@@ -43,7 +43,12 @@ describe('LookupRelationService', () => {
 
   function init() {
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
-      getExternalSourceEntries: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: totalExternal, totalPages: totalExternal, currentPage: 1 }), [{}]))
+      getExternalSourceEntries: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
+        elementsPerPage: 1,
+        totalElements: totalExternal,
+        totalPages: totalExternal,
+        currentPage: 1
+      }), [{}]))
     });
     searchService = jasmine.createSpyObj('searchService', {
       search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
@@ -86,13 +91,13 @@ describe('LookupRelationService', () => {
 
     it('should start with 0', () => {
       result.pipe(take(1)).subscribe((amount) => {
-        expect(amount).toEqual(0)
+        expect(amount).toEqual(0);
       });
     });
 
     it('should return the correct total amount', () => {
       result.pipe(skip(1)).subscribe((amount) => {
-        expect(amount).toEqual(localResults.length)
+        expect(amount).toEqual(localResults.length);
       });
     });
 
@@ -110,13 +115,13 @@ describe('LookupRelationService', () => {
 
     it('should start with 0', () => {
       result.pipe(take(1)).subscribe((amount) => {
-        expect(amount).toEqual(0)
+        expect(amount).toEqual(0);
       });
     });
 
     it('should return the correct total amount', () => {
       result.pipe(skip(1)).subscribe((amount) => {
-        expect(amount).toEqual(totalExternal)
+        expect(amount).toEqual(totalExternal);
       });
     });
   });

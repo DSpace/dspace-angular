@@ -1,9 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
@@ -13,7 +12,6 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
@@ -38,7 +36,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     searchResult.indexableObject.uuid = id;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule(
       {
@@ -71,51 +69,4 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  describe('when the item is not withdrawn', () => {
-    beforeEach(() => {
-      component.dso.isWithdrawn = false;
-      fixture.detectChanges();
-    });
-
-    it('should not show the withdrawn badge', () => {
-      const badge = fixture.debugElement.query(By.css('div.withdrawn-badge'));
-      expect(badge).toBeNull();
-    });
-  });
-
-  describe('when the item is withdrawn', () => {
-    beforeEach(() => {
-      component.dso.isWithdrawn = true;
-      fixture.detectChanges();
-    });
-
-    it('should show the withdrawn badge', () => {
-      const badge = fixture.debugElement.query(By.css('div.withdrawn-badge'));
-      expect(badge).not.toBeNull();
-    });
-  });
-
-  describe('when the item is not private', () => {
-    beforeEach(() => {
-      component.dso.isDiscoverable = true;
-      fixture.detectChanges();
-    });
-    it('should not show the private badge', () => {
-      const badge = fixture.debugElement.query(By.css('div.private-badge'));
-      expect(badge).toBeNull();
-    });
-  });
-
-  describe('when the item is private', () => {
-    beforeEach(() => {
-      component.dso.isDiscoverable = false;
-      fixture.detectChanges();
-    });
-
-    it('should show the private badge', () => {
-      const badge = fixture.debugElement.query(By.css('div.private-badge'));
-      expect(badge).not.toBeNull();
-    });
-  })
 });

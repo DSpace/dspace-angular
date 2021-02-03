@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { SelectableListItemControlComponent } from './selectable-list-item-control.component';
@@ -27,9 +27,9 @@ describe('SelectableListItemControlComponent', () => {
     uuid1 = '0beb44f8-d2ed-459a-a1e7-ffbe059089a9';
     uuid2 = 'e1dc80aa-c269-4aa5-b6bd-008d98056247';
     listId = 'Test List ID';
-    object = Object.assign(new Item(), {uuid: uuid1});
-    otherObject = Object.assign(new Item(), {uuid: uuid2});
-    selectionConfig = {repeatable: false, listId};
+    object = Object.assign(new Item(), { uuid: uuid1 });
+    otherObject = Object.assign(new Item(), { uuid: uuid2 });
+    selectionConfig = { repeatable: false, listId };
     index = 0;
     selection = [otherObject];
     selectionService = jasmine.createSpyObj('selectionService', {
@@ -41,7 +41,7 @@ describe('SelectableListItemControlComponent', () => {
     );
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [SelectableListItemControlComponent, VarDirective],
@@ -78,13 +78,13 @@ describe('SelectableListItemControlComponent', () => {
   });
 
   it('should call selectSingle on the service when the object when selectRadio is called with value true and deselect all others in the selection', () => {
-    comp.selectRadio(true );
+    comp.selectRadio(true);
     expect(selectionService.deselectSingle).toHaveBeenCalledWith(listId, selection[0]);
     expect(selectionService.selectSingle).toHaveBeenCalledWith(listId, object);
   });
 
   it('should not call selectSingle on the service when the object when selectRadio is called with value false and not deselect all others in the selection', () => {
-    comp.selectRadio(false );
+    comp.selectRadio(false);
     expect(selectionService.deselectSingle).not.toHaveBeenCalledWith(listId, selection[0]);
     expect(selectionService.selectSingle).not.toHaveBeenCalledWith(listId, object);
   });

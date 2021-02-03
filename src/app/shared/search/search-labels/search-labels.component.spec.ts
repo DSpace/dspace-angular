@@ -1,5 +1,5 @@
 import { SearchLabelsComponent } from './search-labels.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -29,7 +29,7 @@ describe('SearchLabelsComponent', () => {
     filter2
   ];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule],
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
@@ -56,6 +56,6 @@ describe('SearchLabelsComponent', () => {
       comp.appliedFilters.subscribe((filters) => {
         expect(filters).toBe(mockFilters);
       });
-    })
+    });
   });
 });

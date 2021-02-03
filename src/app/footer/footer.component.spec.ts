@@ -1,22 +1,14 @@
 // ... test imports
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed
-} from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
 import { By } from '@angular/platform-browser';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
@@ -31,8 +23,8 @@ let el: HTMLElement;
 
 describe('Footer component', () => {
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
         loader: {
@@ -45,7 +37,7 @@ describe('Footer component', () => {
         FooterComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
+    });
   }));
 
   // synchronous beforeEach

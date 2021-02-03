@@ -13,6 +13,7 @@ import { type } from '../ngrx/type';
 export const FormActionTypes = {
   FORM_INIT: type('dspace/form/FORM_INIT'),
   FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
+  FORM_ADD_TOUCHED: type('dspace/form/FORM_ADD_TOUCHED'),
   FORM_REMOVE: type('dspace/form/FORM_REMOVE'),
   FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE'),
   FORM_ADD_ERROR: type('dspace/form/FORM_ADD_ERROR'),
@@ -52,7 +53,7 @@ export class FormChangeAction implements Action {
   };
 
   /**
-   * Create a new FormInitAction
+   * Create a new FormChangeAction
    *
    * @param formId
    *    the Form's ID
@@ -61,6 +62,26 @@ export class FormChangeAction implements Action {
    */
   constructor(formId: string, formData: any) {
     this.payload = {formId, formData};
+  }
+}
+
+export class FormAddTouchedAction implements Action {
+  type = FormActionTypes.FORM_ADD_TOUCHED;
+  payload: {
+    formId: string;
+    touched: string[];
+  };
+
+  /**
+   * Create a new FormAddTouchedAction
+   *
+   * @param formId
+   *    the Form's ID
+   * @param touched
+   *    the array containing new touched fields
+   */
+  constructor(formId: string, touched: string[]) {
+    this.payload = {formId, touched};
   }
 }
 
@@ -147,8 +168,9 @@ export class FormClearErrorsAction implements Action {
  */
 export type FormAction = FormInitAction
   | FormChangeAction
+  | FormAddTouchedAction
   | FormRemoveAction
   | FormStatusChangeAction
   | FormAddError
   | FormClearErrorsAction
-  | FormRemoveErrorAction
+  | FormRemoveErrorAction;

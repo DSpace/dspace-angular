@@ -1,14 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BooleanValueInputComponent } from './boolean-value-input.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('BooleanValueInputComponent', () => {
   let component: BooleanValueInputComponent;
   let fixture: ComponentFixture<BooleanValueInputComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [BooleanValueInputComponent]
     })

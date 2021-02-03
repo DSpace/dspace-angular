@@ -30,7 +30,7 @@ export class WorkflowItemAdminWorkflowActionsComponent {
    */
   getDeleteRoute(): string {
 
-    return getWorkflowItemDeleteRoute(this.wfi.id)
+    return getWorkflowItemDeleteRoute(this.wfi.id);
   }
 
   /**

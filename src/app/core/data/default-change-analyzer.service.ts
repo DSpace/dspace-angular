@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { compare } from 'fast-json-patch';
-import { Operation } from 'fast-json-patch/lib/core';
+import { Operation } from 'fast-json-patch';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';

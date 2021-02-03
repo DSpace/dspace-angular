@@ -13,7 +13,7 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { hasValue } from '../../../empty.util';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',

@@ -19,18 +19,18 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { AngularticsMock } from '../../app/shared/mocks/angulartics.service.mock';
+import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
-import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import { ServerLocaleService } from 'src/app/core/locale/server-locale.service';
-import { LocaleService } from 'src/app/core/locale/locale.service';
+import { ServerLocaleService } from '../../app/core/locale/server-locale.service';
+import { LocaleService } from '../../app/core/locale/locale.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ForwardClientIpInterceptor } from '../../app/core/forward-client-ip/forward-client-ip.interceptor';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 
 export function createTranslateLoader() {
   return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
@@ -39,7 +39,6 @@ export function createTranslateLoader() {
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    ModuleMapLoaderModule,
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),
@@ -55,18 +54,21 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
-    Angulartics2RouterlessModule.forRoot(),
     ServerModule,
     AppModule
   ],
   providers: [
     {
+      provide: Angulartics2,
+      useClass: Angulartics2Mock
+    },
+    {
       provide: Angulartics2GoogleAnalytics,
-      useClass: AngularticsMock
+      useClass: AngularticsProviderMock
     },
     {
       provide: Angulartics2DSpace,
-      useClass: AngularticsMock
+      useClass: AngularticsProviderMock
     },
     {
       provide: AuthService,

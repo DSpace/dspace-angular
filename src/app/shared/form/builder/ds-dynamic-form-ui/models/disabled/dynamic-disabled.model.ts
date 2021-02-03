@@ -14,7 +14,6 @@ export interface DsDynamicDisabledModelConfig extends DsDynamicInputModelConfig 
 export class DynamicDisabledModel extends DsDynamicInputModel {
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DISABLED;
-  @serializable() value: any;
   @serializable() hasSelectableMetadata: boolean;
 
   constructor(config: DsDynamicDisabledModelConfig, layout?: DynamicFormControlLayout) {
@@ -23,6 +22,6 @@ export class DynamicDisabledModel extends DsDynamicInputModel {
     this.disabled = true;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
 
-    this.valueUpdates.next(config.value);
+    this.value = config.value;
   }
 }

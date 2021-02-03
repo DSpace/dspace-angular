@@ -97,8 +97,8 @@ export class ChipsComponent implements OnChanges {
                 this.translate.get('form.other-information.' + otherField)
                   .subscribe((label) => {
                     textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
-                  })
-            })
+                  });
+            });
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);

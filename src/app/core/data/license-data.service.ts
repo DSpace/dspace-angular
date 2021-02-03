@@ -70,7 +70,7 @@ export class LicenseDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<License>>): Observable<RemoteData<License>> {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<License>[]): Observable<RemoteData<License>> {
     return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
@@ -82,7 +82,7 @@ export class LicenseDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByAllHref(href: string, reRequestOnStale = true, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<License>>): Observable<RemoteData<PaginatedList<License>>> {
+  findByAllHref(href: string, reRequestOnStale = true, findListOptions: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<License>[]): Observable<RemoteData<PaginatedList<License>>> {
     return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 }

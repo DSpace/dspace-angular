@@ -20,6 +20,9 @@
     "curly": true,
     "eofline": true,
     "forin": true,
+    "deprecation": {
+      "severity": "warning"
+    },
     "import-blacklist": [
       true
     ],
@@ -40,8 +43,14 @@
     "member-access": false,
     "member-ordering": [
       true,
-      "static-before-instance",
-      "variables-before-functions"
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
     ],
     "no-access-missing-member": false,
     "no-arg": true,
@@ -70,7 +79,6 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-use-before-declare": false,
     "no-var-keyword": true,
     "no-var-requires": false,
     "object-literal-shorthand": false,
@@ -97,7 +105,7 @@
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true
     ],
     "trailing-comma": [
       false,

@@ -42,25 +42,25 @@ describe('jsonPatchOperationsReducer test suite', () => {
   const timestampAfterStart = 1545994837492;
   const startTimestamp = 1545994827492;
   const testState: JsonPatchOperationsState = {
-        testResourceType: {
-          children: {
-            testResourceId: {
-              body: [
-                {
-                  operation: {
-                    op: 'add',
-                    path: '/testResourceType/testResourceId/testField',
-                    value: ['test']
-                  },
-                  timeCompleted: timestampBeforeStart
-                },
-              ]
-            } as JsonPatchOperationsEntry
-          },
-          transactionStartTime: null,
-          commitPending: false
-        } as JsonPatchOperationsResourceEntry
-    };
+    testResourceType: {
+      children: {
+        testResourceId: {
+          body: [
+            {
+              operation: {
+                op: 'add',
+                path: '/testResourceType/testResourceId/testField',
+                value: ['test']
+              },
+              timeCompleted: timestampBeforeStart
+            },
+          ]
+        } as JsonPatchOperationsEntry
+      },
+      transactionStartTime: null,
+      commitPending: false
+    } as JsonPatchOperationsResourceEntry
+  };
 
   let initState: JsonPatchOperationsState;
 

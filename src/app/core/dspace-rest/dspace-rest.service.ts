@@ -1,7 +1,7 @@
 import { Observable, throwError as observableThrowError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 import { RawRestResponse } from './raw-rest-response.model';
 import { RestRequestMethod } from '../data/rest-request-method';

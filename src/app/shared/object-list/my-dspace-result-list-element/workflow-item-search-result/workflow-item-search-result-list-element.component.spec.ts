@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -59,7 +59,7 @@ mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: obs
 let linkService;
 
 describe('WorkflowItemSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
@@ -75,7 +75,7 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(WorkflowItemSearchResultListElementComponent);
     component = fixture.componentInstance;
   }));

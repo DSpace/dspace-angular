@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
@@ -100,7 +100,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
         // user clicked cancel: use the name variant only for this relation, no further action required
       }).finally(() => {
         this.select(value);
-      })
+      });
     }
   }
 

@@ -1,10 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
 import { Collection } from '../../../../core/shared/collection.model';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
@@ -18,13 +16,17 @@ describe('CreateItemParentSelectorComponent', () => {
 
   const collection = new Collection();
   collection.uuid = '1234-1234-1234-1234';
-  collection.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Collection title', language: undefined })] };
+  collection.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Collection title',
+      language: undefined
+    })]
+  };
   const router = new RouterStub();
   const collectionRD = createSuccessfulRemoteDataObject(collection);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const createPath = 'testCreatePath';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [CreateItemParentSelectorComponent],
@@ -52,10 +54,6 @@ describe('CreateItemParentSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    // spyOnProperty(itemRouter, 'getItemCreatePath').and.callFake(() => {
-    //   return () => createPath;
-    // });
-
     fixture = TestBed.createComponent(CreateItemParentSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;

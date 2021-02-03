@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
@@ -20,7 +20,6 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
@@ -53,7 +52,7 @@ export class CollectionItemMapperComponent implements OnInit {
    * A view on the tabset element
    * Used to switch tabs programmatically
    */
-  @ViewChild('tabs', {static: false}) tabs;
+  @ViewChild('tabs') tabs;
 
   /**
    * The collection to map items to
@@ -127,7 +126,7 @@ export class CollectionItemMapperComponent implements OnInit {
         if (shouldUpdate) {
           return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
             sort: this.defaultSortOptions
-          }),followLink('owningCollection'))
+          }),followLink('owningCollection'));
         }
       })
     );
@@ -172,10 +171,10 @@ export class CollectionItemMapperComponent implements OnInit {
    * @param {Observable<RestResponse[]>} responses$   The responses after adding/removing a mapping
    * @param {boolean} remove                          Whether or not the goal was to remove mappings
    */
-  private showNotifications(responses$: Observable<Array<RemoteData<NoContent>>>, remove?: boolean) {
+  private showNotifications(responses$: Observable<RemoteData<NoContent>[]>, remove?: boolean) {
     const messageInsertion = remove ? 'unmap' : 'map';
 
-    responses$.subscribe((responses: Array<RemoteData<NoContent>>) => {
+    responses$.subscribe((responses: RemoteData<NoContent>[]) => {
       const successful = responses.filter((response: RemoteData<any>) => response.hasSucceeded);
       const unsuccessful = responses.filter((response: RemoteData<any>) => response.hasFailed);
       if (successful.length > 0) {
@@ -254,7 +253,7 @@ export class CollectionItemMapperComponent implements OnInit {
       getRemoteDataPayload(),
       take(1)
     ).subscribe((collection: Collection) => {
-      this.router.navigate(['/collections/', collection.id])
+      this.router.navigate(['/collections/', collection.id]);
     });
   }
 

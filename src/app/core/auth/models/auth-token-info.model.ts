@@ -1,4 +1,4 @@
-import { default as decode } from 'jwt-decode';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 export const TOKENITEM = 'dsAuthInfo';
 
@@ -9,7 +9,7 @@ export class AuthTokenInfo {
   constructor(token: string) {
     this.accessToken = token.replace('Bearer ', '');
     try {
-      const tokenClaims = decode(this.accessToken);
+      const tokenClaims = jwtDecode<JwtPayload>(this.accessToken);
       // exp claim is in seconds, convert it se to milliseconds
       this.expires = tokenClaims.exp * 1000;
     } catch (err) {

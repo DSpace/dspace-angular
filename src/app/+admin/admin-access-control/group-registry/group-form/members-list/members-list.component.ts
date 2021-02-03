@@ -115,7 +115,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
       currentPage: event,
       elementsPerPage: this.config.pageSize
-    })
+    });
   }
 
   /**
@@ -166,11 +166,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
               map((listEPeopleInGroup: PaginatedList<EPerson>) => listEPeopleInGroup.page.filter((ePersonInList: EPerson) => ePersonInList.id === possibleMember.id)),
-              map((epeople: EPerson[]) => epeople.length > 0))
+              map((epeople: EPerson[]) => epeople.length > 0));
         } else {
           return observableOf(false);
         }
-      }))
+      }));
   }
 
   /**
@@ -211,7 +211,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
       currentPage: this.configSearch.currentPage,
       elementsPerPage: this.configSearch.pageSize
-    })
+    });
   }
 
   /**
@@ -235,7 +235,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }
-    })
+    });
   }
 
   /**

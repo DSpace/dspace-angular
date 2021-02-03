@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { of } from 'rxjs/internal/observable/of';
 import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({

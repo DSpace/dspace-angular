@@ -18,7 +18,7 @@ describe(`LocaleInterceptor`, () => {
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
     getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
     getLanguageCodeList: of(languageList)
-  })
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,15 +30,15 @@ describe(`LocaleInterceptor`, () => {
           useClass: LocaleInterceptor,
           multi: true,
         },
-        {provide: LocaleService, useValue: mockLocaleService},
+        { provide: LocaleService, useValue: mockLocaleService },
       ],
     });
 
-    service = TestBed.get(DspaceRestService);
-    httpMock = TestBed.get(HttpTestingController);
-    localeService = TestBed.get(LocaleService);
+    service = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
+    localeService = TestBed.inject(LocaleService);
 
-    localeService.getCurrentLanguageCode.and.returnValue('en')
+    localeService.getCurrentLanguageCode.and.returnValue('en');
   });
 
   describe('', () => {

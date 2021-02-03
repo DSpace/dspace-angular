@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FileService } from '../../core/shared/file.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 

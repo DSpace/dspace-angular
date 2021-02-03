@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -45,9 +45,9 @@ describe('AddBitstreamFormatComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [AddBitstreamFormatComponent],
       providers: [
-        {provide: Router, useValue: router},
-        {provide: NotificationsService, useValue: notificationService},
-        {provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService},
+        { provide: Router, useValue: router },
+        { provide: NotificationsService, useValue: notificationService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -61,7 +61,7 @@ describe('AddBitstreamFormatComponent', () => {
   };
 
   describe('createBitstreamFormat success', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {
       comp.createBitstreamFormat(bitstreamFormat);
@@ -73,7 +73,7 @@ describe('AddBitstreamFormatComponent', () => {
     });
   });
   describe('createBitstreamFormat error', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       router = new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
@@ -85,9 +85,9 @@ describe('AddBitstreamFormatComponent', () => {
         imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [AddBitstreamFormatComponent],
         providers: [
-          {provide: Router, useValue: router},
-          {provide: NotificationsService, useValue: notificationService},
-          {provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService},
+          { provide: Router, useValue: router },
+          { provide: NotificationsService, useValue: notificationService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();

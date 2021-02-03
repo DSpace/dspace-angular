@@ -23,8 +23,8 @@ export class FacetConfigResponseParsingService extends DspaceRestResponseParsing
     filters.forEach((filterConfig: SearchFilterConfig) => {
       _links[filterConfig.name] = {
         href: filterConfig._links.self.href
-      }
-    })
+      };
+    });
 
     const facetConfigResponse = Object.assign(new FacetConfigResponse(), {
       filters,

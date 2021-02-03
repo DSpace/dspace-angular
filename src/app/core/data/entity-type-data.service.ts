@@ -70,7 +70,7 @@ export class ItemTypeDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<ItemType>> {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ItemType>[]): Observable<RemoteData<ItemType>> {
     return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
@@ -82,7 +82,7 @@ export class ItemTypeDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByAllHref(href: string, reRequestOnStale = true, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
+  findByAllHref(href: string, reRequestOnStale = true, findListOptions: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<ItemType>[]): Observable<RemoteData<PaginatedList<ItemType>>> {
     return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 }

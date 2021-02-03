@@ -1,5 +1,5 @@
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -28,8 +28,7 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf, of } from 'rxjs/internal/observable/of';
-import { RestResponse } from '../../core/cache/response.models';
+import { of as observableOf, of } from 'rxjs';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
@@ -111,19 +110,19 @@ describe('CollectionItemMapperComponent', () => {
       return observableOf('');
     },
     getQueryParameterValue: () => {
-      return observableOf('')
+      return observableOf('');
     },
     getQueryParamsWithPrefix: () => {
-      return observableOf('')
+      return observableOf('');
     }
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
-      return observableOf('')
+      return observableOf('');
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
@@ -200,7 +199,7 @@ describe('CollectionItemMapperComponent', () => {
 
     it('should build a solr query to exclude the provided collection', () => {
       expect(result).toEqual(expected);
-    })
+    });
   });
 
   describe('onCancel', () => {

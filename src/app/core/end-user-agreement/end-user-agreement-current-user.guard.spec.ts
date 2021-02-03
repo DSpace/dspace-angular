@@ -2,7 +2,6 @@ import { EndUserAgreementCurrentUserGuard } from './end-user-agreement-current-u
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { Router, UrlTree } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 
 describe('EndUserAgreementGuard', () => {
   let guard: EndUserAgreementCurrentUserGuard;

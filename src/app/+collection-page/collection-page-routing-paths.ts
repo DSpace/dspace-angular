@@ -13,15 +13,15 @@ export function getCollectionPageRoute(collectionId: string) {
 }
 
 export function getCollectionEditRoute(id: string) {
-  return new URLCombiner(getCollectionModuleRoute(), id, COLLECTION_EDIT_PATH).toString()
+  return new URLCombiner(getCollectionModuleRoute(), id, COLLECTION_EDIT_PATH).toString();
 }
 
 export function getCollectionCreateRoute() {
-  return new URLCombiner(getCollectionModuleRoute(), COLLECTION_CREATE_PATH).toString()
+  return new URLCombiner(getCollectionModuleRoute(), COLLECTION_CREATE_PATH).toString();
 }
 
 export function getCollectionEditRolesRoute(id) {
-  return new URLCombiner(getCollectionPageRoute(id), COLLECTION_EDIT_PATH, COLLECTION_EDIT_ROLES_PATH).toString()
+  return new URLCombiner(getCollectionPageRoute(id), COLLECTION_EDIT_PATH, COLLECTION_EDIT_ROLES_PATH).toString();
 }
 
 export const COLLECTION_CREATE_PATH = 'create';

@@ -23,9 +23,9 @@ export class CommunityListSaveAction implements Action {
   };
 
   constructor(expandedNodes: FlatNode[], loadingNode: FlatNode) {
-    this.payload = { expandedNodes, loadingNode }
+    this.payload = { expandedNodes, loadingNode };
   }
-};
+}
 
 /**
  * Export a type alias of all actions in this action group

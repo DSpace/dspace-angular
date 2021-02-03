@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -41,13 +41,18 @@ describe('ExistingRelationListElementComponent', () => {
     listID = '1234-listID';
     submissionItem = Object.assign(new Item(), { uuid: uuid1 });
     metadataFields = ['dc.contributor.author'];
-    relationshipOptions = Object.assign(new RelationshipOptions(), { relationshipType: 'isPublicationOfAuthor', filter: 'test.filter', searchConfiguration: 'personConfiguration', nameVariants: true })
+    relationshipOptions = Object.assign(new RelationshipOptions(), {
+      relationshipType: 'isPublicationOfAuthor',
+      filter: 'test.filter',
+      searchConfiguration: 'personConfiguration',
+      nameVariants: true
+    });
     relatedItem = Object.assign(new Item(), { uuid: uuid2 });
     leftItemRD$ = createSuccessfulRemoteDataObject$(relatedItem);
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace:() => observableOf({})
+      updatePlace: () => observableOf({})
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
@@ -55,7 +60,7 @@ describe('ExistingRelationListElementComponent', () => {
     reoRel = new ReorderableRelationship(relationship, true, relationshipService, {} as any, submissionId);
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ExistingRelationListElementComponent],
@@ -96,5 +101,5 @@ describe('ExistingRelationListElementComponent', () => {
       const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType, submissionId);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
-  })
+  });
 });

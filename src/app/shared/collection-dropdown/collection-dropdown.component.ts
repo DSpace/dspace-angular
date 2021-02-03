@@ -1,30 +1,24 @@
 import {
-  Component,
-  OnInit,
-  HostListener,
   ChangeDetectorRef,
-  OnDestroy,
-  Output,
+  Component,
+  ElementRef,
   EventEmitter,
-  ElementRef
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap } from 'rxjs/operators';
+
 import { hasValue } from '../empty.util';
-import {
-  map,
-  mergeMap,
-  startWith,
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-  reduce
-} from 'rxjs/operators';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { Community } from 'src/app/core/shared/community.model';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { Community } from '../../core/shared/community.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
 import {
@@ -45,8 +39,8 @@ interface CollectionListEntryItem {
  * An interface to represent an entry in the collection list
  */
 export interface CollectionListEntry {
-  communities: CollectionListEntryItem[],
-  collection: CollectionListEntryItem
+  communities: CollectionListEntryItem[];
+  collection: CollectionListEntryItem;
 }
 
 @Component({
@@ -213,7 +207,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
           })
         ))),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
+        reduce((acc: any, value: any) => [...acc, value], []),
         startWith([])
         );
     this.subs.push(this.searchListCollection$.subscribe(

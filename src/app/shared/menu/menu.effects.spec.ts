@@ -4,9 +4,8 @@ import { LinkMenuItemModel } from './menu-item/models/link.model';
 import { TestBed } from '@angular/core/testing';
 import { MenuService } from './menu.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { of as observableOf } from 'rxjs';
 import { cold, hot } from 'jasmine-marbles';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { MenuEffects } from './menu.effects';
@@ -117,7 +116,7 @@ describe('MenuEffects', () => {
       ]
     });
 
-    menuEffects = TestBed.get(MenuEffects);
+    menuEffects = TestBed.inject(MenuEffects);
   });
 
   describe('buildRouteMenuSections$', () => {

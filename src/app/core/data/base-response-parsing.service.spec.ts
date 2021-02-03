@@ -42,7 +42,9 @@ describe('BaseResponseParsingService', () => {
   describe('cache', () => {
     describe('when the object is undefined', () => {
       it('should not throw an error', () => {
-        expect(() => { service.cache(obj, request, {}) }).not.toThrow();
+        expect(() => {
+          service.cache(obj, request, {});
+        }).not.toThrow();
       });
 
       it('should not call objectCache add', () => {
@@ -82,7 +84,9 @@ describe('BaseResponseParsingService', () => {
       });
 
       it('should not throw an error', () => {
-        expect(() => { result = service.process(data, request) }).not.toThrow();
+        expect(() => {
+          result = service.process(data, request);
+        }).not.toThrow();
       });
 
       it('should return undefined', () => {

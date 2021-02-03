@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -35,14 +35,15 @@ describe('ItemPageComponent', () => {
 
   const mockMetadataService = {
     /* tslint:disable:no-empty */
-    processRemoteData: () => {}
+    processRemoteData: () => {
+    }
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {}
@@ -57,20 +58,20 @@ describe('ItemPageComponent', () => {
       }), BrowserAnimationsModule],
       declarations: [ItemPageComponent, VarDirective],
       providers: [
-        {provide: ActivatedRoute, useValue: mockRoute},
-        {provide: ItemDataService, useValue: {}},
-        {provide: MetadataService, useValue: mockMetadataService},
-        {provide: Router, useValue: {}},
+        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ItemDataService, useValue: {} },
+        { provide: MetadataService, useValue: mockMetadataService },
+        { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,6 +24,7 @@ import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -70,21 +71,16 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
-const sidebarService = {
-  isCollapsed: observableOf(true),
-  collapse: () => this.isCollapsed = observableOf(true),
-  expand: () => this.isCollapsed = observableOf(false)
-};
 
 const routeServiceStub = {
   getRouteParameterValue: () => {
     return observableOf('');
   },
   getQueryParameterValue: () => {
-    return observableOf('')
+    return observableOf('');
   },
   getQueryParamsWithPrefix: () => {
-    return observableOf('')
+    return observableOf('');
   }
 };
 
@@ -113,7 +109,7 @@ export function configureSearchComponentTestingModule(compType) {
       },
       {
         provide: SidebarService,
-        useValue: sidebarService
+        useValue: SidebarServiceStub
       },
       {
         provide: SearchFilterService,
@@ -144,7 +140,7 @@ export function configureSearchComponentTestingModule(compType) {
 }
 
 describe('SearchComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     configureSearchComponentTestingModule(SearchComponent);
   }));
 

@@ -60,7 +60,7 @@ export class AbstractSimpleItemActionComponent implements OnInit {
    */
   performAction() {
     // Overwrite in subclasses
-  };
+  }
 
   /**
    * Process the response obtained during the performAction method and navigate back to the edit page

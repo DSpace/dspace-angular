@@ -1,5 +1,5 @@
 import { CollectionSearchResultListElementComponent } from './collection-search-result-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -42,19 +42,19 @@ mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), 
 });
 
 describe('CollectionSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectionSearchResultListElementComponent, TruncatePipe ],
+      declarations: [CollectionSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CollectionSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CollectionSearchResultListElementComponent);
     collectionSearchResultListElementComponent = fixture.componentInstance;
     collectionSearchResultListElementComponent.object = mockCollectionWithAbstract;

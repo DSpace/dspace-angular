@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from '@ngrx/store';
 
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
@@ -21,17 +21,13 @@ describe('SubmissionFormFooterComponent Component', () => {
   let comp: SubmissionFormFooterComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionFormFooterComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
   let submissionRestServiceStub: SubmissionRestServiceStub;
+  let scheduler: TestScheduler;
 
+  const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const submissionId = mockSubmissionId;
 
-  const store: any = jasmine.createSpyObj('store', {
-    dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
-  });
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -42,9 +38,8 @@ describe('SubmissionFormFooterComponent Component', () => {
         TestComponent
       ],
       providers: [
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },
-        { provide: Store, useValue: store },
         ChangeDetectorRef,
         NgbModal,
         SubmissionFormFooterComponent
@@ -59,6 +54,7 @@ describe('SubmissionFormFooterComponent Component', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      submissionServiceStub.getSubmissionStatus.and.returnValue(observableOf(true));
       const html = `
         <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>`;
 
@@ -80,11 +76,11 @@ describe('SubmissionFormFooterComponent Component', () => {
 
   describe('', () => {
     beforeEach(() => {
+      scheduler = getTestScheduler();
       fixture = TestBed.createComponent(SubmissionFormFooterComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      submissionRestServiceStub = TestBed.get(SubmissionRestService);
+      submissionRestServiceStub = TestBed.inject(SubmissionRestService as any);
       comp.submissionId = submissionId;
 
     });
@@ -93,8 +89,6 @@ describe('SubmissionFormFooterComponent Component', () => {
       comp = null;
       compAsAny = null;
       fixture = null;
-      submissionServiceStub = null;
-      submissionRestServiceStub = null;
     });
 
     describe('ngOnChanges', () => {
@@ -169,7 +163,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       comp.save(null);
       fixture.detectChanges();
 
-      expect(submissionServiceStub.dispatchSave).toHaveBeenCalledWith(submissionId);
+      expect(submissionServiceStub.dispatchSave).toHaveBeenCalledWith(submissionId, true);
     });
 
     it('should call dispatchSaveForLater on save for later', () => {
@@ -188,7 +182,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       expect(submissionServiceStub.dispatchDeposit).toHaveBeenCalledWith(submissionId);
     });
 
-    it('should call dispatchDiscard on discard confirmation', () => {
+    it('should call dispatchDiscard on discard confirmation', (done) => {
       comp.showDepositAndDiscard = observableOf(true);
       fixture.detectChanges();
       const modalBtn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -203,6 +197,7 @@ describe('SubmissionFormFooterComponent Component', () => {
 
       fixture.whenStable().then(() => {
         expect(submissionServiceStub.dispatchDiscard).toHaveBeenCalledWith(submissionId);
+        done();
       });
     });
 
@@ -222,6 +217,22 @@ describe('SubmissionFormFooterComponent Component', () => {
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
       expect(depositBtn.nativeElement.disabled).toBeFalsy();
+    });
+
+    it('should disable save button when all modifications had been saved', () => {
+      comp.hasUnsavedModification = observableOf(false);
+      fixture.detectChanges();
+
+      const saveBtn: any = fixture.debugElement.query(By.css('#save'));
+      expect(saveBtn.nativeElement.disabled).toBeTruthy();
+    });
+
+    it('should enable save button when there are not saved modifications', () => {
+      comp.hasUnsavedModification = observableOf(true);
+      fixture.detectChanges();
+
+      const saveBtn: any = fixture.debugElement.query(By.css('#save'));
+      expect(saveBtn.nativeElement.disabled).toBeFalsy();
     });
 
   });

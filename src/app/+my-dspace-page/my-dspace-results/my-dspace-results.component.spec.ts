@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -11,7 +11,7 @@ describe('MyDSpaceResultsComponent', () => {
   let comp: MyDSpaceResultsComponent;
   let fixture: ComponentFixture<MyDSpaceResultsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
       declarations: [
@@ -53,6 +53,6 @@ describe('MyDSpaceResultsComponent', () => {
 
     const linkDes = fixture.debugElement.queryAll(By.css('text-muted'));
 
-    expect(linkDes).toBeDefined()
+    expect(linkDes).toBeDefined();
   });
 });

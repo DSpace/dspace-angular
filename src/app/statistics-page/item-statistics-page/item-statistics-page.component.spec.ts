@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,7 +22,7 @@ describe('ItemStatisticsPageComponent', () => {
   let de: DebugElement;
   let fixture: ComponentFixture<ItemStatisticsPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const activatedRoute = {
       data: observableOf({

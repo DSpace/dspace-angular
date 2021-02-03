@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -40,8 +39,7 @@ import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/subm
     CoreModule.forRoot(),
     SharedModule,
     StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-    EffectsModule.forFeature(submissionEffects),
-    TranslateModule
+    EffectsModule.forFeature(submissionEffects)
   ],
   declarations: [
     SubmissionSectionUploadAccessConditionsComponent,
@@ -65,15 +63,6 @@ import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/subm
     SubmissionImportExternalSearchbarComponent,
     SubmissionImportExternalPreviewComponent,
     SubmissionImportExternalCollectionComponent
-  ],
-  entryComponents: [
-    SubmissionSectionUploadComponent,
-    SubmissionSectionformComponent,
-    SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent,
-    SubmissionImportExternalPreviewComponent,
-    SubmissionImportExternalCollectionComponent,
-    SubmissionSectionCcLicensesComponent
   ],
   exports: [
     SubmissionEditComponent,

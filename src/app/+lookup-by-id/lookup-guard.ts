@@ -1,10 +1,9 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { IdentifierType } from '../core/data/request.models';
+import { FindByIDRequest, IdentifierType } from '../core/data/request.models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../core/data/remote-data';
-import { FindByIDRequest } from '../core/data/request.models';
 import { DsoRedirectDataService } from '../core/data/dso-redirect-data.service';
 
 interface LookupParams {

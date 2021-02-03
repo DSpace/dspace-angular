@@ -1,4 +1,4 @@
-import { getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -22,6 +22,8 @@ import {
 } from './json-patch-operations.actions';
 import { RequestEntry } from '../data/request.reducer';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { deepClone } from 'fast-json-patch';
+
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -85,7 +87,7 @@ describe('JsonPatchOperationsService test suite', () => {
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, timeCompleted: timestampResponse } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
 
   function initTestService(): TestService {
@@ -194,6 +196,32 @@ describe('JsonPatchOperationsService test suite', () => {
         expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
     });
+  });
+
+  describe('hasPendingOperations', () => {
+
+    it('should return true when there are pending operations', () => {
+
+      const expected = hot('(x|)', { x: true });
+
+      const result = service.hasPendingOperations(testJsonPatchResourceType);
+      expect(result).toBeObservable(expected);
+
+    });
+
+    it('should return false when there are not pending operations', () => {
+
+      const mockStateNoOp = deepClone(mockState);
+      mockStateNoOp['json/patch'][testJsonPatchResourceType].children = [];
+      store.select.and.returnValue(observableOf(mockStateNoOp['json/patch'][testJsonPatchResourceType]));
+
+      const expected = hot('(x|)', { x: false });
+
+      const result = service.hasPendingOperations(testJsonPatchResourceType);
+      expect(result).toBeObservable(expected);
+
+    });
+
   });
 
   describe('jsonPatchByResourceID', () => {

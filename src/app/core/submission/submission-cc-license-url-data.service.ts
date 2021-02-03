@@ -56,7 +56,7 @@ export class SubmissionCcLicenseUrlDataService extends DataService<SubmissionCcL
               return {
                 fieldName: `answer_${field.id}`,
                 fieldValue: options.get(field).id,
-              }
+              };
             }),
         ]
       }

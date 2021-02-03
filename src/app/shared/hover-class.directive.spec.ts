@@ -6,7 +6,8 @@ import { By } from '@angular/platform-browser';
 @Component({
   template: `<div dsHoverClass="ds-hover"></div>`
 })
-class TestComponent { }
+class TestComponent {
+}
 
 describe('HoverClassDirective', () => {
   let component: TestComponent;

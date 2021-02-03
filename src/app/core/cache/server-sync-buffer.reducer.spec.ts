@@ -81,5 +81,5 @@ describe('serverSyncBufferReducer', () => {
       href: newSelfLink, method: RestRequestMethod.PUT
     })
     ;
-  })
+  });
 });

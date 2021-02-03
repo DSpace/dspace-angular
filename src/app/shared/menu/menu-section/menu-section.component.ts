@@ -1,15 +1,13 @@
-import { Component, Injector, OnInit, OnDestroy } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { MenuService } from '../menu.service';
 import { MenuSection } from '../menu.reducer';
 import { getComponentForMenuItemType } from '../menu-item.decorator';
 import { MenuID, MenuItemType } from '../initial-menus-state';
 import { hasNoValue, hasValue } from '../../empty.util';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { MenuItemModel } from '../menu-item/models/menu-item.model';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { BehaviorSubject } from 'rxjs';
 
 /**
  * A basic implementation of a menu section's component
@@ -107,7 +105,7 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
           section.id,
           this.getItemModelInjector(section.model),
           this.getMenuItemComponent(section.model)
-        )
+        );
       })
     );
   }

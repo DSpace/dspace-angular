@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 import { INotification } from './models/notification.model';
 
 export const NotificationsActionTypes = {

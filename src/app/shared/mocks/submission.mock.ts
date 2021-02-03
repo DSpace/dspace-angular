@@ -60,6 +60,21 @@ export const mockSectionsErrors = [
   }
 ];
 
+export const mockSectionsErrorsTwo = [
+  {
+    message: 'error.validation.required',
+    paths: [
+      '/sections/traditionalpageone/dc.title',
+    ]
+  },
+  {
+    message: 'error.validation.license.notgranted',
+    paths: [
+      '/sections/license'
+    ]
+  }
+];
+
 export const mockUploadResponse1Errors = {
   errors: [
     {
@@ -1033,6 +1048,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         enabled: true,
         data: {},
         errors: [],
+        formId: '2_traditionalpageone',
         isLoading: false,
         isValid: false
       } as any,
@@ -1262,7 +1278,7 @@ export const mockUploadConfigResponseMetadata = {
   _links: {
     self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
   },
-}
+};
 
 export const mockUploadConfigResponse = {
   accessConditionOptions: [

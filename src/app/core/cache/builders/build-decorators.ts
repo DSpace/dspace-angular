@@ -112,7 +112,7 @@ export const link = <T extends HALResource>(
     });
 
     linkMap.set(target.constructor, targetMap);
-  }
+  };
 };
 
 /**
@@ -156,5 +156,5 @@ export function inheritLinkAnnotations(parent: any): any {
     });
 
     linkMap.set(child, childMap);
-  }
+  };
 }

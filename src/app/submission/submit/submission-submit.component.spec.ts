@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
@@ -26,7 +26,7 @@ describe('SubmissionSubmitComponent Component', () => {
   const submissionId = '826';
   const submissionObject: any = mockSubmissionObject;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -50,8 +50,8 @@ describe('SubmissionSubmitComponent Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmissionSubmitComponent);
     comp = fixture.componentInstance;
-    submissionServiceStub = TestBed.get(SubmissionService);
-    router = TestBed.get(Router);
+    submissionServiceStub = TestBed.inject(SubmissionService as any);
+    router = TestBed.inject(Router as any);
   });
 
   afterEach(() => {

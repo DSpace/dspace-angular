@@ -4,7 +4,7 @@ import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { ProcessDetailComponent } from './process-detail.component';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   discardPeriodicTasks,
   fakeAsync,
@@ -45,7 +45,7 @@ describe('ProcessDetailComponent', () => {
   let processOutput;
 
   function init() {
-    processOutput = 'Process Started'
+    processOutput = 'Process Started';
     process = Object.assign(new Process(), {
       processId: 1,
       scriptName: 'script-name',
@@ -106,7 +106,7 @@ describe('ProcessDetailComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
@@ -149,7 +149,7 @@ describe('ProcessDetailComponent', () => {
     fixture.detectChanges();
     const args = fixture.debugElement.query(By.css('#process-arguments')).nativeElement;
     process.parameters.forEach((param) => {
-      expect(args.textContent).toContain(`${param.name} ${param.value}`)
+      expect(args.textContent).toContain(`${param.name} ${param.value}`);
     });
   });
 

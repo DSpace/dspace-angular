@@ -115,7 +115,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
               this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
             }
           }
-        )
+        );
       } else {
         this.notificationsService.error(this.getNotificationTitle('invalid'), this.getNotificationContent('invalid'));
       }

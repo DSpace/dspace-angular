@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { TranslateModule } from '@ngx-translate/core';
 import { InputSuggestionsComponent } from './input-suggestions.component';
 import { By } from '@angular/platform-browser';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -16,8 +16,11 @@ describe('InputSuggestionsComponent', () => {
   let el: HTMLElement;
   let suggestions;
 
-  beforeEach(async(() => {
-    suggestions = [{displayValue: 'suggestion uno', value: 'suggestion uno'}, {displayValue: 'suggestion dos', value: 'suggestion dos'}, {displayValue: 'suggestion tres', value: 'suggestion tres'}];
+  beforeEach(waitForAsync(() => {
+    suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
+      displayValue: 'suggestion dos',
+      value: 'suggestion dos'
+    }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
@@ -208,12 +211,12 @@ describe('InputSuggestionsComponent', () => {
       it('should call onKeydown', () => {
         expect(comp.onKeydown).toHaveBeenCalled();
         fixture.detectChanges();
-      })
+      });
     });
     describe('when onKeydown is triggered with the Enter key', () => {
       beforeEach(() => {
         spyOn(comp.queryInput.nativeElement, 'focus');
-        comp.onKeydown(new KeyboardEvent('keydown', {key: 'Enter'}));
+        comp.onKeydown(new KeyboardEvent('keydown', { key: 'Enter' }));
         fixture.detectChanges();
       });
 
@@ -226,7 +229,7 @@ describe('InputSuggestionsComponent', () => {
     describe('when onKeydown is triggered with the any other (not-Enter) key', () => {
       beforeEach(() => {
         spyOn(comp.queryInput.nativeElement, 'focus');
-        comp.onKeydown(new KeyboardEvent('keydown', {key: 'Shift'}));
+        comp.onKeydown(new KeyboardEvent('keydown', { key: 'Shift' }));
         fixture.detectChanges();
       });
 
@@ -298,7 +301,7 @@ describe('InputSuggestionsComponent', () => {
     beforeEach(() => {
       spyOn(comp, 'onClickSuggestion');
       const clickedLink = de.query(By.css('.dropdown-list > div:nth-child(' + (clickedIndex + 1) + ') a'));
-      clickedLink.triggerEventHandler('click', {} );
+      clickedLink.triggerEventHandler('click', {});
       fixture.detectChanges();
     });
     it('should call onClickSuggestion() with the suggestion as a parameter', () => {

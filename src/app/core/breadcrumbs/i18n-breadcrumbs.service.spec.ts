@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { BREADCRUMB_MESSAGE_POSTFIX, I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
@@ -13,7 +13,7 @@ describe('I18nBreadcrumbsService', () => {
     exampleURL = 'example.com';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({}).compileComponents();
   }));
@@ -26,6 +26,6 @@ describe('I18nBreadcrumbsService', () => {
     it('should return a breadcrumb based on a string by adding the postfix', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleString, exampleURL);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [new Breadcrumb(exampleString + BREADCRUMB_MESSAGE_POSTFIX, exampleURL)] });
-    })
+    });
   });
 });

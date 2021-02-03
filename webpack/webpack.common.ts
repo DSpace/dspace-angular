@@ -1,8 +1,7 @@
-import { buildRoot, globalCSSImports, projectRoot, theme, themedTest, themedUse, themePath } from './helpers';
+import { buildRoot, globalCSSImports, projectRoot, themedTest, themedUse, themePath } from './helpers';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtPlugin = require('script-ext-html-webpack-plugin');
 
@@ -65,7 +64,9 @@ export const commonExports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-              includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
+              sassOptions: {
+                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
+              }
             }
           },
           {
@@ -90,7 +91,9 @@ export const commonExports = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-              includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
+              sassOptions: {
+                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
+              }
             }
           }
         ]

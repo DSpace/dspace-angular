@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { DateValueInputComponent } from './date-value-input.component';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ describe('DateValueInputComponent', () => {
   let component: DateValueInputComponent;
   let fixture: ComponentFixture<DateValueInputComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

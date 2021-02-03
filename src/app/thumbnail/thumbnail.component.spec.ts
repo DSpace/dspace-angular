@@ -1,5 +1,5 @@
 import { DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
@@ -12,7 +12,7 @@ describe('ThumbnailComponent', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ThumbnailComponent, SafeUrlPipe]
     }).compileComponents();
@@ -55,7 +55,7 @@ describe('ThumbnailComponent', () => {
         comp.defaultImage = 'http://default.img';
         comp.errorHandler();
         expect(comp.src).toBe(THUMBNAIL_PLACEHOLDER);
-      })
+      });
     });
   });
 });

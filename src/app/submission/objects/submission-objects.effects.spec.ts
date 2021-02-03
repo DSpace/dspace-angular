@@ -11,7 +11,9 @@ import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
-  DepositSubmissionSuccessAction, DiscardSubmissionErrorAction, DiscardSubmissionSuccessAction,
+  DepositSubmissionSuccessAction,
+  DiscardSubmissionErrorAction,
+  DiscardSubmissionSuccessAction,
   InitSectionAction,
   InitSubmissionFormAction,
   SaveForLaterSubmissionFormSuccessAction,
@@ -26,13 +28,14 @@ import {
   mockSectionsData,
   mockSectionsDataTwo,
   mockSectionsErrors,
+  mockSectionsErrorsTwo,
   mockSubmissionCollectionId,
   mockSubmissionDefinition,
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
+  mockSubmissionRestResponse,
   mockSubmissionSelfUrl,
-  mockSubmissionState,
-  mockSubmissionRestResponse
+  mockSubmissionState
 } from '../../shared/mocks/submission.mock';
 import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -57,9 +60,9 @@ describe('SubmissionObjectEffects test suite', () => {
   let actions: Observable<any>;
   let store: StoreMock<AppState>;
 
-  const notificationsServiceStub = new NotificationsServiceStub();
-  const submissionServiceStub = new SubmissionServiceStub();
-  const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
+  let notificationsServiceStub;
+  let submissionServiceStub;
+  let submissionJsonPatchOperationsServiceStub;
   const collectionId: string = mockSubmissionCollectionId;
   const submissionId: string = mockSubmissionId;
   const submissionDefinitionResponse: any = mockSubmissionDefinitionResponse;
@@ -68,6 +71,11 @@ describe('SubmissionObjectEffects test suite', () => {
   const submissionState: any = Object.assign({}, mockSubmissionState);
 
   beforeEach(() => {
+
+    notificationsServiceStub = new NotificationsServiceStub();
+    submissionServiceStub =  new SubmissionServiceStub();
+    submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
+
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({}, storeModuleConfig),
@@ -94,8 +102,8 @@ describe('SubmissionObjectEffects test suite', () => {
       ],
     });
 
-    submissionObjectEffects = TestBed.get(SubmissionObjectEffects);
-    store = TestBed.get(Store);
+    submissionObjectEffects = TestBed.inject(SubmissionObjectEffects);
+    store = TestBed.inject(Store as any);
   });
 
   describe('loadForm$', () => {
@@ -133,7 +141,7 @@ describe('SubmissionObjectEffects test suite', () => {
             sectionDefinition.visibility,
             enabled,
             sectionData,
-            sectionErrors))
+            sectionErrors));
         });
       mappedActions.push(new CompleteInitSubmissionFormAction(submissionId));
 
@@ -200,6 +208,52 @@ describe('SubmissionObjectEffects test suite', () => {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any
+        )
+      });
+
+      expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
+    });
+
+    it('should enable notifications if is manual', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
+          payload: {
+            submissionId: submissionId,
+            isManual: true
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      const expected = cold('--b-', {
+        b: new SaveSubmissionFormSuccessAction(
+          submissionId,
+          mockSubmissionRestResponse as any,
+          true
+        )
+      });
+
+      expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
+    });
+
+    it('should disable notifications if is not manual', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
+          payload: {
+            submissionId: submissionId,
+            isManual: false
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      const expected = cold('--b-', {
+        b: new SaveSubmissionFormSuccessAction(
+          submissionId,
+          mockSubmissionRestResponse as any,
+          false
         )
       });
 
@@ -292,7 +346,8 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
+            submissionObject: response,
+            notify: true
           }
         }
       });
@@ -322,6 +377,61 @@ describe('SubmissionObjectEffects test suite', () => {
       expect(submissionObjectEffects.saveSubmissionSuccess$).toBeObservable(expected);
       expect(notificationsServiceStub.success).toHaveBeenCalled();
 
+    });
+
+    it('should not display errors when notification are disabled and field are not touched', () => {
+      store.nextState({
+        submission: {
+          objects: submissionState
+        },
+        forms: {
+          '2_traditionalpageone': {
+            touched: {
+              'dc.title': true
+            }
+          }
+        }
+      } as any);
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsData,
+        errors: mockSectionsErrors
+      })];
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: response,
+            notify: false
+          }
+        }
+      });
+
+      const errorsList = parseSectionErrors(mockSectionsErrorsTwo);
+      const expected = cold('--(bcd)-', {
+        b: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpageone',
+          mockSectionsData.traditionalpageone as any,
+          errorsList.traditionalpageone
+        ),
+        c: new UpdateSectionDataAction(
+          submissionId,
+          'license',
+          mockSectionsData.license as any,
+          errorsList.license || []
+        ),
+        d: new UpdateSectionDataAction(
+          submissionId,
+          'upload',
+          mockSectionsData.upload as any,
+          errorsList.upload || []
+        ),
+      });
+
+      expect(submissionObjectEffects.saveSubmissionSectionSuccess$).toBeObservable(expected);
+      expect(notificationsServiceStub.warning).not.toHaveBeenCalled();
     });
 
     it('should display a success notification', () => {
@@ -467,6 +577,203 @@ describe('SubmissionObjectEffects test suite', () => {
 
       expect(submissionObjectEffects.saveSubmissionSuccess$).toBeObservable(expected);
       expect(submissionServiceStub.notifyNewSection).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('saveSubmissionSectionSuccess$', () => {
+
+    it('should return a UPDATE_SECTION_DATA action for each updated section', () => {
+      store.nextState({
+        submission: {
+          objects: submissionState
+        }
+      } as any);
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsData,
+        errors: mockSectionsErrors
+      })];
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: response
+          }
+        }
+      });
+
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      const expected = cold('--(bcd)-', {
+        b: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpageone',
+          mockSectionsData.traditionalpageone as any,
+          []
+        ),
+        c: new UpdateSectionDataAction(
+          submissionId,
+          'license',
+          mockSectionsData.license as any,
+          errorsList.license || []
+        ),
+        d: new UpdateSectionDataAction(
+          submissionId,
+          'upload',
+          mockSectionsData.upload as any,
+          errorsList.upload || []
+        ),
+      });
+
+      expect(submissionObjectEffects.saveSubmissionSectionSuccess$).toBeObservable(expected);
+
+    });
+
+    it('should not display a success notification', () => {
+      store.nextState({
+        submission: {
+          objects: submissionState
+        }
+      } as any);
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsData
+      })];
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: response
+          }
+        }
+      });
+
+      const expected = cold('--(bcd)-', {
+        b: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpageone',
+          mockSectionsData.traditionalpageone as any,
+          []
+        ),
+        c: new UpdateSectionDataAction(
+          submissionId,
+          'license',
+          mockSectionsData.license as any,
+          []
+        ),
+        d: new UpdateSectionDataAction(
+          submissionId,
+          'upload',
+          mockSectionsData.upload as any,
+          []
+        ),
+      });
+
+      expect(submissionObjectEffects.saveSubmissionSectionSuccess$).toBeObservable(expected);
+      expect(notificationsServiceStub.success).not.toHaveBeenCalled();
+    });
+
+    it('should not display a warning notification when there are errors', () => {
+      store.nextState({
+        submission: {
+          objects: submissionState
+        }
+      } as any);
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsData,
+        errors: mockSectionsErrors
+      })];
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: response
+          }
+        }
+      });
+
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      console.log(errorsList);
+      const expected = cold('--(bcd)-', {
+        b: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpageone',
+          mockSectionsData.traditionalpageone as any,
+          []
+        ),
+        c: new UpdateSectionDataAction(
+          submissionId,
+          'license',
+          mockSectionsData.license as any,
+          errorsList.license || []
+        ),
+        d: new UpdateSectionDataAction(
+          submissionId,
+          'upload',
+          mockSectionsData.upload as any,
+          errorsList.upload || []
+        ),
+      });
+
+      expect(submissionObjectEffects.saveSubmissionSectionSuccess$).toBeObservable(expected);
+      expect(notificationsServiceStub.warning).not.toHaveBeenCalled();
+    });
+
+    it('should detect new sections but not notify for it', () => {
+      store.nextState({
+        submission: {
+          objects: submissionState
+        }
+      } as any);
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsDataTwo,
+        errors: mockSectionsErrors
+      })];
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: response,
+          }
+        }
+      });
+
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      const expected = cold('--(bcde)-', {
+        b: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpageone',
+          mockSectionsDataTwo.traditionalpageone as any,
+          []
+        ),
+        c: new UpdateSectionDataAction(
+          submissionId,
+          'traditionalpagetwo',
+          mockSectionsDataTwo.traditionalpagetwo as any,
+          errorsList.traditionalpagetwo || []
+        ),
+        d: new UpdateSectionDataAction(
+          submissionId,
+          'license',
+          mockSectionsDataTwo.license as any,
+          errorsList.license || []
+        ),
+        e: new UpdateSectionDataAction(
+          submissionId,
+          'upload',
+          mockSectionsDataTwo.upload as any,
+          errorsList.upload || []
+        ),
+      });
+
+      expect(submissionObjectEffects.saveSubmissionSectionSuccess$).toBeObservable(expected);
+      expect(submissionServiceStub.notifyNewSection).not.toHaveBeenCalled();
     });
 
   });

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
@@ -14,10 +14,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemReinstateComponent } from './item-reinstate.component';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 let comp: ItemReinstateComponent;
 let fixture: ComponentFixture<ItemReinstateComponent>;
@@ -30,7 +27,7 @@ let routeStub;
 let notificationsServiceStub;
 
 describe('ItemReinstateComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',

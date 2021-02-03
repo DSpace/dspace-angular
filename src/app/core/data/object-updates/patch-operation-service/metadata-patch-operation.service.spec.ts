@@ -52,7 +52,7 @@ describe('MetadataPatchOperationService', () => {
           }
         });
         expected = [
-          { op: 'add', path: '/metadata/dc.title/-', value: [ { value: 'Added title', language: undefined } ] }
+          { op: 'add', path: '/metadata/dc.title/-', value: [{ value: 'Added title', language: undefined }] }
         ] as any[];
         result = service.fieldUpdatesToPatchOperations(fieldUpdates);
       });

@@ -9,7 +9,7 @@ import {
  * The Submission State
  */
 export interface SubmissionState {
-  'objects': SubmissionObjectState
+  'objects': SubmissionObjectState;
 }
 
 export const submissionReducers: ActionReducerMap<SubmissionState> = {

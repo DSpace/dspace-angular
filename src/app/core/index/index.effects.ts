@@ -41,7 +41,7 @@ export class UUIDIndexEffects {
             IndexName.ALTERNATIVE_OBJECT_LINK,
             alternativeLink,
             selfLink
-          )
+          );
         } else {
           return { type: 'NO_ACTION' };
         }

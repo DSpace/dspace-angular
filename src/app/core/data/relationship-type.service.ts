@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { filter, find, map, mergeMap, switchMap } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';
 import { isNotUndefined } from '../../shared/empty.util';
@@ -43,7 +42,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<RelationshipType>,
               protected appStore: Store<AppState>) {
-    super()
+    super();
   }
 
   /**

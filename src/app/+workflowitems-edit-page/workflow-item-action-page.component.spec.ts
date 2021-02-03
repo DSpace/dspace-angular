@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { WorkflowItemActionPageComponent } from './workflow-item-action-page.component';
@@ -36,7 +36,7 @@ describe('WorkflowItemActionPageComponent', () => {
     id = 'de11b5e5-064a-4e98-a7ac-a1a6a65ddf80';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({

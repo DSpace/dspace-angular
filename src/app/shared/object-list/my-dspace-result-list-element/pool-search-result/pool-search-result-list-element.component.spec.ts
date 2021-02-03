@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -60,7 +60,7 @@ mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem:
 const linkService = getMockLinkService();
 
 describe('PoolSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [PoolSearchResultListElementComponent, VarDirective],
@@ -74,7 +74,7 @@ describe('PoolSearchResultListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(PoolSearchResultListElementComponent);
     component = fixture.componentInstance;
   }));

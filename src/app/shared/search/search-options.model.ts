@@ -47,13 +47,13 @@ export class SearchOptions {
     if (isNotEmpty(this.dsoTypes)) {
       this.dsoTypes.forEach((dsoType: string) => {
         args.push(`dsoType=${dsoType}`);
-      })
+      });
     }
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {
         filter.values.forEach((value) => {
           const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
-          args.push(`${filter.key}=${filterValue}`)
+          args.push(`${filter.key}=${filterValue}`);
         });
       });
     }

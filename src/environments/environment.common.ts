@@ -23,7 +23,7 @@ export const environment: GlobalConfig = {
   // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
   rest: {
     ssl: true,
-    host: 'dspace7.4science.cloud',
+    host: 'api7.dspace.org',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server',
@@ -65,9 +65,12 @@ export const environment: GlobalConfig = {
   submission: {
     autosave: {
       // NOTE: which metadata trigger an autosave
-      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
-      // NOTE: every how many minutes submission is saved automatically
-      timer: 5
+      metadata: [],
+      /**
+       * NOTE: after how many time (milliseconds) submission is saved automatically
+       * eg. timer: 5 * (1000 * 60); // 5 minutes
+       */
+      timer: 0
     },
     icons: {
       metadata: [

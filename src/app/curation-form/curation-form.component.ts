@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { map } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
@@ -13,7 +13,6 @@ import { Process } from '../process-page/processes/process.model';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/internal/operators/find';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
@@ -66,10 +65,7 @@ export class CurationFormComponent implements OnInit {
    * Determines whether the inputted dsoHandle has a value
    */
   hasHandleValue() {
-    if (hasValue(this.dsoHandle)) {
-      return true;
-    }
-    return false;
+    return hasValue(this.dsoHandle);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
@@ -29,7 +29,7 @@ describe('EditCollectionPageComponent', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [EditCollectionPageComponent],
@@ -50,6 +50,6 @@ describe('EditCollectionPageComponent', () => {
   describe('type', () => {
     it('should have the right type set', () => {
       expect((comp as any).type).toEqual('collection');
-    })
+    });
   });
 });

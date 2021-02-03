@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CurationFormComponent } from './curation-form.component';
@@ -28,7 +28,7 @@ describe('CurationFormComponent', () => {
 
   const process = Object.assign(new Process(), {processId: 'process-id'});
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       invoke: createSuccessfulRemoteDataObject$(process)
