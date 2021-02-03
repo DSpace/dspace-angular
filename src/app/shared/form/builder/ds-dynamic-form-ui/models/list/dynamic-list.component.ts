@@ -123,9 +123,14 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
         entries.page.forEach((option, key) => {
           const value = option.authority || option.value;
-          const checked: boolean = isNotEmpty(findKey(
-            this.model.value,
-            (v) => v.value === option.value));
+          let checked: boolean;
+          if (this.model.repeatable) {
+            checked = isNotEmpty(findKey(
+              this.model.value,
+              (v) => v.value === option.value));
+          } else {
+            checked = this.model.value && option.value === this.model.value.value;
+          }
 
           const item: ListItem = {
             id: value,

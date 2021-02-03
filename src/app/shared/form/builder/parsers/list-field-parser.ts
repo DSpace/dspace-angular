@@ -23,6 +23,9 @@ export class ListFieldParser extends FieldParser {
             listModelConfig.value.push(valueObj);
           }
         });
+        if (!listModelConfig.repeatable) {
+          listModelConfig.value = listModelConfig.value[0];
+        }
       }
       this.setVocabularyOptions(listModelConfig, this.parserOptions.collectionUUID);
     }

@@ -61,7 +61,7 @@ describe('ListFieldParser test suite', () => {
     expect(fieldModel instanceof DynamicListRadioGroupModel).toBe(true);
   });
 
-  it('should set init value properly', () => {
+  it('should set init value properly when repeatable option is true', () => {
     initFormValues = {
       type: [new FormFieldMetadataValueObject('test type')],
     };
@@ -74,4 +74,17 @@ describe('ListFieldParser test suite', () => {
     expect(fieldModel.value).toEqual(expectedValue);
   });
 
+  it('should set init value properly when repeatable option is false', () => {
+    field.repeatable = false;
+    initFormValues = {
+      type: [new FormFieldMetadataValueObject('test type')],
+    };
+    const expectedValue = new FormFieldMetadataValueObject('test type');
+
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions);
+
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.value).toEqual(expectedValue);
+  });
 });
