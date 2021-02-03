@@ -18,7 +18,7 @@ describe('RootDataService', () => {
     service = new RootDataService(null, null, null, null, halService, null, null, null);
     (service as any).dataService = jasmine.createSpyObj('dataService', {
       findByHref: createSuccessfulRemoteDataObject$({})
-    })
+    });
   });
 
   describe('findRoot', () => {

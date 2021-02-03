@@ -69,7 +69,7 @@ export class RootDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findRoot(reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Root>>): Observable<RemoteData<Root>> {
+  findRoot(reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
     return this.dataService.findByHref(this.halService.getRootHref(), reRequestOnStale, ...linksToFollow);
   }
 
@@ -82,7 +82,7 @@ export class RootDataService {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Root>>): Observable<RemoteData<Root>> {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
     return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
@@ -96,7 +96,7 @@ export class RootDataService {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Root>>): Observable<RemoteData<PaginatedList<Root>>> {
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<PaginatedList<Root>>> {
     return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 }
