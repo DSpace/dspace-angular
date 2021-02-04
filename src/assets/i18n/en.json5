@@ -402,6 +402,8 @@
 
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
 
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
   "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
