@@ -391,6 +391,12 @@
 // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.edited.failure": "EPerson \"{{name}}\" szerkesztése nem sikerült",
 
+// "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "Sikeresen törölve: EPerson \"{{name}}\"",
+
+// "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Nem sikerült törülni: EPerson \"{{name}}\"",
+
 // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Tagja a következő csoportoknak:",
 
@@ -416,6 +422,12 @@
 
 // "admin.access-control.groups.title": "DSpace Angular :: Groups",
   "admin.access-control.groups.title": "DSpace Angular :: Csoportok",
+
+// "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Csoport szerkesztése",
+
+// "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Új csoport",
 
 // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Csoportok",
@@ -460,7 +472,10 @@
   "admin.access-control.groups.notification.deleted.success": "\"{{name}}\" csoport törlése sikerült",
 
 // "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure": "\"{{name}}\" csoport törlése nem sikerült",
+  "admin.access-control.groups.notification.deleted.failure.title": "\"{{name}}\" csoport törlése nem sikerült",
+
+// "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+  "admin.access-control.groups.notification.deleted.failure.content": "Ok: \"{{cause}}\"",
 
 
 
@@ -490,6 +505,39 @@
 
 // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Nem sikerült csoport létrehozása a következő névvel: \"{{name}}\", győződjön meg róla, hogy a név nincs már használatban.",
+
+// "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "Nem sikerült szerkeszteni a csoportot \"{{name}}\"",
+
+// "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "A(z) \"{{name}}\" név már foglalt!",
+
+// "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": "Sikeresen szerkesztett csoport: \"{{name}}\"",
+
+// "admin.access-control.groups.form.actions.delete": "Delete Group",
+  "admin.access-control.groups.form.actions.delete": "Csoport törlése",
+
+// "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": "Csoport törlése: \"{{ dsoName }}\"",
+
+// "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Biztos törli a csoportot: \"{{ dsoName }}\"",
+
+// "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Mégsem",
+
+// "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Törlés",
+
+// "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": "Csoport sikeresen törölve: \"{{ name }}\"",
+
+// "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Nem sikerült törölni a csoportot: \"{{ name }}\"",
+
+// "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Ok: \"{{ cause }}\"",
 
 // "admin.access-control.groups.form.members-list.head": "EPeople",
   "admin.access-control.groups.form.members-list.head": "EPeople",
@@ -634,17 +682,11 @@
 // "admin.search.item.move": "Move",
   "admin.search.item.move": "Költöztetés",
 
-// "admin.search.item.private": "Private",
-  "admin.search.item.private": "Privát",
-
 // "admin.search.item.reinstate": "Reinstate",
   "admin.search.item.reinstate": "Visszaállítás",
 
 // "admin.search.item.withdraw": "Withdraw",
   "admin.search.item.withdraw": "Visszavonás",
-
-// "admin.search.item.withdrawn": "Withdrawn",
-  "admin.search.item.withdrawn": "Visszavonva",
 
 // "admin.search.title": "Administrative Search",
   "admin.search.title": "Adminisztratív keresés",
@@ -695,6 +737,7 @@
 
 // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Előbb válassza ki a fájlt!",
+
 
 
 
@@ -876,6 +919,9 @@
 // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
   "collection.create.sub-head": "Hozzon létre gyűjteményt a közösség számára {{ parent }}",
 
+// "collection.curate.header": "Curate Collection: {{collection}}",
+  "collection.curate.header": "Gyűjtemény gondozója: {{collection}}",
+
 // "collection.delete.cancel": "Cancel",
   "collection.delete.cancel": "Mégse",
 
@@ -1002,6 +1048,12 @@
 
 // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
   "collection.edit.tabs.metadata.title": "Gyűjtemény szerkesztés - Metaadat",
+
+// "collection.edit.tabs.roles.head": "Assign Roles",
+  "collection.edit.tabs.roles.head": "Jogok hozzárendelése",
+
+// "collection.edit.tabs.roles.title": "Collection Edit - Roles",
+  "collection.edit.tabs.roles.title": "Gyűjtemény szerkesztése - Jogok",
 
 // "collection.edit.tabs.roles.head": "Assign Roles",
   "collection.edit.tabs.roles.head": "Feladatok kijelölése",
@@ -1187,6 +1239,9 @@
 // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   "community.create.sub-head": "Hozzon létre egy alközösséget a közösségben {{ parent }}",
 
+// "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "Közösség gondozása: {{community}}",
+
 // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "Mégse",
 
@@ -1242,8 +1297,10 @@
   "community.edit.notifications.success": "Közösség szerkesztése sikerült",
 
 // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+  "community.edit.notifications.unauthorized": "Nincs meg a szükséges jogosultsága a változtatáshoz",
 
 // "community.edit.notifications.error": "An error occured while editing the Community",
+  "community.edit.notifications.error": "Hiba történt a közösség szerkesztésekor",
 
 // "community.edit.return": "Return",
   "community.edit.return": "Vissza",
@@ -1374,6 +1431,9 @@
 
 // "community.form.title": "Name",
   "community.form.title": "Név",
+
+// "community.page.edit": "Edit this community",
+  "community.page.edit": "Közösség szerkesztése",
 
 // "community.page.handle": "Permanent URI for this community",
   "community.page.handle": "Állandó URI ehhez a közösséghez",
@@ -1533,6 +1593,7 @@
   "dso-selector.create.collection.head": "Új gyűjtemény",
 
 // "dso-selector.create.collection.sub-level": "Create a new collection in",
+  "dso-selector.create.collection.sub-level": "Új közösség létrehozása benne",
 
 // "dso-selector.create.community.head": "New community",
   "dso-selector.create.community.head": "Új közösség",
@@ -1595,7 +1656,6 @@
 
 // "confirmation-modal.delete-eperson.confirm": "Delete",
   "confirmation-modal.delete-eperson.confirm": "Töröl",
-
 
 
 // "error.bitstream": "Error fetching bitstream",
@@ -2141,6 +2201,9 @@
 // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
   "item.edit.metadata.edit.buttons.unedit": "Szerkesztés leállítása",
 
+// "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+  "item.edit.metadata.empty": "Az elem jelenleg nem tartalmaz metaadatot. Kattintson a Hozzáad-ra metaadatok hozzáadásához.",
+
 // "item.edit.metadata.headers.edit": "Edit",
   "item.edit.metadata.headers.edit": "Szerkesztés",
 
@@ -2161,6 +2224,9 @@
 
 // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
   "item.edit.metadata.notifications.discarded.title": "Módosítva elvetve",
+
+// "item.edit.metadata.notifications.error.title": "An error occurred",
+  "item.edit.metadata.notifications.error.title": "Hiba történt",
 
 // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   "item.edit.metadata.notifications.invalid.content": "Módosításai nincsenek elmentve, Kérjük mentés előtt ellenőrizze, hogy valamennyi mező érvényes.",
@@ -2518,6 +2584,9 @@
 // "item.page.date": "Date",
   "item.page.date": "Dátum",
 
+// "item.page.edit": "Edit this item",
+  "item.page.edit": "Elem szerkesztése",
+
 // "item.page.files": "Files",
   "item.page.files": "Állományok",
 
@@ -2674,6 +2743,9 @@
 // "journal.page.description": "Description",
   "journal.page.description": "Leírás",
 
+// "journal.page.edit": "Edit this item",
+  "journal.page.edit": "Elem szerkesztése",
+
 // "journal.page.editor": "Editor-in-Chief",
   "journal.page.editor": "Főszerkesztő",
 
@@ -2700,6 +2772,9 @@
 // "journalissue.page.description": "Description",
   "journalissue.page.description": "Leírás",
 
+// "journalissue.page.edit": "Edit this item",
+  "journalissue.page.edit": "Elem szerkesztése",
+
 // "journalissue.page.issuedate": "Issue Date",
   "journalissue.page.issuedate": "Megjelenés dátuma",
 
@@ -2725,6 +2800,9 @@
 
 // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "Leírás",
+
+// "journalvolume.page.edit": "Edit this item",
+  "journalvolume.page.edit": "Elem szerkesztése",
 
 // "journalvolume.page.issuedate": "Issue Date",
   "journalvolume.page.issuedate": "Megjelenés dátuma",
@@ -2964,6 +3042,9 @@
 // "menu.section.icon.pin": "Pin sidebar",
   "menu.section.icon.pin": "Oldalsáv rögzítése",
 
+// "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Menü felület feldolgozása",
+
 // "menu.section.icon.registries": "Registries menu section",
   "menu.section.icon.registries": "Leíró adatbázis menü felület",
 
@@ -3121,6 +3202,12 @@
 // "mydspace.new-submission": "New submission",
   "mydspace.new-submission": "Új feltöltés",
 
+// "mydspace.new-submission-external": "Import metadata from external source",
+  "mydspace.new-submission-external": "Metaadat importálása külső forrásból",
+
+// "mydspace.new-submission-external-short": "Import metadata",
+  "mydspace.new-submission-external-short": "Metaadat importálása",
+
 // "mydspace.results.head": "Your submissions",
   "mydspace.results.head": "Az ön feltöltései",
 
@@ -3267,8 +3354,14 @@
 // "person.listelement.badge": "Person",
   "person.listelement.badge": "Személy",
 
+// "person.listelement.no-title": "No name found",
+  "person.listelement.no-title": "A névre nincs találat",
+
 // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "Születés dátuma",
+
+// "person.page.edit": "Edit this item",
+  "person.page.edit": "Elem szerkesztése",
 
 // "person.page.email": "Email Address",
   "person.page.email": "Email cím",
@@ -3781,6 +3874,12 @@
 // "relationships.isAuthorOf": "Authors",
   "relationships.isAuthorOf": "Szerzők",
 
+// "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.isAuthorOf.Person": "Szerzők (személye)",
+
+// "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.isAuthorOf.OrgUnit": "Szerzők (szervezeti egységek)",
+
 // "relationships.isIssueOf": "Journal Issues",
   "relationships.isIssueOf": "Folyóirat számok",
 
@@ -3833,6 +3932,12 @@
 
 // "resource-policies.add.for.item": "Add a new Item policy",
   "resource-policies.add.for.item": "Új elem szabály",
+
+// "resource-policies.add.for.community": "Add a new Community policy",
+  "resource-policies.add.for.community": "Új közösségi szabály hozzáadása",
+
+// "resource-policies.add.for.collection": "Add a new Collection policy",
+  "resource-policies.add.for.collection": "Új gyűjtemény szabály hozzáadása",
 
 // "resource-policies.create.page.heading": "Create new resource policy for ",
   "resource-policies.create.page.heading": "Új erőforráa szabály ...",
@@ -3956,6 +4061,12 @@
 
 // "resource-policies.table.headers.title.for.item": "Policies for Item",
   "resource-policies.table.headers.title.for.item": "Elem szabály",
+
+// "resource-policies.table.headers.title.for.community": "Policies for Community",
+  "resource-policies.table.headers.title.for.community": "Közösségi szabályok",
+
+// "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+  "resource-policies.table.headers.title.for.collection": "Gyűjtemény szabályok",
 
 
 
@@ -4446,14 +4557,20 @@
 // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "LC Nnévről importál",
 
-// "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "Importing from ORCID",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "ORCID-ról importál",
+// "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "ORCID-ról importál",
 
 // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa Journal-ról importál",
 
 // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa Publisher-ről importál",
+
+// "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed-ről importál",
+
+// "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "arXiv-ről importál",
 
 // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Importál",
@@ -4512,17 +4629,44 @@
 // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
   "submission.sections.describe.relationship-lookup.selected": "Kiválasztott {{ size }} tárgyak",
 
-// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Local Authors ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Helyi szerzők ({{ count }})",
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Helyi szerzők ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Helyi folyóiratok ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Helyi projektek ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Helyi kiadványok ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Helyi szerzők ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Helyi szervezeti egységek ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Helyi adat csomagok ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Helyi adatállományok ({{ count }})",
 
 // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Helyi folyóiratok ({{ count }})",
 
-// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Local Journal Issues ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Helyi folyóiratszámok ({{ count }})",
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Helyi folyóiratszámok ({{ count }})",
 
-// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Local Journal Volumes ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Helyi folyóiratkötetek ({{ count }})",
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Helyi folyóiratszámok ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Helyi folyóiratkötetek ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Helyi folyóiratkötetek ({{ count }})",
 
 // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa folyóiratok ({{ count }})",
@@ -4530,38 +4674,77 @@
 // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa kiadók ({{ count }})",
 
-// "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
 // "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Nevek ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
-// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Támogató szervezetek keresése",
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
 
-// "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Támogatás keresése",
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Támogató szervezetek keresése",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Támogatás keresése",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Intézményi egységek kereséset",
 
 // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Jelenleg kiválasztott ({{ count }})",
 
-// "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.Journal Issue": "Folyóirat számok",
+// "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Folyóirat számok",
 
-// "submission.sections.describe.relationship-lookup.title.Journal Volume": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.Journal Volume": "Folyóirat kötetek",
+// "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Folyóirat számok",
 
-// "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
-  "submission.sections.describe.relationship-lookup.title.Journal": "Folyóiratok",
+// "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Folyóirat kötetek",
 
-// "submission.sections.describe.relationship-lookup.title.Author": "Authors",
-  "submission.sections.describe.relationship-lookup.title.Author": "Szerzők",
+// "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Folyóirat kötetek",
+
+// "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Folyóiratok",
+
+// "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Szerzők",
+
+// "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Támogató szervezet",
+
+// "submission.sections.describe.relationship-lookup.title.Project": "Projects",
+  "submission.sections.describe.relationship-lookup.title.Project": "Projektek",
+
+// "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+  "submission.sections.describe.relationship-lookup.title.Publication": "Kiadványok",
+
+// "submission.sections.describe.relationship-lookup.title.Person": "Authors",
+  "submission.sections.describe.relationship-lookup.title.Person": "Szerzők",
+
+// "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Szervezeti egységek",
+
+// "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Adatcsomagok",
+
+// "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Adatállományok",
 
 // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.Funding Agency": "Támogató szervezet",
 
-// "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
-  "submission.sections.describe.relationship-lookup.title.Funding": "Támogatás",
+// "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Támogatás",
+
+// "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Szülő szervezeti egység",
 
 // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Lenyíló menü váltás",
@@ -4572,29 +4755,74 @@
 // "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
   "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Amit kiválasztott az jelenleg üres.",
 
-// "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Selected Authors",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Választott szerzők",
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Kiválasztott szerzők",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Választott folyóirat",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Választott folyóirat kötet",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Választott projektek",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Választott kiadványok",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Választott szerzők",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Választott szervezeti egységek",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Választott adatcsomagok",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Választott adatfájlok",
 
 // "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Választott folyóiratok",
 
-// "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Választott folyóirat kötet",
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Választott szám",
 
-// "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Választott szám",
+// "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Választott folyóirat kötet",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Választott támogató szervezet",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Választott támogatás",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Választott szám",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Választott szervezeti egység",
 
 // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Keresési eredmények",
 
 // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Keresési eredmények",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Keresése eredmények",
 
-// "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Keresési eredmények",
+//  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Keresése eredmények",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Keresése eredmények",
 
 // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Keresési eredmények",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Keresése eredmények",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Keresése eredmények",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Keresése eredmények",
 
 // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Óhajtja-e elmenteni \"{{ value }}\" névváltozatként ennek a személynek, hogy később ön is és mások is újrahasználhassák feltöltéshez? Amennyiben nem, még mindig használhatja ehhez a feltöltéshez.",
