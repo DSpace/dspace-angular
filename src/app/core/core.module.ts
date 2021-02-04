@@ -161,6 +161,11 @@ import { SiteRegisterGuard } from './data/feature-authorization/feature-authoriz
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { Root } from './data/root.model';
+import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
+import { OpenaireBrokerEventObject } from './openaire/broker/models/openaire-broker-event.model';
+import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestion } from './openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/openaire-suggestion-source.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -353,6 +358,11 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    OpenaireBrokerTopicObject,
+    OpenaireBrokerEventObject,
+    OpenaireSuggestion,
+    OpenaireSuggestionTarget,
+    OpenaireSuggestionSource
   ];
 
 @NgModule({

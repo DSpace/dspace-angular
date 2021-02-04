@@ -446,6 +446,19 @@
 
 
 
+  "admin.notifications.openairebroker.breadcrumbs": "OpenAIRE Broker",
+
+  "admin.notifications.openairebroker.page.title": "OpenAIRE Broker",
+
+  "admin.notifications.openaireevent.breadcrumbs": "OpenAIRE Broker Suggestions",
+
+  "admin.notifications.openaireevent.page.title": "OpenAIRE Broker Suggestions",
+
+  "admin.notifications.recitersuggestion.breadcrumbs": "Suggestions",
+
+  "admin.notifications.recitersuggestion.page.title": "Suggestions",
+
+
   "admin.search.breadcrumbs": "Administrative Search",
 
   "admin.search.collection.edit": "Edit",
@@ -2005,6 +2018,14 @@
 
 
 
+  "menu.section.notifications": "Notifications",
+
+  "menu.section.notifications_openaire_broker": "OpenAIRE Broker",
+
+  "menu.section.notifications_reciter": "Publication Claim",
+
+
+
   "menu.section.access_control": "Access Control",
 
   "menu.section.access_control_authorizations": "Authorizations",
@@ -2080,6 +2101,8 @@
   "menu.section.icon.edit": "Edit menu section",
 
   "menu.section.icon.export": "Export menu section",
+
+  "menu.section.icon.notifications": "Notifictions menu section",
 
   "menu.section.icon.find": "Find menu section",
 
@@ -2272,6 +2295,187 @@
   "nav.statistics.header": "Statistics",
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
+
+
+
+  "openaire.broker.title": "OpenAIRE Broker",
+
+  "openaire.broker.topics.description": "Below you can see all the topics received from the subscriptions to OpenAIRE.",
+
+  "openaire.broker.topics": "Current Topics",
+
+  "openaire.broker.table.topic": "Topic",
+
+  "openaire.broker.table.last-event": "Last Event",
+
+  "openaire.broker.table.actions": "Actions",
+
+  "openaire.broker.button.detail": "Show details",
+
+  "openaire.broker.noTopics": "No topics found.",
+
+  "openaire.broker.topic.error.service.retrieve": "An error occurred while loading the OpenAIRE Broker topics",
+
+  "openaire.broker.loading": "Loading ...",
+
+  "openaire.events.title": "OpenAIRE Broker Suggestions",
+
+  "openaire.broker.events.description": "Below the list of all the suggestions, received from OpenAIRE, for the selected topic.",
+
+  "openaire.broker.events.topic": "Topic:",
+
+  "openaire.broker.noEvents": "No suggestions found.",
+
+  "openaire.broker.event.table.trust": "Trust",
+
+  "openaire.broker.event.table.publication": "Publication",
+
+  "openaire.broker.event.table.details": "Details",
+
+  "openaire.broker.event.table.project-details": "Project details",
+
+  "openaire.broker.event.table.actions": "Actions",
+
+  "openaire.broker.event.action.accept": "Accept suggestion",
+
+  "openaire.broker.event.action.ignore": "Ignore suggestion",
+
+  "openaire.broker.event.action.reject": "Reject suggestion",
+
+  "openaire.broker.event.action.import": "Import project and accept suggestion",
+
+  "openaire.broker.event.table.pidtype": "PID Type:",
+
+  "openaire.broker.event.table.pidvalue": "PID Value:",
+
+  "openaire.broker.event.table.subjectValue": "Subject Value:",
+
+  "openaire.broker.event.table.abstract": "Abstract:",
+
+  "openaire.broker.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+
+  "openaire.broker.event.table.project": "Project title:",
+
+  "openaire.broker.event.table.acronym": "Acronym:",
+
+  "openaire.broker.event.table.code": "Code:",
+
+  "openaire.broker.event.table.funder": "Funder:",
+
+  "openaire.broker.event.table.fundingProgram": "Funding program:",
+
+  "openaire.broker.event.table.jurisdiction": "Jurisdiction:",
+
+  "openaire.broker.events.back": "Back to topics",
+
+  "openaire.broker.event.table.less": "Show less",
+
+  "openaire.broker.event.table.more": "Show more",
+
+  "openaire.broker.event.project.found": "Bound to the local record:",
+
+  "openaire.broker.event.project.notFound": "No local record found",
+
+  "openaire.broker.event.sure": "Are you sure?",
+
+  "openaire.broker.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+
+  "openaire.broker.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+
+  "openaire.broker.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+
+  "openaire.broker.event.action.cancel": "Cancel",
+
+  "openaire.broker.event.action.saved": "Your decision has been saved successfully.",
+
+  "openaire.broker.event.action.error": "An error has occurred. Your decision has not been saved.",
+
+  "openaire.broker.event.modal.project.title": "Choose a project to bound",
+
+  "openaire.broker.event.modal.project.publication": "Publication:",
+
+  "openaire.broker.event.modal.project.bountToLocal": "Bound to the local record:",
+
+  "openaire.broker.event.modal.project.select": "Project search",
+
+  "openaire.broker.event.modal.project.search": "Search",
+
+  "openaire.broker.event.modal.project.clear": "Clear",
+
+  "openaire.broker.event.modal.project.cancel": "Cancel",
+
+  "openaire.broker.event.modal.project.bound": "Bound project",
+
+  "openaire.broker.event.modal.project.placeholder": "Enter a project name",
+
+  "openaire.broker.event.modal.project.notFound": "No project found.",
+
+  "openaire.broker.event.project.bounded": "The project has been linked successfully.",
+
+  "openaire.broker.event.project.removed": "The project has been successfully unlinked.",
+
+  "openaire.broker.event.project.error": "An error has occurred. No operation performed.",
+
+  "openaire.broker.event.reason": "Reason",
+
+  "reciter.suggestion.loading": "Loading ...",
+
+  "reciter.suggestion.title": "Suggestions",
+
+  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
+
+  "reciter.suggestion.targets": "Current Suggestions",
+
+  "reciter.suggestion.table.name": "Researcher Name",
+
+  "reciter.suggestion.table.actions": "Actions",
+
+  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
+
+  "reciter.suggestion.noTargets": "No target found.",
+
+  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+
+  "reciter.suggestion.evidence.type": "Type",
+
+  "reciter.suggestion.evidence.score": "Score",
+
+  "reciter.suggestion.evidence.notes": "Notes",
+
+  "reciter.suggestion.approveAndImport": "Approve & import",
+
+  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully",
+
+  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
+
+  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+
+  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+
+  "reciter.suggestion.notMine": "Not mine",
+
+  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
+
+  "reciter.suggestion.notMine.bulk": "Not mine Selected",
+
+  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
+
+  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+
+  "reciter.suggestion.seeEvidence": "See evidence",
+
+  "reciter.suggestion.hideEvidence": "Hide evidence",
+
+  "reciter.suggestion.suggestionFor": "Suggestion for",
+
+  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
+
+  "reciter.suggestion.from.source": "from the ",
+
+  "reciter.suggestion.totalScore": "Total Score",
+
+
+
 
 
 
@@ -2870,6 +3074,10 @@
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
+
+  "search.filters.filter.funding.head": "Funding",
+
+  "search.filters.filter.funding.placeholder": "Funding",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 

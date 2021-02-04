@@ -9,8 +9,10 @@ import {
   first,
   map,
   mergeMap,
+  switchMap,
   take,
-  takeWhile, switchMap, tap,
+  takeWhile,
+  tap,
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -27,7 +29,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   getRemoteDataPayload,
-  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteData
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
@@ -35,12 +37,15 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {
   CreateRequest,
+  DeleteByIDRequest,
+  DeleteRequest,
   FindByIDRequest,
   FindListOptions,
   FindListRequest,
   GetRequest,
   PatchRequest,
-  PutRequest, DeleteRequest
+  PostRequest,
+  PutRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
@@ -540,6 +545,53 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     });
 
     return result$;
+  }
+
+  /**
+   * Perform a post on an endpoint related item with ID. Ex.: endpoint/<itemId>/related?item=<relatedItemId>
+   * @param itemId The item id
+   * @param relatedItemId The related item Id
+   * @param body The optional POST body
+   * @return the RestResponse as an Observable
+   */
+  public postOnRelated(itemId: string, relatedItemId: string, body?: any) {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(itemId);
+
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href + '/related?item=' + relatedItemId, body);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID<T>(requestId);
+  }
+
+  /**
+   * Perform a delete on an endpoint related item. Ex.: endpoint/<itemId>/related
+   * @param itemId The item id
+   * @return the RestResponse as an Observable
+   */
+  public deleteOnRelated(itemId: string): Observable<RemoteData<NoContent>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getIDHrefObs(itemId);
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new DeleteByIDRequest(requestId, href + '/related', itemId);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**

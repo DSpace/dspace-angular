@@ -11,8 +11,10 @@
           <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
             <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
             <button class="dropdown-item" *ngFor="let item of pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != pageSize}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
-            <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
-            <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== sortDirection}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
+            <ng-container *ngIf="!hideSortOptions">
+              <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
+              <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== sortDirection}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
+            </ng-container>
           </div>
         </div>
       </div>

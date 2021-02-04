@@ -96,6 +96,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Input() public hideGear = false;
 
   /**
+   * Option for hiding the gear
+   */
+  @Input() public hideSortOptions = false;
+
+  /**
    * Option for hiding the pager when there is less than 2 pages
    */
   @Input() public hidePagerWhenSinglePage = true;

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom pb-2">{{'openaire.broker.title'| translate}}</h2>
+      <p>{{'openaire.broker.topics.description'| translate}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h3 class="border-bottom pb-2">{{'openaire.broker.topics'| translate}}</h3>
+
+      <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
+      <ds-pagination *ngIf="!(isTopicsLoading() | async)"
+                     [paginationOptions]="paginationConfig"
+                     [collectionSize]="(totalElements$ | async)"
+                     [hideGear]="false"
+                     [hideSortOptions]="true"
+                     [hidePagerWhenSinglePage]="false"
+                     [disableRouteParameterUpdate]="false"
+                     (pageChange)="setPage($event)"
+                     (pageSizeChange)="setPageSize($event)">
+
+        <ds-loading class="container" *ngIf="(isTopicsProcessing() | async)" message="'openaire.broker.loading' | translate"></ds-loading>
+        <ng-container *ngIf="!(isTopicsProcessing() | async)">
+          <div *ngIf="(topics$|async)?.length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+            {{'openaire.broker.noTopics' | translate}}
+          </div>
+          <div *ngIf="(topics$|async)?.length != 0" class="table-responsive mt-2">
+            <table id="epeople" class="table table-striped table-hover table-bordered">
+              <thead>
+              <tr>
+                <th scope="col">{{'openaire.broker.table.topic' | translate}}</th>
+                <th scope="col">{{'openaire.broker.table.last-event' | translate}}</th>
+                <th scope="col">{{'openaire.broker.table.actions' | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let topicElement of (topics$ | async); let i = index">
+                  <td>{{topicElement.name}}</td>
+                  <td>{{topicElement.lastEvent}}</td>
+                  <td>
+                    <div class="btn-group edit-field">
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              title="{{'openaire.broker.button.detail' | translate }}"
+                              [routerLink]="[topicElement.id]">
+                        <span class="badge badge-info">{{topicElement.totalEvents}}</span>
+                        <i class="fas fa-info fa-fw"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </ds-pagination>
+    </div>
+  </div>
+</div>
