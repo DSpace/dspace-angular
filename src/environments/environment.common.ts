@@ -174,6 +174,10 @@ export const environment: GlobalConfig = {
     code: 'fi',
     label: 'Suomi',
     active: true,
+  },{
+    code: 'hu',
+    label: 'magyar',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
