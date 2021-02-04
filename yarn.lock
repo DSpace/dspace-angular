@@ -1247,6 +1247,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@kolkov/ngx-gallery@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@kolkov/ngx-gallery/-/ngx-gallery-1.2.3.tgz#bb15d4b64a5c03905677aa4ca741835aabe41f43"
+  integrity sha512-Dpnhwq3DGPSXrNt65gexo+/Smb2L0bne14A0WONN04+racETtcY33fqFvNWfRw5Nvk2Eza+sq95eEA0NbgF/6g==
+
 "@ng-bootstrap/ng-bootstrap@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-7.0.0.tgz#3bfa62eb52fdb891b1ce693ea11c39127e2d1ab7"
