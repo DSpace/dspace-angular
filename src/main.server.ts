@@ -3,6 +3,12 @@ import 'zone.js/dist/zone';
 import 'reflect-metadata';
 
 import { enableProdMode } from '@angular/core';
+/******************************************************************
+ * Load `$localize` - not used for i18n in this project, we use ngx-translate.
+ * It's used for localization of dates, numbers, currencies, etc.
+ */
+import '@angular/localize/init';
+
 import { environment } from './environments/environment';
 
 if (environment.production) {
@@ -11,4 +17,4 @@ if (environment.production) {
 
 export { ServerAppModule } from './modules/app/server-app.module';
 export { ngExpressEngine } from '@nguniversal/express-engine';
-export { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
+export { renderModule, renderModuleFactory } from '@angular/platform-server';

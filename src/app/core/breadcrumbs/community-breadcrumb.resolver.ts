@@ -21,7 +21,7 @@ export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community
    * The self links defined in this list are expected to be requested somewhere in the near future
    * Requesting them as embeds will limit the number of requests
    */
-  get followLinks(): Array<FollowLinkConfig<Community>> {
+  get followLinks(): FollowLinkConfig<Community>[] {
     return [
       followLink('parentCommunity')
     ];

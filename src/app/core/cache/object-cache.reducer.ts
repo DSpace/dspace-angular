@@ -47,7 +47,7 @@ export const getResourceTypeValueFor = (type: any): string => {
       return type.value;
     }
   }
-}
+};
 
 /* tslint:disable:max-classes-per-file */
 /**
@@ -60,7 +60,7 @@ export class CacheableObject extends TypedObject implements HALResource {
   handle?: string;
   _links: {
     self: HALLink;
-  }
+  };
   // isNew: boolean;
   // dirtyType: DirtyType;
   // hasDirtyAttributes: boolean;
@@ -119,7 +119,7 @@ export class ObjectCacheEntry implements CacheEntry {
  * and ObjectCacheEntries as values
  */
 export interface ObjectCacheState {
-  [href: string]: ObjectCacheEntry
+  [href: string]: ObjectCacheEntry;
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
@@ -143,11 +143,11 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
     }
 
     case ObjectCacheActionTypes.REMOVE: {
-      return removeFromObjectCache(state, action as RemoveFromObjectCacheAction)
+      return removeFromObjectCache(state, action as RemoveFromObjectCacheAction);
     }
 
     case ObjectCacheActionTypes.RESET_TIMESTAMPS: {
-      return resetObjectCacheTimestamps(state, action as ResetObjectCacheTimestampsAction)
+      return resetObjectCacheTimestamps(state, action as ResetObjectCacheTimestampsAction);
     }
 
     case ObjectCacheActionTypes.ADD_PATCH: {

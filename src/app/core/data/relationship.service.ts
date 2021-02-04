@@ -1,30 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  mergeMap,
-  startWith,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
   compareArraysUsingIds,
   paginatedRelationsToItems,
   relationsToItems
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-  isNotEmptyOperator
-} from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import {
   RemoveNameVariantAction,
@@ -46,10 +31,10 @@ import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource
 import { Item } from '../shared/item.model';
 import {
   configureRequest,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
 } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
@@ -180,7 +165,7 @@ export class RelationshipService extends DataService<Relationship> {
     ).subscribe(([item1, item2]) => {
       this.refreshRelationshipItemsInCache(item1);
       this.refreshRelationshipItemsInCache(item2);
-    })
+    });
   }
 
   /**
@@ -207,7 +192,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                        should be automatically resolved
    */
-  getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
+  getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     return this.findAllByHref(item._links.relationships.href, undefined, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -244,7 +229,7 @@ export class RelationshipService extends DataService<Relationship> {
           }
         })
         )
-      ))
+      ));
   }
 
   /**
@@ -285,7 +270,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<RemoteData<PaginatedList<Relationship>>> {
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<RemoteData<PaginatedList<Relationship>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -316,10 +301,10 @@ export class RelationshipService extends DataService<Relationship> {
             map(() => relationship),
             startWith(undefined)
           );
-        }))
+        }));
       }),
       map((relationships: Relationship[]) => relationships.filter(((relationship) => hasValue(relationship)))),
-    )
+    );
   }
 
   private isItemInUUIDArray(itemRD$: Observable<RemoteData<Item>>, uuids: string[]) {
@@ -360,7 +345,7 @@ export class RelationshipService extends DataService<Relationship> {
         }),
         filter((relationship) => hasValue(relationship)),
         take(1)
-      )
+      );
   }
 
   /**
@@ -416,7 +401,7 @@ export class RelationshipService extends DataService<Relationship> {
             getFirstSucceededRemoteData(),
             getRemoteDataPayload(),
             map((type) => {
-              return { relation, type }
+              return { relation, type };
             })
           )
         ),

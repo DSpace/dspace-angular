@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -72,7 +72,7 @@ const rd = createSuccessfulRemoteDataObject(item);
 mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
 
 describe('WorkspaceitemActionsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -104,7 +104,7 @@ describe('WorkspaceitemActionsComponent', () => {
     fixture = TestBed.createComponent(WorkspaceitemActionsComponent);
     component = fixture.componentInstance;
     component.object = mockObject;
-    notificationsServiceStub = TestBed.get(NotificationsService);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
     fixture.detectChanges();
   });
 
@@ -150,8 +150,8 @@ describe('WorkspaceitemActionsComponent', () => {
 
   });
 
-  it('should display a success notification on delete success', async(() => {
-    spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
+  it('should display a success notification on delete success', waitForAsync(() => {
+    spyOn((component as any).modalService, 'open').and.returnValue({ result: Promise.resolve('ok') });
     mockDataService.delete.and.returnValue(createSuccessfulRemoteDataObject$({}));
     spyOn(component, 'reload');
 
@@ -163,8 +163,8 @@ describe('WorkspaceitemActionsComponent', () => {
     });
   }));
 
-  it('should display an error notification on delete failure', async(() => {
-    spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
+  it('should display an error notification on delete failure', waitForAsync(() => {
+    spyOn((component as any).modalService, 'open').and.returnValue({ result: Promise.resolve('ok') });
     mockDataService.delete.and.returnValue(createFailedRemoteDataObject$('Error', 500));
     spyOn(component, 'reload');
 
@@ -176,7 +176,7 @@ describe('WorkspaceitemActionsComponent', () => {
     });
   }));
 
-  it('should clear the object cache by href', async(() => {
+  it('should clear the object cache by href', waitForAsync(() => {
     component.reload();
     fixture.detectChanges();
 

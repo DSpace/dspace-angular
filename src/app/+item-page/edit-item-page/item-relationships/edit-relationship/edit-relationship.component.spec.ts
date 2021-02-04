@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
@@ -31,7 +31,7 @@ let el;
 
 describe('EditRelationshipComponent', () => {
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
@@ -121,12 +121,13 @@ describe('EditRelationshipComponent', () => {
       declarations: [EditRelationshipComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: NgbModal, useValue: {
+        {
+          provide: NgbModal, useValue: {
             open: () => {/*comment*/
             }
           },
         },
-    ], schemas: [
+      ], schemas: [
         NO_ERRORS_SCHEMA
       ]
     }).compileComponents();

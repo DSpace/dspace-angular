@@ -28,5 +28,5 @@ export class StatisticsEndpoint implements CacheableObject {
     self: HALLink;
     searchevents: HALLink;
     viewevents: HALLink;
-  }
+  };
 }

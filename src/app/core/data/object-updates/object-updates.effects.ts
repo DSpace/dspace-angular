@@ -111,10 +111,10 @@ export class ObjectUpdatesEffects {
               map((updateAction: ObjectUpdatesAction) => {
                 if (updateAction.type === ObjectUpdatesActionTypes.REINSTATE) {
                   // If someone reinstated, do nothing, just let the reinstating happen
-                  return { type: 'NO_ACTION' }
+                  return { type: 'NO_ACTION' };
                 }
                 // If someone performed another action, assume the user does not want to reinstate and remove all changes
-                return removeAction
+                return removeAction;
               })
             ),
             this.notificationActionMap$[notification.id].pipe(
@@ -129,7 +129,7 @@ export class ObjectUpdatesEffects {
                 return removeAction;
               })
             )
-          )
+          );
         }
       )
     );

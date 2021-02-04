@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -10,6 +10,8 @@ import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultDetailElementComponent>;
@@ -18,6 +20,7 @@ const compIndex = 1;
 
 const mockResultObject: WorkflowItemSearchResult = new WorkflowItemSearchResult();
 mockResultObject.hitHighlights = {};
+const linkService = getMockLinkService();
 
 const item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -52,13 +55,14 @@ const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd) });
 
 describe('WorkspaceItemSearchResultDetailElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [WorkspaceItemSearchResultDetailElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
+        { provide: 'indexElementProvider', useValue: (compIndex) },
+        { provide: LinkService, useValue: linkService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {
@@ -66,7 +70,7 @@ describe('WorkspaceItemSearchResultDetailElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(WorkspaceItemSearchResultDetailElementComponent);
     component = fixture.componentInstance;
   }));

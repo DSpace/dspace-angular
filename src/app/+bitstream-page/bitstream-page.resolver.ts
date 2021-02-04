@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import {followLink, FollowLinkConfig} from '../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
@@ -33,7 +33,7 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
      * The self links defined in this list are expected to be requested somewhere in the near future
      * Requesting them as embeds will limit the number of requests
      */
-    get followLinks(): Array<FollowLinkConfig<Bitstream>> {
+    get followLinks(): FollowLinkConfig<Bitstream>[] {
         return [
             followLink('bundle', undefined, true, followLink('item')),
             followLink('format')

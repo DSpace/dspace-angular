@@ -28,12 +28,12 @@ describe('ProcessBreadcrumbResolver', () => {
       resolvedConfig.subscribe((config) => {
         expect(config).toEqual(expectedConfig);
         done();
-      })
+      });
     });
 
     it('should resolve throw an error when no breadcrumbKey is defined', () => {
       expect(() => {
-        resolver.resolve({ data: {} } as any, undefined)
+        resolver.resolve({ data: {} } as any, undefined);
       }).toThrow();
     });
   });

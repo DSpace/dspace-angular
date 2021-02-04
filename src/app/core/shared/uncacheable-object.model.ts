@@ -7,5 +7,5 @@ export interface UnCacheableObject {
   _links?: {
     [key: string]: any;
     self?: never; // UnCacheableObjects can't have a self link
-  }
+  };
 }

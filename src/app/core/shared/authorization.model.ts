@@ -2,7 +2,7 @@ import { link, typedObject } from '../cache/builders/build-decorators';
 import { AUTHORIZATION } from './authorization.resource-type';
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { HALLink } from './hal-link.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { EPerson } from '../eperson/models/eperson.model';
 import { EPERSON } from '../eperson/models/eperson.resource-type';

@@ -9,12 +9,24 @@ describe('ListableObject decorator function', () => {
   const type3 = 'TestType3';
 
   /* tslint:disable:max-classes-per-file */
-  class Test1List {};
-  class Test1Grid {};
-  class Test2List {};
-  class Test2ListSubmission {};
-  class Test3List {};
-  class Test3DetailedSubmission {};
+  class Test1List {
+  }
+
+  class Test1Grid {
+  }
+
+  class Test2List {
+  }
+
+  class Test2ListSubmission {
+  }
+
+  class Test3List {
+  }
+
+  class Test3DetailedSubmission {
+  }
+
   /* tslint:enable:max-classes-per-file */
 
   beforeEach(() => {

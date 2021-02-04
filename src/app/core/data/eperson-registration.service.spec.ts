@@ -33,7 +33,7 @@ describe('EpersonRegistrationService', () => {
       generateRequestId: 'request-id',
       configure: {},
       getByUUID: cold('a',
-        {a: Object.assign(new RequestEntry(), {response: new RestResponse(true, 200, 'Success')})})
+        { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) })
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildFromRequestUUID: observableOf(rd)
@@ -71,7 +71,7 @@ describe('EpersonRegistrationService', () => {
       const expected = service.registerEmail('test@mail.org');
 
       expect(requestService.configure).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration));
-      expect(expected).toBeObservable(cold('(a|)', {a: rd}));
+      expect(expected).toBeObservable(cold('(a|)', { a: rd }));
     });
   });
 

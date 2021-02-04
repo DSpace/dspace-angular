@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 
 import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';
@@ -24,13 +24,13 @@ describe('ChipsComponent test suite', () => {
   let html;
   let chips: Chips;
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        SortablejsModule.forRoot({animation: 150}),
+        SortablejsModule.forRoot({ animation: 150 }),
         TranslateModule.forRoot()
       ],
       declarations: [

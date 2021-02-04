@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import {
   DynamicFormControlModel,
@@ -18,13 +18,12 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { FormGroup } from '@angular/forms';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { first, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -433,7 +432,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   updateContentSource(updateHarvestType: boolean) {
     this.inputModels.forEach(
       (fieldModel: DynamicInputModel) => {
-        this.updateContentSourceField(fieldModel, updateHarvestType)
+        this.updateContentSourceField(fieldModel, updateHarvestType);
       }
     );
     this.saveFieldUpdate();

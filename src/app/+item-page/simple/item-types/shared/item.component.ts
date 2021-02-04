@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';

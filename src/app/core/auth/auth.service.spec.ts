@@ -1,9 +1,9 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
@@ -21,7 +21,6 @@ import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouteService } from '../services/route.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -112,7 +111,7 @@ describe('AuthService test', () => {
           AuthService
         ],
       });
-      authService = TestBed.get(AuthService);
+      authService = TestBed.inject(AuthService);
     });
 
     it('should return the authentication status object when user credentials are correct', () => {
@@ -185,7 +184,7 @@ describe('AuthService test', () => {
 
   describe('', () => {
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       TestBed.configureTestingModule({
         imports: [
@@ -254,7 +253,7 @@ describe('AuthService test', () => {
   });
 
   describe('', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       TestBed.configureTestingModule({
         imports: [
@@ -295,8 +294,8 @@ describe('AuthService test', () => {
         });
       authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
       storage = (authService as any).storage;
-      routeServiceMock = TestBed.get(RouteService);
-      routerStub = TestBed.get(Router);
+      routeServiceMock = TestBed.inject(RouteService);
+      routerStub = TestBed.inject(Router);
       spyOn(storage, 'get');
       spyOn(storage, 'remove');
       spyOn(storage, 'set');
@@ -471,7 +470,7 @@ describe('AuthService test', () => {
   });
 
   describe('when user is not logged in', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       TestBed.configureTestingModule({
         imports: [

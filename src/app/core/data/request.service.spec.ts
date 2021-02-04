@@ -1,12 +1,12 @@
-import * as ngrx from '@ngrx/store';
-import { ActionsSubject, Store } from '@ngrx/store';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { BehaviorSubject, EMPTY, of as observableOf } from 'rxjs';
+import { Store, StoreModule } from '@ngrx/store';
+import { cold, getTestScheduler } from 'jasmine-marbles';
+import { EMPTY, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
+import { coreReducers, CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import {
@@ -21,6 +21,9 @@ import {
 } from './request.models';
 import { RequestEntry, RequestEntryState } from './request.reducer';
 import { RequestService } from './request.service';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { storeModuleConfig } from '../../app.reducer';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -29,6 +32,7 @@ describe('RequestService', () => {
   let objectCache: ObjectCacheService;
   let uuidService: UUIDService;
   let store: Store<CoreState>;
+  let mockStore: MockStore<CoreState>;
 
   const testUUID = '5f2a0d2a-effa-4d54-bd54-5663b960f9eb';
   const testHref = 'https://rest.api/endpoint/selfLink';
@@ -39,7 +43,29 @@ describe('RequestService', () => {
   const testOptionsRequest = new OptionsRequest(testUUID, testHref);
   const testHeadRequest = new HeadRequest(testUUID, testHref);
   const testPatchRequest = new PatchRequest(testUUID, testHref);
-  let selectSpy;
+
+  const initialState: any = {
+    core: {
+      'cache/object': {},
+      'cache/syncbuffer': {},
+      'cache/object-updates': {},
+      'data/request': {},
+      'index': {},
+    }
+  };
+
+  beforeEach(waitForAsync(() => {
+
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot(coreReducers, storeModuleConfig)
+      ],
+      providers: [
+        provideMockStore({ initialState }),
+        { provide: RequestService, useValue: service }
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -49,14 +75,9 @@ describe('RequestService', () => {
 
     uuidService = getMockUUIDService();
 
-    store = new Store<CoreState>(new BehaviorSubject({}), new ActionsSubject(), null);
-    selectSpy = spyOnProperty(ngrx, 'select');
-    selectSpy.and.callFake(() => {
-      return () => {
-        return () => cold('a', { a: undefined });
-      };
-    });
-
+    store = TestBed.inject(Store);
+    mockStore = store as MockStore<CoreState>;
+    mockStore.setState(initialState);
     service = new RequestService(
       objectCache,
       uuidService,
@@ -107,7 +128,7 @@ describe('RequestService', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValue(observableOf({
           state: RequestEntryState.ResponsePending
-        } as RequestEntry))
+        } as RequestEntry));
       });
 
       it('should return true', () => {
@@ -140,7 +161,6 @@ describe('RequestService', () => {
       let entry;
 
       beforeEach(() => {
-        let callCounter = 0;
         entry = {
           state: RequestEntryState.Success,
           response: {
@@ -148,20 +168,20 @@ describe('RequestService', () => {
           },
           request: new GetRequest('request-uuid', 'request-href')
         };
-        const responses = [
-          cold('a', { // A direct hit in the request cache
-            a: entry
-          }),
-          cold('b', { b: undefined }), // No hit in the index
-          cold('c', { c: undefined })  // So no mapped hit in the request cache
-        ];
-        selectSpy.and.callFake(() => {
-          return () => {
-            const response = responses[callCounter];
-            callCounter++;
-            return () => response;
-          };
+
+        const state = Object.assign({}, initialState, {
+          core: Object.assign({}, initialState.core, {
+            'data/request': {
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+            },
+            'index': {
+              'get-request/configured-to-cache-uuid': {
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+              }
+            }
+          })
         });
+        mockStore.setState(state);
       });
 
       it('should return an Observable of the RequestEntry', () => {
@@ -176,25 +196,16 @@ describe('RequestService', () => {
 
     describe(`if the request with the specified UUID doesn't exist in the store `, () => {
       beforeEach(() => {
-        let callCounter = 0;
-        const responses = [
-          cold('a', { a: undefined }), // No direct hit in the request cache
-          cold('b', { b: undefined }), // No hit in the index
-          cold('c', { c: undefined }), // So no mapped hit in the request cache
-        ];
-        selectSpy.and.callFake(() => {
-          return () => {
-            const response = responses[callCounter];
-            callCounter++;
-            return () => response;
-          };
-        });
+        // No direct hit in the request cache
+        // No hit in the index
+        // So no mapped hit in the request cache
+        mockStore.setState(initialState);
       });
 
       it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
-
-        scheduler.expectObservable(result).toBe('a', { a: undefined });
+        const expected = cold('a', { a: undefined });
+        expect(result).toBeObservable(expected);
       });
     });
 
@@ -202,7 +213,6 @@ describe('RequestService', () => {
       let entry;
 
       beforeEach(() => {
-        let callCounter = 0;
         entry = {
           state: RequestEntryState.Success,
           response: {
@@ -210,54 +220,70 @@ describe('RequestService', () => {
           },
           request: new GetRequest('request-uuid', 'request-href')
         };
-        const responses = [
-          cold('a', { a: undefined }), // No direct hit in the request cache with that UUID
-          cold('b', { b: 'otherRequestUUID' }), // A hit in the index, which returns the uuid of the cached request
-          cold('c', {   // the call to retrieve the cached request using the UUID from the index
-            c: entry
+
+        // No direct hit in the request cache with that UUID
+        // A hit in the index, which returns the uuid of the cached request
+        // the call to retrieve the cached request using the UUID from the index
+        const state = Object.assign({}, initialState, {
+          core: Object.assign({}, initialState.core, {
+            'data/request': {
+              'otherRequestUUID': entry
+            },
+            'index': {
+              'get-request/configured-to-cache-uuid': {
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': 'otherRequestUUID'
+              }
+            }
           })
-        ];
-        selectSpy.and.callFake(() => {
-          return () => {
-            const response = responses[callCounter];
-            callCounter++;
-            return () => response;
-          };
         });
+        mockStore.setState(state);
+
       });
 
       it(`it should return the cached request`, () => {
         const result = service.getByUUID(testUUID);
-
-        scheduler.expectObservable(result).toBe('c', {
+        const expected = cold('c', {
           c: entry
         });
+        expect(result).toBeObservable(expected);
       });
     });
 
-    });
+  });
 
   describe('getByHref', () => {
     describe('when the request with the specified href exists in the store', () => {
+      let entry;
       beforeEach(() => {
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', { a: testUUID });
-          };
+        entry = {
+          state: RequestEntryState.Success,
+          response: {
+            timeCompleted: new Date().getTime()
+          },
+          request: new GetRequest('request-uuid', 'request-href')
+        };
+        const state = Object.assign({}, initialState, {
+          core: Object.assign({}, initialState.core, {
+            'data/request': {
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+            },
+            'index': {
+              'get-request/configured-to-cache-uuid': {
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+              },
+              'get-request/href-to-uuid': {
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+              }
+            }
+          })
         });
-        spyOn(service, 'getByUUID').and.returnValue(cold('b', {
-          b: {
-            completed: true
-          }
-        }));
+        mockStore.setState(state);
       });
 
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: {
-            completed: true
-          }
+          c: entry
         });
 
         expect(result).toBeObservable(expected);
@@ -266,14 +292,10 @@ describe('RequestService', () => {
 
     describe('when the request with the specified href doesn\'t exist in the store', () => {
       beforeEach(() => {
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', { a: undefined });
-          };
-        });
-        spyOn(service, 'getByUUID').and.returnValue(cold('b', {
-          b: undefined
-        }));
+        // No direct hit in the request cache
+        // No hit in the index
+        // So no mapped hit in the request cache
+        mockStore.setState(initialState);
       });
 
       it('should return an Observable of undefined', () => {
@@ -479,11 +501,7 @@ describe('RequestService', () => {
 
     describe('when the request is added to the store', () => {
       it('should stop tracking the request', () => {
-        selectSpy.and.callFake(() => {
-          return () => {
-            return () => observableOf(entry);
-          };
-        });
+        spyOn(serviceAsAny, 'getByUUID').and.returnValue(observableOf(entry));
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });

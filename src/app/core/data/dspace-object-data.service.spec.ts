@@ -9,6 +9,7 @@ import { DSpaceObjectDataService } from './dspace-object-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
+
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;
   let service: DSpaceObjectDataService;
@@ -53,7 +54,7 @@ describe('DSpaceObjectDataService', () => {
       notificationsService,
       http,
       comparator
-    )
+    );
   });
 
   describe('findById', () => {

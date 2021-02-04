@@ -25,8 +25,6 @@ import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
-import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
-import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { HeaderComponent } from './header/header.component';
@@ -47,7 +45,7 @@ export function getBase() {
   return environment.ui.nameSpace;
 }
 
-export function getMetaReducers(): Array<MetaReducer<AppState>> {
+export function getMetaReducers(): MetaReducer<AppState>[] {
   return environment.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
@@ -64,11 +62,6 @@ const IMPORTS = [
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
-];
-
-const ENTITY_IMPORTS = [
-  JournalEntitiesModule,
-  ResearchEntitiesModule
 ];
 
 IMPORTS.push(
@@ -127,8 +120,7 @@ const EXPORTS = [
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    ...IMPORTS,
-    ...ENTITY_IMPORTS
+    ...IMPORTS
   ],
   providers: [
     ...PROVIDERS
@@ -138,10 +130,6 @@ const EXPORTS = [
   ],
   exports: [
     ...EXPORTS
-  ],
-  entryComponents: [
-    AdminSidebarSectionComponent,
-    ExpandableAdminSidebarSectionComponent
   ]
 })
 export class AppModule {

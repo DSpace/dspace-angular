@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { VersionHistory } from '../../../../core/shared/version-history.model';
 import { Version } from '../../../../core/shared/version.model';
@@ -12,7 +12,6 @@ import { filter, map, startWith, switchMap } from 'rxjs/operators';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { AlertType } from '../../../alert/aletr-type';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { getItemPageRoute } from '../../../../+item-page/item-page-routing-paths';
 
 @Component({
@@ -100,7 +99,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
       ).pipe(
         map(([itemVersion, latestVersion]: [Version, Version]) => itemVersion.id === latestVersion.id),
         startWith(true)
-      )
+      );
     }
   }
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CommunityListPageComponent } from './community-list-page.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;
   let fixture: ComponentFixture<CommunityListPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({

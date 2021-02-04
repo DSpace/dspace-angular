@@ -1,16 +1,17 @@
 import { isUndefined } from '../../shared/empty.util';
 import * as uuidv4 from 'uuid/v4';
-import {
-  MetadataMap,
-  MetadataValue,
-  MetadataValueFilter,
-  MetadatumViewModel
-} from './metadata.models';
+import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
 import { Metadata } from './metadata.utils';
-import { beforeEach } from 'selenium-webdriver/testing';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
-  return Object.assign(new MetadataValue(), { uuid: uuidv4(), value: value, language: isUndefined(language) ? null : language, place: 0, authority: isUndefined(authority) ? null : authority, confidence: undefined });
+  return Object.assign(new MetadataValue(), {
+    uuid: uuidv4(),
+    value: value,
+    language: isUndefined(language) ? null : language,
+    place: 0,
+    authority: isUndefined(authority) ? null : authority,
+    confidence: undefined
+  });
 };
 
 const dcDescription = mdValue('Some description');
@@ -56,7 +57,7 @@ const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => 
     it('should return ' + shouldReturn, () => {
       expect(result).toEqual(expected);
     });
-  })
+  });
 };
 
 describe('Metadata', () => {

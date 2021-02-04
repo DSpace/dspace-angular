@@ -1,7 +1,7 @@
 import { Router, UrlTree } from '@angular/router';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, find, flatMap, map, switchMap, take, tap, takeWhile } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isNotEmpty, hasNoValue } from '../../shared/empty.util';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { filter, find, map, mergeMap, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -23,14 +23,14 @@ import { AuthService } from '../auth/auth.service';
 export const getRequestFromRequestHref = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
-      flatMap((href: string) => requestService.getByHref(href)),
+      mergeMap((href: string) => requestService.getByHref(href)),
       hasValueOperator()
     );
 
 export const getRequestFromRequestUUID = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
-      flatMap((uuid: string) => requestService.getByUUID(uuid)),
+      mergeMap((uuid: string) => requestService.getByUUID(uuid)),
       hasValueOperator()
     );
 
@@ -297,7 +297,7 @@ export const metadataFieldsToString = () =>
     source.pipe(
       hasValueOperator(),
       map((fieldRD: RemoteData<PaginatedList<MetadataField>>) => {
-        return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object))
+        return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object));
       }),
       switchMap((fields: MetadataField[]) => {
         const fieldSchemaArray = fields.map((field: MetadataField) => {
@@ -308,7 +308,7 @@ export const metadataFieldsToString = () =>
         });
         return observableCombineLatest(fieldSchemaArray);
       }),
-      map((fieldSchemaArray: Array<{ field: MetadataField, schema: MetadataSchema }>): string[] => {
-        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString())
+      map((fieldSchemaArray: { field: MetadataField, schema: MetadataSchema }[]): string[] => {
+        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString());
       })
     );

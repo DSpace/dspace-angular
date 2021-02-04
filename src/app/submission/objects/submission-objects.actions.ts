@@ -40,6 +40,7 @@ export const SubmissionObjectActionTypes = {
   INIT_SECTION: type('dspace/submission/INIT_SECTION'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
+  SET_SECTION_FORM_ID: type('dspace/submission/SET_SECTION_FORM_ID'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPDATE_SECTION_DATA: type('dspace/submission/UPDATE_SECTION_DATA'),
@@ -206,6 +207,7 @@ export class UpdateSectionDataAction implements Action {
     sectionId: string;
     data: WorkspaceitemSectionDataType;
     errors: SubmissionSectionError[];
+    metadata: string[];
   };
 
   /**
@@ -219,12 +221,15 @@ export class UpdateSectionDataAction implements Action {
    *    the section's data
    * @param errors
    *    the section's errors
+   * @param metadata
+   *    the section's metadata
    */
   constructor(submissionId: string,
               sectionId: string,
               data: WorkspaceitemSectionDataType,
-              errors: SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, data, errors };
+              errors: SubmissionSectionError[],
+              metadata?: string[]) {
+    this.payload = { submissionId, sectionId, data, errors, metadata };
   }
 }
 
@@ -249,6 +254,29 @@ export class RemoveSectionErrorsAction implements Action {
    */
   constructor(submissionId: string, sectionId: string) {
     this.payload = { submissionId, sectionId };
+  }
+}
+
+export class SetSectionFormId implements Action {
+  type = SubmissionObjectActionTypes.SET_SECTION_FORM_ID;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    formId: string;
+  };
+
+  /**
+   * Create a new SetSectionFormId
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   * @param formId
+   *    the section's formId
+   */
+  constructor(submissionId: string, sectionId: string, formId: string) {
+    this.payload = { submissionId, sectionId, formId };
   }
 }
 
@@ -368,6 +396,7 @@ export class SaveSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM;
   payload: {
     submissionId: string;
+    isManual?: boolean;
   };
 
   /**
@@ -376,8 +405,8 @@ export class SaveSubmissionFormAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string, isManual: boolean = false) {
+    this.payload = { submissionId, isManual };
   }
 }
 
@@ -777,6 +806,7 @@ export class DeleteUploadedFileAction implements Action {
  */
 export type SubmissionObjectAction = DisableSectionAction
   | InitSectionAction
+  | SetSectionFormId
   | EnableSectionAction
   | InitSubmissionFormAction
   | ResetSubmissionFormAction
@@ -807,5 +837,4 @@ export type SubmissionObjectAction = DisableSectionAction
   | SaveSubmissionSectionFormAction
   | SaveSubmissionSectionFormSuccessAction
   | SaveSubmissionSectionFormErrorAction
-  | SetActiveSectionAction
-  | DepositSubmissionAction;
+  | SetActiveSectionAction;

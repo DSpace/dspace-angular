@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,7 +36,7 @@ describe('CollectionSelectComponent', () => {
     currentPage: 1
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
@@ -69,7 +69,7 @@ describe('CollectionSelectComponent', () => {
       checkbox = fixture.debugElement.query(By.css('input.collection-checkbox')).nativeElement;
     });
 
-    it('should initially be unchecked',() => {
+    it('should initially be unchecked', () => {
       expect(checkbox.checked).toBeFalsy();
     });
 
@@ -94,7 +94,7 @@ describe('CollectionSelectComponent', () => {
       spyOn(comp.confirm, 'emit').and.callThrough();
     });
 
-    it('should emit the selected collections',() => {
+    it('should emit the selected collections', () => {
       confirmButton.click();
       expect(comp.confirm.emit).toHaveBeenCalled();
     });
@@ -108,7 +108,7 @@ describe('CollectionSelectComponent', () => {
       spyOn(comp.cancel, 'emit').and.callThrough();
     });
 
-    it('should emit a cancel event',() => {
+    it('should emit a cancel event', () => {
       cancelButton.click();
       expect(comp.cancel.emit).toHaveBeenCalled();
     });

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -7,12 +7,12 @@ describe('AdminSearchPageComponent', () => {
   let component: AdminWorkflowPageComponent;
   let fixture: ComponentFixture<AdminWorkflowPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminWorkflowPageComponent ],
+      declarations: [AdminWorkflowPageComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

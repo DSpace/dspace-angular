@@ -11,7 +11,7 @@ import { SearchOptions } from '../shared/search/search-options.model';
 /**
  * The statistics service
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class StatisticsService {
 
   constructor(
@@ -50,7 +50,7 @@ export class StatisticsService {
     searchOptions: SearchOptions,
     page: { size: number, totalElements: number, totalPages: number, number: number },
     sort: { by: string, order: string },
-    filters?: Array<{ filter: string, operator: string, value: string, label: string }>
+    filters?: { filter: string, operator: string, value: string, label: string }[]
   ) {
     const body = {
       query: searchOptions.query,
@@ -66,13 +66,13 @@ export class StatisticsService {
       },
     };
     if (hasValue(searchOptions.configuration)) {
-      Object.assign(body, { configuration: searchOptions.configuration })
+      Object.assign(body, { configuration: searchOptions.configuration });
     }
     if (isNotEmpty(searchOptions.dsoTypes)) {
-      Object.assign(body, { dsoType: searchOptions.dsoTypes[0].toLowerCase()  })
+      Object.assign(body, { dsoType: searchOptions.dsoTypes[0].toLowerCase()  });
     }
     if (hasValue(searchOptions.scope)) {
-      Object.assign(body, { scope: searchOptions.scope })
+      Object.assign(body, { scope: searchOptions.scope });
     }
     if (isNotEmpty(filters)) {
       const bodyFilters = [];
@@ -83,9 +83,9 @@ export class StatisticsService {
           operator: filter.operator,
           value: filter.value,
           label: filter.label
-        })
+        });
       }
-      Object.assign(body, { appliedFilters: bodyFilters })
+      Object.assign(body, { appliedFilters: bodyFilters });
     }
     this.sendEvent('/statistics/searchevents', body);
   }

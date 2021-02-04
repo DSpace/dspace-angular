@@ -255,7 +255,7 @@ export const getBrowseEntriesFor = (requestService: RequestService, rdb: RemoteD
     source.pipe(take(1)).subscribe((href: string) => {
       const request = new GetRequest(requestId, href);
       requestService.configure(request);
-    })
+    });
 
     return rdb.buildList(source);
   };
@@ -273,7 +273,7 @@ export const getBrowseItemsFor = (requestService: RequestService, rdb: RemoteDat
     source.pipe(take(1)).subscribe((href: string) => {
       const request = new GetRequest(requestId, href);
       requestService.configure(request);
-    })
+    });
 
     return rdb.buildList(source);
   };

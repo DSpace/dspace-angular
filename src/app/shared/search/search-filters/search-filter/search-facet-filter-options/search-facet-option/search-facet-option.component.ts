@@ -75,7 +75,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
       .subscribe(([selectedValues, searchOptions]) => {
-        this.updateAddParams(selectedValues)
+        this.updateAddParams(selectedValues);
       });
   }
 

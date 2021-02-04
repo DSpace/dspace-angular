@@ -8,11 +8,7 @@ import {
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
-  zip as observableZip
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -23,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
@@ -156,7 +152,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         Object.assign(new Relationship(), relationship, { uuid: relationship.id })
       )),
       switchMap((relationships: Relationship[]) => {
-        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>
+        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>;
       }),
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
@@ -198,7 +194,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     });
   }
 
-  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<Array<RemoteData<NoContent>>> {
+  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RemoteData<NoContent>[]> {
     return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
         let copyVirtualMetadata: string;
         if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
@@ -215,7 +211,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     ));
   }
 
-  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<Array<RemoteData<Relationship>>> {
+  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<RemoteData<Relationship>[]> {
     return observableZip(...addRelatedItems.map((addRelationship) =>
       this.entityType$.pipe(
         switchMap((entityType) => this.entityTypeService.isLeftType(addRelationship.type, entityType)),
@@ -247,7 +243,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * - Success notification in case there's at least one successful response
    * @param responses
    */
-  displayNotifications(responses: Array<RemoteData<NoContent>>) {
+  displayNotifications(responses: RemoteData<NoContent>[]) {
     const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
     const successfulResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
 

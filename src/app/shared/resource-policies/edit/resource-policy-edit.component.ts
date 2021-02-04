@@ -98,6 +98,6 @@ export class ResourcePolicyEditComponent implements OnInit {
       } else {
         this.notificationsService.error(null, this.translate.get('resource-policies.edit.page.failure.content'));
       }
-    })
+    });
   }
 }

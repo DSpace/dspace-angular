@@ -49,7 +49,7 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
         hitHighlights: hitHighlights[index],
       }));
     payload.objects = objects;
-    const deserialized = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
     deserialized.pageInfo = this.processPageInfo(payload);
     this.addToObjectCache(deserialized, request, data);
     return new ParsedResponse(data.statusCode, deserialized._links.self);

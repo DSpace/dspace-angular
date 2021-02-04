@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { FileService } from '../../core/shared/file.service';
@@ -21,7 +21,7 @@ describe('FileDownloadLinkComponent', () => {
     href = 'test-download-file-link';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [FileDownloadLinkComponent],

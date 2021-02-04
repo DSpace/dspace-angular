@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { getComponentByBrowseByType } from './browse-by-decorator';
 import { environment } from '../../../environments/environment';
 

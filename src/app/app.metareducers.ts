@@ -11,7 +11,7 @@ export function debugMetaReducer(reducer) {
     console.log('action', JSON.stringify(action));
     console.log('------------------------------------');
     return reducer(state, action);
-  }
+  };
 }
 
 export function universalMetaReducer(reducer) {
@@ -25,7 +25,7 @@ export function universalMetaReducer(reducer) {
         break;
     }
     return reducer(state, action);
-  }
+  };
 }
 
 export const debugMetaReducers = [

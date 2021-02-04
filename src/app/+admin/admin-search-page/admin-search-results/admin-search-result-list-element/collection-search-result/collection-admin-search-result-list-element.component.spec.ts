@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
@@ -24,7 +24,8 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     searchResult.indexableObject = new Collection();
     searchResult.indexableObject.uuid = id;
   }
-  beforeEach(async(() => {
+
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -56,5 +57,5 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     const a = fixture.debugElement.query(By.css('a'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCollectionEditRoute(id));
-  })
+  });
 });

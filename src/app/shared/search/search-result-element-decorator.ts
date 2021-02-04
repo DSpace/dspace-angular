@@ -1,6 +1,5 @@
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { hasNoValue, isNull } from '../empty.util';
 
 /**
  * Contains the mapping between a search result component and a DSpaceObject

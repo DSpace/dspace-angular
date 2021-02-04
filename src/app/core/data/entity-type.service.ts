@@ -11,12 +11,12 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { GetRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
-import {switchMap, take, map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, take, map } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
-import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import {PaginatedList} from './paginated-list.model';
-import {ItemType} from '../shared/item-relationships/item-type.model';
+import { ItemType } from '../shared/item-relationships/item-type.model';
 import {getRemoteDataPayload, getFirstSucceededRemoteData} from '../shared/operators';
 
 /**
@@ -71,7 +71,7 @@ export class EntityTypeService extends DataService<ItemType> {
    * @param entityTypeId
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: Array<FollowLinkConfig<RelationshipType>>): Observable<RemoteData<PaginatedList<RelationshipType>>> {
+  getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<RemoteData<PaginatedList<RelationshipType>>> {
 
     const href$ = this.getRelationshipTypesEndpoint(entityTypeId);
 

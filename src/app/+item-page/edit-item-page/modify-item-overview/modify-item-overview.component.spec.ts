@@ -1,5 +1,5 @@
 import {Item} from '../../../core/shared/item.model';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ModifyItemOverviewComponent} from './modify-item-overview.component';
 import {By} from '@angular/platform-browser';
 import {TranslateModule} from '@ngx-translate/core';
@@ -22,7 +22,7 @@ const mockItem = Object.assign(new Item(), {
 });
 
 describe('ModifyItemOverviewComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ModifyItemOverviewComponent],

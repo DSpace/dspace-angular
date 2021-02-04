@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { FormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { filter, flatMap, map, mergeMap, scan } from 'rxjs/operators';
+import { filter, map, mergeMap, scan } from 'rxjs/operators';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -13,7 +13,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
-import { DynamicRelationGroupModel} from './dynamic-relation-group.model';
+import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
@@ -57,7 +57,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   private selectedChipItem: ChipsItem;
   private subs: Subscription[] = [];
 
-  @ViewChild('formRef', { static: false }) private formRef: FormComponent;
+  @ViewChild('formRef') private formRef: FormComponent;
 
   constructor(private vocabularyService: VocabularyService,
               private formBuilderService: FormBuilderService,
@@ -74,7 +74,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (!this.model.isEmpty()) {
       this.formCollapsed = observableOf(true);
     }
-    this.model.valueUpdates.subscribe((value: any[]) => {
+    this.model.valueChanges.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
         this.collapseForm();
       } else {
@@ -124,7 +124,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
 
         const nextValue = (this.formBuilderService.isInputModel(model) && isNotNull(value) && (typeof value !== 'string')) ?
           value.value : value;
-        model.valueUpdates.next(nextValue);
+        model.value = nextValue;
 
       });
     });
@@ -222,12 +222,12 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
-      initChipsValue$ = observableOf(this.model.value);
+      initChipsValue$ = observableOf(this.model.value as any[]);
 
       // If authority
       this.subs.push(initChipsValue$.pipe(
-        flatMap((valueModel) => {
-          const returnList: Array<Observable<any>> = [];
+        mergeMap((valueModel) => {
+          const returnList: Observable<any>[] = [];
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
@@ -264,7 +264,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
                 )
               })
             )
-          )
+          );
         }),
         scan((acc: any[], valueObj: any) => {
           if (acc.length === 0) {
@@ -274,9 +274,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           }
           return acc;
         }, []),
-        filter((modelValues: any[]) => this.model.value.length === modelValues.length)
+        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length)
       ).subscribe((modelValue) => {
-        this.model.valueUpdates.next(modelValue);
+        this.model.value = modelValue;
         this.initChips(modelValue);
         this.cdr.markForCheck();
       }));
@@ -296,7 +296,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           // Does not emit change if model value is equal to the current value
           if (!isEqual(items, this.model.value)) {
             if (!(isEmpty(items) && this.model.isEmpty())) {
-              this.model.valueUpdates.next(items);
+              this.model.value = items;
               this.change.emit();
             }
           }

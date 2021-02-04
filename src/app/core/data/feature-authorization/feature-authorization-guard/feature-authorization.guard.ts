@@ -1,15 +1,8 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { returnForbiddenUrlTreeOrLoginOnFalse } from '../../../shared/operators';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 

@@ -3,7 +3,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store } from '@ngrx/store';
@@ -28,6 +28,7 @@ import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -76,13 +77,7 @@ describe('MyDSpacePageComponent', () => {
     })
   };
 
-  const sidebarService = {
-    isCollapsed: observableOf(true),
-    collapse: () => this.isCollapsed = observableOf(true),
-    expand: () => this.isCollapsed = observableOf(false)
-  };
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
       declarations: [MyDSpacePageComponent, RoleDirective],
@@ -107,7 +102,7 @@ describe('MyDSpacePageComponent', () => {
         },
         {
           provide: SidebarService,
-          useValue: sidebarService
+          useValue: SidebarServiceStub
         },
         {
           provide: SearchFilterService,

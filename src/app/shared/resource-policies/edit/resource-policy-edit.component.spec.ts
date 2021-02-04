@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,10 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
-} from '../../remote-data.utils';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { createTestComponent } from '../../testing/utils.test';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -72,7 +69,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     url: `url/edit`
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot()

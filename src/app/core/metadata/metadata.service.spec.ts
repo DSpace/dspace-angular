@@ -9,18 +9,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { EmptyError } from 'rxjs/internal-compatibility';
+import { EmptyError, Observable } from 'rxjs';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../data/remote-data';
+import { Item } from '../shared/item.model';
 
 import {
+  ItemMock,
   MockBitstream1,
   MockBitstream2,
   MockBitstreamFormat1,
-  MockBitstreamFormat2,
-  ItemMock
+  MockBitstreamFormat2
 } from '../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -39,7 +38,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 import { ItemDataService } from '../data/item-data.service';
-import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -58,7 +57,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 /* tslint:disable:max-classes-per-file */
 @Component({
   template: `
-      <router-outlet></router-outlet>`
+    <router-outlet></router-outlet>`
 })
 class TestComponent {
   constructor(private metadata: MetadataService) {
@@ -109,7 +108,7 @@ describe('MetadataService', () => {
     requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, undefined, requestService);
     const mockBitstreamDataService = {
-      findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+      findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
         if (item.equals(ItemMock)) {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
         } else {
@@ -172,21 +171,24 @@ describe('MetadataService', () => {
         Meta,
         Title,
         // tslint:disable-next-line:no-empty
-        { provide: ItemDataService, useValue: { findById: () => {} } },
-        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }},
+        { provide: ItemDataService, useValue: { findById: () => { } } },
+        {
+          provide: HardRedirectService,
+          useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }
+        },
         BrowseService,
         MetadataService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
-    meta = TestBed.get(Meta);
-    title = TestBed.get(Title);
-    itemDataService = TestBed.get(ItemDataService);
-    metadataService = TestBed.get(MetadataService);
-    authService = TestBed.get(AuthService);
+    meta = TestBed.inject(Meta);
+    title = TestBed.inject(Title);
+    itemDataService = TestBed.inject(ItemDataService);
+    metadataService = TestBed.inject(MetadataService);
+    authService = TestBed.inject(AuthService);
 
-    router = TestBed.get(Router);
-    location = TestBed.get(Location);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
 
     fixture = TestBed.createComponent(TestComponent);
 
@@ -272,6 +274,6 @@ describe('MetadataService', () => {
       }
     ] as MetadataValue[];
     return publishedMockItem;
-  }
+  };
 
 });

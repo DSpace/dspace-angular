@@ -70,7 +70,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
             .subscribe((response: RemoteData<NoContent>) => {
               this.processingDelete$.next(false);
               this.handleActionResponse(response.hasSucceeded);
-            })
+            });
         }
       }
     );

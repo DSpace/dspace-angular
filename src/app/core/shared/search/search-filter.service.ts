@@ -1,7 +1,10 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
-import { SearchFiltersState, SearchFilterState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
+import {
+  SearchFiltersState,
+  SearchFilterState
+} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
   SearchFilterCollapseAction,
@@ -15,7 +18,7 @@ import {
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { RouteService } from '../../../core/services/route.service';
+import { RouteService } from '../../services/route.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Params } from '@angular/router';
 
@@ -83,7 +86,7 @@ export class SearchFilterService {
         currentPage: page || 1,
         pageSize: size || pagination.pageSize
       });
-    }))
+    }));
   }
 
   /**
@@ -98,9 +101,9 @@ export class SearchFilterService {
     return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
         const field = sortField || defaultSort.field;
         const direction = SortDirection[sortDirection] || defaultSort.direction;
-        return new SortOptions(field, direction)
+        return new SortOptions(field, direction);
       }
-    ))
+    ));
   }
 
   /**
@@ -137,7 +140,7 @@ export class SearchFilterService {
           return prefixValues;
         }
       )
-    )
+    );
   }
 
   /**

@@ -27,7 +27,7 @@ describe('RowParser test suite', () => {
     row1 = {
       fields: [
         {
-          input: {type: 'lookup'},
+          input: { type: 'lookup' },
           label: 'Journal',
           mandatory: 'false',
           repeatable: false,
@@ -42,7 +42,7 @@ describe('RowParser test suite', () => {
           languageCodes: []
         } as FormFieldModel,
         {
-          input: {type: 'onebox'},
+          input: { type: 'onebox' },
           label: 'Issue',
           mandatory: 'false',
           repeatable: false,
@@ -55,7 +55,7 @@ describe('RowParser test suite', () => {
           languageCodes: []
         } as FormFieldModel,
         {
-          input: {type: 'name'},
+          input: { type: 'name' },
           label: 'Name',
           mandatory: 'false',
           repeatable: false,
@@ -95,7 +95,7 @@ describe('RowParser test suite', () => {
     row3 = {
       fields: [
         {
-          input: {type: 'onebox'},
+          input: { type: 'onebox' },
           label: 'Title',
           mandatory: 'false',
           repeatable: false,
@@ -110,7 +110,7 @@ describe('RowParser test suite', () => {
           languageCodes: []
         } as FormFieldModel,
         {
-          input: {type: 'onebox'},
+          input: { type: 'onebox' },
           label: 'Other title',
           mandatory: 'false',
           repeatable: false,
@@ -148,7 +148,7 @@ describe('RowParser test suite', () => {
           languageCodes: []
         } as FormFieldModel,
         {
-          input: {type: 'series'},
+          input: { type: 'series' },
           label: 'Series/Report No.',
           mandatory: 'false',
           repeatable: false,

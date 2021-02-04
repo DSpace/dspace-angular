@@ -1,4 +1,5 @@
-import { Operation } from 'fast-json-patch/lib/core';
+import { Operation } from 'fast-json-patch';
+
 import { TypedObject } from '../cache/object-cache.reducer';
 
 /**

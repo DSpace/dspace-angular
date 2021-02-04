@@ -30,8 +30,8 @@ export const klaroConfiguration: any = {
 
   /*
   Setting 'acceptAll' to 'true' will show an "accept all" button in the notice and
-  modal, which will enable all third-party apps if the user clicks on it. If set
-  to 'false', there will be an "accept" button that will only enable the apps that
+  modal, which will enable all third-party services if the user clicks on it. If set
+  to 'false', there will be an "accept" button that will only enable the services that
   are enabled in the consent modal.
   */
   acceptAll: true,
@@ -84,7 +84,7 @@ export const klaroConfiguration: any = {
       purposes: {}
     }
   },
-  apps: [
+  services: [
     {
       name: 'authentication',
       purposes: ['functional'],
@@ -120,7 +120,7 @@ export const klaroConfiguration: any = {
         //     /*
         //     you an either only provide a cookie name or regular expression (regex) or a list
         //     consisting of a name or regex, a path and a cookie domain. Providing a path and
-        //     domain is necessary if you have apps that set cookies for a path that is not
+        //     domain is necessary if you have services that set cookies for a path that is not
         //     "/", or a domain that is not the current domain. If you do not set these values
         //     properly, the cookie can't be deleted by Klaro, as there is no way to access the
         //     path or domain of a cookie in JS. Notice that it is not possible to delete

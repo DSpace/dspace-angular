@@ -74,7 +74,7 @@ describe('GroupDataService', () => {
       halService,
       null,
     );
-  };
+  }
 
   beforeEach(() => {
     init();

@@ -1,5 +1,5 @@
 import { RelatedEntitiesSearchComponent } from './related-entities-search.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -15,9 +15,9 @@ describe('RelatedEntitiesSearchComponent', () => {
   });
   const mockRelationType = 'publicationsOfAuthor';
   const mockConfiguration = 'publication';
-  const mockFilter= `f.${mockRelationType}=${mockItem.id},equals`;
+  const mockFilter = `f.${mockRelationType}=${mockItem.id},equals`;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [RelatedEntitiesSearchComponent],
@@ -41,7 +41,7 @@ describe('RelatedEntitiesSearchComponent', () => {
   it('should create a configuration$', () => {
     comp.configuration$.subscribe((configuration) => {
       expect(configuration).toEqual(mockConfiguration);
-    })
+    });
   });
 
 });

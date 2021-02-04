@@ -1,5 +1,5 @@
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
@@ -31,7 +31,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
     }
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ItemEditBitstreamBundleComponent],

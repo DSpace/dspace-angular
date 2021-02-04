@@ -24,10 +24,11 @@ export class CommunityGridElementComponent extends AbstractListableElementCompon
     super();
   }
 
+  // @ts-ignore
   @Input() set object(object: Community) {
     this._object = object;
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
-      this.linkService.resolveLink<Community>(this._object, followLink('logo'))
+      this.linkService.resolveLink<Community>(this._object, followLink('logo'));
     }
   }
 

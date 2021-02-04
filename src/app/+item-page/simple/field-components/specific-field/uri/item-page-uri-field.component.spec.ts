@@ -1,6 +1,6 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { mockItemWithMetadataFieldAndValue } from '../item-page-field.component.spec';
 import { ItemPageUriFieldComponent } from './item-page-uri-field.component';
@@ -14,7 +14,7 @@ const mockValue = 'test value';
 const mockLabel = 'test label';
 
 describe('ItemPageUriFieldComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -25,11 +25,11 @@ describe('ItemPageUriFieldComponent', () => {
       declarations: [ItemPageUriFieldComponent, MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageUriFieldComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemPageUriFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);

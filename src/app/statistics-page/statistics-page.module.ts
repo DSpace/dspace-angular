@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
@@ -15,7 +16,7 @@ const components = [
   SiteStatisticsPageComponent,
   ItemStatisticsPageComponent,
   CollectionStatisticsPageComponent,
-  CommunityStatisticsPageComponent,
+  CommunityStatisticsPageComponent
 ];
 
 @NgModule({

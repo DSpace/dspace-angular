@@ -1,5 +1,5 @@
 import { ItemVersionHistoryComponent } from './item-version-history.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ describe('ItemVersionHistoryComponent', () => {
     handle: '123456789/1',
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemVersionHistoryComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],

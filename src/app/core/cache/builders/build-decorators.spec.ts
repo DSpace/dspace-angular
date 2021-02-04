@@ -1,24 +1,24 @@
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import {
-  dataService,
-  getDataServiceFor,
-  getLinkDefinition,
-  link,
-} from './build-decorators';
+import { dataService, getDataServiceFor, getLinkDefinition, link, } from './build-decorators';
 
 /* tslint:disable:max-classes-per-file */
-class TestService {}
-class AnotherTestService {}
+class TestService {
+}
+
+class AnotherTestService {
+}
+
 class TestHALResource implements HALResource {
   _links: {
     self: HALLink;
     foo: HALLink;
   };
 
-  bar?: any
+  bar?: any;
 }
+
 let testType;
 
 describe('build decorators', () => {

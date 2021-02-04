@@ -1,7 +1,7 @@
 import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
@@ -41,7 +41,7 @@ const url = 'thisUrl';
 let objectUpdatesService: ObjectUpdatesService;
 
 describe('ItemEditBitstreamComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
@@ -107,13 +107,13 @@ describe('ItemEditBitstreamComponent', () => {
 
   describe('when canRemove is called', () => {
     it('should return true', () => {
-      expect(comp.canRemove()).toEqual(true)
+      expect(comp.canRemove()).toEqual(true);
     });
   });
 
   describe('when canUndo is called', () => {
     it('should return false', () => {
-      expect(comp.canUndo()).toEqual(false)
+      expect(comp.canUndo()).toEqual(false);
     });
   });
 });

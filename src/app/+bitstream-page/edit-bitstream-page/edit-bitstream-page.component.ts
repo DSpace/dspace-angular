@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -32,7 +31,6 @@ import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
@@ -328,7 +326,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.updateFieldTranslations();
       })
     );
-  };
+  }
 
   /**
    * Update the current form values with bitstream properties

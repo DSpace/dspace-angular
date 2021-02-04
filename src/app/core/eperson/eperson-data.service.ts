@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
-import { Operation } from 'fast-json-patch/lib/core';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { filter, find, map, take } from 'rxjs/operators';
 import {
@@ -104,7 +104,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  private getEpeopleByEmail(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByEmail(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new RequestParam('email', query)];
     return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, reRequestOnStale, ...linksToFollow);
   }
@@ -118,7 +118,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  private getEpeopleByMetadata(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByMetadata(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new RequestParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, reRequestOnStale, ...linksToFollow);
   }
@@ -133,7 +133,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);

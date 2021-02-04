@@ -66,7 +66,7 @@ export class LoginPageComponent implements OnDestroy, OnInit {
           this.store.dispatch(new AuthenticationSuccessAction(authToken));
         }
       }
-    })
+    });
   }
 
   /**

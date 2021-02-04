@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
@@ -55,7 +55,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   });
 
 describe('JournalVolumeSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
       providers: [
@@ -68,7 +68,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(JournalVolumeSearchResultListElementComponent);
     journalVolumeListElementComponent = fixture.componentInstance;
 

@@ -22,10 +22,10 @@ export interface MetadataRepresentation {
   /**
    * How we should render the metadata in a list
    */
-  representationType: MetadataRepresentationType,
+  representationType: MetadataRepresentationType;
 
   /**
    * Fetches the value to be displayed
    */
-  getValue(): string
+  getValue(): string;
 }

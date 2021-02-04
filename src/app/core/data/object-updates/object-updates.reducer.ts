@@ -28,9 +28,9 @@ export const OBJECT_UPDATES_TRASH_PATH = '/trash';
  * The state for a single field
  */
 export interface FieldState {
-  editable: boolean,
-  isNew: boolean,
-  isValid: boolean
+  editable: boolean;
+  isNew: boolean;
+  isValid: boolean;
 }
 
 /**
@@ -44,15 +44,15 @@ export interface FieldStates {
  * Represents every object that has a UUID
  */
 export interface Identifiable {
-  uuid: string
+  uuid: string;
 }
 
 /**
  * The state of a single field update
  */
 export interface FieldUpdate {
-  field: Identifiable,
-  changeType: FieldChangeType,
+  field: Identifiable;
+  changeType: FieldChangeType;
 }
 
 /**
@@ -66,18 +66,18 @@ export interface FieldUpdates {
  * The states of all virtual metadata selections available for a single page, mapped by the relationship uuid
  */
 export interface VirtualMetadataSources {
-  [source: string]: VirtualMetadataSource
+  [source: string]: VirtualMetadataSource;
 }
 
 /**
  * The selection of virtual metadata for a relationship, mapped by the uuid of either the item or the relationship type
  */
 export interface VirtualMetadataSource {
-  [uuid: string]: boolean,
+  [uuid: string]: boolean;
 }
 
 export interface RelationshipIdentifiable extends Identifiable {
-  nameVariant?: string,
+  nameVariant?: string;
   relatedItem: Item;
   relationship: Relationship;
   type: RelationshipType;
@@ -88,8 +88,8 @@ export interface RelationshipIdentifiable extends Identifiable {
  * along with a selection of the virtual metadata to keep
  */
 export interface DeleteRelationship extends RelationshipIdentifiable {
-  keepLeftVirtualMetadata: boolean,
-  keepRightVirtualMetadata: boolean,
+  keepLeftVirtualMetadata: boolean;
+  keepRightVirtualMetadata: boolean;
 }
 
 /**
@@ -202,7 +202,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
 
   let states = pageState.fieldStates;
   if (changeType === FieldChangeType.ADD) {
-    states = Object.assign({}, { [field.uuid]: initialNewFieldState }, pageState.fieldStates)
+    states = Object.assign({}, { [field.uuid]: initialNewFieldState }, pageState.fieldStates);
   }
 
   let fieldUpdate: any = pageState.fieldUpdates[field.uuid] || {};

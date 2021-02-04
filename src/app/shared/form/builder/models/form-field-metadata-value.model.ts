@@ -4,7 +4,7 @@ import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../cor
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {
-  [name: string]: string
+  [name: string]: string;
 }
 
 /**

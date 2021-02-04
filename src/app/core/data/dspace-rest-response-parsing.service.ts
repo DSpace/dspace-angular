@@ -50,8 +50,8 @@ export function isRestPaginatedList(halObj: any): boolean {
 const splitUrlInParts = (url: string): string[] => {
   return url.split('?')
     .map((part) => part.split('&'))
-    .reduce((combined, current) => [...combined, ...current])
-}
+    .reduce((combined, current) => [...combined, ...current]);
+};
 
 @Injectable({ providedIn: 'root' })
 export class DspaceRestResponseParsingService implements ResponseParsingService {
@@ -137,7 +137,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
           self: {
             href: urlWithoutEmbedParams
           }
-        })
+        });
 
       } else {
         const expected = splitUrlInParts(urlWithoutEmbedParams);
@@ -148,7 +148,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
             self: {
               href: urlWithoutEmbedParams
             }
-          })
+          });
         }
       }
     }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormatFormComponent } from './format-form/format-form.component';
@@ -14,7 +13,6 @@ import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstrea
     CommonModule,
     SharedModule,
     RouterModule,
-    TranslateModule,
     BitstreamFormatsRoutingModule
   ],
   declarations: [
@@ -22,8 +20,7 @@ import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstrea
     EditBitstreamFormatComponent,
     AddBitstreamFormatComponent,
     FormatFormComponent
-  ],
-  entryComponents: []
+  ]
 })
 export class BitstreamFormatsModule {
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { configureSearchComponentTestingModule } from './search.component.spec';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -8,7 +8,7 @@ describe('ConfigurationSearchPageComponent', () => {
   let fixture: ComponentFixture<ConfigurationSearchPageComponent>;
   let searchConfigService: SearchConfigurationService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     configureSearchComponentTestingModule(ConfigurationSearchPageComponent);
   }));
 
