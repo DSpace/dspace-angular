@@ -345,10 +345,10 @@
   "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "EPerson \"{{name}}\" szerkesztése nem sikerült, email \"{{email}}\" már használatban van.",
 
 // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\ szerkesztése sikerült"",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" szerkesztése sikerült",
 
 // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "EPerson \"{{name}}\ szerkesztése nem sikerült"",
+  "admin.access-control.epeople.form.notification.edited.failure": "EPerson \"{{name}}\" szerkesztése nem sikerült",
 
 // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Tagja a következő csoportoknak:",
@@ -366,10 +366,10 @@
   "admin.access-control.epeople.form.goToGroups": "Hozzáadás csoportokhoz",
 
 // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "EPerson: \"{{name}}\ törlése nem sikerült"",
+  "admin.access-control.epeople.notification.deleted.failure": "EPerson: \"{{name}}\" törlése nem sikerült",
 
 // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\ törlése sikerült"",
+  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" törlése sikerült",
 
 
 
@@ -416,10 +416,10 @@
   "admin.access-control.groups.no-items": "Egyetlen csoport sem tartalmazza nevében, vagy UUID-ként ezt",
 
 // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.success": "\"{{name}}\ csoport törlése sikerült"",
+  "admin.access-control.groups.notification.deleted.success": "\"{{name}}\" csoport törlése sikerült",
 
 // "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure": "\"{{name}}\ csoport törlése nem sikerült"",
+  "admin.access-control.groups.notification.deleted.failure": "\"{{name}}\" csoport törlése nem sikerült",
 
 
 // "admin.access-control.groups.form.head.create": "Create group",
@@ -435,10 +435,10 @@
   "admin.access-control.groups.form.groupDescription": "Leírás",
 
 // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.success": "\"{{name}}\ csoport létrehozása sikerült"",
+  "admin.access-control.groups.form.notification.created.success": "\"{{name}}\" csoport létrehozása sikerült",
 
 // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.failure": "\"{{name}}\ csoport létrehozása nem sikerült"",
+  "admin.access-control.groups.form.notification.created.failure": "\"{{name}}\" csoport létrehozása nem sikerült",
 
 // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Nem sikerült csoport létrehozása a következő névvel: \"{{name}}\", győződjön meg róla, hogy a név nincs már használatban.",
@@ -474,19 +474,19 @@
   "admin.access-control.groups.form.members-list.table.edit": "Törlés / Hozzáadás",
 
 // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "A\"{{name}}\ nevű tag törlése"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "A\"{{name}}\" nevű tag törlése",
 
 // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "A: \"{{name}}\ tag sikeresen hozzáadva"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "A: \"{{name}}\" tag sikeresen hozzáadva",
 
 // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "A: \"{{name}}\ tag hozzáadása nem sikerült"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "A: \"{{name}}\" tag hozzáadása nem sikerült",
 
 // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "A: \"{{name}}\ tag törlése sikerült"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "A: \"{{name}}\" tag törlése sikerült",
 
 // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": A: \"{{name}}\ tag törlése nem sikerült"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "A: \"{{name}}\" tag törlése nem sikerült",
 
 // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Tag hozzáadása a következő névvel: \"{{name}}\"",
@@ -525,25 +525,25 @@
   "admin.access-control.groups.form.subgroups-list.table.edit": "Törlés / Hozzáadás",
 
 // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "A következő nevű \"{{name}}\ alcsoport törlése"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "A következő nevű \"{{name}}\" alcsoport törlése",
 
 // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "A következő nevű \"{{name}}\ alcsoport hozzáadása"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "A következő nevű \"{{name}}\" alcsoport hozzáadása",
 
 // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
   "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Jelenlegi csoport",
 
 // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "A: \"{{name}}\ alcsoport sikeresen hozzáadva"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "A: \"{{name}}\" alcsoport sikeresen hozzáadva",
 
 // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "A: \"{{name}}\ alcsoport hozzáadása nem sikerült"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "A: \"{{name}}\" alcsoport hozzáadása nem sikerült",
 
 // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "A: \"{{name}}\ alcsoport sikeresen törölve"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "A: \"{{name}}\" alcsoport sikeresen törölve",
 
 // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "A: \"{{name}}\ alcsoport törlése nem sikerült"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "A: \"{{name}}\" alcsoport törlése nem sikerült",
 
 // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "jelenleg nincs aktív csoport, előbb adjon meg egy nevet.",
@@ -2564,7 +2564,7 @@
   "mydspace.messages.subject-placeholder": "Tárgy...",
 
 // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  "mydspace.messages.submitter-help": Válassza ezt, hogy üzenjen a kontrollernek.",
+  "mydspace.messages.submitter-help": "Válassza ezt, hogy üzenjen a kontrollernek.",
 
 // "mydspace.messages.title": "Messages",
   "mydspace.messages.title": "Üzenetek",
