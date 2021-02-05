@@ -86,7 +86,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
       );
       this.latestVersion$ = versionHistory$.pipe(
         switchMap((versionHistory: VersionHistory) =>
-          this.versionHistoryService.getVersions(versionHistory.id, latestVersionSearch, followLink('item'))),
+          this.versionHistoryService.getVersions(versionHistory.id, latestVersionSearch, true, true, followLink('item'))),
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),

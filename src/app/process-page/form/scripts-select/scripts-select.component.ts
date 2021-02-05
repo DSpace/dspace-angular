@@ -47,7 +47,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
    * Checks if the route contains a script ID and auto selects this scripts
    */
   ngOnInit() {
-    this.scripts$ = this.scriptService.findAll({ elementsPerPage: Number.MAX_SAFE_INTEGER })
+    this.scripts$ = this.scriptService.findAll({ elementsPerPage: 9999 })
       .pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),

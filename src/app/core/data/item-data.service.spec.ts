@@ -126,8 +126,8 @@ describe('ItemDataService', () => {
       result = service.removeMappingFromCollection('item-id', 'collection-id');
     });
 
-    it('should configure a DELETE request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(DeleteRequest)));
+    it('should send a DELETE request', () => {
+      result.subscribe(() => expect(requestService.send).toHaveBeenCalledWith(jasmine.any(DeleteRequest)));
     });
   });
 
@@ -139,8 +139,8 @@ describe('ItemDataService', () => {
       result = service.mapToCollection('item-id', 'collection-href');
     });
 
-    it('should configure a POST request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
+    it('should send a POST request', () => {
+      result.subscribe(() => expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest)));
     });
   });
 
@@ -158,9 +158,9 @@ describe('ItemDataService', () => {
       result = service.importExternalSourceEntry(externalSourceEntry, 'collection-id');
     });
 
-    it('should configure a POST request', (done) => {
+    it('should send a POST request', (done) => {
       result.subscribe(() => {
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
         done();
       });
     });
@@ -176,9 +176,9 @@ describe('ItemDataService', () => {
       result = service.createBundle(itemId, bundleName);
     });
 
-    it('should configure a POST request', (done) => {
+    it('should send a POST request', (done) => {
       result.subscribe(() => {
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
         done();
       });
     });

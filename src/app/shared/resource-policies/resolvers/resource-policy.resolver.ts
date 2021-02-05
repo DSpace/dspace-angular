@@ -33,7 +33,7 @@ export class ResourcePolicyResolver implements Resolve<RemoteData<ResourcePolicy
       this.router.navigateByUrl('/404', { skipLocationChange: true });
     }
 
-    return this.resourcePolicyService.findById(policyId, false, followLink('eperson'), followLink('group')).pipe(
+    return this.resourcePolicyService.findById(policyId, true, false, followLink('eperson'), followLink('group')).pipe(
       getFirstCompletedRemoteData(),
     );
   }

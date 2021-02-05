@@ -11,7 +11,7 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import { defaultIfEmpty, map, mergeMap, switchMap, take, } from 'rxjs/operators';
+import { defaultIfEmpty, map, mergeMap, switchMap, take, startWith } from 'rxjs/operators';
 import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
@@ -311,12 +311,13 @@ export class EditRelationshipListComponent implements OnInit {
           return fieldUpdatesFiltered;
         }),
       )),
+      startWith({}),
     );
   }
 
   private getItemRelationships() {
     this.linkService.resolveLink(this.item,
-      followLink('relationships', undefined, true,
+      followLink('relationships', undefined, true, true, true,
         followLink('relationshipType'),
         followLink('leftItem'),
         followLink('rightItem'),

@@ -15,13 +15,12 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { configureRequest, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, FindListRequest } from './request.models';
 import { RequestService } from './request.service';
 
 /**
@@ -46,31 +45,11 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   }
 
   /**
-   * Get the endpoint for a relationship type by ID
-   * @param id
-   */
-  getRelationshipTypeEndpoint(id: number) {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((href: string) => `${href}/${id}`)
-    );
-  }
-
-  getAllRelationshipTypes(options: FindListOptions): Observable<RemoteData<PaginatedList<RelationshipType>>> {
-    const link$ = this.halService.getEndpoint(this.linkPath);
-    return link$
-      .pipe(
-        map((endpointURL: string) => new FindListRequest(this.requestService.generateRequestId(), endpointURL, options)),
-        configureRequest(this.requestService),
-        switchMap(() => this.rdbService.buildList<RelationshipType>(link$, followLink('leftType'), followLink('rightType')))
-      ) as Observable<RemoteData<PaginatedList<RelationshipType>>>;
-  }
-
-  /**
    * Get the RelationshipType for a relationship type by label
    * @param label
    */
   getRelationshipTypeByLabelAndTypes(label: string, firstType: string, secondType: string): Observable<RelationshipType> {
-    return this.getAllRelationshipTypes({ currentPage: 1, elementsPerPage: Number.MAX_VALUE })
+    return this.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
       .pipe(
         getFirstSucceededRemoteData(),
         /* Flatten the page so we can treat it like an observable */

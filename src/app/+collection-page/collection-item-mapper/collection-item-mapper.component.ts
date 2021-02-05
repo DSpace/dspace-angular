@@ -124,10 +124,11 @@ export class CollectionItemMapperComponent implements OnInit {
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
         if (shouldUpdate) {
-          return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
-            sort: this.defaultSortOptions
-          }),followLink('owningCollection'));
+          this.shouldUpdate$.next(false);
         }
+        return this.itemDataService.findAllByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
+          sort: this.defaultSortOptions
+        }),!shouldUpdate, true, followLink('owningCollection'));
       })
     );
     this.mappedItemsRD$ = collectionAndOptions$.pipe(

@@ -50,28 +50,34 @@ export class BundleDataService extends DataService<Bundle> {
   /**
    * Retrieve all {@link Bundle}s in the given {@link Item}
    *
-   * @param item              the {@link Item} the {@link Bundle}s are a part of
-   * @param options           the {@link FindListOptions} for the request
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     the {@link FollowLinkConfig}s for the request
+   * @param item                        the {@link Item} the {@link Bundle}s are a part of
+   * @param options                     the {@link FindListOptions} for the request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllByItem(item: Item, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<PaginatedList<Bundle>>> {
-    return this.findAllByHref(item._links.bundles.href, options, reRequestOnStale, ...linksToFollow);
+  findAllByItem(item: Item, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<PaginatedList<Bundle>>> {
+    return this.findAllByHref(item._links.bundles.href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Retrieve a {@link Bundle} in the given {@link Item} by name
    *
-   * @param item              the {@link Item} the {@link Bundle}s are a part of
-   * @param bundleName        the name of the {@link Bundle} to retrieve
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     the {@link FollowLinkConfig}s for the request
+   * @param item                        the {@link Item} the {@link Bundle}s are a part of
+   * @param bundleName                  the name of the {@link Bundle} to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
-    return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, reRequestOnStale, ...linksToFollow).pipe(
+  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
+    return this.findAllByItem(item, { elementsPerPage: 9999 }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>
@@ -129,7 +135,7 @@ export class BundleDataService extends DataService<Bundle> {
       take(1)
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
+      this.requestService.send(request, true);
     });
 
     return this.rdbService.buildList<Bitstream>(hrefObs, ...linksToFollow);

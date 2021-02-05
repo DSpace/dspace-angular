@@ -24,6 +24,7 @@ export class WorkflowItemPageResolver implements Resolve<RemoteData<WorkflowItem
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<WorkflowItem>> {
     return this.workflowItemService.findById(route.params.id,
+      true,
       false,
       followLink('item'),
     ).pipe(

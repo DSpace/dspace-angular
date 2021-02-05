@@ -12,11 +12,13 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
+import {
+  FieldUpdate,
+  FieldUpdates
+} from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -94,14 +96,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   }
 
   /**
-   * Set up and initialize all fields
-   */
-  ngOnInit(): void {
-    super.ngOnInit();
-    this.initializeItemUpdate();
-  }
-
-  /**
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
@@ -119,25 +113,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
   }
 
-  /**
-   * Update the item (and view) when it's removed in the request cache
-   * Also re-initialize the original fields and updates
-   */
-  initializeItemUpdate(): void {
-    this.itemUpdateSubscription = this.requestService.hasByHref$(this.item.self).pipe(
-      filter((exists: boolean) => !exists),
-      switchMap(() => this.itemService.findById(this.item.uuid)),
-      getFirstSucceededRemoteData(),
-    ).subscribe((itemRD: RemoteData<Item>) => {
-      if (hasValue(itemRD)) {
-        this.item = itemRD.payload;
-        this.postItemInit();
-        this.initializeOriginalFields();
-        this.initializeUpdates();
-        this.cdRef.detectChanges();
-      }
-    });
-  }
 
   /**
    * Submit the current changes
@@ -274,7 +249,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   reset() {
     this.refreshItemCache();
-    this.initializeItemUpdate();
   }
 
   /**

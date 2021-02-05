@@ -1,8 +1,4 @@
 import { DataService } from './data.service';
-import { Root } from './root.model';
-import { Injectable } from '@angular/core';
-import { ROOT } from './root.resource-type';
-import { dataService } from '../cache/builders/build-decorators';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -12,20 +8,22 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { Observable } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { Injectable } from '@angular/core';
+import { VOCABULARY_ENTRY } from '../submission/vocabularies/models/vocabularies.resource-type';
 import { FindListOptions } from './request.models';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
+import { RemoteData } from './remote-data';
+import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedList } from './paginated-list.model';
+import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
+import { LICENSE } from '../shared/license.resource-type';
+import { CacheableObject } from '../cache/object-cache.reducer';
 
 /* tslint:disable:max-classes-per-file */
-
-/**
- * A private DataService implementation to delegate specific methods to.
- */
-class DataServiceImpl extends DataService<Root> {
-  protected linkPath = '';
-  protected responseMsToLive = 6 * 60 * 60 * 1000;
+class DataServiceImpl extends DataService<any> {
+  // linkPath isn't used if we're only searching by href.
+  protected linkPath = undefined;
 
   constructor(
     protected requestService: RequestService,
@@ -35,20 +33,25 @@ class DataServiceImpl extends DataService<Root> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Root>) {
+    protected comparator: DefaultChangeAnalyzer<any>) {
     super();
   }
 }
 
 /**
- * A service to retrieve the {@link Root} object from the REST API.
+ * A DataService with only findByHref methods. Its purpose is to be used for resources that don't
+ * need to be retrieved by ID, or have any way to update them, but require a DataService in order
+ * for their links to be resolved by the LinkService.
+ *
+ * an @dataService annotation can be added for any number of these resource types
  */
-@Injectable()
-@dataService(ROOT)
-export class RootDataService {
-  /**
-   * A private DataService instance to delegate specific methods to.
-   */
+@Injectable({
+  providedIn: 'root'
+})
+@dataService(VOCABULARY_ENTRY)
+@dataService(ITEM_TYPE)
+@dataService(LICENSE)
+export class HrefOnlyDataService {
   private dataService: DataServiceImpl;
 
   constructor(
@@ -59,26 +62,13 @@ export class RootDataService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Root>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+    protected comparator: DefaultChangeAnalyzer<any>) {
+    this.dataService = new DataServiceImpl(requestService, rdbService, store, objectCache, halService, notificationsService, http, comparator);
   }
 
   /**
-   * Find the {@link Root} object of the REST API
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
-   */
-  findRoot(useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
-    return this.dataService.findByHref(this.halService.getRootHref(), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  /**
-   * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of
-   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
    * @param href                        The url of object we want to retrieve
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
@@ -87,13 +77,13 @@ export class RootDataService {
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string | Observable<string>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
+  findByHref<T extends CacheableObject>(href: string | Observable<string>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
     return this.dataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
-   * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list
-   * of {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
    * @param href                        The url of object we want to retrieve
    * @param findListOptions             Find list options object
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
@@ -103,8 +93,7 @@ export class RootDataService {
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllByHref(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<PaginatedList<Root>>> {
+  findAllByHref<T extends CacheableObject>(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
-/* tslint:enable:max-classes-per-file */

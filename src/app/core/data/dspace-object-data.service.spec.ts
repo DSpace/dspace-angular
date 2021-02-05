@@ -3,7 +3,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindByIDRequest } from './request.models';
+import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { DSpaceObjectDataService } from './dspace-object-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -32,7 +32,7 @@ describe('DSpaceObjectDataService', () => {
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true
+      send: true
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
@@ -65,11 +65,11 @@ describe('DSpaceObjectDataService', () => {
       expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
     });
 
-    it('should configure the proper FindByIDRequest', () => {
+    it('should send the proper FindByIDRequest', () => {
       scheduler.schedule(() => service.findById(testObject.uuid));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestURL, testObject.uuid));
+      expect(requestService.send).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL), true);
     });
 
     it('should return a RemoteData<DSpaceObject> for the object with the given ID', () => {

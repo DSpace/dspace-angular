@@ -38,11 +38,11 @@ class TestModel implements HALResource {
 
 @Injectable()
 class TestDataService {
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
     return 'findAllByHref';
   }
 
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
+  findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
     return 'findByHref';
   }
 }
@@ -90,10 +90,10 @@ xdescribe('LinkService', () => {
           propertyName: 'predecessor'
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')));
+        service.resolveLink(testModel, followLink('predecessor', {}, true, true, true, followLink('successor')));
       });
       it('should call dataservice.findByHref with the correct href and nested links', () => {
-        expect(testDataService.findByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, true, followLink('successor'));
+        expect(testDataService.findByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, true, true, followLink('successor'));
       });
     });
     describe(`when the linkdefinition concerns a list`, () => {
@@ -105,10 +105,10 @@ xdescribe('LinkService', () => {
           isList: true
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        service.resolveLink(testModel, followLink('predecessor', { some: 'options ' } as any, true, followLink('successor')));
+        service.resolveLink(testModel, followLink('predecessor', { some: 'options ' } as any, true, true, true, followLink('successor')));
       });
       it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
-        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, followLink('successor'));
+        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, true, followLink('successor'));
       });
     });
     describe('either way', () => {
@@ -119,7 +119,7 @@ xdescribe('LinkService', () => {
           propertyName: 'predecessor'
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        result = service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')));
+        result = service.resolveLink(testModel, followLink('predecessor', {}, true, true, true, followLink('successor')));
       });
 
       it('should call getLinkDefinition with the correct model and link', () => {
@@ -144,7 +144,7 @@ xdescribe('LinkService', () => {
       });
       it('should throw an error', () => {
         expect(() => {
-          service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')));
+          service.resolveLink(testModel, followLink('predecessor', {}, true, true, true, followLink('successor')));
         }).toThrow();
       });
     });
@@ -160,7 +160,7 @@ xdescribe('LinkService', () => {
       });
       it('should throw an error', () => {
         expect(() => {
-          service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')));
+          service.resolveLink(testModel, followLink('predecessor', {}, true, true, true, followLink('successor')));
         }).toThrow();
       });
     });

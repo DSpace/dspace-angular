@@ -25,7 +25,7 @@ import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { configureRequest } from '../shared/operators';
+import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { RequestEntryState } from './request.reducer';
@@ -62,15 +62,17 @@ export class BitstreamDataService extends DataService<Bitstream> {
   /**
    * Retrieves the {@link Bitstream}s in a given bundle
    *
-   * @param bundle            the bundle to retrieve bitstreams from
-   * @param options           options for the find all request
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param bundle                      the bundle to retrieve bitstreams from
+   * @param options                     options for the find all request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllByBundle(bundle: Bundle, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    return this.findAllByHref(bundle._links.bitstreams.href, options, reRequestOnStale, ...linksToFollow);
+  findAllByBundle(bundle: Bundle, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    return this.findAllByHref(bundle._links.bitstreams.href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -120,7 +122,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
     return this.bundleService.findByItemAndName(item, 'THUMBNAIL').pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
         if (isNotEmpty(bundleRD.payload)) {
-          return this.findAllByBundle(bundleRD.payload, { elementsPerPage: Number.MAX_SAFE_INTEGER }).pipe(
+          return this.findAllByBundle(bundleRD.payload, { elementsPerPage: 9999 }).pipe(
             map((bitstreamRD: RemoteData<PaginatedList<Bitstream>>) => {
               if (hasValue(bitstreamRD.payload) && hasValue(bitstreamRD.payload.page)) {
                 const matchingThumbnail = bitstreamRD.payload.page.find((thumbnail: Bitstream) =>
@@ -165,19 +167,22 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * The {@link Item} is technically redundant, but is available
    * in all current use cases, and having it simplifies this method
    *
-   * @param item              the {@link Item} the {@link Bundle} is a part of
-   * @param bundleName        the name of the {@link Bundle} we want to find {@link Bitstream}s for
-   * @param options the {@link FindListOptions} for the request
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param item                        the {@link Item} the {@link Bundle} is a part of
+   * @param bundleName                  the name of the {@link Bundle} we want to find
+   *                                    {@link Bitstream}s for
+   * @param options                     the {@link FindListOptions} for the request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
         if (bundleRD.hasSucceeded && hasValue(bundleRD.payload)) {
-          return this.findAllByBundle(bundleRD.payload, options, reRequestOnStale, ...linksToFollow);
+          return this.findAllByBundle(bundleRD.payload, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
         } else if (!bundleRD.hasSucceeded && bundleRD.statusCode === 404) {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []), new Date().getTime());
         } else {
@@ -209,7 +214,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
         options.headers = headers;
         return new PutRequest(requestId, bitstreamHref, formatHref, options);
       }),
-      configureRequest(this.requestService),
+      sendRequest(this.requestService),
       take(1)
     ).subscribe(() => {
       this.requestService.removeByHrefSubstring(bitstream.self + '/format');

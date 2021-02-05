@@ -60,7 +60,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
-    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, followLink('feature')).pipe(
+    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, true, true, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {
         if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {
@@ -77,19 +77,24 @@ export class AuthorizationDataService extends DataService<Authorization> {
   /**
    * Search for a list of {@link Authorization}s using the "object" search endpoint and providing optional object url,
    * {@link EPerson} uuid and/or {@link Feature} id
-   * @param objectUrl     URL to the object to search {@link Authorization}s for.
-   *                      If not provided, the repository's {@link Site} will be used.
-   * @param ePersonUuid   UUID of the {@link EPerson} to search {@link Authorization}s for.
-   *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
-   * @param featureId     ID of the {@link Feature} to search {@link Authorization}s for
-   * @param options       {@link FindListOptions} to provide pagination and/or additional arguments
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param objectUrl                   URL to the object to search {@link Authorization}s for.
+   *                                    If not provided, the repository's {@link Site} will be used.
+   * @param ePersonUuid                 UUID of the {@link EPerson} to search {@link Authorization}s for.
+   *                                    If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
+   * @param featureId                   ID of the {@link Feature} to search {@link Authorization}s for
+   * @param options                     {@link FindListOptions} to provide pagination and/or additional arguments
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
+  searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
     return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
       addSiteObjectUrlIfEmpty(this.siteService),
       switchMap((params: AuthorizationSearchParams) => {
-        return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), true, ...linksToFollow);
+        return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       })
     );
   }

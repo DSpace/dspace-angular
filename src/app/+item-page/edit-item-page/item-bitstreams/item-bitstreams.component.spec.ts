@@ -134,6 +134,7 @@ describe('ItemBitstreamsComponent', () => {
     });
     itemService = Object.assign({
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
+      findByHref: () => createSuccessfulRemoteDataObject$(item),
       findById: () => createSuccessfulRemoteDataObject$(item),
       getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
     });

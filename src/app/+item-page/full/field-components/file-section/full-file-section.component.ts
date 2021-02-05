@@ -67,6 +67,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         'ORIGINAL',
         {elementsPerPage: this.pageSize, currentPage: pageNumber},
         true,
+        true,
         followLink('format')
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
@@ -82,6 +83,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         this.item,
         'LICENSE',
         {elementsPerPage: this.pageSize, currentPage: pageNumber},
+        true,
         true,
         followLink('format')
       )),

@@ -111,7 +111,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
       const pageInfo: PageInfo = new PageInfo({
-        elementsPerPage: Number.MAX_VALUE, currentPage: 1
+        elementsPerPage: 9999, currentPage: 1
       } as PageInfo);
       this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
         getFirstSucceededRemoteDataPayload()
