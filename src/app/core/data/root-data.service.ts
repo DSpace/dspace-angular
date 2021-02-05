@@ -65,39 +65,46 @@ export class RootDataService {
 
   /**
    * Find the {@link Root} object of the REST API
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findRoot(reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
-    return this.dataService.findByHref(this.halService.getRootHref(), reRequestOnStale, ...linksToFollow);
+  findRoot(useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
+    return this.dataService.findByHref(this.halService.getRootHref(), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
-   * @param href              The url of object we want to retrieve
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param href                        The url of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
-    return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
+  findByHref(href: string | Observable<string>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<Root>> {
+    return this.dataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list
    * of {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
-   * @param href              The url of object we want to retrieve
-   * @param findListOptions   Find list options object
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param href                        The url of object we want to retrieve
+   * @param findListOptions             Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<PaginatedList<Root>>> {
-    return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
+  findAllByHref(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<PaginatedList<Root>>> {
+    return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
 /* tslint:enable:max-classes-per-file */
