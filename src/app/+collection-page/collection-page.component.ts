@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
+import { filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
@@ -21,7 +21,7 @@ import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
-import {PaginationChangeEvent} from '../shared/pagination/paginationChangeEvent.interface';
+import { PaginationService } from '../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -51,9 +51,11 @@ export class CollectionPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private paginationService: PaginationService,
+
   ) {
     this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'collection-page-pagination';
+    this.paginationConfig.id = 'cp';
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
     this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
@@ -76,16 +78,19 @@ export class CollectionPageComponent implements OnInit {
       sortConfig: this.sortConfig
     });
 
-    this.itemRD$ = this.paginationChanges$.pipe(
-      switchMap((dto) => this.collectionRD$.pipe(
+    const currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+    const currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, this.sortConfig);
+
+    this.itemRD$ = observableCombineLatest([currentPagination$, currentSort$]).pipe(
+      switchMap(([currentPagination, currentSort ]) => this.collectionRD$.pipe(
         getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
           return this.searchService.search(
               new PaginatedSearchOptions({
                 scope: id,
-                pagination: dto.paginationConfig,
-                sort: dto.sortConfig,
+                pagination: currentPagination,
+                sort: currentSort,
                 dsoTypes: [DSpaceObjectType.ITEM]
               })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
@@ -103,19 +108,4 @@ export class CollectionPageComponent implements OnInit {
     return isNotEmpty(object);
   }
 
-  onPaginationChange(event: PaginationChangeEvent) {
-    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-      currentPage: event.pagination.currentPage || this.paginationConfig.currentPage,
-      pageSize: event.pagination.pageSize || this.paginationConfig.pageSize,
-      id: 'collection-page-pagination'
-    });
-    this.sortConfig = Object.assign(new SortOptions('dc.date.accessioned', SortDirection.DESC), {
-      direction: event.sort.direction || this.sortConfig.direction,
-      field: event.sort.field || this.sortConfig.field
-    });
-    this.paginationChanges$.next({
-      paginationConfig: this.paginationConfig,
-      sortConfig: this.sortConfig
-    });
-  }
 }

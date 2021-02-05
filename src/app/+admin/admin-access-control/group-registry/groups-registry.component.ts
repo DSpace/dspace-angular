@@ -5,15 +5,15 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
-  Subscription,
   Observable,
-  of as observableOf
+  of as observableOf,
+  Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -24,6 +24,7 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { RouteService } from '../../../core/services/route.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
+  getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData
@@ -33,6 +34,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -50,7 +52,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'groups-list-pagination',
+    id: 'gl',
     pageSize: 5,
     currentPage: 1
   });
@@ -78,6 +80,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   searchSub: Subscription;
 
+  paginationSub: Subscription;
+
   /**
    * List of subscriptions
    */
@@ -92,6 +96,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               protected routeService: RouteService,
               private router: Router,
               private authorizationService: AuthorizationDataService,
+              private paginationService: PaginationService,
               public requestService: RequestService) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
@@ -104,19 +109,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Event triggered when the user changes page
-   * @param event
-   */
-  onPageChange(event) {
-    this.config.currentPage = event;
-    this.search({ query: this.currentSearchQuery });
-  }
-
-  /**
    * Search in the groups (searches by group name and by uuid exact match)
    * @param data  Contains query param
    */
   search(data: any) {
+
     const query: string = data.query;
     if (query != null && this.currentSearchQuery !== query) {
       this.router.navigateByUrl(this.groupService.getGroupRegistryRouterLink());
@@ -128,44 +125,61 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
     }
 
-    this.searchSub = this.groupService.searchGroups(this.currentSearchQuery.trim(), {
-      currentPage: this.config.currentPage,
-      elementsPerPage: this.config.pageSize
-    }).pipe(
-      getAllSucceededRemoteDataPayload(),
-      switchMap((groups: PaginatedList<Group>) => {
-        if (groups.page.length === 0) {
-          return observableOf(buildPaginatedList(groups.pageInfo, []));
+    this.searchSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      switchMap((paginationOptions) => {
+        const query: string = data.query;
+        if (query != null && this.currentSearchQuery !== query) {
+          this.router.navigate([], {
+            queryParamsHandling: 'merge'
+          });
+          this.currentSearchQuery = query;
+          this.paginationService.resetPage(this.config.id);
         }
-        return observableCombineLatest(groups.page.map((group: Group) => {
-          if (!this.deletedGroupsIds.includes(group.id)) {
-            return observableCombineLatest([
-              this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-              this.hasLinkedDSO(group),
-              this.getSubgroups(group),
-              this.getMembers(group)
-            ]).pipe(
-              map(([isAuthorized, hasLinkedDSO, subgroups, members]:
-                     [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                  const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                  groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
-                  groupDtoModel.group = group;
-                  groupDtoModel.subgroups = subgroups.payload;
-                  groupDtoModel.epersons = members.payload;
-                  return groupDtoModel;
-                }
-              )
-            );
+        if (hasValue(this.searchSub)) {
+          this.searchSub.unsubscribe();
+          this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
+        }
+        return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
+          currentPage: paginationOptions.currentPage,
+          elementsPerPage: paginationOptions.pageSize
+        }).pipe(
+          getAllSucceededRemoteData()
+        switchMap((groups: PaginatedList<Group>) => {
+          if (groups.page.length === 0) {
+            return observableOf(buildPaginatedList(groups.pageInfo, []));
           }
-        })).pipe(map((dtos: GroupDtoModel[]) => {
-          return buildPaginatedList(groups.pageInfo, dtos);
-        }));
-      })).subscribe((value: PaginatedList<GroupDtoModel>) => {
-      this.groupsDto$.next(value);
-      this.pageInfoState$.next(value.pageInfo);
-    });
-    this.subs.push(this.searchSub);
-  }
+          return observableCombineLatest(groups.page.map((group: Group) => {
+            if (!this.deletedGroupsIds.includes(group.id)) {
+              return observableCombineLatest([
+                this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+                this.hasLinkedDSO(group),
+                this.getSubgroups(group),
+                this.getMembers(group)
+              ]).pipe(
+                map(([isAuthorized, hasLinkedDSO, subgroups, members]:
+                       [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
+                    const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                    groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
+                    groupDtoModel.group = group;
+                    groupDtoModel.subgroups = subgroups.payload;
+                    groupDtoModel.epersons = members.payload;
+                    return groupDtoModel;
+                  }
+                )
+              );
+            }
+          })).pipe(map((dtos: GroupDtoModel[]) => {
+            return buildPaginatedList(groups.pageInfo, dtos);
+          }));
+        })
+      ).
+        subscribe((value: PaginatedList<GroupDtoModel>) => {
+          this.groupsDto$.next(value);
+          this.pageInfoState$.next(value.pageInfo);
+        });
+        this.subs.push(this.searchSub);
+
+      }
 
   /**
    * Delete Group
@@ -244,6 +258,9 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   }
 
   cleanupSubscribes() {
+    if (hasValue(this.paginationSub)) {
+      this.paginationSub.unsubscribe();
+    }
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

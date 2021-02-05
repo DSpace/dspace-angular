@@ -45,8 +45,7 @@
           [pageInfoState]="pageInfoState$"
           [collectionSize]="(pageInfoState$ | async)?.totalElements"
           [hideGear]="true"
-          [hidePagerWhenSinglePage]="true"
-          (pageChange)="onPageChange($event)">
+          [hidePagerWhenSinglePage]="true">
 
           <div class="table-responsive">
             <table id="epeople" class="table table-striped table-hover table-bordered">

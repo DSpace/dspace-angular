@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".
@@ -33,9 +34,11 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
   startsWithYear: number;
 
   public constructor(@Inject('startsWithOptions') public startsWithOptions: any[],
+                     @Inject('paginationId') public paginationId: string,
+                     protected paginationService: PaginationService,
                      protected route: ActivatedRoute,
                      protected router: Router) {
-    super(startsWithOptions, route, router);
+    super(startsWithOptions, paginationId, paginationService, route, router);
   }
 
   ngOnInit() {

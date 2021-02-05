@@ -33,9 +33,7 @@
       [startsWithOptions]="startsWithOptions"
       [enableArrows]="true"
       (prev)="goPrev()"
-      (next)="goNext()"
-      (pageSizeChange)="pageSizeChange($event)"
-      (sortDirectionChange)="sortDirectionChange($event)">
+      (next)="goNext()">
     </ds-browse-by>
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>

@@ -14,8 +14,7 @@
         [pageInfoState]="(bitstreamFormats | async)?.payload"
         [collectionSize]="(bitstreamFormats | async)?.payload?.totalElements"
         [hideGear]="true"
-        [hidePagerWhenSinglePage]="true"
-        (pageChange)="onPageChange($event)">
+        [hidePagerWhenSinglePage]="true">
         <div class="table-responsive">
           <table id="formats" class="table table-striped table-hover">
             <thead>

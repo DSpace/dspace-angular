@@ -17,6 +17,7 @@ import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } fro
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { compareArraysUsing } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 /**
  * Operator used for comparing {@link FieldUpdate}s by their field's UUID
@@ -81,14 +82,14 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * The amount of objects to display per page
    */
-  pageSize = 10;
+  pageSize = 2;
 
   /**
    * The page options to use for fetching the objects
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(),{
-    id: 'paginated-drag-and-drop-options',
+    id: 'dad',
     currentPage: 1,
     pageSize: this.pageSize
   });
@@ -113,7 +114,9 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
 
   protected constructor(protected objectUpdatesService: ObjectUpdatesService,
                         protected elRef: ElementRef,
-                        protected objectValuesPipe: ObjectValuesPipe) {
+                        protected objectValuesPipe: ObjectValuesPipe,
+                        protected paginationService: PaginationService
+                        ) {
   }
 
   /**
@@ -123,6 +126,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
     this.initializeObjectsRD();
     this.initializeURL();
     this.initializeUpdates();
+    this.initializePagination();
   }
 
   /**
@@ -134,6 +138,15 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    * Overwrite this method to define how the URL is set
    */
   abstract initializeURL(): void;
+
+  /**
+   * Initialize the current pagination retrieval from the paginationService and push to the currentPage$
+   */
+  initializePagination() {
+    this.paginationService.getCurrentPagination(this.options.id, this.options).subscribe((currentPagination) => {
+      this.currentPage$.next(currentPagination.currentPage);
+    });
+  }
 
   /**
    * Initialize the field-updates in the store
@@ -162,14 +175,6 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
       // Disable the pagination when objects are loading
       this.loading$.subscribe((loading) => this.options.disabled = loading)
     );
-  }
-
-  /**
-   * Update the current page
-   * @param page
-   */
-  switchPage(page: number) {
-    this.currentPage$.next(page);
   }
 
   /**

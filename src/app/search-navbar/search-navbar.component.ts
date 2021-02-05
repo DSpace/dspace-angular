@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SearchService } from '../core/shared/search/search.service';
 import { expandSearchInput } from '../shared/animations/slide';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 
 /**
  * The search box in the header that expands on focus and collapses on focus out
@@ -24,7 +26,9 @@ export class SearchNavbarComponent {
   // Search input field
   @ViewChild('searchInput') searchField: ElementRef;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private searchService: SearchService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private searchService: SearchService,
+              private paginationService: PaginationService,
+              private searchConfig: SearchConfigurationService) {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
@@ -63,9 +67,6 @@ export class SearchNavbarComponent {
     this.collapse();
     const linkToNavigateTo = this.searchService.getSearchLink().split('/');
     this.searchForm.reset();
-    this.router.navigate(linkToNavigateTo, {
-      queryParams: Object.assign({}, { page: 1 }, data),
-      queryParamsHandling: 'merge'
-    });
+    this.paginationService.updateRouteWithUrl(this.searchConfig.paginationID, linkToNavigateTo, {page: 1}, data);
   }
 }

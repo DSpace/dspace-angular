@@ -10,6 +10,7 @@ import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-siz
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
 import { RequestService } from '../../../../../core/data/request.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -37,8 +38,9 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
               protected elRef: ElementRef,
               protected objectValuesPipe: ObjectValuesPipe,
               protected bundleService: BundleDataService,
+              protected paginationService: PaginationService,
               protected requestService: RequestService) {
-    super(objectUpdatesService, elRef, objectValuesPipe);
+    super(objectUpdatesService, elRef, objectValuesPipe, paginationService);
   }
 
   ngOnInit() {
