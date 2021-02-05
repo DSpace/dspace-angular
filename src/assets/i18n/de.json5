@@ -162,7 +162,7 @@
   "admin.registries.metadata.schemas.no-items": "Es gibt keinen Metadatenschemata in der Referenzliste.",
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  "admin.registries.metadata.schemas.table.delete": "Ausgewählte löschen",
+  "admin.registries.metadata.schemas.table.delete": "Auswahl löschen",
   
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -322,19 +322,16 @@
   
   // "admin.access-control.epeople.form.firstName": "First name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Vorname",
   
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Nachname",
   
   // "admin.access-control.epeople.form.email": "E-mail",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.email": "E-mail",
+  "admin.access-control.epeople.form.email": "E-Mail-Adresse",
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Muss eine gültige E-Mail-Adresse sein",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   // TODO New key - Add a translation
@@ -690,12 +687,10 @@
   "admin.search.item.reinstate": "Reinstate",
   
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "Zurückziehen",
   
   // "admin.search.item.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "admin.search.item.withdrawn": "Withdrawn",
+  "admin.search.item.withdrawn": "Zurückgezogen",
   
   // "admin.search.title": "Administrative Search",
   // TODO New key - Add a translation
@@ -704,10 +699,10 @@
   
   
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  "auth.errors.invalid-user": "Password oder E-Mail-Adresse ungültig.",
+  "auth.errors.invalid-user": "Passwort oder E-Mail-Adresse ungültig.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "Ihre Sitzung ist abgelaufen, bitte loggen Sie sich erneut ein.",
+  "auth.messages.expired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an.",
   
   
   
@@ -942,7 +937,7 @@
   "collection.edit.item-mapper.description": "Sammlungsadministratoren haben die Möglichkeit Ressourcen von einer Sammlung in eine andere zu spiegeln. Man kann nach Ressourcen in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Ressourcen anzeigen lassen.",
   
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  "collection.edit.item-mapper.head": "Ressourcen Spiegeln - Spiegelt Ressourcen aus anderen Sammlungen",
+  "collection.edit.item-mapper.head": "Ressourcen spiegeln - Spiegelt Ressourcen aus anderen Sammlungen",
   
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
   "collection.edit.item-mapper.no-search": "Bitte geben Sie eine Suchanfrage ein.",
@@ -1142,7 +1137,7 @@
   
   
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  "collection.source.update.notifications.error.content": "Die angegebenen Einstellen wurden getestet und haben nicht funktioniert.",
+  "collection.source.update.notifications.error.content": "Die angegebenen Einstellungen wurden getestet und haben nicht funktioniert.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Serverfehler",
@@ -1350,7 +1345,7 @@
   "error.objects": "Fehler beim Laden der Objekte",
   
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions": "Fehler beim Laden der aktuellsten Veröffentlichungen",
+  "error.recent-submissions": "Fehler beim Laden der neuesten Veröffentlichungen",
   
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Fehler beim Laden der Suchergebnisse",
@@ -1371,7 +1366,7 @@
   "error.validation.license.notgranted": "Um die Veröffentlichung abzuschließen, müssen Sie die Lizenzbedingungen akzeptieren. Wenn Sie zur Zeit dazu nicht in der Lage sind, können Sie Ihre Arbeit sichern und später dazu zurückgkehren, um zuzustimmen oder die Einreichung zu löschen.",
   
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  "error.validation.pattern": "Die Eingabe hat dem folgenden Muster zu entsprechen: {{ pattern }}.",
+  "error.validation.pattern": "Die Eingabe muss dem folgenden Muster entsprechen: {{ pattern }}.",
   
   // "error.validation.filerequired": "The file upload is mandatory",
   "error.validation.filerequired": "Das Hochladen einer Datei ist erforderlich.",
@@ -1407,7 +1402,7 @@
   "form.edit": "Bearbeiten",
   
   // "form.edit-help": "Click here to edit the selected value",
-  "form.edit-help": "Klicken Sie hier, um den ausgwählten Wert zu bearbeiten",
+  "form.edit-help": "Klicken Sie hier, um den ausgewählten Wert zu bearbeiten",
   
   // "form.first-name": "First name",
   "form.first-name": "Vorname",
@@ -1422,7 +1417,7 @@
   "form.group-expand": "Auffalten",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  "form.group-expand-help": "Zum Ausklappten und Hinzufügen von mehr Elementen, klicken Sie hier",
+  "form.group-expand-help": "Zum Ausklappen und Hinzufügen von weiteren Elementen klicken Sie hier",
   
   // "form.last-name": "Last name",
   "form.last-name": "Nachname",
@@ -1475,7 +1470,7 @@
   "home.top-level-communities.head": "Hauptbereiche in DSpace",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  "home.top-level-communities.help": "Wählen Sie einen Bereiche, um dessen Inhalt anzusehen.",
+  "home.top-level-communities.help": "Wählen Sie einen Bereich, um dessen Inhalt anzusehen.",
   
   
   
@@ -1687,7 +1682,7 @@
   "item.edit.item-mapper.description": "Sammlungsadministratoren haben die Möglichkeit Ressourcen von einer Sammlung in eine andere zu spiegeln. Man kann nach Ressourcen in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Ressourcen anzeigen lassen.",
   
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head": "Ressourcen Spiegeln - Spiegelt eine Resource in andere Sammlungen",
+  "item.edit.item-mapper.head": "Ressourcen spiegeln - Spiegelt eine Ressource in andere Sammlungen",
   
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
   "item.edit.item-mapper.item": "Ressource: \"<b>{{name}}</b>\"",
@@ -1696,7 +1691,7 @@
   "item.edit.item-mapper.no-search": "Bitte geben Sie einen Suchbegriff ein",
   
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.error.content": "Beim Spiegeln der Resource in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
+  "item.edit.item-mapper.notifications.add.error.content": "Beim Spiegeln der Ressource in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
   
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "Fehler beim Spiegeln",
@@ -1865,7 +1860,7 @@
   "item.edit.public.confirm": "Öffentlich machen",
   
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  "item.edit.public.description": "Sind Sie sicher, dasss diese Ressource im Repositorium öffentlich gemacht werden soll?",
+  "item.edit.public.description": "Sind Sie sicher, dass diese Ressource im Repositorium öffentlich gemacht werden soll?",
   
   // "item.edit.public.error": "An error occurred while making the item public",
   "item.edit.public.error": "Ein Fehler ist aufgetreten, als die Ressource öffentlich gemacht werden sollte.",
@@ -2031,7 +2026,7 @@
   "item.edit.tabs.status.labels.lastModified": "Zuletzt geändert",
   
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  "item.edit.tabs.status.title": "Ressource Bearbeiten -  Status",
+  "item.edit.tabs.status.title": "Ressource bearbeiten -  Status",
   
   // "item.edit.tabs.versionhistory.head": "Version History",
   // TODO New key - Add a translation
@@ -2046,7 +2041,7 @@
   "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
   
   // "item.edit.tabs.view.head": "View Item",
-  "item.edit.tabs.view.head": "Ressource Ansehen",
+  "item.edit.tabs.view.head": "Ressource ansehen",
   
   // "item.edit.tabs.view.title": "Item Edit -  View",
   "item.edit.tabs.view.title": "Ressource bearbeiten -  Ansicht",
@@ -2275,59 +2270,59 @@
   
   // "loading.bitstream": "Loading bitstream...",
   // TODO New key - Add a translation
-  "loading.bitstream": "Loading bitstream...",
+  "loading.bitstream": "Lade Bitstream...",
   
   // "loading.bitstreams": "Loading bitstreams...",
   // TODO New key - Add a translation
-  "loading.bitstreams": "Loading bitstreams...",
+  "loading.bitstreams": "Lade Bitstreams...",
   
   // "loading.browse-by": "Loading items...",
-  "loading.browse-by": "Ressourcen am laden...",
+  "loading.browse-by": "Lade Ressourcen...",
   
   // "loading.browse-by-page": "Loading page...",
-  "loading.browse-by-page": "Seite am Laden...",
+  "loading.browse-by-page": "Lade Seite...",
   
   // "loading.collection": "Loading collection...",
-  "loading.collection": "Sammlung am Laden...",
+  "loading.collection": "Lade Sammlung...",
   
   // "loading.collections": "Loading collections...",
-  "loading.collections": "Sammlungen am Laden...",
+  "loading.collections": "Lade Sammlungen...",
   
   // "loading.content-source": "Loading content source...",
-  "loading.content-source": "Laden der Bezugsquelle...",
+  "loading.content-source": "Lade Bezugsquelle...",
   
   // "loading.community": "Loading community...",
-  "loading.community": "Bereich am Laden...",
+  "loading.community": "Lade Bereich...",
   
   // "loading.default": "Loading...",
-  "loading.default": "Am Laden...",
+  "loading.default": "Lade...",
   
   // "loading.item": "Loading item...",
-  "loading.item": "Ressource am Laden...",
+  "loading.item": "Lade Ressource...",
   
   // "loading.items": "Loading items...",
-  "loading.items": "Ressourcen am Laden...",
+  "loading.items": "Lade Ressourcen...",
   
   // "loading.mydspace-results": "Loading items...",
-  "loading.mydspace-results": "Ressourcen am Laden...",
+  "loading.mydspace-results": "Lade Ressourcen...",
   
   // "loading.objects": "Loading...",
-  "loading.objects": "Am Laden...",
+  "loading.objects": "Lade...",
   
   // "loading.recent-submissions": "Loading recent submissions...",
-  "loading.recent-submissions": "Aktuellste Veröffentlichungen am Laden...",
+  "loading.recent-submissions": "Lade neueste Veröffentlichungen...",
   
   // "loading.search-results": "Loading search results...",
-  "loading.search-results": "Suchergebnisse am Laden...",
+  "loading.search-results": "Lade Suchergebnisse...",
   
   // "loading.sub-collections": "Loading sub-collections...",
-  "loading.sub-collections": "Untersammlungen am Laden...",
+  "loading.sub-collections": "Lade Untersammlungen...",
   
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities": "Teilbereiche am Laden...",
+  "loading.sub-communities": "Lade Teilbereiche...",
   
   // "loading.top-level-communities": "Loading top-level communities...",
-  "loading.top-level-communities": "Hauptbereiche am Laden...",
+  "loading.top-level-communities": "Lade Hauptbereiche...",
   
   
   
@@ -2338,30 +2333,28 @@
   "login.form.forgot-password": "Haben Sie Ihr Passwort vergessen?",
   
   // "login.form.header": "Please log in to DSpace",
-  "login.form.header": "Bitte loggen Sie sich ein.",
+  "login.form.header": "Bitte melden Sie sich an.",
   
   // "login.form.new-user": "New user? Click here to register.",
   "login.form.new-user": "Neu hier? Klicken Sie hier, um sich zu registrieren.",
   
   // "login.form.or-divider": "or",
-  // TODO New key - Add a translation
-  "login.form.or-divider": "or",
+  "login.form.or-divider": "oder",
   
   // "login.form.password": "Password",
   "login.form.password": "Passwort",
   
   // "login.form.shibboleth": "Log in with Shibboleth",
-  // TODO New key - Add a translation
-  "login.form.shibboleth": "Log in with Shibboleth",
+  "login.form.shibboleth": "Anmeldung mit Shibboleth",
   
   // "login.form.submit": "Log in",
-  "login.form.submit": "Einloggen",
+  "login.form.submit": "Anmelden",
   
   // "login.title": "Login",
-  "login.title": "Einloggen",
+  "login.title": "Anmelden",
   
   // "login.breadcrumbs": "Login",
-  "login.breadcrumbs": "Einloggen",
+  "login.breadcrumbs": "Anmelden",
   
   
   
@@ -2513,7 +2506,7 @@
   "menu.section.icon.statistics_task": "Menübereich Statistikaufgaben",
   
   // "menu.section.icon.unpin": "Unpin sidebar",
-  "menu.section.icon.unpin": "Seitenbereich Loslösen",
+  "menu.section.icon.unpin": "Seitenbereich loslösen",
   
   
   
@@ -2727,17 +2720,16 @@
   "nav.language": "Sprachumschalter",
   
   // "nav.login": "Log In",
-  "nav.login": "Einloggen",
+  "nav.login": "Anmelden",
   
   // "nav.logout": "Log Out",
-  "nav.logout": "Ausloggen",
+  "nav.logout": "Abmelden",
   
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "Mein DSpace",
   
   // "nav.profile": "Profile",
-  // TODO New key - Add a translation
-  "nav.profile": "Profile",
+  "nav.profile": "Profil",
   
   // "nav.search": "Search",
   "nav.search": "Suche",
@@ -2847,28 +2839,22 @@
   "profile.head": "Update Profile",
   
   // "profile.metadata.form.error.firstname.required": "First Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.firstname.required": "First Name is required",
+  "profile.metadata.form.error.firstname.required": "Vorname muss angegeben werden",
   
   // "profile.metadata.form.error.lastname.required": "Last Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
+  "profile.metadata.form.error.lastname.required": "Nachname muss angegeben werden",
   
   // "profile.metadata.form.label.email": "Email Address",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.email": "Email Address",
+  "profile.metadata.form.label.email": "E-Mail-Adresse",
   
   // "profile.metadata.form.label.firstname": "First Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.firstname": "First Name",
+  "profile.metadata.form.label.firstname": "Vorname",
   
   // "profile.metadata.form.label.language": "Language",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.language": "Language",
+  "profile.metadata.form.label.language": "Sprache",
   
   // "profile.metadata.form.label.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.lastname": "Last Name",
+  "profile.metadata.form.label.lastname": "Nachname",
   
   // "profile.metadata.form.label.phone": "Contact Telephone",
   // TODO New key - Add a translation
@@ -2903,8 +2889,7 @@
   "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
   
   // "profile.security.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.password": "Password",
+  "profile.security.form.label.password": "Passwort",
   
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
   // TODO New key - Add a translation
@@ -3095,8 +3080,7 @@
   "search.filters.applied.f.birthDate.min": "Anfang Geburtsdatum",
   
   // "search.filters.applied.f.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.withdrawn": "Withdrawn",
+  "search.filters.applied.f.withdrawn": "Zurückgezogen",
   
   
   
@@ -3156,8 +3140,7 @@
   "search.filters.filter.discoverable.head": "Private",
   
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  // TODO New key - Add a translation
-  "search.filters.filter.withdrawn.head": "Withdrawn",
+  "search.filters.filter.withdrawn.head": "Zurückgezogen",
   
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Art der Ressource",
@@ -3255,28 +3238,22 @@
   "search.filters.entityType.OrgUnit": "Organizational Unit",
   
   // "search.filters.has_content_in_original_bundle.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.true": "Yes",
+  "search.filters.has_content_in_original_bundle.true": "Ja",
   
   // "search.filters.has_content_in_original_bundle.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.false": "No",
+  "search.filters.has_content_in_original_bundle.false": "Nein",
   
   // "search.filters.discoverable.true": "No",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.true": "No",
+  "search.filters.discoverable.true": "Nein",
   
   // "search.filters.discoverable.false": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.false": "Yes",
+  "search.filters.discoverable.false": "Ja",
   
   // "search.filters.withdrawn.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.true": "Yes",
+  "search.filters.withdrawn.true": "Ja",
   
   // "search.filters.withdrawn.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.false": "No",
+  "search.filters.withdrawn.false": "Nein",
   
   
   // "search.filters.head": "Filters",
@@ -3603,7 +3580,7 @@
   "submission.sections.general.collection": "Sammlung",
   
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  "submission.sections.general.deposit_error_notice": "Beim Einreichen der Ressoruce ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+  "submission.sections.general.deposit_error_notice": "Beim Einreichen der Ressource ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
   
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
@@ -3721,7 +3698,7 @@
   "submission.sections.upload.no-entry": "Kein Eintrag",
   
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  "submission.sections.upload.no-file-uploaded": "Es wurde noch keine Datei hochgeladen",
+  "submission.sections.upload.no-file-uploaded": "Es wurde noch keine Datei hochgeladen.",
   
   // "submission.sections.upload.save-metadata": "Save metadata",
   "submission.sections.upload.save-metadata": "Metadaten speichern",
@@ -3746,7 +3723,7 @@
   "submission.workflow.generic.delete": "Löschen",
   
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie die Ressource verwerfen möchten, Wählen Sie \"Löschen\".  Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
+  "submission.workflow.generic.delete-help": "Wenn Sie die Ressource verwerfen möchten, wählen Sie \"Löschen\". Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
   
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
@@ -3766,7 +3743,7 @@
   "submission.workflow.tasks.claimed.approve": "Zustimmen",
   
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie die Ressource begutachtet und die Aufnahme in die Sammlung befürworten, wählen Sie  \"Zustimmen\".",
+  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie die Ressource begutachtet haben und die Aufnahme in die Sammlung befürworten, wählen Sie \"Zustimmen\".",
   
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Bearbeiten",
@@ -3781,7 +3758,7 @@
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Beschreiben Sie den Grund für die Ablehnung",
   
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Ressource Ablehnen",
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Ressource ablehnen",
   
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
   "submission.workflow.tasks.claimed.reject.reason.title": "Grund",
@@ -3790,7 +3767,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Ablehnen",
   
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie die Ressource begutachte und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem/der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen die Ressource erneut einzureichen.",
+  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie die Ressource begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem/der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen die Ressource erneut einzureichen.",
   
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Zurück in den gemeinsamen Aufgabenbereich",
@@ -3855,7 +3832,7 @@
   "uploader.processing": "Bearbeitung läuft",
   
   // "uploader.queue-length": "Queue length",
-  "uploader.queue-length": "Länge der Warteschleife",
+  "uploader.queue-length": "Länge der Warteschlange",
   
   // "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-item.info": "Wählen Sie die Typen für die Sie die virtuellen Metadaten als reelle Metadaten speichern wollen",

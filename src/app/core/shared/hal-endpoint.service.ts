@@ -20,7 +20,7 @@ export class HALEndpointService {
 ) {
   }
 
-  protected getRootHref(): string {
+  public getRootHref(): string {
     return new RESTURLCombiner().toString();
   }
 

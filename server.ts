@@ -171,7 +171,7 @@ function ngApp(req, res) {
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.sendFile(indexHtml);
+    res.sendFile(DIST_FOLDER + '/index.html');
   }
 }
 

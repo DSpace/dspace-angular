@@ -23,7 +23,7 @@ export const environment: GlobalConfig = {
   // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
   rest: {
     ssl: true,
-    host: 'dspace7.4science.cloud',
+    host: 'api7.dspace.org',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server',
@@ -173,6 +173,10 @@ export const environment: GlobalConfig = {
   },{
     code: 'fi',
     label: 'Suomi',
+    active: true,
+  },{
+    code: 'hu',
+    label: 'magyar',
     active: true,
   }],
   // Browse-By Pages

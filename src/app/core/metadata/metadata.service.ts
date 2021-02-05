@@ -22,6 +22,7 @@ import { Item } from '../shared/item.model';
 import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { RootDataService } from '../data/root-data.service';
 
 @Injectable()
 export class MetadataService {
@@ -40,7 +41,8 @@ export class MetadataService {
     private dsoNameService: DSONameService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
-    private redirectService: HardRedirectService
+    private redirectService: HardRedirectService,
+    private rootService: RootDataService
   ) {
     // TODO: determine what open graph meta tags are needed and whether
     // the differ per route. potentially add image based on DSpaceObject
@@ -91,6 +93,8 @@ export class MetadataService {
         this.addMetaTag('description', translatedDescription);
       });
     }
+
+    this.setGenerator();
   }
 
   private initialize(dspaceObject: DSpaceObject): void {
@@ -288,6 +292,15 @@ export class MetadataService {
           }
         });
     }
+  }
+
+  /**
+   * Add <meta name="Generator" ... >  to the <head> containing the current DSpace version
+   */
+  private setGenerator(): void {
+    this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
+      this.addMetaTag('Generator', root.dspaceVersion);
+    });
   }
 
   private hasType(value: string): boolean {
