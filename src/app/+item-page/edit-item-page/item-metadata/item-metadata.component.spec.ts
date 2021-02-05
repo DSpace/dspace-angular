@@ -108,6 +108,11 @@ describe('ItemMetadataComponent', () => {
             [metadatum1.key]: [metadatum1],
             [metadatum2.key]: [metadatum2],
             [metadatum3.key]: [metadatum3]
+          },
+          _links: {
+            self: {
+              href: 'https://rest.api/core/items/a36d8bd2-8e8c-4969-9b1f-a574c2064983'
+            }
           }
         },
         {
