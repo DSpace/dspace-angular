@@ -21,6 +21,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
+import { take } from 'rxjs/operators';
 
 const LINK_NAME = 'test';
 
@@ -163,7 +164,7 @@ describe('ComColDataService', () => {
 
     describe('if the scope Community can\'t be found', () => {
       it('should throw an error', () => {
-        const result = service.getBrowseEndpoint(options);
+        const result = service.getBrowseEndpoint(options).pipe(take(1));
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
 
         expect(result).toBeObservable(expected);
