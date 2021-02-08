@@ -81,6 +81,7 @@ export class MediaViewerComponent implements OnInit {
         bundleName,
         {},
         true,
+        true,
         followLink('format')
       )
       .pipe(
