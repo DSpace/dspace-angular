@@ -11,8 +11,8 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseService } from './browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { GetRequest } from '../data/request.models';
+import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../../shared/testing/utils.test';
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -82,6 +82,7 @@ describe('BrowseService', () => {
   ];
 
   let browseDefinitionDataService;
+  let hrefOnlyDataService;
 
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
@@ -93,10 +94,12 @@ describe('BrowseService', () => {
     browseDefinitionDataService = jasmine.createSpyObj('browseDefinitionDataService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(browseDefinitions))
     });
+    hrefOnlyDataService = getMockHrefOnlyDataService();
     return new BrowseService(
       requestService,
       halService,
       browseDefinitionDataService,
+      hrefOnlyDataService,
       rdbService
     );
   }
@@ -123,54 +126,40 @@ describe('BrowseService', () => {
     });
   });
 
-  describe('getBrowseEntriesFor and getBrowseItemsFor', () => {
+  describe('getBrowseEntriesFor and findList', () => {
     const mockAuthorName = 'Donald Smith';
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
-      spyOn(service, 'getBrowseDefinitions').and
-        .returnValue(hot('--a-', {
-          a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions))
-        }));
       spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
-      it('should configure a new BrowseEntriesRequest', () => {
-        const expected = new GetRequest(requestService.generateRequestId(), browseDefinitions[1]._links.entries.href);
+      it('should call hrefOnlyDataService.findAllByHref with the expected href', () => {
+        const expected = browseDefinitions[1]._links.entries.href;
 
         scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
-      });
-
-      it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id));
-
-        expect(rdbService.buildList).toHaveBeenCalled();
-
+        expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findAllByHref)).toBeObservable(cold('(a|)', {
+          a: expected
+        }));
       });
 
     });
 
-    describe('when getBrowseItemsFor is called with a valid browse definition id', () => {
-      it('should configure a new BrowseItemsRequest', () => {
-        const expected = new GetRequest(requestService.generateRequestId(), browseDefinitions[1]._links.items.href + '?filterValue=' + mockAuthorName);
+    describe('when findList is called with a valid browse definition id', () => {
+      it('should call hrefOnlyDataService.findAllByHref with the expected href', () => {
+        const expected = browseDefinitions[1]._links.items.href + '?filterValue=' + mockAuthorName;
 
         scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
-      });
-
-      it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id));
-
-        expect(rdbService.buildList).toHaveBeenCalled();
-
+        expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findAllByHref)).toBeObservable(cold('(a|)', {
+          a: expected
+        }));
       });
 
     });
@@ -256,29 +245,19 @@ describe('BrowseService', () => {
       requestService = getMockRequestService();
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
-      spyOn(service, 'getBrowseDefinitions').and
-        .returnValue(hot('--a-', {
-          a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions))
-        }));
       spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     describe('when getFirstItemFor is called with a valid browse definition id', () => {
       const expectedURL = browseDefinitions[1]._links.items.href + '?page=0&size=1';
 
-      it('should configure a new BrowseItemsRequest', () => {
-        const expected = new GetRequest(requestService.generateRequestId(), expectedURL);
-
+      it('should call hrefOnlyDataService.findAllByHref with the expected href', () => {
         scheduler.schedule(() => service.getFirstItemFor(browseDefinitions[1].id).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
-      });
-
-      it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getFirstItemFor(browseDefinitions[1].id);
-
-        expect(rdbService.buildList).toHaveBeenCalled();
+        expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findAllByHref)).toBeObservable(cold('(a|)', {
+          a: expectedURL
+        }));
       });
 
     });

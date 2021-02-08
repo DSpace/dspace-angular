@@ -5,7 +5,7 @@ import { GetRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import {
-  configureRequest,
+  sendRequest,
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -111,15 +111,15 @@ describe('Core Module - RxJS Operators', () => {
     });
   });
 
-  describe('configureRequest', () => {
-    it('should call requestService.configure with the source request', () => {
+  describe('sendRequest', () => {
+    it('should call requestService.send with the source request', () => {
       requestService = getMockRequestService();
       const testRequest = new GetRequest('6b789e31-f026-4ff8-8993-4eb3b730c841', testRequestHref);
       const source = hot('a', { a: testRequest });
-      scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
+      scheduler.schedule(() => source.pipe(sendRequest(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(testRequest);
+      expect(requestService.send).toHaveBeenCalledWith(testRequest);
     });
   });
 

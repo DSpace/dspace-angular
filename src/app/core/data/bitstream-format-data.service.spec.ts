@@ -73,7 +73,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -93,7 +93,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -115,7 +115,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -136,7 +136,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -160,7 +160,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -183,7 +183,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -206,7 +206,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -228,7 +228,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -250,7 +250,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',
@@ -270,7 +270,7 @@ describe('BitstreamFormatDataService', () => {
     beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
+        send: {},
         getByHref: observableOf(responseCacheEntry),
         getByUUID: hot('a', { a: responseCacheEntry }),
         generateRequestId: 'request-id',

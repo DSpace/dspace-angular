@@ -85,7 +85,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
       patchRequest$.pipe(
         filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
-        tap((request: PatchRequestDefinition) => this.requestService.configure(request)),
+        tap((request: PatchRequestDefinition) => this.requestService.send(request)),
         mergeMap(() => {
           return this.rdbService.buildFromRequestUUID(requestId).pipe(
             getFirstCompletedRemoteData(),

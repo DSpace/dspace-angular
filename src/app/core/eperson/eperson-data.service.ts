@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { filter, find, map, take } from 'rxjs/operators';
+import { find, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
 } from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../+admin/admin-access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, hasNoValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -19,20 +19,16 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { PaginatedList } from '../data/paginated-list.model';
+import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import {
-  FindListOptions,
-  FindListRequest,
-  PatchRequest,
-  PostRequest,
-} from '../data/request.models';
+import { FindListOptions, PatchRequest, PostRequest, } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
 import { NoContent } from '../shared/NoContent.model';
+import { PageInfo } from '../shared/page-info.model';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -62,23 +58,6 @@ export class EPersonDataService extends DataService<EPerson> {
   }
 
   /**
-   * Retrieves all EPeople
-   * @param options The options info used to retrieve the EPeople
-   */
-  public getEPeople(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const hrefObs = this.getFindAllHref(options, this.linkPath);
-    hrefObs.pipe(
-      filter((href: string) => hasValue(href)),
-      take(1))
-      .subscribe((href: string) => {
-        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request);
-      });
-
-    return this.rdbService.buildList<EPerson>(hrefObs) as Observable<RemoteData<PaginatedList<EPerson>>>;
-  }
-
-  /**
    * Search the EPeople with a given scope and query
    * @param scope   Scope of the EPeople search, default byMetadata
    * @param query   Query of search
@@ -89,51 +68,90 @@ export class EPersonDataService extends DataService<EPerson> {
       case 'metadata':
         return this.getEpeopleByMetadata(query.trim(), options);
       case 'email':
-        return this.getEpeopleByEmail(query.trim(), options);
+        return this.getEPersonByEmail(query.trim()).pipe(
+          map((rd: RemoteData<EPerson | NoContent>) => {
+            if (rd.hasSucceeded) {
+              // Turn the single EPerson or NoContent in to a PaginatedList<EPerson>
+              let page;
+              if (rd.statusCode === 204 || hasNoValue(rd.payload)) {
+                page = [];
+              } else {
+                page = [rd.payload];
+              }
+              return new RemoteData<PaginatedList<EPerson>>(
+                rd.timeCompleted,
+                rd.msToLive,
+                rd.lastUpdated,
+                rd.state,
+                rd.errorMessage,
+                buildPaginatedList(new PageInfo({
+                  elementsPerPage: options.elementsPerPage,
+                  totalElements: page.length,
+                  totalPages: page.length,
+                  currentPage: 1
+                }), page),
+                rd.statusCode
+              );
+            } else {
+              // If it hasn't succeeded, there can be no payload, so we can re-cast the existing
+              // RemoteData object
+              return rd as RemoteData<PaginatedList<EPerson>>;
+            }
+          })
+        );
       default:
         return this.getEpeopleByMetadata(query.trim(), options);
     }
   }
 
   /**
-   * Returns a search result list of EPeople, by email query (/eperson/epersons/search/{@link searchByEmailPath}?email=<>)
-   * @param query             email query
-   * @param options
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * Returns a single EPerson, by email query (/eperson/epersons/search/{@link searchByEmailPath}?email=<>). If it can be found
+   * NoContent otherwise
+   *
+   * @param query                       email query
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  private getEpeopleByEmail(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new RequestParam('email', query)];
-    return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, reRequestOnStale, ...linksToFollow);
+  public getEPersonByEmail(query: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson | NoContent>> {
+    const findListOptions = new FindListOptions();
+    findListOptions.searchParams = [new RequestParam('email', encodeURIComponent(query))];
+    const href$ = this.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns a search result list of EPeople, by metadata query (/eperson/epersons/search/{@link searchByMetadataPath}?query=<>)
-   * @param query     metadata query
+   * @param query                       metadata query
    * @param options
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  private getEpeopleByMetadata(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new RequestParam('query', query)];
-    return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, reRequestOnStale, ...linksToFollow);
+  private getEpeopleByMetadata(query: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    const searchParams = [new RequestParam('query', encodeURIComponent(query))];
+    return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns a search result list of EPeople in a given searchMethod, with given searchParams
-   * @param searchParams      query parameters in the search
-   * @param searchMethod      searchBy path
+   * @param searchParams                query parameters in the search
+   * @param searchMethod                searchBy path
    * @param options
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -143,7 +161,7 @@ export class EPersonDataService extends DataService<EPerson> {
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy(searchMethod, findListOptions, reRequestOnStale, ...linksToFollow);
+    return this.searchBy(searchMethod, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -153,17 +171,16 @@ export class EPersonDataService extends DataService<EPerson> {
    */
   public updateEPerson(ePerson: EPerson): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
-    const oldVersion$ = this.findByHref(ePerson._links.self.href);
+    const oldVersion$ = this.findByHref(ePerson._links.self.href, true, false);
     oldVersion$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      map((oldEPerson: EPerson) => {
-        const operations = this.generateOperations(oldEPerson, ePerson);
-        const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
-        return this.requestService.configure(patchRequest);
-      }),
       take(1)
-    ).subscribe();
+    ).subscribe((oldEPerson: EPerson) => {
+      const operations = this.generateOperations(oldEPerson, ePerson);
+      const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
+      return this.requestService.send(patchRequest);
+    });
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
@@ -207,7 +224,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * Method that clears a link's requests in cache
    */
   public clearLinkRequests(href: string): void {
-    this.requestService.removeByHrefSubstring(href);
+    this.requestService.setStaleByHrefSubstring(href);
   }
 
   /**
@@ -274,11 +291,10 @@ export class EPersonDataService extends DataService<EPerson> {
       map((href: string) => `${href}?token=${token}`));
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new PostRequest(requestId, href, eperson);
-        this.requestService.configure(request);
-      })
-    ).subscribe();
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href, eperson);
+      this.requestService.send(request);
+    });
 
     return this.rdbService.buildFromRequestUUID(requestId);
 
@@ -301,11 +317,10 @@ export class EPersonDataService extends DataService<EPerson> {
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new PatchRequest(requestId, href, [operation]);
-        this.requestService.configure(request);
-      })
-    ).subscribe();
+    ).subscribe((href: string) => {
+      const request = new PatchRequest(requestId, href, [operation]);
+      this.requestService.send(request);
+    });
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }

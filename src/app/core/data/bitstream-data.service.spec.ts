@@ -55,8 +55,8 @@ describe('BitstreamDataService', () => {
       service.updateFormat(bitstream, format);
     });
 
-    it('should configure a put request', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
+    it('should send a put request', () => {
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PutRequest));
     });
   });
 });

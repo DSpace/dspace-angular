@@ -253,8 +253,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Initialize the resource's policies list
    */
   initResourcePolicyLIst() {
-    this.requestService.setStaleByHrefSubstring(this.resourceUUID);
-    this.subs.push(this.resourcePolicyService.searchByResource(this.resourceUUID, null, true,
+    this.subs.push(this.resourcePolicyService.searchByResource(this.resourceUUID, null, false, true,
       followLink('eperson'), followLink('group')).pipe(
       filter(() => this.isActive),
       getAllSucceededRemoteData()
@@ -265,7 +264,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         checked: false
       }));
       this.resourcePoliciesEntries$.next(entries);
-      // Remove cached request
+      // TODO detectChanges still needed?
       this.cdr.detectChanges();
     }));
   }
@@ -312,9 +311,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param policy The resource policy
    */
   redirectToGroupEditPage(policy: ResourcePolicy): void {
-    this.requestService.removeByHrefSubstring(policy._links.group.href);
     this.subs.push(
-      this.groupService.findByHref(policy._links.group.href).pipe(
+      this.groupService.findByHref(policy._links.group.href, false).pipe(
         filter(() => this.isActive),
         getFirstSucceededRemoteDataPayload(),
         map((group: Group) => group.id)

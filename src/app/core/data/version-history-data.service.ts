@@ -10,16 +10,17 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions, GetRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { VersionDataService } from './version-data.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -37,6 +38,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected versionDataService: VersionDataService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<VersionHistory>) {
     super();
@@ -61,21 +63,20 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
 
   /**
    * Get a version history's versions using paginated search options
-   * @param versionHistoryId  The version history's ID
-   * @param searchOptions     The search options to use
-   * @param linksToFollow     HAL Links to follow on the Versions
+   * @param versionHistoryId            The version history's ID
+   * @param searchOptions               The search options to use
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Version>[]): Observable<RemoteData<PaginatedList<Version>>> {
+  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Version>[]): Observable<RemoteData<PaginatedList<Version>>> {
     const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
-    hrefObs.pipe(
-      take(1)
-    ).subscribe((href) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
-    });
 
-    return this.rdbService.buildList<Version>(hrefObs, ...linksToFollow);
+    return this.versionDataService.findAllByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

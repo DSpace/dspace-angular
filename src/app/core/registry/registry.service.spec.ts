@@ -184,7 +184,7 @@ describe('RegistryService', () => {
 
     it('should call metadataSchemaService.findById with the correct ID', (done) => {
       result.subscribe(() => {
-        expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`, true);
+        expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`, true, true);
         done();
       });
     });
@@ -371,7 +371,7 @@ describe('RegistryService', () => {
 
   describe('when clearMetadataSchemaRequests is called', () => {
     beforeEach(() => {
-      registryService.clearMetadataSchemaRequests().subscribe();
+      registryService.clearMetadataSchemaRequests();
     });
 
     it('should remove the requests related to metadata schemas from cache', () => {
@@ -381,7 +381,7 @@ describe('RegistryService', () => {
 
   describe('when clearMetadataFieldRequests is called', () => {
     beforeEach(() => {
-      registryService.clearMetadataFieldRequests().subscribe();
+      registryService.clearMetadataFieldRequests();
     });
 
     it('should remove the requests related to metadata fields from cache', () => {

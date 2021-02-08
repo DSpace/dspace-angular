@@ -2,7 +2,15 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  take,
+  tap,
+  mergeMap
+} from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { findIndex, isEqual } from 'lodash';
 
@@ -27,7 +35,6 @@ import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -169,21 +176,10 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       mergeMap(() =>
         observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.getHrefByID(this.submissionId).pipe(take(1)).pipe(
-            switchMap((href: string) => {
-              this.objectCache.remove(href);
-              this.requestService.removeByHrefSubstring(this.submissionId);
-              return observableCombineLatest(
-                this.objectCache.hasByHref$(href),
-                this.requestService.hasByHref$(href)
-              ).pipe(
-                filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-                take(1),
-                switchMap(() => this.submissionObjectService.findById(this.submissionId, false, followLink('item')).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-              );
-            })
-          )]
-        )),
+          this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload())
+        ])),
       take(1))
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
         if (isUndefined(this.formModel)) {

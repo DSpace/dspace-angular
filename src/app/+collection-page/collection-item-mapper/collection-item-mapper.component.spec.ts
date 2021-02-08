@@ -57,6 +57,9 @@ describe('CollectionItemMapperComponent', () => {
     id: 'ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
     name: 'test-collection',
     _links: {
+      mappedItems: {
+        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4/mappedItems'
+      },
       self: {
         href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4'
       }
@@ -82,8 +85,10 @@ describe('CollectionItemMapperComponent', () => {
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
   };
+  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
-    mapToCollection: () => createSuccessfulRemoteDataObject$({})
+    mapToCollection: () => createSuccessfulRemoteDataObject$({}),
+    findAllByHref: () => of(emptyList)
   };
   const activatedRouteStub = new ActivatedRouteStub({}, { dso: mockCollectionRD });
   const translateServiceStub = {
@@ -92,7 +97,6 @@ describe('CollectionItemMapperComponent', () => {
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
   };
-  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => of(emptyList),
     /* tslint:disable:no-empty */

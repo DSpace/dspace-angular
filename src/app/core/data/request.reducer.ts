@@ -271,12 +271,16 @@ function expireRequest(storeState: RequestState, action: RequestStaleAction): Re
     return storeState;
   } else {
     const prevEntry = storeState[action.payload.uuid];
-    return Object.assign({}, storeState, {
-      [action.payload.uuid]: Object.assign({}, prevEntry, {
-        state: hasSucceeded(prevEntry.state) ? RequestEntryState.SuccessStale : RequestEntryState.ErrorStale,
-        lastUpdated: action.lastUpdated
-      })
-    });
+    if (isStale(prevEntry.state)) {
+      return storeState;
+    } else {
+      return Object.assign({}, storeState, {
+        [action.payload.uuid]: Object.assign({}, prevEntry, {
+          state: hasSucceeded(prevEntry.state) ? RequestEntryState.SuccessStale : RequestEntryState.ErrorStale,
+          lastUpdated: action.lastUpdated
+        })
+      });
+    }
   }
 }
 

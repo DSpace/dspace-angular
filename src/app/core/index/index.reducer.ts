@@ -17,13 +17,6 @@ export enum IndexName {
   REQUEST = 'get-request/href-to-uuid',
 
   /**
-   * Contains the UUIDs of requests that were sent to the server and
-   * have their responses cached, indexed by the UUIDs of requests that
-   * weren't sent because the response they requested was already cached
-   */
-  UUID_MAPPING = 'get-request/configured-to-cache-uuid',
-
-  /**
    * Contains the alternative link for an objects
    * Maps these link on to their matching self link in the object cache
    * Eg. /workspaceitems/12/item --> /items/12345

@@ -2735,7 +2735,7 @@
 
   "resource-policies.form.action-type.required": "You must select the resource policy action.",
 
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
+  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 

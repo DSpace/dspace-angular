@@ -83,17 +83,6 @@ export const alternativeLinkIndexSelector: MemoizedSelector<CoreState, IndexStat
 );
 
 /**
- * Return the request UUID mapping index based on the MetaIndexState
- *
- * @returns
- *    a MemoizedSelector to select the request UUID mapping
- */
-export const requestUUIDIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
-  metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.UUID_MAPPING]
-);
-
-/**
  * Return the self link of an object in the object-cache based on its UUID
  *
  * @param uuid
@@ -119,21 +108,6 @@ export const uuidFromHrefSelector =
   (href: string): MemoizedSelector<CoreState, string> => createSelector(
     requestIndexSelector,
     (state: IndexState) => hasValue(state) ? state[getUrlWithoutEmbedParams(href)] : undefined
-  );
-
-/**
- * Return the UUID of a cached request based on the UUID of a request
- * that wasn't sent because the response was already cached
- *
- * @param uuid
- *    The UUID of the new request
- * @returns
- *    a MemoizedSelector to select the UUID of the cached request
- */
-export const originalRequestUUIDFromRequestUUIDSelector =
-  (uuid: string): MemoizedSelector<CoreState, string> => createSelector(
-    requestUUIDIndexSelector,
-    (state: IndexState) => hasValue(state) ? state[uuid] : undefined
   );
 
 /**
