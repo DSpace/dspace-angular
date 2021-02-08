@@ -111,12 +111,17 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         return observableCombineLatest(groups.page.map((group: Group) => {
           return observableCombineLatest([
             this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-            this.hasLinkedDSO(group)
+            this.hasLinkedDSO(group),
+            this.getSubgroups(group),
+            this.getMembers(group)
           ]).pipe(
-            map(([isAuthorized, hasLinkedDSO]: boolean[]) => {
+            map(([isAuthorized, hasLinkedDSO, subgroups, members]:
+                   [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
                 const groupDtoModel: GroupDtoModel = new GroupDtoModel();
                 groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
                 groupDtoModel.group = group;
+                groupDtoModel.subgroups = subgroups.payload;
+                groupDtoModel.epersons = members.payload;
                 return groupDtoModel;
               }
             )

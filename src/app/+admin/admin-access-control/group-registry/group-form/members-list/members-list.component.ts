@@ -163,7 +163,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
         }));
         return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
           return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
-        }))
+        }));
       }))
       .subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
         this.ePeopleMembersOfGroupDtos.next(paginatedListOfDTOs);
@@ -285,7 +285,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
           }));
           return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
-          }))
+          }));
         }))
         .subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
           this.ePeopleSearchDtos.next(paginatedListOfDTOs);
