@@ -90,6 +90,11 @@ import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
                 path: 'versionhistory',
                 component: ItemVersionHistoryComponent,
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'mapper',
+                component: ItemCollectionMapperComponent,
+                data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true }
               }
             ]
           },
