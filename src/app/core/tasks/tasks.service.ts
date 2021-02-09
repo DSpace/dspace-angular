@@ -131,14 +131,19 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
    *   links to follow
    */
   public searchTask(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
+    const correlationId = Math.floor(Math.random() * 1000);
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
     return hrefObs.pipe(
+      tap(href => console.log('CorrelationId: ' + correlationId, 'SearchTaskHref', href)),
       find((href: string) => hasValue(href)),
-      switchMap((href) => this.findByHref(href).pipe(
+      switchMap((href) => this.findByHref(href, false, true).pipe(
         getFirstSucceededRemoteData(),
         tap(() => {
         this.requestService.setStaleByHrefSubstring(searchMethod);
       }))),
+      tap((response) => {
+        console.log('CorrelationId: ' + correlationId, 'SearchTaskResponse', response.payload);
+      })
     );
   }
 }

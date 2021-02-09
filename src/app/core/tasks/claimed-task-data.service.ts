@@ -119,7 +119,11 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     options.searchParams = [
       new RequestParam('uuid', uuid)
     ];
-    return this.searchTask('findByItem', options, followLink('workflowitem'))
+    return this.searchTask('findByItem', options, followLink('workflowitem',
+      null,
+      true,
+      false,
+      true))
       .pipe(getFirstSucceededRemoteData());
   }
 

@@ -19,7 +19,6 @@ import { Item } from '../../../core/shared/item.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
-import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * This component represents mydspace actions related to PoolTask object.
@@ -96,9 +95,7 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
-    return this.claimedTaskService.findByItem(this.itemUuid).pipe(take(1), tap((value) => {
-      console.log('The new ClaimTask (found by item) is:', value);
-    }));
+    return this.claimedTaskService.findByItem(this.itemUuid).pipe(take(1));
   }
 
   /**
@@ -116,7 +113,6 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
 
   ngOnDestroy() {
     this.subs.forEach((sub) => sub.unsubscribe());
-    console.log('Destroy of PoolTaskActionsComponent', this.object);
   }
 
 }

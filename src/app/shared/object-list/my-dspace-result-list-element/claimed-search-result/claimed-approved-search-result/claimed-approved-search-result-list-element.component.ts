@@ -51,9 +51,17 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
    */
   ngOnInit() {
     super.ngOnInit();
-    this.linkService.resolveLinks(this.dso, followLink('workflowitem', null, true,
-      followLink('item'), followLink('submitter')
-    ), followLink('action'));
+    this.linkService.resolveLinks(this.dso,
+      followLink('workflowitem',
+        null,
+        true,
+        false,
+        true,
+        followLink('item'),
+        followLink('submitter')
+      ),
+      followLink('action')
+    );
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 

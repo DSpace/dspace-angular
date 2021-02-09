@@ -1,4 +1,4 @@
-import {Component, Injector, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -26,7 +26,7 @@ import { WORKFLOW_TASK_OPTION_RETURN_TO_POOL } from './return-to-pool/claimed-ta
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
 })
-export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit, OnDestroy {
+export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
 
   /**
    * The ClaimedTask object
@@ -98,10 +98,6 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    */
   initAction(object: ClaimedTask) {
     this.actionRD$ = object.action;
-  }
-
-  ngOnDestroy() {
-    console.log('Destroy of ClaimedTaskActionComponent', this.object);
   }
 
 }

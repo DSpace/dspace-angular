@@ -53,7 +53,6 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   ngOnInit() {
     this.initReloadAnchor();
     this.initObjects(this.object);
-    console.log('OnInit ReloadableAction', this.object, this);
   }
 
   /**
@@ -72,7 +71,6 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
               (reloadedObject) => {
                 this.processing$.next(false);
                 this.handleReloadableActionResponse(res.hasSucceeded, reloadedObject);
-                return reloadedObject;
               })
           );
         } else {
