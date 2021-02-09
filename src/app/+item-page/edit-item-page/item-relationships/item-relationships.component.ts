@@ -7,8 +7,12 @@ import {
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+  zip as observableZip
+} from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -39,7 +43,6 @@ import { hasValue } from '../../../shared/empty.util';
  */
 export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
-  itemRD$: Observable<RemoteData<Item>>;
 
   /**
    * The allowed relationship types for this type of item as an observable list
@@ -68,40 +71,6 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
   /**
-   * Set up and initialize all fields
-   */
-  ngOnInit(): void {
-    super.ngOnInit();
-    this.initializeItemUpdate();
-  }
-
-  /**
-   * Update the item (and view) when it's removed in the request cache
-   */
-  public initializeItemUpdate(): void {
-    this.itemRD$ = this.requestService.hasByHref$(this.item.self).pipe(
-      filter((exists: boolean) => !exists),
-      switchMap(() => this.itemService.findById(
-        this.item.uuid,
-        true,
-        followLink('owningCollection'),
-        followLink('bundles'),
-        followLink('relationships')),
-      ),
-      filter((itemRD) => !!itemRD.statusCode),
-    );
-
-    this.itemRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-    ).subscribe((item) => {
-      this.item = item;
-      this.cdr.detectChanges();
-      this.initializeUpdates();
-    });
-  }
-
-  /**
    * Initialize the values and updates of the current item's relationship fields
    */
   public initializeUpdates(): void {
@@ -118,6 +87,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         switchMap((entityType) =>
           this.entityTypeService.getEntityTypeRelationships(
             entityType.id,
+            true,
+            true,
             followLink('leftType'),
             followLink('rightType'))
             .pipe(
@@ -183,11 +154,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       actions.forEach((action) =>
         action.subscribe((response) => {
           if (response.length > 0) {
-            this.itemRD$.subscribe(() => {
-              this.initializeOriginalFields();
-              this.cdr.detectChanges();
-              this.displayNotifications(response);
-            });
+            this.initializeOriginalFields();
+            this.cdr.detectChanges();
+            this.displayNotifications(response);
           }
         })
       );
@@ -258,6 +227,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
+    console.log('init');
     return this.relationshipService.getRelatedItems(this.item).pipe(
       take(1),
     ).subscribe((items: Item[]) => {

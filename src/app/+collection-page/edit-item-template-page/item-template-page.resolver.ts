@@ -23,7 +23,7 @@ export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    return this.itemTemplateService.findByCollectionID(route.params.id, false, followLink('templateItemOf')).pipe(
+    return this.itemTemplateService.findByCollectionID(route.params.id, true, false, followLink('templateItemOf')).pipe(
       getFirstCompletedRemoteData(),
     );
   }

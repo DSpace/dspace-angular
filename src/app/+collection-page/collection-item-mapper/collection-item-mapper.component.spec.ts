@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -28,7 +27,7 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
@@ -57,13 +56,16 @@ describe('CollectionItemMapperComponent', () => {
     id: 'ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
     name: 'test-collection',
     _links: {
+      mappedItems: {
+        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4/mappedItems'
+      },
       self: {
         href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4'
       }
     }
   });
   const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-  const mockSearchOptions = of(new PaginatedSearchOptions({
+  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -82,25 +84,37 @@ describe('CollectionItemMapperComponent', () => {
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
   };
+  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
-    mapToCollection: () => createSuccessfulRemoteDataObject$({})
+    mapToCollection: () => createSuccessfulRemoteDataObject$({}),
+    findAllByHref: () => observableOf(emptyList)
   };
-  const activatedRouteStub = new ActivatedRouteStub({}, { dso: mockCollectionRD });
+  const activatedRouteStub = {
+    parent: {
+      data: observableOf({
+        dso: mockCollectionRD
+      })
+    },
+    snapshot: {
+      queryParamMap: new Map([
+        ['query', 'test'],
+      ])
+    }
+  };
   const translateServiceStub = {
-    get: () => of('test-message of collection ' + mockCollection.name),
+    get: () => observableOf('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
   };
-  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(emptyList),
+    search: () => observableOf(emptyList),
     /* tslint:disable:no-empty */
     clearDiscoveryRequests: () => {}
     /* tslint:enable:no-empty */
   });
   const collectionDataServiceStub = {
-    getMappedItems: () => of(emptyList),
+    getMappedItems: () => observableOf(emptyList),
     /* tslint:disable:no-empty */
     clearMappedItemsRequests: () => {}
     /* tslint:enable:no-empty */

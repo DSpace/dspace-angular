@@ -100,24 +100,24 @@ describe('TasksService', () => {
 
   describe('postToEndpoint', () => {
 
-    it('should configure a new TaskPostRequest', () => {
+    it('should send a new TaskPostRequest', () => {
       const expected = new TaskPostRequest(requestService.generateRequestId(), `${taskEndpoint}/${linkPath}`, {});
       scheduler.schedule(() => service.postToEndpoint('testTask', {}).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
   describe('deleteById', () => {
 
-    it('should configure a new TaskDeleteRequest', () => {
+    it('should send a new TaskDeleteRequest', () => {
       const scopeId = '1234';
       const expected = new TaskDeleteRequest(requestService.generateRequestId(), `${taskEndpoint}/${linkPath}/${scopeId}`, null);
       scheduler.schedule(() => service.deleteById('testTask', scopeId).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 

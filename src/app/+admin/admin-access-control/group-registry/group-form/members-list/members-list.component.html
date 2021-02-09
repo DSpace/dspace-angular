@@ -24,10 +24,10 @@
     </div>
   </form>
 
-  <ds-pagination *ngIf="(ePeopleSearch | async)?.payload?.totalElements > 0"
+  <ds-pagination *ngIf="(searchResults$ | async)?.payload?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearch | async)?.payload"
-                 [collectionSize]="(ePeopleSearch | async)?.payload?.totalElements"
+                 [pageInfoState]="(searchResults$ | async)?.payload"
+                 [collectionSize]="(searchResults$ | async)?.payload?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true"
                  (pageChange)="onPageChangeSearch($event)">
@@ -42,7 +42,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ePerson of (ePeopleSearch | async)?.payload?.page">
+        <tr *ngFor="let ePerson of (searchResults$ | async)?.payload?.page">
           <td>{{ePerson.id}}</td>
           <td><a (click)="ePersonDataService.startEditingNewEPerson(ePerson)"
                  [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.name}}</a></td>
@@ -70,7 +70,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleSearch | async)?.payload?.totalElements == 0 && searchDone"
+  <div *ngIf="(searchResults$ | async)?.payload?.totalElements == 0 && searchDone"
        class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-items' | translate}}
@@ -78,10 +78,10 @@
 
   <h4>{{messagePrefix + '.headMembers' | translate}}</h4>
 
-  <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.payload?.totalElements > 0"
+  <ds-pagination *ngIf="(members$ | async)?.payload?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroup | async)?.payload"
-                 [collectionSize]="(ePeopleMembersOfGroup | async)?.payload?.totalElements"
+                 [pageInfoState]="(members$ | async)?.payload"
+                 [collectionSize]="(members$ | async)?.payload?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true"
                  (pageChange)="onPageChange($event)">
@@ -96,7 +96,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ePerson of (ePeopleMembersOfGroup | async)?.payload?.page">
+        <tr *ngFor="let ePerson of (members$ | async)?.payload?.page">
           <td>{{ePerson.id}}</td>
           <td><a (click)="ePersonDataService.startEditingNewEPerson(ePerson)"
                  [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.name}}</a></td>
@@ -116,7 +116,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleMembersOfGroup | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(members$ | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-members-yet' | translate}}
   </div>

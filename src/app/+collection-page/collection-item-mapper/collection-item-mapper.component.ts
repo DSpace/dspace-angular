@@ -1,6 +1,7 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
@@ -8,9 +9,10 @@ import { Collection } from '../../core/shared/collection.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
 import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  toDSpaceObjectListRD
+    getRemoteDataPayload,
+    getFirstSucceededRemoteData,
+    toDSpaceObjectListRD,
+    getFirstCompletedRemoteData, getAllSucceededRemoteData
 } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -52,12 +54,13 @@ export class CollectionItemMapperComponent implements OnInit {
    * A view on the tabset element
    * Used to switch tabs programmatically
    */
-  @ViewChild('tabs') tabs;
+  @ViewChild('tabs', {static: false}) tabs;
 
   /**
    * The collection to map items to
    */
   collectionRD$: Observable<RemoteData<Collection>>;
+  collectionName$: Observable<string>;
 
   /**
    * Search options
@@ -101,11 +104,21 @@ export class CollectionItemMapperComponent implements OnInit {
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
               private collectionDataService: CollectionDataService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private dsoNameService: DSONameService) {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(map((data) => data.dso)).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Collection>>;
+    this.collectionRD$ = this.route.parent.data.pipe(
+      map((data) => data.dso as RemoteData<Collection>),
+      getFirstSucceededRemoteData()
+    );
+
+    this.collectionName$ = this.collectionRD$.pipe(
+      map((rd: RemoteData<Collection>) => {
+        return this.dsoNameService.getName(rd.payload);
+      })
+    );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
   }
@@ -123,26 +136,27 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
-        if (shouldUpdate) {
-          return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
-            sort: this.defaultSortOptions
-          }),followLink('owningCollection'));
+        if (shouldUpdate === true) {
+          this.shouldUpdate$.next(false);
         }
+        return this.itemDataService.findAllByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
+          sort: this.defaultSortOptions
+        }),!shouldUpdate, false, followLink('owningCollection')).pipe(
+          getAllSucceededRemoteData()
+        );
       })
     );
     this.mappedItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
-          if (shouldUpdate) {
-            return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
-              query: this.buildQuery(collectionRD.payload.id, options.query),
-              scope: undefined,
-              dsoTypes: [DSpaceObjectType.ITEM],
-              sort: this.defaultSortOptions
-            }), 10000).pipe(
-              toDSpaceObjectListRD(),
-              startWith(undefined)
-            );
-          }
+        return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
+          query: this.buildQuery(collectionRD.payload.id, options.query),
+          scope: undefined,
+          dsoTypes: [DSpaceObjectType.ITEM],
+          sort: this.defaultSortOptions
+        }), 10000).pipe(
+          toDSpaceObjectListRD(),
+          startWith(undefined)
+        );
       })
     );
   }
@@ -157,8 +171,17 @@ export class CollectionItemMapperComponent implements OnInit {
       getFirstSucceededRemoteData(),
       map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
       switchMap((collection: Collection) =>
-        observableCombineLatest(ids.map((id: string) =>
-          remove ? this.itemDataService.removeMappingFromCollection(id, collection.id) : this.itemDataService.mapToCollection(id, collection._links.self.href)
+        observableCombineLatest(ids.map((id: string) => {
+            if (remove) {
+              return this.itemDataService.removeMappingFromCollection(id, collection.id).pipe(
+                getFirstCompletedRemoteData()
+              );
+            } else {
+              return this.itemDataService.mapToCollection(id, collection._links.self.href).pipe(
+                getFirstCompletedRemoteData()
+              );
+            }
+          }
         ))
       )
     );
@@ -186,6 +209,7 @@ export class CollectionItemMapperComponent implements OnInit {
         successMessages.subscribe(([head, content]) => {
           this.notificationsService.success(head, content);
         });
+        this.shouldUpdate$.next(true);
       }
       if (unsuccessful.length > 0) {
         const unsuccessMessages = observableCombineLatest(
@@ -197,8 +221,6 @@ export class CollectionItemMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
-      // Force an update on all lists and switch back to the first tab
-      this.shouldUpdate$.next(true);
       this.switchToFirstTab();
     });
   }

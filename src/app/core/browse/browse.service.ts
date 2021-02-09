@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
@@ -21,6 +20,7 @@ import {
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
 
 /**
  * The service handling all browse requests
@@ -46,6 +46,7 @@ export class BrowseService {
     protected requestService: RequestService,
     protected halService: HALEndpointService,
     private browseDefinitionDataService: BrowseDefinitionDataService,
+    private hrefOnlyDataService: HrefOnlyDataService,
     private rdb: RemoteDataBuildService,
   ) {
   }
@@ -65,7 +66,7 @@ export class BrowseService {
    * @param options
    */
   getBrowseEntriesFor(options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return this.getBrowseDefinitions().pipe(
+    const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => {
@@ -93,9 +94,9 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      }),
-      getBrowseEntriesFor(this.requestService, this.rdb)
+      })
     );
+    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(href$);
   }
 
   /**
@@ -105,7 +106,7 @@ export class BrowseService {
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
   getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getBrowseDefinitions().pipe(
+    const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => {
@@ -136,8 +137,8 @@ export class BrowseService {
         }
         return href;
       }),
-      getBrowseItemsFor(this.requestService, this.rdb)
     );
+    return this.hrefOnlyDataService.findAllByHref<Item>(href$);
   }
 
   /**
@@ -146,7 +147,7 @@ export class BrowseService {
    * @param scope
    */
   getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<Item>> {
-    return this.getBrowseDefinitions().pipe(
+    const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definition),
       hasValueOperator(),
       map((_links: any) => {
@@ -165,11 +166,14 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      }),
-      getBrowseItemsFor(this.requestService, this.rdb),
+      })
+    );
+
+    return this.hrefOnlyDataService.findAllByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
       getFirstOccurrence()
     );
+
   }
 
   /**
@@ -177,9 +181,7 @@ export class BrowseService {
    * @param items
    */
   getPrevBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
-    return observableOf(items.payload.prev).pipe(
-      getBrowseItemsFor(this.requestService, this.rdb)
-    );
+    return this.hrefOnlyDataService.findAllByHref<Item>(items.payload.prev);
   }
 
   /**
@@ -187,9 +189,7 @@ export class BrowseService {
    * @param items
    */
   getNextBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
-    return observableOf(items.payload.next).pipe(
-      getBrowseItemsFor(this.requestService, this.rdb)
-    );
+    return this.hrefOnlyDataService.findAllByHref<Item>(items.payload.next);
   }
 
   /**
@@ -197,9 +197,7 @@ export class BrowseService {
    * @param entries
    */
   getPrevBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return observableOf(entries.payload.prev).pipe(
-      getBrowseEntriesFor(this.requestService, this.rdb)
-    );
+    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(entries.payload.prev);
   }
 
   /**
@@ -207,9 +205,7 @@ export class BrowseService {
    * @param entries
    */
   getNextBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
-    return observableOf(entries.payload.next).pipe(
-      getBrowseEntriesFor(this.requestService, this.rdb)
-    );
+    return this.hrefOnlyDataService.findAllByHref<BrowseEntry>(entries.payload.next);
   }
 
   /**
@@ -241,39 +237,3 @@ export class BrowseService {
   }
 
 }
-
-/**
- * Operator for turning a href into a PaginatedList of BrowseEntries
- * @param requestService
- * @param responseCache
- * @param rdb
- */
-export const getBrowseEntriesFor = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<string>): Observable<RemoteData<PaginatedList<BrowseEntry>>> => {
-    const requestId = requestService.generateRequestId();
-
-    source.pipe(take(1)).subscribe((href: string) => {
-      const request = new GetRequest(requestId, href);
-      requestService.configure(request);
-    });
-
-    return rdb.buildList(source);
-  };
-
-/**
- * Operator for turning a href into a PaginatedList of Items
- * @param requestService
- * @param responseCache
- * @param rdb
- */
-export const getBrowseItemsFor = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<string>): Observable<RemoteData<PaginatedList<Item>>> => {
-    const requestId = requestService.generateRequestId();
-
-    source.pipe(take(1)).subscribe((href: string) => {
-      const request = new GetRequest(requestId, href);
-      requestService.configure(request);
-    });
-
-    return rdb.buildList(source);
-  };

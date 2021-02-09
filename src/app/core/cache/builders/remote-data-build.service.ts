@@ -271,7 +271,7 @@ export class RemoteDataBuildService {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   buildList<T extends HALResource>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
-    return this.buildFromHref<PaginatedList<T>>(href$, followLink('page', undefined, false, ...linksToFollow));
+    return this.buildFromHref<PaginatedList<T>>(href$, followLink('page', undefined, false, true, true, ...linksToFollow));
   }
 
   /**

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { debounceTime, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import {
   getRemoteDataPayload,
@@ -194,19 +194,6 @@ export class RelationshipEffects {
    * @param submissionId The ID of the submission object
    */
   private refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
-    return this.submissionObjectService.getHrefByID(submissionId).pipe(take(1)).pipe(
-      switchMap((href: string) => {
-        this.objectCache.remove(href);
-        this.requestService.removeByHrefSubstring(submissionId);
-        return combineLatest(
-          this.objectCache.hasByHref$(href),
-          this.requestService.hasByHref$(href)
-        ).pipe(
-          filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-          take(1),
-          switchMap(() => this.submissionObjectService.findById(submissionId, false, followLink('item')).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-        );
-      })
-    );
+    return this.submissionObjectService.findById(submissionId, false, false, followLink('item')).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload());
   }
 }
