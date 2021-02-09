@@ -15,6 +15,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import {createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
 
 describe('ClaimedTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -109,7 +110,7 @@ describe('ClaimedTaskDataService', () => {
   describe('findByItem', () => {
 
     it('should call searchTask method', () => {
-      spyOn(service, 'searchTask').and.returnValue(observableOf(null));
+      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
 
       scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();
@@ -119,7 +120,13 @@ describe('ClaimedTaskDataService', () => {
         new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
       ];
 
-      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions, followLink('workflowitem'));
+      expect(service.searchTask).toHaveBeenCalledWith('findByItem',
+        findListOptions,
+        followLink('workflowitem',
+          null,
+          true,
+          false,
+          true));
     });
   });
 });

@@ -15,6 +15,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import {createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
 
 describe('PoolTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -63,7 +64,7 @@ describe('PoolTaskDataService', () => {
   describe('findByItem', () => {
 
     it('should call searchTask method', () => {
-      spyOn(service, 'searchTask').and.returnValue(observableOf(null));
+      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
 
       scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();
@@ -73,7 +74,12 @@ describe('PoolTaskDataService', () => {
         new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
       ];
 
-      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions, followLink('workflowitem'));
+      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions,
+        followLink('workflowitem',
+          null,
+          true,
+          false,
+          true));
     });
   });
 
