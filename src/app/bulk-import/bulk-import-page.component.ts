@@ -57,7 +57,6 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       name: new FormControl({value:'', disabled: true}),
       file: new FormControl(),
-      workflow: new FormControl(false),
       abortOnError: new FormControl(false)
     });
 
@@ -93,9 +92,6 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
 
     if (values.abortOnError) {
       stringParameters.push( { name: '-e', value: values.abortOnError } );
-    }
-    if (values.workflow) {
-      stringParameters.push( { name: '-w', value: values.workflow } );
     }
 
     this.scriptService.invoke('bulk-import', stringParameters, [file])
