@@ -6,7 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { bootloader } from '@angularclass/bootloader';
 
 import { load as loadWebFont } from 'webfontloader';
-import { hasValue, isNotEmpty } from './app/shared/empty.util';
+import { hasValue } from './app/shared/empty.util';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
