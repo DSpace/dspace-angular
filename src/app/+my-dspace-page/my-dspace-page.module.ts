@@ -16,6 +16,7 @@ import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission
 import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { OpenaireModule } from '../openaire/openaire.module';
+import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { OpenaireModule } from '../openaire/openaire.module';
     MyDSpaceNewSubmissionComponent,
     CollectionSelectorComponent,
     MyDSpaceNewSubmissionDropdownComponent,
-    MyDSpaceNewExternalDropdownComponent
+    MyDSpaceNewExternalDropdownComponent,
+    MyDSpaceNewBulkImportComponent
   ],
   providers: [
     MyDSpaceGuard,
