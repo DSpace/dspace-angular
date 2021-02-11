@@ -26,7 +26,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-  getAllSucceededRemoteData
+  getFirstSucceededRemoteData
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
@@ -56,14 +56,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * A list of all the current Groups within the repository or the result of the search
-   */
-  groups$: BehaviorSubject<RemoteData<PaginatedList<Group>>> = new BehaviorSubject<RemoteData<PaginatedList<Group>>>({} as any);
-  /**
    * A BehaviorSubject with the list of GroupDtoModel objects made from the Groups in the repository or
    * as the result of the search
    */
   groupsDto$: BehaviorSubject<PaginatedList<GroupDtoModel>> = new BehaviorSubject<PaginatedList<GroupDtoModel>>({} as any);
+  deletedGroupsIds: string[] = [];
 
   /**
    * An observable for the pageInfo, needed to pass to the pagination component
@@ -104,35 +101,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.search({ query: this.currentSearchQuery });
-
-    this.subs.push(this.groups$.pipe(
-      getAllSucceededRemoteDataPayload(),
-      switchMap((groups: PaginatedList<Group>) => {
-        return observableCombineLatest(groups.page.map((group: Group) => {
-          return observableCombineLatest([
-            this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-            this.hasLinkedDSO(group),
-            this.getSubgroups(group),
-            this.getMembers(group)
-          ]).pipe(
-            map(([isAuthorized, hasLinkedDSO, subgroups, members]:
-                   [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
-                groupDtoModel.group = group;
-                groupDtoModel.subgroups = subgroups.payload;
-                groupDtoModel.epersons = members.payload;
-                return groupDtoModel;
-              }
-            )
-          );
-        })).pipe(map((dtos: GroupDtoModel[]) => {
-          return buildPaginatedList(groups.pageInfo, dtos);
-        }));
-      })).subscribe((value: PaginatedList<GroupDtoModel>) => {
-      this.groupsDto$.next(value);
-      this.pageInfoState$.next(value.pageInfo);
-    }));
   }
 
   /**
@@ -159,14 +127,42 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       this.searchSub.unsubscribe();
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
     }
+
     this.searchSub = this.groupService.searchGroups(this.currentSearchQuery.trim(), {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
     }).pipe(
-      getAllSucceededRemoteData()
-    ).subscribe((groupsRD: RemoteData<PaginatedList<Group>>) => {
-      this.groups$.next(groupsRD);
-      this.pageInfoState$.next(groupsRD.payload.pageInfo);
+      getAllSucceededRemoteDataPayload(),
+      switchMap((groups: PaginatedList<Group>) => {
+        if (groups.page.length === 0) {
+          return observableOf(buildPaginatedList(groups.pageInfo, []));
+        }
+        return observableCombineLatest(groups.page.map((group: Group) => {
+          if (!this.deletedGroupsIds.includes(group.id)) {
+            return observableCombineLatest([
+              this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+              this.hasLinkedDSO(group),
+              this.getSubgroups(group),
+              this.getMembers(group)
+            ]).pipe(
+              map(([isAuthorized, hasLinkedDSO, subgroups, members]:
+                     [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
+                  const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                  groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
+                  groupDtoModel.group = group;
+                  groupDtoModel.subgroups = subgroups.payload;
+                  groupDtoModel.epersons = members.payload;
+                  return groupDtoModel;
+                }
+              )
+            );
+          }
+        })).pipe(map((dtos: GroupDtoModel[]) => {
+          return buildPaginatedList(groups.pageInfo, dtos);
+        }));
+      })).subscribe((value: PaginatedList<GroupDtoModel>) => {
+      this.groupsDto$.next(value);
+      this.pageInfoState$.next(value.pageInfo);
     });
     this.subs.push(this.searchSub);
   }
@@ -179,6 +175,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       this.groupService.delete(group.group.id).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
+            this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
             this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
             this.reset();
           } else {
@@ -199,14 +196,14 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     ).subscribe((href: string) => {
       this.requestService.setStaleByHrefSubstring(href);
     });
-}
+  }
 
   /**
    * Get the members (epersons embedded value of a group)
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findAllByHref(group._links.epersons.href);
+    return this.ePersonDataService.findAllByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -214,7 +211,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findAllByHref(group._links.subgroups.href);
+    return this.groupService.findAllByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -223,6 +220,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   hasLinkedDSO(group: Group): Observable<boolean> {
     return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
+      getFirstSucceededRemoteData(),
       map((rd: RemoteData<DSpaceObject>) => hasValue(rd) && hasValue(rd.payload)),
       catchError(() => observableOf(false)),
     );
