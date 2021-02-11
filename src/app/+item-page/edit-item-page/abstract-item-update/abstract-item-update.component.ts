@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  FieldUpdate,
+  FieldUpdates
+} from '../../../core/data/object-updates/object-updates.reducer';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Data } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { first, map } from 'rxjs/operators';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page.resolver';
+import { getAllSucceededRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-abstract-item-update',
@@ -20,7 +26,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 /**
  * Abstract component for managing object updates of an item
  */
-export class AbstractItemUpdateComponent extends AbstractTrackableComponent implements OnInit {
+export class AbstractItemUpdateComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
   /**
    * The item to display the edit page for
    */
@@ -35,6 +41,12 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Route to the item's page
    */
   itemPageRoute: string;
+
+  /**
+   * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
+   * This is used to update the item in cache after bitstreams are deleted
+   */
+  itemUpdateSubscription: Subscription;
 
   constructor(
     public itemService: ItemDataService,
@@ -51,15 +63,21 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Initialize common properties between item-update components
    */
   ngOnInit(): void {
-    observableCombineLatest(this.route.data, this.route.parent.data).pipe(
-      map(([data, parentData]) => Object.assign({}, data, parentData)),
-      map((data) => data.dso),
-      first(),
-      map((data: RemoteData<Item>) => data.payload)
-    ).subscribe((item: Item) => {
-      this.item = item;
+    this.itemUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
+      map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
+      map((data: any) => data.dso),
+      tap((rd: RemoteData<Item>) => {
+        this.item = rd.payload;
+      }),
+      switchMap((rd: RemoteData<Item>) => {
+        return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...ITEM_PAGE_LINKS_TO_FOLLOW);
+      }),
+      getAllSucceededRemoteData()
+    ).subscribe((rd: RemoteData<Item>) => {
+      this.item = rd.payload;
       this.itemPageRoute = getItemPageRoute(this.item);
       this.postItemInit();
+      this.initializeUpdates();
     });
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
@@ -77,6 +95,12 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
 
     this.initializeNotificationsPrefix();
     this.initializeUpdates();
+  }
+
+  ngOnDestroy() {
+    if (hasValue(this.itemUpdateSubscription)) {
+      this.itemUpdateSubscription.unsubscribe();
+    }
   }
 
   /**

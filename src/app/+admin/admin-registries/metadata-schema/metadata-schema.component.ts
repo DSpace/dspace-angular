@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest as observableCombineLatest, combineLatest, Observable, zip } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  combineLatest,
+  Observable,
+  zip
+} from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -11,9 +17,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../../../core/shared/operators';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
@@ -91,7 +99,7 @@ export class MetadataSchemaComponent implements OnInit {
         if (update) {
           this.needsUpdate$.next(false);
         }
-        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), !update, false, followLink('schema'));
+        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), !update, true);
       })
     );
   }
@@ -101,6 +109,7 @@ export class MetadataSchemaComponent implements OnInit {
    * a new REST call
    */
   public forceUpdateFields() {
+    this.registryService.clearMetadataFieldRequests();
     this.needsUpdate$.next(true);
   }
 
@@ -160,7 +169,6 @@ export class MetadataSchemaComponent implements OnInit {
    * Delete all the selected metadata fields
    */
   deleteFields() {
-    this.registryService.clearMetadataFieldRequests().subscribe();
     this.registryService.getSelectedMetadataFields().pipe(take(1)).subscribe(
       (fields) => {
         const tasks$ = [];
@@ -174,6 +182,8 @@ export class MetadataSchemaComponent implements OnInit {
           const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
             this.showNotification(true, successResponses.length);
+            this.registryService.clearMetadataFieldRequests();
+
           }
           if (failedResponses.length > 0) {
             this.showNotification(false, failedResponses.length);

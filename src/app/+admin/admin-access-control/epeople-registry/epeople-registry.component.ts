@@ -283,7 +283,10 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     this.epersonService.getBrowseEndpoint().pipe(
       take(1)
     ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href);
+      this.requestService.setStaleByHrefSubstring(href).pipe(take(1)).subscribe(() => {
+        this.epersonService.cancelEditEPerson();
+        this.isEPersonFormShown = false;
+      });
     });
   }
 }

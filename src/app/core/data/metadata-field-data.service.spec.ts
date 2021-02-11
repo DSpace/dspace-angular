@@ -33,7 +33,7 @@ describe('MetadataFieldDataService', () => {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
-      removeByHrefSubstring: {}
+      setStaleByHrefSubstring: {}
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
     notificationsService = jasmine.createSpyObj('notificationsService', {
@@ -64,11 +64,10 @@ describe('MetadataFieldDataService', () => {
   });
 
   describe('clearRequests', () => {
-    it('should remove requests on the data service\'s endpoint', (done) => {
-      metadataFieldService.clearRequests().subscribe(() => {
-        expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(`${endpoint}/${(metadataFieldService as any).linkPath}`);
-        done();
-      });
+    it('should remove requests on the data service\'s endpoint', () => {
+      spyOn(metadataFieldService, 'getBrowseEndpoint').and.returnValue(observableOf(endpoint));
+      metadataFieldService.clearRequests();
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(endpoint);
     });
   });
 });

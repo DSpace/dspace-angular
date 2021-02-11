@@ -280,8 +280,8 @@ export class RegistryService {
   /**
    * Method that clears a cached metadata field request and returns its REST url
    */
-  public clearMetadataFieldRequests(): Observable<string> {
-    return this.metadataFieldService.clearRequests();
+  public clearMetadataFieldRequests(): void {
+    this.metadataFieldService.clearRequests();
   }
 
   private showNotifications(success: boolean, edited: boolean, isField: boolean, options: any) {

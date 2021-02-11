@@ -160,6 +160,7 @@ import { EndUserAgreementService } from './end-user-agreement/end-user-agreement
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 
 /**
@@ -277,6 +278,7 @@ const PROVIDERS = [
   EndUserAgreementCurrentUserGuard,
   EndUserAgreementCookieGuard,
   EndUserAgreementService,
+  RootDataService,
   NotificationsService,
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
@@ -339,6 +341,7 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    Root,
   ];
 
 @NgModule({

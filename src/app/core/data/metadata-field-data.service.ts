@@ -19,7 +19,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
 /**
@@ -105,12 +105,11 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * Clear all metadata field requests
    * Used for refreshing lists after adding/updating/removing a metadata field from a metadata schema
    */
-  clearRequests(): Observable<string> {
-    return this.getBrowseEndpoint().pipe(
-      tap((href: string) => {
-        this.requestService.removeByHrefSubstring(href);
-      })
-    );
+  clearRequests(): void {
+    this.getBrowseEndpoint().pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+    });
+
   }
 
 }
