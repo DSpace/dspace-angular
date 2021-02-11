@@ -19,7 +19,6 @@ import { RequestService } from './request.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { Metadata } from '../shared/metadata.utils';
 import { getItemPageRoute } from '../../+item-page/item-page-routing-paths';
 
 @Injectable()
