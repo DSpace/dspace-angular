@@ -1296,6 +1296,10 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
+  "dso-selector.import-item.item.head": "Import items",
+
+  "dso-selector.import-item.sub-level": "Bulk import items in",
+
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
@@ -2633,6 +2637,8 @@
   "mydspace.messages.to": "To",
 
   "mydspace.new-submission": "New submission",
+
+  "mydspace.new-bulk-import": "New import",
 
   "mydspace.new-submission-external": "Import metadata from external source",
 
