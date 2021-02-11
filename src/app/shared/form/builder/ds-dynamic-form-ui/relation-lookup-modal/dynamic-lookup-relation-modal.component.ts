@@ -1,5 +1,5 @@
 import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription, zip } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { map, skip, switchMap, take } from 'rxjs/operators';
@@ -11,11 +11,7 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getAllSucceededRemoteDataPayload,
-  getRemoteDataPayload
-} from '../../../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -23,8 +19,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { Router } from '@angular/router';

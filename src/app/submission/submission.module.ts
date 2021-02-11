@@ -32,6 +32,8 @@ import { SubmissionImportExternalSearchbarComponent } from './import-external/im
 import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
 import { SubmissionImportExternalCollectionComponent } from './import-external/import-external-collection/submission-import-external-collection.component';
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
+import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/subm
     CoreModule.forRoot(),
     SharedModule,
     StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-    EffectsModule.forFeature(submissionEffects)
+    EffectsModule.forFeature(submissionEffects),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents(),
   ],
   declarations: [
     SubmissionSectionUploadAccessConditionsComponent,
