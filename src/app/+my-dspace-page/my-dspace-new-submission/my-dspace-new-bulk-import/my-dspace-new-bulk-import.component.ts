@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BulkImportSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+import { BulkImportSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 
 /**
  * This component represents the 'Import metadata from external source' dropdown menu
