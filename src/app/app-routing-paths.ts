@@ -14,7 +14,7 @@ export function getBitstreamModuleRoute() {
   return `/${BITSTREAM_MODULE_PATH}`;
 }
 
-export function getBitstreamDownloadRoute(bitstream) : string{
+export function getBitstreamDownloadRoute(bitstream): string {
   return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
 }
 
