@@ -22,6 +22,8 @@ import { Item } from '../shared/item.model';
 import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
 import { environment } from '../../../environments/environment';
 import { RootDataService } from '../data/root-data.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { getBitstreamDownloadRoute, getBitstreamModuleRoute } from '../../app-routing-paths';
 
 @Injectable()
 export class MetadataService {
@@ -40,7 +42,6 @@ export class MetadataService {
     private dsoNameService: DSONameService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
-    private redirectService: HardRedirectService,
     private rootService: RootDataService
   ) {
     // TODO: determine what open graph meta tags are needed and whether
@@ -286,7 +287,8 @@ export class MetadataService {
               getFirstSucceededRemoteDataPayload()
             ).subscribe((format: BitstreamFormat) => {
               if (format.mimetype === 'application/pdf') {
-                this.addMetaTag('citation_pdf_url', bitstream._links.content.href);
+                const bitstreamLink =  getBitstreamDownloadRoute(bitstream);
+                this.addMetaTag('citation_pdf_url', bitstreamLink);
               }
             });
           }

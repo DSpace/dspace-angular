@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FileService } from '../../core/shared/file.service';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 
 @Component({
   selector: 'ds-file-download-link',
@@ -24,22 +20,11 @@ export class FileDownloadLinkComponent implements OnInit {
   @Input() bitstream: Bitstream;
   bitstreamPath: string;
 
-  /**
-   * Whether or not the current user is authenticated
-   */
-  isAuthenticated$: Observable<boolean>;
-
-  constructor(private fileService: FileService,
-              private authService: AuthService,
-  ) {
-  }
-
   ngOnInit() {
-    this.isAuthenticated$ = this.authService.isAuthenticated();
     this.bitstreamPath = this.getBitstreamPath();
   }
 
   getBitstreamPath() {
-    return new URLCombiner(getBitstreamModuleRoute(), this.bitstream.uuid, 'download').toString();
+    return getBitstreamDownloadRoute(this.bitstream);
   }
 }
