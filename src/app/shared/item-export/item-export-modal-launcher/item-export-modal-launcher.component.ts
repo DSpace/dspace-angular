@@ -2,17 +2,17 @@ import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export.service';
 import { Item } from '../../../core/shared/item.model';
 import { SearchOptions } from '../../search/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
 import { AuthService } from '../../../core/auth/auth.service';
+import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 
 @Component({
-  selector: 'ds-item-export-modal-wrapper',
-  templateUrl: './item-export-modal-wrapper.component.html'
+  selector: 'ds-item-export-modal-launcher',
+  templateUrl: './item-export-modal-launcher.component.html'
 })
-export class ItemExportModalWrapperComponent implements OnInit {
+export class ItemExportModalLauncherComponent implements OnInit {
 
   @ViewChild('template', {static: true}) template;
 

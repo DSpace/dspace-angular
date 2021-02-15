@@ -2,16 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import {
-  ItemExportFormatMolteplicity,
-  ItemExportFormatService
-} from '../../../core/itemexportformat/item-export.service';
-import { ItemExportFormat } from '../../../core/itemexportformat/model/item-export-format.model';
+import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
-import { isEmpty } from '../../empty.util';
 import { SearchOptions } from '../../search/search-options.model';
+import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
+import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 
 @Component({
   selector: 'ds-item-export',
@@ -23,102 +18,60 @@ export class ItemExportComponent implements OnInit {
   @Input() item: Item;
   @Input() searchOptions: SearchOptions;
 
-  public allEntityTypes: string[] = [];
-  public allFormats: ItemExportFormat[] = [];
+  public configuration: ItemExportFormConfiguration;
   public exportForm: FormGroup;
 
-  constructor(private itemExportFormatService: ItemExportFormatService,
-              private router: Router,
+  constructor(protected itemExportService: ItemExportService,
+              protected router: Router,
               public activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {
-    if (this.item) {
-      this.initializeSingleExport();
-    }
+    this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
+      .subscribe((configuration: ItemExportFormConfiguration) => {
+        this.configuration = configuration;
+        this.exportForm = this.initForm(configuration);
 
-    if (this.searchOptions) {
-      this.initializeMultipleExport();
-    }
+        // listen for entityType selections in order to update the available formats
+        this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
+          this.onEntityTypeChange(entityType);
+        });
+      });
+  }
+
+  onEntityTypeChange(entityType: string) {
+    this.itemExportService.onSelectEntityType(this.configuration.entityTypes, entityType).pipe(take(1)).subscribe((configuration) => {
+      this.configuration = configuration;
+      this.exportForm.controls.format.patchValue(this.configuration.format);
+    });
+  }
+
+  initForm(configuration: ItemExportFormConfiguration): FormGroup {
+    return new FormGroup({
+      format: new FormControl(configuration.format, [Validators.required]),
+      entityType: new FormControl(configuration.entityType, [Validators.required]),
+    });
   }
 
   onSubmit() {
     if (this.exportForm.valid) {
-      const format = this.exportForm.value.format;
-      if (this.molteplicity === ItemExportFormatMolteplicity.SINGLE) {
-        this.itemExportFormatService.doExport(this.item.uuid, format).subscribe((processNumber) => {
-          this.routeToProcess(processNumber);
-        });
-      } else {
-        const entityType = this.exportForm.value.entityType;
-        this.itemExportFormatService.doExportMulti(entityType, format, this.searchOptions).subscribe((processNumber) => {
-          this.routeToProcess(processNumber);
-        });
-      }
-      this.activeModal.close();
-    }
-  }
+      this.itemExportService.submitForm(
+        this.molteplicity,
+        this.item,
+        this.searchOptions,
+        this.exportForm.value.entityType,
+        this.exportForm.value.format).pipe(take(1)).subscribe((processNumber) => {
 
-  private routeToProcess(processNumber: number) {
-    if (processNumber !== null) {
-      this.router.navigateByUrl('/processes/' + processNumber);
-    }
-  }
-
-  private initializeSingleExport() {
-    const entityType = this.item.firstMetadataValue('relationship.type');
-    if (isEmpty(entityType)) {
-      throw Error('cannot get item entityType');
-    }
-    this.exportForm = new FormGroup({
-      format: new FormControl(null, [Validators.required]),
-    });
-    this.fetchFormats(entityType).subscribe();
-  }
-
-  private initializeMultipleExport() {
-    this.exportForm = new FormGroup({
-      entityType: new FormControl(null, [Validators.required]),
-      format: new FormControl(null, [Validators.required]),
-    });
-
-    this.fetchEntityTypes().subscribe(() => {
-
-      // listen for entityType selections in order to update the available formats
-      this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
-        this.fetchFormats(entityType).subscribe();
+        this.routeToProcess(processNumber);
+        this.activeModal.close();
       });
-    });
+    }
   }
 
-  private fetchEntityTypes(): Observable<any> {
-    return this.itemExportFormatService.byEntityTypeAndMolteplicity(null, this.molteplicity).pipe(
-      take(1),
-      tap((values) => {
-        this.allEntityTypes = Object.keys(values);
-      }));
+  routeToProcess(processNumber: number) {
+    if (processNumber !== null) {
+      this.router.navigateByUrl('/processes/' + processNumber).then();
+    }
   }
-
-  private fetchFormats(entityType): Observable<any> {
-    return this.itemExportFormatService.byEntityTypeAndMolteplicity(entityType, this.molteplicity).pipe(
-      take(1),
-      tap((values) => {
-        this.exportForm.controls.format.patchValue(null);
-        this.allFormats = entityType ? values[entityType] : [];
-      }));
-  }
-
-  // HELPERS
-
-  // private populateEntityTypes() {
-  //   const filtersSubscribe = this.searchConfigService.searchOptions.pipe(
-  //     switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData())),
-  //   ).subscribe(response => {
-  //     const entityTypeFilter = (<SearchFilterConfig[]>response.payload).filter(filter => filter.name === 'entityType')[0];
-  //     this.searchService.getFacetValuesFor(entityTypeFilter, 1, this.searchOptions).pipe(take(1)).subscribe(entityTypes => {
-  //       this.entityTypes = entityTypes.payload.page.map(facet => facet.value);
-  //     })
-  //   });
-  // }
 
 }

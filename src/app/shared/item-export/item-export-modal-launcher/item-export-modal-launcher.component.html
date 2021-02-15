@@ -1,0 +1,8 @@
+<ng-template #template>
+  <ng-container *ngIf="(isAuthenticated() | async) as authenticated">
+    <button class="btn btn-outline-primary" (click)="open()"><i class="fas fa-file-export"></i>
+      <span *ngIf="item">{{ 'item-export.modal-launcher.single.btn' | translate }}</span>
+      <span *ngIf="!item">{{ 'item-export.modal-launcher.multiple.btn' | translate }}</span>
+    </button>
+  </ng-container>
+</ng-template>

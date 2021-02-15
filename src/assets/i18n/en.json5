@@ -2283,6 +2283,25 @@
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
 
+  "item-export.modal-launcher.single.btn": "Export",
+
+  "item-export.modal-launcher.multiple.btn": "Bulk Export",
+
+  "item-export.alert.single": "Export item ",
+
+  "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
+
+  "item-export.form.entityType": "Entity Type",
+
+  "item-export.form.entityType.tip": "Choose the entity type to export",
+
+  "item-export.form.format": "Format",
+
+  "item-export.form.format.tip": "Choose the export format",
+
+  "item-export.form.btn.submit": "Export",
+
+  "item-export.form.btn.cancel": "Cancel",
 
   "journal.listelement.badge": "Journal",
 

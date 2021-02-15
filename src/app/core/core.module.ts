@@ -185,13 +185,13 @@ import { EditItemMode } from './submission/models/edititem-mode.model';
 import { EditItemModeDataService } from './submission/edititemmode-data.service';
 import { AuditDataService } from './audit/audit-data.service';
 import { Audit } from './audit/model/audit.model';
-import { ItemExportFormatService } from './itemexportformat/item-export.service';
 import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
 import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Metric } from './shared/metric.model';
 import { MetricService } from './data/metric.service';
 import { Root } from './data/root.model';
+import { ItemExportFormatService } from './itemexportformat/item-export-format.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

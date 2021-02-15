@@ -235,7 +235,6 @@ import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { ItemExportComponent } from './item-export/item-export/item-export.component';
-import { ItemExportModalWrapperComponent } from './item-export/item-export-modal-wrapper/item-export-modal-wrapper.component';
 import { SearchChartsComponent } from './search/search-charts/search-charts.component';
 import { SearchChartBarComponent } from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
 import { SearchChartPieComponent } from './search/search-charts/search-chart/search-chart-pie/search-chart-pie.component';
@@ -245,6 +244,8 @@ import { SearchChartComponent } from './search/search-charts/search-chart/search
 import { ChartsModule } from '../charts/charts.module';
 import { SearchChartFilterComponent } from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
 import { VocabularyExternalSourceComponent } from './vocabulary-external-source/vocabulary-external-source.component';
+import { ItemExportAlertComponent } from './item-export/item-export-alert/item-export-alert.component';
+import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -474,7 +475,8 @@ const COMPONENTS = [
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
   ItemExportComponent,
-  ItemExportModalWrapperComponent,
+  ItemExportAlertComponent,
+  ItemExportModalLauncherComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
   SearchChartPieComponent,
@@ -599,7 +601,8 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    ...SHARED_SEARCH_PAGE_COMPONENTS
+    ...SHARED_SEARCH_PAGE_COMPONENTS,
+    ItemExportAlertComponent
   ],
   providers: [
     ...PROVIDERS
