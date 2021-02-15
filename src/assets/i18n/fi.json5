@@ -2847,7 +2847,7 @@
   "search.filters.applied.f.entityType": "Tietueen tyyppi",
   
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  "search.filters.applied.f.has_content_in_original_bundle": "Tiedostot:",
+  "search.filters.applied.f.has_content_in_original_bundle": "On tiedostoja",
   
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Tyyppi",
@@ -2939,7 +2939,7 @@
   "search.filters.filter.entityType.placeholder": "Tietueen tyyppi",
   
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
-  "search.filters.filter.has_content_in_original_bundle.head": "Tiedostot:",
+  "search.filters.filter.has_content_in_original_bundle.head": "On tiedostoja",
   
   // "search.filters.filter.itemtype.head": "Type",
   "search.filters.filter.itemtype.head": "Tyyppi",
