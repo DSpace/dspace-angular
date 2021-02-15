@@ -1,9 +1,5 @@
-<div class="container">
-      <div class="container" [ngClass]="textBoxSection.style">
-          <div *ngFor="let textRow of ( textRows$ | async )" [ngClass]="textRow.style" [ngSwitch]="textRow.contentType">
-            <div *ngSwitchCase="'image'"><img src="{{textRow.content}}" style="width:100%"/></div>
-            <div *ngSwitchCase="'text-key'">{{ 'explore.text-section.' + textRow.content | translate }}</div> 
-            <div *ngSwitchCase="'text-raw'">{{ 'explore.text-section.' + textRow.content }}</div>             
-          </div>
-  </div>
+  <div class="container" [ngClass]="textRowSection.style">
+        <div *ngIf="textRowSection.contentType == 'image'"><img src="{{textRowSection.content}}" style="width:100%"/></div>
+        <div *ngIf="textRowSection.contentType == 'text-key'">{{ 'explore.text-section.' + textRowSection.content | translate }}</div> 
+        <div *ngIf="textRowSection.contentType == 'text-raw'">{{ 'explore.text-section.' + textRowSection.content }}</div>             
 </div>
