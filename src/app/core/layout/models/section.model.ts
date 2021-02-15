@@ -53,6 +53,7 @@ export interface TopSection extends SectionComponent {
   discoveryConfigurationName: string;
   sortField: string;
   order: string;
+  titleKey: string;
   componentType: 'top';
 }
 
@@ -70,9 +71,4 @@ export interface TextRowSection extends SectionComponent {
   content: string;
   contentType: string;
   componentType: 'text-row';
-}
-
-export interface TextBoxSection extends SectionComponent {
-  textRows: TextRowSection[];
-  componentType: 'text-box';
 }

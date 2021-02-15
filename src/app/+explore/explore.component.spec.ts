@@ -33,7 +33,8 @@ describe('ExploreComponent', () => {
     componentType: 'top',
     style: 'col-md-6',
     order: 'desc',
-    sortField: 'dc.date.accessioned'
+    sortField: 'dc.date.accessioned',
+    titleKey: 'lastPublications'
   };
 
   const searchComponent: SearchSection = {
