@@ -36,9 +36,9 @@
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button
         ngbDropdownItem
-        *ngFor="let item of filteredMedias; let i = index"
+        *ngFor="let item of filteredMedias; index as indexOfelement"
         class="list-element"
-        (click)="selectedMedia(i)"
+        (click)="selectedMedia(indexOfelement)"
       >
         {{ item.bitstream.name }}
       </button>

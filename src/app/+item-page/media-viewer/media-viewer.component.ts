@@ -97,7 +97,7 @@ export class MediaViewerComponent implements OnInit {
   /**
    * This method create MediaViewerItem from incoming bitstreams
    * @param original original remote data bitstream
-   * @param format original bitstream format 
+   * @param format original bitstream format
    * @param thumbnail trunbnail remote data bitstream
    */
   createMediaViewerItem(
