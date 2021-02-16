@@ -16,7 +16,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 export class ItemComponent {
   @Input() object: Item;
 
-  mediaViewer = environment.mediaViewer
+  mediaViewer = environment.mediaViewer;
 
   constructor(protected bitstreamDataService: BitstreamDataService) {
   }

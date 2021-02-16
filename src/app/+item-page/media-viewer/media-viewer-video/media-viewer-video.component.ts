@@ -11,6 +11,8 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 })
 export class MediaViewerVideoComponent implements OnInit {
   @Input() medias: MediaViewerItem[];
+  @Input() width: string;
+  @Input() height: string;
 
   filteredMedias: MediaViewerItem[];
 

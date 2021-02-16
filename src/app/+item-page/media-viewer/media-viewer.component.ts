@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -23,7 +24,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 })
 export class MediaViewerComponent implements OnInit {
   @Input() item: Item;
-  @Input() videoOptions: boolean;
+  @Input() config: MediaViewerConfig;
 
   mediaList$: BehaviorSubject<MediaViewerItem[]>;
 
@@ -37,6 +38,7 @@ export class MediaViewerComponent implements OnInit {
    * This metod loads all the Bitstreams and Thumbnails and contert it to media item
    */
   ngOnInit(): void {
+    console.log(this.config)
     this.mediaList$ = new BehaviorSubject([]);
     this.isLoading = true;
     this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {

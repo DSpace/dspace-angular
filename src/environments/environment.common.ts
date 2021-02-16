@@ -232,5 +232,7 @@ export const environment: GlobalConfig = {
   mediaViewer: {
     image: false,
     video: false,
+    width: '340px',
+    height: '279px',
   },
 };

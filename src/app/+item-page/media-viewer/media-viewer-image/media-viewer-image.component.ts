@@ -17,6 +17,8 @@ export class MediaViewerImageComponent implements OnInit {
   @Input() images: MediaViewerItem[];
   @Input() preview?: boolean;
   @Input() image?: string;
+  @Input() width: string;
+  @Input() height: string;
 
   loggedin: boolean;
 
@@ -42,8 +44,8 @@ export class MediaViewerImageComponent implements OnInit {
         imageSize: 'contain',
         thumbnails: false,
         imageArrows: false,
-        width: '340px',
-        height: '279px',
+        width: this.width,
+        height: this.height,
         startIndex: 0,
         imageAnimation: NgxGalleryAnimation.Slide,
         previewCloseOnEsc: true,
@@ -52,6 +54,7 @@ export class MediaViewerImageComponent implements OnInit {
         previewFullscreen: true,
       },
     ];
+    console.log(this.galleryOptions)
 
     if (this.image) {
       this.galleryImages = [
