@@ -93,7 +93,10 @@ export class MediaViewerComponent implements OnInit {
         take(1)
       );
   }
-
+  
+  /**
+   * This method MediaViewerItem from incoming bitstreams
+   */
   createMediaViewerItem(
     original: Bitstream,
     format: BitstreamFormat,
