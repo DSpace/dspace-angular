@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -28,7 +27,7 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
@@ -66,7 +65,7 @@ describe('CollectionItemMapperComponent', () => {
     }
   });
   const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-  const mockSearchOptions = of(new PaginatedSearchOptions({
+  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -88,23 +87,34 @@ describe('CollectionItemMapperComponent', () => {
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
-    findAllByHref: () => of(emptyList)
+    findAllByHref: () => observableOf(emptyList)
   };
-  const activatedRouteStub = new ActivatedRouteStub({}, { dso: mockCollectionRD });
+  const activatedRouteStub = {
+    parent: {
+      data: observableOf({
+        dso: mockCollectionRD
+      })
+    },
+    snapshot: {
+      queryParamMap: new Map([
+        ['query', 'test'],
+      ])
+    }
+  };
   const translateServiceStub = {
-    get: () => of('test-message of collection ' + mockCollection.name),
+    get: () => observableOf('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(emptyList),
+    search: () => observableOf(emptyList),
     /* tslint:disable:no-empty */
     clearDiscoveryRequests: () => {}
     /* tslint:enable:no-empty */
   });
   const collectionDataServiceStub = {
-    getMappedItems: () => of(emptyList),
+    getMappedItems: () => observableOf(emptyList),
     /* tslint:disable:no-empty */
     clearMappedItemsRequests: () => {}
     /* tslint:enable:no-empty */

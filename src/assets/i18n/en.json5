@@ -649,6 +649,10 @@
 
 
 
+  "collection.edit.tabs.mapper.head": "Item Mapper",
+
+  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
+
   "collection.edit.item-mapper.cancel": "Cancel",
 
   "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
@@ -1462,6 +1466,9 @@
   "item.edit.breadcrumbs": "Edit Item",
 
 
+  "item.edit.tabs.mapper.head": "Collection Mapper",
+
+  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
