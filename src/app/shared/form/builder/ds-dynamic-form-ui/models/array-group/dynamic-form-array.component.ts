@@ -44,9 +44,15 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   }
 
   moveSelection(event: CdkDragDrop<Relationship>) {
+
+    // prevent propagating events generated releasing on the same position
+    if (event.previousIndex === event.currentIndex) {
+      return;
+    }
+
     this.model.moveGroup(event.previousIndex, event.currentIndex - event.previousIndex);
-    const prevIndex = event.previousIndex - 1;
-    const index = event.currentIndex - 1;
+    const prevIndex = event.previousIndex;
+    const index = event.currentIndex;
 
     if (hasValue(this.model.groups[index]) && hasValue((this.control as any).controls[index])) {
       const $event = {
@@ -59,7 +65,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
       };
 
       this.onChange($event);
-      }
+    }
   }
 
   update(event: any, index: number) {

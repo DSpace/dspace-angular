@@ -359,19 +359,16 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    // don't handle change events for things with an index < 0, those are template rows.
-    if (hasNoValue(event.context) || hasNoValue(event.context.index) || event.context.index >= 0) {
-      this.formOperationsService.dispatchOperationsFromEvent(
-        this.pathCombiner,
-        event,
-        this.previousValue,
-        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
-      const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
-      const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
+    this.formOperationsService.dispatchOperationsFromEvent(
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-      if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
-        this.submissionService.dispatchSave(this.submissionId);
-      }
+    if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+      this.submissionService.dispatchSave(this.submissionId);
     }
   }
 
