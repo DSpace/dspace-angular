@@ -33,6 +33,7 @@ import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
 import { hasValue } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
+import {GoogleAnalyticsService} from './statistics/google-analytics.service';
 
 @Component({
   selector: 'ds-app',
@@ -70,7 +71,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
     private localeService: LocaleService,
-    @Optional() private cookiesService: KlaroService
+    @Optional() private cookiesService: KlaroService,
+    @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
 
     /* Use models object so all decorators are actually called */
@@ -84,7 +86,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     // set the current language code
     this.localeService.setCurrentLanguageCode();
 
-    angulartics2GoogleAnalytics.startTracking();
+    // analytics
+    if (hasValue(googleAnalyticsService)) {
+      googleAnalyticsService.addTrackingIdToPage();
+    }
     angulartics2DSpace.startTracking();
 
     metadata.listenForRouteChange();
