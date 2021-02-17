@@ -6,7 +6,7 @@ import { SectionComponent } from './../../../core/layout/models/section.model';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { SearchService } from './../../../core/shared/search/search.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { PaginatedSearchOptions } from 'src/app/shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from './../../../shared/search/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
 
 @Component({
