@@ -24,6 +24,11 @@ import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { Router } from '@angular/router';
+import { followLink } from '../../../../utils/follow-link-config.model';
+import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
+import { Collection } from '../../../../../core/shared/collection.model';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -113,6 +118,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   totalExternal$: Observable<number[]>;
 
+  /**
+   * List of subscriptions to unsubscribe from
+   */
+  private subs: Subscription[] = [];
+
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
@@ -121,14 +131,18 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private externalSourceService: ExternalSourceService,
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
+    private submissionService: SubmissionService,
+    private submissionObjectService: SubmissionObjectDataService,
     private zone: NgZone,
     private store: Store<AppState>,
-    private router: Router,
+    private router: Router
   ) {
 
   }
 
   ngOnInit(): void {
+    this.setItem();
+    this.submissionService.dispatchSave(this.submissionId);
     this.selection$ = this.selectableListService
       .getSelectableList(this.listId)
       .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
@@ -180,6 +194,24 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
             );
           });
       });
+  }
+
+  /**
+   *  Initialize this.item$ based on this.model.submissionId
+   */
+  private setItem() {
+    const submissionObject$ = this.submissionObjectService
+      .findById(this.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload()
+      );
+
+    const item$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+    const collection$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.collection as Observable<RemoteData<Collection>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+
+    this.subs.push(item$.subscribe((item) => this.item = item));
+    this.subs.push(collection$.subscribe((collection) => this.collection = collection));
+
   }
 
   /**
@@ -240,5 +272,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   ngOnDestroy() {
     this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 }

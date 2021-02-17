@@ -14,7 +14,8 @@
         color: $gray-600;
         margin: $btn-padding-y 0;
         line-height: $btn-line-height;
-        text-indent: 0.5 * $spacer
+        text-indent: 0.5 * $spacer;
+        cursor: grab;
     }
 
     &:hover, &:focus {

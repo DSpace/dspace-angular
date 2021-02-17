@@ -14,6 +14,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { of as observableOf } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -65,6 +67,14 @@ describe('ExistingMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        })
+      ],
       declarations: [ExistingMetadataListElementComponent],
       providers: [
         { provide: SelectableListService, useValue: selectionService },

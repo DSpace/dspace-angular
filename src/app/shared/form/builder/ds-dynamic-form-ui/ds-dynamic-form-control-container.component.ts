@@ -37,7 +37,6 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlEventType,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -83,18 +82,16 @@ import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import {
   getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData
+  getRemoteDataPayload
 } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
@@ -110,7 +107,6 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SubmissionService } from '../../../../submission/submission.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { RelationshipOptions } from '../models/relationship-options.model';
@@ -206,7 +202,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() model: any;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
-  modalRef: NgbModalRef;
   item: Item;
   item$: Observable<Item>;
   collection: Collection;
@@ -239,7 +234,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
-    private modalService: NgbModal,
     private relationshipService: RelationshipService,
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
@@ -249,7 +243,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private ref: ChangeDetectorRef,
     private formService: FormService,
     private formBuilderService: FormBuilderService,
-    private submissionService: SubmissionService
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
   }
@@ -264,7 +257,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
       const relationshipOptions = Object.assign(new RelationshipOptions(), config);
-      this.listId = `list-${this.model.submissionId}-${relationshipOptions.relationshipType}`;
       this.setItem();
 
       if (isWrapperAroundRelationshipList || !this.model.repeatable) {
@@ -376,45 +368,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   public hasResultsSelected(): Observable<boolean> {
     return this.model.value.pipe(map((list: SearchResult<DSpaceObject>[]) => isNotEmpty(list)));
-  }
-
-  /**
-   * Open a modal where the user can select relationships to be added to item being submitted
-   */
-  openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
-      size: 'lg'
-    });
-    const modalComp = this.modalRef.componentInstance;
-
-    if (hasValue(this.model.value) && !this.model.readOnly) {
-      if (typeof this.model.value === 'string') {
-        modalComp.query = this.model.value;
-      } else if (typeof this.model.value.value === 'string') {
-        modalComp.query = this.model.value.value;
-      }
-    }
-
-    if (hasValue(this.model.value)) {
-      this.model.value = '';
-      this.onChange({
-        $event: { previousIndex: 0 },
-        context: { index: 0 },
-        control: this.control,
-        model: this.model,
-        type: DynamicFormControlEventType.Change
-      });
-    }
-    this.submissionService.dispatchSave(this.model.submissionId);
-
-    modalComp.repeatable = this.model.repeatable;
-    modalComp.listId = this.listId;
-    modalComp.relationshipOptions = this.model.relationship;
-    modalComp.label = this.model.relationship.relationshipType;
-    modalComp.metadataFields = this.model.metadataFields;
-    modalComp.item = this.item;
-    modalComp.collection = this.collection;
-    modalComp.submissionId = this.model.submissionId;
   }
 
   /**

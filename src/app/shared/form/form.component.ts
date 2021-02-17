@@ -2,6 +2,7 @@ import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
+import { Observable, Subscription } from 'rxjs';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -9,15 +10,16 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { findIndex } from 'lodash';
+
 import { FormBuilderService } from './builder/form-builder.service';
-import { Observable, Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
-import { QUALDROP_GROUP_SUFFIX } from './builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-
-const QUALDROP_GROUP_REGEX = new RegExp(`${QUALDROP_GROUP_SUFFIX}_\\d+$`);
+import { DsDynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { RelationshipOptions } from './builder/models/relationship-options.model';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 
 /**
  * The default form component.
@@ -87,9 +89,9 @@ export class FormComponent implements OnDestroy, OnInit {
   @Output() submitForm: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
 
   /**
-   * An object of FormGroup type
+   * Reference to NgbModal
    */
-  // public formGroup: FormGroup;
+  modalRef: NgbModalRef;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -99,7 +101,8 @@ export class FormComponent implements OnDestroy, OnInit {
 
   constructor(private formService: FormService,
               protected changeDetectorRef: ChangeDetectorRef,
-              private formBuilderService: FormBuilderService) {
+              private formBuilderService: FormBuilderService,
+              private modalService: NgbModal) {
   }
 
   /**
@@ -309,6 +312,48 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
     this.formService.changeForm(this.formId, this.formModel);
+  }
+
+  isVirtual(arrayContext: DynamicFormArrayModel, index: number) {
+    const context = arrayContext.groups[index];
+    const value: FormFieldMetadataValueObject = (context.group[0] as any).metadataValue;
+    return isNotEmpty(value) && value.isVirtual;
+  }
+
+  hasRelationship(arrayContext: DynamicFormArrayModel, index: number) {
+    const context = arrayContext.groups[index];
+    const model = context.group[0] as any;
+    return isNotEmpty(model) && model.hasOwnProperty('relationship') && isNotEmpty(model.relationship);
+  }
+
+  /**
+   * Open a modal where the user can select relationships to be added to item being submitted
+   */
+  openLookup(arrayContext: DynamicFormArrayModel, index: number) {
+    const context = arrayContext.groups[index];
+    const model = context.group[0] as any;
+    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+      size: 'lg'
+    });
+    const modalComp = this.modalRef.componentInstance;
+
+    if (hasValue(model.value) && !model.readOnly) {
+      if (typeof model.value === 'string') {
+        modalComp.query = model.value;
+      } else if (typeof model.value.value === 'string') {
+        modalComp.query = model.value.value;
+      }
+    }
+
+    const config = model.relationshipConfig || model.relationship;
+    const relationshipOptions = Object.assign(new RelationshipOptions(), config);
+
+    modalComp.repeatable = model.repeatable;
+    modalComp.listId = `list-${model.submissionId}-${relationshipOptions.relationshipType}`;
+    modalComp.relationshipOptions = model.relationship;
+    modalComp.label = model.relationship.relationshipType;
+    modalComp.metadataFields = model.metadataFields;
+    modalComp.submissionId = model.submissionId;
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {

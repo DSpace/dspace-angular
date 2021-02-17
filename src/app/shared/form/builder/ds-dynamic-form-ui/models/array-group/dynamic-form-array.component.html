@@ -12,7 +12,7 @@
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
              cdkDrag cdkDragHandle>
           <!-- Item content -->
-          <i class="drag-icon fas fa-grip-vertical fa-fw"></i>
+          <i class="drag-icon fas fa-grip-vertical fa-fw" [class.invisible]="model.groups.length === 1"></i>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
           <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
                                              [bindId]="false"

@@ -6,7 +6,8 @@
     </button>
 </div>
 <div class="modal-body">
-    <ngb-tabset>
+    <ds-loading *ngIf="!item || !collection"></ds-loading>
+    <ngb-tabset *ngIf="item && collection">
         <ngb-tab [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + relationshipOptions.relationshipType | translate  : {count: (totalInternal$ | async)}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-search-tab
