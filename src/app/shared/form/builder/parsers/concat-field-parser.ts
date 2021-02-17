@@ -58,8 +58,20 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_FIRST_INPUT_SUFFIX, false, false);
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_SECOND_INPUT_SUFFIX, false, false);
+    const input1ModelConfig: DynamicInputModelConfig = this.initModel(
+      id + CONCAT_FIRST_INPUT_SUFFIX,
+      false,
+      true,
+      true,
+      false
+    );
+    const input2ModelConfig: DynamicInputModelConfig = this.initModel(
+      id + CONCAT_SECOND_INPUT_SUFFIX,
+      false,
+      true,
+      true,
+      false
+    );
 
     if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
       concatGroup.hint = input1ModelConfig.hint;

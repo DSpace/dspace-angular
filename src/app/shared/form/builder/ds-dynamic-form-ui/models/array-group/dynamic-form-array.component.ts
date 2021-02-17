@@ -3,16 +3,17 @@ import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
+  DynamicFormArrayModel,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
-  DynamicFormControlLayout, DynamicFormLayout,
+  DynamicFormControlLayout,
+  DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { hasValue } from '../../../../../empty.util';
 
 @Component({
@@ -25,7 +26,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
   @Input() layout: DynamicFormControlLayout;
-  @Input() model: DynamicRowArrayModel;
+  @Input() model: DynamicFormArrayModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
   /* tslint:disable:no-output-rename */
