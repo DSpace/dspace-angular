@@ -40,7 +40,8 @@ describe('ExploreComponent', () => {
   const searchComponent: SearchSection = {
     discoveryConfigurationName: 'publication',
     componentType: 'search',
-    style: 'col-md-8'
+    style: 'col-md-8',
+    searchType: 'advanced'
   };
 
   const facetComponent: FacetSection = {

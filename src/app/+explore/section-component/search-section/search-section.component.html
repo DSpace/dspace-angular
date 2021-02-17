@@ -1,6 +1,6 @@
 <div class="container">
     <h2>{{ 'explore.search-section.' + sectionId + '.title' | translate }}</h2>
-    <form class="container" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
+    <form *ngIf="searchSection.searchType === 'advanced' || !searchSection.searchType" class="container" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
         <div formArrayName="queryArray" *ngFor="let queryStatement of queryArray.controls; let i = index; let isLast = last">
             <div [formGroupName]="i" class="row mb-2">
                 <select name="filter" id="filter" formControlName="filter" class="form-control col-md-4 mr-3 mb-2">
@@ -18,4 +18,10 @@
             <button type="button" id="resetButton" class="btn btn-outline float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
         </div> 
     </form>
+    <div class="col-md-12 d-flex justify-content-center" >
+        <div class="col-md-8">
+            <ds-search-form *ngIf="searchSection.searchType === 'basic'" [inPlaceSearch]="false" ></ds-search-form>
+        </div>
+    </div>
+    
 </div>

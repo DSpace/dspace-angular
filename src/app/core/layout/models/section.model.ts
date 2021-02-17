@@ -60,6 +60,7 @@ export interface TopSection extends SectionComponent {
 export interface SearchSection extends SectionComponent {
   discoveryConfigurationName: string;
   componentType: 'search';
+  searchType: string;
 }
 
 export interface FacetSection extends SectionComponent {

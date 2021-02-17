@@ -83,7 +83,8 @@ describe('SearchSectionComponent', () => {
     component.searchSection = {
       discoveryConfigurationName: 'publication',
       componentType: 'search',
-      style: 'col-md-8'
+      style: 'col-md-8',
+      searchType: 'advanced'
     };
 
     fixture.detectChanges();
@@ -199,6 +200,29 @@ describe('SearchSectionComponent', () => {
         queryParams: { page: 1, configuration: 'publication', query: 'author:(Adam) OR (test)' }
       });
     });
+  });
+
+  describe('when basic search is configured', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SearchSectionComponent);
+      component = fixture.componentInstance;
+
+      component.sectionId = 'publications';
+      component.searchSection = {
+        discoveryConfigurationName: 'publication',
+        componentType: 'search',
+        style: 'col-md-8',
+        searchType: 'basic'
+      };
+
+      fixture.detectChanges();
+    });
+
+    it('should display basic search form', () => {
+      expect(fixture.debugElement.query(By.css('ds-search-form')))
+      .toBeTruthy();
+    });
+
   });
 
 });
