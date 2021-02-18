@@ -18,7 +18,7 @@
             <button type="button" id="resetButton" class="btn btn-outline float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
         </div> 
     </form>
-    <div class="col-md-12 d-flex justify-content-center" >
+    <div class="col-md-12 d-flex justify-content-center" *ngIf="searchSection.searchType === 'basic'">
         <div class="col-md-8">
             <ds-search-form *ngIf="searchSection.searchType === 'basic'" [inPlaceSearch]="false" ></ds-search-form>
         </div>
