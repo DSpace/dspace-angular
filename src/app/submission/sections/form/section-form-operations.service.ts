@@ -285,9 +285,10 @@ export class SectionFormOperationsService {
                                               previousValue: FormFieldPreviousValueObject): void {
     const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
+    console.log(value);
     if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
-    } else if (isNotEmpty(value) && (value instanceof FormFieldMetadataValueObject && value.hasValue())) {
+    } else if ((isNotEmpty(value) && typeof value === 'string') || (isNotEmpty(value) && value instanceof FormFieldMetadataValueObject && value.hasValue())) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     }
   }
