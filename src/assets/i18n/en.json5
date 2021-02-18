@@ -2661,6 +2661,12 @@
 
 
 
+  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+
+  "relationships.add.error.server.content": "The server returned an error",
+
+  "relationships.add.error.title": "Unable to add relationship",
+
   "relationships.isAuthorOf": "Authors",
 
   "relationships.isAuthorOf.Person": "Authors (persons)",
