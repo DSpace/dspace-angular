@@ -5,8 +5,8 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ItemExportComponent } from '../../item-export/item-export/item-export.component';
-import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
 
 /**
  * This component renders a context menu option that provides to export an item.

@@ -5,7 +5,7 @@ import {
   MetadataValueFilter,
   MetadatumViewModel
 } from './metadata.models';
-import { groupBy, sortBy } from 'lodash';
+import { differenceWith, groupBy, orderBy, sortBy } from 'lodash';
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -231,5 +231,29 @@ export class Metadata {
     } else {
       mdMap[key] = [Object.assign(new MetadataValue(), { value: value })];
     }
+  }
+
+  /**
+   * Check whether the two arrays of metadata are equals (value matching).
+   * @param metadata1
+   * @param metadata2
+   * @private
+   */
+  public static multiEquals(metadata1: MetadataValue[], metadata2: MetadataValue[]): boolean {
+    if (metadata1.length !== metadata2.length) {
+      return true;
+    }
+
+    // 0. sort array by value
+    const sortedMetadata1 = orderBy(metadata1, ['value'],['asc']);
+    const sortedMetadata2 = orderBy(metadata2, ['value'],['asc']);
+    // 1. check differences
+    const differences = differenceWith(sortedMetadata1, sortedMetadata2, Metadata.valueMatches);
+    if (differences.length > 0) {
+      return true;
+    }
+
+    // arrays appear to be equal ...
+    return false;
   }
 }

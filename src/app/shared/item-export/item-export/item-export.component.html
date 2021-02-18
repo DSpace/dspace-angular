@@ -6,49 +6,40 @@
 
         <div class="col">
 
-            <div class="alert alert-info">
-                <span *ngIf="molteplicity === 'SINGLE'">
-                    Export item with uuid <strong>{{ item.uuid }}</strong>
-                </span>
-                <span *ngIf="molteplicity === 'MULTIPLE'">
-                    Export all items of a particular entity type belonging to the current search. 
-                </span>
-            </div>
+            <ds-item-export-alert [item]="item"></ds-item-export-alert>
 
-            <form [formGroup]="exportForm" (ngSubmit)="onSubmit()">
+            <form *ngIf="exportForm" [formGroup]="exportForm" (ngSubmit)="onSubmit()">
 
                 <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
-                  <label for="entityType">Entity Type</label>
-                  <select id="entityType" class="custom-select" formControlName="entityType">
-                    <option [ngValue]="null" disabled>Choose the entity type to export</option>
-                    <option *ngFor="let entityType of allEntityTypes" [ngValue]="entityType">
-                        {{ entityType }}
-                    </option>
-                </select>
+                    <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
+                    <select id="entityType" class="custom-select" formControlName="entityType">
+                        <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
+                        <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
+                            {{ entityType }}
+                        </option>
+                    </select>
                 </div>
 
+
                 <div class="form-group">
-                    <label for="format">Format</label>
+                    <label for="format">{{ 'item-export.form.format' | translate }}</label>
                     <select id="format" class="custom-select" formControlName="format">
-                        <option [ngValue]="null" disabled>Choose the export format</option>
-                        <option *ngFor="let format of allFormats" [ngValue]="format">
+                        <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
+                        <option *ngFor="let format of configuration.formats" [ngValue]="format">
                             {{ format.id }}
                         </option>
                     </select>
                 </div>
 
                 <div class="text-center mt-3">
-                    <button [disabled]='!exportForm.valid' type="submit" class="btn btn-primary"><i class="fas fa-file-export"></i> Export</button>
-                    <button type="button" class="btn btn-outline-dark float-right" (click)="activeModal.close('Close click')">Cancel</button>
+                    <button [disabled]='!exportForm.valid' type="submit" class="btn btn-primary"><i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}</button>
+                    <button type="button" class="btn btn-outline-dark float-right" (click)="activeModal.close('Close click')">{{ 'item-export.form.btn.cancel' | translate }}</button>
                 </div>
-                
 
             </form>
             
         </div>
     </div>
   </div>
-  <!-- <div class="modal-footer">
-    
-  </div> -->
+
 

@@ -1,4 +1,12 @@
-import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component, ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -49,14 +57,20 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   private tabs$: Observable<Tab[]>;
 
   /**
+   * Reference to the selected tab.
+   * @private
+   */
+  protected selectedTab: Tab;
+
+  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(CrisLayoutLoaderDirective, {static: true}) crisLayoutLoader: CrisLayoutLoaderDirective;
 
   constructor(
-    private tabService: TabDataService,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private authService: AuthService
+    protected tabService: TabDataService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected authService: AuthService
   ) {
     super();
   }
@@ -89,6 +103,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    * Set dynamic child component
    */
   changeTab(tab: Tab) {
+    this.selectedTab = tab;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(tab.shortname));
     const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
     viewContainerRef.clear();
@@ -96,16 +111,29 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     if (this.componentRef) {
       this.componentRef.destroy();
     }
-    this.componentRef = viewContainerRef.createComponent(componentFactory);
+    this.componentRef = this.instantiateTab(viewContainerRef, componentFactory, tab);
     (this.componentRef.instance as any).item = this.item;
     (this.componentRef.instance as any).tab = tab;
+  }
+
+  /**
+   * Instantiate the Tab component.
+   * @param viewContainerRef
+   * @param componentFactory
+   * @param tab
+   */
+  instantiateTab(viewContainerRef: ViewContainerRef, componentFactory: ComponentFactory<any>, tab: Tab): ComponentRef<any> {
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as any).item = this.item;
+    (componentRef.instance as any).tab = tab;
+    return componentRef;
   }
 
   /**
    * Fetch the component depending on the item type and shortname of tab
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(tabShortname: string): GenericConstructor<Component> {
+  protected getComponent(tabShortname: string): GenericConstructor<Component> {
     return getCrisLayoutTab(this.item, tabShortname);
   }
 

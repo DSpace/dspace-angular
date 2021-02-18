@@ -1,0 +1,8 @@
+<div class="alert alert-info">
+  <span *ngIf="item">
+      {{ 'item-export.alert.single' | translate }} <strong>{{ getItemName() }}</strong>
+  </span>
+  <span *ngIf="!item">
+      {{ 'item-export.alert.multiple' | translate }}
+  </span>
+</div>

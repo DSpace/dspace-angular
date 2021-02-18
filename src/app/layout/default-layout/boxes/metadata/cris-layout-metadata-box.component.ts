@@ -42,7 +42,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
 
   constructor(
     public cd: ChangeDetectorRef,
-    private metadatacomponentsService: MetadataComponentsDataService
+    protected metadatacomponentsService: MetadataComponentsDataService
   ) {
     super();
   }
@@ -53,10 +53,18 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
       .pipe(getAllSucceededRemoteDataPayload())
       .subscribe(
         (next) => {
-          this.metadatacomponents = next;
+          this.setMetadataComponents(next);
           this.cd.markForCheck();
         }
       ));
+  }
+
+  /**
+   * Set the metadatacomponents.
+   * @param metadatacomponents
+   */
+  setMetadataComponents(metadatacomponents: MetadataComponent) {
+    this.metadatacomponents = metadatacomponents;
   }
 
   /**
