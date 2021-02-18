@@ -308,8 +308,6 @@
 
   "admin.access-control.groups.table.members": "Members",
 
-  "admin.access-control.groups.table.comcol": "Community / Collection",
-
   "admin.access-control.groups.table.edit": "Edit",
 
   "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
@@ -403,6 +401,8 @@
   "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
 
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
 
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
