@@ -114,8 +114,6 @@ export class UploaderComponent {
       autoUpload: this.uploadFilesOptions.autoUpload,
       method: this.uploadFilesOptions.method,
       queueLimit: this.uploadFilesOptions.maxFileNumber,
-      // Ensure the current XSRF token is included in every upload request
-      headers: [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }]
     });
 
     if (isUndefined(this.enableDragOverDocument)) {
@@ -140,6 +138,8 @@ export class UploaderComponent {
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }
+      // Ensure the current XSRF token is included in every upload request (token may change between items uploaded)
+      this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
 
@@ -155,14 +155,15 @@ export class UploaderComponent {
       };
     }
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      // Check for a changed XSRF token in response & save new token if found
+      // NOTE: this is only necessary because ng2-file-upload doesn't use an Http service and therefore never
+      // triggers our xsrf.interceptor.ts. See this bug: https://github.com/valor-software/ng2-file-upload/issues/950
+      const token = headers[XSRF_RESPONSE_HEADER.toLowerCase()];
+      if (isNotEmpty(token)) {
+        this.saveXsrfToken(token);
+      }
+
       if (isNotEmpty(response)) {
-        // Check for a changed XSRF token in response & save new token if found
-        // NOTE: this is only necessary because ng2-file-upload doesn't use an Http service and therefore never
-        // triggers our xsrf.interceptor.ts. See this bug: https://github.com/valor-software/ng2-file-upload/issues/950
-        const token = headers[XSRF_RESPONSE_HEADER.toLowerCase()];
-        if (isNotEmpty(token)) {
-          this.saveXsrfToken(token);
-        }
         const responsePath = JSON.parse(response);
         this.onCompleteItem.emit(responsePath);
       }
