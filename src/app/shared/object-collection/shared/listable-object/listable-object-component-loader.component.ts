@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -9,6 +9,7 @@ import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { hasValue } from '../../../empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
@@ -135,13 +136,14 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
     (componentRef.instance as any).value = this.value;
 
     if ((componentRef.instance as any).reloadedObject) {
-      this.subs.push((componentRef.instance as any).reloadedObject.subscribe((reloadedObject: DSpaceObject) => {
+      (componentRef.instance as any).reloadedObject.pipe(take(1)).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
+          componentRef.destroy();
           console.log('Reloaded Object from/to', this.object, reloadedObject);
           this.object = reloadedObject;
           this.instantiateComponent(reloadedObject);
         }
-      }));
+      });
     }
   }
 
