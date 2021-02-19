@@ -20,6 +20,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
@@ -43,6 +44,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let pSearchOptions;
   let externalSourceService;
   let lookupRelationService;
+  let rdbService;
   let submissionId;
   let submissionService;
   let submissionObjectDataService;
@@ -80,17 +82,22 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       filter: 'filter',
       relationshipType: 'isAuthorOfPublication',
       nameVariants: true,
-      searchConfiguration: 'personConfig'
+      searchConfiguration: 'personConfig',
+      externalSources: ['orcidV2', 'sherpaPublisher']
     });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources)),
+      findById: createSuccessfulRemoteDataObject$(externalSources[0])
     });
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getTotalLocalResults: observableOf(totalLocal),
       getTotalExternalResults: observableOf(totalExternal)
+    });
+    rdbService = jasmine.createSpyObj('rdbService', {
+      aggregate: createSuccessfulRemoteDataObject$(externalSources)
     });
     submissionService = jasmine.createSpyObj('SubmissionService', {
       dispatchSave: jasmine.createSpy('dispatchSave')
@@ -121,6 +128,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: RelationshipService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
         { provide: RelationshipTypeService, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: rdbService },
         { provide: SubmissionService, useValue: submissionService },
         { provide: SubmissionObjectDataService, useValue: submissionObjectDataService },
         {

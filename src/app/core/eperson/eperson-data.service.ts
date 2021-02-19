@@ -63,10 +63,10 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param query   Query of search
    * @param options Options of search request
    */
-  public searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
+  public searchByScope(scope: string, query: string, options: FindListOptions = {}, useCachedVersionIfAvailable?: boolean): Observable<RemoteData<PaginatedList<EPerson>>> {
     switch (scope) {
       case 'metadata':
-        return this.getEpeopleByMetadata(query.trim(), options);
+        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
       case 'email':
         return this.getEPersonByEmail(query.trim()).pipe(
           map((rd: RemoteData<EPerson | NoContent>) => {
@@ -100,7 +100,7 @@ export class EPersonDataService extends DataService<EPerson> {
           })
         );
       default:
-        return this.getEpeopleByMetadata(query.trim(), options);
+        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
     }
   }
 
