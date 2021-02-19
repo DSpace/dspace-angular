@@ -1,14 +1,20 @@
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
-import { DeleteRequest, FindListOptions, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
+import {
+  DeleteRequest,
+  FindListOptions,
+  PostRequest,
+  TaskDeleteRequest,
+  TaskPostRequest
+} from '../data/request.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { ProcessTaskResponse } from './models/process-task-response';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -17,27 +23,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
  * An abstract class that provides methods to handle task requests.
  */
 export abstract class TasksService<T extends CacheableObject> extends DataService<T> {
-
-  /**
-   * Fetch a RestRequest
-   *
-   * @param requestId
-   *    The base endpoint for the type of object
-   * @return Observable<ProcessTaskResponse>
-   *     server response
-   */
-  protected fetchRequest(requestId: string): Observable<ProcessTaskResponse> {
-    return this.rdbService.buildFromRequestUUID(requestId).pipe(
-      getFirstCompletedRemoteData(),
-      map((response: RemoteData<any>) => {
-        if (response.hasFailed) {
-          return new ProcessTaskResponse(false, response.statusCode, response.errorMessage);
-        } else {
-          return new ProcessTaskResponse(true, response.statusCode);
-        }
-      })
-    );
-  }
 
   /**
    * Create the HREF for a specific submission object based on its identifier
@@ -99,17 +84,6 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
   }
 
   /**
-   * Create a new HttpOptions
-   */
-  protected makeHttpOptions() {
-    const options: HttpOptions = Object.create({});
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    options.headers = headers;
-    return options;
-  }
-
-  /**
    * Get the endpoint of a task by scopeId.
    * @param linkPath
    * @param scopeId
@@ -131,19 +105,46 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
    *   links to follow
    */
   public searchTask(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
-    const correlationId = Math.floor(Math.random() * 1000);
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
     return hrefObs.pipe(
-      tap(href => console.log('CorrelationId: ' + correlationId, 'SearchTaskHref', href)),
       find((href: string) => hasValue(href)),
-      switchMap((href) => this.findByHref(href, false, true).pipe(
-        getFirstSucceededRemoteData(),
-        tap(() => {
-        this.requestService.setStaleByHrefSubstring(searchMethod);
-      }))),
-      tap((response) => {
-        console.log('CorrelationId: ' + correlationId, 'SearchTaskResponse', response.payload);
+      mergeMap((href) => this.findByHref(href, false, true).pipe(
+        getAllCompletedRemoteData(),
+        filter((rd: RemoteData<T>) => !rd.isSuccessStale),
+        tap(() => this.requestService.setStaleByHrefSubstring(href)))
+      )
+    );
+  }
+
+  /**
+   * Fetch a RestRequest
+   *
+   * @param requestId
+   *    The base endpoint for the type of object
+   * @return Observable<ProcessTaskResponse>
+   *     server response
+   */
+  protected fetchRequest(requestId: string): Observable<ProcessTaskResponse> {
+    return this.rdbService.buildFromRequestUUID(requestId).pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<any>) => {
+        if (response.hasFailed) {
+          return new ProcessTaskResponse(false, response.statusCode, response.errorMessage);
+        } else {
+          return new ProcessTaskResponse(true, response.statusCode);
+        }
       })
     );
+  }
+
+  /**
+   * Create a new HttpOptions
+   */
+  protected makeHttpOptions() {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    options.headers = headers;
+    return options;
   }
 }
