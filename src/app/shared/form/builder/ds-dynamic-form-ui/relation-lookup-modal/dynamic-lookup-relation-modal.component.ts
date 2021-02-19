@@ -11,7 +11,11 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getAllSucceededRemoteDataPayload,
+  getRemoteDataPayload
+} from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -28,6 +32,7 @@ import { SubmissionObject } from '../../../../../core/submission/models/submissi
 import { Collection } from '../../../../../core/shared/collection.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
