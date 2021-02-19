@@ -65,12 +65,12 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *
    * @param scopeId
    *    The task id
+   * @param poolTaskHref
+   *    The pool task Href
    * @return {Observable<ProcessTaskResponse>}
    *    Emit the server response
    */
   public claimTask(scopeId: string, poolTaskHref: string): Observable<ProcessTaskResponse> {
-    console.log('==========================================');
-    console.log('User ClaimTask request for:', scopeId, poolTaskHref);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -101,8 +101,6 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *    Emit the server response
    */
   public returnToPoolTask(scopeId: string): Observable<ProcessTaskResponse> {
-    console.log('==========================================');
-    console.log('User ReturnToPool request for:', scopeId);
     return this.deleteById(this.linkPath, scopeId, this.makeHttpOptions());
   }
 
@@ -114,7 +112,6 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *    The server response
    */
   public findByItem(uuid: string): Observable<RemoteData<ClaimedTask>> {
-    console.log('claimedTaskService findByItem', uuid);
     const options = new FindListOptions();
     options.searchParams = [
       new RequestParam('uuid', uuid)
