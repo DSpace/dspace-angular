@@ -11,11 +11,10 @@ import { ClaimedTaskDataService } from './claimed-task-data.service';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ClaimedTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -120,13 +119,7 @@ describe('ClaimedTaskDataService', () => {
         new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
       ];
 
-      expect(service.searchTask).toHaveBeenCalledWith('findByItem',
-        findListOptions,
-        followLink('workflowitem',
-          null,
-          true,
-          false,
-          true));
+      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);
     });
   });
 });

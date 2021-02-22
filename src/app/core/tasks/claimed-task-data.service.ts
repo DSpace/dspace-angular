@@ -16,7 +16,6 @@ import { CLAIMED_TASK } from './models/claimed-task-object.resource-type';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
 import { RemoteData } from '../data/remote-data';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -116,12 +115,7 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     options.searchParams = [
       new RequestParam('uuid', uuid)
     ];
-    return this.searchTask('findByItem', options, followLink('workflowitem',
-      null,
-      true,
-      false,
-      true))
-      .pipe(getFirstSucceededRemoteData());
+    return this.searchTask('findByItem', options).pipe(getFirstSucceededRemoteData());
   }
 
 }

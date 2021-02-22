@@ -11,11 +11,10 @@ import { PoolTaskDataService } from './pool-task-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('PoolTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -74,12 +73,7 @@ describe('PoolTaskDataService', () => {
         new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
       ];
 
-      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions,
-        followLink('workflowitem',
-          null,
-          true,
-          false,
-          true));
+      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);
     });
   });
 

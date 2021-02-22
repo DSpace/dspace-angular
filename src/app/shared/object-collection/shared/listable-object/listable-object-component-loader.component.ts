@@ -1,4 +1,14 @@
-import { Component, ComponentFactoryResolver, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  EventEmitter
+} from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -77,6 +87,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   @ViewChild('badges', { static: true }) badges: ElementRef;
 
   /**
+   * Emit when the listable object has been reloaded.
+   */
+  @Output() contentChange = new EventEmitter<ListableObject>();
+
+  /**
    * Whether or not the "Private" badge should be displayed for this listable object
    */
   privateBadge = false;
@@ -141,6 +156,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
           componentRef.destroy();
           this.object = reloadedObject;
           this.instantiateComponent(reloadedObject);
+          this.contentChange.emit(reloadedObject);
         }
       });
     }

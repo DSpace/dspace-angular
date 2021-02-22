@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, Injector, OnInit } from '@angular/core';
 
-import { map, switchMap, tap} from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { DataService } from '../../core/data/data.service';
@@ -64,6 +64,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   startActionExecution(): Observable<DSpaceObject> {
     this.processing$.next(true);
     return this.actionExecution().pipe(
+      take(1),
       switchMap((res: ProcessTaskResponse) => {
         if (res.hasSucceeded) {
           return this._reloadObject().pipe(
@@ -137,7 +138,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
           return of(res);
         }
       })).pipe(map((dso) => {
-      return dso ? this.convertReloadedObject(dso) : dso;
+          return dso ? this.convertReloadedObject(dso) : dso;
     }));
   }
 

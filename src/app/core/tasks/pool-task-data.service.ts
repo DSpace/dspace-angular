@@ -15,10 +15,9 @@ import { PoolTask } from './models/pool-task-object.model';
 import { POOL_TASK } from './models/pool-task-object.resource-type';
 import { TasksService } from './tasks.service';
 import { RemoteData } from '../data/remote-data';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
-import { getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * The service handling all REST requests for PoolTask
@@ -71,12 +70,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
     options.searchParams = [
       new RequestParam('uuid', uuid)
     ];
-    return this.searchTask('findByItem', options, followLink('workflowitem',
-      null,
-      true,
-      false,
-      true))
-      .pipe(getFirstSucceededRemoteData());
+    return this.searchTask('findByItem', options).pipe(getFirstCompletedRemoteData());
   }
 
   /**
