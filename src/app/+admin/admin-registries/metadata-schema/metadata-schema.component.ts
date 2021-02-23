@@ -208,4 +208,8 @@ export class MetadataSchemaComponent implements OnInit {
       }
     });
   }
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

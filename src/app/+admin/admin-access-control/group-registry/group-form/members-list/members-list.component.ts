@@ -17,9 +17,8 @@ import { GroupDataService } from '../../../../../core/eperson/group-data.service
 import { EPerson } from '../../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../../core/eperson/models/group.model';
 import {
-  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllCompletedRemoteData
+  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload
 } from '../../../../../core/shared/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
@@ -238,28 +237,33 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param data  Contains scope and query param
    */
   search(data: any) {
-    const query: string = data.query;
-    const scope: string = data.scope;
-    if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
-      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
-      this.currentSearchQuery = query;
-      this.configSearch.currentPage = 1;
-    }
-    if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
-      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
-      this.currentSearchScope = scope;
-      this.configSearch.currentPage = 1;
-    }
-    this.searchDone = true;
-
     this.unsubFrom(SubKey.SearchResultsDTO);
     this.subs.set(SubKey.SearchResultsDTO,
       this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
         switchMap((paginationOptions) => {
-          this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
-            currentPage: this.configSearch.currentPage,
-            elementsPerPage: this.configSearch.pageSize
-          }, false)
+
+          const query: string = data.query;
+          const scope: string = data.scope;
+          if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
+            this.router.navigate([], {
+              queryParamsHandling: 'merge'
+            });
+            this.currentSearchQuery = query;
+            this.paginationService.resetPage(this.configSearch.id);
+          }
+          if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
+            this.router.navigate([], {
+              queryParamsHandling: 'merge'
+            });
+            this.currentSearchScope = scope;
+            this.paginationService.resetPage(this.configSearch.id);
+          }
+          this.searchDone = true;
+
+          return this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+            currentPage: paginationOptions.currentPage,
+            elementsPerPage: paginationOptions.pageSize
+          });
         }),
         getAllCompletedRemoteData(),
         map((rd: RemoteData<any>) => {
@@ -287,6 +291,17 @@ export class MembersListComponent implements OnInit, OnDestroy {
         .subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
           this.ePeopleSearchDtos.next(paginatedListOfDTOs);
         }));
+  }
+
+  /**
+   * unsub all subscriptions
+   */
+  ngOnDestroy(): void {
+    for (const key of this.subs.keys()) {
+      this.unsubFrom(key);
+    }
+    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.configSearch.id);
   }
 
   /**

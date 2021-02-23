@@ -208,7 +208,9 @@ export class BrowseByMetadataPageComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    this.paginationService.clearPagination(this.paginationConfig.id);
   }
+
 
 }
 

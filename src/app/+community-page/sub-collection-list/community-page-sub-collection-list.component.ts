@@ -75,4 +75,9 @@ export class CommunityPageSubCollectionListComponent implements OnInit {
       this.subCollectionsRDObs.next(results);
     });
   }
+
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

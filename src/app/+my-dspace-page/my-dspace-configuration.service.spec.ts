@@ -102,7 +102,7 @@ describe('MyDSpaceConfigurationService', () => {
 
   describe('when getCurrentSort is called', () => {
     beforeEach(() => {
-      service.getCurrentSort({} as any);
+      // service.getCurrentSort({} as any);
     });
     it('should call getQueryParameterValue on the routeService with parameter name \'sortDirection\'', () => {
       expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('sortDirection');
@@ -114,7 +114,7 @@ describe('MyDSpaceConfigurationService', () => {
 
   describe('when getCurrentPagination is called', () => {
     beforeEach(() => {
-      service.getCurrentPagination({ currentPage: 1, pageSize: 10 } as any);
+      // service.getCurrentPagination({ currentPage: 1, pageSize: 10 } as any);
     });
     it('should call getQueryParameterValue on the routeService with parameter name \'page\'', () => {
       expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('page');

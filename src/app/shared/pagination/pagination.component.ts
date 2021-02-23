@@ -20,7 +20,6 @@ import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
-import { isNumeric } from 'rxjs/internal-compatibility';
 
 /**
  * The default pagination controls component.
@@ -104,7 +103,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * In other words, changing pagination won't add or update the url parameters on the current page, and the url
    * parameters won't affect the pagination of this component
    */
-  @Input() public disableRouteParameterUpdate = false;
+  @Input() public retainScrollPosition = false;
 
   /**
    * Current page.
@@ -125,7 +124,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * ID for the pagination instance. Only useful if you wish to
    * have more than once instance at a time in a given component.
    */
-  private id: string;
+  public id: string;
 
   /**
    * A boolean that indicate if is an extra small devices viewport.
@@ -176,16 +175,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
       }));
     this.checkConfig(this.paginationOptions);
     this.initializeConfig();
-    // Listen to changes
-    if (!this.disableRouteParameterUpdate) {
-      this.subs.push(
-        this.paginationService.getCurrentPagination(this.id, this.paginationOptions).subscribe((queryParams) => {
-        }));
-      this.subs.push(
-        this.paginationService.getCurrentSort(this.id, this.sortOptions).subscribe((queryParams) => {
-        }));
     }
-  }
 
   /**
    * Method provided by Angular. Invoked when the instance is destroyed.
@@ -336,11 +326,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * @param params
    */
   private updateParams(params: {}) {
-      if (!this.disableRouteParameterUpdate) {
-        this.paginationService.updateRoute(this.id, params);
-      } else {
-        this.paginationService.updateRoute(this.id, params, {}, this.disableRouteParameterUpdate);
-      }
+    this.paginationService.updateRoute(this.id, params, {}, this.retainScrollPosition);
   }
 
   /**

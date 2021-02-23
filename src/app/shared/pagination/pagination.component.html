@@ -1,4 +1,4 @@
-<div *ngIf="currentPageState == undefined || currentPageState == (currentPage$|async)">
+<div *ngIf="currentPageState == undefined || currentPageState == (currentPage$|async)" [id]="'p-' + id">
   <div *ngIf="(!hidePaginationDetail && collectionSize > 0) || !hideGear" class="pagination-masked clearfix top">
     <div class="row">
       <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">

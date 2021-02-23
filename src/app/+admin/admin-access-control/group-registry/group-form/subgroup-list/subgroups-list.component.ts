@@ -244,6 +244,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     for (const key of this.subs.keys()) {
       this.unsubFrom(key);
     }
+    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.configSearch.id);
   }
 
   /**

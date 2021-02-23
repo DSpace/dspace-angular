@@ -87,4 +87,9 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
       this.subCommunitiesRDObs.next(results);
     });
   }
+
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

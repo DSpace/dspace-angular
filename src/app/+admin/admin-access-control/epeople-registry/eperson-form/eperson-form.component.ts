@@ -489,7 +489,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onCancel();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    this.paginationService.clearPagination(this.config.id);
   }
+
 
   /**
    * This method will ensure that the page gets reset and that the cache is cleared

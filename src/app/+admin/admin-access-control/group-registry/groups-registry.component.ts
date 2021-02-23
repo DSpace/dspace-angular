@@ -255,12 +255,16 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.cleanupSubscribes();
+    this.paginationService.clearPagination(this.config.id);
   }
+
 
   cleanupSubscribes() {
     if (hasValue(this.paginationSub)) {
       this.paginationSub.unsubscribe();
     }
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    this.paginationService.clearPagination(this.config.id);
   }
+
 }

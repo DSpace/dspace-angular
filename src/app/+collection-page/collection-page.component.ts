@@ -108,4 +108,9 @@ export class CollectionPageComponent implements OnInit {
     return isNotEmpty(object);
   }
 
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.paginationConfig.id);
+  }
+
+
 }

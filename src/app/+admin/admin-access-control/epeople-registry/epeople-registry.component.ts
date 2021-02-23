@@ -254,7 +254,9 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.cleanupSubscribes();
+    this.paginationService.clearPagination(this.config.id);
   }
+
 
   cleanupSubscribes() {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());

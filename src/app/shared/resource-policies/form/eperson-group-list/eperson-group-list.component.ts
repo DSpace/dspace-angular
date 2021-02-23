@@ -200,6 +200,8 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+    this.paginationService.clearPagination(this.paginationOptions.id);
   }
+
 
 }

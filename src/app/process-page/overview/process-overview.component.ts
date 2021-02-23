@@ -74,5 +74,8 @@ export class ProcessOverviewComponent implements OnInit {
       map((eperson: EPerson) => eperson.name)
     );
   }
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.pageConfig.id);
+  }
 
 }

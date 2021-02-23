@@ -180,7 +180,6 @@ describe('EpersonGroupListComponent test suite', () => {
 
     it('should update list on page change', () => {
       spyOn(comp, 'updateList');
-      comp.onPageChange(2);
 
       expect(compAsAny.updateList).toHaveBeenCalled();
     });
@@ -257,7 +256,6 @@ describe('EpersonGroupListComponent test suite', () => {
 
     it('should update list on page change', () => {
       spyOn(comp, 'updateList');
-      comp.onPageChange(2);
 
       expect(compAsAny.updateList).toHaveBeenCalled();
     });

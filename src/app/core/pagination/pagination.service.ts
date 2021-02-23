@@ -99,17 +99,20 @@ export class PaginationService {
     pageSize?: number
     sortField?: string
     sortDirection?: SortDirection
-  }, extraParams?, changeLocationNot?: boolean) {
+  }, extraParams?, retainScrollPosition?: boolean) {
     this.getCurrentRouting(paginationId).subscribe((currentFindListOptions) => {
       const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
       const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
       if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams)) {
         const queryParams = Object.assign({}, currentParametersWithIdName,
           parametersWithIdName, extraParams);
-        if (changeLocationNot) {
-          this.location.go(this.router.createUrlTree([], {
-            relativeTo: this.route, queryParams: queryParams, queryParamsHandling: 'merge'
-          }).toString());
+        console.log(retainScrollPosition);
+        if (retainScrollPosition) {
+          this.router.navigate([], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge',
+            fragment: `p-${paginationId}`
+          });
         } else {
           this.router.navigate([], {
             queryParams: queryParams,
@@ -125,17 +128,20 @@ export class PaginationService {
     pageSize?: number
     sortField?: string
     sortDirection?: SortDirection
-  }, extraParams?, changeLocationNot?: boolean) {
+  }, extraParams?, retainScrollPosition?: boolean) {
+    console.log(retainScrollPosition);
     this.getCurrentRouting(paginationId).subscribe((currentFindListOptions) => {
       const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
       const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
       if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams)) {
         const queryParams = Object.assign({}, currentParametersWithIdName,
           parametersWithIdName, extraParams);
-        if (changeLocationNot) {
-          this.location.go(this.router.createUrlTree([], {
-            relativeTo: this.route, queryParams: queryParams, queryParamsHandling: 'merge'
-          }).toString());
+        if (retainScrollPosition) {
+          this.router.navigate(url, {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge',
+            fragment: `p-${paginationId}`
+          });
         } else {
           this.router.navigate(url, {
             queryParams: queryParams,
@@ -146,6 +152,22 @@ export class PaginationService {
     });
   }
 
+  clearPagination(paginationId: string) {
+    const params = {};
+    params[`p.${paginationId}`] = null;
+    params[`rpp.${paginationId}`] = null;
+    params[`sf.${paginationId}`] = null;
+    params[`sd.${paginationId}`] = null;
+
+    this.router.navigate([], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  getPageParam(paginationId: string) {
+    return `p.${paginationId}`;
+  }
 
   getParametersWithIdName(paginationId: string, params: {
     page?: number

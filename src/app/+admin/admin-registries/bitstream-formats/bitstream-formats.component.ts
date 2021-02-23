@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -21,7 +21,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
   selector: 'ds-bitstream-formats',
   templateUrl: './bitstream-formats.component.html'
 })
-export class BitstreamFormatsComponent implements OnInit {
+export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
   /**
    * A paginated list of bitstream formats to be shown on the page
@@ -57,6 +57,7 @@ export class BitstreamFormatsComponent implements OnInit {
               private paginationService: PaginationService,
               ) {
   }
+
 
   /**
    * Deletes the currently selected formats from the registry and updates the presented list
@@ -149,5 +150,10 @@ export class BitstreamFormatsComponent implements OnInit {
         return this.bitstreamFormatService.findAll(findListOptions);
       })
     );
+  }
+
+
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.pageConfig.id);
   }
 }

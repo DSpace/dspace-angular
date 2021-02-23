@@ -174,4 +174,8 @@ export class MetadataRegistryComponent {
       }
     });
   }
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }
