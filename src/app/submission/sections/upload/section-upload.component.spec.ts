@@ -260,8 +260,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
       expect(comp.required$.getValue()).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
-      expect(compAsAny.availableGroups.size).toBe(2);
-      expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
       expect(compAsAny.fileList).toEqual([]);
       expect(compAsAny.fileIndexes).toEqual([]);
       expect(compAsAny.fileNames).toEqual([]);
@@ -298,8 +296,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
       expect(comp.required$.getValue()).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
-      expect(compAsAny.availableGroups.size).toBe(2);
-      expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
       expect(compAsAny.fileList).toEqual(mockUploadFiles);
       expect(compAsAny.fileIndexes).toEqual(['123456-test-upload']);
       expect(compAsAny.fileNames).toEqual(['123456-test-upload.jpg']);
