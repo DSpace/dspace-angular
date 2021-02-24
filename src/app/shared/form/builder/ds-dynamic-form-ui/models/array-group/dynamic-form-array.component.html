@@ -12,6 +12,12 @@
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
              cdkDrag cdkDragHandle>
           <!-- Item content -->
+          <div *cdkDragPreview>
+            <div class="alert alert-info">
+              <i class="fas fa-sort"></i> {{ 'form.repeatable.sort.tip' | translate }}
+            </div>
+          </div>
+
           <i class="drag-icon fas fa-grip-vertical fa-fw" [class.invisible]="model.groups.length === 1"></i>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
           <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"

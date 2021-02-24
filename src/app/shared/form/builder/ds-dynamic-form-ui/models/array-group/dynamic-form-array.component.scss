@@ -5,7 +5,7 @@
 }
 
 .cdk-drag {
-    margin-left: -(2 * $spacer);
+    margin-left: -(2.3 * $spacer);
     margin-right: -(0.5 * $spacer);
     padding-right: (0.5 * $spacer);
     .drag-icon {
@@ -37,16 +37,10 @@
 }
 
 .cdk-drag-preview {
-    background-color: white;
-    border-radius: $border-radius-sm;
-    margin-left: 0;
-    box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
-    .drag-icon {
-        visibility: visible;
-    }
+    margin: 0px;
+    padding: 0px;
 }
+
 
 .cdk-drag-placeholder {
     opacity: 0;

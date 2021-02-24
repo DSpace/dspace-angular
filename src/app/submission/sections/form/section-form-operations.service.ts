@@ -349,7 +349,8 @@ export class SectionFormOperationsService {
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     // Detect which operation must be dispatched
-    if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)) {
+    if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
+      || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       // It's a qualdrup model
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else if (this.formBuilder.isRelationGroup(event.model)) {
