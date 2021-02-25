@@ -79,6 +79,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     this.createSiteAdministratorMenuSections();
     this.createExportMenuSections();
     this.createImportMenuSections();
+    this.createAccessControlMenuSections();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
@@ -436,51 +437,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   createSiteAdministratorMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
-        /* Access Control */
-        {
-          id: 'access_control',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.access_control'
-          } as TextMenuItemModel,
-          icon: 'key',
-          index: 4
-        },
-        {
-          id: 'access_control_people',
-          parentID: 'access_control',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.access_control_people',
-            link: '/admin/access-control/epeople'
-          } as LinkMenuItemModel,
-        },
-        {
-          id: 'access_control_groups',
-          parentID: 'access_control',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.access_control_groups',
-            link: '/admin/access-control/groups'
-          } as LinkMenuItemModel,
-        },
-        {
-          id: 'access_control_authorizations',
-          parentID: 'access_control',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.access_control_authorizations',
-            link: ''
-          } as LinkMenuItemModel,
-        },
         /*  Admin Search */
         {
           id: 'admin_search',
@@ -562,6 +518,65 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         shouldPersistOnRouteChange: true
       })));
     });
+  }
+
+  /**
+   * Create menu sections dependent on whether or not the current user can manage access control groups
+   */
+  createAccessControlMenuSections() {
+    this.authorizationService.isAuthorized(FeatureID.CanManageGroups).subscribe((authorized) => {
+      const menuList = [
+        /* Access Control */
+        {
+          id: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.access_control'
+          } as TextMenuItemModel,
+          icon: 'key',
+          index: 4
+        },
+        {
+          id: 'access_control_people',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_people',
+            link: '/access-control/epeople'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_groups',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_groups',
+            link: '/access-control/groups'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_authorizations',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_authorizations',
+            link: ''
+          } as LinkMenuItemModel,
+        },
+      ];
+
+      menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true,
+      })));
+    })
   }
 
   /**

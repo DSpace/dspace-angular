@@ -31,8 +31,8 @@ import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { dateToString, stringToNgbDateStruct } from '../date.util';
 import { followLink } from '../utils/follow-link-config.model';
-import { ADMIN_MODULE_PATH } from '../../app-routing-paths';
-import { ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH } from '../../access-control/access-control-routing-paths';
+import { ACCESS_CONTROL_MODULE_PATH, ADMIN_MODULE_PATH } from '../../app-routing-paths';
+import { GROUP_EDIT_PATH } from '../../access-control/access-control-routing-paths';
 
 interface ResourcePolicyCheckboxEntry {
   id: string;
