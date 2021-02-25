@@ -24,7 +24,7 @@ import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { CanManageGroupGuard } from './access-control/guards/can-manage-group.guard';
+import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 
 @NgModule({
   imports: [
@@ -180,7 +180,7 @@ import { CanManageGroupGuard } from './access-control/guards/can-manage-group.gu
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
-            canActivate: [CanManageGroupGuard],
+            canActivate: [GroupAdministratorGuard],
           },
           { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
       ]}

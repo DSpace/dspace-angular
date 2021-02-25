@@ -12,7 +12,7 @@ import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/res
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { IsCollectionAdminGuard } from '../../access-control/guards/is-collection-admin.guard';
+import { CollectionPageAdministratorGuard } from '../collection-page-administrator.guard';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality
@@ -27,7 +27,7 @@ import { IsCollectionAdminGuard } from '../../access-control/guards/is-collectio
         },
         data: { breadcrumbKey: 'collection.edit' },
         component: EditCollectionPageComponent,
-        canActivate: [IsCollectionAdminGuard],
+        canActivate: [CollectionPageAdministratorGuard],
         children: [
           {
             path: '',
