@@ -20,7 +20,7 @@ export class DSONameService {
    *
    * With only two exceptions those solutions seem overkill for now.
    */
-  private factories = {
+  private readonly factories = {
     Person: (dso: DSpaceObject): string => {
       return `${dso.firstMetadataValue('person.familyName')}, ${dso.firstMetadataValue('person.givenName')}`;
     },

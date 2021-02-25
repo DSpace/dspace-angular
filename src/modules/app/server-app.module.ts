@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule } from '@angular/platform-server';
-import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -42,9 +41,9 @@ export function createTranslateLoader() {
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),
-    RouterModule.forRoot([], {
-      useHash: false
-    }),
+    // RouterModule.forRoot([], {
+    //   useHash: false
+    // }),
     NoopAnimationsModule,
     DSpaceServerTransferStateModule,
     TranslateModule.forRoot({

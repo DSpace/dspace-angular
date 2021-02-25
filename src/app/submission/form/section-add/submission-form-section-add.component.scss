@@ -3,5 +3,5 @@
 }
 
 .sections-dropdown-menu {
-  z-index: $submission-header-z-index;
+  z-index: var(--ds-submission-header-z-index);
 }

@@ -10,19 +10,19 @@
 
 :host ::ng-deep .dropdown-menu {
   width: 100% !important;
-  max-height: $dropdown-menu-max-height;
+  max-height: var(--ds-dropdown-menu-max-height);
   overflow-y: scroll;
   overflow-x: hidden;
   left: 0 !important;
-  margin-top: $spacer !important;
+  margin-top: var(--bs-spacer) !important;
 }
 
 :host ::ng-deep .dropdown-item.active,
 :host ::ng-deep .dropdown-item:active,
 :host ::ng-deep .dropdown-item:focus,
 :host ::ng-deep .dropdown-item:hover {
-  color: $dropdown-link-hover-color !important;
-  background-color: $dropdown-link-hover-bg !important;
+  color: var(--bs-dropdown-link-hover-color) !important;
+  background-color: var(--bs-dropdown-link-hover-bg) !important;
 }
 
 .tag-input {

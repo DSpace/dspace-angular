@@ -10,7 +10,7 @@ import { Site } from '../core/shared/site.model';
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent implements OnInit {
-
+  testInput = 'Bingo!';
   site$: Observable<Site>;
 
   constructor(
@@ -22,5 +22,9 @@ export class HomePageComponent implements OnInit {
     this.site$ = this.route.data.pipe(
       map((data) => data.site as Site),
     );
+  }
+
+  onOutput(event: string) {
+    console.log('testOutput:', event);
   }
 }

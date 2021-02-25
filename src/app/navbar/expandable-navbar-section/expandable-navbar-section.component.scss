@@ -4,18 +4,18 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     ::ng-deep a.nav-link {
-        padding-right: $spacer;
-        padding-left: $spacer;
+        padding-right: var(--bs-spacer);
+        padding-left: var(--bs-spacer);
         white-space: nowrap;
     }
 }
 
 /** Mobile menu styling **/
-@media screen and (max-width: map-get($grid-breakpoints, md)) {
+@media screen and (max-width: var(--ds-grid-breakpoints-md)) {
     .dropdown-toggle {
         &:after {
             float: right;
-            margin-top: $spacer/2;
+            margin-top: calc(var(--bs-spacer) / 2);
         }
     }
     .dropdown-menu {

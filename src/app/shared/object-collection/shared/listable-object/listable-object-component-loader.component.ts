@@ -1,4 +1,11 @@
-import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -7,6 +14,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { hasValue } from '../../../empty.util';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
@@ -83,7 +91,10 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    */
   withdrawnBadge = false;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private themeService: ThemeService
+  ) {
   }
 
   /**
@@ -132,6 +143,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context);
+    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context, this.themeService.getThemeName());
   }
 }

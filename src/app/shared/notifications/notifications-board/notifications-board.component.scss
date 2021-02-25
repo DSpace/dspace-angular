@@ -1,5 +1,5 @@
 .notifications-wrapper {
-  z-index: $zindex-popover;
+  z-index: var(--bs-zindex-popover);
   text-align: right;
   @include word-wrap;
   .notification {
@@ -37,7 +37,7 @@
   transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width: map-get($grid-breakpoints, sm)) {
+@media screen and (max-width: var(--ds-grid-breakpoints-sm)) {
   .notifications-wrapper {
     width: auto;
     left: 0;

@@ -1,4 +1,4 @@
-@media screen and (min-width: map-get($grid-breakpoints, md)) {
+@media screen and (min-width: var(--ds-grid-breakpoints-md)) {
     dt {
         text-align: right;
     }

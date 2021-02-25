@@ -1,7 +1,7 @@
 
 :host::ng-deep {
   div.thumbnail > img {
-    height: $card-thumbnail-height;
+    height: var(--ds-card-thumbnail-height);
     width: 100%;
   }
 }

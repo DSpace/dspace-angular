@@ -18,11 +18,14 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;
   let fixture: ComponentFixture<CommunityPageSubCollectionListComponent>;
   let collectionDataServiceStub: any;
+  let themeService;
   let subCollList = [];
 
   const collections = [Object.assign(new Community(), {
@@ -110,6 +113,8 @@ describe('CommunityPageSubCollectionList Component', () => {
     }
   };
 
+  themeService = getMockThemeService();
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -124,6 +129,7 @@ describe('CommunityPageSubCollectionList Component', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: SelectableListService, useValue: {} },
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

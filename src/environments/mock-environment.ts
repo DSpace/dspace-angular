@@ -192,7 +192,36 @@ export const environment: Partial<GlobalConfig> = {
       undoTimeout: 10000 // 10 seconds
     }
   },
-  theme: {
-    name: 'default',
-  },
+  themes: [
+    {
+      // name: 'default',
+      name: 'full-item-page-theme',
+      regex: 'items/aa6c6c83-3a83-4953-95d1-2bc2e67854d2/full'
+    },
+    {
+      // name: 'default',
+      name: 'error-theme',
+      regex: 'collections/aaaa.*'
+    },
+    {
+      // name: 'default',
+      name: 'Item (handle)',
+      handle: '10673/1233' // Item inside publications community
+    },
+    {
+      // name: 'mantis',
+      name: 'blue',
+      regex: 'collections\/e8043bc2.*' // Publications/Thesis collections
+    },
+    {
+      // name: 'mantis',
+      name: 'Publications community (uuid)',
+      uuid: '0958c910-2037-42a9-81c7-dca80e3892b4' // Publications community
+    },
+    {
+      // name: 'default',
+      name: 'base',
+      // name: 'blue',
+    },
+  ],
 };
