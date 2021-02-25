@@ -15,6 +15,8 @@ import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
 import { redirectOn4xx } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-community-page',
@@ -33,6 +35,11 @@ export class CommunityPageComponent implements OnInit {
   communityRD$: Observable<RemoteData<Community>>;
 
   /**
+   * Whether the current user is a Community admin
+   */
+  isCommunityAdmin$: Observable<boolean>;
+
+  /**
    * The logo of this community
    */
   logoRD$: Observable<RemoteData<Bitstream>>;
@@ -42,6 +49,7 @@ export class CommunityPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private authorizationDataService: AuthorizationDataService
   ) {
 
   }
@@ -54,7 +62,8 @@ export class CommunityPageComponent implements OnInit {
     this.logoRD$ = this.communityRD$.pipe(
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),
-      mergeMap((community: Community) => community.logo));
+      mergeMap((community: Community) => community.logo)
+    );
+    this.isCommunityAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin);
   }
-
 }

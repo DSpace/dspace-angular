@@ -22,6 +22,8 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
 import {PaginationChangeEvent} from '../shared/pagination/paginationChangeEvent.interface';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-collection-page',
@@ -44,6 +46,11 @@ export class CollectionPageComponent implements OnInit {
     sortConfig: SortOptions
   }>;
 
+  /**
+   * Whether the current user is a Community admin
+   */
+  isCollectionAdmin$: Observable<boolean>;
+
   constructor(
     private collectionDataService: CollectionDataService,
     private searchService: SearchService,
@@ -51,6 +58,7 @@ export class CollectionPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private authorizationDataService: AuthorizationDataService,
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -70,6 +78,7 @@ export class CollectionPageComponent implements OnInit {
       filter((collection: Collection) => hasValue(collection)),
       mergeMap((collection: Collection) => collection.logo)
     );
+    this.isCollectionAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCollectionAdmin);
 
     this.paginationChanges$ = new BehaviorSubject({
       paginationConfig: this.paginationConfig,

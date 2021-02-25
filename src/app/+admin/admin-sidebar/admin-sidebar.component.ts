@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { first, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
@@ -103,192 +103,197 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Initialize all menu sections and items for this menu
    */
   createMenu() {
-    const menuList = [
-      /* News */
-      {
-        id: 'new',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.new'
-        } as TextMenuItemModel,
-        icon: 'plus-circle',
-        index: 0
-      },
-      {
-        id: 'new_community',
-        parentID: 'new',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.new_community',
-          function: () => {
-            this.modalService.open(CreateCommunityParentSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-      },
-      {
-        id: 'new_collection',
-        parentID: 'new',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.new_collection',
-          function: () => {
-            this.modalService.open(CreateCollectionParentSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-      },
-      {
-        id: 'new_item',
-        parentID: 'new',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.new_item',
-          function: () => {
-            this.modalService.open(CreateItemParentSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-      },
-      {
-        id: 'new_process',
-        parentID: 'new',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.new_process',
-          link: '/processes/new'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'new_item_version',
-        parentID: 'new',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.new_item_version',
-          link: ''
-        } as LinkMenuItemModel,
-      },
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin]) => {
+      const menuList = [
+        /* News */
+        {
+          id: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.new'
+          } as TextMenuItemModel,
+          icon: 'plus-circle',
+          index: 0
+        },
+        {
+          id: 'new_community',
+          parentID: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.new_community',
+            function: () => {
+              this.modalService.open(CreateCommunityParentSelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+        },
+        {
+          id: 'new_collection',
+          parentID: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.new_collection',
+            function: () => {
+              this.modalService.open(CreateCollectionParentSelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+        },
+        {
+          id: 'new_item',
+          parentID: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.new_item',
+            function: () => {
+              this.modalService.open(CreateItemParentSelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+        },
+        {
+          id: 'new_process',
+          parentID: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.new_process',
+            link: '/processes/new'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'new_item_version',
+          parentID: 'new',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.new_item_version',
+            link: ''
+          } as LinkMenuItemModel,
+        },
 
-      /* Edit */
-      {
-        id: 'edit',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.edit'
-        } as TextMenuItemModel,
-        icon: 'pencil-alt',
-        index: 1
-      },
-      {
-        id: 'edit_community',
-        parentID: 'edit',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.edit_community',
-          function: () => {
-            this.modalService.open(EditCommunitySelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-      },
-      {
-        id: 'edit_collection',
-        parentID: 'edit',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.edit_collection',
-          function: () => {
-            this.modalService.open(EditCollectionSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-      },
-      {
-        id: 'edit_item',
-        parentID: 'edit',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.edit_item',
-          function: () => {
-            this.modalService.open(EditItemSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-      },
+        /* Edit */
+        {
+          id: 'edit',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.edit'
+          } as TextMenuItemModel,
+          icon: 'pencil-alt',
+          index: 1
+        },
+        {
+          id: 'edit_community',
+          parentID: 'edit',
+          active: false,
+          visible: isCommunityAdmin,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.edit_community',
+            function: () => {
+              this.modalService.open(EditCommunitySelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+        },
+        {
+          id: 'edit_collection',
+          parentID: 'edit',
+          active: false,
+          visible: isCollectionAdmin,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.edit_collection',
+            function: () => {
+              this.modalService.open(EditCollectionSelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+        },
+        {
+          id: 'edit_item',
+          parentID: 'edit',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.edit_item',
+            function: () => {
+              this.modalService.open(EditItemSelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+        },
 
-      /* Curation tasks */
-      {
-        id: 'curation_tasks',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.curation_task',
-          link: ''
-        } as LinkMenuItemModel,
-        icon: 'filter',
-        index: 7
-      },
+        /* Curation tasks */
+        {
+          id: 'curation_tasks',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.curation_task',
+            link: ''
+          } as LinkMenuItemModel,
+          icon: 'filter',
+          index: 7
+        },
 
-      /* Statistics */
-      {
-        id: 'statistics_task',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.statistics_task',
-          link: ''
-        } as LinkMenuItemModel,
-        icon: 'chart-bar',
-        index: 8
-      },
+        /* Statistics */
+        {
+          id: 'statistics_task',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.statistics_task',
+            link: ''
+          } as LinkMenuItemModel,
+          icon: 'chart-bar',
+          index: 8
+        },
 
-      /* Control Panel */
-      {
-        id: 'control_panel',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.control_panel',
-          link: ''
-        } as LinkMenuItemModel,
-        icon: 'cogs',
-        index: 9
-      },
+        /* Control Panel */
+        {
+          id: 'control_panel',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.control_panel',
+            link: ''
+          } as LinkMenuItemModel,
+          icon: 'cogs',
+          index: 9
+        },
 
-      /* Processes */
-      {
-        id: 'processes',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.processes',
-          link: '/processes'
-        } as LinkMenuItemModel,
-        icon: 'terminal',
-        index: 10
-      },
-    ];
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
+        /* Processes */
+        {
+          id: 'processes',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.processes',
+            link: '/processes'
+          } as LinkMenuItemModel,
+          icon: 'terminal',
+          index: 10
+        },
+      ];
+      menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
+      })));
+    })
   }
 
   /**
