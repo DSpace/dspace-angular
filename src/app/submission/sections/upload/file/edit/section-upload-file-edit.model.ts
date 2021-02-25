@@ -104,31 +104,3 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControl
     host: 'col-md-4'
   }
 };
-
-export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelConfig<any> = {
-  id: 'groupUUID',
-  label: 'submission.sections.upload.form.group-label',
-  options: [],
-  relations: [
-    {
-      match: MATCH_ENABLED,
-      operator: OR_OPERATOR,
-      when: []
-    }
-  ],
-  required: true,
-  validators: {
-    required: null
-  },
-  errorMessages: {
-    required: 'submission.sections.upload.form.group-required'
-  }
-};
-export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT: DynamicFormControlLayout = {
-  element: {
-    container: 'p-0'
-  },
-  grid: {
-    host: 'col-sm-10'
-  }
-};

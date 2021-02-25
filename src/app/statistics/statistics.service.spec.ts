@@ -27,7 +27,7 @@ describe('StatisticsService', () => {
     it('should send a request to track an item view ', () => {
       const mockItem: any = {uuid: 'mock-item-uuid', type: 'item'};
       service.trackViewEvent(mockItem);
-      const request: TrackRequest = requestService.configure.calls.mostRecent().args[0];
+      const request: TrackRequest = requestService.send.calls.mostRecent().args[0];
       expect(request.body).toBeDefined('request.body');
       const body = JSON.parse(request.body);
       expect(body.targetId).toBe('mock-item-uuid');
@@ -51,7 +51,7 @@ describe('StatisticsService', () => {
     };
     const sort = {by: 'search-field', order: 'ASC'};
     service.trackSearchEvent(mockSearch, page, sort);
-    const request: TrackRequest = requestService.configure.calls.mostRecent().args[0];
+    const request: TrackRequest = requestService.send.calls.mostRecent().args[0];
     const body = JSON.parse(request.body);
 
     it('should specify the right query', () => {
@@ -108,7 +108,7 @@ describe('StatisticsService', () => {
       }
     ];
     service.trackSearchEvent(mockSearch, page, sort, filters);
-    const request: TrackRequest = requestService.configure.calls.mostRecent().args[0];
+    const request: TrackRequest = requestService.send.calls.mostRecent().args[0];
     const body = JSON.parse(request.body);
 
     it('should specify the dsoType', () => {

@@ -10,14 +10,15 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { FindListOptions, GetRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, filter } from 'rxjs/operators';
+import { filter, switchMap, take, map } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
-import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { PaginatedList } from './paginated-list.model';
+import { ItemType } from '../shared/item-relationships/item-type.model';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
+import { RelationshipTypeService } from './relationship-type.service';
 
 /**
  * Service handling all ItemType requests
@@ -33,6 +34,7 @@ export class EntityTypeService extends DataService<ItemType> {
               protected halService: HALEndpointService,
               protected objectCache: ObjectCacheService,
               protected notificationsService: NotificationsService,
+              protected relationshipTypeService: RelationshipTypeService,
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<ItemType>) {
     super();
@@ -134,18 +136,16 @@ export class EntityTypeService extends DataService<ItemType> {
   /**
    * Get the allowed relationship types for an entity type
    * @param entityTypeId
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<RemoteData<PaginatedList<RelationshipType>>> {
-
+  getEntityTypeRelationships(entityTypeId: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<RemoteData<PaginatedList<RelationshipType>>> {
     const href$ = this.getRelationshipTypesEndpoint(entityTypeId);
-
-    href$.pipe(take(1)).subscribe((href) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
-    });
-
-    return this.rdbService.buildList(href$, ...linksToFollow);
+    return this.relationshipTypeService.findAllByHref(href$, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

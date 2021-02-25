@@ -39,7 +39,7 @@ describe('SiteDataService', () => {
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true,
+      send: true,
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: cold('a', {

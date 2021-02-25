@@ -22,8 +22,6 @@ import {
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT,
-  BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
@@ -32,14 +30,13 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
-import { isNotEmpty, isNotUndefined } from '../../../../../shared/empty.util';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionService } from '../../../../submission.service';
 import { FormService } from '../../../../../shared/form/form.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
-import { Group } from '../../../../../core/eperson/models/group.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -55,12 +52,6 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
    * @type {Array}
    */
   @Input() availableAccessConditionOptions: any[];
-
-  /**
-   * The list of available groups for an access condition
-   * @type {Array}
-   */
-  @Input() availableAccessConditionGroups: Map<string, Group[]>;
 
   /**
    * The submission id
@@ -210,19 +201,16 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
       });
       const confStart = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasStart }] };
       const confEnd = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasEnd }] };
-      const confGroup = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasGroups }] };
 
       accessConditionsArrayConfig.groupFactory = () => {
         const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
         const startDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
         const endDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, confEnd);
-        const groupsConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, confGroup);
 
         const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
         const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
-        const groups = new DynamicSelectModel(groupsConfig, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT);
 
-        return [type, startDate, endDate, groups];
+        return [type, startDate, endDate];
       };
 
       // Number of access conditions blocks in form
@@ -244,19 +232,11 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
    */
   public initModelData(formModel: DynamicFormControlModel[]) {
     this.fileData.accessConditions.forEach((accessCondition, index) => {
-      Array.of('name', 'groupUUID', 'startDate', 'endDate')
+      Array.of('name', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key))
         .forEach((key) => {
           const metadataModel: any = this.formBuilderService.findById(key, formModel, index);
           if (metadataModel) {
-            if (key === 'groupUUID' && this.availableAccessConditionGroups.get(accessCondition.name)) {
-              this.availableAccessConditionGroups.get(accessCondition.name).forEach((group) => {
-                metadataModel.options.push({
-                  label: group.name,
-                  value: group.uuid
-                });
-              });
-            }
             if (metadataModel.type === DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER) {
               const date = new Date(accessCondition[key]);
               metadataModel.value = {
@@ -299,51 +279,18 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
     if (isNotEmpty(accessCondition)) {
       const showGroups: boolean = accessCondition.hasStartDate === true || accessCondition.hasEndDate === true;
 
-      const groupControl: FormControl = control.parent.get('groupUUID') as FormControl;
       const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
       const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
 
       // Clear previous state
-      groupControl.markAsUntouched();
       startDateControl.markAsUntouched();
       endDateControl.markAsUntouched();
 
-      // Clear previous values
-      if (showGroups) {
-        groupControl.setValue(null);
-      } else {
-        groupControl.clearValidators();
-        groupControl.setValue(accessCondition.groupUUID);
-      }
       startDateControl.setValue(null);
       control.parent.markAsDirty();
       endDateControl.setValue(null);
 
       if (showGroups) {
-        if (isNotUndefined(accessCondition.groupUUID) || isNotUndefined(accessCondition.selectGroupUUID)) {
-
-          const groupOptions = [];
-          if (isNotUndefined(this.availableAccessConditionGroups.get(accessCondition.name))) {
-            const groupModel = this.formBuilderService.findById(
-              'groupUUID',
-              (model.parent as DynamicFormArrayGroupModel).group) as DynamicSelectModel<any>;
-
-            this.availableAccessConditionGroups.get(accessCondition.name).forEach((group) => {
-              groupOptions.push({
-                label: group.name,
-                value: group.uuid
-              });
-            });
-
-            // Due to a bug can't dynamically change the select options, so replace the model with a new one
-            const confGroup = { relation: groupModel.relations };
-            const groupsConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, confGroup);
-            groupsConfig.options = groupOptions;
-            (model.parent as DynamicFormGroupModel).group.pop();
-            (model.parent as DynamicFormGroupModel).group.push(new DynamicSelectModel(groupsConfig, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT));
-          }
-
-        }
         if (accessCondition.hasStartDate) {
           const startDateModel = this.formBuilderService.findById(
             'startDate',

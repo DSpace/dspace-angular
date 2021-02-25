@@ -282,6 +282,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               relationshipOptions.relationshipType,
               undefined,
               true,
+              true,
               followLink('leftItem'),
               followLink('rightItem'),
               followLink('relationshipType')
@@ -318,7 +319,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
 
       if (hasValue(this.value) && this.value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(this.value.virtualValue, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
+        const relationship$ = this.relationshipService.findById(this.value.virtualValue, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
@@ -469,7 +470,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private setItem() {
     const submissionObject$ = this.submissionObjectService
-      .findById(this.model.submissionId, true, followLink('item'), followLink('collection')).pipe(
+      .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload()
       );

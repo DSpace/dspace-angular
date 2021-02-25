@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, Injector, Input } from '@angular/core';
 
-import { find, take, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
 import { Subscription } from 'rxjs';
 import { SearchService } from '../../core/shared/search/search.service';
+import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 
 /**
  * Abstract class for all different representations of mydspace actions
@@ -89,8 +90,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    */
   refresh(): void {
     // find object by id
-    this.objectDataService.findById(this.object.id).pipe(
-      find((rd: RemoteData<T>) => rd.hasSucceeded)
+    this.objectDataService.findById(this.object.id, false).pipe(
+      getFirstSucceededRemoteData(),
     ).subscribe((rd: RemoteData<T>) => {
       this.initObjects(rd.payload as T);
     });

@@ -19,6 +19,7 @@ import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
+import {PaginationChangeEvent} from '../shared/pagination/paginationChangeEvent.interface';
 
 @Component({
   selector: 'ds-collection-page',
@@ -93,7 +94,6 @@ export class CollectionPageComponent implements OnInit {
 
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.metadata.processRemoteData(this.collectionRD$);
-      this.onPaginationChange(params);
     });
   }
 
@@ -101,12 +101,16 @@ export class CollectionPageComponent implements OnInit {
     return isNotEmpty(object);
   }
 
-  onPaginationChange(event) {
-    this.paginationConfig.currentPage = +event.page || this.paginationConfig.currentPage;
-    this.paginationConfig.pageSize = +event.pageSize || this.paginationConfig.pageSize;
-    this.sortConfig.direction = event.sortDirection || this.sortConfig.direction;
-    this.sortConfig.field = event.sortField || this.sortConfig.field;
-
+  onPaginationChange(event: PaginationChangeEvent) {
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      currentPage: event.pagination.currentPage || this.paginationConfig.currentPage,
+      pageSize: event.pagination.pageSize || this.paginationConfig.pageSize,
+      id: 'collection-page-pagination'
+    });
+    this.sortConfig = Object.assign(new SortOptions('dc.date.accessioned', SortDirection.DESC), {
+      direction: event.sort.direction || this.sortConfig.direction,
+      field: event.sort.field || this.sortConfig.field
+    });
     this.paginationChanges$.next({
       paginationConfig: this.paginationConfig,
       sortConfig: this.sortConfig

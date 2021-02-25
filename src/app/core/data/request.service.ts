@@ -2,20 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, map, mergeMap, take, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { cloneDeep } from 'lodash';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
-import { CacheableObject, ObjectCacheEntry } from '../cache/object-cache.reducer';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { IndexName, IndexState, MetaIndexState } from '../index/index.reducer';
-import {
-  originalRequestUUIDFromRequestUUIDSelector,
-  requestIndexSelector,
-  uuidFromHrefSelector,
-  getUrlWithoutEmbedParams
-} from '../index/index.selectors';
+import { IndexState, MetaIndexState } from '../index/index.reducer';
+import { requestIndexSelector, getUrlWithoutEmbedParams } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import {
   RequestConfigureAction,
@@ -23,10 +18,9 @@ import {
   RequestStaleAction
 } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
-import { RequestEntry, RequestState, hasCompleted, isStale, isLoading } from './request.reducer';
+import { RequestEntry, RequestState, isStale, isLoading } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
-import { AddToIndexAction } from '../index/index.actions';
 import { coreSelector } from '../core.selectors';
 
 /**
@@ -38,13 +32,36 @@ const requestCacheSelector = createSelector(
 );
 
 /**
- * Selector function to select a request entry by uuid from the cache
+ * Selector function to select a request entry by uuid from the store
  * @param uuid The uuid of the request
  */
 const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, RequestEntry> => createSelector(
   requestCacheSelector,
   (state: RequestState) => {
     return hasValue(state) ? state[uuid] : undefined;
+  }
+);
+
+/**
+ * Selector function to select a request entry by href from the store
+ * @param href The href of the request
+ */
+const entryFromHrefSelector = (href: string): MemoizedSelector<CoreState, RequestEntry> => createSelector(
+  requestIndexSelector,
+  requestCacheSelector,
+  (indexState: IndexState, requestState: RequestState) => {
+    let uuid: any;
+    if (hasValue(indexState)) {
+      uuid = indexState[getUrlWithoutEmbedParams(href)];
+    } else {
+      return undefined;
+    }
+
+    if (hasValue(requestState)) {
+      return requestState[uuid];
+    } else {
+      return undefined;
+    }
   }
 );
 
@@ -125,10 +142,16 @@ export class RequestService {
   }
 
   /**
-   * Check if a request is currently pending
+   * Check if a GET request is currently pending
    */
   isPending(request: GetRequest): boolean {
-    // first check requests that haven't made it to the store yet
+    // If the request is not a GET request, it will never be considered pending, because you may
+    // want to execute the exact same e.g. POST multiple times
+    if (request.method !== RestRequestMethod.GET) {
+      return false;
+    }
+
+    // check requests that haven't made it to the store yet
     if (this.requestsOnTheirWayToTheStore.includes(request.href)) {
       return true;
     }
@@ -138,7 +161,7 @@ export class RequestService {
     this.getByHref(request.href).pipe(
       take(1))
       .subscribe((re: RequestEntry) => {
-        isPending = (hasValue(re) && !hasCompleted(re.state));
+        isPending = (hasValue(re) && isLoading(re.state));
       });
     return isPending;
   }
@@ -147,72 +170,82 @@ export class RequestService {
    * Retrieve a RequestEntry based on their uuid
    */
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return observableCombineLatest([
-      this.store.pipe(
-        select(entryFromUUIDSelector(uuid))
-      ),
-      this.store.pipe(
-        select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
-        switchMap((originalUUID) => {
-              return this.store.pipe(select(entryFromUUIDSelector(originalUUID)));
-          },
-        ),
-      ),
-    ]).pipe(
-      map((entries: RequestEntry[]) => entries.find((entry: RequestEntry) => hasValue(entry))),
-      map((entry: RequestEntry) => {
-        // Headers break after being retrieved from the store (because of lazy initialization)
-        // Combining them with a new object fixes this issue
-        if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
-          entry = cloneDeep(entry);
-          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers);
-        }
-        return entry;
-      }),
-      tap((entry: RequestEntry) => {
-        if (hasValue(entry) && !isStale(entry.state) && !isValid(entry)) {
-          this.store.dispatch(new RequestStaleAction(uuid));
-        }
-      })
+    return this.store.pipe(
+      select(entryFromUUIDSelector(uuid)),
+      this.fixRequestHeaders(),
+      this.checkStale()
     );
   }
 
   /**
-   * Retrieve a RequestEntry based on their href
+   * Operator that turns the request headers back in to an HttpHeaders instance after an entry has
+   * been retrieved from the ngrx store
+   * @private
+   */
+  private fixRequestHeaders() {
+    return (source: Observable<RequestEntry>): Observable<RequestEntry> => {
+      return source.pipe(map((entry: RequestEntry) => {
+          // Headers break after being retrieved from the store (because of lazy initialization)
+          // Combining them with a new object fixes this issue
+          if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
+            entry = cloneDeep(entry);
+            entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers);
+          }
+          return entry;
+        })
+      );
+    };
+  }
+
+  /**
+   * Operator that will check if an entry should be stale, and will dispatch an action to set it to
+   * stale if it should
+   * @private
+   */
+  private checkStale() {
+    return (source: Observable<RequestEntry>): Observable<RequestEntry> => {
+      return source.pipe(
+        tap((entry: RequestEntry) => {
+          if (hasValue(entry) && hasValue(entry.request) && !isStale(entry.state) && !isValid(entry)) {
+            this.store.dispatch(new RequestStaleAction(entry.request.uuid));
+          }
+        })
+      );
+    };
+  }
+
+  /**
+   * Retrieve a RequestEntry based on its href
    */
   getByHref(href: string): Observable<RequestEntry> {
     return this.store.pipe(
-      select(uuidFromHrefSelector(href)),
-      mergeMap((uuid: string) => {
-        if (isNotEmpty(uuid)) {
-          return this.getByUUID(uuid);
-        } else {
-          return [undefined];
-        }
-      })
+      select(entryFromHrefSelector(href)),
+      this.fixRequestHeaders(),
+      this.checkStale()
     );
   }
 
   /**
-   * Configure a certain request
-   * Used to make sure a request is in the cache
-   * @param {RestRequest} request The request to send out
+   * Add the given request to the ngrx store, and send it to the rest api
+   *
+   * @param request                       The request to send out
+   * @param useCachedVersionIfAvailable   If this is true, the request will only be sent if there's
+   *                                      no valid cached version. Defaults to false
+   * @returns true if the request was sent, false otherwise
    */
-  configure<T extends CacheableObject>(request: RestRequest): void {
-    const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || request.forceBypassCache || !this.isCachedOrPending(request)) {
+  send(request: RestRequest, useCachedVersionIfAvailable = false): boolean {
+    if (useCachedVersionIfAvailable && request.method !== RestRequestMethod.GET) {
+      console.warn(`${JSON.stringify(request, null, 2)} is not a GET request. In general only GET requests should reuse cached data.`);
+    }
+
+    if (this.shouldDispatchRequest(request, useCachedVersionIfAvailable)) {
       this.dispatchRequest(request);
-      if (isGetRequest) {
+      if (request.method === RestRequestMethod.GET) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
+      return true;
     } else {
-      this.getByHref(request.href).pipe(
-        filter((entry) => hasValue(entry)),
-        take(1)
-      ).subscribe((entry) => {
-          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid));
-        }
-      );
+      return false;
     }
   }
 
@@ -274,25 +307,38 @@ export class RequestService {
   }
 
   /**
-   * Check if a request is in the cache or if it's still pending
+   * Check if a GET request is in the cache or if it's still pending
    * @param {GetRequest} request The request to check
+   * @param {boolean} useCachedVersionIfAvailable Whether or not to allow the use of a cached version
    * @returns {boolean} True if the request is cached or still pending
    */
-  public isCachedOrPending(request: GetRequest): boolean {
-    if (this.isPending(request)) {
+  public shouldDispatchRequest(request: GetRequest, useCachedVersionIfAvailable: boolean): boolean {
+    // if it's not a GET request
+    if (request.method !== RestRequestMethod.GET) {
+      return true;
+    // if it is a GET request, check it isn't pending
+    } else if (this.isPending(request)) {
+      return false;
+    // if it is pending, check if we're allowed to use a cached version
+    } else if (!useCachedVersionIfAvailable) {
       return true;
     } else {
+      // if we are, check the request cache
       const urlWithoutEmbedParams = getUrlWithoutEmbedParams(request.href);
       if (this.hasByHref(urlWithoutEmbedParams) === true) {
-        return true;
+        return false;
       } else {
+        // if it isn't in the request cache, check the object cache
         let inObjCache = false;
         this.objectCache.getByHref(urlWithoutEmbedParams)
           .subscribe((entry: ObjectCacheEntry) => {
+            // if the object cache has a match, check if the request that the object came with is
+            // still valid
             inObjCache = this.hasByUUID(entry.requestUUID);
           }).unsubscribe();
 
-        return inObjCache;
+        // we should send the request if it isn't cached
+        return !inObjCache;
       }
     }
   }
@@ -308,15 +354,15 @@ export class RequestService {
 
   /**
    * ngrx action dispatches are asynchronous. But this.isPending needs to return true as soon as the
-   * configure method for a GET request has been executed, otherwise certain requests will happen multiple times.
+   * send method for a GET request has been executed, otherwise certain requests will happen multiple times.
    *
    * This method will store the href of every GET request that gets configured in a local variable, and
    * remove it as soon as it can be found in the store.
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.getByUUID(request.uuid).pipe(
-      filter((re: RequestEntry) => hasValue(re)),
+    this.getByHref(request.href).pipe(
+      filter((re: RequestEntry) => hasValue(re) && hasValue(re.request) && re.request.uuid === request.uuid),
       take(1)
     ).subscribe((re: RequestEntry) => {
       this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href);

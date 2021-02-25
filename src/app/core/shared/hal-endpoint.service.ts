@@ -20,7 +20,7 @@ export class HALEndpointService {
 ) {
   }
 
-  protected getRootHref(): string {
+  public getRootHref(): string {
     return new RESTURLCombiner().toString();
   }
 
@@ -31,10 +31,7 @@ export class HALEndpointService {
   private getEndpointMapAt(href): Observable<EndpointMap> {
     const request = new EndpointMapRequest(this.requestService.generateRequestId(), href);
 
-    if (!this.requestService.isCachedOrPending(request)) {
-      // don't bother configuring the request if it's already cached or pending.
-      this.requestService.configure(request);
-    }
+    this.requestService.send(request, true);
 
     return this.rdbService.buildFromHref<UnCacheableObject>(href).pipe(
       getFirstCompletedRemoteData(),

@@ -121,25 +121,31 @@ export class ResourcePolicyService {
   /**
    * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
-   * @param href              The url of {@link ResourcePolicy} we want to retrieve
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param href                        The url of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
+  findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on its ID, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param id                ID of {@link ResourcePolicy} we want to retrieve
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param id                          ID of {@link ResourcePolicy} we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findById(id, reRequestOnStale, ...linksToFollow);
+  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -155,37 +161,43 @@ export class ResourcePolicyService {
   /**
    * Return the {@link ResourcePolicy} list for a {@link EPerson}
    *
-   * @param UUID              UUID of a given {@link EPerson}
-   * @param resourceUUID      Limit the returned policies to the specified DSO
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param UUID                        UUID of a given {@link EPerson}
+   * @param resourceUUID                Limit the returned policies to the specified DSO
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  searchByEPerson(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByEPerson(UUID: string, resourceUUID?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
       options.searchParams.push(new RequestParam('resource', resourceUUID));
     }
-    return this.dataService.searchBy(this.searchByEPersonMethod, options, reRequestOnStale, ...linksToFollow);
+    return this.dataService.searchBy(this.searchByEPersonMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Return the {@link ResourcePolicy} list for a {@link Group}
    *
-   * @param UUID              UUID of a given {@link Group}
-   * @param resourceUUID      Limit the returned policies to the specified DSO
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param UUID                        UUID of a given {@link Group}
+   * @param resourceUUID                Limit the returned policies to the specified DSO
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  searchByGroup(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByGroup(UUID: string, resourceUUID?: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
       options.searchParams.push(new RequestParam('resource', resourceUUID));
     }
-    return this.dataService.searchBy(this.searchByGroupMethod, options, reRequestOnStale, ...linksToFollow);
+    return this.dataService.searchBy(this.searchByGroupMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -193,17 +205,20 @@ export class ResourcePolicyService {
    *
    * @param UUID              UUID of a given DSO
    * @param action            Limit the returned policies to the specified {@link ActionType}
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  searchByResource(UUID: string, action?: ActionType, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByResource(UUID: string, action?: ActionType, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(action)) {
       options.searchParams.push(new RequestParam('action', action));
     }
-    return this.dataService.searchBy(this.searchByResourceMethod, options, reRequestOnStale, ...linksToFollow);
+    return this.dataService.searchBy(this.searchByResourceMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
 }

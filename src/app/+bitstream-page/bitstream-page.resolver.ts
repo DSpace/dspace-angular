@@ -23,7 +23,7 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Bitstream>> {
-    return this.bitstreamService.findById(route.params.id, false, ...this.followLinks)
+    return this.bitstreamService.findById(route.params.id, true, false, ...this.followLinks)
       .pipe(
         getFirstCompletedRemoteData(),
       );
@@ -35,7 +35,7 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
      */
     get followLinks(): FollowLinkConfig<Bitstream>[] {
         return [
-            followLink('bundle', undefined, true, followLink('item')),
+            followLink('bundle', undefined, true, true, true, followLink('item')),
             followLink('format')
         ];
     }

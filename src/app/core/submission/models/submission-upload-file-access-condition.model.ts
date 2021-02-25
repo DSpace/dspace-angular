@@ -14,11 +14,6 @@ export class SubmissionUploadFileAccessConditionObject {
   name: string;
 
   /**
-   * The access group UUID defined in this access condition
-   */
-  groupUUID: string;
-
-  /**
    * Possible start date of the access condition
    */
   startDate: string;

@@ -12,7 +12,6 @@ import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { deleteProperty } from '../../../../shared/object.util';
 import { dateToISOFormat } from '../../../../shared/date.util';
 import { SubmissionService } from '../../../submission.service';
 import { FileService } from '../../../../core/shared/file.service';
@@ -21,7 +20,6 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
-import { Group } from '../../../../core/eperson/models/group.model';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -38,12 +36,6 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * @type {Array}
    */
   @Input() availableAccessConditionOptions: any[];
-
-  /**
-   * The list of available groups for an access condition
-   * @type {Array}
-   */
-  @Input() availableAccessConditionGroups: Map<string, Group[]>;
 
   /**
    * The submission id
@@ -172,7 +164,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * Retrieve bitstream's metadata
    */
   ngOnChanges() {
-    if (this.availableAccessConditionOptions && this.availableAccessConditionGroups) {
+    if (this.availableAccessConditionOptions) {
       // Retrieve file state
       this.subscriptions.push(
         this.uploadService
@@ -272,28 +264,17 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
               .forEach((element) => accessConditionOpt = element);
 
             if (accessConditionOpt) {
-
-              if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
-                accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
-
-                accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
-                accessConditionsToSave.push(accessConditionOpt);
-              } else {
                 accessConditionOpt = Object.assign({}, accessCondition);
                 accessConditionOpt.name = this.retrieveValueFromField(accessCondition.name);
-                accessConditionOpt.groupUUID = this.retrieveValueFromField(accessCondition.groupUUID);
                 if (accessCondition.startDate) {
                   const startDate = this.retrieveValueFromField(accessCondition.startDate);
                   accessConditionOpt.startDate = dateToISOFormat(startDate);
-                  accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
                 }
                 if (accessCondition.endDate) {
                   const endDate = this.retrieveValueFromField(accessCondition.endDate);
                   accessConditionOpt.endDate = dateToISOFormat(endDate);
-                  accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
                 }
                 accessConditionsToSave.push(accessConditionOpt);
-              }
             }
           });
 

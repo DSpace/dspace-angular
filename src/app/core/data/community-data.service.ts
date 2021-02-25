@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../../shared/empty.util';
+import { switchMap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -17,7 +16,7 @@ import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, FindListRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
 
@@ -48,15 +47,7 @@ export class CommunityDataService extends ComColDataService<Community> {
 
   findTop(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.getFindAllHref(options, this.topLinkPath);
-    hrefObs.pipe(
-      filter((href: string) => hasValue(href)),
-      take(1))
-      .subscribe((href: string) => {
-        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request);
-      });
-
-    return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
+    return this.findAllByHref(hrefObs, undefined);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {

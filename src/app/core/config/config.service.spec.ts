@@ -60,12 +60,12 @@ describe('ConfigService', () => {
 
   describe('findByHref', () => {
 
-    it('should configure a new GetRequest', () => {
+    it('should send a new GetRequest', () => {
       const expected = new GetRequest(requestService.generateRequestId(), scopedEndpoint);
       scheduler.schedule(() => service.findByHref(scopedEndpoint).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
   });
 

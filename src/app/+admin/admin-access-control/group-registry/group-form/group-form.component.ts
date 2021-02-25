@@ -143,7 +143,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
   initialisePage() {
     this.subs.push(this.route.params.subscribe((params) => {
-      this.setActiveGroup(params.groupId);
+      if (params.groupId !== 'newGroup') {
+        this.setActiveGroup(params.groupId);
+      }
     }));
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       hasValueOperator(),
@@ -225,7 +227,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               {
                 value: this.groupDescription.value
               }
-            ],
+            ]
           },
         };
         if (group === null) {
@@ -343,7 +345,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup === null) {
         this.groupDataService.cancelEditGroup();
-        this.groupDataService.findByHref(groupSelfLink, false, followLink('subgroups'), followLink('epersons'), followLink('object'))
+        this.groupDataService.findByHref(groupSelfLink, false, false, followLink('subgroups'), followLink('epersons'), followLink('object'))
           .pipe(
             getFirstSucceededRemoteData(),
             getRemoteDataPayload())

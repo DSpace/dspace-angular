@@ -156,7 +156,7 @@ xdescribe('RelationshipService', () => {
 
     it('should send a DeleteRequest', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid + '?copyVirtualMetadata=right');
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
 
     it('should clear the cache of the related items', () => {
@@ -209,6 +209,7 @@ xdescribe('RelationshipService', () => {
           mockItem,
           mockLabel,
           mockOptions,
+          true,
           true,
           followLink('leftItem'),
           followLink('rightItem'),

@@ -13,12 +13,11 @@ import { Process } from '../../../process-page/processes/process.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
-import { GetRequest } from '../request.models';
+import { switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
-import { isNotEmptyOperator } from '../../../shared/empty.util';
+import { BitstreamDataService } from '../bitstream-data.service';
 
 @Injectable()
 @dataService(PROCESS)
@@ -32,6 +31,7 @@ export class ProcessDataService extends DataService<Process> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected bitstreamDataService: BitstreamDataService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Process>) {
     super();
@@ -48,20 +48,11 @@ export class ProcessDataService extends DataService<Process> {
   }
 
   /**
-   * Get a process his output files
+   * Get a process' output files
    * @param processId The ID of the process
    */
   getFiles(processId: string): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    const href$ = this.getFilesEndpoint(processId).pipe(
-      isNotEmptyOperator(),
-      take(1)
-    );
-
-    href$.subscribe((href: string) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
-    });
-
-    return this.rdbService.buildList(href$);
+    const href$ = this.getFilesEndpoint(processId);
+    return this.bitstreamDataService.findAllByHref(href$);
   }
 }

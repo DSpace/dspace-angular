@@ -14,9 +14,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RemoteData } from './remote-data';
-import { FindByIDRequest, IdentifierType } from './request.models';
+import { IdentifierType } from './request.models';
 import { RequestService } from './request.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class DsoRedirectDataService extends DataService<any> {
@@ -53,7 +54,7 @@ export class DsoRedirectDataService extends DataService<any> {
       {}, [], ...linksToFollow);
   }
 
-  findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
+  findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<DSpaceObject>> {
     this.setLinkPath(identifierType);
     return this.findById(id).pipe(
       getFirstCompletedRemoteData(),
