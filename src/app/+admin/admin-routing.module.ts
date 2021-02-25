@@ -6,7 +6,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { ACCESS_CONTROL_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
+import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 
 @NgModule({
   imports: [
@@ -15,11 +15,6 @@ import { ACCESS_CONTROL_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-rout
         path: REGISTRIES_MODULE_PATH,
         loadChildren: () => import('./admin-registries/admin-registries.module')
           .then((m) => m.AdminRegistriesModule),
-      },
-      {
-        path: ACCESS_CONTROL_MODULE_PATH,
-        loadChildren: () => import('../access-control/access-control.module')
-          .then((m) => m.AccessControlModule),
       },
       {
         path: 'search',
