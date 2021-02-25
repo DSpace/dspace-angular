@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
+  ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
   FORBIDDEN_PATH,
@@ -13,7 +14,7 @@ import {
   INFO_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
-  WORKFLOW_ITEM_MODULE_PATH
+  WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
@@ -23,6 +24,7 @@ import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { CanManageGroupGuard } from './access-control/guards/can-manage-group.guard';
 
 @NgModule({
   imports: [
@@ -174,6 +176,11 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
+          },
+          {
+            path: ACCESS_CONTROL_MODULE_PATH,
+            loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
+            canActivate: [CanManageGroupGuard],
           },
           { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
       ]}
