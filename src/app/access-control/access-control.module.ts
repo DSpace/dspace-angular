@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { AdminAccessControlRoutingModule } from './admin-access-control-routing.module';
+import { AccessControlRoutingModule } from './access-control-routing.module';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
@@ -15,7 +15,7 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
     CommonModule,
     SharedModule,
     RouterModule,
-    AdminAccessControlRoutingModule
+    AccessControlRoutingModule
   ],
   declarations: [
     EPeopleRegistryComponent,
@@ -29,6 +29,6 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
 /**
  * This module handles all components related to the access control pages
  */
-export class AdminAccessControlModule {
+export class AccessControlModule {
 
 }

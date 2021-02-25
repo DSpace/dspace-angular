@@ -7,8 +7,8 @@ import { find, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
-} from '../../admin-access-control/epeople-registry/epeople-registry.actions';
-import { EPeopleRegistryState } from '../../admin-access-control/epeople-registry/epeople-registry.reducers';
+} from '../../access-control/epeople-registry/epeople-registry.actions';
+import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { hasValue, hasNoValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

@@ -3,11 +3,11 @@ import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store'
 import {
   ePeopleRegistryReducer,
   EPeopleRegistryState
-} from './admin-access-control/epeople-registry/epeople-registry.reducers';
+} from './access-control/epeople-registry/epeople-registry.reducers';
 import {
   groupRegistryReducer,
   GroupRegistryState
-} from './admin-access-control/group-registry/group-registry.reducers';
+} from './access-control/group-registry/group-registry.reducers';
 import {
   metadataRegistryReducer,
   MetadataRegistryState
