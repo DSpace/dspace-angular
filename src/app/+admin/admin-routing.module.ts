@@ -18,7 +18,7 @@ import { ACCESS_CONTROL_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-rout
       },
       {
         path: ACCESS_CONTROL_MODULE_PATH,
-        loadChildren: () => import('./admin-access-control/admin-access-control.module')
+        loadChildren: () => import('../admin-access-control/admin-access-control.module')
           .then((m) => m.AdminAccessControlModule),
       },
       {

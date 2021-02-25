@@ -4,18 +4,18 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { Group } from '../../../../../core/eperson/models/group.model';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { Group } from '../../../../core/eperson/models/group.model';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData
-} from '../../../../../core/shared/operators';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../../../../../core/shared/NoContent.model';
+} from '../../../../core/shared/operators';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { NoContent } from '../../../../core/shared/NoContent.model';
 
 /**
  * Keys to keep track of specific subscriptions

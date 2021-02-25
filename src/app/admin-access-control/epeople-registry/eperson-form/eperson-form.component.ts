@@ -9,28 +9,28 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { Group } from '../../../core/eperson/models/group.model';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData
-} from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
+} from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RequestService } from '../../../../core/data/request.service';
-import { NoContent } from '../../../../core/shared/NoContent.model';
+import { RequestService } from '../../../core/data/request.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-eperson-form',

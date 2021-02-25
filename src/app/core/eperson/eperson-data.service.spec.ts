@@ -10,7 +10,7 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
-} from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
+} from '../../admin-access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';

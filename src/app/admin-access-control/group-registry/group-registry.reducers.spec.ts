@@ -1,4 +1,4 @@
-import { GroupMock } from '../../../shared/testing/group-mock';
+import { GroupMock } from '../../shared/testing/group-mock';
 import { GroupRegistryCancelGroupAction, GroupRegistryEditGroupAction } from './group-registry.actions';
 import { groupRegistryReducer, GroupRegistryState } from './group-registry.reducers';
 
