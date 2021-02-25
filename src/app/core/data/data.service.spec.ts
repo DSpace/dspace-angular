@@ -315,7 +315,7 @@ describe('DataService', () => {
       const relatedItemId = 'ab3c013a-5a4b-438b-9181-bc1a5b4a1c8a';
       service.postOnRelated(itemId, relatedItemId);
 
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
     });
   });
 
@@ -324,7 +324,7 @@ describe('DataService', () => {
       const itemId = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
       service.deleteOnRelated(itemId);
 
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(DeleteByIDRequest));
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(DeleteByIDRequest));
     });
   });
 });

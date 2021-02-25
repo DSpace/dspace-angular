@@ -66,7 +66,7 @@ describe('OpenaireBrokerEventRestService', () => {
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true,
+      send: true,
       removeByHrefSubstring: {},
       getByHref: jasmine.createSpy('getByHref'),
       getByUUID: jasmine.createSpy('getByUUID')
@@ -135,7 +135,7 @@ describe('OpenaireBrokerEventRestService', () => {
         ]
       };
       service.getEventsByTopic(topic);
-      expect(serviceASAny.dataService.searchBy).toHaveBeenCalledWith('findByTopic', options, true);
+      expect(serviceASAny.dataService.searchBy).toHaveBeenCalledWith('findByTopic', options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<OpenaireBrokerEventObject>> for the object with the given Topic', () => {
@@ -157,7 +157,7 @@ describe('OpenaireBrokerEventRestService', () => {
     it('should proxy the call to dataservice.findById', () => {
       service.getEvent(openaireBrokerEventObjectMissingPid.id).subscribe(
         (res) => {
-          expect(serviceASAny.dataService.findById).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid.id, true);
+          expect(serviceASAny.dataService.findById).toHaveBeenCalledWith(openaireBrokerEventObjectMissingPid.id, true, true);
         }
       );
     });

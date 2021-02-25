@@ -74,7 +74,7 @@ describe('ConfigService', () => {
       scheduler.schedule(() => service.findAll());
       scheduler.flush();
 
-      expect((service as any).dataService.findAll).toHaveBeenCalledWith( {}, true);
+      expect((service as any).dataService.findAll).toHaveBeenCalledWith( {}, true, true);
     });
   });
 
@@ -83,7 +83,7 @@ describe('ConfigService', () => {
       scheduler.schedule(() => service.findByName('testConfig'));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith('testConfig', true);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith('testConfig', true, true);
     });
   });
 });
