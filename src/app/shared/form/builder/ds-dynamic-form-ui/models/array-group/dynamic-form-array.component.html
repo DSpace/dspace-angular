@@ -10,7 +10,9 @@
              role="group"
              [formGroupName]="idx"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
-             cdkDrag cdkDragHandle>
+             cdkDrag
+             cdkDragHandle
+             [cdkDragDisabled]="model.groups.length === 1">
           <!-- Item content -->
           <div *cdkDragPreview>
             <div class="alert alert-info">
