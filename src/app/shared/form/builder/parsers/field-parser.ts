@@ -67,11 +67,11 @@ export abstract class FieldParser {
             model = this.modelFactory();
             arrayCounter++;
           } else {
-            const fieldArrayOfValueLenght = this.getInitValueCount(arrayCounter - 1);
+            const fieldArrayOfValueLength = this.getInitValueCount(arrayCounter - 1);
             let fieldValue = null;
-            if (fieldArrayOfValueLenght > 0) {
+            if (fieldArrayOfValueLength > 0) {
               fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter++);
-              if (fieldArrayCounter === fieldArrayOfValueLenght) {
+              if (fieldArrayCounter === fieldArrayOfValueLength) {
                 fieldArrayCounter = 0;
                 arrayCounter++;
               }
