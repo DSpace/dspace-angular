@@ -35,6 +35,14 @@
                 <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
             </select>
         </div>
+        <div *ngIf="isRelationship && !isVirtual()" class="col-auto text-center">
+            <button class="btn btn-secondary"
+                    type="button"
+                    ngbTooltip="{{'form.lookup-help' | translate}}"
+                    placement="top"
+                    (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
+            </button>
+        </div>
     </div>
     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
     <ng-container *ngIf="value?.isVirtual">

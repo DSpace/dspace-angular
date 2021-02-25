@@ -147,7 +147,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
     this.setItem();
-    this.submissionService.dispatchSave(this.submissionId);
     this.selection$ = this.selectableListService
       .getSelectableList(this.listId)
       .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));

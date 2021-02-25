@@ -10,15 +10,13 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { findIndex } from 'lodash';
 
 import { FormBuilderService } from './builder/form-builder.service';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
-import { DsDynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { RelationshipOptions } from './builder/models/relationship-options.model';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 
 /**
@@ -101,8 +99,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
   constructor(private formService: FormService,
               protected changeDetectorRef: ChangeDetectorRef,
-              private formBuilderService: FormBuilderService,
-              private modalService: NgbModal) {
+              private formBuilderService: FormBuilderService) {
   }
 
   /**
@@ -169,7 +166,6 @@ export class FormComponent implements OnDestroy, OnInit {
         filter((formState: FormEntry) => !!formState && (isNotEmpty(formState.errors) || isNotEmpty(this.formErrors))),
         map((formState) => formState.errors),
         distinctUntilChanged())
-      // .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
           const { formGroup, formModel } = this;
           errors
@@ -318,42 +314,6 @@ export class FormComponent implements OnDestroy, OnInit {
     const context = arrayContext.groups[index];
     const value: FormFieldMetadataValueObject = (context.group[0] as any).metadataValue;
     return isNotEmpty(value) && value.isVirtual;
-  }
-
-  hasRelationship(arrayContext: DynamicFormArrayModel, index: number) {
-    const context = arrayContext.groups[index];
-    const model = context.group[0] as any;
-    return isNotEmpty(model) && model.hasOwnProperty('relationship') && isNotEmpty(model.relationship);
-  }
-
-  /**
-   * Open a modal where the user can select relationships to be added to item being submitted
-   */
-  openLookup(arrayContext: DynamicFormArrayModel, index: number) {
-    const context = arrayContext.groups[index];
-    const model = context.group[0] as any;
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
-      size: 'lg'
-    });
-    const modalComp = this.modalRef.componentInstance;
-
-    if (hasValue(model.value) && !model.readOnly) {
-      if (typeof model.value === 'string') {
-        modalComp.query = model.value;
-      } else if (typeof model.value.value === 'string') {
-        modalComp.query = model.value.value;
-      }
-    }
-
-    const config = model.relationshipConfig || model.relationship;
-    const relationshipOptions = Object.assign(new RelationshipOptions(), config);
-
-    modalComp.repeatable = model.repeatable;
-    modalComp.listId = `list-${model.submissionId}-${relationshipOptions.relationshipType}`;
-    modalComp.relationshipOptions = model.relationship;
-    modalComp.label = model.relationship.relationshipType;
-    modalComp.metadataFields = model.metadataFields;
-    modalComp.submissionId = model.submissionId;
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
