@@ -101,7 +101,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       searchParams: [new RequestParam('query', query)]
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -131,7 +131,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       ]
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -184,7 +184,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       searchParams: searchParams
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -296,4 +296,5 @@ export class CollectionDataService extends ComColDataService<Collection> {
   findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
     return this.findByHref(item._links.owningCollection.href);
   }
+
 }

@@ -86,15 +86,15 @@ export class AuditDataService {
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('object', objectId)]
     });
-    return this.dataService.searchBy(searchMethod, optionsWithObject, true, followLink('eperson'));
+    return this.dataService.searchBy(searchMethod, optionsWithObject, true, true, followLink('eperson'));
   }
 
   findById(id: string, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<Audit>> {
-    return this.dataService.findById(id, true, ...linksToFollow);
+    return this.dataService.findById(id, true, true, ...linksToFollow);
   }
 
   findAll(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<PaginatedList<Audit>>> {
-    return this.dataService.findAll(options, true, ...linksToFollow);
+    return this.dataService.findAll(options, true, true, ...linksToFollow);
   }
 
   /**

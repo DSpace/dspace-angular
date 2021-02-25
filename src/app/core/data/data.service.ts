@@ -567,7 +567,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
       if (hasValue(this.responseMsToLive)) {
         request.responseMsToLive = this.responseMsToLive;
       }
-      this.requestService.configure(request);
+      this.requestService.send(request);
     });
 
     return this.rdbService.buildFromRequestUUID<T>(requestId);
@@ -589,7 +589,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
         }
-        this.requestService.configure(request);
+        this.requestService.send(request);
       })
     ).subscribe();
 

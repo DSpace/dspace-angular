@@ -121,7 +121,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
   }
 
   private getItemUUIDFromSubmissionObject(): Observable<string> {
-    return this.submissionObjectService.findById(this.submissionObjectID, true, followLink('item')).pipe(
+    return this.submissionObjectService.findById(this.submissionObjectID, true, true, followLink('item')).pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>)
         .pipe(

@@ -83,6 +83,7 @@ class VocabularyEntryDetailDataServiceImpl extends DataService<VocabularyEntryDe
 @Injectable()
 @dataService(VOCABULARY)
 export class VocabularyService {
+  protected searchByMetadataAndCollectionMethod = 'byMetadataAndCollection';
   protected searchTopMethod = 'top';
   private vocabularyDataService: VocabularyDataServiceImpl;
   private vocabularyEntryDetailDataService: VocabularyEntryDetailDataServiceImpl;
@@ -280,7 +281,7 @@ export class VocabularyService {
   searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(vocabularyOptions.scope, vocabularyOptions.metadata);
 
-    return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
+    return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options, ).pipe(
       first((href: string) => hasValue(href)),
       mergeMap((href: string) => this.vocabularyDataService.findByHref(href))
     );

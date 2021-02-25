@@ -9,7 +9,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { FindListOptions } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
@@ -19,6 +19,7 @@ import { PaginatedList } from './paginated-list.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { sendRequest } from '../shared/operators';
 
 /**
  * A service handling all external source requests
@@ -108,7 +109,7 @@ export class ExternalSourceService extends DataService<ExternalSource> {
 
     href$.pipe(
       map((endpoint: string) => new GetRequest(requestUuid, endpoint)),
-      configureRequest(this.requestService)
+      sendRequest(this.requestService)
     ).subscribe();
 
     return this.rdbService.buildSingle(href$);

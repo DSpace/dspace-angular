@@ -217,7 +217,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, false, followLink('parentCommunity'));
+      .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
         getFirstSucceededRemoteWithNotEmptyData(),

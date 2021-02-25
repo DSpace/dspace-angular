@@ -208,7 +208,7 @@ export class ItemDataService extends DataService<Item> {
       take(1)
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
+      this.requestService.send(request);
     });
 
     return this.rdbService.buildList<Metric>(hrefObs);

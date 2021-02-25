@@ -196,6 +196,7 @@ import { OpenaireBrokerEventObject } from './openaire/broker/models/openaire-bro
 import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { OpenaireSuggestion } from './openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/openaire-suggestion-source.model';
+import { RootDataService } from './data/root-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

@@ -68,11 +68,11 @@ export abstract class ConfigService {
   }
 
   findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<PaginatedList<ConfigObject>>> {
-    return this.dataService.findAll(options, reRequestOnStale, ...linksToFollow);
+    return this.dataService.findAll(options, true, reRequestOnStale, ...linksToFollow);
   }
 
   findByName(name: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<ConfigObject>> {
-    return this.dataService.findById(name, reRequestOnStale, ...linksToFollow);
+    return this.dataService.findById(name, true, reRequestOnStale, ...linksToFollow);
   }
 
 }

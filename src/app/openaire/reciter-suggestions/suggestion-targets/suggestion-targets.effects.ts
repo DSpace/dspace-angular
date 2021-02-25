@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   AddTargetAction,
@@ -20,7 +20,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { of } from 'rxjs/internal/observable/of';
 
 /**
  * Provides effect methods for the Suggestion Targets actions.
@@ -46,7 +45,7 @@ export class SuggestionTargetsEffects {
           if (error) {
             console.error(error.message);
           }
-          return observableOf(new RetrieveAllTargetsErrorAction());
+          return of(new RetrieveAllTargetsErrorAction());
         })
       );
     })
