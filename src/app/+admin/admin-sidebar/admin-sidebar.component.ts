@@ -76,10 +76,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     this.createMenu();
-    this.createSiteAdministratorMenuSections();
-    this.createExportMenuSections();
-    this.createImportMenuSections();
-    this.createAccessControlMenuSections();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
@@ -103,6 +99,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Initialize all menu sections and items for this menu
    */
   createMenu() {
+    this.createMainMenuSections();
+    this.createSiteAdministratorMenuSections();
+    this.createExportMenuSections();
+    this.createImportMenuSections();
+    this.createAccessControlMenuSections();
+  }
+
+  /**
+   * Initialize the main menu sections.
+   * edit_community / edit_collection is only included if the current user is a Community or Collection admin
+   */
+  createMainMenuSections() {
     combineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
