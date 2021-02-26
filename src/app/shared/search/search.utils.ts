@@ -9,14 +9,28 @@ import { isNotEmpty } from '../empty.util';
  * @param searchFilterConfig
  */
 export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  const regex = new RegExp(`[?|&]${escapeRegExp(searchFilterConfig.paramName)}=(${escapeRegExp(facetValue.value)}[^&]*)`, 'g');
-  if (isNotEmpty(facetValue._links)) {
-    const values = regex.exec(facetValue._links.search.href);
+  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.value);
+}
+
+/**
+ * Get a facet's value by matching the label with its parameter in the search href, this will include the operator of the facet value
+ * If the {@link FacetValue} doesn't contain a search link, its raw label will be returned as a fallback
+ * @param facetValue
+ * @param searchFilterConfig
+ */
+export function getFacetValueForTypeAndLabel(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
+  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.label);
+}
+
+function _createValue(paramName: string, facetValueLinks, value) {
+  const regex = new RegExp(`[?|&]${escapeRegExp(paramName)}=(${escapeRegExp(value)}[^&]*)`, 'g');
+  if (isNotEmpty(facetValueLinks)) {
+    const values = regex.exec(facetValueLinks.search.href);
     if (isNotEmpty(values)) {
       return values[1];
     }
   }
-  return addOperatorToFilterValue(facetValue.value, 'equals');
+  return addOperatorToFilterValue(value, 'equals');
 }
 
 /**

@@ -135,12 +135,12 @@ describe('FacetSectionComponent', () => {
 
     const firstAuthor = authorFacet.children[1];
     expect(firstAuthor.name).toEqual('div');
-    expect(firstAuthor.query(By.css('a')).nativeElement.href).toContain('search?configuration=publication&page=1&f.author=First%20Author');
+    expect(firstAuthor.query(By.css('a')).nativeElement.href).toContain('search?configuration=publication&page=1&f.author=First%20Author,equals');
     expect(firstAuthor.query(By.css('span.badge.badge-secondary')).nativeElement.textContent).toEqual('20');
 
     const secondAuthor = authorFacet.children[2];
     expect(secondAuthor.name).toEqual('div');
-    expect(secondAuthor.query(By.css('a')).nativeElement.href).toContain('search?configuration=publication&page=1&f.author=Second%20Author');
+    expect(secondAuthor.query(By.css('a')).nativeElement.href).toContain('search?configuration=publication&page=1&f.author=Second%20Author,equals');
     expect(secondAuthor.query(By.css('span.badge.badge-secondary')).nativeElement.textContent).toEqual('15');
 
     const dateIssuedFacet = facets[1];

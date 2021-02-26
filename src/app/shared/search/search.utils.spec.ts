@@ -3,7 +3,7 @@ import { SearchFilterConfig } from './search-filter-config.model';
 import {
   addOperatorToFilterValue,
   escapeRegExp,
-  getFacetValueForType,
+  getFacetValueForType, getFacetValueForTypeAndLabel,
   stripOperatorFromFilterValue
 } from './search.utils';
 
@@ -36,6 +36,37 @@ describe('Search Utils', () => {
 
     it('should return the facet value with an equals operator by default', () => {
       expect(getFacetValueForType(facetValueWithoutSearchHref, searchFilterConfig)).toEqual('Value without search href,equals');
+    });
+  });
+
+  describe('getFacetValueForTypeAndLabel', () => {
+    let facetValueWithSearchHref: FacetValue;
+    let facetValueWithoutSearchHref: FacetValue;
+    let searchFilterConfig: SearchFilterConfig;
+
+    beforeEach(() => {
+      facetValueWithSearchHref = Object.assign(new FacetValue(), {
+        label: 'Facet Label',
+        _links: {
+          search: {
+            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Facet Label with search href,operator'
+          }
+        }
+      });
+      facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
+        label: 'Facet Label',
+      });
+      searchFilterConfig = Object.assign(new SearchFilterConfig(), {
+        name: 'facetName'
+      });
+    });
+
+    it('should retrieve the correct value from the search href', () => {
+      expect(getFacetValueForTypeAndLabel(facetValueWithSearchHref, searchFilterConfig)).toEqual('Facet Label with search href,operator');
+    });
+
+    it('should return the facet value with an equals operator by default', () => {
+      expect(getFacetValueForTypeAndLabel(facetValueWithoutSearchHref, searchFilterConfig)).toEqual('Facet Label,equals');
     });
   });
 
