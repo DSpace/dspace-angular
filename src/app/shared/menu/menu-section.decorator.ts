@@ -26,6 +26,6 @@ export function rendersSectionForMenu(menuID: MenuID, expandable: boolean) {
  * @param {boolean} expandable True when the section should be expandable, false when if should not
  * @returns {GenericConstructor} The constructor of the matching Component
  */
-export function getComponentForMenu(menuID: MenuID, expandable: boolean) {
+export function getComponentForMenu(menuID: MenuID, expandable: boolean, sectionID: string) {
   return menuComponentMap.get(menuID).get(expandable);
 }
