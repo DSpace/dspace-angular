@@ -10,7 +10,7 @@ import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/res
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { CommunityPageAdministratorGuard } from '../community-page-administrator.guard';
+import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
 
 /**
  * Routing module that handles the routing for the Edit Community page administrator functionality
@@ -25,7 +25,7 @@ import { CommunityPageAdministratorGuard } from '../community-page-administrator
         },
         data: { breadcrumbKey: 'community.edit' },
         component: EditCommunityPageComponent,
-        canActivate: [CommunityPageAdministratorGuard],
+        canActivate: [CommunityAdministratorGuard],
         children: [
           {
             path: '',
