@@ -75,7 +75,7 @@ describe('GroupFormComponent', () => {
         return observableOf(this.activeGroup);
       },
       getGroupRegistryRouterLink(): string {
-        return '/admin/access-control/groups';
+        return '/access-control/groups';
       },
       editGroup(group: Group) {
         this.activeGroup = group;

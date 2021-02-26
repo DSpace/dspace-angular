@@ -316,7 +316,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         map((group: Group) => group.id)
       ).subscribe((groupUUID) => {
-        this.router.navigate([ADMIN_MODULE_PATH, ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID]);
+        this.router.navigate([ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID]);
       })
     );
   }

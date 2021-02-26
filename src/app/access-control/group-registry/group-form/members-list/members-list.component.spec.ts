@@ -66,7 +66,7 @@ describe('MembersListComponent', () => {
         // empty
       },
       getEPeoplePageRouterLink(): string {
-        return '/admin/access-control/epeople';
+        return '/access-control/epeople';
       }
     };
     groupsDataServiceStub = {
@@ -97,7 +97,7 @@ describe('MembersListComponent', () => {
         // empty
       },
       getGroupEditPageRouterLink(group: Group): string {
-        return '/admin/access-control/groups/' + group.id;
+        return '/access-control/groups/' + group.id;
       },
       deleteMemberFromGroup(parentGroup, epersonToDelete: EPerson): Observable<RestResponse> {
         this.epersonMembers = this.epersonMembers.find((eperson: EPerson) => {

@@ -107,7 +107,7 @@ describe('EPeopleRegistryComponent', () => {
         // empty
       },
       getEPeoplePageRouterLink(): string {
-        return '/admin/access-control/epeople';
+        return '/access-control/epeople';
       }
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {

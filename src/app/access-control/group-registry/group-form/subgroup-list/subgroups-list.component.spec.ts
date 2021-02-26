@@ -70,7 +70,7 @@ describe('SubgroupsListComponent', () => {
         );
       },
       getGroupEditPageRouterLink(group: Group): string {
-        return '/admin/access-control/groups/' + group.id;
+        return '/access-control/groups/' + group.id;
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {

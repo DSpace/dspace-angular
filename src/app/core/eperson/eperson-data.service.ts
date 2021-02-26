@@ -269,7 +269,7 @@ export class EPersonDataService extends DataService<EPerson> {
         this.editEPerson(ePerson);
       }
     });
-    return '/admin/access-control/epeople';
+    return '/access-control/epeople';
   }
 
   /**
@@ -277,7 +277,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param ePerson New EPerson to edit
    */
   public getEPeoplePageRouterLink(): string {
-    return '/admin/access-control/epeople';
+    return '/access-control/epeople';
   }
 
   /**

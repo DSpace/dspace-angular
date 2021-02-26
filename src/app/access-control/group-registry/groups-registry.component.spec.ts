@@ -98,10 +98,10 @@ describe('GroupRegistryComponent', () => {
         }
       },
       getGroupEditPageRouterLink(group: Group): string {
-        return '/admin/access-control/groups/' + group.id;
+        return '/access-control/groups/' + group.id;
       },
       getGroupRegistryRouterLink(): string {
-        return '/admin/access-control/groups';
+        return '/access-control/groups';
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
