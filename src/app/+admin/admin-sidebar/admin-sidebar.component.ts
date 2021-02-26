@@ -541,17 +541,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       const menuList = [
         /* Access Control */
         {
-          id: 'access_control',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.access_control'
-          } as TextMenuItemModel,
-          icon: 'key',
-          index: 4
-        },
-        {
           id: 'access_control_people',
           parentID: 'access_control',
           active: false,
@@ -583,6 +572,17 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.access_control_authorizations',
             link: ''
           } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.access_control'
+          } as TextMenuItemModel,
+          icon: 'key',
+          index: 4
         },
       ];
 
