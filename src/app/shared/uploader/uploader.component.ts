@@ -155,12 +155,13 @@ export class UploaderComponent {
       };
     }
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      // Check for a changed XSRF token in response & save new token if found
+      // Check for a changed XSRF token in response & save new token if found (to both cookie & header for next request)
       // NOTE: this is only necessary because ng2-file-upload doesn't use an Http service and therefore never
       // triggers our xsrf.interceptor.ts. See this bug: https://github.com/valor-software/ng2-file-upload/issues/950
       const token = headers[XSRF_RESPONSE_HEADER.toLowerCase()];
       if (isNotEmpty(token)) {
         this.saveXsrfToken(token);
+        this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
       }
 
       if (isNotEmpty(response)) {
@@ -169,13 +170,15 @@ export class UploaderComponent {
       }
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
-      // Check for a changed XSRF token in response & save new token if found
+      // Check for a changed XSRF token in response & save new token if found (to both cookie & header for next request)
       // NOTE: this is only necessary because ng2-file-upload doesn't use an Http service and therefore never
       // triggers our xsrf.interceptor.ts. See this bug: https://github.com/valor-software/ng2-file-upload/issues/950
       const token = headers[XSRF_RESPONSE_HEADER.toLowerCase()];
       if (isNotEmpty(token)) {
         this.saveXsrfToken(token);
+        this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
       }
+
       this.onUploadError.emit({ item: item, response: response, status: status, headers: headers });
       this.uploader.cancelAll();
     };
