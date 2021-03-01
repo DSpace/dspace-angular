@@ -202,15 +202,15 @@ export const environment: Partial<GlobalConfig> = {
       regex: 'collections/aaaa.*'
     },
     {
-      name: 'Item (handle)',
+      name: 'handle-theme',
       handle: '10673/1233'
     },
     {
-      name: 'blue',
+      name: 'regex-theme',
       regex: 'collections\/e8043bc2.*'
     },
     {
-      name: 'Publications community (uuid)',
+      name: 'uuid-theme',
       uuid: '0958c910-2037-42a9-81c7-dca80e3892b4'
     },
     {
