@@ -37,12 +37,47 @@ import { AppModule } from '../../app/app.module';
 import { PublicationComponent } from './app/+item-page/simple/item-types/publication/publication.component';
 import { ItemPageModule } from '../../app/+item-page/item-page.module';
 import { RouterModule } from '@angular/router';
+import { BrowseBySwitcherComponent } from './app/+browse-by/+browse-by-switcher/browse-by-switcher.component';
+import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
+import { CommunityListPageModule } from '../../app/community-list-page/community-list-page.module';
+import { SearchPageComponent } from './app/+search-page/search-page.component';
+import { InfoModule } from '../../app/info/info.module';
+import { EndUserAgreementComponent } from './app/info/end-user-agreement/end-user-agreement.component';
+import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
+import { ObjectNotFoundComponent } from './app/+lookup-by-id/objectnotfound/objectnotfound.component';
+import { ForbiddenComponent } from './app/forbidden/forbidden.component';
+import { PrivacyComponent } from './app/info/privacy/privacy.component';
+import { CollectionStatisticsPageComponent } from './app/statistics-page/collection-statistics-page/collection-statistics-page.component';
+import { CommunityStatisticsPageComponent } from './app/statistics-page/community-statistics-page/community-statistics-page.component';
+import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
+import { ItemStatisticsPageComponent } from './app/statistics-page/item-statistics-page/item-statistics-page.component';
+import { SiteStatisticsPageComponent } from './app/statistics-page/site-statistics-page/site-statistics-page.component';
+import { CommunityPageComponent } from './app/+community-page/community-page.component';
+import { CollectionPageComponent } from './app/+collection-page/collection-page.component';
+import { CommunityPageModule } from '../../app/+community-page/community-page.module';
+import { CollectionPageModule } from '../../app/+collection-page/collection-page.module';
+import { ConfigurationSearchPageComponent } from './app/+search-page/configuration-search-page.component';
 
 const DECLARATIONS = [
   HomePageComponent,
   HomeNewsComponent,
   RootComponent,
-  PublicationComponent
+  PublicationComponent,
+  BrowseBySwitcherComponent,
+  CommunityListPageComponent,
+  SearchPageComponent,
+  ConfigurationSearchPageComponent,
+  EndUserAgreementComponent,
+  PageNotFoundComponent,
+  ObjectNotFoundComponent,
+  ForbiddenComponent,
+  PrivacyComponent,
+  CollectionStatisticsPageComponent,
+  CommunityStatisticsPageComponent,
+  ItemStatisticsPageComponent,
+  SiteStatisticsPageComponent,
+  CommunityPageComponent,
+  CollectionPageComponent
 ];
 
 @NgModule({
@@ -55,8 +90,11 @@ const DECLARATIONS = [
     BitstreamFormatsModule,
     BrowseByModule,
     CollectionFormModule,
+    CollectionPageModule,
     CommonModule,
     CommunityFormModule,
+    CommunityListPageModule,
+    CommunityPageModule,
     CoreModule,
     DragDropModule,
     ItemPageModule,
@@ -65,6 +103,7 @@ const DECLARATIONS = [
     HomePageModule,
     HttpClientModule,
     IdlePreloadModule,
+    InfoModule,
     JournalEntitiesModule,
     MenuModule,
     MyDspaceSearchModule,
@@ -78,6 +117,7 @@ const DECLARATIONS = [
     SearchPageModule,
     SharedModule,
     StatisticsModule,
+    StatisticsPageModule,
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,

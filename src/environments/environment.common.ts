@@ -251,10 +251,10 @@ export const environment: GlobalConfig = {
     //   name: 'custom',
     //   uuid: '0958c910-2037-42a9-81c7-dca80e3892b4'
     // },
-    // {
-    //   // A theme with only a name will match every route
-    //   name: 'custom'
-    // },
+    {
+      // A theme with only a name will match every route
+      name: 'custom'
+    },
 
     {
       // This theme will use the default bootstrap styling for DSpace components

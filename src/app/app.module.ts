@@ -46,6 +46,8 @@ import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { RootComponent } from './root/root.component';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { ThemedEntryComponentModule } from '../themes/themed-entry-component.module';
+import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -133,11 +135,13 @@ const DECLARATIONS = [
   ExpandableAdminSidebarSectionComponent,
   FooterComponent,
   PageNotFoundComponent,
+  ThemedPageNotFoundComponent,
   NotificationComponent,
   NotificationsBoardComponent,
   SearchNavbarComponent,
   BreadcrumbsComponent,
   ForbiddenComponent,
+  ThemedForbiddenComponent,
 ];
 
 const EXPORTS = [
