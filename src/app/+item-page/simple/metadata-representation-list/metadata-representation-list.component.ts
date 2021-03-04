@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  zip as observableZip
+} from 'rxjs';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
@@ -82,7 +87,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
           if (metadatum.isVirtual) {
-            return this.relationshipService.findById(metadatum.virtualValue, false, followLink('leftItem'), followLink('rightItem')).pipe(
+            return this.relationshipService.findById(metadatum.virtualValue, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
               getFirstSucceededRemoteData(),
               switchMap((relRD: RemoteData<Relationship>) =>
                 observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(

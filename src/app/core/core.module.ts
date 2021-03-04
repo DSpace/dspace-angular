@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -28,7 +32,6 @@ import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
 import { AuthRequestService } from './auth/auth-request.service';
-import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { BrowseService } from './browse/browse.service';
@@ -51,14 +54,12 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { ItemTypeDataService } from './data/entity-type-data.service';
 import { EntityTypeService } from './data/entity-type.service';
 import { ExternalSourceService } from './data/external-source.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 import { ItemDataService } from './data/item-data.service';
-import { LicenseDataService } from './data/license-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
@@ -130,7 +131,6 @@ import { ProcessDataService } from './data/processes/process-data.service';
 import { ScriptDataService } from './data/processes/script-data.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
-import { LocaleInterceptor } from './locale/locale.interceptor';
 import { ItemTemplateDataService } from './data/item-template-data.service';
 import { TemplateItem } from './shared/template-item.model';
 import { Feature } from './shared/feature.model';
@@ -160,6 +160,7 @@ import { EndUserAgreementService } from './end-user-agreement/end-user-agreement
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 
 /**
@@ -263,8 +264,6 @@ const PROVIDERS = [
   LookupRelationService,
   VersionDataService,
   VersionHistoryDataService,
-  LicenseDataService,
-  ItemTypeDataService,
   WorkflowActionDataService,
   ProcessDataService,
   ScriptDataService,
@@ -279,18 +278,7 @@ const PROVIDERS = [
   EndUserAgreementCurrentUserGuard,
   EndUserAgreementCookieGuard,
   EndUserAgreementService,
-  // register AuthInterceptor as HttpInterceptor
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  },
-  // register LocaleInterceptor as HttpInterceptor
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: LocaleInterceptor,
-    multi: true
-  },
+  RootDataService,
   NotificationsService,
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
@@ -353,6 +341,7 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    Root,
   ];
 
 @NgModule({

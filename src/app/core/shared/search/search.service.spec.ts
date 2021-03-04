@@ -174,7 +174,7 @@ describe('SearchService', () => {
       });
 
       it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.configure).toHaveBeenCalled();
+        expect((searchService as any).requestService.send).toHaveBeenCalled();
       });
 
       it('should call getByHref on the request service with the correct request url', () => {
@@ -198,11 +198,11 @@ describe('SearchService', () => {
       });
 
       it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.configure).toHaveBeenCalled();
+        expect((searchService as any).requestService.send).toHaveBeenCalled();
       });
 
-      it('should call configure containing a request with the correct request url', () => {
-        expect((searchService as any).requestService.configure).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }));
+      it('should call send containing a request with the correct request url', () => {
+        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
       });
     });
 
@@ -223,11 +223,11 @@ describe('SearchService', () => {
       });
 
       it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.configure).toHaveBeenCalled();
+        expect((searchService as any).requestService.send).toHaveBeenCalled();
       });
 
-      it('should call configure containing a request with the correct request url', () => {
-        expect((searchService as any).requestService.configure).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }));
+      it('should call send containing a request with the correct request url', () => {
+        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
       });
     });
   });

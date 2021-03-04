@@ -23,7 +23,6 @@ export interface GlobalConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   universal: UniversalConfig;
-  gaTrackingId: string;
   logDirectory: string;
   debug: boolean;
   defaultLanguage: string;

@@ -71,7 +71,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
       distinctUntilChanged(),
       map((endpointURL: string) => new TaskPostRequest(requestId, endpointURL, body, options)),
-      tap((request: PostRequest) => this.requestService.configure(request)),
+      tap((request: PostRequest) => this.requestService.send(request)),
       mergeMap((request: PostRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
@@ -95,7 +95,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       distinctUntilChanged(),
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
       map((endpointURL: string) => new TaskDeleteRequest(requestId, endpointURL, null, options)),
-      tap((request: DeleteRequest) => this.requestService.configure(request)),
+      tap((request: DeleteRequest) => this.requestService.send(request)),
       mergeMap((request: DeleteRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }

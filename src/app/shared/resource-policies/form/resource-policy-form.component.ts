@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { Observable, of as observableOf, race as observableRace, Subscription } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+  combineLatest as observableCombineLatest,
+  Subscription,
+  BehaviorSubject
+} from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import {
   DynamicDatePickerModel,
@@ -26,7 +32,7 @@ import {
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../empty.util';
 import { FormService } from '../../form/form.service';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -90,7 +96,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   public formModel: DynamicFormControlModel[];
 
   /**
-   * The eperson or group that will be grant of the permission
+   * The eperson or group that will be granted the permission
    * @type {DSpaceObject}
    */
   public resourcePolicyGrant: DSpaceObject;
@@ -100,6 +106,12 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * @type {string}
    */
   public resourcePolicyGrantType: string;
+
+  /**
+   * The name of the eperson or group that will be granted the permission
+   * @type {BehaviorSubject<string>}
+   */
+  public resourcePolicyTargetName$: BehaviorSubject<string> = new BehaviorSubject('');
 
   /**
    * A boolean representing if component is active
@@ -140,20 +152,24 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formModel = this.buildResourcePolicyForm();
 
     if (!this.canSetGrant()) {
-      this.requestService.removeByHrefSubstring(this.resourcePolicy._links.eperson.href);
-      this.requestService.removeByHrefSubstring(this.resourcePolicy._links.group.href);
-      const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href).pipe(
+      const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
         getFirstSucceededRemoteData()
       );
-      const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href).pipe(
+      const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
         getFirstSucceededRemoteData()
       );
-      const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableRace(epersonRD$, groupRD$);
+      const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
+        map((rdArr: RemoteData<DSpaceObject>[]) => {
+          return rdArr.find((rd: RemoteData<DSpaceObject>) => isNotEmpty(rd.payload));
+        }),
+        hasValueOperator(),
+      );
       this.subs.push(
         dsoRD$.pipe(
           filter(() => this.isActive),
         ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
           this.resourcePolicyGrant = dsoRD.payload;
+          this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
         })
       );
     }
@@ -244,7 +260,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Return the name of the eperson or group that will be grant of the permission
+   * Return the name of the eperson or group that will be granted the permission
    *
    * @return the object name
    */
@@ -253,7 +269,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Update reference to the eperson or group that will be grant of the permission
+   * Update reference to the eperson or group that will be granted the permission
    */
   updateObjectSelected(object: DSpaceObject, isEPerson: boolean): void {
     this.resourcePolicyGrant = object;

@@ -81,7 +81,7 @@ describe('BundleDataService', () => {
     });
 
     it('should call findAllByHref with the item\'s bundles link', () => {
-      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined, true);
+      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
     });
   });
 

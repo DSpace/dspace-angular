@@ -29,6 +29,7 @@ import { stringToNgbDateStruct } from '../../date.util';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { EPersonMock } from '../../testing/eperson.mock';
+import { isNotEmptyOperator } from '../../empty.util';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -307,14 +308,15 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
     });
 
-    it('should init resourcePolicyGrant properly', () => {
+    it('should init resourcePolicyGrant properly', (done) => {
       compAsAny.isActive = true;
-
-      scheduler = getTestScheduler();
-      scheduler.schedule(() => comp.ngOnInit());
-      scheduler.flush();
-
-      expect(compAsAny.resourcePolicyGrant).toEqual(GroupMock);
+      comp.ngOnInit();
+      comp.resourcePolicyTargetName$.pipe(
+        isNotEmptyOperator()
+      ).subscribe(() => {
+        expect(compAsAny.resourcePolicyGrant).toEqual(GroupMock);
+        done();
+      });
     });
 
     it('should not can set grant', () => {

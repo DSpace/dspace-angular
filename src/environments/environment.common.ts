@@ -132,8 +132,6 @@ export const environment: GlobalConfig = {
     async: true,
     time: false
   },
-  // Google Analytics tracking id
-  gaTrackingId: '',
   // Log directory
   logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
@@ -173,6 +171,10 @@ export const environment: GlobalConfig = {
   },{
     code: 'fi',
     label: 'Suomi',
+    active: true,
+  },{
+    code: 'hu',
+    label: 'magyar',
     active: true,
   }],
   // Browse-By Pages

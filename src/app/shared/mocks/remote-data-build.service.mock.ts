@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -54,8 +54,8 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       }
-      href$.pipe(
-        map((href: string) => {
+      return href$.pipe(
+        switchMap((href: string) => {
           if (hasValue(buildListHrefMap$[href])) {
             return buildListHrefMap$[href];
           } else {

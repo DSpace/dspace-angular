@@ -158,7 +158,6 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created field using the EventEmitter submitForm
    */
   onSubmit() {
-    this.registryService.clearMetadataFieldRequests().subscribe();
     this.registryService.getActiveMetadataField().pipe(take(1)).subscribe(
       (field) => {
         const values = {

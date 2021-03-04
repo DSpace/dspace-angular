@@ -19,7 +19,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
 /**
@@ -46,17 +46,20 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
 
   /**
    * Find metadata fields belonging to a metadata schema
-   * @param schema            The metadata schema to list fields for
-   * @param options           The options info used to retrieve the fields
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param schema                      The metadata schema to list fields for
+   * @param options                     The options info used to retrieve the fields
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]) {
+  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]) {
     const optionsWithSchema = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('schema', schema.prefix)]
     });
-    return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, reRequestOnStale, ...linksToFollow);
+    return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -71,10 +74,11 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * schema.element if no qualifier exists (e.g. "dc.title", "dc.contributor.author"). It will only return one value
    * if there's an exact match
    * @param options   The options info used to retrieve the fields
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's no valid cached version. Defaults to true
    * @param reRequestOnStale  Whether or not the request should automatically be re-requested after the response becomes stale
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     const optionParams = Object.assign(new FindListOptions(), options, {
       searchParams: [
         new RequestParam('schema', hasValue(schema) ? schema : ''),
@@ -84,7 +88,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
         new RequestParam('exactName', hasValue(exactName) ? exactName : '')
       ]
     });
-    return this.searchBy(this.searchByFieldNameLinkPath, optionParams, reRequestOnStale, ...linksToFollow);
+    return this.searchBy(this.searchByFieldNameLinkPath, optionParams, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -101,12 +105,11 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * Clear all metadata field requests
    * Used for refreshing lists after adding/updating/removing a metadata field from a metadata schema
    */
-  clearRequests(): Observable<string> {
-    return this.getBrowseEndpoint().pipe(
-      tap((href: string) => {
-        this.requestService.removeByHrefSubstring(href);
-      })
-    );
+  clearRequests(): void {
+    this.getBrowseEndpoint().pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+    });
+
   }
 
 }

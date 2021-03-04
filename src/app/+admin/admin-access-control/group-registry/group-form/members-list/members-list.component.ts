@@ -2,9 +2,15 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, take } from 'rxjs/operators';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+  BehaviorSubject,
+  combineLatest as observableCombineLatest, ObservedValueOf,
+} from 'rxjs';
+import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import {buildPaginatedList, PaginatedList} from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -13,11 +19,20 @@ import { Group } from '../../../../../core/eperson/models/group.model';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData, getAllCompletedRemoteData
 } from '../../../../../core/shared/operators';
-import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import {EpersonDtoModel} from '../../../../../core/eperson/models/eperson-dto.model';
+
+/**
+ * Keys to keep track of specific subscriptions
+ */
+enum SubKey {
+  ActiveGroup,
+  MembersDTO,
+  SearchResultsDTO,
+}
 
 @Component({
   selector: 'ds-members-list',
@@ -34,11 +49,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
   /**
    * EPeople being displayed in search result, initially all members, after search result of search
    */
-  ePeopleSearch: Observable<RemoteData<PaginatedList<EPerson>>>;
+  ePeopleSearchDtos: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>(undefined);
   /**
    * List of EPeople members of currently active group being edited
    */
-  ePeopleMembersOfGroup: Observable<RemoteData<PaginatedList<EPerson>>>;
+  ePeopleMembersOfGroupDtos: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>(undefined);
 
   /**
    * Pagination config used to display the list of EPeople that are result of EPeople search
@@ -58,9 +73,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * List of subscriptions
+   * Map of active subscriptions
    */
-  subs: Subscription[] = [];
+  subs: Map<SubKey, Subscription> = new Map();
 
   // The search form
   searchForm;
@@ -90,10 +105,10 @@ export class MembersListComponent implements OnInit, OnDestroy {
       scope: 'metadata',
       query: '',
     }));
-    this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+    this.subs.set(SubKey.ActiveGroup, this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
-        this.forceUpdateEPeople(activeGroup);
+        this.retrieveMembers(this.config.currentPage);
       }
     }));
   }
@@ -112,42 +127,47 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param event
    */
   onPageChange(event) {
-    this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
-      currentPage: event,
+    this.retrieveMembers(event);
+  }
+
+  /**
+   * Retrieve the EPersons that are members of the group
+   *
+   * @param page the number of the page to retrieve
+   * @private
+   */
+  private retrieveMembers(page: number) {
+    this.unsubFrom(SubKey.MembersDTO);
+    this.subs.set(SubKey.MembersDTO, this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
+      currentPage: page,
       elementsPerPage: this.config.pageSize
-    });
-  }
-
-  /**
-   * Deletes a given EPerson from the members list of the group currently being edited
-   * @param ePerson   EPerson we want to delete as member from group that is currently being edited
-   */
-  deleteMemberFromGroup(ePerson: EPerson) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
-      if (activeGroup != null) {
-        const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson);
-        this.showNotifications('deleteMember', response, ePerson.name, activeGroup);
-        this.forceUpdateEPeople(activeGroup);
-      } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
-      }
-    });
-  }
-
-  /**
-   * Adds a given EPerson to the members list of the group currently being edited
-   * @param ePerson   EPerson we want to add as member to group that is currently being edited
-   */
-  addMemberToGroup(ePerson: EPerson) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
-      if (activeGroup != null) {
-        const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson);
-        this.showNotifications('addMember', response, ePerson.name, activeGroup);
-      } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
-      }
-    });
-    this.forceUpdateEPeople(this.groupBeingEdited, ePerson);
+    }).pipe(
+      getAllCompletedRemoteData(),
+      map((rd: RemoteData<any>) => {
+        if (rd.hasFailed) {
+          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', {cause: rd.errorMessage}));
+        } else {
+          return rd;
+        }
+      }),
+      switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
+        const dtos$ = observableCombineLatest(...epersonListRD.payload.page.map((member: EPerson) => {
+          const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
+            this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
+              const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
+              epersonDtoModel.eperson = member;
+              epersonDtoModel.memberOfGroup = isMember;
+              return epersonDtoModel;
+            });
+          return dto$;
+        }));
+        return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+          return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
+        }));
+      }))
+      .subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
+        this.ePeopleMembersOfGroupDtos.next(paginatedListOfDTOs);
+      }));
   }
 
   /**
@@ -159,9 +179,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
       mergeMap((group: Group) => {
         if (group != null) {
           return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
-            currentPage: 0,
-            elementsPerPage: Number.MAX_SAFE_INTEGER
-          })
+            currentPage: 1,
+            elementsPerPage: 9999
+          }, false)
             .pipe(
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
@@ -171,6 +191,52 @@ export class MembersListComponent implements OnInit, OnDestroy {
           return observableOf(false);
         }
       }));
+  }
+
+  /**
+   * Unsubscribe from a subscription if it's still subscribed, and remove it from the map of
+   * active subscriptions
+   *
+   * @param key The key of the subscription to unsubscribe from
+   * @private
+   */
+  private unsubFrom(key: SubKey) {
+    if (this.subs.has(key)) {
+      this.subs.get(key).unsubscribe();
+      this.subs.delete(key);
+    }
+  }
+
+  /**
+   * Deletes a given EPerson from the members list of the group currently being edited
+   * @param ePerson   EPerson we want to delete as member from group that is currently being edited
+   */
+  deleteMemberFromGroup(ePerson: EpersonDtoModel) {
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson.eperson);
+        this.showNotifications('deleteMember', response, ePerson.eperson.name, activeGroup);
+        this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+      }
+    });
+  }
+
+  /**
+   * Adds a given EPerson to the members list of the group currently being edited
+   * @param ePerson   EPerson we want to add as member to group that is currently being edited
+   */
+  addMemberToGroup(ePerson: EpersonDtoModel) {
+    ePerson.memberOfGroup = true;
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson.eperson);
+        this.showNotifications('addMember', response, ePerson.eperson.name, activeGroup);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+      }
+    });
   }
 
   /**
@@ -191,34 +257,48 @@ export class MembersListComponent implements OnInit, OnDestroy {
       this.configSearch.currentPage = 1;
     }
     this.searchDone = true;
-    this.ePeopleSearch = this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
-      currentPage: this.configSearch.currentPage,
-      elementsPerPage: this.configSearch.pageSize
-    });
-  }
 
-  /**
-   * Force-update the list of EPeople by first clearing the cache related to EPeople, then performing
-   * a new REST call
-   * @param activeGroup   Group currently being edited
-   */
-  public forceUpdateEPeople(activeGroup: Group, ePersonToUpdate?: EPerson) {
-    if (ePersonToUpdate != null) {
-      this.ePersonDataService.clearLinkRequests(ePersonToUpdate._links.groups.href);
-    }
-    this.ePersonDataService.clearLinkRequests(activeGroup._links.epersons.href);
-    this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(activeGroup));
-    this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
-      currentPage: this.configSearch.currentPage,
-      elementsPerPage: this.configSearch.pageSize
-    });
+    this.unsubFrom(SubKey.SearchResultsDTO);
+    this.subs.set(SubKey.SearchResultsDTO,
+      this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+        currentPage: this.configSearch.currentPage,
+        elementsPerPage: this.configSearch.pageSize
+      }, false).pipe(
+        getAllCompletedRemoteData(),
+        map((rd: RemoteData<any>) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', {cause: rd.errorMessage}));
+          } else {
+            return rd;
+          }
+        }),
+        switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
+          const dtos$ = observableCombineLatest(...epersonListRD.payload.page.map((member: EPerson) => {
+            const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
+              this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
+                const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
+                epersonDtoModel.eperson = member;
+                epersonDtoModel.memberOfGroup = isMember;
+                return epersonDtoModel;
+              });
+            return dto$;
+          }));
+          return dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+            return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
+          }));
+        }))
+        .subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
+          this.ePeopleSearchDtos.next(paginatedListOfDTOs);
+        }));
   }
 
   /**
    * unsub all subscriptions
    */
   ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    for (const key of this.subs.keys()) {
+      this.unsubFrom(key);
+    }
   }
 
   /**
@@ -232,6 +312,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<any>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
+        this.ePersonDataService.clearLinkRequests(activeGroup._links.epersons.href);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }

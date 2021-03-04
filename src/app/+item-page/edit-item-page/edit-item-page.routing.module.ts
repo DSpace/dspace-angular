@@ -74,22 +74,27 @@ import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
                 component: ItemRelationshipsComponent,
                 data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true }
               },
+              /* TODO - uncomment & fix when view page exists
               {
                 path: 'view',
-                /* TODO - change when view page exists */
                 component: ItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.view.title', showBreadcrumbs: true }
-              },
+              }, */
+              /* TODO - uncomment & fix when curate page exists
               {
                 path: 'curate',
-                /* TODO - change when curate page exists */
                 component: ItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
-              },
+              }, */
               {
                 path: 'versionhistory',
                 component: ItemVersionHistoryComponent,
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'mapper',
+                component: ItemCollectionMapperComponent,
+                data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true }
               }
             ]
           },
