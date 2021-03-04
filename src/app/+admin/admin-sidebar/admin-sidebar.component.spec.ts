@@ -229,7 +229,7 @@ describe('AdminSidebarComponent', () => {
         }));
 
       });
-    })
+    });
 
     describe('for site admin', () => {
       beforeEach(() => {
@@ -244,20 +244,20 @@ describe('AdminSidebarComponent', () => {
 
       it('should contain site admin section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'admin_search', visible: true,
-				}));
+            id: 'admin_search', visible: true,
+        }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'registries', visible: true,
-				}));
+            id: 'registries', visible: true,
+        }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					parentID: 'registries', visible: true,
-				}));
+            parentID: 'registries', visible: true,
+        }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'curation_tasks', visible: true,
-				}));
+            id: 'curation_tasks', visible: true,
+        }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'workflow', visible: true,
-				}));
+            id: 'workflow', visible: true,
+        }));
       });
     });
 
@@ -274,8 +274,8 @@ describe('AdminSidebarComponent', () => {
 
       it('should show edit_community', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'edit_community', visible: true,
-				}));
+            id: 'edit_community', visible: true,
+        }));
       });
     });
 
@@ -292,8 +292,8 @@ describe('AdminSidebarComponent', () => {
 
       it('should show edit_collection', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'edit_collection', visible: true,
-				}));
+            id: 'edit_collection', visible: true,
+        }));
       });
     });
 
@@ -310,11 +310,11 @@ describe('AdminSidebarComponent', () => {
 
       it('should show access control section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					id: 'access_control', visible: true,
-				}));
+            id: 'access_control', visible: true,
+        }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-					parentID: 'access_control', visible: true,
-				}));
+            parentID: 'access_control', visible: true,
+        }));
       });
     });
   });

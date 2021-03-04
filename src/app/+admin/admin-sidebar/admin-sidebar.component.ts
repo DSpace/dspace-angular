@@ -301,7 +301,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
       })));
-    })
+    });
   }
 
   /**
@@ -589,7 +589,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true,
       })));
-    })
+    });
   }
 
   /**
