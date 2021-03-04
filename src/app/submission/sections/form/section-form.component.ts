@@ -19,7 +19,7 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasNoValue, hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
@@ -454,11 +454,11 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    * The customEvent is stored inside event.$event
    * @param $event
    */
-  onCustomEvent(event: any) {
+  onCustomEvent(event: DynamicFormControlEvent) {
     this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
-      null,
+      this.previousValue,
       null);
   }
 }

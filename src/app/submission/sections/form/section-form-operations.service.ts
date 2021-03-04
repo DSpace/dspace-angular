@@ -65,7 +65,7 @@ export class SectionFormOperationsService {
         this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
         break;
       case 'move':
-        this.dispatchOperationsFromMoveEvent(pathCombiner, event);
+        this.dispatchOperationsFromMoveEvent(pathCombiner, event, previousValue);
         break;
       default:
         break;
@@ -469,9 +469,28 @@ export class SectionFormOperationsService {
     previousValue.delete();
   }
 
+  /**
+   * Handle form move operations
+   *
+   * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @param previousValue
+   *    the [[FormFieldPreviousValueObject]] for the specified operation
+   */
   private dispatchOperationsFromMoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                          event: DynamicFormControlEvent) {
+                                          event: DynamicFormControlEvent,
+                                          previousValue: FormFieldPreviousValueObject) {
+
     const customEvent = event.$event;
+
+    if (this.formBuilder.isQualdropGroup(customEvent.model.parent as DynamicFormControlModel)
+      || this.formBuilder.isQualdropGroup(customEvent.model as DynamicFormControlModel)) {
+      // It's a qualdrup model
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(customEvent), pathCombiner, customEvent, previousValue);
+      return;
+    }
     const path = this.getFieldPathFromEvent(customEvent);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(customEvent);
     const moveTo = pathCombiner.getPath(path);
