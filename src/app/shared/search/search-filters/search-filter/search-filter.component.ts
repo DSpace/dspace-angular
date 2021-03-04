@@ -32,10 +32,6 @@ export class SearchFilterComponent implements OnInit {
    */
   @Input() inPlaceSearch;
 
-  @Input() isFirstFilter = false;
-
-  @Input() isLastFilter = false;
-
   /**
    * True when the filter is 100% collapsed in the UI
    */

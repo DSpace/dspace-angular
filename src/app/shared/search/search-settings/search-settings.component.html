@@ -5,7 +5,6 @@
             *ngIf="config?.sort"
             [id]="'search-sidebar-sort'"
             [label]="'search.sidebar.settings.sort-by'"
-            [isFirstSetting]="true"
             (change)="reloadOrder($event)"
     >
         <option *ngFor="let sortOption of searchOptionPossibilities"
@@ -15,5 +14,5 @@
         </option>
     </ds-sidebar-dropdown>
     </div>
-    <ds-page-size-selector [isLastSetting]="true"></ds-page-size-selector>
+    <ds-page-size-selector></ds-page-size-selector>
 </ng-container>

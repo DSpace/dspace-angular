@@ -2,8 +2,6 @@
     <ds-sidebar-dropdown
             [id]="'search-sidebar-rpp'"
             [label]="'search.sidebar.settings.rpp'"
-            [isFirstSetting]="isFirstSetting"
-            [isLastSetting]="isLastSetting"
             (change)="reloadRPP($event)"
     >
         <option *ngFor="let pageSizeOption of (paginationOptions$ | async).pageSizeOptions"

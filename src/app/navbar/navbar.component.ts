@@ -1,4 +1,4 @@
-import { Component, Injector, ViewEncapsulation } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
@@ -15,7 +15,6 @@ import { environment } from '../../environments/environment';
   selector: 'ds-navbar',
   styleUrls: ['./navbar.component.scss'],
   templateUrl: './navbar.component.html',
-  encapsulation: ViewEncapsulation.ShadowDom,
   animations: [slideMobileNav]
 })
 export class NavbarComponent extends MenuComponent {
