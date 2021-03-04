@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
