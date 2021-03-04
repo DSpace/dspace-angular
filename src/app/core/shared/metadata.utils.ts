@@ -156,9 +156,7 @@ export class Metadata {
     const outputKeys: string[] = [];
     for (const inputKey of inputKeys) {
       if (inputKey.includes('*')) {
-
         const inputKeyRegex = new RegExp('^' + inputKey.replace('.', '\.').replace('*', '.*') + '$');
-
         for (const mapKey of Object.keys(mdMap)) {
           if (!outputKeys.includes(mapKey) && inputKeyRegex.test(mapKey)) {
             outputKeys.push(mapKey);
