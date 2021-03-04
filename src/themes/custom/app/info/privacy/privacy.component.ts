@@ -10,6 +10,6 @@ import { PrivacyComponent as BaseComponent } from '../../../../../app/info/priva
 })
 
 /**
- * Component to render the news section on the home page
+ * Component displaying the Privacy Statement
  */
 export class PrivacyComponent extends BaseComponent {}

@@ -10,7 +10,7 @@ import { CommunityStatisticsPageComponent as BaseComponent } from '../../../../.
 })
 
 /**
- * Component to render the news section on the home page
+ * Component representing the statistics page for a community.
  */
 export class CommunityStatisticsPageComponent extends BaseComponent {}
 

@@ -9,7 +9,8 @@ import { CommunityListPageComponent as BaseComponent } from '../../../../app/com
 })
 
 /**
- * Component to render the news section on the home page
+ * Page with title and the community list tree, as described in community-list.component;
+ * navigated to with community-list.page.routing.module
  */
 export class CommunityListPageComponent extends BaseComponent {}
 

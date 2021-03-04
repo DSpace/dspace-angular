@@ -9,7 +9,7 @@ import { BrowseBySwitcherComponent as BaseComponent } from '../../../../../app/+
 })
 
 /**
- * Component to render the news section on the home page
+ * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided
  */
 export class BrowseBySwitcherComponent extends BaseComponent {}
 

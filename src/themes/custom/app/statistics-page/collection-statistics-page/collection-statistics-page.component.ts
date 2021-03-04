@@ -10,7 +10,7 @@ import { CollectionStatisticsPageComponent as BaseComponent } from '../../../../
 })
 
 /**
- * Component to render the news section on the home page
+ * Component representing the statistics page for a collection.
  */
 export class CollectionStatisticsPageComponent extends BaseComponent {}
 

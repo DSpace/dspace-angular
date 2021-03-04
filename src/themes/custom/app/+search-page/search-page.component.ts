@@ -9,7 +9,8 @@ import { SearchPageComponent as BaseComponent } from '../../../../app/+search-pa
 })
 
 /**
- * Component to render the news section on the home page
+ * This component represents the whole search page
+ * It renders search results depending on the current search options
  */
 export class SearchPageComponent extends BaseComponent {}
 

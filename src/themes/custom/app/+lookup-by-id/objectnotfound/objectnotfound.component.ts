@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ObjectNotFoundComponent as BaseComponent } from '../../../../../app/+lookup-by-id/objectnotfound/objectnotfound.component';
 
 @Component({
@@ -6,11 +6,12 @@ import { ObjectNotFoundComponent as BaseComponent } from '../../../../../app/+lo
   // styleUrls: ['./objectnotfound.component.scss'],
   styleUrls: ['../../../../../app/+lookup-by-id/objectnotfound/objectnotfound.component.scss'],
   // templateUrl: './objectnotfound.component.html',
-  templateUrl: '../../../../../app/+lookup-by-id/objectnotfound/objectnotfound.component.html'
+  templateUrl: '../../../../../app/+lookup-by-id/objectnotfound/objectnotfound.component.html',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 /**
- * Component to render the news section on the home page
+ * This component representing the `PageNotFound` DSpace page.
  */
 export class ObjectNotFoundComponent extends BaseComponent {}
 

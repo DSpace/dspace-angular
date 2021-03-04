@@ -21,7 +21,7 @@ import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../a
 })
 
 /**
- * Component to render the news section on the home page
+ * This component renders a search page using a configuration as input.
  */
 export class ConfigurationSearchPageComponent extends BaseComponent {}
 

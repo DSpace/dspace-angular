@@ -10,7 +10,7 @@ import { EndUserAgreementComponent as BaseComponent } from '../../../../../app/i
 })
 
 /**
- * Component to render the news section on the home page
+ * Component displaying the End User Agreement and an option to accept it
  */
 export class EndUserAgreementComponent extends BaseComponent {}
 
