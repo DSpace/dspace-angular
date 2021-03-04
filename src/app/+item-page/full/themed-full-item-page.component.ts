@@ -16,7 +16,7 @@ export class ThemedFullItemPageComponent extends ThemedComponent<FullItemPageCom
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../themes/${themeName}/app/+item-page/full/full-item-page.component`);
+    return import(`../../../themes/${themeName}/app/+item-page/full/full-item-page.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {

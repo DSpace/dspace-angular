@@ -16,7 +16,7 @@ export class ThemedForgotPasswordFormComponent extends ThemedComponent<ForgotPas
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../themes/${themeName}/app/forgot-password/forgot-password-form/forgot-password-form.component`);
+    return import(`../../../themes/${themeName}/app/forgot-password/forgot-password-form/forgot-password-form.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {

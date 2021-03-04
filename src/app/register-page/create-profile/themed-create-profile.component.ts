@@ -16,7 +16,7 @@ export class ThemedCreateProfileComponent extends ThemedComponent<CreateProfileC
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../themes/${themeName}/app/register-page/create-profile/create-profile.component`);
+    return import(`../../../themes/${themeName}/app/register-page/create-profile/create-profile.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {

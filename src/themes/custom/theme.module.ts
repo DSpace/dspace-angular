@@ -57,6 +57,23 @@ import { CollectionPageComponent } from './app/+collection-page/collection-page.
 import { CommunityPageModule } from '../../app/+community-page/community-page.module';
 import { CollectionPageModule } from '../../app/+collection-page/collection-page.module';
 import { ConfigurationSearchPageComponent } from './app/+search-page/configuration-search-page.component';
+import { ItemPageComponent } from './app/+item-page/simple/item-page.component';
+import { FullItemPageComponent } from './app/+item-page/full/full-item-page.component';
+import { LoginPageComponent } from './app/+login-page/login-page.component';
+import { LogoutPageComponent } from './app/+logout-page/logout-page.component';
+import { CreateProfileComponent } from './app/register-page/create-profile/create-profile.component';
+import { ForgotEmailComponent } from './app/forgot-password/forgot-password-email/forgot-email.component';
+import { ForgotPasswordFormComponent } from './app/forgot-password/forgot-password-form/forgot-password-form.component';
+import { ProfilePageComponent } from './app/profile-page/profile-page.component';
+import { RegisterEmailComponent } from './app/register-page/register-email/register-email.component';
+import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
+import { SubmissionImportExternalComponent } from './app/submission/import-external/submission-import-external.component';
+import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
+import { MyDSpacePageComponent } from './app/+my-dspace-page/my-dspace-page.component';
+import { WorkflowItemSendBackComponent } from './app/+workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
+import { WorkflowItemDeleteComponent } from './app/+workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
+import { SubmissionModule } from '../../app/submission/submission.module';
+import { MyDSpacePageModule } from '../../app/+my-dspace-page/my-dspace-page.module';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -77,7 +94,23 @@ const DECLARATIONS = [
   ItemStatisticsPageComponent,
   SiteStatisticsPageComponent,
   CommunityPageComponent,
-  CollectionPageComponent
+  CollectionPageComponent,
+  ItemPageComponent,
+  FullItemPageComponent,
+  LoginPageComponent,
+  LogoutPageComponent,
+  CreateProfileComponent,
+  ForgotEmailComponent,
+  ForgotPasswordFormComponent,
+  ProfilePageComponent,
+  RegisterEmailComponent,
+  MyDSpacePageComponent,
+  SubmissionEditComponent,
+  SubmissionImportExternalComponent,
+  SubmissionSubmitComponent,
+  WorkflowItemDeleteComponent,
+  WorkflowItemSendBackComponent
+
 ];
 
 @NgModule({
@@ -121,16 +154,19 @@ const DECLARATIONS = [
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,
+    SubmissionModule,
+    MyDSpacePageModule,
+    MyDspaceSearchModule,
   ],
   declarations: DECLARATIONS
 })
 
-/**
- * This module serves as an index for all the components in this theme.
- * It should import all other modules, so the compiler knows where to find any components referenced
- * from a component in this theme
- * It is purposefully not exported, it should never be imported anywhere else, its only purpose is
- * to give lazily loaded components a context in which they can be compiled successfully
- */
+  /**
+   * This module serves as an index for all the components in this theme.
+   * It should import all other modules, so the compiler knows where to find any components referenced
+   * from a component in this theme
+   * It is purposefully not exported, it should never be imported anywhere else, its only purpose is
+   * to give lazily loaded components a context in which they can be compiled successfully
+   */
 class ThemeModule {
 }

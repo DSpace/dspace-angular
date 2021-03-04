@@ -16,7 +16,7 @@ export class ThemedForgotEmailComponent extends ThemedComponent<ForgotEmailCompo
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../themes/${themeName}/app/forgot-password/forgot-password-email/forgot-email.component`);
+    return import(`../../../themes/${themeName}/app/forgot-password/forgot-password-email/forgot-email.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {
