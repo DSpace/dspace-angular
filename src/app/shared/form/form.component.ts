@@ -70,6 +70,7 @@ export class FormComponent implements OnDestroy, OnInit {
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
   @Output() addArrayItem: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() removeArrayItem: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -248,6 +249,10 @@ export class FormComponent implements OnDestroy, OnInit {
 
   onBlur(event: DynamicFormControlEvent): void {
     this.blur.emit(event);
+  }
+
+  onCustomEvent(event: any) {
+    this.customEvent.emit(event);
   }
 
   onFocus(event: DynamicFormControlEvent): void {

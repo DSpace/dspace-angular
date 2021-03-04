@@ -6,7 +6,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormArrayGroupModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel
+  DynamicFormControlModel, isDynamicFormControlEvent
 } from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
@@ -64,6 +64,9 @@ export class SectionFormOperationsService {
       case 'change':
         this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
         break;
+      case 'move':
+        this.dispatchOperationsFromMoveEvent(pathCombiner, event);
+        break;
       default:
         break;
     }
@@ -73,20 +76,29 @@ export class SectionFormOperationsService {
    * Return index if specified field is part of fields array
    *
    * @param event
-   *    the [[DynamicFormControlEvent]] for the specified operation
+   *    the [[DynamicFormControlEvent]] | CustomEvent for the specified operation
    * @return number
    *    the array index is part of array, zero otherwise
    */
-  public getArrayIndexFromEvent(event: DynamicFormControlEvent): number {
+  public getArrayIndexFromEvent(event: DynamicFormControlEvent | any): number {
     let fieldIndex: number;
+
     if (isNotEmpty(event)) {
-      if (isNull(event.context)) {
-        // Check whether model is part of an Array of group
-        if (this.isPartOfArrayOfGroup(event.model)) {
-          fieldIndex = (event.model.parent as any).parent.index;
+      if (isDynamicFormControlEvent(event)) {
+        // This is the case of a default insertItem/removeItem event
+
+        if (isNull(event.context)) {
+          // Check whether model is part of an Array of group
+          if (this.isPartOfArrayOfGroup(event.model)) {
+            fieldIndex = (event.model.parent as any).parent.index;
+          }
+        } else {
+          fieldIndex = event.context.index;
         }
+
       } else {
-        fieldIndex = event.context.index;
+        // This is the case of a custom event which contains indexes information
+        fieldIndex = event.index as any;
       }
     }
 
@@ -394,8 +406,7 @@ export class SectionFormOperationsService {
       previousValue.delete();
     } else if (value.hasValue()) {
       // Here model has no previous value but a new one
-      if (isUndefined(this.getArrayIndexFromEvent(event))
-        || this.getArrayIndexFromEvent(event) === 0) {
+      if (isUndefined(this.getArrayIndexFromEvent(event))   || this.getArrayIndexFromEvent(event) === 0) {
         // Model is single field or is part of an array model but is the first item,
         // so dispatch an add operation that initialize the values of a specific metadata
         this.operationsBuilder.add(
@@ -456,5 +467,20 @@ export class SectionFormOperationsService {
     }
 
     previousValue.delete();
+  }
+
+  private dispatchOperationsFromMoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
+                                          event: DynamicFormControlEvent) {
+    const customEvent = event.$event;
+    const path = this.getFieldPathFromEvent(customEvent);
+    const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(customEvent);
+    const moveTo = pathCombiner.getPath(path);
+    const moveFrom = pathCombiner.getPath(segmentedPath + '/' + customEvent.previousIndex);
+    if (isNotEmpty(moveFrom.path) && isNotEmpty(moveTo.path) && moveFrom.path !== moveTo.path) {
+      this.operationsBuilder.move(
+        moveTo,
+        moveFrom.path
+      );
+    }
   }
 }

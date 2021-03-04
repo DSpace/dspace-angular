@@ -9,7 +9,8 @@
       (change)="$event.stopPropagation();"
       (dfBlur)="onBlur($event)"
       (dfChange)="onChange($event)"
-      (dfFocus)="onFocus($event)">
+      (dfFocus)="onFocus($event)"
+      (ngbEvent)="onCustomEvent($event)">
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <!--Array with repeatable items-->
         <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"

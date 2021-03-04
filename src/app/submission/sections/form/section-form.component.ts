@@ -448,4 +448,17 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   isFieldToRemove(fieldId, index) {
     return this.fieldsOnTheirWayToBeRemoved.has(fieldId) && this.fieldsOnTheirWayToBeRemoved.get(fieldId).includes(index);
   }
+
+  /**
+   * Handle the customEvent (ex. drag-drop move event).
+   * The customEvent is stored inside event.$event
+   * @param $event
+   */
+  onCustomEvent(event: any) {
+    this.formOperationsService.dispatchOperationsFromEvent(
+      this.pathCombiner,
+      event,
+      null,
+      null);
+  }
 }

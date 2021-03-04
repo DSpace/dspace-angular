@@ -6,7 +6,6 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
-  DynamicFormControlEventType,
   DynamicFormControlLayout,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -55,16 +54,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     const index = event.currentIndex;
 
     if (hasValue(this.model.groups[index]) && hasValue((this.control as any).controls[index])) {
-      const $event = {
-        $event: { previousIndex: prevIndex },
-        context: { index },
-        control: (this.control as any).controls[index],
-        group: this.group,
+      this.onCustomEvent({
+        previousIndex: prevIndex,
+        index,
         model: this.model.groups[index].group[0],
-        type: DynamicFormControlEventType.Change
-      };
-
-      this.onChange($event);
+        control: (this.control as any).controls[index]
+      }, 'move');
     }
   }
 
