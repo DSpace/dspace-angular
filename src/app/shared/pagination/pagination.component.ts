@@ -20,6 +20,7 @@ import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * The default pagination controls component.
@@ -194,11 +195,14 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
     this.currentPage$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
+      tap((v) => console.log('currentPage', v)),
       map((currentPagination) => currentPagination.currentPage)
     );
     this.pageSize$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
       map((currentPagination) => currentPagination.pageSize)
     );
+    this.pageSize$.subscribe((v) => console.log('this.pageSize$', v));
+    this.currentPage$.subscribe((v) => console.log('this.currentPage$', v));
 
     let sortOptions;
     if (this.sortOptions) {
@@ -237,6 +241,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public doPageChange(page: number) {
     this.updateParams({page: page.toString()});
+    this.emitPaginationChange();
   }
 
   /**
@@ -247,6 +252,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public doPageSizeChange(pageSize: number) {
     this.updateParams({ pageId: this.id, page: 1, pageSize: pageSize });
+    this.emitPaginationChange();
   }
 
   /**
@@ -257,6 +263,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
     this.updateParams({ pageId: this.id, page: 1, sortDirection: sortDirection });
+    this.emitPaginationChange();
   }
 
   /**
@@ -267,50 +274,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public doSortFieldChange(field: string) {
     this.updateParams({ pageId: this.id, page: 1, sortField: field });
-  }
-
-  /**
-   * Method to set the current page and trigger page change events
-   *
-   * @param page
-   *    The new page value
-   */
-  public setPage(page: number) {
-    this.pageChange.emit(page);
-    this.emitPaginationChange();
-  }
-
-  /**
-   * Method to set the current page size and trigger page size change events
-   *
-   * @param pageSize
-   *    The new page size value.
-   */
-  public setPageSize(pageSize: number) {
-    this.pageSizeChange.emit(pageSize);
-    this.emitPaginationChange();
-  }
-
-  /**
-   * Method to set the current sort direction and trigger sort direction change events
-   *
-   * @param sortDirection
-   *    The new sort directionvalue.
-   */
-  public setSortDirection(sortDirection: SortDirection) {
-    this.sortDirectionChange.emit(sortDirection);
-    this.emitPaginationChange();
-  }
-
-  /**
-   * Method to set the current sort field and trigger sort field change events
-   *
-   * @param sortField
-   *    The new sort field.
-   */
-  public setSortField(field: string) {
-    // this.sortField = field;
-    this.sortFieldChange.emit(field);
     this.emitPaginationChange();
   }
 
@@ -368,21 +331,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
     if (0 < missing.length) {
       throw new Error('Paginate: Argument is missing the following required properties: ' + missing.join(', '));
     }
-  }
-
-  /**
-   * Method to check if none of the query params necessary for pagination are filled out.
-   *
-   * @param paginateOptions
-   *    The paginate options object.
-   */
-  private isEmptyPaginationParams(paginateOptions): boolean {
-    const properties = ['id', 'currentPage', 'pageSize', 'pageSizeOptions'];
-    const missing = properties.filter((prop) => {
-      return !(prop in paginateOptions);
-    });
-
-    return properties.length === missing.length;
   }
 
   /**

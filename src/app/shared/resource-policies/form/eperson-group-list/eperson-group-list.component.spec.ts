@@ -19,6 +19,9 @@ import { PaginationComponentOptions } from '../../../pagination/pagination-compo
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../core/data/request.models';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
@@ -27,6 +30,7 @@ describe('EpersonGroupListComponent test suite', () => {
   let de;
   let groupService: any;
   let epersonService: any;
+  let paginationService;
 
   const paginationOptions: PaginationComponentOptions = new PaginationComponentOptions();
   paginationOptions.id = uniqueId('eperson-group-list-pagination-test');
@@ -60,6 +64,16 @@ describe('EpersonGroupListComponent test suite', () => {
   const groupPaginatedList = buildPaginatedList(new PageInfo(), [GroupMock, GroupMock]);
   const groupPaginatedListRD = createSuccessfulRemoteDataObject(groupPaginatedList);
 
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(paginationOptions),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+    resetPage: {},
+    clearPagination: {}
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -74,6 +88,7 @@ describe('EpersonGroupListComponent test suite', () => {
         { provide: EPersonDataService, useValue: mockEpersonService },
         { provide: GroupDataService, useValue: mockGroupService },
         { provide: RequestService, useValue: getMockRequestService() },
+        { provide: PaginationService, useValue: paginationService },
         EpersonGroupListComponent,
         ChangeDetectorRef,
         Injector
@@ -177,12 +192,6 @@ describe('EpersonGroupListComponent test suite', () => {
         a: false
       }));
     });
-
-    it('should update list on page change', () => {
-      spyOn(comp, 'updateList');
-
-      expect(compAsAny.updateList).toHaveBeenCalled();
-    });
   });
 
   describe('when is list of group', () => {
@@ -254,12 +263,6 @@ describe('EpersonGroupListComponent test suite', () => {
       }));
     });
 
-    it('should update list on page change', () => {
-      spyOn(comp, 'updateList');
-
-      expect(compAsAny.updateList).toHaveBeenCalled();
-    });
-
     it('should update list on search triggered', () => {
       const options: PaginationComponentOptions = comp.paginationOptions;
       const event: SearchEvent = {
@@ -269,7 +272,7 @@ describe('EpersonGroupListComponent test suite', () => {
       spyOn(comp, 'updateList');
       comp.onSearch(event);
 
-      expect(compAsAny.updateList).toHaveBeenCalledWith(options, 'metadata', 'test');
+      expect(compAsAny.updateList).toHaveBeenCalledWith('metadata', 'test');
     });
   });
 });

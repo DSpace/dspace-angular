@@ -18,11 +18,16 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { RestResponse } from '../../../core/cache/response.models';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
   let registryService: RegistryService;
+  let paginationService: PaginationService;
   const mockSchemasList = [
     {
       id: 1,
@@ -62,6 +67,15 @@ describe('MetadataRegistryComponent', () => {
   };
   /* tslint:enable:no-empty */
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -69,6 +83,7 @@ describe('MetadataRegistryComponent', () => {
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]

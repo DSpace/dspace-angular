@@ -22,6 +22,11 @@ import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchObjects } from '../../../shared/search/search-objects.model';
+import { PaginationService } from '../../pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import { FindListOptions } from '../../data/request.models';
+import { SearchConfigurationService } from './search-configuration.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -32,6 +37,7 @@ describe('SearchService', () => {
     let searchService: SearchService;
     const router = new RouterStub();
     const route = new ActivatedRouteStub();
+    const searchConfigService = {paginationID: 'page-id'};
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -51,6 +57,8 @@ describe('SearchService', () => {
           { provide: HALEndpointService, useValue: {} },
           { provide: CommunityDataService, useValue: {} },
           { provide: DSpaceObjectDataService, useValue: {} },
+          { provide: PaginationService, useValue: {} },
+          { provide: SearchConfigurationService, useValue: searchConfigService },
           SearchService
         ],
       });
@@ -94,6 +102,18 @@ describe('SearchService', () => {
       }
     };
 
+    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+    const sort = new SortOptions('score', SortDirection.DESC);
+    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+    const paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      getFindListOptions: observableOf(findlistOptions),
+      resetPage: {},
+      updateRouteWithUrl: {}
+    });
+    const searchConfigService = {paginationID: 'page-id'};
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -113,6 +133,8 @@ describe('SearchService', () => {
           { provide: HALEndpointService, useValue: halService },
           { provide: CommunityDataService, useValue: {} },
           { provide: DSpaceObjectDataService, useValue: {} },
+          { provide: PaginationService, useValue: paginationService },
+          { provide: SearchConfigurationService, useValue: searchConfigService },
           SearchService
         ],
       });
@@ -124,18 +146,14 @@ describe('SearchService', () => {
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.ListElement);
-      expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: ViewMode.ListElement, page: 1 },
-        queryParamsHandling: 'merge'
-      });
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.ListElement }
+      );
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.GridElement);
-      expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: ViewMode.GridElement, page: 1 },
-        queryParamsHandling: 'merge'
-      });
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.GridElement }
+      );
     });
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {

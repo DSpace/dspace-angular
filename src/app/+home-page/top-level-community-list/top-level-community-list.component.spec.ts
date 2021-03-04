@@ -18,6 +18,10 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { of as observableOf } from 'rxjs';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
@@ -25,6 +29,7 @@ describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
   let fixture: ComponentFixture<TopLevelCommunityListComponent>;
   let communityDataServiceStub: any;
+  let paginationService;
   let themeService;
 
   const topCommList = [Object.assign(new Community(), {
@@ -104,6 +109,15 @@ describe('TopLevelCommunityList Component', () => {
     }
   };
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+
+  paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getRouteParameterValue: observableOf('')
+  });
+
   themeService = getMockThemeService();
 
   beforeEach(waitForAsync(() => {
@@ -119,6 +133,7 @@ describe('TopLevelCommunityList Component', () => {
       providers: [
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService },
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
       ],
@@ -142,26 +157,5 @@ describe('TopLevelCommunityList Component', () => {
     expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
     expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
     expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
-  });
-
-  it('should update list of top-communities on pagination change', () => {
-    const pagination = Object.create({
-      pagination: {
-        id: comp.pageId,
-        currentPage: 2,
-        pageSize: 5
-      },
-      sort: {
-        field: 'dc.title',
-        direction: 'ASC'
-      }
-    });
-    comp.onPaginationChange(pagination);
-    fixture.detectChanges();
-
-    const collList = fixture.debugElement.queryAll(By.css('li'));
-    expect(collList.length).toEqual(2);
-    expect(collList[0].nativeElement.textContent).toContain('TopCommunity 6');
-    expect(collList[1].nativeElement.textContent).toContain('TopCommunity 7');
   });
 });

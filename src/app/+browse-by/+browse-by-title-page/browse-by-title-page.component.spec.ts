@@ -18,6 +18,10 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -61,6 +65,16 @@ describe('BrowseByTitlePageComponent', () => {
     data: observableOf({ metadata: 'title' })
   });
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  const paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+    resetPage: {},
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -69,6 +83,7 @@ describe('BrowseByTitlePageComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
+        { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() }
       ],
       schemas: [NO_ERRORS_SCHEMA]

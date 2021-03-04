@@ -11,6 +11,11 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-pag
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../core/data/request.models';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -33,6 +38,18 @@ describe('SearchLabelComponent', () => {
     filter2
   ];
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  const paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+    resetPage: {},
+    updateRouteWithUrl: {},
+    getPageParam: 'p.test-id'
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -40,6 +57,8 @@ describe('SearchLabelComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: {} }
         // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
       ],

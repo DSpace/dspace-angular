@@ -18,6 +18,10 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
@@ -114,6 +118,16 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
     }
   };
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  const paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+    resetPage: {},
+  });
+
   themeService = getMockThemeService();
 
   beforeEach(waitForAsync(() => {
@@ -129,6 +143,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       providers: [
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService },
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
       ],
@@ -162,29 +177,5 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
 
     const subComHead = fixture.debugElement.queryAll(By.css('h2'));
     expect(subComHead.length).toEqual(0);
-  });
-
-  it('should update list of sub-communities on pagination change', () => {
-    subCommList = subcommunities;
-    fixture.detectChanges();
-
-    const pagination = Object.create({
-      pagination:{
-        id: comp.pageId,
-        currentPage: 2,
-        pageSize: 5
-      },
-      sort: {
-        field: 'dc.title',
-        direction: 'ASC'
-      }
-    });
-    comp.onPaginationChange(pagination);
-    fixture.detectChanges();
-
-    const collList = fixture.debugElement.queryAll(By.css('li'));
-    expect(collList.length).toEqual(2);
-    expect(collList[0].nativeElement.textContent).toContain('SubCommunity 6');
-    expect(collList[1].nativeElement.textContent).toContain('SubCommunity 7');
   });
 });

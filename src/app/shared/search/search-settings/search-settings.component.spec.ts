@@ -16,6 +16,7 @@ import { take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 describe('SearchSettingsComponent', () => {
 
@@ -31,6 +32,8 @@ describe('SearchSettingsComponent', () => {
   let queryParam;
   let scopeParam;
   let paginatedSearchOptions;
+
+  let paginationService;
 
   let activatedRouteStub;
 
@@ -62,6 +65,12 @@ describe('SearchSettingsComponent', () => {
       }),
     };
 
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      resetPage: {},
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       declarations: [SearchSettingsComponent, EnumKeysPipe, VarDirective],
@@ -76,6 +85,10 @@ describe('SearchSettingsComponent', () => {
         {
           provide: SearchFilterService,
           useValue: {},
+        },
+        {
+          provide: PaginationService,
+          useValue: paginationService,
         },
         {
           provide: SEARCH_CONFIG_SERVICE,

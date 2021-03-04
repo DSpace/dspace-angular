@@ -271,14 +271,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           })]);
         }),
         switchMap(([eperson, findListOptions]) => {
-           return this.groupsDataService.findAllByHref(eperson._links.groups.href, findListOptions);
+          if (eperson != null) {
+            return this.groupsDataService.findAllByHref(eperson._links.groups.href, findListOptions);
+          }
+          return observableOf(undefined);
         })
       );
-      // this.subs.push(combineLatest([activeEPerson$, paginationOption$]).subscribe(([eperson, options]) => {
-      //   if (eperson != null) {
-      //     this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, options);
-      //   }
-      // }));
 
       this.canImpersonate$ = activeEPerson$.pipe(
         switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.LoginOnBehalfOf, hasValue(eperson) ? eperson.self : undefined))

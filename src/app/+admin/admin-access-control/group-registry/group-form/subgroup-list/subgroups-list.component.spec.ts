@@ -35,6 +35,10 @@ import { getMockTranslateService } from '../../../../../shared/mocks/translate.s
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import { map } from 'rxjs/operators';
+import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../core/data/request.models';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -47,6 +51,7 @@ describe('SubgroupsListComponent', () => {
   let subgroups;
   let allGroups;
   let routerStub;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
@@ -100,6 +105,18 @@ describe('SubgroupsListComponent', () => {
     routerStub = new RouterMock();
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
+
+    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+    const sort = new SortOptions('score', SortDirection.DESC);
+    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      getFindListOptions: observableOf(findlistOptions),
+      resetPage: {},
+      updateRouteWithUrl: {},
+      clearPagination: {}
+    });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -115,6 +132,7 @@ describe('SubgroupsListComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: routerStub },
+        { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

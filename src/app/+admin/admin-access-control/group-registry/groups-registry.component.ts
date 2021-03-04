@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -25,9 +25,9 @@ import { RouteService } from '../../../core/services/route.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteData,
-  getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
@@ -113,72 +113,58 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param data  Contains query param
    */
   search(data: any) {
-
-    const query: string = data.query;
-    if (query != null && this.currentSearchQuery !== query) {
-      this.router.navigateByUrl(this.groupService.getGroupRegistryRouterLink());
-      this.currentSearchQuery = query;
-      this.config.currentPage = 1;
-    }
     if (hasValue(this.searchSub)) {
       this.searchSub.unsubscribe();
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
     }
-
     this.searchSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
       switchMap((paginationOptions) => {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
-          this.router.navigate([], {
-            queryParamsHandling: 'merge'
-          });
           this.currentSearchQuery = query;
-          this.paginationService.resetPage(this.config.id);
-        }
-        if (hasValue(this.searchSub)) {
-          this.searchSub.unsubscribe();
-          this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
+          this.paginationService.updateRouteWithUrl(this.config.id, [], {page: 1});
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
           elementsPerPage: paginationOptions.pageSize
-        }).pipe(
-          getAllSucceededRemoteData()
-        switchMap((groups: PaginatedList<Group>) => {
-          if (groups.page.length === 0) {
-            return observableOf(buildPaginatedList(groups.pageInfo, []));
-          }
-          return observableCombineLatest(groups.page.map((group: Group) => {
-            if (!this.deletedGroupsIds.includes(group.id)) {
-              return observableCombineLatest([
-                this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-                this.hasLinkedDSO(group),
-                this.getSubgroups(group),
-                this.getMembers(group)
-              ]).pipe(
-                map(([isAuthorized, hasLinkedDSO, subgroups, members]:
-                       [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                    const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                    groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
-                    groupDtoModel.group = group;
-                    groupDtoModel.subgroups = subgroups.payload;
-                    groupDtoModel.epersons = members.payload;
-                    return groupDtoModel;
-                  }
-                )
-              );
-            }
-          })).pipe(map((dtos: GroupDtoModel[]) => {
-            return buildPaginatedList(groups.pageInfo, dtos);
-          }));
-        })
-      ).
-        subscribe((value: PaginatedList<GroupDtoModel>) => {
-          this.groupsDto$.next(value);
-          this.pageInfoState$.next(value.pageInfo);
         });
-        this.subs.push(this.searchSub);
+      }),
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((groups: PaginatedList<Group>) => {
+        if (groups.page.length === 0) {
+          return observableOf(buildPaginatedList(groups.pageInfo, []));
+        }
+        return observableCombineLatest(groups.page.map((group: Group) => {
+          if (!this.deletedGroupsIds.includes(group.id)) {
+            return observableCombineLatest([
+              this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+              this.hasLinkedDSO(group),
+              this.getSubgroups(group),
+              this.getMembers(group)
+            ]).pipe(
+              map(([isAuthorized, hasLinkedDSO, subgroups, members]:
+                     [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
+                  const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                  groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
+                  groupDtoModel.group = group;
+                  groupDtoModel.subgroups = subgroups.payload;
+                  groupDtoModel.epersons = members.payload;
+                  return groupDtoModel;
+                }
+              )
+            );
+          }
+        })).pipe(map((dtos: GroupDtoModel[]) => {
+          return buildPaginatedList(groups.pageInfo, dtos);
+        }));
+      })
+    ).subscribe((value: PaginatedList<GroupDtoModel>) => {
+      this.groupsDto$.next(value);
+      this.pageInfoState$.next(value.pageInfo);
+    });
 
+    this.subs.push(this.searchSub);
       }
 
   /**

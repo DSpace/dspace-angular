@@ -23,6 +23,10 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -125,6 +129,16 @@ describe('MetadataSchemaComponent', () => {
     })
   });
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  const paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+    resetPage: {},
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -134,6 +148,7 @@ describe('MetadataSchemaComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
+        { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]

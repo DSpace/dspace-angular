@@ -28,6 +28,10 @@ import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mo
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RouterMock } from '../../../shared/mocks/router.mock';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -39,6 +43,7 @@ describe('GroupRegistryComponent', () => {
 
   let mockGroups;
   let mockEPeople;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     mockGroups = [GroupMock, GroupMock2];
@@ -131,6 +136,16 @@ describe('GroupRegistryComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });
+    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+    const sort = new SortOptions('score', SortDirection.DESC);
+    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      getFindListOptions: observableOf(findlistOptions),
+      resetPage: {},
+      updateRouteWithUrl: {}
+    });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -149,6 +164,7 @@ describe('GroupRegistryComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -16,6 +16,10 @@ import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-si
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { RequestService } from '../../../../../core/data/request.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../core/data/request.models';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -24,6 +28,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let bundleService: BundleDataService;
   let objectValuesPipe: ObjectValuesPipe;
   let requestService: RequestService;
+  let paginationService: PaginationService;
 
   const columnSizes = new ResponsiveTableSizes([
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
@@ -109,6 +114,16 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
       hasByHref$: observableOf(true)
     });
 
+    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+    const sort = new SortOptions('score', SortDirection.DESC);
+    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      getFindListOptions: observableOf(findlistOptions),
+      resetPage: {},
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
@@ -116,7 +131,8 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
+        { provide: PaginationService, useValue: paginationService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

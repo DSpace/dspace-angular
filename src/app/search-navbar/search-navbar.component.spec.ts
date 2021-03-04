@@ -8,6 +8,11 @@ import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 
 import { SearchNavbarComponent } from './search-navbar.component';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 
 describe('SearchNavbarComponent', () => {
   let component: SearchNavbarComponent;
@@ -15,6 +20,7 @@ describe('SearchNavbarComponent', () => {
   let mockSearchService: any;
   let router: Router;
   let routerStub;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     mockSearchService = {
@@ -26,6 +32,18 @@ describe('SearchNavbarComponent', () => {
     routerStub = {
       navigate: (commands) => commands
     };
+
+    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+    const sort = new SortOptions('score', SortDirection.DESC);
+
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      getRouteParameterValue: observableOf(''),
+      updateRouteWithUrl: {},
+      clearPagination : {}
+    });
+
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -40,7 +58,9 @@ describe('SearchNavbarComponent', () => {
       declarations: [SearchNavbarComponent],
       providers: [
         { provide: SearchService, useValue: mockSearchService },
-        { provide: Router, useValue: routerStub }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: Router, useValue: routerStub },
+        { provide: SearchConfigurationService, useValue: {paginationID: 'page-id'} }
       ]
     })
       .compileComponents();
@@ -88,7 +108,7 @@ describe('SearchNavbarComponent', () => {
         }));
         it('to search page with empty query', () => {
           expect(component.onSubmit).toHaveBeenCalledWith({ query: '' });
-          expect(router.navigate).toHaveBeenCalled();
+          expect(paginationService.updateRouteWithUrl).toHaveBeenCalled();
         });
       });
     });
@@ -112,7 +132,7 @@ describe('SearchNavbarComponent', () => {
         }));
         it('to search page with query', async () => {
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
-          expect(router.navigate).toHaveBeenCalled();
+          expect(paginationService.updateRouteWithUrl).toHaveBeenCalled();
         });
       });
     });

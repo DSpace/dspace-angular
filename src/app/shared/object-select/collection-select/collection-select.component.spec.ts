@@ -13,6 +13,10 @@ import { CollectionSelectComponent } from './collection-select.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -36,13 +40,24 @@ describe('CollectionSelectComponent', () => {
     currentPage: 1
   });
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+  const paginationService = jasmine.createSpyObj('PaginationService', {
+    getCurrentPagination: observableOf(pagination),
+    getCurrentSort: observableOf(sort),
+    getFindListOptions: observableOf(findlistOptions),
+    resetPage: {},
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

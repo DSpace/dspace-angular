@@ -26,6 +26,9 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RequestService } from '../../../../core/data/request.service';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -37,6 +40,10 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+
+  let paginationService: PaginationService;
+
+
 
   beforeEach(waitForAsync(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -104,6 +111,17 @@ describe('EPersonFormComponent', () => {
       findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: ''
     });
+
+    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+    const sort = new SortOptions('score', SortDirection.DESC);
+    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: observableOf(pagination),
+      getCurrentSort: observableOf(sort),
+      getFindListOptions: observableOf(findlistOptions),
+      resetPage: {},
+      updateRouteWithUrl: {}
+    });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -121,6 +139,7 @@ describe('EPersonFormComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
       ],
       schemas: [NO_ERRORS_SCHEMA]

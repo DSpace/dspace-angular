@@ -20,7 +20,6 @@ import { fadeIn } from '../../shared/animations/fade';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -46,7 +45,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    */
   public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public reload$: BehaviorSubject<{query: string, source: string}>;
+  public reload$: BehaviorSubject<{query: string, source: string}> = new BehaviorSubject<{query: string; source: string}>({query: '', source: ''});
   /**
    * Configuration to use for the import buttons
    */
@@ -122,9 +121,10 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       ]).pipe(
       take(1)
     ).subscribe(([source, query]: [string, string]) => {
-      this.reload$ = new BehaviorSubject<{query: string; source: string}>({query: query, source: source});
-      this.retrieveExternalSources(source, query);
+      this.reload$.next({query: query, source: source});
+      this.retrieveExternalSources();
     }));
+    this.reload$.subscribe((v) => console.log('this.reload$', v));
   }
 
   /**
@@ -167,8 +167,9 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * @param source The source tupe
    * @param query The query string to search
    */
-  private retrieveExternalSources(sourcesss: string, querysss: string): void {
+  private retrieveExternalSources(): void {
     this.reload$.subscribe((sourceQueryObject: {source: string, query: string}) => {
+      console.log('ping?', sourceQueryObject);
       const source = sourceQueryObject.source;
       const query = sourceQueryObject.query;
       if (isNotEmpty(source) && isNotEmpty(query)) {
@@ -177,6 +178,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
         this.isLoading$.next(true);
         this.subs.push(
           this.searchConfigService.paginatedSearchOptions.pipe(
+            tap((v) => console.log('searchpag?', v)),
             filter((searchOptions) => searchOptions.query === query),
             mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
               getFinishedRemoteData(),

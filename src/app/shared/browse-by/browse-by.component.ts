@@ -144,7 +144,7 @@ export class BrowseByComponent implements OnInit {
     this.objectInjector = Injector.create({
       providers: [
         { provide: 'startsWithOptions', useFactory: () => (this.startsWithOptions), deps:[] },
-        { provide: 'paginationId', useFactory: () => (this.paginationConfig.id), deps:[] }
+        { provide: 'paginationId', useFactory: () => (this.paginationConfig?.id), deps:[] }
       ],
       parent: this.injector
     });

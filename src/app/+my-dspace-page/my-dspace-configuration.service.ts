@@ -56,6 +56,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    *
    * @param {roleService} roleService
    * @param {RouteService} routeService
+   * @param {PaginationService} paginationService
    * @param {ActivatedRoute} route
    */
   constructor(protected roleService: RoleService,

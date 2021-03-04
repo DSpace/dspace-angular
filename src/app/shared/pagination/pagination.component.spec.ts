@@ -31,10 +31,15 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 
 import { createTestComponent } from '../testing/utils.test';
 import { storeModuleConfig } from '../../app.reducer';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { FindListOptions } from '../../core/data/request.models';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
   const pages = de.nativeElement.querySelectorAll('li');
+  console.log('pages', pages.length, pagesDef.length);
+  console.log(pages);
 
   expect(pages.length).toEqual(pagesDef.length);
 
@@ -105,14 +110,39 @@ describe('Pagination component', () => {
   let activatedRouteStub: MockActivatedRoute;
   let routerStub: RouterMock;
 
+  let paginationService: PaginationService;
+
   // Define initial state and test state
   const _initialState = { width: 1600, height: 770 };
+
+  const pagination = new PaginationComponentOptions();
+  pagination.currentPage = 1;
+  pagination.pageSize = 10;
+
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 10 });
+  let currentPagination;
+  let currentSort;
+  let currentFindListOptions;
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     activatedRouteStub = new MockActivatedRoute();
-    routerStub = new RouterMock();
-    hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
+    routerStub = new RouterMock();                      hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
+
+    currentPagination = new BehaviorSubject<PaginationComponentOptions>(pagination);
+    currentSort = new BehaviorSubject<SortOptions>(sort);
+    currentFindListOptions = new BehaviorSubject<FindListOptions>(findlistOptions);
+
+
+    paginationService = jasmine.createSpyObj('PaginationService', {
+      getCurrentPagination: currentPagination,
+      getCurrentSort: currentSort,
+      getFindListOptions: currentFindListOptions,
+      resetPage: {},
+      updateRoute: {},
+      updateRouteWithUrl: {}
+    });
 
     TestBed.configureTestingModule({
       imports: [
@@ -138,6 +168,7 @@ describe('Pagination component', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
         { provide: HostWindowService, useValue: hostWindowServiceStub },
+        { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         PaginationComponent
       ],
@@ -179,11 +210,17 @@ describe('Pagination component', () => {
 
   it('should render and respond to page change', () => {
     testComp.collectionSize = 30;
+    testFixture.detectChanges();
 
-    changePage(testFixture, 3);
+
+    currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {currentPage: 3}));
+    testFixture.detectChanges();
+
     expectPages(testFixture, ['« Previous', '1', '2', '+3', '-» Next']);
 
-    changePage(testFixture, 0);
+    currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {currentPage: 2}));
+    testFixture.detectChanges();
+
     expectPages(testFixture, ['« Previous', '1', '+2', '3', '» Next']);
   });
 
@@ -205,58 +242,41 @@ describe('Pagination component', () => {
     testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
-    paginationComponent.setPageSize(5);
+    currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {pageSize: 5}));
     testFixture.detectChanges();
+
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '6', '» Next']);
 
-    paginationComponent.setPageSize(10);
+    currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {pageSize: 10}));
     testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
-    paginationComponent.setPageSize(20);
+    currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, {pageSize: 20}));
     testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '» Next']);
   });
-
-  it('should emit pageChange event with correct value', fakeAsync(() => {
-    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
-
-    spyOn(testComp, 'pageChanged');
-
-    paginationComponent.setPage(3);
-    tick();
-
-    expect(testComp.pageChanged).toHaveBeenCalledWith(3);
-  }));
 
   it('should emit pageSizeChange event with correct value', fakeAsync(() => {
     const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
 
     spyOn(testComp, 'pageSizeChanged');
 
-    paginationComponent.setPageSize(5);
+    testComp.pageSizeChanged(5);
     tick();
 
     expect(testComp.pageSizeChanged).toHaveBeenCalledWith(5);
   }));
 
-  it('should set correct page route parameters', fakeAsync(() => {
-    routerStub = testFixture.debugElement.injector.get(Router) as any;
-
+  it('should call the updateRoute method on the paginationService with the correct params', fakeAsync(() => {
     testComp.collectionSize = 60;
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], {
-      queryParams: {
-        pageId: 'test',
-        page: '3',
-        pageSize: 10,
-        sortDirection: 'ASC',
-        sortField: 'dc.title'
-      }, queryParamsHandling: 'merge'
-    });
+    expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '3'}), {},  false);
 
+    changePage(testFixture, 0);
+    tick();
+    expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: '2'}), {},  false);
   }));
 
   it('should set correct pageSize route parameters', fakeAsync(() => {
@@ -266,57 +286,8 @@ describe('Pagination component', () => {
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], {
-      queryParams: {
-        pageId: 'test',
-        page: 1,
-        pageSize: 20,
-        sortDirection: 'ASC',
-        sortField: 'dc.title'
-      }, queryParamsHandling: 'merge'
-    });
+    expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ pageId: 'test', page: 1, pageSize: 20}), {},  false);
   }));
-
-  it('should set correct values', fakeAsync(() => {
-    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
-    routerStub = testFixture.debugElement.injector.get(Router) as any;
-
-    testComp.collectionSize = 60;
-
-    paginationComponent.setPage(3);
-    expect(paginationComponent.currentPage).toEqual(3);
-
-    paginationComponent.setPageSize(20);
-    expect(paginationComponent.pageSize).toEqual(20);
-  }));
-
-  it('should get parameters from route', () => {
-
-    activatedRouteStub = testFixture.debugElement.injector.get(ActivatedRoute) as any;
-    activatedRouteStub.testParams = {
-      pageId: 'test',
-      page: 2,
-      pageSize: 20
-    };
-
-    testFixture.detectChanges();
-
-    expectPages(testFixture, ['« Previous', '1', '+2', '3', '4', '5', '» Next']);
-    expect(testComp.paginationOptions.currentPage).toEqual(2);
-    expect(testComp.paginationOptions.pageSize).toEqual(20);
-
-    activatedRouteStub.testParams = {
-      pageId: 'test',
-      page: 3,
-      pageSize: 40
-    };
-
-    testFixture.detectChanges();
-
-    expectPages(testFixture, ['« Previous', '1', '2', '+3', '-» Next']);
-    expect(testComp.paginationOptions.currentPage).toEqual(3);
-    expect(testComp.paginationOptions.pageSize).toEqual(40);
-  });
 
   it('should respond to windows resize', () => {
     const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
