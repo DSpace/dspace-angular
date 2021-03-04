@@ -11,5 +11,5 @@ import { SubmissionSubmitComponent as BaseComponent } from '../../../../../app/s
   // templateUrl: './submission-submit.component.html'
   templateUrl: '../../../../../app/submission/submit/submission-submit.component.html'
 })
-export class SubmissionSubmitComponent extends BaseComponent{
+export class SubmissionSubmitComponent extends BaseComponent {
 }

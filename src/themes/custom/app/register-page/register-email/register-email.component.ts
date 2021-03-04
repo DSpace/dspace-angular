@@ -11,5 +11,5 @@ import { RegisterEmailComponent as BaseComponent } from '../../../../../app/regi
 /**
  * Component responsible the email registration step when registering as a new user
  */
-export class RegisterEmailComponent extends BaseComponent{
+export class RegisterEmailComponent extends BaseComponent {
 }
