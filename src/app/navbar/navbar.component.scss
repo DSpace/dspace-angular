@@ -19,8 +19,8 @@ nav.navbar {
 
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
     .reset-padding-md {
-        margin-left: -calc(var(--bs-spacer) / 2);
-        margin-right: -calc(var(--bs-spacer) / 2);
+        margin-left: calc(var(--bs-spacer) / -2);
+        margin-right: calc(var(--bs-spacer) / -2);
     }
 }
 
