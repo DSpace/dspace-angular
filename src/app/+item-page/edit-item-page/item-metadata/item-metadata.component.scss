@@ -6,7 +6,7 @@
             margin-right: 0;
         }
 
-        @media screen and (min-width: var(--ds-grid-breakpoints-sm)) {
+        @media screen and (min-width: map-get($grid-breakpoints, sm)) {
             min-width: var(--ds-edit-item-button-min-width);
         }
     }

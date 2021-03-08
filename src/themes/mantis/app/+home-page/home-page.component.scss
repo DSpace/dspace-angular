@@ -7,7 +7,7 @@ div.background-image {
     background-position-y: -200px;
     background-image: url('/assets/images/banner.jpg');
     background-size: cover;
-    @media screen and (max-width: var(--bs-lg)) {
+    @media screen and (max-width: map-get($grid-breakpoints, lg)) {
         background-position-y: 0;
     }
 

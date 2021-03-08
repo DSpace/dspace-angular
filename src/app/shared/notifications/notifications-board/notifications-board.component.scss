@@ -37,7 +37,7 @@
   transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width: var(--ds-grid-breakpoints-sm)) {
+@media screen and (max-width: map-get($grid-breakpoints, sm)) {
   .notifications-wrapper {
     width: auto;
     left: 0;

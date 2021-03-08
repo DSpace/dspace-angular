@@ -1,6 +1,6 @@
 .navbar-brand img {
     height: var(--ds-header-logo-height);
-    @media screen and (max-width: var(--ds-grid-breakpoints-sm)) {
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
         height: var(--ds-header-logo-height-xs);
     }
 }
