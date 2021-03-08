@@ -11,6 +11,7 @@ import { followLink } from '../../../../../shared/utils/follow-link-config.model
 import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -52,8 +53,8 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
    */
   initializeObjectsRD(): void {
     this.objectsRD$ = this.currentPage$.pipe(
-      switchMap((page: number) => {
-        const paginatedOptions = new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })});
+      switchMap((page: PaginationComponentOptions) => {
+        const paginatedOptions = new PaginatedSearchOptions({pagination: Object.assign({}, page)});
         return this.bundleService.getBitstreamsEndpoint(this.bundle.id, paginatedOptions).pipe(
           switchMap((href) => this.requestService.hasByHref$(href)),
           switchMap(() => this.bundleService.getBitstreams(

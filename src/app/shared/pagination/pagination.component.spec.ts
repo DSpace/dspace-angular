@@ -38,8 +38,6 @@ import { BehaviorSubject, of as observableOf } from 'rxjs';
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
   const pages = de.nativeElement.querySelectorAll('li');
-  console.log('pages', pages.length, pagesDef.length);
-  console.log(pages);
 
   expect(pages.length).toEqual(pagesDef.length);
 

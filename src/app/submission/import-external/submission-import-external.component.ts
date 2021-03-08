@@ -124,7 +124,6 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       this.reload$.next({query: query, source: source});
       this.retrieveExternalSources();
     }));
-    this.reload$.subscribe((v) => console.log('this.reload$', v));
   }
 
   /**
@@ -169,7 +168,6 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    */
   private retrieveExternalSources(): void {
     this.reload$.subscribe((sourceQueryObject: {source: string, query: string}) => {
-      console.log('ping?', sourceQueryObject);
       const source = sourceQueryObject.source;
       const query = sourceQueryObject.query;
       if (isNotEmpty(source) && isNotEmpty(query)) {
@@ -178,7 +176,6 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
         this.isLoading$.next(true);
         this.subs.push(
           this.searchConfigService.paginatedSearchOptions.pipe(
-            tap((v) => console.log('searchpag?', v)),
             filter((searchOptions) => searchOptions.query === query),
             mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
               getFinishedRemoteData(),

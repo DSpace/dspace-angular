@@ -176,7 +176,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
       }));
     this.checkConfig(this.paginationOptions);
     this.initializeConfig();
-    }
+  }
 
   /**
    * Method provided by Angular. Invoked when the instance is destroyed.
@@ -195,14 +195,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
     this.currentPage$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      tap((v) => console.log('currentPage', v)),
       map((currentPagination) => currentPagination.currentPage)
     );
     this.pageSize$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
       map((currentPagination) => currentPagination.pageSize)
     );
-    this.pageSize$.subscribe((v) => console.log('this.pageSize$', v));
-    this.currentPage$.subscribe((v) => console.log('this.currentPage$', v));
 
     let sortOptions;
     if (this.sortOptions) {

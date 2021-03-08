@@ -118,7 +118,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
 
       it('should send out a dropObject event with the expected processed paginated indexes', () => {
         expect(component.dropObject.emit).toHaveBeenCalledWith(Object.assign({
-          fromIndex: ((component.currentPage$.value - 1) * component.pageSize) + event.previousIndex,
+          fromIndex: ((component.currentPage$.value.currentPage - 1) * component.pageSize) + event.previousIndex,
           toIndex: ((hoverPage - 1) * component.pageSize),
           finish: jasmine.anything()
         }));

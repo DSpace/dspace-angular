@@ -14,9 +14,14 @@ import { isNumeric } from 'rxjs/internal-compatibility';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service to manage the pagination of different components
+ */
 export class PaginationService {
 
   private defaultSortOptions = new SortOptions('id', SortDirection.ASC);
+
+  private clearParams = {};
 
   constructor(protected routeService: RouteService,
               protected router: Router
@@ -24,13 +29,16 @@ export class PaginationService {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current pagination settings
+   * Method to retrieve the current pagination settings for an ID based on the router params and default options
+   * @param paginationId - The id to check the pagination for
+   * @param defaultPagination - The default pagination values to be used when no route info is present
+   * @returns {Observable<PaginationComponentOptions>} Retrieves the current pagination settings based on the router params
    */
   getCurrentPagination(paginationId: string, defaultPagination: PaginationComponentOptions): Observable<PaginationComponentOptions> {
     const page$ = this.routeService.getQueryParameterValue(`p.${paginationId}`);
     const size$ = this.routeService.getQueryParameterValue(`rpp.${paginationId}`);
-    return observableCombineLatest([page$, size$]).pipe(map(([page, size]) => {
-      console.log(page, size);
+    return observableCombineLatest([page$, size$]).pipe(
+      map(([page, size]) => {
         return Object.assign(new PaginationComponentOptions(), defaultPagination, {
           currentPage: this.convertToNumeric(page, defaultPagination.currentPage),
           pageSize: this.getBestMatchPageSize(size, defaultPagination)
@@ -40,7 +48,11 @@ export class PaginationService {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current sorting settings
+   * Method to retrieve the current sort options for an ID based on the router params and default options
+   * @param paginationId - The id to check the sort options for
+   * @param defaultSort - The default sort options to be used when no route info is present
+   * @param ignoreDefault - Indicate whether the default should be ignored
+   * @returns {Observable<SortOptions>} Retrieves the current sort options based on the router params
    */
   getCurrentSort(paginationId: string, defaultSort: SortOptions, ignoreDefault?: boolean): Observable<SortOptions> {
     if (!ignoreDefault && (isEmpty(defaultSort) || !hasValue(defaultSort))) {
@@ -56,6 +68,13 @@ export class PaginationService {
     );
   }
 
+  /**
+   * Method to retrieve the current find list options for an ID based on the router params and default options
+   * @param paginationId - The id to check the find list options for
+   * @param defaultFindList - The default find list options to be used when no route info is present
+   * @param ignoreDefault - Indicate whether the default should be ignored
+   * @returns {Observable<FindListOptions>} Retrieves the current find list options based on the router params
+   */
   getFindListOptions(paginationId: string, defaultFindList: FindListOptions, ignoreDefault?: boolean): Observable<FindListOptions> {
     const paginationComponentOptions = new PaginationComponentOptions();
     paginationComponentOptions.currentPage = defaultFindList.currentPage;
@@ -74,8 +93,92 @@ export class PaginationService {
       }));
   }
 
+  /**
+   * Reset the current page for the provided pagination ID to 1.
+   * @param paginationId - The pagination id for which to reset the page
+   */
   resetPage(paginationId: string) {
     this.updateRoute(paginationId, {page: 1});
+  }
+
+
+  /**
+   * Update the route with the provided information
+   * @param paginationId - The pagination ID for which to update the route with info
+   * @param params - The page related params to update in the route
+   * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
+   * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   */
+  updateRoute(paginationId: string, params: {
+    page?: number
+    pageSize?: number
+    sortField?: string
+    sortDirection?: SortDirection
+  }, extraParams?, retainScrollPosition?: boolean) {
+
+    this.updateRouteWithUrl(paginationId, [], params, extraParams, retainScrollPosition);
+  }
+
+  /**
+   * Update the route with the provided information
+   * @param paginationId - The pagination ID for which to update the route with info
+   * @param url - The url to navigate to
+   * @param params - The page related params to update in the route
+   * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
+   * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   */
+  updateRouteWithUrl(paginationId: string, url: string[], params: {
+    page?: number
+    pageSize?: number
+    sortField?: string
+    sortDirection?: SortDirection
+  }, extraParams?, retainScrollPosition?: boolean) {
+    this.getCurrentRouting(paginationId).subscribe((currentFindListOptions) => {
+      const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
+      const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
+      if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams) || isNotEmpty(this.clearParams)) {
+        const queryParams = Object.assign({}, this.clearParams, currentParametersWithIdName,
+          parametersWithIdName, extraParams);
+        console.log(queryParams, this.clearParams);
+        if (retainScrollPosition) {
+          this.router.navigate(url, {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge',
+            fragment: `p-${paginationId}`
+          });
+        } else {
+          this.router.navigate(url, {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+          });
+        }
+        this.clearParams = {};
+        console.log('postcear', this.clearParams);
+      }
+    });
+  }
+
+  /**
+   * Add the params to be cleared to the clearParams variable.
+   * When the updateRoute or updateRouteWithUrl these params will be removed from the route pagination
+   * @param paginationId - The ID for which to clear the params
+   */
+  clearPagination(paginationId: string) {
+    const params = {};
+    params[`p.${paginationId}`] = null;
+    params[`rpp.${paginationId}`] = null;
+    params[`sf.${paginationId}`] = null;
+    params[`sd.${paginationId}`] = null;
+
+    Object.assign(this.clearParams, params);
+  }
+
+  /**
+   * Retrieve the page parameter for the provided id
+   * @param paginationId - The ID for which to retrieve the page param
+   */
+  getPageParam(paginationId: string) {
+    return `p.${paginationId}`;
   }
 
   private getCurrentRouting(paginationId: string) {
@@ -90,81 +193,6 @@ export class PaginationService {
         };
       })
     );
-  }
-
-  updateRoute(paginationId: string, params: {
-    page?: number
-    pageSize?: number
-    sortField?: string
-    sortDirection?: SortDirection
-  }, extraParams?, retainScrollPosition?: boolean) {
-    this.getCurrentRouting(paginationId).subscribe((currentFindListOptions) => {
-      console.log('currentFindListOptions',currentFindListOptions );
-      const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
-      const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
-      if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams)) {
-        const queryParams = Object.assign({}, currentParametersWithIdName,
-          parametersWithIdName, extraParams);
-        if (retainScrollPosition) {
-          this.router.navigate([], {
-            queryParams: queryParams,
-            queryParamsHandling: 'merge',
-            fragment: `p-${paginationId}`
-          });
-        } else {
-          this.router.navigate([], {
-            queryParams: queryParams,
-            queryParamsHandling: 'merge'
-          });
-        }
-      }
-    });
-  }
-
-  updateRouteWithUrl(paginationId: string, url: string[], params: {
-    page?: number
-    pageSize?: number
-    sortField?: string
-    sortDirection?: SortDirection
-  }, extraParams?, retainScrollPosition?: boolean) {
-    console.log(retainScrollPosition);
-    this.getCurrentRouting(paginationId).subscribe((currentFindListOptions) => {
-      const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
-      const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
-      if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams)) {
-        const queryParams = Object.assign({}, currentParametersWithIdName,
-          parametersWithIdName, extraParams);
-        if (retainScrollPosition) {
-          this.router.navigate(url, {
-            queryParams: queryParams,
-            queryParamsHandling: 'merge',
-            fragment: `p-${paginationId}`
-          });
-        } else {
-          this.router.navigate(url, {
-            queryParams: queryParams,
-            queryParamsHandling: 'merge'
-          });
-        }
-      }
-    });
-  }
-
-  clearPagination(paginationId: string) {
-    const params = {};
-    params[`p.${paginationId}`] = null;
-    params[`rpp.${paginationId}`] = null;
-    params[`sf.${paginationId}`] = null;
-    params[`sd.${paginationId}`] = null;
-
-    this.router.navigate([], {
-      queryParams: params,
-      queryParamsHandling: 'merge'
-    });
-  }
-
-  getPageParam(paginationId: string) {
-    return `p.${paginationId}`;
   }
 
   private getParametersWithIdName(paginationId: string, params: {

@@ -82,7 +82,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * The amount of objects to display per page
    */
-  pageSize = 2;
+  pageSize = 10;
 
   /**
    * The page options to use for fetching the objects
@@ -97,7 +97,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * The current page being displayed
    */
-  currentPage$ = new BehaviorSubject<number>(1);
+  currentPage$ = new BehaviorSubject<PaginationComponentOptions>(this.options);
 
   /**
    * Whether or not we should display a loading animation
@@ -144,7 +144,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    */
   initializePagination() {
     this.paginationService.getCurrentPagination(this.options.id, this.options).subscribe((currentPagination) => {
-      this.currentPage$.next(currentPagination.currentPage);
+      this.currentPage$.next(currentPagination);
     });
   }
 
@@ -187,8 +187,8 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   drop(event: CdkDragDrop<any>) {
     const dragIndex = event.previousIndex;
     let dropIndex = event.currentIndex;
-    const dragPage = this.currentPage$.value - 1;
-    let dropPage = this.currentPage$.value - 1;
+    const dragPage = this.currentPage$.value.currentPage - 1;
+    let dropPage = this.currentPage$.value.currentPage - 1;
 
     // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
     const droppedOnElement = this.elRef.nativeElement.querySelector('.page-item:hover');
