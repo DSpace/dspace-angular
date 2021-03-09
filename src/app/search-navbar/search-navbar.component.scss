@@ -18,7 +18,7 @@ a.submit-icon {
 
 
 
-@media screen and (max-width: var(--ds-grid-breakpoints-sm)) {
+@media screen and (max-width: map-get($grid-breakpoints, sm)) {
   #query:focus {
     max-width: 250px !important;
     width: 40vw !important;

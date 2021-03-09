@@ -30,6 +30,7 @@ import { HardRedirectService } from '../../app/core/services/hard-redirect.servi
 import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
 import { Angulartics2 } from 'angulartics2';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
+import { RouterModule } from '@angular/router';
 
 export function createTranslateLoader() {
   return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
@@ -41,9 +42,9 @@ export function createTranslateLoader() {
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),
-    // RouterModule.forRoot([], {
-    //   useHash: false
-    // }),
+    RouterModule.forRoot([], {
+      useHash: false
+    }),
     NoopAnimationsModule,
     DSpaceServerTransferStateModule,
     TranslateModule.forRoot({

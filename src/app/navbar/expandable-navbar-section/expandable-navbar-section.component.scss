@@ -11,7 +11,7 @@
 }
 
 /** Mobile menu styling **/
-@media screen and (max-width: var(--ds-grid-breakpoints-md)) {
+@media screen and (max-width: map-get($grid-breakpoints, md)) {
     .dropdown-toggle {
         &:after {
             float: right;

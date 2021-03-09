@@ -17,7 +17,7 @@
     }
 
     ds-metadata-field-wrapper {
-        @media screen and (max-width: var(--bs-md)) {
+        @media screen and (max-width: map-get($grid-breakpoints, md)) {
             flex: 1;
             padding-right: calc(var(--bs-spacer) / 2);
         }

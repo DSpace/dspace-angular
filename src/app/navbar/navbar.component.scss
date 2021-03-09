@@ -13,7 +13,7 @@ nav.navbar {
 }
 
 /** Mobile menu styling **/
-@media screen and (max-width: #{map-get($grid-breakpoints, md)}) {
+@media screen and (max-width: map-get($grid-breakpoints, md)) {
     .navbar {
         width: 100%;
         background-color: var(--bs-white);
@@ -26,16 +26,16 @@ nav.navbar {
     }
 }
 
-@media screen and (min-width: #{map-get($grid-breakpoints, md)}) {
+@media screen and (min-width: map-get($grid-breakpoints, md)) {
     .reset-padding-md {
-        margin-left: -(var(--bs-spacer) / 2);
-        margin-right: -(var(--bs-spacer) / 2);
+        margin-left: calc(var(--bs-spacer) / -2);
+        margin-right: calc(var(--bs-spacer) / -2);
     }
 }
 
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
 .navbar-expand-md.navbar-container {
-    @media screen and (max-width: #{map-get($grid-breakpoints, md)}) {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
         > .container {
             padding: 0 var(--bs-spacer);
             a.navbar-brand {
