@@ -16,12 +16,14 @@ a.submit-icon {
   top: 0;
 }
 
-
-
-@media screen and (max-width: map-get($grid-breakpoints, sm)) {
+@media screen and (max-width: map-get($grid-breakpoints, md)) {
   #query:focus {
     max-width: 250px !important;
     width: 40vw !important;
+  }
+
+  a.submit-icon {
+    color: var(--bs-link-color);
   }
 }
 
