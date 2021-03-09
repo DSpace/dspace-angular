@@ -1,0 +1,22 @@
+.nav-breadcrumb {
+  background-color: var(--ds-breadcrumb-bg);
+}
+
+.breadcrumb {
+  border-radius: 0;
+  margin-top: calc(-1 * var(--ds-content-spacing));
+  padding-bottom: var(--ds-content-spacing / 3);
+  padding-top: var(--ds-content-spacing / 3);
+  background-color: var(--ds-breadcrumb-bg);
+}
+
+li.breadcrumb-item > a {
+  color: var(--ds-breadcrumb-link-color) !important;
+}
+li.breadcrumb-item.active {
+  color: var(--ds-breadcrumb-link-active-color) !important;
+}
+
+.breadcrumb-item+ .breadcrumb-item::before {
+  content: quote("•") !important;
+}
