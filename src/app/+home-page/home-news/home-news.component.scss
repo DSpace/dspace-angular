@@ -12,3 +12,15 @@
     height: 110px;
     width: 110px;
 }
+
+.jumbotron {
+  background-image: linear-gradient(#dae1ec, #fff);
+}
+
+a {
+  color: var(--ds-home-news-link-color);
+
+  @include hover {
+    color: var(--ds-home-news-link-hover-color);
+  }
+}
