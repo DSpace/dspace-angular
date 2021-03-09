@@ -41,6 +41,17 @@ export class NavbarComponent extends MenuComponent {
    */
   createMenu() {
     const menuList: any[] = [
+      /* Communities & Collections tree */
+      {
+        id: `browse_global_communities_and_collections`,
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: `menu.section.browse_global_communities_and_collections`,
+          link: `/community-list`
+        } as LinkMenuItemModel
+      },
       /* News */
       {
         id: 'browse_global',
@@ -51,18 +62,6 @@ export class NavbarComponent extends MenuComponent {
           text: 'menu.section.browse_global'
         } as TextMenuItemModel,
         index: 0
-      },
-      /* Communities & Collections tree */
-      {
-        id: `browse_global_communities_and_collections`,
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.browse_global_communities_and_collections`,
-          link: `/community-list`
-        } as LinkMenuItemModel
       },
     ];
     // Read the different Browse-By types from config and add them to the browse menu

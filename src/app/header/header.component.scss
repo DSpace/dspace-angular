@@ -1,6 +1,15 @@
+@media screen and (min-width: #{map-get($grid-breakpoints, md)}) {
+  a.navbar-brand {
+    display: none;
+  }
+  .navbar-search {
+    display: none;
+  }
+}
+
 .navbar-brand img {
     height: var(--ds-header-logo-height);
-    @media screen and (max-width: var(--ds-grid-breakpoints-sm)) {
+    @media screen and (max-width: #{map-get($grid-breakpoints, md)}) {
         height: var(--ds-header-logo-height-xs);
     }
 }
@@ -9,13 +18,7 @@
     line-height: 1.5;
 }
 
-.navbar ::ng-deep {
-  a {
-    color: var(--ds-header-icon-color);
-
-    &:hover, &focus {
-      color: var(--ds-header-icon-color-hover);
-    }
-  }
+.header {
+  background-color: var(--ds-header-bg);
 }
 

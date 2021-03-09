@@ -232,6 +232,7 @@ import { ConfigurationSearchPageComponent } from '../+search-page/configuration-
 import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
+import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -457,6 +458,7 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
+  SearchNavbarComponent
 ];
 
 const ENTRY_COMPONENTS = [
