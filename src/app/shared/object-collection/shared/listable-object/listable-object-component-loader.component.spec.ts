@@ -10,6 +10,7 @@ import { ListableObjectDirective } from './listable-object.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../../core/shared/item.model';
+import { provideMockStore } from '@ngrx/store/testing';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -30,7 +31,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: []
+      providers: [provideMockStore({})]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
