@@ -11,7 +11,6 @@ import {
 } from '../../+admin/admin-access-control/group-registry/group-registry.actions';
 import { GroupRegistryState } from '../../+admin/admin-access-control/group-registry/group-registry.reducers';
 import { AppState } from '../../app.reducer';
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -21,7 +20,8 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, FindListOptions, FindListRequest, PostRequest } from '../data/request.models';
+import { CreateRequest, DeleteRequest, FindListOptions, PostRequest } from '../data/request.models';
+
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -66,33 +66,18 @@ export class GroupDataService extends DataService<Group> {
   }
 
   /**
-   * Retrieves all groups
-   * @param pagination The pagination info used to retrieve the groups
-   */
-  public getGroups(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
-    const hrefObs = this.getFindAllHref(options, this.linkPath, ...linksToFollow);
-    hrefObs.pipe(
-      filter((href: string) => hasValue(href)),
-      take(1))
-      .subscribe((href: string) => {
-        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request);
-      });
-
-    return this.rdbService.buildList<Group>(hrefObs) as Observable<RemoteData<PaginatedList<Group>>>;
-  }
-
-  /**
    * Returns a search result list of groups, with certain query (searches in group name and by exact uuid)
    * Endpoint used: /eperson/groups/search/byMetadata?query=<:name>
-   * @param query             search query param
+   * @param query                       search query param
    * @param options
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  public searchGroups(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
+  public searchGroups(query: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
     const searchParams = [new RequestParam('query', query)];
     let findListOptions = new FindListOptions();
     if (options) {
@@ -103,7 +88,7 @@ export class GroupDataService extends DataService<Group> {
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byMetadata', findListOptions, reRequestOnStale, ...linksToFollow);
+    return this.searchBy('byMetadata', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -138,7 +123,7 @@ export class GroupDataService extends DataService<Group> {
     headers = headers.append('Content-Type', 'text/uri-list');
     options.headers = headers;
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint, subgroup.self, options);
-    this.requestService.configure(postRequest);
+    this.requestService.send(postRequest);
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
@@ -148,10 +133,10 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to delete subgroup from
    * @param subgroup      Subgroup we want to delete from activeGroup
    */
-  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group): Observable<RemoteData<Group>> {
+  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint + '/' + subgroup.id);
-    this.requestService.configure(deleteRequest);
+    this.requestService.send(deleteRequest);
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
@@ -168,7 +153,7 @@ export class GroupDataService extends DataService<Group> {
     headers = headers.append('Content-Type', 'text/uri-list');
     options.headers = headers;
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint, ePerson.self, options);
-    this.requestService.configure(postRequest);
+    this.requestService.send(postRequest);
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
@@ -178,10 +163,10 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to delete member from
    * @param ePerson       EPerson we want to delete from members of given activeGroup
    */
-  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson): Observable<RemoteData<Group>> {
+  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
-    this.requestService.configure(deleteRequest);
+    this.requestService.send(deleteRequest);
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
@@ -221,7 +206,7 @@ export class GroupDataService extends DataService<Group> {
    * Method that clears a cached get subgroups of certain group request
    */
   public clearGroupLinkRequests(href: string): void {
-    this.requestService.removeByHrefSubstring(href);
+    this.requestService.setStaleByHrefSubstring(href);
   }
 
   public getGroupRegistryRouterLink(): string {
@@ -292,7 +277,7 @@ export class GroupDataService extends DataService<Group> {
       },
     });
 
-    this.requestService.configure(
+    this.requestService.send(
       new CreateRequest(
         requestId,
         link,
@@ -321,7 +306,7 @@ export class GroupDataService extends DataService<Group> {
 
     const requestId = this.requestService.generateRequestId();
 
-    this.requestService.configure(
+    this.requestService.send(
       new DeleteRequest(
         requestId,
         link,

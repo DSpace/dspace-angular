@@ -25,7 +25,7 @@ export class StatisticsService {
     this.halService.getEndpoint(linkPath).pipe(
       map((endpoint: string) => new TrackRequest(requestId, endpoint, JSON.stringify(body))),
       take(1) // otherwise the previous events will fire again
-    ).subscribe((request: RestRequest) => this.requestService.configure(request));
+    ).subscribe((request: RestRequest) => this.requestService.send(request));
   }
 
   /**

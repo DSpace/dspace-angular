@@ -29,7 +29,6 @@ import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionsService } from '../sections.service';
 import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -130,8 +129,8 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     // Retrieve license accepted status
     (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;
 
-    this.licenseText$ = this.collectionDataService.findById(this.collectionId, true, followLink('license')).pipe(
-      getFirstCompletedRemoteData(),
+    this.licenseText$ = this.collectionDataService.findById(this.collectionId, true, true, followLink('license')).pipe(
+      filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
       mergeMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
       find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
       map((licenseData: RemoteData<License>) => licenseData.payload.text),

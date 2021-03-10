@@ -22,7 +22,7 @@ describe('MetadataSchemaDataService', () => {
   function init() {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
-      configure: {},
+      send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
       removeByHrefSubstring: {}
     });
@@ -54,7 +54,7 @@ describe('MetadataSchemaDataService', () => {
     describe('called with a new metadata schema', () => {
       it('should send a CreateRequest', (done) => {
         metadataSchemaService.createOrUpdateMetadataSchema(schema).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateRequest));
+          expect(requestService.send).toHaveBeenCalledWith(jasmine.any(CreateRequest));
           done();
         });
       });
@@ -69,7 +69,7 @@ describe('MetadataSchemaDataService', () => {
 
       it('should send a PutRequest', (done) => {
         metadataSchemaService.createOrUpdateMetadataSchema(schema).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
+          expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PutRequest));
           done();
         });
       });

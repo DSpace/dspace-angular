@@ -210,7 +210,7 @@ export class OpenaireSuggestionsDataService {
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
     options.searchParams = [new RequestParam('source', source)];
 
-    return this.suggestionTargetsDataService.searchBy(this.searchFindBySourceMethod, options, true, ...linksToFollow);
+    return this.suggestionTargetsDataService.searchBy(this.searchFindBySourceMethod, options, true, true, ...linksToFollow);
   }
 
   /**
@@ -232,7 +232,7 @@ export class OpenaireSuggestionsDataService {
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
     options.searchParams = [new RequestParam('target', userId)];
 
-    return this.suggestionTargetsDataService.searchBy(this.searchFindByTargetMethod, options, true, ...linksToFollow);
+    return this.suggestionTargetsDataService.searchBy(this.searchFindByTargetMethod, options, true, true, ...linksToFollow);
   }
 
   /**
@@ -261,7 +261,7 @@ export class OpenaireSuggestionsDataService {
    * @suggestionId
    */
   public getSuggestion(suggestionId: string, ...linksToFollow: FollowLinkConfig<OpenaireSuggestion>[]): Observable<RemoteData<OpenaireSuggestion>> {
-    return this.suggestionsDataService.findById(suggestionId, true, ...linksToFollow);
+    return this.suggestionsDataService.findById(suggestionId, true, true, ...linksToFollow);
   }
 
   /**
@@ -289,7 +289,7 @@ export class OpenaireSuggestionsDataService {
       new RequestParam('source', source)
     ];
 
-    return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, true, ...linksToFollow);
+    return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, true, true, ...linksToFollow);
   }
 
   /**

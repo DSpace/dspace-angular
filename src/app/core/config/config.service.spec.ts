@@ -60,12 +60,12 @@ describe('ConfigService', () => {
 
   describe('findByHref', () => {
 
-    it('should configure a new GetRequest', () => {
+    it('should send a new GetRequest', () => {
       const expected = new GetRequest(requestService.generateRequestId(), scopedEndpoint);
       scheduler.schedule(() => service.findByHref(scopedEndpoint).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
   });
 
@@ -74,7 +74,7 @@ describe('ConfigService', () => {
       scheduler.schedule(() => service.findAll());
       scheduler.flush();
 
-      expect((service as any).dataService.findAll).toHaveBeenCalledWith( {}, true);
+      expect((service as any).dataService.findAll).toHaveBeenCalledWith( {}, true, true);
     });
   });
 
@@ -83,7 +83,7 @@ describe('ConfigService', () => {
       scheduler.schedule(() => service.findByName('testConfig'));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith('testConfig', true);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith('testConfig', true, true);
     });
   });
 });

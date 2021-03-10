@@ -1,14 +1,24 @@
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { AddToObjectCacheAction, ObjectCacheActionTypes, RemoveFromObjectCacheAction } from '../cache/object-cache.actions';
-import { RequestActionTypes, RequestConfigureAction } from '../data/request.actions';
+import {
+  AddToObjectCacheAction,
+  ObjectCacheActionTypes,
+  RemoveFromObjectCacheAction
+} from '../cache/object-cache.actions';
+import {
+  RequestActionTypes,
+  RequestConfigureAction,
+  RequestStaleAction
+} from '../data/request.actions';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
 import { IndexName } from './index.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { getUrlWithoutEmbedParams } from './index.selectors';
+import { getUrlWithoutEmbedParams, uuidFromHrefSelector } from './index.selectors';
+import { Store, select } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
 
 @Injectable()
 export class UUIDIndexEffects {
@@ -63,16 +73,30 @@ export class UUIDIndexEffects {
     .pipe(
       ofType(RequestActionTypes.CONFIGURE),
       filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
-      map((action: RequestConfigureAction) => {
-        return new AddToIndexAction(
+      switchMap((action: RequestConfigureAction) => {
+        const href = getUrlWithoutEmbedParams(action.payload.href);
+        return this.store.pipe(
+            select(uuidFromHrefSelector(href)),
+            take(1),
+            map((uuid: string) => [action, uuid])
+          );
+        }
+      ),
+      switchMap(([action, uuid]: [RequestConfigureAction, string]) => {
+        let actions = [];
+        if (hasValue(uuid)) {
+          actions = [new RequestStaleAction(uuid)];
+        }
+        actions = [...actions, new AddToIndexAction(
           IndexName.REQUEST,
           getUrlWithoutEmbedParams(action.payload.href),
           action.payload.uuid
-        );
+        )];
+        return actions;
       })
     );
 
-  constructor(private actions$: Actions) {
+  constructor(private actions$: Actions, private store: Store<CoreState>) {
 
   }
 

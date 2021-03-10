@@ -53,7 +53,7 @@ export class UsageReportService extends DataService<UsageReport> {
       }],
       currentPage: page,
       elementsPerPage: size,
-    }, false).pipe(
+    }, true, false).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((list) => list.page),

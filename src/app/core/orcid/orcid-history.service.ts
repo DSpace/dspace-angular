@@ -20,7 +20,7 @@ import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { configureRequest, getFinishedRemoteData, getResponseFromEntry } from '../shared/operators';
+import { getFinishedRemoteData, getResponseFromEntry, sendRequest } from '../shared/operators';
 import { OrcidHistory } from './model/orcid-history.model';
 import { ORCID_HISTORY } from './model/orcid-history.resource-type';
 import { OrcidQueue } from './model/orcid-queue.model';
@@ -83,7 +83,7 @@ export class OrcidHistoryService {
       map((href: string) => {
         return new PostRequest(requestId, href, orcidQueue._links.self.href, options);
       }),
-      configureRequest(this.requestService)
+      sendRequest(this.requestService)
     ).subscribe();
 
     return this.fetchCreateResponse(requestId).pipe(

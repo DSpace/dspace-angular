@@ -133,6 +133,7 @@ describe('ItemRelationshipsComponent', () => {
     };
 
     itemService = jasmine.createSpyObj('itemService', {
+      findByHref: createSuccessfulRemoteDataObject$(item),
       findById: createSuccessfulRemoteDataObject$(item)
     });
     routeStub = {

@@ -7,6 +7,7 @@ import { AddToObjectCacheAction } from '../cache/object-cache.actions';
 import { Item } from '../shared/item.model';
 import { AddToIndexAction } from './index.actions';
 import { IndexName } from './index.reducer';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('ObjectUpdatesEffects', () => {
   let indexEffects: UUIDIndexEffects;
@@ -18,6 +19,7 @@ describe('ObjectUpdatesEffects', () => {
   let alternativeLink;
   let selfLink;
   let otherLink;
+  let initialState;
 
   function init() {
     selfLink = 'rest.org/items/6ca6549c-3db2-4288-8ce4-4a3bce011860';
@@ -34,6 +36,15 @@ describe('ObjectUpdatesEffects', () => {
     msToLive = 90000;
     requestUUID = '324e5a5c-06f7-428d-b3ba-cc322c5dde39';
     alternativeLink = 'rest.org/alternative-link/1234';
+    initialState = {
+      core: {
+        index: {
+          [IndexName.REQUEST]: {
+            [selfLink]: requestUUID
+          }
+        }
+      }
+    };
   }
 
   beforeEach(waitForAsync(() => {
@@ -42,6 +53,7 @@ describe('ObjectUpdatesEffects', () => {
       providers: [
         UUIDIndexEffects,
         provideMockActions(() => actions),
+        provideMockStore({ initialState }),
       ],
     });
   }));

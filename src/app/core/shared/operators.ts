@@ -41,9 +41,9 @@ export const getResponseFromEntry = () =>
       map((entry: RequestEntry) => entry.response)
     );
 
-export const configureRequest = (requestService: RequestService) =>
+export const sendRequest = (requestService: RequestService) =>
   (source: Observable<RestRequest>): Observable<RestRequest> =>
-    source.pipe(tap((request: RestRequest) => requestService.configure(request)));
+    source.pipe(tap((request: RestRequest) => requestService.send(request)));
 
 export const getRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>

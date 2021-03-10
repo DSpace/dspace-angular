@@ -45,11 +45,7 @@ export class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
-      map ((request: PostRequest) => {
-        request.responseMsToLive = 10 * 1000;
-        return request;
-      }),
-      tap((request: PostRequest) => this.requestService.configure(request)),
+      tap((request: PostRequest) => this.requestService.send(request)),
       mergeMap((request: PostRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
   }
@@ -60,11 +56,7 @@ export class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL, undefined, options)),
-      map ((request: GetRequest) => {
-        request.forceBypassCache = true;
-        return request;
-      }),
-      tap((request: GetRequest) => this.requestService.configure(request)),
+      tap((request: GetRequest) => this.requestService.send(request)),
       mergeMap((request: GetRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
   }
@@ -78,7 +70,7 @@ export class AuthRequestService {
       distinctUntilChanged(),
       map((href: string) => new URLCombiner(href, this.shortlivedtokensEndpoint).toString()),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
-      tap((request: PostRequest) => this.requestService.configure(request)),
+      tap((request: PostRequest) => this.requestService.send(request)),
       switchMap((request: PostRequest) => this.rdbService.buildFromRequestUUID<ShortLivedToken>(request.uuid)),
       getFirstCompletedRemoteData(),
       map((response: RemoteData<ShortLivedToken>) => {

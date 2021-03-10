@@ -228,7 +228,7 @@ describe('EditInPlaceFieldComponent', () => {
     }));
 
     it('it should call queryMetadataFields on the metadataFieldService with the correct query', () => {
-      expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query, null, false, followLink('schema'));
+      expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query, null, true, false, followLink('schema'));
     });
 
     it('it should set metadataFieldSuggestions to the right value', () => {

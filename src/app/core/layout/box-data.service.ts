@@ -81,7 +81,7 @@ export class BoxDataService {
       new RequestParam('uuid', itemUuid),
       new RequestParam('tab', tabId)
     ];
-    return this.dataService.searchBy(this.searchFindByItem, options, true, ...linksToFollow);
+    return this.dataService.searchBy(this.searchFindByItem, options, true, true, ...linksToFollow);
   }
 
   /**
@@ -93,6 +93,6 @@ export class BoxDataService {
   findByEntityType(entityType: string, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('type', entityType)];
-    return this.dataService.searchBy(this.searchFindByEntityType, options, true, ...linksToFollow);
+    return this.dataService.searchBy(this.searchFindByEntityType, options, true, true, ...linksToFollow);
   }
 }

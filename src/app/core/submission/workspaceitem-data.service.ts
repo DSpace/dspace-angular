@@ -59,7 +59,7 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new PostRequest(requestId, href, externalSourceEntryHref, options);
-        this.requestService.configure(request);
+        this.requestService.send(request);
       })
     ).subscribe();
 

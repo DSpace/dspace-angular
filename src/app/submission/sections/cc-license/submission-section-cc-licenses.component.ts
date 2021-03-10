@@ -253,7 +253,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         }
         this.sectionData.data = data;
       }),
-      this.submissionCcLicensesDataService.findAll({elementsPerPage: Number.MAX_SAFE_INTEGER}).pipe(
+      this.submissionCcLicensesDataService.findAll({ elementsPerPage: 9999 }).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((list) => list.page),

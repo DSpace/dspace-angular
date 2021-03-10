@@ -1,7 +1,11 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { IndexName, indexReducer, MetaIndexState } from './index.reducer';
-import { AddToIndexAction, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
+import {
+  AddToIndexAction,
+  RemoveFromIndexBySubstringAction,
+  RemoveFromIndexByValueAction
+} from './index.actions';
 
 class NullAction extends AddToIndexAction {
   type = null;
@@ -23,8 +27,6 @@ describe('requestReducer', () => {
     }, [IndexName.ALTERNATIVE_OBJECT_LINK]: {
       [key1]: val1
     }, [IndexName.REQUEST]: {
-      [key1]: val1
-    }, [IndexName.UUID_MAPPING]: {
       [key1]: val1
     }
   };

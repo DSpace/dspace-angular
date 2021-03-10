@@ -127,7 +127,7 @@ describe('BoxDataService', () => {
 
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true,
+      send: true,
       removeByHrefSubstring: {},
       getByHref: of(responseCacheEntry),
       getByUUID: of(responseCacheEntry),
@@ -188,7 +188,7 @@ describe('BoxDataService', () => {
       scheduler.schedule(() => service.findByItem(itemUUID, tabId));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<Box>> for the search', () => {
@@ -210,7 +210,7 @@ describe('BoxDataService', () => {
       scheduler.schedule(() => service.findByEntityType(entityType));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<Box>> for the search', () => {

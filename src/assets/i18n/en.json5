@@ -336,8 +336,6 @@
 
   "admin.access-control.groups.table.members": "Members",
 
-  "admin.access-control.groups.table.comcol": "Community / Collection",
-
   "admin.access-control.groups.table.edit": "Edit",
 
   "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
@@ -435,6 +433,8 @@
   "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
 
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
 
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
@@ -766,6 +766,10 @@
   "collection.edit.breadcrumbs": "Edit Collection",
 
 
+
+  "collection.edit.tabs.mapper.head": "Item Mapper",
+
+  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
 
   "collection.edit.item-mapper.cancel": "Cancel",
 
@@ -1805,6 +1809,9 @@
   "item.edit.breadcrumbs": "Edit Item",
 
 
+  "item.edit.tabs.mapper.head": "Collection Mapper",
+
+  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
@@ -3431,6 +3438,12 @@
 
 
 
+  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+
+  "relationships.add.error.server.content": "The server returned an error",
+
+  "relationships.add.error.title": "Unable to add relationship",
+
   "relationships.isAuthorOf": "Authors",
 
   "relationships.isAuthorOf.Person": "Authors (persons)",
@@ -3527,7 +3540,7 @@
 
   "resource-policies.form.action-type.required": "You must select the resource policy action.",
 
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
+  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 

@@ -110,7 +110,7 @@ export class OpenaireBrokerEventRestService {
         fieldValue: topic
       }
     ];
-    return this.dataService.searchBy('findByTopic', options, true, ...linksToFollow);
+    return this.dataService.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }
 
   /**
@@ -131,7 +131,7 @@ export class OpenaireBrokerEventRestService {
    *    The OpenAIRE Broker event.
    */
   public getEvent(id: string, ...linksToFollow: FollowLinkConfig<OpenaireBrokerEventObject>[]): Observable<RemoteData<OpenaireBrokerEventObject>> {
-    return this.dataService.findById(id, true, ...linksToFollow);
+    return this.dataService.findById(id, true, true, ...linksToFollow);
   }
 
   /**

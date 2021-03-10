@@ -27,7 +27,7 @@ export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Proce
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Process>> {
     const id = route.params.id;
 
-    return this.processService.findById(route.params.id, false, followLink('script')).pipe(
+    return this.processService.findById(route.params.id, true, false, followLink('script')).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((object: Process) => {

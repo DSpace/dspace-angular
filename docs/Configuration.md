@@ -39,7 +39,7 @@ export const environment = {
   // The REST API server settings.
   rest: {
     ssl: true,
-    host: 'dspace7.4science.cloud',
+    host: 'api7.dspace.org',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server'
@@ -50,7 +50,7 @@ export const environment = {
 Alternately you can set the following environment variables. If any of these are set, it will override all configuration files:
 ```
   DSPACE_REST_SSL=true
-  DSPACE_REST_HOST=dspace7.4science.cloud
+  DSPACE_REST_HOST=api7.dspace.org
   DSPACE_REST_PORT=443
   DSPACE_REST_NAMESPACE=/server
 ```

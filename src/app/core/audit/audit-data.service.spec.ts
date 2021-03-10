@@ -93,6 +93,7 @@ describe('AuditDataService', () => {
           AUDIT_FIND_BY_OBJECT_SEARCH_METHOD,
           options,
           true,
+          true,
           followLink('eperson'));
         done();
       });
@@ -108,7 +109,7 @@ describe('AuditDataService', () => {
       const linksToFollow: any = 'linksToFollow';
       service.findById(audit.id, linksToFollow).subscribe((result) => {
         expect(result.payload).toEqual(audit);
-        expect(service.dataService.findById).toHaveBeenCalledWith(audit.id, true, linksToFollow);
+        expect(service.dataService.findById).toHaveBeenCalledWith(audit.id, true, true, linksToFollow);
         done();
       });
     });
@@ -124,7 +125,7 @@ describe('AuditDataService', () => {
       const options = new FindListOptions();
       service.findAll(options, linksToFollow).subscribe((result) => {
         expect(result.payload.page).toEqual(audits);
-        expect(service.dataService.findAll).toHaveBeenCalledWith(options, true, linksToFollow);
+        expect(service.dataService.findAll).toHaveBeenCalledWith(options, true, true, linksToFollow);
         done();
       });
     });

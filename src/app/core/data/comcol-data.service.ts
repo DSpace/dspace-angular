@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -7,7 +7,7 @@ import { HALLink } from '../shared/hal-link.model';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindByIDRequest, FindListOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -42,11 +42,10 @@ export abstract class ComColDataService<T extends Community | Collection> extend
       const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
         map((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
         filter((href: string) => isNotEmpty(href)),
-        take(1),
-        tap((href: string) => {
-          const request = new FindByIDRequest(this.requestService.generateRequestId(), href, options.scopeID);
-          this.requestService.configure(request);
-        }));
+        take(1)
+      );
+
+      this.createAndSendGetRequest(scopeCommunityHrefObs, true);
 
       return scopeCommunityHrefObs.pipe(
         switchMap((href: string) => this.rdbService.buildSingle<Community>(href)),
@@ -71,7 +70,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     const href$ = this.getFindByParentHref(parentUUID).pipe(
       map((href: string) => this.buildHrefFromFindOptions(href, options))
     );
-    return this.findList(href$, options);
+    return this.findAllByHref(href$);
   }
 
   /**

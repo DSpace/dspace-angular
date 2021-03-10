@@ -8,6 +8,7 @@ export class RelationshipOptions {
   filter: string;
   searchConfiguration: string;
   nameVariants: string;
+  externalSources: string[];
 
   get metadataField() {
     return RELATION_METADATA_PREFIX + this.relationshipType;

@@ -23,7 +23,7 @@ export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Collection>> {
-    return this.collectionService.findById(route.params.id, false, followLink('logo')).pipe(
+    return this.collectionService.findById(route.params.id, true, false, followLink('logo')).pipe(
       getFirstCompletedRemoteData()
     );
   }

@@ -22,7 +22,7 @@
                 </ds-dynamic-lookup-relation-search-tab>
             </ng-template>
         </ngb-tab>
-        <ngb-tab *ngFor="let source of (externalSourcesRD$ | async)?.payload?.page; let idx = index"
+        <ngb-tab *ngFor="let source of (externalSourcesRD$ | async); let idx = index"
                  [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + source.id | translate  : {count: (totalExternal$ | async)[idx]}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-external-source-tab

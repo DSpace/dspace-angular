@@ -109,7 +109,7 @@ export class ItemVersionsComponent implements OnInit {
       switchMap(([versionHistory, page]: [VersionHistory, number]) =>
         this.versionHistoryService.getVersions(versionHistory.id,
           new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })}),
-          followLink('item'), followLink('eperson')))
+          true, true, followLink('item'), followLink('eperson')))
     );
     this.hasEpersons$ = this.versionsRD$.pipe(
       getAllSucceededRemoteData(),
