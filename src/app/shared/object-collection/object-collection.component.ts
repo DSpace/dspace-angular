@@ -54,6 +54,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
+   * Emit when one of the collection's object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
+
+  /**
    * Whether or not to add an import button to the object elements
    */
   @Input() importable = false;
