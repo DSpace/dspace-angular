@@ -2,25 +2,28 @@
   <h3 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h3>
 
   <h4 id="search" class="border-bottom pb-2">{{messagePrefix + '.search.head' | translate}}
-    <button (click)="clearFormAndResetResult();"
-            class="btn btn-primary float-right">{{messagePrefix + '.button.see-all' | translate}}</button>
+
   </h4>
-  <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="row">
-    <div class="col-12 col-sm-3">
+  <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
+    <div>
       <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
         <option value="metadata">{{messagePrefix + '.search.scope.metadata' | translate}}</option>
         <option value="email">{{messagePrefix + '.search.scope.email' | translate}}</option>
       </select>
     </div>
-    <div class="col-sm-9 col-12">
+    <div class="flex-grow-1 mr-3 ml-3">
       <div class="form-group input-group">
         <input type="text" name="query" id="query" formControlName="query"
                class="form-control" aria-label="Search input">
         <span class="input-group-append">
             <button type="submit"
-                    class="search-button btn btn-secondary">{{ messagePrefix + '.search.button' | translate }}</button>
+                    class="search-button btn btn-primary">{{ messagePrefix + '.search.button' | translate }}</button>
         </span>
       </div>
+    </div>
+    <div>
+      <button (click)="clearFormAndResetResult();"
+              class="btn btn-primary">{{messagePrefix + '.button.see-all' | translate}}</button>
     </div>
   </form>
 
