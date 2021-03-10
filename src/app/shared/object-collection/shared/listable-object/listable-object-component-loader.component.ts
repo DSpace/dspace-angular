@@ -3,10 +3,9 @@ import {
   ComponentFactoryResolver,
   ElementRef,
   Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
+ OnDestroy, OnInit,
+ Output, ViewChild
+,
   EventEmitter
 } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
@@ -20,6 +19,7 @@ import { hasValue } from '../../../empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
@@ -107,7 +107,10 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    */
   protected subs: Subscription[] = [];
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private themeService: ThemeService
+  ) {
   }
 
   /**
@@ -182,6 +185,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],
                viewMode: ViewMode,
                context: Context): GenericConstructor<Component> {
-    return getListableObjectComponent(renderTypes, viewMode, context);
+    return getListableObjectComponent(renderTypes, viewMode, context, this.themeService.getThemeName());
   }
 }

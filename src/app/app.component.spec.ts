@@ -1,7 +1,7 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
@@ -32,7 +32,9 @@ import { storeModuleConfig } from './app.reducer';
 import { LocaleService } from './core/locale/locale.service';
 import { authReducer } from './core/auth/auth.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
-import {GoogleAnalyticsService} from './statistics/google-analytics.service';
+import { GoogleAnalyticsService } from './statistics/google-analytics.service';
+import { ThemeService } from './shared/theme-support/theme.service';
+import { getMockThemeService } from './shared/mocks/theme-service.mock';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -73,6 +75,7 @@ describe('App component', () => {
       { provide: CSSVariableService, useClass: CSSVariableServiceStub },
       { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       { provide: LocaleService, useValue: getMockLocaleService() },
+      { provide: ThemeService, useValue: getMockThemeService() },
       provideMockStore({ initialState }),
       AppComponent,
       RouteService
@@ -141,6 +144,34 @@ describe('App component', () => {
       it('should call googleAnalyticsService.addTrackingIdToPage()', () => {
         expect(googleAnalyticsSpy.addTrackingIdToPage).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+
+  describe('when ThemeService returns a custom theme', () => {
+    let document;
+    let headSpy;
+
+    beforeEach(() => {
+      // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule(defaultTestBedConf);
+      TestBed.overrideProvider(ThemeService, {useValue: getMockThemeService('custom')});
+      document = TestBed.inject(DOCUMENT);
+      headSpy = jasmine.createSpyObj('head', ['appendChild']);
+      spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
+      fixture = TestBed.createComponent(AppComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should append a link element with the correct attributes to the head element', () => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('class', 'theme-css');
+      link.setAttribute('href', '/custom-theme.css');
+
+      expect(headSpy.appendChild).toHaveBeenCalledWith(link);
     });
   });
 });

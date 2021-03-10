@@ -1,13 +1,13 @@
 :host ::ng-deep {
     .fa-chevron-right {
-        padding-left: $spacer/2;
+        padding-left: calc(var(--bs-spacer) / 2);
         font-size: 0.5rem;
         line-height: 3;
     }
 
     .sidebar-sub-level-items {
         list-style: disc;
-        color: $navbar-dark-color;
+        color: var(--bs-navbar-dark-color);
         overflow: hidden;
 
     }

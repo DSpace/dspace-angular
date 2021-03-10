@@ -1,6 +1,6 @@
 .sticky-buttons {
   position: sticky;
-  top: $dropdown-item-padding-x * 3;
-  z-index: $submission-footer-z-index;
-  background-color: rgba($white, .97);
+  top: calc(var(--bs-dropdown-item-padding-x) * 3);
+  z-index: var(--ds-submission-footer-z-index);
+  background-color: rgba(255, 255, 255, .97);
 }

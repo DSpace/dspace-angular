@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "extractCss": true,
             "preserveSymlinks": true,
             "customWebpackConfig": {
               "path": "./webpack/webpack.browser.ts",
@@ -46,7 +47,16 @@
               "src/robots.txt"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "src/styles/base-theme.scss",
+                "inject": false,
+                "bundleName": "base-theme"
+              },
+              {
+                "input": "src/themes/custom/styles/theme.scss",
+                "inject": false,
+                "bundleName": "custom-theme"
+              }
             ],
             "scripts": []
           },
@@ -116,7 +126,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "src/styles/base-theme.scss",
+                "inject": false,
+                "bundleName": "base-theme"
+              }
             ],
             "scripts": []
           }

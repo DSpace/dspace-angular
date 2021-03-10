@@ -1,5 +1,5 @@
 nav.navbar {
-    border-bottom: 1px $gray-400 solid;
+    border-bottom: 1px var(--bs-gray-400) solid;
     align-items: baseline;
 }
 
@@ -7,7 +7,7 @@ nav.navbar {
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
     .navbar {
         width: 100%;
-        background-color: $white;
+        background-color: var(--bs-white);
         position: absolute;
         overflow: hidden;
         height: 0;
@@ -19,8 +19,8 @@ nav.navbar {
 
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
     .reset-padding-md {
-        margin-left: -$spacer/2;
-        margin-right: -$spacer/2;
+        margin-left: calc(var(--bs-spacer) / -2);
+        margin-right: calc(var(--bs-spacer) / -2);
     }
 }
 
@@ -28,7 +28,7 @@ nav.navbar {
 .navbar-expand-md.navbar-container {
     @media screen and (max-width: map-get($grid-breakpoints, md)) {
         > .container {
-            padding: 0 $spacer;
+            padding: 0 var(--bs-spacer);
         }
         padding: 0;
     }

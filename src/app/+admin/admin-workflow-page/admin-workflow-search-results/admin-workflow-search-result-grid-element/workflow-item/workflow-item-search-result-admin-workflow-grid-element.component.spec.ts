@@ -19,6 +19,8 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { of as observableOf } from 'rxjs';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 
 describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
@@ -28,6 +30,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
   let itemRD$;
   let linkService;
   let object;
+  let themeService;
 
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
@@ -37,6 +40,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
     wfi.item = itemRD$;
     object.indexableObject = wfi;
     linkService = getMockLinkService();
+    themeService = getMockThemeService();
   }
 
   beforeEach(waitForAsync(() => {
@@ -51,6 +55,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
         ],
         providers: [
           { provide: LinkService, useValue: linkService },
+          { provide: ThemeService, useValue: themeService },
           {
             provide: TruncatableService, useValue: {
               isCollapsed: () => observableOf(true),

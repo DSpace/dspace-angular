@@ -1,8 +1,8 @@
-$ds-wrapper-grid-spacing: $spacer/2;
-
 :host ::ng-deep {
+  --ds-wrapper-grid-spacing: calc(var(--bs-spacer) / 2);
+
   div.thumbnail > img {
-    height: $card-thumbnail-height;
+    height: var(--ds-card-thumbnail-height);
     width: 100%;
     display: block;
     min-width: 100%;
@@ -11,19 +11,19 @@ $ds-wrapper-grid-spacing: $spacer/2;
     object-position: 50% 15%;
   }
   div.card {
-    margin-top: $ds-wrapper-grid-spacing;
-    margin-bottom: $ds-wrapper-grid-spacing;
+    margin-top: var(--ds-wrapper-grid-spacing);
+    margin-bottom: var(--ds-wrapper-grid-spacing);
   }
 }
 
 .card-columns {
-  margin-left: -$ds-wrapper-grid-spacing;
-  margin-right: -$ds-wrapper-grid-spacing;
+  margin-left: calc(-1 * var(--ds-wrapper-grid-spacing));
+  margin-right: calc(-1 * var(--ds-wrapper-grid-spacing));
   column-gap: 0;
 
   .card-column {
-    padding-left: $ds-wrapper-grid-spacing;
-    padding-right: $ds-wrapper-grid-spacing;
+    padding-left: var(--ds-wrapper-grid-spacing);
+    padding-right: var(--ds-wrapper-grid-spacing);
   }
 }
 

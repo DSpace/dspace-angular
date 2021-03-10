@@ -3,7 +3,8 @@ import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { ItemDataService } from '../data/item-data.service';
 import { Item } from '../shared/item.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../+item-page/item-page.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
@@ -22,13 +23,6 @@ export class ItemBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
    * Requesting them as embeds will limit the number of requests
    */
   get followLinks(): FollowLinkConfig<Item>[] {
-    return [
-      followLink('owningCollection', undefined, true, true, true,
-        followLink('parentCommunity', undefined, true, true, true,
-          followLink('parentCommunity'))
-      ),
-      followLink('bundles'),
-      followLink('relationships')
-    ];
+    return ITEM_PAGE_LINKS_TO_FOLLOW;
   }
 }
