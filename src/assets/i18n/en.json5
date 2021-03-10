@@ -513,6 +513,8 @@
 
   "admin.search.title": "Administrative Search",
 
+  "administrativeView.search.results.head": "Administrative Search",
+
 
 
 
@@ -4578,12 +4580,6 @@
 
 
 
-  "administrativeView.search.results.head": "Administrative Search",
-
-  "menu.section.admin_search": "Admin Search",
-
-
-
   "uploader.browse": "browse",
 
   "uploader.drag-message": "Drag & Drop your files here",
@@ -4645,4 +4641,3 @@
 
   "layout.i18n.link.default": "link"
 }
-
