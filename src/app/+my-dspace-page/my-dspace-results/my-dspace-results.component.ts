@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
@@ -41,6 +41,12 @@ export class MyDSpaceResultsComponent {
    * The current context for the search results
    */
   @Input() context: Context;
+
+  /**
+   * Emit when one of the results has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
+
   /**
    * A boolean representing if search results entry are separated by a line
    */

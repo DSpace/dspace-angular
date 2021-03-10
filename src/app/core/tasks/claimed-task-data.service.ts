@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
@@ -15,6 +15,11 @@ import { ClaimedTask } from './models/claimed-task-object.model';
 import { CLAIMED_TASK } from './models/claimed-task-object.resource-type';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
+import { RemoteData } from '../data/remote-data';
+import { FindListOptions } from '../data/request.models';
+import { RequestParam } from '../cache/models/request-param.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getFirstSucceededRemoteData } from '../shared/operators';
 
 /**
  * The service handling all REST requests for ClaimedTask
@@ -23,7 +28,7 @@ import { TasksService } from './tasks.service';
 @dataService(CLAIMED_TASK)
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
-  protected responseMsToLive = 10 * 1000;
+  protected responseMsToLive = 1000;
 
   /**
    * The endpoint link name
@@ -55,6 +60,24 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
   }
 
   /**
+   * Make a request to claim the given task
+   *
+   * @param scopeId
+   *    The task id
+   * @param poolTaskHref
+   *    The pool task Href
+   * @return {Observable<ProcessTaskResponse>}
+   *    Emit the server response
+   */
+  public claimTask(scopeId: string, poolTaskHref: string): Observable<ProcessTaskResponse> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    return this.postToEndpoint(this.linkPath, poolTaskHref, null, options);
+  }
+
+  /**
    * Make a request for the given task
    *
    * @param scopeId
@@ -78,6 +101,21 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    */
   public returnToPoolTask(scopeId: string): Observable<ProcessTaskResponse> {
     return this.deleteById(this.linkPath, scopeId, this.makeHttpOptions());
+  }
+
+  /**
+   * Search a claimed task by item uuid.
+   * @param uuid
+   *   The item uuid
+   * @return {Observable<RemoteData<ClaimedTask>>}
+   *    The server response
+   */
+  public findByItem(uuid: string): Observable<RemoteData<ClaimedTask>> {
+    const options = new FindListOptions();
+    options.searchParams = [
+      new RequestParam('uuid', uuid)
+    ];
+    return this.searchTask('findByItem', options).pipe(getFirstSucceededRemoteData());
   }
 
 }

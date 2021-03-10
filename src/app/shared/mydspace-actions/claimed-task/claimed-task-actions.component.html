@@ -3,11 +3,11 @@
     <ds-claimed-task-actions-loader *ngFor="let option of workflowAction?.options"
                                     [option]="option"
                                     [object]="object"
-                                    (processCompleted)="handleActionResponse($event)">
+                                    (processCompleted)="this.processCompleted.emit($event)">
     </ds-claimed-task-actions-loader>
     <ds-claimed-task-actions-loader [option]="returnToPoolOption"
                                     [object]="object"
-                                    (processCompleted)="handleActionResponse($event)">
+                                    (processCompleted)="this.processCompleted.emit($event)">
     </ds-claimed-task-actions-loader>
   </div>
 </ng-container>
