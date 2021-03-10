@@ -395,27 +395,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       size: 'lg'
     });
 
-    if (hasValue(this.model.value)) {
-      this.focus.emit({
-        $event: new Event('focus'),
-        context: this.context,
-        control: this.control,
-        model: this.model,
-        type: DynamicFormControlEventType.Focus
-      } as DynamicFormControlEvent);
-
-      this.model.value = null;
-      this.change.emit({
-        $event: new Event('change'),
-        context: this.context,
-        control: this.control,
-        model: this.model,
-        type: DynamicFormControlEventType.Change
-      } as DynamicFormControlEvent);
-
-      this.submissionService.dispatchSave(this.model.submissionId);
-    }
-
     const modalComp = this.modalRef.componentInstance;
 
     if (hasValue(this.model.value) && !this.model.readOnly) {
