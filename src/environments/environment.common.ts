@@ -157,8 +157,12 @@ export const environment: GlobalConfig = {
     code: 'nl',
     label: 'Nederlands',
     active: true,
-  }, {
-    code: 'pt',
+  },{
+    code: 'pt-BR',
+    label: 'Português do Brasil',
+    active: true,
+  },{
+    code: 'pt-PT',
     label: 'Português',
     active: true,
   }, {
