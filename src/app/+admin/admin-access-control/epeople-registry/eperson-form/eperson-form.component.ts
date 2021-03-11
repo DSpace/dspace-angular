@@ -436,6 +436,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
         modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
         modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-eperson.confirm';
+        modalRef.componentInstance.brandColor = 'danger';
+        modalRef.componentInstance.confirmIcon = 'fas fa-trash';
         modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
           if (confirm) {
             if (hasValue(eperson.id)) {

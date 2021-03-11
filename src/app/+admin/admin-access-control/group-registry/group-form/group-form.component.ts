@@ -368,6 +368,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-group.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-group.modal.cancel';
       modalRef.componentInstance.confirmLabel = this.messagePrefix + '.delete-group.modal.confirm';
+      modalRef.componentInstance.brandColor = 'danger';
+      modalRef.componentInstance.confirmIcon = 'fas fa-trash';
       modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
         if (confirm) {
           if (hasValue(group.id)) {

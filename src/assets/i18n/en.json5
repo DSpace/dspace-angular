@@ -222,6 +222,8 @@
 
   "admin.access-control.epeople.search.button": "Search",
 
+  "admin.access-control.epeople.search.placeholder": "Search people...",
+
   "admin.access-control.epeople.button.add": "Add EPerson",
 
   "admin.access-control.epeople.table.id": "ID",
@@ -253,6 +255,8 @@
   "admin.access-control.epeople.form.canLogIn": "Can log in",
 
   "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+
+  "admin.access-control.epeople.form.return": "Back",
 
   "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
 
@@ -301,6 +305,8 @@
   "admin.access-control.groups.button.see-all": "Browse all",
 
   "admin.access-control.groups.search.button": "Search",
+
+  "admin.access-control.groups.search.placeholder": "Search groups...",
 
   "admin.access-control.groups.table.id": "ID",
 
@@ -442,7 +448,7 @@
 
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
 
-  "admin.access-control.groups.form.return": "Return to groups",
+  "admin.access-control.groups.form.return": "Back",
 
 
 
