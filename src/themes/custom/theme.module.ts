@@ -37,6 +37,8 @@ import { AppModule } from '../../app/app.module';
 import { PublicationComponent } from './app/+item-page/simple/item-types/publication/publication.component';
 import { ItemPageModule } from '../../app/+item-page/item-page.module';
 import { RouterModule } from '@angular/router';
+import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
+import { OpenaireModule } from '../../app/openaire/openaire.module';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -81,6 +83,8 @@ const DECLARATIONS = [
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,
+    ContextMenuModule,
+    OpenaireModule
   ],
   declarations: DECLARATIONS
 })
