@@ -3,7 +3,15 @@ import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
-import { getDataServiceFor, getLinkDefinition, getLinkDefinitions, LinkDefinition } from './build-decorators';
+import {
+  getDataServiceFor,
+  getLinkDefinition,
+  getLinkDefinitions,
+  LinkDefinition
+} from './build-decorators';
+import { RemoteData } from '../../data/remote-data';
+import { Observable } from 'rxjs/internal/Observable';
+import { EMPTY } from 'rxjs';
 
 /**
  * A Service to handle the resolving and removing
@@ -33,12 +41,14 @@ export class LinkService {
   }
 
   /**
-   * Resolve the given {@link FollowLinkConfig} for the given model
+   * Resolve the given {@link FollowLinkConfig} for the given model and return the result. This does
+   * not attach the link result to the property on the model. Useful when you're working with a
+   * readonly object
    *
    * @param model the {@link HALResource} to resolve the link for
    * @param linkToFollow the {@link FollowLinkConfig} to resolve
    */
-  public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
+  public resolveLinkWithoutAttaching<T extends HALResource, U extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): Observable<RemoteData<U>> {
     const matchingLinkDef = getLinkDefinition(model.constructor, linkToFollow.name);
 
     if (hasNoValue(matchingLinkDef)) {
@@ -61,9 +71,9 @@ export class LinkService {
 
         try {
           if (matchingLinkDef.isList) {
-            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
+            return service.findAllByHref(href, linkToFollow.findListOptions, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           } else {
-            model[linkToFollow.name] = service.findByHref(href, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
+            return service.findByHref(href, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           }
         } catch (e) {
           console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} at ${href}`);
@@ -71,6 +81,18 @@ export class LinkService {
         }
       }
     }
+    return EMPTY;
+  }
+
+  /**
+   * Resolve the given {@link FollowLinkConfig} for the given model and return the model with the
+   * link property attached.
+   *
+   * @param model the {@link HALResource} to resolve the link for
+   * @param linkToFollow the {@link FollowLinkConfig} to resolve
+   */
+  public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
+    model[linkToFollow.name] = this.resolveLinkWithoutAttaching(model, linkToFollow);
     return model;
   }
 

@@ -19,6 +19,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { getUrlWithoutEmbedParams, uuidFromHrefSelector } from './index.selectors';
 import { Store, select } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 
 @Injectable()
 export class UUIDIndexEffects {
@@ -53,7 +54,7 @@ export class UUIDIndexEffects {
             selfLink
           );
         } else {
-          return { type: 'NO_ACTION' };
+          return new NoOpAction();
         }
       })
     );

@@ -1,19 +1,19 @@
 .header-row {
-  color: $table-dark-color;
-  background-color: $table-dark-bg;
-  border-color: $table-dark-border-color;
+  color: var(--bs-table-dark-color);
+  background-color: var(--bs-table-dark-bg);
+  border-color: var(--bs-table-dark-border-color);
 }
 
 .bundle-row {
-  color: $table-head-color;
-  background-color: $table-head-bg;
-  border-color: $table-border-color;
+  color: var(--bs-table-head-color);
+  background-color: var(--bs-table-head-bg);
+  border-color: var(--bs-table-border-color);
 }
 
 .row-element {
   padding: 12px;
   padding: 0.75em;
-  border-bottom: $table-border-width solid $table-border-color;
+  border-bottom: var(--bs-table-border-width) solid var(--bs-table-border-color);
 }
 
 .drag-handle {

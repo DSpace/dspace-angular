@@ -14,6 +14,7 @@ import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { hasValue } from '../../../empty.util';
 import { Subscription } from 'rxjs';
+import { MyDSpaceActionsResult } from '../../mydspace-actions';
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',
@@ -38,7 +39,7 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
   /**
    * Emits the success or failure of a processed action
    */
-  @Output() processCompleted: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
 
   /**
    * Directive to determine where the dynamic child component is located
@@ -58,7 +59,8 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
    * Fetch, create and initialize the relevant component
    */
   ngOnInit(): void {
-    const comp = getComponentByWorkflowTaskOption(this.option);
+
+    const comp = this.getComponentByWorkflowTaskOption(this.option);
     if (hasValue(comp)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
 
@@ -69,9 +71,13 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
       const componentInstance = (componentRef.instance as ClaimedTaskActionsAbstractComponent);
       componentInstance.object = this.object;
       if (hasValue(componentInstance.processCompleted)) {
-        this.subs.push(componentInstance.processCompleted.subscribe((success) => this.processCompleted.emit(success)));
+        this.subs.push(componentInstance.processCompleted.subscribe((result) => this.processCompleted.emit(result)));
       }
     }
+  }
+
+  getComponentByWorkflowTaskOption(option: string) {
+    return getComponentByWorkflowTaskOption(option);
   }
 
   /**

@@ -1,18 +1,18 @@
 :host ::ng-deep .card {
-  margin-bottom: $submission-sections-margin-bottom;
+  margin-bottom: var(--ds-submission-sections-margin-bottom);
   overflow: unset;
 }
 
 .section-focus {
-  border-radius: $border-radius;
-  box-shadow: $btn-focus-box-shadow;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--bs-btn-focus-box-shadow);
 }
 
 // TODO to remove the following when upgrading @ng-bootstrap
 :host ::ng-deep .card:first-of-type {
-  border-bottom: $card-border-width solid  $card-border-color !important;
-  border-bottom-left-radius: $card-border-radius !important;
-  border-bottom-right-radius: $card-border-radius !important;
+  border-bottom: var(--bs-card-border-width) solid  var(--bs-card-border-color) !important;
+  border-bottom-left-radius: var(--bs-card-border-radius) !important;
+  border-bottom-right-radius: var(--bs-card-border-radius) !important;
 }
 
 :host ::ng-deep .card-header button {

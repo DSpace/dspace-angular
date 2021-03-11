@@ -162,7 +162,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       comp.collectionId = collectionId;
       comp.sectionId = sectionId;
       comp.availableAccessConditionOptions = availableAccessConditionOptions;
-      comp.availableAccessConditionGroups = availableGroupsMap;
       comp.collectionPolicyType = collectionPolicyType;
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
@@ -258,9 +257,9 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       operationsService.jsonPatchByResourceID.and.returnValue(observableOf(response));
 
       const accessConditionsToSave = [
-        { name: 'openaccess', groupUUID: '123456-g' },
-        { name: 'lease', endDate: '2019-01-16T00:00:00Z', groupUUID: '123456-g' },
-        { name: 'embargo', startDate: '2019-01-16T00:00:00Z', groupUUID: '123456-g' }
+        { name: 'openaccess' },
+        { name: 'lease', endDate: '2019-01-16T00:00:00Z' },
+        { name: 'embargo', startDate: '2019-01-16T00:00:00Z' },
       ];
       comp.saveBitstreamData(event);
       tick();

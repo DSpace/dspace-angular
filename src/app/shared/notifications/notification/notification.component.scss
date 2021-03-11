@@ -1,6 +1,6 @@
 .alert {
   display: inline-block;
-  min-width: $modal-sm;
+  min-width: var(--bs-modal-sm);
   text-align: left;
 }
 
@@ -19,14 +19,14 @@
 }
 
 .alert-success .notification-progress-loader span {
-  background: darken(adjust-hue(map-get($theme-colors, success), -10), 10%);
+  background: var(--ds-notification-bg-success);
 }
 .alert-danger .notification-progress-loader span {
-  background: darken(adjust-hue(map-get($theme-colors, danger), -10), 10%);
+  background: var(--ds-notification-bg-danger);
 }
 .alert-info .notification-progress-loader span {
-  background: darken(adjust-hue(map-get($theme-colors, info), -10), 10%);
+  background: var(--ds-notification-bg-info);
 }
 .alert-warning .notification-progress-loader span {
-  background: darken(adjust-hue(map-get($theme-colors, warning), -10), 10%);
+  background: var(--ds-notification-bg-warning);
 }

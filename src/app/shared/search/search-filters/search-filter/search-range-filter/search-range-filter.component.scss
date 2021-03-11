@@ -1,24 +1,25 @@
 .filters {
     .toggle-more-filters a {
-        color: $link-color;
+        color: var(--bs-link-color);
         text-decoration: underline;
         cursor: pointer;
     }
 }
 
-$slider-handle-width: 18px;
 ::ng-deep
 {
+  --ds-slider-handle-width: 18px;
+
     html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
-        right: -$slider-handle-width/2;
+        right: calc(var(--ds-slider-handle-width) / -2);
     }
     .noUi-horizontal .noUi-handle {
-        width: $slider-handle-width;
+        width: var(--ds-slider-handle-width);
         &:before {
-            left: ($slider-handle-width - 2)/2 - 2;
+            left: calc(calc(calc(var(--ds-slider-handle-width) - 2) / 2) - 2);
         }
         &:after {
-            left: ($slider-handle-width - 2)/2 + 2;
+            left: calc(calc(calc(var(--ds-slider-handle-width) - 2) / 2) + 2);
         }
         &:focus {
             outline: none;

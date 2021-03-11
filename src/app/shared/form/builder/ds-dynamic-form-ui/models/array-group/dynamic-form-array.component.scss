@@ -5,16 +5,16 @@
 }
 
 .cdk-drag {
-    margin-left: -(2.3 * $spacer);
-    margin-right: -(0.5 * $spacer);
-    padding-right: (0.5 * $spacer);
+    margin-left: calc(-2 * var(--bs-spacer));
+    margin-right: calc(-0.5 * var(--bs-spacer));
+    padding-right: calc(0.5 * var(--bs-spacer));
     .drag-icon {
         visibility: hidden;
-        width: (2 * $spacer);
-        color: $gray-600;
-        margin: $btn-padding-y 0;
-        line-height: $btn-line-height;
-        text-indent: 0.5 * $spacer;
+        width: calc(2 * var(--bs-spacer));
+        color: var(--bs-gray-600);
+        margin: var(--bs-btn-padding-y) 0;
+        line-height: var(--bs-btn-line-height);
+        text-indent: calc(0.5 * var(--bs-spacer));
         cursor: grab;
     }
 
@@ -40,7 +40,6 @@
     margin: 0px;
     padding: 0px;
 }
-
 
 .cdk-drag-placeholder {
     opacity: 0;

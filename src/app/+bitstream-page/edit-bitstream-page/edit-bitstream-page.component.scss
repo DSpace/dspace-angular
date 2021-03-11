@@ -2,7 +2,7 @@
   ::ng-deep {
     .switch {
       position: absolute;
-      top: $spacer*2.5;
+      top: calc(var(--bs-spacer) * 2.5);
     }
   }
 }

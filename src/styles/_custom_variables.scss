@@ -1,43 +1,57 @@
-// @import '_themed_custom_variables.scss';
+:root {
+  --ds-content-spacing: #{$spacer * 1.5};
 
-$content-spacing: $spacer * 1.5 !default;
+  --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
-$button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2) !default;
+  --ds-card-height-percentage:98%;
+  --ds-card-thumbnail-height:240px;
+  --ds-dropdown-menu-max-height: 200px;
+  --ds-drop-zone-area-height: 44px;
+  --ds-drop-zone-area-z-index: 1025;
+  --ds-drop-zone-area-inner-z-index: 1021;
+  --ds-login-logo-height:72px;
+  --ds-login-logo-width:72px;
+  --ds-submission-header-z-index: 1001;
+  --ds-submission-footer-z-index: 999;
 
-$card-height-percentage:98% !default;
-$card-thumbnail-height:240px !default;
-$dropdown-menu-max-height: 200px !default;
-$drop-zone-area-height: 44px !default;
-$drop-zone-area-z-index: 1025 !default;
-$drop-zone-area-inner-z-index: 1021 !default;
-$login-logo-height:72px !default;
-$login-logo-width:72px !default;
-$submission-header-z-index: 1001 !default;
-$submission-footer-z-index: 999 !default;
+  --ds-main-z-index: 0;
+  --ds-nav-z-index: 10;
+  --ds-sidebar-z-index: 20;
 
-$main-z-index: 0 !default;
-$nav-z-index: 10 !default;
-$sidebar-z-index: 20 !default;
+  --ds-header-logo-height: 80px;
+  --ds-header-logo-height-xs: 50px;
+  --ds-header-icon-color: #{$link-color};
+  --ds-header-icon-color-hover: #{darken($link-color, 15%)};
 
-$header-logo-height: 80px !default;
-$header-logo-height-xs: 50px !default;
-$header-icon-color: $link-color !default;
+  $admin-sidebar-bg: darken(#2B4E72, 17%);
+  $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
+  --ds-admin-sidebar-bg: #{$admin-sidebar-bg};
+  --ds-admin-sidebar-active-bg: #{$admin-sidebar-active-bg};
+  --ds-admin-sidebar-header-bg: #{darken($admin-sidebar-bg, 7%)};
 
-$admin-sidebar-bg: darken(#2B4E72, 17%) !default;
-$admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%) !default;
-$admin-sidebar-header-bg: darken($admin-sidebar-bg, 7%) !default;
+  --ds-dark-scrollbar-bg: #{$admin-sidebar-active-bg};
+  --ds-dark-scrollbar-alt-bg: #{lighten($admin-sidebar-active-bg, 2%)};
+  --ds-dark-scrollbar-fg: #47495d;
 
-$dark-scrollbar-background: $admin-sidebar-active-bg !default;
-$dark-scrollbar-foreground: #47495d !default;
+  --ds-submission-sections-margin-bottom: .5rem;
 
-$submission-sections-margin-bottom: .5rem !default;
+  --ds-edit-item-button-min-width: 100px;
+  --ds-edit-item-metadata-field-width: 190px;
+  --ds-edit-item-language-field-width: 43px;
 
-$edit-item-button-min-width: 100px !default;
-$edit-item-metadata-field-width: 190px !default;
-$edit-item-language-field-width: 43px !default;
+  --ds-thumbnail-max-width: 175px;
 
-$thumbnail-max-width: 175px !default;
+  --ds-dso-selector-list-max-height: 475px;
+  --ds-dso-selector-current-background-color: #eeeeee;
+  --ds-dso-selector-current-background-hover-color: #{darken(#eeeeee, 10%)};
+  --ds-notification-bg-success: #{darken(adjust-hue($success, -10), 10%)};
+  --ds-notification-bg-danger: #{darken(adjust-hue($danger, -10), 10%)};
+  --ds-notification-bg-info: #{darken(adjust-hue($info, -10), 10%)};
+  --ds-notification-bg-warning: #{darken(adjust-hue($warning, -10), 10%)};
 
-$dso-selector-list-max-height: 475px !default;
-$dso-selector-current-background-color: #eeeeee;
-$dso-selector-current-background-hover-color: darken($dso-selector-current-background-color, 10%);
+  --ds-fa-fixed-width: #{$fa-fixed-width};
+  --ds-icon-padding: #{$icon-padding};
+  --ds-collapsed-sidebar-width: #{$collapsed-sidebar-width};
+  --ds-sidebar-items-width: #{$sidebar-items-width};
+  --ds-total-sidebar-width: #{$total-sidebar-width};
+}
