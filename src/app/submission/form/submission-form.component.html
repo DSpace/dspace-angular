@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div *ngIf="!(isLoading() | async)">
+  <div *ngIf="!(isLoading() | async) && (uploadEnabled$ | async)">
     <ds-submission-upload-files [submissionId]="submissionId"
                                 [collectionId]="collectionId"
                                 [sectionId]="'upload'"

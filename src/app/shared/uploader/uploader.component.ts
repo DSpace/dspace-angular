@@ -146,12 +146,6 @@ export class UploaderComponent {
       this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
-
-      // Move page target to the uploader
-      const config: ScrollToConfigOptions = {
-        target: this.uploaderId
-      };
-      this.scrollToService.scrollTo(config);
     };
     if (hasValue(this.uploadProperties)) {
       this.uploader.onBuildItemForm = (item, form) => {

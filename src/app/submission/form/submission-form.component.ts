@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { Collection } from '../../core/shared/collection.model';
@@ -15,6 +15,8 @@ import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';
 import { Item } from '../../core/shared/item.model';
+import { SectionsType } from '../sections/sections-type';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * This component represents the submission form.
@@ -68,6 +70,11 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @type {Observable<boolean>}
    */
   public loading: Observable<boolean> = observableOf(true);
+
+  /**
+   * Emits true when the submission config has bitstream uploading enabled in submission
+   */
+  public uploadEnabled$ = new BehaviorSubject<boolean>(false);
 
   /**
    * Observable of the list of submission's sections
@@ -128,7 +135,11 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           } else {
             return observableOf([]);
           }
-        }));
+        }),
+        tap((sectionList) => {
+          this.uploadEnabled$.next(isNotEmpty(sectionList) && sectionList.some(config => config.sectionType === SectionsType.Upload));
+        })
+      );
 
       // check if is submission loading
       this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
