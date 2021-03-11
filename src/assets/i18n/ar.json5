@@ -2,15 +2,15 @@
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "لا يمكننا العثور على الصفحة التي تبحث عنها. ربما تم نقل الصفحة أو حذفها. يمكنك استخدام الزر أدناه للعودة إلى الصفحة الرئيسية.",
   
   // "404.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
+  "404.link.home-page": "خذني إلى الصفحة الرئيسية",
   
   // "404.page-not-found": "page not found",
   // TODO New key - Add a translation
-  "404.page-not-found": "page not found",
+  "404.page-not-found": "الصفحة غير موجودة",
   
   
   
@@ -20,7 +20,7 @@
   
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.head": "Failure",
+  "admin.registries.bitstream-formats.create.failure.head": "حدث خطأ تقني",
   
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
   // TODO New key - Add a translation
@@ -36,7 +36,7 @@
   
   // "admin.registries.bitstream-formats.create.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.head": "Success",
+  "admin.registries.bitstream-formats.create.success.head": "نجحت العملية",
   
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
   // TODO New key - Add a translation
@@ -44,7 +44,7 @@
   
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.head": "Failure",
+  "admin.registries.bitstream-formats.delete.failure.head": "حدث خطأ تقني",
   
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
   // TODO New key - Add a translation
@@ -52,7 +52,7 @@
   
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.head": "Success",
+  "admin.registries.bitstream-formats.delete.success.head": "نجحت العملية",
   
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   // TODO New key - Add a translation
@@ -64,7 +64,7 @@
   
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.description.label": "Description",
+  "admin.registries.bitstream-formats.edit.description.label": "وصف",
   
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
   // TODO New key - Add a translation
@@ -72,11 +72,11 @@
   
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.label": "صيغة الملفات",
   
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "أدخل صيغة الملف بدون النقطة",
   
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
   // TODO New key - Add a translation
@@ -84,7 +84,7 @@
   
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
+  "admin.registries.bitstream-formats.edit.failure.head": "حدث خطأ تقني",
   
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   // TODO New key - Add a translation
@@ -96,7 +96,7 @@
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "داخلي",
   
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   // TODO New key - Add a translation
@@ -112,7 +112,7 @@
   
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "أسم",
   
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
   // TODO New key - Add a translation
@@ -120,7 +120,7 @@
   
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.head": "Success",
+  "admin.registries.bitstream-formats.edit.success.head": "نجحت العملية",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
   // TODO New key - Add a translation
@@ -128,7 +128,7 @@
   
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "مستوى الدعم",
   
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
   // TODO New key - Add a translation
@@ -140,11 +140,11 @@
   
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
+  "admin.registries.bitstream-formats.table.delete": "أحذف المحدد",
   
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
+  "admin.registries.bitstream-formats.table.deselect-all": "إلغ تحديد الكل",
   
   // "admin.registries.bitstream-formats.table.internal": "internal",
   // TODO New key - Add a translation
@@ -156,7 +156,7 @@
   
   // "admin.registries.bitstream-formats.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.name": "أسم",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   // TODO New key - Add a translation
@@ -164,19 +164,19 @@
   
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "معروف",
   
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "مدعوم",
   
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "غير معروف",
   
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
+  "admin.registries.bitstream-formats.table.supportLevel.head": "مستوى الدعم",
   
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
   // TODO New key - Add a translation
@@ -198,7 +198,7 @@
   
   // "admin.registries.metadata.form.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.name": "Name",
+  "admin.registries.metadata.form.name": "أسم",
   
   // "admin.registries.metadata.form.namespace": "Namespace",
   // TODO New key - Add a translation
@@ -214,7 +214,7 @@
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.delete": "Delete selected",
+  "admin.registries.metadata.schemas.table.delete": "أحذف المحدد",
   
   // "admin.registries.metadata.schemas.table.id": "ID",
   // TODO New key - Add a translation
@@ -222,7 +222,7 @@
   
   // "admin.registries.metadata.schemas.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.name": "Name",
+  "admin.registries.metadata.schemas.table.name": "أسم",
   
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   // TODO New key - Add a translation
@@ -248,7 +248,7 @@
   
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.delete": "Delete selected",
+  "admin.registries.schema.fields.table.delete": "أحذف المحدد",
   
   // "admin.registries.schema.fields.table.field": "Field",
   // TODO New key - Add a translation
@@ -268,7 +268,7 @@
   
   // "admin.registries.schema.form.element": "Element",
   // TODO New key - Add a translation
-  "admin.registries.schema.form.element": "Element",
+  "admin.registries.schema.form.element": "عنصر",
   
   // "admin.registries.schema.form.qualifier": "Qualifier",
   // TODO New key - Add a translation
@@ -300,7 +300,7 @@
   
   // "admin.registries.schema.notification.failure": "Error",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.failure": "Error",
+  "admin.registries.schema.notification.failure": "حدث خطأ تقني",
   
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
   // TODO New key - Add a translation
@@ -320,7 +320,7 @@
   
   // "admin.registries.schema.notification.success": "Success",
   // TODO New key - Add a translation
-  "admin.registries.schema.notification.success": "Success",
+  "admin.registries.schema.notification.success": "نجحت العملية",
   
   // "admin.registries.schema.return": "Return",
   // TODO New key - Add a translation
@@ -334,19 +334,19 @@
   
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+  "admin.access-control.epeople.title": "الأشخاص",
   
   // "admin.access-control.epeople.head": "EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.head": "EPeople",
+  "admin.access-control.epeople.head": "الأشخاص",
   
   // "admin.access-control.epeople.search.head": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "البحث",
   
   // "admin.access-control.epeople.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "تصفح الجميع",
   
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   // TODO New key - Add a translation
@@ -358,11 +358,11 @@
   
   // "admin.access-control.epeople.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.button": "Search",
+  "admin.access-control.epeople.search.button": "أبحث",
   
   // "admin.access-control.epeople.button.add": "Add EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "أضف شخص",
   
   // "admin.access-control.epeople.table.id": "ID",
   // TODO New key - Add a translation
@@ -370,55 +370,55 @@
   
   // "admin.access-control.epeople.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "أسم",
   
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.email": "E-mail (exact)",
+  "admin.access-control.epeople.table.email": "البريد الإلكتروني",
   
   // "admin.access-control.epeople.table.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit": "Edit",
+  "admin.access-control.epeople.table.edit": "تعديل",
   
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": "تعديل \"{{name}}\"",
   
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "حذف \"{{name}}\"",
   
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "لا يوجد أشخاص",
   
   // "admin.access-control.epeople.form.create": "Create EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "إنشاء شخص",
   
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "تعديل شخص",
   
   // "admin.access-control.epeople.form.firstName": "First name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "الأسم الأول",
   
   // "admin.access-control.epeople.form.lastName": "Last name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "الأسم الأخير",
   
   // "admin.access-control.epeople.form.email": "E-mail",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.email": "E-mail",
+  "admin.access-control.epeople.form.email": "البريد الإلكتروني",
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "يجب أن يكون البريد الإلكتروني صحيح",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "تسجيل الدخول متاح",
   
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
   // TODO New key - Add a translation
@@ -426,31 +426,31 @@
   
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "نجح إنشاء الشخص \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "فشل إنشاء الشخص \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "فشل إنشاء الشخص \"{{name}}\", البريد الإلكتروني \"{{email}}\" مستخدم.",
   
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "فشل تعديل الشخص \"{{name}}\", البريد الإلكتروني \"{{email}}\" مستخدم.",
   
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "نجح تعديل الشخص \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "فشل تعديل الشخص \"{{name}}\"",
   
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "عضو في هذه المجموعات:",
   
   // "admin.access-control.epeople.form.table.id": "ID",
   // TODO New key - Add a translation
@@ -458,49 +458,49 @@
   
   // "admin.access-control.epeople.form.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "الأسم",
   
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "الشخص ليس عضو في أي مجموعة",
   
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "قم بالإضافة إلى مجموعة",
   
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "فشل حذف الشخص: \"{{name}}\"",
   
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "نجح حذف الشخص: \"{{name}}\"",
   
   
   
   // "admin.access-control.groups.title": "DSpace Angular :: Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+  "admin.access-control.groups.title": "المجموعات",
   
   // "admin.access-control.groups.head": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "المجموعات",
   
   // "admin.access-control.groups.button.add": "Add group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "أضف مجموعة",
   
   // "admin.access-control.groups.search.head": "Search groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "أبحث في المجموعات",
   
   // "admin.access-control.groups.button.see-all": "Browse all",
   // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "تصفح جميع المجموعات",
   
   // "admin.access-control.groups.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "أبحث",
   
   // "admin.access-control.groups.table.id": "ID",
   // TODO New key - Add a translation
@@ -508,84 +508,84 @@
   
   // "admin.access-control.groups.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "أسم",
   
   // "admin.access-control.groups.table.members": "Members",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "أعضاء",
   
   // "admin.access-control.groups.table.comcol": "Community / Collection",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.comcol": "Community / Collection",
+  "admin.access-control.groups.table.comcol": "المجتمع\مجموعة",
   
   // "admin.access-control.groups.table.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "التعديل",
   
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "تعديل \"{{name}}\"",
   
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "حذف \"{{name}}\"",
   
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
   // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "لم يتم العثور على مجموعات بهذا الاسم أو الرقم التسلسلي",
   
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "نجحت عملية حذف المجموعة \"{{name}}\"",
   
   // "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure": "فشلت عملية حذف المجموعة \"{{name}}\"",
   
   
   // "admin.access-control.groups.form.head.create": "Create group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "أنشاء مجموعة",
   
   // "admin.access-control.groups.form.head.edit": "Edit group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "تعديل مجموعة",
   
   // "admin.access-control.groups.form.groupName": "Group name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "أسم المجموعة",
   
   // "admin.access-control.groups.form.groupDescription": "Description",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupDescription": "Description",
+  "admin.access-control.groups.form.groupDescription": "الوصف",
   
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "نجحت عملية إنشاء المجموعة \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "فشلت عملية إنشاء المجموعة \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "فشلت عملية إنشاء المجموعة بإسم: \"{{name}}\", تأكد أن الأسم غير مستخدم.",
   
   // "admin.access-control.groups.form.members-list.head": "EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.head": "EPeople",
+  "admin.access-control.groups.form.members-list.head": "الأشخاص",
   
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "أضافة أشخاص",
   
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.members-list.button.see-all": "تصفح الجميع",
   
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+  "admin.access-control.groups.form.members-list.headMembers": "الأعضاء الحاليون",
   
   // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
   // TODO New key - Add a translation
@@ -593,11 +593,11 @@
   
   // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
+  "admin.access-control.groups.form.members-list.search.scope.email": "البريد الإلكتروني",
   
   // "admin.access-control.groups.form.members-list.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.button": "Search",
+  "admin.access-control.groups.form.members-list.search.button": "أبحث",
   
   // "admin.access-control.groups.form.members-list.table.id": "ID",
   // TODO New key - Add a translation
@@ -605,67 +605,67 @@
   
   // "admin.access-control.groups.form.members-list.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.name": "Name",
+  "admin.access-control.groups.form.members-list.table.name": "أسم",
   
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.members-list.table.edit": "الحذف \ الأضافة",
   
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "أحذف العضو بإسم \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "نجحت عملية أضافة العضو: \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "فشلت عملية أضافة العضو: \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "نجحت عملية حذف العضو: \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "فشلت عملية حذف العضو: \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "أضف عضو بإسم \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "لا توجد مجموعة حالية فعالة، أضف أسم أولاَ.",
   
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "لا يوجد أعضاء في المجموعة، أبحث وأضف.",
   
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+  "admin.access-control.groups.form.members-list.no-items": "لم يتم العثور على أشخاص في هذا البحث",
   
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+  "admin.access-control.groups.form.subgroups-list.head": "مجموعات",
   
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+  "admin.access-control.groups.form.subgroups-list.search.head": "أضف مجموعة فرعية",
   
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "تصفح الجميع",
   
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "المجموعات الفرعية الحالية",
   
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+  "admin.access-control.groups.form.subgroups-list.search.button": "أبحث",
   
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   // TODO New key - Add a translation
@@ -673,11 +673,11 @@
   
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+  "admin.access-control.groups.form.subgroups-list.table.name": "أسم",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "الحذف \ الأضافة",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
   // TODO New key - Add a translation
