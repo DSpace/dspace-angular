@@ -15,7 +15,6 @@ import { getFirstSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationService } from '../../pagination/pagination.service';
-import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * Service that performs all actions that have to do with the current search configuration

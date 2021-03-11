@@ -11,7 +11,6 @@ import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-search-facet-option',

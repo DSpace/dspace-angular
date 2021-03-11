@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Params, Router } from '@angular/router';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { currentPath } from '../../../utils/route.utils';

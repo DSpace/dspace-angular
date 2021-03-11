@@ -40,7 +40,6 @@ import { FacetValues } from '../../../shared/search/facet-values.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * Service that performs all general actions that have to do with the search page

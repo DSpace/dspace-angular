@@ -20,7 +20,6 @@ import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
-import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * The default pagination controls component.

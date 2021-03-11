@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
-import { filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';

@@ -1,7 +1,7 @@
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions

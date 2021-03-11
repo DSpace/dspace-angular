@@ -23,7 +23,6 @@ import {
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
-import { hasValue } from '../../../../../shared/empty.util';
 import {EpersonDtoModel} from '../../../../../core/eperson/models/eperson-dto.model';
 
 /**

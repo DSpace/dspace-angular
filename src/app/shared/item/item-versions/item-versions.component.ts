@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';

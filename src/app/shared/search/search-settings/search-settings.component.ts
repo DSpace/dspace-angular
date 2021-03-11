@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
