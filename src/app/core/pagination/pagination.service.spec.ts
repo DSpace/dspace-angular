@@ -128,16 +128,25 @@ describe('PaginationService', () => {
 
   });
   describe('clearPagination', () => {
-    it('should clear the pagination info from the route for the current id', () => {
+    it('should clear the pagination next time the updateRoute/updateRouteWithUrl method is called', () => {
       service.clearPagination('test');
 
-      const params = {};
-      params[`p.test`] = null;
-      params[`rpp.test`] = null;
-      params[`sf.test`] = null;
-      params[`sd.test`] = null;
+      const resetParams = {};
+      resetParams[`p.test`] = null;
+      resetParams[`rpp.test`] = null;
+      resetParams[`sf.test`] = null;
+      resetParams[`sd.test`] = null;
 
-      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: params, queryParamsHandling: 'merge'});
+
+      const navigateParams = {};
+      navigateParams[`p.another-id`] = `5`;
+      navigateParams[`rpp.another-id`] = `10`;
+      navigateParams[`sf.another-id`] = `score`;
+      navigateParams[`sd.another-id`] = `ASC`;
+
+      service.updateRoute('another-id', {});
+
+      expect(router.navigate).toHaveBeenCalledWith([], {queryParams: Object.assign({}, resetParams, navigateParams), queryParamsHandling: 'merge'});
     });
   });
   describe('getPageParam', () => {
