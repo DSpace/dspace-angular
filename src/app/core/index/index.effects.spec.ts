@@ -8,6 +8,7 @@ import { Item } from '../shared/item.model';
 import { AddToIndexAction } from './index.actions';
 import { IndexName } from './index.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 
 describe('ObjectUpdatesEffects', () => {
   let indexEffects: UUIDIndexEffects;
@@ -79,14 +80,14 @@ describe('ObjectUpdatesEffects', () => {
     it('should emit NO_ACTION when a AddToObjectCacheAction without an alternativeLink is dispatched', () => {
       action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, undefined);
       actions = hot('--a-', { a: action });
-      const expected = cold('--b-', { b: { type: 'NO_ACTION' } });
+      const expected = cold('--b-', { b: new NoOpAction() });
       expect(indexEffects.addAlternativeObjectLink$).toBeObservable(expected);
     });
 
     it('should emit NO_ACTION when a AddToObjectCacheAction with an alternativeLink that\'s the same as the objectToCache\'s selfLink is dispatched', () => {
       action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, objectToCache._links.self.href);
       actions = hot('--a-', { a: action });
-      const expected = cold('--b-', { b: { type: 'NO_ACTION' } });
+      const expected = cold('--b-', { b: new NoOpAction() });
       expect(indexEffects.addAlternativeObjectLink$).toBeObservable(expected);
     });
   });

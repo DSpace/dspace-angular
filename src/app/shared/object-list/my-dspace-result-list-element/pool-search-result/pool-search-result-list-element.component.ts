@@ -63,4 +63,5 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
+
 }

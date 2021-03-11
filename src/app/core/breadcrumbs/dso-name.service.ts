@@ -20,7 +20,7 @@ export class DSONameService {
    *
    * With only two exceptions those solutions seem overkill for now.
    */
-  private factories = {
+  private readonly factories = {
     Person: (dso: DSpaceObject): string => {
       const familyName = dso.firstMetadataValue('person.familyName');
       const givenName = dso.firstMetadataValue('person.givenName');

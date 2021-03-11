@@ -2,7 +2,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NoPreloading, RouterModule } from '@angular/router';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -30,7 +29,8 @@ import {
   LocationToken
 } from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
-import {GoogleAnalyticsService} from '../../app/statistics/google-analytics.service';
+import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { RouterModule, NoPreloading } from '@angular/router';
 
 export const REQ_KEY = makeStateKey<string>('req');
 

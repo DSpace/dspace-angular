@@ -1,5 +1,5 @@
 input[type="text"] {
-  margin-top: -0.5 * $font-size-base;
+  margin-top: calc(-0.5 * var(--bs-font-size-base));
 
   &:focus {
     background-color: rgba(255, 255, 255, 0.5) !important;

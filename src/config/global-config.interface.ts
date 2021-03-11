@@ -9,7 +9,7 @@ import { LangConfig } from './lang-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
-import { Theme } from './theme.inferface';
+import { ThemeConfig } from './theme.model';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { LayoutConfig } from './layout-config.interfaces';
@@ -31,7 +31,7 @@ export interface GlobalConfig extends Config {
   browseBy: BrowseByConfig;
   item: ItemPageConfig;
   collection: CollectionPageConfig;
-  theme: Theme;
+  themes: ThemeConfig[];
   rewriteDownloadUrls: boolean;
   layout: LayoutConfig;
 }

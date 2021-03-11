@@ -81,5 +81,4 @@ export class NavbarComponent extends MenuComponent {
       });
 
   }
-
 }

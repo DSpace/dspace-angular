@@ -339,7 +339,6 @@ dspace-angular
 ├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
 ├── typedoc.json                                        * TYPEDOC configuration
 ├── webpack                                             * Webpack (https://webpack.github.io/) config directory
-│   ├── helpers.js                                      *
 │   ├── webpack.aot.js                                  * Webpack (https://webpack.github.io/) config for AoT build
 │   ├── webpack.client.js                               * Webpack (https://webpack.github.io/) config for client build
 │   ├── webpack.common.js                               *

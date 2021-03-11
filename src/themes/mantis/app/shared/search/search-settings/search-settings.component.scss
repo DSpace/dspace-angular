@@ -1,0 +1,10 @@
+@import 'src/app/shared/search/search-settings/search-settings.component.scss';
+
+.setting-option {
+    background-color: var(--bs-light);
+    border-radius: var(--bs-border-radius);
+    h5 {
+        font-size: 1.1rem
+    }
+}
+

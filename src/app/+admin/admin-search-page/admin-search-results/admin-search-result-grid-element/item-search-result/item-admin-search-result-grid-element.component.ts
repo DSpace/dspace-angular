@@ -12,6 +12,7 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
@@ -29,6 +30,7 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
 
   constructor(protected truncatableService: TruncatableService,
               protected bitstreamDataService: BitstreamDataService,
+              private themeService: ThemeService,
               private componentFactoryResolver: ComponentFactoryResolver
   ) {
     super(truncatableService, bitstreamDataService);
@@ -63,6 +65,6 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined);
+    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined, this.themeService.getThemeName());
   }
 }

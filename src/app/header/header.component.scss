@@ -1,7 +1,7 @@
 .navbar-brand img {
-    height: $header-logo-height;
+    height: var(--ds-header-logo-height);
     @media screen and (max-width: map-get($grid-breakpoints, sm)) {
-        height: $header-logo-height-xs;
+        height: var(--ds-header-logo-height-xs);
     }
 }
 .navbar-toggler .navbar-toggler-icon {
@@ -11,10 +11,10 @@
 
 .navbar ::ng-deep {
   a {
-    color: $header-icon-color;
+    color: var(--ds-header-icon-color);
 
     &:hover, &focus {
-      color: darken($header-icon-color, 15%);
+      color: var(--ds-header-icon-color-hover);
     }
   }
 }

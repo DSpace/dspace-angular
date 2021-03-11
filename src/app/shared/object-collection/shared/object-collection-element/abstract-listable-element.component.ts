@@ -1,14 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-abstract-object-element',
   template: ``,
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
+
   /**
    * The object to render in this list element
    */
@@ -48,6 +50,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
    * The viewmode we matched on to get this component
    */
   @Input() viewMode: ViewMode;
+
+  /**
+   * Emit when the object has been reloaded.
+   */
+  @Output() reloadedObject = new EventEmitter<DSpaceObject>();
 
   /**
    * The available link types
