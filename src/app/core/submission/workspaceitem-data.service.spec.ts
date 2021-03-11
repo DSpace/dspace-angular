@@ -75,7 +75,7 @@ describe('WorkspaceitemDataService', () => {
 
     it('should configure a POST request', (done) => {
       result.subscribe(() => {
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
         done();
       });
     });

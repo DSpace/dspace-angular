@@ -20,6 +20,9 @@ import { SubmissionObjectDataService } from '../../../../../core/submission/subm
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../../core/data/request.service';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 
 describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;
@@ -45,6 +48,9 @@ describe('RelationshipEffects', () => {
   let relationship;
   let mockRelationshipService;
   let mockRelationshipTypeService;
+  let notificationsService;
+  let translateService;
+  let selectableListService;
   let testScheduler: TestScheduler;
 
   function init() {
@@ -95,6 +101,14 @@ describe('RelationshipEffects', () => {
       getRelationshipTypeByLabelAndTypes:
         () => observableOf(relationshipType)
     };
+    notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
+    translateService = jasmine.createSpyObj('translateService', {
+      instant: 'translated-message'
+    });
+    selectableListService = jasmine.createSpyObj('selectableListService', {
+      findSelectedByCondition: observableOf({}),
+      deselectSingle: {}
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -114,6 +128,9 @@ describe('RelationshipEffects', () => {
         { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
         { provide: ObjectCacheService, useValue: {} },
         { provide: RequestService, useValue: {} },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: TranslateService, useValue: translateService },
+        { provide: SelectableListService, useValue: selectableListService },
       ],
     });
   }));

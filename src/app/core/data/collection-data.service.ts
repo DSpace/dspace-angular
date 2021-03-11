@@ -3,12 +3,11 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { INotification } from '../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -20,26 +19,19 @@ import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { Collection } from '../shared/collection.model';
 import { COLLECTION } from '../shared/collection.resource-type';
 import { ContentSource } from '../shared/content-source.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import {
-  configureRequest,
-  getFirstCompletedRemoteData
-} from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { PaginatedList } from './paginated-list.model';
-import { ResponseParsingService } from './parsing.service';
 import { RemoteData } from './remote-data';
 import {
   ContentSourceRequest,
   FindListOptions,
-  GetRequest,
-  UpdateContentSourceRequest
+  UpdateContentSourceRequest,
+  RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
@@ -70,21 +62,25 @@ export class CollectionDataService extends ComColDataService<Collection> {
   /**
    * Get all collections the user is authorized to submit to
    *
-   * @param query limit the returned collection to those with metadata values matching the query terms.
-   * @param options The [[FindListOptions]] object
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow The array of [[FollowLinkConfig]]
+   * @param query                       limit the returned collection to those with metadata values
+   *                                    matching the query terms.
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollection(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollection(query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findSubmitAuthorized';
     options = Object.assign({}, options, {
       searchParams: [new RequestParam('query', query)]
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -105,7 +101,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       searchParams: [new RequestParam('query', query)]
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -135,7 +131,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       ]
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -188,9 +184,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
       searchParams: searchParams
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale, ...linksToFollow).pipe(
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
+
   /**
    * Find whether there is a collection whom user has authorization to submit to
    *
@@ -231,7 +228,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
 
     href$.subscribe((href: string) => {
       const request = new ContentSourceRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
+      this.requestService.send(request, true);
     });
 
     return this.rdbService.buildSingle<ContentSource>(href$);
@@ -257,9 +254,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     );
 
     // Execute the post/put request
-    request$.pipe(
-      configureRequest(this.requestService)
-    ).subscribe();
+    request$.subscribe((request: RestRequest) => this.requestService.send(request));
 
     // Return updated ContentSource
     return this.rdbService.buildFromRequestUUID<ContentSource>(requestId).pipe(
@@ -285,48 +280,6 @@ export class CollectionDataService extends ComColDataService<Collection> {
         return response as INotification;
       })
     );
-  }
-
-  /**
-   * Fetches the endpoint used for mapping items to a collection
-   * @param collectionId   The id of the collection to map items to
-   */
-  getMappedItemsEndpoint(collectionId): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, collectionId)),
-      map((endpoint: string) => `${endpoint}/mappedItems`)
-    );
-  }
-
-  /**
-   * Fetches a list of items that are mapped to a collection
-   * @param collectionId    The id of the collection
-   * @param searchOptions   Search options to sort or filter out items
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   */
-  getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
-    const requestUuid = this.requestService.generateRequestId();
-
-    const href$ = this.getMappedItemsEndpoint(collectionId).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpoint: string) => hasValue(searchOptions) ? searchOptions.toRestUrl(endpoint) : endpoint)
-    );
-
-    href$.pipe(
-      map((endpoint: string) => {
-        const request = new GetRequest(requestUuid, endpoint);
-        return Object.assign(request, {
-          responseMsToLive: 0,
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return DSOResponseParsingService;
-          }
-        });
-      }),
-      configureRequest(this.requestService)
-    ).subscribe();
-
-    return this.rdbService.buildList(href$, ...linksToFollow);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {

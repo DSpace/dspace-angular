@@ -53,8 +53,8 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
 
   constructor(
     public cd: ChangeDetectorRef,
-    private metricscomponentsService: MetricsComponentsDataService,
-    private itemService: ItemDataService
+    protected metricscomponentsService: MetricsComponentsDataService,
+    protected itemService: ItemDataService
   ) {
     super();
   }

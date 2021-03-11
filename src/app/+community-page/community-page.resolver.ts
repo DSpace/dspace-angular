@@ -25,6 +25,7 @@ export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Community>> {
     return this.communityService.findById(
       route.params.id,
+      true,
       false,
       followLink('logo'),
       followLink('subcommunities'),

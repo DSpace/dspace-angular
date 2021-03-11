@@ -4,8 +4,6 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
-import { find } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
@@ -28,11 +26,11 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
     return this.itemService.findById(route.params.id,
-      true,
+      true, true,
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),
-      followLink('version', undefined, true, followLink('versionhistory')),
+      followLink('version', undefined, true, true, true, followLink('versionhistory')),
     ).pipe(getFirstCompletedRemoteData());
   }
 

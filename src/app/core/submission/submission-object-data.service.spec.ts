@@ -56,7 +56,7 @@ describe('SubmissionObjectDataService', () => {
 
       it('should forward the result of WorkspaceitemDataService.findByIdAndIDType()', () => {
         const result = service.findById(submissionId);
-        expect(workspaceitemDataService.findById).toHaveBeenCalledWith(submissionId, true);
+        expect(workspaceitemDataService.findById).toHaveBeenCalledWith(submissionId, true, true);
         expect(result).toBe(wsiResult);
       });
     });
@@ -71,7 +71,7 @@ describe('SubmissionObjectDataService', () => {
 
       it('should forward the result of WorkflowItemDataService.findByIdAndIDType()', () => {
         const result = service.findById(submissionId);
-        expect(workflowItemDataService.findById).toHaveBeenCalledWith(submissionId, true);
+        expect(workflowItemDataService.findById).toHaveBeenCalledWith(submissionId, true, true);
         expect(result).toBe(wfiResult);
       });
     });

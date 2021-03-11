@@ -1,11 +1,15 @@
 import { autoserialize, deserialize } from 'cerialize';
 
 import { HALLink } from '../../../shared/hal-link.model';
-import { VOCABULARY } from './vocabularies.resource-type';
+import { VOCABULARY, VOCABULARY_ENTRY } from './vocabularies.resource-type';
 import { CacheableObject } from '../../../cache/object-cache.reducer';
-import { typedObject } from '../../../cache/builders/build-decorators';
+import { typedObject, link } from '../../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../data/remote-data';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { VocabularyEntry } from './vocabulary-entry.model';
 
 export interface VocabularyExternalSourceMap {
   [metadata: string]: string;
@@ -67,6 +71,9 @@ export class Vocabulary implements CacheableObject {
   @excludeFromEquals
   @autoserialize
   public type: any;
+
+  @link(VOCABULARY_ENTRY, true)
+  entries?: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
 
   /**
    * The {@link HALLink}s for this Vocabulary

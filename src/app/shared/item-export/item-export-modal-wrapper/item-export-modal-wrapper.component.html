@@ -1,5 +1,0 @@
-<ng-template #template>
-  <ng-container *ngIf="(isAuthenticated() | async) as authenticated">
-    <button class="btn btn-outline-primary" (click)="open()"><i class="fas fa-file-export"></i> {{ getLabel() }}</button>
-  </ng-container>
-</ng-template>

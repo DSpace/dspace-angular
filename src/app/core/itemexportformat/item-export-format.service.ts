@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -26,7 +26,6 @@ import {
   ITEM_EXPORT_SCRIPT_NAME,
   ScriptDataService
 } from '../data/processes/script-data.service';
-import { RequestEntry } from '../data/request.reducer';
 import { isNotEmpty } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchOptions } from '../../shared/search/search-options.model';
@@ -83,7 +82,7 @@ export class ItemExportFormatService {
     protected comparator: DefaultChangeAnalyzer<ItemExportFormat>,
     protected itemService: ItemDataService,
     protected translate: TranslateService,
-    private scriptDataService: ScriptDataService) {
+    protected scriptDataService: ScriptDataService) {
 
     this.dataService = new ItemExportFormatServiceImpl(requestService, rdbService, store, objectCache, halService,
       notificationsService, http, comparator);
@@ -169,7 +168,7 @@ export class ItemExportFormatService {
             const payload: any = rd.payload;
             if (isNotEmpty(payload.resourceSelfLinks)) {
               const processNumber = payload.resourceSelfLinks[0].split('/').pop();
-              return processNumber;
+              return +processNumber;
             }
           } else {
             const title = this.translate.get('process.new.notification.error.title');

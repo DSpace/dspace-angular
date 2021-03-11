@@ -5,7 +5,7 @@
       <span>{{'explore.index.' + facet.name | translate}}</span>
       <div *ngFor="let facetValue of facet._embedded.values" class="border p-3">
         <a [routerLink]="[searchService.getSearchLink()]" 
-            [queryParams]="getSearchQueryParams(facet, facetValue.label)">
+            [queryParams]="getSearchQueryParams(facet, facetValue)">
             {{facetValue.label}} 
         </a>
         <span class="badge badge-secondary float-right">{{facetValue.count}}</span>

@@ -4,14 +4,13 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { Audit } from './model/audit.model';
 import { AUDIT } from './model/audit.resource-type';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from '../data/data.service';
@@ -20,8 +19,13 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataWithNotEmptyPayload,
+} from '../shared/operators';
+
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -62,7 +66,7 @@ export class AuditDataService {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected ePersonService: EPersonDataService,
+    protected dsoNameService: DSONameService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Audit>) {
 
@@ -82,15 +86,15 @@ export class AuditDataService {
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('object', objectId)]
     });
-    return this.dataService.searchBy(searchMethod, optionsWithObject, true, followLink('eperson'));
+    return this.dataService.searchBy(searchMethod, optionsWithObject, true, true, followLink('eperson'));
   }
 
   findById(id: string, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<Audit>> {
-    return this.dataService.findById(id, true, ...linksToFollow);
+    return this.dataService.findById(id, true, true, ...linksToFollow);
   }
 
   findAll(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<PaginatedList<Audit>>> {
-    return this.dataService.findAll(options, true, ...linksToFollow);
+    return this.dataService.findAll(options, true, true, ...linksToFollow);
   }
 
   /**
@@ -103,9 +107,11 @@ export class AuditDataService {
       return of(AUDIT_PERSON_NOT_AVAILABLE);
     }
 
+    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
     return audit.eperson.pipe(
-      getFinishedRemoteData(),
-      map((rd: RemoteData<EPerson>) => rd.hasSucceeded ? rd.payload.name : AUDIT_PERSON_NOT_AVAILABLE));
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
+      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
+      startWith(AUDIT_PERSON_NOT_AVAILABLE));
   }
 
   /**
@@ -122,16 +128,19 @@ export class AuditDataService {
     return of(null);
   }
 
-  getOtherObjectHref(audit: Audit, contextObjectId: string) {
-    if (audit.objectUUID !== null && contextObjectId === audit.objectUUID) {
+  getOtherObjectHref(audit: Audit, contextObjectId: string): string {
+    if (audit.objectUUID === null) {
+      return null;
+    }
+    if (contextObjectId === audit.objectUUID) {
       // other object is on the subject field
       return audit._links.subject.href;
-    }
-    if (audit.objectUUID !== null && contextObjectId === audit.subjectUUID) {
+    } else if (contextObjectId === audit.subjectUUID) {
       // other object is on the object field
       return audit._links.object.href;
+    } else {
+      return null;
     }
-    return null;
   }
 
 }

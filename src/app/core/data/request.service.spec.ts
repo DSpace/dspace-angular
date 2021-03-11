@@ -209,46 +209,6 @@ describe('RequestService', () => {
       });
     });
 
-    describe(`if the request with the specified UUID wasn't sent, because it was already cached`, () => {
-      let entry;
-
-      beforeEach(() => {
-        entry = {
-          state: RequestEntryState.Success,
-          response: {
-            timeCompleted: new Date().getTime()
-          },
-          request: new GetRequest('request-uuid', 'request-href')
-        };
-
-        // No direct hit in the request cache with that UUID
-        // A hit in the index, which returns the uuid of the cached request
-        // the call to retrieve the cached request using the UUID from the index
-        const state = Object.assign({}, initialState, {
-          core: Object.assign({}, initialState.core, {
-            'data/request': {
-              'otherRequestUUID': entry
-            },
-            'index': {
-              'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': 'otherRequestUUID'
-              }
-            }
-          })
-        });
-        mockStore.setState(state);
-
-      });
-
-      it(`it should return the cached request`, () => {
-        const result = service.getByUUID(testUUID);
-        const expected = cold('c', {
-          c: entry
-        });
-        expect(result).toBeObservable(expected);
-      });
-    });
-
   });
 
   describe('getByHref', () => {
@@ -309,7 +269,7 @@ describe('RequestService', () => {
     });
   });
 
-  describe('configure', () => {
+  describe('send', () => {
     beforeEach(() => {
       spyOn(serviceAsAny, 'dispatchRequest');
     });
@@ -323,28 +283,28 @@ describe('RequestService', () => {
 
       it('should track it on it\'s way to the store', () => {
         spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
-        spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
-        service.configure(request);
+        spyOn(serviceAsAny, 'shouldDispatchRequest').and.returnValue(true);
+        service.send(request);
         expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
       });
       describe('and it isn\'t cached or pending', () => {
         beforeEach(() => {
-          spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
+          spyOn(serviceAsAny, 'shouldDispatchRequest').and.returnValue(true);
         });
 
         it('should dispatch the request', () => {
-          scheduler.schedule(() => service.configure(request));
+          scheduler.schedule(() => service.send(request, true));
           scheduler.flush();
           expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request);
         });
       });
       describe('and it is already cached or pending', () => {
         beforeEach(() => {
-          spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(true);
+          spyOn(serviceAsAny, 'shouldDispatchRequest').and.returnValue(false);
         });
 
         it('shouldn\'t dispatch the request', () => {
-          service.configure(request);
+          service.send(request, true);
           expect(serviceAsAny.dispatchRequest).not.toHaveBeenCalled();
         });
       });
@@ -352,103 +312,183 @@ describe('RequestService', () => {
 
     describe('when the request isn\'t a GET request', () => {
       it('should dispatch the request', () => {
-        service.configure(testPostRequest);
+        service.send(testPostRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPostRequest);
 
-        service.configure(testPutRequest);
+        service.send(testPutRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPutRequest);
 
-        service.configure(testDeleteRequest);
+        service.send(testDeleteRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testDeleteRequest);
 
-        service.configure(testOptionsRequest);
+        service.send(testOptionsRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testOptionsRequest);
 
-        service.configure(testHeadRequest);
+        service.send(testHeadRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testHeadRequest);
 
-        service.configure(testPatchRequest);
+        service.send(testPatchRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest);
       });
     });
 
   });
 
-  describe('isCachedOrPending', () => {
-    describe('when the request is cached', () => {
-      describe('in the ObjectCache', () => {
+  const expectAllNonGetRequestsToBeTrue = () => {
+    expect(serviceAsAny.shouldDispatchRequest(testPostRequest, true)).toBeTrue();
+    expect(serviceAsAny.shouldDispatchRequest(testPutRequest, true)).toBeTrue();
+    expect(serviceAsAny.shouldDispatchRequest(testDeleteRequest, true)).toBeTrue();
+    expect(serviceAsAny.shouldDispatchRequest(testOptionsRequest, true)).toBeTrue();
+    expect(serviceAsAny.shouldDispatchRequest(testHeadRequest, true)).toBeTrue();
+    expect(serviceAsAny.shouldDispatchRequest(testPatchRequest, true)).toBeTrue();
+  };
+
+  describe('shouldDispatchRequest', () => {
+    describe(`when it's not a GET request`, () => {
+      describe('and it is pending', () => {
         beforeEach(() => {
-          (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUID: 'some-uuid' }));
-          spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
-          spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
+          spyOn(service, 'isPending').and.returnValue(true);
         });
-
-        it('should return true for GetRequest', () => {
-          const result = serviceAsAny.isCachedOrPending(testGetRequest);
-          const expected = true;
-
-          expect(result).toEqual(expected);
-        });
+        it('should return true', expectAllNonGetRequestsToBeTrue);
       });
-      describe('in the request cache', () => {
+      describe(`and it isn't pending`, () => {
         beforeEach(() => {
-          (objectCache.getByHref as any).and.returnValue(observableOf(undefined));
-          spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
-          spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
+          spyOn(service, 'isPending').and.returnValue(false);
         });
-        it('should return true', () => {
-          const result = serviceAsAny.isCachedOrPending(testGetRequest);
-          const expected = true;
 
-          expect(result).toEqual(expected);
+        describe(`and useCachedVersionIfAvailable is false`, () => {
+          it('should return true', expectAllNonGetRequestsToBeTrue);
+        });
+
+        describe(`and useCachedVersionIfAvailable is true`, () => {
+          describe('and it is cached', () => {
+            describe('in the ObjectCache', () => {
+              beforeEach(() => {
+                (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUID: 'some-uuid' }));
+                spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
+                spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
+              });
+
+              it('should return true', expectAllNonGetRequestsToBeTrue);
+            });
+            describe('in the request cache', () => {
+              beforeEach(() => {
+                (objectCache.getByHref as any).and.returnValue(observableOf(undefined));
+                spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
+                spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
+              });
+              it('should return true', expectAllNonGetRequestsToBeTrue);
+            });
+          });
+
+          describe(`and it isn't cached`, () => {
+            beforeEach(() => {
+              (objectCache.getByHref as any).and.returnValue(EMPTY);
+              spyOn(serviceAsAny, 'hasByHref').and.returnValues(false);
+              spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
+            });
+            it('should return true', expectAllNonGetRequestsToBeTrue);
+          });
         });
       });
     });
 
-    describe('when the request is pending', () => {
-      beforeEach(() => {
-        spyOn(service, 'isPending').and.returnValue(true);
+    describe(`when it is a GET request`, () => {
+      describe('and it is pending', () => {
+        beforeEach(() => {
+          spyOn(service, 'isPending').and.returnValue(true);
+        });
+
+        it('should return false', () => {
+          const result = serviceAsAny.shouldDispatchRequest(testGetRequest, false);
+          const expected = false;
+
+          expect(result).toEqual(expected);
+        });
       });
+      describe(`and it isn't pending`, () => {
+        beforeEach(() => {
+          spyOn(service, 'isPending').and.returnValue(false);
+        });
 
-      it('should return true', () => {
-        const result = serviceAsAny.isCachedOrPending(testGetRequest);
-        const expected = true;
+        describe(`and useCachedVersionIfAvailable is false`, () => {
+          it(`should return true`, () => {
+            const result = serviceAsAny.shouldDispatchRequest(testGetRequest, false);
+            const expected = true;
 
-        expect(result).toEqual(expected);
-      });
-    });
+            expect(result).toEqual(expected);
+          });
+        });
 
-    describe('when the request is neither cached nor pending', () => {
-      beforeEach(() => {
-        (objectCache.getByHref as any).and.returnValue(EMPTY);
-        spyOn(serviceAsAny, 'hasByHref').and.returnValues(false);
-        spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
-      });
+        describe(`and useCachedVersionIfAvailable is true`, () => {
+          describe('and it is cached', () => {
+            describe('in the ObjectCache', () => {
+              beforeEach(() => {
+                (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUID: 'some-uuid' }));
+                spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
+                spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
+              });
 
-      it('should return false', () => {
-        const result = serviceAsAny.isCachedOrPending(testGetRequest);
-        const expected = false;
+              it('should return false', () => {
+                const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+                const expected = false;
 
-        expect(result).toEqual(expected);
+                expect(result).toEqual(expected);
+              });
+            });
+            describe('in the request cache', () => {
+              beforeEach(() => {
+                (objectCache.getByHref as any).and.returnValue(observableOf(undefined));
+                spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
+                spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
+              });
+              it('should return false', () => {
+                const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+                const expected = false;
+
+                expect(result).toEqual(expected);
+              });
+            });
+          });
+          describe(`and it isn't cached`, () => {
+            beforeEach(() => {
+              (objectCache.getByHref as any).and.returnValue(EMPTY);
+              spyOn(serviceAsAny, 'hasByHref').and.returnValues(false);
+              spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
+            });
+
+            it('should return true', () => {
+              const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+              const expected = true;
+
+              expect(result).toEqual(expected);
+            });
+          });
+        });
       });
     });
   });
 
   describe('dispatchRequest', () => {
+    let dispatchSpy: jasmine.Spy;
     beforeEach(() => {
-      spyOn(store, 'dispatch');
+      dispatchSpy = spyOn(store, 'dispatch');
     });
 
     it('should dispatch a RequestConfigureAction', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
-      expect(store.dispatch).toHaveBeenCalledWith(new RequestConfigureAction(request));
+      const firstAction = dispatchSpy.calls.argsFor(0)[0];
+      expect(firstAction).toBeInstanceOf(RequestConfigureAction);
+      expect(firstAction.payload).toEqual(request);
     });
 
     it('should dispatch a RequestExecuteAction', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
-      expect(store.dispatch).toHaveBeenCalledWith(new RequestExecuteAction(request.uuid));
+      const secondAction = dispatchSpy.calls.argsFor(1)[0];
+      expect(secondAction).toBeInstanceOf(RequestExecuteAction);
+      expect(secondAction.payload).toEqual(request.uuid);
     });
 
     describe('when it\'s not a GET request', () => {
@@ -501,7 +541,7 @@ describe('RequestService', () => {
 
     describe('when the request is added to the store', () => {
       it('should stop tracking the request', () => {
-        spyOn(serviceAsAny, 'getByUUID').and.returnValue(observableOf(entry));
+        spyOn(serviceAsAny, 'getByHref').and.returnValue(observableOf(entry));
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });

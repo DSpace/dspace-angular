@@ -336,8 +336,6 @@
 
   "admin.access-control.groups.table.members": "Members",
 
-  "admin.access-control.groups.table.comcol": "Community / Collection",
-
   "admin.access-control.groups.table.edit": "Edit",
 
   "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
@@ -436,6 +434,8 @@
 
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
 
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
   "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
@@ -512,6 +512,8 @@
   "admin.search.item.withdraw": "Withdraw",
 
   "admin.search.title": "Administrative Search",
+
+  "administrativeView.search.results.head": "Administrative Search",
 
 
 
@@ -766,6 +768,10 @@
   "collection.edit.breadcrumbs": "Edit Collection",
 
 
+
+  "collection.edit.tabs.mapper.head": "Item Mapper",
+
+  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
 
   "collection.edit.item-mapper.cancel": "Cancel",
 
@@ -1805,6 +1811,9 @@
   "item.edit.breadcrumbs": "Edit Item",
 
 
+  "item.edit.tabs.mapper.head": "Collection Mapper",
+
+  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
 
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
 
@@ -2298,6 +2307,25 @@
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
 
+  "item-export.modal-launcher.single.btn": "Export",
+
+  "item-export.modal-launcher.multiple.btn": "Bulk Export",
+
+  "item-export.alert.single": "Export item ",
+
+  "item-export.alert.multiple": "Export all items of a particular entity type belonging to the current search.",
+
+  "item-export.form.entityType": "Entity Type",
+
+  "item-export.form.entityType.tip": "Choose the entity type to export",
+
+  "item-export.form.format": "Format",
+
+  "item-export.form.format.tip": "Choose the export format",
+
+  "item-export.form.btn.submit": "Export",
+
+  "item-export.form.btn.cancel": "Cancel",
 
   "journal.listelement.badge": "Journal",
 
@@ -3412,6 +3440,12 @@
 
 
 
+  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+
+  "relationships.add.error.server.content": "The server returned an error",
+
+  "relationships.add.error.title": "Unable to add relationship",
+
   "relationships.isAuthorOf": "Authors",
 
   "relationships.isAuthorOf.Person": "Authors (persons)",
@@ -3508,7 +3542,7 @@
 
   "resource-policies.form.action-type.required": "You must select the resource policy action.",
 
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
+  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
@@ -4546,12 +4580,6 @@
 
 
 
-  "administrativeView.search.results.head": "Administrative Search",
-
-  "menu.section.admin_search": "Admin Search",
-
-
-
   "uploader.browse": "browse",
 
   "uploader.drag-message": "Drag & Drop your files here",
@@ -4613,4 +4641,3 @@
 
   "layout.i18n.link.default": "link"
 }
-

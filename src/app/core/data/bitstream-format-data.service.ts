@@ -19,7 +19,7 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { Bitstream } from '../shared/bitstream.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { configureRequest } from '../shared/operators';
+import { sendRequest } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
@@ -82,7 +82,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PutRequest(requestId, endpointURL, bitstreamFormat)),
-      configureRequest(this.requestService)).subscribe();
+      sendRequest(this.requestService)).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
 
@@ -99,7 +99,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
       map((endpointURL: string) => {
         return new PostRequest(requestId, endpointURL, bitstreamFormat);
       }),
-      configureRequest(this.requestService)
+      sendRequest(this.requestService)
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);

@@ -1,11 +1,11 @@
 import {
   ChangeDetectorRef,
-  Component,
+  Component, ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild, ViewContainerRef
 } from '@angular/core';
 import { Box } from '../../../core/layout/models/box.model';
 import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.directive';
@@ -50,8 +50,8 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
 
   constructor(
     public cd: ChangeDetectorRef,
-    private boxService: BoxDataService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    protected boxService: BoxDataService,
+    protected componentFactoryResolver: ComponentFactoryResolver
   ) {
     super();
   }
@@ -80,14 +80,19 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         this.getComponent(box.boxType)
       );
-      const componentRef = viewContainerRef.createComponent(componentFactory);
-      (componentRef.instance as any).item = this.item;
-      (componentRef.instance as any).box = box;
+      const componentRef = this.instantiateBox(viewContainerRef, componentFactory, box);
       this.componentRef.push(componentRef);
     });
   }
 
-  private getComponent(boxType: string): GenericConstructor<Component> {
+  instantiateBox(viewContainerRef: ViewContainerRef, componentFactory: ComponentFactory<any>, box: Box): ComponentRef<any> {
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as any).item = this.item;
+    (componentRef.instance as any).box = box;
+    return componentRef;
+  }
+
+  protected getComponent(boxType: string): GenericConstructor<Component> {
     return getCrisLayoutBox(this.item, this.tab.shortname, boxType);
   }
 

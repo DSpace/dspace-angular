@@ -36,7 +36,7 @@ export class SubmissionUploadsConfigService extends ConfigService {
     super(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator, 'submissionuploads');
   }
 
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow): Observable<RemoteData<SubmissionUploadsModel>> {
-    return super.findByHref(href, reRequestOnStale, ...linksToFollow as FollowLinkConfig<ConfigObject>[]) as Observable<RemoteData<SubmissionUploadsModel>>;
+  findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow): Observable<RemoteData<SubmissionUploadsModel>> {
+    return super.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow as FollowLinkConfig<ConfigObject>[]) as Observable<RemoteData<SubmissionUploadsModel>>;
   }
 }

@@ -102,7 +102,7 @@ export class OpenaireBrokerTopicRestService {
   public getTopics(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<OpenaireBrokerTopicObject>[]): Observable<RemoteData<PaginatedList<OpenaireBrokerTopicObject>>> {
     return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
       take(1),
-      mergeMap((href: string) => this.dataService.findAllByHref(href, options, true, ...linksToFollow)),
+      mergeMap((href: string) => this.dataService.findAllByHref(href, options, true, true, ...linksToFollow)),
     );
   }
 
@@ -127,7 +127,7 @@ export class OpenaireBrokerTopicRestService {
     const options = {};
     return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
       take(1),
-      mergeMap((href: string) => this.dataService.findByHref(href + '/' + id, true, ...linksToFollow))
+      mergeMap((href: string) => this.dataService.findByHref(href + '/' + id, true, true, ...linksToFollow))
     );
   }
 }

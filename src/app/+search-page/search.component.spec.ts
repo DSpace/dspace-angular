@@ -84,10 +84,10 @@ const routeServiceStub = {
   }
 };
 
-export function configureSearchComponentTestingModule(compType) {
+export function configureSearchComponentTestingModule(compType, additionalDeclarations: any[] = []) {
   TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
-    declarations: [compType],
+    declarations: [compType, ...additionalDeclarations],
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
       {

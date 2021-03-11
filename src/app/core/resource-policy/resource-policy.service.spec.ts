@@ -101,7 +101,7 @@ describe('ResourcePolicyService', () => {
 
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true,
+      send: true,
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
       getByUUID: observableOf(responseCacheEntry),
@@ -196,7 +196,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.findById(resourcePolicyId));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith(resourcePolicyId, true);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith(resourcePolicyId, true, true);
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given id', () => {
@@ -213,7 +213,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.findByHref(requestURL));
       scheduler.flush();
 
-      expect((service as any).dataService.findByHref).toHaveBeenCalledWith(requestURL, true);
+      expect((service as any).dataService.findByHref).toHaveBeenCalledWith(requestURL, true, true);
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {
@@ -232,7 +232,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByEPerson(epersonUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options, true, true);
     });
 
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
@@ -244,7 +244,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByEPerson(epersonUUID, resourceUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
@@ -264,7 +264,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByGroup(groupUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options, true, true);
     });
 
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
@@ -276,7 +276,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByGroup(groupUUID, resourceUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
@@ -296,7 +296,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByResource(resourceUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options, true, true);
     });
 
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
@@ -309,7 +309,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByResource(resourceUUID, action));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options, true);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {

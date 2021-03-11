@@ -65,9 +65,9 @@ export class LinkService {
 
         try {
           if (matchingLinkDef.isList) {
-            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, true, ...linkToFollow.linksToFollow);
+            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           } else {
-            model[linkToFollow.name] = service.findByHref(href, true, ...linkToFollow.linksToFollow);
+            model[linkToFollow.name] = service.findByHref(href, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           }
         } catch (e) {
           console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} at ${href}`);

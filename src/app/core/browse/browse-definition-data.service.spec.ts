@@ -25,22 +25,22 @@ describe(`BrowseDefinitionDataService`, () => {
 
   describe(`findAll`, () => {
     it(`should call findAll on DataServiceImpl`, () => {
-      service.findAll(options, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findAll).toHaveBeenCalledWith(options, false, ...linksToFollow);
+      service.findAll(options, true, false, ...linksToFollow);
+      expect(dataServiceImplSpy.findAll).toHaveBeenCalledWith(options, true, false, ...linksToFollow);
     });
   });
 
   describe(`findByHref`, () => {
     it(`should call findByHref on DataServiceImpl`, () => {
-      service.findByHref(hrefSingle, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findByHref).toHaveBeenCalledWith(hrefSingle, false, ...linksToFollow);
+      service.findByHref(hrefSingle, true, false, ...linksToFollow);
+      expect(dataServiceImplSpy.findByHref).toHaveBeenCalledWith(hrefSingle, true, false, ...linksToFollow);
     });
   });
 
   describe(`findAllByHref`, () => {
     it(`should call findAllByHref on DataServiceImpl`, () => {
-      service.findAllByHref(hrefAll, options, false, ...linksToFollow);
-      expect(dataServiceImplSpy.findAllByHref).toHaveBeenCalledWith(hrefAll, options, false, ...linksToFollow);
+      service.findAllByHref(hrefAll, options, true, false, ...linksToFollow);
+      expect(dataServiceImplSpy.findAllByHref).toHaveBeenCalledWith(hrefAll, options, true, false, ...linksToFollow);
     });
   });
 

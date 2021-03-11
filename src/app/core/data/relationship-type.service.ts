@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, find, map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';
-import { isNotUndefined } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -15,14 +15,22 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { configureRequest, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, FindListRequest } from './request.models';
 import { RequestService } from './request.service';
+
+/**
+ * Check if one side of a RelationshipType is the ItemType with the given label
+ *
+ * @param typeRd the RemoteData for an ItemType
+ * @param label  the label to check. e.g. Author
+ */
+const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
+  typeRd.hasSucceeded && typeRd.payload.label === label;
 
 /**
  * The service handling all relationship type requests
@@ -46,56 +54,70 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   }
 
   /**
-   * Get the endpoint for a relationship type by ID
-   * @param id
+   * Find a RelationshipType object by its label, and the types of the items on either side.
+   *
+   * TODO this should be implemented as a rest endpoint, we shouldn't have logic on the client that
+   * requires using a huge page-size in order to process "everything".
+   *
+   * @param relationshipTypeLabel The name of the relationType we're looking for
+   *                              e.g. isAuthorOfPublication
+   * @param firstItemType         The type of one of the sides of the relationship e.g. Publication
+   * @param secondItemType        The type of the other side of the relationship e.g. Author
    */
-  getRelationshipTypeEndpoint(id: number) {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((href: string) => `${href}/${id}`)
-    );
-  }
-
-  getAllRelationshipTypes(options: FindListOptions): Observable<RemoteData<PaginatedList<RelationshipType>>> {
-    const link$ = this.halService.getEndpoint(this.linkPath);
-    return link$
-      .pipe(
-        map((endpointURL: string) => new FindListRequest(this.requestService.generateRequestId(), endpointURL, options)),
-        configureRequest(this.requestService),
-        switchMap(() => this.rdbService.buildList<RelationshipType>(link$, followLink('leftType'), followLink('rightType')))
-      ) as Observable<RemoteData<PaginatedList<RelationshipType>>>;
-  }
-
-  /**
-   * Get the RelationshipType for a relationship type by label
-   * @param label
-   */
-  getRelationshipTypeByLabelAndTypes(label: string, firstType: string, secondType: string): Observable<RelationshipType> {
-    return this.getAllRelationshipTypes({ currentPage: 1, elementsPerPage: Number.MAX_VALUE })
+  getRelationshipTypeByLabelAndTypes(relationshipTypeLabel: string, firstItemType: string, secondItemType: string): Observable<RelationshipType> {
+    // Retrieve all relationship types from the server in a single page
+    return this.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
       .pipe(
         getFirstSucceededRemoteData(),
-        /* Flatten the page so we can treat it like an observable */
+        // Emit each type in the page array separately
         switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
-        mergeMap((type: RelationshipType) => {
-          if (type.leftwardType === label) {
-            return this.checkType(type, firstType, secondType);
-          } else if (type.rightwardType === label) {
-            return this.checkType(type, secondType, firstType);
+        // Check each type individually, to see if it matches the provided types
+        mergeMap((relationshipType: RelationshipType) => {
+          if (relationshipType.leftwardType === relationshipTypeLabel) {
+            return this.checkType(relationshipType, firstItemType, secondItemType);
+          } else if (relationshipType.rightwardType === relationshipTypeLabel) {
+            return this.checkType(relationshipType, secondItemType, firstItemType);
           } else {
-            return [];
+            return [null];
           }
         }),
+        // Wait for all types to be checked and emit once, with the results combined back into an
+        // array
+        toArray(),
+        // Look for a match in the array and emit it if found, or null if one isn't found
+        map((types: RelationshipType[]) => {
+          const match = types.find((type: RelationshipType) => hasValue(type));
+          if (hasValue(match)) {
+            return match;
+          } else {
+            return null;
+          }
+        })
       );
   }
 
-  // Check if relationship type matches the given types
-  // returns a void observable if there's not match
-  // returns an observable that emits the relationship type when there is a match
-  private checkType(type: RelationshipType, firstType: string, secondType: string): Observable<RelationshipType> {
-    const entityTypes = observableCombineLatest([type.leftType.pipe(getFirstSucceededRemoteData()), type.rightType.pipe(getFirstSucceededRemoteData())]);
-    return entityTypes.pipe(
-      find(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => leftTypeRD.payload.label === firstType && rightTypeRD.payload.label === secondType),
-      filter((types) => isNotUndefined(types)),
-      map(() => type)
+  /**
+   * Check if the given RelationshipType has the given itemTypes on its left and right sides.
+   * Returns an observable of the given RelationshipType if it matches, null if it doesn't
+   *
+   * @param type            The RelationshipType to check
+   * @param leftItemType    The item type that should be on the left side
+   * @param rightItemType   The item type that should be on the right side
+   * @private
+   */
+  private checkType(type: RelationshipType, leftItemType: string, rightItemType: string): Observable<RelationshipType> {
+    return observableCombineLatest([
+      type.leftType.pipe(getFirstCompletedRemoteData()),
+      type.rightType.pipe(getFirstCompletedRemoteData())
+    ]).pipe(
+      map(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => {
+        if (checkSide(leftTypeRD, leftItemType) && checkSide(rightTypeRD, rightItemType)
+        ) {
+          return type;
+        } else {
+          return null;
+        }
+      })
     );
   }
 }

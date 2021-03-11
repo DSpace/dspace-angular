@@ -2,7 +2,7 @@ import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindByIDRequest } from './request.models';
+import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -34,7 +34,7 @@ describe('ConfigurationDataService', () => {
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true
+      send: true
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
@@ -67,11 +67,11 @@ describe('ConfigurationDataService', () => {
       expect(halService.getEndpoint).toHaveBeenCalledWith('properties');
     });
 
-    it('should configure the proper FindByIDRequest', () => {
+    it('should send the proper FindByIDRequest', () => {
       scheduler.schedule(() => service.findByPropertyName(testObject.name));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestURL, testObject.name));
+      expect(requestService.send).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL), true);
     });
 
     it('should return a RemoteData<ConfigurationProperty> for the object with the given name', () => {

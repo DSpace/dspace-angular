@@ -14,7 +14,8 @@ module.exports = function (config) {
       require('karma-mocha-reporter'),
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      captureConsole: false
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, './coverage/dspace-angular'),

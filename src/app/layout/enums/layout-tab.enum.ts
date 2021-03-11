@@ -7,3 +7,8 @@ export enum LayoutTab {
   DEFAULT = 'defaultLayoutTab',
   ORCID = 'orcid'
 }
+
+/**
+ * The default tab is applied by the component resolver as a fallback value;
+ */
+export const DEFAULT_LAYOUT_TAB = LayoutTab.DEFAULT;

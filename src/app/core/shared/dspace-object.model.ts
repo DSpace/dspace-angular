@@ -29,7 +29,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
 
   @excludeFromEquals
   @deserializeAs('name')
-  private _name: string;
+  protected _name: string;
 
   /**
    * The human-readable identifier of this DSpaceObject

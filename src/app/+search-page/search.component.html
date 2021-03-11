@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
-            <ds-item-export-modal-wrapper class="float-right" [searchOptions$]="searchOptions$"></ds-item-export-modal-wrapper>
+            <ds-item-export-modal-launcher class="float-right" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
         </div>
     </div>
 </div>
@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-12" *ngIf="!(isXsOrSm$ | async)">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
-            <ds-item-export-modal-wrapper class="float-right" [searchOptions$]="searchOptions$"></ds-item-export-modal-wrapper>
+            <ds-item-export-modal-launcher class="float-right" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">

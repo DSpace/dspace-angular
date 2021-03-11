@@ -47,44 +47,42 @@ describe('SubmissionRestService test suite', () => {
   });
 
   describe('deleteById', () => {
-    it('should configure a new SubmissionDeleteRequest', () => {
+    it('should send a new SubmissionDeleteRequest', () => {
       const expected = new SubmissionDeleteRequest(requestService.generateRequestId(), resourceHref);
       scheduler.schedule(() => service.deleteById(resourceScope, resourceEndpoint).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
   describe('getDataById', () => {
-    it('should configure a new SubmissionRequest', () => {
+    it('should send a new SubmissionRequest', () => {
       const expected = new SubmissionRequest(requestService.generateRequestId(), resourceHref);
-      expected.forceBypassCache = true;
       scheduler.schedule(() => service.getDataById(resourceEndpoint, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(resourceHref);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
   describe('postToEndpoint', () => {
-    it('should configure a new SubmissionPostRequest', () => {
+    it('should send a new SubmissionPostRequest', () => {
       const expected = new SubmissionPostRequest(requestService.generateRequestId(), resourceHref, body);
       scheduler.schedule(() => service.postToEndpoint(resourceEndpoint, body, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
   describe('patchToEndpoint', () => {
-    it('should configure a new SubmissionPatchRequest', () => {
+    it('should send a new SubmissionPatchRequest', () => {
       const expected = new SubmissionPatchRequest(requestService.generateRequestId(), resourceHref, body);
       scheduler.schedule(() => service.patchToEndpoint(resourceEndpoint, body, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 });

@@ -79,7 +79,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((item: Item) => this.linkService.resolveLink(
         item,
-        followLink('bundles', new FindListOptions(), true, followLink('bitstreams'))
+        followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams'))
       ))
     ) as Observable<Item>;
 

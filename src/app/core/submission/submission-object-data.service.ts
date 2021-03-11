@@ -56,19 +56,22 @@ export class SubmissionObjectDataService {
   /**
    * Retrieve a submission object based on its ID.
    *
-   * @param id                The identifier of a submission object
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param id                          The identifier of a submission object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<SubmissionObject>[]): Observable<RemoteData<SubmissionObject>> {
+  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<SubmissionObject>[]): Observable<RemoteData<SubmissionObject>> {
     switch (this.submissionService.getSubmissionScope()) {
       case SubmissionScopeType.WorkspaceItem:
-        return this.workspaceitemDataService.findById(id, reRequestOnStale,...linksToFollow);
+        return this.workspaceitemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.WorkflowItem:
-        return this.workflowItemDataService.findById(id, reRequestOnStale,...linksToFollow);
+        return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.EditItem:
-        return this.editItemDataService.findById(id, reRequestOnStale,...linksToFollow);
+        return this.editItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale,...linksToFollow);
       default:
         const now = new Date().getTime();
         return observableOf(new RemoteData(

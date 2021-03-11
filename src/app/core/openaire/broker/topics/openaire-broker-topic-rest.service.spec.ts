@@ -48,7 +48,7 @@ describe('OpenaireBrokerTopicRestService', () => {
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true,
+      send: true,
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
       getByUUID: observableOf(responseCacheEntry),
@@ -90,7 +90,7 @@ describe('OpenaireBrokerTopicRestService', () => {
     it('should proxy the call to dataservice.findAllByHref', (done) => {
       service.getTopics().subscribe(
         (res) => {
-          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {}, true);
+          expect((service as any).dataService.findAllByHref).toHaveBeenCalledWith(endpointURL, {}, true, true);
         }
       );
       done();
@@ -109,7 +109,7 @@ describe('OpenaireBrokerTopicRestService', () => {
     it('should proxy the call to dataservice.findByHref', (done) => {
       service.getTopic(openaireBrokerTopicObjectMorePid.id).subscribe(
         (res) => {
-          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id, true);
+          expect((service as any).dataService.findByHref).toHaveBeenCalledWith(endpointURL + '/' + openaireBrokerTopicObjectMorePid.id, true, true);
         }
       );
       done();

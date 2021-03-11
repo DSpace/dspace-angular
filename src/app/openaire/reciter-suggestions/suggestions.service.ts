@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { forkJoin, Observable, of as observableOf } from 'rxjs';
+import { of, forkJoin, Observable } from 'rxjs';
 import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
 import { OpenaireSuggestionsDataService } from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
@@ -21,7 +21,6 @@ import {
   getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
 import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
-import { of } from 'rxjs/internal/observable/of';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../core/shared/NoContent.model';
@@ -155,7 +154,7 @@ export class SuggestionsService {
             })
           );
         } else {
-          return observableOf([]);
+          return of([]);
         }
       }),
       take(1)

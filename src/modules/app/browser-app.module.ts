@@ -30,6 +30,7 @@ import {
   LocationToken
 } from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
+import {GoogleAnalyticsService} from '../../app/statistics/google-analytics.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -98,6 +99,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: HardRedirectService,
       useClass: BrowserHardRedirectService,
+    },
+    {
+      provide: GoogleAnalyticsService,
+      useClass: GoogleAnalyticsService,
     },
     {
       provide: LocationToken,
