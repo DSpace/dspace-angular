@@ -112,7 +112,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.TEXT,
           text: 'menu.section.new'
         } as TextMenuItemModel,
-        icon: 'plus-circle',
+        icon: 'plus',
         index: 0
       },
       {
@@ -305,7 +305,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.TEXT,
           text: 'menu.section.export'
         } as TextMenuItemModel,
-        icon: 'sign-out-alt',
+        icon: 'file-export',
         index: 3,
         shouldPersistOnRouteChange: true
       },
@@ -388,7 +388,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.TEXT,
           text: 'menu.section.import'
         } as TextMenuItemModel,
-        icon: 'sign-in-alt',
+        icon: 'file-import',
         index: 2
       },
       {
