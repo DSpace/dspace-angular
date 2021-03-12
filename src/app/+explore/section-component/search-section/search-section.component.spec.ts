@@ -84,7 +84,8 @@ describe('SearchSectionComponent', () => {
       discoveryConfigurationName: 'publication',
       componentType: 'search',
       style: 'col-md-8',
-      searchType: 'advanced'
+      searchType: 'advanced',
+      initialStatements: 3
     };
 
     fixture.detectChanges();
@@ -212,7 +213,8 @@ describe('SearchSectionComponent', () => {
         discoveryConfigurationName: 'publication',
         componentType: 'search',
         style: 'col-md-8',
-        searchType: 'basic'
+        searchType: 'basic',
+        initialStatements: 3
       };
 
       fixture.detectChanges();
