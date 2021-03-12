@@ -5,6 +5,9 @@
       <ds-top-section *ngSwitchCase="'top'"
                       [sectionId]=sectionId
                       [topSection]=sectionComponent></ds-top-section>
+      <ds-multi-column-top-section *ngSwitchCase="'multi-column-top'"
+                      [sectionId]=sectionId
+                      [topSection]=sectionComponent></ds-multi-column-top-section>
       <ds-browse-section *ngSwitchCase="'browse'"
                          [sectionId]=sectionId
                          [browseSection]=sectionComponent></ds-browse-section>

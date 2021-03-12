@@ -41,13 +41,15 @@ describe('ExploreComponent', () => {
     discoveryConfigurationName: 'publication',
     componentType: 'search',
     style: 'col-md-8',
-    searchType: 'advanced'
+    searchType: 'advanced',
+    initialStatements: 3
   };
 
   const facetComponent: FacetSection = {
     discoveryConfigurationName: 'publication',
     componentType: 'facet',
-    style: 'col-md-12'
+    style: 'col-md-12',
+    facetsPerRow: 4
   };
 
   beforeEach(async(() => {
