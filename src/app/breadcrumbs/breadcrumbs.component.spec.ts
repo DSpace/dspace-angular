@@ -7,14 +7,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
-import { BreadcrumbsService } from '../core/breadcrumbs/breadcrumbs.service';
+import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VarDirective } from '../shared/utils/var.directive';
 import { getTestScheduler } from 'jasmine-marbles';
 
-class TestBreadcrumbsService implements BreadcrumbsService<string> {
+class TestBreadcrumbsService implements BreadcrumbsProviderService<string> {
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
     return observableOf([new Breadcrumb(key, url)]);
   }
