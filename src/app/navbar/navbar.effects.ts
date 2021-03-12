@@ -12,6 +12,7 @@ import {
 import { MenuID } from '../shared/menu/initial-menus-state';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuState } from '../shared/menu/menu.reducer';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 
 @Injectable()
 export class NavbarEffects {
@@ -51,7 +52,7 @@ export class NavbarEffects {
                 return new CollapseMenuAction(MenuID.PUBLIC);
               }
             }
-            return { type: 'NO_ACTION' };
+            return new NoOpAction();
           }));
       })
     );

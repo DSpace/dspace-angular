@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
@@ -87,7 +87,8 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
     this.object = object;
     this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       filter((rd: RemoteData<WorkflowItem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
-      map((rd: RemoteData<WorkflowItem>) => rd.payload));
+      map((rd: RemoteData<WorkflowItem>) => rd.payload),
+      take(1));
   }
 
   /**

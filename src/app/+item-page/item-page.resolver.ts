@@ -7,12 +7,21 @@ import { Item } from '../core/shared/item.model';
 import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../core/data/request.models';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { Store } from '@ngrx/store';
+import { ResolvedAction } from '../core/resolving/resolver.actions';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
 
+/**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
 export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
-  followLink('owningCollection'),
+  followLink('owningCollection', undefined, true, true, true,
+    followLink('parentCommunity', undefined, true, true, true,
+      followLink('parentCommunity'))
+  ),
   followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams')),
   followLink('relationships'),
   followLink('version', undefined, true, true, true, followLink('versionhistory')),
@@ -23,8 +32,11 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
  */
 @Injectable()
 export class ItemPageResolver implements Resolve<RemoteData<Item>> {
-  constructor(private itemService: ItemDataService,
-              private router: Router) {
+  constructor(
+    private itemService: ItemDataService,
+    private store: Store<any>,
+    private router: Router
+  ) {
   }
 
   /**
@@ -35,7 +47,7 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    return this.itemService.findById(route.params.id,
+    const itemRD$ = this.itemService.findById(route.params.id,
       true,
       false,
       ...ITEM_PAGE_LINKS_TO_FOLLOW
@@ -54,5 +66,11 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
         return rd;
       })
     );
+
+    itemRD$.subscribe((itemRD: RemoteData<Item>) => {
+      this.store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+    });
+
+    return itemRD$;
   }
 }

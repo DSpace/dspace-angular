@@ -18,11 +18,14 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('CommunityPageSubCommunityListComponent Component', () => {
   let comp: CommunityPageSubCommunityListComponent;
   let fixture: ComponentFixture<CommunityPageSubCommunityListComponent>;
   let communityDataServiceStub: any;
+  let themeService;
   let subCommList = [];
 
   const subcommunities = [Object.assign(new Community(), {
@@ -111,6 +114,8 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
     }
   };
 
+  themeService = getMockThemeService();
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -125,6 +130,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: SelectableListService, useValue: {} },
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

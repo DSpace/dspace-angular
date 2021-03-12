@@ -11,7 +11,7 @@
         <ds-view-mode-switch *ngIf="showViewModes" [viewModeList]="viewModeList" class="d-none d-md-block"></ds-view-mode-switch>
         <div class="sidebar-content">
             <ds-search-switch-configuration [inPlaceSearch]="inPlaceSearch" *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
-            <ds-search-filters [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+            <ds-search-filters [refreshFilters]="refreshFilters" [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
             <ds-search-settings></ds-search-settings>
         </div>
     </div>

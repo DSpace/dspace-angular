@@ -43,6 +43,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
+import { RootComponent } from './root/root.component';
+import { ThemedRootComponent } from './root/themed-root.component';
+import { ThemedEntryComponentModule } from '../themes/themed-entry-component.module';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -65,6 +68,7 @@ const IMPORTS = [
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
+  ThemedEntryComponentModule.withEntryComponents(),
 ];
 
 IMPORTS.push(
@@ -120,6 +124,8 @@ const PROVIDERS = [
 
 const DECLARATIONS = [
   AppComponent,
+  RootComponent,
+  ThemedRootComponent,
   HeaderComponent,
   HeaderNavbarWrapperComponent,
   AdminSidebarComponent,
@@ -135,7 +141,6 @@ const DECLARATIONS = [
 ];
 
 const EXPORTS = [
-  AppComponent
 ];
 
 @NgModule({
@@ -150,7 +155,8 @@ const EXPORTS = [
     ...DECLARATIONS,
   ],
   exports: [
-    ...EXPORTS
+    ...EXPORTS,
+    ...DECLARATIONS,
   ]
 })
 export class AppModule {

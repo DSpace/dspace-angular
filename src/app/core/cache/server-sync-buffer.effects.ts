@@ -21,6 +21,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { environment } from '../../../environments/environment';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -80,7 +81,7 @@ export class ServerSyncBufferEffects {
               switchMap((array) => [...array, new EmptySSBAction(action.payload)])
             );
             } else {
-              return observableOf({ type: 'NO_ACTION' });
+              return observableOf(new NoOpAction());
             }
           })
         );

@@ -1,12 +1,14 @@
 @import '_variables.scss';
 
+// These CSS variables are picked up by CSSVariableService to and made available as JS variables as
+// well.
 :export {
-    xlMin: map-get($grid-breakpoints, xl);
-    mdMin: map-get($grid-breakpoints, md);
-    lgMin: map-get($grid-breakpoints, lg);
-    smMin: map-get($grid-breakpoints, sm);
-    adminSidebarActiveBg: $admin-sidebar-active-bg;
-    sidebarItemsWidth: $sidebar-items-width;
-    collapsedSidebarWidth: $collapsed-sidebar-width;
-    totalSidebarWidth: $total-sidebar-width;
+    xlMin: var(--bs-xl);
+    mdMin: var(--bs-md);
+    lgMin: var(--bs-lg);
+    smMin: var(--bs-sm);
+    adminSidebarActiveBg: var(--ds-admin-sidebar-active-bg);
+    sidebarItemsWidth: var(--ds-sidebar-items-width);
+    collapsedSidebarWidth: var(--ds-collapsed-sidebar-width);
+    totalSidebarWidth: var(--ds-total-sidebar-width);
 }

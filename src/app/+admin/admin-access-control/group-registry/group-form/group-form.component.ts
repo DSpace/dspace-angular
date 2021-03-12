@@ -143,7 +143,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
   initialisePage() {
     this.subs.push(this.route.params.subscribe((params) => {
-      this.setActiveGroup(params.groupId);
+      if (params.groupId !== 'newGroup') {
+        this.setActiveGroup(params.groupId);
+      }
     }));
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       hasValueOperator(),
@@ -225,14 +227,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               {
                 value: this.groupDescription.value
               }
-            ],
+            ]
           },
         };
         if (group === null) {
-          console.log('createNewGroup', values);
           this.createNewGroup(values);
         } else {
-          console.log('editGroup', group);
           this.editGroup(group);
         }
       }

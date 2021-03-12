@@ -77,6 +77,11 @@ export class ObjectListComponent {
   @Input() importConfig: { importLabel: string };
 
   /**
+   * Emit when one of the listed object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
+
+  /**
    * The current listable objects
    */
   private _objects: RemoteData<PaginatedList<ListableObject>>;

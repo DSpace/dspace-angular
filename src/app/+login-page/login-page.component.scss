@@ -1,4 +1,4 @@
 .login-logo {
-  height: $login-logo-height;
-  width: $login-logo-width;
+  height: var(--ds-login-logo-height);
+  width: var(--ds-login-logo-width);
 }

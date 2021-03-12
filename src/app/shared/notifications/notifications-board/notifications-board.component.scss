@@ -1,5 +1,5 @@
 .notifications-wrapper {
-  z-index: $zindex-popover;
+  z-index: var(--bs-zindex-popover);
   text-align: right;
   @include word-wrap;
   .notification {
