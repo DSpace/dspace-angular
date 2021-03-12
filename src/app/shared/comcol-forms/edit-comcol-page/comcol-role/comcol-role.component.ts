@@ -96,6 +96,7 @@ export class ComcolRoleComponent implements OnInit {
     this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<Group>) => {
+
       if (rd.hasSucceeded) {
         this.groupService.clearGroupsRequests();
         this.requestService.setStaleByHrefSubstring(this.comcolRole.href);

@@ -104,6 +104,13 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
   }
 
   /**
+   * Navigate to home page
+   */
+  navigateToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  /**
    * Navigate to the page of the newly created object
    */
   navigateToNewPage() {

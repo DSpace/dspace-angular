@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -100,6 +99,11 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   }> = new EventEmitter();
 
   /**
+   * Event emitted on back
+   */
+  @Output() back: EventEmitter<any> = new EventEmitter();
+
+  /**
    * Fires an event when the logo has finished uploading (with or without errors) or was removed
    */
   @Output() finish: EventEmitter<any> = new EventEmitter();
@@ -126,8 +130,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   protected dsoService: ComColDataService<Community | Collection>;
 
-  public constructor(protected location: Location,
-                     protected formService: DynamicFormService,
+  public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
@@ -298,13 +301,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.error'));
     this.finish.emit();
-  }
-
-  /**
-   * Cancel the form and return to the previous page
-   */
-  onCancel() {
-    this.location.back();
   }
 
   /**

@@ -699,6 +699,10 @@
 
 
 
+  "collection.edit.logo.delete.title": "Delete logo",
+
+  "collection.edit.logo.delete-undo.title": "Undo delete",
+
   "collection.edit.logo.label": "Collection logo",
 
   "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
@@ -881,6 +885,10 @@
 
   "community.edit.breadcrumbs": "Edit Community",
 
+
+  "community.edit.logo.delete.title": "Delete logo",
+
+  "community.edit.logo.delete-undo.title": "Undo delete",
 
   "community.edit.logo.label": "Community logo",
 
