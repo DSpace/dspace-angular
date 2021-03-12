@@ -2,7 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ObjectSelectService } from '../object-select.service';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
-import { isNotEmpty } from '../../empty.util';
+import { hasValueOperator, isNotEmpty } from '../../empty.util';
+import { Observable } from 'rxjs';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { map } from 'rxjs/operators';
+import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-select',
@@ -20,6 +24,15 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
   @Input()
   hideCollection = false;
 
+  /**
+   * The routes to the items their pages
+   * Key: Item ID
+   * Value: Route to item page
+   */
+  itemPageRoutes$: Observable<{
+    [itemId: string]: string
+  }>;
+
   constructor(protected objectSelectService: ObjectSelectService) {
     super(objectSelectService);
   }
@@ -29,6 +42,15 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
     if (!isNotEmpty(this.confirmButton)) {
       this.confirmButton = 'item.select.confirm';
     }
+    this.itemPageRoutes$ = this.dsoRD$.pipe(
+      hasValueOperator(),
+      getAllSucceededRemoteDataPayload(),
+      map((items) => {
+        const itemPageRoutes = {};
+        items.page.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
+        return itemPageRoutes;
+      })
+    );
   }
 
 }

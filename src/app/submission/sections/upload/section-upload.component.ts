@@ -1,6 +1,11 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription
+} from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';

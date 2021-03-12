@@ -20,6 +20,7 @@ describe('ItemStatusComponent', () => {
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
+    uuid: 'fake-id',
     handle: 'fake/handle',
     lastModified: '2018',
     _links: {
@@ -27,7 +28,7 @@ describe('ItemStatusComponent', () => {
     }
   });
 
-  const itemPageUrl = `items/${mockItem.id}`;
+  const itemPageUrl = `/items/${mockItem.uuid}`;
 
   const routeStub = {
     parent: {

@@ -57,9 +57,9 @@ describe('ItemMoveComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      dso: createSuccessfulRemoteDataObject({
+      dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
         id: 'item1'
-      })
+      }))
     })
   };
 
@@ -122,7 +122,10 @@ describe('ItemMoveComponent', () => {
     });
     describe('moveCollection', () => {
       it('should call itemDataService.moveToCollection', () => {
-        comp.itemId = 'item-id';
+        comp.item = Object.assign(new Item(), {
+          id: 'item-id',
+          uuid: 'item-id',
+        });
         comp.selectedCollectionName = 'selected-collection-id';
         comp.selectedCollection = collection1;
         comp.moveCollection();
