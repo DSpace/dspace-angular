@@ -179,7 +179,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   }
 
   /**
-   * Fetch the component depending on the item's relationship type, view mode and context
+   * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
   getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],

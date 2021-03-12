@@ -61,7 +61,7 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
   }
 
   /**
-   * Fetch the component depending on the item's relationship type, view mode and context
+   * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {

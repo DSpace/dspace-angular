@@ -64,7 +64,7 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
   }
 
   /**
-   * Fetch the component depending on the item's relationship type, metadata representation type and context
+   * Fetch the component depending on the item's entity type, metadata representation type and context
    * @returns {string}
    */
   private getComponent(): GenericConstructor<MetadataRepresentationListElementComponent> {
