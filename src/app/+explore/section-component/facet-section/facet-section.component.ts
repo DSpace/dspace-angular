@@ -75,4 +75,9 @@ export class FacetSectionComponent implements OnInit {
         return filterType === FilterType.range && value.split('-').length === 2;
     }
 
+    getFacetsBoxCol() {
+        const facetsPerRow = this.facetSection.facetsPerRow ? this.facetSection.facetsPerRow : 4;
+        return 12 / facetsPerRow;
+    }
+
 }

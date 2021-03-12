@@ -112,7 +112,8 @@ describe('FacetSectionComponent', () => {
     component.facetSection = {
       discoveryConfigurationName: 'publication',
       componentType: 'facet',
-      style: 'col-md-12'
+      style: 'col-md-12',
+      facetsPerRow: 4
     };
 
     fixture.detectChanges();
