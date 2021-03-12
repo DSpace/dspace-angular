@@ -7,7 +7,8 @@
 </div>
     <div [ngClass]="{'col-sm-9': isNotEmpty(scopes)}" class="col-12">
     <div class="form-group input-group">
-        <input type="text" [(ngModel)]="query" name="query" class="form-control" aria-label="Search input">
+        <input type="text" [(ngModel)]="query" name="query" class="form-control" attr.aria-label="{{ searchPlaceholder }}"
+               [placeholder]="searchPlaceholder">
         <span class="input-group-append">
             <button type="submit" class="search-button btn btn-{{brandColor}}">{{ ('search.form.search' | translate) }}</button>
         </span>

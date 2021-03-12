@@ -691,6 +691,8 @@
 
   "collection.edit.item-mapper.remove": "Remove selected item mappings",
 
+  "collection.edit.item-mapper.search-form.placeholder": "Search items...",
+
   "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
@@ -1321,6 +1323,8 @@
 
   "home.breadcrumbs": "Home",
 
+  "home.search-form.placeholder": "Search in the repository...",
+
   "home.title": "DSpace Angular :: Home",
 
   "home.top-level-communities.head": "Communities in DSpace",
@@ -1507,6 +1511,8 @@
   "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
 
   "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
+
+  "item.edit.item-mapper.search-form.placeholder": "Search collections...",
 
   "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
 
@@ -2238,6 +2244,8 @@
 
   "mydspace.results.no-uri": "No Uri",
 
+  "mydspace.search-form.placeholder": "Search in mydspace...",
+
   "mydspace.show.workflow": "All tasks",
 
   "mydspace.show.workspace": "Your Submissions",
@@ -2759,6 +2767,8 @@
 
   "search.breadcrumbs": "Search",
 
+  "search.search-form.placeholder": "Search in the repository...",
+
 
   "search.filters.applied.f.author": "Author",
 
@@ -2913,9 +2923,7 @@
 
   "search.form.search": "Search",
 
-  "search.form.search_dspace": "Search DSpace",
-
-  "search.form.search_mydspace": "Search MyDSpace",
+  "search.form.search_dspace": "All repository",
 
 
 
@@ -3124,6 +3132,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
 
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+
   "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
 
   "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
@@ -3170,6 +3180,8 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
