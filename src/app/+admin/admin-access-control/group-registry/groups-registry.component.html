@@ -1,36 +1,40 @@
 <div class="container">
   <div class="groups-registry row">
     <div class="col-12">
-
-      <h2 id="header" class="border-bottom pb-2">{{messagePrefix + 'head' | translate}}</h2>
-
-      <div class="button-row top d-flex pb-2">
-        <button class="mr-auto btn btn-success"
-                [routerLink]="['newGroup']">
-          <i class="fas fa-plus"></i>
-          <span class="d-none d-sm-inline">{{messagePrefix + 'button.add' | translate}}</span>
-        </button>
+      <div class="d-flex justify-content-between border-bottom mb-3">
+        <h2 id="header" class="pb-2">{{messagePrefix + 'head' | translate}}</h2>
+        <div>
+          <button class="mr-auto btn btn-success"
+                  [routerLink]="['newGroup']">
+            <i class="fas fa-plus"></i>
+            <span class="d-none d-sm-inline">{{messagePrefix + 'button.add' | translate}}</span>
+          </button>
+        </div>
       </div>
 
-      <h3 id="search" class="border-bottom pb-2">{{messagePrefix + 'search.head' | translate}}
-        <button (click)="clearFormAndResetResult();"
-                class="btn btn-primary float-right">{{messagePrefix + 'button.see-all' | translate}}</button>
-      </h3>
-      <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="row">
-        <div class="col-12">
+      <h3 id="search" class="border-bottom pb-2">{{messagePrefix + 'search.head' | translate}}</h3>
+      <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
+        <div class="flex-grow-1 mr-3">
           <div class="form-group input-group">
             <input type="text" name="query" id="query" formControlName="query"
-                   class="form-control" aria-label="Search input">
+                   class="form-control" attr.aria-label="{{messagePrefix + 'search.placeholder' | translate}}"
+                   [placeholder]="(messagePrefix + 'search.placeholder' | translate)" >
             <span class="input-group-append">
-            <button type="submit"
-                    class="search-button btn btn-secondary">{{ messagePrefix + 'search.button' | translate }}</button>
-        </span>
+              <button type="submit" class="search-button btn btn-primary">
+                <i class="fas fa-search"></i> {{ messagePrefix + 'search.button' | translate }}
+              </button>
+            </span>
           </div>
+        </div>
+        <div>
+          <button (click)="clearFormAndResetResult();"
+                  class="btn btn-primary">{{messagePrefix + 'button.see-all' | translate}}</button>
         </div>
       </form>
 
+      <ds-loading *ngIf="searching$ | async"></ds-loading>
       <ds-pagination
-        *ngIf="(pageInfoState$ | async)?.totalElements > 0"
+        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
         [paginationOptions]="config"
         [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
@@ -38,7 +42,7 @@
         [hidePagerWhenSinglePage]="true"
         (pageChange)="onPageChange($event)">
 
-        <div class="table-responsive">
+        <div  class="table-responsive">
           <table id="groups" class="table table-striped table-hover table-bordered">
             <thead>
             <tr>

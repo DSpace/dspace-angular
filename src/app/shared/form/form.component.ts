@@ -34,9 +34,14 @@ export class FormComponent implements OnDestroy, OnInit {
   private formValid: boolean;
 
   /**
-   * A boolean that indicate if to display form's submit and cancel buttons
+   * A boolean that indicate if to display form's submit button
    */
   @Input() displaySubmit = true;
+
+  /**
+   * A boolean that indicate if to display form's cancel button
+   */
+  @Input() displayCancel = true;
 
   /**
    * A boolean that indicate if to emit a form change event
