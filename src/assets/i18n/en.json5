@@ -116,7 +116,7 @@
 
   "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
 
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
 
 
@@ -144,7 +144,7 @@
 
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
 
-  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
+  "admin.registries.metadata.title": "Metadata Registry",
 
 
 
@@ -196,7 +196,7 @@
 
   "admin.registries.schema.return": "Return",
 
-  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
+  "admin.registries.schema.title": "Metadata Schema Registry",
 
 
 
@@ -208,7 +208,7 @@
 
   "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
 
-  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+  "admin.access-control.epeople.title": "EPeople",
 
   "admin.access-control.epeople.head": "EPeople",
 
@@ -290,11 +290,11 @@
 
 
 
-  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+  "admin.access-control.groups.title": "Groups",
 
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+  "admin.access-control.groups.title.singleGroup": "Edit Group",
 
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+  "admin.access-control.groups.title.addGroup": "New Group",
 
   "admin.access-control.groups.head": "Groups",
 
@@ -1333,7 +1333,7 @@
 
   "home.search-form.placeholder": "Search in the repository...",
 
-  "home.title": "DSpace Angular :: Home",
+  "home.title": "Home",
 
   "home.top-level-communities.head": "Communities in DSpace",
 
@@ -1788,7 +1788,7 @@
 
   "item.search.results.head": "Item Search Results",
 
-  "item.search.title": "DSpace Angular :: Item Search",
+  "item.search.title": "Item Search",
 
 
 
@@ -1922,7 +1922,7 @@
 
   "journal.search.results.head": "Journal Search Results",
 
-  "journal.search.title": "DSpace Angular :: Journal Search",
+  "journal.search.title": "Journal Search",
 
 
 
@@ -2366,7 +2366,7 @@
 
   "person.search.results.head": "Person Search Results",
 
-  "person.search.title": "DSpace Angular :: Person Search",
+  "person.search.title": "Person Search",
 
 
 
@@ -2561,7 +2561,7 @@
 
   "publication.search.results.head": "Publication Search Results",
 
-  "publication.search.title": "DSpace Angular :: Publication Search",
+  "publication.search.title": "Publication Search",
 
 
   "register-email.title": "New user registration",
@@ -2672,6 +2672,8 @@
 
   "repository.image.logo": "Repository logo",
 
+  "repository.title.prefix": "DSpace angular :: ",
+
 
   "resource-policies.add.button": "Add",
 
@@ -2779,7 +2781,7 @@
 
   "search.switch-configuration.title": "Show",
 
-  "search.title": "DSpace Angular :: Search",
+  "search.title": "Search",
 
   "search.breadcrumbs": "Search",
 
