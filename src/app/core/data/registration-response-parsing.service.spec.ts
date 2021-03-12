@@ -4,11 +4,11 @@ import { ParsedResponse } from '../cache/response.models';
 
 describe('RegistrationResponseParsingService', () => {
   describe('parse', () => {
-    const registration = Object.assign(new Registration(), {email: 'test@email.org', token: 'test-token'});
+    const registration = Object.assign(new Registration(), { email: 'test@email.org', token: 'test-token' });
     const registrationResponseParsingService = new RegistrationResponseParsingService();
 
     const data = {
-      payload: {email: 'test@email.org', token: 'test-token'},
+      payload: { email: 'test@email.org', token: 'test-token' },
       statusCode: 200,
       statusText: 'Success'
     };

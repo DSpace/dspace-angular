@@ -2,7 +2,7 @@
   <div *ngIf="model.repeatable"
        class="form-row"
        [attr.tabindex]="model.tabIndex"
-       [dynamicId]="bindId && model.id"
+       [id]="id"
        [formGroupName]="model.id"
        [ngClass]="model.layout.element?.control">
 
@@ -14,7 +14,6 @@
                  [attr.tabindex]="item.index"
                  [checked]="item.value"
                  [id]="item.id"
-                 [dynamicId]="item.id"
                  [formControlName]="item.id"
                  [name]="model.name"
                  [required]="model.required"
@@ -38,7 +37,7 @@
        class="form-row"
        ngbRadioGroup
        [attr.tabindex]="model.tabIndex"
-       [dynamicId]="bindId && model.id"
+       [id]="id"
        [ngClass]="model.layout.element?.control"
        (change)="onChange($event)">
 
@@ -50,7 +49,7 @@
                [ngClass]="model.layout.element?.control">
           <input type="radio" class="custom-control-input"
                  [checked]="item.value"
-                 [dynamicId]="item.id"
+                 [id]="item.id"
                  [name]="model.id"
                  [required]="model.required"
                  [value]="item.index"

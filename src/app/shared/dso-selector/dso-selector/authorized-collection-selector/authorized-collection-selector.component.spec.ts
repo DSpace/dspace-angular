@@ -1,5 +1,5 @@
 import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,7 +18,7 @@ describe('AuthorizedCollectionSelectorComponent', () => {
   let collectionService;
   let collection;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     collection = Object.assign(new Collection(), {
       id: 'authorized-collection'
     });

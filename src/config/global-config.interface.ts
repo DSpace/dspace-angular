@@ -5,12 +5,12 @@ import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import {LangConfig} from './lang-config.interface';
+import { LangConfig } from './lang-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
-import { Theme } from './theme.inferface';
-import {AuthConfig} from './auth-config.interfaces';
+import { ThemeConfig } from './theme.model';
+import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 
 export interface GlobalConfig extends Config {
@@ -23,7 +23,6 @@ export interface GlobalConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   universal: UniversalConfig;
-  gaTrackingId: string;
   logDirectory: string;
   debug: boolean;
   defaultLanguage: string;
@@ -31,6 +30,6 @@ export interface GlobalConfig extends Config {
   browseBy: BrowseByConfig;
   item: ItemPageConfig;
   collection: CollectionPageConfig;
-  theme: Theme;
+  themes: ThemeConfig[];
   rewriteDownloadUrls: boolean;
 }

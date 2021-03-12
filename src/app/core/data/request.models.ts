@@ -21,7 +21,6 @@ export enum IdentifierType {
 
 export abstract class RestRequest {
   public responseMsToLive =  environment.cache.msToLive.default;
-  public forceBypassCache = false;
   public isMultipart = false;
 
   constructor(
@@ -45,7 +44,7 @@ export class GetRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.GET, body, options)
+    super(uuid, href, RestRequestMethod.GET, body, options);
   }
 }
 
@@ -56,7 +55,7 @@ export class PostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.POST, body)
+    super(uuid, href, RestRequestMethod.POST, body);
   }
 }
 
@@ -71,7 +70,7 @@ export class MultipartPostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.POST, body)
+    super(uuid, href, RestRequestMethod.POST, body);
   }
 }
 
@@ -82,7 +81,7 @@ export class PutRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.PUT, body)
+    super(uuid, href, RestRequestMethod.PUT, body);
   }
 }
 
@@ -93,7 +92,7 @@ export class DeleteRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.DELETE, body)
+    super(uuid, href, RestRequestMethod.DELETE, body);
   }
 }
 
@@ -104,7 +103,7 @@ export class OptionsRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.OPTIONS, body)
+    super(uuid, href, RestRequestMethod.OPTIONS, body);
   }
 }
 
@@ -115,7 +114,7 @@ export class HeadRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.HEAD, body)
+    super(uuid, href, RestRequestMethod.HEAD, body);
   }
 }
 
@@ -126,17 +125,7 @@ export class PatchRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.PATCH, body)
-  }
-}
-
-export class FindByIDRequest extends GetRequest {
-  constructor(
-    uuid: string,
-    href: string,
-    public resourceID: string
-  ) {
-    super(uuid, href);
+    super(uuid, href, RestRequestMethod.PATCH, body);
   }
 }
 
@@ -169,7 +158,6 @@ export class EndpointMapRequest extends GetRequest {
  * Class representing a submission HTTP GET request object
  */
 export class SubmissionRequest extends GetRequest {
-  forceBypassCache = true;
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }

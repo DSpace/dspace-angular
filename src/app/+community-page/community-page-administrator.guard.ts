@@ -3,9 +3,8 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { Community } from '../core/shared/community.model';
 import { CommunityPageResolver } from './community-page.resolver';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { DsoPageFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
-import { Observable } from 'rxjs/internal/Observable';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { AuthService } from '../core/auth/auth.service';
 

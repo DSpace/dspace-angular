@@ -166,7 +166,7 @@ export class FormService {
   }
 
   public setStatusChanged(formId: string, valid: boolean) {
-    this.store.dispatch(new FormStatusChangeAction(formId, valid))
+    this.store.dispatch(new FormStatusChangeAction(formId, valid));
   }
 
   public getForm(formId: string): Observable<FormEntry> {

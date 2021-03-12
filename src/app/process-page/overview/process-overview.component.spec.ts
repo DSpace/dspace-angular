@@ -1,5 +1,5 @@
 import { ProcessOverviewComponent } from './process-overview.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -71,7 +71,7 @@ describe('ProcessOverviewComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProcessOverviewComponent, VarDirective],

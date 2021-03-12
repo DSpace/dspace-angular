@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -12,10 +12,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import {
-  PaginatedList,
-  buildPaginatedList
-} from '../../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 
@@ -41,10 +38,10 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
     selectionRD$ = createSelection([searchResult1, searchResult2]);
-    router = jasmine.createSpyObj('router', ['navigate'])
+    router = jasmine.createSpyObj('router', ['navigate']);
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationSelectionTabComponent, VarDirective],

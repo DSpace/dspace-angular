@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 import {
   DspaceRestResponseParsingService,
   isCacheableObject
@@ -18,6 +20,7 @@ import { environment } from '../../../environments/environment';
  *
  * When all endpoints are properly typed, it can be removed.
  */
+@Injectable()
 export class EndpointMapResponseParsingService extends DspaceRestResponseParsingService {
 
   /**

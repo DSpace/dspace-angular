@@ -13,15 +13,15 @@
 
 .scrollable-menu {
   height: auto;
-  max-height: $dropdown-menu-max-height / 2;
+  max-height: calc(var(--ds-dropdown-menu-max-height) / 2);
   overflow-x: hidden;
 }
 
 .scrollable-dropdown-loading {
-  background-color: map-get($theme-colors, primary);
+  background-color: var(--bs-primary);
   color: white;
-  height: $spacer * 2 !important;
-  line-height: $spacer * 2;
+  height: calc(var(--bs-spacer) * 2) !important;
+  line-height: calc(var(--bs-spacer) * 2);
   position: sticky;
   bottom: 0;
 }

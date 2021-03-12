@@ -35,11 +35,11 @@ describe('SiteDataService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', {a: siteLink})
+      getEndpoint: cold('a', { a: siteLink })
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      configure: true,
+      send: true,
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: cold('a', {
@@ -69,7 +69,7 @@ describe('SiteDataService', () => {
     it('should return the Static Page endpoint', () => {
 
       const result = service.getBrowseEndpoint(options);
-      const expected = cold('b', {b: siteLink});
+      const expected = cold('b', { b: siteLink });
 
       expect(result).toBeObservable(expected);
     });
@@ -82,7 +82,7 @@ describe('SiteDataService', () => {
         a: createSuccessfulRemoteDataObject(createPaginatedList([testObject]))
       }));
 
-      const expected = cold('(b|)', {b: testObject});
+      const expected = cold('(b|)', { b: testObject });
       const result = service.find();
 
       expect(result).toBeObservable(expected);

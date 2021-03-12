@@ -14,7 +14,7 @@ class TestModel implements HALResource {
   _links: {
     self: HALLink;
     parents: HALLink;
-  }
+  };
 }
 
 const testModels = [

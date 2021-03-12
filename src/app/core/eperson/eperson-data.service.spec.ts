@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { TestScheduler } from 'rxjs/testing';
-import { EPeopleRegistryCancelEPersonAction, EPeopleRegistryEditEPersonAction } from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
+import {
+  EPeopleRegistryCancelEPersonAction,
+  EPeopleRegistryEditEPersonAction
+} from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
@@ -68,7 +70,7 @@ describe('EPersonDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-          useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -94,33 +96,47 @@ describe('EPersonDataService', () => {
     it('search by default scope (byMetadata) and no query', () => {
       service.searchByScope(null, '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search metadata scope and no query', () => {
       service.searchByScope('metadata', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search metadata scope and with query', () => {
       service.searchByScope('metadata', 'test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('test')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search email scope and no query', () => {
+      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', ''))]
+        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byEmail', options, true);
+      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
+    });
+
+    it('search email scope with a query', () => {
+      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+      service.searchByScope('email', EPersonMock.email);
+      const options = Object.assign(new FindListOptions(), {
+        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))]
+      });
+      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
     });
   });
 
@@ -145,7 +161,7 @@ describe('EPersonDataService', () => {
       it('should send PatchRequest with replace email operation', () => {
         const operations = [{ op: 'replace', path: '/email', value: newEmail }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -164,7 +180,7 @@ describe('EPersonDataService', () => {
       it('should send PatchRequest with replace certificate operation', () => {
         const operations = [{ op: 'replace', path: '/certificate', value: !EPersonMock.requireCertificate }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -183,7 +199,7 @@ describe('EPersonDataService', () => {
       it('should send PatchRequest with replace canLogIn operation', () => {
         const operations = [{ op: 'replace', path: '/canLogIn', value: !EPersonMock.canLogIn }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -217,13 +233,13 @@ describe('EPersonDataService', () => {
           { op: 'replace', path: '/eperson.lastname/0/value', value: newLastName },
           { op: 'replace', path: '/eperson.firstname/0/value', value: newFirstName }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
   });
 
   describe('clearEPersonRequests', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       halService = {
         getEndpoint(linkPath: string): Observable<string> {
@@ -244,14 +260,14 @@ describe('EPersonDataService', () => {
 
       service.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
         expect(activeEPerson).toEqual(EPersonMock);
-      })
+      });
     });
 
     it('should retrieve the ePerson currently getting edited, null if none being edited', () => {
       service.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
         expect(activeEPerson).toEqual(null);
-      })
-    })
+      });
+    });
   });
 
   describe('cancelEditEPerson', () => {
@@ -276,7 +292,7 @@ describe('EPersonDataService', () => {
 
     it('should send DeleteRequest', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
@@ -285,17 +301,17 @@ describe('EPersonDataService', () => {
       service.createEPersonForToken(EPersonMock, 'test-token');
 
       const expected = new PostRequest(requestService.generateRequestId(), epersonsEndpoint + '?token=test-token', EPersonMock);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
   describe('patchPasswordWithToken', () => {
     it('should sent a patch request with an uuid, token and new password to the epersons endpoint', () => {
-      service.patchPasswordWithToken('test-uuid', 'test-token','test-password');
+      service.patchPasswordWithToken('test-uuid', 'test-token', 'test-password');
 
       const operation = Object.assign({ op: 'add', path: '/password', value: 'test-password' });
       const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/test-uuid?token=test-token', [operation]);
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 

@@ -2,7 +2,7 @@
   <input type="checkbox" class="form-check-input custom-control-input"
          [checked]="model.checked"
          [class.is-invalid]="showErrorMessages"
-         [dynamicId]="bindId && model.id"
+         [id]="id"
          [formControlName]="model.id"
          [indeterminate]="model.indeterminate"
          [name]="model.name"

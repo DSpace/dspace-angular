@@ -234,7 +234,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     this.subscriptions.push(
       this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CcLicense).pipe(
         filter((sectionState) => {
-          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
+          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors));
         }),
         distinctUntilChanged(),
         map((sectionState) => sectionState.data as WorkspaceitemSectionCcLicenseObject),
@@ -253,7 +253,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         }
         this.sectionData.data = data;
       }),
-      this.submissionCcLicensesDataService.findAll({elementsPerPage: Number.MAX_SAFE_INTEGER}).pipe(
+      this.submissionCcLicensesDataService.findAll({ elementsPerPage: 9999 }).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((list) => list.page),

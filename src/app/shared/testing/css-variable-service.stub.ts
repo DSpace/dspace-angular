@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs/internal/Observable';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
+
 const variables = {
   smMin: '576px,',
   mdMin: '768px,',

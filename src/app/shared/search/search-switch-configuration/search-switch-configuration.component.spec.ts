@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -10,10 +10,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { SearchService } from '../../../core/shared/search/search.service';
-import {
-  MYDSPACE_ROUTE,
-  SEARCH_CONFIG_SERVICE
-} from '../../../+my-dspace-page/my-dspace-page.component';
+import { MYDSPACE_ROUTE, SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { MyDSpaceConfigurationValueType } from '../../../+my-dspace-page/my-dspace-configuration-value-type';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 
@@ -25,10 +22,10 @@ describe('SearchSwitchConfigurationComponent', () => {
   let select: any;
 
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
-    getSearchLink:  jasmine.createSpy('getSearchLink')
+    getSearchLink: jasmine.createSpy('getSearchLink')
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -38,20 +35,20 @@ describe('SearchSwitchConfigurationComponent', () => {
           }
         })
       ],
-      declarations: [ SearchSwitchConfigurationComponent ],
+      declarations: [SearchSwitchConfigurationComponent],
       providers: [
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchSwitchConfigurationComponent);
     comp = fixture.componentInstance;
-    searchConfService = TestBed.get(SEARCH_CONFIG_SERVICE);
+    searchConfService = TestBed.inject(SEARCH_CONFIG_SERVICE as any);
 
     spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(observableOf(MyDSpaceConfigurationValueType.Workspace));
 
@@ -100,7 +97,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     spyOn((comp as any), 'getSearchLinkParts').and.returnValue([MYDSPACE_ROUTE]);
     comp.selectedOption = MyDSpaceConfigurationValueType.Workflow;
     const navigationExtras: NavigationExtras = {
-      queryParams: {configuration: MyDSpaceConfigurationValueType.Workflow},
+      queryParams: { configuration: MyDSpaceConfigurationValueType.Workflow },
     };
 
     fixture.detectChanges();

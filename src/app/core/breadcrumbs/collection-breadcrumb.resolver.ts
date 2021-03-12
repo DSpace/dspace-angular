@@ -3,7 +3,8 @@ import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { Collection } from '../shared/collection.model';
 import { CollectionDataService } from '../data/collection-data.service';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../+collection-page/collection-page.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a Collection
@@ -21,11 +22,7 @@ export class CollectionBreadcrumbResolver extends DSOBreadcrumbResolver<Collecti
    * The self links defined in this list are expected to be requested somewhere in the near future
    * Requesting them as embeds will limit the number of requests
    */
-  get followLinks(): Array<FollowLinkConfig<Collection>> {
-    return [
-      followLink('parentCommunity', undefined, true,
-        followLink('parentCommunity')
-      )
-    ];
+  get followLinks(): FollowLinkConfig<Collection>[] {
+    return COLLECTION_PAGE_LINKS_TO_FOLLOW;
   }
 }

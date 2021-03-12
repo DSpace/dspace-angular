@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractEndUserAgreementGuard } from './abstract-end-user-agreement.guard';
-import { Observable } from 'rxjs/internal/Observable';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { Router } from '@angular/router';
 

@@ -80,5 +80,5 @@ export class BitstreamFormat implements CacheableObject {
   @deserialize
   _links: {
     self: HALLink;
-  }
+  };
 }

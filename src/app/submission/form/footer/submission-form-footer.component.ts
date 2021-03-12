@@ -110,7 +110,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this.submissionService.dispatchDiscard(this.submissionId)
+          this.submissionService.dispatchDiscard(this.submissionId);
         }
       }
     );

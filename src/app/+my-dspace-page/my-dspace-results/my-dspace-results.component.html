@@ -5,7 +5,8 @@
     [sortConfig]="searchConfig.sort"
     [objects]="searchResults"
     [hideGear]="true"
-    [context]="context">
+    [context]="context"
+    (contentChange)="contentChange.emit()">
   </ds-viewable-collection>
 </div>
 <ds-loading *ngIf="isLoading()" message="{{'loading.mydspace-results' | translate}}"></ds-loading>

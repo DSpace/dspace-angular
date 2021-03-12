@@ -29,7 +29,7 @@ export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceO
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<T>> {
     const uuid = route.params.id;
-    return this.dataService.findById(uuid, false, ...this.followLinks).pipe(
+    return this.dataService.findById(uuid, true, false, ...this.followLinks).pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       map((object: T) => {
@@ -49,5 +49,5 @@ export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceO
    * The self links defined in this list are expected to be requested somewhere in the near future
    * Requesting them as embeds will limit the number of requests
    */
-  abstract get followLinks(): Array<FollowLinkConfig<T>>;
+  abstract get followLinks(): FollowLinkConfig<T>[];
 }

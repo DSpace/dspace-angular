@@ -131,11 +131,11 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn) {
-    return
+    return;
   }
 
   registerOnTouched(fn) {
-    return
+    return;
   }
 
   emitChange() {

@@ -16,7 +16,7 @@ export class AddUrlToHistoryAction implements Action {
   };
 
   constructor(url: string) {
-    this.payload = { url }
+    this.payload = { url };
   }
 }
 

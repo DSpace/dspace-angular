@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -24,7 +24,7 @@ describe('AdminSidebarComponent', () => {
   let authorizationService: AuthorizationDataService;
   let scriptService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });
@@ -33,7 +33,7 @@ describe('AdminSidebarComponent', () => {
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
@@ -72,7 +72,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarClosed to false', () => {
         expect(comp.sidebarClosed).toBeFalsy();
-      })
+      });
     });
 
     describe('when collapsing', () => {
@@ -83,8 +83,8 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarOpen to false', () => {
         expect(comp.sidebarOpen).toBeFalsy();
-      })
-    })
+      });
+    });
   });
 
   describe('finishSlide', () => {
@@ -96,7 +96,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarClosed to true', () => {
         expect(comp.sidebarClosed).toBeTruthy();
-      })
+      });
     });
 
     describe('when collapsing', () => {
@@ -107,8 +107,8 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarOpen to true', () => {
         expect(comp.sidebarOpen).toBeTruthy();
-      })
-    })
+      });
+    });
   });
 
   describe('when the collapse icon is clicked', () => {

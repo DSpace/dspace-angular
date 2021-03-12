@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ItemMetadataListElementComponent } from './item-metadata-list-element.component';
 import { By } from '@angular/platform-browser';
@@ -10,17 +10,17 @@ describe('ItemMetadataListElementComponent', () => {
   let comp: ItemMetadataListElementComponent;
   let fixture: ComponentFixture<ItemMetadataListElementComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [ItemMetadataListElementComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemMetadataListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemMetadataListElementComponent);
     comp = fixture.componentInstance;
     comp.metadataRepresentation = mockItemMetadataRepresentation;

@@ -47,7 +47,7 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(id: string): Observable<RemoteData<NoContent>> {
-    return this.deleteWFI(id, true)
+    return this.deleteWFI(id, true);
   }
 
   /**
@@ -79,11 +79,10 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new DeleteByIDRequest(requestId, href, id);
-        this.requestService.configure(request);
-      })
-    ).subscribe();
+    ).subscribe((href: string) => {
+      const request = new DeleteByIDRequest(requestId, href, id);
+      this.requestService.send(request);
+    });
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }

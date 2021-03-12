@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -29,6 +29,7 @@ import { stringToNgbDateStruct } from '../../date.util';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { EPersonMock } from '../../testing/eperson.mock';
+import { isNotEmptyOperator } from '../../empty.util';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -118,6 +119,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
   let de;
   let scheduler: TestScheduler;
 
+  const formService: any = getMockFormService();
+
   const resourcePolicy: any = {
     id: '1',
     name: null,
@@ -153,7 +156,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     findAll: jasmine.createSpy('findAll')
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -170,7 +173,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
-        { provide: FormService, useValue: getMockFormService() },
+        { provide: FormService, useValue: formService },
         { provide: GroupDataService, useValue: groupService },
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
@@ -189,6 +192,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      formService.isValid.and.returnValue(observableOf(true));
       const html = `
         <ds-resource-policy-form [resourcePolicy]="resourcePolicy" [isProcessing]="isProcessing"></ds-resource-policy-form>`;
 
@@ -304,14 +308,15 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
     });
 
-    it('should init resourcePolicyGrant properly', () => {
+    it('should init resourcePolicyGrant properly', (done) => {
       compAsAny.isActive = true;
-
-      scheduler = getTestScheduler();
-      scheduler.schedule(() => comp.ngOnInit());
-      scheduler.flush();
-
-      expect(compAsAny.resourcePolicyGrant).toEqual(GroupMock);
+      comp.ngOnInit();
+      comp.resourcePolicyTargetName$.pipe(
+        isNotEmptyOperator()
+      ).subscribe(() => {
+        expect(compAsAny.resourcePolicyGrant).toEqual(GroupMock);
+        done();
+      });
     });
 
     it('should not can set grant', () => {

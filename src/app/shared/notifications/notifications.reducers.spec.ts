@@ -28,7 +28,7 @@ describe('Notifications reducer', () => {
       providers: [NotificationsService],
       imports: [
         ChangeDetectorRef,
-        StoreModule.forRoot({notificationsReducer}, storeModuleConfig),
+        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
       ]
     });
 

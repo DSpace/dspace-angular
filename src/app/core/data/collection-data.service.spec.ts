@@ -6,7 +6,7 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { ContentSourceRequest, GetRequest, UpdateContentSourceRequest } from './request.models';
+import { ContentSourceRequest, UpdateContentSourceRequest } from './request.models';
 import { ContentSource } from '../shared/content-source.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -20,7 +20,7 @@ import {
 } from 'src/app/shared/remote-data.utils';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { hasNoValue } from '../../shared/empty.util';
 
@@ -87,10 +87,10 @@ describe('CollectionDataService', () => {
         contentSource$ = service.getContentSource(collectionId);
       });
 
-      it('should configure a new ContentSourceRequest', fakeAsync(() => {
+      it('should send a new ContentSourceRequest', fakeAsync(() => {
         contentSource$.subscribe();
         tick();
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(ContentSourceRequest));
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(ContentSourceRequest), true);
       }));
     });
 
@@ -103,23 +103,11 @@ describe('CollectionDataService', () => {
         returnedContentSource$ = service.updateContentSource(collectionId, contentSource);
       });
 
-      it('should configure a new UpdateContentSourceRequest', fakeAsync(() => {
+      it('should send a new UpdateContentSourceRequest', fakeAsync(() => {
         returnedContentSource$.subscribe();
         tick();
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest));
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest));
       }));
-    });
-
-    describe('getMappedItems', () => {
-      let result;
-
-      beforeEach(() => {
-        result = service.getMappedItems('collection-id');
-      });
-
-      it('should configure a GET request', () => {
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest));
-      });
     });
 
     describe('when calling getAuthorizedCollection', () => {
@@ -175,10 +163,10 @@ describe('CollectionDataService', () => {
         returnedContentSource$ = service.updateContentSource(collectionId, contentSource);
       });
 
-      it('should configure a new UpdateContentSourceRequest', fakeAsync(() => {
+      it('should send a new UpdateContentSourceRequest', fakeAsync(() => {
         returnedContentSource$.subscribe();
         tick();
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest));
+        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest));
       }));
 
       it('should display an error notification', fakeAsync(() => {
@@ -213,7 +201,7 @@ describe('CollectionDataService', () => {
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null,null, translate);
+    service = new CollectionDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null, null, translate);
   }
 
 });

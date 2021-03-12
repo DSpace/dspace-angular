@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -43,12 +43,11 @@ describe('SubmissionFormSectionAddComponent Component', () => {
   let comp: SubmissionFormSectionAddComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionFormSectionAddComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
   let sectionsServiceStub: SectionsServiceStub;
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
-
+  const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
     select: jasmine.createSpy('select')
@@ -56,7 +55,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
   const window = new HostWindowServiceStub(800);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -68,7 +67,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
       ],
       providers: [
         { provide: HostWindowService, useValue: window },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
@@ -84,6 +83,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf([]));
       const html = `
         <ds-submission-form-section-add [collectionId]="collectionId"
                                         [submissionId]="submissionId">
@@ -110,8 +110,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
       fixture = TestBed.createComponent(SubmissionFormSectionAddComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
+      sectionsServiceStub = TestBed.inject(SectionsService as any);
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
 
@@ -121,7 +120,6 @@ describe('SubmissionFormSectionAddComponent Component', () => {
       comp = null;
       compAsAny = null;
       fixture = null;
-      submissionServiceStub = null;
       sectionsServiceStub = null;
     });
 
@@ -136,7 +134,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
       comp.hasSections$.subscribe((hasSections) => {
         expect(hasSections).toEqual(true);
-      })
+      });
     });
 
     it('should call addSection', () => {

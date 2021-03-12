@@ -13,14 +13,16 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindByIDRequest, FindListOptions } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import {
-  createFailedRemoteDataObject$, createNoContentRemoteDataObject$,
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
+import { take } from 'rxjs/operators';
 
 const LINK_NAME = 'test';
 
@@ -147,23 +149,23 @@ describe('ComColDataService', () => {
       scheduler = getTestScheduler();
     });
 
-    it('should configure a new FindByIDRequest for the scope Community', () => {
+    it('should send a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
       requestService = getMockRequestService(getRequestEntry$(true));
       objectCache = initMockObjectCacheService();
       service = initTestService();
 
-      const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
+      const expected = new GetRequest(requestService.generateRequestId(), communityEndpoint);
 
       scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 
     describe('if the scope Community can\'t be found', () => {
       it('should throw an error', () => {
-        const result = service.getBrowseEndpoint(options);
+        const result = service.getBrowseEndpoint(options).pipe(take(1));
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
 
         expect(result).toBeObservable(expected);
@@ -207,12 +209,12 @@ describe('ComColDataService', () => {
         it('top level community cache refreshed', () => {
           scheduler.schedule(() => (service as any).refreshCache(data));
           scheduler.flush();
-          expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith('https://rest.api/core/communities/search/top');
+          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('https://rest.api/core/communities/search/top');
         });
         it('top level community without parent link, cache not refreshed', () => {
           scheduler.schedule(() => (service as any).refreshCache(communityWithoutParentHref));
           scheduler.flush();
-          expect(requestService.removeByHrefSubstring).not.toHaveBeenCalled();
+          expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalled();
         });
       });
 
@@ -245,7 +247,7 @@ describe('ComColDataService', () => {
         it('child level community cache refreshed', () => {
           scheduler.schedule(() => (service as any).refreshCache(data));
           scheduler.flush();
-          expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
         });
       });
     });

@@ -1,5 +1,5 @@
 import { CommunityListElementComponent } from './community-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
@@ -30,20 +30,20 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
 });
 
 describe('CommunityListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityListElementComponent ],
+      declarations: [CommunityListElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract)}
+        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CommunityListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CommunityListElementComponent);
     communityListElementComponent = fixture.componentInstance;
   }));

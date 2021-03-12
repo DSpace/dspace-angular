@@ -5,7 +5,7 @@ import { VersionHistoryDataService } from './version-history-data.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { GetRequest } from './request.models';
+import { VersionDataService } from './version-data.service';
 
 const url = 'fake-url';
 
@@ -16,6 +16,7 @@ describe('VersionHistoryDataService', () => {
   let notificationsService: any;
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
+  let versionService: VersionDataService;
   let halService: any;
 
   beforeEach(() => {
@@ -29,8 +30,8 @@ describe('VersionHistoryDataService', () => {
       result = service.getVersions('1');
     });
 
-    it('should configure a GET request', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest));
+    it('should call versionService.findAllByHref', () => {
+      expect(versionService.findAllByHref).toHaveBeenCalled();
     });
   });
 
@@ -46,9 +47,12 @@ describe('VersionHistoryDataService', () => {
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
     });
+    versionService = jasmine.createSpyObj('objectCache', {
+      findAllByHref: jasmine.createSpy('findAllByHref')
+    });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
-    service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, null, null);
+    service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, versionService, null, null);
   }
 });

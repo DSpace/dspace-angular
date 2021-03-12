@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -15,11 +15,10 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { By } from '@angular/platform-browser';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
-
-const compIndex = 1;
 
 const mockResultObject: PoolTaskSearchResult = new PoolTaskSearchResult();
 mockResultObject.hitHighlights = {};
@@ -60,7 +59,7 @@ mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem:
 const linkService = getMockLinkService();
 
 describe('PoolSearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [PoolSearchResultListElementComponent, VarDirective],
@@ -74,7 +73,7 @@ describe('PoolSearchResultListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(PoolSearchResultListElementComponent);
     component = fixture.componentInstance;
   }));
@@ -99,4 +98,15 @@ describe('PoolSearchResultListElementComponent', () => {
   it('should have properly status', () => {
     expect(component.status).toEqual(MyDspaceItemStatusType.WAITING_CONTROLLER);
   });
+
+  it('should forward pool-task-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {
+    spyOn(component.reloadedObject, 'emit').and.callThrough();
+    const actionPayload: any = { reloadedObject: {}};
+    const actionsComponents = fixture.debugElement.query(By.css('ds-pool-task-actions'));
+    actionsComponents.triggerEventHandler('processCompleted', actionPayload);
+    tick();
+
+    expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
+
+  }));
 });

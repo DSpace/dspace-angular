@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 
 import { UploaderService } from '../uploader/uploader.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,8 +17,8 @@ describe('NumberPickerComponent test suite', () => {
   let numberPickerFixture: ComponentFixture<NumberPickerComponent>;
   let html;
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [

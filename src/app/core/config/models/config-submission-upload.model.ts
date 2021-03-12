@@ -34,6 +34,6 @@ export class SubmissionUploadModel extends ConfigObject {
   _links: {
     metadata: HALLink
     self: HALLink
-  }
+  };
 
 }

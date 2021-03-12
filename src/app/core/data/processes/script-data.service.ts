@@ -47,9 +47,9 @@ export class ScriptDataService extends DataService<Script> {
       map((endpoint: string) => new URLCombiner(endpoint, scriptName, 'processes').toString()),
       map((endpoint: string) => {
         const body = this.getInvocationFormData(parameters, files);
-        return new MultipartPostRequest(requestId, endpoint, body)
+        return new MultipartPostRequest(requestId, endpoint, body);
       })
-    ).subscribe((request: RestRequest) => this.requestService.configure(request));
+    ).subscribe((request: RestRequest) => this.requestService.send(request));
 
     return this.rdbService.buildFromRequestUUID<Process>(requestId);
   }

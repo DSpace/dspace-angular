@@ -3,7 +3,7 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
-import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -87,10 +87,10 @@ describe('HALEndpointService', () => {
   });
 
   describe('getRootEndpointMap', () => {
-    it('should configure a new EndpointMapRequest', () => {
+    it('should send a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
       const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl + 'api');
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 
     it('should return an Observable of the endpoint map', (done) => {
@@ -131,7 +131,7 @@ describe('HALEndpointService', () => {
   describe('getEndpointAt', () => {
     it('should throw an error when the list of hal endpoint names is empty', () => {
       const endpointAtWithoutEndpointNames = () => {
-        (service as any).getEndpointAt('')
+        (service as any).getEndpointAt('');
       };
       expect(endpointAtWithoutEndpointNames).toThrow();
     });

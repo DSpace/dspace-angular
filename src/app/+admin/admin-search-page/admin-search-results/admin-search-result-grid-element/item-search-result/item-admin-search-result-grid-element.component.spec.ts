@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
@@ -16,6 +16,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -29,6 +31,8 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     }
   };
 
+  const mockThemeService = getMockThemeService();
+
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     searchResult = new ItemSearchResult();
@@ -36,7 +40,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     searchResult.indexableObject.uuid = id;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule(
       {
@@ -50,6 +54,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ThemeService, useValue: mockThemeService },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })

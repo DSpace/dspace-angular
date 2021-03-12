@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import {
   DeleteRelationship,
@@ -9,7 +9,7 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../../core/shared/item.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -124,7 +124,7 @@ export class EditRelationshipComponent implements OnChanges {
             keepLeftVirtualMetadata: selection[0] === true,
             keepRightVirtualMetadata: selection[1] === true,
           }
-        ) as DeleteRelationship
+        ) as DeleteRelationship;
       }),
       take(1),
     ).subscribe((deleteRelationship: DeleteRelationship) =>

@@ -55,7 +55,7 @@ export class SearchLabelComponent implements OnInit {
           page: 1
         };
       })
-    )
+    );
   }
 
   /**

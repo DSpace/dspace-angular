@@ -1,7 +1,7 @@
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { FindListOptions } from './request.models';
@@ -31,9 +31,9 @@ describe('MetadataFieldDataService', () => {
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
-      configure: {},
+      send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
-      removeByHrefSubstring: {}
+      setStaleByHrefSubstring: {}
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
     notificationsService = jasmine.createSpyObj('notificationsService', {
@@ -59,16 +59,15 @@ describe('MetadataFieldDataService', () => {
       const expectedOptions = Object.assign(new FindListOptions(), {
         searchParams: [new RequestParam('schema', schema.prefix)]
       });
-      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true);
+      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true, true);
     });
   });
 
   describe('clearRequests', () => {
-    it('should remove requests on the data service\'s endpoint', (done) => {
-      metadataFieldService.clearRequests().subscribe(() => {
-        expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(`${endpoint}/${(metadataFieldService as any).linkPath}`);
-        done();
-      });
+    it('should remove requests on the data service\'s endpoint', () => {
+      spyOn(metadataFieldService, 'getBrowseEndpoint').and.returnValue(observableOf(endpoint));
+      metadataFieldService.clearRequests();
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(endpoint);
     });
   });
 });

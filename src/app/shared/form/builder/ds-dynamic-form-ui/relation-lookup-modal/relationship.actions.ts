@@ -139,4 +139,4 @@ export class RemoveRelationshipAction implements Action {
  */
 export type RelationshipAction
   = AddRelationshipAction
-  | RemoveRelationshipAction
+  | RemoveRelationshipAction;

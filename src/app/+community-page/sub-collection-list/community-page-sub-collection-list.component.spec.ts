@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -18,11 +18,14 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;
   let fixture: ComponentFixture<CommunityPageSubCollectionListComponent>;
   let collectionDataServiceStub: any;
+  let themeService;
   let subCollList = [];
 
   const collections = [Object.assign(new Community(), {
@@ -97,7 +100,7 @@ describe('CommunityPageSubCollectionList Component', () => {
       let currentPage = options.currentPage;
       let elementsPerPage = options.elementsPerPage;
       if (currentPage === undefined) {
-        currentPage = 1
+        currentPage = 1;
       }
       elementsPerPage = 5;
       const startPageIndex = (currentPage - 1) * elementsPerPage;
@@ -110,7 +113,9 @@ describe('CommunityPageSubCollectionList Component', () => {
     }
   };
 
-  beforeEach(async(() => {
+  themeService = getMockThemeService();
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -124,6 +129,7 @@ describe('CommunityPageSubCollectionList Component', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: SelectableListService, useValue: {} },
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -13,7 +13,7 @@ You can find additional information on the DSpace 7 Angular UI on the [wiki](htt
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v10.x` or `v12.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) >= `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v12.x` or `v14.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) >= `v1.x`**
 
 ```bash
 # clone the repo
@@ -65,7 +65,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v10.x` or `v12.x` and yarn >= `v1.x`
+-	Ensure you're running node `v12.x` or `v14.x` and yarn >= `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -104,7 +104,7 @@ DSPACE_REST_SSL # Whether the angular REST uses SSL [true/false]
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash 
-export DSPACE_HOST=dspace7.4science.cloud
+export DSPACE_HOST=api7.dspace.org
 ```
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides **`environment.(prod, dev or test).ts`** overrides **`environment.common.ts`**
@@ -339,7 +339,6 @@ dspace-angular
 ├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
 ├── typedoc.json                                        * TYPEDOC configuration
 ├── webpack                                             * Webpack (https://webpack.github.io/) config directory
-│   ├── helpers.js                                      *
 │   ├── webpack.aot.js                                  * Webpack (https://webpack.github.io/) config for AoT build
 │   ├── webpack.client.js                               * Webpack (https://webpack.github.io/) config for client build
 │   ├── webpack.common.js                               *

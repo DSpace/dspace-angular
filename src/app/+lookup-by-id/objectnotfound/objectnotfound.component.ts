@@ -29,7 +29,7 @@ export class ObjectNotFoundComponent implements OnInit {
     route.params.subscribe((params) => {
       this.idType = params.idType;
       this.id = params.id;
-    })
+    });
   }
 
   ngOnInit(): void {

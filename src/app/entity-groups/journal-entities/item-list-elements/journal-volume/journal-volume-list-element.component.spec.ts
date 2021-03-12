@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
@@ -39,7 +39,7 @@ describe('JournalVolumeListElementComponent', () => {
     isCollapsed: (id: number) => observableOf(true),
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [JournalVolumeListElementComponent, TruncatePipe],
       providers: [
@@ -51,7 +51,7 @@ describe('JournalVolumeListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(JournalVolumeListElementComponent);
     comp = fixture.componentInstance;
   }));

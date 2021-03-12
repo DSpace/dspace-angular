@@ -46,13 +46,13 @@ describe('BrowseByGuard', () => {
         .subscribe(
           (canActivate) => {
             const result = {
-                title,
-                id,
-                metadataField,
-                collection: name,
-                field,
-                value: '"' + value + '"'
-              };
+              title,
+              id,
+              metadataField,
+              collection: name,
+              field,
+              value: '"' + value + '"'
+            };
             expect(scopedRoute.data).toEqual(result);
             expect(canActivate).toEqual(true);
           }
@@ -78,13 +78,13 @@ describe('BrowseByGuard', () => {
         .subscribe(
           (canActivate) => {
             const result = {
-                title,
-                id,
-                metadataField,
-                collection: name,
-                field,
-                value: ''
-              };
+              title,
+              id,
+              metadataField,
+              collection: name,
+              field,
+              value: ''
+            };
             expect(scopedNoValueRoute.data).toEqual(result);
             expect(canActivate).toEqual(true);
           }
@@ -109,13 +109,13 @@ describe('BrowseByGuard', () => {
         .subscribe(
           (canActivate) => {
             const result = {
-                title,
-                id,
-                metadataField,
-                collection: '',
-                field,
-                value: '"' + value + '"'
-              };
+              title,
+              id,
+              metadataField,
+              collection: '',
+              field,
+              value: '"' + value + '"'
+            };
             expect(route.data).toEqual(result);
             expect(canActivate).toEqual(true);
           }

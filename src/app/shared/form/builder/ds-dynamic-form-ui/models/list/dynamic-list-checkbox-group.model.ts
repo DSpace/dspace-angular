@@ -54,7 +54,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
       } else {
         // _value is non extendible so assign it a new array
         const newValue = (this.value as VocabularyEntry[]).concat([value]);
-        this._value = newValue
+        this._value = newValue;
       }
     }
   }

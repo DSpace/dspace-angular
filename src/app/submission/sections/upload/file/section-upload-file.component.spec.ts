@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -81,7 +81,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     remove: jasmine.createSpy('remove'),
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -150,19 +150,18 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      uploadService = TestBed.get(SectionUploadService);
-      fileService = TestBed.get(FileService);
-      formService = TestBed.get(FormService);
-      halService = TestBed.get(HALEndpointService);
-      operationsBuilder = TestBed.get(JsonPatchOperationsBuilder);
-      operationsService = TestBed.get(SubmissionJsonPatchOperationsService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      uploadService = TestBed.inject(SectionUploadService);
+      fileService = TestBed.inject(FileService);
+      formService = TestBed.inject(FormService);
+      halService = TestBed.inject(HALEndpointService);
+      operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
+      operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);
 
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
       comp.sectionId = sectionId;
       comp.availableAccessConditionOptions = availableAccessConditionOptions;
-      comp.availableAccessConditionGroups = availableGroupsMap;
       comp.collectionPolicyType = collectionPolicyType;
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
@@ -233,11 +232,11 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       tick();
 
-      expect(fileService.downloadFile).toHaveBeenCalled()
+      expect(fileService.downloadFile).toHaveBeenCalled();
     }));
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.get(SubmissionSectionUploadFileEditComponent);
+      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);
@@ -258,9 +257,9 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       operationsService.jsonPatchByResourceID.and.returnValue(observableOf(response));
 
       const accessConditionsToSave = [
-        { name: 'openaccess', groupUUID: '123456-g' },
-        { name: 'lease', endDate: '2019-01-16T00:00:00Z', groupUUID: '123456-g' },
-        { name: 'embargo', startDate: '2019-01-16T00:00:00Z', groupUUID: '123456-g' }
+        { name: 'openaccess' },
+        { name: 'lease', endDate: '2019-01-16T00:00:00Z' },
+        { name: 'embargo', startDate: '2019-01-16T00:00:00Z' },
       ];
       comp.saveBitstreamData(event);
       tick();
@@ -292,7 +291,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     }));
 
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.get(SubmissionSectionUploadFileEditComponent);
+      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);

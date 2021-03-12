@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -14,30 +14,28 @@ import { Item } from '../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: {
-      'dc.title': [
-        {
-          language: 'en_US',
-          value: 'test item'
-        }
-      ]
-    }
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'test item'
+      }
+    ]
+  }
 });
 const routeStub = Object.assign(new ActivatedRouteStub(), {
   data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
 });
 const metadataServiceStub = {
   /* tslint:disable:no-empty */
-  processRemoteData: () => {}
+  processRemoteData: () => {
+  }
   /* tslint:enable:no-empty */
 };
 
@@ -47,7 +45,7 @@ describe('FullItemPageComponent', () => {
 
   let authService: AuthService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {}
@@ -62,19 +60,19 @@ describe('FullItemPageComponent', () => {
       }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
       declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: ItemDataService, useValue: {}},
-        {provide: MetadataService, useValue: metadataServiceStub},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: ItemDataService, useValue: {} },
+        { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(FullItemPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -85,5 +83,5 @@ describe('FullItemPageComponent', () => {
     for (const metadatum of mockItem.allMetadata([])) {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
-  })
+  });
 });

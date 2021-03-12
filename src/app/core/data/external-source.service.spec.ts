@@ -42,7 +42,7 @@ describe('ExternalSourceService', () => {
   function init() {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: 'request-uuid',
-      configure: {}
+      send: {}
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: createSuccessfulRemoteDataObject$(createPaginatedList(entries))
@@ -64,8 +64,8 @@ describe('ExternalSourceService', () => {
       result = service.getExternalSourceEntries('test');
     });
 
-    it('should configure a GetRequest', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest));
+    it('should send a GetRequest', () => {
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), true);
     });
 
     it('should return the entries', () => {

@@ -127,12 +127,12 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   findMetadataFieldSuggestions(query: string) {
     if (isNotEmpty(query)) {
-      return this.registryService.queryMetadataFields(query, null, false, followLink('schema')).pipe(
+      return this.registryService.queryMetadataFields(query, null, true, false, followLink('schema')).pipe(
         getFirstSucceededRemoteData(),
         metadataFieldsToString(),
       ).subscribe((fieldNames: string[]) => {
           this.setInputSuggestions(fieldNames);
-        })
+        });
     } else {
       this.metadataFieldSuggestions.next([]);
     }

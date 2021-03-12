@@ -68,7 +68,7 @@ import { SEARCH_FILTER_CONFIG } from './search-filter-config.resource-type';
     @deserialize
     _links: {
       self: HALLink;
-    }
+    };
 
     /**
      * Name of this configuration that can be used in a url

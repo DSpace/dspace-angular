@@ -16,12 +16,6 @@ const COMPONENTS = [
   OnClickMenuItemComponent
 ];
 
-const ENTRY_COMPONENTS = [
-  LinkMenuItemComponent,
-  TextMenuItemComponent,
-  OnClickMenuItemComponent
-];
-
 const MODULES = [
   TranslateModule,
   RouterModule,
@@ -36,18 +30,13 @@ const PROVIDERS = [
     ...MODULES
   ],
   declarations: [
-    ...COMPONENTS,
-    ...ENTRY_COMPONENTS,
+    ...COMPONENTS
   ],
   providers: [
     ...PROVIDERS
   ],
   exports: [
-    ...COMPONENTS,
-    ...MODULES
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
+    ...COMPONENTS
   ]
 })
 

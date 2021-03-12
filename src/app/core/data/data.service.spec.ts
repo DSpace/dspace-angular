@@ -96,7 +96,7 @@ describe('DataService', () => {
 
   beforeEach(() => {
     service = initTestService();
-  })
+  });
 
   describe('getFindAllHref', () => {
 
@@ -147,7 +147,7 @@ describe('DataService', () => {
     });
 
     it('should include all provided options in href', () => {
-      const sortOptions = new SortOptions('field1', SortDirection.DESC)
+      const sortOptions = new SortOptions('field1', SortDirection.DESC);
       options = {
         currentPage: 6,
         elementsPerPage: 10,
@@ -164,10 +164,12 @@ describe('DataService', () => {
     });
 
     it('should include all searchParams in href if any provided in options', () => {
-      options = { searchParams: [
-        new RequestParam('param1', 'test'),
-        new RequestParam('param2', 'test2'),
-        ] };
+      options = {
+        searchParams: [
+          new RequestParam('param1', 'test'),
+          new RequestParam('param2', 'test2'),
+        ]
+      };
       const expected = `${endpoint}?param1=test&param2=test2`;
 
       (service as any).getFindAllHref(options).subscribe((value) => {
@@ -210,7 +212,7 @@ describe('DataService', () => {
     it('should include nested linksToFollow 3lvl', () => {
       const expected = `${endpoint}?embed=owningCollection/itemtemplate/relationships`;
 
-      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, followLink('itemtemplate', undefined, true, followLink('relationships')))).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', undefined, true, true, true, followLink('relationships')))).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -245,7 +247,7 @@ describe('DataService', () => {
 
     it('should include nested linksToFollow 3lvl', () => {
       const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection/itemtemplate/relationships`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', undefined, true, followLink('itemtemplate', undefined, true, followLink('relationships'))));
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', undefined, true,  true, true,followLink('itemtemplate', undefined, true, true, true, followLink('relationships'))));
       expect(result).toEqual(expected);
     });
   });
@@ -266,8 +268,8 @@ describe('DataService', () => {
       service.patch(dso, operations);
     });
 
-    it('should configure a PatchRequest', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PatchRequest));
+    it('should send a PatchRequest', () => {
+      expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PatchRequest));
     });
   });
 

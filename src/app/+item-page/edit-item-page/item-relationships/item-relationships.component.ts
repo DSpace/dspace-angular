@@ -7,7 +7,7 @@ import {
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import {
   combineLatest as observableCombineLatest,
   of as observableOf,
@@ -23,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
@@ -43,7 +43,6 @@ import { hasValue } from '../../../shared/empty.util';
  */
 export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
-  itemRD$: Observable<RemoteData<Item>>;
 
   /**
    * The allowed relationship types for this type of item as an observable list
@@ -72,40 +71,6 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
   /**
-   * Set up and initialize all fields
-   */
-  ngOnInit(): void {
-    super.ngOnInit();
-    this.initializeItemUpdate();
-  }
-
-  /**
-   * Update the item (and view) when it's removed in the request cache
-   */
-  public initializeItemUpdate(): void {
-    this.itemRD$ = this.requestService.hasByHref$(this.item.self).pipe(
-      filter((exists: boolean) => !exists),
-      switchMap(() => this.itemService.findById(
-        this.item.uuid,
-        true,
-        followLink('owningCollection'),
-        followLink('bundles'),
-        followLink('relationships')),
-      ),
-      filter((itemRD) => !!itemRD.statusCode),
-    );
-
-    this.itemRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-    ).subscribe((item) => {
-      this.item = item;
-      this.cdr.detectChanges();
-      this.initializeUpdates();
-    });
-  }
-
-  /**
    * Initialize the values and updates of the current item's relationship fields
    */
   public initializeUpdates(): void {
@@ -122,6 +87,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         switchMap((entityType) =>
           this.entityTypeService.getEntityTypeRelationships(
             entityType.id,
+            true,
+            true,
             followLink('leftType'),
             followLink('rightType'))
             .pipe(
@@ -156,7 +123,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         Object.assign(new Relationship(), relationship, { uuid: relationship.id })
       )),
       switchMap((relationships: Relationship[]) => {
-        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>
+        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>;
       }),
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
@@ -187,18 +154,16 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       actions.forEach((action) =>
         action.subscribe((response) => {
           if (response.length > 0) {
-            this.itemRD$.subscribe(() => {
-              this.initializeOriginalFields();
-              this.cdr.detectChanges();
-              this.displayNotifications(response);
-            });
+            this.initializeOriginalFields();
+            this.cdr.detectChanges();
+            this.displayNotifications(response);
           }
         })
       );
     });
   }
 
-  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<Array<RemoteData<NoContent>>> {
+  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RemoteData<NoContent>[]> {
     return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
         let copyVirtualMetadata: string;
         if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
@@ -215,7 +180,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     ));
   }
 
-  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<Array<RemoteData<Relationship>>> {
+  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<RemoteData<Relationship>[]> {
     return observableZip(...addRelatedItems.map((addRelationship) =>
       this.entityType$.pipe(
         switchMap((entityType) => this.entityTypeService.isLeftType(addRelationship.type, entityType)),
@@ -247,7 +212,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * - Success notification in case there's at least one successful response
    * @param responses
    */
-  displayNotifications(responses: Array<RemoteData<NoContent>>) {
+  displayNotifications(responses: RemoteData<NoContent>[]) {
     const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
     const successfulResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
 
@@ -262,6 +227,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
+    console.log('init');
     return this.relationshipService.getRelatedItems(this.item).pipe(
       take(1),
     ).subscribe((items: Item[]) => {

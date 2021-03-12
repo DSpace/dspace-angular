@@ -1,6 +1,6 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { FileValueInputComponent } from './file-value-input.component';
@@ -13,7 +13,7 @@ describe('FileValueInputComponent', () => {
   let component: FileValueInputComponent;
   let fixture: ComponentFixture<FileValueInputComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

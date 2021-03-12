@@ -49,9 +49,9 @@ export class RoleDirective implements OnChanges, OnDestroy {
     const exceptChanges = changes.dsShowExceptForRole;
     this.hasRoles(this.dsShowOnlyForRole);
     if (changes.dsShowOnlyForRole) {
-      this.validateOnly()
+      this.validateOnly();
     } else if (changes.dsShowExceptForRole) {
-      this.validateExcept()
+      this.validateExcept();
     }
   }
 
@@ -104,11 +104,11 @@ export class RoleDirective implements OnChanges, OnDestroy {
    */
   private hasRoles(roles: RoleType | RoleType[]): Observable<boolean> {
     const toValidate: RoleType[] = (Array.isArray(roles)) ? roles : [roles];
-    const checks: Array<Observable<boolean>> = toValidate.map((role) => this.roleService.checkRole(role));
+    const checks: Observable<boolean>[] = toValidate.map((role) => this.roleService.checkRole(role));
 
     return combineLatest(checks).pipe(
       map((permissions: boolean[]) => permissions.includes(true)),
       first()
-    )
+    );
   }
 }

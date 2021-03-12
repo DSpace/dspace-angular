@@ -1,21 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { DSpaceObjectDataService } from '../../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
@@ -53,8 +52,8 @@ describe('GroupFormComponent', () => {
   let groupDescription;
   let expected;
 
-  beforeEach(async(() => {
-    groups = [GroupMock, GroupMock2]
+  beforeEach(waitForAsync(() => {
+    groups = [GroupMock, GroupMock2];
     groupName = 'testGroupName';
     groupDescription = 'testDescription';
     expected = Object.assign(new Group(), {
@@ -79,7 +78,7 @@ describe('GroupFormComponent', () => {
         return '/admin/access-control/groups';
       },
       editGroup(group: Group) {
-        this.activeGroup = group
+        this.activeGroup = group;
       },
       clearGroupsRequests() {
         return null;
@@ -104,7 +103,7 @@ describe('GroupFormComponent', () => {
         return createSuccessfulRemoteDataObject$(this.createdGroup);
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
       getGroupEditPageRouterLinkWithID(id: string) {
         return `group-edit-page-for-${id}`;
@@ -117,7 +116,7 @@ describe('GroupFormComponent', () => {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return null;
       }
-    }
+    };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     router = new RouterMock();
@@ -145,7 +144,10 @@ describe('GroupFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) } },
+        {
+          provide: ActivatedRoute,
+          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
+        },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
@@ -159,10 +161,6 @@ describe('GroupFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create GroupFormComponent', inject([GroupFormComponent], (comp: GroupFormComponent) => {
-    expect(comp).toBeDefined();
-  }));
-
   describe('when submitting the form', () => {
     beforeEach(() => {
       spyOn(component.submitForm, 'emit');
@@ -175,23 +173,16 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new group using the correct values', async(() => {
+      it('should emit a new group using the correct values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
         });
       }));
     });
     describe('with active Group', () => {
+      let expected2;
       beforeEach(() => {
-        spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf(expected));
-        spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected));
-        component.groupName.value = 'newGroupName';
-        component.onSubmit();
-        fixture.detectChanges();
-      });
-
-      it('should emit the existing group using the correct new values', async(() => {
-        const expected2 = Object.assign(new Group(), {
+        expected2 = Object.assign(new Group(), {
           name: 'newGroupName',
           metadata: {
             'dc.description': [
@@ -201,13 +192,21 @@ describe('GroupFormComponent', () => {
             ],
           },
         });
+        spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf(expected));
+        spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
+        component.groupName.value = 'newGroupName';
+        component.onSubmit();
+        fixture.detectChanges();
+      });
+
+      it('should emit the existing group using the correct new values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
         });
       }));
       it('should emit success notification', () => {
         expect(notificationService.success).toHaveBeenCalled();
-      })
+      });
     });
   });
 

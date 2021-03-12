@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
@@ -12,17 +12,17 @@ describe('PlainTextMetadataListElementComponent', () => {
   let comp: PlainTextMetadataListElementComponent;
   let fixture: ComponentFixture<PlainTextMetadataListElementComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [PlainTextMetadataListElementComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PlainTextMetadataListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(PlainTextMetadataListElementComponent);
     comp = fixture.componentInstance;
     comp.metadataRepresentation = mockMetadataRepresentation;

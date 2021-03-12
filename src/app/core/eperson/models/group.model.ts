@@ -1,4 +1,4 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list.model';
@@ -10,6 +10,7 @@ import { HALLink } from '../../shared/hal-link.model';
 import { EPerson } from './eperson.model';
 import { EPERSON } from './eperson.resource-type';
 import { GROUP } from './group.resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -19,8 +20,9 @@ export class Group extends DSpaceObject {
   /**
    * A string representing the unique name of this Group
    */
-  @autoserialize
-  public name: string;
+  @excludeFromEquals
+  @autoserializeAs('name')
+  protected _name: string;
 
   /**
    * A string representing the unique handle of this Group

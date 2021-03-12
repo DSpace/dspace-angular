@@ -2,21 +2,26 @@ import { delay, exhaustMap, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { coreSelector } from '../core.selectors';
-import { AddToSSBAction, CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
+import {
+  AddToSSBAction,
+  CommitSSBAction,
+  EmptySSBAction,
+  ServerSyncBufferActionTypes
+} from './server-sync-buffer.actions';
 import { CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { RequestService } from '../data/request.service';
 import { PatchRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { environment } from '../../../environments/environment';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -35,7 +40,7 @@ export class ServerSyncBufferEffects {
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
-        )
+        );
       })
     );
 
@@ -53,7 +58,7 @@ export class ServerSyncBufferEffects {
           select(serverSyncBufferSelector()),
           take(1), /* necessary, otherwise delay will not have any effect after the first run */
           switchMap((bufferState: ServerSyncBufferState) => {
-            const actions: Array<Observable<Action>> = bufferState.buffer
+            const actions: Observable<Action>[] = bufferState.buffer
               .filter((entry: ServerSyncBufferEntry) => {
                 /* If there's a request method, filter
                  If there's no filter, commit everything */
@@ -76,7 +81,7 @@ export class ServerSyncBufferEffects {
               switchMap((array) => [...array, new EmptySSBAction(action.payload)])
             );
             } else {
-              return observableOf({ type: 'NO_ACTION' });
+              return observableOf(new NoOpAction());
             }
           })
         );
@@ -90,14 +95,16 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getByHref(href).pipe(take(1));
+    const patchObject = this.objectCache.getByHref(href).pipe(
+      take(1)
+    );
 
     return patchObject.pipe(
       map((entry: ObjectCacheEntry) => {
         if (isNotEmpty(entry.patches)) {
           const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
           if (isNotEmpty(flatPatch)) {
-            this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
+            this.requestService.send(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
           }
         }
         return new ApplyPatchObjectCacheAction(href);

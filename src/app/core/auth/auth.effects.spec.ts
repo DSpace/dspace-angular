@@ -74,8 +74,8 @@ describe('AuthEffects', () => {
       ],
     });
 
-    authEffects = TestBed.get(AuthEffects);
-    store = TestBed.get(Store);
+    authEffects = TestBed.inject(AuthEffects);
+    store = TestBed.inject(Store as any);
   });
 
   describe('authenticate$', () => {
@@ -197,7 +197,7 @@ describe('AuthEffects', () => {
 
         expect(authEffects.checkToken$).toBeObservable(expected);
       });
-    })
+    });
   });
 
   describe('checkTokenCookie$', () => {
@@ -240,7 +240,7 @@ describe('AuthEffects', () => {
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
       });
-    })
+    });
   });
 
   describe('retrieveAuthenticatedEperson$', () => {
@@ -296,7 +296,7 @@ describe('AuthEffects', () => {
 
         expect(authEffects.refreshToken$).toBeObservable(expected);
       });
-    })
+    });
   });
 
   describe('retrieveToken$', () => {
@@ -354,7 +354,7 @@ describe('AuthEffects', () => {
 
         expect(authEffects.logOut$).toBeObservable(expected);
       });
-    })
+    });
   });
 
   describe('retrieveMethods$', () => {
@@ -379,7 +379,7 @@ describe('AuthEffects', () => {
 
         expect(authEffects.retrieveMethods$).toBeObservable(expected);
       });
-    })
+    });
   });
 
   describe('clearInvalidTokenOnRehydrate$', () => {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { ComcolPageHandleComponent } from './comcol-page-handle.component';
@@ -9,12 +9,12 @@ describe('ComcolPageHandleComponent', () => {
   let component: ComcolPageHandleComponent;
   let fixture: ComponentFixture<ComcolPageHandleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ ComcolPageHandleComponent ]
+      declarations: [ComcolPageHandleComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

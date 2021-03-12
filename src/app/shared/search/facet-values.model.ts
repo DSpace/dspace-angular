@@ -24,7 +24,7 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    * The name of the facet the values are for
    */
   @autoserialize
-  name: string
+  name: string;
 
   /**
    * The type of facet the values are for
@@ -36,7 +36,7 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    * The max number of returned facetValues
    */
   @autoserialize
-  facetLimit: number
+  facetLimit: number;
 
   /**
    * The results for this query

@@ -1,30 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  mergeMap,
-  startWith,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
   compareArraysUsingIds,
   paginatedRelationsToItems,
   relationsToItems
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-  isNotEmptyOperator
-} from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import {
   RemoveNameVariantAction,
@@ -45,11 +30,11 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
-  configureRequest,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
+  sendRequest,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
 } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
@@ -128,7 +113,7 @@ export class RelationshipService extends DataService<Relationship> {
       map((endpointURL: string) =>
         new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata)
       ),
-      configureRequest(this.requestService),
+      sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
       tap(() => this.refreshRelationshipItemsInCacheByRelationship(id)),
@@ -155,7 +140,7 @@ export class RelationshipService extends DataService<Relationship> {
       map((endpointUrl: string) => isNotEmpty(leftwardValue) ? `${endpointUrl}&leftwardValue=${leftwardValue}` : endpointUrl),
       map((endpointUrl: string) => isNotEmpty(rightwardValue) ? `${endpointUrl}&rightwardValue=${rightwardValue}` : endpointUrl),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} \n ${item2.self}`, options)),
-      configureRequest(this.requestService),
+      sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
       tap(() => this.refreshRelationshipItemsInCache(item1)),
@@ -168,7 +153,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param relationshipId The identifier of the relationship
    */
   private refreshRelationshipItemsInCacheByRelationship(relationshipId: string) {
-    this.findById(relationshipId, false, followLink('leftItem'), followLink('rightItem')).pipe(
+    this.findById(relationshipId, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       switchMap((rel: Relationship) => observableCombineLatest(
@@ -180,7 +165,7 @@ export class RelationshipService extends DataService<Relationship> {
     ).subscribe(([item1, item2]) => {
       this.refreshRelationshipItemsInCache(item1);
       this.refreshRelationshipItemsInCache(item2);
-    })
+    });
   }
 
   /**
@@ -196,8 +181,7 @@ export class RelationshipService extends DataService<Relationship> {
     ]).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
-      switchMap(() => this.itemService.findByHref(item._links.self.href).pipe(take(1)))
-    ).subscribe();
+    ).subscribe(() => this.itemService.findByHref(item._links.self.href, false));
   }
 
   /**
@@ -207,8 +191,8 @@ export class RelationshipService extends DataService<Relationship> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                        should be automatically resolved
    */
-  getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
-    return this.findAllByHref(item._links.relationships.href, undefined, false, ...linksToFollow).pipe(
+  getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
+    return this.findAllByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
@@ -244,7 +228,7 @@ export class RelationshipService extends DataService<Relationship> {
           }
         })
         )
-      ))
+      ));
   }
 
   /**
@@ -270,7 +254,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getItemRelationshipsByLabel(item, label, options, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(paginatedRelationsToItems(item.uuid));
+    return this.getItemRelationshipsByLabel(item, label, options, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(paginatedRelationsToItems(item.uuid));
   }
 
   /**
@@ -280,12 +264,14 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item
    * @param label
    * @param options
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<RemoteData<PaginatedList<Relationship>>> {
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<RemoteData<PaginatedList<Relationship>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -296,7 +282,7 @@ export class RelationshipService extends DataService<Relationship> {
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findListOptions, reRequestOnStale, ...linksToFollow);
+    return this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -316,10 +302,10 @@ export class RelationshipService extends DataService<Relationship> {
             map(() => relationship),
             startWith(undefined)
           );
-        }))
+        }));
       }),
       map((relationships: Relationship[]) => relationships.filter(((relationship) => hasValue(relationship)))),
-    )
+    );
   }
 
   private isItemInUUIDArray(itemRD$: Observable<RemoteData<Item>>, uuids: string[]) {
@@ -341,6 +327,7 @@ export class RelationshipService extends DataService<Relationship> {
       item1,
       label,
       options,
+      true,
       false,
       followLink('relationshipType'),
       followLink('leftItem'),
@@ -360,7 +347,7 @@ export class RelationshipService extends DataService<Relationship> {
         }),
         filter((relationship) => hasValue(relationship)),
         take(1)
-      )
+      );
   }
 
   /**
@@ -416,7 +403,7 @@ export class RelationshipService extends DataService<Relationship> {
             getFirstSucceededRemoteData(),
             getRemoteDataPayload(),
             map((type) => {
-              return { relation, type }
+              return { relation, type };
             })
           )
         ),

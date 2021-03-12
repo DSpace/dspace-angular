@@ -1,4 +1,5 @@
 import { first } from 'rxjs/operators';
+
 import { ItemTemplatePageResolver } from './item-template-page.resolver';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 

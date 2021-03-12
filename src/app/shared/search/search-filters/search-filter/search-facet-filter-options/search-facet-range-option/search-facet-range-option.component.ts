@@ -76,7 +76,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.sub = this.searchConfigService.searchOptions.subscribe(() => {
-      this.updateChangeParams()
+      this.updateChangeParams();
     });
   }
 

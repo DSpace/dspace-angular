@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -20,6 +20,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -38,6 +39,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let pSearchOptions;
   let externalSourceService;
   let lookupRelationService;
+  let rdbService;
   let submissionId;
 
   const externalSources = [
@@ -64,21 +66,31 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
-    relationship = Object.assign(new RelationshipOptions(), { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true, searchConfiguration: 'personConfig' });
+    relationship = Object.assign(new RelationshipOptions(), {
+      filter: 'filter',
+      relationshipType: 'isAuthorOfPublication',
+      nameVariants: true,
+      searchConfiguration: 'personConfig',
+      externalSources: ['orcidV2', 'sherpaPublisher']
+    });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources)),
+      findById: createSuccessfulRemoteDataObject$(externalSources[0])
     });
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getTotalLocalResults: observableOf(totalLocal),
       getTotalExternalResults: observableOf(totalExternal)
     });
+    rdbService = jasmine.createSpyObj('rdbService', {
+      aggregate: createSuccessfulRemoteDataObject$(externalSources)
+    });
     submissionId = '1234';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationModalComponent],
@@ -98,10 +110,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: RelationshipService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
         { provide: RelationshipTypeService, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
             // tslint:disable-next-line:no-empty
-            dispatch: () => {}
+            dispatch: () => {
+            }
           }
         },
         { provide: NgZone, useValue: new NgZone({}) },
@@ -135,7 +149,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     it('should call close on the modal', () => {
       component.close();
       expect(component.modal.close).toHaveBeenCalled();
-    })
+    });
   });
 
   describe('select', () => {
@@ -150,7 +164,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
-    })
+    });
   });
 
   describe('deselect', () => {
@@ -167,6 +181,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
-    })
+    });
   });
 });

@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,15 +9,16 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { zip as observableZip, of as observableOf } from 'rxjs';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { Item } from '../../../core/shared/item.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
+import {
+  FieldUpdate,
+  FieldUpdates
+} from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -96,14 +96,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   }
 
   /**
-   * Set up and initialize all fields
-   */
-  ngOnInit(): void {
-    super.ngOnInit();
-    this.initializeItemUpdate();
-  }
-
-  /**
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
@@ -121,25 +113,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
   }
 
-  /**
-   * Update the item (and view) when it's removed in the request cache
-   * Also re-initialize the original fields and updates
-   */
-  initializeItemUpdate(): void {
-    this.itemUpdateSubscription = this.requestService.hasByHref$(this.item.self).pipe(
-      filter((exists: boolean) => !exists),
-      switchMap(() => this.itemService.findById(this.item.uuid)),
-      getFirstSucceededRemoteData(),
-    ).subscribe((itemRD: RemoteData<Item>) => {
-      if (hasValue(itemRD)) {
-        this.item = itemRD.payload;
-        this.postItemInit();
-        this.initializeOriginalFields();
-        this.initializeUpdates();
-        this.cdRef.detectChanges();
-      }
-    });
-  }
 
   /**
    * Submit the current changes
@@ -174,7 +147,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     );
 
     // Perform the setup actions from above in order and display notifications
-    removedResponses$.pipe(take(1)).subscribe((responses: Array<RemoteData<NoContent>>) => {
+    removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
       this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
       this.reset();
       this.submitting = false;
@@ -217,7 +190,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * @param key       The i18n key for the notification messages
    * @param responses The returned responses to display notifications for
    */
-  displayNotifications(key: string, responses: Array<RemoteData<any>>) {
+  displayNotifications(key: string, responses: RemoteData<any>[]) {
     if (isNotEmpty(responses)) {
       const failedResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasFailed);
       const successfulResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasSucceeded);
@@ -276,7 +249,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   reset() {
     this.refreshItemCache();
-    this.initializeItemUpdate();
   }
 
   /**

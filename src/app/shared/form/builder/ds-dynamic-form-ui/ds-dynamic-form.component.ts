@@ -1,4 +1,13 @@
-import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormComponent,
@@ -6,11 +15,10 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormLayoutService,
+  DynamicFormComponentService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
-import { FormBuilderService } from '../form-builder.service';
 
 @Component({
   selector: 'ds-dynamic-form',
@@ -21,20 +29,21 @@ export class DsDynamicFormComponent extends DynamicFormComponent {
   @Input() formId: string;
   @Input() formGroup: FormGroup;
   @Input() formModel: DynamicFormControlModel[];
-  @Input() formLayout = null as DynamicFormLayout;
+  @Input() formLayout: DynamicFormLayout;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
+
+  @Output() ngbEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
   @ContentChildren(DynamicTemplateDirective) templates: QueryList<DynamicTemplateDirective>;
 
   @ViewChildren(DsDynamicFormControlContainerComponent) components: QueryList<DynamicFormControlContainerComponent>;
 
-  constructor(protected formService: FormBuilderService, protected layoutService: DynamicFormLayoutService) {
-    super(formService, layoutService);
+  constructor(changeDetectorRef: ChangeDetectorRef, componentService: DynamicFormComponentService) {
+    super(changeDetectorRef, componentService);
   }
 }

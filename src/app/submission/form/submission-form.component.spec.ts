@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+
 import { of as observableOf } from 'rxjs';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import {
@@ -21,15 +23,18 @@ import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
+import { TestScheduler } from 'rxjs/testing';
+
 
 describe('SubmissionFormComponent Component', () => {
 
   let comp: SubmissionFormComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionFormComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
   let authServiceStub: AuthServiceStub;
+  let scheduler: TestScheduler;
 
+  const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const submissionObjectNew: any = mockSubmissionObjectNew;
@@ -39,7 +44,7 @@ describe('SubmissionFormComponent Component', () => {
   const sectionsList: any = mockSectionsList;
   const sectionsData: any = mockSectionsData;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [
@@ -49,7 +54,7 @@ describe('SubmissionFormComponent Component', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         ChangeDetectorRef,
         SubmissionFormComponent
       ],
@@ -63,6 +68,7 @@ describe('SubmissionFormComponent Component', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
       const html = `
         <ds-submission-form [collectionId]="collectionId"
                                    [selfUrl]="selfUrl"
@@ -78,19 +84,20 @@ describe('SubmissionFormComponent Component', () => {
     });
 
     it('should create SubmissionFormComponent', inject([SubmissionFormComponent], (app: SubmissionFormComponent) => {
-
       expect(app).toBeDefined();
-
     }));
   });
 
   describe('', () => {
     beforeEach(() => {
+      scheduler = getTestScheduler();
       fixture = TestBed.createComponent(SubmissionFormComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      authServiceStub = TestBed.get(AuthService);
+      authServiceStub = TestBed.inject(AuthService as any);
+      submissionServiceStub.startAutoSave.calls.reset();
+      submissionServiceStub.resetSubmissionObject.calls.reset();
+      submissionServiceStub.dispatchInit.calls.reset();
     });
 
     afterEach(() => {
@@ -99,21 +106,20 @@ describe('SubmissionFormComponent Component', () => {
       compAsAny = null;
     });
 
-    it('should not has effect when collectionId and submissionId are undefined', () => {
+    it('should not has effect when collectionId and submissionId are undefined', (done) => {
 
-      fixture.detectChanges();
+      scheduler.schedule(() => fixture.detectChanges());
+      scheduler.flush();
 
       expect(compAsAny.isActive).toBeTruthy();
       expect(compAsAny.submissionSections).toBeUndefined();
-      comp.loading.subscribe((loading) => {
-        expect(loading).toBeTruthy();
-      });
-
       expect(compAsAny.subs).toEqual([]);
       expect(submissionServiceStub.startAutoSave).not.toHaveBeenCalled();
+      expect(comp.loading).toBeObservable(cold('(a|)', {a: true}));
+      done();
     });
 
-    it('should init properly when collectionId and submissionId are defined', () => {
+    it('should init properly when collectionId and submissionId are defined', (done) => {
       comp.collectionId = collectionId;
       comp.submissionId = submissionId;
       comp.submissionDefinition = submissionDefinition;
@@ -125,19 +131,16 @@ describe('SubmissionFormComponent Component', () => {
       submissionServiceStub.getSubmissionSections.and.returnValue(observableOf(sectionsList));
       spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
 
-      comp.ngOnChanges({
-        collectionId: new SimpleChange(null, collectionId, true),
-        submissionId: new SimpleChange(null, submissionId, true)
+      scheduler.schedule(() => {
+        comp.ngOnChanges({
+          collectionId: new SimpleChange(null, collectionId, true),
+          submissionId: new SimpleChange(null, submissionId, true)
+        });
+        fixture.detectChanges();
       });
-      fixture.detectChanges();
+      scheduler.flush();
 
-      comp.loading.subscribe((loading) => {
-        expect(loading).toBeFalsy();
-      });
-
-      comp.submissionSections.subscribe((submissionSections) => {
-        expect(submissionSections).toEqual(sectionsList);
-      });
+      expect(comp.submissionSections).toBeObservable(cold('(a|)', {a: sectionsList}));
 
       expect(submissionServiceStub.dispatchInit).toHaveBeenCalledWith(
         collectionId,
@@ -148,9 +151,10 @@ describe('SubmissionFormComponent Component', () => {
         comp.item,
         null);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
+      done();
     });
 
-    it('should update properly on collection change', () => {
+    it('should update properly on collection change', (done) => {
       comp.collectionId = collectionId;
       comp.submissionId = submissionId;
       comp.submissionDefinition = submissionDefinition;
@@ -158,9 +162,11 @@ describe('SubmissionFormComponent Component', () => {
       comp.sections = sectionsData;
       comp.item = new Item();
 
-      comp.onCollectionChange(submissionObjectNew);
-
-      fixture.detectChanges();
+      scheduler.schedule(() => {
+        comp.onCollectionChange(submissionObjectNew);
+        fixture.detectChanges();
+      });
+      scheduler.flush();
 
       expect(comp.collectionId).toEqual(submissionObjectNew.collection.id);
       expect(comp.submissionDefinition).toEqual(submissionObjectNew.submissionDefinition);
@@ -175,9 +181,10 @@ describe('SubmissionFormComponent Component', () => {
         submissionObjectNew.sections,
         comp.item,
       );
+      done();
     });
 
-    it('should update only collection id on collection change when submission definition is not changed', () => {
+    it('should update only collection id on collection change when submission definition is not changed', (done) => {
       comp.collectionId = collectionId;
       comp.submissionId = submissionId;
       comp.definitionId = 'traditional';
@@ -186,19 +193,22 @@ describe('SubmissionFormComponent Component', () => {
       comp.sections = sectionsData;
       comp.item = new Item();
 
-      comp.onCollectionChange({
-        collection: {
-          id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb'
-        },
-        submissionDefinition: {
-          name: 'traditional'
-        }
-      } as  any);
-
-      fixture.detectChanges();
+      scheduler.schedule(() => {
+        comp.onCollectionChange({
+          collection: {
+            id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+          },
+          submissionDefinition: {
+            name: 'traditional'
+          }
+        } as  any);
+        fixture.detectChanges();
+      });
+      scheduler.flush();
 
       expect(comp.collectionId).toEqual('45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb');
-      expect(submissionServiceStub.resetSubmissionObject).not.toHaveBeenCalled()
+      expect(submissionServiceStub.resetSubmissionObject).not.toHaveBeenCalled();
+      done();
     });
 
   });

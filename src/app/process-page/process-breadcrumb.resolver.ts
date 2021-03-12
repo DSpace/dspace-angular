@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Process } from './processes/process.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
@@ -27,7 +27,7 @@ export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Proce
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Process>> {
     const id = route.params.id;
 
-    return this.processService.findById(route.params.id, false, followLink('script')).pipe(
+    return this.processService.findById(route.params.id, true, false, followLink('script')).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((object: Process) => {

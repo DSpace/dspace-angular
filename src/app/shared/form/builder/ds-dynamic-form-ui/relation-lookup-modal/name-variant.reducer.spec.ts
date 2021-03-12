@@ -1,5 +1,4 @@
-import * as deepFreeze from 'deep-freeze';
-import { NameVariantAction, RemoveNameVariantAction, SetNameVariantAction } from './name-variant.actions';
+import { RemoveNameVariantAction, SetNameVariantAction } from './name-variant.actions';
 import { Action } from '@ngrx/store';
 import { nameVariantReducer } from './name-variant.reducer';
 

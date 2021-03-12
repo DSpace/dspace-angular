@@ -31,6 +31,6 @@ export class DateValueInputComponent extends ValueInputComponent<string> {
 
   setValue(value) {
     this.value = value;
-    this.updateValue.emit(value)
+    this.updateValue.emit(value);
   }
 }

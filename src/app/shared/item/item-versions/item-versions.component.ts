@@ -2,14 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
@@ -111,7 +109,7 @@ export class ItemVersionsComponent implements OnInit {
       switchMap(([versionHistory, page]: [VersionHistory, number]) =>
         this.versionHistoryService.getVersions(versionHistory.id,
           new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })}),
-          followLink('item'), followLink('eperson')))
+          true, true, followLink('item'), followLink('eperson')))
     );
     this.hasEpersons$ = this.versionsRD$.pipe(
       getAllSucceededRemoteData(),

@@ -19,17 +19,17 @@ import { MenuItemModel } from './menu-item/models/menu-item.model';
  */
 export type MenusState = {
   [id in MenuID]: MenuState;
-}
+};
 
 /**
  * Represents the state of a single menu in the store
  */
 export interface MenuState {
   id: MenuID;
-  collapsed: boolean
+  collapsed: boolean;
   previewCollapsed: boolean;
   visible: boolean;
-  sections: MenuSections
+  sections: MenuSections;
   sectionToSubsectionIndex: MenuSectionIndex;
 }
 
@@ -37,7 +37,7 @@ export interface MenuState {
  * Represents the a mapping of all sections to their subsections for a menu in the store
  */
 export interface MenuSectionIndex {
-  [id: string]: string[]
+  [id: string]: string[];
 }
 
 /**
@@ -135,7 +135,7 @@ export function menusReducer(state: MenusState = initialMenusState, action: Menu
 function addSection(state: MenusState, action: AddMenuSectionAction) {
   // let newState = addToIndex(state, action.section, action.menuID);
   const newState = putSectionState(state, action, action.section);
-  return reorderSections(newState, action)
+  return reorderSections(newState, action);
 }
 
 /**

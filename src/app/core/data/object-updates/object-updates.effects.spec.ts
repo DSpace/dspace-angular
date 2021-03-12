@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Observable, Subject } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
@@ -18,6 +18,7 @@ import {
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { filter } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 
 describe('ObjectUpdatesEffects', () => {
   let updatesEffects: ObjectUpdatesEffects;
@@ -25,7 +26,7 @@ describe('ObjectUpdatesEffects', () => {
   let testURL = 'www.dspace.org/dspace7';
   let testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
   const fakeID = 'id';
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
         ObjectUpdatesEffects,
@@ -44,7 +45,7 @@ describe('ObjectUpdatesEffects', () => {
   beforeEach(() => {
     testURL = 'www.dspace.org/dspace7';
     testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
-    updatesEffects = TestBed.get(ObjectUpdatesEffects);
+    updatesEffects = TestBed.inject(ObjectUpdatesEffects);
     (updatesEffects as any).actionMap$[testURL] = new Subject<ObjectUpdatesAction>();
     (updatesEffects as any).notificationActionMap$[fakeID] = new Subject<ObjectUpdatesAction>();
     (updatesEffects as any).notificationActionMap$[(updatesEffects as any).allIdentifier] = new Subject<ObjectUpdatesAction>();
@@ -77,16 +78,16 @@ describe('ObjectUpdatesEffects', () => {
         beforeEach(() => {
           infoNotification = new Notification('id', NotificationType.Info, 'info');
           infoNotification.options.timeOut = 0;
-          removeAction = new RemoveObjectUpdatesAction(testURL)
+          removeAction = new RemoveObjectUpdatesAction(testURL);
         });
         it('should return a RemoveObjectUpdatesAction', () => {
           actions = hot('a|', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.pipe(
             filter(((action) => hasValue(action))))
             .subscribe((t) => {
-              expect(t).toEqual(removeAction);
-            }
-          )
+                expect(t).toEqual(removeAction);
+              }
+            )
           ;
         });
       });
@@ -100,7 +101,7 @@ describe('ObjectUpdatesEffects', () => {
           actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
           actions = hot('b', { b: new ReinstateObjectUpdatesAction(testURL) });
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) => {
-              expect(t).toEqual({ type: 'NO_ACTION' });
+              expect(t).toEqual(new NoOpAction());
             }
           );
         });

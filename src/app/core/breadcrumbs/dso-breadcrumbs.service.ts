@@ -28,7 +28,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
 
   /**
    * Method to recursively calculate the breadcrumbs
-   * This method returns the name and url of the key and all its parent DSO's recursively, top down
+   * This method returns the name and url of the key and all its parent DSOs recursively, top down
    * @param key The key (a DSpaceObject) used to resolve the breadcrumb
    * @param url The url to use as a link for this breadcrumb
    */
@@ -41,7 +41,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
       switchMap((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => {
         if (hasValue(parentRD.payload)) {
           const parent = parentRD.payload;
-          return this.getBreadcrumbs(parent, getDSORoute(parent))
+          return this.getBreadcrumbs(parent, getDSORoute(parent));
         }
         return observableOf([]);
 

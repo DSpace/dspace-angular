@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <h2>{{'collection.edit.item-mapper.head' | translate}}</h2>
-      <p [innerHTML]="'collection.edit.item-mapper.collection' | translate:{ name: (collectionRD$ | async)?.payload?.name }" id="collection-name"></p>
+      <p [innerHTML]="'collection.edit.item-mapper.collection' | translate:{ name: (collectionName$ |async) }" id="collection-name"></p>
       <p>{{'collection.edit.item-mapper.description' | translate}}</p>
 
       <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbTabset">

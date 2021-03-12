@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap, tap, } from 'rxjs/operators';
 
 import { PaginatedList } from '../core/data/paginated-list.model';
@@ -101,6 +101,11 @@ export class MyDSpacePageComponent implements OnInit {
    */
   context$: Observable<Context>;
 
+  /**
+   * Emit an event every time search sidebars must refresh their contents.
+   */
+  refreshFilters: Subject<any> = new Subject<any>();
+
   constructor(private service: SearchService,
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
@@ -139,9 +144,9 @@ export class MyDSpacePageComponent implements OnInit {
       .pipe(
         map((configuration: string) => {
           if (configuration === 'workspace') {
-            return Context.Workspace
+            return Context.Workspace;
           } else {
-            return Context.Workflow
+            return Context.Workflow;
           }
         })
       );
@@ -149,10 +154,18 @@ export class MyDSpacePageComponent implements OnInit {
   }
 
   /**
+   * Handle the contentChange event from within the my dspace content.
+   * Notify search sidebars to refresh their content.
+   */
+  onResultsContentChange() {
+    this.refreshFilters.next();
+  }
+
+  /**
    * Set the sidebar to a collapsed state
    */
   public closeSidebar(): void {
-    this.sidebarService.collapse()
+    this.sidebarService.collapse();
   }
 
   /**
@@ -184,5 +197,6 @@ export class MyDSpacePageComponent implements OnInit {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
+    this.refreshFilters.complete();
   }
 }

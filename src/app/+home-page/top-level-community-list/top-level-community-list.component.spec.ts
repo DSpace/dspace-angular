@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TopLevelCommunityListComponent } from './top-level-community-list.component';
 import { Community } from '../../core/shared/community.model';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SharedModule } from '../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -18,11 +18,14 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
   let fixture: ComponentFixture<TopLevelCommunityListComponent>;
   let communityDataServiceStub: any;
+  let themeService;
 
   const topCommList = [Object.assign(new Community(), {
     id: '123456789-1',
@@ -87,7 +90,7 @@ describe('TopLevelCommunityList Component', () => {
       let currentPage = options.currentPage;
       let elementsPerPage = options.elementsPerPage;
       if (currentPage === undefined) {
-        currentPage = 1
+        currentPage = 1;
       }
       elementsPerPage = 5;
 
@@ -101,7 +104,9 @@ describe('TopLevelCommunityList Component', () => {
     }
   };
 
-  beforeEach(async(() => {
+  themeService = getMockThemeService();
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -115,6 +120,7 @@ describe('TopLevelCommunityList Component', () => {
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: SelectableListService, useValue: {} },
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -140,7 +146,7 @@ describe('TopLevelCommunityList Component', () => {
 
   it('should update list of top-communities on pagination change', () => {
     const pagination = Object.create({
-      pagination:{
+      pagination: {
         id: comp.pageId,
         currentPage: 2,
         pageSize: 5

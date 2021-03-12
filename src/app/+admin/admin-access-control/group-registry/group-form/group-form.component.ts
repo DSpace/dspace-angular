@@ -143,17 +143,19 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
   initialisePage() {
     this.subs.push(this.route.params.subscribe((params) => {
-      this.setActiveGroup(params.groupId)
+      if (params.groupId !== 'newGroup') {
+        this.setActiveGroup(params.groupId);
+      }
     }));
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       hasValueOperator(),
       switchMap((group: Group) => {
         return observableCombineLatest(
-          this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+          this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(group) ? group.self : undefined),
           this.hasLinkedDSO(group),
           (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
             return isAuthorized && !hasLinkedDSO;
-          })
+          });
       })
     );
     observableCombineLatest(
@@ -225,7 +227,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               {
                 value: this.groupDescription.value
               }
-            ],
+            ]
           },
         };
         if (group === null) {
@@ -289,7 +291,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * @param group   Group to edit and old values contained within
    */
   editGroup(group: Group) {
-    let operations: Operation[] = []
+    let operations: Operation[] = [];
 
     if (hasValue(this.groupDescription.value)) {
       operations = [...operations, {
@@ -343,13 +345,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup === null) {
         this.groupDataService.cancelEditGroup();
-        this.groupDataService.findByHref(groupSelfLink, false, followLink('subgroups'), followLink('epersons'), followLink('object'))
+        this.groupDataService.findByHref(groupSelfLink, false, false, followLink('subgroups'), followLink('epersons'), followLink('object'))
           .pipe(
             getFirstSucceededRemoteData(),
             getRemoteDataPayload())
           .subscribe((group: Group) => {
             this.groupDataService.editGroup(group);
-          })
+          });
       }
     });
   }
@@ -379,11 +381,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: group.name }),
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.content', { cause: rd.errorMessage }));
                 }
-              })
+              });
           }
         }
       });
-    })
+    });
   }
 
   /**
@@ -416,7 +418,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           if (hasValue(rd) && hasValue(rd.payload)) {
             return true;
           } else {
-            return false
+            return false;
           }
         }),
         catchError(() => observableOf(false)),
@@ -446,7 +448,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       return this.getLinkedDSO(group).pipe(
         map((rd: RemoteData<DSpaceObject>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
-            const dso = rd.payload
+            const dso = rd.payload;
             switch ((dso as any).type) {
               case Community.type.value:
                 return getCommunityEditRolesRoute(rd.payload.id);
@@ -455,7 +457,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             }
           }
         })
-      )
+      );
     }
   }
 }

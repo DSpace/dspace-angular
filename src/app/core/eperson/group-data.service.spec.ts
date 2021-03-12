@@ -74,7 +74,7 @@ describe('GroupDataService', () => {
       halService,
       null,
     );
-  };
+  }
 
   beforeEach(() => {
     init();
@@ -94,7 +94,7 @@ describe('GroupDataService', () => {
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', ''))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search with query', () => {
@@ -102,7 +102,7 @@ describe('GroupDataService', () => {
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', 'test'))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
   });
 
@@ -116,7 +116,7 @@ describe('GroupDataService', () => {
       headers = headers.append('Content-Type', 'text/uri-list');
       options.headers = headers;
       const expected = new PostRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.subgroupsEndpoint, GroupMock2.self, options);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
@@ -126,7 +126,7 @@ describe('GroupDataService', () => {
     });
     it('should send DeleteRequest to eperson/groups/group-id/subgroups/group-id endpoint', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.subgroupsEndpoint + '/' + GroupMock2.id);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
@@ -140,7 +140,7 @@ describe('GroupDataService', () => {
       headers = headers.append('Content-Type', 'text/uri-list');
       options.headers = headers;
       const expected = new PostRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.ePersonsEndpoint, EPersonMock2.self, options);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
@@ -150,7 +150,7 @@ describe('GroupDataService', () => {
     });
     it('should send DeleteRequest to eperson/groups/group-id/epersons/eperson-id endpoint', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), GroupMock.self + '/' + service.ePersonsEndpoint + '/' + EPersonMock.id);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 

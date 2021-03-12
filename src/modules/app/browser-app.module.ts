@@ -2,13 +2,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateJson5HttpLoader } from '../../ngx-translate-loaders/translate-json5-http.loader';
 
-import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
+import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -26,8 +25,12 @@ import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import {
   BrowserHardRedirectService,
-  LocationToken, locationProvider
+  locationProvider,
+  LocationToken
 } from '../../app/core/services/browser-hard-redirect.service';
+import { LocaleService } from '../../app/core/locale/locale.service';
+import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { RouterModule, NoPreloading } from '@angular/router';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -52,8 +55,7 @@ export function getRequest(transferState: TransferState): any {
       // enableTracing: true,
       useHash: false,
       scrollPositionRestoration: 'enabled',
-      preloadingStrategy:
-      IdlePreload
+      preloadingStrategy: NoPreloading
     }),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
@@ -91,8 +93,16 @@ export function getRequest(transferState: TransferState): any {
       useClass: SubmissionService
     },
     {
+      provide: LocaleService,
+      useClass: LocaleService
+    },
+    {
       provide: HardRedirectService,
       useClass: BrowserHardRedirectService,
+    },
+    {
+      provide: GoogleAnalyticsService,
+      useClass: GoogleAnalyticsService,
     },
     {
       provide: LocationToken,

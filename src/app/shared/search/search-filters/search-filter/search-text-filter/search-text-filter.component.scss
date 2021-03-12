@@ -1,7 +1,7 @@
 
 .filters {
     .toggle-more-filters a {
-        color: $link-color;
+        color: var(--bs-link-color);
         text-decoration: underline;
         cursor: pointer;
     }

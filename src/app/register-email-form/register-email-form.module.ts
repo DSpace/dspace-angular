@@ -14,8 +14,7 @@ import { RegisterEmailFormComponent } from './register-email-form.component';
   providers: [],
   exports: [
     RegisterEmailFormComponent,
-  ],
-  entryComponents: []
+  ]
 })
 
 /**

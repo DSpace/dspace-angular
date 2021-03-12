@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Store, StoreModule } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { EPersonMock } from '../testing/eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { AppState, storeModuleConfig } from '../../app.reducer';
+import { AppState } from '../../app.reducer';
 import { LogOutComponent } from './log-out.component';
 import { RouterStub } from '../testing/router.stub';
 
@@ -31,7 +31,7 @@ describe('LogOutComponent', () => {
     user = EPersonMock;
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
@@ -49,7 +49,7 @@ describe('LogOutComponent', () => {
         LogOutComponent
       ],
       providers: [
-        {provide: Router, useValue: routerStub},
+        { provide: Router, useValue: routerStub },
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -121,7 +121,7 @@ export class RequestEntry {
 }
 
 export interface RequestState {
-  [uuid: string]: RequestEntry
+  [uuid: string]: RequestEntry;
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
@@ -271,12 +271,16 @@ function expireRequest(storeState: RequestState, action: RequestStaleAction): Re
     return storeState;
   } else {
     const prevEntry = storeState[action.payload.uuid];
-    return Object.assign({}, storeState, {
-      [action.payload.uuid]: Object.assign({}, prevEntry, {
-        state: hasSucceeded(prevEntry.state) ? RequestEntryState.SuccessStale : RequestEntryState.ErrorStale,
-        lastUpdated: action.lastUpdated
-      })
-    });
+    if (isStale(prevEntry.state)) {
+      return storeState;
+    } else {
+      return Object.assign({}, storeState, {
+        [action.payload.uuid]: Object.assign({}, prevEntry, {
+          state: hasSucceeded(prevEntry.state) ? RequestEntryState.SuccessStale : RequestEntryState.ErrorStale,
+          lastUpdated: action.lastUpdated
+        })
+      });
+    }
   }
 }
 

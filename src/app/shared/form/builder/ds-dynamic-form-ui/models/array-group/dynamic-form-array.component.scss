@@ -5,16 +5,16 @@
 }
 
 .cdk-drag {
-    margin-left: -(2 * $spacer);
-    margin-right: -(0.5 * $spacer);
-    padding-right: (0.5 * $spacer);
+    margin-left: calc(-2 * var(--bs-spacer));
+    margin-right: calc(-0.5 * var(--bs-spacer));
+    padding-right: calc(0.5 * var(--bs-spacer));
     .drag-icon {
         visibility: hidden;
-        width: (2 * $spacer);
-        color: $gray-600;
-        margin: $btn-padding-y 0;
-        line-height: $btn-line-height;
-        text-indent: 0.5 * $spacer
+        width: calc(2 * var(--bs-spacer));
+        color: var(--bs-gray-600);
+        margin: var(--bs-btn-padding-y) 0;
+        line-height: var(--bs-btn-line-height);
+        text-indent: calc(0.5 * var(--bs-spacer))
     }
 
     &:hover, &:focus {
@@ -37,7 +37,7 @@
 
 .cdk-drag-preview {
     background-color: white;
-    border-radius: $border-radius-sm;
+    border-radius: var(--bs-border-radius-sm);
     margin-left: 0;
     box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.2),
     0 8px 10px 1px rgba(0, 0, 0, 0.14),

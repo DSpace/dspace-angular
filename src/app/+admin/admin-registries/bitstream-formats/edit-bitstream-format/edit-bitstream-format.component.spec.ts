@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -45,7 +45,7 @@ describe('EditBitstreamFormatComponent', () => {
   let bitstreamFormatDataService: BitstreamFormatDataService;
 
   const initAsync = () => {
-    router =  new RouterStub();
+    router = new RouterStub();
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
       updateBitstreamFormat: createSuccessfulRemoteDataObject$({})
@@ -55,10 +55,10 @@ describe('EditBitstreamFormatComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [EditBitstreamFormatComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: router},
-        {provide: NotificationsService, useValue: notificationService},
-        {provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: router },
+        { provide: NotificationsService, useValue: notificationService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -72,7 +72,7 @@ describe('EditBitstreamFormatComponent', () => {
   };
 
   describe('init', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should initialise the bitstreamFormat based on the route', () => {
 
@@ -83,7 +83,7 @@ describe('EditBitstreamFormatComponent', () => {
     });
   });
   describe('updateFormat success', () => {
-    beforeEach(async(initAsync));
+    beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {
       comp.updateFormat(bitstreamFormat);
@@ -95,8 +95,8 @@ describe('EditBitstreamFormatComponent', () => {
     });
   });
   describe('updateFormat error', () => {
-    beforeEach(async( () => {
-      router =  new RouterStub();
+    beforeEach(waitForAsync(() => {
+      router = new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
         updateBitstreamFormat: createFailedRemoteDataObject$('Error', 500)
@@ -106,10 +106,10 @@ describe('EditBitstreamFormatComponent', () => {
         imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [EditBitstreamFormatComponent],
         providers: [
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: Router, useValue: router},
-          {provide: NotificationsService, useValue: notificationService},
-          {provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService},
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: Router, useValue: router },
+          { provide: NotificationsService, useValue: notificationService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();

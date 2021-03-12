@@ -39,11 +39,17 @@ export class Root implements CacheableObject {
   dspaceServer: string;
 
   /**
+   * The current DSpace version
+   */
+  @autoserialize
+  dspaceVersion: string;
+
+  /**
    * The {@link HALLink}s for the root object
    */
   @deserialize
   _links: {
     self: HALLink;
     [k: string]: HALLink | HALLink[];
-  }
+  };
 }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RelatedItemsComponent } from './related-items-component';
 import { Item } from '../../../core/shared/item.model';
@@ -34,7 +34,7 @@ describe('RelatedItemsComponent', () => {
   let comp: RelatedItemsComponent;
   let fixture: ComponentFixture<RelatedItemsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(mockItems)),
@@ -49,11 +49,11 @@ describe('RelatedItemsComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(RelatedItemsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(RelatedItemsComponent);
     comp = fixture.componentInstance;
     comp.parentItem = parentItem;
@@ -80,7 +80,10 @@ describe('RelatedItemsComponent', () => {
     });
 
     it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments (second page)', () => {
-      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, { elementsPerPage: comp.incrementBy, currentPage: 2 }));
+      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, {
+        elementsPerPage: comp.incrementBy,
+        currentPage: 2
+      }));
     });
   });
 

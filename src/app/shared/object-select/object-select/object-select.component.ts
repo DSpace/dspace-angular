@@ -1,4 +1,4 @@
-import { EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -10,6 +10,10 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 /**
  * An abstract component used to select DSpaceObjects from a specific list and returning the UUIDs of the selected DSpaceObjects
  */
+@Component({
+  selector: 'ds-object-select-abstract',
+  template: ''
+})
 export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestroy {
 
   /**

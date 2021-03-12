@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SearchResult } from '../../search/search-result.model';
@@ -12,7 +12,6 @@ import { Metadata } from '../../../core/shared/metadata.utils';
   selector: 'ds-search-result-list-element',
   template: ``
 })
-
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**
    * The DSpaceObject of the search result

@@ -26,6 +26,6 @@ export class EditCollectionPageComponent extends EditComColPageComponent<Collect
    * @param collection The collection for which the url is requested
    */
   getPageUrl(collection: Collection): string {
-    return getCollectionPageRoute(collection.id)
+    return getCollectionPageRoute(collection.id);
   }
 }

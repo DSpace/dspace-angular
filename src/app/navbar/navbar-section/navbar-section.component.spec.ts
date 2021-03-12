@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NavbarSectionComponent } from './navbar-section.component';
 import { HostWindowService } from '../../shared/host-window.service';
@@ -14,7 +14,7 @@ describe('NavbarSectionComponent', () => {
   let fixture: ComponentFixture<NavbarSectionComponent>;
   const menuService = new MenuServiceStub();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [NavbarSectionComponent, TestComponent],
@@ -44,6 +44,7 @@ describe('NavbarSectionComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',

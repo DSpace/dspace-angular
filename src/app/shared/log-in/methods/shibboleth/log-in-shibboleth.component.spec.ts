@@ -1,6 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+
+import { provideMockStore } from '@ngrx/store/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -9,7 +11,7 @@ import { EPersonMock } from '../../../testing/eperson.mock';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { AppState } from '../../../../app.reducer';
+import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { LogInShibbolethComponent } from './log-in-shibboleth.component';
@@ -18,6 +20,7 @@ import { RouterStub } from '../../../testing/router.stub';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+
 
 describe('LogInShibbolethComponent', () => {
 
@@ -29,8 +32,7 @@ describe('LogInShibbolethComponent', () => {
   let setHrefSpy;
   let shibbolethBaseUrl;
   let location;
-
-  let authState;
+  let initialState: any;
   let hardRedirectService: HardRedirectService;
 
   beforeEach(() => {
@@ -38,23 +40,29 @@ describe('LogInShibbolethComponent', () => {
     shibbolethBaseUrl = 'dspace-rest.test/shibboleth?redirectUrl=';
     location = shibbolethBaseUrl + 'http://dspace-angular.test/home';
 
-    authState = {
-      authenticated: false,
-      loaded: false,
-      loading: false,
-    };
-
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       getCurrentRoute: {},
       redirect: {}
     });
+
+    initialState = {
+      core: {
+        auth: {
+          authenticated: false,
+          loaded: false,
+          blocking: false,
+          loading: false,
+          authMethods: []
+        }
+      }
+    };
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(authReducer),
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -68,6 +76,7 @@ describe('LogInShibbolethComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        provideMockStore({ initialState }),
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -77,13 +86,7 @@ describe('LogInShibbolethComponent', () => {
 
   }));
 
-  beforeEach(inject([Store], (store: Store<AppState>) => {
-    store
-      .subscribe((state) => {
-        (state as any).core = Object.create({});
-        (state as any).core.auth = authState;
-      });
-
+  beforeEach(() => {
     // create component and test fixture
     fixture = TestBed.createComponent(LogInShibbolethComponent);
 
@@ -95,7 +98,7 @@ describe('LogInShibbolethComponent', () => {
     page = new Page(component, fixture);
     setHrefSpy = spyOnProperty(componentAsAny._window.nativeWindow.location, 'href', 'set').and.callThrough();
 
-  }));
+  });
 
   it('should set the properly a new redirectUrl', () => {
     const currentUrl = 'http://dspace-angular.test/collections/12345';
@@ -108,7 +111,7 @@ describe('LogInShibbolethComponent', () => {
 
     component.redirectToShibboleth();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl)
+    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
 
   });
 
@@ -123,7 +126,7 @@ describe('LogInShibbolethComponent', () => {
 
     component.redirectToShibboleth();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl)
+    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
 
   });
 

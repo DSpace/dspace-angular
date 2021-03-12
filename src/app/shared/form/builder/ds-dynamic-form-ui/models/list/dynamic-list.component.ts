@@ -20,10 +20,10 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 export interface ListItem {
-  id: string,
-  label: string,
-  value: boolean,
-  index: number
+  id: string;
+  label: string;
+  value: boolean;
+  index: number;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html'
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
-  @Input() bindId = true;
+
   @Input() group: FormGroup;
   @Input() model: any;
 
@@ -99,7 +99,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         this.model.valueUpdates.next(newValue);
       }
     } else {
-      (this.model as DynamicListRadioGroupModel).valueUpdates.next(this.optionsList[target.value]);
+      (this.model as DynamicListRadioGroupModel).value = this.optionsList[target.value];
     }
     this.change.emit(event);
   }
@@ -111,7 +111,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
       const pageInfo: PageInfo = new PageInfo({
-        elementsPerPage: Number.MAX_VALUE, currentPage: 1
+        elementsPerPage: 9999, currentPage: 1
       } as PageInfo);
       this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
         getFirstSucceededRemoteDataPayload()

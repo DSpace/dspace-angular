@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSOSelectorComponent } from './dso-selector.component';
@@ -42,7 +42,7 @@ describe('DSOSelectorComponent', () => {
         return createSuccessfulRemoteDataObject$(createPaginatedList(nextPageResults));
       }
     }
-  }
+  };
 
   function createSearchResult(name: string): ItemSearchResult {
     return Object.assign(new ItemSearchResult(), {
@@ -56,10 +56,10 @@ describe('DSOSelectorComponent', () => {
           ]
         }
       })
-    })
+    });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [DSOSelectorComponent],

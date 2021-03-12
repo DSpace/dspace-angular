@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { EPersonDataService } from '../eperson/eperson-data.service';

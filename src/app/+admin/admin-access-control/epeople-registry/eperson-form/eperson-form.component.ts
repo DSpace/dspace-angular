@@ -7,8 +7,7 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, combineLatest, of } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -360,7 +359,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     });
 
     const response = this.epersonService.updateEPerson(editedEperson);
-    response.pipe(take(1)).subscribe((rd: RemoteData<EPerson>) => {
+    response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
         this.submitForm.emit(editedEperson);
@@ -440,18 +439,18 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
           if (confirm) {
             if (hasValue(eperson.id)) {
-              this.epersonService.deleteEPerson(eperson).pipe(take(1)).subscribe((restResponse: RemoteData<NoContent>) => {
+              this.epersonService.deleteEPerson(eperson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
                 if (restResponse.hasSucceeded) {
                   this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
-                  this.reset();
+                  this.submitForm.emit();
                 } else {
                   this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
                 }
                 this.cancelForm.emit();
-              })
+              });
             }}
         });
-    })
+    });
   }
 
   /**

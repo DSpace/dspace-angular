@@ -6,14 +6,13 @@ import {
   distinctUntilChanged,
   filter,
   find,
-  flatMap,
   map,
-  switchMap,
   take,
-  tap
+  tap,
+  mergeMap
 } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { isEqual, findIndex } from 'lodash';
+import { findIndex, isEqual } from 'lodash';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -23,10 +22,7 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { hasNoValue, hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import {
-  SubmissionSectionError,
-  SubmissionSectionObject
-} from '../../objects/submission-objects.reducer';
+import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -38,8 +34,7 @@ import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -129,7 +124,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   /**
    * The FormComponent reference
    */
-  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
+  @ViewChild('formRef') private formRef: FormComponent;
 
   /**
    * Initialize instance variables
@@ -178,24 +173,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      flatMap(() =>
-        observableCombineLatest(
+      mergeMap(() =>
+        observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.getHrefByID(this.submissionId).pipe(take(1)).pipe(
-            switchMap((href: string) => {
-              this.objectCache.remove(href);
-              this.requestService.removeByHrefSubstring(this.submissionId);
-              return observableCombineLatest(
-                this.objectCache.hasByHref$(href),
-                this.requestService.hasByHref$(href)
-              ).pipe(
-                filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-                take(1),
-                switchMap(() => this.submissionObjectService.findById(this.submissionId, false, followLink('item')).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-              )
-            })
-          )
-        )),
+          this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload())
+        ])),
       take(1))
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
         if (isUndefined(this.formModel)) {
@@ -208,7 +192,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
           this.isLoading = false;
           this.cdr.detectChanges();
         }
-      })
+      });
   }
 
   /**
@@ -243,7 +227,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
-    })
+    });
 
     const diffResult = [];
 
@@ -356,7 +340,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
        */
       this.sectionService.getSectionState(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
         filter((sectionState: SubmissionSectionObject) => {
-          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
+          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors));
         }),
         distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
@@ -364,7 +348,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
           this.sectionMetadata = sectionState.metadata;
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errors);
         })
-    )
+    );
   }
 
   /**

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { CollectionListEntry } from '../../shared/collection-dropdown/collection-dropdown.component';
 
 /**
  * This component displays the dialog that shows the list of selectable collections
@@ -18,10 +20,11 @@ export class CollectionSelectorComponent {
   /**
    * Method called when an element has been selected from collection list.
    * Its close the active modal and send selected value to the component container
-   * @param dso The selected DSpaceObject
+   *
+   * @param event The event object containing a CollectionListEntry
    */
-  selectObject(dso: DSpaceObject) {
-    this.activeModal.close(dso);
+  selectObject(event: CollectionListEntry) {
+    this.activeModal.close(event.collection);
   }
 
   /**

@@ -29,7 +29,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
   templateUrl: './dynamic-lookup.component.html'
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
-  @Input() bindId = true;
+
   @Input() group: FormGroup;
   @Input() model: any;
 
@@ -59,7 +59,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
    */
   inputFormatter = (x: { display: string }, y: number) => {
     return y === 1 ? this.firstInputValue : this.secondInputValue;
-  };
+  }
 
   /**
    * Initialize the component, setting up the init form value
@@ -69,7 +69,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
       this.setCurrentValue(this.model.value, true);
     }
 
-    this.subs.push(this.model.valueUpdates
+    this.subs.push(this.model.valueChanges
       .subscribe((value) => {
         if (isEmpty(value)) {
           this.resetFields();
@@ -189,7 +189,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
    */
   public remove() {
     this.group.markAsPristine();
-    this.dispatchUpdate(null)
+    this.dispatchUpdate(null);
   }
 
   /**

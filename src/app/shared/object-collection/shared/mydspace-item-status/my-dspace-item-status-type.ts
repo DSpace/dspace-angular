@@ -3,5 +3,7 @@ export enum MyDspaceItemStatusType {
   VALIDATION = 'mydspace.status.validation',
   WAITING_CONTROLLER = 'mydspace.status.waiting-for-controller',
   WORKSPACE = 'mydspace.status.workspace',
-  ARCHIVED = 'mydspace.status.archived'
+  ARCHIVED = 'mydspace.status.archived',
+  DECLINED = 'mydspace.status.declined',
+  APPROVED = 'mydspace.status.approved',
 }

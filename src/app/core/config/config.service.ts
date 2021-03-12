@@ -52,8 +52,8 @@ export abstract class ConfigService {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator, this.linkPath);
   }
 
-  public findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<ConfigObject>> {
-    return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow).pipe(
+  public findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<ConfigObject>> {
+    return this.dataService.findByHref(href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       getFirstCompletedRemoteData(),
       map((rd: RemoteData<ConfigObject>) => {
         if (rd.hasFailed) {

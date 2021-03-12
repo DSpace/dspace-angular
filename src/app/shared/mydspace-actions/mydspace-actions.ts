@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import { Injector, Input } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, Output } from '@angular/core';
 
-import { find, take, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
@@ -12,12 +12,22 @@ import { NotificationOptions } from '../notifications/models/notification-option
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { SearchService } from '../../core/shared/search/search.service';
+import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+
+export interface MyDSpaceActionsResult {
+  result: boolean;
+  reloadedObject: DSpaceObject;
+}
 
 /**
  * Abstract class for all different representations of mydspace actions
  */
+@Component({
+  selector: 'ds-mydspace-actions-abstract',
+  template: ''
+})
 export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends DataService<T>> {
 
   /**
@@ -26,7 +36,18 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
   @Input() abstract object: T;
 
   /**
-   * Instance of DataService realted to mydspace object
+   * Emit to notify the instantiator when the action has been performed.
+   */
+  @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
+
+  /**
+   * A boolean representing if an operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
+  public processing$ = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Instance of DataService related to mydspace object
    */
   protected objectDataService: TService;
 
@@ -66,6 +87,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Refresh current page
    */
   reload(): void {
+
     this.router.navigated = false;
     const url = decodeURIComponent(this.router.url);
     // override the route reuse strategy
@@ -84,9 +106,10 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Override the target object with a refreshed one
    */
   refresh(): void {
+
     // find object by id
-    this.objectDataService.findById(this.object.id).pipe(
-      find((rd: RemoteData<T>) => rd.hasSucceeded)
+    this.objectDataService.findById(this.object.id, false).pipe(
+      getFirstSucceededRemoteData(),
     ).subscribe((rd: RemoteData<T>) => {
       this.initObjects(rd.payload as T);
     });

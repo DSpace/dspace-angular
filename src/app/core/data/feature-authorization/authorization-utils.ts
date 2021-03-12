@@ -1,9 +1,8 @@
 import { map, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { SiteDataService } from '../site-data.service';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
@@ -46,7 +45,7 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
                   map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid }))
                 );
               } else {
-                return observableOf(params)
+                return observableOf(params);
               }
             })
           );
