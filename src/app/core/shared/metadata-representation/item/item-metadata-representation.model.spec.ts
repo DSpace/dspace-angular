@@ -24,7 +24,7 @@ describe('ItemMetadataRepresentation', () => {
   for (const metadataField of Object.keys(item.metadata)) {
     describe(`when creating an ItemMetadataRepresentation`, () => {
       beforeEach(() => {
-        item.metadata['relationship.type'] = [
+        item.metadata['dspace.entity.type'] = [
           Object.assign(new MetadataValue(), {
             value: itemType
           })
@@ -41,7 +41,7 @@ describe('ItemMetadataRepresentation', () => {
       });
 
       it('should return the correct item type', () => {
-        expect(itemMetadataRepresentation.itemType).toEqual(item.firstMetadataValue('relationship.type'));
+        expect(itemMetadataRepresentation.itemType).toEqual(item.firstMetadataValue('dspace.entity.type'));
       });
     });
   }

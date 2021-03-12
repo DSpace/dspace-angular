@@ -15,7 +15,7 @@ const type = 'authorOfPublication';
 const mockItemWithRelationshipType = Object.assign(new Item(), {
   bundles: observableOf({}),
   metadata: {
-    'relationship.type': [
+    'dspace.entity.type': [
       {
         language: 'en_US',
         value: type

@@ -14,7 +14,7 @@ import { ThemeService } from '../theme-support/theme.service';
   templateUrl: './metadata-representation-loader.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type), its metadata representation and, optionally, its context
+ * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context
  */
 export class MetadataRepresentationLoaderComponent implements OnInit {
   private componentRefInstance: MetadataRepresentationListElementComponent;

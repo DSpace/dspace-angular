@@ -27,7 +27,7 @@ import { ThemeService } from '../../../theme-support/theme.service';
   templateUrl: './listable-object-component-loader.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
 export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy {
   /**

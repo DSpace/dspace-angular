@@ -66,12 +66,12 @@ describe('RelationshipEffects', () => {
 
     leftItem = Object.assign(new Item(), {
       uuid: testUUID1,
-      metadata: { 'relationship.type': [leftTypeMD] }
+      metadata: { 'dspace.entity.type': [leftTypeMD] }
     });
 
     rightItem = Object.assign(new Item(), {
       uuid: testUUID2,
-      metadata: { 'relationship.type': [rightTypeMD] }
+      metadata: { 'dspace.entity.type': [rightTypeMD] }
     });
 
     relationshipType = Object.assign(new RelationshipType(), {
