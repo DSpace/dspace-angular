@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="card mb-4">
+    <div class="d-flex flex-row">
+      <div *ngFor="let column of getColumns()" class="card-header" [ngClass]="column.style">{{ 'explore.index.' + column.titleKey | translate }}</div>
+    </div>
+    
+    <div class="card-body p-0">
+      <div *ngFor="let topObject of ( topObjects | async ); let last=last"
+           [class.border-bottom]="!last"
+           class="p-3 d-flex flex-row">
+           <div *ngFor="let column of getColumns()" [ngClass]="column.style">
+            <a [routerLink]="getItemPage(topObject.id)">{{getColumnValue(topObject,column)}}</a>
+           </div>
+          
+      </div>
+    </div>
+  </div>
+</div>
