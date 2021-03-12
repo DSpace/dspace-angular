@@ -2008,9 +2008,11 @@
 
 
 
-  "menu.header.admin": "Admin",
+  "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
+
+  "menu.header.admin.description": "Management menu",
 
 
 
@@ -2270,7 +2272,9 @@
 
   "nav.login": "Log In",
 
-  "nav.logout": "Log Out",
+  "nav.logout": "User profile menu and Log Out",
+
+  "nav.main.description": "Main navigation bar",
 
   "nav.mydspace": "MyDSpace",
 
@@ -2281,6 +2285,8 @@
   "nav.statistics.header": "Statistics",
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
+
+  "nav.user.description" : "User profile bar",
 
 
 
