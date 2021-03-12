@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -10,7 +11,10 @@ import { MyDSpaceGuard } from './my-dspace.guard';
       {
         path: '',
         component: MyDSpacePageComponent,
-        data: { title: 'mydspace.title' },
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'mydspace.title', breadcrumbKey: 'mydspace' },
         canActivate: [
           MyDSpaceGuard
         ]

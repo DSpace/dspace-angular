@@ -208,6 +208,8 @@
 
   "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
 
+  "admin.access-control.epeople.breadcrumbs": "EPeople",
+
   "admin.access-control.epeople.title": "EPeople",
 
   "admin.access-control.epeople.head": "EPeople",
@@ -292,9 +294,15 @@
 
   "admin.access-control.groups.title": "Groups",
 
+  "admin.access-control.groups.breadcrumbs": "Groups",
+
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+
   "admin.access-control.groups.title.singleGroup": "Edit Group",
 
   "admin.access-control.groups.title.addGroup": "New Group",
+
+  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
 
   "admin.access-control.groups.head": "Groups",
 
@@ -851,7 +859,9 @@
 
 
 
-  "communityList.tabTitle": "DSpace - Community List",
+  "communityList.breadcrumbs": "Community List",
+
+  "communityList.tabTitle": "Community List",
 
   "communityList.title": "List of Communities",
 
@@ -2199,6 +2209,8 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+
+  "mydspace.breadcrumbs": "MyDSpace",
 
   "mydspace.description": "",
 

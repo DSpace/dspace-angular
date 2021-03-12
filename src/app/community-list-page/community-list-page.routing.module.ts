@@ -4,6 +4,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 
 import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListService } from './community-list-service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
  * RouterModule to help navigate to the page with the community list tree
@@ -15,7 +16,10 @@ import { CommunityListService } from './community-list-service';
         path: '',
         component: CommunityListPageComponent,
         pathMatch: 'full',
-        data: { title: 'communityList.tabTitle' }
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList' }
       }
     ]),
     CdkTreeModule,
