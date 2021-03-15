@@ -23,7 +23,13 @@ export class BreadcrumbsService {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) {
+  ) {}
+
+  /**
+   * Called by {@link AppComponent#constructor} (i.e. before routing)
+   * such that no routing events are missed.
+   */
+  listenForRouteChanges() {
     // supply events to this.breadcrumbs$
     this.router.events.pipe(
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
