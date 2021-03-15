@@ -11,6 +11,7 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CollectionRolesComponent', () => {
 
@@ -67,6 +68,7 @@ describe('CollectionRolesComponent', () => {
         SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
+        NoopAnimationsModule
       ],
       declarations: [
         CollectionRolesComponent,

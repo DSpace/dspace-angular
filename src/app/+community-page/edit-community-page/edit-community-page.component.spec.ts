@@ -18,7 +18,14 @@ describe('EditCommunityPageComponent', () => {
       dso: { payload: {} }
     }),
     routeConfig: {
-      children: []
+      children: [
+        {
+          path: 'mockUrl',
+          data: {
+            hideReturnButton: false
+          }
+        }
+      ]
     },
     snapshot: {
       firstChild: {
