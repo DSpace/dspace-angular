@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsService } from './breadcrumbs.service';
 import { Observable } from 'rxjs/internal/Observable';
@@ -25,8 +24,6 @@ export class BreadcrumbsComponent {
   showBreadcrumbs$: Observable<boolean>;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private breadcrumbsService: BreadcrumbsService,
   ) {
     this.breadcrumbs$ = breadcrumbsService.breadcrumbs$;
