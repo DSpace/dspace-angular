@@ -1,3 +1,4 @@
+import { NativeWindowService, NativeWindowRef } from './../../../core/services/window.service';
 import { DSpaceObject } from './../../../core/shared/dspace-object.model';
 import { SearchObjects } from './../../../shared/search/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from './../../../core/shared/operators';
@@ -5,9 +6,10 @@ import { PaginationComponentOptions } from './../../../shared/pagination/paginat
 import { SectionComponent } from './../../../core/layout/models/section.model';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { SearchService } from './../../../core/shared/search/search.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { PaginatedSearchOptions } from './../../../shared/search/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
+import { hasValue } from 'src/app/shared/empty.util';
 
 @Component({
   selector: 'ds-counters-section',
@@ -26,7 +28,7 @@ export class CountersSectionComponent implements OnInit {
     isLoading$ = new BehaviorSubject(true);
 
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
 
    }
 
@@ -50,7 +52,15 @@ export class CountersSectionComponent implements OnInit {
     )));
     this.counterData$.subscribe(() => this.isLoading$.next(false));
   }
+
+  goToLink(link: string) {
+    if (hasValue(link)) {
+      this._window.nativeWindow.location.href = link;
+    }
+  }
 }
+
+
 
 export interface CountersSection extends SectionComponent {
   componentType: 'counters';
