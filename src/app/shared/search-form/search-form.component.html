@@ -10,7 +10,7 @@
         <input type="text" [(ngModel)]="query" name="query" class="form-control" attr.aria-label="{{ searchPlaceholder }}"
                [placeholder]="searchPlaceholder">
         <span class="input-group-append">
-            <button type="submit" class="search-button btn btn-{{brandColor}}">{{ ('search.form.search' | translate) }}</button>
+            <button type="submit" class="search-button btn btn-{{brandColor}}"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
         </span>
     </div>
     </div>

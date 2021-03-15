@@ -1691,6 +1691,8 @@
   "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
 
 
+  "item.edit.return": "Return",
+
 
   "item.edit.tabs.bitstreams.head": "Bitstreams",
 
@@ -2840,6 +2842,8 @@
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
 
+  "search.filters.filter.collapse": "Collapse filter",
+
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
@@ -2873,6 +2877,8 @@
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
+
+  "search.filters.filter.expand": "Expand filter",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
