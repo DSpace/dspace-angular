@@ -12,6 +12,7 @@ import {
   takeWhile,
   switchMap,
   tap,
+  skipWhile,
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -44,29 +45,6 @@ import { RestRequestMethod } from './rest-request-method';
 import { UpdateDataService } from './update-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NoContent } from '../shared/NoContent.model';
-
-/**
- * An operator that will call the given function if the incoming RemoteData is stale and
- * shouldReRequest is true
- *
- * @param shouldReRequest  Whether or not to call the re-request function if the RemoteData is stale
- * @param requestFn        The function to call if the RemoteData is stale and shouldReRequest is
- *                         true
- */
-export const reRequestStaleRemoteData = <T>(shouldReRequest: boolean, requestFn: () => Observable<RemoteData<T>>) =>
-  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> => {
-    if (shouldReRequest === true) {
-      return source.pipe(
-        tap((remoteData: RemoteData<T>) => {
-          if (hasValue(remoteData) && remoteData.isStale) {
-            requestFn();
-          }
-        })
-      );
-    } else {
-      return source;
-    }
-  };
 
 export abstract class DataService<T extends CacheableObject> implements UpdateDataService<T> {
   protected abstract requestService: RequestService;
@@ -333,6 +311,30 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
+   * An operator that will call the given function if the incoming RemoteData is stale and
+   * shouldReRequest is true
+   *
+   * @param shouldReRequest  Whether or not to call the re-request function if the RemoteData is stale
+   * @param requestFn        The function to call if the RemoteData is stale and shouldReRequest is
+   *                         true
+   */
+  protected reRequestStaleRemoteData<O>(shouldReRequest: boolean, requestFn: () => Observable<RemoteData<O>>) {
+    return (source: Observable<RemoteData<O>>): Observable<RemoteData<O>> => {
+      if (shouldReRequest === true) {
+        return source.pipe(
+          tap((remoteData: RemoteData<O>) => {
+            if (hasValue(remoteData) && remoteData.isStale) {
+              requestFn();
+            }
+          })
+        );
+      } else {
+        return source;
+      }
+    };
+  }
+
+  /**
    * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
    * @param href$                       The url of object we want to retrieve. Can be a string or
@@ -358,7 +360,12 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
     return this.rdbService.buildSingle<T>(requestHref$, ...linksToFollow).pipe(
-      reRequestStaleRemoteData(reRequestOnStale, () =>
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<T>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
+      this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }
@@ -390,7 +397,12 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
     return this.rdbService.buildList<T>(requestHref$, ...linksToFollow).pipe(
-      reRequestStaleRemoteData(reRequestOnStale, () =>
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<PaginatedList<T>>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
+      this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findAllByHref(href$, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }
