@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -19,10 +19,10 @@ import { RequestService } from './request.service';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
+  createFailedRemoteDataObject
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
-import { take } from 'rxjs/operators';
 
 const LINK_NAME = 'test';
 
@@ -59,6 +59,7 @@ describe('ComColDataService', () => {
   let halService: any = {};
   let bitstreamDataService: BitstreamDataService;
   let rdbService: RemoteDataBuildService;
+  let testScheduler: TestScheduler;
 
   const store = {} as Store<CoreState>;
   const notificationsService = {} as NotificationsService;
@@ -98,8 +99,8 @@ describe('ComColDataService', () => {
   }
 
   function initMockCommunityDataService(): CommunityDataService {
-    return jasmine.createSpyObj('responseCache', {
-      getEndpoint: hot('--a-', { a: communitiesEndpoint }),
+    return jasmine.createSpyObj('cds', {
+      getEndpoint: cold('--a-', { a: communitiesEndpoint }),
       getIDHref: communityEndpoint
     });
   }
@@ -134,7 +135,14 @@ describe('ComColDataService', () => {
     );
   }
 
+  const initTestScheduler = (): TestScheduler => {
+    return new TestScheduler((actual, expected) => {
+      expect(actual).toEqual(expected);
+    });
+  };
+
   beforeEach(() => {
+    testScheduler = initTestScheduler();
     cds = initMockCommunityDataService();
     requestService = getMockRequestService();
     objectCache = initMockObjectCacheService();
@@ -165,10 +173,16 @@ describe('ComColDataService', () => {
 
     describe('if the scope Community can\'t be found', () => {
       it('should throw an error', () => {
-        const result = service.getBrowseEndpoint(options).pipe(take(1));
-        const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
-
-        expect(result).toBeObservable(expected);
+        // tslint:disable-next-line:no-shadowed-variable
+        testScheduler.run(({ cold, expectObservable }) => {
+          // spies re-defined here to use the "cold" function from rxjs's TestScheduler
+          // rather than the one imported from jasmine-marbles.
+          // Mixing the two seems to lead to unpredictable results
+          (cds.getEndpoint as jasmine.Spy).and.returnValue(cold('a', { a: communitiesEndpoint }));
+          (rdbService.buildSingle as jasmine.Spy).and.returnValue(cold('a', { a: createFailedRemoteDataObject() }));
+          const expectedError = new Error(`The Community with scope ${scopeID} couldn't be retrieved`);
+          expectObservable(service.getBrowseEndpoint(options)).toBe('#', undefined, expectedError);
+        });
       });
     });
 
