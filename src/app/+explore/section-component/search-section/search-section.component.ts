@@ -55,9 +55,10 @@ export class SearchSectionComponent implements OnInit {
       queryArray: this.formBuilder.array([])
     }));
 
-    this.addQueryStatement();
-    this.addQueryStatement();
-    this.addQueryStatement();
+    const statements = this.searchSection.initialStatements ? this.searchSection.initialStatements : 3;
+    for (let i = 0; i < statements; i++) {
+      this.addQueryStatement();
+    }
   }
 
   /**
@@ -81,9 +82,10 @@ export class SearchSectionComponent implements OnInit {
    */
   onReset() {
     this.queryArray.controls.splice(0, this.queryArray.controls.length);
-    this.addQueryStatement();
-    this.addQueryStatement();
-    this.addQueryStatement();
+    const statements = this.searchSection.initialStatements ? this.searchSection.initialStatements : 3;
+    for (let i = 0; i < statements; i++) {
+      this.addQueryStatement();
+    }
   }
 
   /**
@@ -111,8 +113,8 @@ export class SearchSectionComponent implements OnInit {
 
     for (const statement of statements) {
       if (statement.query !== '') {
-        const filter = statement.filter !== this.allFilter ? statement.filter + ':' : '';
-        query = query + ' ' + filter + '(' + statement.query + ') ' + statement.operation;
+        const statementFilter = statement.filter !== this.allFilter ? statement.filter + ':' : '';
+        query = query + ' ' + statementFilter + '(' + statement.query + ') ' + statement.operation;
       }
     }
 

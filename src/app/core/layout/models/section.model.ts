@@ -62,6 +62,7 @@ export interface SearchSection extends SectionComponent {
   componentType: 'search';
   searchType: string;
   initialStatements: number;
+  displayTitle: boolean;
 }
 
 export interface FacetSection extends SectionComponent {
