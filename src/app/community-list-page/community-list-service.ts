@@ -102,7 +102,7 @@ const communityListStateSelector = (state: AppState) => state.communityList;
 const expandedNodesSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.expandedNodes);
 const loadingNodeSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.loadingNode);
 
-export const MAX_COMCOLS_PER_PAGE = 50;
+export const MAX_COMCOLS_PER_PAGE = 20;
 
 /**
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
