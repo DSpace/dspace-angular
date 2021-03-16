@@ -59,8 +59,8 @@
     </ds-item-page-uri-field>
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
-        {{"item.page.link.full" | translate}}
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']" role="button">
+        <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
       </a>
     </div>
   </div>

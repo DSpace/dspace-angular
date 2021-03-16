@@ -1351,7 +1351,7 @@
 
   "home.breadcrumbs": "Home",
 
-  "home.search-form.placeholder": "Search in the repository...",
+  "home.search-form.placeholder": "Search the repository ...",
 
   "home.title": "Home",
 
@@ -2811,7 +2811,7 @@
 
   "search.breadcrumbs": "Search",
 
-  "search.search-form.placeholder": "Search in the repository...",
+  "search.search-form.placeholder": "Search the repository ...",
 
 
   "search.filters.applied.f.author": "Author",
@@ -3046,6 +3046,8 @@
 
 
   "submission.edit.title": "Edit Submission",
+
+  "submission.general.cancel": "Cancel",
 
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
 
