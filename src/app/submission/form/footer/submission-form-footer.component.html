@@ -17,7 +17,9 @@
       <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
     </button>
     <button type="button"
-            class="btn btn-secondary"
+            [class.btn-primary]="!(showDepositAndDiscard | async)"
+            [class.btn-secondary]="(showDepositAndDiscard | async)"
+            class="btn"
             id="saveForLater"
             [disabled]="(processingSaveStatus | async)"
             (click)="saveLater($event)">
