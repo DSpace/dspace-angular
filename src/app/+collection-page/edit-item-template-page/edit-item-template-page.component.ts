@@ -8,6 +8,7 @@ import { ItemTemplateDataService } from '../../core/data/item-template-data.serv
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { AlertType } from '../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-edit-item-template-page',
@@ -27,6 +28,12 @@ export class EditItemTemplatePageComponent implements OnInit {
    * The template item
    */
   itemRD$: Observable<RemoteData<Item>>;
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  AlertTypeEnum = AlertType;
 
   constructor(protected route: ActivatedRoute,
               public itemTemplateService: ItemTemplateDataService) {

@@ -777,9 +777,13 @@
 
   "collection.edit.template.edit-button": "Edit",
 
+  "collection.edit.template.error": "An error occurred retrieving the template item",
+
   "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
 
   "collection.edit.template.label": "Template item",
+
+  "collection.edit.template.loading": "Loading template item...",
 
   "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
 
