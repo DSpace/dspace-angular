@@ -16,8 +16,10 @@
                     <div class="mb-4">
                         <router-outlet></router-outlet>
                     </div>
-                    <div class="col">
-                        <a [routerLink]="getItemPage((itemRD$ | async)?.payload)" role="button" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{'item.edit.return' | translate}}</a>
+                    <div class="button-row bottom">
+                      <div class="float-left">
+                        <a [routerLink]="getItemPage((itemRD$ | async)?.payload)" role="button" class="btn btn-outline-secondary mr-1"><i class="fas fa-arrow-left"></i> {{'item.edit.return' | translate}}</a>
+                      </div>
                     </div>
                 </div>
             </div>
