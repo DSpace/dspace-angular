@@ -19,6 +19,7 @@ import { RemoteData } from './remote-data';
 import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 @Injectable()
 @dataService(COMMUNITY)
@@ -45,9 +46,9 @@ export class CommunityDataService extends ComColDataService<Community> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
-  findTop(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
+  findTop(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.getFindAllHref(options, this.topLinkPath);
-    return this.findAllByHref(hrefObs, undefined);
+    return this.findAllByHref(hrefObs, undefined, true, true, ...linksToFollow);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {
