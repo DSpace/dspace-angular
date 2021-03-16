@@ -16,14 +16,14 @@
         <input type="text" name="query" id="query" formControlName="query"
                class="form-control" aria-label="Search input">
         <span class="input-group-append">
-            <button type="submit"
-                    class="search-button btn btn-primary">{{ messagePrefix + '.search.button' | translate }}</button>
+            <button type="submit" class="search-button btn btn-primary">
+              <i class="fas fa-search"></i> {{ messagePrefix + '.search.button' | translate }}</button>
         </span>
       </div>
     </div>
     <div>
       <button (click)="clearFormAndResetResult();"
-              class="btn btn-primary">{{messagePrefix + '.button.see-all' | translate}}</button>
+              class="btn btn-secondary">{{messagePrefix + '.button.see-all' | translate}}</button>
     </div>
   </form>
 
