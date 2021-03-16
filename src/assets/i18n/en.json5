@@ -590,9 +590,15 @@
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
+  "browse.next.button": "Next",
+
+  "browse.previous.button": "Previous",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
+
+  "browse.startsWith.choose_year.label": "Choose the issue year",
 
   "browse.startsWith.jump": "Jump to a point in the index:",
 
@@ -616,17 +622,21 @@
 
   "browse.startsWith.months.none": "(Choose month)",
 
+  "browse.startsWith.months.none.label": "Choose the issue month",
+
   "browse.startsWith.months.november": "November",
 
   "browse.startsWith.months.october": "October",
 
   "browse.startsWith.months.september": "September",
 
-  "browse.startsWith.submit": "Go",
+  "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month):",
+  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
 
-  "browse.startsWith.type_text": "Or enter first few letters:",
+  "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
+
+  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
 
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
@@ -2343,6 +2353,8 @@
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
 
+
+  "pagination.options.description": "Pagination options",
 
   "pagination.results-per-page": "Results Per Page",
 

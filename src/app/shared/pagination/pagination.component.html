@@ -7,7 +7,7 @@
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
-          <button class="btn btn-outline-primary" id="paginationControls" ngbDropdownToggle><i class="fas fa-cog" aria-hidden="true"></i></button>
+          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate"><i class="fas fa-cog" aria-hidden="true"></i></button>
           <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
             <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
             <button class="dropdown-item" *ngFor="let item of pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != pageSize}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
