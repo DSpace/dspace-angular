@@ -24,6 +24,10 @@ export function getCollectionEditRolesRoute(id) {
   return new URLCombiner(getCollectionPageRoute(id), COLLECTION_EDIT_PATH, COLLECTION_EDIT_ROLES_PATH).toString();
 }
 
+export function getCollectionItemTemplateRoute(id) {
+  return new URLCombiner(getCollectionPageRoute(id), ITEMTEMPLATE_PATH).toString();
+}
+
 export const COLLECTION_CREATE_PATH = 'create';
 export const COLLECTION_EDIT_PATH = 'edit';
 export const COLLECTION_EDIT_ROLES_PATH = 'roles';
