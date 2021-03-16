@@ -46,9 +46,6 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.isDragging.subscribe((d) => {
-      console.log('isDragging = ', d);
-    });
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
     }
