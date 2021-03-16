@@ -9,7 +9,7 @@ import { SearchService } from './../../../core/shared/search/search.service';
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { PaginatedSearchOptions } from './../../../shared/search/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
-import { hasValue } from 'src/app/shared/empty.util';
+import { hasValue } from './../../../shared/empty.util';
 
 @Component({
   selector: 'ds-counters-section',
