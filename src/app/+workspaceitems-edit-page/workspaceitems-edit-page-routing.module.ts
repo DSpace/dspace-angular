@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -12,7 +13,10 @@ import { SubmissionEditComponent } from '../submission/edit/submission-edit.comp
         canActivate: [AuthenticatedGuard],
         path: ':id/edit',
         component: SubmissionEditComponent,
-        data: { title: 'submission.edit.title' }
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'submission.edit.title', breadcrumbKey: 'submission.edit' }
       }
     ])
   ]

@@ -11,6 +11,7 @@ import {
   WORKFLOW_ITEM_DELETE_PATH,
   WORKFLOW_ITEM_EDIT_PATH
 } from './workflowitems-edit-page-routing-paths';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -23,19 +24,28 @@ import {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: SubmissionEditComponent,
-            data: { title: 'submission.edit.title' }
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.edit.title', breadcrumbKey: 'workflow-item.edit' }
           },
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_DELETE_PATH,
             component: WorkflowItemDeleteComponent,
-            data: { title: 'workflow-item.delete.title' }
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.delete.title', breadcrumbKey: 'workflow-item.edit' }
           },
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
             component: WorkflowItemSendBackComponent,
-            data: { title: 'workflow-item.send-back.title' }
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.send-back.title', breadcrumbKey: 'workflow-item.edit' }
           }
         ]
       }]

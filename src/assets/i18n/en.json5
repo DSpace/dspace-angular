@@ -3045,6 +3045,8 @@
 
 
 
+  "submission.edit.breadcrumbs": "Edit Submission",
+
   "submission.edit.title": "Edit Submission",
 
   "submission.general.cancel": "Cancel",
@@ -3429,7 +3431,9 @@
 
 
 
-  "submission.submit.title": "Submission",
+  "submission.submit.breadcrumbs": "New submission",
+
+  "submission.submit.title": "New submission",
 
 
 
@@ -3534,6 +3538,10 @@
   "workflowAdmin.search.results.head": "Administer Workflow",
 
 
+
+  "workflow-item.edit.breadcrumbs": "Edit workflowitem",
+
+  "workflow-item.edit.title": "Edit workflowitem",
 
   "workflow-item.delete.notification.success.title": "Deleted",
 
