@@ -9,6 +9,7 @@ import { AuthService } from '../auth/auth.service';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
+import { RouteService } from '../services/route.service';
 
 export const LANG_COOKIE = 'dsLanguage';
 
@@ -36,7 +37,8 @@ export class LocaleService {
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected cookie: CookieService,
     protected translate: TranslateService,
-    protected authService: AuthService) {
+    protected authService: AuthService,
+    protected routeService: RouteService) {
   }
 
   /**
@@ -183,9 +185,12 @@ export class LocaleService {
    * Refresh route navigated
    */
   public refreshAfterChangeLanguage() {
-    // Hard redirect to the reload page with a unique number behind it
-    // so that all state is definitely lost
-    this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}`;
+    this.routeService.getCurrentUrl().pipe(take(1)).subscribe((currentURL) => {
+      // Hard redirect to the reload page with a unique number behind it
+      // so that all state is definitely lost
+      this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}?redirect=` + encodeURIComponent(currentURL);
+    });
+
   }
 
 }
