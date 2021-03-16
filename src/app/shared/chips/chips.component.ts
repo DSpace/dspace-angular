@@ -8,6 +8,7 @@ import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-chips',
@@ -25,6 +26,7 @@ export class ChipsComponent implements OnChanges {
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
 
+  isDragging: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   options: Options;
   dragged = -1;
   tipText: string[];
@@ -44,6 +46,9 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.isDragging.subscribe((d) => {
+      console.log('isDragging = ', d);
+    });
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
     }
@@ -73,6 +78,7 @@ export class ChipsComponent implements OnChanges {
   }
 
   onDragStart(index) {
+    this.isDragging.next(true);
     this.uploaderService.overrideDragOverPage();
     this.dragged = index;
   }
@@ -81,6 +87,7 @@ export class ChipsComponent implements OnChanges {
     this.uploaderService.allowDragOverPage();
     this.dragged = -1;
     this.chips.updateOrder();
+    this.isDragging.next(false);
   }
 
   showTooltip(tooltip: NgbTooltip, index, field?) {

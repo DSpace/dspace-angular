@@ -42,7 +42,8 @@
         </a>
       </li>
     </ng-container>
-
-    <ng-content></ng-content>
+    <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
+      <ng-content ></ng-content>
+    </div>
   </ul>
 </div>
