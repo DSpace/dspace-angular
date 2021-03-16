@@ -7,6 +7,8 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -53,23 +55,18 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchRe
   indexableObject:
     Object.assign(new Item(), {
       bundles: observableOf({}),
-      metadata: {
-        'dc.title': [
-          {
-            language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
+      metadata: {}
     })
 });
+
 
 describe('ItemListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
-        { provide: TruncatableService, useValue: {} }
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -177,6 +174,18 @@ describe('ItemListElementComponent', () => {
     it('should not show the abstract span', () => {
       const abstractField = fixture.debugElement.query(By.css('div.item-list-abstract'));
       expect(abstractField).toBeNull();
+    });
+  });
+
+  describe('When the item has no title', () => {
+    beforeEach(() => {
+      publicationListElementComponent.object = mockItemWithoutMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show the fallback untitled translation', () => {
+      const titleField = fixture.debugElement.query(By.css('.item-list-title'));
+      expect(titleField.nativeElement.textContent.trim()).toEqual(UNDEFINED_NAME);
     });
   });
 });

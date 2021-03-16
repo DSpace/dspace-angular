@@ -8,6 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ItemAdminSearchResultListElementComponent } from './item-admin-search-result-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 
 describe('ItemAdminSearchResultListElementComponent', () => {
   let component: ItemAdminSearchResultListElementComponent;
@@ -30,7 +32,8 @@ describe('ItemAdminSearchResultListElementComponent', () => {
         RouterTestingModule.withRoutes([])
       ],
       declarations: [ItemAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} }],
+      providers: [{ provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock }],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
