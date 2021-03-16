@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import { Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -13,14 +13,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions, GetRequest } from './request.models';
-import { RequestEntry } from './request.reducer';
+import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import {
   createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-  createFailedRemoteDataObject
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
 
@@ -50,8 +49,8 @@ class TestService extends ComColDataService<any> {
   }
 }
 
+// tslint:disable:no-shadowed-variable
 describe('ComColDataService', () => {
-  let scheduler: TestScheduler;
   let service: TestService;
   let requestService: RequestService;
   let cds: CommunityDataService;
@@ -60,6 +59,7 @@ describe('ComColDataService', () => {
   let bitstreamDataService: BitstreamDataService;
   let rdbService: RemoteDataBuildService;
   let testScheduler: TestScheduler;
+  let topEndpoint: string;
 
   const store = {} as Store<CoreState>;
   const notificationsService = {} as NotificationsService;
@@ -70,17 +70,9 @@ describe('ComColDataService', () => {
   const options = Object.assign(new FindListOptions(), {
     scopeID: scopeID
   });
-  const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
-      response: { isSuccessful: successful } as any
-    } as RequestEntry);
-  };
-
   const communitiesEndpoint = 'https://rest.api/core/communities';
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
-  const serviceEndpoint = `https://rest.api/core/${LINK_NAME}`;
-  const authHeader = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJlaWQiOiJhNjA4NmIzNC0zOTE4LTQ1YjctOGRkZC05MzI5YTcwMmEyNmEiLCJzZyI6W10sImV4cCI6MTUzNDk0MDcyNX0.RV5GAtiX6cpwBN77P_v16iG9ipeyiO7faNYSNMzq_sQ';
 
   const mockHalService = {
     getEndpoint: (linkPath) => observableOf(communitiesEndpoint)
@@ -142,6 +134,7 @@ describe('ComColDataService', () => {
   };
 
   beforeEach(() => {
+    topEndpoint = 'https://rest.api/core/communities/search/top';
     testScheduler = initTestScheduler();
     cds = initMockCommunityDataService();
     requestService = getMockRequestService();
@@ -153,27 +146,20 @@ describe('ComColDataService', () => {
   });
 
   describe('getBrowseEndpoint', () => {
-    beforeEach(() => {
-      scheduler = getTestScheduler();
-    });
-
-    it('should send a new FindByIDRequest for the scope Community', () => {
-      cds = initMockCommunityDataService();
-      requestService = getMockRequestService(getRequestEntry$(true));
-      objectCache = initMockObjectCacheService();
-      service = initTestService();
-
-      const expected = new GetRequest(requestService.generateRequestId(), communityEndpoint);
-
-      scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
-      scheduler.flush();
-
-      expect(requestService.send).toHaveBeenCalledWith(expected, true);
+    it(`should call createAndSendGetRequest with the scope Community's self link`, () => {
+      testScheduler.run(({ cold, flush, expectObservable }) => {
+        (cds.getEndpoint as jasmine.Spy).and.returnValue(cold('a', { a: communitiesEndpoint }));
+        (rdbService.buildSingle as jasmine.Spy).and.returnValue(cold('a', { a: createFailedRemoteDataObject() }));
+        spyOn(service as any, 'createAndSendGetRequest');
+        service.getBrowseEndpoint(options);
+        flush();
+        expectObservable((service as any).createAndSendGetRequest.calls.argsFor(0)[0]).toBe('(a|)', { a: communityEndpoint });
+        expect((service as any).createAndSendGetRequest.calls.argsFor(0)[1]).toBeTrue();
+      });
     });
 
     describe('if the scope Community can\'t be found', () => {
       it('should throw an error', () => {
-        // tslint:disable-next-line:no-shadowed-variable
         testScheduler.run(({ cold, expectObservable }) => {
           // spies re-defined here to use the "cold" function from rxjs's TestScheduler
           // rather than the one imported from jasmine-marbles.
@@ -186,86 +172,68 @@ describe('ComColDataService', () => {
       });
     });
 
-    describe('cache refresh', () => {
-      let communityWithoutParentHref;
-      let data;
+  });
 
-      beforeEach(() => {
-        spyOn(halService, 'getEndpoint').and.returnValue(observableOf('https://rest.api/core/communities/search/top'));
+  describe('cache refresh', () => {
+    let communityWithoutParentHref;
+    let communityWithParentHref;
+
+    beforeEach(() => {
+      communityWithParentHref = {
+        _links: {
+          parentCommunity: {
+            href: 'topLevel/parentCommunity'
+          }
+        }
+      } as Community;
+      communityWithoutParentHref = {
+        _links: {}
+      } as Community;
+    });
+
+    describe('cache refreshed top level community', () => {
+      it(`should refresh the top level community cache when the dso has a parent link that can't be resolved`, () => {
+        testScheduler.run(({ flush, cold }) => {
+          spyOn(halService, 'getEndpoint').and.returnValue(cold('a', { a: topEndpoint }));
+          spyOn(service, 'findByHref').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject({}) }));
+          service.refreshCache(communityWithParentHref);
+          flush();
+          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(topEndpoint);
+        });
       });
-
-      describe('cache refreshed top level community', () => {
-        beforeEach(() => {
-          (rdbService.buildSingle as jasmine.Spy).and.returnValue(createNoContentRemoteDataObject$());
-          data = {
-            dso: Object.assign(new Community(), {
-              metadata: [{
-                key: 'dc.title',
-                value: 'top level community'
-              }]
-            }),
-            _links: {
-              parentCommunity: {
-                href: 'topLevel/parentCommunity'
-              }
-            }
-          };
-          communityWithoutParentHref = {
-            dso: Object.assign(new Community(), {
-              metadata: [{
-                key: 'dc.title',
-                value: 'top level community'
-              }]
-            }),
-            _links: {}
-          };
-        });
-        it('top level community cache refreshed', () => {
-          scheduler.schedule(() => (service as any).refreshCache(data));
-          scheduler.flush();
-          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('https://rest.api/core/communities/search/top');
-        });
-        it('top level community without parent link, cache not refreshed', () => {
-          scheduler.schedule(() => (service as any).refreshCache(communityWithoutParentHref));
-          scheduler.flush();
+      it(`shouldn't do anything when the dso doesn't have a parent link`, () => {
+        testScheduler.run(({ flush, cold }) => {
+          spyOn(halService, 'getEndpoint').and.returnValue(cold('a', { a: topEndpoint }));
+          spyOn(service, 'findByHref').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject({}) }));
+          service.refreshCache(communityWithoutParentHref);
+          flush();
           expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('cache refreshed child community', () => {
-        beforeEach(() => {
-          const parentCommunity = Object.assign(new Community(), {
-            uuid: 'a20da287-e174-466a-9926-f66as300d399',
-            id: 'a20da287-e174-466a-9926-f66as300d399',
-            metadata: [{
-              key: 'dc.title',
-              value: 'parent community'
-            }],
-            _links: {}
-          });
-          (rdbService.buildSingle as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
-          data = {
-            dso: Object.assign(new Community(), {
-              metadata: [{
-                key: 'dc.title',
-                value: 'child community'
-              }]
-            }),
-            _links: {
-              parentCommunity: {
-                href: 'child/parentCommunity'
-              }
-            }
-          };
-        });
-        it('child level community cache refreshed', () => {
-          scheduler.schedule(() => (service as any).refreshCache(data));
-          scheduler.flush();
-          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
         });
       });
     });
 
+    describe('cache refreshed child community', () => {
+      let parentCommunity: Community;
+      beforeEach(() => {
+        parentCommunity = Object.assign(new Community(), {
+          uuid: 'a20da287-e174-466a-9926-f66as300d399',
+          id: 'a20da287-e174-466a-9926-f66as300d399',
+          metadata: [{
+            key: 'dc.title',
+            value: 'parent community'
+          }],
+          _links: {}
+        });
+      });
+      it('should refresh a specific cached community when the parent link can be resolved', () => {
+        testScheduler.run(({ flush, cold }) => {
+          spyOn(halService, 'getEndpoint').and.returnValue(cold('a', { a: topEndpoint }));
+          spyOn(service, 'findByHref').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(parentCommunity) }));
+          service.refreshCache(communityWithParentHref);
+          flush();
+          expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+        });
+      });
+    });
   });
-
 });
