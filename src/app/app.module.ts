@@ -50,6 +50,7 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ThemedHeaderComponent } from './header/themed-header.component';
 import { ThemedFooterComponent } from './footer/themed-footer.component';
+import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -144,6 +145,7 @@ const DECLARATIONS = [
   NotificationsBoardComponent,
   SearchNavbarComponent,
   BreadcrumbsComponent,
+  ThemedBreadcrumbsComponent,
   ForbiddenComponent,
   ThemedForbiddenComponent,
 ];

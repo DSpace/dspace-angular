@@ -77,6 +77,7 @@ import { MyDSpacePageModule } from '../../app/+my-dspace-page/my-dspace-page.mod
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
+import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -115,8 +116,8 @@ const DECLARATIONS = [
   WorkflowItemSendBackComponent,
   FooterComponent,
   HeaderComponent,
-  NavbarComponent
-
+  NavbarComponent,
+  BreadcrumbsComponent
 ];
 
 @NgModule({
