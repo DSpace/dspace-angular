@@ -48,6 +48,8 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { ThemedEntryComponentModule } from '../themes/themed-entry-component.module';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
+import { ThemedHeaderComponent } from './header/themed-header.component';
+import { ThemedFooterComponent } from './footer/themed-footer.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -129,11 +131,13 @@ const DECLARATIONS = [
   RootComponent,
   ThemedRootComponent,
   HeaderComponent,
+  ThemedHeaderComponent,
   HeaderNavbarWrapperComponent,
   AdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
   FooterComponent,
+  ThemedFooterComponent,
   PageNotFoundComponent,
   ThemedPageNotFoundComponent,
   NotificationComponent,

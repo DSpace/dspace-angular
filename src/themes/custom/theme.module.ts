@@ -74,6 +74,9 @@ import { WorkflowItemSendBackComponent } from './app/+workflowitems-edit-page/wo
 import { WorkflowItemDeleteComponent } from './app/+workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import { SubmissionModule } from '../../app/submission/submission.module';
 import { MyDSpacePageModule } from '../../app/+my-dspace-page/my-dspace-page.module';
+import { NavbarComponent } from './app/navbar/navbar.component';
+import { HeaderComponent } from './app/header/header.component';
+import { FooterComponent } from './app/footer/footer.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -109,7 +112,10 @@ const DECLARATIONS = [
   SubmissionImportExternalComponent,
   SubmissionSubmitComponent,
   WorkflowItemDeleteComponent,
-  WorkflowItemSendBackComponent
+  WorkflowItemSendBackComponent,
+  FooterComponent,
+  HeaderComponent,
+  NavbarComponent
 
 ];
 
