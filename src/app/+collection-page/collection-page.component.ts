@@ -15,13 +15,19 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
-import { getFirstSucceededRemoteData, redirectOn4xx, toDSpaceObjectListRD } from '../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData,
+  redirectOn4xx,
+  toDSpaceObjectListRD
+} from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
 import {PaginationChangeEvent} from '../shared/pagination/paginationChangeEvent.interface';
+import { getCollectionPageRoute } from './collection-page-routing-paths';
 
 @Component({
   selector: 'ds-collection-page',
@@ -43,6 +49,11 @@ export class CollectionPageComponent implements OnInit {
     paginationConfig: PaginationComponentOptions,
     sortConfig: SortOptions
   }>;
+
+  /**
+   * Route to the community page
+   */
+  collectionPageRoute$: Observable<string>;
 
   constructor(
     private collectionDataService: CollectionDataService,
@@ -92,6 +103,11 @@ export class CollectionPageComponent implements OnInit {
         startWith(undefined) // Make sure switching pages shows loading component
         )
       )
+    );
+
+    this.collectionPageRoute$ = this.collectionRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((collection) => getCollectionPageRoute(collection.id))
     );
 
     this.route.queryParams.pipe(take(1)).subscribe((params) => {

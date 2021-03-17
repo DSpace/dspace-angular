@@ -21,7 +21,7 @@ export class DsoPageEditButtonComponent implements OnInit {
   /**
    * The prefix of the route to the edit page (before the object's UUID, e.g. "items")
    */
-  @Input() pageRoutePrefix: string;
+  @Input() pageRoute: string;
 
   /**
    * A message for the tooltip on the button

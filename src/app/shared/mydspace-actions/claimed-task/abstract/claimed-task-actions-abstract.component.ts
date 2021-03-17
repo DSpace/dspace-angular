@@ -1,8 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Injector, OnDestroy } from '@angular/core';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { BehaviorSubject } from 'rxjs';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Router } from '@angular/router';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { switchMap, take } from 'rxjs/operators';
+import { CLAIMED_TASK } from '../../../../core/tasks/models/claimed-task-object.resource-type';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { Item } from '../../../../core/shared/item.model';
+import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';
 
 /**
  * Abstract component for rendering a claimed task's action
@@ -12,31 +24,39 @@ import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-
  * - Optionally overwrite createBody if the request body requires more than just the option
  */
 @Component({
-  selector: 'ds-calim-task-action-abstract',
+  selector: 'ds-claimed-task-action-abstract',
   template: ''
 })
-export abstract class ClaimedTaskActionsAbstractComponent {
+export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnDestroy {
+
   /**
    * The workflow task option the child component represents
    */
   abstract option: string;
 
-  /**
-   * The Claimed Task to display an action for
-   */
-  @Input() object: ClaimedTask;
+  object: ClaimedTask;
 
   /**
-   * Emits the success or failure of a processed action
+   * Anchor used to reload the pool task.
    */
-  @Output() processCompleted: EventEmitter<boolean> = new EventEmitter<boolean>();
+  itemUuid: string;
+
+  subs = [];
+
+  protected constructor(protected injector: Injector,
+                        protected router: Router,
+                        protected notificationsService: NotificationsService,
+                        protected translate: TranslateService,
+                        protected searchService: SearchService,
+                        protected requestService: RequestService) {
+    super(CLAIMED_TASK, injector, router, notificationsService, translate, searchService, requestService);
+  }
 
   /**
-   * A boolean representing if the operation is pending
+   * Submit the action on the claimed object.
    */
-  processing$ = new BehaviorSubject<boolean>(false);
-
-  constructor(protected claimedTaskService: ClaimedTaskDataService) {
+  submitTask() {
+    this.subs.push(this.startActionExecution().pipe(take(1)).subscribe());
   }
 
   /**
@@ -49,17 +69,36 @@ export abstract class ClaimedTaskActionsAbstractComponent {
     };
   }
 
-  /**
-   * Submit the task for this option
-   * While the task is submitting, processing$ is set to true and processCompleted emits the response's status when
-   * completed
-   */
-  submitTask() {
-    this.processing$.next(true);
-    this.claimedTaskService.submitTask(this.object.id, this.createbody())
-      .subscribe((res: ProcessTaskResponse) => {
-        this.processing$.next(false);
-        this.processCompleted.emit(res.hasSucceeded);
-      });
+  reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
+    return this.objectDataService.findByItem(this.itemUuid as string);
   }
+
+  actionExecution(): Observable<any> {
+    return this.objectDataService.submitTask(this.object.id, this.createbody());
+  }
+
+  initObjects(object: ClaimedTask) {
+    this.object = object;
+  }
+
+  /**
+   * Retrieve the itemUuid.
+   */
+  initReloadAnchor() {
+    if (!(this.object as any).workflowitem) {
+      return;
+    }
+    this.subs.push(this.object.workflowitem.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((workflowItem: WorkflowItem) => workflowItem.item.pipe(getFirstSucceededRemoteDataPayload())
+      ))
+      .subscribe((item: Item) => {
+        this.itemUuid = item.uuid;
+      }));
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub) => sub.unsubscribe());
+  }
+
 }

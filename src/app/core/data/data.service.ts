@@ -215,10 +215,19 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    */
   protected addEmbedParams(href: string, args: string[], ...linksToFollow: FollowLinkConfig<T>[]) {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+      if (hasValue(linkToFollow) && linkToFollow.shouldEmbed) {
         const embedString = 'embed=' + String(linkToFollow.name);
-        const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
-        args = this.addHrefArg(href, args, embedWithNestedString);
+        // Add the embeds size if given in the FollowLinkConfig.FindListOptions
+        if (hasValue(linkToFollow.findListOptions) && hasValue(linkToFollow.findListOptions.elementsPerPage)) {
+          args = this.addHrefArg(href, args,
+            'embed.size=' + String(linkToFollow.name) + '=' + linkToFollow.findListOptions.elementsPerPage);
+        }
+        // Adds the nested embeds and their size if given
+        if (isNotEmpty(linkToFollow.linksToFollow)) {
+          args = this.addNestedEmbeds(embedString, href, args, ...linkToFollow.linksToFollow);
+        } else {
+          args = this.addHrefArg(href, args, embedString);
+        }
       }
     });
     return args;
@@ -243,21 +252,30 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
-   * Add the nested followLinks to the embed param, recursively, separated by a /
+   * Add the nested followLinks to the embed param, separated by a /, and their sizes, recursively
    * @param embedString     embedString so far (recursive)
+   * @param href            The href the params are to be added to
+   * @param args            params for the query string
    * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
    */
-  protected addNestedEmbeds(embedString: string, ...linksToFollow: FollowLinkConfig<T>[]): string {
+  protected addNestedEmbeds(embedString: string, href: string, args: string[], ...linksToFollow: FollowLinkConfig<T>[]): string[] {
     let nestEmbed = embedString;
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+      if (hasValue(linkToFollow) && linkToFollow.shouldEmbed) {
         nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
-        if (linkToFollow.linksToFollow !== undefined) {
-          nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);
+        // Add the nested embeds size if given in the FollowLinkConfig.FindListOptions
+        if (hasValue(linkToFollow.findListOptions) && hasValue(linkToFollow.findListOptions.elementsPerPage)) {
+          const nestedEmbedSize = 'embed.size=' + nestEmbed.split('=')[1] + '=' + linkToFollow.findListOptions.elementsPerPage;
+          args = this.addHrefArg(href, args, nestedEmbedSize);
+        }
+        if (hasValue(linkToFollow.linksToFollow) && isNotEmpty(linkToFollow.linksToFollow)) {
+          args = this.addNestedEmbeds(nestEmbed, href, args, ...linkToFollow.linksToFollow);
+        } else {
+          args = this.addHrefArg(href, args, nestEmbed);
         }
       }
     });
-    return nestEmbed;
+    return args;
   }
 
   /**

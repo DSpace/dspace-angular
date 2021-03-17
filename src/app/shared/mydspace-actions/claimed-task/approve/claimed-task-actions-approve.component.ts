@@ -1,7 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Router } from '@angular/router';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import { of } from 'rxjs/internal/observable/of';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 
@@ -20,7 +29,24 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
    */
   option = WORKFLOW_TASK_OPTION_APPROVE;
 
-  constructor(protected claimedTaskService: ClaimedTaskDataService) {
-    super(claimedTaskService);
+  constructor(protected injector: Injector,
+              protected router: Router,
+              protected notificationsService: NotificationsService,
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService) {
+    super(injector, router, notificationsService, translate, searchService, requestService);
   }
+
+  reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
+    return of(this.object);
+  }
+
+  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+    const reloadedObject = Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
+      indexableObject: dso
+    });
+    return reloadedObject;
+  }
+
 }

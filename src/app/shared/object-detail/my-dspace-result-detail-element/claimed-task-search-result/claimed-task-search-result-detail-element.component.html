@@ -6,5 +6,5 @@
                           [status]="status">
   </ds-item-detail-preview>
 
-  <ds-claimed-task-actions *ngIf="workflowitem" [object]="dso"></ds-claimed-task-actions>
+  <ds-claimed-task-actions *ngIf="workflowitem" [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-claimed-task-actions>
 </ng-container>

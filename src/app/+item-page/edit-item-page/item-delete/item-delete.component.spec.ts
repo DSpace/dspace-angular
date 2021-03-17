@@ -183,7 +183,7 @@ describe('ItemDeleteComponent', () => {
   describe('notify', () => {
     it('should navigate to the item edit page on failed deletion of the item', () => {
       comp.notify(false);
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('fake-id')]);
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
     });
   });
 });

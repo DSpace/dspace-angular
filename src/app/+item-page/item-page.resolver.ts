@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
@@ -9,6 +9,9 @@ import { FindListOptions } from '../core/data/request.models';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Store } from '@ngrx/store';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
+import { map } from 'rxjs/operators';
+import { hasValue } from '../shared/empty.util';
+import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -31,7 +34,8 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
 export class ItemPageResolver implements Resolve<RemoteData<Item>> {
   constructor(
     private itemService: ItemDataService,
-    private store: Store<any>
+    private store: Store<any>,
+    private router: Router
   ) {
   }
 
@@ -49,6 +53,18 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
       ...ITEM_PAGE_LINKS_TO_FOLLOW
     ).pipe(
       getFirstCompletedRemoteData(),
+      map((rd: RemoteData<Item>) => {
+        if (rd.hasSucceeded && hasValue(rd.payload)) {
+          const itemRoute = getItemPageRoute(rd.payload);
+          const thisRoute = state.url;
+          if (!thisRoute.startsWith(itemRoute)) {
+            const itemId = rd.payload.uuid;
+            const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
+            this.router.navigateByUrl(itemRoute + subRoute);
+          }
+        }
+        return rd;
+      })
     );
 
     itemRD$.subscribe((itemRD: RemoteData<Item>) => {

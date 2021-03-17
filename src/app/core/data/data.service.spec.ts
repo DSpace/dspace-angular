@@ -193,10 +193,32 @@ describe('DataService', () => {
       });
     });
 
+    it('should include single linksToFollow as embed and its size', () => {
+      const expected = `${endpoint}?embed.size=bundles=5&embed=bundles`;
+      const config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 5
+      });
+      (service as any).getFindAllHref({}, null, followLink('bundles', config,  true, true, true)).subscribe((value) => {
+        expect(value).toBe(expected);
+      });
+    });
+
     it('should include multiple linksToFollow as embed', () => {
       const expected = `${endpoint}?embed=bundles&embed=owningCollection&embed=templateItemOf`;
 
       (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf')).subscribe((value) => {
+        expect(value).toBe(expected);
+      });
+    });
+
+    it('should include multiple linksToFollow as embed and its sizes if given', () => {
+      const expected = `${endpoint}?embed=bundles&embed.size=owningCollection=2&embed=owningCollection&embed=templateItemOf`;
+
+      const config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 2
+      });
+
+      (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection', config, true, true, true), followLink('templateItemOf')).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -213,6 +235,16 @@ describe('DataService', () => {
       const expected = `${endpoint}?embed=owningCollection/itemtemplate/relationships`;
 
       (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', undefined, true, true, true, followLink('relationships')))).subscribe((value) => {
+        expect(value).toBe(expected);
+      });
+    });
+
+    it('should include nested linksToFollow 2lvl and nested embed\'s size', () => {
+      const expected = `${endpoint}?embed.size=owningCollection/itemtemplate=4&embed=owningCollection/itemtemplate`;
+      const config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 4
+      });
+      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', config, true, true, true))).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });

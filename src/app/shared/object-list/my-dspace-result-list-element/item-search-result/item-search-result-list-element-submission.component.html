@@ -2,4 +2,4 @@
                       [object]="object"
                       [status]="status"></ds-item-list-preview>
 
-<ds-item-actions [object]="dso"></ds-item-actions>
+<ds-item-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-item-actions>
