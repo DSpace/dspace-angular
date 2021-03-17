@@ -3,7 +3,7 @@
 :root {
   --ds-banner-text-background: rgba(0, 0, 0, 0.35);
   --ds-banner-background-gradient-width: 300px;
-  --ds-home-news-link-color: $green;
+  --ds-home-news-link-color: #{$green};
   --ds-home-news-link-hover-color: #{darken($green, 15%)};
 }
 

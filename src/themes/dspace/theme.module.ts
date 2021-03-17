@@ -28,6 +28,7 @@ import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { TranslateModule } from '@ngx-translate/core';
+import { HomeNewsComponent } from './app/+home-page/home-news/home-news.component';
 import { HomePageModule } from '../../app/+home-page/home-page.module';
 import { AppModule } from '../../app/app.module';
 import { ItemPageModule } from '../../app/+item-page/item-page.module';
@@ -42,6 +43,7 @@ import { MyDSpacePageModule } from '../../app/+my-dspace-page/my-dspace-page.mod
 import { NavbarComponent } from './app/navbar/navbar.component';
 
 const DECLARATIONS = [
+  HomeNewsComponent,
   NavbarComponent
 ];
 
