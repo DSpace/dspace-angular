@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 
+/**
+ * Themed wrapper for PageNotFoundComponent
+ */
 @Component({
   selector: 'ds-themed-search-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
 })
-/**
- * This component represents the whole search page
- * It renders search results depending on the current search options
- */
 export class ThemedPageNotFoundComponent extends ThemedComponent<PageNotFoundComponent> {
 
   protected getComponentName(): string {

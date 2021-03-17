@@ -3,8 +3,7 @@ import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { CommunityListPageComponent } from './community-list-page.component';
 
 /**
- * Page with title and the community list tree, as described in community-list.component;
- * navigated to with community-list.page.routing.module
+ * Themed wrapper for CommunityListPageComponent
  */
 @Component({
   selector: 'ds-themed-community-list-page',

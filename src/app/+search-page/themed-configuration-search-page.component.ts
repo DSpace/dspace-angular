@@ -4,15 +4,14 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
 import { Observable } from 'rxjs';
 import { Context } from '../core/shared/context.model';
 
+/**
+ * Themed wrapper for ConfigurationSearchPageComponent
+ */
 @Component({
   selector: 'ds-themed-configuration-search-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
 })
-
-/**
- * Component to render the news section on the home page
- */
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
   /**
    * The configuration to use for the search options

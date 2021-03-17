@@ -3,14 +3,14 @@ import { Component } from '@angular/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 
+/**
+ * Themed wrapper for BrowseBySwitcherComponent
+ */
 @Component({
   selector: 'ds-themed-browse-by-switcher',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html'
 })
-/**
- * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided
- */
 export class ThemedBrowseBySwitcherComponent extends ThemedComponent<BrowseBySwitcherComponent> {
   protected getComponentName(): string {
     return 'BrowseBySwitcherComponent';
