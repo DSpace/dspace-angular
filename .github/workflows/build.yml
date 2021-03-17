@@ -80,6 +80,9 @@ jobs:
           docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
           docker container ls
 
+      - name: Check DSpace REST Backend available (for e2e tests)
+        run: curl http://localhost:8080/server/api
+
       - name: Run e2e tests (integration tests)
         run: yarn run e2e:ci
 
