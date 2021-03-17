@@ -1,13 +1,20 @@
+// DSpace works with CSS variables for its own components, and has a mapping of all bootstrap Sass
+// variables to CSS equivalents (see src/styles/_bootstrap_variables_mapping.scss). However Bootstrap
+// still uses Sass variables internally. So if you want to override bootstrap (or other sass
+// variables) you can do so here. Their CSS counterparts will include the changes you make here
+
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
 
 $font-family-sans-serif: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-$gray-100: #e8ebf3 !default; // #eee
+$gray-100: #e8ebf3 !default;
+$gray-400: #ced4da !default;
 $gray-800: #444444 !default; // #444
 
 $navbar-dark-color: #FFFFFF;
 
 /* Reassign color vars to semantic color scheme */
 $blue: #43515f !default;
+//$green: #92C642 !default;
 $green: #92C642 !default;
 $cyan: #2e80a3 !default;
 $yellow: #ec9433 !default;
@@ -16,4 +23,8 @@ $dark: #43515f !default;
 
 $body-color: $gray-800 !default;
 
+$table-accent-bg:             $gray-100 !default;
+$table-hover-bg:              $gray-400 !default;
+
 $yiq-contrasted-threshold:  170 !default;
+
