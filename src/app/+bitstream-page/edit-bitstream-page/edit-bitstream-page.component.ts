@@ -33,9 +33,8 @@ import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
+import { getEntityEditRoute, getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -264,8 +263,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The ID of the item the bitstream originates from
    * Taken from the current query parameters when present
+   * This will determine the route of the item edit page to return to
    */
   itemId: string;
+
+  /**
+   * The entity type of the item the bitstream originates from
+   * Taken from the current query parameters when present
+   * This will determine the route of the item edit page to return to
+   */
+  entityType: string;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -293,6 +300,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.formGroup = this.formService.createFormGroup(this.formModel);
 
     this.itemId = this.route.snapshot.queryParams.itemId;
+    this.entityType = this.route.snapshot.queryParams.entityType;
     this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
     this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
@@ -499,10 +507,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   navigateToItemEditBitstreams() {
     if (hasValue(this.itemId)) {
-      this.router.navigate([getItemEditRoute(this.itemId), 'bitstreams']);
+      this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
     } else {
       this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
-          mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload(), map((item: Item) => item.uuid))))
+          mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload())))
           .subscribe((item) => {
             this.router.navigate(([getItemEditRoute(item), 'bitstreams']));
           });

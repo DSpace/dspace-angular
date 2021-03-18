@@ -7,10 +7,11 @@ import {
   of as observableOf,
   Subscription,
   BehaviorSubject,
-  combineLatest as observableCombineLatest, ObservedValueOf,
+  combineLatest as observableCombineLatest,
+  ObservedValueOf,
 } from 'rxjs';
 import { map, mergeMap, switchMap, take } from 'rxjs/operators';
-import {buildPaginatedList, PaginatedList} from '../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -18,12 +19,13 @@ import { EPerson } from '../../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../../core/eperson/models/group.model';
 import {
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload
+  getFirstCompletedRemoteData,
+  getAllCompletedRemoteData, getRemoteDataPayload
 } from '../../../../../core/shared/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
-import {EpersonDtoModel} from '../../../../../core/eperson/models/eperson-dto.model';
+import { EpersonDtoModel } from '../../../../../core/eperson/models/eperson-dto.model';
 
 /**
  * Keys to keep track of specific subscriptions

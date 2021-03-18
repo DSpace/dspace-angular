@@ -18,6 +18,7 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { NoContent } from '../shared/NoContent.model';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 export abstract class ComColDataService<T extends Community | Collection> extends DataService<T> {
   protected abstract cds: CommunityDataService;
@@ -66,11 +67,11 @@ export abstract class ComColDataService<T extends Community | Collection> extend
 
   protected abstract getFindByParentHref(parentUUID: string): Observable<string>;
 
-  public findByParent(parentUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+  public findByParent(parentUUID: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     const href$ = this.getFindByParentHref(parentUUID).pipe(
       map((href: string) => this.buildHrefFromFindOptions(href, options))
     );
-    return this.findAllByHref(href$);
+    return this.findAllByHref(href$, options, true, true, ...linksToFollow);
   }
 
   /**

@@ -74,9 +74,9 @@ describe('AbstractSimpleItemActionComponent', () => {
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject({
+        dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
           id: 'fake-id'
-        })
+        }))
       })
     };
 
@@ -136,14 +136,14 @@ describe('AbstractSimpleItemActionComponent', () => {
     comp.processRestResponse(successfulRemoteData);
 
     expect(notificationsServiceStub.success).toHaveBeenCalled();
-    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem.id)]);
+    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
   });
 
   it('should process a RemoteData to navigate and display success notification', () => {
     comp.processRestResponse(failedRemoteData);
 
     expect(notificationsServiceStub.error).toHaveBeenCalled();
-    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem.id)]);
+    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
   });
 
 });

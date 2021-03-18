@@ -26,7 +26,7 @@
             </span>
           </td>
           <td><span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])">{{item.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</span></td>
-          <td><a [routerLink]="['/items', item.id]">{{item.firstMetadataValue("dc.title")}}</a></td>
+          <td><a [routerLink]="[(itemPageRoutes$ | async)[item.id]]">{{item.firstMetadataValue("dc.title")}}</a></td>
         </tr>
         </tbody>
       </table>

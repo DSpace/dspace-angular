@@ -10,6 +10,7 @@ import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-path
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-status',
@@ -49,6 +50,11 @@ export class ItemStatusComponent implements OnInit {
    * The keys of the actions (to loop over)
    */
   actionsKeys;
+
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute$: Observable<string>;
 
   constructor(private route: ActivatedRoute,
               private authorizationService: AuthorizationDataService) {
@@ -109,15 +115,10 @@ export class ItemStatusComponent implements OnInit {
         });
       }
     });
-
-  }
-
-  /**
-   * Get the url to the simple item page
-   * @returns {string}  url
-   */
-  getItemPage(item: Item): string {
-    return getItemPageRoute(item.id);
+    this.itemPageRoute$ = this.itemRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((item) => getItemPageRoute(item))
+    );
   }
 
   /**
@@ -125,7 +126,7 @@ export class ItemStatusComponent implements OnInit {
    * @returns {string}  url
    */
   getCurrentUrl(item: Item): string {
-    return getItemEditRoute(item.id);
+    return getItemEditRoute(item);
   }
 
   trackOperation(index: number, operation: ItemOperation) {

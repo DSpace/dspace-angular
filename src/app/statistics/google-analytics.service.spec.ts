@@ -1,8 +1,11 @@
 import { GoogleAnalyticsService } from './google-analytics.service';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
-import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import {createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../shared/remote-data.utils';
-import {ConfigurationProperty} from '../core/shared/configuration-property.model';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../shared/remote-data.utils';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 describe('GoogleAnalyticsService', () => {
   const trackingIdProp = 'google.analytics.key';

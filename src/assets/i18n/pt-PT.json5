@@ -29,13 +29,13 @@
   
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "La page que vous recherchez n'a pas pu être localisée. Cette page pourrait avoir été déplacée ou supprimée. Vous pouvez utiliser le bouton ci-dessous pour revenir sur la page d'accueil.",
+  "404.help": "Não pudemos encontrar a página pela qual procura. A página pode ter sido movida ou apagada. Você pode utilizar o botão abaixo para voltar a página inicial. ",
   
   // "404.link.home-page": "Take me to the home page",
-  "404.link.home-page": "Retour sur la page d'accueil",
+  "404.link.home-page": "Leve-me a página inicial",
   
   // "404.page-not-found": "page not found",
-  "404.page-not-found": "Page introuvable",
+  "404.page-not-found": "página não encontrada",
   
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   // TODO New key - Add a translation
@@ -58,37 +58,37 @@
   "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  "admin.registries.bitstream-formats.create.failure.content": "Une erreur s'est produite lors de l'ajout du nouveau format Bitstream.",
+  "admin.registries.bitstream-formats.create.failure.content": "Um erro ocorreu durante a criação do novo formato de bitstream.",
   
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  "admin.registries.bitstream-formats.create.failure.head": "Erreur",
+  "admin.registries.bitstream-formats.create.failure.head": "Falha",
   
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  "admin.registries.bitstream-formats.create.head": "Ajouter un format Bistream",
+  "admin.registries.bitstream-formats.create.head": "Criar formato de Bitstream",
   
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  "admin.registries.bitstream-formats.create.new": "Ajouter un format Bitstream",
+  "admin.registries.bitstream-formats.create.new": "Adicionar um novo formato de bitstream",
   
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  "admin.registries.bitstream-formats.create.success.content": "Le nouveau format Bitstream a été ajouté avec succès.",
+  "admin.registries.bitstream-formats.create.success.content": "O novo formato de bitstream foi criado com sucesso.",
   
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  "admin.registries.bitstream-formats.create.success.head": "Succès",
+  "admin.registries.bitstream-formats.create.success.head": "Sucesso",
   
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.failure.amount": "La suppression de {{ amount }} format(s) a échoué",
+  "admin.registries.bitstream-formats.delete.failure.amount": "Falha ao remover {{ amount }} formato(s)",
   
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  "admin.registries.bitstream-formats.delete.failure.head": "Échec",
+  "admin.registries.bitstream-formats.delete.failure.head": "Falha",
   
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} format(s) ajouté(s) avec succès",
+  "admin.registries.bitstream-formats.delete.success.amount": "Removeu {{ amount }} formato(s) com sucesso",
   
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  "admin.registries.bitstream-formats.delete.success.head": "Succès",
+  "admin.registries.bitstream-formats.delete.success.head": "Sucesso",
   
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  "admin.registries.bitstream-formats.description": "Cette liste des formats Bitstream contient les informations relatives aux formats connus et leur niveau de support.",
+  "admin.registries.bitstream-formats.description": "Esta lista de formatos de bitstream provê informações sobre formatos conhecidos e seus níveis de suporte.",
   
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
   // TODO New key - Add a translation
@@ -98,96 +98,95 @@
   "admin.registries.bitstream-formats.edit.description.hint": "",
   
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
-  "admin.registries.bitstream-formats.edit.description.label": "Description",
+  "admin.registries.bitstream-formats.edit.description.label": "Descrição",
   
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Les extensions de fichier sont utilisées pour identifier le format des fichiers téléchargés. Plusieurs extensions peuvent être encodées pour chaque format.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões são extensões de arquivo que são usadas para identificar automaticamente o formato dos arquivo enviados. Você pode informar várias extensões para cada formato.",
   
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  "admin.registries.bitstream-formats.edit.extensions.label": "Extensions de fichier",
+  "admin.registries.bitstream-formats.edit.extensions.label": "Extensões de arquivo",
   
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
   // TODO Source message changed - Revise the translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Veuillez entrer l'extension de fichier sans point",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Informe uma extenção e arquivo sem o ponto",
   
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  "admin.registries.bitstream-formats.edit.failure.content": "Une erreur s'est produite lors de l'édition du format Bitstream.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de bitstream.",
   
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  "admin.registries.bitstream-formats.edit.failure.head": "Échec",
+  "admin.registries.bitstream-formats.edit.failure.head": "Falha",
   
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  "admin.registries.bitstream-formats.edit.head": "Format Bitstream: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
   
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  // TODO Source message changed - Revise the translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Les formats identifiés en tant que formats internes sont cachés pour l'utilisateur et utilisés uniquement à des fins administratives.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como interno são ocultos para o usuário, e utilizados por motivos administrativos.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  "admin.registries.bitstream-formats.edit.internal.label": "Interne",
+  "admin.registries.bitstream-formats.edit.internal.label": "Interno",
   
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "Le type MIME associé avec ce format ne doit pas nécessairement être unique.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "O MIME type associado à este formato não tem que ser único.",
   
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-  "admin.registries.bitstream-formats.edit.mimetype.label": "Type MIME",
+  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Nom unique pour ce format (p. ex. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Um nome único para este formato (exemplo. Microsoft Word XP ou Microsoft Word 2000)",
   
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Nom",
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "Nome",
   
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "Le format Bitstream a été édité avec succès.",
+  "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editedo com sucesso.",
   
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  "admin.registries.bitstream-formats.edit.success.head": "Succès",
+  "admin.registries.bitstream-formats.edit.success.head": "Sucesso",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Le niveau de support auquel votre institution souscrit pour ce format.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "O nível de suporte que a sua instituição promete para este formato.",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Niveau de support",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "Nível de suporte",
   
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Registre des formats Bitstream",
+  "admin.registries.bitstream-formats.head": "Registro de Formato de Bitstream",
   
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  "admin.registries.bitstream-formats.no-items": "Aucun format Bitstream disponible.",
+  "admin.registries.bitstream-formats.no-items": "Nenhum formato de bitstream para exibir.",
   
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
-  "admin.registries.bitstream-formats.table.delete": "Supprimer les éléments sélectionnés",
+  "admin.registries.bitstream-formats.table.delete": "Apagar selecionado(s)",
   
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  "admin.registries.bitstream-formats.table.deselect-all": "Désélectionner tout",
+  "admin.registries.bitstream-formats.table.deselect-all": "Desselecionar todos",
   
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  "admin.registries.bitstream-formats.table.internal": "interne",
+  "admin.registries.bitstream-formats.table.internal": "Interno",
   
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
-  "admin.registries.bitstream-formats.table.mimetype": "Type MIME",
+  "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   
   // "admin.registries.bitstream-formats.table.name": "Name",
-  "admin.registries.bitstream-formats.table.name": "Nom",
+  "admin.registries.bitstream-formats.table.name": "Nome",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
-  "admin.registries.bitstream-formats.table.return": "Retour",
+  "admin.registries.bitstream-formats.table.return": "Voltar",
   
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Connu",
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Conhecido",
   
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supporté",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Com suporte",
   
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Inconnu",
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Desconhecido",
   
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Niveau de support",
+  "admin.registries.bitstream-formats.table.supportLevel.head": "Nível de Suporte",
   
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registre des formats Bitstream",
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registro de Formato de Bitstream",
   
   
   
@@ -196,40 +195,40 @@
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "Le registre de métadonnées présente une liste à jour de tous les champs de métadonnées disponibles dans le dépôt. Ces champs peuvent être répartis entre plusieurs schémas. Le schéma Dublin Core qualifié est toutefois requis dans DSpace.",
+  "admin.registries.metadata.description": "O registro de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podêm ser divididos em multiplos esquemas. Entretanto, o DSpace requer esquemas de Dublin Core qualificados.",
   
   // "admin.registries.metadata.form.create": "Create metadata schema",
-  "admin.registries.metadata.form.create": "Ajouter un schéma de métadonnées",
+  "admin.registries.metadata.form.create": "Criar esquema de metadados",
   
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
-  "admin.registries.metadata.form.edit": "Éditer un schéma de métadonnées",
+  "admin.registries.metadata.form.edit": "Editar esquema de metadados",
   
   // "admin.registries.metadata.form.name": "Name",
-  "admin.registries.metadata.form.name": "Nom",
+  "admin.registries.metadata.form.name": "Nome",
   
   // "admin.registries.metadata.form.namespace": "Namespace",
-  "admin.registries.metadata.form.namespace": "Espace de nommage",
+  "admin.registries.metadata.form.namespace": "Namespace",
   
   // "admin.registries.metadata.head": "Metadata Registry",
-  "admin.registries.metadata.head": "Registre de métadonnées",
+  "admin.registries.metadata.head": "Registro de Metadados",
   
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items": "Aucun schéma de métadonnées disponible.",
+  "admin.registries.metadata.schemas.no-items": "Nenhum esquema de metadados a mostrar.",
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  "admin.registries.metadata.schemas.table.delete": "Supprimer les éléments sélectionnés",
+  "admin.registries.metadata.schemas.table.delete": "Apagar selecionado(s)",
   
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
   
   // "admin.registries.metadata.schemas.table.name": "Name",
-  "admin.registries.metadata.schemas.table.name": "Nom",
+  "admin.registries.metadata.schemas.table.name": "Nome",
   
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
-  "admin.registries.metadata.schemas.table.namespace": "Espace de nommage",
+  "admin.registries.metadata.schemas.table.namespace": "Namespace",
   
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Registre de métadonnées",
+  "admin.registries.metadata.title": "DSpace Angular :: Registro de Metadados",
   
   
   
@@ -238,76 +237,76 @@
   "admin.registries.schema.breadcrumbs": "Metadata schema",
   
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  "admin.registries.schema.description": "Ceci est le schéma de métadonnées correspondant à l'espace de nommage « {{namespace}} ».",
+  "admin.registries.schema.description": "Este é o esquema de metadados para \"{{namespace}}\".",
   
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  "admin.registries.schema.fields.head": "Champs de métadonnées du schéma",
+  "admin.registries.schema.fields.head": "Campos do esquema de metadados",
   
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  "admin.registries.schema.fields.no-items": "Aucun champ de métadonnée disponible.",
+  "admin.registries.schema.fields.no-items": "Nenhum campo de metadado a exibir.",
   
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  "admin.registries.schema.fields.table.delete": "Supprimer les éléments sélectionnés",
+  "admin.registries.schema.fields.table.delete": "Apagar selecionado(s)",
   
   // "admin.registries.schema.fields.table.field": "Field",
-  "admin.registries.schema.fields.table.field": "Champ",
+  "admin.registries.schema.fields.table.field": "Campo",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  "admin.registries.schema.fields.table.scopenote": "Note d'application",
+  "admin.registries.schema.fields.table.scopenote": "Nota de escopo",
   
   // "admin.registries.schema.form.create": "Create metadata field",
-  "admin.registries.schema.form.create": "Ajouter un champ de métadonnées",
+  "admin.registries.schema.form.create": "Criar campo de metadado",
   
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  "admin.registries.schema.form.edit": "Modifier champ de métadonnées",
+  "admin.registries.schema.form.edit": "Editar campo de metadado",
   
   // "admin.registries.schema.form.element": "Element",
-  "admin.registries.schema.form.element": "Élément",
+  "admin.registries.schema.form.element": "Elemento",
   
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  "admin.registries.schema.form.qualifier": "Qualificatif",
+  "admin.registries.schema.form.qualifier": "Qualificador",
   
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  "admin.registries.schema.form.scopenote": "Note d'application",
+  "admin.registries.schema.form.scopenote": "Nota de Escopo",
   
   // "admin.registries.schema.head": "Metadata Schema",
-  "admin.registries.schema.head": "Schéma de métadonnées",
+  "admin.registries.schema.head": "Esquema de Metadados",
   
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.created": "Schéma de métadonnées « {{prefix}} » créé avec succès",
+  "admin.registries.schema.notification.created": "Criou o esquema de metadados \"{{prefix}}\" com sucesso",
   
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.failure": "Erreur lors de la suppression de {{amount}} schéma(s) de métadonnées",
+  "admin.registries.schema.notification.deleted.failure": "Falhou ao apagar {{amount}} esquema(s) de metadados",
   
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.success": "{{amount}} schéma(s) de métadonnées supprimé(s) avec succès",
+  "admin.registries.schema.notification.deleted.success": "Apagou {{amount}} esquema(s) de metadados com sucesso",
   
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "Schéma de métadonnées « {{prefix}} » édité avec succès",
+  "admin.registries.schema.notification.edited": "Editou o esquema de metadados \"{{prefix}}\" com sucesso",
   
   // "admin.registries.schema.notification.failure": "Error",
-  "admin.registries.schema.notification.failure": "Erreur",
+  "admin.registries.schema.notification.failure": "Erro",
   
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "Champ de métadonnée « {{field}} » créé avec succès",
+  "admin.registries.schema.notification.field.created": "Criou o campo de medado \"{{field}}\" com sucesso",
   
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.failure": "Erreur lors de la suppression de {{amount}} champ(s) de métadonnées",
+  "admin.registries.schema.notification.field.deleted.failure": "Falhou ao apagar {{amount}} campo(s) de metadados",
   
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.success": "{{amount}} champ(s) de métadonnées supprimé(s) avec succès",
+  "admin.registries.schema.notification.field.deleted.success": "Apagou {{amount}} campo(s) de metadados com sucesso",
   
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "Champ de métadonnée « {{field}} » édité avec succès",
+  "admin.registries.schema.notification.field.edited": "Editou o campo de metadodo \"{{field}}\" com sucesso",
   
   // "admin.registries.schema.notification.success": "Success",
-  "admin.registries.schema.notification.success": "Succès",
+  "admin.registries.schema.notification.success": "Sucesso",
   
   // "admin.registries.schema.return": "Return",
-  "admin.registries.schema.return": "Retour",
+  "admin.registries.schema.return": "Voltar",
   
   // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Registre des schémas de métadonnées",
+  "admin.registries.schema.title": "DSpace Angular :: Registro de Esquema de Metadados",
   
   
   
@@ -340,8 +339,7 @@
   "admin.access-control.epeople.search.head": "Search",
   
   // "admin.access-control.epeople.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "Pesquisar Todos",
   
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   // TODO New key - Add a translation
@@ -364,8 +362,7 @@
   "admin.access-control.epeople.table.id": "ID",
   
   // "admin.access-control.epeople.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "Nome",
   
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
   // TODO New key - Add a translation
@@ -460,8 +457,7 @@
   "admin.access-control.epeople.form.table.id": "ID",
   
   // "admin.access-control.epeople.form.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "Nome",
   
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   // TODO New key - Add a translation
@@ -494,16 +490,13 @@
   "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
   
   // "admin.access-control.groups.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Grupos",
   
   // "admin.access-control.groups.button.add": "Add group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "Adicionar grupo",
   
   // "admin.access-control.groups.search.head": "Search groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "Pesquisar grupos",
   
   // "admin.access-control.groups.button.see-all": "Browse all",
   // TODO New key - Add a translation
@@ -518,16 +511,14 @@
   "admin.access-control.groups.table.id": "ID",
   
   // "admin.access-control.groups.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "Nome",
   
   // "admin.access-control.groups.table.members": "Members",
   // TODO New key - Add a translation
   "admin.access-control.groups.table.members": "Members",
   
   // "admin.access-control.groups.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "Editar",
   
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
@@ -564,20 +555,16 @@
   "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
   
   // "admin.access-control.groups.form.head.create": "Create group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "Criar grupo",
   
   // "admin.access-control.groups.form.head.edit": "Edit group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "Editar grupo",
   
   // "admin.access-control.groups.form.groupName": "Group name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "Nome do grupo",
   
   // "admin.access-control.groups.form.groupDescription": "Description",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupDescription": "Description",
+  "admin.access-control.groups.form.groupDescription": "Descrição",
   
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
   // TODO New key - Add a translation
@@ -668,20 +655,17 @@
   "admin.access-control.groups.form.members-list.table.id": "ID",
   
   // "admin.access-control.groups.form.members-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.name": "Name",
+  "admin.access-control.groups.form.members-list.table.name": "Nome",
   
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
   // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
   
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remover o membro com nome \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Membro adicionado com sucesso: \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
   // TODO New key - Add a translation
@@ -716,8 +700,7 @@
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+  "admin.access-control.groups.form.subgroups-list.head": "Grupos",
   
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
   // TODO New key - Add a translation
@@ -740,12 +723,10 @@
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+  "admin.access-control.groups.form.subgroups-list.table.name": "Nome",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "Remover / Adicionar",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
   // TODO New key - Add a translation
@@ -756,8 +737,7 @@
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
+  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Grupo atual",
   
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
   // TODO New key - Add a translation
@@ -792,8 +772,7 @@
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
   
   // "admin.access-control.groups.form.return": "Return to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.return": "Return to groups",
+  "admin.access-control.groups.form.return": "Retornar aos grupos",
   
   
   
@@ -802,32 +781,26 @@
   "admin.search.breadcrumbs": "Administrative Search",
   
   // "admin.search.collection.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.collection.edit": "Edit",
+  "admin.search.collection.edit": "Editar",
   
   // "admin.search.community.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.community.edit": "Edit",
+  "admin.search.community.edit": "Editar",
   
   // "admin.search.item.delete": "Delete",
   // TODO New key - Add a translation
   "admin.search.item.delete": "Delete",
   
   // "admin.search.item.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.item.edit": "Edit",
+  "admin.search.item.edit": "Editar",
   
   // "admin.search.item.make-private": "Make Private",
-  // TODO New key - Add a translation
-  "admin.search.item.make-private": "Make Private",
+  "admin.search.item.make-private": "Tornar Privado",
   
   // "admin.search.item.make-public": "Make Public",
-  // TODO New key - Add a translation
-  "admin.search.item.make-public": "Make Public",
+  "admin.search.item.make-public": "Tornar Público",
   
   // "admin.search.item.move": "Move",
-  // TODO New key - Add a translation
-  "admin.search.item.move": "Move",
+  "admin.search.item.move": "Mover",
   
   // "admin.search.item.reinstate": "Reinstate",
   // TODO New key - Add a translation
@@ -838,8 +811,7 @@
   "admin.search.item.withdraw": "Withdraw",
   
   // "admin.search.title": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.title": "Administrative Search",
+  "admin.search.title": "Pesquisa Administrativa",
   
   // "administrativeView.search.results.head": "Administrative Search",
   // TODO New key - Add a translation
@@ -910,10 +882,10 @@
   
   
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  "auth.errors.invalid-user": "Adresse e-mail ou mot de passe non valide.",
+  "auth.errors.invalid-user": "Endereço de email ou senha inválidos.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "Votre session a expiré. Veuillez vous reconnecter.",
+  "auth.messages.expired": "Sua sessão expirou. Por favor entre novamente.",
   
   
   
@@ -926,8 +898,7 @@
   "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
   
   // "bitstream.edit.form.description.label": "Description",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.label": "Description",
+  "bitstream.edit.form.description.label": "Descrição",
   
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
   // TODO New key - Add a translation
@@ -942,12 +913,10 @@
   "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
   
   // "bitstream.edit.form.fileName.label": "Filename",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.label": "Filename",
+  "bitstream.edit.form.fileName.label": "Nome do arquivo",
   
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "Descreva o novo formato",
   
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
   // TODO New key - Add a translation
@@ -962,8 +931,7 @@
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
   
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+  "bitstream.edit.form.selectedFormat.label": "Formato Selecionado",
   
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
   // TODO New key - Add a translation
@@ -988,156 +956,152 @@
   
   
   // "browse.comcol.by.author": "By Author",
-  "browse.comcol.by.author": "Auteur",
+  "browse.comcol.by.author": "Por Autor",
   
   // "browse.comcol.by.dateissued": "By Issue Date",
-  "browse.comcol.by.dateissued": "Date de publication",
+  "browse.comcol.by.dateissued": "Por Data de Publicação",
   
   // "browse.comcol.by.subject": "By Subject",
-  "browse.comcol.by.subject": "Sujet",
+  "browse.comcol.by.subject": "Por Assunto",
   
   // "browse.comcol.by.title": "By Title",
-  "browse.comcol.by.title": "Titre",
+  "browse.comcol.by.title": "Por Título",
   
   // "browse.comcol.head": "Browse",
-  "browse.comcol.head": "Parcourir par",
+  "browse.comcol.head": "Navegar",
   
   // "browse.empty": "No items to show.",
-  "browse.empty": "Aucun résultat.",
+  "browse.empty": "Sem itens a exibir.",
   
   // "browse.metadata.author": "Author",
-  "browse.metadata.author": "Auteur",
+  "browse.metadata.author": "Autor",
   
   // "browse.metadata.dateissued": "Issue Date",
-  "browse.metadata.dateissued": "Date de publication",
+  "browse.metadata.dateissued": "Data de Publicação",
   
   // "browse.metadata.subject": "Subject",
-  "browse.metadata.subject": "Sujet",
+  "browse.metadata.subject": "Assunto",
   
   // "browse.metadata.title": "Title",
-  "browse.metadata.title": "Titre",
+  "browse.metadata.title": "Título",
   
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author.breadcrumbs": "Browse by Author",
+  "browse.metadata.author.breadcrumbs": "Pesquisar por Autor",
   
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+  "browse.metadata.dateissued.breadcrumbs": "Pesquisar por Data",
   
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+  "browse.metadata.subject.breadcrumbs": "Pesquisar por Assunto",
   
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title.breadcrumbs": "Browse by Title",
+  "browse.metadata.title.breadcrumbs": "Pesquisar por Título",
   
   // "browse.startsWith.choose_start": "(Choose start)",
-  "browse.startsWith.choose_start": "(Choisir point de départ)",
+  "browse.startsWith.choose_start": "(Escolha o início)",
   
   // "browse.startsWith.choose_year": "(Choose year)",
-  "browse.startsWith.choose_year": "(Choisir l'année)",
+  "browse.startsWith.choose_year": "(Escolha o ano)",
   
   // "browse.startsWith.jump": "Jump to a point in the index:",
-  "browse.startsWith.jump": "Aller directement à une entrée de l'index :",
+  "browse.startsWith.jump": "Pular para um ponto do índice:",
   
   // "browse.startsWith.months.april": "April",
-  "browse.startsWith.months.april": "Avril",
+  "browse.startsWith.months.april": "Abril",
   
   // "browse.startsWith.months.august": "August",
-  "browse.startsWith.months.august": "Août",
+  "browse.startsWith.months.august": "Agosto",
   
   // "browse.startsWith.months.december": "December",
-  "browse.startsWith.months.december": "Décembre",
+  "browse.startsWith.months.december": "Dezembro",
   
   // "browse.startsWith.months.february": "February",
-  "browse.startsWith.months.february": "Février",
+  "browse.startsWith.months.february": "Fevereiro",
   
   // "browse.startsWith.months.january": "January",
-  "browse.startsWith.months.january": "Janvier",
+  "browse.startsWith.months.january": "Janeiro",
   
   // "browse.startsWith.months.july": "July",
-  "browse.startsWith.months.july": "Juillet",
+  "browse.startsWith.months.july": "Julho",
   
   // "browse.startsWith.months.june": "June",
-  "browse.startsWith.months.june": "Juin",
+  "browse.startsWith.months.june": "Junho",
   
   // "browse.startsWith.months.march": "March",
-  "browse.startsWith.months.march": "Mars",
+  "browse.startsWith.months.march": "Março",
   
   // "browse.startsWith.months.may": "May",
-  "browse.startsWith.months.may": "Mai",
+  "browse.startsWith.months.may": "Maio",
   
   // "browse.startsWith.months.none": "(Choose month)",
-  "browse.startsWith.months.none": "(Choisir le mois)",
+  "browse.startsWith.months.none": "(escolha o mês)",
   
   // "browse.startsWith.months.november": "November",
-  "browse.startsWith.months.november": "Novembre",
+  "browse.startsWith.months.november": "Novembro",
   
   // "browse.startsWith.months.october": "October",
-  "browse.startsWith.months.october": "Octobre",
+  "browse.startsWith.months.october": "Outubro",
   
   // "browse.startsWith.months.september": "September",
-  "browse.startsWith.months.september": "Septembre",
+  "browse.startsWith.months.september": "Setembro",
   
   // "browse.startsWith.submit": "Go",
-  "browse.startsWith.submit": "Valider",
+  "browse.startsWith.submit": "Ir",
   
   // "browse.startsWith.type_date": "Or type in a date (year-month):",
-  "browse.startsWith.type_date": "Ou saisir une date (année-mois) :",
+  "browse.startsWith.type_date": "Ou informe uma data (ano-mês):",
   
   // "browse.startsWith.type_text": "Or enter first few letters:",
-  "browse.startsWith.type_text": "Ou saisir les premières lettres :",
+  "browse.startsWith.type_text": "Ou informe as primeiras letras:",
   
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Parcourir {{ collection }} par {{ field }} {{ value }}",
+  "browse.title": "Navegando {{ collection }} por {{ field }} {{ value }}",
   
   
   // "chips.remove": "Remove chip",
-  "chips.remove": "Supprimer fragment",
+  "chips.remove": "Remover chip",
   
   
   
   // "collection.create.head": "Create a Collection",
-  "collection.create.head": "Créer une Collection",
+  "collection.create.head": "Criar uma coleção",
   
   // "collection.create.notifications.success": "Successfully created the Collection",
   // TODO New key - Add a translation
   "collection.create.notifications.success": "Successfully created the Collection",
   
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  "collection.create.sub-head": "Créer une Collection au sein de la Communauté {{ parent }}",
+  "collection.create.sub-head": "Criar uma Coleção na Comunidade {{ parent }}",
   
   // "collection.curate.header": "Curate Collection: {{collection}}",
   // TODO New key - Add a translation
   "collection.curate.header": "Curate Collection: {{collection}}",
   
   // "collection.delete.cancel": "Cancel",
-  "collection.delete.cancel": "Annuler",
+  "collection.delete.cancel": "Cancelar",
   
   // "collection.delete.confirm": "Confirm",
-  "collection.delete.confirm": "Valider",
+  "collection.delete.confirm": "Confirmar",
   
   // "collection.delete.head": "Delete Collection",
-  "collection.delete.head": "Supprimer Collection",
+  "collection.delete.head": "Apagar Coleção",
   
   // "collection.delete.notification.fail": "Collection could not be deleted",
-  "collection.delete.notification.fail": "La Collection n'a pas pu être supprimée",
+  "collection.delete.notification.fail": "Coleção não pôde ser apagada",
   
   // "collection.delete.notification.success": "Successfully deleted collection",
-  "collection.delete.notification.success": "Collection supprimée avec succès",
+  "collection.delete.notification.success": "Apagou a coleção com sucesso",
   
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  "collection.delete.text": "Êtes-vous certain de vouloir supprimer la Collection « {{ dso }} »",
+  "collection.delete.text": "Você tem certeza que deseja apagar a coleção \"{{ dso }}?\"",
   
   
   
   // "collection.edit.delete": "Delete this collection",
-  "collection.edit.delete": "Supprimer cette Collection",
+  "collection.edit.delete": "Apagar esta coleção",
   
   // "collection.edit.head": "Edit Collection",
-  "collection.edit.head": "Éditer Collection",
+  "collection.edit.head": "Editar Coleção",
   
   // "collection.edit.breadcrumbs": "Edit Collection",
   // TODO New key - Add a translation
@@ -1154,55 +1118,55 @@
   "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
   
   // "collection.edit.item-mapper.cancel": "Cancel",
-  "collection.edit.item-mapper.cancel": "Annuler",
+  "collection.edit.item-mapper.cancel": "Cancelar",
   
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  "collection.edit.item-mapper.collection": "Collection : « <b>{{name}}</b> »",
+  "collection.edit.item-mapper.collection": "Coleção: \"<b>{{name}}</b>\"",
   
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  "collection.edit.item-mapper.confirm": "Associer les Items sélectionnés",
+  "collection.edit.item-mapper.confirm": "Mapear itens selecionados",
   
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  "collection.edit.item-mapper.description": "L'Item Mapper permet aux administrateurs de Collection d'associer des Items provenant d'autres Collections dans cette Collection. Vous pouvez rechercher des Items d'autres Collections et les associer, ou consulter la liste des Items actuellement associés.",
+  "collection.edit.item-mapper.description": "Esta é a ferramenta de mapeação de itens que permite administradores de coleções a mapear itens de outras coleções nesta. VoCẽ pode busca-los em outras coleções para mapeá-los, ou navegar na lista dos itens atualmente mapeados.",
   
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  "collection.edit.item-mapper.head": "Item Mapper - Associer des Items provenant d'autres Collections",
+  "collection.edit.item-mapper.head": "Mapeador de Itens - Mapear itens em Outras Coleções",
   
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  "collection.edit.item-mapper.no-search": "Veuillez entrer un élément à rechercher",
+  "collection.edit.item-mapper.no-search": "Por favor informe uma consulta para buscar",
   
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.error.content": "Des erreurs se sont produites lors de l'association de {{amount}} Item(s).",
+  "collection.edit.item-mapper.notifications.map.error.content": "Ocorreu erros ao mapear {{amount}} itens.",
   
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  "collection.edit.item-mapper.notifications.map.error.head": "Erreurs d'association",
+  "collection.edit.item-mapper.notifications.map.error.head": "Erros de mapeamento",
   
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} Item(s) associé(s) avec succès.",
+  "collection.edit.item-mapper.notifications.map.success.content": "Mapeou {{amount}} itens com sucesso.",
   
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  "collection.edit.item-mapper.notifications.map.success.head": "Association terminée",
+  "collection.edit.item-mapper.notifications.map.success.head": "Mapeamento completo",
   
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Des erreurs se sont produites lors de la suppression de l'association de {{amount}} Item(s).",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Ocorreram erros ao tentar remover os mapeamentos de {{amount}} item(ns).",
   
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Erreurs de suppression d'association",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Erros de remoção de mapeamento",
   
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.success.content": "{{amount}} association(s) supprimée(s) avec succès.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "Removeu os mapeamentps de {{amount}} item(ns) com sucesso.",
   
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Suppression d'association terminée",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Remoção de mapeamentos completa",
   
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  "collection.edit.item-mapper.remove": "Supprimer les associations sélectionnées",
+  "collection.edit.item-mapper.remove": "Remover mapeamentos selecionados",
   
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  "collection.edit.item-mapper.tabs.browse": "Parcourir les Items associés",
+  "collection.edit.item-mapper.tabs.browse": "Navegar por itens mapeados",
   
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  "collection.edit.item-mapper.tabs.map": "Associer nouveaux Items",
+  "collection.edit.item-mapper.tabs.map": "Mapear novos itens",
   
   
   
@@ -1219,8 +1183,7 @@
   "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
   
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "collection.edit.logo.notifications.delete.success.title": "Logo removido",
   
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
   // TODO New key - Add a translation
@@ -1263,8 +1226,7 @@
   "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
   
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.head": "Edit Metadata",
+  "collection.edit.tabs.metadata.head": "Editar Metadados",
   
   // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
   // TODO New key - Add a translation
@@ -1327,8 +1289,7 @@
   "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   
   // "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Alterações descartadas",
   
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   // TODO New key - Add a translation
@@ -1395,28 +1356,28 @@
   
   
   // "collection.form.abstract": "Short Description",
-  "collection.form.abstract": "Description succincte",
+  "collection.form.abstract": "Descrição curta",
   
   // "collection.form.description": "Introductory text (HTML)",
-  "collection.form.description": "Texte d'introduction (HTML)",
+  "collection.form.description": "Texto introdutório (HTML)",
   
   // "collection.form.errors.title.required": "Please enter a collection name",
-  "collection.form.errors.title.required": "Veuillez entrer un nom de Collection",
+  "collection.form.errors.title.required": "Por favor informe um nome de coleção",
   
   // "collection.form.license": "License",
-  "collection.form.license": "Licence",
+  "collection.form.license": "Licença",
   
   // "collection.form.provenance": "Provenance",
-  "collection.form.provenance": "Provenance",
+  "collection.form.provenance": "Proveniência",
   
   // "collection.form.rights": "Copyright text (HTML)",
-  "collection.form.rights": "Texte de copyright (HTML)",
+  "collection.form.rights": "Texto de direito de cópia (HTML)",
   
   // "collection.form.tableofcontents": "News (HTML)",
-  "collection.form.tableofcontents": "Nouvelles (HTML)",
+  "collection.form.tableofcontents": "Notícias (HTML)",
   
   // "collection.form.title": "Name",
-  "collection.form.title": "Nom",
+  "collection.form.title": "Nome",
   
   
   
@@ -1427,34 +1388,34 @@
   
   
   // "collection.page.browse.recent.head": "Recent Submissions",
-  "collection.page.browse.recent.head": "Dépôts récents",
+  "collection.page.browse.recent.head": "Submissões Recentes",
   
   // "collection.page.browse.recent.empty": "No items to show",
-  "collection.page.browse.recent.empty": "Aucun dépôt disponible",
+  "collection.page.browse.recent.empty": "Nenhum item a exibir",
   
   // "collection.page.edit": "Edit this collection",
   // TODO New key - Add a translation
   "collection.page.edit": "Edit this collection",
   
   // "collection.page.handle": "Permanent URI for this collection",
-  "collection.page.handle": "URI permanent de cette Collection",
+  "collection.page.handle": "URI Permanente para esta coleção",
   
   // "collection.page.license": "License",
-  "collection.page.license": "Licence",
+  "collection.page.license": "Licença",
   
   // "collection.page.news": "News",
-  "collection.page.news": "Nouvelles",
+  "collection.page.news": "Notícias",
   
   
   
   // "collection.select.confirm": "Confirm selected",
-  "collection.select.confirm": "Confirmer sélection",
+  "collection.select.confirm": "Confirmar seleção",
   
   // "collection.select.empty": "No collections to show",
-  "collection.select.empty": "Aucune Collection disponible",
+  "collection.select.empty": "Nenhuma coleção a mostrar",
   
   // "collection.select.table.title": "Title",
-  "collection.select.table.title": "Titre",
+  "collection.select.table.title": "Título",
   
   
   
@@ -1463,8 +1424,7 @@
   "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.title": "Server Error",
+  "collection.source.update.notifications.error.title": "Erro no Servidor",
   
   
   
@@ -1473,61 +1433,57 @@
   "communityList.tabTitle": "DSpace - Community List",
   
   // "communityList.title": "List of Communities",
-  // TODO New key - Add a translation
-  "communityList.title": "List of Communities",
+  "communityList.title": "Lista de Comunidades",
   
   // "communityList.showMore": "Show More",
-  // TODO New key - Add a translation
-  "communityList.showMore": "Show More",
+  "communityList.showMore": "Mostrar Mais",
   
   
   
   // "community.create.head": "Create a Community",
-  "community.create.head": "Créer une Communauté",
+  "community.create.head": "Criar uma comunidade",
   
   // "community.create.notifications.success": "Successfully created the Community",
   // TODO New key - Add a translation
   "community.create.notifications.success": "Successfully created the Community",
   
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Créer une Sous-Communauté pour la Communauté {{ parent }}",
+  "community.create.sub-head": "Criar uma Sub-Comunidade para Comunidade {{ parent }}",
   
   // "community.curate.header": "Curate Community: {{community}}",
   // TODO New key - Add a translation
   "community.curate.header": "Curate Community: {{community}}",
   
   // "community.delete.cancel": "Cancel",
-  "community.delete.cancel": "Annuler",
+  "community.delete.cancel": "Cancelar",
   
   // "community.delete.confirm": "Confirm",
-  "community.delete.confirm": "Confirmer",
+  "community.delete.confirm": "Confirmar",
   
   // "community.delete.head": "Delete Community",
-  "community.delete.head": "Supprimer Communauté",
+  "community.delete.head": "Apagar Comunidade",
   
   // "community.delete.notification.fail": "Community could not be deleted",
-  "community.delete.notification.fail": "La Communauté n'a pas pu être supprimée",
+  "community.delete.notification.fail": "Comunidade não pôde ser apagada",
   
   // "community.delete.notification.success": "Successfully deleted community",
-  "community.delete.notification.success": "La Communauté a été supprimée avec succès",
+  "community.delete.notification.success": "Comunidade apagada com sucesso",
   
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Êtes-vous sûr(e) de vouloir supprimer la Communauté « {{ dso }} »",
+  "community.delete.text": "Você tem certeza que quer apagar a comunidade \"{{ dso }}\"?",
   
   // "community.edit.delete": "Delete this community",
-  "community.edit.delete": "Supprimer cette Communauté",
+  "community.edit.delete": "Apagar esta comunidade",
   
   // "community.edit.head": "Edit Community",
-  "community.edit.head": "Éditer Communauté",
+  "community.edit.head": "Editar Comunidade",
   
   // "community.edit.breadcrumbs": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.breadcrumbs": "Edit Community",
+  "community.edit.breadcrumbs": "Editar Comunidade",
   
   
   // "community.edit.logo.label": "Community logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.label": "Community logo",
+  "community.edit.logo.label": "Logo da Comunidade",
   
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
   // TODO New key - Add a translation
@@ -1712,44 +1668,44 @@
   
   
   // "community.form.abstract": "Short Description",
-  "community.form.abstract": "Description succincte",
+  "community.form.abstract": "Descrição curta",
   
   // "community.form.description": "Introductory text (HTML)",
-  "community.form.description": "Texte d'introduction (HTML)",
+  "community.form.description": "Texto introdutório (HTML)",
   
   // "community.form.errors.title.required": "Please enter a community name",
-  "community.form.errors.title.required": "Veuillez entrer un nom de Communauté",
+  "community.form.errors.title.required": "Por favor informe um nome para comunidade",
   
   // "community.form.rights": "Copyright text (HTML)",
-  "community.form.rights": "Texte de copyright (HTML)",
+  "community.form.rights": "Texto de direito de cópia (HTML)",
   
   // "community.form.tableofcontents": "News (HTML)",
-  "community.form.tableofcontents": "Nouvelles (HTML)",
+  "community.form.tableofcontents": "Notícias (HTML)",
   
   // "community.form.title": "Name",
-  "community.form.title": "Nom",
+  "community.form.title": "Nome",
   
   // "community.page.edit": "Edit this community",
   // TODO New key - Add a translation
   "community.page.edit": "Edit this community",
   
   // "community.page.handle": "Permanent URI for this community",
-  "community.page.handle": "URI permanent de cette Communauté",
+  "community.page.handle": "URI Permanente desta comunidade",
   
   // "community.page.license": "License",
-  "community.page.license": "Licence",
+  "community.page.license": "Licença",
   
   // "community.page.news": "News",
-  "community.page.news": "Nouvelles",
+  "community.page.news": "Notícias",
   
   // "community.all-lists.head": "Subcommunities and Collections",
-  "community.all-lists.head": "Sous-Communautés et Collections",
+  "community.all-lists.head": "Sub-Comunidade e Coleções",
   
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "Collections au sein de cette Communauté",
+  "community.sub-collection-list.head": "Coleções desta Comunidade",
   
   // "community.sub-community-list.head": "Communities of this Community",
-  "community.sub-community-list.head": "Sous-Communautés au sein de cette Communauté",
+  "community.sub-community-list.head": "Comunidades desta Comunidade",
   
   
   
@@ -1928,23 +1884,23 @@
   
   
   // "dso-selector.create.collection.head": "New collection",
-  "dso-selector.create.collection.head": "Nouvelle Collection",
+  "dso-selector.create.collection.head": "Nova coleção",
   
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
   // TODO New key - Add a translation
   "dso-selector.create.collection.sub-level": "Create a new collection in",
   
   // "dso-selector.create.community.head": "New community",
-  "dso-selector.create.community.head": "Nouvelle Communauté",
+  "dso-selector.create.community.head": "Nova comunidade",
   
   // "dso-selector.create.community.sub-level": "Create a new community in",
-  "dso-selector.create.community.sub-level": "Créer une nouvelle Communauté dans",
+  "dso-selector.create.community.sub-level": "Criar uma nova coleção em",
   
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  "dso-selector.create.community.top-level": "Créer une nouvelle Communauté de 1er niveau",
+  "dso-selector.create.community.top-level": "Criar uma nova comunidade no nível superior",
   
   // "dso-selector.create.item.head": "New item",
-  "dso-selector.create.item.head": "Nouvel Item",
+  "dso-selector.create.item.head": "Novo item",
   
   // "dso-selector.create.item.sub-level": "Create a new item in",
   // TODO New key - Add a translation
@@ -1955,23 +1911,23 @@
   "dso-selector.create.submission.head": "New submission",
   
   // "dso-selector.edit.collection.head": "Edit collection",
-  "dso-selector.edit.collection.head": "Éditer Collection",
+  "dso-selector.edit.collection.head": "Editar coleção",
   
   // "dso-selector.edit.community.head": "Edit community",
-  "dso-selector.edit.community.head": "Éditer Communauté",
+  "dso-selector.edit.community.head": "Editar comunidade",
   
   // "dso-selector.edit.item.head": "Edit item",
-  "dso-selector.edit.item.head": "Éditer Item",
+  "dso-selector.edit.item.head": "Editar item",
   
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
   // TODO New key - Add a translation
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
   
   // "dso-selector.no-results": "No {{ type }} found",
-  "dso-selector.no-results": "Aucun {{ type }} trouvé",
+  "dso-selector.no-results": "Nenhum(a) {{ type }} encontrado(a)",
   
   // "dso-selector.placeholder": "Search for a {{ type }}",
-  "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
+  "dso-selector.placeholder": "Buscar por um(a) {{ type }}",
   
   
   
@@ -2013,55 +1969,55 @@
   "error.bitstream": "Error fetching bitstream",
   
   // "error.browse-by": "Error fetching items",
-  "error.browse-by": "Erreur lors de la récupération des Items",
+  "error.browse-by": "Erro ao carregar itens",
   
   // "error.collection": "Error fetching collection",
-  "error.collection": "Erreur lors de la récupération de la Collection",
+  "error.collection": "Erro ao carregar coleção",
   
   // "error.collections": "Error fetching collections",
-  "error.collections": "Erreur lors de la récupération des Collections",
+  "error.collections": "Erro ao carregar coleções",
   
   // "error.community": "Error fetching community",
-  "error.community": "Erreur lors de la récupération de la Communauté",
+  "error.community": "Erro ao carregar comunidade",
   
   // "error.identifier": "No item found for the identifier",
-  "error.identifier": "Aucun objet correspondant à cet identifiant",
+  "error.identifier": "Nenhum item encontrado para o identificador",
   
   // "error.default": "Error",
-  "error.default": "Erreur",
+  "error.default": "Erro",
   
   // "error.item": "Error fetching item",
-  "error.item": "Erreur lors de la récupération de l'Item",
+  "error.item": "Erro ao carregar item",
   
   // "error.items": "Error fetching items",
-  "error.items": "Erreur lors de la récupération des Items",
+  "error.items": "Erro ao carregar itens",
   
   // "error.objects": "Error fetching objects",
-  "error.objects": "Erreur lors de la récupération des Objets",
+  "error.objects": "Erro ao carregar objetos",
   
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions": "Erreur lors de la récupération des dépôts récents",
+  "error.recent-submissions": "Erro ao carregar as submissões recentes",
   
   // "error.search-results": "Error fetching search results",
-  "error.search-results": "Erreur lors de la récupération des résultats de recherche",
+  "error.search-results": "Erro ao carregar os resultados de busca",
   
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections": "Erreur lors de la récupération des Sous-Collections",
+  "error.sub-collections": "Erro ao carregar sub-coleções",
   
   // "error.sub-communities": "Error fetching sub-communities",
-  "error.sub-communities": "Erreur lors de la récupération des Sous-Communautés",
+  "error.sub-communities": "Erro ao carregar sub-comunidade",
   
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  "error.submission.sections.init-form-error": "Une erreur s'est produite dans la section d'initialisation, veuillez vérifier la configuration de votre formulaire de dépôt. Plus de détails disponibles ci-dessous : <br> <br>",
+  "error.submission.sections.init-form-error": "Ocorreu um erro durante a seção de inicialização, por favor verifique sua configuração de input-form. Detalhes estão abaixo : <br> <br>",
   
   // "error.top-level-communities": "Error fetching top-level communities",
-  "error.top-level-communities": "Erreur lors de la récupération des Communautés de 1er niveau",
+  "error.top-level-communities": "Erro ao carregar as comunidade de nível superior",
   
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Vous devez accepter cette licence pour terminer votre dépôt. Si vous êtes dans l'incapacité d'accepter cette licence actuellement, vous pouvez sauvegarder votre dépôt et y revenir ultérieurement ou le supprimer.",
+  "error.validation.license.notgranted": "Você deve concordar com esta licença para completar sua submissão. Se vocẽ não estiver de acordo com esta licença neste momento você pode salvar seu trabalho para continuar depois ou remover a submissão.",
   
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  "error.validation.pattern": "Cette entrée est invalide en vertu du pattern : {{ pattern }}.",
+  "error.validation.pattern": "Este campo está restrito ao seguinte padrão: {{ pattern }}.",
   
   // "error.validation.filerequired": "The file upload is mandatory",
   // TODO New key - Add a translation
@@ -2076,7 +2032,6 @@
   
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
-  // TODO New key - Add a translation
   "footer.copyright": "copyright © 2002-{{ year }}",
   
   // "footer.link.dspace": "DSpace software",
@@ -2216,40 +2171,40 @@
   "form.add-help": "Click here to add the current entry and to add another one",
   
   // "form.cancel": "Cancel",
-  "form.cancel": "Annuler",
+  "form.cancel": "Cancelar",
   
   // "form.clear": "Clear",
-  "form.clear": "Effacer",
+  "form.clear": "Limpar",
   
   // "form.clear-help": "Click here to remove the selected value",
-  "form.clear-help": "Cliquer ici pour supprimer la valeur sélectionnée",
+  "form.clear-help": "Clique aqui para apagar o valor selecionado",
   
   // "form.edit": "Edit",
-  "form.edit": "Éditer",
+  "form.edit": "Editar",
   
   // "form.edit-help": "Click here to edit the selected value",
-  "form.edit-help": "Cliquer ici pour éditer la valeur sélectionnée",
+  "form.edit-help": "Clique aqui para editar o valor selecionado",
   
   // "form.first-name": "First name",
-  "form.first-name": "Prénom",
+  "form.first-name": "Primeiro nome",
   
   // "form.group-collapse": "Collapse",
-  "form.group-collapse": "Réduire",
+  "form.group-collapse": "Esconder",
   
   // "form.group-collapse-help": "Click here to collapse",
-  "form.group-collapse-help": "Cliquer ici pour réduire",
+  "form.group-collapse-help": "Clique aqui para esconder",
   
   // "form.group-expand": "Expand",
-  "form.group-expand": "Développer",
+  "form.group-expand": "Expandir",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  "form.group-expand-help": "Cliquer ici pour développer et ajouter davantage d'éléments",
+  "form.group-expand-help": "Clique aqui para expandir e adicionar mais elementos",
   
   // "form.last-name": "Last name",
-  "form.last-name": "Nom",
+  "form.last-name": "Último nome",
   
   // "form.loading": "Loading...",
-  "form.loading": "En cours de chargement...",
+  "form.loading": "Carregando...",
   
   // "form.lookup": "Lookup",
   // TODO New key - Add a translation
@@ -2260,36 +2215,37 @@
   "form.lookup-help": "Click here to look up an existing relation",
   
   // "form.no-results": "No results found",
-  "form.no-results": "Aucun résultat disponible",
+  "form.no-results": "Nenhum resultado encontrado",
   
   // "form.no-value": "No value entered",
-  "form.no-value": "Aucune valeur entrée",
+  "form.no-value": "Nenhum valor informado",
   
   // "form.other-information": {},
   "form.other-information": {},
   
   // "form.remove": "Remove",
-  "form.remove": "Supprimer",
+  "form.remove": "Apagar",
   
   // "form.save": "Save",
-  "form.save": "Sauvegarder",
+  "form.save": "Salvar",
   
   // "form.save-help": "Save changes",
-  "form.save-help": "Sauvegarder changements",
+  "form.save-help": "Salvar alterações",
   
   // "form.search": "Search",
-  "form.search": "Rechercher",
+  "form.search": "Buscar",
   
   // "form.search-help": "Click here to look for an existing correspondence",
   // TODO Source message changed - Revise the translation
-  "form.search-help": "Cliquer ici pour rechercher une correspondance existante",
+  "form.search-help": "Clique aqui para procurar por uma correspondência existente",
   
   // "form.submit": "Submit",
-  "form.submit": "Déposer",
+  "form.submit": "Submeter",
   
   
   
   // "home.description": "",
+  // TODO New key - Add a translation
   "home.description": "",
   
   // "home.breadcrumbs": "Home",
@@ -2297,13 +2253,13 @@
   "home.breadcrumbs": "Home",
   
   // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Home",
+  "home.title": "DSpace Angular :: Início",
   
   // "home.top-level-communities.head": "Communities in DSpace",
-  "home.top-level-communities.head": "Communautés DSpace",
+  "home.top-level-communities.head": "Comunidades no DSpace",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  "home.top-level-communities.help": "Sélectionner une Communauté pour parcourir les Collections sous-jacentes.",
+  "home.top-level-communities.help": "Selecione uma comunidade para navegar por suas coleções",
   
   
   
@@ -2552,25 +2508,25 @@
   
   
   // "item.edit.delete.cancel": "Cancel",
-  "item.edit.delete.cancel": "Annuler",
+  "item.edit.delete.cancel": "Cancelar",
   
   // "item.edit.delete.confirm": "Delete",
-  "item.edit.delete.confirm": "Supprimer",
+  "item.edit.delete.confirm": "Apagar",
   
   // "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
-  "item.edit.delete.description": "Êtes-vous certain de vouloir complètement supprimer cet Item ? Attention, il n'y aura pas de retour en arrière possible.",
+  "item.edit.delete.description": "Você tem certeza que deseja apagar completamento este item? Atenção: No momento, nenhum vestígio restará.",
   
   // "item.edit.delete.error": "An error occurred while deleting the item",
-  "item.edit.delete.error": "Une erreur s'est produite lors de la suppression de l'Item",
+  "item.edit.delete.error": "Ocorreu um erro ao apagar o item",
   
   // "item.edit.delete.header": "Delete item: {{ id }}",
-  "item.edit.delete.header": "Supprimer Item : {{ id }}",
+  "item.edit.delete.header": "Apagar item: {{ id }}",
   
   // "item.edit.delete.success": "The item has been deleted",
-  "item.edit.delete.success": "L'Item a été supprimé",
+  "item.edit.delete.success": "O item foi apagado",
   
   // "item.edit.head": "Edit Item",
-  "item.edit.head": "Éditer Item",
+  "item.edit.head": "Editar Item",
   
   // "item.edit.breadcrumbs": "Edit Item",
   // TODO New key - Add a translation
@@ -2586,283 +2542,281 @@
   "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
   
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  "item.edit.item-mapper.buttons.add": "Associer Item aux Collections sélectionnées",
+  "item.edit.item-mapper.buttons.add": "Mapear item na(s) coleção(ões) seleciona(s)",
   
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  "item.edit.item-mapper.buttons.remove": "Supprimer l'association d'Item pour les Collections sélectionnées",
+  "item.edit.item-mapper.buttons.remove": "Remover mapeamento(s) do item da(s) coleção(ões) seleciona(s)",
   
   // "item.edit.item-mapper.cancel": "Cancel",
-  "item.edit.item-mapper.cancel": "Annuler",
+  "item.edit.item-mapper.cancel": "Cancelar",
   
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  "item.edit.item-mapper.description": "L'Item Mapper permet aux administrateurs de Collection d'associer des Items avec d'autres Collections. Vous pouvez rechercher des Collections et les associer ou parcourir la liste des Collections auxquelles l'Item est actuellement associé.",
+  "item.edit.item-mapper.description": "Essa é a ferramenta de mapeamento de itens que permite que os administradores mapeiem esse item para outras coleções. Você pode procurar coleções e mapeá-las ou navegar na lista de coleções para as quais o item está atualmente mapeado.",
   
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head": "Item Mapper - Associer Item avec Collections",
+  "item.edit.item-mapper.head": "Mapeador de Item - Mapear Itens em Coleções",
   
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  "item.edit.item-mapper.item": "Item : « <b>{{name}}</b> »",
+  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
   
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  "item.edit.item-mapper.no-search": "Veuillez entrer un élément à rechercher",
+  "item.edit.item-mapper.no-search": "Por favor informe uma consulta para buscar",
   
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.error.content": "Des erreurs se sont produites à l'association de l'Item avec {{amount}} Collections.",
+  "item.edit.item-mapper.notifications.add.error.content": "Ocorreram erros ao mapear o item em {{amount}} coleções.",
   
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
-  "item.edit.item-mapper.notifications.add.error.head": "Erreurs d'association",
+  "item.edit.item-mapper.notifications.add.error.head": "Erros de mapeamento",
   
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.success.content": "Item associé avec succès avec {{amount}} Collections.",
+  "item.edit.item-mapper.notifications.add.success.content": "Mapeou o item em {{amount}} coleções com sucesso.",
   
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  "item.edit.item-mapper.notifications.add.success.head": "Association terminée",
+  "item.edit.item-mapper.notifications.add.success.head": "Mapeamento complesto",
   
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.error.content": "Des erreurs se sont produites à la suppression de l'association de {{amount}} Collections.",
+  "item.edit.item-mapper.notifications.remove.error.content": "Ocorreram erros ao remover mapeamento do item em {{amount}} coleções.",
   
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  "item.edit.item-mapper.notifications.remove.error.head": "Erreurs à la suppression d'association",
+  "item.edit.item-mapper.notifications.remove.error.head": "Erros de remoção de mapeamento",
   
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.success.content": "Association de l'item avec {{amount}} Collections supprimée avec succès.",
+  "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
   
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  "item.edit.item-mapper.notifications.remove.success.head": "Suppression d'association terminée",
+  "item.edit.item-mapper.notifications.remove.success.head": "Completou a remoção de mapeamento",
   
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
-  "item.edit.item-mapper.tabs.browse": "Parcourir Collections associées",
+  "item.edit.item-mapper.tabs.browse": "Navegar nas coleções mapeadas",
   
   // "item.edit.item-mapper.tabs.map": "Map new collections",
-  "item.edit.item-mapper.tabs.map": "Associer nouvelles Collections",
+  "item.edit.item-mapper.tabs.map": "Mapear novas coleções",
   
   
   
   // "item.edit.metadata.add-button": "Add",
-  "item.edit.metadata.add-button": "Ajouter",
+  "item.edit.metadata.add-button": "Adicionar",
   
   // "item.edit.metadata.discard-button": "Discard",
-  "item.edit.metadata.discard-button": "Annuler",
+  "item.edit.metadata.discard-button": "Descartar",
   
   // "item.edit.metadata.edit.buttons.edit": "Edit",
-  "item.edit.metadata.edit.buttons.edit": "Éditer",
+  "item.edit.metadata.edit.buttons.edit": "Editar",
   
   // "item.edit.metadata.edit.buttons.remove": "Remove",
-  "item.edit.metadata.edit.buttons.remove": "Supprimer",
+  "item.edit.metadata.edit.buttons.remove": "Apagar",
   
   // "item.edit.metadata.edit.buttons.undo": "Undo changes",
-  "item.edit.metadata.edit.buttons.undo": "Annuler changements",
+  "item.edit.metadata.edit.buttons.undo": "Desfazer alterações",
   
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
-  "item.edit.metadata.edit.buttons.unedit": "Stopper l'édition",
+  "item.edit.metadata.edit.buttons.unedit": "Parar edição",
   
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   // TODO New key - Add a translation
   "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   
   // "item.edit.metadata.headers.edit": "Edit",
-  "item.edit.metadata.headers.edit": "Éditer",
+  "item.edit.metadata.headers.edit": "Editar",
   
   // "item.edit.metadata.headers.field": "Field",
-  "item.edit.metadata.headers.field": "Champ",
+  "item.edit.metadata.headers.field": "Campo",
   
   // "item.edit.metadata.headers.language": "Lang",
-  "item.edit.metadata.headers.language": "Langue",
+  "item.edit.metadata.headers.language": "Idioma",
   
   // "item.edit.metadata.headers.value": "Value",
-  "item.edit.metadata.headers.value": "Valeur",
+  "item.edit.metadata.headers.value": "Valor",
   
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  "item.edit.metadata.metadatafield.invalid": "Veuillez choisir un champ de métadonnée valide",
+  "item.edit.metadata.metadatafield.invalid": "Por favor escolha um campo de metadados válido",
   
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.metadata.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Rétablir'",
+  "item.edit.metadata.notifications.discarded.content": "Suas alterações foram descartadas. Para restabelecer suas alterações, clique no botão 'Desfazer'",
   
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
-  "item.edit.metadata.notifications.discarded.title": "Changements annulés",
+  "item.edit.metadata.notifications.discarded.title": "Mudança descartada",
   
   // "item.edit.metadata.notifications.error.title": "An error occurred",
   // TODO New key - Add a translation
   "item.edit.metadata.notifications.error.title": "An error occurred",
   
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "item.edit.metadata.notifications.invalid.content": "Vos changements n'ont pas été sauvegardés. Veuillez vérifier que tous les champs sont valides avant de sauvegarder.",
+  "item.edit.metadata.notifications.invalid.content": "Suas alterações não foram salvas. Verifique se todos os campos são válidos antes de salvar.",
   
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  "item.edit.metadata.notifications.invalid.title": "Métadonnée invalide",
+  "item.edit.metadata.notifications.invalid.title": "Metadado inválido",
   
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.metadata.notifications.outdated.content": "L'Item sur lequel vous êtes en train de travailler a été édité par un autre utilisateur. Vos changements en cours sont ignorés pour éviter des conflits",
+  "item.edit.metadata.notifications.outdated.content": "O item em que você está trabalhando foi alterado por outro usuário. Suas alterações atuais são descartadas para evitar conflitos",
   
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
-  "item.edit.metadata.notifications.outdated.title": "Changements obsolètes",
+  "item.edit.metadata.notifications.outdated.title": "Alteração desatualizada",
   
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  "item.edit.metadata.notifications.saved.content": "Vos modifications de métadonnées n'ont pas été sauvegardées.",
+  "item.edit.metadata.notifications.saved.content": "Suas alterações nos metadados deste item foram salvas.",
   
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
-  "item.edit.metadata.notifications.saved.title": "Métadonnée sauvegardée",
+  "item.edit.metadata.notifications.saved.title": "Metadados salvos",
   
   // "item.edit.metadata.reinstate-button": "Undo",
-  "item.edit.metadata.reinstate-button": "Rétablir",
+  "item.edit.metadata.reinstate-button": "Desfazer",
   
   // "item.edit.metadata.save-button": "Save",
-  "item.edit.metadata.save-button": "Sauvegarder",
+  "item.edit.metadata.save-button": "Salvar",
   
   
   
   // "item.edit.modify.overview.field": "Field",
-  "item.edit.modify.overview.field": "Champ",
+  "item.edit.modify.overview.field": "Campo",
   
   // "item.edit.modify.overview.language": "Language",
-  "item.edit.modify.overview.language": "Langue",
+  "item.edit.modify.overview.language": "Idioma",
   
   // "item.edit.modify.overview.value": "Value",
-  "item.edit.modify.overview.value": "Valeur",
+  "item.edit.modify.overview.value": "Valor",
   
   
   
   // "item.edit.move.cancel": "Cancel",
-  "item.edit.move.cancel": "Annuler",
+  "item.edit.move.cancel": "Cancelar",
   
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  "item.edit.move.description": "Sélectionner la Collection dans laquelle vous souhaitez transférer l'Item. Pour limiter la liste de Collections affichées, vous pouvez utiliser le champ de recherche.",
+  "item.edit.move.description": "Selecione a coleção para a qual você deseja mover este item. Para restringir a lista de coleções exibidas, você pode inserir uma consulta de pesquisa na caixa.",
   
   // "item.edit.move.error": "An error occurred when attempting to move the item",
-  // TODO Source message changed - Revise the translation
-  "item.edit.move.error": "Une erreur s'est produite lors du transfert de l'Item",
+  "item.edit.move.error": "Ocorreu um erro ao tentar mover o item",
   
   // "item.edit.move.head": "Move item: {{id}}",
-  "item.edit.move.head": "Transférer item : {{id}}",
+  "item.edit.move.head": "Mover item: {{id}}",
   
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
-  "item.edit.move.inheritpolicies.checkbox": "Récupérer règles",
+  "item.edit.move.inheritpolicies.checkbox": "Herdar politicas",
   
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
-  "item.edit.move.inheritpolicies.description": "Récupérer les règles par défaut de la Collection de destination",
+  "item.edit.move.inheritpolicies.description": "Herdar as politicas padrões da coleção destino",
   
   // "item.edit.move.move": "Move",
-  "item.edit.move.move": "Transférer",
+  "item.edit.move.move": "Mover",
   
   // "item.edit.move.processing": "Moving...",
-  "item.edit.move.processing": "En cours de transfert...",
+  "item.edit.move.processing": "Movendo...",
   
   // "item.edit.move.search.placeholder": "Enter a search query to look for collections",
-  "item.edit.move.search.placeholder": "Rechercher Collection",
+  "item.edit.move.search.placeholder": "Insira uma consulta para procurar coleções",
   
   // "item.edit.move.success": "The item has been moved successfully",
-  // TODO Source message changed - Revise the translation
-  "item.edit.move.success": "L'Item a été transféré avec succès",
+  "item.edit.move.success": "O item foi movido com sucesso",
   
   // "item.edit.move.title": "Move item",
-  "item.edit.move.title": "Transférer item",
+  "item.edit.move.title": "Mover item",
   
   
   
   // "item.edit.private.cancel": "Cancel",
-  "item.edit.private.cancel": "Annuler",
+  "item.edit.private.cancel": "Cancelar",
   
   // "item.edit.private.confirm": "Make it Private",
-  "item.edit.private.confirm": "Définir comme Privé",
+  "item.edit.private.confirm": "Tornar Privado",
   
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  "item.edit.private.description": "Êtes-vous certain de vouloir définir cet Item comme Privé ?",
+  "item.edit.private.description": "Tem certeza de que este item deve ser tornado privado no arquivo?",
   
   // "item.edit.private.error": "An error occurred while making the item private",
-  "item.edit.private.error": "Une erreur s'est produite lors de la définition de l'Item en tant qu'Item Privé",
+  "item.edit.private.error": "Ocorreu um erro ao tornar o item privado",
   
   // "item.edit.private.header": "Make item private: {{ id }}",
-  "item.edit.private.header": "Définir Item comme Privé : {{ id }}",
+  "item.edit.private.header": "Tornar privado o item: {{ id }}",
   
   // "item.edit.private.success": "The item is now private",
-  "item.edit.private.success": "L'Item est désormais Privé",
+  "item.edit.private.success": "O item agora é privado",
   
   
   
   // "item.edit.public.cancel": "Cancel",
-  "item.edit.public.cancel": "Annuler",
+  "item.edit.public.cancel": "Cancelar",
   
   // "item.edit.public.confirm": "Make it Public",
-  "item.edit.public.confirm": "Définir comme Public",
+  "item.edit.public.confirm": "Tornar público",
   
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  "item.edit.public.description": "Êtes-vous certain de vouloir définir cet Item comme Public ?",
+  "item.edit.public.description": "Você tem certeza que deseja tornar este item público no arquivo?",
   
   // "item.edit.public.error": "An error occurred while making the item public",
-  "item.edit.public.error": "Une erreur s'est produite lors e la définition de l'Item en tant qu'Item Public",
+  "item.edit.public.error": "Ocorreu um erro ao tornar o item público",
   
   // "item.edit.public.header": "Make item public: {{ id }}",
-  "item.edit.public.header": "Définir Item comme Public : {{ id }}",
+  "item.edit.public.header": "Tornar público o item: {{ id }}",
   
   // "item.edit.public.success": "The item is now public",
-  "item.edit.public.success": "L'Item est désormais Public",
+  "item.edit.public.success": "O item agora é público",
   
   
   
   // "item.edit.reinstate.cancel": "Cancel",
-  "item.edit.reinstate.cancel": "Annuler",
+  "item.edit.reinstate.cancel": "Cancelar",
   
   // "item.edit.reinstate.confirm": "Reinstate",
-  "item.edit.reinstate.confirm": "Réintégrer",
+  "item.edit.reinstate.confirm": "Restabelecer",
   
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  "item.edit.reinstate.description": "Êtes-vous certain de vouloir réintégrer cet Item ?",
+  "item.edit.reinstate.description": "Tem certeza de que este item deve ser restabelecido no arquivo?",
   
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  "item.edit.reinstate.error": "Une erreur s'est produite lors de la réintégration de l'Item",
+  "item.edit.reinstate.error": "Ocorreu um erro ao restabelecer o item",
   
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  "item.edit.reinstate.header": "Réintégrer Item : {{ id }}",
+  "item.edit.reinstate.header": "Restabelecer item: {{ id }}",
   
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  "item.edit.reinstate.success": "L'Item a été réintégré avec succès",
+  "item.edit.reinstate.success": "O item foi restabelecido com sucesso",
   
   
   
   // "item.edit.relationships.discard-button": "Discard",
-  "item.edit.relationships.discard-button": "Annuler",
+  "item.edit.relationships.discard-button": "Descartar",
   
   // "item.edit.relationships.edit.buttons.add": "Add",
   // TODO New key - Add a translation
   "item.edit.relationships.edit.buttons.add": "Add",
   
   // "item.edit.relationships.edit.buttons.remove": "Remove",
-  "item.edit.relationships.edit.buttons.remove": "Supprimer",
+  "item.edit.relationships.edit.buttons.remove": "Apagar",
   
   // "item.edit.relationships.edit.buttons.undo": "Undo changes",
-  "item.edit.relationships.edit.buttons.undo": "Annuler changements",
+  "item.edit.relationships.edit.buttons.undo": "Desfazer alterações",
   
   // "item.edit.relationships.no-relationships": "No relationships",
   // TODO New key - Add a translation
   "item.edit.relationships.no-relationships": "No relationships",
   
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.relationships.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Rétablir'",
+  "item.edit.relationships.notifications.discarded.content": "Suas alterações foram descartadas. Para restabelecer suas alterações, clique no botão 'Desfazer'",
   
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
-  "item.edit.relationships.notifications.discarded.title": "Changements annulés",
+  "item.edit.relationships.notifications.discarded.title": "Alterações descartadas",
   
   // "item.edit.relationships.notifications.failed.title": "Error editing relationships",
   // TODO Source message changed - Revise the translation
-  "item.edit.relationships.notifications.failed.title": "Erreur lors de la suppression de la Relation",
+  "item.edit.relationships.notifications.failed.title": "Erro ao apagar relacionamento",
   
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.relationships.notifications.outdated.content": "L'Item sur lequel vous êtes en train de travailler a été édité par un autre utilisateur. Vos changements en cours sont ignorés pour éviter des conflits.",
+  "item.edit.relationships.notifications.outdated.content": "O item em que você está trabalhando foi alterado por outro usuário. Suas alterações atuais são descartadas para evitar conflitos",
   
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
-  "item.edit.relationships.notifications.outdated.title": "Changements obsolètes",
+  "item.edit.relationships.notifications.outdated.title": "Alterações desatualizadas",
   
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  "item.edit.relationships.notifications.saved.content": "Vos changements aux Relations de l'Item ont été sauvegardés.",
+  "item.edit.relationships.notifications.saved.content": "Suas alterações nos relacionamentos deste item foram salvas.",
   
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
-  "item.edit.relationships.notifications.saved.title": "Relations sauvegardées",
+  "item.edit.relationships.notifications.saved.title": "Relacionamentos salvos",
   
   // "item.edit.relationships.reinstate-button": "Undo",
-  "item.edit.relationships.reinstate-button": "Rétablir",
+  "item.edit.relationships.reinstate-button": "Desfazer",
   
   // "item.edit.relationships.save-button": "Save",
-  "item.edit.relationships.save-button": "Sauvegarder",
+  "item.edit.relationships.save-button": "Salvar",
   
   // "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
   // TODO New key - Add a translation
@@ -2872,101 +2826,100 @@
   
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
   // TODO Source message changed - Revise the translation
-  "item.edit.tabs.bitstreams.head": "Bitstreams de l'Item",
+  "item.edit.tabs.bitstreams.head": "Bitstreams do Item",
   
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
-  "item.edit.tabs.bitstreams.title": "Édition Item - Bitstreams",
+  "item.edit.tabs.bitstreams.title": "Editar Item - Bitstreams",
   
   // "item.edit.tabs.curate.head": "Curate",
-  "item.edit.tabs.curate.head": "Gestion de contenu",
+  "item.edit.tabs.curate.head": "Curadoria",
   
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-  "item.edit.tabs.curate.title": "Édition Item - Gestion de contenu",
+  "item.edit.tabs.curate.title": "Editar Item - Curadoria",
   
   // "item.edit.tabs.metadata.head": "Metadata",
   // TODO Source message changed - Revise the translation
-  "item.edit.tabs.metadata.head": "Métadonnées de l'Item",
+  "item.edit.tabs.metadata.head": "Metadados do Item",
   
   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.metadata.title": "Édition Item - Métadonnées",
+  "item.edit.tabs.metadata.title": "Editar Item -  Metadados",
   
   // "item.edit.tabs.relationships.head": "Relationships",
   // TODO Source message changed - Revise the translation
-  "item.edit.tabs.relationships.head": "Relations de l'Item",
+  "item.edit.tabs.relationships.head": "Relacionamentos do Item",
   
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  "item.edit.tabs.relationships.title": "Édition Item - Relations",
+  "item.edit.tabs.relationships.title": "Editar Item - Relacionamentos",
   
   // "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
-  "item.edit.tabs.status.buttons.authorizations.button": "Accès...",
+  "item.edit.tabs.status.buttons.authorizations.button": "Autorizações...",
   
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  "item.edit.tabs.status.buttons.authorizations.label": "Éditer les règles d'accès de l'Item",
+  "item.edit.tabs.status.buttons.authorizations.label": "Editar politicas de autorizações de item",
   
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  "item.edit.tabs.status.buttons.delete.button": "Supprimer définitivement",
+  "item.edit.tabs.status.buttons.delete.button": "Apagar permanentemente",
   
   // "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
-  "item.edit.tabs.status.buttons.delete.label": "Supprimer l'Item définitivement",
+  "item.edit.tabs.status.buttons.delete.label": "Eliminar completamente o item",
   
   // "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
-  "item.edit.tabs.status.buttons.mappedCollections.button": "Collections associées",
+  "item.edit.tabs.status.buttons.mappedCollections.button": "Coleções mapeadas",
   
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
-  "item.edit.tabs.status.buttons.mappedCollections.label": "Gérer les Collections associées",
+  "item.edit.tabs.status.buttons.mappedCollections.label": "Gerenciar coleções mapeadas",
   
   // "item.edit.tabs.status.buttons.move.button": "Move...",
-  "item.edit.tabs.status.buttons.move.button": "Transférer...",
+  "item.edit.tabs.status.buttons.move.button": "Mover...",
   
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  "item.edit.tabs.status.buttons.move.label": "Transférer l'Item dans une autre Collection",
+  "item.edit.tabs.status.buttons.move.label": "Mover item para outra coleção",
   
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
-  "item.edit.tabs.status.buttons.private.button": "Définir comme privé...",
+  "item.edit.tabs.status.buttons.private.button": "Tornar privado o item...",
   
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
-  "item.edit.tabs.status.buttons.private.label": "Définir l'Item en tant qu'Item Privé",
+  "item.edit.tabs.status.buttons.private.label": "Tornar privado o item",
   
   // "item.edit.tabs.status.buttons.public.button": "Make it public...",
-  "item.edit.tabs.status.buttons.public.button": "Définir comme public...",
+  "item.edit.tabs.status.buttons.public.button": "Tornar público o item...",
   
   // "item.edit.tabs.status.buttons.public.label": "Make item public",
-  "item.edit.tabs.status.buttons.public.label": "Définir l'Item en tant qu'Item public",
+  "item.edit.tabs.status.buttons.public.label": "Tornar público o item",
   
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
-  "item.edit.tabs.status.buttons.reinstate.button": "Réintégrer...",
+  "item.edit.tabs.status.buttons.reinstate.button": "Restabelecer...",
   
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  "item.edit.tabs.status.buttons.reinstate.label": "Réintégrer l'Item",
+  "item.edit.tabs.status.buttons.reinstate.label": "Restabelecer item no repositório",
   
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  "item.edit.tabs.status.buttons.withdraw.button": "Retirer...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Retirar...",
   
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  "item.edit.tabs.status.buttons.withdraw.label": "Retirer l'Item",
+  "item.edit.tabs.status.buttons.withdraw.label": "Retirar item do repositório",
   
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  "item.edit.tabs.status.description": "Bienvenue sur la page de gestion de l'Item. D'ici, vous pouvez retirer, réintégrer, transférer ou supprimer l'Item. Dans les autres onglets, vous pouvez également mettre à jour, ajouter ou supprimer des métadonnées et/ou bitstreams.",
+  "item.edit.tabs.status.description": "Bem-vindo à página de gerenciamento de itens. A partir daqui, você pode retirar, restabelecer, mover ou apagar o item. Você também pode atualizar ou adicionar novos metadados / bitstream nas outras guias.",
   
   // "item.edit.tabs.status.head": "Status",
   // TODO Source message changed - Revise the translation
-  "item.edit.tabs.status.head": "Statut Item",
+  "item.edit.tabs.status.head": "Estado do Item",
   
   // "item.edit.tabs.status.labels.handle": "Handle",
   "item.edit.tabs.status.labels.handle": "Handle",
   
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
-  "item.edit.tabs.status.labels.id": "Identifiant interne de l'Item",
+  "item.edit.tabs.status.labels.id": "ID Interno do Item",
   
   // "item.edit.tabs.status.labels.itemPage": "Item Page",
-  "item.edit.tabs.status.labels.itemPage": "Page de l'Item",
+  "item.edit.tabs.status.labels.itemPage": "Página do Item",
   
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
-  "item.edit.tabs.status.labels.lastModified": "Date de dernière modification",
+  "item.edit.tabs.status.labels.lastModified": "Ultima alteração",
   
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  "item.edit.tabs.status.title": "Édition Item - Statut",
+  "item.edit.tabs.status.title": "Editar Item -  Estado",
   
   // "item.edit.tabs.versionhistory.head": "Version History",
   // TODO New key - Add a translation
@@ -2981,30 +2934,30 @@
   "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
   
   // "item.edit.tabs.view.head": "View Item",
-  "item.edit.tabs.view.head": "Voir Item",
+  "item.edit.tabs.view.head": "Visualizar Item",
   
   // "item.edit.tabs.view.title": "Item Edit -  View",
-  "item.edit.tabs.view.title": "Édition Item - View",
+  "item.edit.tabs.view.title": "Editar Item -  Visualizar",
   
   
   
   // "item.edit.withdraw.cancel": "Cancel",
-  "item.edit.withdraw.cancel": "Annuler",
+  "item.edit.withdraw.cancel": "Cancelar",
   
   // "item.edit.withdraw.confirm": "Withdraw",
-  "item.edit.withdraw.confirm": "Retirer",
+  "item.edit.withdraw.confirm": "Retirar",
   
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  "item.edit.withdraw.description": "Êtes-vous certain que cet Item doit être retiré du dépôt ?",
+  "item.edit.withdraw.description": "Tem certeza de que este item deve ser retirado do arquivo?",
   
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  "item.edit.withdraw.error": "Une erreur s'est produite lors du retrait de l'Item",
+  "item.edit.withdraw.error": "Ocorreu um erro ao retirar o item",
   
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  "item.edit.withdraw.header": "Retrait item : {{ id }}",
+  "item.edit.withdraw.header": "Retirar item: {{ id }}",
   
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  "item.edit.withdraw.success": "L'Item a été retiré avec succès",
+  "item.edit.withdraw.success": "O item foi retirado com sucesso",
   
   
   
@@ -3051,61 +3004,61 @@
   
   
   // "item.page.abstract": "Abstract",
-  "item.page.abstract": "Résumé",
+  "item.page.abstract": "Resumo",
   
   // "item.page.author": "Authors",
-  "item.page.author": "Auteurs",
+  "item.page.author": "Autores",
   
   // "item.page.citation": "Citation",
-  "item.page.citation": "Citation",
+  "item.page.citation": "Citação",
   
   // "item.page.collections": "Collections",
-  "item.page.collections": "Collections",
+  "item.page.collections": "Coleções",
   
   // "item.page.date": "Date",
-  "item.page.date": "Date",
+  "item.page.date": "Data",
   
   // "item.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "item.page.edit": "Edit this item",
   
   // "item.page.files": "Files",
-  "item.page.files": "Fichiers",
+  "item.page.files": "Arquivos",
   
   // "item.page.filesection.description": "Description:",
-  "item.page.filesection.description": "Description :",
+  "item.page.filesection.description": "Descrição:",
   
   // "item.page.filesection.download": "Download",
-  "item.page.filesection.download": "Télécharger",
+  "item.page.filesection.download": "Baixar",
   
   // "item.page.filesection.format": "Format:",
-  "item.page.filesection.format": "Format :",
+  "item.page.filesection.format": "Formato:",
   
   // "item.page.filesection.name": "Name:",
-  "item.page.filesection.name": "Nom :",
+  "item.page.filesection.name": "Nome:",
   
   // "item.page.filesection.size": "Size:",
-  "item.page.filesection.size": "Taille :",
+  "item.page.filesection.size": "Tamanho:",
   
   // "item.page.journal.search.title": "Articles in this journal",
-  "item.page.journal.search.title": "Articles dans ce Périodique",
+  "item.page.journal.search.title": "Articles in this journal",
   
   // "item.page.link.full": "Full item page",
-  "item.page.link.full": "Notice complète",
+  "item.page.link.full": "Página do item completo",
   
   // "item.page.link.simple": "Simple item page",
-  "item.page.link.simple": "Notice simple",
+  "item.page.link.simple": "Página do item simplificado",
   
   // "item.page.person.search.title": "Articles by this author",
-  "item.page.person.search.title": "Articles de cet auteur",
+  "item.page.person.search.title": "Artigos deste autor",
   
   // "item.page.related-items.view-more": "Show {{ amount }} more",
   // TODO Source message changed - Revise the translation
-  "item.page.related-items.view-more": "Plus de résultats",
+  "item.page.related-items.view-more": "Mostrar mais",
   
   // "item.page.related-items.view-less": "Hide last {{ amount }}",
   // TODO Source message changed - Revise the translation
-  "item.page.related-items.view-less": "Moins de résultats",
+  "item.page.related-items.view-less": "Mostrar menos",
   
   // "item.page.relationships.isAuthorOfPublication": "Publications",
   // TODO New key - Add a translation
@@ -3124,7 +3077,7 @@
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
   
   // "item.page.subject": "Keywords",
-  "item.page.subject": "Mots-clés",
+  "item.page.subject": "Palavras-chave",
   
   // "item.page.uri": "URI",
   "item.page.uri": "URI",
@@ -3191,19 +3144,19 @@
   
   
   // "item.select.confirm": "Confirm selected",
-  "item.select.confirm": "Confirmer sélection",
+  "item.select.confirm": "Confirmar seleção",
   
   // "item.select.empty": "No items to show",
-  "item.select.empty": "Aucun Item à afficher",
+  "item.select.empty": "Nenhum itme a mostrar",
   
   // "item.select.table.author": "Author",
-  "item.select.table.author": "Auteur",
+  "item.select.table.author": "Autor",
   
   // "item.select.table.collection": "Collection",
-  "item.select.table.collection": "Collection",
+  "item.select.table.collection": "Coleção",
   
   // "item.select.table.title": "Title",
-  "item.select.table.title": "Titre",
+  "item.select.table.title": "Título",
   
   
   // "item.version.history.empty": "There are no other versions for this item yet.",
@@ -3251,80 +3204,80 @@
   
   
   // "journal.listelement.badge": "Journal",
-  "journal.listelement.badge": "Périodique",
+  "journal.listelement.badge": "Periódico",
   
   // "journal.page.description": "Description",
-  "journal.page.description": "Description",
+  "journal.page.description": "Descrição",
   
   // "journal.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "journal.page.edit": "Edit this item",
   
   // "journal.page.editor": "Editor-in-Chief",
-  "journal.page.editor": "Rédacteur en chef",
+  "journal.page.editor": "Editor Chefe",
   
   // "journal.page.issn": "ISSN",
   "journal.page.issn": "ISSN",
   
   // "journal.page.publisher": "Publisher",
-  "journal.page.publisher": "Éditeur",
+  "journal.page.publisher": "Editora",
   
   // "journal.page.titleprefix": "Journal: ",
-  "journal.page.titleprefix": "Périodique : ",
+  "journal.page.titleprefix": "Periódico: ",
   
   // "journal.search.results.head": "Journal Search Results",
-  "journal.search.results.head": "Résultats de recherche Périodique",
+  "journal.search.results.head": "Resultado da Busca de Periódicos",
   
   // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Recherche Périodique",
+  "journal.search.title": "DSpace Angular :: Busca de Periódicos",
   
   
   
   // "journalissue.listelement.badge": "Journal Issue",
-  "journalissue.listelement.badge": "Numéro de Périodique",
+  "journalissue.listelement.badge": "Fascículo",
   
   // "journalissue.page.description": "Description",
-  "journalissue.page.description": "Description",
+  "journalissue.page.description": "Descrição",
   
   // "journalissue.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "journalissue.page.edit": "Edit this item",
   
   // "journalissue.page.issuedate": "Issue Date",
-  "journalissue.page.issuedate": "Date de publication",
+  "journalissue.page.issuedate": "Data de Publicação",
   
   // "journalissue.page.journal-issn": "Journal ISSN",
-  "journalissue.page.journal-issn": "ISSN du Périodique",
+  "journalissue.page.journal-issn": "ISSN do Periódico",
   
   // "journalissue.page.journal-title": "Journal Title",
-  "journalissue.page.journal-title": "Titre du Périodique",
+  "journalissue.page.journal-title": "Título do Periódico",
   
   // "journalissue.page.keyword": "Keywords",
-  "journalissue.page.keyword": "Mots-clés",
+  "journalissue.page.keyword": "Palavras-chave",
   
   // "journalissue.page.number": "Number",
-  "journalissue.page.number": "Nombre",
+  "journalissue.page.number": "Número",
   
   // "journalissue.page.titleprefix": "Journal Issue: ",
-  "journalissue.page.titleprefix": "Numéro de Périodique : ",
+  "journalissue.page.titleprefix": "Fascículo: ",
   
   
   
   // "journalvolume.listelement.badge": "Journal Volume",
-  "journalvolume.listelement.badge": "Volume de Périodique",
+  "journalvolume.listelement.badge": "Volume do Periódico",
   
   // "journalvolume.page.description": "Description",
-  "journalvolume.page.description": "Description",
+  "journalvolume.page.description": "Descrição",
   
   // "journalvolume.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "journalvolume.page.edit": "Edit this item",
   
   // "journalvolume.page.issuedate": "Issue Date",
-  "journalvolume.page.issuedate": "Date de publication",
+  "journalvolume.page.issuedate": "Data de Publicação",
   
   // "journalvolume.page.titleprefix": "Journal Volume: ",
-  "journalvolume.page.titleprefix": "Volume de Périodique : ",
+  "journalvolume.page.titleprefix": "Volume do Periódico: ",
   
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Volume",
@@ -3340,84 +3293,84 @@
   "loading.bitstreams": "Loading bitstreams...",
   
   // "loading.browse-by": "Loading items...",
-  "loading.browse-by": "Items en cours de chargement...",
+  "loading.browse-by": "Carregando itens...",
   
   // "loading.browse-by-page": "Loading page...",
-  "loading.browse-by-page": "Page en cours de chargement...",
+  "loading.browse-by-page": "Carregando página...",
   
   // "loading.collection": "Loading collection...",
-  "loading.collection": "Collection en cours de chargement...",
+  "loading.collection": "Carregando coleção...",
   
   // "loading.collections": "Loading collections...",
-  "loading.collections": "Collections en cours de chargement...",
+  "loading.collections": "Carregando coleções...",
   
   // "loading.content-source": "Loading content source...",
   // TODO New key - Add a translation
   "loading.content-source": "Loading content source...",
   
   // "loading.community": "Loading community...",
-  "loading.community": "Communauté en cours de chargement...",
+  "loading.community": "Carregando comunidade...",
   
   // "loading.default": "Loading...",
-  "loading.default": "En cours de chargement...",
+  "loading.default": "Carregando...",
   
   // "loading.item": "Loading item...",
-  "loading.item": "Item en cours de chargement...",
+  "loading.item": "Carregando item...",
   
   // "loading.items": "Loading items...",
-  "loading.items": "Items en cours de chargement...",
+  "loading.items": "Carregando itens...",
   
   // "loading.mydspace-results": "Loading items...",
-  "loading.mydspace-results": "Items en cours de chargement...",
+  "loading.mydspace-results": "Carregando itens...",
   
   // "loading.objects": "Loading...",
-  "loading.objects": "En cours de chargement...",
+  "loading.objects": "Carregando...",
   
   // "loading.recent-submissions": "Loading recent submissions...",
-  "loading.recent-submissions": "Dépôts récents en cours de chargement...",
+  "loading.recent-submissions": "Carregando submissões recentes...",
   
   // "loading.search-results": "Loading search results...",
-  "loading.search-results": "Résultats de recherche en cours de chargement...",
+  "loading.search-results": "Carregando resultados de busca...",
   
   // "loading.sub-collections": "Loading sub-collections...",
-  "loading.sub-collections": "Sous-Collections en cours de chargement...",
+  "loading.sub-collections": "Carregando sub-coleções...",
   
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities": "Sous-Communautés en cours de chargement...",
+  "loading.sub-communities": "Carregando sub-comunidades...",
   
   // "loading.top-level-communities": "Loading top-level communities...",
-  "loading.top-level-communities": "Communautés de 1er niveau en cours de chargement...",
+  "loading.top-level-communities": "Carregando comunidades de nível superior...",
   
   
   
   // "login.form.email": "Email address",
-  "login.form.email": "Adresse e-mail",
+  "login.form.email": "Endereço de email",
   
   // "login.form.forgot-password": "Have you forgotten your password?",
-  "login.form.forgot-password": "Mot de passe oublié ?",
+  "login.form.forgot-password": "Esqueceu sua senha?",
   
   // "login.form.header": "Please log in to DSpace",
-  "login.form.header": "Se connecter sur DSpace",
+  "login.form.header": "Por favor entre no DSpace",
   
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user": "Pas encore de compte ? Cliquez ici pour vous enregistrer.",
+  "login.form.new-user": "Novo usuário? Clique aqui para cadastrar.",
   
   // "login.form.or-divider": "or",
   // TODO New key - Add a translation
   "login.form.or-divider": "or",
   
   // "login.form.password": "Password",
-  "login.form.password": "Mot de passe",
+  "login.form.password": "Senha",
   
   // "login.form.shibboleth": "Log in with Shibboleth",
   // TODO New key - Add a translation
   "login.form.shibboleth": "Log in with Shibboleth",
   
   // "login.form.submit": "Log in",
-  "login.form.submit": "Se connecter",
+  "login.form.submit": "Entrar",
   
   // "login.title": "Login",
-  "login.title": "Connection",
+  "login.title": "Entrar",
   
   // "login.breadcrumbs": "Login",
   // TODO New key - Add a translation
@@ -3426,35 +3379,35 @@
   
   
   // "logout.form.header": "Log out from DSpace",
-  "logout.form.header": "Se déconnecter de DSpace",
+  "logout.form.header": "Sair do DSpace",
   
   // "logout.form.submit": "Log out",
-  "logout.form.submit": "Se déconnecter",
+  "logout.form.submit": "Sair",
   
   // "logout.title": "Logout",
-  "logout.title": "Déconnection",
+  "logout.title": "Sair",
   
   
   
   // "menu.header.admin": "Admin",
-  "menu.header.admin": "Admin",
+  "menu.header.admin": "Administração",
   
   // "menu.header.image.logo": "Repository logo",
-  "menu.header.image.logo": "Logo du site",
+  "menu.header.image.logo": "Logo do repositório",
   
   
   
   // "menu.section.access_control": "Access Control",
-  "menu.section.access_control": "Contrôle d'accès",
+  "menu.section.access_control": "Controle de Acesso",
   
   // "menu.section.access_control_authorizations": "Authorizations",
-  "menu.section.access_control_authorizations": "Autorisations",
+  "menu.section.access_control_authorizations": "Autorizações",
   
   // "menu.section.access_control_groups": "Groups",
-  "menu.section.access_control_groups": "Groupes d'utilisateurs",
+  "menu.section.access_control_groups": "Grupos",
   
   // "menu.section.access_control_people": "People",
-  "menu.section.access_control_people": "Utilisateurs",
+  "menu.section.access_control_people": "Pessoas",
   
   
   
@@ -3465,53 +3418,53 @@
   
   
   // "menu.section.browse_community": "This Community",
-  "menu.section.browse_community": "Cette Communauté",
+  "menu.section.browse_community": "Esta Comunidade",
   
   // "menu.section.browse_community_by_author": "By Author",
-  "menu.section.browse_community_by_author": "Auteur",
+  "menu.section.browse_community_by_author": "Por Autor",
   
   // "menu.section.browse_community_by_issue_date": "By Issue Date",
-  "menu.section.browse_community_by_issue_date": "Date de publication",
+  "menu.section.browse_community_by_issue_date": "Por Data de Publicação",
   
   // "menu.section.browse_community_by_title": "By Title",
-  "menu.section.browse_community_by_title": "Titre",
+  "menu.section.browse_community_by_title": "Por Título",
   
   // "menu.section.browse_global": "All of DSpace",
-  "menu.section.browse_global": "Tout DSpace",
+  "menu.section.browse_global": "Tudo no DSpace",
   
   // "menu.section.browse_global_by_author": "By Author",
-  "menu.section.browse_global_by_author": "Auteur",
+  "menu.section.browse_global_by_author": "Por Autor",
   
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
-  "menu.section.browse_global_by_dateissued": "Date de publication",
+  "menu.section.browse_global_by_dateissued": "Por Data de Publicação",
   
   // "menu.section.browse_global_by_subject": "By Subject",
-  "menu.section.browse_global_by_subject": "Sujet",
+  "menu.section.browse_global_by_subject": "Por Assunto",
   
   // "menu.section.browse_global_by_title": "By Title",
-  "menu.section.browse_global_by_title": "Titre",
+  "menu.section.browse_global_by_title": "Por Título",
   
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
-  "menu.section.browse_global_communities_and_collections": "Communautés & Collections",
+  "menu.section.browse_global_communities_and_collections": "Comunidades e Coleções",
   
   
   
   // "menu.section.control_panel": "Control Panel",
-  "menu.section.control_panel": "Panneau de configuration",
+  "menu.section.control_panel": "Painel de Controle",
   
   // "menu.section.curation_task": "Curation Task",
-  "menu.section.curation_task": "Tâches de Curation",
+  "menu.section.curation_task": "Tarefas de Curadoria",
   
   
   
   // "menu.section.edit": "Edit",
-  "menu.section.edit": "Éditer",
+  "menu.section.edit": "Editar",
   
   // "menu.section.edit_collection": "Collection",
-  "menu.section.edit_collection": "Collection",
+  "menu.section.edit_collection": "Coleção",
   
   // "menu.section.edit_community": "Community",
-  "menu.section.edit_community": "Communauté",
+  "menu.section.edit_community": "Comunidade",
   
   // "menu.section.edit_item": "Item",
   "menu.section.edit_item": "Item",
@@ -3519,94 +3472,93 @@
   
   
   // "menu.section.export": "Export",
-  "menu.section.export": "Exporter",
+  "menu.section.export": "Exportar",
   
   // "menu.section.export_collection": "Collection",
-  "menu.section.export_collection": "Collection",
+  "menu.section.export_collection": "Coleção",
   
   // "menu.section.export_community": "Community",
-  "menu.section.export_community": "Communauté",
+  "menu.section.export_community": "Comunidade",
   
   // "menu.section.export_item": "Item",
   "menu.section.export_item": "Item",
   
   // "menu.section.export_metadata": "Metadata",
-  "menu.section.export_metadata": "Métadonnées",
+  "menu.section.export_metadata": "Metadados",
   
   
   
   // "menu.section.icon.access_control": "Access Control menu section",
-  "menu.section.icon.access_control": "Section du menu relative au contrôle d'accès",
+  "menu.section.icon.access_control": "Seção do menu Controle de Acesso",
   
   // "menu.section.icon.admin_search": "Admin search menu section",
   // TODO New key - Add a translation
   "menu.section.icon.admin_search": "Admin search menu section",
   
   // "menu.section.icon.control_panel": "Control Panel menu section",
-  "menu.section.icon.control_panel": "Section du menu relative au panneau de configuration",
+  "menu.section.icon.control_panel": "Seção do menu Painel de Controle",
   
   // "menu.section.icon.curation_task": "Curation Task menu section",
-  "menu.section.icon.curation_task": "Section du menu relative aux tâches de Curation",
+  "menu.section.icon.curation_task": "Seção do menu Tarefas de Curadoria",
   
   // "menu.section.icon.edit": "Edit menu section",
-  "menu.section.icon.edit": "Section du menu relative à l'édition",
+  "menu.section.icon.edit": "Seção do menu Editar",
   
   // "menu.section.icon.export": "Export menu section",
-  "menu.section.icon.export": "Section du menu relative à l'export",
+  "menu.section.icon.export": "Seção do menu Exportar",
   
   // "menu.section.icon.find": "Find menu section",
-  "menu.section.icon.find": "Section du menu relative à la recherche",
+  "menu.section.icon.find": "Seção do menu Buscar",
   
   // "menu.section.icon.import": "Import menu section",
-  "menu.section.icon.import": "Section du menu relative à l'import",
+  "menu.section.icon.import": "Seção do menu Importar",
   
   // "menu.section.icon.new": "New menu section",
-  "menu.section.icon.new": "Section du menu relative à l'ajout d'éléments",
+  "menu.section.icon.new": "Seção do menu Novo",
   
   // "menu.section.icon.pin": "Pin sidebar",
-  "menu.section.icon.pin": "Epingler menu latéral",
+  "menu.section.icon.pin": "Fixar barra lateral",
   
   // "menu.section.icon.processes": "Processes menu section",
   // TODO New key - Add a translation
   "menu.section.icon.processes": "Processes menu section",
   
   // "menu.section.icon.registries": "Registries menu section",
-  "menu.section.icon.registries": "Section du menu relative aux Registres",
+  "menu.section.icon.registries": "Seção do menu Registros",
   
   // "menu.section.icon.statistics_task": "Statistics Task menu section",
-  "menu.section.icon.statistics_task": "Section du menu relative aux tâches Statistiques",
+  "menu.section.icon.statistics_task": "Seção do menu Tarefas de Estatísticas",
   
   // "menu.section.icon.unpin": "Unpin sidebar",
-  "menu.section.icon.unpin": "Libérer menu latéral",
+  "menu.section.icon.unpin": "Soltar barra lateral",
   
   
   
   // "menu.section.import": "Import",
-  "menu.section.import": "Importer",
+  "menu.section.import": "Importar",
   
   // "menu.section.import_batch": "Batch Import (ZIP)",
-  // TODO New key - Add a translation
-  "menu.section.import_batch": "Batch Import (ZIP)",
+  "menu.section.import_batch": "Importação em Lote (ZIP)",
   
   // "menu.section.import_metadata": "Metadata",
-  "menu.section.import_metadata": "Import de métadonnées",
+  "menu.section.import_metadata": "Metadados",
   
   
   
   // "menu.section.new": "New",
-  "menu.section.new": "Créer",
+  "menu.section.new": "Nova",
   
   // "menu.section.new_collection": "Collection",
-  "menu.section.new_collection": "Collection",
+  "menu.section.new_collection": "Coleção",
   
   // "menu.section.new_community": "Community",
-  "menu.section.new_community": "Communauté",
+  "menu.section.new_community": "Comunidade",
   
   // "menu.section.new_item": "Item",
   "menu.section.new_item": "Item",
   
   // "menu.section.new_item_version": "Item Version",
-  "menu.section.new_item_version": "Version",
+  "menu.section.new_item_version": "Versão do Item",
   
   // "menu.section.new_process": "Process",
   // TODO New key - Add a translation
@@ -3615,10 +3567,10 @@
   
   
   // "menu.section.pin": "Pin sidebar",
-  "menu.section.pin": "Epingler menu latéral",
+  "menu.section.pin": "Fixar barra lateral",
   
   // "menu.section.unpin": "Unpin sidebar",
-  "menu.section.unpin": "Libérer menu latéral",
+  "menu.section.unpin": "Soltar barra lateral",
   
   
   
@@ -3629,53 +3581,53 @@
   
   
   // "menu.section.registries": "Registries",
-  "menu.section.registries": "Registres",
+  "menu.section.registries": "Registros",
   
   // "menu.section.registries_format": "Format",
-  "menu.section.registries_format": "Format",
+  "menu.section.registries_format": "Formatos",
   
   // "menu.section.registries_metadata": "Metadata",
-  "menu.section.registries_metadata": "Métadonnées",
+  "menu.section.registries_metadata": "Metadados",
   
   
   
   // "menu.section.statistics": "Statistics",
-  "menu.section.statistics": "Statistiques",
+  "menu.section.statistics": "Estatísticas",
   
   // "menu.section.statistics_task": "Statistics Task",
-  "menu.section.statistics_task": "Tâche statistiques",
+  "menu.section.statistics_task": "Tarefas de Estatísticas",
   
   
   
   // "menu.section.toggle.access_control": "Toggle Access Control section",
-  "menu.section.toggle.access_control": "Ouvrir/Fermer section Contrôle d'accès",
+  "menu.section.toggle.access_control": "Alternar Seção Controle de Acesso",
   
   // "menu.section.toggle.control_panel": "Toggle Control Panel section",
-  "menu.section.toggle.control_panel": "Ouvrir/Fermer section Panneau de configuration",
+  "menu.section.toggle.control_panel": "Alternar Seção Painel de COntrole",
   
   // "menu.section.toggle.curation_task": "Toggle Curation Task section",
-  "menu.section.toggle.curation_task": "Ouvrir/Fermer section Tâche de Curation",
+  "menu.section.toggle.curation_task": "Alternar Seção Tarefas de Curadoria",
   
   // "menu.section.toggle.edit": "Toggle Edit section",
-  "menu.section.toggle.edit": "Ouvrir/Fermer section Éditer",
+  "menu.section.toggle.edit": "Alternar Seção Editar",
   
   // "menu.section.toggle.export": "Toggle Export section",
-  "menu.section.toggle.export": "Ouvrir/Fermer section Exporter",
+  "menu.section.toggle.export": "Alternar Seção Exportar",
   
   // "menu.section.toggle.find": "Toggle Find section",
-  "menu.section.toggle.find": "Ouvrir/Fermer section Rechercher",
+  "menu.section.toggle.find": "Alternar Seção Pesquisa",
   
   // "menu.section.toggle.import": "Toggle Import section",
-  "menu.section.toggle.import": "Ouvrir/Fermer section Importer",
+  "menu.section.toggle.import": "Alternar Seção Importar",
   
   // "menu.section.toggle.new": "Toggle New section",
-  "menu.section.toggle.new": "Ouvrir/Fermer section Créer",
+  "menu.section.toggle.new": "Alternar Nova Seção",
   
   // "menu.section.toggle.registries": "Toggle Registries section",
-  "menu.section.toggle.registries": "Ouvrir/Fermer section Registres",
+  "menu.section.toggle.registries": "Alternar Seção Registros",
   
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
-  "menu.section.toggle.statistics_task": "Ouvrir/Fermer section Tâche statistiques",
+  "menu.section.toggle.statistics_task": "Alternar Seção Tarefas de Estatísticas",
   
   
   // "menu.section.workflow": "Administer Workflow",
@@ -3688,49 +3640,49 @@
   
   // "mydspace.general.text-here": "here",
   // TODO Source message changed - Revise the translation
-  "mydspace.general.text-here": "ICI",
+  "mydspace.general.text-here": "AQUI",
   
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
+  "mydspace.messages.controller-help": "Selecione esta opção para enviar uma mensagem para o submetedor do item.",
   
   // "mydspace.messages.description-placeholder": "Insert your message here...",
-  "mydspace.messages.description-placeholder": "Insérer votre message ici...",
+  "mydspace.messages.description-placeholder": "Insira sua mensagem aqui...",
   
   // "mydspace.messages.hide-msg": "Hide message",
-  "mydspace.messages.hide-msg": "Masquer message",
+  "mydspace.messages.hide-msg": "Ocultar mensagem",
   
   // "mydspace.messages.mark-as-read": "Mark as read",
-  "mydspace.messages.mark-as-read": "Marquer comme lu",
+  "mydspace.messages.mark-as-read": "Marcar como lida",
   
   // "mydspace.messages.mark-as-unread": "Mark as unread",
-  "mydspace.messages.mark-as-unread": "Marquer comme non lu",
+  "mydspace.messages.mark-as-unread": "Marcar como não lida",
   
   // "mydspace.messages.no-content": "No content.",
-  "mydspace.messages.no-content": "Aucun contenu.",
+  "mydspace.messages.no-content": "Sem conteúdo",
   
   // "mydspace.messages.no-messages": "No messages yet.",
-  "mydspace.messages.no-messages": "Pas encore de messages.",
+  "mydspace.messages.no-messages": "Nenhuma mensagem ainda",
   
   // "mydspace.messages.send-btn": "Send",
-  "mydspace.messages.send-btn": "Envoyer",
+  "mydspace.messages.send-btn": "Enviar",
   
   // "mydspace.messages.show-msg": "Show message",
-  "mydspace.messages.show-msg": "Afficher message",
+  "mydspace.messages.show-msg": "Mostrar mensagem",
   
   // "mydspace.messages.subject-placeholder": "Subject...",
-  "mydspace.messages.subject-placeholder": "Objet...",
+  "mydspace.messages.subject-placeholder": "Assunto...",
   
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  "mydspace.messages.submitter-help": "Sélectionner cette option pour envoyer un message au vérificateur.",
+  "mydspace.messages.submitter-help": "Selecione esta opção para enviar uma mensagem ao controlador.",
   
   // "mydspace.messages.title": "Messages",
-  "mydspace.messages.title": "Messages",
+  "mydspace.messages.title": "Mensagens",
   
   // "mydspace.messages.to": "To",
-  "mydspace.messages.to": "À",
+  "mydspace.messages.to": "Para",
   
   // "mydspace.new-submission": "New submission",
-  "mydspace.new-submission": "Nouveau dépôt",
+  "mydspace.new-submission": "Nova submissão",
   
   // "mydspace.new-submission-external": "Import metadata from external source",
   // TODO New key - Add a translation
@@ -3741,58 +3693,58 @@
   "mydspace.new-submission-external-short": "Import metadata",
   
   // "mydspace.results.head": "Your submissions",
-  "mydspace.results.head": "Vos dépôts",
+  "mydspace.results.head": "Minhas submissões",
   
   // "mydspace.results.no-abstract": "No Abstract",
-  "mydspace.results.no-abstract": "Aucun résumé",
+  "mydspace.results.no-abstract": "Sem Resumo",
   
   // "mydspace.results.no-authors": "No Authors",
-  "mydspace.results.no-authors": "Aucun auteur",
+  "mydspace.results.no-authors": "Sem Autores",
   
   // "mydspace.results.no-collections": "No Collections",
-  "mydspace.results.no-collections": "Aucune Collection",
+  "mydspace.results.no-collections": "Sem Coleções",
   
   // "mydspace.results.no-date": "No Date",
-  "mydspace.results.no-date": "Aucune date",
+  "mydspace.results.no-date": "Sem Data",
   
   // "mydspace.results.no-files": "No Files",
-  "mydspace.results.no-files": "Aucun fichier",
+  "mydspace.results.no-files": "Sem arquivos",
   
   // "mydspace.results.no-results": "There were no items to show",
-  "mydspace.results.no-results": "Aucun Item à afficher",
+  "mydspace.results.no-results": "Não havia itens a mostrar",
   
   // "mydspace.results.no-title": "No title",
-  "mydspace.results.no-title": "Aucun titre",
+  "mydspace.results.no-title": "Sem título",
   
   // "mydspace.results.no-uri": "No Uri",
-  "mydspace.results.no-uri": "Aucune URL",
+  "mydspace.results.no-uri": "Sem Uri",
   
   // "mydspace.show.workflow": "All tasks",
-  "mydspace.show.workflow": "Tâches de validation",
+  "mydspace.show.workflow": "Todas as tarefas",
   
   // "mydspace.show.workspace": "Your Submissions",
-  "mydspace.show.workspace": "Vos dépôts",
+  "mydspace.show.workspace": "Minhas Submissões",
   
   // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archivés",
+  "mydspace.status.archived": "Arquivado",
   
   // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "En cours de validation",
+  "mydspace.status.validation": "Validação",
   
   // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "En attente d'assignation",
+  "mydspace.status.waiting-for-controller": "Esperando pelo controlador",
   
   // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.workflow": "Fluxo de trabalho",
   
   // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Workspace",
+  "mydspace.status.workspace": "Espaço de trabalho",
   
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",
   
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  "mydspace.upload.upload-failed": "Erreur à la création du Workspace. Veuillez vérifier le contenu téléchargé avant de réessayer.",
+  "mydspace.upload.upload-failed": "Erro ao criar novo espaço de trabalho. Por favor verifique o conteúdo enviado antes de tentar novamente.",
   
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
   // TODO New key - Add a translation
@@ -3803,30 +3755,30 @@
   "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
   
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans le Workspace.",
+  "mydspace.upload.upload-multiple-successful": "{{qty}} novo(s) item(ns) de espaço de trabalho criados.",
   
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Nouvel item créé dans le Workspace. Cliquer {{here}} pour l'éditer.",
+  "mydspace.upload.upload-successful": "Novo item de espaço de trabalho criado. Clique {{here}} para o editar.",
   
   // "mydspace.view-btn": "View",
-  "mydspace.view-btn": "Afficher",
+  "mydspace.view-btn": "Ver",
   
   
   
   // "nav.browse.header": "All of DSpace",
-  "nav.browse.header": "Tout Dspace",
+  "nav.browse.header": "Tudo no DSpace",
   
   // "nav.community-browse.header": "By Community",
-  "nav.community-browse.header": "Par Communauté",
+  "nav.community-browse.header": "Por Comunidade",
   
   // "nav.language": "Language switch",
-  "nav.language": "Sélecteur de langue",
+  "nav.language": "Seletor de idioma",
   
   // "nav.login": "Log In",
-  "nav.login": "Se connecter",
+  "nav.login": "Entrar",
   
   // "nav.logout": "Log Out",
-  "nav.logout": "Se déconnecter",
+  "nav.logout": "Sair",
   
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "MyDSpace",
@@ -3836,10 +3788,10 @@
   "nav.profile": "Profile",
   
   // "nav.search": "Search",
-  "nav.search": "Rechercher",
+  "nav.search": "Buscar",
   
   // "nav.statistics.header": "Statistics",
-  "nav.statistics.header": "Statistiques",
+  "nav.statistics.header": "Estatísticas",
   
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   // TODO New key - Add a translation
@@ -3848,19 +3800,19 @@
   
   
   // "orgunit.listelement.badge": "Organizational Unit",
-  "orgunit.listelement.badge": "Structure Organisationnelle",
+  "orgunit.listelement.badge": "Unidade Organizacional",
   
   // "orgunit.page.city": "City",
-  "orgunit.page.city": "Ville",
+  "orgunit.page.city": "Cidade",
   
   // "orgunit.page.country": "Country",
-  "orgunit.page.country": "Pays",
+  "orgunit.page.country": "País",
   
   // "orgunit.page.dateestablished": "Date established",
-  "orgunit.page.dateestablished": "Date de fondation",
+  "orgunit.page.dateestablished": "Data estabelecida",
   
   // "orgunit.page.description": "Description",
-  "orgunit.page.description": "Description",
+  "orgunit.page.description": "Descrição",
   
   // "orgunit.page.edit": "Edit this item",
   // TODO New key - Add a translation
@@ -3870,67 +3822,67 @@
   "orgunit.page.id": "ID",
   
   // "orgunit.page.titleprefix": "Organizational Unit: ",
-  "orgunit.page.titleprefix": "Structure Organisationnelle : ",
+  "orgunit.page.titleprefix": "Unidade Organizacional: ",
   
   
   
   // "pagination.results-per-page": "Results Per Page",
-  "pagination.results-per-page": "Résultats par page",
+  "pagination.results-per-page": "Resultados por página",
   
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  "pagination.showing.detail": "{{ range }} sur {{ total }}",
+  "pagination.showing.detail": "{{ range }} de {{ total }}",
   
   // "pagination.showing.label": "Now showing ",
-  "pagination.showing.label": "Voici les éléments ",
+  "pagination.showing.label": "Agora exibindo ",
   
   // "pagination.sort-direction": "Sort Options",
-  "pagination.sort-direction": "Options de tri",
+  "pagination.sort-direction": "Opções de Ordenação",
   
   
   
   // "person.listelement.badge": "Person",
-  "person.listelement.badge": "Personne",
+  "person.listelement.badge": "Pessoa",
   
   // "person.listelement.no-title": "No name found",
   // TODO New key - Add a translation
   "person.listelement.no-title": "No name found",
   
   // "person.page.birthdate": "Birth Date",
-  "person.page.birthdate": "Date de naissance",
+  "person.page.birthdate": "Data de nascimento",
   
   // "person.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "person.page.edit": "Edit this item",
   
   // "person.page.email": "Email Address",
-  "person.page.email": "Adresse mail",
+  "person.page.email": "Endereço de Email",
   
   // "person.page.firstname": "First Name",
-  "person.page.firstname": "Prénom",
+  "person.page.firstname": "Primeiro Nome",
   
   // "person.page.jobtitle": "Job Title",
-  "person.page.jobtitle": "Fonction",
+  "person.page.jobtitle": "Cargo",
   
   // "person.page.lastname": "Last Name",
-  "person.page.lastname": "Nom de famille",
+  "person.page.lastname": "Último Nome",
   
   // "person.page.link.full": "Show all metadata",
-  "person.page.link.full": "Afficher toutes les métadonnées",
+  "person.page.link.full": "Mostrar todos os metadados",
   
   // "person.page.orcid": "ORCID",
   "person.page.orcid": "ORCID",
   
   // "person.page.staffid": "Staff ID",
-  "person.page.staffid": "Staff ID",
+  "person.page.staffid": "ID de Equipe",
   
   // "person.page.titleprefix": "Person: ",
-  "person.page.titleprefix": "Personne : ",
+  "person.page.titleprefix": "Pessoa: ",
   
   // "person.search.results.head": "Person Search Results",
-  "person.search.results.head": "Résultats de recherche Personne",
+  "person.search.results.head": "Resultado da Busca de Pessoa",
   
   // "person.search.title": "DSpace Angular :: Person Search",
-  "person.search.title": "DSpace Angular :: Recherche Personne",
+  "person.search.title": "DSpace Angular :: Buscar Pessoa",
   
   
   
@@ -4226,35 +4178,35 @@
   
   
   // "project.listelement.badge": "Research Project",
-  "project.listelement.badge": "Projet de recherche",
+  "project.listelement.badge": "Projeto de Pesquisa",
   
   // "project.page.contributor": "Contributors",
-  "project.page.contributor": "Contributeurs",
+  "project.page.contributor": "Contribuidores",
   
   // "project.page.description": "Description",
-  "project.page.description": "Description",
+  "project.page.description": "Descrição",
   
   // "project.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "project.page.edit": "Edit this item",
   
   // "project.page.expectedcompletion": "Expected Completion",
-  "project.page.expectedcompletion": "Échéance prévue",
+  "project.page.expectedcompletion": "Conclusão esperada",
   
   // "project.page.funder": "Funders",
-  "project.page.funder": "Bailleurs de fonds",
+  "project.page.funder": "Financiadores",
   
   // "project.page.id": "ID",
   "project.page.id": "ID",
   
   // "project.page.keyword": "Keywords",
-  "project.page.keyword": "Mots-clés",
+  "project.page.keyword": "Palavras-chave",
   
   // "project.page.status": "Status",
-  "project.page.status": "Statut",
+  "project.page.status": "Estado",
   
   // "project.page.titleprefix": "Research Project: ",
-  "project.page.titleprefix": "Projet de recherche : ",
+  "project.page.titleprefix": "Projeto de Pesquisa: ",
   
   // "project.search.results.head": "Project Search Results",
   // TODO New key - Add a translation
@@ -4263,35 +4215,35 @@
   
   
   // "publication.listelement.badge": "Publication",
-  "publication.listelement.badge": "Publication",
+  "publication.listelement.badge": "Publicação",
   
   // "publication.page.description": "Description",
-  "publication.page.description": "Description",
+  "publication.page.description": "Descrição",
   
   // "publication.page.edit": "Edit this item",
   // TODO New key - Add a translation
   "publication.page.edit": "Edit this item",
   
   // "publication.page.journal-issn": "Journal ISSN",
-  "publication.page.journal-issn": "ISSN du Périodique",
+  "publication.page.journal-issn": "ISSN do Periódico",
   
   // "publication.page.journal-title": "Journal Title",
-  "publication.page.journal-title": "Titre du Périodique",
+  "publication.page.journal-title": "Título do Periódico",
   
   // "publication.page.publisher": "Publisher",
-  "publication.page.publisher": "Éditeur",
+  "publication.page.publisher": "Editora",
   
   // "publication.page.titleprefix": "Publication: ",
-  "publication.page.titleprefix": "Publication : ",
+  "publication.page.titleprefix": "Publicação: ",
   
   // "publication.page.volume-title": "Volume Title",
-  "publication.page.volume-title": "Titre du volume",
+  "publication.page.volume-title": "Título do Volume",
   
   // "publication.search.results.head": "Publication Search Results",
-  "publication.search.results.head": "Résultats de recherche Publication",
+  "publication.search.results.head": "Resultados da Busca de Publicação",
   
   // "publication.search.title": "DSpace Angular :: Publication Search",
-  "publication.search.title": "DSpace Angular :: Recherche Publication",
+  "publication.search.title": "DSpace Angular :: Busca de Publicações",
   
   
   // "register-email.title": "New user registration",
@@ -4442,7 +4394,7 @@
   "relationships.add.error.title": "Unable to add relationship",
   
   // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Auteurs",
+  "relationships.isAuthorOf": "Autores",
   
   // "relationships.isAuthorOf.Person": "Authors (persons)",
   // TODO New key - Add a translation
@@ -4453,37 +4405,37 @@
   "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
   
   // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Numéros de Périodique",
+  "relationships.isIssueOf": "Fascículo",
   
   // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Numéro de Périodique",
+  "relationships.isJournalIssueOf": "Fascículo",
   
   // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Périodiques",
+  "relationships.isJournalOf": "Periódicos",
   
   // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Structure organisationnelle",
+  "relationships.isOrgUnitOf": "Unidades Organizacionais",
   
   // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Auteurs",
+  "relationships.isPersonOf": "Autores",
   
   // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Projets de recherche",
+  "relationships.isProjectOf": "Projetos de Pesquisa",
   
   // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publications",
+  "relationships.isPublicationOf": "Publicações",
   
   // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.isPublicationOfJournalIssue": "Artigos",
   
   // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Périodique",
+  "relationships.isSingleJournalOf": "Periódico",
   
   // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volume de Périodique",
+  "relationships.isSingleVolumeOf": "Volume do Periódico",
   
   // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volumes de Périodique",
+  "relationships.isVolumeOf": "Volumes do Periódico",
   
   // "relationships.isContributorOf": "Contributors",
   // TODO New key - Add a translation
@@ -4697,10 +4649,10 @@
   "search.description": "",
   
   // "search.switch-configuration.title": "Show",
-  "search.switch-configuration.title": "Afficher",
+  "search.switch-configuration.title": "Mostrar",
   
   // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Recherche",
+  "search.title": "DSpace Angular :: Busca",
   
   // "search.breadcrumbs": "Search",
   // TODO New key - Add a translation
@@ -4708,38 +4660,38 @@
   
   
   // "search.filters.applied.f.author": "Author",
-  "search.filters.applied.f.author": "Auteur",
+  "search.filters.applied.f.author": "Autor",
   
   // "search.filters.applied.f.dateIssued.max": "End date",
-  "search.filters.applied.f.dateIssued.max": "Jusque",
+  "search.filters.applied.f.dateIssued.max": "Data final",
   
   // "search.filters.applied.f.dateIssued.min": "Start date",
-  "search.filters.applied.f.dateIssued.min": "Depuis",
+  "search.filters.applied.f.dateIssued.min": "Data inicial",
   
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
-  "search.filters.applied.f.dateSubmitted": "Date de dépôt",
+  "search.filters.applied.f.dateSubmitted": "Data de submissão",
   
   // "search.filters.applied.f.discoverable": "Private",
   // TODO New key - Add a translation
   "search.filters.applied.f.discoverable": "Private",
   
   // "search.filters.applied.f.entityType": "Item Type",
-  "search.filters.applied.f.entityType": "Type d'Item",
+  "search.filters.applied.f.entityType": "Tipo de Item",
   
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  "search.filters.applied.f.has_content_in_original_bundle": "Fichier(s) présent(s)",
+  "search.filters.applied.f.has_content_in_original_bundle": "Tem arquivos",
   
   // "search.filters.applied.f.itemtype": "Type",
-  "search.filters.applied.f.itemtype": "Type",
+  "search.filters.applied.f.itemtype": "Tipo",
   
   // "search.filters.applied.f.namedresourcetype": "Status",
-  "search.filters.applied.f.namedresourcetype": "Statut",
+  "search.filters.applied.f.namedresourcetype": "Estado",
   
   // "search.filters.applied.f.subject": "Subject",
-  "search.filters.applied.f.subject": "Sujet",
+  "search.filters.applied.f.subject": "Assunto",
   
   // "search.filters.applied.f.submitter": "Submitter",
-  "search.filters.applied.f.submitter": "Déposant",
+  "search.filters.applied.f.submitter": "Submetedor",
   
   // "search.filters.applied.f.jobTitle": "Job Title",
   // TODO New key - Add a translation
@@ -4760,55 +4712,55 @@
   
   
   // "search.filters.filter.author.head": "Author",
-  "search.filters.filter.author.head": "Auteur",
+  "search.filters.filter.author.head": "Autor",
   
   // "search.filters.filter.author.placeholder": "Author name",
-  "search.filters.filter.author.placeholder": "Nom de l'auteur",
+  "search.filters.filter.author.placeholder": "Nome do autor",
   
   // "search.filters.filter.birthDate.head": "Birth Date",
-  "search.filters.filter.birthDate.head": "Date de naissance",
+  "search.filters.filter.birthDate.head": "Data de nascimento",
   
   // "search.filters.filter.birthDate.placeholder": "Birth Date",
-  "search.filters.filter.birthDate.placeholder": "Date de naissance",
+  "search.filters.filter.birthDate.placeholder": "Data de nascimento",
   
   // "search.filters.filter.creativeDatePublished.head": "Date Published",
-  "search.filters.filter.creativeDatePublished.head": "Date de publication",
+  "search.filters.filter.creativeDatePublished.head": "Data de publicação",
   
   // "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
-  "search.filters.filter.creativeDatePublished.placeholder": "Date de publication",
+  "search.filters.filter.creativeDatePublished.placeholder": "Data de publicação",
   
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
-  "search.filters.filter.creativeWorkEditor.head": "Rédacteur en chef",
+  "search.filters.filter.creativeWorkEditor.head": "Editor",
   
   // "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
-  "search.filters.filter.creativeWorkEditor.placeholder": "Rédacteur en chef",
+  "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
   
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
-  "search.filters.filter.creativeWorkKeywords.head": "Sujet",
+  "search.filters.filter.creativeWorkKeywords.head": "Assunto",
   
   // "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
-  "search.filters.filter.creativeWorkKeywords.placeholder": "Sujet",
+  "search.filters.filter.creativeWorkKeywords.placeholder": "Assunto",
   
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.head": "Éditeur",
+  "search.filters.filter.creativeWorkPublisher.head": "Editora",
   
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.placeholder": "Éditeur",
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Editora",
   
   // "search.filters.filter.dateIssued.head": "Date",
-  "search.filters.filter.dateIssued.head": "Date",
+  "search.filters.filter.dateIssued.head": "Data",
   
   // "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
-  "search.filters.filter.dateIssued.max.placeholder": "Depuis",
+  "search.filters.filter.dateIssued.max.placeholder": "Data Mínima",
   
   // "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
-  "search.filters.filter.dateIssued.min.placeholder": "Jusque",
+  "search.filters.filter.dateIssued.min.placeholder": "Data Máxima",
   
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
-  "search.filters.filter.dateSubmitted.head": "Date de dépôt",
+  "search.filters.filter.dateSubmitted.head": "Data de submissão",
   
   // "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
-  "search.filters.filter.dateSubmitted.placeholder": "Date de dépôt",
+  "search.filters.filter.dateSubmitted.placeholder": "Data de submissão",
   
   // "search.filters.filter.discoverable.head": "Private",
   // TODO New key - Add a translation
@@ -4819,85 +4771,85 @@
   "search.filters.filter.withdrawn.head": "Withdrawn",
   
   // "search.filters.filter.entityType.head": "Item Type",
-  "search.filters.filter.entityType.head": "Type d'Item",
+  "search.filters.filter.entityType.head": "Tipo de Item",
   
   // "search.filters.filter.entityType.placeholder": "Item Type",
-  "search.filters.filter.entityType.placeholder": "Type d'Item",
+  "search.filters.filter.entityType.placeholder": "Tipo de Item",
   
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
-  "search.filters.filter.has_content_in_original_bundle.head": "Fichier(s) présent(s)",
+  "search.filters.filter.has_content_in_original_bundle.head": "Tem arquivos",
   
   // "search.filters.filter.itemtype.head": "Type",
-  "search.filters.filter.itemtype.head": "Type",
+  "search.filters.filter.itemtype.head": "Tipo",
   
   // "search.filters.filter.itemtype.placeholder": "Type",
-  "search.filters.filter.itemtype.placeholder": "Type",
+  "search.filters.filter.itemtype.placeholder": "Tipo",
   
   // "search.filters.filter.jobTitle.head": "Job Title",
-  "search.filters.filter.jobTitle.head": "Fonction",
+  "search.filters.filter.jobTitle.head": "Cargo",
   
   // "search.filters.filter.jobTitle.placeholder": "Job Title",
-  "search.filters.filter.jobTitle.placeholder": "Fonction",
+  "search.filters.filter.jobTitle.placeholder": "Cargo",
   
   // "search.filters.filter.knowsLanguage.head": "Known language",
-  "search.filters.filter.knowsLanguage.head": "Langue(s)",
+  "search.filters.filter.knowsLanguage.head": "Idioma conhecido",
   
   // "search.filters.filter.knowsLanguage.placeholder": "Known language",
-  "search.filters.filter.knowsLanguage.placeholder": "Langue(s)",
+  "search.filters.filter.knowsLanguage.placeholder": "Idioma conhecido",
   
   // "search.filters.filter.namedresourcetype.head": "Status",
-  "search.filters.filter.namedresourcetype.head": "Statut",
+  "search.filters.filter.namedresourcetype.head": "Estado",
   
   // "search.filters.filter.namedresourcetype.placeholder": "Status",
-  "search.filters.filter.namedresourcetype.placeholder": "Statut",
+  "search.filters.filter.namedresourcetype.placeholder": "Estado",
   
   // "search.filters.filter.objectpeople.head": "People",
-  "search.filters.filter.objectpeople.head": "Personne",
+  "search.filters.filter.objectpeople.head": "Pessoas",
   
   // "search.filters.filter.objectpeople.placeholder": "People",
-  "search.filters.filter.objectpeople.placeholder": "Personne",
+  "search.filters.filter.objectpeople.placeholder": "Pessoas",
   
   // "search.filters.filter.organizationAddressCountry.head": "Country",
-  "search.filters.filter.organizationAddressCountry.head": "Pays",
+  "search.filters.filter.organizationAddressCountry.head": "País",
   
   // "search.filters.filter.organizationAddressCountry.placeholder": "Country",
-  "search.filters.filter.organizationAddressCountry.placeholder": "Pays",
+  "search.filters.filter.organizationAddressCountry.placeholder": "País",
   
   // "search.filters.filter.organizationAddressLocality.head": "City",
-  "search.filters.filter.organizationAddressLocality.head": "Ville",
+  "search.filters.filter.organizationAddressLocality.head": "Cidade",
   
   // "search.filters.filter.organizationAddressLocality.placeholder": "City",
-  "search.filters.filter.organizationAddressLocality.placeholder": "Ville",
+  "search.filters.filter.organizationAddressLocality.placeholder": "Cidade",
   
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
-  "search.filters.filter.organizationFoundingDate.head": "Date de fondation",
+  "search.filters.filter.organizationFoundingDate.head": "Data de Fundação",
   
   // "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
-  "search.filters.filter.organizationFoundingDate.placeholder": "Date de fondation",
+  "search.filters.filter.organizationFoundingDate.placeholder": "Data de Fundação",
   
   // "search.filters.filter.scope.head": "Scope",
-  "search.filters.filter.scope.head": "Scope",
+  "search.filters.filter.scope.head": "Escopo",
   
   // "search.filters.filter.scope.placeholder": "Scope filter",
-  "search.filters.filter.scope.placeholder": "Scope",
+  "search.filters.filter.scope.placeholder": "Filtrar escopo",
   
   // "search.filters.filter.show-less": "Collapse",
-  "search.filters.filter.show-less": "Moins",
+  "search.filters.filter.show-less": "Mostrar menos",
   
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more": "Plus",
+  "search.filters.filter.show-more": "Mostrar mais",
   
   // "search.filters.filter.subject.head": "Subject",
-  "search.filters.filter.subject.head": "Sujet",
+  "search.filters.filter.subject.head": "Assunto",
   
   // "search.filters.filter.subject.placeholder": "Subject",
-  "search.filters.filter.subject.placeholder": "Sujet",
+  "search.filters.filter.subject.placeholder": "Assunto",
   
   // "search.filters.filter.submitter.head": "Submitter",
-  "search.filters.filter.submitter.head": "Déposant",
+  "search.filters.filter.submitter.head": "Submetedor",
   
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder": "Déposant",
+  "search.filters.filter.submitter.placeholder": "Submetedor",
   
   
   
@@ -4910,99 +4862,91 @@
   "search.filters.entityType.JournalVolume": "Journal Volume",
   
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
-  // TODO New key - Add a translation
-  "search.filters.entityType.OrgUnit": "Organizational Unit",
+  "search.filters.entityType.OrgUnit": "Unidade Organizacional",
   
   // "search.filters.has_content_in_original_bundle.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.true": "Yes",
+  "search.filters.has_content_in_original_bundle.true": "Sim",
   
   // "search.filters.has_content_in_original_bundle.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.false": "No",
+  "search.filters.has_content_in_original_bundle.false": "Não",
   
   // "search.filters.discoverable.true": "No",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.true": "No",
+  "search.filters.discoverable.true": "Não",
   
   // "search.filters.discoverable.false": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.false": "Yes",
+  "search.filters.discoverable.false": "Sim",
   
   // "search.filters.withdrawn.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.true": "Yes",
+  "search.filters.withdrawn.true": "Sim",
   
   // "search.filters.withdrawn.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.false": "No",
+  "search.filters.withdrawn.false": "Não",
   
   
   // "search.filters.head": "Filters",
-  "search.filters.head": "Filtres",
+  "search.filters.head": "Filtros",
   
   // "search.filters.reset": "Reset filters",
-  "search.filters.reset": "Réinitialiser filtres",
+  "search.filters.reset": "Limpar filtros",
   
   
   
   // "search.form.search": "Search",
-  "search.form.search": "Recherche",
+  "search.form.search": "Buscar",
   
   // "search.form.search_dspace": "Search DSpace",
-  "search.form.search_dspace": "Recherche dans DSpace",
+  "search.form.search_dspace": "Buscar no DSpace",
   
   // "search.form.search_mydspace": "Search MyDSpace",
-  "search.form.search_mydspace": "Recherche dans MyDSpace",
+  "search.form.search_mydspace": "Buscar no MyDSpace",
   
   
   
   // "search.results.head": "Search Results",
-  "search.results.head": "Résultats de recherche",
+  "search.results.head": "Resultados de Busca",
   
   // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
-  "search.results.no-results": "Votre recherche n'a retourné aucun résultat. Vous n'arrivez pas à trouver ce que vous recherchez ? Essayez de mettre",
+  "search.results.no-results": "Sua busca não trouxe resultados. Tendo problema em localizar o que está buscando? Tente",
   
   // "search.results.no-results-link": "quotes around it",
-  "search.results.no-results-link": "des guillemets avant et après les termes recherchés",
+  "search.results.no-results-link": "envolver entre aspas",
   
   // "search.results.empty": "Your search returned no results.",
-  // TODO New key - Add a translation
-  "search.results.empty": "Your search returned no results.",
+  "search.results.empty": "Sua pesquisa não retornou resultados.",
   
   
   
   // "search.sidebar.close": "Back to results",
-  "search.sidebar.close": "Retour aux résultats",
+  "search.sidebar.close": "Voltar para os resultados",
   
   // "search.sidebar.filters.title": "Filters",
-  "search.sidebar.filters.title": "Filtres",
+  "search.sidebar.filters.title": "Filtros",
   
   // "search.sidebar.open": "Search Tools",
-  "search.sidebar.open": "Outils de recherche",
+  "search.sidebar.open": "Ferramentas de busca",
   
   // "search.sidebar.results": "results",
-  "search.sidebar.results": "Résultats",
+  "search.sidebar.results": "resultados",
   
   // "search.sidebar.settings.rpp": "Results per page",
-  "search.sidebar.settings.rpp": "Résultats par page",
+  "search.sidebar.settings.rpp": "Resultados por página",
   
   // "search.sidebar.settings.sort-by": "Sort By",
-  "search.sidebar.settings.sort-by": "Trier par",
+  "search.sidebar.settings.sort-by": "Ordenar por",
   
   // "search.sidebar.settings.title": "Settings",
-  "search.sidebar.settings.title": "Paramètres",
+  "search.sidebar.settings.title": "Configurações",
   
   
   
   // "search.view-switch.show-detail": "Show detail",
-  "search.view-switch.show-detail": "Afficher détail",
+  "search.view-switch.show-detail": "Mostrar detalhes",
   
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Affichage Grille",
+  "search.view-switch.show-grid": "Mostrar como grade",
   
   // "search.view-switch.show-list": "Show as list",
-  "search.view-switch.show-list": "Affichage Liste",
+  "search.view-switch.show-list": "Mostrar como lista",
   
   
   
@@ -5015,13 +4959,13 @@
   "sorting.DESC": "Descending",
   
   // "sorting.dc.title.ASC": "Title Ascending",
-  "sorting.dc.title.ASC": "Titre croissant",
+  "sorting.dc.title.ASC": "Título Ascendente",
   
   // "sorting.dc.title.DESC": "Title Descending",
-  "sorting.dc.title.DESC": "Titre décroissant",
+  "sorting.dc.title.DESC": "Título Descendente",
   
   // "sorting.score.DESC": "Relevance",
-  "sorting.score.DESC": "Pertinence",
+  "sorting.score.DESC": "Relevância",
   
   
   
@@ -5072,34 +5016,34 @@
   
   
   // "submission.edit.title": "Edit Submission",
-  "submission.edit.title": "Éditer dépôt",
+  "submission.edit.title": "Editar Submissão",
   
   // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
-  "submission.general.cannot_submit": "Vous n'avez pas les droits requis pour réaliser un nouveau dépôt.",
+  "submission.general.cannot_submit": "Você mão tem privilégios para fazer uma nova submissão.",
   
   // "submission.general.deposit": "Deposit",
-  "submission.general.deposit": "Déposer",
+  "submission.general.deposit": "Depositar",
   
   // "submission.general.discard.confirm.cancel": "Cancel",
-  "submission.general.discard.confirm.cancel": "Annuler",
+  "submission.general.discard.confirm.cancel": "Cancelar",
   
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  "submission.general.discard.confirm.info": "L'annulation est irréversible, les données du dépôt en cours seront perdues. Êtes-vous sûr(e) ?",
+  "submission.general.discard.confirm.info": "Esta operação não pode ser desfeita. Tem certeza?",
   
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
-  "submission.general.discard.confirm.submit": "Oui, certain(e)",
+  "submission.general.discard.confirm.submit": "Sim, tenho certeza",
   
   // "submission.general.discard.confirm.title": "Discard submission",
-  "submission.general.discard.confirm.title": "Annuler dépôt",
+  "submission.general.discard.confirm.title": "Descartar submissão",
   
   // "submission.general.discard.submit": "Discard",
-  "submission.general.discard.submit": "Annuler",
+  "submission.general.discard.submit": "Descartar",
   
   // "submission.general.save": "Save",
-  "submission.general.save": "Sauvegarder",
+  "submission.general.save": "Salvar",
   
   // "submission.general.save-later": "Save for later",
-  "submission.general.save-later": "Sauvegarder pour plus tard",
+  "submission.general.save-later": "Salvar para continuar depois",
   
   
   // "submission.import-external.page.title": "Import metadata from an external source",
@@ -5183,8 +5127,7 @@
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
   
   // "submission.sections.describe.relationship-lookup.close": "Close",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.close": "Close",
+  "submission.sections.describe.relationship-lookup.close": "Fechar",
   
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
   // TODO New key - Add a translation
@@ -5247,12 +5190,10 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importando do ORCID",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importando do Sherpa Journal",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
   // TODO New key - Add a translation
@@ -5319,8 +5260,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
   
   // "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
+  "submission.sections.describe.relationship-lookup.search-tab.loading": "Carregando...",
   
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   // TODO New key - Add a translation
@@ -5634,46 +5574,46 @@
   "submission.sections.ccLicense.confirmation": "I grant the license above",
   
   // "submission.sections.general.add-more": "Add more",
-  "submission.sections.general.add-more": "Ajouter section(s)",
+  "submission.sections.general.add-more": "Adicionar mais",
   
   // "submission.sections.general.collection": "Collection",
-  "submission.sections.general.collection": "Collection",
+  "submission.sections.general.collection": "Coleção",
   
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  "submission.sections.general.deposit_error_notice": "Une erreur s'est produite lors du dépôt de l'Item, veuillez réessayer plus tard.",
+  "submission.sections.general.deposit_error_notice": "Houve um problema durante a submissão do item, por favor tente novamente mais tarde.",
   
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Dépôt réalisé avec succès.",
+  "submission.sections.general.deposit_success_notice": "Submissão depositada com sucesso.",
   
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Une erreur s'est produite lors de la suppression du brouillon, veuillez réessayer plus tard.",
+  "submission.sections.general.discard_error_notice": "Houve um problema ao descartar o item, por favor tente novamente mais tarde.",
   
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
-  "submission.sections.general.discard_success_notice": "Brouillon supprimé avec succès.",
+  "submission.sections.general.discard_success_notice": "Submissão descartada com sucesso.",
   
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  "submission.sections.general.metadata-extracted": "De nouvelles métadonnées ont été extraites et ajoutées à la section <strong>{{sectionId}}</strong>.",
+  "submission.sections.general.metadata-extracted": "Novos metadados foram extraídos e adicionados a seção <strong>{{sectionId}}</strong>.",
   
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  "submission.sections.general.metadata-extracted-new-section": "Nouvelle section <strong>{{sectionId}}</strong> ajoutée au dépôt.",
+  "submission.sections.general.metadata-extracted-new-section": "Nova seção <strong>{{sectionId}}</strong> foi adicionada a dubmissão.",
   
   // "submission.sections.general.no-collection": "No collection found",
-  "submission.sections.general.no-collection": "Aucune Collection disponible",
+  "submission.sections.general.no-collection": "Nenhuma coleção encontrada",
   
   // "submission.sections.general.no-sections": "No options available",
-  "submission.sections.general.no-sections": "Aucune option disponible",
+  "submission.sections.general.no-sections": "Sem opções disponíveis",
   
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  "submission.sections.general.save_error_notice": "Une erreur s'est produite à la sauvegarde du dépôt, veuillez réessayer plus tard.",
+  "submission.sections.general.save_error_notice": "Houve um problema ao salvar o item, por favor tente novamente mais tarde.",
   
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
-  "submission.sections.general.save_success_notice": "Dépôt sauvegardé avec succès.",
+  "submission.sections.general.save_success_notice": "Submissão salva com sucesso.",
   
   // "submission.sections.general.search-collection": "Search for a collection",
-  "submission.sections.general.search-collection": "Rechercher une Collection",
+  "submission.sections.general.search-collection": "Buscar uma coleção",
   
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  "submission.sections.general.sections_not_valid": "Section(s) incomplète(s).",
+  "submission.sections.general.sections_not_valid": "Há seções incompletas.",
   
   
   
@@ -5682,190 +5622,189 @@
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
-  "submission.sections.submit.progressbar.describe.recycle": "Recycler",
+  "submission.sections.submit.progressbar.describe.recycle": "Reciclar",
   
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  "submission.sections.submit.progressbar.describe.stepcustom": "Décrire",
+  "submission.sections.submit.progressbar.describe.stepcustom": "Descrever",
   
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
-  "submission.sections.submit.progressbar.describe.stepone": "Décrire",
+  "submission.sections.submit.progressbar.describe.stepone": "Descrever",
   
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
-  "submission.sections.submit.progressbar.describe.steptwo": "Décrire",
+  "submission.sections.submit.progressbar.describe.steptwo": "Descrever",
   
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
-  "submission.sections.submit.progressbar.detect-duplicate": "Doublon(s) potentiel(s)",
+  "submission.sections.submit.progressbar.detect-duplicate": "Duplicados em potencial",
   
   // "submission.sections.submit.progressbar.license": "Deposit license",
-  "submission.sections.submit.progressbar.license": "Licence de dépôt",
+  "submission.sections.submit.progressbar.license": "Depositar licença",
   
   // "submission.sections.submit.progressbar.upload": "Upload files",
-  "submission.sections.submit.progressbar.upload": "Uploader",
+  "submission.sections.submit.progressbar.upload": "Enviar arquivos",
   
   
   
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
-  "submission.sections.upload.delete.confirm.cancel": "Annuler",
+  "submission.sections.upload.delete.confirm.cancel": "Cancelar",
   
   // "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
-  "submission.sections.upload.delete.confirm.info": "Cette opération est irréversible. Êtes-vous sûr(e) ?",
+  "submission.sections.upload.delete.confirm.info": "Esta operação é irreversível. Tem certeza?",
   
   // "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
-  "submission.sections.upload.delete.confirm.submit": "Oui, certain(e)",
+  "submission.sections.upload.delete.confirm.submit": "Sim, tenho certeza",
   
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
-  "submission.sections.upload.delete.confirm.title": "Supprimer Bitstream",
+  "submission.sections.upload.delete.confirm.title": "Remover bitstream",
   
   // "submission.sections.upload.delete.submit": "Delete",
-  "submission.sections.upload.delete.submit": "Supprimer",
+  "submission.sections.upload.delete.submit": "Remover",
   
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
-  "submission.sections.upload.drop-message": "Déposer des fichiers pour les lier à l'Item",
+  "submission.sections.upload.drop-message": "Arraste arquivos para anexá-los ao item",
   
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
-  "submission.sections.upload.form.access-condition-label": "Niveau d'accès",
+  "submission.sections.upload.form.access-condition-label": "Tipo de condição de acesso",
   
   // "submission.sections.upload.form.date-required": "Date is required.",
-  "submission.sections.upload.form.date-required": "Date obligatoire.",
+  "submission.sections.upload.form.date-required": "Data necessária.",
   
   // "submission.sections.upload.form.from-label": "Grant access from",
   // TODO Source message changed - Revise the translation
-  "submission.sections.upload.form.from-label": "Accès accordé depuis",
+  "submission.sections.upload.form.from-label": "Acesso permitido a partir de",
   
   // "submission.sections.upload.form.from-placeholder": "From",
-  "submission.sections.upload.form.from-placeholder": "Depuis",
+  "submission.sections.upload.form.from-placeholder": "De",
   
   // "submission.sections.upload.form.group-label": "Group",
-  "submission.sections.upload.form.group-label": "Groupe",
+  "submission.sections.upload.form.group-label": "Grupo",
   
   // "submission.sections.upload.form.group-required": "Group is required.",
-  "submission.sections.upload.form.group-required": "Groupe requis.",
+  "submission.sections.upload.form.group-required": "Grupo é necessário.",
   
   // "submission.sections.upload.form.until-label": "Grant access until",
   // TODO Source message changed - Revise the translation
-  "submission.sections.upload.form.until-label": "Accès accordé jusque",
+  "submission.sections.upload.form.until-label": "Acesso permitido até",
   
   // "submission.sections.upload.form.until-placeholder": "Until",
-  "submission.sections.upload.form.until-placeholder": "Jusque",
+  "submission.sections.upload.form.until-placeholder": "Até",
   
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  "submission.sections.upload.header.policy.default.nolist": "Les fichiers uploadés dans la Collection {{collectionName}} seront accessibles au(x) groupe(s) suivant(s) :",
+  "submission.sections.upload.header.policy.default.nolist": "Arquivos enviados na coleção {{collectionName}} serão acessiveis de acordo com o(s) seguinte(s) grupo(s):",
   
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Veuillez noter que, en complément des accès spécifiquement accordés pour le fichier, les fichiers uploadés dans la Collection {{collectionName}} seront accessibles par défaut au(x) groupe(s) suivant(s) :",
+  "submission.sections.upload.header.policy.default.withlist": "Por favor note que arquivos enviados a coleção {{collectionName}} serão acessíveis, de acordo com o que está explicitamente definido no arquivo, no(s) seguinte(s) grupo(s):",
   
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  // TODO Source message changed - Revise the translation
-  "submission.sections.upload.info": "Vous trouverez ici tous les fichiers actuellement associés à l'Item. Vous pouvez éditer les métadonnés et les niveaux d'accès de ce(s) fichier(s) ou <strong>uploader des fichiers complémentaires simplement en les glissant n'importe où sur cette page</strong>",
+  "submission.sections.upload.info": "Aqui voCẽ encontra todos os arquivos que estão atualmente no item. Você pode atualizar os metadados do arquivo e condições de acesso ou <strong>enviar arquivos adicionais apenas arrastando os arquivos em qualquer lugar da página</strong>",
   
   // "submission.sections.upload.no-entry": "No",
-  "submission.sections.upload.no-entry": "Non",
+  "submission.sections.upload.no-entry": "Não",
   
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  "submission.sections.upload.no-file-uploaded": "Aucun fichier uploadé.",
+  "submission.sections.upload.no-file-uploaded": "Nenhum arquivo enviado ainda.",
   
   // "submission.sections.upload.save-metadata": "Save metadata",
-  "submission.sections.upload.save-metadata": "Sauvegarder métadonnées",
+  "submission.sections.upload.save-metadata": "Salvar metadados",
   
   // "submission.sections.upload.undo": "Cancel",
-  "submission.sections.upload.undo": "Annuler",
+  "submission.sections.upload.undo": "Cancelar",
   
   // "submission.sections.upload.upload-failed": "Upload failed",
-  "submission.sections.upload.upload-failed": "Échec de l'upload",
+  "submission.sections.upload.upload-failed": "Falha no envio",
   
   // "submission.sections.upload.upload-successful": "Upload successful",
-  "submission.sections.upload.upload-successful": "Upload réussi",
+  "submission.sections.upload.upload-successful": "Enviado com sucesso",
   
   
   
   // "submission.submit.title": "Submission",
-  "submission.submit.title": "Dépôt",
+  "submission.submit.title": "Submissão",
   
   
   
   // "submission.workflow.generic.delete": "Delete",
-  "submission.workflow.generic.delete": "Supprimer",
+  "submission.workflow.generic.delete": "Apagar",
   
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Si vous souhaitez supprimer cet Item, cliquez sur « Supprimer ». Une confirmation vous sera alors demandée.",
+  "submission.workflow.generic.delete-help": "Se você gostaria de descartar este item, selecione \"Apagar\".  Você será questionado para confirmar.",
   
   // "submission.workflow.generic.edit": "Edit",
-  "submission.workflow.generic.edit": "Éditer",
+  "submission.workflow.generic.edit": "Editar",
   
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  "submission.workflow.generic.edit-help": "Sélectionner cette option pour modifier les métadonnées de l'Item.",
+  "submission.workflow.generic.edit-help": "Selecione esta opção para modificar os metadados do item.",
   
   // "submission.workflow.generic.view": "View",
-  "submission.workflow.generic.view": "Afficher",
+  "submission.workflow.generic.view": "Visualizar",
   
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workflow.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'Item.",
+  "submission.workflow.generic.view-help": "Selecione esta opção para ver o metadados do item.",
   
   
   
   // "submission.workflow.tasks.claimed.approve": "Approve",
-  "submission.workflow.tasks.claimed.approve": "Approuver",
+  "submission.workflow.tasks.claimed.approve": "Aprovar",
   
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Si vous avez contrôlé cet Item et qu'il peut être ajouté à la Collection, sélectionner l'option « Approuver ».",
+  "submission.workflow.tasks.claimed.approve_help": "Se você revisou o item e este está adequado para inclusão na coleção, selecione \"Aprovar\".",
   
   // "submission.workflow.tasks.claimed.edit": "Edit",
-  "submission.workflow.tasks.claimed.edit": "Éditer",
+  "submission.workflow.tasks.claimed.edit": "Editar",
   
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  "submission.workflow.tasks.claimed.edit_help": "Sélectionner cette option pour modifier les métadonnées de l'Item.",
+  "submission.workflow.tasks.claimed.edit_help": "Selecione esta opção para modificar os metadados do item.",
   
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Veuillez spécifier la raison pour laquelle ce dépôt est rejeté dans le champ ci-dessous, en indicant si le déposant peut résoudre un problème et redéposer ensuite.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor informe o motivo pela rejeição da submissão na caixa abaixo, indicando se o submetedor pode corrigir um problema e reenviar.",
   
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
-  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Décrire la raison du rejet",
+  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Descreva o motivo da rejeição",
   
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Rejeter Item",
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Rejeitar item",
   
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
-  "submission.workflow.tasks.claimed.reject.reason.title": "Raison",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Motivo",
   
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
-  "submission.workflow.tasks.claimed.reject.submit": "Rejeter",
+  "submission.workflow.tasks.claimed.reject.submit": "Rejeitar",
   
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Si vous avez contrôle cet Item et qu'il ne peut <strong>PAS</strong> être ajouté à la Collection, sélectionner l'option « Rejeter ».  Il vous sera alors demandé d'indiquer la raison de ce rejet et si le déposant peut apporter une correction avant de redéposer.",
+  "submission.workflow.tasks.claimed.reject_help": "Se você revisou o item e achou que ele <strong>não</strong> é adequado para inclusão na coleção, selecione \"Rejeitar\".  Você será questionado a informar uma mensagem indicando porque o item está inadequado e se o submetedor deve modificar algo e reenviar.",
   
   // "submission.workflow.tasks.claimed.return": "Return to pool",
-  "submission.workflow.tasks.claimed.return": "Se désassigner",
+  "submission.workflow.tasks.claimed.return": "Retornar para o conjunto",
   
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  "submission.workflow.tasks.claimed.return_help": "Renvoyer la tâche dans le pool de validation pour qu'un autre utilisateur puisse en prendre soin.",
+  "submission.workflow.tasks.claimed.return_help": "Retornar a tarefa para o conjunto para que outra pessoa possa a fazer.",
   
   
   
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
-  "submission.workflow.tasks.generic.error": "Une erreur s'est produite au cours de l'opération...",
+  "submission.workflow.tasks.generic.error": "Ocorreu um erro durante a operação...",
   
   // "submission.workflow.tasks.generic.processing": "Processing...",
-  "submission.workflow.tasks.generic.processing": "En cours de traitement...",
+  "submission.workflow.tasks.generic.processing": "Processando...",
   
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  "submission.workflow.tasks.generic.submitter": "Déposant",
+  "submission.workflow.tasks.generic.submitter": "Submetedor",
   
   // "submission.workflow.tasks.generic.success": "Operation successful",
-  "submission.workflow.tasks.generic.success": "Opération exécutée avec succès",
+  "submission.workflow.tasks.generic.success": "Operação realizada com sucesso",
   
   
   
   // "submission.workflow.tasks.pool.claim": "Claim",
-  "submission.workflow.tasks.pool.claim": "Prendre en charge",
+  "submission.workflow.tasks.pool.claim": "Requerer",
   
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  "submission.workflow.tasks.pool.claim_help": "Assigner cette tâche à votre propre utilisateur.",
+  "submission.workflow.tasks.pool.claim_help": "Atribua esta tarefa a si mesmo.",
   
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
-  "submission.workflow.tasks.pool.hide-detail": "Masquer détails",
+  "submission.workflow.tasks.pool.hide-detail": "Ocultar detalhes",
   
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
-  "submission.workflow.tasks.pool.show-detail": "Afficher détails",
+  "submission.workflow.tasks.pool.show-detail": "Mostrar detalhes",
   
   
   
@@ -5905,20 +5844,20 @@
   
   
   // "uploader.browse": "browse",
-  "uploader.browse": "parcourir",
+  "uploader.browse": "Navegar",
   
   // "uploader.drag-message": "Drag & Drop your files here",
-  "uploader.drag-message": "Glisser & Déposer vos fichiers ici",
+  "uploader.drag-message": "Clique e arraste seus arquivos aqui",
   
   // "uploader.or": ", or ",
   // TODO Source message changed - Revise the translation
   "uploader.or": ", ou",
   
   // "uploader.processing": "Processing",
-  "uploader.processing": "En cours de traitement",
+  "uploader.processing": "Processando",
   
   // "uploader.queue-length": "Queue length",
-  "uploader.queue-length": "Longueur de la file d'attente",
+  "uploader.queue-length": "Tamanho da fila",
   
   // "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
   // TODO New key - Add a translation
