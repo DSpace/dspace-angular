@@ -85,11 +85,12 @@ jobs:
       - name: Wait for DSpace REST Backend to be ready (for e2e tests)
         uses: nev7n/wait_for_response@v1
         with:
-            url: 'http://localhost:8080/server/api'
+            # We use the 'sites' endpoint to also ensure the database is ready
+            url: 'http://localhost:8080/server/api/core/sites'
             responseCode: 200
             timeout: 30000
 
-      - name: Check DSpace REST Backend response (for e2e tests)
+      - name: Get DSpace REST Backend info/properties
         run: curl http://localhost:8080/server/api
 
       - name: Run e2e tests (integration tests)
