@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminAccessControlModule } from '../../app/+admin/admin-access-control/admin-access-control.module';
 import { AdminRegistriesModule } from '../../app/+admin/admin-registries/admin-registries.module';
 import { AdminSearchModule } from '../../app/+admin/admin-search-page/admin-search.module';
 import { AdminWorkflowModuleModule } from '../../app/+admin/admin-workflow-page/admin-workflow.module';
@@ -37,6 +36,7 @@ import { AppModule } from '../../app/app.module';
 import { PublicationComponent } from './app/+item-page/simple/item-types/publication/publication.component';
 import { ItemPageModule } from '../../app/+item-page/item-page.module';
 import { RouterModule } from '@angular/router';
+import { AccessControlModule } from "../../app/access-control/access-control.module";
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -47,7 +47,7 @@ const DECLARATIONS = [
 
 @NgModule({
   imports: [
-    AdminAccessControlModule,
+    AccessControlModule,
     AdminRegistriesModule,
     AdminSearchModule,
     AdminWorkflowModuleModule,
