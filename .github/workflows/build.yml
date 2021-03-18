@@ -80,6 +80,19 @@ jobs:
           docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
           docker container ls
 
+      # Wait until the REST API returns a 200 response (or for a max of 30 seconds)
+      # https://github.com/nev7n/wait_for_response
+      - name: Wait for DSpace REST Backend to be ready (for e2e tests)
+        uses: nev7n/wait_for_response@v1
+        with:
+            # We use the 'sites' endpoint to also ensure the database is ready
+            url: 'http://localhost:8080/server/api/core/sites'
+            responseCode: 200
+            timeout: 30000
+
+      - name: Get DSpace REST Backend info/properties
+        run: curl http://localhost:8080/server/api
+
       - name: Run e2e tests (integration tests)
         run: yarn run e2e:ci
 
