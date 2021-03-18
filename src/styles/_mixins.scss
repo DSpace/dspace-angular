@@ -19,23 +19,23 @@
         height: 3px;
     }
     &::-webkit-scrollbar-button {
-        background-color: $dark-scrollbar-background;
+        background-color: var(--ds-dark-scrollbar-bg);
     }
     &::-webkit-scrollbar-track {
-        background-color: lighten($dark-scrollbar-background, 2%);
+        background-color: var(--ds-dark-scrollbar-alt-bg);
     }
     &::-webkit-scrollbar-track-piece {
-        background-color: $dark-scrollbar-background;
+        background-color: var(--ds-dark-scrollbar-bg);
     }
     &::-webkit-scrollbar-thumb {
         height: 50px;
-        background-color: $dark-scrollbar-foreground;
+        background-color: var(--ds-dark-scrollbar-fg);
         border-radius: 3px;
     }
     &::-webkit-scrollbar-corner {
-        background-color: lighten($dark-scrollbar-background, 2%);
+        background-color: var(--ds-dark-scrollbar-alt-bg);
     }
     &::-webkit-resizer {
-        background-color: $dark-scrollbar-background;
+        background-color: var(--ds-dark-scrollbar-bg);
     }
 }

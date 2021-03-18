@@ -7,7 +7,8 @@ import {
   of as observableOf,
   Subscription,
   BehaviorSubject,
-  combineLatest as observableCombineLatest, ObservedValueOf,
+  combineLatest as observableCombineLatest,
+  ObservedValueOf,
 } from 'rxjs';
 import { map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {buildPaginatedList, PaginatedList} from '../../../../core/data/paginated-list.model';

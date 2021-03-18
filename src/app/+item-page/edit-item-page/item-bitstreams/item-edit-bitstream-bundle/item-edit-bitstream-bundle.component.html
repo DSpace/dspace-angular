@@ -8,7 +8,7 @@
     </div>
     <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">
       <div class="btn-group bundle-action-buttons">
-        <button [routerLink]="['/items/', item.id, 'bitstreams', 'new']"
+        <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                 [queryParams]="{bundle: bundle.id}"
                 class="btn btn-outline-success btn-sm"
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">

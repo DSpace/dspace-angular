@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -12,17 +12,19 @@ import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { Router } from '@angular/router';
+import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-search-filters',
   styleUrls: ['./search-filters.component.scss'],
   templateUrl: './search-filters.component.html',
+
 })
 
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent implements OnInit {
+export class SearchFiltersComponent implements OnInit, OnDestroy {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
@@ -40,9 +42,16 @@ export class SearchFiltersComponent implements OnInit {
   @Input() inPlaceSearch;
 
   /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: Observable<any>;
+
+  /**
    * Link to the search page
    */
   searchLink: string;
+
+  subs = [];
 
   /**
    * Initialize instance variables
@@ -58,15 +67,24 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filters = this.searchConfigService.searchOptions.pipe(
-      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getFirstSucceededRemoteData())),
-    );
+
+    this.initFilters();
+
+    if (this.refreshFilters) {
+      this.subs.push(this.refreshFilters.subscribe(() => this.initFilters()));
+    }
 
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
     }));
     this.searchLink = this.getSearchLink();
+  }
+
+  initFilters() {
+    this.filters = this.searchConfigService.searchOptions.pipe(
+      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getFirstSucceededRemoteData())),
+    );
   }
 
   /**
@@ -84,5 +102,13 @@ export class SearchFiltersComponent implements OnInit {
    */
   trackUpdate(index, config: SearchFilterConfig) {
     return config ? config.name : undefined;
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub) => {
+      if (hasValue(sub)) {
+        sub.unsubscribe();
+      }
+    });
   }
 }

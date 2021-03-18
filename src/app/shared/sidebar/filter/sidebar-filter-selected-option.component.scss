@@ -1,5 +1,5 @@
 a {
-  color: $body-color;
+  color: var(--bs-body-color);
 
   &:hover, &focus {
     text-decoration: none;

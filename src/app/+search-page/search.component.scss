@@ -6,5 +6,5 @@
 }
 
 ::ng-deep .search-controls {
-    margin-bottom: $spacer;
+    margin-bottom: var(--bs-spacer);
 }

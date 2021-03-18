@@ -5,6 +5,7 @@ import { Item } from './core/shared/item.model';
 import { getCommunityPageRoute } from './+community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing-paths';
 import { getItemPageRoute } from './+item-page/item-page-routing-paths';
+import { hasValue } from './shared/empty.util';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
 
@@ -45,13 +46,15 @@ export function getWorkflowItemModuleRoute() {
 }
 
 export function getDSORoute(dso: DSpaceObject): string {
-  switch ((dso as any).type) {
-    case Community.type.value:
-      return getCommunityPageRoute(dso.uuid);
-    case Collection.type.value:
-      return getCollectionPageRoute(dso.uuid);
-    case Item.type.value:
-      return getItemPageRoute(dso.uuid);
+  if (hasValue(dso)) {
+    switch ((dso as any).type) {
+      case Community.type.value:
+        return getCommunityPageRoute(dso.uuid);
+      case Collection.type.value:
+        return getCollectionPageRoute(dso.uuid);
+      case Item.type.value:
+        return getItemPageRoute(dso as Item);
+    }
   }
 }
 

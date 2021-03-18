@@ -1,15 +1,15 @@
 .scrollable-menu {
   height: auto;
-  max-height: $dropdown-menu-max-height;
+  max-height: var(--ds-dropdown-menu-max-height);
   overflow-x: hidden;
 }
 
 .collection-item {
-  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+  border-bottom: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
 }
 
 #collectionControlsDropdownMenu {
   outline: 0;
   left: 0 !important;
-  box-shadow: $btn-focus-box-shadow;
+  box-shadow: var(--bs-btn-focus-box-shadow);
 }

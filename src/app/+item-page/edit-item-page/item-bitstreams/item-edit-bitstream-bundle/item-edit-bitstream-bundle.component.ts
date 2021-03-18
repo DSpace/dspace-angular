@@ -3,6 +3,7 @@ import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { getItemPageRoute } from '../../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -49,11 +50,17 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   bundleNameColumn: ResponsiveColumnSizes;
 
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute: string;
+
   constructor(private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit(): void {
     this.bundleNameColumn = this.columnSizes.combineColumns(0, 2);
     this.viewContainerRef.createEmbeddedView(this.bundleView);
+    this.itemPageRoute = getItemPageRoute(this.item);
   }
 }

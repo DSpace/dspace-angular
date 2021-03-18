@@ -11,9 +11,10 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { redirectOn4xx } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { getItemPageRoute } from '../item-page-routing-paths';
 
 /**
  * This component renders a simple item page.
@@ -44,6 +45,11 @@ export class ItemPageComponent implements OnInit {
    */
   viewMode = ViewMode.StandalonePage;
 
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute$: Observable<string>;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -61,5 +67,9 @@ export class ItemPageComponent implements OnInit {
       redirectOn4xx(this.router, this.authService)
     );
     this.metadataService.processRemoteData(this.itemRD$);
+    this.itemPageRoute$ = this.itemRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((item) => getItemPageRoute(item))
+    );
   }
 }

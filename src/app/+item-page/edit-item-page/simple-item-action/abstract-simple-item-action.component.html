@@ -6,7 +6,7 @@
             <ds-modify-item-overview [item]="item"></ds-modify-item-overview>
             <button (click)="performAction()" class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
             </button>
-            <button [routerLink]="['/items/', item.id, 'edit']" class="btn btn-outline-secondary cancel">
+            <button [routerLink]="[itemPageRoute, 'edit']" class="btn btn-outline-secondary cancel">
                 {{cancelMessage| translate}}
             </button>
 
