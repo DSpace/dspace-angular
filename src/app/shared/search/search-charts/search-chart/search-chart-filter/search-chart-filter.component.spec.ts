@@ -2,7 +2,11 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../search-filter-config.model';
 import { FilterType } from '../../../filter-type.model';
 import { FacetValue } from '../../../facet-value.model';
@@ -127,8 +131,53 @@ xdescribe('SearchChartFilterComponent', () => {
     expect(comp).toBeTruthy();
   });
 
-  it('should call select with the correct filter configuration name', () => {
-    spyOn(comp, 'select').and.callThrough();
+  describe('when the select method is called with data', () => {
+    const data = {
+      extra: {
+        value: 'test',
+      },
+    };
+    const searchUrl = '/search/path';
+
+    beforeEach(() => {
+      fixture.detectChanges();
+      spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
+      router.browserUrlTree = {};
+      router.browserUrlTree.queryParamMap = {};
+      router.browserUrlTree.queryParamMap.params = {};
+      comp.select(data);
+    });
+
+    it('should call navigate on the router with the right searchlink and parameters', () => {
+      expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
+        queryParams: {
+          [mockFilterConfig.filterType]: [data.extra.value],
+        },
+        queryParamsHandling: 'merge',
+      });
+    });
+  });
+
+  describe('when the getSearchLink method is triggered', () => {
+    let link: any;
+    beforeEach(() => {
+      link = (comp as  any).getInitData();
+    });
+
+    it('should return the value of the searchLink variable in the filter service', () => {
+      expect(link).toEqual(link);
+    });
+  });
+
+  describe('when the showMore method is called', () => {
+    beforeEach(() => {
+      spyOn(comp, 'showMore');
+      comp.showMore();
+    });
+
+    it('should call the showMore method', () => {
+      expect(comp.showMore).toHaveBeenCalled();
+    });
   });
 
 });

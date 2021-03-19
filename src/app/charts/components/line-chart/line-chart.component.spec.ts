@@ -1,7 +1,8 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injector } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartType } from '../../models/chart-type';
 import { LineChartComponent } from './line-chart.component';
 
 xdescribe('LineChartComponent', () => {
@@ -80,6 +81,12 @@ xdescribe('LineChartComponent', () => {
   const legendTitle = '';
   const legendPosition = 'right';
   const select: EventEmitter<string> = new EventEmitter();
+  const loadMore: EventEmitter<string> = new EventEmitter();
+  const enableScrollToLeft = false;
+  const enableScrollToRight = false;
+  const isLastPage = false;
+  const currentPage = false;
+  const type = ChartType.BAR;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -97,7 +104,14 @@ xdescribe('LineChartComponent', () => {
         { provide: 'legend', useValue: legend },
         { provide: 'legendTitle', useValue: legendTitle },
         { provide: 'legendPosition', userValue: legendPosition },
-        { provide: 'select', useValue:  select},
+        { provide: 'select', useValue: select },
+        { provide: 'enableScrollToLeft', useValue: enableScrollToLeft },
+        { provide: 'enableScrollToRight', useValue: enableScrollToRight },
+        { provide: 'loadMore', useValue: loadMore },
+        { provide: 'isLastPage', useValue: isLastPage },
+        { provide: 'currentPage', useValue: currentPage },
+        { provide: 'type', useValue: type },
+        Injector
       ]
     })
     .compileComponents();

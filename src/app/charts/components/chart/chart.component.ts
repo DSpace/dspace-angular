@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Injector, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
+
+import { Observable } from 'rxjs';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { ChartType } from '../../models/chart-type';
-import { ChartSeries } from '../../models/chart-series';
-import { ChartData } from '../../models/chart-data';
 import { rendersChartType } from '../../charts.decorator';
+import { ChartData } from '../../models/chart-data';
+import { ChartSeries } from '../../models/chart-series';
+import { ChartType } from '../../models/chart-type';
 
 @Component({
   selector: 'ds-chart',
@@ -24,7 +26,7 @@ export class ChartComponent implements OnInit {
    * A results to show data on chart.
    */
   @Input()
-  results: ChartData[] | ChartSeries[];
+  results: Observable<ChartData[] | ChartSeries[]>;
 
   /**
    * flag to show/hide animations.
@@ -67,9 +69,33 @@ export class ChartComponent implements OnInit {
   public objectInjector: Injector;
 
   /**
-   * The chart type enum
+   * flag to add more record from left.
    */
-  chartType = ChartType;
+  @Input()
+  enableScrollToLeft: boolean;
+
+  /**
+   * flag to add more record from right.
+   */
+  @Input()
+  enableScrollToRight: boolean;
+
+  /**
+   * Emits an event when the user load more data
+   */
+  @Output() showMore = new EventEmitter();
+
+  /**
+   * flag to display more button
+   */
+  @Input()
+  isLastPage: Observable<boolean>;
+
+  /**
+   * Set current Page
+   */
+  @Input()
+  currentPage: Observable<number>;
 
   constructor(private injector: Injector) {}
 
@@ -91,13 +117,15 @@ export class ChartComponent implements OnInit {
           deps: [],
         },
         { provide: 'select', useFactory: () => this.select, deps: [] },
+        { provide: 'enableScrollToLeft', useFactory: () => this.enableScrollToLeft, deps: [] },
+        { provide: 'enableScrollToRight', useFactory: () => this.enableScrollToRight, deps: [] },
+        { provide: 'showMore', useFactory: () => this.showMore, deps: [] },
+        { provide: 'isLastPage', useFactory: () => this.isLastPage, deps: [] },
+        { provide: 'currentPage', useFactory: () => this.currentPage, deps: [] },
+        { provide: 'type', useFactory: () => this.type, deps: [] }
       ],
       parent: this.injector,
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.ngOnInit();
   }
 
   /**

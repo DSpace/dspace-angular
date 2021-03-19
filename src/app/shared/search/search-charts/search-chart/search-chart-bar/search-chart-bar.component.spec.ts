@@ -7,9 +7,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { RouteService } from '../../../../../core/services/route.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService,
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
@@ -21,19 +27,20 @@ import { SearchChartBarComponent } from './search-chart-bar.component';
 xdescribe('SearchChartBarComponent', () => {
   let comp: SearchChartBarComponent;
   let fixture: ComponentFixture<SearchChartBarComponent>;
+  const filterName1 = 'test name';
   const value1 = 'Value 1';
   const value2 = 'Value 2';
   const value3 = 'Value 3';
-  const filterName1 = 'test name';
-  const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
-    type: FilterType.range,
-    hasFacets: false,
-    isOpenByDefault: false,
-    pageSize: 2,
-    minValue: 200,
-    maxValue: 3000,
-  });
+  const mockFilterConfig: SearchFilterConfig = Object.assign(
+    new SearchFilterConfig(),
+    {
+      name: filterName1,
+      type: FilterType.text,
+      hasFacets: false,
+      isOpenByDefault: false,
+      pageSize: 2,
+    }
+  );
   const values: FacetValue[] = [
     {
       label: value1,
@@ -41,43 +48,51 @@ xdescribe('SearchChartBarComponent', () => {
       count: 52,
       _links: {
         self: {
-          href:''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
-    }, {
+          href: '',
+        },
+      },
+    },
+    {
       label: value2,
       value: value2,
       count: 20,
       _links: {
         self: {
-          href:''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
-    }, {
+          href: '',
+        },
+      },
+    },
+    {
       label: value3,
       value: value3,
       count: 5,
       _links: {
         self: {
-          href:''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
-    }
+          href: '',
+        },
+      },
+    },
   ];
 
   const searchLink = '/search';
-  const selectedValues = observableOf([]);
+  const selectedValues = [value1, value2];
+  let filterService;
+  let searchService;
+  let router;
   const page = observableOf(0);
 
+  const mockValues = createSuccessfulRemoteDataObject$(
+    buildPaginatedList(new PageInfo(), values)
+  );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -85,38 +100,50 @@ xdescribe('SearchChartBarComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
-        { provide: FILTER_CONFIG, useValue: mockFilterConfig },
-        { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
-        { provide: RouteService, useValue: {getQueryParameterValue: () => observableOf({})} },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
+        {
+          provide: RemoteDataBuildService,
+          useValue: { aggregate: () => observableOf({}) },
+        },
+        {
+          provide: SEARCH_CONFIG_SERVICE,
+          useValue: new SearchConfigurationServiceStub(),
+        },
         { provide: IN_PLACE_SEARCH, useValue: false },
         {
-          provide: SearchFilterService, useValue: {
-            getSelectedValuesForFilter: () => selectedValues,
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+          provide: SearchFilterService,
+          useValue: {
+            getSelectedValuesForFilter: () => observableOf(selectedValues),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) =>
+              true,
             getPage: (paramName: string) => page,
             /* tslint:disable:no-empty */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
-            }
+            incrementPage: (filterName: string) => {},
+            resetPage: (filterName: string) => {},
             /* tslint:enable:no-empty */
-          }
-        }
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchChartBarComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SearchChartBarComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchChartBarComponent);
-    comp = fixture.componentInstance;
+    comp = fixture.componentInstance; // SearchChartBarComponent test instance
+    comp.filterConfig = mockFilterConfig;
+    filterService = (comp as any).filterService;
+    searchService = (comp as any).searchService;
+    spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
+    router = (comp as any).router;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create SearchChartBarComponent', () => {
     expect(comp).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 <div class="d-flex w-100 search-chart-container" *ngIf="(results | async) && (results | async).length > 0; else noData">
-  <ds-chart [results]="(results | async)" [view]="view" [type]='chartType.LINE' [animations]="true"
+  <ds-chart [results]="results" [view]="view" [type]='chartType.LINE' [animations]="true"
     (select)="select($event)"></ds-chart>
 </div>
 <ng-template #noData>
