@@ -1,11 +1,10 @@
 <ngx-charts-pie-chart
   [view]="view"
-  [results]="results"
+  [results]="(chartData | async)"
   [animations]="animations"
   [legend]="legend"
   [legendTitle]="legendTitle"
   [legendPosition]="legendPosition"
   [labels]="showLabels"
-  (select)="onSelect($event)"
-  >
+  (select)="onSelect($event)">
 </ngx-charts-pie-chart>

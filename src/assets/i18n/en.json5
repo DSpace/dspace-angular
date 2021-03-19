@@ -3645,6 +3645,8 @@
 
   "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
 
+  "search.filters.applied.charts.chart.pie.more-value" : "More",
+
   "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
 
   "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
