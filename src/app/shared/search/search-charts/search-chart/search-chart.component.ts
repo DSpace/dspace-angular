@@ -17,7 +17,7 @@ import { SearchFilterConfig } from '../../search-filter-config.model';
 })
 
 /**
- * Represents a part of the filter section for a single type of filter
+ * Represents a part of the filter charts tabs for a single type of chart filter
  */
 export class SearchChartComponent implements OnInit {
   /**
