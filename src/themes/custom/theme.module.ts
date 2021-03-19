@@ -36,7 +36,7 @@ import { AppModule } from '../../app/app.module';
 import { PublicationComponent } from './app/+item-page/simple/item-types/publication/publication.component';
 import { ItemPageModule } from '../../app/+item-page/item-page.module';
 import { RouterModule } from '@angular/router';
-import { AccessControlModule } from "../../app/access-control/access-control.module";
+import { AccessControlModule } from '../../app/access-control/access-control.module';
 
 const DECLARATIONS = [
   HomePageComponent,
