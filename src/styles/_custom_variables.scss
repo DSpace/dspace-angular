@@ -19,12 +19,13 @@
   --ds-footer-z-index: 0;
   --ds-sidebar-z-index: 20;
 
-  --ds-header-bg: #063282;
+  --ds-header-bg: #{$white};
   --ds-header-logo-height: 80px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$white};
+  --ds-header-icon-color: #{$blue};
   --ds-header-icon-color-hover: #{darken($white, 15%)};
-  --ds-header-navbar-border-color: #{$green};
+  --ds-header-navbar-border-top-color: #{$blue};
+  --ds-header-navbar-border-bottom-color: #{$green};
 
   $admin-sidebar-bg: darken($blue, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
