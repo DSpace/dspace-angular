@@ -37,6 +37,7 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { FacetConfigResponse } from '../../../shared/search/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/facet-values.model';
+import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -427,6 +428,41 @@ export class SearchService implements OnDestroy {
 
         this.router.navigate(hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], navigationExtras);
       });
+  }
+
+  /**
+   * Request the search configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
+   */
+  getSearchConfigurationFor(scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
+    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+
+        if (isNotEmpty(scope)) {
+          args.push(`scope=${scope}`);
+        }
+
+        if (isNotEmpty(configurationName)) {
+          args.push(`configuration=${configurationName}`);
+        }
+
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+
+        return url;
+      }),
+    );
+
+    href$.pipe(take(1)).subscribe((url: string) => {
+      const request = new this.request(this.requestService.generateRequestId(), url);
+      this.requestService.send(request);
+    });
+
+    return this.rdb.buildFromHref(href$);
   }
 
   /**

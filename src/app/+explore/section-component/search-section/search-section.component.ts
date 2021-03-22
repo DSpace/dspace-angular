@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { SearchSection } from '../../../core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
 
 /**
  * Component representing the Search component section.
@@ -44,10 +44,10 @@ export class SearchSectionComponent implements OnInit {
 
   ngOnInit() {
 
-    this.filters = this.searchService.getConfig(null, this.searchSection.discoveryConfigurationName).pipe(
+    this.filters = this.searchService.getSearchConfigurationFor(null, this.searchSection.discoveryConfigurationName).pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((searchFilterConfig: SearchFilterConfig[]) => {
-        return [this.allFilter].concat(searchFilterConfig.map((filterConfig) => filterConfig.name));
+      map((searchFilterConfig: SearchConfig) => {
+        return [this.allFilter].concat(searchFilterConfig.filters.map((filterConfig) => filterConfig.filter));
       })
     );
 
