@@ -12,6 +12,7 @@ import { followLink } from '../../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders claimed task approved object for the search result in the list view.
@@ -41,9 +42,10 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
 
   public constructor(
     protected linkService: LinkService,
-    protected truncatableService: TruncatableService
+    protected truncatableService: TruncatableService,
+    protected dsoNameService: DSONameService
   ) {
-    super(truncatableService);
+    super(truncatableService, dsoNameService);
   }
 
   /**

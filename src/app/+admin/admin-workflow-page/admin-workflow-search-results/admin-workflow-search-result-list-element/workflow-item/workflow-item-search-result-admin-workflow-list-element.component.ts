@@ -12,6 +12,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
@@ -29,8 +30,11 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
    */
   public item$: Observable<Item>;
 
-  constructor(private linkService: LinkService, protected truncatableService: TruncatableService) {
-    super(truncatableService);
+  constructor(private linkService: LinkService,
+              protected truncatableService: TruncatableService,
+              protected dsoNameService: DSONameService
+  ) {
+    super(truncatableService, dsoNameService);
   }
 
   /**

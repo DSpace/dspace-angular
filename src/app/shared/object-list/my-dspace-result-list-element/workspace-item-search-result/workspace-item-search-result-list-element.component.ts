@@ -15,6 +15,7 @@ import { WorkspaceItemSearchResult } from '../../../object-collection/shared/wor
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.
@@ -40,9 +41,10 @@ export class WorkspaceItemSearchResultListElementComponent extends SearchResultL
 
   constructor(
     protected truncatableService: TruncatableService,
-    protected linkService: LinkService
+    protected linkService: LinkService,
+    protected dsoNameService: DSONameService
   ) {
-    super(truncatableService);
+    super(truncatableService, dsoNameService);
   }
 
   /**
