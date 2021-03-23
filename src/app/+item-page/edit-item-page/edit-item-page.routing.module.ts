@@ -31,6 +31,9 @@ import {
 } from './edit-item-page.routing-paths';
 import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
 import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
+import { ItemPageEditMetadataGuard } from '../item-page-edit-metadata.guard';
+import { ItemPageAdministratorGuard } from '../item-page-administrator.guard';
+import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -57,22 +60,26 @@ import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
               {
                 path: 'status',
                 component: ItemStatusComponent,
-                data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAdministratorGuard]
               },
               {
                 path: 'bitstreams',
                 component: ItemBitstreamsComponent,
-                data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAdministratorGuard]
               },
               {
                 path: 'metadata',
                 component: ItemMetadataComponent,
-                data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
+                canActivate: [ItemPageEditMetadataGuard]
               },
               {
                 path: 'relationships',
                 component: ItemRelationshipsComponent,
-                data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true },
+                canActivate: [ItemPageEditMetadataGuard]
               },
               /* TODO - uncomment & fix when view page exists
               {
@@ -89,12 +96,14 @@ import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
               {
                 path: 'versionhistory',
                 component: ItemVersionHistoryComponent,
-                data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAdministratorGuard]
               },
               {
                 path: 'mapper',
                 component: ItemCollectionMapperComponent,
-                data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAdministratorGuard]
               }
             ]
           },
@@ -165,7 +174,9 @@ import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
     ResourcePolicyResolver,
     ResourcePolicyTargetResolver,
     ItemPageReinstateGuard,
-    ItemPageWithdrawGuard
+    ItemPageWithdrawGuard,
+    ItemPageAdministratorGuard,
+    ItemPageEditMetadataGuard,
   ]
 })
 export class EditItemPageRoutingModule {

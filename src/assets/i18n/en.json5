@@ -1471,6 +1471,8 @@
 
   "item.edit.breadcrumbs": "Edit Item",
 
+  "item.edit.tabs.disabled.tooltip": "You don't have permission to access this tab",
+
 
   "item.edit.tabs.mapper.head": "Collection Mapper",
 

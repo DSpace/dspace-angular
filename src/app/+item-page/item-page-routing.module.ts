@@ -13,6 +13,7 @@ import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
 import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { ItemPageEditMetadataGuard } from './item-page-edit-metadata.guard';
 
 @NgModule({
   imports: [
@@ -38,7 +39,6 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
             path: ITEM_EDIT_PATH,
             loadChildren: () => import('./edit-item-page/edit-item-page.module')
               .then((m) => m.EditItemPageModule),
-            canActivate: [ItemPageAdministratorGuard]
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
@@ -68,7 +68,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
     ItemBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    ItemPageAdministratorGuard
+    ItemPageAdministratorGuard,
   ]
 
 })
