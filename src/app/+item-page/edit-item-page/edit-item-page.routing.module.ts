@@ -22,10 +22,10 @@ import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import {
   ITEM_EDIT_AUTHORIZATIONS_PATH,
-  ITEM_EDIT_MOVE_PATH,
   ITEM_EDIT_DELETE_PATH,
-  ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_MOVE_PATH,
   ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
   ITEM_EDIT_WITHDRAW_PATH
 } from './edit-item-page.routing-paths';
@@ -33,7 +33,6 @@ import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
 import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
 import { ItemPageEditMetadataGuard } from '../item-page-edit-metadata.guard';
 import { ItemPageAdministratorGuard } from '../item-page-administrator.guard';
-import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
