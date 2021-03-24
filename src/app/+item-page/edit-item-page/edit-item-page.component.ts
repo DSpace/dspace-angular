@@ -4,7 +4,7 @@ import { ActivatedRoute, CanActivate, Route, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
