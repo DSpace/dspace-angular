@@ -23,7 +23,7 @@ export class ItemPageEditMetadataGuard extends DsoPageFeatureGuard<Item> {
   }
 
   /**
-   * Check administrator authorization rights
+   * Check edit metadata authorization rights
    */
   getFeatureID(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
     return observableOf(FeatureID.CanEditMetadata);

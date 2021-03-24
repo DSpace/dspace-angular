@@ -32,6 +32,10 @@ export abstract class DsoPageFeatureGuard<T extends DSpaceObject> extends Featur
     );
   }
 
+  /**
+   * Method to resolve resolve (parent) route that contains the UUID of the DSO
+   * @param route The current route
+   */
   protected getRouteWithDSOId(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
     let routeWithDSOId = route;
     while (hasNoValue(routeWithDSOId.params.id) && hasValue(routeWithDSOId.parent)) {
