@@ -12,6 +12,7 @@ import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { of as observableOf } from 'rxjs';
 import { Context } from '../../../core/shared/context.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
@@ -39,8 +40,10 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   description: string;
 
   public constructor(protected truncatableService: TruncatableService,
-                     protected linkService: LinkService) {
-    super(truncatableService);
+                     protected linkService: LinkService,
+                     protected dsoNameService: DSONameService
+  ) {
+    super(truncatableService, dsoNameService);
   }
 
   /**

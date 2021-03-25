@@ -16,6 +16,8 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkspaceItemSearchResultListElementComponent } from './workspace-item-search-result-list-element.component';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
 let component: WorkspaceItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultListElementComponent>;
@@ -66,6 +68,7 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
         { provide: TruncatableService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {

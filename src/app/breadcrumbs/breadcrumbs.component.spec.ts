@@ -1,115 +1,78 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BreadcrumbsComponent } from './breadcrumbs.component';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
+import { BreadcrumbsService } from './breadcrumbs.service';
+import { Breadcrumb } from './breadcrumb/breadcrumb.model';
+import { VarDirective } from '../shared/utils/var.directive';
+import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
-import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
-import { BreadcrumbsService } from '../core/breadcrumbs/breadcrumbs.service';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { VarDirective } from '../shared/utils/var.directive';
-import { getTestScheduler } from 'jasmine-marbles';
-
-class TestBreadcrumbsService implements BreadcrumbsService<string> {
-  getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
-    return observableOf([new Breadcrumb(key, url)]);
-  }
-}
+import { RouterTestingModule } from '@angular/router/testing';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { DebugElement } from '@angular/core';
 
 describe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
   let fixture: ComponentFixture<BreadcrumbsComponent>;
-  let router: any;
-  let route: any;
-  let breadcrumbProvider;
-  let breadcrumbConfigA: BreadcrumbConfig<string>;
-  let breadcrumbConfigB: BreadcrumbConfig<string>;
-  let expectedBreadcrumbs;
+  let breadcrumbsServiceMock: BreadcrumbsService;
 
-  function init() {
-    breadcrumbProvider = new TestBreadcrumbsService();
+  const expectBreadcrumb = (listItem: DebugElement, text: string, url: string) => {
+    const anchor = listItem.query(By.css('a'));
 
-    breadcrumbConfigA = { provider: breadcrumbProvider, key: 'example.path', url: 'example.com' };
-    breadcrumbConfigB = { provider: breadcrumbProvider, key: 'another.path', url: 'another.com' };
-
-    route = {
-      root: {
-        snapshot: {
-          data: { breadcrumb: breadcrumbConfigA },
-          routeConfig: { resolve: { breadcrumb: {} } }
-        },
-        firstChild: {
-          snapshot: {
-            // Example without resolver should be ignored
-            data: { breadcrumb: breadcrumbConfigA },
-          },
-          firstChild: {
-            snapshot: {
-              data: { breadcrumb: breadcrumbConfigB },
-              routeConfig: { resolve: { breadcrumb: {} } }
-            }
-          }
-        }
-      }
-    };
-
-    expectedBreadcrumbs = [
-      new Breadcrumb(breadcrumbConfigA.key, breadcrumbConfigA.url),
-      new Breadcrumb(breadcrumbConfigB.key, breadcrumbConfigB.url)
-    ];
-
-  }
+    if (url == null) {
+      expect(anchor).toBeNull();
+      expect(listItem.nativeElement.innerHTML).toEqual(text);
+    } else {
+      expect(anchor).toBeInstanceOf(DebugElement);
+      expect(anchor.attributes.href).toEqual(url);
+      expect(anchor.nativeElement.innerHTML).toEqual(text);
+    }
+  };
 
   beforeEach(waitForAsync(() => {
-    init();
-    TestBed.configureTestingModule({
-      declarations: [BreadcrumbsComponent, VarDirective],
-      imports: [RouterTestingModule.withRoutes([]), TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), NgbModule],
-      providers: [
-        {provide: ActivatedRoute, useValue: route}
-      ], schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
-  }));
+    breadcrumbsServiceMock = {
+      breadcrumbs$: observableOf([
+        // NOTE: a root breadcrumb is automatically rendered
+        new Breadcrumb('bc 1', 'example.com'),
+        new Breadcrumb('bc 2', 'another.com'),
+      ]),
+      showBreadcrumbs$: observableOf(true),
+    } as BreadcrumbsService;
 
-  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        BreadcrumbsComponent,
+        VarDirective,
+      ],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          }
+        }),
+      ],
+      providers: [
+        { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
+      ],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('ngOnInit', () => {
-    beforeEach(() => {
-      spyOn(component, 'resolveBreadcrumbs').and.returnValue(observableOf([]));
-    });
-
-    it('should call resolveBreadcrumb on init', () => {
-      router.events = observableOf(new NavigationEnd(0, '', ''));
-      component.ngOnInit();
-      fixture.detectChanges();
-
-      expect(component.resolveBreadcrumbs).toHaveBeenCalledWith(route.root);
-    });
+  it('should render the breadcrumbs', () => {
+    const breadcrumbs = fixture.debugElement.queryAll(By.css('.breadcrumb-item'));
+    expect(breadcrumbs.length).toBe(3);
+    expectBreadcrumb(breadcrumbs[0], 'home.breadcrumbs', '/');
+    expectBreadcrumb(breadcrumbs[1], 'bc 1', '/example.com');
+    expectBreadcrumb(breadcrumbs[2], 'bc 2', null);
   });
 
-  describe('resolveBreadcrumbs', () => {
-    it('should return the correct breadcrumbs', () => {
-      const breadcrumbs = component.resolveBreadcrumbs(route.root);
-      getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedBreadcrumbs });
-    });
-  });
 });
