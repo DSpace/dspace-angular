@@ -21,6 +21,7 @@ import { Operation } from 'fast-json-patch';
 
 @Component({
   selector: 'ds-profile-page',
+  styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html'
 })
 /**

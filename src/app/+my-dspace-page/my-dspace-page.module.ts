@@ -11,6 +11,15 @@ import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
 import { MyDspaceSearchModule } from './my-dspace-search.module';
+import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
+
+const DECLARATIONS = [
+  MyDSpacePageComponent,
+  ThemedMyDSpacePageComponent,
+  MyDSpaceResultsComponent,
+  MyDSpaceNewSubmissionComponent,
+  CollectionSelectorComponent
+];
 
 @NgModule({
   imports: [
@@ -19,16 +28,12 @@ import { MyDspaceSearchModule } from './my-dspace-search.module';
     MyDspacePageRoutingModule,
     MyDspaceSearchModule.withEntryComponents()
   ],
-  declarations: [
-    MyDSpacePageComponent,
-    MyDSpaceResultsComponent,
-    MyDSpaceNewSubmissionComponent,
-    CollectionSelectorComponent
-  ],
+  declarations: DECLARATIONS,
   providers: [
     MyDSpaceGuard,
     MyDSpaceConfigurationService
-  ]
+  ],
+  exports: DECLARATIONS,
 })
 
 /**

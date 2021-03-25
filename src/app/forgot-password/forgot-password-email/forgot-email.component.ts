@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-forgot-email',
+  styleUrls: ['./forgot-email.component.scss'],
   templateUrl: './forgot-email.component.html'
 })
 /**

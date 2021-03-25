@@ -18,9 +18,8 @@ import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 
 /**
- * This component renders a simple item page.
+ * This component renders a full item page.
  * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
  */
 
 @Component({

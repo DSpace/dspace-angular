@@ -13,6 +13,7 @@ import { CollectionItemMapperComponent } from './collection-item-mapper/collecti
 import { SearchService } from '../core/shared/search/search.service';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
+import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { CollectionFormModule } from './collection-form/collection-form.module';
   ],
   declarations: [
     CollectionPageComponent,
+    ThemedCollectionPageComponent,
     CreateCollectionPageComponent,
     DeleteCollectionPageComponent,
     EditItemTemplatePageComponent,

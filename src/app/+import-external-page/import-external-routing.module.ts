@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { SubmissionImportExternalComponent } from '../submission/import-external/submission-import-external.component';
+import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
 
 @NgModule({
   imports: [
@@ -9,7 +9,7 @@ import { SubmissionImportExternalComponent } from '../submission/import-external
       {
         canActivate: [ AuthenticatedGuard ],
         path: '',
-        component: SubmissionImportExternalComponent,
+        component: ThemedSubmissionImportExternalComponent,
         pathMatch: 'full',
         data: {
           title: 'submission.import-external.page.title'

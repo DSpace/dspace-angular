@@ -2,15 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
-import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
-import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
-import {
-  WORKFLOW_ITEM_SEND_BACK_PATH,
-  WORKFLOW_ITEM_DELETE_PATH,
-  WORKFLOW_ITEM_EDIT_PATH
-} from './workflowitems-edit-page-routing-paths';
+import { WORKFLOW_ITEM_DELETE_PATH, WORKFLOW_ITEM_EDIT_PATH, WORKFLOW_ITEM_SEND_BACK_PATH } from './workflowitems-edit-page-routing-paths';
+import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
+import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
+import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 
 @NgModule({
   imports: [
@@ -22,19 +18,19 @@ import {
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
-            component: SubmissionEditComponent,
+            component: ThemedSubmissionEditComponent,
             data: { title: 'submission.edit.title' }
           },
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_DELETE_PATH,
-            component: WorkflowItemDeleteComponent,
+            component: ThemedWorkflowItemDeleteComponent,
             data: { title: 'workflow-item.delete.title' }
           },
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
-            component: WorkflowItemSendBackComponent,
+            component: ThemedWorkflowItemSendBackComponent,
             data: { title: 'workflow-item.send-back.title' }
           }
         ]

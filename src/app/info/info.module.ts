@@ -6,6 +6,17 @@ import { InfoRoutingModule } from './info-routing.module';
 import { EndUserAgreementContentComponent } from './end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyContentComponent } from './privacy/privacy-content/privacy-content.component';
+import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
+import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
+
+const DECLARATIONS = [
+  EndUserAgreementComponent,
+  ThemedEndUserAgreementComponent,
+  EndUserAgreementContentComponent,
+  PrivacyComponent,
+  PrivacyContentComponent,
+  ThemedPrivacyComponent
+];
 
 @NgModule({
   imports: [
@@ -14,10 +25,10 @@ import { PrivacyContentComponent } from './privacy/privacy-content/privacy-conte
     InfoRoutingModule
   ],
   declarations: [
-    EndUserAgreementComponent,
-    EndUserAgreementContentComponent,
-    PrivacyComponent,
-    PrivacyContentComponent
+    ...DECLARATIONS
+  ],
+  exports: [
+    ...DECLARATIONS
   ]
 })
 export class InfoModule {

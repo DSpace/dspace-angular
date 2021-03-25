@@ -11,6 +11,14 @@ import { CreateCommunityPageComponent } from './create-community-page/create-com
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { CommunityFormModule } from './community-form/community-form.module';
+import { ThemedCommunityPageComponent } from './themed-community-page.component';
+
+const DECLARATIONS = [CommunityPageComponent,
+  ThemedCommunityPageComponent,
+  CommunityPageSubCollectionListComponent,
+  CommunityPageSubCommunityListComponent,
+  CreateCommunityPageComponent,
+  DeleteCommunityPageComponent];
 
 @NgModule({
   imports: [
@@ -21,11 +29,10 @@ import { CommunityFormModule } from './community-form/community-form.module';
     CommunityFormModule
   ],
   declarations: [
-    CommunityPageComponent,
-    CommunityPageSubCollectionListComponent,
-    CommunityPageSubCommunityListComponent,
-    CreateCommunityPageComponent,
-    DeleteCommunityPageComponent
+    ...DECLARATIONS
+  ],
+  exports: [
+    ...DECLARATIONS
   ]
 })
 
