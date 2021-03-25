@@ -110,7 +110,6 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       find((href: string) => hasValue(href)),
       mergeMap((href) => this.findByHref(href, false, true).pipe(
         getAllCompletedRemoteData(),
-        filter((rd: RemoteData<T>) => !rd.isSuccessStale),
         tap(() => this.requestService.setStaleByHrefSubstring(href)))
       )
     );
