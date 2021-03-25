@@ -1,6 +1,6 @@
 <a *ngIf="isAuthorized$ | async"
    [routerLink]="[pageRoute, 'edit']"
-   class="edit-button btn btn-outline-primary text-light btn-sm"
+   class="edit-button btn btn-outline-primary btn-sm"
    [ngbTooltip]="tooltipMsg | translate"
    role="button" [title]="tooltipMsg |translate" [attr.aria-label]="tooltipMsg |translate">
   <i class="fas fa-pencil-alt fa-fw"></i>
