@@ -1,15 +1,8 @@
 nav.navbar {
     border-top: 1px var(--ds-header-navbar-border-top-color) solid;
-    border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid;
+    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
     align-items: baseline;
-    color: theme-color('primary');
-
-    a.nav-link:hover, li.nav-item:hover {
-        background-color: var(--ds-navbar-menu-item-hover-color);
-    }
-    .nav-link {
-        color: theme-color('primary') !important;
-    }
+    color: var(--ds-header-icon-color);
 }
 
 /** Mobile menu styling **/

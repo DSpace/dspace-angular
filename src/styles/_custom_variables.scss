@@ -22,12 +22,12 @@
   --ds-header-bg: #{$white};
   --ds-header-logo-height: 80px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$blue};
+  --ds-header-icon-color: #{$cyan};
   --ds-header-icon-color-hover: #{darken($white, 15%)};
-  --ds-header-navbar-border-top-color: #{$blue};
-  --ds-header-navbar-border-bottom-color: #{$green};
+  --ds-header-navbar-border-top-color: #{$gray-400};
+  --ds-header-navbar-border-bottom-color: #{$gray-400};
 
-  $admin-sidebar-bg: darken($blue, 17%);
+  $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
   --ds-admin-sidebar-bg: #{$admin-sidebar-bg};
   --ds-admin-sidebar-active-bg: #{$admin-sidebar-active-bg};
@@ -59,22 +59,20 @@
   --ds-sidebar-items-width: #{$sidebar-items-width};
   --ds-total-sidebar-width: #{$total-sidebar-width};
 
-  --ds-top-footer-bg: #dae1ec !important;
-  --ds-footer-bg: #063282 !important;
+  --ds-top-footer-bg: #{$gray-200} !important;
+  --ds-footer-bg: #{theme-color('primary')} !important;
   --ds-footer-border: 1px solid var(--bs-gray-400);
   --ds-footer-padding: 0 !important;
   --ds-footer-padding-bottom: 0 !important;
   --ds-footer-logo-height: 50px !important;
 
   --ds-home-news-link-color: #{$blue};
-  --ds-home-news-background-color: #dae1ec;
+  --ds-home-news-background-color: #{$gray-200};
   --ds-home-news-link-hover-color: #{darken($blue, 15%)};
 
-  --ds-breadcrumb-bg: #dae1ec !important;
-  --ds-breadcrumb-link-color: #{$blue};
-  --ds-breadcrumb-link-active-color: #{lighten($blue, 30%)};
-
-  --ds-navbar-menu-item-hover-color: #{$green};
+  --ds-breadcrumb-bg: #{$gray-200} !important;
+  --ds-breadcrumb-link-color: #{$cyan};
+  --ds-breadcrumb-link-active-color: #{darken($cyan, 30%)};
 
   --ds-slider-color: #{$green};
 }
