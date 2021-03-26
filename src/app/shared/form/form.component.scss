@@ -5,7 +5,7 @@
 }
 
 .ds-form-input-btn {
-  border: $input-btn-border-width solid $input-border-color;
+  border: var(--bs-input-btn-border-width) solid var(--bs-input-border-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
@@ -36,9 +36,9 @@
 
 /* add padding  */
 .left-addon input {
-  padding-left: $spacer * 2.25;
+  padding-left: calc(var(--bs-spacer) * 2.25);
 }
 
 .right-addon input {
-  padding-right: $spacer * 2.25;
+  padding-right: calc(var(--bs-spacer) * 2.25);
 }

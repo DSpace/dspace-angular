@@ -43,9 +43,9 @@
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    z-index: $zindex-sticky;
-    padding-top: $content-spacing;
-    margin-top: -$content-spacing;
+    z-index: var(--bs-zindex-sticky);
+    padding-top: var(--ds-content-spacing);
+    margin-top: calc(-1 * var(--ds-content-spacing));
     align-self: flex-start;
     display: block;
   }

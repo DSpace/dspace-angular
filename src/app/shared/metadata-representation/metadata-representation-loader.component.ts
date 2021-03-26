@@ -6,6 +6,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { MetadataRepresentationDirective } from './metadata-representation.directive';
 import { hasValue } from '../empty.util';
+import { ThemeService } from '../theme-support/theme.service';
 
 @Component({
   selector: 'ds-metadata-representation-loader',
@@ -42,7 +43,10 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
    */
   @ViewChild(MetadataRepresentationDirective, {static: true}) mdRepDirective: MetadataRepresentationDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private themeService: ThemeService
+  ) {
   }
 
   /**
@@ -64,6 +68,6 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
    * @returns {string}
    */
   private getComponent(): GenericConstructor<MetadataRepresentationListElementComponent> {
-    return getMetadataRepresentationComponent(this.mdRepresentation.itemType, this.mdRepresentation.representationType, this.context);
+    return getMetadataRepresentationComponent(this.mdRepresentation.itemType, this.mdRepresentation.representationType, this.context, this.themeService.getThemeName());
   }
 }

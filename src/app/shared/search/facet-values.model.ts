@@ -3,7 +3,7 @@ import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { FACET_VALUES } from './facet-values.resource-type';
 import { FacetValue } from './facet-value.model';
 import { SearchQueryResponse } from './search-query-response.model';
-import { autoserializeAs, autoserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { FilterType } from './filter-type.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 
@@ -37,6 +37,18 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    */
   @autoserialize
   facetLimit: number;
+
+  /**
+   * The total number of missing facet values
+   */
+  @autoserialize
+  missing?: string;
+
+  /**
+   * The total number of more facet values
+   */
+  @autoserialize
+  more?: string;
 
   /**
    * The results for this query

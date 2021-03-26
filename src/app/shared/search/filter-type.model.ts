@@ -40,5 +40,15 @@ export enum FilterType {
   /**
    * Represents line chart
    */
-  'chart.line' = 'chart.line'
+  'chart.line' = 'chart.line',
+
+  /**
+   * Represents bar chart with more button on left side
+   */
+  'chart.bar.right-to-left' = 'chart.bar.right-to-left',
+
+  /**
+   * Represents bar chart with more button on right side
+   */
+  'chart.bar.left-to-right' = 'chart.bar.left-to-right',
 }

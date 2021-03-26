@@ -13,8 +13,7 @@ import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
-import { FilterType } from '../../../shared/search/filter-type.model';
+import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;
@@ -24,28 +23,30 @@ describe('SearchSectionComponent', () => {
   let router: any;
 
   const firstFilterConfig: any = {
-    name: 'author',
+    filter: 'author',
     hasFacets: true,
     operators: [],
-    isOpenByDefault: true,
+    openByDefault: true,
     pageSize: 5,
-    filterType: FilterType.text,
+    type: 'text'
   };
 
   const secondFilterConfig: any = {
-    name: 'subject',
+    filter: 'subject',
     hasFacets: true,
     operators: [],
-    isOpenByDefault: true,
+    openByDefault: true,
     pageSize: 5,
-    filterType: FilterType.text
+    type: 'text'
   };
 
   beforeEach(async(() => {
 
     searchServiceStub = {
-      getConfig( scope?: string, configurationName?: string ): Observable<RemoteData<SearchFilterConfig[]>> {
-        return createSuccessfulRemoteDataObject$([firstFilterConfig, secondFilterConfig]);
+      getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
+        const config = new SearchConfig();
+        config.filters = [firstFilterConfig, secondFilterConfig];
+        return createSuccessfulRemoteDataObject$(config);
       },
       getSearchLink(): string {
         return '/search';

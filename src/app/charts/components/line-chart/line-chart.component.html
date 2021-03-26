@@ -1,11 +1,10 @@
 <ngx-charts-line-chart
-  [results]="results"
+  [results]="(chartData | async)"
   [animations]="animations"
   [legend]="legend"
   [legendTitle]="legendTitle"
   [legendPosition]="legendPosition"
   [xAxis]="xAxis"
   [yAxis]="yAxis"
-  (select)="onSelect($event)"
-  >
+  (select)="onSelect($event)">
 </ngx-charts-line-chart>

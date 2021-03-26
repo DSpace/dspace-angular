@@ -5,12 +5,6 @@ import { facetLoad } from '../../../search-filters/search-filter/search-facet-fi
 import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
-
 @Component({
   selector: 'ds-search-chart-bar',
   styleUrls: ['./search-chart-bar.component.scss'],
@@ -18,9 +12,7 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
   animations: [facetLoad],
 })
 /**
- * Component that represents a text facet for a specific configuration
+ * Component that represents a search bar chart filter
  */
 @renderChartFor(FilterType['chart.bar'])
-export class SearchChartBarComponent extends SearchChartFilterComponent {
-
-}
+export class SearchChartBarComponent extends SearchChartFilterComponent {}

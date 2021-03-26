@@ -35,6 +35,26 @@ const ENTRY_COMPONENTS = [
   UntypedItemComponent
 ];
 
+const DECLARATIONS = [
+  ItemPageComponent,
+  FullItemPageComponent,
+  MetadataUriValuesComponent,
+  ItemPageAuthorFieldComponent,
+  ItemPageDateFieldComponent,
+  ItemPageAbstractFieldComponent,
+  ItemPageUriFieldComponent,
+  ItemPageTitleFieldComponent,
+  ItemPageFieldComponent,
+  FileSectionComponent,
+  CollectionsComponent,
+  FullFileSectionComponent,
+  PublicationComponent,
+  UntypedItemComponent,
+  ItemComponent,
+  UploadBitstreamComponent,
+  AbstractIncrementalListComponent,
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -49,23 +69,10 @@ const ENTRY_COMPONENTS = [
     ContextMenuModule
   ],
   declarations: [
-    ItemPageComponent,
-    FullItemPageComponent,
-    MetadataUriValuesComponent,
-    ItemPageAuthorFieldComponent,
-    ItemPageDateFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageUriFieldComponent,
-    ItemPageTitleFieldComponent,
-    ItemPageFieldComponent,
-    FileSectionComponent,
-    CollectionsComponent,
-    FullFileSectionComponent,
-    PublicationComponent,
-    UntypedItemComponent,
-    ItemComponent,
-    UploadBitstreamComponent,
-    AbstractIncrementalListComponent,
+    ...DECLARATIONS
+  ],
+  exports: [
+    ...DECLARATIONS
   ]
 })
 export class ItemPageModule {

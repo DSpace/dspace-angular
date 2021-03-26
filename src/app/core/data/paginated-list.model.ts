@@ -1,5 +1,5 @@
 import { PageInfo } from '../shared/page-info.model';
-import { hasValue, isEmpty, hasNoValue, isUndefined } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isUndefined } from '../../shared/empty.util';
 import { HALResource } from '../shared/hal-resource.model';
 import { HALLink } from '../shared/hal-link.model';
 import { typedObject } from '../cache/builders/build-decorators';
@@ -94,6 +94,8 @@ export class PaginatedList<T> extends CacheableObject {
     prev?: HALLink;
     next?: HALLink;
     last?: HALLink;
+    missing?: HALLink;
+    more?: HALLink;
   };
 
   get elementsPerPage(): number {

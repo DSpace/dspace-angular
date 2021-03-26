@@ -7,7 +7,17 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
 import { StatisticsModule } from '../statistics/statistics.module';
+import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
+import { ThemedHomePageComponent } from './themed-home-page.component';
 import { OpenaireModule } from '../openaire/openaire.module';
+
+const DECLARATIONS = [
+  HomePageComponent,
+  ThemedHomePageComponent,
+  TopLevelCommunityListComponent,
+  ThemedHomeNewsComponent,
+  HomeNewsComponent,
+];
 
 @NgModule({
   imports: [
@@ -18,10 +28,11 @@ import { OpenaireModule } from '../openaire/openaire.module';
     StatisticsModule.forRoot()
   ],
   declarations: [
-    HomePageComponent,
-    TopLevelCommunityListComponent,
-    HomeNewsComponent,
-  ]
+    ...DECLARATIONS,
+  ],
+  exports: [
+    ...DECLARATIONS,
+  ],
 })
 export class HomePageModule {
 

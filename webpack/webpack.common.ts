@@ -1,36 +1,65 @@
-import { buildRoot, globalCSSImports, projectRoot, themedTest, themedUse, themePath } from './helpers';
+import { globalCSSImports, projectRoot } from './helpers';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtPlugin = require('script-ext-html-webpack-plugin');
 
-export const copyWebpackOptions = [
-  {
-    from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
-    to: path.join('assets', 'fonts'),
-    force: undefined
-  },
-  {
-    from: path.join(__dirname, '..', 'src', 'assets', 'fonts'),
-    to: path.join('assets', 'fonts')
-  }, {
-    from: path.join(__dirname, '..', 'src', 'assets', 'images'),
-    to: path.join('assets', 'images')
-  }, {
-    from: path.join(__dirname, '..', 'src', 'assets', 'i18n'),
-    to: path.join('assets', 'i18n')
-  }, {
-    from: path.join(__dirname, '..', 'src', 'robots.txt'),
-    to: path.join('robots.txt')
+export const copyWebpackOptions = {
+  patterns: [
+    {
+      from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
+      to: path.join('assets', 'fonts'),
+      force: undefined
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'assets'),
+      to: 'assets',
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*'),
+      to: 'assets',
+      noErrorOnMissing: true,
+      transformPath(targetPath, absolutePath) {
+        // use [\/|\\] to match both POSIX and Windows separators
+        const matches = absolutePath.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\](.+)$/);
+        if (matches) {
+          // matches[1] is the theme name
+          // matches[2] is the rest of the path relative to the assets folder
+          // e.g. themes/custom/assets/images/logo.png will end up in assets/custom/images/logo.png
+          return path.join('assets', matches[1], matches[2]);
+        }
+      },
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'robots.txt'),
+      to: 'robots.txt'
+    }
+  ]
+};
+
+const SCSS_LOADERS = [{
+  loader: 'postcss-loader',
+  options: {
+    sourceMap: true
   }
+},
+  {
+    loader: 'sass-loader',
+    options: {
+      sourceMap: true,
+      sassOptions: {
+        includePaths: [projectRoot('./')]
+      }
+    }
+  },
 ];
 
 export const commonExports = {
   plugins: [
     new CopyWebpackPlugin(copyWebpackOptions),
     new HtmlWebpackPlugin({
-      template: buildRoot('./index.html', ),
+      template: projectRoot('./src/index.html', ),
       output: projectRoot('dist'),
       inject: 'head'
     }),
@@ -41,14 +70,6 @@ export const commonExports = {
   module: {
     rules: [
       {
-        test: (filePath) => themedTest(filePath, 'scss'),
-        use: (info) => themedUse(info.resource, 'scss')
-      },
-      {
-        test: (filePath) => themedTest(filePath, 'html'),
-        use: (info) => themedUse(info.resource, 'html')
-      },
-      {
         test: /\.ts$/,
         loader: '@ngtools/webpack'
       },
@@ -56,19 +77,10 @@ export const commonExports = {
         test: /\.scss$/,
         exclude: [
           /node_modules/,
-          buildRoot('styles/_exposed_variables.scss'),
-          buildRoot('styles/_variables.scss')
+          /(_exposed)?_variables.scss$|\/src\/themes\/[^/]+\/styles\/.+.scss$/
         ],
         use: [
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sassOptions: {
-                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
-              }
-            }
-          },
+          ...SCSS_LOADERS,
           {
             loader: 'sass-resources-loader',
             options: {
@@ -78,24 +90,10 @@ export const commonExports = {
         ]
       },
       {
-        test: /(_exposed)?_variables.scss$/,
+        test: /(_exposed)?_variables.scss$|\/src\/themes\/[^/]+\/styles\/.+.scss$/,
         exclude: [/node_modules/],
         use: [
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sassOptions: {
-                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
-              }
-            }
-          }
+          ...SCSS_LOADERS,
         ]
       },
     ],

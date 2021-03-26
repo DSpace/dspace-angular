@@ -737,6 +737,7 @@
 
   "chips.remove": "Remove chip",
 
+  "chart.load-more": "Load more results",
 
 
   "collection.create.head": "Create a Collection",
@@ -3641,8 +3642,19 @@
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
+  "search.filters.applied.f.graphitemtype": "Item type",
+
+  "search.filters.applied.f.graphpubldate": "Public date",
+
+  "search.filters.applied.f.graphpubldateltr": "Public date LTR",
+
+  "search.filters.applied.f.graphpubldatetrl": "Public date RTL",
+
+
 
   "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
+
+  "search.filters.applied.charts.chart.pie.more-value" : "More",
 
   "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
 

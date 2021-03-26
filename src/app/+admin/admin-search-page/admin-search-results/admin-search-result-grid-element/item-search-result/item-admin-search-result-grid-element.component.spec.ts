@@ -16,6 +16,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -28,6 +30,8 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     }
   };
+
+  const mockThemeService = getMockThemeService();
 
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
@@ -50,6 +54,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ThemeService, useValue: mockThemeService },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })

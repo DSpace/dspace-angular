@@ -237,6 +237,8 @@ import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component
 import { ItemExportComponent } from './item-export/item-export/item-export.component';
 import { SearchChartsComponent } from './search/search-charts/search-charts.component';
 import { SearchChartBarComponent } from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
+import { SearchChartBarToLeftComponent } from './search/search-charts/search-chart/search-chart-bar-to-left/search-chart-bar-to-left.component';
+import { SearchChartBarToRightComponent } from './search/search-charts/search-chart/search-chart-bar-to-right/search-chart-bar-to-right.component';
 import { SearchChartPieComponent } from './search/search-charts/search-chart/search-chart-pie/search-chart-pie.component';
 import { SearchChartLineComponent } from './search/search-charts/search-chart/search-chart-line/search-chart-line.component';
 import { SearchChartFilterWrapperComponent } from './search/search-charts/search-chart/search-chart-wrapper/search-chart-wrapper.component';
@@ -258,6 +260,7 @@ export const MODELS = [
   FacetValues,
   SearchResult
 ];
+
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -483,6 +486,8 @@ const COMPONENTS = [
   ItemExportModalLauncherComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
+  SearchChartBarToLeftComponent,
+  SearchChartBarToRightComponent,
   SearchChartPieComponent,
   SearchChartLineComponent,
   SearchChartFilterWrapperComponent,

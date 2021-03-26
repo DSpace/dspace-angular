@@ -11,10 +11,14 @@ import {
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction
 } from './object-updates.actions';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
+import {
+  INotification,
+  Notification
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { filter } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 
 describe('ObjectUpdatesEffects', () => {
   let updatesEffects: ObjectUpdatesEffects;
@@ -97,7 +101,7 @@ describe('ObjectUpdatesEffects', () => {
           actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
           actions = hot('b', { b: new ReinstateObjectUpdatesAction(testURL) });
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) => {
-              expect(t).toEqual({ type: 'NO_ACTION' });
+              expect(t).toEqual(new NoOpAction());
             }
           );
         });

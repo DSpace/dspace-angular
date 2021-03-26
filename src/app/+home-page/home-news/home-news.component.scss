@@ -1,7 +1,7 @@
 :host {
     display: block;
-    margin-top: -$content-spacing;
-    margin-bottom: -$content-spacing;
+    margin-top: calc(-1 * var(--ds-content-spacing));
+    margin-bottom: calc(-1 * var(--ds-content-spacing));
 }
 
 .display-3 {
