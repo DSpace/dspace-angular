@@ -36,7 +36,7 @@ body {
 }
 
 ds-header-navbar-wrapper {
-  z-index: var(--ds-nav-z-index);
+  z-index: 0;
 }
 
 ds-admin-sidebar {
@@ -46,4 +46,13 @@ ds-admin-sidebar {
 
 .ds-full-screen-loader {
   height: 100vh;
+}
+
+.media-viewer
+  .change-gallery
+  .ngx-gallery
+  ngx-gallery-preview.ngx-gallery-active {
+  right: 0;
+  left: auto;
+  width: 96%;
 }
