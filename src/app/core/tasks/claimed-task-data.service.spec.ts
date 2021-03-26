@@ -8,9 +8,16 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core.reducers';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { FindListOptions } from '../data/request.models';
+import { RequestParam } from '../cache/models/request-param.model';
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ClaimedTaskDataService', () => {
+  let scheduler: TestScheduler;
   let service: ClaimedTaskDataService;
   let options: HttpOptions;
   const taskEndpoint = 'https://rest.api/task';
@@ -45,6 +52,7 @@ describe('ClaimedTaskDataService', () => {
   }
 
   beforeEach(() => {
+    scheduler = getTestScheduler();
     service = initTestService();
     options = Object.create({});
     let headers = new HttpHeaders();
@@ -68,6 +76,24 @@ describe('ClaimedTaskDataService', () => {
     });
   });
 
+  describe('claimTask', () => {
+
+    it('should call postToEndpoint method', () => {
+
+      spyOn(service, 'postToEndpoint').and.returnValue(observableOf(null));
+
+      scheduler.schedule(() => service.claimTask('scopeId', 'poolTaskHref').subscribe());
+      scheduler.flush();
+
+      const postToEndpointOptions: HttpOptions = Object.create({});
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'text/uri-list');
+      postToEndpointOptions.headers = headers;
+
+      expect(service.postToEndpoint).toHaveBeenCalledWith(linkPath, 'poolTaskHref', null, postToEndpointOptions);
+    });
+  });
+
   describe('returnToPoolTask', () => {
     it('should call deleteById method', () => {
       const scopeId = '1234';
@@ -77,6 +103,23 @@ describe('ClaimedTaskDataService', () => {
       service.returnToPoolTask(scopeId);
 
       expect(service.deleteById).toHaveBeenCalledWith(linkPath, scopeId, options);
+    });
+  });
+
+  describe('findByItem', () => {
+
+    it('should call searchTask method', () => {
+      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
+
+      scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
+      scheduler.flush();
+
+      const findListOptions = new FindListOptions();
+      findListOptions.searchParams = [
+        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
+      ];
+
+      expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);
     });
   });
 });

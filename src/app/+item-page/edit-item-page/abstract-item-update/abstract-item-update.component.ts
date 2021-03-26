@@ -14,6 +14,7 @@ import { first, map, switchMap, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page.resolver';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
@@ -35,6 +36,11 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Should be initialized in the initializeUpdates method of the child component
    */
   updates$: Observable<FieldUpdates>;
+
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute: string;
 
   /**
    * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
@@ -69,6 +75,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
       getAllSucceededRemoteData()
     ).subscribe((rd: RemoteData<Item>) => {
       this.item = rd.payload;
+      this.itemPageRoute = getItemPageRoute(this.item);
       this.postItemInit();
       this.initializeUpdates();
     });

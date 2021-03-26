@@ -7,6 +7,8 @@ import { PersonSearchResultListElementComponent } from './person-search-result-l
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
@@ -53,7 +55,8 @@ describe('PersonSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
-        { provide: TruncatableService, useValue: {} }
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

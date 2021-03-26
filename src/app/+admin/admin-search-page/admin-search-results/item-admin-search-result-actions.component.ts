@@ -34,7 +34,7 @@ export class ItemAdminSearchResultActionsComponent {
    * Returns the path to the edit page of this item
    */
   getEditRoute(): string {
-    return getItemEditRoute(this.item.uuid);
+    return getItemEditRoute(this.item);
   }
 
   /**

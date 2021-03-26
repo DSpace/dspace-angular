@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 
 @Component({
   selector: 'ds-home-news',
@@ -10,5 +10,4 @@ import { Component } from '@angular/core';
  * Component to render the news section on the home page
  */
 export class HomeNewsComponent {
-
 }

@@ -13,6 +13,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -48,9 +49,10 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
 
   constructor(
     protected linkService: LinkService,
-    protected truncatableService: TruncatableService
+    protected truncatableService: TruncatableService,
+    protected dsoNameService: DSONameService
   ) {
-    super(truncatableService);
+    super(truncatableService, dsoNameService);
   }
 
   /**
@@ -63,4 +65,5 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
+
 }

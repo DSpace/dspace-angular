@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EndUserAgreementComponent } from './end-user-agreement/end-user-agreement.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { PrivacyComponent } from './privacy/privacy.component';
 import { PRIVACY_PATH, END_USER_AGREEMENT_PATH } from './info-routing-paths';
+import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
+import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: END_USER_AGREEMENT_PATH,
-        component: EndUserAgreementComponent,
+        component: ThemedEndUserAgreementComponent,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         data: { title: 'info.end-user-agreement.title', breadcrumbKey: 'info.end-user-agreement' }
       }
@@ -18,7 +18,7 @@ import { PRIVACY_PATH, END_USER_AGREEMENT_PATH } from './info-routing-paths';
     RouterModule.forChild([
       {
         path: PRIVACY_PATH,
-        component: PrivacyComponent,
+        component: ThemedPrivacyComponent,
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         data: { title: 'info.privacy.title', breadcrumbKey: 'info.privacy' }
       }

@@ -1,12 +1,12 @@
-$icon-z-index: 10;
-
 :host {
+  --ds-icon-z-index: 10;
+
     left: 0;
     top: 0;
     height: 100vh;
     flex: 1 1 auto;
     nav {
-        background-color: $admin-sidebar-bg;
+        background-color: var(--ds-admin-sidebar-bg);
         height: 100%;
         flex-direction: column;
         > div {
@@ -19,12 +19,12 @@ $icon-z-index: 10;
         }
 
         &.inactive ::ng-deep .sidebar-collapsible {
-            margin-left: -#{$sidebar-items-width};
+            margin-left: calc(-1 * var(--ds-sidebar-items-width));
         }
 
         .navbar-nav {
             .admin-menu-header {
-                background-color: $admin-sidebar-header-bg;
+                background-color: var(--ds-admin-sidebar-header-bg);
                 .logo-wrapper {
                     img {
                         height: 20px;
@@ -43,29 +43,29 @@ $icon-z-index: 10;
                 .sidebar-section {
                     display: flex;
                     align-content: stretch;
-                    background-color: $admin-sidebar-bg;
+                    background-color: var(--ds-admin-sidebar-bg);
                     .nav-item {
-                        padding-top: $spacer;
-                        padding-bottom: $spacer;
+                        padding-top: var(--bs-spacer);
+                        padding-bottom: var(--bs-spacer);
                     }
                     .shortcut-icon {
-                        padding-left: $icon-padding;
-                        padding-right: $icon-padding;
+                        padding-left: var(--ds-icon-padding);
+                        padding-right: var(--ds-icon-padding);
                     }
                     .shortcut-icon, .icon-wrapper {
                         background-color: inherit;
-                        z-index: $icon-z-index;
+                        z-index: var(--ds-icon-z-index);
                     }
                     .sidebar-collapsible {
-                        width: $sidebar-items-width;
+                        width: var(--ds-sidebar-items-width);
                         position: relative;
                         a {
-                            padding-right: $spacer;
+                            padding-right: var(--bs-spacer);
                             width: 100%;
                         }
                     }
                     &.active > .sidebar-collapsible > .nav-link {
-                        color: $navbar-dark-active-color;
+                        color: var(--bs-navbar-dark-active-color);
                     }
                 }
             }

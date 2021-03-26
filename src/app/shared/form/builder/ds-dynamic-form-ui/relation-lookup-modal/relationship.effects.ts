@@ -15,7 +15,7 @@ import {
   UpdateRelationshipNameVariantAction
 } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
-import { hasNoValue, hasValue } from '../../../../empty.util';
+import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -30,6 +30,9 @@ import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sy
 import { JsonPatchOperationsActionTypes } from '../../../../../core/json-patch/json-patch-operations.actions';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const DEBOUNCE_TIME = 500;
 
@@ -152,7 +155,10 @@ export class RelationshipEffects {
               private submissionObjectService: SubmissionObjectDataService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,
-              private requestService: RequestService
+              private requestService: RequestService,
+              private notificationsService: NotificationsService,
+              private translateService: TranslateService,
+              private selectableListService: SelectableListService,
   ) {
   }
 
@@ -166,6 +172,9 @@ export class RelationshipEffects {
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
       .pipe(
         mergeMap((type: RelationshipType) => {
+          if (type === null) {
+            return [null];
+          } else {
             const isSwitched = type.rightwardType === relationshipType;
             if (isSwitched) {
               return this.relationshipService.addRelationship(type.id, item2, item1, nameVariant, undefined);
@@ -173,9 +182,28 @@ export class RelationshipEffects {
               return this.relationshipService.addRelationship(type.id, item1, item2, undefined, nameVariant);
             }
           }
-        ),
+        }),
         take(1),
-        switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
+        switchMap((rd: RemoteData<Relationship>) => {
+          if (hasNoValue(rd) || rd.hasFailed) {
+            // An error occurred, deselect the object from the selectable list and display an error notification
+            const listId = `list-${submissionId}-${relationshipType}`;
+            this.selectableListService.findSelectedByCondition(listId, (object: any) => hasValue(object.indexableObject) && object.indexableObject.uuid === item2.uuid).pipe(
+              take(1),
+              hasValueOperator()
+            ).subscribe((selected) => {
+              this.selectableListService.deselectSingle(listId, selected);
+            });
+            let errorContent;
+            if (hasNoValue(rd)) {
+              errorContent = this.translateService.instant('relationships.add.error.relationship-type.content', { type: relationshipType });
+            } else {
+              errorContent = this.translateService.instant('relationships.add.error.server.content');
+            }
+            this.notificationsService.error(this.translateService.instant('relationships.add.error.title'), errorContent);
+          }
+          return this.refreshWorkspaceItemInCache(submissionId);
+        }),
       ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
 

@@ -43,10 +43,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
   const availableAccessConditionOptions = mockUploadConfigResponse.accessConditionOptions;
-  const availableGroupsMap: Map<string, Group[]> = new Map([
-    [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
-    [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
-  ]);
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
   const configMetadataForm: any = mockUploadConfigResponseMetadata;
   const fileIndex = '0';
@@ -123,7 +119,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.collectionId = collectionId;
       comp.sectionId = sectionId;
       comp.availableAccessConditionOptions = availableAccessConditionOptions;
-      comp.availableAccessConditionGroups = availableGroupsMap;
       comp.collectionPolicyType = collectionPolicyType;
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
@@ -180,18 +175,15 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       control.value = 'openaccess';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).not.toHaveBeenCalledWith('groupUUID', (model.parent as DynamicFormArrayGroupModel).group);
       expect(formbuilderService.findById).not.toHaveBeenCalledWith('endDate', (model.parent as DynamicFormArrayGroupModel).group);
       expect(formbuilderService.findById).not.toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
 
       control.value = 'lease';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).toHaveBeenCalledWith('groupUUID', (model.parent as DynamicFormArrayGroupModel).group);
       expect(formbuilderService.findById).toHaveBeenCalledWith('endDate', (model.parent as DynamicFormArrayGroupModel).group);
 
       control.value = 'embargo';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).toHaveBeenCalledWith('groupUUID', (model.parent as DynamicFormArrayGroupModel).group);
       expect(formbuilderService.findById).toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
     });
   });
@@ -208,7 +200,6 @@ class TestComponent {
   availableAccessConditionOptions;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
-  configMetadataForm$;
   fileIndexes = [];
   fileList = [];
   fileNames = [];

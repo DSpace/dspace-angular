@@ -6,7 +6,7 @@
   </span>
 </ng-template>
 <ds-truncatable [id]="metadataRepresentation.id">
-  <a [routerLink]="['/items/' + metadataRepresentation.id]"
+  <a [routerLink]="[itemPageRoute]"
      [innerHTML]="metadataRepresentation.getValue()"
      [ngbTooltip]="metadataRepresentation.allMetadata(['dc.description']).length > 0 ? descTemplate : null"></a>
 </ds-truncatable>

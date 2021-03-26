@@ -2,19 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
-import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
-  ADMIN_MODULE_PATH,
-  BITSTREAM_MODULE_PATH,
-  FORBIDDEN_PATH,
-  FORGOT_PASSWORD_PATH,
-  INFO_MODULE_PATH,
-  PROFILE_MODULE_PATH,
-  REGISTER_PATH,
-  WORKFLOW_ITEM_MODULE_PATH
-} from './app-routing-paths';
+import { ADMIN_MODULE_PATH, BITSTREAM_MODULE_PATH, FORBIDDEN_PATH, FORGOT_PASSWORD_PATH, INFO_MODULE_PATH, PROFILE_MODULE_PATH, REGISTER_PATH, WORKFLOW_ITEM_MODULE_PATH } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
 import { ITEM_MODULE_PATH } from './+item-page/item-page-routing-paths';
@@ -22,7 +12,8 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 
 @NgModule({
   imports: [
@@ -30,7 +21,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
       path: '', canActivate: [AuthBlockingGuard],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
-          { path: 'reload/:rnd', component: PageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
+          { path: 'reload/:rnd', component: ThemedPageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
           {
             path: 'home',
             loadChildren: () => import('./+home-page/home-page.module')
@@ -82,6 +73,11 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
           },
           {
             path: ITEM_MODULE_PATH,
+            loadChildren: () => import('./+item-page/item-page.module')
+              .then((m) => m.ItemPageModule),
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          { path: 'entities/:entity-type',
             loadChildren: () => import('./+item-page/item-page.module')
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
@@ -168,14 +164,14 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
           },
           {
             path: FORBIDDEN_PATH,
-            component: ForbiddenComponent
+            component: ThemedForbiddenComponent
           },
           {
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
           },
-          { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{
       onSameUrlNavigation: 'reload',

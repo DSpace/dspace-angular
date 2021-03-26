@@ -3,7 +3,7 @@
     {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="[object?.firstMetadata('person.familyName'), object?.firstMetadata('person.givenName')]" [separator]="', '"></ds-metadata-values>
   </h2>
   <div class="pl-2">
-    <ds-dso-page-edit-button [pageRoutePrefix]="'items'" [dso]="object" [tooltipMsg]="'person.page.edit'"></ds-dso-page-edit-button>
+    <ds-dso-page-edit-button [pageRoute]="itemPageRoute" [dso]="object" [tooltipMsg]="'person.page.edit'"></ds-dso-page-edit-button>
   </div>
 </div>
 <div class="row">
@@ -52,7 +52,7 @@
       [label]="'person.page.firstname'">
     </ds-generic-item-page-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
         {{"item.page.link.full" | translate}}
       </a>
     </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Returns a name for a {@link DSpaceObject} based
@@ -11,6 +12,10 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 })
 export class DSONameService {
 
+  constructor(private translateService: TranslateService) {
+
+  }
+
   /**
    * Functions to generate the specific names.
    *
@@ -20,7 +25,7 @@ export class DSONameService {
    *
    * With only two exceptions those solutions seem overkill for now.
    */
-  private factories = {
+  private readonly factories = {
     Person: (dso: DSpaceObject): string => {
       return `${dso.firstMetadataValue('person.familyName')}, ${dso.firstMetadataValue('person.givenName')}`;
     },
@@ -29,7 +34,7 @@ export class DSONameService {
     },
     Default: (dso: DSpaceObject): string => {
       // If object doesn't have dc.title metadata use name property
-      return dso.firstMetadataValue('dc.title') || dso.name;
+      return dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
     }
   };
 

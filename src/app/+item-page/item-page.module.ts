@@ -25,6 +25,8 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ThemedItemPageComponent } from './simple/themed-item-page.component';
+import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -32,10 +34,27 @@ const ENTRY_COMPONENTS = [
   UntypedItemComponent
 ];
 
-import { MediaViewerComponent } from './media-viewer/media-viewer.component';
-import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
-import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
-import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+const DECLARATIONS = [
+  ItemPageComponent,
+  ThemedItemPageComponent,
+  FullItemPageComponent,
+  ThemedFullItemPageComponent,
+  MetadataUriValuesComponent,
+  ItemPageAuthorFieldComponent,
+  ItemPageDateFieldComponent,
+  ItemPageAbstractFieldComponent,
+  ItemPageUriFieldComponent,
+  ItemPageTitleFieldComponent,
+  ItemPageFieldComponent,
+  FileSectionComponent,
+  CollectionsComponent,
+  FullFileSectionComponent,
+  PublicationComponent,
+  UntypedItemComponent,
+  ItemComponent,
+  UploadBitstreamComponent,
+  AbstractIncrementalListComponent,
+];
 
 @NgModule({
   imports: [
@@ -49,26 +68,10 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
      NgxGalleryModule,
   ],
   declarations: [
-    ItemPageComponent,
-    FullItemPageComponent,
-    MetadataUriValuesComponent,
-    ItemPageAuthorFieldComponent,
-    ItemPageDateFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageUriFieldComponent,
-    ItemPageTitleFieldComponent,
-    ItemPageFieldComponent,
-    FileSectionComponent,
-    CollectionsComponent,
-    FullFileSectionComponent,
-    PublicationComponent,
-    UntypedItemComponent,
-    ItemComponent,
-    UploadBitstreamComponent,
-    AbstractIncrementalListComponent,
-     MediaViewerComponent,
-    MediaViewerVideoComponent,
-    MediaViewerImageComponent,
+    ...DECLARATIONS
+  ],
+  exports: [
+    ...DECLARATIONS
   ]
 })
 export class ItemPageModule {

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -9,11 +9,12 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { By } from '@angular/platform-browser';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;
-
-const compIndex = 1;
 
 const mockResultObject: ItemSearchResult = new ItemSearchResult();
 mockResultObject.hitHighlights = {};
@@ -55,6 +56,7 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
       declarations: [ItemSearchResultListElementSubmissionComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
@@ -75,4 +77,16 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
   it('should have properly status', () => {
     expect(component.status).toEqual(MyDspaceItemStatusType.ARCHIVED);
   });
+
+  it('should forward item-actions processComplete event to reloadObject event emitter', fakeAsync(() => {
+    spyOn(component.reloadedObject, 'emit').and.callThrough();
+    const actionPayload: any = { reloadedObject: {}};
+
+    const actionsComponent = fixture.debugElement.query(By.css('ds-item-actions'));
+    actionsComponent.triggerEventHandler('processCompleted', actionPayload);
+    tick();
+
+    expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
+
+  }));
 });

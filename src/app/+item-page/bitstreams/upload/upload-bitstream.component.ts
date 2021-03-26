@@ -17,7 +17,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 import { UploaderComponent } from '../../../shared/uploader/uploader.component';
 import { RequestService } from '../../../core/data/request.service';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
-import { getItemEditRoute } from '../../item-page-routing-paths';
+import { getEntityEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -36,6 +36,12 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * The ID of the item to upload a bitstream to
    */
   itemId: string;
+
+  /**
+   * The entity type of the item
+   * This is fetched from the current URL and will determine the item's page route
+   */
+  entityType: string;
 
   /**
    * The item to upload a bitstream to
@@ -100,6 +106,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params.id;
+    this.entityType = this.route.snapshot.params['entity-type'];
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
     this.bundlesRD$ = this.itemRD$.pipe(
       switchMap((itemRD: RemoteData<Item>) => itemRD.payload.bundles)
@@ -167,7 +174,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     });
 
     // Bring over the item ID as a query parameter
-    const queryParams = { itemId: this.itemId };
+    const queryParams = { itemId: this.itemId, entityType: this.entityType };
     this.router.navigate([getBitstreamModuleRoute(), bitstream.id, 'edit'], { queryParams: queryParams });
   }
 
@@ -193,7 +200,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * When cancel is clicked, navigate back to the item's edit bitstreams page
    */
   onCancel() {
-    this.router.navigate([getItemEditRoute(this.itemId), 'bitstreams']);
+    this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
   }
 
   /**

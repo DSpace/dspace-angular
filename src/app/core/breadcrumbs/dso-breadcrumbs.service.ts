@@ -1,5 +1,5 @@
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { BreadcrumbsService } from './breadcrumbs.service';
+import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
@@ -18,7 +18,7 @@ import { getDSORoute } from '../../app-routing-paths';
 @Injectable({
   providedIn: 'root'
 })
-export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResource & DSpaceObject> {
+export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHALResource & DSpaceObject> {
   constructor(
     private linkService: LinkService,
     private dsoNameService: DSONameService
@@ -28,7 +28,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
 
   /**
    * Method to recursively calculate the breadcrumbs
-   * This method returns the name and url of the key and all its parent DSO's recursively, top down
+   * This method returns the name and url of the key and all its parent DSOs recursively, top down
    * @param key The key (a DSpaceObject) used to resolve the breadcrumb
    * @param url The url to use as a link for this breadcrumb
    */

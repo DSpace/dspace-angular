@@ -1,6 +1,6 @@
 .btn[disabled] {
-  color: $gray-600;
-  border-color: $gray-600;
+  color: var(--bs-gray-600);
+  border-color: var(--bs-gray-600);
   z-index: 0; // prevent border colors jumping on hover
 }
 

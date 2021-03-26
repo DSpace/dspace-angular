@@ -13,8 +13,9 @@ import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
-import { redirectOn4xx } from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
+import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
   selector: 'ds-community-page',
@@ -36,6 +37,12 @@ export class CommunityPageComponent implements OnInit {
    * The logo of this community
    */
   logoRD$: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * Route to the community page
+   */
+  communityPageRoute$: Observable<string>;
+
   constructor(
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
@@ -55,6 +62,10 @@ export class CommunityPageComponent implements OnInit {
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),
       mergeMap((community: Community) => community.logo));
+    this.communityPageRoute$ = this.communityRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((community) => getCommunityPageRoute(community.id))
+    );
   }
 
 }

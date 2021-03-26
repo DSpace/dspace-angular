@@ -18,6 +18,7 @@
                 [importable]="importable"
                 [importConfig]="importConfig"
                 (importObject)="importObject.emit($event)"
+                (contentChange)="contentChange.emit()"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
 </ds-object-list>
 

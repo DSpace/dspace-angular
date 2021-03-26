@@ -1,32 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpHeaders, HTTP_INTERCEPTORS, HttpResponse, HttpXsrfTokenExtractor, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { XsrfInterceptor } from './xsrf.interceptor';
-
-/**
- * A Mock TokenExtractor which just returns whatever token it is initialized with.
- * This mock object is injected into our XsrfInterceptor, so that it always finds
- * the same fake XSRF token.
- */
-class MockTokenExtractor extends HttpXsrfTokenExtractor {
-  constructor(private token: string | null) { super(); }
-
-  getToken(): string | null { return this.token; }
-}
+import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 
 describe(`XsrfInterceptor`, () => {
   let service: DspaceRestService;
   let httpMock: HttpTestingController;
   let cookieService: CookieService;
 
-  // Create a MockTokenExtractor which always returns "test-token". This will
-  // be used as the test HttpXsrfTokenExtractor, see below.
+  // mock XSRF token
   const testToken = 'test-token';
-  const mockTokenExtractor = new MockTokenExtractor(testToken);
 
   // Mock payload/statuses are dummy content as we are not testing the results
   // of any below requests. We are only testing for X-XSRF-TOKEN header.
@@ -46,7 +34,7 @@ describe(`XsrfInterceptor`, () => {
           useClass: XsrfInterceptor,
           multi: true,
         },
-        { provide: HttpXsrfTokenExtractor, useValue: mockTokenExtractor },
+        { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock(testToken) },
         { provide: CookieService, useValue: new CookieServiceMock() }
       ],
     });

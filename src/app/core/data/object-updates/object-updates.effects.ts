@@ -3,7 +3,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
-  ObjectUpdatesActionTypes, RemoveAllObjectUpdatesAction,
+  ObjectUpdatesActionTypes,
+  RemoveAllObjectUpdatesAction,
   RemoveObjectUpdatesAction
 } from './object-updates.actions';
 import { delay, filter, map, switchMap, take, tap } from 'rxjs/operators';
@@ -17,6 +18,7 @@ import {
   RemoveNotificationAction
 } from '../../../shared/notifications/notifications.actions';
 import { Action } from '@ngrx/store';
+import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 
 /**
  * NGRX effects for ObjectUpdatesActions
@@ -111,7 +113,7 @@ export class ObjectUpdatesEffects {
               map((updateAction: ObjectUpdatesAction) => {
                 if (updateAction.type === ObjectUpdatesActionTypes.REINSTATE) {
                   // If someone reinstated, do nothing, just let the reinstating happen
-                  return { type: 'NO_ACTION' };
+                  return new NoOpAction();
                 }
                 // If someone performed another action, assume the user does not want to reinstate and remove all changes
                 return removeAction;

@@ -19,7 +19,7 @@
                     </ds-dso-input-suggestions>
 
                 </div>
-            </div>                                           
+            </div>
             <div class="row">
                 <div class="col-12">
                     <p>
@@ -39,7 +39,7 @@
                     {{'item.edit.move.processing' | translate}}
                 </span>
             </button>
-            <button [routerLink]="['/items/', (itemRD$ | async)?.payload?.id, 'edit']"
+            <button [routerLink]="[(itemPageRoute$ | async), 'edit']"
                     class="btn btn-outline-secondary">
                 {{'item.edit.move.cancel' | translate}}
             </button>

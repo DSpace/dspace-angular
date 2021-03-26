@@ -1,8 +1,8 @@
 .submission-form-header {
-  background-color: rgba($white, .97);
-  padding: ($spacer / 2) 0 ($spacer / 2) 0;
+  background-color: rgba(255, 255, 255, .97);
+  padding: calc(var(--bs-spacer) / 2) 0 calc(var(--bs-spacer) / 2) 0;
   top: 0;
-  z-index: $submission-header-z-index;
+  z-index: var(--ds-submission-header-z-index);
 }
 
 .submission-form-header-item {
@@ -10,10 +10,10 @@
 }
 
 .submission-form-footer {
-  border-radius: $card-border-radius;
+  border-radius: var(--bs-card-border-radius);
   bottom: 0;
-  background-color: $gray-400;
-  padding: $spacer / 2;
-  z-index: $submission-footer-z-index;
+  background-color: var(--bs-gray-400);
+  padding: calc(var(--bs-spacer) / 2);
+  z-index: var(--ds-submission-footer-z-index);
 }
 

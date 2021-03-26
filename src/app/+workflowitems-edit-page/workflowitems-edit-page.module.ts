@@ -5,6 +5,8 @@ import { WorkflowItemsEditPageRoutingModule } from './workflowitems-edit-page-ro
 import { SubmissionModule } from '../submission/submission.module';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
+import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
+import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 
 @NgModule({
   imports: [
@@ -13,7 +15,7 @@ import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflo
     SharedModule,
     SubmissionModule,
   ],
-  declarations: [WorkflowItemDeleteComponent, WorkflowItemSendBackComponent]
+  declarations: [WorkflowItemDeleteComponent, ThemedWorkflowItemDeleteComponent, WorkflowItemSendBackComponent, ThemedWorkflowItemSendBackComponent]
 })
 /**
  * This module handles all modules that need to access the workflowitems edit page.

@@ -1,30 +1,24 @@
 import { Component } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-
-import { Observable } from 'rxjs';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
-/**
- * This component renders claimed task object for the search result in the list view.
- */
 @Component({
   selector: 'ds-claimed-search-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-search-result-list-element.component.html',
-  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
+  templateUrl: './claimed-search-result-list-element.component.html'
 })
-
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
 
@@ -43,11 +37,12 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
    */
   public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
 
-  constructor(
+  public constructor(
     protected linkService: LinkService,
-    protected truncatableService: TruncatableService
+    protected truncatableService: TruncatableService,
+    protected dsoNameService: DSONameService
   ) {
-    super(truncatableService);
+    super(truncatableService, dsoNameService);
   }
 
   /**
@@ -60,4 +55,5 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
+
 }

@@ -13,9 +13,14 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheService } from './object-cache.service';
-import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
+import {
+  CommitSSBAction,
+  EmptySSBAction,
+  ServerSyncBufferActionTypes
+} from './server-sync-buffer.actions';
 import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
 import { storeModuleConfig } from '../../app.reducer';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
@@ -143,7 +148,7 @@ describe('ServerSyncBufferEffects', () => {
             payload: { method: RestRequestMethod.PATCH }
           }
         });
-        const expected = cold('b', { b: { type: 'NO_ACTION' } });
+        const expected = cold('b', { b: new NoOpAction() });
 
         expect(ssbEffects.commitServerSyncBuffer).toBeObservable(expected);
       });

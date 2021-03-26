@@ -130,7 +130,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       SubKey.Members,
       this.groupDataService.findAllByHref(this.groupBeingEdited._links.subgroups.href, {
           currentPage: page,
-          elementsPerPage: this.config.pageSize
+      elementsPerPage: this.config.pageSize
         }
       ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
         this.subGroups$.next(rd);

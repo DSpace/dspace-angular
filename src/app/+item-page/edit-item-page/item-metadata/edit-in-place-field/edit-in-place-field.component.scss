@@ -1,13 +1,13 @@
 .btn[disabled] {
-    color: $gray-600;
-    border-color: $gray-600;
+    color: var(--bs-gray-600);
+    border-color: var(--bs-gray-600);
     z-index: 0; // prevent border colors jumping on hover
 }
 
 .metadata-field {
-    width: $edit-item-metadata-field-width;
+    width: var(--ds-edit-item-metadata-field-width);
 }
 
 .language-field {
-    width: $edit-item-language-field-width;
+    width: var(--ds-edit-item-language-field-width);
 }

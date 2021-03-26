@@ -1,5 +1,5 @@
 .chip-selected {
-  background-color: map-get($theme-colors, info) !important;
+  background-color: var(--bs-info) !important;
 }
 
 .chip-label {

@@ -1,6 +1,6 @@
 import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { BreadcrumbsService } from '../core/breadcrumbs/breadcrumbs.service';
+import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
 import { Process } from './processes/process.model';
 
@@ -8,7 +8,7 @@ import { Process } from './processes/process.model';
  * Service to calculate process breadcrumbs for a single part of the route
  */
 @Injectable()
-export class ProcessBreadcrumbsService implements BreadcrumbsService<Process> {
+export class ProcessBreadcrumbsService implements BreadcrumbsProviderService<Process> {
 
   /**
    * Method to calculate the breadcrumbs

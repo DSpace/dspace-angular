@@ -5,12 +5,12 @@ import {
   Component,
   HostListener,
   Inject,
-  OnInit, Optional,
-  ViewEncapsulation
+  OnInit,
+  Optional,
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
-import { BehaviorSubject, combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
@@ -23,24 +23,26 @@ import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuID } from './shared/menu/initial-menus-state';
-import { slideSidebarPadding } from './shared/animations/slide';
 import { HostWindowService } from './shared/host-window.service';
-import { Theme } from '../config/theme.inferface';
+import { ThemeConfig } from '../config/theme.model';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-import { hasValue } from './shared/empty.util';
+import { hasValue, isNotEmpty } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
+import { GoogleAnalyticsService } from './statistics/google-analytics.service';
+import { DOCUMENT } from '@angular/common';
+import { ThemeService } from './shared/theme-support/theme.service';
+import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
+import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
+import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  animations: [slideSidebarPadding]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -48,7 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
-  theme: Observable<Theme> = of({} as any);
+  theme: Observable<ThemeConfig> = of({} as any);
   notificationOptions = environment.notifications;
   models;
 
@@ -59,6 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
+      @Inject(DOCUMENT) private document: any,
+    private themeService: ThemeService,
     private translate: TranslateService,
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
@@ -70,11 +74,24 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
     private localeService: LocaleService,
-    @Optional() private cookiesService: KlaroService
+    private breadcrumbsService: BreadcrumbsService,
+    @Optional() private cookiesService: KlaroService,
+    @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
 
     /* Use models object so all decorators are actually called */
     this.models = models;
+
+    this.themeService.getThemeName$().subscribe((themeName: string) => {
+      if (hasValue(themeName)) {
+        this.setThemeCss(themeName);
+      } else if (hasValue(DEFAULT_THEME_CONFIG)) {
+        this.setThemeCss(DEFAULT_THEME_CONFIG.name);
+      } else {
+        this.setThemeCss(BASE_THEME_NAME);
+      }
+    });
+
     // Load all the languages that are defined as active from the config file
     translate.addLangs(environment.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
 
@@ -84,10 +101,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     // set the current language code
     this.localeService.setCurrentLanguageCode();
 
-    angulartics2GoogleAnalytics.startTracking();
+    // analytics
+    if (hasValue(googleAnalyticsService)) {
+      googleAnalyticsService.addTrackingIdToPage();
+    }
     angulartics2DSpace.startTracking();
 
     metadata.listenForRouteChange();
+    breadcrumbsService.listenForRouteChanges();
 
     if (environment.debug) {
       console.info(environment);
@@ -111,17 +132,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     const color: string = environment.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
-
-    this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
-
-    this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
-    this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
-
-    const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
-    this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
-      .pipe(
-        map(([collapsed, mobile]) => collapsed || mobile)
-      );
   }
 
   private storeCSSVariables() {
@@ -171,5 +181,35 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (hasValue(this.cookiesService)) {
       this.cookiesService.initialize();
     }
+  }
+
+  /**
+   * Update the theme css file in <head>
+   *
+   * @param themeName The name of the new theme
+   * @private
+   */
+  private setThemeCss(themeName: string): void {
+    const head = this.document.getElementsByTagName('head')[0];
+    // Array.from to ensure we end up with an array, not an HTMLCollection, which would be
+    // automatically updated if we add nodes later
+    const currentThemeLinks = Array.from(this.document.getElementsByClassName('theme-css'));
+    const link = this.document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('type', 'text/css');
+    link.setAttribute('class', 'theme-css');
+    link.setAttribute('href', `/${encodeURIComponent(themeName)}-theme.css`);
+    // wait for the new css to download before removing the old one to prevent a
+    // flash of unstyled content
+    link.onload = () => {
+      if (isNotEmpty(currentThemeLinks)) {
+        currentThemeLinks.forEach((currentThemeLink: any) => {
+          if (hasValue(currentThemeLink)) {
+            currentThemeLink.remove();
+          }
+        });
+      }
+    };
+    head.appendChild(link);
   }
 }

@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ItemPageComponent } from './simple/item-page.component';
-import { FullItemPageComponent } from './full/full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
-import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths';
+import { ITEM_EDIT_PATH, UPLOAD_BITSTREAM_PATH } from './item-page-routing-paths';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
 import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { ThemedItemPageComponent } from './simple/themed-item-page.component';
+import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 
 @NgModule({
   imports: [
@@ -27,12 +26,12 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
         children: [
           {
             path: '',
-            component: ItemPageComponent,
+            component: ThemedItemPageComponent,
             pathMatch: 'full',
           },
           {
             path: 'full',
-            component: FullItemPageComponent,
+            component: ThemedFullItemPageComponent,
           },
           {
             path: ITEM_EDIT_PATH,

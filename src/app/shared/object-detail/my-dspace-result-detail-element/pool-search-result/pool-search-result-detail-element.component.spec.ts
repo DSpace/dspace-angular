@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -14,6 +14,9 @@ import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-tas
 import { VarDirective } from '../../../utils/var.directive';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { By } from '@angular/platform-browser';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;
@@ -66,7 +69,8 @@ describe('PoolSearchResultDetailElementComponent', () => {
       providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultDetailElementComponent, {
@@ -99,4 +103,15 @@ describe('PoolSearchResultDetailElementComponent', () => {
   it('should have properly status', () => {
     expect(component.status).toEqual(MyDspaceItemStatusType.WAITING_CONTROLLER);
   });
+
+  it('should forward pool-task-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {
+    spyOn(component.reloadedObject, 'emit').and.callThrough();
+    const actionPayload: any = { reloadedObject: {}};
+    const actionsComponents = fixture.debugElement.query(By.css('ds-pool-task-actions'));
+    actionsComponents.triggerEventHandler('processCompleted', actionPayload);
+    tick();
+
+    expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
+
+  }));
 });

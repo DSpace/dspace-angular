@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -21,6 +21,12 @@ import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
+import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+
+let mockDataService: PoolTaskDataService;
+let mockClaimedTaskDataService: ClaimedTaskDataService;
 
 let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
@@ -29,13 +35,9 @@ let mockObject: PoolTask;
 let notificationsServiceStub: NotificationsServiceStub;
 let router: RouterStub;
 
-const mockDataService = jasmine.createSpyObj('PoolTaskDataService', {
-  claimTask: jasmine.createSpy('claimTask')
-});
-
 const searchService = getMockSearchService();
 
-const requestServce = getMockRequestService();
+const requestService = getMockRequestService();
 
 const item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -73,6 +75,8 @@ mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkfl
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
+    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -88,8 +92,9 @@ describe('PoolTaskActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: PoolTaskDataService, useValue: mockDataService },
+        { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
-        { provide: RequestService, useValue: requestServce }
+        { provide: RequestService, useValue: requestService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolTaskActionsComponent, {
@@ -128,63 +133,35 @@ describe('PoolTaskActionsComponent', () => {
     expect(btn).toBeDefined();
   });
 
-  it('should call claimTask method on claim', fakeAsync(() => {
-    spyOn(component, 'reload');
-    mockDataService.claimTask.and.returnValue(observableOf({ hasSucceeded: true }));
+  it('should call claim task with href of getPoolTaskEndpointById', ((done) => {
 
-    component.claim();
-    fixture.detectChanges();
+    const poolTaskHref = 'poolTaskHref';
+    const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
+    const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
 
-    fixture.whenStable().then(() => {
-      expect(mockDataService.claimTask).toHaveBeenCalledWith(mockObject.id);
-    });
+    spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
+    spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
+    spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
 
-  }));
+    (component as any).objectDataService = mockDataService;
 
-  it('should display a success notification on claim success', waitForAsync(() => {
-    spyOn(component, 'reload');
-    mockDataService.claimTask.and.returnValue(observableOf({ hasSucceeded: true }));
+    spyOn(component, 'handleReloadableActionResponse').and.callThrough();
 
-    component.claim();
-    fixture.detectChanges();
+    component.startActionExecution().subscribe( (result) => {
 
-    fixture.whenStable().then(() => {
+      expect(mockDataService.getPoolTaskEndpointById).toHaveBeenCalledWith(mockObject.id);
+      expect(mockClaimedTaskDataService.claimTask).toHaveBeenCalledWith(mockObject.id, poolTaskHref);
+      expect(mockClaimedTaskDataService.findByItem).toHaveBeenCalledWith(component.itemUuid);
+
+      expect(result instanceof PoolTaskSearchResult).toBeTrue();
+
+      expect(component.handleReloadableActionResponse).toHaveBeenCalledWith(true, result);
+
       expect(notificationsServiceStub.success).toHaveBeenCalled();
+
+      done();
     });
-  }));
 
-  it('should reload page on claim success', waitForAsync(() => {
-    spyOn(router, 'navigateByUrl');
-    router.url = 'test.url/test';
-    mockDataService.claimTask.and.returnValue(observableOf({ hasSucceeded: true }));
-
-    component.claim();
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      expect(router.navigateByUrl).toHaveBeenCalledWith('test.url/test');
-    });
-  }));
-
-  it('should display an error notification on claim failure', waitForAsync(() => {
-    mockDataService.claimTask.and.returnValue(observableOf({ hasSucceeded: false }));
-
-    component.claim();
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      expect(notificationsServiceStub.error).toHaveBeenCalled();
-    });
-  }));
-
-  it('should clear the object cache by href', waitForAsync(() => {
-    component.reload();
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      expect(searchService.getEndpoint).toHaveBeenCalled();
-      expect(requestServce.removeByHrefSubstring).toHaveBeenCalledWith('discover/search/objects');
-    });
   }));
 
 });
