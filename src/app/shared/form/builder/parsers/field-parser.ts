@@ -52,6 +52,7 @@ export abstract class FieldParser {
       if (Array.isArray(this.configData.selectableMetadata) && this.configData.selectableMetadata.length === 1) {
         metadataKey = this.configData.selectableMetadata[0].metadata;
       }
+
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
@@ -63,6 +64,7 @@ export abstract class FieldParser {
         metadataKey,
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
+        typeBindRelations: isNotEmpty(this.configData.typeBind) ? this.getTypeBindRelations(this.configData.typeBind) : null,
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
@@ -298,21 +300,25 @@ export abstract class FieldParser {
     }
 
     if (isNotEmpty(this.configData.typeBind)) {
-      const bindValues = [];
-      this.configData.typeBind.forEach((value) => {
-        bindValues.push({
-          id: 'dc_type',
-          value: value
-        });
-      });
-      (controlModel as DsDynamicInputModel).typeBindRelations = [{
-        match: MATCH_VISIBLE,
-        operator: OR_OPERATOR,
-        when: bindValues
-      }];
+      (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind);
     }
 
     return controlModel;
+  }
+
+  private getTypeBindRelations(configuredTypeBindValues: string[]): any[] {
+    const bindValues = [];
+    configuredTypeBindValues.forEach((value) => {
+      bindValues.push({
+        id: 'dc_type',
+        value: value
+      });
+    });
+    return [{
+      match: MATCH_VISIBLE,
+      operator: OR_OPERATOR,
+      when: bindValues
+    }];
   }
 
   protected hasRegex() {
