@@ -5,7 +5,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 
-@listableObjectComponent('IIIFResult', ViewMode.GridElement)
+@listableObjectComponent('IIIFSearchResult', ViewMode.GridElement)
 @Component({
   selector: 'ds-iiif-result-grid-element',
   styleUrls: ['./iiif-search-result-grid-element.component.scss'],

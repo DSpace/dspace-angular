@@ -5,7 +5,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 
-@listableObjectComponent('IIIFSearchableResult', ViewMode.ListElement)
+@listableObjectComponent('IIIFSearchableSearchResult', ViewMode.ListElement)
 @Component({
   selector: 'ds-iiif-searchable-search-result-list-element',
   styleUrls: ['./iiif-searchable-search-result-list-element.component.scss'],
@@ -14,5 +14,5 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 /**
  * The component for displaying a list element for an item search result of the type IIIFSearchable
  */
-export class IIIFSearchableResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+export class IIIFSearchableSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }
