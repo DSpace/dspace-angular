@@ -3,14 +3,14 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../../shared/shared.module';
 import {IIIFSearchableGridElementComponent} from './item-grid-elements/iiif-searchable/iiif-searchable-grid-element.component';
-import {IIIFSearchableResultListElementComponent} from './item-list-elements/search-result-list-elements/iiif-searchable/iiif-searchable-search-result-list-element.component';
+import {IIIFSearchableSearchResultListElementComponent} from './item-list-elements/search-result-list-elements/iiif-searchable/iiif-searchable-search-result-list-element.component';
 import {IIIFSearchableSearchResultGridElementComponent} from './item-grid-elements/search-result-grid-elements/iiif-searchable/iiif-searchable-search-result-grid-element.component';
 import {MiradorViewerComponent} from './mirador-viewer/mirador-viewer.component';
 import {IIIFSearchableListElementComponent} from './item-list-elements/iiif-searchable/iiif-searchable-list-element.component';
 import {IIIFComponent} from './item-pages/iiif/iiif.component';
 import {IIIFListElementComponent} from './item-list-elements/iiif/iiif-list-element.component';
 import {IIIFGridElementComponent} from './item-grid-elements/iiif/iiif-grid-element.component';
-import {IIIFResultListElementComponent} from './item-list-elements/search-result-list-elements/iiif/iiif-search-result-list-element.component';
+import {IIIFSearchResultListElementComponent} from './item-list-elements/search-result-list-elements/iiif/iiif-search-result-list-element.component';
 import {IIIFSearchResultGridElementComponent} from './item-grid-elements/search-result-grid-elements/iiif/iiif-search-result-grid-element.component';
 
 const ENTRY_COMPONENTS = [
@@ -20,8 +20,8 @@ const ENTRY_COMPONENTS = [
   IIIFSearchableListElementComponent,
   IIIFGridElementComponent,
   IIIFSearchableGridElementComponent,
-  IIIFResultListElementComponent,
-  IIIFSearchableResultListElementComponent,
+  IIIFSearchResultListElementComponent,
+  IIIFSearchableSearchResultListElementComponent,
   IIIFSearchResultGridElementComponent,
   IIIFSearchableSearchResultGridElementComponent,
   MiradorViewerComponent
