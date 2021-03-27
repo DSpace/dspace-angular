@@ -26,6 +26,7 @@ import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
+import { IIIFEntitiesModule } from '../entity-groups/iiif-entities/iiif-entities.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -62,7 +63,8 @@ const DECLARATIONS = [
     EditItemPageModule,
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
+    IIIFEntitiesModule.withEntryComponents()
   ],
   declarations: [
     ...DECLARATIONS
