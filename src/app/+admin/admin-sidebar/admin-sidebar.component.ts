@@ -114,7 +114,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     combineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin]) => {
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
       const menuList = [
         /* News */
         {
@@ -132,7 +133,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           id: 'new_community',
           parentID: 'new',
           active: false,
-          visible: true,
+          visible: isCommunityAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_community',
@@ -145,7 +146,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           id: 'new_collection',
           parentID: 'new',
           active: false,
-          visible: true,
+          visible: isCommunityAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',
@@ -171,7 +172,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           id: 'new_process',
           parentID: 'new',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.new_process',
@@ -246,7 +247,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'curation_tasks',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.curation_task',
@@ -274,7 +275,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'control_panel',
           active: false,
-          visible: true,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.control_panel',
@@ -288,7 +289,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'processes',
           active: false,
-          visible: true,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.processes',
