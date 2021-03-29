@@ -22,6 +22,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { NoContent } from '../shared/NoContent.model';
 import { hasValue } from '../../shared/empty.util';
 import { Operation } from 'fast-json-patch';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /* tslint:disable:max-classes-per-file */
 /**
@@ -58,14 +59,22 @@ class DataServiceImpl extends ItemDataService {
   }
 
   /**
+   * Get the endpoint based on a collection
+   * @param collectionID  The ID of the collection to base the endpoint on
+   */
+  public getCollectionEndpoint(collectionID: string): Observable<string> {
+    return this.collectionService.getIDHrefObs(collectionID).pipe(
+      switchMap((href: string) => this.halService.getEndpoint(this.collectionLinkPath, href))
+    );
+  }
+
+  /**
    * Set the endpoint to be based on a collection
    * @param collectionID  The ID of the collection to base the endpoint on
    */
   private setCollectionEndpoint(collectionID: string) {
     this.collectionEndpoint = true;
-    this.endpoint$ = this.collectionService.getIDHrefObs(collectionID).pipe(
-      switchMap((href: string) => this.halService.getEndpoint(this.collectionLinkPath, href))
-    );
+    this.endpoint$ = this.getCollectionEndpoint(collectionID);
   }
 
   /**
@@ -130,6 +139,7 @@ class DataServiceImpl extends ItemDataService {
   deleteByCollectionID(item: Item, collectionID: string): Observable<boolean> {
     this.setRegularEndpoint();
     return super.delete(item.uuid).pipe(
+      getFirstCompletedRemoteData(),
       map((response: RemoteData<NoContent>) => hasValue(response) && response.hasSucceeded)
     );
   }
@@ -208,6 +218,14 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
    */
   deleteByCollectionID(item: Item, collectionID: string): Observable<boolean> {
     return this.dataService.deleteByCollectionID(item, collectionID);
+  }
+
+  /**
+   * Get the endpoint based on a collection
+   * @param collectionID  The ID of the collection to base the endpoint on
+   */
+  getCollectionEndpoint(collectionID: string): Observable<string> {
+    return this.dataService.getCollectionEndpoint(collectionID);
   }
 }
 /* tslint:enable:max-classes-per-file */
