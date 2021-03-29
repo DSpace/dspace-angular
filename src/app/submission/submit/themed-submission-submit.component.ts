@@ -12,7 +12,7 @@ import { SubmissionSubmitComponent } from './submission-submit.component';
 })
 export class ThemedSubmissionSubmitComponent extends ThemedComponent<SubmissionSubmitComponent> {
   protected getComponentName(): string {
-    return 'SubmissionImportExternalComponent';
+    return 'SubmissionSubmitComponent';
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
