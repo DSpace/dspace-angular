@@ -17,12 +17,13 @@ import { createPaginatedList } from '../../testing/utils.test';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/request.models';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
   let fixture: ComponentFixture<ItemSelectComponent>;
   let objectSelectService: ObjectSelectService;
-  let paginationService: PaginationService;
+  let paginationService;
 
   const mockItemList = [
     Object.assign(new Item(), {
@@ -63,14 +64,7 @@ describe('ItemSelectComponent', () => {
     currentPage: 1
   });
 
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(mockPaginationOptions),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    resetPage: {},
-  });
+  paginationService = new PaginationServiceStub(mockPaginationOptions);
 
 
 

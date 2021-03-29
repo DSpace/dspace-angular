@@ -24,6 +24,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('TopLevelCommunityList Component', () => {
   let comp: TopLevelCommunityListComponent;
@@ -109,14 +110,7 @@ describe('TopLevelCommunityList Component', () => {
     }
   };
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-
-  paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getRouteParameterValue: observableOf('')
-  });
+  paginationService = new PaginationServiceStub();
 
   themeService = getMockThemeService();
 

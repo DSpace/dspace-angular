@@ -17,6 +17,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.c
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('SearchSettingsComponent', () => {
 
@@ -65,11 +66,7 @@ describe('SearchSettingsComponent', () => {
       }),
     };
 
-    paginationService = jasmine.createSpyObj('PaginationService', {
-      getCurrentPagination: observableOf(pagination),
-      getCurrentSort: observableOf(sort),
-      resetPage: {},
-    });
+    paginationService = new PaginationServiceStub(pagination, sort);
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],

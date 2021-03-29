@@ -9,6 +9,8 @@ import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { PaginationService } from '../core/pagination/pagination.service';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;
@@ -34,18 +36,13 @@ describe('MyDSpaceConfigurationService', () => {
     getRouteDataValue: observableOf({})
   });
 
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(defaults.pagination),
-    getCurrentSort: observableOf(defaults.sort),
-    getRouteParameterValue: observableOf('')
-  });
-
+  const paginationService = new PaginationServiceStub();
   const activatedRoute: any = new ActivatedRouteStub();
 
   const roleService: any = new RoleServiceMock();
 
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService, activatedRoute);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute);
   });
 
   describe('when the scope is called', () => {

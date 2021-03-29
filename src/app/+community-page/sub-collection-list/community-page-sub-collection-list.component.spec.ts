@@ -24,6 +24,7 @@ import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;
@@ -117,16 +118,7 @@ describe('CommunityPageSubCollectionList Component', () => {
     }
   };
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    resetPage: {},
-    updateRouteWithUrl: {}
-  });
+  const paginationService = new PaginationServiceStub();
 
   themeService = getMockThemeService();
 

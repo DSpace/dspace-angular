@@ -22,6 +22,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
@@ -64,15 +65,7 @@ describe('EpersonGroupListComponent test suite', () => {
   const groupPaginatedList = buildPaginatedList(new PageInfo(), [GroupMock, GroupMock]);
   const groupPaginatedListRD = createSuccessfulRemoteDataObject(groupPaginatedList);
 
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(paginationOptions),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    resetPage: {},
-    clearPagination: {}
-  });
+  paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

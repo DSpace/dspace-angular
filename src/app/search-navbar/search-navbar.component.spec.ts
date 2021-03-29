@@ -13,6 +13,7 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 
 describe('SearchNavbarComponent', () => {
   let component: SearchNavbarComponent;
@@ -33,16 +34,7 @@ describe('SearchNavbarComponent', () => {
       navigate: (commands) => commands
     };
 
-    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-    const sort = new SortOptions('score', SortDirection.DESC);
-
-    paginationService = jasmine.createSpyObj('PaginationService', {
-      getCurrentPagination: observableOf(pagination),
-      getCurrentSort: observableOf(sort),
-      getRouteParameterValue: observableOf(''),
-      updateRouteWithUrl: {},
-      clearPagination : {}
-    });
+    paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
       imports: [

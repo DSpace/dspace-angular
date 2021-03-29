@@ -16,7 +16,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByType, rendersBrowseBy } from '../+browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -56,9 +56,14 @@ export class BrowseByMetadataPageComponent implements OnInit {
   });
 
   /**
-   * The sorting config used to sort the values (defaults to Ascending)
+   * The pagination observable
    */
-  sortConfig: SortOptions = new SortOptions('default', SortDirection.ASC);
+  currentPagination$: Observable<PaginationComponentOptions>;
+
+  /**
+   * The sorting config observable
+   */
+  currentSort$: Observable<SortOptions>;
 
   /**
    * List of subscriptions
@@ -107,11 +112,12 @@ export class BrowseByMetadataPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, this.sortConfig));
-    const currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    const currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, this.sortConfig);
+    const sortConfig = new SortOptions('default', SortDirection.ASC);
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
+    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, currentPagination$, currentSort$]).pipe(
+      observableCombineLatest([this.route.params, this.route.queryParams, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
@@ -161,6 +167,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * @param value          The value of the browse-entry to display items for
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
+    console.log('updatePAge', searchOptions);
     this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
   }
 

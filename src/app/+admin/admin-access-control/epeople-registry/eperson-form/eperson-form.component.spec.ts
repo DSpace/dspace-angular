@@ -29,6 +29,7 @@ import { RequestService } from '../../../../core/data/request.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -41,7 +42,7 @@ describe('EPersonFormComponent', () => {
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
 
-  let paginationService: PaginationService;
+  let paginationService;
 
 
 
@@ -112,16 +113,7 @@ describe('EPersonFormComponent', () => {
       getGroupRegistryRouterLink: ''
     });
 
-    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-    const sort = new SortOptions('score', SortDirection.DESC);
-    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-    paginationService = jasmine.createSpyObj('PaginationService', {
-      getCurrentPagination: observableOf(pagination),
-      getCurrentSort: observableOf(sort),
-      getFindListOptions: observableOf(findlistOptions),
-      resetPage: {},
-      updateRouteWithUrl: {}
-    });
+    paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({

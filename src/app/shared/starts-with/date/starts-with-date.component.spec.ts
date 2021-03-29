@@ -15,6 +15,7 @@ import { PaginationComponentOptions } from '../../pagination/pagination-componen
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('StartsWithDateComponent', () => {
   let comp: StartsWithDateComponent;
@@ -30,15 +31,7 @@ describe('StartsWithDateComponent', () => {
     queryParams: observableOf({})
   });
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-
-  paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-  });
+  paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

@@ -19,6 +19,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { SortDirection, SortOptions } from '../../../../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../../../../core/data/request.models';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -85,17 +86,8 @@ describe('SearchFacetOptionComponent', () => {
   let router;
   const page = observableOf(0);
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    resetPage: {},
-    getPageParam: 'p.page-id',
-  });
-
+  const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
+  const paginationService = new PaginationServiceStub(pagination);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],

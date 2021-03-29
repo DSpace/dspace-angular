@@ -35,12 +35,12 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
   }
 
   ngOnInit(): void {
-    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, this.sortConfig));
-    const currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    const currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, this.sortConfig);
+    const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
+    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, currentPagination$, currentSort$]).pipe(
+      observableCombineLatest([this.route.params, this.route.queryParams, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })

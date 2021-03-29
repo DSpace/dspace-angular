@@ -14,6 +14,7 @@ import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',
@@ -47,8 +48,6 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
 
   const url = 'mock-abstract-paginated-drag-and-drop-list-component';
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
 
   const object1 = Object.assign(new DSpaceObject(), { uuid: 'object-1' });
   const object2 = Object.assign(new DSpaceObject(), { uuid: 'object-2' });
@@ -77,11 +76,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     paginationComponent = jasmine.createSpyObj('paginationComponent', {
       doPageChange: {}
     });
-    paginationService = jasmine.createSpyObj('PaginationService', {
-      getCurrentPagination: observableOf(pagination),
-      getCurrentSort: observableOf(sort),
-      getRouteParameterValue: observableOf('')
-    });
+    paginationService = new PaginationServiceStub();
     objectsRD$ = new BehaviorSubject(objectsRD);
     component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, paginationService, objectsRD$);
     component.paginationComponent = paginationComponent;

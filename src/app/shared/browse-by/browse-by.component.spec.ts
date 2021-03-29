@@ -20,6 +20,7 @@ import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { storeModuleConfig } from '../../app.reducer';
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -53,15 +54,7 @@ describe('BrowseByComponent', () => {
     pageSizeOptions: [5, 10, 15, 20],
     pageSize: 15
   });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(paginationConfig),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    updateRoute: {},
-    resetPage: {},
-  });
+  const paginationService = new PaginationServiceStub(paginationConfig);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

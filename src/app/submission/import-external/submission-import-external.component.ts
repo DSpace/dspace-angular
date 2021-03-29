@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter, mergeMap, switchMap, take } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ExternalSourceService } from '../../core/data/external-source.service';
 import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { Context } from '../../core/shared/context.model';
@@ -167,25 +167,27 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * @param query The query string to search
    */
   private retrieveExternalSources(): void {
-    this.reload$.subscribe((sourceQueryObject: {source: string, query: string}) => {
-      const source = sourceQueryObject.source;
-      const query = sourceQueryObject.query;
-      if (isNotEmpty(source) && isNotEmpty(query)) {
-        this.routeData.sourceId = source;
-        this.routeData.query = query;
-        this.isLoading$.next(true);
-        this.subs.push(
-          this.searchConfigService.paginatedSearchOptions.pipe(
-            filter((searchOptions) => searchOptions.query === query),
-            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
-              getFinishedRemoteData(),
-            )),
-          ).subscribe((rdData) => {
-            this.entriesRD$.next(rdData);
-            this.isLoading$.next(false);
-          })
-        );
-      }
+    this.reload$.pipe(
+      switchMap(
+        (sourceQueryObject: { source: string, query: string }) => {
+          const source = sourceQueryObject.source;
+          const query = sourceQueryObject.query;
+          if (isNotEmpty(source) && isNotEmpty(query)) {
+            this.routeData.sourceId = source;
+            this.routeData.query = query;
+            this.isLoading$.next(true);
+            return this.searchConfigService.paginatedSearchOptions.pipe(
+              filter((searchOptions) => searchOptions.query === query),
+              mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+                getFinishedRemoteData(),
+              )),
+            );
+          }
+        }
+      ),
+    ).subscribe((rdData) => {
+      this.entriesRD$.next(rdData);
+      this.isLoading$.next(false);
     });
   }
 

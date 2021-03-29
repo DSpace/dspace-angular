@@ -15,13 +15,11 @@ import { PaginationComponentOptions } from '../../pagination/pagination-componen
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
   let fixture: ComponentFixture<ItemVersionsComponent>;
-
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
 
   const versionHistory = Object.assign(new VersionHistory(), {
     id: '1'
@@ -59,11 +57,7 @@ describe('ItemVersionsComponent', () => {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions))
   });
 
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getRouteParameterValue: observableOf('')
-  });
+  const paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

@@ -99,9 +99,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Input() public hidePagerWhenSinglePage = true;
 
   /**
-   * Option for disabling updating and reading route parameters on pagination changes
-   * In other words, changing pagination won't add or update the url parameters on the current page, and the url
-   * parameters won't affect the pagination of this component
+   * Option for retaining the scroll position upon navigating to an url with updated params.
+   * After the page update the page will scroll back to the current pagination component.
    */
   @Input() public retainScrollPosition = false;
 
@@ -121,8 +120,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
   public hostWindow: Observable<HostWindowState>;
 
   /**
-   * ID for the pagination instance. Only useful if you wish to
-   * have more than once instance at a time in a given component.
+   * ID for the pagination instance. This ID is used in the routing to retrieve the pagination options.
+   * This ID needs to be unique between different pagination components when more than one will be displayed on the same page.
    */
   public id: string;
 
@@ -156,7 +155,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Name of the field that's used to sort by
    */
   public sortField$;
-  public defaultSortField = 'id';
+  public defaultSortField = 'name';
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy

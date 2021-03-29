@@ -13,6 +13,7 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { FindListOptions } from '../../../core/data/request.models';
 import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('StartsWithTextComponent', () => {
   let comp: StartsWithTextComponent;
@@ -22,15 +23,7 @@ describe('StartsWithTextComponent', () => {
 
   const options = ['0-9', 'A', 'B', 'C'];
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    resetPage: {},
-  });
+  const paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

@@ -22,6 +22,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -65,15 +66,7 @@ describe('BrowseByTitlePageComponent', () => {
     data: observableOf({ metadata: 'title' })
   });
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
-  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getFindListOptions: observableOf(findlistOptions),
-    resetPage: {},
-  });
+  const paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

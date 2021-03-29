@@ -16,6 +16,12 @@ import { isNumeric } from 'rxjs/internal-compatibility';
 })
 /**
  * Service to manage the pagination of different components
+ * The pagination information will be stored in the route based on a paginationID.
+ * The following params are used for the different kind of pagination information:
+ *    - For the page: p.{paginationID}
+ *    - For the page size: rpp.{paginationID}
+ *    - For the sort direction: sd.{paginationID}
+ *    - For the sort field: sf.{paginationID}
  */
 export class PaginationService {
 

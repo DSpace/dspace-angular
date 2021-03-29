@@ -24,16 +24,14 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
   let fixture: ComponentFixture<BrowseByMetadataPageComponent>;
   let browseService: BrowseService;
   let route: ActivatedRoute;
-  let paginationService: PaginationService;
-
-  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-  const sort = new SortOptions('score', SortDirection.DESC);
+  let paginationService;
 
   const mockCommunity = Object.assign(new Community(), {
     id: 'test-uuid',
@@ -88,11 +86,7 @@ describe('BrowseByMetadataPageComponent', () => {
     params: observableOf({})
   });
 
-  paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(pagination),
-    getCurrentSort: observableOf(sort),
-    getRouteParameterValue: observableOf('')
-  });
+  paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

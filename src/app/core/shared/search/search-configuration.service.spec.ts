@@ -5,6 +5,7 @@ import { SortDirection, SortOptions } from '../../cache/models/sort-options.mode
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/search-filter.model';
 import { of as observableOf } from 'rxjs';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;
@@ -30,17 +31,13 @@ describe('SearchConfigurationService', () => {
     getRouteParameterValue: observableOf('')
   });
 
-  const paginationService = jasmine.createSpyObj('PaginationService', {
-    getCurrentPagination: observableOf(defaults.pagination),
-    getCurrentSort: observableOf(defaults.sort),
-    getRouteParameterValue: observableOf('')
-  });
+  const paginationService = new PaginationServiceStub();
 
 
   const activatedRoute: any = new ActivatedRouteStub();
 
   beforeEach(() => {
-    service = new SearchConfigurationService(routeService, paginationService, activatedRoute);
+    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute);
   });
   describe('when the scope is called', () => {
     beforeEach(() => {

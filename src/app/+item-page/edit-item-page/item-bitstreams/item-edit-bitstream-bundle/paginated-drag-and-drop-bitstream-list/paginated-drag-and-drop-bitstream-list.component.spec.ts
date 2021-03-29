@@ -20,6 +20,7 @@ import { PaginationService } from '../../../../../core/pagination/pagination.ser
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../../../core/data/request.models';
+import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -28,7 +29,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let bundleService: BundleDataService;
   let objectValuesPipe: ObjectValuesPipe;
   let requestService: RequestService;
-  let paginationService: PaginationService;
+  let paginationService;
 
   const columnSizes = new ResponsiveTableSizes([
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
@@ -114,15 +115,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
       hasByHref$: observableOf(true)
     });
 
-    const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
-    const sort = new SortOptions('score', SortDirection.DESC);
-    const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
-    paginationService = jasmine.createSpyObj('PaginationService', {
-      getCurrentPagination: observableOf(pagination),
-      getCurrentSort: observableOf(sort),
-      getFindListOptions: observableOf(findlistOptions),
-      resetPage: {},
-    });
+    paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],

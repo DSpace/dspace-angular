@@ -34,6 +34,7 @@ import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/request.models';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -108,7 +109,7 @@ describe('Pagination component', () => {
   let activatedRouteStub: MockActivatedRoute;
   let routerStub: RouterMock;
 
-  let paginationService: PaginationService;
+  let paginationService;
 
   // Define initial state and test state
   const _initialState = { width: 1600, height: 770 };

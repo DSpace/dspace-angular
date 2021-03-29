@@ -29,11 +29,6 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
 
   /**
-   * A BehaviourSubject that keeps track of the pageState used to update the currently displayed bitstreamFormats
-   */
-  // pageState: BehaviorSubject<string>;
-
-  /**
    * The current pagination configuration for the page used by the FindAll method
    * Currently simply renders all bitstream formats
    */

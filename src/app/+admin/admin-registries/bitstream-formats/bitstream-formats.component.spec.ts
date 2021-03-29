@@ -27,6 +27,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -104,14 +105,7 @@ describe('BitstreamFormatsComponent', () => {
       clearBitStreamFormatRequests: observableOf('cleared')
     });
 
-    paginationService = jasmine.createSpyObj('PaginationService', {
-      getCurrentPagination: observableOf(pagination),
-      getCurrentSort: observableOf(sort),
-      getFindListOptions: observableOf(findlistOptions),
-      resetPage: {},
-    });
-
-
+    paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -236,14 +230,7 @@ describe('BitstreamFormatsComponent', () => {
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
-      paginationService = jasmine.createSpyObj('PaginationService', {
-        getCurrentPagination: observableOf(pagination),
-        getCurrentSort: observableOf(sort),
-        getFindListOptions: observableOf(findlistOptions),
-        resetPage: {},
-      });
-
-
+      paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
           imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -292,13 +279,7 @@ describe('BitstreamFormatsComponent', () => {
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
-      paginationService = jasmine.createSpyObj('PaginationService', {
-        getCurrentPagination: observableOf(pagination),
-        getCurrentSort: observableOf(sort),
-        getFindListOptions: observableOf(findlistOptions),
-        resetPage: {},
-      });
-
+      paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
           imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
