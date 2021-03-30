@@ -27,6 +27,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { IIIFComponent } from './iiif.component';
 import { By } from '@angular/platform-browser';
+import {RelationshipService} from '../../../../core/data/relationship.service';
 
 let comp: IIIFComponent;
 let fixture: ComponentFixture<IIIFComponent>;
@@ -56,7 +57,7 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
-describe('IIIFSearchableComponent', () => {
+describe('IIIFComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
@@ -74,6 +75,7 @@ describe('IIIFSearchableComponent', () => {
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
+        { provide: RelationshipService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {Observable, of as observableOf} from 'rxjs';
 import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -27,6 +27,8 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { IIIFSearchableComponent } from './iiif-searchable.component';
 import { By } from '@angular/platform-browser';
+import {RelationshipService} from '../../../../core/data/relationship.service';
+import {RouteService} from '../../../../core/services/route.service';
 
 let comp: IIIFSearchableComponent;
 let fixture: ComponentFixture<IIIFSearchableComponent>;
@@ -56,6 +58,10 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
+const routeServiceStub = jasmine.createSpyObj('routeService', {
+  getHistory: observableOf(['/search',''])
+});
+
 describe('IIIFSearchableComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
@@ -74,6 +80,7 @@ describe('IIIFSearchableComponent', () => {
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
+        { provide: RelationshipService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
@@ -85,6 +92,7 @@ describe('IIIFSearchableComponent', () => {
         { provide: NotificationsService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        {provide: RouteService, useValue: routeServiceStub}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -101,7 +109,6 @@ describe('IIIFSearchableComponent', () => {
   }));
   it(`should set searchable attribute to true`, () => {
     const miradorEl = fixture.debugElement.query(By.css('ds-mirador-viewer'));
-    console.log(miradorEl);
     expect(miradorEl.nativeElement.getAttribute('searchable')).toBeTruthy();
   });
 
@@ -110,7 +117,7 @@ describe('IIIFSearchableComponent', () => {
       const fields = fixture.debugElement.queryAll(By.css('.item-page-fields'));
       expect(containsFieldInput(fields, key)).toBeTruthy();
     });
-  }
+   }
 });
 
 function containsFieldInput(fields: DebugElement[], metadataKey: string): boolean {
