@@ -30,6 +30,8 @@ export class MiradorViewerComponent implements OnInit {
 
   multi = false;
 
+  notMobile = false;
+
   constructor(private sanitizer: DomSanitizer,
               private bitstreamDataService: BitstreamDataService,
               @Inject(PLATFORM_ID) private platformId: any) {
@@ -40,6 +42,7 @@ export class MiradorViewerComponent implements OnInit {
    * or  multi-page thumbnail navigation.
    */
   setURL() {
+    const width = window.innerWidth;
     // The path to the REST manifest endpoint.
     const manifestApiEndpoint = encodeURIComponent(environment.rest.baseUrl + '/api/iiif/'
       + this.item.id + '/manifest');
@@ -57,6 +60,9 @@ export class MiradorViewerComponent implements OnInit {
       // Tell the viewer to add thumbnail navigation. If searchable, thumbnail navigation is added by default.
       viewerPath += '&multi=' + this.multi;
     }
+    if (this.notMobile) {
+      viewerPath += '&notMobile=true';
+    }
     // TODO: review whether the item.id should be sanitized. The query term should be (check mirador viewer).
     return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
   }
@@ -66,6 +72,9 @@ export class MiradorViewerComponent implements OnInit {
      * Initializes the iframe url observable.
      */
     if (isPlatformBrowser(this.platformId)) {
+      if (window.innerWidth > 768) {
+        this.notMobile = true;
+      }
       this.iframeViewerUrl = this.bitstreamDataService
         .findAllByItemAndBundleName(this.item, 'IIIF', {})
         .pipe(

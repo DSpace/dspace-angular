@@ -9,6 +9,7 @@ const manifest = params.get('manifest');
 const searchable = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
+const notMobile = params.get('notMobile');
 
 let windowSettings = {};
 let sidbarPanel = 'info';
@@ -19,21 +20,22 @@ let thumbNavigation = 'off';
 windowSettings.manifestId = manifest;
 
 (() => {
-  console.log('setting params in viewer');
   if (searchable) {
-    console.log(multi)
     defaultView = 'book';
     sidbarPanel = 'search';
     multipleItems = true;
-    thumbNavigation = 'far-right';
+    if (notMobile) {
+      thumbNavigation = 'far-right';
+    }
     if (query !== 'null') {
       windowSettings.defaultSearchQuery = query;
     }
   } else {
-    console.log(multi)
     if(multi) {
       multipleItems = multi;
-      thumbNavigation = 'far-right';
+      if (notMobile) {
+        thumbNavigation = 'far-right';
+      }
     }
   }
 })();
@@ -126,7 +128,7 @@ windowSettings.manifestId = manifest;
         allowFullscreen: true,
         allowMaximize: false,
         defaultView: defaultView,
-        sideBarOpen: true,
+        sideBarOpen: notMobile,
         allowTopMenuButton: true,
         defaultSidebarPanelWidth: 230,
         switchCanvasOnSearch: true,

@@ -1,6 +1,6 @@
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs/internal/Observable';
@@ -46,4 +46,5 @@ export class IIIFSearchableComponent extends ItemComponent implements OnInit {
       })
     );
   }
+
 }
