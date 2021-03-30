@@ -6,13 +6,10 @@ import miradorDownloadDialog from 'mirador-dl-plugin/es/MiradorDownloadDialog';
 
 const params = new URLSearchParams(location.search);
 const manifest = params.get('manifest');
-const searchable = params.get('searchable');
+const searchOption = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
-<<<<<<< HEAD
 const notMobile = params.get('notMobile');
-=======
->>>>>>> aa27ddad0258c1d4829fdcfbfdcf0e5c3432aa34
 
 let windowSettings = {};
 let sidbarPanel = 'info';
@@ -23,39 +20,22 @@ let thumbNavigation = 'off';
 windowSettings.manifestId = manifest;
 
 (() => {
-<<<<<<< HEAD
-  if (searchable) {
+  if (searchOption) {
     defaultView = 'book';
     sidbarPanel = 'search';
     multipleItems = true;
     if (notMobile) {
       thumbNavigation = 'far-right';
     }
-=======
-  console.log('setting params in viewer');
-  if (searchable) {
-    console.log(multi)
-    defaultView = 'book';
-    sidbarPanel = 'search';
-    multipleItems = true;
-    thumbNavigation = 'far-right';
->>>>>>> aa27ddad0258c1d4829fdcfbfdcf0e5c3432aa34
     if (query !== 'null') {
       windowSettings.defaultSearchQuery = query;
     }
   } else {
-<<<<<<< HEAD
     if(multi) {
       multipleItems = multi;
       if (notMobile) {
         thumbNavigation = 'far-right';
       }
-=======
-    console.log(multi)
-    if(multi) {
-      multipleItems = multi;
-      thumbNavigation = 'far-right';
->>>>>>> aa27ddad0258c1d4829fdcfbfdcf0e5c3432aa34
     }
   }
 })();
@@ -148,11 +128,7 @@ windowSettings.manifestId = manifest;
         allowFullscreen: true,
         allowMaximize: false,
         defaultView: defaultView,
-<<<<<<< HEAD
         sideBarOpen: notMobile,
-=======
-        sideBarOpen: true,
->>>>>>> aa27ddad0258c1d4829fdcfbfdcf0e5c3432aa34
         allowTopMenuButton: true,
         defaultSidebarPanelWidth: 230,
         switchCanvasOnSearch: true,
@@ -166,7 +142,7 @@ windowSettings.manifestId = manifest;
           info: true,
           attribution: false,
           canvas: multipleItems,
-          search: searchable,
+          search: searchOption,
           layers: false,
         },
         sideBarPanel: sidbarPanel
