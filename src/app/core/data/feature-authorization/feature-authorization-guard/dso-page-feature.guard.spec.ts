@@ -32,6 +32,8 @@ describe('DsoPageAdministratorGuard', () => {
   let authService: AuthService;
   let resolver: Resolve<RemoteData<any>>;
   let object: DSpaceObject;
+  let route;
+  let parentRoute;
 
   function init() {
     object = {
@@ -50,6 +52,16 @@ describe('DsoPageAdministratorGuard', () => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true)
     });
+    parentRoute = {
+      params: {
+        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0'
+      }
+    };
+    route = {
+      params: {
+      },
+      parent: parentRoute
+    };
     guard = new DsoPageFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
   }
 
@@ -59,10 +71,17 @@ describe('DsoPageAdministratorGuard', () => {
 
   describe('getObjectUrl', () => {
     it('should return the resolved object\'s selflink', (done) => {
-      guard.getObjectUrl(undefined, undefined).subscribe((selflink) => {
+      guard.getObjectUrl(route, undefined).subscribe((selflink) => {
         expect(selflink).toEqual(object.self);
         done();
       });
+    });
+  });
+
+  describe('getRouteWithDSOId', () => {
+    it('should return the route that has the UUID of the DSO', () => {
+      const foundRoute = (guard as any).getRouteWithDSOId(route);
+      expect(foundRoute).toBe(parentRoute);
     });
   });
 });

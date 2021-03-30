@@ -37,7 +37,6 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
             path: ITEM_EDIT_PATH,
             loadChildren: () => import('./edit-item-page/edit-item-page.module')
               .then((m) => m.EditItemPageModule),
-            canActivate: [ItemPageAdministratorGuard]
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
@@ -67,7 +66,7 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
     ItemBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    ItemPageAdministratorGuard
+    ItemPageAdministratorGuard,
   ]
 
 })
