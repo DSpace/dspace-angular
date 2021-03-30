@@ -36,7 +36,7 @@ body {
 }
 
 ds-header-navbar-wrapper {
-  z-index: 0;
+  z-index: var(--ds-nav-z-index);
 }
 
 ds-admin-sidebar {
@@ -54,5 +54,5 @@ ds-admin-sidebar {
   ngx-gallery-preview.ngx-gallery-active {
   right: 0;
   left: auto;
-  width: 96%;
+  width: calc(100% - 53px);
 }
