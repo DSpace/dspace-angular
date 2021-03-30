@@ -27,7 +27,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { IIIFComponent } from './iiif.component';
 import { By } from '@angular/platform-browser';
-import {RelationshipService} from '../../../../core/data/relationship.service';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 let comp: IIIFComponent;
 let fixture: ComponentFixture<IIIFComponent>;

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import {Observable, of as observableOf} from 'rxjs';
+import { Observable } from 'rxjs';
 import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -27,8 +27,8 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { IIIFSearchableComponent } from './iiif-searchable.component';
 import { By } from '@angular/platform-browser';
-import {RelationshipService} from '../../../../core/data/relationship.service';
-import {RouteService} from '../../../../core/services/route.service';
+import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RouteService } from '../../../../core/services/route.service';
 
 let comp: IIIFSearchableComponent;
 let fixture: ComponentFixture<IIIFSearchableComponent>;
@@ -117,7 +117,8 @@ describe('IIIFSearchableComponent', () => {
       const fields = fixture.debugElement.queryAll(By.css('.item-page-fields'));
       expect(containsFieldInput(fields, key)).toBeTruthy();
     });
-   }
+  }
+
 });
 
 function containsFieldInput(fields: DebugElement[], metadataKey: string): boolean {
