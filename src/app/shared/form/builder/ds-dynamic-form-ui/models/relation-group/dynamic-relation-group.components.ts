@@ -324,7 +324,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
-              if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
+              if (isObject(valueObj[fieldName]) && this.hasValidAuthority(valueObj[fieldName])) {
                 const fieldId = fieldName.replace(/\./g, '_');
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
                 return$ = this.vocabularyService.findEntryDetailById(
@@ -408,6 +408,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
     );
+  }
+
+  private hasValidAuthority(value: FormFieldMetadataValueObject) {
+    return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
   }
 
 }
