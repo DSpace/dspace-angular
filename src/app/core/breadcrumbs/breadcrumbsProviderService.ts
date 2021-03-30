@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 /**
  * Service to calculate breadcrumbs for a single part of the route
  */
-export interface BreadcrumbsService<T> {
+export interface BreadcrumbsProviderService<T> {
 
   /**
    * Method to calculate the breadcrumbs for a part of the route

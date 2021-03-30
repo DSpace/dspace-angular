@@ -16,6 +16,8 @@ import { Item } from '../../../../../core/shared/item.model';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 
 describe('WorkflowItemAdminWorkflowListElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;
@@ -49,6 +51,7 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
+          { provide: DSONameService, useClass: DSONameServiceMock }
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })

@@ -11,7 +11,7 @@
     </ds-notifications-board>
     <main class="main-content">
       <div class="container">
-        <ds-breadcrumbs></ds-breadcrumbs>
+        <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
       </div>
 
       <div class="container" *ngIf="isLoading">
@@ -20,7 +20,7 @@
       <router-outlet></router-outlet>
     </main>
 
-    <ds-footer></ds-footer>
+    <ds-themed-footer></ds-themed-footer>
   </div>
 </div>
 <ng-template #authLoader>

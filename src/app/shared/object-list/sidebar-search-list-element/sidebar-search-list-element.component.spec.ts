@@ -10,6 +10,8 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HALResource } from '../../../core/shared/hal-resource.model';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -38,6 +40,7 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: {} },
           { provide: LinkService, useValue: linkService },
+          { provide: DSONameService, useClass: DSONameServiceMock },
           ...extraProviders
         ],
         schemas: [NO_ERRORS_SCHEMA]
