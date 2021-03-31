@@ -44,5 +44,5 @@ nav.navbar {
 }
 
 a.navbar-brand img {
-    max-height: 40px;
+    max-height: var(--ds-header-logo-height);
 }
