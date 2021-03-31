@@ -303,9 +303,10 @@ export class FormComponent implements OnDestroy, OnInit {
 
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
-    this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
+    const event = this.getEvent($event, arrayContext, index, 'remove');
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     this.formService.changeForm(this.formId, this.formModel);
+    this.removeArrayItem.emit(event);
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
