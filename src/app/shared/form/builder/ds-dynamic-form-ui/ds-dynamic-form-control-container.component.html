@@ -68,6 +68,8 @@
                 [relationshipOptions]="model.relationship"
         >
         </ds-existing-relation-list-element>
+        <small *ngIf="hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)"
+             class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
         <div class="clearfix w-100 mb-2"></div>
     </ng-container>
     <ng-content></ng-content>
