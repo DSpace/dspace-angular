@@ -66,9 +66,10 @@
   --ds-footer-padding-bottom: 0 !important;
   --ds-footer-logo-height: 50px !important;
 
-  --ds-home-news-link-color: #{$blue};
+  $home-news-link-color: $cyan;
+  --ds-home-news-link-color: #{$home-news-link-color};
+  --ds-home-news-link-hover-color: #{darken($home-news-link-color, 15%)};
   --ds-home-news-background-color: #{$gray-200};
-  --ds-home-news-link-hover-color: #{darken($blue, 15%)};
 
   --ds-breadcrumb-bg: #{$gray-200} !important;
   --ds-breadcrumb-link-color: #{$cyan};
