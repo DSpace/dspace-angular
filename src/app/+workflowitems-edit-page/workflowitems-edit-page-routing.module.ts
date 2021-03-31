@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
-import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
-import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
 import {
-  WORKFLOW_ITEM_SEND_BACK_PATH,
   WORKFLOW_ITEM_DELETE_PATH,
-  WORKFLOW_ITEM_EDIT_PATH
+  WORKFLOW_ITEM_EDIT_PATH,
+  WORKFLOW_ITEM_SEND_BACK_PATH
 } from './workflowitems-edit-page-routing-paths';
+import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
+import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
+import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
-            component: SubmissionEditComponent,
+            component: ThemedSubmissionEditComponent,
             resolve: {
               breadcrumb: I18nBreadcrumbResolver
             },
@@ -32,7 +32,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_DELETE_PATH,
-            component: WorkflowItemDeleteComponent,
+            component: ThemedWorkflowItemDeleteComponent,
             resolve: {
               breadcrumb: I18nBreadcrumbResolver
             },
@@ -41,7 +41,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
-            component: WorkflowItemSendBackComponent,
+            component: ThemedWorkflowItemSendBackComponent,
             resolve: {
               breadcrumb: I18nBreadcrumbResolver
             },

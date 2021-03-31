@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { Collection } from '../../core/shared/collection.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 describe('EditItemTemplatePageComponent', () => {
@@ -24,11 +24,14 @@ describe('EditItemTemplatePageComponent', () => {
       id: 'collection-id',
       name: 'Fake Collection'
     });
+    itemTemplateService = jasmine.createSpyObj('itemTemplateService', {
+      findByCollectionID: createSuccessfulRemoteDataObject$({})
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [EditItemTemplatePageComponent],
       providers: [
-        { provide: ItemTemplateDataService, useValue: {} },
+        { provide: ItemTemplateDataService, useValue: itemTemplateService },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -38,7 +41,6 @@ describe('EditItemTemplatePageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditItemTemplatePageComponent);
     comp = fixture.componentInstance;
-    itemTemplateService = (comp as any).itemTemplateService;
     fixture.detectChanges();
   });
 

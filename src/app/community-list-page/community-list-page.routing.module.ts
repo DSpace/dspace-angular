@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
-import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListService } from './community-list-service';
+import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
@@ -14,7 +14,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
     RouterModule.forChild([
       {
         path: '',
-        component: CommunityListPageComponent,
+        component: ThemedCommunityListPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver

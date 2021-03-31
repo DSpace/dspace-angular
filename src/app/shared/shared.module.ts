@@ -232,6 +232,7 @@ import { ConfigurationSearchPageComponent } from '../+search-page/configuration-
 import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
+import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 
 /**
@@ -518,7 +519,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
-  ConfigurationSearchPageComponent
+  ConfigurationSearchPageComponent,
+  ThemedConfigurationSearchPageComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

@@ -10,7 +10,7 @@
       [options]="notificationOptions">
     </ds-notifications-board>
     <main class="main-content">
-      <ds-breadcrumbs></ds-breadcrumbs>
+      <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
 
       <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="isLoading">
         <ds-loading [showMessage]="false"></ds-loading>
@@ -18,7 +18,7 @@
       <router-outlet *ngIf="!isLoading"></router-outlet>
     </main>
 
-    <ds-footer></ds-footer>
+    <ds-themed-footer></ds-themed-footer>
   </div>
 </div>
 <ng-template #authLoader>

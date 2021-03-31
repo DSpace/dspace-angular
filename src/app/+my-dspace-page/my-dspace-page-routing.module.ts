@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
+import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
@@ -10,7 +9,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
     RouterModule.forChild([
       {
         path: '',
-        component: MyDSpacePageComponent,
+        component: ThemedMyDSpacePageComponent,
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },

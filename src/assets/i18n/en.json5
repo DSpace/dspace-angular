@@ -807,9 +807,13 @@
 
   "collection.edit.template.edit-button": "Edit",
 
+  "collection.edit.template.error": "An error occurred retrieving the template item",
+
   "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
 
   "collection.edit.template.label": "Template item",
+
+  "collection.edit.template.loading": "Loading template item...",
 
   "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
 
@@ -1508,6 +1512,8 @@
   "item.edit.head": "Edit Item",
 
   "item.edit.breadcrumbs": "Edit Item",
+
+  "item.edit.tabs.disabled.tooltip": "You don't have permission to access this tab",
 
 
   "item.edit.tabs.mapper.head": "Collection Mapper",

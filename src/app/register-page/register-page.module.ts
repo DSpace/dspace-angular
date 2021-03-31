@@ -6,6 +6,7 @@ import { RegisterEmailComponent } from './register-email/register-email.componen
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { RegisterEmailFormModule } from '../register-email-form/register-email-form.module';
 import { ProfilePageModule } from '../profile-page/profile-page.module';
+import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ProfilePageModule } from '../profile-page/profile-page.module';
   ],
   declarations: [
     RegisterEmailComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    ThemedCreateProfileComponent
   ],
   providers: []
 })

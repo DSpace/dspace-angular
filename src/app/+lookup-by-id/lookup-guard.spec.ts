@@ -22,7 +22,7 @@ describe('LookupGuard', () => {
       }
     };
     guard.canActivate(scopedRoute as any, undefined);
-    expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('123456789/1234', IdentifierType.HANDLE);
+    expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('hdl:123456789/1234', IdentifierType.HANDLE);
   });
 
   it('should call findByIdAndIDType with handle params', () => {
@@ -33,7 +33,7 @@ describe('LookupGuard', () => {
       }
     };
     guard.canActivate(scopedRoute as any, undefined);
-    expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('123456789%2F1234', IdentifierType.HANDLE);
+    expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('hdl:123456789%2F1234', IdentifierType.HANDLE);
   });
 
   it('should call findByIdAndIDType with UUID params', () => {

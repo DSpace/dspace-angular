@@ -1,5 +1,5 @@
 <a *ngIf="isAuthorized$ | async"
-   [routerLink]="[pageRoute, 'edit']"
+   [routerLink]="[pageRoute, 'edit', 'metadata']"
    class="edit-button btn btn-outline-primary btn-sm"
    [ngbTooltip]="tooltipMsg | translate"
    role="button" [title]="tooltipMsg |translate" [attr.aria-label]="tooltipMsg |translate">

@@ -1,8 +1,8 @@
 import { LookupGuard } from './lookup-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, UrlSegment } from '@angular/router';
-import { ObjectNotFoundComponent } from './objectnotfound/objectnotfound.component';
 import { isNotEmpty } from '../shared/empty.util';
+import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 @NgModule({
   imports: [
@@ -10,7 +10,7 @@ import { isNotEmpty } from '../shared/empty.util';
       {
         matcher: urlMatcher,
         canActivate: [LookupGuard],
-        component: ObjectNotFoundComponent  }
+        component: ThemedObjectNotFoundComponent  }
     ])
   ],
   providers: [
