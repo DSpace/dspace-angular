@@ -32,7 +32,8 @@ const multiMap = {
 };
 
 const regexTestMap = {
-  'foolbar.baz': [test]
+  'foolbar.baz': [test],
+  'foo.bard': [test],
 };
 
 const multiViewModelList = [
