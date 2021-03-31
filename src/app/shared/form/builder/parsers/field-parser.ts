@@ -50,6 +50,11 @@ export abstract class FieldParser {
       if (Array.isArray(this.configData.selectableMetadata) && this.configData.selectableMetadata.length === 1) {
         metadataKey = this.configData.selectableMetadata[0].metadata;
       }
+
+      let isDraggable = true;
+      if (this.configData.input.type === ParserType.Onebox && this.configData?.selectableMetadata?.length > 1) {
+        isDraggable = false;
+      }
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
@@ -61,6 +66,7 @@ export abstract class FieldParser {
         metadataKey,
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
+        isDraggable,
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {

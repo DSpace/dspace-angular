@@ -14,6 +14,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../../../../../empty.util';
+import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -25,7 +26,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
   @Input() layout: DynamicFormControlLayout;
-  @Input() model: DynamicFormArrayModel;
+  @Input() model: DynamicRowArrayModel;// DynamicRow?
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
   /* tslint:disable:no-output-rename */
@@ -69,5 +70,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     });
 
     this.onChange($event);
+  }
+
+  /**
+   * If the drag feature is disabled for this DynamicRowArrayModel.
+   */
+  get dragDisabled(): boolean {
+    return this.model.groups.length === 1 || !this.model.isDraggable;
   }
 }
