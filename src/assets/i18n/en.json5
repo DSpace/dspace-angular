@@ -106,7 +106,7 @@
 
   "admin.registries.bitstream-formats.table.name": "Name",
 
-  "admin.registries.bitstream-formats.table.return": "Return",
+  "admin.registries.bitstream-formats.table.return": "Back",
 
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
 
@@ -194,7 +194,7 @@
 
   "admin.registries.schema.notification.success": "Success",
 
-  "admin.registries.schema.return": "Return",
+  "admin.registries.schema.return": "Back",
 
   "admin.registries.schema.title": "Metadata Schema Registry",
 
@@ -511,7 +511,7 @@
 
   "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
 
-  "admin.metadata-import.page.button.return": "Return",
+  "admin.metadata-import.page.button.return": "Back",
 
   "admin.metadata-import.page.button.proceed": "Proceed",
 
@@ -739,7 +739,7 @@
 
   "collection.edit.notifications.success": "Successfully edited the Collection",
 
-  "collection.edit.return": "Return",
+  "collection.edit.return": "Back",
 
 
 
@@ -936,7 +936,7 @@
 
   "community.edit.notifications.error": "An error occured while editing the Community",
 
-  "community.edit.return": "Return",
+  "community.edit.return": "Back",
 
 
 
@@ -1259,7 +1259,7 @@
 
   "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
 
-  "forgot-email.form.submit": "Submit",
+  "forgot-email.form.submit": "Save",
 
   "forgot-email.form.success.head": "Verification email sent",
 
@@ -1351,7 +1351,7 @@
 
   "form.search-help": "Click here to look for an existing correspondence",
 
-  "form.submit": "Submit",
+  "form.submit": "Save",
 
 
 
@@ -1711,7 +1711,7 @@
   "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
 
 
-  "item.edit.return": "Return",
+  "item.edit.return": "Back",
 
 
   "item.edit.tabs.bitstreams.head": "Bitstreams",
@@ -1918,7 +1918,7 @@
 
   "item.version.history.head": "Version History",
 
-  "item.version.history.return": "Return",
+  "item.version.history.return": "Back",
 
   "item.version.history.selected": "Selected version",
 
@@ -2410,7 +2410,7 @@
 
   "process.new.cancel": "Cancel",
 
-  "process.new.submit": "Submit",
+  "process.new.submit": "Save",
 
   "process.new.select-script": "Script",
 
@@ -2503,7 +2503,7 @@
 
   "profile.card.security": "Security",
 
-  "profile.form.submit": "Update Profile",
+  "profile.form.submit": "Save",
 
   "profile.groups.head": "Authorization groups you belong to",
 
