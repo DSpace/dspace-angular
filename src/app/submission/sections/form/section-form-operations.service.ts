@@ -23,6 +23,7 @@ import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynam
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { deepClone } from 'fast-json-patch';
 import { dateToString, isNgbDateStruct } from '../../../shared/date.util';
+import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 /**
  * The service handling all form section operations
@@ -357,6 +358,13 @@ export class SectionFormOperationsService {
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
                                               hasStoredValue: boolean): void {
+
+   if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+      // Model is a DynamicRowArrayModel
+      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context);
+      return;
+    }
+
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
@@ -483,23 +491,23 @@ export class SectionFormOperationsService {
                                           event: DynamicFormControlEvent,
                                           previousValue: FormFieldPreviousValueObject) {
 
-    const customEvent = event.$event;
+    return this.handleArrayGroupPatch(pathCombiner, event.$event, (event as any).$event.arrayModel);
+  }
 
-    if (this.formBuilder.isQualdropGroup(customEvent.model.parent as DynamicFormControlModel)
-      || this.formBuilder.isQualdropGroup(customEvent.model as DynamicFormControlModel)) {
-      // It's a qualdrup model
-      this.dispatchOperationsFromMap(this.getQualdropValueMap(customEvent), pathCombiner, customEvent, previousValue);
-      return;
-    }
-    const path = this.getFieldPathFromEvent(customEvent);
-    const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(customEvent);
-    const moveTo = pathCombiner.getPath(path);
-    const moveFrom = pathCombiner.getPath(segmentedPath + '/' + customEvent.previousIndex);
-    if (isNotEmpty(moveFrom.path) && isNotEmpty(moveTo.path) && moveFrom.path !== moveTo.path) {
-      this.operationsBuilder.move(
-        moveTo,
-        moveFrom.path
-      );
-    }
+  /**
+   * Specific patch handler for a DynamicRowArrayModel.
+   * Configure a Patch ADD with the current array value.
+   * @param pathCombiner
+   * @param event
+   * @param model
+   */
+  private handleArrayGroupPatch(pathCombiner: JsonPatchOperationPathCombiner,
+                                event,
+                                model: DynamicRowArrayModel) {
+    const arrayValue = this.formBuilder.getValueFromModel([model]);
+    const segmentedPath2 = this.getFieldPathSegmentedFromChangeEvent(event);
+    this.operationsBuilder.add(
+      pathCombiner.getPath(segmentedPath2),
+      arrayValue[segmentedPath2], false);
   }
 }

@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
-  DynamicFormArrayModel,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlLayout,
@@ -58,6 +57,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
       this.onCustomEvent({
         previousIndex: prevIndex,
         index,
+        arrayModel: this.model,
         model: this.model.groups[index].group[0],
         control: (this.control as any).controls[index]
       }, 'move');

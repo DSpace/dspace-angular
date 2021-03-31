@@ -31,6 +31,7 @@ import { FormFieldMetadataValueObject } from './models/form-field-metadata-value
 import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -121,6 +122,11 @@ export class FormBuilderService extends DynamicFormService {
 
     const normalizeValue = (controlModel, controlValue, controlModelIndex) => {
       const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
+
+      if (controlModel?.metadataValue?.authority?.includes(VIRTUAL_METADATA_PREFIX)) {
+        return controlModel.metadataValue;
+      }
+
       if (isString(controlValue)) {
         return new FormFieldMetadataValueObject(controlValue, controlLanguage, null, null, controlModelIndex);
       } else if (isNgbDateStruct(controlValue)) {
