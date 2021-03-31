@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
+import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { SubmissionEditComponent } from '../submission/edit/submission-edit.comp
       {
         canActivate: [AuthenticatedGuard],
         path: ':id/edit',
-        component: SubmissionEditComponent,
+        component: ThemedSubmissionEditComponent,
         data: { title: 'submission.edit.title' }
       }
     ])

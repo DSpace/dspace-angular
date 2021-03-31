@@ -19,7 +19,11 @@ import { hasValue, isNotEmpty, isUndefined } from '../empty.util';
 import { UploaderService } from './uploader.service';
 import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER, XSRF_COOKIE } from '../../core/xsrf/xsrf.interceptor';
+import {
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+  XSRF_COOKIE
+} from '../../core/xsrf/xsrf.interceptor';
 import { CookieService } from '../../core/services/cookie.service';
 
 @Component({

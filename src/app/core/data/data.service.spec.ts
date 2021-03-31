@@ -20,6 +20,9 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RequestParam } from '../cache/models/request-param.model';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { TestScheduler } from 'rxjs/testing';
+import { RemoteData } from './remote-data';
+import { RequestEntryState } from './request.reducer';
 
 const endpoint = 'https://rest.api/core';
 
@@ -63,6 +66,10 @@ describe('DataService', () => {
   let comparator;
   let objectCache;
   let store;
+  let selfLink;
+  let linksToFollow;
+  let testScheduler;
+  let remoteDataMocks;
 
   function initTestService(): TestService {
     requestService = getMockRequestService();
@@ -81,6 +88,34 @@ describe('DataService', () => {
       }
     } as any;
     store = {} as Store<CoreState>;
+    selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+    linksToFollow = [
+      followLink('a'),
+      followLink('b')
+    ];
+
+    testScheduler = new TestScheduler((actual, expected) => {
+      // asserting the two objects are equal
+      // e.g. using chai.
+      expect(actual).toEqual(expected);
+    });
+
+    const timeStamp = new Date().getTime();
+    const msToLive = 15 * 60 * 1000;
+    const payload = { foo: 'bar' };
+    const statusCodeSuccess = 200;
+    const statusCodeError = 404;
+    const errorMessage = 'not found';
+    remoteDataMocks = {
+      RequestPending: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
+      ResponsePending: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
+      Success: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.Success, undefined, payload, statusCodeSuccess),
+      SuccessStale: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.SuccessStale, undefined, payload, statusCodeSuccess),
+      Error: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.Error, errorMessage, undefined, statusCodeError),
+      ErrorStale: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.ErrorStale, errorMessage, undefined, statusCodeError),
+    };
+
+
     return new TestService(
       requestService,
       rdbService,
@@ -193,10 +228,32 @@ describe('DataService', () => {
       });
     });
 
+    it('should include single linksToFollow as embed and its size', () => {
+      const expected = `${endpoint}?embed.size=bundles=5&embed=bundles`;
+      const config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 5
+      });
+      (service as any).getFindAllHref({}, null, followLink('bundles', config,  true, true, true)).subscribe((value) => {
+        expect(value).toBe(expected);
+      });
+    });
+
     it('should include multiple linksToFollow as embed', () => {
       const expected = `${endpoint}?embed=bundles&embed=owningCollection&embed=templateItemOf`;
 
       (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf')).subscribe((value) => {
+        expect(value).toBe(expected);
+      });
+    });
+
+    it('should include multiple linksToFollow as embed and its sizes if given', () => {
+      const expected = `${endpoint}?embed=bundles&embed.size=owningCollection=2&embed=owningCollection&embed=templateItemOf`;
+
+      const config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 2
+      });
+
+      (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection', config, true, true, true), followLink('templateItemOf')).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -213,6 +270,16 @@ describe('DataService', () => {
       const expected = `${endpoint}?embed=owningCollection/itemtemplate/relationships`;
 
       (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', undefined, true, true, true, followLink('relationships')))).subscribe((value) => {
+        expect(value).toBe(expected);
+      });
+    });
+
+    it('should include nested linksToFollow 2lvl and nested embed\'s size', () => {
+      const expected = `${endpoint}?embed.size=owningCollection/itemtemplate=4&embed=owningCollection/itemtemplate`;
+      const config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 4
+      });
+      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', config, true, true, true))).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -275,14 +342,12 @@ describe('DataService', () => {
 
   describe('update', () => {
     let operations;
-    let selfLink;
     let dso;
     let dso2;
     const name1 = 'random string';
     const name2 = 'another random string';
     beforeEach(() => {
       operations = [{ op: 'replace', path: '/0/value', value: name2 } as Operation];
-      selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
       dso = Object.assign(new DSpaceObject(), {
         _links: { self: { href: selfLink } },
@@ -306,6 +371,453 @@ describe('DataService', () => {
     it('should not call addPatch on the object cache with the right parameters when there are no differences', () => {
       service.update(dso).subscribe();
       expect(objectCache.addPatch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe(`reRequestStaleRemoteData`, () => {
+    let callback: jasmine.Spy<jasmine.Func>;
+
+    beforeEach(() => {
+      callback = jasmine.createSpy();
+    });
+
+
+    describe(`when shouldReRequest is false`, () => {
+      it(`shouldn't do anything`, () => {
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const expected = 'a-b-c-d-e-f';
+          const values = {
+            a: remoteDataMocks.RequestPending,
+            b: remoteDataMocks.ResponsePending,
+            c: remoteDataMocks.Success,
+            d: remoteDataMocks.SuccessStale,
+            e: remoteDataMocks.Error,
+            f: remoteDataMocks.ErrorStale,
+          };
+
+          expectObservable((service as any).reRequestStaleRemoteData(false, callback)(cold(expected, values))).toBe(expected, values);
+          // since the callback happens in a tap(), flush to ensure it has been executed
+          flush();
+          expect(callback).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe(`when shouldReRequest is true`, () => {
+      it(`should call the callback for stale RemoteData objects, but still pass the source observable unmodified`, () => {
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const expected = 'a-b';
+          const values = {
+            a: remoteDataMocks.SuccessStale,
+            b: remoteDataMocks.ErrorStale,
+          };
+
+          expectObservable((service as any).reRequestStaleRemoteData(true, callback)(cold(expected, values))).toBe(expected, values);
+          // since the callback happens in a tap(), flush to ensure it has been executed
+          flush();
+          expect(callback).toHaveBeenCalledTimes(2);
+        });
+      });
+
+      it(`should only call the callback for stale RemoteData objects if something is subscribed to it`, (done) => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          const expected = 'a';
+          const values = {
+            a: remoteDataMocks.SuccessStale,
+          };
+
+          const result$ = (service as any).reRequestStaleRemoteData(true, callback)(cold(expected, values));
+          expectObservable(result$).toBe(expected, values);
+          expect(callback).not.toHaveBeenCalled();
+          result$.subscribe(() => {
+            expect(callback).toHaveBeenCalled();
+            done();
+          });
+        });
+      });
+
+      it(`shouldn't do anything for RemoteData objects that aren't stale`, () => {
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const expected = 'a-b-c-d';
+          const values = {
+            a: remoteDataMocks.RequestPending,
+            b: remoteDataMocks.ResponsePending,
+            c: remoteDataMocks.Success,
+            d: remoteDataMocks.Error,
+          };
+
+          expectObservable((service as any).reRequestStaleRemoteData(true, callback)(cold(expected, values))).toBe(expected, values);
+          // since the callback happens in a tap(), flush to ensure it has been executed
+          flush();
+          expect(callback).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+  });
+
+  describe(`findByHref`, () => {
+    beforeEach(() => {
+      spyOn(service as any, 'createAndSendGetRequest').and.callFake((href$) => { href$.subscribe().unsubscribe(); });
+    });
+
+    it(`should call buildHrefFromFindOptions with href and linksToFollow`, () => {
+      testScheduler.run(({ cold }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(rdbService, 'buildSingle').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+
+        service.findByHref(selfLink, true, true, ...linksToFollow);
+        expect(service.buildHrefFromFindOptions).toHaveBeenCalledWith(selfLink, {}, [], ...linksToFollow);
+      });
+    });
+
+    it(`should call createAndSendGetRequest with the result from buildHrefFromFindOptions and useCachedVersionIfAvailable`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
+        spyOn(rdbService, 'buildSingle').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+
+        service.findByHref(selfLink, true, true, ...linksToFollow);
+        expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), true);
+        expectObservable(rdbService.buildSingle.calls.argsFor(0)[0]).toBe('(a|)', { a: 'bingo!' });
+
+        service.findByHref(selfLink, false, true, ...linksToFollow);
+        expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), false);
+        expectObservable(rdbService.buildSingle.calls.argsFor(1)[0]).toBe('(a|)', { a: 'bingo!' });
+      });
+    });
+
+    it(`should call rdbService.buildSingle with the result from buildHrefFromFindOptions and linksToFollow`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
+        spyOn(rdbService, 'buildSingle').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+
+        service.findByHref(selfLink, true, true, ...linksToFollow);
+        expect(rdbService.buildSingle).toHaveBeenCalledWith(jasmine.anything() as any, ...linksToFollow);
+        expectObservable(rdbService.buildSingle.calls.argsFor(0)[0]).toBe('(a|)', { a: 'bingo!' });
+      });
+    });
+
+    it(`should return a the output from reRequestStaleRemoteData`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(rdbService, 'buildSingle').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: 'bingo!' }));
+        const expected = 'a';
+        const values = {
+          a: 'bingo!',
+        };
+
+        expectObservable(service.findByHref(selfLink, true, true, ...linksToFollow)).toBe(expected, values);
+      });
+    });
+
+    it(`should call reRequestStaleRemoteData with reRequestOnStale and the exact same findByHref call as a callback`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(rdbService, 'buildSingle').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.SuccessStale }));
+
+        service.findByHref(selfLink, true, true, ...linksToFollow);
+        expect((service as any).reRequestStaleRemoteData.calls.argsFor(0)[0]).toBeTrue();
+        spyOn(service, 'findByHref').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
+        // prove that the spy we just added hasn't been called yet
+        expect(service.findByHref).not.toHaveBeenCalled();
+        // call the callback passed to reRequestStaleRemoteData
+        (service as any).reRequestStaleRemoteData.calls.argsFor(0)[1]();
+        // verify that findByHref _has_ been called now, with the same params as the original call
+        expect(service.findByHref).toHaveBeenCalledWith(jasmine.anything(), true, true, ...linksToFollow);
+        // ... except for selflink, which will have been turned in to an observable.
+        expectObservable((service.findByHref as jasmine.Spy).calls.argsFor(0)[0]).toBe('(a|)', { a: selfLink });
+      });
+    });
+
+    describe(`when useCachedVersionIfAvailable is true`, () => {
+      beforeEach(() => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(service as any, 'reRequestStaleRemoteData').and.callFake(() => (source) => source);
+      });
+
+      it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets rerequested`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildSingle').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b-c-d-e';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findByHref(selfLink, true, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+      it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildSingle').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.SuccessStale,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findByHref(selfLink, true, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+    });
+
+    describe(`when useCachedVersionIfAvailable is false`, () => {
+      beforeEach(() => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(service as any, 'reRequestStaleRemoteData').and.callFake(() => (source) => source);
+      });
+
+
+      it(`should not emit a cached completed RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildSingle').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findByHref(selfLink, false, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+      it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildSingle').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.SuccessStale,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findByHref(selfLink, false, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+    });
+
+  });
+
+  describe(`findAllByHref`, () => {
+    let findListOptions;
+    beforeEach(() => {
+      findListOptions = { currentPage: 5 };
+      spyOn(service as any, 'createAndSendGetRequest').and.callFake((href$) => { href$.subscribe().unsubscribe(); });
+    });
+
+    it(`should call buildHrefFromFindOptions with href and linksToFollow`, () => {
+      testScheduler.run(({ cold }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+
+        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        expect(service.buildHrefFromFindOptions).toHaveBeenCalledWith(selfLink, findListOptions, [], ...linksToFollow);
+      });
+    });
+
+    it(`should call createAndSendGetRequest with the result from buildHrefFromFindOptions and useCachedVersionIfAvailable`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+
+        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), true);
+        expectObservable(rdbService.buildList.calls.argsFor(0)[0]).toBe('(a|)', { a: 'bingo!' });
+
+        service.findAllByHref(selfLink, findListOptions, false, true, ...linksToFollow);
+        expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), false);
+        expectObservable(rdbService.buildList.calls.argsFor(1)[0]).toBe('(a|)', { a: 'bingo!' });
+      });
+    });
+
+    it(`should call rdbService.buildList with the result from buildHrefFromFindOptions and linksToFollow`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+
+        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        expect(rdbService.buildList).toHaveBeenCalledWith(jasmine.anything() as any, ...linksToFollow);
+        expectObservable(rdbService.buildList.calls.argsFor(0)[0]).toBe('(a|)', { a: 'bingo!' });
+      });
+    });
+
+    it(`should call reRequestStaleRemoteData with reRequestOnStale and the exact same findAllByHref call as a callback`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.SuccessStale }));
+
+        service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow);
+        expect((service as any).reRequestStaleRemoteData.calls.argsFor(0)[0]).toBeTrue();
+        spyOn(service, 'findAllByHref').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
+        // prove that the spy we just added hasn't been called yet
+        expect(service.findAllByHref).not.toHaveBeenCalled();
+        // call the callback passed to reRequestStaleRemoteData
+        (service as any).reRequestStaleRemoteData.calls.argsFor(0)[1]();
+        // verify that findAllByHref _has_ been called now, with the same params as the original call
+        expect(service.findAllByHref).toHaveBeenCalledWith(jasmine.anything(), findListOptions, true, true, ...linksToFollow);
+        // ... except for selflink, which will have been turned in to an observable.
+        expectObservable((service.findAllByHref as jasmine.Spy).calls.argsFor(0)[0]).toBe('(a|)', { a: selfLink });
+      });
+    });
+
+    it(`should return a the output from reRequestStaleRemoteData`, () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: 'bingo!' }));
+        const expected = 'a';
+        const values = {
+          a: 'bingo!',
+        };
+
+        expectObservable(service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
+      });
+    });
+
+    describe(`when useCachedVersionIfAvailable is true`, () => {
+      beforeEach(() => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(service as any, 'reRequestStaleRemoteData').and.callFake(() => (source) => source);
+      });
+
+      it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets rerequested`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b-c-d-e';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+      it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.SuccessStale,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findAllByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+    });
+
+    describe(`when useCachedVersionIfAvailable is false`, () => {
+      beforeEach(() => {
+        spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
+        spyOn(service as any, 'reRequestStaleRemoteData').and.callFake(() => (source) => source);
+      });
+
+
+      it(`should not emit a cached completed RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findAllByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+      it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.SuccessStale,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findAllByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
     });
   });
 });

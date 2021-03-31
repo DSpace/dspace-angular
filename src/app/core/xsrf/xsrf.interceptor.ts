@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpXsrfTokenExtractor } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+  HttpXsrfTokenExtractor
+} from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap, catchError } from 'rxjs/operators';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';

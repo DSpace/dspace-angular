@@ -5,6 +5,7 @@ import { listableObjectComponent } from '../../../../object-collection/shared/li
 import { SearchResultGridElementComponent } from '../../search-result-grid-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { getItemPageRoute } from '../../../../../+item-page/item-page-routing-paths';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
@@ -18,4 +19,13 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
  * The component for displaying a grid element for an item search result of the type Publication
  */
 export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute: string;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.itemPageRoute = getItemPageRoute(this.dso);
+  }
 }

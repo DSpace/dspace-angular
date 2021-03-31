@@ -10,7 +10,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import {
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData, getAllSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Observable, of as observableOf } from 'rxjs';
@@ -19,7 +19,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SearchService } from '../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
-import { getItemEditRoute } from '../../item-page-routing-paths';
+import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-move',
@@ -43,10 +43,15 @@ export class ItemMoveComponent implements OnInit {
   selectedCollection: Collection;
   canSubmit = false;
 
-  itemId: string;
+  item: Item;
   processing = false;
 
   pagination = new PaginationComponentOptions();
+
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute$: Observable<string>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -58,8 +63,12 @@ export class ItemMoveComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso), getFirstSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemPageRoute$ = this.itemRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((item) => getItemPageRoute(item))
+    );
     this.itemRD$.subscribe((rd) => {
-        this.itemId = rd.payload.id;
+        this.item = rd.payload;
       }
     );
     this.pagination.pageSize = 5;
@@ -116,9 +125,9 @@ export class ItemMoveComponent implements OnInit {
    */
   moveCollection() {
     this.processing = true;
-    this.itemDataService.moveToCollection(this.itemId, this.selectedCollection).pipe(getFirstCompletedRemoteData()).subscribe(
+    this.itemDataService.moveToCollection(this.item.id, this.selectedCollection).pipe(getFirstCompletedRemoteData()).subscribe(
       (response: RemoteData<Collection>) => {
-        this.router.navigate([getItemEditRoute(this.itemId)]);
+        this.router.navigate([getItemEditRoute(this.item)]);
         if (response.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('item.edit.move.success'));
         } else {

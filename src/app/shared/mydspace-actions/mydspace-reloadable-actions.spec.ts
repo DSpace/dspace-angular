@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,10 @@ import { RouterStub } from '../testing/router.stub';
 import { getMockSearchService } from '../mocks/search-service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../../core/shared/item.model';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject
+} from '../remote-data.utils';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';

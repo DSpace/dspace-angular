@@ -777,9 +777,13 @@
 
   "collection.edit.template.edit-button": "Edit",
 
+  "collection.edit.template.error": "An error occurred retrieving the template item",
+
   "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
 
   "collection.edit.template.label": "Template item",
+
+  "collection.edit.template.loading": "Loading template item...",
 
   "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
 
@@ -1095,6 +1099,10 @@
   "curation.form.handle.label": "Handle:",
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+
+
+
+  "dso.name.untitled": "Untitled",
 
 
 
@@ -1469,6 +1477,8 @@
   "item.edit.head": "Edit Item",
 
   "item.edit.breadcrumbs": "Edit Item",
+
+  "item.edit.tabs.disabled.tooltip": "You don't have permission to access this tab",
 
 
   "item.edit.tabs.mapper.head": "Collection Mapper",

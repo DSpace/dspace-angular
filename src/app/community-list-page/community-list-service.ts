@@ -19,6 +19,7 @@ import { CommunityListState } from './community-list.reducer';
 import { getCommunityPageRoute } from '../+community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../+collection-page/collection-page-routing-paths';
 import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../core/shared/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
  * Each node in the tree is represented by a flatNode which contains info about the node itself and its position and
@@ -101,7 +102,7 @@ const communityListStateSelector = (state: AppState) => state.communityList;
 const expandedNodesSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.expandedNodes);
 const loadingNodeSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.loadingNode);
 
-export const MAX_COMCOLS_PER_PAGE = 50;
+export const MAX_COMCOLS_PER_PAGE = 20;
 
 /**
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
@@ -114,6 +115,10 @@ export class CommunityListService {
   constructor(private communityDataService: CommunityDataService, private collectionDataService: CollectionDataService,
               private store: Store<any>) {
   }
+
+  private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
+    elementsPerPage: 1
+  });
 
   saveCommunityListStateToStore(expandedNodes: FlatNode[], loadingNode: FlatNode): void {
     this.store.dispatch(new CommunityListSaveAction(expandedNodes, loadingNode));
@@ -162,16 +167,19 @@ export class CommunityListService {
    */
   private getTopCommunities(options: FindListOptions): Observable<PaginatedList<Community>> {
     return this.communityDataService.findTop({
-      currentPage: options.currentPage,
-      elementsPerPage: MAX_COMCOLS_PER_PAGE,
-      sort: {
-        field: options.sort.field,
-        direction: options.sort.direction
-      }
-    }).pipe(
-      getFirstSucceededRemoteData(),
-      map((results) => results.payload),
-    );
+        currentPage: options.currentPage,
+        elementsPerPage: MAX_COMCOLS_PER_PAGE,
+        sort: {
+          field: options.sort.field,
+          direction: options.sort.direction
+        }
+      },
+      followLink('subcommunities', this.configOnePage, true, true),
+      followLink('collections', this.configOnePage, true, true))
+      .pipe(
+        getFirstSucceededRemoteData(),
+        map((results) => results.payload),
+      );
   }
 
   /**
@@ -231,9 +239,11 @@ export class CommunityListService {
       let subcoms = [];
       for (let i = 1; i <= currentCommunityPage; i++) {
         const nextSetOfSubcommunitiesPage = this.communityDataService.findByParent(community.uuid, {
-          elementsPerPage: MAX_COMCOLS_PER_PAGE,
-          currentPage: i
-        })
+            elementsPerPage: MAX_COMCOLS_PER_PAGE,
+            currentPage: i
+          },
+          followLink('subcommunities', this.configOnePage, true, true),
+          followLink('collections', this.configOnePage, true, true))
           .pipe(
             getFirstCompletedRemoteData(),
             switchMap((rd: RemoteData<PaginatedList<Community>>) => {
@@ -289,7 +299,7 @@ export class CommunityListService {
   public getIsExpandable(community: Community): Observable<boolean> {
     let hasSubcoms$: Observable<boolean>;
     let hasColls$: Observable<boolean>;
-    hasSubcoms$ = this.communityDataService.findByParent(community.uuid, { elementsPerPage: 1 })
+    hasSubcoms$ = this.communityDataService.findByParent(community.uuid, this.configOnePage)
       .pipe(
         map((rd: RemoteData<PaginatedList<Community>>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
@@ -300,7 +310,7 @@ export class CommunityListService {
         }),
       );
 
-    hasColls$ = this.collectionDataService.findByParent(community.uuid, { elementsPerPage: 1 })
+    hasColls$ = this.collectionDataService.findByParent(community.uuid, this.configOnePage)
       .pipe(
         map((rd: RemoteData<PaginatedList<Collection>>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {

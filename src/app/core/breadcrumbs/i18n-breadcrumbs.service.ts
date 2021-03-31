@@ -1,5 +1,5 @@
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { BreadcrumbsService } from './breadcrumbs.service';
+import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -14,7 +14,7 @@ export const BREADCRUMB_MESSAGE_POSTFIX = '.breadcrumbs';
 @Injectable({
   providedIn: 'root'
 })
-export class I18nBreadcrumbsService implements BreadcrumbsService<string> {
+export class I18nBreadcrumbsService implements BreadcrumbsProviderService<string> {
 
   /**
    * Method to calculate the breadcrumbs

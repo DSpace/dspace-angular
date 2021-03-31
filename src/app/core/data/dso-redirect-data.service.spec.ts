@@ -12,6 +12,7 @@ import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { GetRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { Item } from '../shared/item.model';
 
 describe('DsoRedirectDataService', () => {
   let scheduler: TestScheduler;
@@ -48,10 +49,10 @@ describe('DsoRedirectDataService', () => {
       navigate: jasmine.createSpy('navigate')
     };
 
-    remoteData = createSuccessfulRemoteDataObject({
+    remoteData = createSuccessfulRemoteDataObject(Object.assign(new Item(), {
       type: 'item',
       uuid: '123456789'
-    });
+    }));
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
@@ -114,7 +115,24 @@ describe('DsoRedirectDataService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith([remoteData.payload.type + 's/' + remoteData.payload.uuid]);
+      expect(router.navigate).toHaveBeenCalledWith(['/items/' + remoteData.payload.uuid]);
+    });
+    it('should navigate to entities route with the corresponding entity type', () => {
+      remoteData.payload.type = 'item';
+      remoteData.payload.metadata =  {
+        'relationship.type': [
+          {
+            language: 'en_US',
+            value: 'Publication'
+          }
+        ],
+      };
+      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
+      // The framework would normally subscribe but do it here so we can test navigation.
+      redir.subscribe();
+      scheduler.schedule(() => redir);
+      scheduler.flush();
+      expect(router.navigate).toHaveBeenCalledWith(['/entities/publication/' + remoteData.payload.uuid]);
     });
 
     it('should navigate to collections route', () => {

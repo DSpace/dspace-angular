@@ -10,6 +10,8 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;
@@ -54,6 +56,7 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
       declarations: [ItemSearchResultListElementSubmissionComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {

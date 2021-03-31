@@ -1,4 +1,4 @@
-import {Component, Injector} from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import { Observable } from 'rxjs';

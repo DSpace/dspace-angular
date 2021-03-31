@@ -12,6 +12,7 @@ import {
   takeWhile,
   switchMap,
   tap,
+  skipWhile,
 } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -44,29 +45,6 @@ import { RestRequestMethod } from './rest-request-method';
 import { UpdateDataService } from './update-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NoContent } from '../shared/NoContent.model';
-
-/**
- * An operator that will call the given function if the incoming RemoteData is stale and
- * shouldReRequest is true
- *
- * @param shouldReRequest  Whether or not to call the re-request function if the RemoteData is stale
- * @param requestFn        The function to call if the RemoteData is stale and shouldReRequest is
- *                         true
- */
-export const reRequestStaleRemoteData = <T>(shouldReRequest: boolean, requestFn: () => Observable<RemoteData<T>>) =>
-  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> => {
-    if (shouldReRequest === true) {
-      return source.pipe(
-        tap((remoteData: RemoteData<T>) => {
-          if (hasValue(remoteData) && remoteData.isStale) {
-            requestFn();
-          }
-        })
-      );
-    } else {
-      return source;
-    }
-  };
 
 export abstract class DataService<T extends CacheableObject> implements UpdateDataService<T> {
   protected abstract requestService: RequestService;
@@ -215,10 +193,19 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    */
   protected addEmbedParams(href: string, args: string[], ...linksToFollow: FollowLinkConfig<T>[]) {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+      if (hasValue(linkToFollow) && linkToFollow.shouldEmbed) {
         const embedString = 'embed=' + String(linkToFollow.name);
-        const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
-        args = this.addHrefArg(href, args, embedWithNestedString);
+        // Add the embeds size if given in the FollowLinkConfig.FindListOptions
+        if (hasValue(linkToFollow.findListOptions) && hasValue(linkToFollow.findListOptions.elementsPerPage)) {
+          args = this.addHrefArg(href, args,
+            'embed.size=' + String(linkToFollow.name) + '=' + linkToFollow.findListOptions.elementsPerPage);
+        }
+        // Adds the nested embeds and their size if given
+        if (isNotEmpty(linkToFollow.linksToFollow)) {
+          args = this.addNestedEmbeds(embedString, href, args, ...linkToFollow.linksToFollow);
+        } else {
+          args = this.addHrefArg(href, args, embedString);
+        }
       }
     });
     return args;
@@ -243,21 +230,30 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
-   * Add the nested followLinks to the embed param, recursively, separated by a /
+   * Add the nested followLinks to the embed param, separated by a /, and their sizes, recursively
    * @param embedString     embedString so far (recursive)
+   * @param href            The href the params are to be added to
+   * @param args            params for the query string
    * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
    */
-  protected addNestedEmbeds(embedString: string, ...linksToFollow: FollowLinkConfig<T>[]): string {
+  protected addNestedEmbeds(embedString: string, href: string, args: string[], ...linksToFollow: FollowLinkConfig<T>[]): string[] {
     let nestEmbed = embedString;
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+      if (hasValue(linkToFollow) && linkToFollow.shouldEmbed) {
         nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
-        if (linkToFollow.linksToFollow !== undefined) {
-          nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);
+        // Add the nested embeds size if given in the FollowLinkConfig.FindListOptions
+        if (hasValue(linkToFollow.findListOptions) && hasValue(linkToFollow.findListOptions.elementsPerPage)) {
+          const nestedEmbedSize = 'embed.size=' + nestEmbed.split('=')[1] + '=' + linkToFollow.findListOptions.elementsPerPage;
+          args = this.addHrefArg(href, args, nestedEmbedSize);
+        }
+        if (hasValue(linkToFollow.linksToFollow) && isNotEmpty(linkToFollow.linksToFollow)) {
+          args = this.addNestedEmbeds(nestEmbed, href, args, ...linkToFollow.linksToFollow);
+        } else {
+          args = this.addHrefArg(href, args, nestEmbed);
         }
       }
     });
-    return nestEmbed;
+    return args;
   }
 
   /**
@@ -315,6 +311,30 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
   }
 
   /**
+   * An operator that will call the given function if the incoming RemoteData is stale and
+   * shouldReRequest is true
+   *
+   * @param shouldReRequest  Whether or not to call the re-request function if the RemoteData is stale
+   * @param requestFn        The function to call if the RemoteData is stale and shouldReRequest is
+   *                         true
+   */
+  protected reRequestStaleRemoteData<O>(shouldReRequest: boolean, requestFn: () => Observable<RemoteData<O>>) {
+    return (source: Observable<RemoteData<O>>): Observable<RemoteData<O>> => {
+      if (shouldReRequest === true) {
+        return source.pipe(
+          tap((remoteData: RemoteData<O>) => {
+            if (hasValue(remoteData) && remoteData.isStale) {
+              requestFn();
+            }
+          })
+        );
+      } else {
+        return source;
+      }
+    };
+  }
+
+  /**
    * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
    * @param href$                       The url of object we want to retrieve. Can be a string or
@@ -340,7 +360,12 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
     return this.rdbService.buildSingle<T>(requestHref$, ...linksToFollow).pipe(
-      reRequestStaleRemoteData(reRequestOnStale, () =>
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<T>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
+      this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }
@@ -372,7 +397,12 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
     return this.rdbService.buildList<T>(requestHref$, ...linksToFollow).pipe(
-      reRequestStaleRemoteData(reRequestOnStale, () =>
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<PaginatedList<T>>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
+      this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findAllByHref(href$, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }

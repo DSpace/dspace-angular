@@ -1,9 +1,9 @@
-import {Inject, Injectable} from '@angular/core';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
-import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import {getFirstCompletedRemoteData} from '../core/shared/operators';
-import {isEmpty} from '../shared/empty.util';
-import {DOCUMENT} from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { isEmpty } from '../shared/empty.util';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * Set up Google Analytics on the client side.

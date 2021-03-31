@@ -1,5 +1,5 @@
 <ng-container *ngVar="(breadcrumbs$ | async) as breadcrumbs">
-    <nav *ngIf="showBreadcrumbs" aria-label="breadcrumb">
+    <nav *ngIf="(showBreadcrumbs$ | async)" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <ng-container
                     *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>

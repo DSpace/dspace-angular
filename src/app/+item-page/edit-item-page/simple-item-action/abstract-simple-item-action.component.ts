@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { first, map } from 'rxjs/operators';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
-import { getItemEditRoute } from '../../item-page-routing-paths';
+import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 
 /**
  * Component to render and handle simple item edit actions such as withdrawal and reinstatement.
@@ -30,6 +30,11 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   headerMessage: string;
   descriptionMessage: string;
 
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute: string;
+
   protected predicate: Predicate<RemoteData<Item>>;
 
   constructor(protected route: ActivatedRoute,
@@ -47,6 +52,7 @@ export class AbstractSimpleItemActionComponent implements OnInit {
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
         this.item = rd.payload;
+        this.itemPageRoute = getItemPageRoute(this.item);
       }
     );
 
@@ -71,11 +77,11 @@ export class AbstractSimpleItemActionComponent implements OnInit {
       this.itemDataService.findById(this.item.id).pipe(
         findSuccessfulAccordingTo(this.predicate)).subscribe(() => {
         this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
-        this.router.navigate([getItemEditRoute(this.item.id)]);
+        this.router.navigate([getItemEditRoute(this.item)]);
       });
     } else {
       this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      this.router.navigate([getItemEditRoute(this.item.id)]);
+      this.router.navigate([getItemEditRoute(this.item)]);
     }
   }
 

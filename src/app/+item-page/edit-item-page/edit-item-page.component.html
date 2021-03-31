@@ -5,11 +5,18 @@
             <div class="pt-2">
                 <ul class="nav nav-tabs justify-content-start">
                     <li *ngFor="let page of pages" class="nav-item">
-                        <a class="nav-link"
-                           [ngClass]="{'active' : page === currentPage}"
-                           [routerLink]="['./' + page]">
-                            {{'item.edit.tabs.' + page + '.head' | translate}}
+                        <a *ngIf="(page.enabled | async)"
+                           class="nav-link"
+                           [ngClass]="{'active' : page.page === currentPage}"
+                           [routerLink]="['./' + page.page]">
+                            {{'item.edit.tabs.' + page.page + '.head' | translate}}
                         </a>
+                        <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
+                            <button *ngIf="!(page.enabled | async)"
+                                 class="nav-link disabled">
+                                {{'item.edit.tabs.' + page.page + '.head' | translate}}
+                            </button>
+                        </span>
                     </li>
                 </ul>
                 <div class="tab-pane active">

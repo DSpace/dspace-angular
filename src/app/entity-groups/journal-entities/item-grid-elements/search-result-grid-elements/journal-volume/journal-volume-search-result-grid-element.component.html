@@ -5,7 +5,7 @@
     </div>
     <a *ngIf="linkType != linkTypes.None"
        [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-       rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
+       rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
        class="card-img-top full-width">
       <div>
         <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
@@ -36,7 +36,7 @@
       </p>
       <div *ngIf="linkType != linkTypes.None" class="text-center">
         <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-           rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
+           rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
            class="lead btn btn-primary viewButton">View</a>
       </div>
     </div>

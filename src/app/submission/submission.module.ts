@@ -34,6 +34,36 @@ import { SubmissionImportExternalCollectionComponent } from './import-external/i
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
+import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
+import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+
+const DECLARATIONS = [
+  SubmissionSectionUploadAccessConditionsComponent,
+  SubmissionSectionUploadComponent,
+  SubmissionSectionformComponent,
+  SubmissionSectionLicenseComponent,
+  SubmissionSectionCcLicensesComponent,
+  SectionsDirective,
+  SubmissionEditComponent,
+  ThemedSubmissionEditComponent,
+  SubmissionFormSectionAddComponent,
+  SubmissionFormCollectionComponent,
+  SubmissionFormComponent,
+  SubmissionFormFooterComponent,
+  SubmissionSubmitComponent,
+  ThemedSubmissionSubmitComponent,
+  SubmissionUploadFilesComponent,
+  SubmissionSectionContainerComponent,
+  SubmissionSectionUploadFileComponent,
+  SubmissionSectionUploadFileEditComponent,
+  SubmissionSectionUploadFileViewComponent,
+  SubmissionImportExternalComponent,
+  ThemedSubmissionImportExternalComponent,
+  SubmissionImportExternalSearchbarComponent,
+  SubmissionImportExternalPreviewComponent,
+  SubmissionImportExternalCollectionComponent
+];
 
 @NgModule({
   imports: [
@@ -45,35 +75,8 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
   ],
-  declarations: [
-    SubmissionSectionUploadAccessConditionsComponent,
-    SubmissionSectionUploadComponent,
-    SubmissionSectionformComponent,
-    SubmissionSectionLicenseComponent,
-    SubmissionSectionCcLicensesComponent,
-    SectionsDirective,
-    SubmissionEditComponent,
-    SubmissionFormSectionAddComponent,
-    SubmissionFormCollectionComponent,
-    SubmissionFormComponent,
-    SubmissionFormFooterComponent,
-    SubmissionSubmitComponent,
-    SubmissionUploadFilesComponent,
-    SubmissionSectionContainerComponent,
-    SubmissionSectionUploadFileComponent,
-    SubmissionSectionUploadFileEditComponent,
-    SubmissionSectionUploadFileViewComponent,
-    SubmissionImportExternalComponent,
-    SubmissionImportExternalSearchbarComponent,
-    SubmissionImportExternalPreviewComponent,
-    SubmissionImportExternalCollectionComponent
-  ],
-  exports: [
-    SubmissionEditComponent,
-    SubmissionFormComponent,
-    SubmissionSubmitComponent,
-    SubmissionImportExternalComponent
-  ],
+  declarations: DECLARATIONS,
+  exports: DECLARATIONS,
   providers: [
     SectionUploadService,
     SectionsService,
