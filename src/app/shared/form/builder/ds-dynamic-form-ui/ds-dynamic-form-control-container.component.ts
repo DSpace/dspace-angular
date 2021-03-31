@@ -37,7 +37,6 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlEventType,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -394,6 +393,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
+
+    if (hasValue(this.model.value)) {
+      this.submissionService.dispatchSave(this.model.submissionId);
+    }
 
     const modalComp = this.modalRef.componentInstance;
 
