@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { Collection } from '../../core/shared/collection.model';
