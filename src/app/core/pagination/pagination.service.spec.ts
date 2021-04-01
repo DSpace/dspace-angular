@@ -20,16 +20,16 @@ describe('PaginationService', () => {
     routeService = {
       getQueryParameterValue: (param) => {
         let value;
-        if (param.startsWith('p.')) {
+        if (param.endsWith('.page')) {
           value = 5;
         }
-        if (param.startsWith('rpp.')) {
+        if (param.endsWith('.rpp')) {
           value = 10;
         }
-        if (param.startsWith('sd.')) {
+        if (param.endsWith('.sd')) {
           value = 'ASC';
         }
-        if (param.startsWith('sf.')) {
+        if (param.endsWith('.sf')) {
           value = 'score';
         }
         return observableOf(value);
@@ -83,10 +83,10 @@ describe('PaginationService', () => {
       service.updateRoute('test', {page: 2, pageSize: 5, sortField: 'title', sortDirection: SortDirection.DESC});
 
       const navigateParams = {};
-      navigateParams[`p.test`] = `2`;
-      navigateParams[`rpp.test`] = `5`;
-      navigateParams[`sf.test`] = `title`;
-      navigateParams[`sd.test`] = `DESC`;
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `5`;
+      navigateParams[`test.sf`] = `title`;
+      navigateParams[`test.sd`] = `DESC`;
 
       expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'merge'});
     });
@@ -94,10 +94,10 @@ describe('PaginationService', () => {
       service.updateRoute('test', {page: 2});
 
       const navigateParams = {};
-      navigateParams[`p.test`] = `2`;
-      navigateParams[`rpp.test`] = `10`;
-      navigateParams[`sf.test`] = `score`;
-      navigateParams[`sd.test`] = `ASC`;
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `10`;
+      navigateParams[`test.sf`] = `score`;
+      navigateParams[`test.sd`] = `ASC`;
 
       expect(router.navigate).toHaveBeenCalledWith([], {queryParams: navigateParams, queryParamsHandling: 'merge'});
     });
@@ -107,10 +107,10 @@ describe('PaginationService', () => {
       service.updateRouteWithUrl('test', ['someUrl'], {page: 2, pageSize: 5, sortField: 'title', sortDirection: SortDirection.DESC});
 
       const navigateParams = {};
-      navigateParams[`p.test`] = `2`;
-      navigateParams[`rpp.test`] = `5`;
-      navigateParams[`sf.test`] = `title`;
-      navigateParams[`sd.test`] = `DESC`;
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `5`;
+      navigateParams[`test.sf`] = `title`;
+      navigateParams[`test.sd`] = `DESC`;
 
       expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'merge'});
     });
@@ -118,10 +118,10 @@ describe('PaginationService', () => {
       service.updateRouteWithUrl('test',['someUrl'], {page: 2});
 
       const navigateParams = {};
-      navigateParams[`p.test`] = `2`;
-      navigateParams[`rpp.test`] = `10`;
-      navigateParams[`sf.test`] = `score`;
-      navigateParams[`sd.test`] = `ASC`;
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `10`;
+      navigateParams[`test.sf`] = `score`;
+      navigateParams[`test.sd`] = `ASC`;
 
       expect(router.navigate).toHaveBeenCalledWith(['someUrl'], {queryParams: navigateParams, queryParamsHandling: 'merge'});
     });
@@ -132,17 +132,17 @@ describe('PaginationService', () => {
       service.clearPagination('test');
 
       const resetParams = {};
-      resetParams[`p.test`] = null;
-      resetParams[`rpp.test`] = null;
-      resetParams[`sf.test`] = null;
-      resetParams[`sd.test`] = null;
+      resetParams[`test.page`] = null;
+      resetParams[`test.rpp`] = null;
+      resetParams[`test.sf`] = null;
+      resetParams[`test.sd`] = null;
 
 
       const navigateParams = {};
-      navigateParams[`p.another-id`] = `5`;
-      navigateParams[`rpp.another-id`] = `10`;
-      navigateParams[`sf.another-id`] = `score`;
-      navigateParams[`sd.another-id`] = `ASC`;
+      navigateParams[`another-id.page`] = `5`;
+      navigateParams[`another-id.rpp`] = `10`;
+      navigateParams[`another-id.sf`] = `score`;
+      navigateParams[`another-id.sd`] = `ASC`;
 
       service.updateRoute('another-id', {});
 
@@ -152,7 +152,7 @@ describe('PaginationService', () => {
   describe('getPageParam', () => {
     it('should return the name of the page param', () => {
       const pageParam = service.getPageParam('test');
-      expect(pageParam).toEqual('p.test');
+      expect(pageParam).toEqual('test.page');
     });
   });
 });

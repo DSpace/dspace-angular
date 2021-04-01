@@ -41,8 +41,8 @@ export class PaginationService {
    * @returns {Observable<PaginationComponentOptions>} Retrieves the current pagination settings based on the router params
    */
   getCurrentPagination(paginationId: string, defaultPagination: PaginationComponentOptions): Observable<PaginationComponentOptions> {
-    const page$ = this.routeService.getQueryParameterValue(`p.${paginationId}`);
-    const size$ = this.routeService.getQueryParameterValue(`rpp.${paginationId}`);
+    const page$ = this.routeService.getQueryParameterValue(`${paginationId}.page`);
+    const size$ = this.routeService.getQueryParameterValue(`${paginationId}.rpp`);
     return observableCombineLatest([page$, size$]).pipe(
       map(([page, size]) => {
         return Object.assign(new PaginationComponentOptions(), defaultPagination, {
@@ -64,8 +64,8 @@ export class PaginationService {
     if (!ignoreDefault && (isEmpty(defaultSort) || !hasValue(defaultSort))) {
       defaultSort = this.defaultSortOptions;
     }
-    const sortDirection$ = this.routeService.getQueryParameterValue(`sd.${paginationId}`);
-    const sortField$ = this.routeService.getQueryParameterValue(`sf.${paginationId}`);
+    const sortDirection$ = this.routeService.getQueryParameterValue(`${paginationId}.sd`);
+    const sortField$ = this.routeService.getQueryParameterValue(`${paginationId}.sf`);
     return observableCombineLatest([sortDirection$, sortField$]).pipe(map(([sortDirection, sortField]) => {
         const field = sortField || defaultSort?.field;
         const direction = SortDirection[sortDirection] || defaultSort?.direction;
@@ -171,10 +171,10 @@ export class PaginationService {
    */
   clearPagination(paginationId: string) {
     const params = {};
-    params[`p.${paginationId}`] = null;
-    params[`rpp.${paginationId}`] = null;
-    params[`sf.${paginationId}`] = null;
-    params[`sd.${paginationId}`] = null;
+    params[`${paginationId}.page`] = null;
+    params[`${paginationId}.rpp`] = null;
+    params[`${paginationId}.sf`] = null;
+    params[`${paginationId}.sd`] = null;
 
     Object.assign(this.clearParams, params);
   }
@@ -184,7 +184,7 @@ export class PaginationService {
    * @param paginationId - The ID for which to retrieve the page param
    */
   getPageParam(paginationId: string) {
-    return `p.${paginationId}`;
+    return `${paginationId}.page`;
   }
 
   private getCurrentRouting(paginationId: string) {
@@ -209,16 +209,16 @@ export class PaginationService {
   }) {
     const paramsWithIdName = {};
     if (hasValue(params.page)) {
-      paramsWithIdName[`p.${paginationId}`] = `${params.page}`;
+      paramsWithIdName[`${paginationId}.page`] = `${params.page}`;
     }
     if (hasValue(params.pageSize)) {
-      paramsWithIdName[`rpp.${paginationId}`] = `${params.pageSize}`;
+      paramsWithIdName[`${paginationId}.rpp`] = `${params.pageSize}`;
     }
     if (hasValue(params.sortField)) {
-      paramsWithIdName[`sf.${paginationId}`] = `${params.sortField}`;
+      paramsWithIdName[`${paginationId}.sf`] = `${params.sortField}`;
     }
     if (hasValue(params.sortDirection)) {
-      paramsWithIdName[`sd.${paginationId}`] = `${params.sortDirection}`;
+      paramsWithIdName[`${paginationId}.sd`] = `${params.sortDirection}`;
     }
     return paramsWithIdName;
   }
