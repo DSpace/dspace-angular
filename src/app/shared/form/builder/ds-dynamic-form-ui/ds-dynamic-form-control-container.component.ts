@@ -37,7 +37,6 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlEventType,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -91,10 +90,10 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-di
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import {
   getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData
+  getRemoteDataPayload
 } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
@@ -374,6 +373,15 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     }
   }
 
+  hasRelationship() {
+    return isNotEmpty(this.model) && this.model.hasOwnProperty('relationship') && isNotEmpty(this.model.relationship);
+  }
+
+  isVirtual() {
+    const value: FormFieldMetadataValueObject = this.model.metadataValue;
+    return isNotEmpty(value) && value.isVirtual;
+  }
+
   public hasResultsSelected(): Observable<boolean> {
     return this.model.value.pipe(map((list: SearchResult<DSpaceObject>[]) => isNotEmpty(list)));
   }
@@ -385,6 +393,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
+
+    if (hasValue(this.model.value)) {
+      this.submissionService.dispatchSave(this.model.submissionId);
+    }
+
     const modalComp = this.modalRef.componentInstance;
 
     if (hasValue(this.model.value) && !this.model.readOnly) {
@@ -394,18 +407,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         modalComp.query = this.model.value.value;
       }
     }
-
-    if (hasValue(this.model.value)) {
-      this.model.value = '';
-      this.onChange({
-        $event: { previousIndex: 0 },
-        context: { index: 0 },
-        control: this.control,
-        model: this.model,
-        type: DynamicFormControlEventType.Change
-      });
-    }
-    this.submissionService.dispatchSave(this.model.submissionId);
 
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
@@ -435,6 +436,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+  }
+
+  get hasHint(): boolean {
+    return isNotEmpty(this.model.hint) && this.model.hint !== '&nbsp;';
   }
 
   /**

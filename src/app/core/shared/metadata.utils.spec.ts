@@ -20,6 +20,7 @@ const dcTitle0 = mdValue('Title 0');
 const dcTitle1 = mdValue('Title 1');
 const dcTitle2 = mdValue('Title 2', 'en_US');
 const bar = mdValue('Bar');
+const test = mdValue('Test');
 
 const singleMap = { 'dc.title': [dcTitle0] };
 
@@ -28,6 +29,11 @@ const multiMap = {
   'dc.description.abstract': [dcAbstract],
   'dc.title': [dcTitle1, dcTitle2],
   'foo': [bar]
+};
+
+const regexTestMap = {
+  'foolbar.baz': [test],
+  'foo.bard': [test],
 };
 
 const multiViewModelList = [
@@ -97,6 +103,9 @@ describe('Metadata', () => {
       testAll([multiMap, singleMap], 'dc.title', [dcTitle1, dcTitle2]);
       testAll([multiMap, singleMap], 'dc.*', [dcDescription, dcAbstract, dcTitle1, dcTitle2]);
       testAll([multiMap, singleMap], ['dc.title', 'dc.*'], [dcTitle1, dcTitle2, dcDescription, dcAbstract]);
+    });
+    describe('with regexTestMap', () => {
+      testAll(regexTestMap, 'foo.bar.*', []);
     });
   });
 

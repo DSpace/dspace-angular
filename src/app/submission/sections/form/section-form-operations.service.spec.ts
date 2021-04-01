@@ -1,4 +1,4 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
@@ -35,10 +35,10 @@ describe('SectionFormOperationsService test suite', () => {
   let serviceAsAny: any;
 
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
-    add: jasmine.createSpy('add'),
-    replace: jasmine.createSpy('replace'),
-    remove: jasmine.createSpy('remove'),
-  });
+      add: jasmine.createSpy('add'),
+      replace: jasmine.createSpy('replace'),
+      remove: jasmine.createSpy('remove'),
+    });
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', 'test');
 
   const dynamicFormControlChangeEvent: DynamicFormControlEvent = {

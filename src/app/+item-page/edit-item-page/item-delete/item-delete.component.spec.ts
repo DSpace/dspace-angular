@@ -173,6 +173,19 @@ describe('ItemDeleteComponent', () => {
         .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
       expect(comp.notify).toHaveBeenCalled();
     });
+
+    it('should call delete function from the ItemDataService with empty types', () => {
+
+      spyOn(comp, 'notify');
+      jasmine.getEnv().allowRespy(true);
+      spyOn(entityTypeService, 'getEntityTypeRelationships').and.returnValue([]);
+      comp.ngOnInit();
+
+      comp.performAction();
+
+      expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem.id, []);
+      expect(comp.notify).toHaveBeenCalled();
+    });
   });
   describe('notify', () => {
     it('should navigate to the homepage on successful deletion of the item', () => {

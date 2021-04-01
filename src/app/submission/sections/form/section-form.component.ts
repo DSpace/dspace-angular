@@ -19,7 +19,7 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasNoValue, hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
@@ -359,19 +359,16 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    // don't handle change events for things with an index < 0, those are template rows.
-    if (hasNoValue(event.context) || hasNoValue(event.context.index) || event.context.index >= 0) {
-      this.formOperationsService.dispatchOperationsFromEvent(
-        this.pathCombiner,
-        event,
-        this.previousValue,
-        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
-      const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
-      const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
+    this.formOperationsService.dispatchOperationsFromEvent(
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-      if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
-        this.submissionService.dispatchSave(this.submissionId);
-      }
+    if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+      this.submissionService.dispatchSave(this.submissionId);
     }
   }
 
@@ -450,5 +447,18 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   isFieldToRemove(fieldId, index) {
     return this.fieldsOnTheirWayToBeRemoved.has(fieldId) && this.fieldsOnTheirWayToBeRemoved.get(fieldId).includes(index);
+  }
+
+  /**
+   * Handle the customEvent (ex. drag-drop move event).
+   * The customEvent is stored inside event.$event
+   * @param $event
+   */
+  onCustomEvent(event: DynamicFormControlEvent) {
+    this.formOperationsService.dispatchOperationsFromEvent(
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      null);
   }
 }

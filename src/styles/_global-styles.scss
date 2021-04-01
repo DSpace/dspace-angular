@@ -35,10 +35,6 @@ body {
   margin: 0;
 }
 
-ds-header-navbar-wrapper {
-  z-index: var(--ds-nav-z-index);
-}
-
 ds-admin-sidebar {
   position: fixed;
   z-index: var(--ds-sidebar-z-index);
@@ -46,4 +42,24 @@ ds-admin-sidebar {
 
 .ds-full-screen-loader {
   height: 100vh;
+}
+
+.sticky-top {
+  z-index: 0;
+}
+
+.media-viewer
+  .change-gallery
+  .ngx-gallery
+  ngx-gallery-preview.ngx-gallery-active {
+  right: 0;
+  left: auto;
+  width: calc(100% - 53px);
+}
+
+.ds-submission-reorder-dragging {
+  .ds-hint,
+  button {
+    display: none;
+  }
 }

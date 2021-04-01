@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
+import {defaultIfEmpty, filter, map, switchMap, take} from 'rxjs/operators';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -121,8 +121,11 @@ export class ItemDeleteComponent
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((relationshipTypes) => relationshipTypes.page),
-        switchMap((types) =>
-          combineLatest(types.map((type) => this.getRelationships(type))).pipe(
+        switchMap((types) => {
+          if (types.length === 0) {
+            return observableOf(types);
+          }
+          return combineLatest(types.map((type) => this.getRelationships(type))).pipe(
             map((relationships) =>
               types.reduce<RelationshipType[]>((includedTypes, type, index) => {
                 if (!includedTypes.some((includedType) => includedType.id === type.id)
@@ -133,8 +136,8 @@ export class ItemDeleteComponent
                 }
               }, [])
             ),
-          )
-        ),
+          );
+        })
       );
     } else {
       this.types$ = observableOf([]);

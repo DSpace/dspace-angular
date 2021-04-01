@@ -1267,7 +1267,7 @@
 
 
 
-  "form.add": "Add",
+  "form.add": "Add more",
 
   "form.add-help": "Click here to add the current entry and to add another one",
 
@@ -1276,6 +1276,8 @@
   "form.clear": "Clear",
 
   "form.clear-help": "Click here to remove the selected value",
+
+  "form.discard": "Discard",
 
   "form.edit": "Edit",
 
@@ -1317,6 +1319,7 @@
 
   "form.submit": "Submit",
 
+  "form.repeatable.sort.tip": "Drop the item in the new position",
 
 
   "home.description": "",
@@ -2566,6 +2569,13 @@
   "publication.search.results.head": "Publication Search Results",
 
   "publication.search.title": "DSpace Angular :: Publication Search",
+  
+
+  "media-viewer.next": "Next",
+
+  "media-viewer.previous": "Previous",
+
+  "media-viewer.playlist": "Playlist",
 
 
   "register-email.title": "New user registration",

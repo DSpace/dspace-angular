@@ -1269,6 +1269,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@kolkov/ngx-gallery@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@kolkov/ngx-gallery/-/ngx-gallery-1.2.3.tgz#bb15d4b64a5c03905677aa4ca741835aabe41f43"
+  integrity sha512-Dpnhwq3DGPSXrNt65gexo+/Smb2L0bne14A0WONN04+racETtcY33fqFvNWfRw5Nvk2Eza+sq95eEA0NbgF/6g==
+
 "@material-ui/core@^4.11.0":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.3.tgz#f22e41775b0bd075e36a7a093d43951bf7f63850"
