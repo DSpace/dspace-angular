@@ -47,12 +47,4 @@ $navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox
 
 $enable-shadows: true !default;
 
-$grid-breakpoints: (
-        xs: 0,
-        sm: (576px - $collapsed-sidebar-width),
-        md: (768px - $collapsed-sidebar-width),
-        lg: (992px - $collapsed-sidebar-width),
-        xl: (1200px - $collapsed-sidebar-width)
-) !default;
-
 $yiq-contrasted-threshold:  165 !default;
