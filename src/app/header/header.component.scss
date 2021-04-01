@@ -1,11 +1,7 @@
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
-  a.navbar-brand {
+  nav.navbar {
     display: none;
   }
-  .navbar-search {
-    display: none;
-  }
-
   .header {
     background-color: var(--ds-header-bg);
   }
