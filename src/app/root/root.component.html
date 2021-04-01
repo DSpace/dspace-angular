@@ -15,7 +15,9 @@
       <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="isLoading">
         <ds-loading [showMessage]="false"></ds-loading>
       </div>
-      <router-outlet *ngIf="!isLoading"></router-outlet>
+      <div [class.d-none]="isLoading">
+        <router-outlet></router-outlet>
+      </div>
     </main>
 
     <ds-themed-footer></ds-themed-footer>
