@@ -217,4 +217,8 @@ export const environment: Partial<GlobalConfig> = {
       name: 'base',
     },
   ],
+  mediaViewer: {
+    image: true,
+    video: true
+  },
 };

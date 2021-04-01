@@ -326,6 +326,25 @@ describe('RegistryService', () => {
     });
   });
 
+  describe('when createMetadataField is called with a blank qualifier', () => {
+    let result: Observable<MetadataField>;
+    let metadataField: MetadataField;
+
+    beforeEach(() => {
+      metadataField = mockFieldsList[0];
+      metadataField.qualifier = '';
+      result = registryService.createMetadataField(metadataField, mockSchemasList[0]);
+    });
+
+    it('should return the created metadata field with a null qualifier', (done) => {
+      metadataField.qualifier = null;
+      result.subscribe((field: MetadataField) => {
+        expect(field).toEqual(metadataField);
+        done();
+      });
+    });
+  });
+
   describe('when updateMetadataField is called', () => {
     let result: Observable<MetadataField>;
 
@@ -336,6 +355,25 @@ describe('RegistryService', () => {
     it('should return the updated metadata field', (done) => {
       result.subscribe((field: MetadataField) => {
         expect(field).toEqual(mockFieldsList[0]);
+        done();
+      });
+    });
+  });
+
+  describe('when updateMetadataField is called with a blank qualifier', () => {
+    let result: Observable<MetadataField>;
+    let metadataField: MetadataField;
+
+    beforeEach(() => {
+      metadataField = mockFieldsList[0];
+      metadataField.qualifier = '';
+      result = registryService.updateMetadataField(metadataField);
+    });
+
+    it('should return the updated metadata field with a null qualifier', (done) => {
+      metadataField.qualifier = null;
+      result.subscribe((field: MetadataField) => {
+        expect(field).toEqual(metadataField);
         done();
       });
     });

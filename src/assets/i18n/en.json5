@@ -2547,6 +2547,13 @@
   "publication.search.results.head": "Publication Search Results",
 
   "publication.search.title": "DSpace Angular :: Publication Search",
+  
+
+  "media-viewer.next": "Next",
+
+  "media-viewer.previous": "Previous",
+
+  "media-viewer.playlist": "Playlist",
 
 
   "register-email.title": "New user registration",
