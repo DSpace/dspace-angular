@@ -141,7 +141,7 @@ windowSettings.manifestId = manifest;
         panels: {
           info: true,
           attribution: false,
-          canvas: multipleItems,
+          canvas: true,
           search: searchOption,
           layers: false,
         },
