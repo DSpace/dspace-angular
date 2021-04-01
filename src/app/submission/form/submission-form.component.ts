@@ -138,10 +138,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             return observableOf([]);
           }
         }));
-      debugger;
       this.uploadEnabled$ = this.sectionsService.isSectionAvailable(this.submissionId, SectionsType.Upload);
 
-      this.uploadEnabled$.subscribe((t) => {console.log('this.uploadEnabled$', t)});
       // check if is submission loading
       this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),
