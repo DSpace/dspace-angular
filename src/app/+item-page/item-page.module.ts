@@ -71,7 +71,7 @@ const DECLARATIONS = [
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
-    IIIFEntitiesModule.withEntryComponents()
+    IIIFEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
   ],
   declarations: [
