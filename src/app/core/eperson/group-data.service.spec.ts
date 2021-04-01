@@ -8,7 +8,7 @@ import { compare, Operation } from 'fast-json-patch';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
-} from '../../+admin/admin-access-control/group-registry/group-registry.actions';
+} from '../../access-control/group-registry/group-registry.actions';
 import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';

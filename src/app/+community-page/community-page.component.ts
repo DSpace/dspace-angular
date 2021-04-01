@@ -15,6 +15,8 @@ import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
 import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
@@ -34,6 +36,11 @@ export class CommunityPageComponent implements OnInit {
   communityRD$: Observable<RemoteData<Community>>;
 
   /**
+   * Whether the current user is a Community admin
+   */
+  isCommunityAdmin$: Observable<boolean>;
+
+  /**
    * The logo of this community
    */
   logoRD$: Observable<RemoteData<Bitstream>>;
@@ -49,6 +56,7 @@ export class CommunityPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private authorizationDataService: AuthorizationDataService
   ) {
 
   }
@@ -66,6 +74,6 @@ export class CommunityPageComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       map((community) => getCommunityPageRoute(community.id))
     );
+    this.isCommunityAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin);
   }
-
 }

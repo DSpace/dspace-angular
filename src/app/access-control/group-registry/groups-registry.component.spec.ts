@@ -7,27 +7,27 @@ import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Group } from '../../../core/eperson/models/group.model';
-import { RouteService } from '../../../core/services/route.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Group } from '../../core/eperson/models/group.model';
+import { RouteService } from '../../core/services/route.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
 import { GroupsRegistryComponent } from './groups-registry.component';
-import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RouterMock } from '../../../shared/mocks/router.mock';
+import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { RouterMock } from '../../shared/mocks/router.mock';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -98,10 +98,10 @@ describe('GroupRegistryComponent', () => {
         }
       },
       getGroupEditPageRouterLink(group: Group): string {
-        return '/admin/access-control/groups/' + group.id;
+        return '/access-control/groups/' + group.id;
       },
       getGroupRegistryRouterLink(): string {
-        return '/admin/access-control/groups';
+        return '/access-control/groups';
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {

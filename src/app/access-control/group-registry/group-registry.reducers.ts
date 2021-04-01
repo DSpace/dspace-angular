@@ -1,4 +1,4 @@
-import { Group } from '../../../core/eperson/models/group.model';
+import { Group } from '../../core/eperson/models/group.model';
 import { GroupRegistryAction, GroupRegistryActionTypes, GroupRegistryEditGroupAction } from './group-registry.actions';
 
 /**

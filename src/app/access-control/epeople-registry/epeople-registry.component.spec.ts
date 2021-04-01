@@ -7,24 +7,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { FindListOptions } from '../../../core/data/request.models';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { FindListOptions } from '../../core/data/request.models';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
-import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '../../../core/data/request.service';
+import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { RequestService } from '../../core/data/request.service';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -107,7 +107,7 @@ describe('EPeopleRegistryComponent', () => {
         // empty
       },
       getEPeoplePageRouterLink(): string {
-        return '/admin/access-control/epeople';
+        return '/access-control/epeople';
       }
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {

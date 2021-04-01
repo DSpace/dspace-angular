@@ -52,7 +52,7 @@ export class MenuServiceStub {
   deactivateSection(): void { /***/
   }
 
-  addSection(): void { /***/
+  addSection(menuID: MenuID, section: MenuSection): void { /***/
   }
 
   removeSection(): void { /***/

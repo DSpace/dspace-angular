@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { type } from '../../../shared/ngrx/type';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
