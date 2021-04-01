@@ -9,6 +9,7 @@ export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig 
   metadataKey: string;
   metadataFields: string[];
   hasSelectableMetadata: boolean;
+  isDraggable: boolean;
 }
 
 export class DynamicRowArrayModel extends DynamicFormArrayModel {
@@ -19,6 +20,7 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
   @serializable() metadataKey: string;
   @serializable() metadataFields: string[];
   @serializable() hasSelectableMetadata: boolean;
+  @serializable() isDraggable: boolean;
   isRowArray = true;
 
   constructor(config: DynamicRowArrayModelConfig, layout?: DynamicFormControlLayout) {
@@ -30,5 +32,6 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
     this.metadataKey = config.metadataKey;
     this.metadataFields = config.metadataFields;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
+    this.isDraggable = config.isDraggable;
   }
 }

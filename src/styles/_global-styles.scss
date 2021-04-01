@@ -56,3 +56,10 @@ ds-admin-sidebar {
   left: auto;
   width: calc(100% - 53px);
 }
+
+.ds-submission-reorder-dragging {
+  .ds-hint,
+  button {
+    display: none;
+  }
+}

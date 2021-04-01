@@ -21,6 +21,10 @@ import { createPaginatedList } from '../../../../testing/utils.test';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { Collection } from '../../../../../core/shared/collection.model';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -28,6 +32,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let item;
   let item1;
   let item2;
+  let testWSI;
   let searchResult1;
   let searchResult2;
   let listID;
@@ -41,6 +46,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let lookupRelationService;
   let rdbService;
   let submissionId;
+  let submissionService;
+  let submissionObjectDataService;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -56,11 +63,16 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   ];
   const totalLocal = 10;
   const totalExternal = 8;
+  const collection: Collection = new Collection();
+
 
   function init() {
     item = Object.assign(new Item(), { uuid: '7680ca97-e2bd-4398-bfa7-139a8673dc42', metadata: {} });
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
     item2 = Object.assign(new Item(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
+    testWSI = new WorkspaceItem();
+    testWSI.item = createSuccessfulRemoteDataObject$(item);
+    testWSI.collection = createSuccessfulRemoteDataObject$(collection);
     searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
     searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
@@ -87,6 +99,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     rdbService = jasmine.createSpyObj('rdbService', {
       aggregate: createSuccessfulRemoteDataObject$(externalSources)
     });
+    submissionService = jasmine.createSpyObj('SubmissionService', {
+      dispatchSave: jasmine.createSpy('dispatchSave')
+    });
+    submissionObjectDataService = jasmine.createSpyObj('SubmissionObjectDataService', {
+      findById: createSuccessfulRemoteDataObject$(testWSI)
+    });
     submissionId = '1234';
   }
 
@@ -111,6 +129,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         },
         { provide: RelationshipTypeService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: SubmissionService, useValue: submissionService },
+        { provide: SubmissionObjectDataService, useValue: submissionObjectDataService },
         {
           provide: Store, useValue: {
             // tslint:disable-next-line:no-empty
