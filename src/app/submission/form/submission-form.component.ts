@@ -16,7 +16,7 @@ import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';
 import { Item } from '../../core/shared/item.model';
 import { SectionsType } from '../sections/sections-type';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SectionsService } from '../sections/sections.service';
 
 /**
  * This component represents the submission form.
@@ -74,7 +74,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    * Emits true when the submission config has bitstream uploading enabled in submission
    */
-  public uploadEnabled$ = new BehaviorSubject<boolean>(false);
+  public uploadEnabled$: Observable<boolean>;
 
   /**
    * Observable of the list of submission's sections
@@ -107,12 +107,14 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {HALEndpointService} halService
    * @param {SubmissionService} submissionService
+   * @param {SectionsService} sectionsService
    */
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
     private halService: HALEndpointService,
-    private submissionService: SubmissionService) {
+    private submissionService: SubmissionService,
+    private sectionsService: SectionsService) {
     this.isActive = true;
   }
 
@@ -135,12 +137,11 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           } else {
             return observableOf([]);
           }
-        }),
-        tap((sectionList) => {
-          this.uploadEnabled$.next(isNotEmpty(sectionList) && sectionList.some(config => config.sectionType === SectionsType.Upload));
-        })
-      );
+        }));
+      debugger;
+      this.uploadEnabled$ = this.sectionsService.isSectionAvailable(this.submissionId, SectionsType.Upload);
 
+      this.uploadEnabled$.subscribe((t) => {console.log('this.uploadEnabled$', t)});
       // check if is submission loading
       this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),
