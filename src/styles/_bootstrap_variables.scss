@@ -17,6 +17,7 @@ $image-path: "../assets/images" !default;
 $gray-base: #000 !default;
 $gray-900: lighten($gray-base, 13.5%) !default; // #222
 $gray-800: lighten($gray-base, 26.6%) !default; // #444
+$gray-710: lighten($gray-base, 43.8%) !default; // Accessible text color against white background: #707070
 $gray-700: lighten($gray-base, 46.6%) !default; // #777
 $gray-600: lighten($gray-base, 73.3%) !default; // #bbb
 $gray-100: lighten($gray-base, 93.5%) !default; // #eee
@@ -24,7 +25,7 @@ $gray-100: lighten($gray-base, 93.5%) !default; // #eee
 /* Reassign color vars to semantic color scheme */
 $blue:      #2B4E72 !default;
 $green: #94BA65 !default;
-$cyan: #2790B0 !default;
+$cyan: #007C88 !default;
 $yellow: #ec9433 !default;
 $red: #CF4444 !default;
 $dark: darken($blue, 17%) !default;
@@ -58,3 +59,11 @@ $grid-breakpoints: (
 ) !default;
 
 $yiq-contrasted-threshold:  165 !default;
+
+/*  Accessibility:  for WCAG 2.0 compliance  */
+ $text-muted: $gray-710 ;
+ $dropdown-header-color: $gray-710 ;
+ $toast-header-color: $gray-710 ;
+ $figure-caption-color: $gray-710 ;
+ $breadcrumb-active-color: $gray-710 ;
+ $blockquote-small-color: $gray-710 ;
