@@ -1,11 +1,17 @@
 import { autoserialize, deserialize } from 'cerialize';
 
 import { HALLink } from '../../../core/shared/hal-link.model';
+import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/object-cache.reducer';
+import { SEARCH_CONFIG } from './search-config.resource-type';
+import { ResourceType } from '../../../core/shared/resource-type';
 
 /**
  * The configuration for a search
  */
-export class SearchConfig {
+@typedObject
+export class SearchConfig implements CacheableObject {
+  static type = SEARCH_CONFIG;
 
     /**
      * The id of this search configuration.
@@ -26,10 +32,10 @@ export class SearchConfig {
     sortOptions: SortOption[];
 
     /**
-     * The configuration type.
+     * The object type.
      */
     @autoserialize
-    type: string;
+    type: ResourceType;
 
     /**
      * The {@link HALLink}s for this Item

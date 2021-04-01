@@ -197,6 +197,7 @@ import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/
 import { OpenaireSuggestion } from './openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/openaire-suggestion-source.model';
 import { RootDataService } from './data/root-data.service';
+import { SearchConfig } from '../shared/search/search-filters/search-config.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -411,7 +412,8 @@ export const models =
     OpenaireSuggestion,
     OpenaireSuggestionTarget,
     OpenaireSuggestionSource,
-    Root
+    Root,
+    SearchConfig
   ];
 
 @NgModule({
