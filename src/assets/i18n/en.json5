@@ -2600,6 +2600,13 @@
   "publication.search.title": "Publication Search",
 
 
+  "media-viewer.next": "Next",
+
+  "media-viewer.previous": "Previous",
+
+  "media-viewer.playlist": "Playlist",
+
+
   "register-email.title": "New user registration",
 
   "register-page.create-profile.header": "Create Profile",

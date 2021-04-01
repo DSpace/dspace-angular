@@ -122,7 +122,8 @@
     "sortablejs": "1.13.0",
     "tslib": "^2.0.0",
     "webfontloader": "1.6.28",
-    "zone.js": "^0.10.3"
+    "zone.js": "^0.10.3",
+    "@kolkov/ngx-gallery": "^1.2.3"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "10.0.1",

@@ -27,6 +27,10 @@ import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
+import { MediaViewerComponent } from './media-viewer/media-viewer.component';
+import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
+import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -54,6 +58,9 @@ const DECLARATIONS = [
   ItemComponent,
   UploadBitstreamComponent,
   AbstractIncrementalListComponent,
+  MediaViewerComponent,
+  MediaViewerVideoComponent,
+  MediaViewerImageComponent
 ];
 
 @NgModule({
@@ -64,7 +71,8 @@ const DECLARATIONS = [
     EditItemPageModule,
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
+     NgxGalleryModule,
   ],
   declarations: [
     ...DECLARATIONS
