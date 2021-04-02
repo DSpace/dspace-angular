@@ -55,7 +55,7 @@ describe('SubmissionFormComponent Component', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
-        { provide: SectionsService, useValue: { isSectionAvailable: () => observableOf(true) } },
+        { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
         ChangeDetectorRef,
         SubmissionFormComponent
       ],

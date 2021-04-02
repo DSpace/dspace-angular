@@ -138,7 +138,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             return observableOf([]);
           }
         }));
-      this.uploadEnabled$ = this.sectionsService.isSectionAvailable(this.submissionId, SectionsType.Upload);
+      this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
 
       // check if is submission loading
       this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
