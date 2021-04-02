@@ -42,7 +42,6 @@ export class MiradorViewerComponent implements OnInit {
    * or  multi-page thumbnail navigation.
    */
   setURL() {
-    const width = window.innerWidth;
     // The path to the REST manifest endpoint.
     const manifestApiEndpoint = encodeURIComponent(environment.rest.baseUrl + '/api/iiif/'
       + this.item.id + '/manifest');
