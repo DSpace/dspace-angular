@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MyDSpaceGuard } from './my-dspace.guard';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -9,7 +10,10 @@ import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
       {
         path: '',
         component: ThemedMyDSpacePageComponent,
-        data: { title: 'mydspace.title' },
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'mydspace.title', breadcrumbKey: 'mydspace' },
         canActivate: [
           MyDSpaceGuard
         ]

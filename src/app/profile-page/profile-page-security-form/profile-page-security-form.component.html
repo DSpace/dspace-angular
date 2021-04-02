@@ -3,7 +3,8 @@
          [formId]="FORM_PREFIX"
          [formModel]="formModel"
          [formGroup]="formGroup"
-         [displaySubmit]="false">
+         [displaySubmit]="false"
+         [displayCancel]="false">
 </ds-form>
 <div id="notLongEnough" class="container-fluid text-danger" *ngIf="formGroup.hasError('notLongEnough')">{{FORM_PREFIX + 'error.password-length' | translate}}</div>
 <div id="notSame" class="container-fluid text-danger" *ngIf="formGroup.hasError('notSame')">{{FORM_PREFIX + 'error.matching-passwords' | translate}}</div>

@@ -12,6 +12,12 @@ export class ConfirmationModalComponent {
   @Input() infoLabel: string;
   @Input() cancelLabel: string;
   @Input() confirmLabel: string;
+  @Input() confirmIcon: string;
+  /**
+   * The brand color of the confirm button
+   */
+  @Input() brandColor = 'primary';
+
   @Input() dso: DSpaceObject;
 
   /**

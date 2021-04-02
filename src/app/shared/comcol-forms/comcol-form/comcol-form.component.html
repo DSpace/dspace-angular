@@ -11,10 +11,14 @@
           </div>
           <div class="col-4 d-inline-block">
             <div *ngIf="logo" class="btn-group btn-group-sm float-right" role="group">
-              <button *ngIf="!markLogoForDeletion" type="button" class="btn btn-danger" (click)="deleteLogo()">
+              <button *ngIf="!markLogoForDeletion" type="button" class="btn btn-danger"
+                      title="{{type.value + '.edit.logo.delete.title' | translate}}"
+                      (click)="deleteLogo()">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
-              <button *ngIf="markLogoForDeletion" type="button" class="btn btn-warning" (click)="undoDeleteLogo()">
+              <button *ngIf="markLogoForDeletion" type="button" class="btn btn-warning"
+                      title="{{type.value + '.edit.logo.delete-undo.title' | translate}}"
+                      (click)="undoDeleteLogo()">
                 <i class="fas fa-undo" aria-hidden="true"></i>
               </button>
             </div>
@@ -35,4 +39,10 @@
 </div>
 <ds-form *ngIf="formModel"
          [formId]="'comcol-form-id'"
-         [formModel]="formModel" (submitForm)="onSubmit()" (cancel)="onCancel()"></ds-form>
+         [formModel]="formModel"
+         [displayCancel]="false"
+         (submitForm)="onSubmit()">
+  <button before (click)="back.emit()" class="btn btn-outline-secondary">
+    <i class="fas fa-arrow-left"></i> {{ type.value + '.edit.return' | translate }}
+  </button>
+</ds-form>

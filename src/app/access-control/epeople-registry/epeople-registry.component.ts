@@ -52,6 +52,11 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   pageInfoState$: BehaviorSubject<PageInfo> = new BehaviorSubject<PageInfo>(undefined);
 
   /**
+   * A boolean representing if a search is pending
+   */
+  searching$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
    * Pagination config used to display the list of epeople
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
@@ -106,6 +111,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * This method will initialise the page
    */
   initialisePage() {
+    this.searching$.next(true);
     this.isEPersonFormShown = false;
     this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
@@ -133,6 +139,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           return [epeople];
         }
       })).subscribe((value: PaginatedList<EpersonDtoModel>) => {
+        this.searching$.next(false);
         this.ePeopleDto$.next(value);
         this.pageInfoState$.next(value.pageInfo);
     }));
@@ -154,6 +161,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * @param data  Contains scope and query param
    */
   search(data: any) {
+    this.searching$.next(true);
     const query: string = data.query;
     const scope: string = data.scope;
     if (query != null && this.currentSearchQuery !== query) {
@@ -228,6 +236,8 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
       modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-eperson.confirm';
+      modalRef.componentInstance.brandColor = 'danger';
+      modalRef.componentInstance.confirmIcon = 'fas fa-trash';
       modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
         if (confirm) {
           if (hasValue(ePerson.id)) {

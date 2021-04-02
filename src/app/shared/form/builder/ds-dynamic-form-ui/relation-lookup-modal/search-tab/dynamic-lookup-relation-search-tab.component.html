@@ -3,7 +3,10 @@
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [inPlaceSearch]="true" [showViewModes]="false"></ds-search-sidebar>
     <div class="col-8">
-        <ds-search-form [query]="(searchConfigService.paginatedSearchOptions | async)?.query" [inPlaceSearch]="true"></ds-search-form>
+        <ds-search-form [query]="(searchConfigService.paginatedSearchOptions | async)?.query"
+                        [inPlaceSearch]="true"
+                        [searchPlaceholder]="'submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder' | translate">
+        </ds-search-form>
 
         <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
 

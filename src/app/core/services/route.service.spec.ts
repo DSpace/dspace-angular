@@ -153,4 +153,32 @@ describe('RouteService', () => {
       });
     });
   });
+
+  describe('getCurrentUrl', () => {
+    it('should return an observable with the current url', () => {
+      serviceAsAny.store = observableOf({
+        core: {
+          history: ['url', 'newurl']
+        }
+      });
+
+      service.getCurrentUrl().subscribe((history) => {
+        expect(history).toEqual('newurl');
+      });
+    });
+  });
+
+  describe('getCurrentUrl', () => {
+    it('should return an observable with the previous url', () => {
+      serviceAsAny.store = observableOf({
+        core: {
+          history: ['url', 'newurl']
+        }
+      });
+
+      service.getPreviousUrl().subscribe((history) => {
+        expect(history).toEqual('url');
+      });
+    });
+  });
 });

@@ -9,7 +9,7 @@
             [wrapperClass]="'border-bottom border-light'">
 
   <input *ngIf="!model.hasAuthority"
-         class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1 chips-sort-ignore"
+         class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1"
          type="text"
          [class.pl-3]="chips.hasItems()"
          [placeholder]="model.placeholder"
@@ -22,7 +22,7 @@
 
 
   <input *ngIf="model.hasAuthority"
-         class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1 chips-sort-ignore"
+         class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1"
          type="text"
          [(ngModel)]="currentValue"
          [attr.autoComplete]="model.autoComplete"

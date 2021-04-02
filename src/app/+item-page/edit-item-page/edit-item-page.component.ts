@@ -39,12 +39,11 @@ export class EditItemPageComponent implements OnInit {
   pages: { page: string, enabled: Observable<boolean> }[];
 
   constructor(private route: ActivatedRoute, private router: Router, private injector: Injector) {
-    this.router.events.subscribe(() => {
-      this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
-    });
+    this.router.events.subscribe(() => this.initPageParamsByRoute());
   }
 
   ngOnInit(): void {
+    this.initPageParamsByRoute();
     this.pages = this.route.routeConfig.children
       .filter((child: Route) => isNotEmpty(child.path))
       .map((child: Route) => {
@@ -69,5 +68,12 @@ export class EditItemPageComponent implements OnInit {
    */
   getItemPage(item: Item): string {
     return getItemPageRoute(item);
+  }
+
+  /**
+   * Set page params depending on the route
+   */
+  initPageParamsByRoute() {
+    this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
   }
 }

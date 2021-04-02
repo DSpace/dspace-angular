@@ -1,6 +1,6 @@
-<div ngbDropdown class="navbar-nav" *ngIf="moreThanOneLanguage">
-  <a href="#" id="dropdownLang" role="button" class="px-1" (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle>
-    <i class="fas fa-globe-asia fa-lg fa-fw" [title]="'nav.language' | translate"></i>
+<div ngbDropdown class="navbar-nav" *ngIf="moreThanOneLanguage" display="dynamic" placement="bottom-right">
+  <a href="#" id="dropdownLang" role="button" [attr.aria-label]="'nav.language' |translate" [title]="'nav.language' | translate" class="px-1" (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle>
+    <i class="fas fa-globe-asia fa-lg fa-fw"></i>
   </a>
   <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownLang">
     <li class="dropdown-item" #langSelect *ngFor="let lang of translate.getLangs()"

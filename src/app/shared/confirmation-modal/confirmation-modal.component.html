@@ -6,11 +6,13 @@
   </div>
   <div class="modal-body">
     <p>{{ infoLabel | translate:{dsoName: dso?.name} }}</p>
-    <button type="button" class="cancel btn btn-secondary" (click)="cancelPressed()" aria-label="Cancel">
-      {{ cancelLabel | translate:{dsoName: dso?.name} }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="cancel btn btn-outline-secondary" (click)="cancelPressed()" aria-label="Cancel">
+      <i class="fas fa-times"></i> {{ cancelLabel | translate:{dsoName: dso?.name} }}
     </button>
-    <button type="button" class="confirm btn btn-primary" (click)="confirmPressed()" aria-label="Confirm" ngbAutofocus>
-      {{ confirmLabel | translate:{dsoName: dso?.name} }}
+    <button type="button" class="confirm btn btn-{{brandColor}}" (click)="confirmPressed()" aria-label="Confirm" ngbAutofocus>
+      <i *ngIf="confirmIcon" class="{{confirmIcon}}"></i> {{ confirmLabel | translate:{dsoName: dso?.name} }}
     </button>
   </div>
 </div>

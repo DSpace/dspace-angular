@@ -8,8 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { EmptyError, Observable } from 'rxjs';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { EmptyError, Observable, of } from 'rxjs';
 
 import { RemoteData } from '../data/remote-data';
 import { Item } from '../shared/item.model';
@@ -94,6 +94,7 @@ describe('MetadataService', () => {
   let itemDataService: ItemDataService;
   let authService: AuthService;
   let rootService: RootDataService;
+  let translateService: TranslateService;
 
   let location: Location;
   let router: Router;
@@ -195,6 +196,7 @@ describe('MetadataService', () => {
     itemDataService = TestBed.inject(ItemDataService);
     metadataService = TestBed.inject(MetadataService);
     authService = TestBed.inject(AuthService);
+    translateService = TestBed.inject(TranslateService);
 
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
@@ -236,14 +238,15 @@ describe('MetadataService', () => {
 
   it('other navigation should add title, description and Generator', fakeAsync(() => {
     spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
+    spyOn(translateService, 'get').and.returnValues(of('DSpace :: '), of('Dummy Title'), of('This is a dummy item component for testing!'));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
     expect(tagStore.size).toBeGreaterThan(0);
     router.navigate(['/other']);
     tick();
     expect(tagStore.size).toEqual(3);
-    expect(title.getTitle()).toEqual('Dummy Title');
-    expect(tagStore.get('title')[0].content).toEqual('Dummy Title');
+    expect(title.getTitle()).toEqual('DSpace :: Dummy Title');
+    expect(tagStore.get('title')[0].content).toEqual('DSpace :: Dummy Title');
     expect(tagStore.get('description')[0].content).toEqual('This is a dummy item component for testing!');
     expect(tagStore.get('Generator')[0].content).toEqual('mock-dspace-version');
   }));
