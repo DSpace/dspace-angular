@@ -18,6 +18,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
+import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
@@ -88,7 +89,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * An event fired when a vocabulary entry is selected.
    * Event's payload equals to {@link VocabularyEntryDetail} selected.
    */
-  @Output() select: EventEmitter<VocabularyEntryDetail> = new EventEmitter<VocabularyEntryDetail>(null);
+  @Output() select: EventEmitter<FormFieldMetadataValueObject> = new EventEmitter<FormFieldMetadataValueObject>(null);
 
   /**
    * A boolean representing if user is authenticated
@@ -250,9 +251,10 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Method called on entry select
    * Emit a new select Event
    */
-  onSelect(item: VocabularyEntryDetail) {
-    this.select.emit(item);
-    this.activeModal.close(item);
+  onSelect(entry: VocabularyEntryDetail) {
+    const value = new FormFieldMetadataValueObject(entry.value, null, entry.id);
+    this.select.emit(value);
+    this.activeModal.close(value);
   }
 
   /**

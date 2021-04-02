@@ -56,7 +56,14 @@ export class DsDynamicTypeBindRelationService {
 
       const bindModel: any = this.formBuilderService.getTypeBindModel();
 
-      const value = (isUndefined(bindModel.value) || typeof bindModel.value === 'string') ? bindModel.value : bindModel.value.value;
+      let value;
+      if (isUndefined(bindModel.value) || typeof bindModel.value === 'string') {
+        value = bindModel.value;
+      } else if (bindModel.value.hasAuthority()) {
+        value = bindModel.value.authority;
+      } else {
+        value = bindModel.value.value;
+      }
 
       if (bindModel && relation.match === matcher.match) {
 

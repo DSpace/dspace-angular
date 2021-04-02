@@ -319,7 +319,8 @@ export class VocabularyService {
    *    Return an observable that emits VocabularyEntryDetail object
    */
   findEntryDetailById(id: string, name: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
-    const findId = `${name}:${id}`;
+    // add the vocabulary name as prefix if doesn't exist
+    const findId = id.startsWith(`${name}:`) ? id : `${name}:${id}`;
     return this.vocabularyEntryDetailDataService.findById(findId, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
