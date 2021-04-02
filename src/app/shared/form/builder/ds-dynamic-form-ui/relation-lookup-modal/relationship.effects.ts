@@ -167,8 +167,8 @@ export class RelationshipEffects {
   }
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string) {
-    const type1: string = item1.firstMetadataValue('relationship.type');
-    const type2: string = item2.firstMetadataValue('relationship.type');
+    const type1: string = item1.firstMetadataValue('dspace.entity.type');
+    const type2: string = item2.firstMetadataValue('dspace.entity.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
       .pipe(
         mergeMap((type: RelationshipType) => {

@@ -9,6 +9,7 @@ import { RequestService } from '../../../../core/data/request.service';
 import { of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ComcolRoleComponent', () => {
 
@@ -34,6 +35,7 @@ describe('ComcolRoleComponent', () => {
         SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
+        NoopAnimationsModule
       ],
       providers: [
         { provide: GroupDataService, useValue: groupService },

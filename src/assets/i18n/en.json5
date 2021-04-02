@@ -106,7 +106,7 @@
 
   "admin.registries.bitstream-formats.table.name": "Name",
 
-  "admin.registries.bitstream-formats.table.return": "Return",
+  "admin.registries.bitstream-formats.table.return": "Back",
 
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
 
@@ -116,7 +116,7 @@
 
   "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
 
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
 
 
@@ -144,7 +144,7 @@
 
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
 
-  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
+  "admin.registries.metadata.title": "Metadata Registry",
 
 
 
@@ -194,9 +194,9 @@
 
   "admin.registries.schema.notification.success": "Success",
 
-  "admin.registries.schema.return": "Return",
+  "admin.registries.schema.return": "Back",
 
-  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
+  "admin.registries.schema.title": "Metadata Schema Registry",
 
 
 
@@ -208,7 +208,9 @@
 
   "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
 
-  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+  "admin.access-control.epeople.breadcrumbs": "EPeople",
+
+  "admin.access-control.epeople.title": "EPeople",
 
   "admin.access-control.epeople.head": "EPeople",
 
@@ -221,6 +223,8 @@
   "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
 
   "admin.access-control.epeople.search.button": "Search",
+
+  "admin.access-control.epeople.search.placeholder": "Search people...",
 
   "admin.access-control.epeople.button.add": "Add EPerson",
 
@@ -254,6 +258,8 @@
 
   "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
 
+  "admin.access-control.epeople.form.return": "Back",
+
   "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
 
   "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
@@ -286,11 +292,17 @@
 
 
 
-  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+  "admin.access-control.groups.title": "Groups",
 
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+  "admin.access-control.groups.breadcrumbs": "Groups",
 
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+
+  "admin.access-control.groups.title.singleGroup": "Edit Group",
+
+  "admin.access-control.groups.title.addGroup": "New Group",
+
+  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
 
   "admin.access-control.groups.head": "Groups",
 
@@ -301,6 +313,8 @@
   "admin.access-control.groups.button.see-all": "Browse all",
 
   "admin.access-control.groups.search.button": "Search",
+
+  "admin.access-control.groups.search.placeholder": "Search groups...",
 
   "admin.access-control.groups.table.id": "ID",
 
@@ -442,7 +456,7 @@
 
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
 
-  "admin.access-control.groups.form.return": "Return to groups",
+  "admin.access-control.groups.form.return": "Back",
 
 
 
@@ -497,7 +511,7 @@
 
   "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
 
-  "admin.metadata-import.page.button.return": "Return",
+  "admin.metadata-import.page.button.return": "Back",
 
   "admin.metadata-import.page.button.proceed": "Proceed",
 
@@ -576,9 +590,15 @@
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
+  "browse.next.button": "Next",
+
+  "browse.previous.button": "Previous",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
+
+  "browse.startsWith.choose_year.label": "Choose the issue year",
 
   "browse.startsWith.jump": "Jump to a point in the index:",
 
@@ -602,17 +622,21 @@
 
   "browse.startsWith.months.none": "(Choose month)",
 
+  "browse.startsWith.months.none.label": "Choose the issue month",
+
   "browse.startsWith.months.november": "November",
 
   "browse.startsWith.months.october": "October",
 
   "browse.startsWith.months.september": "September",
 
-  "browse.startsWith.submit": "Go",
+  "browse.startsWith.submit": "Browse",
 
-  "browse.startsWith.type_date": "Or type in a date (year-month):",
+  "browse.startsWith.type_date": "Or type in a date (year-month) and click 'Browse'",
 
-  "browse.startsWith.type_text": "Or enter first few letters:",
+  "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
+
+  "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
 
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
@@ -685,11 +709,17 @@
 
   "collection.edit.item-mapper.remove": "Remove selected item mappings",
 
+  "collection.edit.item-mapper.search-form.placeholder": "Search items...",
+
   "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
 
 
+
+  "collection.edit.logo.delete.title": "Delete logo",
+
+  "collection.edit.logo.delete-undo.title": "Undo delete",
 
   "collection.edit.logo.label": "Collection logo",
 
@@ -709,7 +739,7 @@
 
   "collection.edit.notifications.success": "Successfully edited the Collection",
 
-  "collection.edit.return": "Return",
+  "collection.edit.return": "Back",
 
 
 
@@ -843,7 +873,9 @@
 
 
 
-  "communityList.tabTitle": "DSpace - Community List",
+  "communityList.breadcrumbs": "Community List",
+
+  "communityList.tabTitle": "Community List",
 
   "communityList.title": "List of Communities",
 
@@ -878,6 +910,10 @@
   "community.edit.breadcrumbs": "Edit Community",
 
 
+  "community.edit.logo.delete.title": "Delete logo",
+
+  "community.edit.logo.delete-undo.title": "Undo delete",
+
   "community.edit.logo.label": "Community logo",
 
   "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
@@ -900,7 +936,7 @@
 
   "community.edit.notifications.error": "An error occured while editing the Community",
 
-  "community.edit.return": "Return",
+  "community.edit.return": "Back",
 
 
 
@@ -1223,7 +1259,7 @@
 
   "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
 
-  "forgot-email.form.submit": "Submit",
+  "forgot-email.form.submit": "Save",
 
   "forgot-email.form.success.head": "Verification email sent",
 
@@ -1317,7 +1353,7 @@
 
   "form.search-help": "Click here to look for an existing correspondence",
 
-  "form.submit": "Submit",
+  "form.submit": "Save",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
@@ -1326,7 +1362,9 @@
 
   "home.breadcrumbs": "Home",
 
-  "home.title": "DSpace Angular :: Home",
+  "home.search-form.placeholder": "Search the repository ...",
+
+  "home.title": "Home",
 
   "home.top-level-communities.head": "Communities in DSpace",
 
@@ -1515,6 +1553,8 @@
 
   "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
 
+  "item.edit.item-mapper.search-form.placeholder": "Search collections...",
+
   "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
 
   "item.edit.item-mapper.tabs.map": "Map new collections",
@@ -1671,8 +1711,10 @@
 
   "item.edit.relationships.save-button": "Save",
 
-  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+  "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
 
+
+  "item.edit.return": "Back",
 
 
   "item.edit.tabs.bitstreams.head": "Bitstreams",
@@ -1781,7 +1823,7 @@
 
   "item.search.results.head": "Item Search Results",
 
-  "item.search.title": "DSpace Angular :: Item Search",
+  "item.search.title": "Item Search",
 
 
 
@@ -1879,7 +1921,7 @@
 
   "item.version.history.head": "Version History",
 
-  "item.version.history.return": "Return",
+  "item.version.history.return": "Back",
 
   "item.version.history.selected": "Selected version",
 
@@ -1915,7 +1957,7 @@
 
   "journal.search.results.head": "Journal Search Results",
 
-  "journal.search.title": "DSpace Angular :: Journal Search",
+  "journal.search.title": "Journal Search",
 
 
 
@@ -2043,9 +2085,11 @@
 
 
 
-  "menu.header.admin": "Admin",
+  "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
+
+  "menu.header.admin.description": "Management menu",
 
 
 
@@ -2213,6 +2257,8 @@
   "menu.section.workflow": "Administer Workflow",
 
 
+  "mydspace.breadcrumbs": "MyDSpace",
+
   "mydspace.description": "",
 
   "mydspace.general.text-here": "here",
@@ -2267,6 +2313,8 @@
 
   "mydspace.results.no-uri": "No Uri",
 
+  "mydspace.search-form.placeholder": "Search in mydspace...",
+
   "mydspace.show.workflow": "All tasks",
 
   "mydspace.show.workspace": "Your Submissions",
@@ -2305,7 +2353,9 @@
 
   "nav.login": "Log In",
 
-  "nav.logout": "Log Out",
+  "nav.logout": "User profile menu and Log Out",
+
+  "nav.main.description": "Main navigation bar",
 
   "nav.mydspace": "MyDSpace",
 
@@ -2316,6 +2366,8 @@
   "nav.statistics.header": "Statistics",
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
+
+  "nav.user.description" : "User profile bar",
 
 
 
@@ -2336,6 +2388,8 @@
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
 
+
+  "pagination.options.description": "Pagination options",
 
   "pagination.results-per-page": "Results Per Page",
 
@@ -2373,7 +2427,7 @@
 
   "person.search.results.head": "Person Search Results",
 
-  "person.search.title": "DSpace Angular :: Person Search",
+  "person.search.title": "Person Search",
 
 
 
@@ -2381,7 +2435,7 @@
 
   "process.new.cancel": "Cancel",
 
-  "process.new.submit": "Submit",
+  "process.new.submit": "Save",
 
   "process.new.select-script": "Script",
 
@@ -2474,7 +2528,7 @@
 
   "profile.card.security": "Security",
 
-  "profile.form.submit": "Update Profile",
+  "profile.form.submit": "Save",
 
   "profile.groups.head": "Authorization groups you belong to",
 
@@ -2568,8 +2622,8 @@
 
   "publication.search.results.head": "Publication Search Results",
 
-  "publication.search.title": "DSpace Angular :: Publication Search",
-  
+  "publication.search.title": "Publication Search",
+
 
   "media-viewer.next": "Next",
 
@@ -2684,6 +2738,10 @@
   "relationships.isContributorOf": "Contributors",
 
 
+  "repository.image.logo": "Repository logo",
+
+  "repository.title.prefix": "DSpace Angular :: ",
+
 
   "resource-policies.add.button": "Add",
 
@@ -2791,9 +2849,11 @@
 
   "search.switch-configuration.title": "Show",
 
-  "search.title": "DSpace Angular :: Search",
+  "search.title": "Search",
 
   "search.breadcrumbs": "Search",
+
+  "search.search-form.placeholder": "Search the repository ...",
 
 
   "search.filters.applied.f.author": "Author",
@@ -2836,6 +2896,8 @@
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
 
+  "search.filters.filter.collapse": "Collapse filter",
+
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
@@ -2869,6 +2931,8 @@
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
+
+  "search.filters.filter.expand": "Expand filter",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
@@ -2949,9 +3013,7 @@
 
   "search.form.search": "Search",
 
-  "search.form.search_dspace": "Search DSpace",
-
-  "search.form.search_mydspace": "Search MyDSpace",
+  "search.form.search_dspace": "All repository",
 
 
 
@@ -3025,7 +3087,11 @@
 
 
 
+  "submission.edit.breadcrumbs": "Edit Submission",
+
   "submission.edit.title": "Edit Submission",
+
+  "submission.general.cancel": "Cancel",
 
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
 
@@ -3160,6 +3226,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
 
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+
   "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
 
   "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
@@ -3206,6 +3274,8 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
@@ -3403,7 +3473,9 @@
 
 
 
-  "submission.submit.title": "Submission",
+  "submission.submit.breadcrumbs": "New submission",
+
+  "submission.submit.title": "New submission",
 
 
 
@@ -3508,6 +3580,10 @@
   "workflowAdmin.search.results.head": "Administer Workflow",
 
 
+
+  "workflow-item.edit.breadcrumbs": "Edit workflowitem",
+
+  "workflow-item.edit.title": "Edit workflowitem",
 
   "workflow-item.delete.notification.success.title": "Deleted",
 

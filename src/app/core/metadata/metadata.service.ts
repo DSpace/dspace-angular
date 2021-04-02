@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -83,9 +83,11 @@ export class MetadataService {
       this.clearMetaTags();
     }
     if (routeInfo.data.value.title) {
-      this.translate.get(routeInfo.data.value.title, routeInfo.data.value).pipe(take(1)).subscribe((translatedTitle: string) => {
-        this.addMetaTag('title', translatedTitle);
-        this.title.setTitle(translatedTitle);
+      const titlePrefix = this.translate.get('repository.title.prefix');
+      const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
+      combineLatest([titlePrefix, title]).pipe(take(1)).subscribe(([translatedTitlePrefix, translatedTitle]: [string, string]) => {
+        this.addMetaTag('title', translatedTitlePrefix + translatedTitle);
+        this.title.setTitle(translatedTitlePrefix + translatedTitle);
       });
     }
     if (routeInfo.data.value.description) {

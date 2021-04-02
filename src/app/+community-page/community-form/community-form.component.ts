@@ -7,7 +7,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
-import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -68,14 +67,13 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
     }),
   ];
 
-  public constructor(protected location: Location,
-                     protected formService: DynamicFormService,
+  public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService) {
-    super(location, formService, translate, notificationsService, authService, requestService, objectCache);
+    super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 }

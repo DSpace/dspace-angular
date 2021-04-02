@@ -10,11 +10,11 @@ export function getItemModuleRoute() {
 
 /**
  * Get the route to an item's page
- * Depending on the item's relationship type, the route will either start with /items or /entities
+ * Depending on the item's entity type, the route will either start with /items or /entities
  * @param item  The item to retrieve the route for
  */
 export function getItemPageRoute(item: Item) {
-  const type = item.firstMetadataValue('relationship.type');
+  const type = item.firstMetadataValue('dspace.entity.type');
   return getEntityPageRoute(type, item.uuid);
 }
 

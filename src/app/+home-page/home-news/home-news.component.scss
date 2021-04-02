@@ -8,7 +8,14 @@
     word-break: break-word;
 }
 
-.dspace-logo {
-    height: 110px;
-    width: 110px;
+.jumbotron {
+  background-color: var(--ds-home-news-background-color);
+}
+
+a {
+  color: var(--ds-home-news-link-color);
+
+  @include hover {
+    color: var(--ds-home-news-link-hover-color);
+  }
 }

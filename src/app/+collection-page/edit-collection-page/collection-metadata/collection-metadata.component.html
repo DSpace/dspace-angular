@@ -16,9 +16,7 @@
     </button>
   </div>
 </div>
-<ds-collection-form (submitForm)="onSubmit($event)"
-                    [dso]="(dsoRD$ | async)?.payload"
+<ds-collection-form [dso]="(dsoRD$ | async)?.payload"
+                    (submitForm)="onSubmit($event)"
+                    (back)="navigateToHomePage()"
                     (finish)="navigateToHomePage()"></ds-collection-form>
-<a class="btn btn-danger"
-   [routerLink]="'/collections/' + (dsoRD$ | async)?.payload.uuid + '/delete'">{{'collection.edit.delete'
-  | translate}}</a>

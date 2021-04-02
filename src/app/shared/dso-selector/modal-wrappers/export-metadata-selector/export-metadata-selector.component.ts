@@ -53,6 +53,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
       modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata.cancel';
       modalRef.componentInstance.confirmLabel = 'confirmation-modal.export-metadata.confirm';
+      modalRef.componentInstance.confirmIcon = 'fas fa-file-export';
       const resp$ =  modalRef.componentInstance.response.pipe(switchMap((confirm: boolean) => {
         if (confirm) {
           const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso, dso.handle);

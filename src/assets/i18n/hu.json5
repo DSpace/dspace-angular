@@ -2430,8 +2430,8 @@
   // "item.edit.relationships.save-button": "Save",
   "item.edit.relationships.save-button": "Mentés",
   
-  // "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
-  "item.edit.relationships.no-entity-type": "Adja hozzá a 'relationship.type' metaadatot ezen elem hivatkozásánek engedélyezéséhez",
+  // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
+  "item.edit.relationships.no-entity-type": "Adja hozzá a 'dspace.entity.type' metaadatot ezen elem hivatkozásánek engedélyezéséhez",
   
   
   

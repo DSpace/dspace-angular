@@ -93,7 +93,7 @@ import { CollectionAdministratorGuard } from '../../core/data/feature-authorizat
           {
             path: 'mapper',
             component: CollectionItemMapperComponent,
-            data: { title: 'collection.edit.tabs.item-mapper.title', showBreadcrumbs: true }
+            data: { title: 'collection.edit.tabs.item-mapper.title', hideReturnButton: true, showBreadcrumbs: true }
           },
         ]
       }

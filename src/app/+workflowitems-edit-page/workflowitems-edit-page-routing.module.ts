@@ -3,10 +3,15 @@ import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
-import { WORKFLOW_ITEM_DELETE_PATH, WORKFLOW_ITEM_EDIT_PATH, WORKFLOW_ITEM_SEND_BACK_PATH } from './workflowitems-edit-page-routing-paths';
+import {
+  WORKFLOW_ITEM_DELETE_PATH,
+  WORKFLOW_ITEM_EDIT_PATH,
+  WORKFLOW_ITEM_SEND_BACK_PATH
+} from './workflowitems-edit-page-routing-paths';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -19,19 +24,28 @@ import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/t
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: ThemedSubmissionEditComponent,
-            data: { title: 'submission.edit.title' }
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.edit.title', breadcrumbKey: 'workflow-item.edit' }
           },
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_DELETE_PATH,
             component: ThemedWorkflowItemDeleteComponent,
-            data: { title: 'workflow-item.delete.title' }
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.delete.title', breadcrumbKey: 'workflow-item.edit' }
           },
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
             component: ThemedWorkflowItemSendBackComponent,
-            data: { title: 'workflow-item.send-back.title' }
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.send-back.title', breadcrumbKey: 'workflow-item.edit' }
           }
         ]
       }]

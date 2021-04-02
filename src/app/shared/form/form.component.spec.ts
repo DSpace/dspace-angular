@@ -170,7 +170,8 @@ describe('FormComponent test suite', () => {
         <ds-form *ngIf="formModel" #formRef="formComponent"
                  [formId]="formId"
                  [formModel]="formModel"
-                 [displaySubmit]="displaySubmit"></ds-form>`;
+                 [displaySubmit]="displaySubmit"
+                 [displayCancel]="displayCancel"></ds-form>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -197,6 +198,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testForm';
       formComp.formModel = TEST_FORM_MODEL;
       formComp.displaySubmit = false;
+      formComp.displayCancel = false;
       form = new BehaviorSubject(formState);
       valid = new BehaviorSubject(false);
       spyOn((formComp as any).formService, 'getForm').and.returnValue(form);
@@ -388,6 +390,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
+      formComp.displayCancel = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });
@@ -443,6 +446,7 @@ class TestComponent {
   public formId;
   public formModel: DynamicFormControlModel[];
   public displaySubmit = false;
+  public displayCancel = false;
 
   constructor() {
     this.formId = 'testForm';
