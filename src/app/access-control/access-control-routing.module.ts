@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
-import { GROUP_EDIT_PATH } from './admin-access-control-routing-paths';
+import { GROUP_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
@@ -47,6 +47,6 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
 /**
  * Routing module for the AccessControl section of the admin sidebar
  */
-export class AdminAccessControlRoutingModule {
+export class AccessControlRoutingModule {
 
 }

@@ -4,7 +4,17 @@ import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { ADMIN_MODULE_PATH, BITSTREAM_MODULE_PATH, FORBIDDEN_PATH, FORGOT_PASSWORD_PATH, INFO_MODULE_PATH, PROFILE_MODULE_PATH, REGISTER_PATH, WORKFLOW_ITEM_MODULE_PATH } from './app-routing-paths';
+import {
+  ACCESS_CONTROL_MODULE_PATH,
+  ADMIN_MODULE_PATH,
+  BITSTREAM_MODULE_PATH,
+  FORBIDDEN_PATH,
+  FORGOT_PASSWORD_PATH,
+  INFO_MODULE_PATH,
+  PROFILE_MODULE_PATH,
+  REGISTER_PATH,
+  WORKFLOW_ITEM_MODULE_PATH,
+} from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
 import { ITEM_MODULE_PATH } from './+item-page/item-page-routing-paths';
@@ -14,6 +24,7 @@ import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
+import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 
 @NgModule({
   imports: [
@@ -170,6 +181,11 @@ import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
+          },
+          {
+            path: ACCESS_CONTROL_MODULE_PATH,
+            loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
+            canActivate: [GroupAdministratorGuard],
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}

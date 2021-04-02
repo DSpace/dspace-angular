@@ -1303,7 +1303,7 @@
 
 
 
-  "form.add": "Add",
+  "form.add": "Add more",
 
   "form.add-help": "Click here to add the current entry and to add another one",
 
@@ -1312,6 +1312,8 @@
   "form.clear": "Clear",
 
   "form.clear-help": "Click here to remove the selected value",
+
+  "form.discard": "Discard",
 
   "form.edit": "Edit",
 
@@ -1353,6 +1355,7 @@
 
   "form.submit": "Save",
 
+  "form.repeatable.sort.tip": "Drop the item in the new position",
 
 
   "home.description": "",

@@ -7,8 +7,8 @@ import { find, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
-} from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
-import { EPeopleRegistryState } from '../../+admin/admin-access-control/epeople-registry/epeople-registry.reducers';
+} from '../../access-control/epeople-registry/epeople-registry.actions';
+import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { hasValue, hasNoValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -269,7 +269,7 @@ export class EPersonDataService extends DataService<EPerson> {
         this.editEPerson(ePerson);
       }
     });
-    return '/admin/access-control/epeople';
+    return '/access-control/epeople';
   }
 
   /**
@@ -277,7 +277,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param ePerson New EPerson to edit
    */
   public getEPeoplePageRouterLink(): string {
-    return '/admin/access-control/epeople';
+    return '/access-control/epeople';
   }
 
   /**

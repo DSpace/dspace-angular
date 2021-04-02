@@ -4,25 +4,25 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { EpersonDtoModel } from '../../../core/eperson/models/eperson-dto.model';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import {
   getFirstCompletedRemoteData,
   getAllSucceededRemoteData
-} from '../../../core/shared/operators';
-import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+} from '../../core/shared/operators';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RequestService } from '../../../core/data/request.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { RequestService } from '../../core/data/request.service';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { NoContent } from '../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-epeople-registry',

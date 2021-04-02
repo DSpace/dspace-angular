@@ -17,32 +17,32 @@ import {
   Subscription
 } from 'rxjs';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
-import { getCollectionEditRolesRoute } from '../../../../+collection-page/collection-page-routing-paths';
-import { getCommunityEditRolesRoute } from '../../../../+community-page/community-page-routing-paths';
-import { DSpaceObjectDataService } from '../../../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { getCollectionEditRolesRoute } from '../../../+collection-page/collection-page-routing-paths';
+import { getCommunityEditRolesRoute } from '../../../+community-page/community-page-routing-paths';
+import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Group } from '../../../core/eperson/models/group.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { Community } from '../../../core/shared/community.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData
-} from '../../../../core/shared/operators';
-import { AlertType } from '../../../../shared/alert/aletr-type';
-import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, isNotEmpty, hasValueOperator } from '../../../../shared/empty.util';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import { NoContent } from '../../../../core/shared/NoContent.model';
+} from '../../../core/shared/operators';
+import { AlertType } from '../../../shared/alert/aletr-type';
+import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+import { hasValue, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
 
 @Component({

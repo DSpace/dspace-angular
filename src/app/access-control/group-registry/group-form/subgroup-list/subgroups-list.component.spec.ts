@@ -15,25 +15,25 @@ import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, BehaviorSubject } from 'rxjs';
-import { RestResponse } from '../../../../../core/cache/response.models';
-import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { Group } from '../../../../../core/eperson/models/group.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../../../shared/testing/group-mock';
+import { RestResponse } from '../../../../core/cache/response.models';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { Group } from '../../../../core/eperson/models/group.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
 import { SubgroupsListComponent } from './subgroups-list.component';
 import {
   createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject
-} from '../../../../../shared/remote-data.utils';
-import { RouterMock } from '../../../../../shared/mocks/router.mock';
-import { getMockFormBuilderService } from '../../../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
+} from '../../../../shared/remote-data.utils';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { map } from 'rxjs/operators';
 
 describe('SubgroupsListComponent', () => {
@@ -70,7 +70,7 @@ describe('SubgroupsListComponent', () => {
         );
       },
       getGroupEditPageRouterLink(group: Group): string {
-        return '/admin/access-control/groups/' + group.id;
+        return '/access-control/groups/' + group.id;
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {

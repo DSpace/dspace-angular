@@ -74,3 +74,9 @@ export const INFO_MODULE_PATH = 'info';
 export function getInfoModulePath() {
   return `/${INFO_MODULE_PATH}`;
 }
+
+export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
+
+export function getAccessControlModuleRoute() {
+  return `/${ACCESS_CONTROL_MODULE_PATH}`;
+}
