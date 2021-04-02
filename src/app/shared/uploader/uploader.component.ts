@@ -1,16 +1,29 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
 import { uniqueId } from 'lodash';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { UploaderOptions } from './uploader-options.model';
 import { hasValue, isNotEmpty, isUndefined } from '../empty.util';
 import { UploaderService } from './uploader.service';
 import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../core/xsrf/xsrf.interceptor';
+import {
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+  XSRF_COOKIE
+} from '../../core/xsrf/xsrf.interceptor';
 import { CookieService } from '../../core/services/cookie.service';
 
 @Component({
@@ -133,6 +146,12 @@ export class UploaderComponent {
       this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
+
+      // Move page target to the uploader
+      const config: ScrollToConfigOptions = {
+        target: this.uploaderId
+      };
+      this.scrollToService.scrollTo(config);
     };
     if (hasValue(this.uploadProperties)) {
       this.uploader.onBuildItemForm = (item, form) => {
