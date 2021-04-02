@@ -4,7 +4,7 @@ import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.co
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { GROUP_EDIT_PATH } from './access-control-routing-paths';
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
