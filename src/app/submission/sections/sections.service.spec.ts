@@ -1,4 +1,4 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -17,8 +17,7 @@ import { SectionsService } from './sections.service';
 import {
   mockSectionsData,
   mockSectionsErrors,
-  mockSubmissionState,
-  mockSubmissionStateWithoutUpload
+  mockSubmissionState
 } from '../../shared/mocks/submission.mock';
 import {
   DisableSectionAction,
@@ -28,7 +27,11 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
+import {
+  FormAddError,
+  FormClearErrorsAction,
+  FormRemoveErrorAction
+} from '../../shared/form/form.actions';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { SubmissionSectionError } from '../objects/submission-objects.reducer';
@@ -49,7 +52,6 @@ describe('SectionsService test suite', () => {
   const sectionErrors: any = parseSectionErrors(mockSectionsErrors);
   const sectionData: any = mockSectionsData;
   const submissionState: any = Object.assign({}, mockSubmissionState[submissionId]);
-  const submissionStateWithoutUpload: any = Object.assign({}, mockSubmissionStateWithoutUpload[submissionId]);
   const sectionState: any = Object.assign({}, mockSubmissionState['826'].sections[sectionId]);
 
   const store: any = jasmine.createSpyObj('store', {
@@ -309,28 +311,6 @@ describe('SectionsService test suite', () => {
       });
 
       expect(service.isSectionAvailable(submissionId, 'test')).toBeObservable(expected);
-    });
-  });
-
-  describe('isSectionTypeAvailable', () => {
-    it('should return an observable of true when section is available', () => {
-      store.select.and.returnValue(observableOf(submissionState));
-
-      const expected = cold('(b|)', {
-        b: true
-      });
-
-      expect(service.isSectionTypeAvailable(submissionId, SectionsType.Upload)).toBeObservable(expected);
-    });
-
-    it('should return an observable of false when section is not available', () => {
-      store.select.and.returnValue(observableOf(submissionStateWithoutUpload));
-
-      const expected = cold('(b|)', {
-        b: false
-      });
-
-      expect(service.isSectionAvailable(submissionId, SectionsType.Upload)).toBeObservable(expected);
     });
   });
 
