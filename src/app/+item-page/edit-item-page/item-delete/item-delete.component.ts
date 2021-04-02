@@ -112,7 +112,7 @@ export class ItemDeleteComponent
     super.ngOnInit();
     this.url = this.router.url;
 
-    const label = this.item.firstMetadataValue('relationship.type');
+    const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
       this.types$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),

@@ -21,7 +21,7 @@ export class ItemMetadataRepresentation extends Item implements MetadataRepresen
    * The type of item this item can be represented as
    */
   get itemType(): string {
-    return this.firstMetadataValue('relationship.type');
+    return this.firstMetadataValue('dspace.entity.type');
   }
 
   /**
