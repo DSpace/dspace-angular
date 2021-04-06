@@ -3037,8 +3037,13 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.score.DESC": "Relevance",
+  "sorting.score.ASC": "Relevance Ascending",
 
+  "sorting.score.DESC": "Relevance Descending",
+
+  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+
+  "sorting.dc.date.issued.DESC": "Date Issued Descending",
 
 
   "statistics.title": "Statistics",
