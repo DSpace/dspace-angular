@@ -40,12 +40,14 @@ const pagination: PaginationComponentOptions = new PaginationComponentOptions();
 pagination.id = 'search-results-pagination';
 pagination.currentPage = 1;
 pagination.pageSize = 10;
+const sortOption = { name: 'score', metadata: null };
 const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
 const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
   search: mockResults,
   getSearchLink: '/search',
-  getScopes: observableOf(['test-scope'])
+  getScopes: observableOf(['test-scope']),
+  getSearchConfigurationFor: createSuccessfulRemoteDataObject$({ sortOptions: [sortOption]})
 });
 const configurationParam = 'default';
 const queryParam = 'test query';
@@ -178,6 +180,26 @@ describe('SearchComponent', () => {
 
     it('should trigger the openSidebar function', () => {
       expect(comp.openSidebar).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('when stable', () => {
+
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should have initialized the sortOptions$ observable', (done) => {
+
+      comp.sortOptions$.subscribe((sortOptions) => {
+
+        expect(sortOptions.length).toEqual(2);
+        expect(sortOptions[0]).toEqual(new SortOptions('score', SortDirection.ASC));
+        expect(sortOptions[1]).toEqual(new SortOptions('score', SortDirection.DESC));
+        done();
+      });
+
     });
 
   });
