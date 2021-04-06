@@ -7,8 +7,8 @@ import {
   OnInit
 } from '@angular/core';
 
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { map, switchMap, tap, } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subject, Subscription } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
@@ -19,7 +19,7 @@ import { PaginatedSearchOptions } from '../shared/search/paginated-search-option
 import { SearchService } from '../core/shared/search/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
-import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { RoleType } from '../core/roles/role-types';
@@ -29,6 +29,8 @@ import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { SearchConfig } from '../core/shared/search/search-filters/search-config.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -70,6 +72,11 @@ export class MyDSpacePageComponent implements OnInit {
    * The current paginated search options
    */
   searchOptions$: Observable<PaginatedSearchOptions>;
+
+  /**
+   * The current available sort options
+   */
+  sortOptions$: Observable<SortOptions[]>;
 
   /**
    * The current relevant scopes
@@ -150,6 +157,27 @@ export class MyDSpacePageComponent implements OnInit {
           }
         })
       );
+
+    this.sortOptions$ = this.context$.pipe(
+      switchMap((context) => this.service.getSearchConfigurationFor(null, context)),
+      getFirstSucceededRemoteDataPayload(),
+      map((searchConfig: SearchConfig) => {
+        const sortOptions = [];
+        searchConfig.sortOptions.forEach(sortOption => {
+          sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
+          sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
+        });
+        return sortOptions;
+      }));
+
+    combineLatest([
+      this.sortOptions$,
+      this.searchConfigService.paginatedSearchOptions
+    ]).pipe(take(1))
+      .subscribe(([sortOptions, searchOptions]) => {
+        const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, { sort: sortOptions[0]});
+        this.searchConfigService.paginatedSearchOptions.next(updateValue);
+    });
 
   }
 

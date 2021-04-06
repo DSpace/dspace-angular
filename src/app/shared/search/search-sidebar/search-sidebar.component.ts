@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { Observable } from 'rxjs';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 /**
  * This component renders a simple item page.
@@ -44,6 +46,16 @@ export class SearchSidebarComponent {
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
+
+  /**
+   * The configuration for the current paginated search results
+   */
+  @Input() searchOptions: PaginatedSearchOptions;
+
+  /**
+   * All sort options that are shown in the settings
+   */
+  @Input() sortOptions: SortOptions[];
 
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.

@@ -162,6 +162,7 @@ import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
+import { SearchConfig } from './shared/search/search-filters/search-config.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -342,6 +343,7 @@ export const models =
     Registration,
     UsageReport,
     Root,
+    SearchConfig
   ];
 
 @NgModule({
