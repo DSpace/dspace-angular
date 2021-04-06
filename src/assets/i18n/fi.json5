@@ -4684,7 +4684,7 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Rahoitus",
   
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
-  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Ylemmän tason organisaatioyksikkö",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Ylempi organisaatioyksikkö",
   
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Vaihda valikon tilaa",
