@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { LogoutPageComponent } from './logout-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { ThemedLogoutPageComponent } from './themed-logout-page.component';
 
 @NgModule({
   imports: [
@@ -10,7 +9,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
       {
         canActivate: [AuthenticatedGuard],
         path: '',
-        component: LogoutPageComponent,
+        component: ThemedLogoutPageComponent,
         data: { title: 'logout.title' }
       }
     ])

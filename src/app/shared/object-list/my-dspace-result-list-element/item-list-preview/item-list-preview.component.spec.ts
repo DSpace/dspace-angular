@@ -57,7 +57,7 @@ const mockItemWithEntityType: Item = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'relationship.type': [
+    'dspace.entity.type': [
       {
         language: null,
         value: 'Publication'

@@ -10,6 +10,11 @@ import { KlaroService } from '../shared/cookies/klaro.service';
 export class FooterComponent {
   dateObj: number = Date.now();
 
+  /**
+   * A boolean representing if to show or not the top footer container
+   */
+  showTopFooter = false;
+
   constructor(@Optional() private cookies: KlaroService) {
   }
 

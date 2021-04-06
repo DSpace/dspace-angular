@@ -8,6 +8,8 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { LANG_COOKIE, LANG_ORIGIN, LocaleService } from './locale.service';
 import { AuthService } from '../auth/auth.service';
 import { NativeWindowRef } from '../services/window.service';
+import { RouteService } from '../services/route.service';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;
@@ -18,6 +20,7 @@ describe('LocaleService test suite', () => {
   let spyOnGet;
   let spyOnSet;
   let authService;
+  let routeService;
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
@@ -38,7 +41,8 @@ describe('LocaleService test suite', () => {
       ],
       providers: [
         { provide: CookieService, useValue: new CookieServiceMock() },
-        { provide: AuthService, userValue: authService }
+        { provide: AuthService, userValue: authService },
+        { provide: RouteService, useValue: routeServiceStub },
       ]
     });
   }));
@@ -46,8 +50,9 @@ describe('LocaleService test suite', () => {
   beforeEach(() => {
     cookieService = TestBed.inject(CookieService);
     translateService = TestBed.inject(TranslateService);
+    routeService = TestBed.inject(RouteService);
     window = new NativeWindowRef();
-    service = new LocaleService(window, cookieService, translateService, authService);
+    service = new LocaleService(window, cookieService, translateService, authService, routeService);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');

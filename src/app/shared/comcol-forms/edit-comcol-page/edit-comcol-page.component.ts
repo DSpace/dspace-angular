@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { isNotEmpty } from '../../empty.util';
-import { first, map } from 'rxjs/operators';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 /**
@@ -43,14 +45,11 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
     protected router: Router,
     protected route: ActivatedRoute
   ) {
-    this.router.events.subscribe(() => {
-      this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
-      this.hideReturnButton = this.route.routeConfig.children
-        .find((child: any) => child.path === this.currentPage).data.hideReturnButton;
-    });
+    this.router.events.subscribe(() => this.initPageParamsByRoute());
   }
 
   ngOnInit(): void {
+    this.initPageParamsByRoute();
     this.pages = this.route.routeConfig.children
       .map((child: any) => child.path)
       .filter((path: string) => isNotEmpty(path)); // ignore reroutes
@@ -64,5 +63,14 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
    */
   getPageUrl(dso: TDomain): string {
     return this.router.url;
+  }
+
+  /**
+   * Set page params depending on the route
+   */
+  initPageParamsByRoute() {
+    this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
+    this.hideReturnButton = this.route.routeConfig.children
+      .find((child: any) => child.path === this.currentPage).data.hideReturnButton;
   }
 }

@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-12">
           <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
-            <button class="btn btn-outline-primary" id="paginationControls" ngbDropdownToggle><i class="fas fa-cog" aria-hidden="true"></i></button>
+            <button class="btn btn-secondary" id="paginationControls" [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" ngbDropdownToggle><i class="fas fa-cog" aria-hidden="true"></i></button>
             <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
               <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
               <button class="dropdown-item page-size-change" *ngFor="let item of paginationConfig?.pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != paginationConfig?.pageSize}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
@@ -29,8 +29,8 @@
         </li>
       </ul>
       <div>
-        <button id="nav-prev" type="button" class="btn btn-outline-secondary float-left" (click)="goPrev()" [disabled]="objects?.payload?.currentPage <= 1"><<</button>
-        <button id="nav-next" type="button" class="btn btn-outline-secondary float-right" (click)="goNext()" [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages">>></button>
+        <button id="nav-prev" type="button" class="btn btn-outline-primary float-left" (click)="goPrev()" [disabled]="objects?.payload?.currentPage <= 1"><i class="fas fa-angle-left"></i> {{'browse.previous.button' |translate}}</button>
+        <button id="nav-next" type="button" class="btn btn-outline-primary float-right" (click)="goNext()" [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages"><i class="fas fa-angle-right"></i> {{'browse.next.button' |translate}}</button>
       </div>
     </div>
   </div>

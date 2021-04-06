@@ -75,7 +75,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    */
   public initializeUpdates(): void {
 
-    const label = this.item.firstMetadataValue('relationship.type');
+    const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(

@@ -153,13 +153,6 @@ describe('ComColFormComponent', () => {
       });
     });
 
-    describe('onCancel', () => {
-      it('should call the back method on the Location service', () => {
-        comp.onCancel();
-        expect(locationStub.back).toHaveBeenCalled();
-      });
-    });
-
     describe('onCompleteItem', () => {
       beforeEach(() => {
         spyOn(comp.finish, 'emit');

@@ -14,6 +14,7 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 
 @Component({
   selector: 'ds-forgot-password-form',
+  styleUrls: ['./forgot-password-form.component.scss'],
   templateUrl: './forgot-password-form.component.html'
 })
 /**

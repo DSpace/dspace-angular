@@ -2,27 +2,27 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ItemPageResolver } from '../+item-page/item-page.resolver';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
-import { ForgotPasswordFormComponent } from './forgot-password-form/forgot-password-form.component';
-import { ForgotEmailComponent } from './forgot-password-email/forgot-email.component';
+import { ThemedForgotPasswordFormComponent } from './forgot-password-form/themed-forgot-password-form.component';
+import { ThemedForgotEmailComponent } from './forgot-password-email/themed-forgot-email.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: '',
-        component: ForgotEmailComponent,
+        component: ThemedForgotEmailComponent,
         data: {title: 'forgot-password.title'},
       },
       {
         path: ':token',
-        component: ForgotPasswordFormComponent,
+        component: ThemedForgotPasswordFormComponent,
         resolve: {registration: RegistrationResolver}
       }
     ])
   ],
   providers: [
     RegistrationResolver,
-    ItemPageResolver
+    ItemPageResolver,
   ]
 })
 /**

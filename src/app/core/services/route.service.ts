@@ -172,6 +172,18 @@ export class RouteService {
     return this.store.pipe(select(historySelector));
   }
 
+  /**
+   * Return the current url retrieved from history
+   */
+  public getCurrentUrl(): Observable<string> {
+    return this.getHistory().pipe(
+      map((history: string[]) => history[history.length - 1] || '')
+    );
+  }
+
+  /**
+   * Return the current url retrieved from history
+   */
   public getPreviousUrl(): Observable<string> {
     return this.getHistory().pipe(
       map((history: string[]) => history[history.length - 2] || '')

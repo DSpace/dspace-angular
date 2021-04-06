@@ -9,4 +9,7 @@ export enum FeatureID {
   WithdrawItem = 'withdrawItem',
   ReinstateItem = 'reinstateItem',
   EPersonRegistration = 'epersonRegistration',
+  CanManageGroups = 'canManageGroups',
+  IsCollectionAdmin = 'isCollectionAdmin',
+  IsCommunityAdmin = 'isCommunityAdmin',
 }

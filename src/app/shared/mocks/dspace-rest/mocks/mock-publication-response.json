@@ -157,7 +157,7 @@
         "place": 0
       }
     ],
-    "relationship.type": [
+    "dspace.entity.type": [
       {
         "value": "Publication",
         "language": null,

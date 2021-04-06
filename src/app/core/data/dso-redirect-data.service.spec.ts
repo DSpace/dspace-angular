@@ -120,7 +120,7 @@ describe('DsoRedirectDataService', () => {
     it('should navigate to entities route with the corresponding entity type', () => {
       remoteData.payload.type = 'item';
       remoteData.payload.metadata =  {
-        'relationship.type': [
+        'dspace.entity.type': [
           {
             language: 'en_US',
             value: 'Publication'

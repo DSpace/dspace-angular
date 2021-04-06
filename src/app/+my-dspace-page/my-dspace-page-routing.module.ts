@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
+import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: '',
-        component: MyDSpacePageComponent,
-        data: { title: 'mydspace.title' },
+        component: ThemedMyDSpacePageComponent,
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'mydspace.title', breadcrumbKey: 'mydspace' },
         canActivate: [
           MyDSpaceGuard
         ]

@@ -16,7 +16,6 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
-  // templateUrl: './search-form.component.html',
   templateUrl: './search-form.component.html'
 })
 
@@ -56,6 +55,11 @@ export class SearchFormComponent {
    * The brand color of the search button
    */
   @Input() brandColor = 'primary';
+
+  /**
+   * The placeholder of the search input
+   */
+  @Input() searchPlaceholder: string;
 
   /**
    * Output the search data on submit

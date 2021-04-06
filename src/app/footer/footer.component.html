@@ -1,21 +1,75 @@
-<footer class="footer">
-    <div class="container-fluid content-container-fluid">
-        <img src="assets/images/dspace-logo.png"/>
-        <p>
-            <a href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
-            {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
-            <a href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
-        </p>
-        <ul class="list-unstyled small d-flex justify-content-center mb-0 text-secondary">
-            <li>
-                <a href="#" (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
-            </li>
-            <li>
-                <a routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
-            </li>
-            <li>
-                <a routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
-            </li>
+<footer class="top-footer  text-lg-start">
+  <!-- Grid container -->
+  <div *ngIf="showTopFooter" class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <h5 class="text-uppercase">Footer Content</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a routerLink="./" class="">Lorem ipsum</a>
+          </li>
+          <li>
+            <a routerLink="./" class="">Ut facilisis</a>
+          </li>
+          <li>
+            <a routerLink="./" class="">Aenean sit</a>
+          </li>
         </ul>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <h5 class="text-uppercase">Footer Content</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a routerLink="./" class="">Suspendisse potenti</a>
+          </li>
+        </ul>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Footer Content</h5>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+          voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      <!--Grid column-->
     </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="footer p-1 d-flex justify-content-center align-items-center text-white">
+    <div class="content-container">
+      <p class="m-0">
+        <a class="text-white" href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
+        <a class="text-white" href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
+      </p>
+      <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
+        <li>
+          <a class="text-white" href="#" (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white" routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white" routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Copyright -->
 </footer>

@@ -30,12 +30,12 @@
   <ds-error *ngIf="collectionsRD?.hasFailed" message="{{'error.collections' | translate}}"></ds-error>
   <ds-loading *ngIf="!collectionsRD || collectionsRD?.isLoading" message="{{'loading.collections' | translate}}"></ds-loading>
   <div *ngVar="(selectedIds$ | async) as selectedIds">
-    <button class="btn btn-outline-secondary collection-cancel float-left" (click)="onCancel()">{{cancelButton | translate}}</button>
     <button class="btn collection-confirm float-right"
             [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
             [disabled]="selectedIds?.length === 0"
             (click)="confirmSelected()">
-      {{confirmButton | translate}}
+      <i class="fas fa-trash"></i> {{confirmButton | translate}}
     </button>
+    <button class="btn btn-outline-secondary collection-cancel float-right mr-1" (click)="onCancel()"><i class="fas fa-times"></i> {{cancelButton | translate}}</button>
   </div>
 </ng-container>

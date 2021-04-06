@@ -26,6 +26,7 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
  */
 @Component({
   selector: 'ds-create-profile',
+  styleUrls: ['./create-profile.component.scss'],
   templateUrl: './create-profile.component.html'
 })
 export class CreateProfileComponent implements OnInit {

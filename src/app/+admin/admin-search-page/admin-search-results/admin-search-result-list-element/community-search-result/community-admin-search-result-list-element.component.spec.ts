@@ -11,6 +11,8 @@ import { CommunityAdminSearchResultListElementComponent } from './community-admi
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { Community } from '../../../../../core/shared/community.model';
 import { getCommunityEditRoute } from '../../../../../+community-page/community-page-routing-paths';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;
@@ -33,7 +35,8 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
         RouterTestingModule.withRoutes([])
       ],
       declarations: [CommunityAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} }],
+      providers: [{ provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock }],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

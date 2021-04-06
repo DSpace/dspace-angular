@@ -36,6 +36,7 @@ import { DOCUMENT } from '@angular/common';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
 import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
+import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 
 @Component({
   selector: 'ds-app',
@@ -73,6 +74,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
     private localeService: LocaleService,
+    private breadcrumbsService: BreadcrumbsService,
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -106,6 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     angulartics2DSpace.startTracking();
 
     metadata.listenForRouteChange();
+    breadcrumbsService.listenForRouteChanges();
 
     if (environment.debug) {
       console.info(environment);

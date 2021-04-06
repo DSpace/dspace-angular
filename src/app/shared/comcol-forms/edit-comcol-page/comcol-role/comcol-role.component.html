@@ -3,13 +3,16 @@
   <div class="card-body d-flex flex-column"
        *ngVar="group$ | async as group">
 
-    <div class="d-flex flex-md-row flex-column">
+    <h5 class="w-100">
+      {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.name' | translate}}
+    </h5>
 
-      <h5 class="w-100 ">
-        {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.name' | translate}}
-      </h5>
+    <div class="mt-2 mb-2">
+      <ds-alert [type]="'alert-info'" >{{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.description' | translate}}</ds-alert>
+    </div>
 
-      <div class="w-100">
+    <div class="d-flex flex-md-row justify-content-between flex-column">
+      <div class="w-100 d-flex align-items-center">
         <ds-loading *ngIf="!(groupRD$ | async)"></ds-loading>
         <div *ngIf="hasNoGroup$ | async">
           {{'comcol-role.edit.no-group' | translate}}
@@ -23,29 +26,26 @@
         </a>
       </div>
 
-      <div class="ml-md-auto pl-md-2 ml-0 pl-0 pt-2">
-        <div *ngIf="hasNoGroup$ | async"
-             class="btn btn-outline-dark create"
+      <div class="flex-shrink-0">
+        <button *ngIf="hasNoGroup$ | async"
+             class="btn btn-primary create"
              (click)="create()">
-          {{'comcol-role.edit.create' | translate}}
-        </div>
-        <div *ngIf="hasAnonymousGroup$ | async"
-             class="btn btn-outline-dark restrict"
+          <i class="fas fa-plus" aria-hidden="true"></i> {{'comcol-role.edit.create' | translate}}
+        </button>
+        <button *ngIf="hasAnonymousGroup$ | async"
+             class="btn btn-primary restrict"
              (click)="create()">
           {{'comcol-role.edit.restrict' | translate}}
-        </div>
-        <div *ngIf="hasCustomGroup$ | async"
-             class="btn btn-outline-dark delete"
+        </button>
+        <button *ngIf="hasCustomGroup$ | async"
+             class="btn btn-danger delete"
              (click)="delete()">
-          {{'comcol-role.edit.delete' | translate}}
-        </div>
+          <i class="fas fa-trash" aria-hidden="true"></i> {{'comcol-role.edit.delete' | translate}}
+        </button>
       </div>
 
     </div>
 
-    <div class="mt-2">
-      {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.description' | translate}}
-    </div>
 
   </div>
 

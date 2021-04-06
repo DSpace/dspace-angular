@@ -14,22 +14,22 @@ export class ProtractorPage {
   }
 
   getCurrentQuery(): promise.Promise<string> {
-    return element(by.css('#search-navbar-container form input')).getAttribute('value');
+    return element(by.css('.navbar-container #search-navbar-container form input')).getAttribute('value');
   }
 
   expandAndFocusSearchBox() {
-    element(by.css('#search-navbar-container form a')).click();
+    element(by.css('.navbar-container #search-navbar-container form a')).click();
   }
 
   setCurrentQuery(query: string) {
-    element(by.css('#search-navbar-container form input[name="query"]')).sendKeys(query);
+    element(by.css('.navbar-container #search-navbar-container form input[name="query"]')).sendKeys(query);
   }
 
   submitNavbarSearchForm() {
-    element(by.css('#search-navbar-container form .submit-icon')).click();
+    element(by.css('.navbar-container #search-navbar-container form .submit-icon')).click();
   }
 
   submitByPressingEnter() {
-    element(by.css('#search-navbar-container form input[name="query"]')).sendKeys(protractor.Key.ENTER);
+    element(by.css('.navbar-container #search-navbar-container form input[name="query"]')).sendKeys(protractor.Key.ENTER);
   }
 }

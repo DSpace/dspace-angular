@@ -2789,9 +2789,9 @@
   // "item.edit.relationships.save-button": "Save",
   "item.edit.relationships.save-button": "Speichern",
   
-  // "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+  // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   // TODO New key - Add a translation
-  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+  "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   
   
   

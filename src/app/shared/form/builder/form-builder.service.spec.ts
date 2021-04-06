@@ -295,6 +295,7 @@ describe('FormBuilderService test suite', () => {
           notRepeatable: false,
           relationshipConfig: undefined,
           submissionId: '1234',
+          isDraggable: true,
           groupFactory: () => {
             return [
               new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })

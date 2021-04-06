@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import {
   FieldUpdate,
   FieldUpdates
@@ -30,7 +30,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
   /**
    * The item to display the edit page for
    */
-  item: Item;
+  @Input() item: Item;
   /**
    * The current values and updates for all this item's fields
    * Should be initialized in the initializeUpdates method of the child component
@@ -63,22 +63,24 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Initialize common properties between item-update components
    */
   ngOnInit(): void {
-    this.itemUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
-      map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
-      map((data: any) => data.dso),
-      tap((rd: RemoteData<Item>) => {
-        this.item = rd.payload;
-      }),
-      switchMap((rd: RemoteData<Item>) => {
-        return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...ITEM_PAGE_LINKS_TO_FOLLOW);
-      }),
-      getAllSucceededRemoteData()
-    ).subscribe((rd: RemoteData<Item>) => {
-      this.item = rd.payload;
-      this.itemPageRoute = getItemPageRoute(this.item);
-      this.postItemInit();
-      this.initializeUpdates();
-    });
+    if (hasValue(this.item)) {
+      this.setItem(this.item);
+    } else {
+      // The item wasn't provided through an input, retrieve it from the route instead.
+      this.itemUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
+        map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
+        map((data: any) => data.dso),
+        tap((rd: RemoteData<Item>) => {
+          this.item = rd.payload;
+        }),
+        switchMap((rd: RemoteData<Item>) => {
+          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...ITEM_PAGE_LINKS_TO_FOLLOW);
+        }),
+        getAllSucceededRemoteData()
+      ).subscribe((rd: RemoteData<Item>) => {
+        this.setItem(rd.payload);
+      });
+    }
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
     this.url = this.router.url;
@@ -94,6 +96,13 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     });
 
     this.initializeNotificationsPrefix();
+    this.initializeUpdates();
+  }
+
+  setItem(item: Item) {
+    this.item = item;
+    this.itemPageRoute = getItemPageRoute(this.item);
+    this.postItemInit();
     this.initializeUpdates();
   }
 

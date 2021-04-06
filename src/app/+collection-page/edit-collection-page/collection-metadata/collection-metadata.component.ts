@@ -7,12 +7,13 @@ import { ItemTemplateDataService } from '../../../core/data/item-template-data.s
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { switchMap, take } from 'rxjs/operators';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
+import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 
 /**
  * Component for editing a collection's metadata
@@ -53,8 +54,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
    */
   initTemplateItem() {
     this.itemTemplateRD$ = this.dsoRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
+      getFirstSucceededRemoteDataPayload(),
       switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid))
     );
   }
@@ -64,19 +64,20 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
    */
   addItemTemplate() {
     const collection$ = this.dsoRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      take(1)
+      getFirstSucceededRemoteDataPayload(),
     );
     const template$ = collection$.pipe(
-      switchMap((collection: Collection) => this.itemTemplateService.create(new Item(), collection.uuid)),
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      take(1)
+      switchMap((collection: Collection) => this.itemTemplateService.create(new Item(), collection.uuid).pipe(
+        getFirstSucceededRemoteDataPayload(),
+      )),
+    );
+    const templateHref$ = collection$.pipe(
+      switchMap((collection) => this.itemTemplateService.getCollectionEndpoint(collection.id)),
     );
 
-    combineLatestObservable(collection$, template$).subscribe(([collection, template]) => {
-      this.router.navigate(['collections', collection.uuid, 'itemtemplate']);
+    combineLatestObservable(collection$, template$, templateHref$).subscribe(([collection, template, templateHref]) => {
+      this.requestService.setStaleByHrefSubstring(templateHref);
+      this.router.navigate([getCollectionItemTemplateRoute(collection.uuid)]);
     });
   }
 
@@ -85,23 +86,30 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
    */
   deleteItemTemplate() {
     const collection$ = this.dsoRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      take(1)
+      getFirstSucceededRemoteDataPayload(),
     );
     const template$ = collection$.pipe(
-      switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid)),
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      take(1)
+      switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid).pipe(
+        getFirstSucceededRemoteDataPayload(),
+      )),
+    );
+    const templateHref$ = collection$.pipe(
+      switchMap((collection) => this.itemTemplateService.getCollectionEndpoint(collection.id)),
     );
 
-    combineLatestObservable(collection$, template$).pipe(
-      switchMap(([collection, template]) => {
-        const success$ = this.itemTemplateService.deleteByCollectionID(template, collection.uuid);
-        this.objectCache.remove(template.self);
-        this.requestService.removeByHrefSubstring(collection.self);
-        return success$;
+    combineLatestObservable(collection$, template$, templateHref$).pipe(
+      switchMap(([collection, template, templateHref]) => {
+        return this.itemTemplateService.deleteByCollectionID(template, collection.uuid).pipe(
+          tap((success: boolean) => {
+            if (success) {
+              this.objectCache.remove(templateHref);
+              this.objectCache.remove(template.self);
+              this.requestService.setStaleByHrefSubstring(template.self);
+              this.requestService.setStaleByHrefSubstring(templateHref);
+              this.requestService.setStaleByHrefSubstring(collection.self);
+            }
+          })
+        );
       })
     ).subscribe((success: boolean) => {
       if (success) {
