@@ -31,7 +31,7 @@ import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/c
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-eperson-form',

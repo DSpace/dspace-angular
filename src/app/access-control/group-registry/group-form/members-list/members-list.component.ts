@@ -23,8 +23,8 @@ import {
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import {EpersonDtoModel} from '../../../../core/eperson/models/eperson-dto.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
  * Keys to keep track of specific subscriptions

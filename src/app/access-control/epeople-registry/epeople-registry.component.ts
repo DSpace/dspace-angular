@@ -20,7 +20,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../core/data/request.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -157,14 +157,14 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           const query: string = data.query;
           const scope: string = data.scope;
           if (query != null && this.currentSearchQuery !== query) {
-            this.router.navigate(this.epersonService.getEPeoplePageRouterLink(), {
+            this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
               queryParamsHandling: 'merge'
             });
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.config.id);
           }
           if (scope != null && this.currentSearchScope !== scope) {
-            this.router.navigate(this.epersonService.getEPeoplePageRouterLink(), {
+            this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
               queryParamsHandling: 'merge'
             });
             this.currentSearchScope = scope;

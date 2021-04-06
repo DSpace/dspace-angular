@@ -18,10 +18,10 @@ import { isNumeric } from 'rxjs/internal-compatibility';
  * Service to manage the pagination of different components
  * The pagination information will be stored in the route based on a paginationID.
  * The following params are used for the different kind of pagination information:
- *    - For the page: p.{paginationID}
- *    - For the page size: rpp.{paginationID}
- *    - For the sort direction: sd.{paginationID}
- *    - For the sort field: sf.{paginationID}
+ *    - For the page: {paginationID}.p
+ *    - For the page size: {paginationID}.rpp
+ *    - For the sort direction: {paginationID}.sd
+ *    - For the sort field: {paginationID}.sf
  */
 export class PaginationService {
 
@@ -145,7 +145,6 @@ export class PaginationService {
       if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams) || isNotEmpty(this.clearParams)) {
         const queryParams = Object.assign({}, this.clearParams, currentParametersWithIdName,
           parametersWithIdName, extraParams);
-        console.log(queryParams, this.clearParams);
         if (retainScrollPosition) {
           this.router.navigate(url, {
             queryParams: queryParams,
@@ -159,7 +158,6 @@ export class PaginationService {
           });
         }
         this.clearParams = {};
-        console.log('postcear', this.clearParams);
       }
     });
   }

@@ -95,7 +95,8 @@ export class SearchFormComponent {
    */
   updateSearch(data: any) {
       const queryParams =  Object.assign({}, data);
-      queryParams[`page.${this.searchConfig.paginationID}`] = 1;
+      const pageParam = this.paginationService.getPageParam(this.searchConfig.paginationID);
+      queryParams[pageParam] = 1;
 
       this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,

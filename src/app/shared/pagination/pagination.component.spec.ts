@@ -127,7 +127,8 @@ describe('Pagination component', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     activatedRouteStub = new MockActivatedRoute();
-    routerStub = new RouterMock();                      hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
+    routerStub = new RouterMock();
+    hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
 
     currentPagination = new BehaviorSubject<PaginationComponentOptions>(pagination);
     currentSort = new BehaviorSubject<SortOptions>(sort);

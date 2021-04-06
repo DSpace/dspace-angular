@@ -186,7 +186,9 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
 
     this.subs.push(search$.pipe(getFirstCompletedRemoteData())
       .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
-        this.list$.next(list);
+        if (hasValue(this.list$)) {
+          this.list$.next(list);
+        }
       })
     );
       });

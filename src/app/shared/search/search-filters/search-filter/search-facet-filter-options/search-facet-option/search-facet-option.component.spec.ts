@@ -140,7 +140,7 @@ describe('SearchFacetOptionComponent', () => {
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockFilterConfig.paramName]: [`${value1},${operator}`, value.value + ',equals'],
-        ['page.page-id']: 1
+        ['page-id.page']: 1
       });
     });
   });
@@ -155,7 +155,7 @@ describe('SearchFacetOptionComponent', () => {
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockAuthorityFilterConfig.paramName]: [value1 + ',equals', `${value2},${operator}`],
-        ['page.page-id']: 1
+        ['page-id.page']: 1
       });
     });
   });

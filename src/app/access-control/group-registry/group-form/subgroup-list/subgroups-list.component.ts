@@ -16,7 +16,7 @@ import {
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
  * Keys to keep track of specific subscriptions

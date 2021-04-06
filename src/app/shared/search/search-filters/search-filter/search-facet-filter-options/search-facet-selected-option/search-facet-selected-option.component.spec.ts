@@ -165,7 +165,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
       (comp as any).updateRemoveParams(selectedValues);
       expect(comp.removeQueryParams).toEqual({
         [mockFilterConfig.paramName]: [value1],
-        ['page.page-id']: 1
+        ['page-id.page']: 1
       });
     });
   });
@@ -181,7 +181,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
       (comp as any).updateRemoveParams(selectedAuthorityValues);
       expect(comp.removeQueryParams).toEqual({
         [mockAuthorityFilterConfig.paramName]: [`${value1},${operator}`],
-        ['page.page-id']: 1
+        ['page-id.page']: 1
       });
     });
   });

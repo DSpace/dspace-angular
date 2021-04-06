@@ -20,6 +20,6 @@ export class PaginationServiceStub {
   updateRouteWithUrl = jasmine.createSpy('updateRouteWithUrl');
   clearPagination = jasmine.createSpy('clearPagination');
   getRouteParameterValue = jasmine.createSpy('getRouteParameterValue').and.returnValue(observableOf(''));
-  getPageParam = jasmine.createSpy('getPageParam').and.returnValue(`page.${this.pagination.id}`);
+  getPageParam = jasmine.createSpy('getPageParam').and.returnValue(`${this.pagination.id}.page`);
 
 }

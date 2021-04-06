@@ -26,10 +26,8 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;

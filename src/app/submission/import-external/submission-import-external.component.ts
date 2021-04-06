@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
-import { filter, mergeMap, switchMap, take } from 'rxjs/operators';
+import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ExternalSourceService } from '../../core/data/external-source.service';
@@ -45,7 +45,10 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    */
   public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public reload$: BehaviorSubject<{query: string, source: string}> = new BehaviorSubject<{query: string; source: string}>({query: '', source: ''});
+  public reload$: BehaviorSubject<{ query: string, source: string }> = new BehaviorSubject<{ query: string; source: string }>({
+    query: '',
+    source: ''
+  });
   /**
    * Configuration to use for the import buttons
    */
@@ -83,6 +86,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
+  private retrieveExternalSourcesSub: Subscription;
+
   /**
    * Initialize the component variables.
    * @param {SearchConfigurationService} searchConfigService
@@ -108,7 +113,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.routeData = { sourceId: '', query: '' };
+    this.routeData = {sourceId: '', query: ''};
     this.importConfig = {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
     };
@@ -133,10 +138,13 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.router.navigate(
       [],
       {
-        queryParams: { source: event.sourceId, query: event.query },
+        queryParams: {source: event.sourceId, query: event.query},
         replaceUrl: true
       }
-    ).then(() => this.reload$.next({source: event.sourceId, query: event.query}));
+    ).then(() => {
+      this.reload$.next({source: event.sourceId, query: event.query});
+      this.retrieveExternalSources();
+    });
   }
 
   /**
@@ -158,6 +166,10 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+    if (hasValue(this.retrieveExternalSourcesSub)) {
+      this.retrieveExternalSourcesSub.unsubscribe();
+    }
+
   }
 
   /**
@@ -167,22 +179,23 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * @param query The query string to search
    */
   private retrieveExternalSources(): void {
-    this.reload$.pipe(
-      switchMap(
-        (sourceQueryObject: { source: string, query: string }) => {
+    if (hasValue(this.retrieveExternalSourcesSub)) {
+      this.retrieveExternalSourcesSub.unsubscribe();
+    }
+    this.retrieveExternalSourcesSub = this.reload$.pipe(
+      filter((sourceQueryObject: { source: string, query: string }) => isNotEmpty(sourceQueryObject.source) && isNotEmpty(sourceQueryObject.query)),
+      switchMap((sourceQueryObject: { source: string, query: string }) => {
           const source = sourceQueryObject.source;
           const query = sourceQueryObject.query;
-          if (isNotEmpty(source) && isNotEmpty(query)) {
-            this.routeData.sourceId = source;
-            this.routeData.query = query;
-            this.isLoading$.next(true);
-            return this.searchConfigService.paginatedSearchOptions.pipe(
-              filter((searchOptions) => searchOptions.query === query),
-              mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
-                getFinishedRemoteData(),
-              )),
-            );
-          }
+          this.routeData.sourceId = source;
+          this.routeData.query = query;
+          return this.searchConfigService.paginatedSearchOptions.pipe(
+            tap((v) => this.isLoading$.next(true)),
+            filter((searchOptions) => searchOptions.query === query),
+            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+              getFinishedRemoteData(),
+            )),
+          );
         }
       ),
     ).subscribe((rdData) => {

@@ -126,7 +126,7 @@ describe('SearchFacetRangeOptionComponent', () => {
       expect(comp.changeQueryParams).toEqual({
         [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: ['50'],
         [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: ['60'],
-        ['page.page-id']: 1
+        ['page-id.page']: 1
       });
     });
   });

@@ -26,11 +26,8 @@ import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../core/data/request.models';
-import { PaginationService } from '../../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
