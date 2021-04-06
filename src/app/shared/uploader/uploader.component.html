@@ -1,5 +1,5 @@
 <div ng2FileDrop
-     *ngIf="enableDragOverDocument"
+     *ngIf="(isOverDocumentDropZone | async)"
      class="ds-document-drop-zone position-fixed h-100 w-100"
      [class.ds-document-drop-zone-active]="(isOverDocumentDropZone | async)"
      [uploader]="uploader"
