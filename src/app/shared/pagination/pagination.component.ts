@@ -56,6 +56,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Input() sortOptions: SortOptions;
 
   /**
+   * Optional array of SortOptions to support field selection from the pagination gear
+   */
+  @Input() sortOptionsMulti: SortOptions[];
+
+  /**
    * An event fired when the page is changed.
    * Event's payload equals to the newly selected page.
    */
