@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -19,11 +19,13 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload
+} from '../shared/operators';
 import { environment } from '../../../environments/environment';
 import { RootDataService } from '../data/root-data.service';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { getBitstreamDownloadRoute, getBitstreamModuleRoute } from '../../app-routing-paths';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 
 @Injectable()
 export class MetadataService {
