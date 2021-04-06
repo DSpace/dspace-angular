@@ -18,6 +18,9 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { storeModuleConfig } from '../../app.reducer';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -45,6 +48,14 @@ describe('BrowseByComponent', () => {
   ];
   const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
+  const paginationConfig = Object.assign(new PaginationComponentOptions(), {
+    id: 'test-pagination',
+    currentPage: 1,
+    pageSizeOptions: [5, 10, 15, 20],
+    pageSize: 15
+  });
+  const paginationService = new PaginationServiceStub(paginationConfig);
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -63,7 +74,9 @@ describe('BrowseByComponent', () => {
         BrowserAnimationsModule
       ],
       declarations: [],
-      providers: [],
+      providers: [
+        {provide: PaginationService, useValue: paginationService}
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -95,12 +108,8 @@ describe('BrowseByComponent', () => {
     beforeEach(() => {
       comp.enableArrows = true;
       comp.objects$ = mockItemsRD$;
-      comp.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-        id: 'test-pagination',
-        currentPage: 1,
-        pageSizeOptions: [5, 10, 15, 20],
-        pageSize: 15
-      });
+
+      comp.paginationConfig = paginationConfig;
       comp.sortConfig = Object.assign(new SortOptions('dc.title', SortDirection.ASC));
       fixture.detectChanges();
     });
@@ -136,8 +145,8 @@ describe('BrowseByComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter', () => {
-        expect(comp.pageSizeChange.emit).toHaveBeenCalled();
+      it('should call the updateRoute method from the paginationService', () => {
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {pageSize: paginationConfig.pageSizeOptions[0]});
       });
     });
 
@@ -148,8 +157,8 @@ describe('BrowseByComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a signal to the EventEmitter', () => {
-        expect(comp.sortDirectionChange.emit).toHaveBeenCalled();
+      it('should call the updateRoute method from the paginationService', () => {
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {sortDirection: 'ASC'});
       });
     });
   });

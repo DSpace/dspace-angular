@@ -17,6 +17,7 @@ import { PaginatedSearchOptions } from '../../search/paginated-search-options.mo
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValueOperator } from '../../empty.util';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
 
 @Component({
@@ -81,7 +82,7 @@ export class ItemVersionsComponent implements OnInit {
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(),{
-    id: 'item-versions-options',
+    id: 'ivo',
     currentPage: 1,
     pageSize: this.pageSize
   });
@@ -100,7 +101,9 @@ export class ItemVersionsComponent implements OnInit {
     [itemId: string]: string
   }>;
 
-  constructor(private versionHistoryService: VersionHistoryDataService) {
+  constructor(private versionHistoryService: VersionHistoryDataService,
+              private paginationService: PaginationService
+              ) {
   }
 
   /**
@@ -119,10 +122,11 @@ export class ItemVersionsComponent implements OnInit {
       getRemoteDataPayload(),
       hasValueOperator(),
     );
-    this.versionsRD$ = observableCombineLatest(versionHistory$, this.currentPage$).pipe(
-      switchMap(([versionHistory, page]: [VersionHistory, number]) =>
+    const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
+    this.versionsRD$ = observableCombineLatest(versionHistory$, currentPagination).pipe(
+      switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) =>
         this.versionHistoryService.getVersions(versionHistory.id,
-          new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })}),
+          new PaginatedSearchOptions({pagination: Object.assign({}, options, { currentPage: options.currentPage })}),
           true, true, followLink('item'), followLink('eperson')))
     );
     this.hasEpersons$ = this.versionsRD$.pipe(
@@ -143,13 +147,9 @@ export class ItemVersionsComponent implements OnInit {
     );
   }
 
-  /**
-   * Update the current page
-   * @param page
-   */
-  switchPage(page: number) {
-    this.options.currentPage = page;
-    this.currentPage$.next(page);
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.options.id);
   }
+
 
 }

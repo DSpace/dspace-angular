@@ -9,6 +9,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { FacetValue } from '../../../../facet-value.model';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -58,7 +59,8 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
-              protected router: Router
+              protected router: Router,
+              protected paginationService: PaginationService
   ) {
   }
 
@@ -88,14 +90,14 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    * @param {string[]} selectedValues The values that are currently selected for this filter
    */
   private updateRemoveParams(selectedValues: FacetValue[]): void {
+    const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.removeQueryParams = {
       [this.filterConfig.paramName]: selectedValues
         .filter((facetValue: FacetValue) => facetValue.label !== this.selectedValue.label)
         .map((facetValue: FacetValue) => this.getFacetValue(facetValue)),
-      page: 1
+      [page]: 1
     };
   }
-
   /**
    * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
    * Retrieve facet value related to facet type

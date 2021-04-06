@@ -8,8 +8,7 @@
                            [paginationOptions]="originalOptions"
                            [pageInfoState]="originals"
                            [collectionSize]="originals?.totalElements"
-                           [disableRouteParameterUpdate]="true"
-                           (pageChange)="switchOriginalPage($event)">
+                           [retainScrollPosition]="true">
 
 
                 <div class="file-section row" *ngFor="let file of originals?.page;">
@@ -51,8 +50,7 @@
                            [paginationOptions]="licenseOptions"
                            [pageInfoState]="licenses"
                            [collectionSize]="licenses?.totalElements"
-                           [disableRouteParameterUpdate]="true"
-                           (pageChange)="switchLicensePage($event)">
+                           [retainScrollPosition]="true">
 
 
                 <div class="file-section row" *ngFor="let file of licenses?.page;">

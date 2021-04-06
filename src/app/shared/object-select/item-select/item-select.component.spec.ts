@@ -11,14 +11,19 @@ import { HostWindowService } from '../../host-window.service';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
   let fixture: ComponentFixture<ItemSelectComponent>;
   let objectSelectService: ObjectSelectService;
+  let paginationService;
 
   const mockItemList = [
     Object.assign(new Item(), {
@@ -59,13 +64,18 @@ describe('ItemSelectComponent', () => {
     currentPage: 1
   });
 
+  paginationService = new PaginationServiceStub(mockPaginationOptions);
+
+
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

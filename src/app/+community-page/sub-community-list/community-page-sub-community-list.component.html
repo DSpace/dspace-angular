@@ -5,8 +5,7 @@
       [config]="config"
       [sortConfig]="sortConfig"
       [objects]="subCommunitiesRD"
-      [hideGear]="false"
-      (paginationChange)="onPaginationChange($event)">
+      [hideGear]="false">
     </ds-viewable-collection>
   </div>
   <ds-error *ngIf="subCommunitiesRD?.hasFailed" message="{{'error.sub-communities' | translate}}"></ds-error>

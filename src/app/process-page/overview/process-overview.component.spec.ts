@@ -12,6 +12,12 @@ import { By } from '@angular/platform-browser';
 import { ProcessStatus } from '../processes/process-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -19,6 +25,7 @@ describe('ProcessOverviewComponent', () => {
 
   let processService: ProcessDataService;
   let ePersonService: EPersonDataService;
+  let paginationService;
 
   let processes: Process[];
   let ePerson: EPerson;
@@ -69,6 +76,8 @@ describe('ProcessOverviewComponent', () => {
     ePersonService = jasmine.createSpyObj('ePersonService', {
       findById: createSuccessfulRemoteDataObject$(ePerson)
     });
+
+    paginationService = new PaginationServiceStub();
   }
 
   beforeEach(waitForAsync(() => {
@@ -78,7 +87,8 @@ describe('ProcessOverviewComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ProcessDataService, useValue: processService },
-        { provide: EPersonDataService, useValue: ePersonService }
+        { provide: EPersonDataService, useValue: ePersonService },
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -141,18 +151,6 @@ describe('ProcessOverviewComponent', () => {
         const el = rowElement.query(By.css('td:nth-child(6)')).nativeElement;
         expect(el.textContent).toContain(processes[index].processStatus);
       });
-    });
-  });
-
-  describe('onPageChange', () => {
-    const toPage = 2;
-
-    beforeEach(() => {
-      component.onPageChange(toPage);
-    });
-
-    it('should call a new findAll with the corresponding page', () => {
-      expect(processService.findAll).toHaveBeenCalledWith(jasmine.objectContaining({ currentPage: toPage }));
     });
   });
 });

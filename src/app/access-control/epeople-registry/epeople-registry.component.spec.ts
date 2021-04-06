@@ -25,6 +25,8 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { RouterStub } from '../../shared/testing/router.stub';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -36,6 +38,8 @@ describe('EPeopleRegistryComponent', () => {
   let ePersonDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
   let modalService;
+
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -115,6 +119,8 @@ describe('EPeopleRegistryComponent', () => {
     });
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
+
+    paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -131,7 +137,8 @@ describe('EPeopleRegistryComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterStub() },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

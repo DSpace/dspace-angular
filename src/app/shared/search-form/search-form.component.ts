@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { isNotEmpty } from '../empty.util';
 import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 
 /**
  * This component renders a simple item page.
@@ -64,7 +66,10 @@ export class SearchFormComponent {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
-  constructor(private router: Router, private searchService: SearchService) {
+  constructor(private router: Router, private searchService: SearchService,
+              private paginationService: PaginationService,
+              private searchConfig: SearchConfigurationService
+              ) {
   }
 
   /**
@@ -89,10 +94,15 @@ export class SearchFormComponent {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-    this.router.navigate(this.getSearchLinkParts(), {
-      queryParams: Object.assign({}, { page: 1 }, data),
+      const queryParams =  Object.assign({}, data);
+      const pageParam = this.paginationService.getPageParam(this.searchConfig.paginationID);
+      queryParams[pageParam] = 1;
+
+      this.router.navigate(this.getSearchLinkParts(), {
+      queryParams: queryParams,
       queryParamsHandling: 'merge'
     });
+    this.paginationService.updateRouteWithUrl(this.searchConfig.paginationID, this.getSearchLinkParts(), { page: 1 }, data);
   }
 
   /**

@@ -9,6 +9,8 @@ import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { PaginationService } from '../core/pagination/pagination.service';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;
@@ -34,12 +36,13 @@ describe('MyDSpaceConfigurationService', () => {
     getRouteDataValue: observableOf({})
   });
 
+  const paginationService = new PaginationServiceStub();
   const activatedRoute: any = new ActivatedRouteStub();
 
   const roleService: any = new RoleServiceMock();
 
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, activatedRoute);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute);
   });
 
   describe('when the scope is called', () => {
@@ -102,25 +105,19 @@ describe('MyDSpaceConfigurationService', () => {
 
   describe('when getCurrentSort is called', () => {
     beforeEach(() => {
-      service.getCurrentSort({} as any);
+      service.getCurrentSort('page-id', defaults.sort);
     });
-    it('should call getQueryParameterValue on the routeService with parameter name \'sortDirection\'', () => {
-      expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('sortDirection');
-    });
-    it('should call getQueryParameterValue on the routeService with parameter name \'sortField\'', () => {
-      expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('sortField');
+    it('should call getCurrentSort on the paginationService with the provided id and sort options', () => {
+      expect((service as any).paginationService.getCurrentSort).toHaveBeenCalledWith('page-id', defaults.sort);
     });
   });
 
   describe('when getCurrentPagination is called', () => {
     beforeEach(() => {
-      service.getCurrentPagination({ currentPage: 1, pageSize: 10 } as any);
+      service.getCurrentPagination('page-id', defaults.pagination);
     });
-    it('should call getQueryParameterValue on the routeService with parameter name \'page\'', () => {
-      expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('page');
-    });
-    it('should call getQueryParameterValue on the routeService with parameter name \'pageSize\'', () => {
-      expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('pageSize');
+    it('should call getCurrentPagination on the paginationService with the provided id and sort options', () => {
+      expect((service as any).paginationService.getCurrentPagination).toHaveBeenCalledWith('page-id', defaults.pagination);
     });
   });
 
@@ -152,7 +149,7 @@ describe('MyDSpaceConfigurationService', () => {
 
     describe('when subscribeToPaginatedSearchOptions is called', () => {
       beforeEach(() => {
-        (service as any).subscribeToPaginatedSearchOptions(defaults);
+        (service as any).subscribeToPaginatedSearchOptions('id', defaults);
       });
       it('should call all getters it needs', () => {
         expect(service.getCurrentPagination).toHaveBeenCalled();

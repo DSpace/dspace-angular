@@ -20,6 +20,7 @@ import { EPersonDataService } from '../../../../core/eperson/eperson-data.servic
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { fadeInOut } from '../../../animations/fade';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 export interface SearchEvent {
   scope: string;
@@ -93,13 +94,16 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
+  private pageConfigSub: Subscription;
+
   /**
    * Initialize instance variables and inject the properly DataService
    *
    * @param {DSONameService} dsoNameService
    * @param {Injector} parentInjector
    */
-  constructor(public dsoNameService: DSONameService, private parentInjector: Injector) {
+  constructor(public dsoNameService: DSONameService, private parentInjector: Injector,
+              private paginationService: PaginationService) {
   }
 
   /**
@@ -112,14 +116,14 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
       providers: [],
       parent: this.parentInjector
     }).get(provider);
-    this.paginationOptions.id = uniqueId('eperson-group-list-pagination');
+    this.paginationOptions.id = uniqueId('egl');
     this.paginationOptions.pageSize = 5;
 
     if (this.initSelected) {
       this.entrySelectedId.next(this.initSelected);
     }
 
-    this.updateList(this.paginationOptions, this.currentSearchScope, this.currentSearchQuery);
+    this.updateList(this.currentSearchScope, this.currentSearchQuery);
   }
 
   /**
@@ -151,13 +155,6 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Method called on page change
-   */
-  onPageChange(page: number): void {
-    this.paginationOptions.currentPage = page;
-    this.updateList(this.paginationOptions, this.currentSearchScope, this.currentSearchQuery);
-  }
 
   /**
    * Method called on search
@@ -165,17 +162,22 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   onSearch(searchEvent: SearchEvent) {
     this.currentSearchQuery = searchEvent.query;
     this.currentSearchScope = searchEvent.scope;
-    this.paginationOptions.currentPage = 1;
-    this.updateList(this.paginationOptions, this.currentSearchScope, this.currentSearchQuery);
+    this.paginationService.resetPage(this.paginationOptions.id);
+    this.updateList(this.currentSearchScope, this.currentSearchQuery);
   }
 
   /**
    * Retrieve a paginate list of eperson or group
    */
-  updateList(config: PaginationComponentOptions, scope: string, query: string): void {
+  updateList(scope: string, query: string): void {
+    if (hasValue(this.pageConfigSub)) {
+      this.pageConfigSub.unsubscribe();
+    }
+    this.pageConfigSub = this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
+      .subscribe((paginationOptions) => {
     const options: FindListOptions = Object.assign({}, new FindListOptions(), {
-      elementsPerPage: config.pageSize,
-      currentPage: config.currentPage
+          elementsPerPage: paginationOptions.pageSize,
+          currentPage: paginationOptions.currentPage
     });
 
     const search$: Observable<RemoteData<PaginatedList<DSpaceObject>>> = this.isListOfEPerson ?
@@ -184,9 +186,12 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
 
     this.subs.push(search$.pipe(getFirstCompletedRemoteData())
       .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
-        this.list$.next(list);
+        if (hasValue(this.list$)) {
+          this.list$.next(list);
+        }
       })
     );
+      });
   }
 
   /**
@@ -197,6 +202,8 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+    this.paginationService.clearPagination(this.paginationOptions.id);
   }
+
 
 }

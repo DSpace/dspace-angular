@@ -18,13 +18,13 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
-  getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllCompletedRemoteData
+  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import {EpersonDtoModel} from '../../../../core/eperson/models/eperson-dto.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -60,7 +60,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of EPeople that are result of EPeople search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'search-members-list-pagination',
+    id: 'sml',
     pageSize: 5,
     currentPage: 1
   });
@@ -68,7 +68,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of EPerson Membes of active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'members-list-pagination',
+    id: 'ml',
     pageSize: 5,
     currentPage: 1
   });
@@ -91,11 +91,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
   // current active group being edited
   groupBeingEdited: Group;
 
+  paginationSub: Subscription;
+
+
   constructor(private groupDataService: GroupDataService,
               public ePersonDataService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
+              private paginationService: PaginationService,
               private router: Router) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
@@ -115,23 +119,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Event triggered when the user changes page on search result
-   * @param event
-   */
-  onPageChangeSearch(event) {
-    this.configSearch.currentPage = event;
-    this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
-  }
-
-  /**
-   * Event triggered when the user changes page on EPerson embers of active group
-   * @param event
-   */
-  onPageChange(event) {
-    this.retrieveMembers(event);
-  }
-
-  /**
    * Retrieve the EPersons that are members of the group
    *
    * @param page the number of the page to retrieve
@@ -139,10 +126,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
    */
   private retrieveMembers(page: number) {
     this.unsubFrom(SubKey.MembersDTO);
-    this.subs.set(SubKey.MembersDTO, this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
-      currentPage: page,
-      elementsPerPage: this.config.pageSize
-    }).pipe(
+    this.subs.set(SubKey.MembersDTO,
+      this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+        switchMap((currentPagination) => {
+          return this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
+              currentPage: currentPagination.currentPage,
+              elementsPerPage: currentPagination.pageSize
+            }
+          );
+        }),
       getAllCompletedRemoteData(),
       map((rd: RemoteData<any>) => {
         if (rd.hasFailed) {
@@ -245,26 +237,34 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param data  Contains scope and query param
    */
   search(data: any) {
-    const query: string = data.query;
-    const scope: string = data.scope;
-    if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
-      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
-      this.currentSearchQuery = query;
-      this.configSearch.currentPage = 1;
-    }
-    if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
-      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
-      this.currentSearchScope = scope;
-      this.configSearch.currentPage = 1;
-    }
-    this.searchDone = true;
-
     this.unsubFrom(SubKey.SearchResultsDTO);
     this.subs.set(SubKey.SearchResultsDTO,
-      this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
-        currentPage: this.configSearch.currentPage,
-        elementsPerPage: this.configSearch.pageSize
-      }, false).pipe(
+      this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
+        switchMap((paginationOptions) => {
+
+          const query: string = data.query;
+          const scope: string = data.scope;
+          if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
+            this.router.navigate([], {
+              queryParamsHandling: 'merge'
+            });
+            this.currentSearchQuery = query;
+            this.paginationService.resetPage(this.configSearch.id);
+          }
+          if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
+            this.router.navigate([], {
+              queryParamsHandling: 'merge'
+            });
+            this.currentSearchScope = scope;
+            this.paginationService.resetPage(this.configSearch.id);
+          }
+          this.searchDone = true;
+
+          return this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+            currentPage: paginationOptions.currentPage,
+            elementsPerPage: paginationOptions.pageSize
+          });
+        }),
         getAllCompletedRemoteData(),
         map((rd: RemoteData<any>) => {
           if (rd.hasFailed) {
@@ -300,6 +300,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
     for (const key of this.subs.keys()) {
       this.unsubFrom(key);
     }
+    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.configSearch.id);
   }
 
   /**

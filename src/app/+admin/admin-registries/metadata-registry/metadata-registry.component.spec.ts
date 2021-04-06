@@ -18,11 +18,17 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { RestResponse } from '../../../core/cache/response.models';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
   let registryService: RegistryService;
+  let paginationService;
   const mockSchemasList = [
     {
       id: 1,
@@ -62,6 +68,8 @@ describe('MetadataRegistryComponent', () => {
   };
   /* tslint:enable:no-empty */
 
+  paginationService = new PaginationServiceStub();
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -69,6 +77,7 @@ describe('MetadataRegistryComponent', () => {
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -55,6 +55,7 @@ export function getRequest(transferState: TransferState): any {
       // enableTracing: true,
       useHash: false,
       scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
       preloadingStrategy: NoPreloading
     }),
     StatisticsModule.forRoot(),

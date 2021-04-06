@@ -5,8 +5,7 @@
       [config]="config"
       [sortConfig]="sortConfig"
       [objects]="subCollectionsRD"
-      [hideGear]="false"
-      (paginationChange)="onPaginationChange($event)">
+      [hideGear]="false">
     </ds-viewable-collection>
   </div>
   <ds-error *ngIf="subCollectionsRD?.hasFailed" message="{{'error.sub-collections' | translate}}"></ds-error>

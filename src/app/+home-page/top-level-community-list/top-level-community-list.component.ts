@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -10,6 +10,8 @@ import { Community } from '../../core/shared/community.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { hasValue } from '../../shared/empty.util';
+import { switchMap } from 'rxjs/operators';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 /**
  * this component renders the Top-Level Community list
@@ -36,7 +38,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   /**
    * The pagination id
    */
-  pageId = 'top-level-pagination';
+  pageId = 'tl';
 
   /**
    * The sorting configuration
@@ -48,7 +50,8 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
    */
   currentPageSubscription: Subscription;
 
-  constructor(private cds: CommunityDataService) {
+  constructor(private cds: CommunityDataService,
+              private paginationService: PaginationService) {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
     this.config.pageSize = 5;
@@ -57,31 +60,26 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.updatePage();
+    this.initPage();
   }
 
-  /**
-   * Called when one of the pagination settings is changed
-   * @param event The new pagination data
-   */
-  onPaginationChange(event) {
-    this.config.currentPage = event.pagination.currentPage;
-    this.config.pageSize = event.pagination.pageSize;
-    this.sortConfig.field = event.sort.field;
-    this.sortConfig.direction = event.sort.direction;
-    this.updatePage();
-  }
 
   /**
    * Update the list of top communities
    */
-  updatePage() {
-    this.unsubscribe();
-    this.currentPageSubscription = this.cds.findTop({
-      currentPage: this.config.currentPage,
-      elementsPerPage: this.config.pageSize,
-      sort: { field: this.sortConfig.field, direction: this.sortConfig.direction }
-    }).subscribe((results) => {
+  initPage() {
+    const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
+    const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
+
+    this.currentPageSubscription = observableCombineLatest([pagination$, sort$]).pipe(
+      switchMap(([currentPagination, currentSort]) => {
+        return this.cds.findTop({
+          currentPage: currentPagination.currentPage,
+          elementsPerPage: currentPagination.pageSize,
+          sort: {field: currentSort.field, direction: currentSort.direction}
+        });
+      })
+    ).subscribe((results) => {
       this.communitiesRD$.next(results);
     });
   }
@@ -100,5 +98,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.unsubscribe();
+    this.paginationService.clearPagination(this.config.id);
   }
+
 }

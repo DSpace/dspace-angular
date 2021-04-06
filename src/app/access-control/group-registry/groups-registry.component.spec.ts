@@ -28,6 +28,8 @@ import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock'
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouterMock } from '../../shared/mocks/router.mock';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -39,6 +41,7 @@ describe('GroupRegistryComponent', () => {
 
   let mockGroups;
   let mockEPeople;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     mockGroups = [GroupMock, GroupMock2];
@@ -131,6 +134,7 @@ describe('GroupRegistryComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });
+    paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -149,6 +153,7 @@ describe('GroupRegistryComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
       ],
       schemas: [NO_ERRORS_SCHEMA]

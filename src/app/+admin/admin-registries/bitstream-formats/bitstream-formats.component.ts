@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -12,6 +12,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * This component renders a list of bitstream formats
@@ -20,17 +21,12 @@ import { NoContent } from '../../../core/shared/NoContent.model';
   selector: 'ds-bitstream-formats',
   templateUrl: './bitstream-formats.component.html'
 })
-export class BitstreamFormatsComponent implements OnInit {
+export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
   /**
    * A paginated list of bitstream formats to be shown on the page
    */
   bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
-
-  /**
-   * A BehaviourSubject that keeps track of the pageState used to update the currently displayed bitstreamFormats
-   */
-  pageState: BehaviorSubject<string>;
 
   /**
    * The current pagination configuration for the page used by the FindAll method
@@ -45,15 +41,18 @@ export class BitstreamFormatsComponent implements OnInit {
    * Currently simply renders all bitstream formats
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'registry-bitstreamformats-pagination',
+    id: 'rbp',
     pageSize: 20
   });
 
   constructor(private notificationsService: NotificationsService,
               private router: Router,
               private translateService: TranslateService,
-              private bitstreamFormatService: BitstreamFormatDataService) {
+              private bitstreamFormatService: BitstreamFormatDataService,
+              private paginationService: PaginationService,
+              ) {
   }
+
 
   /**
    * Deletes the currently selected formats from the registry and updates the presented list
@@ -80,10 +79,8 @@ export class BitstreamFormatsComponent implements OnInit {
 
           this.deselectAll();
 
-          this.router.navigate([], {
-            queryParams: Object.assign({}, { page: 1 }),
-            queryParamsHandling: 'merge'
-          });        });
+          this.paginationService.resetPage(this.pageConfig.id);
+        });
       }
     );
   }
@@ -141,31 +138,17 @@ export class BitstreamFormatsComponent implements OnInit {
     });
   }
 
-  /**
-   * When the page is changed, make sure to update the list of bitstreams to match the new page
-   * @param event The page change event
-   */
-  onPageChange(event) {
-    this.config = Object.assign(new FindListOptions(), this.config, {
-      currentPage: event,
-    });
-    this.pageConfig.currentPage = event;
-    this.pageState.next('pageChange');
-  }
-
   ngOnInit(): void {
-    this.pageState = new BehaviorSubject('init');
-    this.bitstreamFormats = this.pageState.pipe(
-      switchMap(() => {
-        return this.updateFormats()
-          ;
-      }));
+
+    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
+      switchMap((findListOptions: FindListOptions) => {
+        return this.bitstreamFormatService.findAll(findListOptions);
+      })
+    );
   }
 
-  /**
-   * Finds all formats based on the current config
-   */
-  private updateFormats() {
-    return this.bitstreamFormatService.findAll(this.config);
+
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.pageConfig.id);
   }
 }
