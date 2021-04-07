@@ -1,6 +1,13 @@
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { hasNoValue, hasValue } from '../empty.util';
 import { Context } from '../../core/shared/context.model';
+import { InjectionToken } from '@angular/core';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+
+export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
+  providedIn: 'root',
+  factory: () => getMetadataRepresentationComponent
+});
 
 export const map = new Map();
 
