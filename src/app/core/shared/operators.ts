@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, find, map, mergeMap, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { debounceTime, filter, find, map, mergeMap, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -15,6 +15,12 @@ import { DSpaceObject } from './dspace-object.model';
 import { getForbiddenRoute, getPageNotFoundRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 import { AuthService } from '../auth/auth.service';
+import { InjectionToken } from '@angular/core';
+
+export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) => (source: Observable<T>) => Observable<T>>('debounceTime', {
+  providedIn: 'root',
+  factory: () => debounceTime
+});
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
