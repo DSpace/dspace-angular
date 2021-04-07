@@ -8,6 +8,7 @@ import { TextComponent } from './text.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { DsDatePipe } from '../../../../pipes/ds-date.pipe';
 
 class TestItem {
   allMetadataValues(key: string): string[] {
@@ -27,7 +28,7 @@ describe('TextComponent', () => {
           useClass: TranslateLoaderMock
         }
       }), BrowserAnimationsModule],
-      declarations: [ TextComponent ]
+      declarations: [ TextComponent, DsDatePipe ]
     })
     .compileComponents();
   }));

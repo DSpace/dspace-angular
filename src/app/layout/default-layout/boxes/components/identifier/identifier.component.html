@@ -1,5 +1,5 @@
 <div class="{{containerStyle}}">
-  <span class="{{labelStyle}}">{{label | translate}}</span>
+  <span *ngIf="!nested" class="{{labelStyle}}">{{label | translate}}</span>
   <div [class]="'d-flex flex-column ' + valueStyle">
     <span *ngFor="let identifier of identifiers">
       <a [target]="target" href="{{identifier.href}}">{{ identifier.text }}</a>

@@ -1,5 +1,5 @@
 <div class="{{containerStyle}}">
-  <span class="{{labelStyle}}">
+  <span  *ngIf="!nested" class="{{labelStyle}}">
     {{label | translate}}
   </span>
   <div [class]="'d-flex flex-column ' + valueStyle">
@@ -19,5 +19,5 @@
 </ng-template>
 
 <ng-template #withoutAuthority let-ref="ref">
-  {{ref.value}}
+  {{normalizeValue(ref.value)}}
 </ng-template>

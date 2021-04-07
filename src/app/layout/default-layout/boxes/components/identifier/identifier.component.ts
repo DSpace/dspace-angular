@@ -40,9 +40,15 @@ export class IdentifierComponent extends RenderingTypeModelComponent implements 
 
   ngOnInit(): void {
     const identifiers = [];
-    this.metadataValues.forEach((metadataValue) => {
+    let itemsToBeRendered = [];
+    if (this.indexToBeRendered >= 0) {
+      itemsToBeRendered.push(this.metadataValues[this.indexToBeRendered]);
+    } else {
+      itemsToBeRendered = [...this.metadataValues];
+    }
+    itemsToBeRendered.forEach((metadataValue) => {
       let identifier: MetadataLinkValue;
-      if ( hasValue(this.subtype) ) {
+      if (hasValue(this.subtype)) {
         identifier = this.composeLink(metadataValue, this.subtype);
       } else {
         // Check if the value is a link (http, https, ftp or ftps)

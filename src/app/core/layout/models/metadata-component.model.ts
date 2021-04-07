@@ -15,7 +15,10 @@ export interface LayoutBitstream {
   metadataField: string;
   metadataValue: string;
 }
-
+export interface MetadataGroup {
+  leading: string;
+  elements: LayoutField[];
+}
 export interface LayoutField {
   metadata?: string;
   bitstream?: LayoutBitstream;
@@ -25,6 +28,7 @@ export interface LayoutField {
   style?: string;
   styleLabel?: string;
   styleValue?: string;
+  metadataGroup?: MetadataGroup;
 }
 
 /**

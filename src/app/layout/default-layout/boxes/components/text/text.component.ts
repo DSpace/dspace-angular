@@ -14,4 +14,5 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
 })
 @MetadataBoxFieldRendering(FieldRendetingType.TEXT)
 export class TextComponent extends RenderingTypeModelComponent {
+
 }

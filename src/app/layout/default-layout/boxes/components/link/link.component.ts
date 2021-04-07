@@ -38,7 +38,13 @@ export class LinkComponent extends RenderingTypeModelComponent implements OnInit
 
   ngOnInit(): void {
     const links = [];
-    this.metadataValues.forEach((metadataValue) => {
+    let itemsToBeRendered = [];
+    if (this.indexToBeRendered >= 0) {
+      itemsToBeRendered.push(this.metadataValues[this.indexToBeRendered]);
+    } else {
+      itemsToBeRendered = [...this.metadataValues];
+    }
+    itemsToBeRendered.forEach((metadataValue) => {
       // If the component has label subtype get the text from translate service
       const linkText = (hasValue(this.subtype) &&
         this.subtype.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.label) : metadataValue;

@@ -1,13 +1,21 @@
 <div class="{{containerStyle}}">
   <span
-    *ngIf="hasLabel"
+    *ngIf="hasLabel && !nested"
     class="{{labelStyle}}">
     {{label | translate}}
   </span>
 
-  <div [class]="'d-flex flex-column ' + valueStyle">
+  <ng-template #metadata>
+    <div  [class]="'d-flex flex-column ' + valueStyle">
     <span *ngFor="let metadataValue of metadataValues" class="txt-value">
-      {{ metadataValue | dsDate }}
+      {{ normalizeValue(metadataValue) | dsDate }}
+    </span>
+    </div>
+  </ng-template>
+
+  <div  *ngIf="indexToBeRendered>=0; else metadata"  [class]="'d-flex flex-column ' + valueStyle">
+    <span *ngFor="let metadataValue of [metadataValues[indexToBeRendered]]" class="txt-value">
+      {{ normalizeValue(metadataValue)  }}
     </span>
   </div>
 

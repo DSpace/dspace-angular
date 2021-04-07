@@ -55,8 +55,14 @@ export class CrisrefComponent extends RenderingTypeModelComponent implements OnI
 
   ngOnInit() {
     const itemMetadata: MetadataValue[] = this.item.allMetadata( this.field.metadata );
-    if (hasValue(itemMetadata)) {
-      this.references = observableFrom(itemMetadata).pipe(
+    let itemsToBeRendered = [];
+    if (this.indexToBeRendered >= 0) {
+      itemsToBeRendered.push(itemMetadata[this.indexToBeRendered]);
+    } else {
+      itemsToBeRendered = [...itemMetadata];
+    }
+    if (hasValue(itemsToBeRendered)) {
+      this.references = observableFrom(itemsToBeRendered).pipe(
         concatMap((metadataValue: MetadataValue) => {
           if (hasValue(metadataValue.authority)) {
             return this.itemService.findById(metadataValue.authority).pipe(

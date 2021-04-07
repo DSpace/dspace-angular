@@ -1,5 +1,5 @@
 <div class="{{containerStyle}}">
-  <span class="{{labelStyle}}">
+  <span *ngIf="!nested" class="{{labelStyle}}">
     {{label | translate}}
   </span>
   <div [class]="'d-flex flex-column ' + valueStyle">

@@ -33,6 +33,8 @@ import { MetricAltmetricComponent } from './default-layout/boxes/components/metr
 import { MetricDimensionsComponent } from './default-layout/boxes/components/metric/metric-dimensions/metric-dimensions.component';
 import { MetricDspacecrisComponent } from './default-layout/boxes/components/metric/metric-dspacecris/metric-dspacecris.component';
 import { MetricGooglescholarComponent } from './default-layout/boxes/components/metric/metric-googlescholar/metric-googlescholar.component';
+import { TableComponent } from './default-layout/boxes/components/table/table.component';
+import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -83,7 +85,9 @@ const ENTRY_COMPONENTS = [
     MetricAltmetricComponent,
     MetricDimensionsComponent,
     MetricDspacecrisComponent,
-    MetricGooglescholarComponent
+    MetricGooglescholarComponent,
+    TableComponent,
+    InlineComponent
   ],
   imports: [
     CommonModule,
