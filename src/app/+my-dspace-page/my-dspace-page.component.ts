@@ -31,6 +31,8 @@ import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { SearchConfig } from '../core/shared/search/search-filters/search-config.model';
+import {RouteService} from '../core/services/route.service';
+import {Router} from '@angular/router';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -116,7 +118,9 @@ export class MyDSpacePageComponent implements OnInit {
   constructor(private service: SearchService,
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService,
+              private routeService: RouteService,
+              private router: Router) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
@@ -158,26 +162,11 @@ export class MyDSpacePageComponent implements OnInit {
         })
       );
 
-    this.sortOptions$ = this.context$.pipe(
-      switchMap((context) => this.service.getSearchConfigurationFor(null, context)),
-      getFirstSucceededRemoteDataPayload(),
-      map((searchConfig: SearchConfig) => {
-        const sortOptions = [];
-        searchConfig.sortOptions.forEach(sortOption => {
-          sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
-          sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
-        });
-        return sortOptions;
-      }));
+    const configuration$ = this.routeService.getRouteParameterValue('configuration');
 
-    combineLatest([
-      this.sortOptions$,
-      this.searchConfigService.paginatedSearchOptions
-    ]).pipe(take(1))
-      .subscribe(([sortOptions, searchOptions]) => {
-        const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, { sort: sortOptions[0]});
-        this.searchConfigService.paginatedSearchOptions.next(updateValue);
-    });
+    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(configuration$, this.service);
+
+    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$, this.router);
 
   }
 

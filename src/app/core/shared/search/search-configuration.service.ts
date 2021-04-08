@@ -1,8 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  merge as observableMerge,
+  Observable,
+  Subscription
+} from 'rxjs';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
@@ -11,9 +18,12 @@ import { RemoteData } from '../../data/remote-data';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
-import { getFirstSucceededRemoteData } from '../operators';
+import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SearchConfig } from './search-filters/search-config.model';
+import { SearchService } from './search.service';
+import { of } from 'rxjs/internal/observable/of';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -207,6 +217,51 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getCurrentFrontendFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
+  }
+
+  /**
+   * Creates an observable of SortOptions[] every time the configuration$ stream emits.
+   * @param configuration$
+   * @param service
+   */
+  getConfigurationSortOptionsObservable(configuration$: Observable<string>, service: SearchService): Observable<SortOptions[]> {
+    return configuration$.pipe(
+      distinctUntilChanged(),
+      switchMap((configuration) => service.getSearchConfigurationFor(null, configuration)),
+      getFirstSucceededRemoteDataPayload(),
+      map((searchConfig: SearchConfig) => {
+        const sortOptions = [];
+        searchConfig.sortOptions.forEach(sortOption => {
+          sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
+          sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
+        });
+        return sortOptions;
+      }));
+  }
+
+  /**
+   * Every time sortOptions change (after a configuration change) it update the navigation with the default sort option
+   * and emit the new paginateSearchOptions value.
+   * @param configuration$
+   * @param service
+   */
+  initializeSortOptionsFromConfiguration(sortOptions$: Observable<SortOptions[]>, router: Router) {
+    const subscription = sortOptions$.pipe(switchMap((sortOptions) => combineLatest([
+      of(sortOptions),
+      this.paginatedSearchOptions.pipe(take(1))
+    ]))).subscribe(([sortOptions, searchOptions]) => {
+      const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, { sort: sortOptions[0]});
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          sortDirection: updateValue.sort.direction,
+          sortField: updateValue.sort.field,
+        },
+        queryParamsHandling: 'merge'
+      };
+      router.navigate([], navigationExtras);
+      this.paginatedSearchOptions.next(updateValue);
+    });
+    this.subs.push(subscription);
   }
 
   /**

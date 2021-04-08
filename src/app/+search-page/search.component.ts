@@ -16,10 +16,9 @@ import { SearchResult } from '../shared/search/search-result.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { currentPath } from '../shared/utils/route.utils';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { Context } from '../core/shared/context.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { SearchConfig } from '../core/shared/search/search-filters/search-config.model';
+import { SortOptions } from '../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-search',
@@ -140,28 +139,10 @@ export class SearchComponent implements OnInit {
       this.configuration$ = this.routeService.getRouteParameterValue('configuration');
     }
 
-    this.sortOptions$ = this.configuration$.pipe(
-      switchMap((configuration) => this.service.getSearchConfigurationFor(null, configuration)),
-      getFirstSucceededRemoteDataPayload(),
-      map((searchConfig: SearchConfig) => {
-        const sortOptions = [];
-        searchConfig.sortOptions.forEach(sortOption => {
-          sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
-          sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
-        });
-        console.log(searchConfig, sortOptions);
-        return sortOptions;
-      }));
+    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(this.configuration$, this.service);
 
-    combineLatest([
-      this.sortOptions$,
-      this.searchConfigService.paginatedSearchOptions
-    ]).pipe(take(1))
-      .subscribe(([sortOptions, searchOptions]) => {
-        const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, { sort: sortOptions[0]});
-        console.log(updateValue);
-        this.searchConfigService.paginatedSearchOptions.next(updateValue);
-      });
+    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$, this.router);
+
   }
 
   /**
