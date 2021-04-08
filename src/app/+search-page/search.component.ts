@@ -141,7 +141,7 @@ export class SearchComponent implements OnInit {
 
     this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(this.configuration$, this.service);
 
-    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$, this.router);
+    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$);
 
   }
 

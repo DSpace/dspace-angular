@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import {
   BehaviorSubject,
@@ -230,20 +230,17 @@ export class SearchConfigurationService implements OnDestroy {
    * @param configuration$
    * @param service
    */
-  initializeSortOptionsFromConfiguration(sortOptions$: Observable<SortOptions[]>, router: Router) {
+  initializeSortOptionsFromConfiguration(sortOptions$: Observable<SortOptions[]>) {
     const subscription = sortOptions$.pipe(switchMap((sortOptions) => combineLatest([
       of(sortOptions),
       this.paginatedSearchOptions.pipe(take(1))
     ]))).subscribe(([sortOptions, searchOptions]) => {
       const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, { sort: sortOptions[0]});
-      const navigationExtras: NavigationExtras = {
-        queryParams: {
+      this.paginationService.updateRoute(this.paginationID,
+        {
           sortDirection: updateValue.sort.direction,
           sortField: updateValue.sort.field,
-        },
-        queryParamsHandling: 'merge'
-      };
-      router.navigate([], navigationExtras);
+        });
       this.paginatedSearchOptions.next(updateValue);
     });
     this.subs.push(subscription);

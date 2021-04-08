@@ -7,8 +7,8 @@ import {
   OnInit
 } from '@angular/core';
 
-import { BehaviorSubject, combineLatest, Observable, Subject, Subscription } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
@@ -19,7 +19,7 @@ import { PaginatedSearchOptions } from '../shared/search/paginated-search-option
 import { SearchService } from '../core/shared/search/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../core/shared/operators';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { RoleType } from '../core/roles/role-types';
@@ -29,10 +29,8 @@ import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { SearchConfig } from '../core/shared/search/search-filters/search-config.model';
-import {RouteService} from '../core/services/route.service';
-import {Router} from '@angular/router';
+import { SortOptions } from '../core/cache/models/sort-options.model';
+import { RouteService } from '../core/services/route.service';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -119,8 +117,7 @@ export class MyDSpacePageComponent implements OnInit {
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService,
-              private routeService: RouteService,
-              private router: Router) {
+              private routeService: RouteService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
@@ -166,7 +163,7 @@ export class MyDSpacePageComponent implements OnInit {
 
     this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(configuration$, this.service);
 
-    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$, this.router);
+    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$);
 
   }
 
