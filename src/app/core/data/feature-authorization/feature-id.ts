@@ -12,4 +12,11 @@ export enum FeatureID {
   CanManageGroups = 'canManageGroups',
   IsCollectionAdmin = 'isCollectionAdmin',
   IsCommunityAdmin = 'isCommunityAdmin',
+  CanManageVersions = 'canManageVersions',
+  CanManageBitstreams = 'canManageBitstreams',
+  CanManageRelationships = 'canManageRelationships',
+  CanManageMappings = 'canManageMappings',
+  CanManagePolicies = 'canManagePolicies',
+  CanMakePrivate = 'canMakePrivate',
+  CanMove = 'canMove',
 }

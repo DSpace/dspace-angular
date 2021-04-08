@@ -12,9 +12,9 @@ import { AuthService } from '../../core/auth/auth.service';
   providedIn: 'root'
 })
 /**
- * Guard for preventing unauthorized access to certain {@link Item} pages requiring reinstate rights
+ * Guard for preventing unauthorized access to certain {@link Item} pages requiring manage bitstreams rights
  */
-export class ItemPageReinstateGuard extends DsoPageSingleFeatureGuard<Item> {
+export class ItemPageBitstreamsGuard extends DsoPageSingleFeatureGuard<Item> {
   constructor(protected resolver: ItemPageResolver,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
@@ -23,9 +23,9 @@ export class ItemPageReinstateGuard extends DsoPageSingleFeatureGuard<Item> {
   }
 
   /**
-   * Check reinstate authorization rights
+   * Check manage bitstreams authorization rights
    */
   getFeatureID(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(FeatureID.ReinstateItem);
+    return observableOf(FeatureID.CanManageBitstreams);
   }
 }

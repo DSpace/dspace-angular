@@ -97,8 +97,14 @@ export class EndpointMockingRestService extends DspaceRestService {
    *    the mock response if there is one, undefined otherwise
    */
   private getMockData(urlStr: string): any {
-    const url = new URL(urlStr);
-    const key = url.pathname.slice(environment.rest.nameSpace.length);
+    let key;
+    if (this.mockResponseMap.has(urlStr)) {
+      key = urlStr;
+    } else {
+      // didn't find an exact match for the url, try to match only the endpoint without namespace and parameters
+      const url = new URL(urlStr);
+      key = url.pathname.slice(environment.rest.nameSpace.length);
+    }
     if (this.mockResponseMap.has(key)) {
       // parse and stringify to clone the object to ensure that any changes made
       // to it afterwards don't affect future calls

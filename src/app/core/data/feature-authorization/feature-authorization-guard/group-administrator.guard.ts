@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FeatureAuthorizationGuard } from './feature-authorization.guard';
+import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
@@ -13,7 +13,7 @@ import { FeatureID } from '../feature-id';
 @Injectable({
   providedIn: 'root'
 })
-export class GroupAdministratorGuard extends FeatureAuthorizationGuard {
+export class GroupAdministratorGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
     super(authorizationService, router, authService);
   }

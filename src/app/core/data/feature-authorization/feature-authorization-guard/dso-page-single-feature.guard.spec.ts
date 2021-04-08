@@ -4,14 +4,14 @@ import { RemoteData } from '../../remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageFeatureGuard } from './dso-page-feature.guard';
+import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
 import { FeatureID } from '../feature-id';
 import { AuthService } from '../../../auth/auth.service';
 
 /**
  * Test implementation of abstract class DsoPageAdministratorGuard
  */
-class DsoPageFeatureGuardImpl extends DsoPageFeatureGuard<any> {
+class DsoPageFeatureGuardImpl extends DsoPageSingleFeatureGuard<any> {
   constructor(protected resolver: Resolve<RemoteData<any>>,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
@@ -26,7 +26,7 @@ class DsoPageFeatureGuardImpl extends DsoPageFeatureGuard<any> {
 }
 
 describe('DsoPageAdministratorGuard', () => {
-  let guard: DsoPageFeatureGuard<any>;
+  let guard: DsoPageSingleFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
