@@ -13,6 +13,7 @@ import {
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 const rangeDelimiter = '-';
 
@@ -65,7 +66,8 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
-              protected router: Router
+              protected router: Router,
+              protected paginationService: PaginationService
   ) {
   }
 
@@ -104,10 +106,11 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     const parts = this.filterValue.value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : this.filterValue.value;
     const max = parts.length > 1 ? parts[1].trim() : this.filterValue.value;
+    const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
       [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
-      page: 1
+      [page]: 1
     };
   }
 

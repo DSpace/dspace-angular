@@ -11,6 +11,10 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',
@@ -22,8 +26,9 @@ class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDra
               protected elRef: ElementRef,
               protected objectValuesPipe: ObjectValuesPipe,
               protected mockUrl: string,
-              protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>) {
-    super(objectUpdatesService, elRef, objectValuesPipe);
+              protected paginationService: PaginationService,
+  protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>) {
+    super(objectUpdatesService, elRef, objectValuesPipe, paginationService);
   }
 
   initializeObjectsRD(): void {
@@ -43,10 +48,12 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
 
   const url = 'mock-abstract-paginated-drag-and-drop-list-component';
 
+
   const object1 = Object.assign(new DSpaceObject(), { uuid: 'object-1' });
   const object2 = Object.assign(new DSpaceObject(), { uuid: 'object-2' });
   const objectsRD = createSuccessfulRemoteDataObject(createPaginatedList([object1, object2]));
   let objectsRD$: BehaviorSubject<RemoteData<PaginatedList<DSpaceObject>>>;
+  let paginationService;
 
   const updates = {
     [object1.uuid]: { field: object1, changeType: undefined },
@@ -69,8 +76,9 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     paginationComponent = jasmine.createSpyObj('paginationComponent', {
       doPageChange: {}
     });
+    paginationService = new PaginationServiceStub();
     objectsRD$ = new BehaviorSubject(objectsRD);
-    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, objectsRD$);
+    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, paginationService, objectsRD$);
     component.paginationComponent = paginationComponent;
     component.ngOnInit();
   });
@@ -83,18 +91,6 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     component.updates$.pipe(take(1)).subscribe((fieldUpdates) => {
       expect(fieldUpdates).toEqual(updates);
       done();
-    });
-  });
-
-  describe('switchPage', () => {
-    const page = 3;
-
-    beforeEach(() => {
-      component.switchPage(page);
-    });
-
-    it('should set currentPage$ to the new page', () => {
-      expect(component.currentPage$.value).toEqual(page);
     });
   });
 
@@ -117,7 +113,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
 
       it('should send out a dropObject event with the expected processed paginated indexes', () => {
         expect(component.dropObject.emit).toHaveBeenCalledWith(Object.assign({
-          fromIndex: ((component.currentPage$.value - 1) * component.pageSize) + event.previousIndex,
+          fromIndex: ((component.currentPage$.value.currentPage - 1) * component.pageSize) + event.previousIndex,
           toIndex: ((hoverPage - 1) * component.pageSize),
           finish: jasmine.anything()
         }));

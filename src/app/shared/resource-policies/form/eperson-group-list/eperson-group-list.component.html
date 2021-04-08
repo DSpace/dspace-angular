@@ -5,9 +5,8 @@
   <ds-pagination *ngIf="(getList() | async)?.payload?.totalElements > 0"
                  [paginationOptions]="paginationOptions"
                  [collectionSize]="(getList() | async)?.payload?.totalElements"
-                 [disableRouteParameterUpdate]="true"
-                 [hideGear]="true"
-                 (pageChange)="onPageChange($event)">
+                 [retainScrollPosition]="true"
+                 [hideGear]="true">
 
     <div class="table-responsive">
       <table id="groups" class="table table-sm table-striped table-hover table-bordered">

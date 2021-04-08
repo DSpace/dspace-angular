@@ -23,6 +23,11 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/request.models';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -30,6 +35,7 @@ describe('BitstreamFormatsComponent', () => {
   let bitstreamFormatService;
   let scheduler: TestScheduler;
   let notificationsServiceStub;
+  let paginationService;
 
   const bitstreamFormat1 = new BitstreamFormat();
   bitstreamFormat1.uuid = 'test-uuid-1';
@@ -79,6 +85,10 @@ describe('BitstreamFormatsComponent', () => {
   ];
   const mockFormatsRD = createSuccessfulRemoteDataObject(createPaginatedList(mockFormatsList));
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 });
+  const sort = new SortOptions('score', SortDirection.DESC);
+  const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 20 });
+
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
@@ -95,13 +105,16 @@ describe('BitstreamFormatsComponent', () => {
       clearBitStreamFormatRequests: observableOf('cleared')
     });
 
+    paginationService = new PaginationServiceStub();
+
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: NotificationsService, useValue: notificationsServiceStub }
+        { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: PaginationService, useValue: paginationService }
       ]
     }).compileComponents();
   };
@@ -217,13 +230,16 @@ describe('BitstreamFormatsComponent', () => {
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
-        TestBed.configureTestingModule({
+      paginationService = new PaginationServiceStub();
+
+      TestBed.configureTestingModule({
           imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
             { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
             { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-            { provide: NotificationsService, useValue: notificationsServiceStub }
+            { provide: NotificationsService, useValue: notificationsServiceStub },
+            { provide: PaginationService, useValue: paginationService }
           ]
         }).compileComponents();
       }
@@ -263,13 +279,16 @@ describe('BitstreamFormatsComponent', () => {
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
-        TestBed.configureTestingModule({
+      paginationService = new PaginationServiceStub();
+
+      TestBed.configureTestingModule({
           imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
             { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
             { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-            { provide: NotificationsService, useValue: notificationsServiceStub }
+            { provide: NotificationsService, useValue: notificationsServiceStub },
+            { provide: PaginationService, useValue: paginationService }
           ]
         }).compileComponents();
       }

@@ -115,15 +115,22 @@ describe('SubmissionImportExternalComponent test suite', () => {
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('source'), observableOf('dummy'));
       fixture.detectChanges();
 
-      expect(compAsAny.retrieveExternalSources).toHaveBeenCalledWith('source', 'dummy');
+      expect(compAsAny.retrieveExternalSources).toHaveBeenCalled();
     });
 
     it('Should call \'getExternalSourceEntries\' properly', () => {
-      comp.routeData = { sourceId: '', query: '' };
-      scheduler.schedule(() => compAsAny.retrieveExternalSources('orcidV2', 'test'));
-      scheduler.flush();
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
+        if (param === 'source') {
+          return observableOf('orcidV2');
+        } else if (param === 'query') {
+          return observableOf('test');
+        }
+        return observableOf({});
+      });
 
-      expect(comp.routeData).toEqual({ sourceId: 'orcidV2', query: 'test' });
+      fixture.detectChanges();
+
+
       expect(comp.isLoading$.value).toBe(false);
       expect(compAsAny.externalService.getExternalSourceEntries).toHaveBeenCalled();
     });

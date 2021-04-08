@@ -6,8 +6,7 @@
     [config]="config"
     [sortConfig]="sortConfig"
     [objects]="communitiesRD$ | async"
-    [hideGear]="true"
-    (paginationChange)="onPaginationChange($event)">
+    [hideGear]="true">
   </ds-viewable-collection>
 </div>
 <ds-error *ngIf="communitiesRD?.hasFailed " message="{{'error.top-level-communites' | translate}}"></ds-error>

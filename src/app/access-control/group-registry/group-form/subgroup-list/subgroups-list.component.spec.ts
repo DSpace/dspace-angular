@@ -35,6 +35,8 @@ import { getMockTranslateService } from '../../../../shared/mocks/translate.serv
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { map } from 'rxjs/operators';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -47,6 +49,7 @@ describe('SubgroupsListComponent', () => {
   let subgroups;
   let allGroups;
   let routerStub;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
@@ -100,6 +103,8 @@ describe('SubgroupsListComponent', () => {
     routerStub = new RouterMock();
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
+
+    paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -115,6 +120,7 @@ describe('SubgroupsListComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: routerStub },
+        { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

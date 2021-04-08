@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
@@ -10,6 +10,8 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { takeUntilCompletedRemoteData } from '../../core/shared/operators';
+import { switchMap } from 'rxjs/operators';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
@@ -31,7 +33,7 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
   /**
    * The pagination id
    */
-  pageId = 'community-subCommunities-pagination';
+  pageId = 'cmscm';
 
   /**
    * The sorting configuration
@@ -43,7 +45,9 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
    */
   subCommunitiesRDObs: BehaviorSubject<RemoteData<PaginatedList<Community>>> = new BehaviorSubject<RemoteData<PaginatedList<Community>>>({} as any);
 
-  constructor(private cds: CommunityDataService) {
+  constructor(private cds: CommunityDataService,
+              private paginationService: PaginationService
+  ) {
   }
 
   ngOnInit(): void {
@@ -52,25 +56,29 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
     this.config.pageSize = 5;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    this.updatePage();
-  }
-
-  /**
-   * Called when one of the pagination settings is changed
-   * @param event The new pagination data
-   */
-  onPaginationChange(event) {
-    this.config.currentPage = event.pagination.currentPage;
-    this.config.pageSize = event.pagination.pageSize;
-    this.sortConfig.field = event.sort.field;
-    this.sortConfig.direction = event.sort.direction;
-    this.updatePage();
+    this.initPage();
   }
 
   /**
    * Update the list of sub-communities
    */
-  updatePage() {
+  initPage() {
+    const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
+    const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
+
+    observableCombineLatest([pagination$, sort$]).pipe(
+      switchMap(([currentPagination, currentSort]) => {
+        return     this.cds.findByParent(this.community.id, {
+          currentPage: currentPagination.currentPage,
+          elementsPerPage: currentPagination.pageSize,
+          sort: { field: currentSort.field, direction: currentSort.direction }
+        });
+      })
+    ).subscribe((results) => {
+      this.subCommunitiesRDObs.next(results);
+    });
+
+
     this.cds.findByParent(this.community.id, {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize,
@@ -79,4 +87,9 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
       this.subCommunitiesRDObs.next(results);
     });
   }
+
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

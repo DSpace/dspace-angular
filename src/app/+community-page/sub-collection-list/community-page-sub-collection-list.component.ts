@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
@@ -10,7 +10,8 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { takeUntilCompletedRemoteData } from '../../core/shared/operators';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',
@@ -29,7 +30,7 @@ export class CommunityPageSubCollectionListComponent implements OnInit {
   /**
    * The pagination id
    */
-  pageId = 'community-collections-pagination';
+  pageId = 'cmcl';
 
   /**
    * The sorting configuration
@@ -41,7 +42,10 @@ export class CommunityPageSubCollectionListComponent implements OnInit {
    */
   subCollectionsRDObs: BehaviorSubject<RemoteData<PaginatedList<Collection>>> = new BehaviorSubject<RemoteData<PaginatedList<Collection>>>({} as any);
 
-  constructor(private cds: CollectionDataService) {}
+  constructor(private cds: CollectionDataService,
+              private paginationService: PaginationService,
+
+  ) {}
 
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
@@ -49,31 +53,31 @@ export class CommunityPageSubCollectionListComponent implements OnInit {
     this.config.pageSize = 5;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    this.updatePage();
+    this.initPage();
   }
 
   /**
-   * Called when one of the pagination settings is changed
-   * @param event The new pagination data
+   * Initialise the list of collections
    */
-  onPaginationChange(event) {
-    this.config.currentPage = event.pagination.currentPage;
-    this.config.pageSize = event.pagination.pageSize;
-    this.sortConfig.field = event.sort.field;
-    this.sortConfig.direction = event.sort.direction;
-    this.updatePage();
-  }
+  initPage() {
+     const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
+     const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
 
-  /**
-   * Update the list of collections
-   */
-  updatePage() {
-    this.cds.findByParent(this.community.id,{
-      currentPage: this.config.currentPage,
-      elementsPerPage: this.config.pageSize,
-      sort: { field: this.sortConfig.field, direction: this.sortConfig.direction }
-    }).pipe(takeUntilCompletedRemoteData()).subscribe((results) => {
+    observableCombineLatest([pagination$, sort$]).pipe(
+      switchMap(([currentPagination, currentSort]) => {
+        return this.cds.findByParent(this.community.id, {
+          currentPage: currentPagination.currentPage,
+          elementsPerPage: currentPagination.pageSize,
+          sort: {field: currentSort.field, direction: currentSort.direction}
+        });
+      })
+    ).subscribe((results) => {
       this.subCollectionsRDObs.next(results);
     });
   }
+
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

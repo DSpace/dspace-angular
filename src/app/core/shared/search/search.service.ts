@@ -1,7 +1,7 @@
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { first, map, switchMap, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { map, switchMap, take } from 'rxjs/operators';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../cache/builders/link.service';
 import { PaginatedList } from '../../data/paginated-list.model';
@@ -38,6 +38,9 @@ import { getSearchResultFor } from '../../../shared/search/search-result-element
 import { FacetConfigResponse } from '../../../shared/search/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/facet-values.model';
 import { SearchConfig } from './search-filters/search-config.model';
+import { PaginationService } from '../../pagination/pagination.service';
+import { SearchConfigurationService } from './search-configuration.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -82,7 +85,9 @@ export class SearchService implements OnDestroy {
               private linkService: LinkService,
               private halService: HALEndpointService,
               private communityService: CommunityDataService,
-              private dspaceObjectService: DSpaceObjectDataService
+              private dspaceObjectService: DSpaceObjectDataService,
+              private paginationService: PaginationService,
+              private searchConfigurationService: SearchConfigurationService
   ) {
   }
 
@@ -389,20 +394,16 @@ export class SearchService implements OnDestroy {
    * @param {ViewMode} viewMode Mode to switch to
    */
   setViewMode(viewMode: ViewMode, searchLinkParts?: string[]) {
-    this.routeService.getQueryParameterValue('pageSize').pipe(first())
-      .subscribe((pageSize) => {
-        let queryParams = { view: viewMode, page: 1 };
+    this.paginationService.getCurrentPagination(this.searchConfigurationService.paginationID, new PaginationComponentOptions()).pipe(take(1))
+      .subscribe((config) => {
+        let pageParams = { page: 1 };
+        const queryParams = { view: viewMode };
         if (viewMode === ViewMode.DetailedListElement) {
-          queryParams = Object.assign(queryParams, {pageSize: '1'});
-        } else if (pageSize === '1') {
-          queryParams = Object.assign(queryParams, {pageSize: '10'});
+          pageParams = Object.assign(pageParams, {pageSize: 1});
+        } else if (config.pageSize === 1) {
+          pageParams = Object.assign(pageParams, {pageSize: 10});
         }
-        const navigationExtras: NavigationExtras = {
-          queryParams: queryParams,
-          queryParamsHandling: 'merge'
-        };
-
-        this.router.navigate(hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], navigationExtras);
+        this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
       });
   }
 

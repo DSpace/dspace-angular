@@ -11,6 +11,7 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { RouteService } from '../core/services/route.service';
+import { PaginationService } from '../core/pagination/pagination.service';
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
@@ -55,13 +56,15 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    *
    * @param {roleService} roleService
    * @param {RouteService} routeService
+   * @param {PaginationService} paginationService
    * @param {ActivatedRoute} route
    */
   constructor(protected roleService: RoleService,
               protected routeService: RouteService,
+              protected paginationService: PaginationService,
               protected route: ActivatedRoute) {
 
-    super(routeService, route);
+    super(routeService, paginationService, route);
 
     // override parent class initialization
     this._defaults = null;

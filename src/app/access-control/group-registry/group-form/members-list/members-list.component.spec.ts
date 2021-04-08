@@ -26,6 +26,8 @@ import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -39,6 +41,7 @@ describe('MembersListComponent', () => {
   let allGroups;
   let epersonMembers;
   let subgroupMembers;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
@@ -113,6 +116,8 @@ describe('MembersListComponent', () => {
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
+
+    paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -129,6 +134,7 @@ describe('MembersListComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
+        { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

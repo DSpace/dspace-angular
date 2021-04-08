@@ -26,6 +26,8 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -37,6 +39,10 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+
+  let paginationService;
+
+
 
   beforeEach(waitForAsync(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -104,6 +110,8 @@ describe('EPersonFormComponent', () => {
       findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: ''
     });
+
+    paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -121,6 +129,7 @@ describe('EPersonFormComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
       ],
       schemas: [NO_ERRORS_SCHEMA]

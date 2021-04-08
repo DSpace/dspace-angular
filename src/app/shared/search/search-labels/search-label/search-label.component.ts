@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { currentPath } from '../../../utils/route.utils';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-search-label',
@@ -32,6 +34,8 @@ export class SearchLabelComponent implements OnInit {
    */
   constructor(
     private searchService: SearchService,
+    private paginationService: PaginationService,
+    private searchConfigurationService: SearchConfigurationService,
     private router: Router) {
   }
 
@@ -50,9 +54,10 @@ export class SearchLabelComponent implements OnInit {
       map((filters) => {
         const field: string = Object.keys(filters).find((f) => f === this.key);
         const newValues = hasValue(filters[field]) ? filters[field].filter((v) => v !== this.value) : null;
+        const page = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
         return {
           [field]: isNotEmpty(newValues) ? newValues : null,
-          page: 1
+          [page]: 1
         };
       })
     );

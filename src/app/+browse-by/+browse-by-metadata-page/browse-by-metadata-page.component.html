@@ -27,15 +27,13 @@
       title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
       parentname="{{(parent$ | async)?.payload?.name || ''}}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
-      [paginationConfig]="paginationConfig"
-      [sortConfig]="sortConfig"
+      [paginationConfig]="(currentPagination$ |async)"
+      [sortConfig]="(currentSort$ |async)"
       [type]="startsWithType"
       [startsWithOptions]="startsWithOptions"
       [enableArrows]="true"
       (prev)="goPrev()"
-      (next)="goNext()"
-      (pageSizeChange)="pageSizeChange($event)"
-      (sortDirectionChange)="sortDirectionChange($event)">
+      (next)="goNext()">
     </ds-browse-by>
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>

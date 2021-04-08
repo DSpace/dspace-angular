@@ -16,6 +16,11 @@ import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { By } from '@angular/platform-browser';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../core/data/request.models';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -52,6 +57,8 @@ describe('FullFileSectionComponent', () => {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream]))
   });
 
+  const paginationService = new PaginationServiceStub();
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -64,7 +71,8 @@ describe('FullFileSectionComponent', () => {
       declarations: [FullFileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: PaginationService, useValue: paginationService }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -81,40 +89,6 @@ describe('FullFileSectionComponent', () => {
     it('should contain a list with bitstreams', () => {
       const fileSection = fixture.debugElement.queryAll(By.css('.file-section'));
       expect(fileSection.length).toEqual(6);
-    });
-
-    describe('when we press the pageChange button for original bundle', () => {
-      beforeEach(() => {
-        comp.switchOriginalPage(2);
-        fixture.detectChanges();
-      });
-
-      it('should give the value to the currentpage', () => {
-        expect(comp.originalOptions.currentPage).toBe(2);
-      });
-      it('should call the next function on the originalCurrentPage', (done) => {
-        comp.originalCurrentPage$.subscribe((event) => {
-          expect(event).toEqual(2);
-          done();
-        });
-      });
-    });
-
-    describe('when we press the pageChange button for license bundle', () => {
-      beforeEach(() => {
-        comp.switchLicensePage(2);
-        fixture.detectChanges();
-      });
-
-      it('should give the value to the currentpage', () => {
-        expect(comp.licenseOptions.currentPage).toBe(2);
-      });
-      it('should call the next function on the licenseCurrentPage', (done) => {
-        comp.licenseCurrentPage$.subscribe((event) => {
-          expect(event).toEqual(2);
-          done();
-        });
-      });
     });
   });
 });
