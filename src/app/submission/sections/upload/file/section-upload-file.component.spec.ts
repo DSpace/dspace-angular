@@ -41,7 +41,7 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
-    downloadFile: jasmine.createSpy('downloadFile'),
+    retrieveFileDownloadLink: jasmine.createSpy('retrieveFileDownloadLink'),
     getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition')
   });
 }
@@ -232,7 +232,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       tick();
 
-      expect(fileService.downloadFile).toHaveBeenCalled();
+      expect(fileService.retrieveFileDownloadLink).toHaveBeenCalled();
     }));
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {

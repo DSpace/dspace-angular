@@ -19,10 +19,13 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload
+} from '../shared/operators';
+import { environment } from '../../../environments/environment';
 import { RootDataService } from '../data/root-data.service';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 
 @Injectable()
 export class MetadataService {
@@ -41,7 +44,6 @@ export class MetadataService {
     private dsoNameService: DSONameService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
-    private redirectService: HardRedirectService,
     private rootService: RootDataService
   ) {
     // TODO: determine what open graph meta tags are needed and whether
@@ -262,7 +264,7 @@ export class MetadataService {
    */
   private setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
-      const value = new URLCombiner(this.redirectService.getRequestOrigin(), this.router.url).toString();
+      const value = [environment.ui.baseUrl, this.router.url].join('');
       this.addMetaTag('citation_abstract_html_url', value);
     }
   }
@@ -287,8 +289,8 @@ export class MetadataService {
               getFirstSucceededRemoteDataPayload()
             ).subscribe((format: BitstreamFormat) => {
               if (format.mimetype === 'application/pdf') {
-                const rewrittenURL= this.redirectService.rewriteDownloadURL(bitstream._links.content.href);
-                this.addMetaTag('citation_pdf_url', rewrittenURL);
+                const bitstreamLink =  getBitstreamDownloadRoute(bitstream);
+                this.addMetaTag('citation_pdf_url', bitstreamLink);
               }
             });
           }
