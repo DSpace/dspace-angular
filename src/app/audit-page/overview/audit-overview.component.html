@@ -12,7 +12,6 @@
                        [paginationOptions]="pageConfig"
                        [pageInfoState]="(auditsRD$ | async)?.payload"
                        [collectionSize]="(auditsRD$ | async)?.payload?.totalElements"
-                       [disableRouteParameterUpdate]="false"
                        [hideGear]="true"
                        [hidePagerWhenSinglePage]="true"
                        (pageChange)="onPageChange($event)">

@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { FeatureAuthorizationGuard } from './feature-authorization.guard';
 import { AuthService } from '../../../auth/auth.service';
+import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 
 /**
  * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for a specific feature
@@ -24,9 +25,22 @@ export abstract class DsoPageFeatureGuard<T extends DSpaceObject> extends Featur
    * Check authorization rights for the object resolved using the provided resolver
    */
   getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
-    return (this.resolver.resolve(route, state) as Observable<RemoteData<T>>).pipe(
+    const routeWithObjectID = this.getRouteWithDSOId(route);
+    return (this.resolver.resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
       getAllSucceededRemoteDataPayload(),
       map((dso) => dso.self)
     );
+  }
+
+  /**
+   * Method to resolve resolve (parent) route that contains the UUID of the DSO
+   * @param route The current route
+   */
+  protected getRouteWithDSOId(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
+    let routeWithDSOId = route;
+    while (hasNoValue(routeWithDSOId.params.id) && hasValue(routeWithDSOId.parent)) {
+      routeWithDSOId = routeWithDSOId.parent;
+    }
+    return routeWithDSOId;
   }
 }

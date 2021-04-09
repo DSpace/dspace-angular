@@ -51,8 +51,7 @@
                             [config]="paginationConfig"
                             [sortConfig]="sortConfig"
                             [objects]="itemRD"
-                            [hideGear]="true"
-                            (paginationChange)="onPaginationChange($event)">
+                            [hideGear]="true">
                     </ds-viewable-collection>
                 </div>
                 <ds-error *ngIf="itemRD?.hasFailed"

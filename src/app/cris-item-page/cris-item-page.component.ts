@@ -30,7 +30,9 @@ export class CrisItemPageComponent implements OnInit {
 
   ngOnInit() {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.dso as RemoteData<Item>),
+      map((data) => {
+        return data.dso as RemoteData<Item>;
+      }),
       redirectOn4xx(this.router, this.authService)
     );
 

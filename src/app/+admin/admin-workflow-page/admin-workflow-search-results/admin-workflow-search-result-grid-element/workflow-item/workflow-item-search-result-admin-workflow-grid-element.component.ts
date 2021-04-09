@@ -96,7 +96,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
   }
 
   /**
-   * Fetch the component depending on the item's relationship type, view mode and context
+   * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(item: Item): GenericConstructor<Component> {

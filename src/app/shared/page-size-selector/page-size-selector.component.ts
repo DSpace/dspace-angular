@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../search/paginated-search-options.model';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-page-size-selector',
@@ -22,8 +23,10 @@ export class PageSizeSelectorComponent implements OnInit {
    */
   paginationOptions$: Observable<PaginationComponentOptions>;
 
+
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private paginationService: PaginationService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService) {
   }
 
@@ -40,13 +43,10 @@ export class PageSizeSelectorComponent implements OnInit {
    */
   reloadRPP(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        pageSize: value,
-        page: 1
-      },
-      queryParamsHandling: 'merge'
-    };
-    this.router.navigate([], navigationExtras);
+    this.paginationOptions$.pipe(
+      take(1)
+    ).subscribe((pagination: PaginationComponentOptions) => {
+      this.paginationService.updateRoute(pagination.id, {page: 1, pageSize: +value});
+    }) ;
   }
 }

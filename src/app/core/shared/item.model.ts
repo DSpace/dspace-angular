@@ -114,7 +114,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
    * Method that returns as which type of object this object should be rendered
    */
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
-    const entityType = this.firstMetadataValue('relationship.type');
+    const entityType = this.firstMetadataValue('dspace.entity.type');
     if (isEmpty(entityType)) {
       return super.getRenderTypes();
     }

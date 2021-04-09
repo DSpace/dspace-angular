@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { hasValue } from '../empty.util';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 /**
  * An abstract component to render StartsWith options
@@ -28,6 +29,8 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   public constructor(@Inject('startsWithOptions') public startsWithOptions: any[],
+                     @Inject('paginationId') public paginationId: string,
+                     protected paginationService: PaginationService,
                      protected route: ActivatedRoute,
                      protected router: Router) {
   }

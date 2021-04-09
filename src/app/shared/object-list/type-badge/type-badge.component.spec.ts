@@ -12,10 +12,10 @@ let fixture: ComponentFixture<TypeBadgeComponent>;
 
 const type = 'authorOfPublication';
 
-const mockItemWithRelationshipType = Object.assign(new Item(), {
+const mockItemWithEntityType = Object.assign(new Item(), {
   bundles: observableOf({}),
   metadata: {
-    'relationship.type': [
+    'dspace.entity.type': [
       {
         language: 'en_US',
         value: type
@@ -24,7 +24,7 @@ const mockItemWithRelationshipType = Object.assign(new Item(), {
   }
 });
 
-const mockItemWithoutRelationshipType = Object.assign(new Item(), {
+const mockItemWithoutEntityType = Object.assign(new Item(), {
   bundles: observableOf({}),
   metadata: {
     'dc.title': [
@@ -52,21 +52,21 @@ describe('ItemTypeBadgeComponent', () => {
     comp = fixture.componentInstance;
   }));
 
-  describe('When the item has a relationship type', () => {
+  describe('When the item has an entity type', () => {
     beforeEach(() => {
-      comp.object = mockItemWithRelationshipType;
+      comp.object = mockItemWithEntityType;
       fixture.detectChanges();
     });
 
-    it('should show the relationship type badge', () => {
+    it('should show the entity type badge', () => {
       const badge = fixture.debugElement.query(By.css('span.badge'));
       expect(badge.nativeElement.textContent).toContain(type.toLowerCase());
     });
   });
 
-  describe('When the item has no relationship type', () => {
+  describe('When the item has no entity type', () => {
     beforeEach(() => {
-      comp.object = mockItemWithoutRelationshipType;
+      comp.object = mockItemWithoutEntityType;
       fixture.detectChanges();
     });
 

@@ -18,7 +18,7 @@ import { AddUrlToHistoryAction } from '../history/history.actions';
  */
 export const routeParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.route.params
+  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.params : undefined
 );
 
 /**
@@ -26,7 +26,7 @@ export const routeParametersSelector = createSelector(
  */
 export const queryParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.route.queryParams
+  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.queryParams : undefined
 );
 
 /**
@@ -172,6 +172,18 @@ export class RouteService {
     return this.store.pipe(select(historySelector));
   }
 
+  /**
+   * Return the current url retrieved from history
+   */
+  public getCurrentUrl(): Observable<string> {
+    return this.getHistory().pipe(
+      map((history: string[]) => history[history.length - 1] || '')
+    );
+  }
+
+  /**
+   * Return the current url retrieved from history
+   */
   public getPreviousUrl(): Observable<string> {
     return this.getHistory().pipe(
       map((history: string[]) => history[history.length - 2] || '')

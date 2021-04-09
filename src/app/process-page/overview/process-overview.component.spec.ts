@@ -14,6 +14,12 @@ import { ProcessStatus } from '../processes/process-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -22,6 +28,7 @@ describe('ProcessOverviewComponent', () => {
   let processService: ProcessDataService;
   let ePersonService: EPersonDataService;
   let authorizationService: any;
+  let paginationService;
 
   let adminProcesses: Process[];
   let noAdminProcesses: Process[];
@@ -91,6 +98,8 @@ describe('ProcessOverviewComponent', () => {
       findById: createSuccessfulRemoteDataObject$(ePerson)
     });
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+
+    paginationService = new PaginationServiceStub();
   }
 
   beforeEach(waitForAsync(() => {
@@ -101,7 +110,8 @@ describe('ProcessOverviewComponent', () => {
       providers: [
         { provide: ProcessDataService, useValue: processService },
         { provide: EPersonDataService, useValue: ePersonService },
-        { provide: AuthorizationDataService, useValue: authorizationService }
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -172,15 +182,6 @@ describe('ProcessOverviewComponent', () => {
       });
     });
 
-    describe('onPageChange', () => {
-      const toPage = 2;
-
-      it('should call a new findAll with the corresponding page', () => {
-        component.onPageChange(toPage);
-        fixture.detectChanges();
-        expect(processService.findAll).toHaveBeenCalledWith(jasmine.objectContaining({ currentPage: toPage }));
-      });
-    });
   });
 
   describe('if the current user is not an admin', () => {
@@ -244,16 +245,6 @@ describe('ProcessOverviewComponent', () => {
         rowElements.forEach((rowElement, index) => {
           const el = rowElement.query(By.css('td:nth-child(6)')).nativeElement;
           expect(el.textContent).toContain(noAdminProcesses[index].processStatus);
-        });
-      });
-
-      describe('onPageChange', () => {
-        const toPage = 2;
-
-        it('should call a new searchBy with the corresponding page', () => {
-          component.onPageChange(toPage);
-          fixture.detectChanges();
-          expect(processService.searchBy).toHaveBeenCalledWith('own', jasmine.objectContaining({ currentPage: toPage }));
         });
       });
 

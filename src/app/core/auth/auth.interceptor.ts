@@ -103,7 +103,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private parseLocation(header: string): string {
     let location = header.trim();
     location = location.replace('location="', '');
-    location = location.replace('"', '');
+    location = location.replace('"', ''); /* lgtm [js/incomplete-sanitization] */
     let re = /%3A%2F%2F/g;
     location = location.replace(re, '://');
     re = /%3A/g;

@@ -8,8 +8,8 @@ import { catchError, filter, map, take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
-} from '../../+admin/admin-access-control/group-registry/group-registry.actions';
-import { GroupRegistryState } from '../../+admin/admin-access-control/group-registry/group-registry.reducers';
+} from '../../access-control/group-registry/group-registry.actions';
+import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -210,7 +210,7 @@ export class GroupDataService extends DataService<Group> {
   }
 
   public getGroupRegistryRouterLink(): string {
-    return '/admin/access-control/groups';
+    return '/access-control/groups';
   }
 
   /**
@@ -241,7 +241,7 @@ export class GroupDataService extends DataService<Group> {
    * @param groupID Group ID we want edit page for
    */
   public getGroupEditPageRouterLinkWithID(groupId: string): string {
-    return '/admin/access-control/groups/' + groupId;
+    return '/access-control/groups/' + groupId;
   }
 
   /**

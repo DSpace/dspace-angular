@@ -21,8 +21,7 @@
                                 [context]="context"
                                 [importable]="true"
                                 [importConfig]="importConfig"
-                                (importObject)="import($event)"
-                                (pageChange)="paginationChange();">
+                                (importObject)="import($event)">
         </ds-viewable-collection>
         <ds-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-loading>

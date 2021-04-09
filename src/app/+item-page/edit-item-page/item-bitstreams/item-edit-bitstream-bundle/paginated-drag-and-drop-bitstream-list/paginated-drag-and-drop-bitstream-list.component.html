@@ -4,9 +4,7 @@
                [hidePaginationDetail]="true"
                [paginationOptions]="options"
                [pageInfoState]="(objectsRD$ | async)?.payload"
-               [collectionSize]="(objectsRD$ | async)?.payload?.totalElements"
-               [disableRouteParameterUpdate]="true"
-               (pageChange)="switchPage($event)">
+               [collectionSize]="(objectsRD$ | async)?.payload?.totalElements">
   <ng-container *ngIf="!(loading$ | async)">
     <div [id]="bundle.id" class="bundle-bitstreams-list"
          [ngClass]="{'mb-3': (objectsRD$ | async)?.payload?.totalElements > pageSize}"

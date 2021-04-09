@@ -15,6 +15,8 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ClaimedApprovedTaskSearchResult } from '../../../../object-collection/shared/claimed-approved-task-search-result.model';
 import { ClaimedApprovedSearchResultListElementComponent } from './claimed-approved-search-result-list-element.component';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 
 let component: ClaimedApprovedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedApprovedSearchResultListElementComponent>;
@@ -64,7 +66,8 @@ describe('ClaimedApprovedSearchResultListElementComponent', () => {
       declarations: [ClaimedApprovedSearchResultListElementComponent, VarDirective],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedApprovedSearchResultListElementComponent, {

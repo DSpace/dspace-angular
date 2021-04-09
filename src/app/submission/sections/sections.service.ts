@@ -5,7 +5,7 @@ import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { isEqual } from 'lodash';
+import { findKey, isEqual } from 'lodash';
 
 import { SubmissionState } from '../submission.reducers';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
@@ -291,20 +291,39 @@ export class SectionsService {
   }
 
   /**
-   * Check if a given section is a read only available
+   * Check if a given section id is present in the list of sections
    *
    * @param submissionId
    *    The submission id
    * @param sectionId
    *    The section id
    * @return Observable<boolean>
-   *    Emits true whenever a given section should be available
+   *    Emits true whenever a given section id should be available
    */
   public isSectionAvailable(submissionId: string, sectionId: string): Observable<boolean> {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
       map((submissionState: SubmissionObjectEntry) => {
         return isNotUndefined(submissionState.sections) && isNotUndefined(submissionState.sections[sectionId]);
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
+   * Check if a given section type is present in the list of sections
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionType
+   *    The section type
+   * @return Observable<boolean>
+   *    Emits true whenever a given section type should be available
+   */
+  public isSectionTypeAvailable(submissionId: string, sectionType: SectionsType): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
+      map((submissionState: SubmissionObjectEntry) => {
+        return isNotUndefined(submissionState.sections) && isNotUndefined(findKey(submissionState.sections, {sectionType: sectionType}));
       }),
       distinctUntilChanged());
   }

@@ -10,7 +10,7 @@ const targetPath = './src/environments/environment.ts';
 const colors = require('colors');
 require('dotenv').config();
 const merge = require('deepmerge');
-
+const mergeOptions = { arrayMerge: (destinationArray, sourceArray, options) => sourceArray };
 const environment = process.argv[2];
 let environmentFilePath;
 let production = false;
@@ -45,10 +45,10 @@ const processEnv = {
 } as GlobalConfig;
 
 import(environmentFilePath)
-  .then((file) => generateEnvironmentFile(merge.all([commonEnv, file.environment, processEnv])))
+  .then((file) => generateEnvironmentFile(merge.all([commonEnv, file.environment, processEnv], mergeOptions)))
   .catch(() => {
     console.log(colors.yellow.bold(`No specific environment file found for ` + environment));
-    generateEnvironmentFile(merge(commonEnv, processEnv))
+    generateEnvironmentFile(merge(commonEnv, processEnv, mergeOptions))
   });
 
 function generateEnvironmentFile(file: GlobalConfig): void {
@@ -65,7 +65,7 @@ function generateEnvironmentFile(file: GlobalConfig): void {
 }
 
 // allow to override a few important options by environment variables
-function createServerConfig(host?: string,  port?: string, nameSpace?: string, ssl?: string): ServerConfig {
+function createServerConfig(host?: string, port?: string, nameSpace?: string, ssl?: string): ServerConfig {
   const result = {} as any;
   if (hasValue(host)) {
     result.host = host;

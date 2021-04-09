@@ -14,14 +14,20 @@
   --ds-submission-header-z-index: 1001;
   --ds-submission-footer-z-index: 999;
 
-  --ds-main-z-index: 0;
+  --ds-main-z-index: 1;
   --ds-nav-z-index: 10;
+  --ds-footer-z-index: 0;
   --ds-sidebar-z-index: 20;
 
-  --ds-header-logo-height: 80px;
+  --ds-header-bg: #{$white};
+  --ds-header-logo-height: 40px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$link-color};
-  --ds-header-icon-color-hover: #{darken($link-color, 15%)};
+  --ds-header-icon-color: #{$cyan};
+  --ds-header-icon-color-hover: #{darken($white, 15%)};
+  --ds-header-navbar-border-top-color: #{$white};
+  --ds-header-navbar-border-bottom-color: #{$gray-400};
+  --ds-navbar-link-color: #{$cyan};
+  --ds-navbar-link-color-hover: #{darken($cyan, 15%)};
 
   $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
@@ -54,6 +60,24 @@
   --ds-collapsed-sidebar-width: #{$collapsed-sidebar-width};
   --ds-sidebar-items-width: #{$sidebar-items-width};
   --ds-total-sidebar-width: #{$total-sidebar-width};
+
+  --ds-top-footer-bg: #{$gray-200} !important;
+  --ds-footer-bg: #{theme-color('primary')} !important;
+  --ds-footer-border: 1px solid var(--bs-gray-400);
+  --ds-footer-padding: 0 !important;
+  --ds-footer-padding-bottom: 0 !important;
+  --ds-footer-logo-height: 50px !important;
+
+  $home-news-link-color: $cyan;
+  --ds-home-news-link-color: #{$home-news-link-color};
+  --ds-home-news-link-hover-color: #{darken($home-news-link-color, 15%)};
+  --ds-home-news-background-color: #{$gray-200};
+
+  --ds-breadcrumb-bg: #{$gray-200} !important;
+  --ds-breadcrumb-link-color: #{$cyan};
+  --ds-breadcrumb-link-active-color: #{darken($cyan, 30%)};
+
+  --ds-slider-color: #{$green};
 
   --ds-date-picker-input-max-width: 300px;
 }

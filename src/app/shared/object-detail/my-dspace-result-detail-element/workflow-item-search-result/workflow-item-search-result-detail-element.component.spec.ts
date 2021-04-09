@@ -12,6 +12,8 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 
 let component: WorkflowItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultDetailElementComponent>;
@@ -62,7 +64,8 @@ describe('WorkflowItemSearchResultDetailElementComponent', () => {
       providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkflowItemSearchResultDetailElementComponent, {

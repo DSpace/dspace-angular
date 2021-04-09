@@ -2,18 +2,20 @@
     <div class="row">
         <ng-container *ngVar="(dsoRD$ | async)?.payload as dso">
             <div class="col-12 pb-4">
-                <h2 id="header" class="border-bottom pb-2">{{ 'community.delete.head' | translate
-                    }}</h2>
+                <h2 id="header" class="border-bottom pb-2">{{ 'community.delete.head' | translate}}</h2>
                 <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dso.name } }}</p>
-                <button class="btn btn-primary mr-2" (click)="onConfirm(dso)">
-                    {{'community.delete.confirm' |
-                    translate}}
-                </button>
-                <button class="btn btn-primary" (click)="onCancel(dso)">{{'community.delete.cancel' | translate}}
-                </button>
+                <div class="form-group row">
+                    <div class="col text-right">
+                        <button class="btn btn-outline-secondary" (click)="onCancel(dso)">
+                            <i class="fas fa-times"></i> {{'community.delete.cancel' | translate}}
+                        </button>
+                        <button class="btn btn-danger mr-2" (click)="onConfirm(dso)">
+                            <i class="fas fa-trash"></i> {{'community.delete.confirm' | translate}}
+                        </button>
+                    </div>
+                </div>
             </div>
         </ng-container>
-
     </div>
 
 </div>

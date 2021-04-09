@@ -117,15 +117,22 @@ describe('SubmissionImportExternalComponent test suite', () => {
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('entity'), observableOf('source'), observableOf('dummy'));
       fixture.detectChanges();
 
-      expect(compAsAny.retrieveExternalSources).toHaveBeenCalledWith('entity', 'source', 'dummy');
+      expect(compAsAny.retrieveExternalSources).toHaveBeenCalled();
     });
 
     it('Should call \'getExternalSourceEntries\' properly', () => {
-      comp.routeData = { entity: 'Person', sourceId: '', query: '' };
-      scheduler.schedule(() => compAsAny.retrieveExternalSources('Person', 'orcidV2', 'test'));
-      scheduler.flush();
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
+        if (param === 'source') {
+          return observableOf('orcidV2');
+        } else if (param === 'query') {
+          return observableOf('test');
+        }
+        return observableOf({});
+      });
 
-      expect(comp.routeData).toEqual({entity: 'Person', sourceId: 'orcidV2', query: 'test' });
+      fixture.detectChanges();
+
+
       expect(comp.isLoading$.value).toBe(false);
       expect(compAsAny.externalService.getExternalSourceEntries).toHaveBeenCalled();
     });
@@ -139,7 +146,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       scheduler.schedule(() => comp.getExternalSourceData(event));
       scheduler.flush();
 
-      expect(compAsAny.router.navigate).toHaveBeenCalledWith([], { queryParams: { entity: event.entity, source: event.sourceId, query: event.query }, replaceUrl: true });
+      expect(compAsAny.router.navigate).toHaveBeenCalledWith([], { queryParams: { entity: event.entity, sourceId: event.sourceId, query: event.query }, replaceUrl: true });
     });
 
     it('Entry should be passed to the component loaded inside the modal', () => {

@@ -25,7 +25,13 @@ describe('TopSectionComponent', () => {
     _embedded: {
       indexableObject: Object.assign(new DSpaceObject(), {
         id: 'd317835d-7b06-4219-91e2-1191900cb897',
-        name: 'My first publication'
+        uuid: 'd317835d-7b06-4219-91e2-1191900cb897',
+        name: 'My first publication',
+        metadata: {
+          'dspace.entity.type': [
+            { value: 'Publication' }
+          ]
+        }
       })
     }
   });
@@ -34,6 +40,7 @@ describe('TopSectionComponent', () => {
     _embedded: {
       indexableObject: Object.assign(new DSpaceObject(), {
         id: '0c34d491-b5ed-4a78-8b29-83d0bad80e5a',
+        uuid: '0c34d491-b5ed-4a78-8b29-83d0bad80e5a',
         name: 'This is a publication'
       })
     }
@@ -91,9 +98,9 @@ describe('TopSectionComponent', () => {
 
     const links = cardElement.queryAll(By.css('a'));
     expect(links.length).toEqual(2);
-    expect(links[0].nativeElement.href).toContain('/items/d317835d-7b06-4219-91e2-1191900cb897');
+    expect(links[0].nativeElement.href).toContain('/entities/publication/d317835d-7b06-4219-91e2-1191900cb897');
     expect(links[0].nativeElement.textContent).toEqual('My first publication');
-    expect(links[1].nativeElement.href).toContain('/items/0c34d491-b5ed-4a78-8b29-83d0bad80e5a');
+    expect(links[1].nativeElement.href).toContain('items/0c34d491-b5ed-4a78-8b29-83d0bad80e5a');
     expect(links[1].nativeElement.textContent).toEqual('This is a publication');
 
   });

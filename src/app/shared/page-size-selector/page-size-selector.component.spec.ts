@@ -12,6 +12,8 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { VarDirective } from '../utils/var.directive';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
 describe('PageSizeSelectorComponent', () => {
 
@@ -33,6 +35,8 @@ describe('PageSizeSelectorComponent', () => {
     sort
   };
 
+  const paginationService = new PaginationServiceStub(pagination, sort);
+
   const activatedRouteStub = {
     queryParams: observableOf({
       query: queryParam,
@@ -46,6 +50,7 @@ describe('PageSizeSelectorComponent', () => {
       declarations: [PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: PaginationService, useValue: paginationService },
         {
           provide: SEARCH_CONFIG_SERVICE,
           useValue: {

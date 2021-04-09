@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { ActivatedRoute, Router } from '@angular/router';
 
 class TabDataServiceMock {
   findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
@@ -25,15 +26,20 @@ class TabDataServiceMock {
 describe('CrisLayoutDefaultSidebarComponent', () => {
   let component: CrisLayoutDefaultSidebarComponent;
   let fixture: ComponentFixture<CrisLayoutDefaultSidebarComponent>;
-
+  const router = jasmine.createSpyObj('router', ['navigate']);
+  const location = {
+    path(): string {
+      return '/items/a96c6d24-757a-411d-8132-bbcbbbb04210/person-biography';
+    }
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CrisLayoutDefaultSidebarComponent ],
-      providers: [ {provide: Location, useValue: {
-        path(): string {
-          return '/items/a96c6d24-757a-411d-8132-bbcbbbb04210/person-biography';
-        }
-      }} ],
+      providers: [
+        { provide: Location, useValue: location },
+        { provide: ActivatedRoute, useValue: {} },
+        { provide: Router, useValue: router }
+      ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();

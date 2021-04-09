@@ -250,6 +250,8 @@ import { ItemExportAlertComponent } from './item-export/item-export-alert/item-e
 import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { BulkImportSelectorComponent } from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-configuration-search-page.component';
+import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -493,7 +495,8 @@ const COMPONENTS = [
   SearchChartFilterWrapperComponent,
   SearchChartComponent,
   SearchChartFilterComponent,
-  VocabularyExternalSourceComponent
+  VocabularyExternalSourceComponent,
+  SearchNavbarComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -554,7 +557,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
-  ConfigurationSearchPageComponent
+  ConfigurationSearchPageComponent,
+  ThemedConfigurationSearchPageComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

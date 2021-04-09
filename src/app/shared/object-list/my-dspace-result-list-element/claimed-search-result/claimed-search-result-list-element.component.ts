@@ -12,6 +12,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -38,9 +39,10 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
 
   public constructor(
     protected linkService: LinkService,
-    protected truncatableService: TruncatableService
+    protected truncatableService: TruncatableService,
+    protected dsoNameService: DSONameService
   ) {
-    super(truncatableService);
+    super(truncatableService, dsoNameService);
   }
 
   /**

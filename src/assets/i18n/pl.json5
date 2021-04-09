@@ -40,8 +40,6 @@
   // TODO New key - Add a translation
   "404.page-not-found": "page not found",
   
-  
-  
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   // TODO New key - Add a translation
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
@@ -53,54 +51,6 @@
   // "admin.curation-tasks.header": "System curation tasks",
   // TODO New key - Add a translation
   "admin.curation-tasks.header": "System curation tasks",
-  
-  
-  
-  // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
-  
-  // "admin.edit-user-agreement.confirm.title": "Force acceptance",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.title": "Force acceptance",
-  
-  // "admin.edit-user-agreement.confirm.info":"Do you want to force all users to accept the new user agreement?",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.info":"Do you want to force all users to accept the new user agreement?",
-  
-  // "admin.edit-user-agreement.confirm.cancel":"Cancel",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.cancel":"Cancel",
-  
-  // "admin.edit-user-agreement.confirm.no":"No, update only",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.no":"No, update only",
-  
-  // "admin.edit-user-agreement.confirm.yes":"Yes, update and force",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.yes":"Yes, update and force",
-  
-  // "admin.edit-user-agreement.save-button": "Save",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.save-button": "Save",
-  
-  // "admin.edit-user-agreement.header": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.header": "Edit User Agreement",
-  
-  // "admin.edit-user-agreement.success": "User agreement successfully updated",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.success": "User agreement successfully updated",
-  
-  // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
-  
-  // "admin.edit-user-agreement.title": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.title": "Edit User Agreement",
-  
-  
   
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
   // TODO New key - Add a translation
@@ -278,9 +228,9 @@
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   
-  // "admin.registries.bitstream-formats.title": "DSpace Cris Angular :: Bitstream Format Registry",
+  // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.title": "DSpace Cris Angular :: Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
   
   
   
@@ -332,9 +282,9 @@
   // TODO New key - Add a translation
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
   
-  // "admin.registries.metadata.title": "DSpace Cris Angular :: Metadata Registry",
+  // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.title": "DSpace Cris Angular :: Metadata Registry",
+  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
   
   
   
@@ -434,9 +384,9 @@
   // TODO New key - Add a translation
   "admin.registries.schema.return": "Return",
   
-  // "admin.registries.schema.title": "DSpace Cris Angular :: Metadata Schema Registry",
+  // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
   // TODO New key - Add a translation
-  "admin.registries.schema.title": "DSpace Cris Angular :: Metadata Schema Registry",
+  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
   
   
   
@@ -654,10 +604,6 @@
   // TODO New key - Add a translation
   "admin.access-control.groups.table.members": "Members",
   
-  // "admin.access-control.groups.table.comcol": "Community / Collection",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.comcol": "Community / Collection",
-  
   // "admin.access-control.groups.table.edit": "Edit",
   // TODO New key - Add a translation
   "admin.access-control.groups.table.edit": "Edit",
@@ -685,14 +631,6 @@
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   // TODO New key - Add a translation
   "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  
-  // "admin.access-control.groups.notification.edit.success": "Successfully edited group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.edit.success": "Successfully edited group \"{{name}}\"",
-  
-  // "admin.access-control.groups.notification.edit.failure": "Failed to edit group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.edit.failure": "Failed to edit group \"{{name}}\"",
   
   
   
@@ -852,6 +790,10 @@
   // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
   
+  // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
   // TODO New key - Add a translation
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
@@ -977,6 +919,10 @@
   // "admin.search.title": "Administrative Search",
   // TODO New key - Add a translation
   "admin.search.title": "Administrative Search",
+  
+  // "administrativeView.search.results.head": "Administrative Search",
+  // TODO New key - Add a translation
+  "administrativeView.search.results.head": "Administrative Search",
   
   
   
@@ -1121,6 +1067,7 @@
   "bitstream.edit.title": "Edit bitstream",
   
   
+  
   // "browse.comcol.by.author": "By Author",
   // TODO New key - Add a translation
   "browse.comcol.by.author": "By Author",
@@ -1129,26 +1076,6 @@
   // TODO New key - Add a translation
   "browse.comcol.by.dateissued": "By Issue Date",
   
-  // "browse.comcol.by.ouname": "By Name",
-  // TODO New key - Add a translation
-  "browse.comcol.by.ouname": "By Name",
-  
-  // "browse.comcol.by.pjtitle": "By Title",
-  // TODO New key - Add a translation
-  "browse.comcol.by.pjtitle": "By Title",
-  
-  // "browse.comcol.by.rodept": "By Department",
-  // TODO New key - Add a translation
-  "browse.comcol.by.rodept": "By Department",
-  
-  // "browse.comcol.by.rpdept": "By Department",
-  // TODO New key - Add a translation
-  "browse.comcol.by.rpdept": "By Department",
-  
-  // "browse.comcol.by.rpname": "By Name",
-  // TODO New key - Add a translation
-  "browse.comcol.by.rpname": "By Name",
-  
   // "browse.comcol.by.subject": "By Subject",
   // TODO New key - Add a translation
   "browse.comcol.by.subject": "By Subject",
@@ -1156,11 +1083,6 @@
   // "browse.comcol.by.title": "By Title",
   // TODO New key - Add a translation
   "browse.comcol.by.title": "By Title",
-  
-  // "browse.comcol.by.type": "By Type",
-  // TODO New key - Add a translation
-  "browse.comcol.by.type": "By Type",
-  
   
   // "browse.comcol.head": "Browse",
   // TODO New key - Add a translation
@@ -1178,45 +1100,9 @@
   // TODO New key - Add a translation
   "browse.metadata.dateissued": "Issue Date",
   
-  // "browse.metadata.eqdatecreated": "Date Created",
-  // TODO New key - Add a translation
-  "browse.metadata.eqdatecreated": "Date Created",
-  
-  // "browse.metadata.eqdatemodified": "Date Modified",
-  // TODO New key - Add a translation
-  "browse.metadata.eqdatemodified": "Date Modified",
-  
-  // "browse.metadata.eqtitle": "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.eqtitle": "Title",
-  
-  // "browse.metadata.ouname" : "Name",
-  // TODO New key - Add a translation
-  "browse.metadata.ouname" : "Name",
-  
-  // "browse.metadata.pjtitle" : "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.pjtitle" : "Title",
-  
-  // "browse.metadata.rodept": "Department",
-  // TODO New key - Add a translation
-  "browse.metadata.rodept": "Department",
-  
-  // "browse.metadata.rpdept": "Department",
-  // TODO New key - Add a translation
-  "browse.metadata.rpdept": "Department",
-  
-  // "browse.metadata.rpname": "Name",
-  // TODO New key - Add a translation
-  "browse.metadata.rpname": "Name",
-  
   // "browse.metadata.subject": "Subject",
   // TODO New key - Add a translation
   "browse.metadata.subject": "Subject",
-  
-  // "browse.metadata.type": "Type",
-  // TODO New key - Add a translation
-  "browse.metadata.type": "Type",
   
   // "browse.metadata.title": "Title",
   // TODO New key - Add a translation
@@ -1230,45 +1116,9 @@
   // TODO New key - Add a translation
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
   
-  // "browse.metadata.eqdatecreated.breadcrumbs": "Browse by Creation Date",
-  // TODO New key - Add a translation
-  "browse.metadata.eqdatecreated.breadcrumbs": "Browse by Creation Date",
-  
-  // "browse.metadata.eqdatemodified.breadcrumbs": "Browse by Modification Date",
-  // TODO New key - Add a translation
-  "browse.metadata.eqdatemodified.breadcrumbs": "Browse by Modification Date",
-  
-  // "browse.metadata.eqtitle.breadcrumbs": "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.eqtitle.breadcrumbs": "Browse by Title",
-  
-  // "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
-  // TODO New key - Add a translation
-  "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
-  
-  // "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
-  
-  // "browse.metadata.rodept.breadcrumbs": "Browse by Department",
-  // TODO New key - Add a translation
-  "browse.metadata.rodept.breadcrumbs": "Browse by Department",
-  
-  // "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
-  // TODO New key - Add a translation
-  "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
-  
-  // "browse.metadata.rpname.breadcrumbs": "Browse by Name",
-  // TODO New key - Add a translation
-  "browse.metadata.rpname.breadcrumbs": "Browse by Name",
-  
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   // TODO New key - Add a translation
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  
-  // "browse.metadata.type.breadcrumbs": "Browse by Type",
-  // TODO New key - Add a translation
-  "browse.metadata.type.breadcrumbs": "Browse by Type",
   
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   // TODO New key - Add a translation
@@ -1355,57 +1205,6 @@
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
   
   
-  
-  // "bulk-import.abort-on-error" : "Abort on first error",
-  // TODO New key - Add a translation
-  "bulk-import.abort-on-error" : "Abort on first error",
-  
-  // "bulk-import.back": "Back",
-  // TODO New key - Add a translation
-  "bulk-import.back": "Back",
-  
-  // "bulk-import.breadcrumbs" : "Bulk import",
-  // TODO New key - Add a translation
-  "bulk-import.breadcrumbs" : "Bulk import",
-  
-  // "bulk-import.collection-name" : "Collection",
-  // TODO New key - Add a translation
-  "bulk-import.collection-name" : "Collection",
-  
-  // "bulk-import.error": "An error occurred while creating the import process",
-  // TODO New key - Add a translation
-  "bulk-import.error": "An error occurred while creating the import process",
-  
-  // "bulk-import.file" : "Source file",
-  // TODO New key - Add a translation
-  "bulk-import.file" : "Source file",
-  
-  // "bulk-import.header" : "Bulk import",
-  // TODO New key - Add a translation
-  "bulk-import.header" : "Bulk import",
-  
-  // "bulk-import.processing": "Processing...",
-  // TODO New key - Add a translation
-  "bulk-import.processing": "Processing...",
-  
-  // "bulk-import.success": "The import process was successfully created",
-  // TODO New key - Add a translation
-  "bulk-import.success": "The import process was successfully created",
-  
-  // "bulk-import.submit": "Start import",
-  // TODO New key - Add a translation
-  "bulk-import.submit": "Start import",
-  
-  // "bulk-import.title" : "Bulk import",
-  // TODO New key - Add a translation
-  "bulk-import.title" : "Bulk import",
-  
-  // "bulk-import.workflow" : "Use collection workflow",
-  // TODO New key - Add a translation
-  "bulk-import.workflow" : "Use collection workflow",
-  
-  
-  
   // "chips.remove": "Remove chip",
   // TODO New key - Add a translation
   "chips.remove": "Remove chip",
@@ -1467,6 +1266,14 @@
   "collection.edit.breadcrumbs": "Edit Collection",
   
   
+  
+  // "collection.edit.tabs.mapper.head": "Item Mapper",
+  // TODO New key - Add a translation
+  "collection.edit.tabs.mapper.head": "Item Mapper",
+  
+  // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
+  // TODO New key - Add a translation
+  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
   
   // "collection.edit.item-mapper.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -1566,6 +1373,8 @@
   // TODO New key - Add a translation
   "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   
+  
+  
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   // TODO New key - Add a translation
   "collection.edit.notifications.success": "Successfully edited the Collection",
@@ -1612,10 +1421,6 @@
   // TODO New key - Add a translation
   "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
   
-  // "collection.edit.tabs.source.form.adminEmail": "Admin's email",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.adminEmail": "Admin's email",
-  
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
   // TODO New key - Add a translation
   "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
@@ -1651,14 +1456,6 @@
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
   // TODO New key - Add a translation
   "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
-  
-  // "collection.edit.tabs.source.form.preTransform": "Pre transformation name",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.preTransform": "Pre transformation name",
-  
-  // "collection.edit.tabs.source.form.postTransform": "Post transformation name",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.postTransform": "Post transformation name",
   
   // "collection.edit.tabs.source.head": "Content Source",
   // TODO New key - Add a translation
@@ -1735,14 +1532,6 @@
   "collection.edit.template.title": "Edit Template Item",
   
   
-  // "collection-export.success": "Export of the collection's items started successfully",
-  // TODO New key - Add a translation
-  "collection-export.success": "Export of the collection's items started successfully",
-  
-  // "collection-export.error": "An error occurs starting the collection's items export",
-  // TODO New key - Add a translation
-  "collection-export.error": "An error occurs starting the collection's items export",
-  
   
   // "collection.form.abstract": "Short Description",
   // TODO New key - Add a translation
@@ -1768,10 +1557,6 @@
   // TODO New key - Add a translation
   "collection.form.rights": "Copyright text (HTML)",
   
-  // "collection.form.sharedWorkspace": "Shared workspace",
-  // TODO New key - Add a translation
-  "collection.form.sharedWorkspace": "Shared workspace",
-  
   // "collection.form.tableofcontents": "News (HTML)",
   // TODO New key - Add a translation
   "collection.form.tableofcontents": "News (HTML)",
@@ -1779,22 +1564,6 @@
   // "collection.form.title": "Name",
   // TODO New key - Add a translation
   "collection.form.title": "Name",
-  
-  // "collection.form.entityType": "Entity Type",
-  // TODO New key - Add a translation
-  "collection.form.entityType": "Entity Type",
-  
-  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  
-  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  
-  // "collection.form.submissionDefinition": "Submission definition",
-  // TODO New key - Add a translation
-  "collection.form.submissionDefinition": "Submission definition",
   
   
   
@@ -1815,10 +1584,6 @@
   // "collection.page.edit": "Edit this collection",
   // TODO New key - Add a translation
   "collection.page.edit": "Edit this collection",
-  
-  // "collection.page.export": "Export items from this collection",
-  // TODO New key - Add a translation
-  "collection.page.export": "Export items from this collection",
   
   // "collection.page.handle": "Permanent URI for this collection",
   // TODO New key - Add a translation
@@ -2163,77 +1928,7 @@
   // TODO New key - Add a translation
   "community.sub-community-list.head": "Communities of this Community",
   
-  // "context-menu.actions": "Actions",
-  // TODO New key - Add a translation
-  "context-menu.actions": "Actions",
   
-  // "context-menu.actions.audit-item.btn": "Audit",
-  // TODO New key - Add a translation
-  "context-menu.actions.audit-item.btn": "Audit",
-  
-  // "context-menu.actions.bulk-import.btn": "Import items into collection",
-  // TODO New key - Add a translation
-  "context-menu.actions.bulk-import.btn": "Import items into collection",
-  
-  // "context-menu.actions.export-item.btn": "Export",
-  // TODO New key - Add a translation
-  "context-menu.actions.export-item.btn": "Export",
-  
-  // "context-menu.actions.label": "Options",
-  // TODO New key - Add a translation
-  "context-menu.actions.label": "Options",
-  
-  // "context-menu.actions.edit-item.btn.FULL": "Edit item",
-  // TODO New key - Add a translation
-  "context-menu.actions.edit-item.btn.FULL": "Edit item",
-  
-  // "context-menu.actions.request-correction.btn": "Request correction",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.btn": "Request correction",
-  
-  // "context-menu.actions.request-correction.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.confirm.cancel": "Cancel",
-  
-  // "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
-  
-  // "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
-  
-  // "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
-  
-  // "context-menu.actions.request-correction.info": "Are you sure you want to proceed with this operation?",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.info": "Are you sure you want to proceed with this operation?",
-  
-  // "context-menu.actions.request-correction.title": "Request correction",
-  // TODO New key - Add a translation
-  "context-menu.actions.request-correction.title": "Request correction",
-  
-  // "context-menu.actions.dso-page-edit.COMMUNITY.btn": "Administer",
-  // TODO New key - Add a translation
-  "context-menu.actions.dso-page-edit.COMMUNITY.btn": "Administer",
-  
-  // "context-menu.actions.dso-page-edit.COLLECTION.btn": "Administer",
-  // TODO New key - Add a translation
-  "context-menu.actions.dso-page-edit.COLLECTION.btn": "Administer",
-  
-  // "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
-  // TODO New key - Add a translation
-  "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
-  
-  // "datafile.listelement.badge": "Data File",
-  // TODO New key - Add a translation
-  "datafile.listelement.badge": "Data File",
-  
-  // "datapackage.listelement.badge": "Data Package",
-  // TODO New key - Add a translation
-  "datapackage.listelement.badge": "Data Package",
   
   // "cookies.consent.accept-all": "Accept all",
   // TODO New key - Add a translation
@@ -2499,9 +2194,6 @@
   // TODO New key - Add a translation
   "confirmation-modal.delete-eperson.confirm": "Delete",
   
-  // "equipment.listelement.badge": "Equipment",
-  // TODO New key - Add a translation
-  "equipment.listelement.badge": "Equipment",
   
   // "error.bitstream": "Error fetching bitstream",
   // TODO New key - Add a translation
@@ -2579,299 +2271,6 @@
   // TODO New key - Add a translation
   "error.validation.filerequired": "The file upload is mandatory",
   
-  
-  // "explore.browse-section.title" : "Browse",
-  // TODO New key - Add a translation
-  "explore.browse-section.title" : "Browse",
-  
-  // "explore.facet-section.title" : "Discover",
-  // TODO New key - Add a translation
-  "explore.facet-section.title" : "Discover",
-  
-  // "explore.index.all" : "All",
-  // TODO New key - Add a translation
-  "explore.index.all" : "All",
-  
-  // "explore.index.author" : "Author",
-  // TODO New key - Add a translation
-  "explore.index.author" : "Author",
-  
-  // "explore.index.birthDate" : "Birthday",
-  // TODO New key - Add a translation
-  "explore.index.birthDate" : "Birthday",
-  
-  // "explore.index.chart.pie.itemtype_filter" : "Item Type",
-  // TODO New key - Add a translation
-  "explore.index.chart.pie.itemtype_filter" : "Item Type",
-  
-  // "explore.index.chart.bar.dateIssued.year": "Year",
-  // TODO New key - Add a translation
-  "explore.index.chart.bar.dateIssued.year": "Year",
-  
-  
-  // "explore.index.dateIssued" : "Date issued",
-  // TODO New key - Add a translation
-  "explore.index.dateIssued" : "Date issued",
-  
-  // "explore.index.dateissued" : "Date issued",
-  // TODO New key - Add a translation
-  "explore.index.dateissued" : "Date issued",
-  
-  // "explore.index.dc.date.accessioned" : "Date accesioned",
-  // TODO New key - Add a translation
-  "explore.index.dc.date.accessioned" : "Date accesioned",
-  
-  // "explore.index.dc.title" : "Title",
-  // TODO New key - Add a translation
-  "explore.index.dc.title" : "Title",
-  
-  // "explore.index.editor" : "Editor",
-  // TODO New key - Add a translation
-  "explore.index.editor" : "Editor",
-  
-  // "explore.index.eqtitle" : "Title",
-  // TODO New key - Add a translation
-  "explore.index.eqtitle" : "Title",
-  
-  // "explore.index.eqowner" : "Researcher",
-  // TODO New key - Add a translation
-  "explore.index.eqowner" : "Researcher",
-  
-  // "explore.index.eqorgunit" : "Organization",
-  // TODO New key - Add a translation
-  "explore.index.eqorgunit" : "Organization",
-  
-  // "explore.index.entityType" : "Entity type",
-  // TODO New key - Add a translation
-  "explore.index.entityType" : "Entity type",
-  
-  // "explore.index.familyName" : "Family name",
-  // TODO New key - Add a translation
-  "explore.index.familyName" : "Family name",
-  
-  // "explore.index.funding" : "Funding",
-  // TODO New key - Add a translation
-  "explore.index.funding" : "Funding",
-  
-  // "explore.index.givenName" : "Given name",
-  // TODO New key - Add a translation
-  "explore.index.givenName" : "Given name",
-  
-  // "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
-  // TODO New key - Add a translation
-  "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
-  
-  // "explore.index.investigators" : "Researchers",
-  // TODO New key - Add a translation
-  "explore.index.investigators" : "Researchers",
-  
-  // "explore.index.isAuthorOfPublication" : "Publication's author",
-  // TODO New key - Add a translation
-  "explore.index.isAuthorOfPublication" : "Publication's author",
-  
-  // "explore.index.isJournalOfPublication" : "Publication's journal",
-  // TODO New key - Add a translation
-  "explore.index.isJournalOfPublication" : "Publication's journal",
-  
-  // "explore.index.isOrgUnitOfPerson" : "Person's organization",
-  // TODO New key - Add a translation
-  "explore.index.isOrgUnitOfPerson" : "Person's organization",
-  
-  // "explore.index.isOrgUnitOfProject" : "Project's organization",
-  // TODO New key - Add a translation
-  "explore.index.isOrgUnitOfProject" : "Project's organization",
-  
-  // "explore.index.isOrgUnitOfPublication" : "Publication's organization",
-  // TODO New key - Add a translation
-  "explore.index.isOrgUnitOfPublication" : "Publication's organization",
-  
-  // "explore.index.isPersonOfOrgUnit" : "Organization's person",
-  // TODO New key - Add a translation
-  "explore.index.isPersonOfOrgUnit" : "Organization's person",
-  
-  // "explore.index.isPersonOfProject" : "Project's person",
-  // TODO New key - Add a translation
-  "explore.index.isPersonOfProject" : "Project's person",
-  
-  // "explore.index.isProjectOfOrgUnit" : "Organization's project",
-  // TODO New key - Add a translation
-  "explore.index.isProjectOfOrgUnit" : "Organization's project",
-  
-  // "explore.index.isProjectOfPerson" : "Person's project",
-  // TODO New key - Add a translation
-  "explore.index.isProjectOfPerson" : "Person's project",
-  
-  // "explore.index.isProjectOfPublication" : "Publication's project",
-  // TODO New key - Add a translation
-  "explore.index.isProjectOfPublication" : "Publication's project",
-  
-  // "explore.index.isPublicationOfAuthor" : "Author's publication",
-  // TODO New key - Add a translation
-  "explore.index.isPublicationOfAuthor" : "Author's publication",
-  
-  // "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
-  // TODO New key - Add a translation
-  "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
-  
-  // "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
-  // TODO New key - Add a translation
-  "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
-  
-  // "explore.index.isPublicationOfProject" : "Project's publication",
-  // TODO New key - Add a translation
-  "explore.index.isPublicationOfProject" : "Project's publication",
-  
-  // "explore.index.itemidentifier" : "Item identifier",
-  // TODO New key - Add a translation
-  "explore.index.itemidentifier" : "Item identifier",
-  
-  // "explore.index.jobTitle" : "Job title",
-  // TODO New key - Add a translation
-  "explore.index.jobTitle" : "Job title",
-  
-  // "explore.index.knowsLanguage" : "Knows languages",
-  // TODO New key - Add a translation
-  "explore.index.knowsLanguage" : "Knows languages",
-  
-  // "explore.index.organization" : "Organization",
-  // TODO New key - Add a translation
-  "explore.index.organization" : "Organization",
-  
-  // "explore.index.organizationAddressCountry" : "Organization address country",
-  // TODO New key - Add a translation
-  "explore.index.organizationAddressCountry" : "Organization address country",
-  
-  // "explore.index.organizationAddressLocality" : "Organization address locality",
-  // TODO New key - Add a translation
-  "explore.index.organizationAddressLocality" : "Organization address locality",
-  
-  // "explore.index.organizationFoundingDate" : "Organization founding date",
-  // TODO New key - Add a translation
-  "explore.index.organizationFoundingDate" : "Organization founding date",
-  
-  // "explore.index.organizationLegalName" : "Organization legal name",
-  // TODO New key - Add a translation
-  "explore.index.organizationLegalName" : "Organization legal name",
-  
-  // "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
-  // TODO New key - Add a translation
-  "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
-  
-  // "explore.index.original_bundle_filenames" : "Original bundle filenames",
-  // TODO New key - Add a translation
-  "explore.index.original_bundle_filenames" : "Original bundle filenames",
-  
-  // "explore.index.ouname" : "Name",
-  // TODO New key - Add a translation
-  "explore.index.ouname" : "Name",
-  
-  // "explore.index.projectOrgUnits" : "Organizations",
-  // TODO New key - Add a translation
-  "explore.index.projectOrgUnits" : "Organizations",
-  
-  // "explore.index.personOrgUnits" : "Organizations",
-  // TODO New key - Add a translation
-  "explore.index.personOrgUnits" : "Organizations",
-  
-  // "explore.index.pjtitle" : "Title",
-  // TODO New key - Add a translation
-  "explore.index.pjtitle" : "Title",
-  
-  // "explore.index.projectinvestigators" : "Project investigators",
-  // TODO New key - Add a translation
-  "explore.index.projectinvestigators" : "Project investigators",
-  
-  // "explore.index.rodept" : "Department",
-  // TODO New key - Add a translation
-  "explore.index.rodept" : "Department",
-  
-  // "explore.index.rpdept" : "Department",
-  // TODO New key - Add a translation
-  "explore.index.rpdept" : "Department",
-  
-  // "explore.index.rpname" : "Name",
-  // TODO New key - Add a translation
-  "explore.index.rpname" : "Name",
-  
-  // "explore.index.subject" : "Subject",
-  // TODO New key - Add a translation
-  "explore.index.subject" : "Subject",
-  
-  // "explore.index.title" : "Title",
-  // TODO New key - Add a translation
-  "explore.index.title" : "Title",
-  
-  // "explore.index.type" : "Type",
-  // TODO New key - Add a translation
-  "explore.index.type" : "Type",
-  
-  // "explore.search-section.infrastructure.title": "Infrastructure",
-  // TODO New key - Add a translation
-  "explore.search-section.infrastructure.title": "Infrastructure",
-  
-  // "explore.search-section.fundings.title": "Search Projects",
-  // TODO New key - Add a translation
-  "explore.search-section.fundings.title": "Search Projects",
-  
-  // "explore.search-section.fundings_and_projects.title": "Search Projects",
-  // TODO New key - Add a translation
-  "explore.search-section.fundings_and_projects.title": "Search Projects",
-  
-  // "explore.search-section.orgunits.title": "Search Organizations",
-  // TODO New key - Add a translation
-  "explore.search-section.orgunits.title": "Search Organizations",
-  
-  // "explore.search-section.publications.title": "Search Research Outputs",
-  // TODO New key - Add a translation
-  "explore.search-section.publications.title": "Search Research Outputs",
-  
-  // "explore.search-section.researchoutputs.title": "Search Research Outputs",
-  // TODO New key - Add a translation
-  "explore.search-section.researchoutputs.title": "Search Research Outputs",
-  
-  // "explore.search-section.researcherprofiles.title": "Search People",
-  // TODO New key - Add a translation
-  "explore.search-section.researcherprofiles.title": "Search People",
-  
-  // "explore.search-section.search-button": "Search",
-  // TODO New key - Add a translation
-  "explore.search-section.search-button": "Search",
-  
-  // "explore.search-section.reset-button": "Reset",
-  // TODO New key - Add a translation
-  "explore.search-section.reset-button": "Reset",
-  
-  // "explore.infrastructure.breadcrumbs": "Infrastructure",
-  // TODO New key - Add a translation
-  "explore.infrastructure.breadcrumbs": "Infrastructure",
-  
-  // "explore.fundings.breadcrumbs": "Projects",
-  // TODO New key - Add a translation
-  "explore.fundings.breadcrumbs": "Projects",
-  
-  // "explore.fundings_and_projects.breadcrumbs": "Projects",
-  // TODO New key - Add a translation
-  "explore.fundings_and_projects.breadcrumbs": "Projects",
-  
-  // "explore.orgunits.breadcrumbs": "Organizations",
-  // TODO New key - Add a translation
-  "explore.orgunits.breadcrumbs": "Organizations",
-  
-  // "explore.publications.breadcrumbs": "Research Outputs",
-  // TODO New key - Add a translation
-  "explore.publications.breadcrumbs": "Research Outputs",
-  
-  // "explore.researchoutputs.breadcrumbs": "Research Outputs",
-  // TODO New key - Add a translation
-  "explore.researchoutputs.breadcrumbs": "Research Outputs",
-  
-  // "explore.researcherprofiles.breadcrumbs": "People",
-  // TODO New key - Add a translation
-  "explore.researcherprofiles.breadcrumbs": "People",
-  
-  // "explore.title": "Explore section",
-  // TODO New key - Add a translation
-  "explore.title": "Explore section",
   
   
   // "file-section.error.header": "Error obtaining files for this item",
@@ -3086,17 +2485,9 @@
   // TODO New key - Add a translation
   "form.no-value": "No value entered",
   
-  // "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+  // "form.other-information": {},
   // TODO New key - Add a translation
-  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
-  
-  // "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
-  
-  // "form.other-information.not-available": "Not available",
-  // TODO New key - Add a translation
-  "form.other-information.not-available": "Not available",
+  "form.other-information": {},
   
   // "form.remove": "Remove",
   // TODO New key - Add a translation
@@ -3122,9 +2513,6 @@
   // TODO New key - Add a translation
   "form.submit": "Submit",
   
-  // "funding.listelement.badge" : "Funding",
-  // TODO New key - Add a translation
-  "funding.listelement.badge" : "Funding",
   
   
   // "home.description": "",
@@ -3135,13 +2523,13 @@
   // TODO New key - Add a translation
   "home.breadcrumbs": "Home",
   
-  // "home.title": "DSpace Cris Angular :: Home",
+  // "home.title": "DSpace Angular :: Home",
   // TODO New key - Add a translation
-  "home.title": "DSpace Cris Angular :: Home",
+  "home.title": "DSpace Angular :: Home",
   
-  // "home.top-level-communities.head": "Communities in DSpace Cris",
+  // "home.top-level-communities.head": "Communities in DSpace",
   // TODO New key - Add a translation
-  "home.top-level-communities.head": "Communities in DSpace Cris",
+  "home.top-level-communities.head": "Communities in DSpace",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   // TODO New key - Add a translation
@@ -3160,10 +2548,6 @@
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
   // TODO New key - Add a translation
   "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
-  
-  // "info.end-user-agreement.accept.warning": "Before you can proceed, you must agree to the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept.warning": "Before you can proceed, you must agree to the End User Agreement",
   
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
   // TODO New key - Add a translation
@@ -3430,6 +2814,13 @@
   "item.edit.breadcrumbs": "Edit Item",
   
   
+  // "item.edit.tabs.mapper.head": "Collection Mapper",
+  // TODO New key - Add a translation
+  "item.edit.tabs.mapper.head": "Collection Mapper",
+  
+  // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
+  // TODO New key - Add a translation
+  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
   
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   // TODO New key - Add a translation
@@ -3789,9 +3180,9 @@
   // TODO New key - Add a translation
   "item.edit.relationships.save-button": "Save",
   
-  // "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+  // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   // TODO New key - Add a translation
-  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+  "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   
   
   
@@ -4069,54 +3460,6 @@
   // TODO New key - Add a translation
   "item.page.link.simple": "Simple item page",
   
-  // "item.page.metric.deltaPeriod1": "Last Week",
-  // TODO New key - Add a translation
-  "item.page.metric.deltaPeriod1": "Last Week",
-  
-  // "item.page.metric.deltaPeriod2": "Last Month",
-  // TODO New key - Add a translation
-  "item.page.metric.deltaPeriod2": "Last Month",
-  
-  // "item.page.metric.label.altmetrics": "Altmetrics",
-  // TODO New key - Add a translation
-  "item.page.metric.label.altmetrics": "Altmetrics",
-  
-  // "item.page.metric.label.google-scholar": "Google Scholar",
-  // TODO New key - Add a translation
-  "item.page.metric.label.google-scholar": "Google Scholar",
-  
-  // "item.page.metric.label.scopusCitation": "Scopus citations",
-  // TODO New key - Add a translation
-  "item.page.metric.label.scopusCitation": "Scopus citations",
-  
-  // "item.page.metric.label.scopus-author-h-index": "H-index",
-  // TODO New key - Add a translation
-  "item.page.metric.label.scopus-author-h-index": "H-index",
-  
-  // "item.page.metric.label.scopus-author-coauthor-count": "Coauthor",
-  // TODO New key - Add a translation
-  "item.page.metric.label.scopus-author-coauthor-count": "Coauthor",
-  
-  // "item.page.metric.label.scopus-author-cited-count": "Cited By",
-  // TODO New key - Add a translation
-  "item.page.metric.label.scopus-author-cited-count": "Cited By",
-  
-  // "item.page.metric.label.scopus-author-citation-count": "Author Citations",
-  // TODO New key - Add a translation
-  "item.page.metric.label.scopus-author-citation-count": "Author Citations",
-  
-  // "item.page.metric.label.scopus-author-document-count": "Author Documents",
-  // TODO New key - Add a translation
-  "item.page.metric.label.scopus-author-document-count": "Author Documents",
-  
-  // "item.page.metric.label.wosCitation": "WOS citations",
-  // TODO New key - Add a translation
-  "item.page.metric.label.wosCitation": "WOS citations",
-  
-  // "item.page.metric.label.wosPersonCitation": "WOS citations",
-  // TODO New key - Add a translation
-  "item.page.metric.label.wosPersonCitation": "WOS citations",
-  
   // "item.page.person.search.title": "Articles by this author",
   // TODO New key - Add a translation
   "item.page.person.search.title": "Articles by this author",
@@ -4169,61 +3512,13 @@
   // TODO New key - Add a translation
   "item.page.filesection.license.bundle" : "License bundle",
   
-  // "item.preview.dc.description.tableOfContents" : "Table of Contents",
-  // TODO New key - Add a translation
-  "item.preview.dc.description.tableOfContents" : "Table of Contents",
-  
-  // "item.preview.dc.identifier.doi" : "DOI",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.doi" : "DOI",
-  
-  // "item.preview.dc.identifier.issn" : "ISSN",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.issn" : "ISSN",
-  
-  // "item.preview.dc.identifier.scopus" : "Scopus id",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.scopus" : "Scopus id",
-  
-  // "item.preview.dc.publisher" : "Publisher",
-  // TODO New key - Add a translation
-  "item.preview.dc.publisher" : "Publisher",
-  
-  // "item.preview.dc.relation.grantno" : "Grant no.",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.grantno" : "Grant no.",
-  
-  // "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  
-  // "item.preview.dc.relation.ispartofseries" : "Serie",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartofseries" : "Serie",
-  
-  // "item.preview.dc.identifier.isbn" : "ISBN",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.isbn" : "ISBN",
-  
   // "item.preview.dc.identifier.uri": "Identifier:",
   // TODO New key - Add a translation
   "item.preview.dc.identifier.uri": "Identifier:",
   
-  // "item.preview.dc.contributor.advisor" : "Advisor",
-  // TODO New key - Add a translation
-  "item.preview.dc.contributor.advisor" : "Advisor",
-  
   // "item.preview.dc.contributor.author": "Authors:",
   // TODO New key - Add a translation
   "item.preview.dc.contributor.author": "Authors:",
-  
-  // "item.preview.dc.contributor.editor": "Editors:",
-  // TODO New key - Add a translation
-  "item.preview.dc.contributor.editor": "Editors:",
-  
-  // "item.preview.dc.date.embargoEnd" : "Embargo End",
-  // TODO New key - Add a translation
-  "item.preview.dc.date.embargoEnd" : "Embargo End",
   
   // "item.preview.dc.date.issued": "Published date:",
   // TODO New key - Add a translation
@@ -4233,33 +3528,13 @@
   // TODO New key - Add a translation
   "item.preview.dc.description.abstract": "Abstract:",
   
-  // "item.preview.dc.description.sponsorship" : "Sponsorship",
-  // TODO New key - Add a translation
-  "item.preview.dc.description.sponsorship" : "Sponsorship",
-  
   // "item.preview.dc.identifier.other": "Other identifier:",
   // TODO New key - Add a translation
   "item.preview.dc.identifier.other": "Other identifier:",
   
-  // "item.preview.dc.identifier.pmid" : "Pubmed Id",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.pmid" : "Pubmed Id",
-  
   // "item.preview.dc.language.iso": "Language:",
   // TODO New key - Add a translation
   "item.preview.dc.language.iso": "Language:",
-  
-  // "item.preview.dc.relation.uri" : "Relation URI",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.uri" : "Relation URI",
-  
-  // "item.preview.dc.rights" : "Rights",
-  // TODO New key - Add a translation
-  "item.preview.dc.rights" : "Rights",
-  
-  // "item.preview.dc.rights.uri" : "Rights URI",
-  // TODO New key - Add a translation
-  "item.preview.dc.rights.uri" : "Rights URI",
   
   // "item.preview.dc.subject": "Subjects:",
   // TODO New key - Add a translation
@@ -4268,46 +3543,6 @@
   // "item.preview.dc.title": "Title:",
   // TODO New key - Add a translation
   "item.preview.dc.title": "Title:",
-  
-  // "item.preview.dc.title.alternative" : "Alternative Title",
-  // TODO New key - Add a translation
-  "item.preview.dc.title.alternative" : "Alternative Title",
-  
-  // "item.preview.dc.type": "Type:",
-  // TODO New key - Add a translation
-  "item.preview.dc.type": "Type:",
-  
-  // "item.preview.dc.type.version" : "Version",
-  // TODO New key - Add a translation
-  "item.preview.dc.type.version" : "Version",
-  
-  // "item.preview.dc.identifier": "Identifier:",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier": "Identifier:",
-  
-  // "item.preview.dc.source": "Source:",
-  // TODO New key - Add a translation
-  "item.preview.dc.source": "Source:",
-  
-  // "item.preview.dc.relation.isbn" : "ISBN",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.isbn" : "ISBN",
-  
-  // "item.preview.dc.relation.issn" : "ISSN",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.issn" : "ISSN",
-  
-  // "item.preview.oaire.citation.issue" : "Issue",
-  // TODO New key - Add a translation
-  "item.preview.oaire.citation.issue" : "Issue",
-  
-  // "item.preview.oaire.citation.volume" : "Volume",
-  // TODO New key - Add a translation
-  "item.preview.oaire.citation.volume" : "Volume",
-  
-  // "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
-  // TODO New key - Add a translation
-  "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
   
   // "item.preview.person.familyName": "Surname:",
   // TODO New key - Add a translation
@@ -4321,9 +3556,6 @@
   // TODO New key - Add a translation
   "item.preview.person.identifier.orcid": "ORCID:",
   
-  // "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
-  // TODO New key - Add a translation
-  "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
   
   // "item.select.confirm": "Confirm selected",
   // TODO New key - Add a translation
@@ -4422,9 +3654,9 @@
   // TODO New key - Add a translation
   "journal.search.results.head": "Journal Search Results",
   
-  // "journal.search.title": "DSpace Cris Angular :: Journal Search",
+  // "journal.search.title": "DSpace Angular :: Journal Search",
   // TODO New key - Add a translation
-  "journal.search.title": "DSpace Cris Angular :: Journal Search",
+  "journal.search.title": "DSpace Angular :: Journal Search",
   
   
   
@@ -4672,37 +3904,29 @@
   // TODO New key - Add a translation
   "menu.section.browse_community_by_title": "By Title",
   
-  // "menu.section.explore_infrastructure": "Infrastructure",
+  // "menu.section.browse_global": "All of DSpace",
   // TODO New key - Add a translation
-  "menu.section.explore_infrastructure": "Infrastructure",
+  "menu.section.browse_global": "All of DSpace",
   
-  // "menu.section.explore_publications": "Research Outputs",
+  // "menu.section.browse_global_by_author": "By Author",
   // TODO New key - Add a translation
-  "menu.section.explore_publications": "Research Outputs",
+  "menu.section.browse_global_by_author": "By Author",
   
-  // "menu.section.explore_researchoutputs": "Research Outputs",
+  // "menu.section.browse_global_by_dateissued": "By Issue Date",
   // TODO New key - Add a translation
-  "menu.section.explore_researchoutputs": "Research Outputs",
+  "menu.section.browse_global_by_dateissued": "By Issue Date",
   
-  // "menu.section.explore_researcherprofiles": "People",
+  // "menu.section.browse_global_by_subject": "By Subject",
   // TODO New key - Add a translation
-  "menu.section.explore_researcherprofiles": "People",
+  "menu.section.browse_global_by_subject": "By Subject",
   
-  // "menu.section.explore_orgunits": "Organizations",
+  // "menu.section.browse_global_by_title": "By Title",
   // TODO New key - Add a translation
-  "menu.section.explore_orgunits": "Organizations",
+  "menu.section.browse_global_by_title": "By Title",
   
-  // "menu.section.explore_fundings": "Projects",
+  // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   // TODO New key - Add a translation
-  "menu.section.explore_fundings": "Projects",
-  
-  // "menu.section.explore_fundings_and_projects": "Projects",
-  // TODO New key - Add a translation
-  "menu.section.explore_fundings_and_projects": "Projects",
-  
-  // "menu.section.communities_and_collections": "Communities & Collections",
-  // TODO New key - Add a translation
-  "menu.section.communities_and_collections": "Communities & Collections",
+  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   
   
   
@@ -4934,9 +4158,6 @@
   // TODO New key - Add a translation
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   
-  // "menu.section.edit_user_agreement":"Edit User Agreement",
-  // TODO New key - Add a translation
-  "menu.section.edit_user_agreement":"Edit User Agreement",
   
   // "menu.section.workflow": "Administer Workflow",
   // TODO New key - Add a translation
@@ -5243,187 +4464,6 @@
   // TODO New key - Add a translation
   "person.page.orcid": "ORCID",
   
-  // "person.page.orcid.create": "Create an ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.create": "Create an ORCID ID",
-  
-  // "person.page.orcid.granted-authorizations": "Granted authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.granted-authorizations": "Granted authorizations",
-  
-  // "person.page.orcid.link": "Connect to ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.link": "Connect to ORCID ID",
-  
-  // "person.page.orcid.missing-authorizations": "Missing authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations": "Missing authorizations",
-  
-  // "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
-  
-  // "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
-  // TODO New key - Add a translation
-  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
-  
-  // "person.page.orcid.no-orcid-message": "No ORCID iD associated yet",
-  // TODO New key - Add a translation
-  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet",
-  
-  // "person.page.orcid.profile-preferences": "Profile preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.profile-preferences": "Profile preferences",
-  
-  // "person.page.orcid.project-preferences": "Project preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.project-preferences": "Project preferences",
-  
-  // "person.page.orcid.publications-preferences": "Publication preferences",
-  // TODO New key - Add a translation
-  "person.page.orcid.publications-preferences": "Publication preferences",
-  
-  // "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
-  // TODO New key - Add a translation
-  "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
-  
-  // "person.page.orcid.save.preference.changes": "Save changes",
-  // TODO New key - Add a translation
-  "person.page.orcid.save.preference.changes": "Save changes",
-  
-  // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  
-  // "person.page.orcid.sync-profile.bibliographic" : "Bibliographic data",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.bibliographic" : "Bibliographic data",
-  
-  // "person.page.orcid.sync-profile.education" : "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education" : "Education",
-  
-  // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  
-  // "person.page.orcid.sync-projects.all" : "All projects",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-projects.all" : "All projects",
-  
-  // "person.page.orcid.sync-projects.mine" : "My projects",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-projects.mine" : "My projects",
-  
-  // "person.page.orcid.sync-projects.my-selected" : "Selected projects",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-projects.my-selected" : "Selected projects",
-  
-  // "person.page.orcid.sync-projects.disabled" : "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-projects.disabled" : "Disabled",
-  
-  // "person.page.orcid.sync-publications.all" : "All publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all" : "All publications",
-  
-  // "person.page.orcid.sync-publications.mine" : "My publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine" : "My publications",
-  
-  // "person.page.orcid.sync-publications.my-selected" : "Selected publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my-selected" : "Selected publications",
-  
-  // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled" : "Disabled",
-  
-  // "person.page.orcid.sync-queue.delete" : "Delete",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.delete" : "Delete",
-  
-  // "person.page.orcid.sync-queue.delete.error": "The deletion of the ORCID queue record failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.delete.error": "The deletion of the ORCID queue record failed",
-  
-  // "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
-  
-  // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
-  
-  // "person.page.orcid.sync-queue.entity-name" : "Name",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.entity-name" : "Name",
-  
-  // "person.page.orcid.sync-queue.send" : "Send",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send" : "Send",
-  
-  // "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
-  
-  // "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
-  
-  // "person.page.orcid.sync-queue.send.not-found-error": "The submission to ORCID failed because the expected resource to be update does not exists anymore on the ORCID registry.",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.not-found-error": "The submission to ORCID failed because the expected resource to be update does not exists anymore on the ORCID registry.",
-  
-  // "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
-  
-  // "person.page.orcid.synchronization-mode": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode": "Synchronization mode",
-  
-  // "person.page.orcid.synchronization-mode.batch": "Batch",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.batch": "Batch",
-  
-  // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
-  
-  // "person.page.orcid.synchronization-mode-message": "Enable 'Manual' Synchronization mode to disable batch synchronization, so you must send your data to ORCID Registry manually",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode-message": "Enable 'Manual' Synchronization mode to disable batch synchronization, so you must send your data to ORCID Registry manually",
-  
-  // "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
-  
-  // "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
-  
-  
-  // "person.page.orcid.synchronization-mode.manual": "Manual",
-  // TODO New key - Add a translation
-  "person.page.orcid.synchronization-mode.manual": "Manual",
-  
-  // "person.page.orcid.scope.authenticate": "Get your ORCID iD",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
-  
-  // "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
-  
-  // "person.page.orcid.scope.activities-update": "Add/update your research activities",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.activities-update": "Add/update your research activities",
-  
-  // "person.page.orcid.scope.person-update": "Add/update other information about you",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.person-update": "Add/update other information about you",
-  
   // "person.page.staffid": "Staff ID",
   // TODO New key - Add a translation
   "person.page.staffid": "Staff ID",
@@ -5436,9 +4476,9 @@
   // TODO New key - Add a translation
   "person.search.results.head": "Person Search Results",
   
-  // "person.search.title": "DSpace Cris Angular :: Person Search",
+  // "person.search.title": "DSpace Angular :: Person Search",
   // TODO New key - Add a translation
-  "person.search.title": "DSpace Cris Angular :: Person Search",
+  "person.search.title": "DSpace Angular :: Person Search",
   
   
   
@@ -5619,91 +4659,6 @@
   "process.overview.new": "New",
   
   
-  // "audit.overview.title": "Audit Logs Overview",
-  // TODO New key - Add a translation
-  "audit.overview.title": "Audit Logs Overview",
-  
-  // "audit.overview.table.id" : "Audit ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.id" : "Audit ID",
-  
-  // "audit.overview.table.objectUUID" : "Object ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectUUID" : "Object ID",
-  
-  // "audit.overview.table.objectType" : "Object Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectType" : "Object Type",
-  
-  // "audit.overview.table.subjectUUID" : "Subject ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectUUID" : "Subject ID",
-  
-  // "audit.overview.table.subjectType" : "Subject Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectType" : "Subject Type",
-  
-  // "audit.overview.table.entityType" : "Audit Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.entityType" : "Audit Type",
-  
-  // "audit.overview.table.eperson" : "EPerson",
-  // TODO New key - Add a translation
-  "audit.overview.table.eperson" : "EPerson",
-  
-  // "audit.overview.table.timestamp" : "Time",
-  // TODO New key - Add a translation
-  "audit.overview.table.timestamp" : "Time",
-  
-  // "audit.overview.breadcrumbs": "Audit Logs Overview",
-  // TODO New key - Add a translation
-  "audit.overview.breadcrumbs": "Audit Logs Overview",
-  
-  // "audit.object.overview.title": "Subject Audit Logs Overview",
-  // TODO New key - Add a translation
-  "audit.object.overview.title": "Subject Audit Logs Overview",
-  
-  
-  // "audit.detail.title" : "Audit Detail",
-  // TODO New key - Add a translation
-  "audit.detail.title" : "Audit Detail",
-  
-  // "audit.detail.id" : "Audit Id",
-  // TODO New key - Add a translation
-  "audit.detail.id" : "Audit Id",
-  
-  // "audit.detail.subjectUUID" : "Subject ID",
-  // TODO New key - Add a translation
-  "audit.detail.subjectUUID" : "Subject ID",
-  
-  // "audit.detail.subjectType" : "Subject Type",
-  // TODO New key - Add a translation
-  "audit.detail.subjectType" : "Subject Type",
-  
-  // "audit.detail.eventType" : "Audit Type",
-  // TODO New key - Add a translation
-  "audit.detail.eventType" : "Audit Type",
-  
-  // "audit.detail.eperson" : "EPerson",
-  // TODO New key - Add a translation
-  "audit.detail.eperson" : "EPerson",
-  
-  // "audit.detail.timeStamp" : "Time",
-  // TODO New key - Add a translation
-  "audit.detail.timeStamp" : "Time",
-  
-  // "audit.detail.back" : "All Audit Logs",
-  // TODO New key - Add a translation
-  "audit.detail.back" : "All Audit Logs",
-  
-  // "audit.detail.back.subject": "Subject Audit Logs",
-  // TODO New key - Add a translation
-  "audit.detail.back.subject": "Subject Audit Logs",
-  
-  // "patent.listelement.badge": "Patent",
-  // TODO New key - Add a translation
-  "patent.listelement.badge": "Patent",
-  
   // "profile.breadcrumbs": "Update Profile",
   // TODO New key - Add a translation
   "profile.breadcrumbs": "Update Profile",
@@ -5715,124 +4670,6 @@
   // "profile.card.security": "Security",
   // TODO New key - Add a translation
   "profile.card.security": "Security",
-  
-  // "profile.form.submit": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.form.submit": "Update Profile",
-  
-  // "profile.groups.head": "Authorization groups you belong to",
-  // TODO New key - Add a translation
-  "profile.groups.head": "Authorization groups you belong to",
-  
-  // "profile.head": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.head": "Update Profile",
-  
-  // "profile.metadata.form.error.firstname.required": "First Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.firstname.required": "First Name is required",
-  
-  // "profile.metadata.form.error.lastname.required": "Last Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
-  
-  // "profile.metadata.form.label.email": "Email Address",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.email": "Email Address",
-  
-  // "profile.metadata.form.label.firstname": "First Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.firstname": "First Name",
-  
-  // "profile.metadata.form.label.language": "Language",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.language": "Language",
-  
-  // "profile.metadata.form.label.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.lastname": "Last Name",
-  
-  // "profile.metadata.form.label.phone": "Contact Telephone",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.phone": "Contact Telephone",
-  
-  // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  
-  // "profile.metadata.form.notifications.success.title": "Profile saved",
-  // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.title": "Profile saved",
-  
-  // "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-  // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-  
-  // "profile.notifications.warning.no-changes.title": "No changes",
-  // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.title": "No changes",
-  
-  // "profile.security.form.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "profile.security.form.error.matching-passwords": "The passwords do not match.",
-  
-  // "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  
-  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  
-  // "profile.security.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.password": "Password",
-  
-  // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  // TODO New key - Add a translation
-  "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  
-  // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  
-  // "profile.security.form.notifications.success.title": "Password saved",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.success.title": "Password saved",
-  
-  // "profile.security.form.notifications.error.title": "Error changing passwords",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.title": "Error changing passwords",
-  
-  // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-  
-  // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-  
-  // "profile.title": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.title": "Update Profile",
-  
-  
-  
-  // "profile.breadcrumbs": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.breadcrumbs": "Update Profile",
-  
-  // "profile.card.identify": "Identify",
-  // TODO New key - Add a translation
-  "profile.card.identify": "Identify",
-  
-  // "profile.card.security": "Security",
-  // TODO New key - Add a translation
-  "profile.card.security": "Security",
-  
-  // "profile.card.researcher": "Researcher Profile",
-  // TODO New key - Add a translation
-  "profile.card.researcher": "Researcher Profile",
   
   // "profile.form.submit": "Update Profile",
   // TODO New key - Add a translation
@@ -6018,9 +4855,9 @@
   // TODO New key - Add a translation
   "publication.search.results.head": "Publication Search Results",
   
-  // "publication.search.title": "DSpace Cris Angular :: Publication Search",
+  // "publication.search.title": "DSpace Angular :: Publication Search",
   // TODO New key - Add a translation
-  "publication.search.title": "DSpace Cris Angular :: Publication Search",
+  "publication.search.title": "DSpace Angular :: Publication Search",
   
   
   // "register-email.title": "New user registration",
@@ -6158,6 +4995,18 @@
   
   
   
+  // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+  // TODO New key - Add a translation
+  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+  
+  // "relationships.add.error.server.content": "The server returned an error",
+  // TODO New key - Add a translation
+  "relationships.add.error.server.content": "The server returned an error",
+  
+  // "relationships.add.error.title": "Unable to add relationship",
+  // TODO New key - Add a translation
+  "relationships.add.error.title": "Unable to add relationship",
+  
   // "relationships.isAuthorOf": "Authors",
   // TODO New key - Add a translation
   "relationships.isAuthorOf": "Authors",
@@ -6217,48 +5066,6 @@
   // "relationships.isContributorOf": "Contributors",
   // TODO New key - Add a translation
   "relationships.isContributorOf": "Contributors",
-  
-  
-  
-  // "researcher.profile.action.processing" : "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
-  
-  // "researcher.profile.associated": "Researcher profile associated",
-  // TODO New key - Add a translation
-  "researcher.profile.associated": "Researcher profile associated",
-  
-  // "researcher.profile.create.new": "Create new",
-  // TODO New key - Add a translation
-  "researcher.profile.create.new": "Create new",
-  
-  // "researcher.profile.delete": "Delete",
-  // TODO New key - Add a translation
-  "researcher.profile.delete": "Delete",
-  
-  // "researcher.profile.expose": "Expose",
-  // TODO New key - Add a translation
-  "researcher.profile.expose": "Expose",
-  
-  // "researcher.profile.hide": "Hide",
-  // TODO New key - Add a translation
-  "researcher.profile.hide": "Hide",
-  
-  // "researcher.profile.not.associated": "Researcher profile not yet associated",
-  // TODO New key - Add a translation
-  "researcher.profile.not.associated": "Researcher profile not yet associated",
-  
-  // "researcher.profile.view": "View",
-  // TODO New key - Add a translation
-  "researcher.profile.view": "View",
-  
-  // "researcher.profile.private.visibility" : "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility" : "PRIVATE",
-  
-  // "researcher.profile.public.visibility" : "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility" : "PUBLIC",
   
   
   
@@ -6346,9 +5153,9 @@
   // TODO New key - Add a translation
   "resource-policies.form.action-type.required": "You must select the resource policy action.",
   
-  // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
+  // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
+  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
   
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   // TODO New key - Add a translation
@@ -6472,9 +5279,9 @@
   // TODO New key - Add a translation
   "search.switch-configuration.title": "Show",
   
-  // "search.title": "DSpace Cris Angular :: Search",
+  // "search.title": "DSpace Angular :: Search",
   // TODO New key - Add a translation
-  "search.title": "DSpace Cris Angular :: Search",
+  "search.title": "DSpace Angular :: Search",
   
   // "search.breadcrumbs": "Search",
   // TODO New key - Add a translation
@@ -6540,44 +5347,6 @@
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   // TODO New key - Add a translation
   "search.filters.applied.f.withdrawn": "Withdrawn",
-  
-  
-  // "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
-  
-  // "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
-  
-  // "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
-  
-  // "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
-  
-  // "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
-  
-  // "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
-  
-  // "search.filters.applied.charts.default.title": "Search Output",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.default.title": "Search Output",
-  
-  // "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
-  
-  // "search.filters.applied.charts.no.data.found": "No data found",
-  // TODO New key - Add a translation
-  "search.filters.applied.charts.no.data.found": "No data found",
-  
   
   
   
@@ -6653,14 +5422,6 @@
   // TODO New key - Add a translation
   "search.filters.filter.discoverable.head": "Private",
   
-  // "search.filters.filter.editor.head": "Editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.editor.head": "Editor",
-  
-  // "search.filters.filter.editor.placeholder": "Editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.editor.placeholder": "Editor",
-  
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   // TODO New key - Add a translation
   "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -6673,30 +5434,6 @@
   // TODO New key - Add a translation
   "search.filters.filter.entityType.placeholder": "Item Type",
   
-  // "search.filters.filter.eqowner.head": "Researcher",
-  // TODO New key - Add a translation
-  "search.filters.filter.eqowner.head": "Researcher",
-  
-  // "search.filters.filter.eqowner.placeholder": "Researcher",
-  // TODO New key - Add a translation
-  "search.filters.filter.eqowner.placeholder": "Researcher",
-  
-  // "search.filters.filter.eqorgunit.head": "Organization",
-  // TODO New key - Add a translation
-  "search.filters.filter.eqorgunit.head": "Organization",
-  
-  // "search.filters.filter.eqorgunit.placeholder": "Organization",
-  // TODO New key - Add a translation
-  "search.filters.filter.eqorgunit.placeholder": "Organization",
-  
-  // "search.filters.filter.funding.head": "Funding",
-  // TODO New key - Add a translation
-  "search.filters.filter.funding.head": "Funding",
-  
-  // "search.filters.filter.funding.placeholder": "Funding",
-  // TODO New key - Add a translation
-  "search.filters.filter.funding.placeholder": "Funding",
-  
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   // TODO New key - Add a translation
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
@@ -6708,14 +5445,6 @@
   // "search.filters.filter.itemtype.placeholder": "Type",
   // TODO New key - Add a translation
   "search.filters.filter.itemtype.placeholder": "Type",
-  
-  // "search.filters.filter.investigators.head": "Researcher",
-  // TODO New key - Add a translation
-  "search.filters.filter.investigators.head": "Researcher",
-  
-  // "search.filters.filter.investigators.placeholder": "Researcher",
-  // TODO New key - Add a translation
-  "search.filters.filter.investigators.placeholder": "Researcher",
   
   // "search.filters.filter.jobTitle.head": "Job Title",
   // TODO New key - Add a translation
@@ -6733,23 +5462,6 @@
   // TODO New key - Add a translation
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
   
-  
-  // "search.filters.filter.projectOrgUnits.head" : "Organizations",
-  // TODO New key - Add a translation
-  "search.filters.filter.projectOrgUnits.head" : "Organizations",
-  
-  // "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
-  // TODO New key - Add a translation
-  "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
-  
-  // "search.filters.filter.personOrgUnits.head" : "Organizations",
-  // TODO New key - Add a translation
-  "search.filters.filter.personOrgUnits.head" : "Organizations",
-  
-  // "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
-  // TODO New key - Add a translation
-  "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
-  
   // "search.filters.filter.namedresourcetype.head": "Status",
   // TODO New key - Add a translation
   "search.filters.filter.namedresourcetype.head": "Status",
@@ -6765,14 +5477,6 @@
   // "search.filters.filter.objectpeople.placeholder": "People",
   // TODO New key - Add a translation
   "search.filters.filter.objectpeople.placeholder": "People",
-  
-  // "search.filters.filter.organization.head": "Organization",
-  // TODO New key - Add a translation
-  "search.filters.filter.organization.head": "Organization",
-  
-  // "search.filters.filter.organization.placeholder": "Organization",
-  // TODO New key - Add a translation
-  "search.filters.filter.organization.placeholder": "Organization",
   
   // "search.filters.filter.organizationAddressCountry.head": "Country",
   // TODO New key - Add a translation
@@ -6829,7 +5533,6 @@
   // "search.filters.filter.submitter.placeholder": "Submitter",
   // TODO New key - Add a translation
   "search.filters.filter.submitter.placeholder": "Submitter",
-  
   
   
   
@@ -7064,10 +5767,6 @@
   // TODO New key - Add a translation
   "submission.general.save-later": "Save for later",
   
-  // "submission.general.save-later.edit-item": "Save and return",
-  // TODO New key - Add a translation
-  "submission.general.save-later.edit-item": "Save and return",
-  
   
   // "submission.import-external.page.title": "Import metadata from an external source",
   // TODO New key - Add a translation
@@ -7077,53 +5776,9 @@
   // TODO New key - Add a translation
   "submission.import-external.title": "Import metadata from an external source",
   
-  // "submission.import-external.title.Dataset": "Import dataset from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Dataset": "Import dataset from an external source",
-  
-  // "submission.import-external.title.Equipment": "Import equipment from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Equipment": "Import equipment from an external source",
-  
-  // "submission.import-external.title.Event": "Import event from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Event": "Import event from an external source",
-  
-  // "submission.import-external.title.Funding": "Import fund from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Funding": "Import fund from an external source",
-  
-  // "submission.import-external.title.Journal": "Import journal from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Journal": "Import journal from an external source",
-  
-  // "submission.import-external.title.OrgUnit": "Import publisher from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.OrgUnit": "Import publisher from an external source",
-  
-  // "submission.import-external.title.Patent": "Import patent from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Patent": "Import patent from an external source",
-  
-  // "submission.import-external.title.Person": "Import person from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Person": "Import person from an external source",
-  
-  // "submission.import-external.title.Project": "Import project from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Project": "Import project from an external source",
-  
-  // "submission.import-external.title.Publication": "Import publication from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.Publication": "Import publication from an external source",
-  
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
   // TODO New key - Add a translation
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  
-  // "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
-  // TODO New key - Add a translation
-  "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
   
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
   // TODO New key - Add a translation
@@ -7145,21 +5800,9 @@
   // TODO New key - Add a translation
   "submission.import-external.search.source.hint": "Pick an external source",
   
-  // "submission.import-external.source.ads": "Ads",
-  // TODO New key - Add a translation
-  "submission.import-external.source.ads": "Ads",
-  
   // "submission.import-external.source.arxiv": "arXiv",
   // TODO New key - Add a translation
   "submission.import-external.source.arxiv": "arXiv",
-  
-  // "submission.import-external.source.cinii": "Cinii",
-  // TODO New key - Add a translation
-  "submission.import-external.source.cinii": "Cinii",
-  
-  // "submission.import-external.source.crossref": "CrossRef",
-  // TODO New key - Add a translation
-  "submission.import-external.source.crossref": "CrossRef",
   
   // "submission.import-external.source.loading": "Loading ...",
   // TODO New key - Add a translation
@@ -7181,65 +5824,13 @@
   // TODO New key - Add a translation
   "submission.import-external.source.pubmed": "Pubmed",
   
-  // "submission.import-external.source.pubmedeu": "Pubmed EU",
-  // TODO New key - Add a translation
-  "submission.import-external.source.pubmedeu": "Pubmed EU",
-  
   // "submission.import-external.source.lcname": "Library of Congress Names",
   // TODO New key - Add a translation
   "submission.import-external.source.lcname": "Library of Congress Names",
   
-  // "submission.import-external.source.scopus": "Scopus",
+  // "submission.import-external.preview.title": "Item Preview",
   // TODO New key - Add a translation
-  "submission.import-external.source.scopus": "Scopus",
-  
-  // "submission.import-external.source.openaire": "OpenAIRE",
-  // TODO New key - Add a translation
-  "submission.import-external.source.openaire": "OpenAIRE",
-  
-  // "submission.import-external.source.epo": "European Patent Office (EPO)",
-  // TODO New key - Add a translation
-  "submission.import-external.source.epo": "European Patent Office (EPO)",
-  
-  // "submission.import-external.preview.title.Dataset": "Dataset Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Dataset": "Dataset Preview",
-  
-  // "submission.import-external.preview.title.Equipment": "Equipment Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Equipment": "Equipment Preview",
-  
-  // "submission.import-external.preview.title.Event": "Event Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Event": "Event Preview",
-  
-  // "submission.import-external.preview.title.Funding": "Funding Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Funding": "Funding Preview",
-  
-  // "submission.import-external.preview.title.Journal": "Journal Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Journal": "Journal Preview",
-  
-  // "submission.import-external.preview.title.OrgUnit": "Publisher Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.OrgUnit": "Publisher Preview",
-  
-  // "submission.import-external.preview.title.Patent": "Patent Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Patent": "Patent Preview",
-  
-  // "submission.import-external.preview.title.Person": "Person Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Person": "Person Preview",
-  
-  // "submission.import-external.preview.title.Project": "Project Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Project": "Project Preview",
-  
-  // "submission.import-external.preview.title.Publication": "Publication Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title.Publication": "Publication Preview",
+  "submission.import-external.preview.title": "Item Preview",
   
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
   // TODO New key - Add a translation
@@ -7256,83 +5847,6 @@
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
   // TODO New key - Add a translation
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
-  // "submission.sections.detect-duplicate.clear-decision": "Undo",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.clear-decision": "Undo",
-  
-  // "submission.sections.detect-duplicate.clear-decision-help": "Click for clear the decision about this pontential duplicate",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.clear-decision-help": "Click for clear the decision about this pontential duplicate",
-  
-  // "submission.sections.detect-duplicate.confirm-duplicate": "Confirm (It's a duplicate)",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.confirm-duplicate": "Confirm (It's a duplicate)",
-  
-  // "submission.sections.detect-duplicate.confirm-not-duplicate": "Confirm (It's not a duplicate)",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.confirm-not-duplicate": "Confirm (It's not a duplicate)",
-  
-  // "submission.sections.detect-duplicate.decision-success-notice": "Choice registered successfully",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.decision-success-notice": "Choice registered successfully",
-  
-  // "submission.sections.detect-duplicate.disclaimer": "The system has identified some potential duplicates. Please carefully review the list and flag each occurency with the appropriate choice or discard this submission.",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.disclaimer": "The system has identified some potential duplicates. Please carefully review the list and flag each occurency with the appropriate choice or discard this submission.",
-  
-  // "submission.sections.detect-duplicate.disclaimer-ctrl": "The system has identified some potential duplicates. Please carefully review the list and the submitter comments and perform the appropriate action.",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.disclaimer-ctrl": "The system has identified some potential duplicates. Please carefully review the list and the submitter comments and perform the appropriate action.",
-  
-  // "submission.sections.detect-duplicate.disclaimer-no-match": "All your feedback on potential duplicates have been registered correctly.",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.disclaimer-no-match": "All your feedback on potential duplicates have been registered correctly.",
-  
-  // "submission.sections.detect-duplicate.duplicate": "It's a duplicate",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.duplicate": "It's a duplicate",
-  
-  // "submission.sections.detect-duplicate.duplicate-ctrl": "Mark the record to merge",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.duplicate-ctrl": "Mark the record to merge",
-  
-  // "submission.sections.detect-duplicate.duplicate-detected": "Potential duplicate detected",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.duplicate-detected": "Potential duplicate detected",
-  
-  // "submission.sections.detect-duplicate.duplicate-help": "Click here if this is a duplicate of your item",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.duplicate-help": "Click here if this is a duplicate of your item",
-  
-  // "submission.sections.detect-duplicate.note-help": "Please enter your reason for the duplication into the box below.",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.note-help": "Please enter your reason for the duplication into the box below.",
-  
-  // "submission.sections.detect-duplicate.note-placeholder": "Describe the reason of duplication",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.note-placeholder": "Describe the reason of duplication",
-  
-  // "submission.sections.detect-duplicate.no-decision": "No decision yet",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.no-decision": "No decision yet",
-  
-  // "submission.sections.detect-duplicate.not-duplicate": "It's not a duplicate",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.not-duplicate": "It's not a duplicate",
-  
-  // "submission.sections.detect-duplicate.not-duplicate-help": "Click here if this is not a duplicate of your item",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.not-duplicate-help": "Click here if this is not a duplicate of your item",
-  
-  // "submission.sections.detect-duplicate.submitter-decision": "Submitter decision:",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.submitter-decision": "Submitter decision:",
-  
-  // "submission.sections.detect-duplicate.submitter-note": "Submitter note:",
-  // TODO New key - Add a translation
-  "submission.sections.detect-duplicate.submitter-note": "Submitter note:",
-  
-  
   
   // "submission.sections.describe.relationship-lookup.close": "Close",
   // TODO New key - Add a translation
@@ -7361,46 +5875,6 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Dataset": "Import remote dataset",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Dataset": "Import remote dataset",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote publisher",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote publisher",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
   // TODO New key - Add a translation
@@ -7441,10 +5915,6 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
-  
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.crossref": "Importing from CrossRef",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.crossref": "Importing from CrossRef",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
   // TODO New key - Add a translation
@@ -7586,10 +6056,6 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
-  
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
   
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
   // TODO New key - Add a translation
@@ -7769,10 +6235,6 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
   
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
-  
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
@@ -7796,18 +6258,6 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
-  
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
-  
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
-  
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
   
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
   // TODO New key - Add a translation
@@ -7885,10 +6335,6 @@
   // TODO New key - Add a translation
   "submission.sections.general.no-collection": "No collection found",
   
-  // "submission.sections.general.no-entity": "No entity found",
-  // TODO New key - Add a translation
-  "submission.sections.general.no-entity": "No entity found",
-  
   // "submission.sections.general.no-sections": "No options available",
   // TODO New key - Add a translation
   "submission.sections.general.no-sections": "No options available",
@@ -7914,78 +6360,6 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
-  
-  // "submission.sections.submit.progressbar.describe.equipment": "Equipment basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.equipment": "Equipment basic information",
-  
-  // "submission.sections.submit.progressbar.describe.event": "Event basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.event": "Event basic information",
-  
-  // "submission.sections.submit.progressbar.describe.funding": "Funding basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.funding": "Funding basic information",
-  
-  // "submission.sections.submit.progressbar.describe.journal": "Journal basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.journal": "Journal basic information",
-  
-  // "submission.sections.submit.progressbar.describe.orgunit": "Org Unit basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.orgunit": "Org Unit basic information",
-  
-  // "submission.sections.submit.progressbar.describe.patent": "Patent basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.patent": "Patent basic information",
-  
-  // "submission.sections.submit.progressbar.describe.patent_indexing": "Patent indexing",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.patent_indexing": "Patent indexing",
-  
-  // "submission.sections.submit.progressbar.describe.patent_references": "Patent references",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.patent_references": "Patent references",
-  
-  // "submission.sections.submit.progressbar.describe.person": "Person basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.person": "Person basic information",
-  
-  // "submission.sections.submit.progressbar.describe.product": "Product basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.product": "Product basic information",
-  
-  // "submission.sections.submit.progressbar.describe.product_indexing": "Product indexing",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.product_indexing": "Product indexing",
-  
-  // "submission.sections.submit.progressbar.describe.product_references": "Product references",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.product_references": "Product references",
-  
-  // "submission.sections.submit.progressbar.describe.project": "Project basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.project": "Project basic information",
-  
-  // "submission.sections.submit.progressbar.describe.publication": "Publication basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.publication": "Publication basic information",
-  
-  // "submission.sections.submit.progressbar.describe.publication_bibliographic_details": "Publication bibliographic details",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.publication_bibliographic_details": "Publication bibliographic details",
-  
-  // "submission.sections.submit.progressbar.describe.publication_indexing": "Publication indexing",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.publication_indexing": "Publication indexing",
-  
-  // "submission.sections.submit.progressbar.describe.publication_references": "Publication references",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.publication_references": "Publication references",
-  
-  // "submission.sections.submit.progressbar.describe.rp": "Researcher basic information",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.rp": "Researcher basic information",
   
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   // TODO New key - Add a translation
@@ -8229,43 +6603,9 @@
   
   
   
-  // "title": "DSpace Cris",
+  // "title": "DSpace",
   // TODO New key - Add a translation
-  "title": "DSpace Cris",
-  
-  
-  
-  // "tree.description.srsc": "Research Subject Categories",
-  // TODO New key - Add a translation
-  "tree.description.srsc": "Research Subject Categories",
-  
-  
-  
-  // "treeview.header": "Hierarchical tree view",
-  // TODO New key - Add a translation
-  "treeview.header": "Hierarchical tree view",
-  
-  
-  
-  // "treeview.search.form.reset": "Reset",
-  // TODO New key - Add a translation
-  "treeview.search.form.reset": "Reset",
-  
-  // "treeview.search.form.search": "Search",
-  // TODO New key - Add a translation
-  "treeview.search.form.search": "Search",
-  
-  // "treeview.search.no-result": "There were no items to show",
-  // TODO New key - Add a translation
-  "treeview.search.no-result": "There were no items to show",
-  
-  
-  
-  // "treeview.load-more": "Load more",
-  // TODO New key - Add a translation
-  "treeview.load-more": "Load more",
-  
-  
+  "title": "DSpace",
   
   
   
@@ -8296,16 +6636,6 @@
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
   // TODO New key - Add a translation
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
-  
-  
-  
-  // "administrativeView.search.results.head": "Administrative Search",
-  // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
-  
-  // "menu.section.admin_search": "Admin Search",
-  // TODO New key - Add a translation
-  "menu.section.admin_search": "Admin Search",
   
   
   
@@ -8410,22 +6740,9 @@
   // TODO New key - Add a translation
   "workflow-item.send-back.button.cancel": "Cancel",
   
-  // "workflow-item.send-back.button.confirm": "Send back",
+  // "workflow-item.send-back.button.confirm": "Send back"
   // TODO New key - Add a translation
-  "workflow-item.send-back.button.confirm": "Send back",
-  
-  // "relation.rp.researchoutputs.search.results.head": "Related Publications",
-  // TODO New key - Add a translation
-  "relation.rp.researchoutputs.search.results.head": "Related Publications",
-  
-  // "relation.rp.projects.search.results.head": "Related Projects",
-  // TODO New key - Add a translation
-  "relation.rp.projects.search.results.head": "Related Projects",
-  
-  // "layout.i18n.link.default": "link"
-  // TODO New key - Add a translation
-  "layout.i18n.link.default": "link"
-  
+  "workflow-item.send-back.button.confirm": "Send back"
   
 
 }

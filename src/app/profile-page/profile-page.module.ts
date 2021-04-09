@@ -6,6 +6,7 @@ import { ProfilePageComponent } from './profile-page.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ThemedProfilePageComponent } from './themed-profile-page.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
   ],
   declarations: [
     ProfilePageComponent,
+    ThemedProfilePageComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
     ProfilePageResearcherFormComponent

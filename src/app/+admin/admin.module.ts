@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { AdminAccessControlModule } from './admin-access-control/admin-access-control.module';
+import { AccessControlModule } from '../access-control/access-control.module';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -22,7 +22,7 @@ const ENTRY_COMPONENTS = [
   imports: [
     AdminRoutingModule,
     AdminRegistriesModule,
-    AdminAccessControlModule,
+    AccessControlModule,
     AdminSearchModule.withEntryComponents(),
     AdminWorkflowModuleModule.withEntryComponents(),
     SharedModule,

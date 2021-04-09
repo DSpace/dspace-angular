@@ -59,7 +59,7 @@ export function getDSORoute(dso: DSpaceObject): string {
       case Collection.type.value:
         return getCollectionPageRoute(dso.uuid);
       case Item.type.value:
-        return getItemPageRoute(dso.uuid);
+        return getItemPageRoute(dso as Item);
     }
   }
 }
@@ -79,6 +79,12 @@ export function getPageNotFoundRoute() {
 export const INFO_MODULE_PATH = 'info';
 export function getInfoModulePath() {
   return `/${INFO_MODULE_PATH}`;
+}
+
+export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
+
+export function getAccessControlModuleRoute() {
+  return `/${ACCESS_CONTROL_MODULE_PATH}`;
 }
 
 export const EDIT_ITEM_PATH = 'edit-items';

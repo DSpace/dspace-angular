@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ExternalSourceService } from '../../core/data/external-source.service';
 import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { Context } from '../../core/shared/context.model';
@@ -44,6 +44,12 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * TRUE if the REST service is called to retrieve the external source items
    */
   public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public reload$: BehaviorSubject<ExternalSourceData> = new BehaviorSubject<ExternalSourceData>({
+    entity: '',
+    query: '',
+    sourceId: ''
+  });
   /**
    * Configuration to use for the import buttons
    */
@@ -64,7 +70,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * The initial pagination options
    */
   public initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'submission-external-source-relation-list',
+    id: 'spc',
     pageSize: 10
   });
   /**
@@ -80,6 +86,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * The subscription to unsubscribe
    */
   protected subs: Subscription[] = [];
+
+  private retrieveExternalSourcesSub: Subscription;
 
   /**
    * Initialize the component variables.
@@ -105,7 +113,10 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.routeData = { entity: '', sourceId: '', query: '' };
+    this.routeData = {entity: '', sourceId: '', query: ''};
+    this.importConfig = {
+      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
+    };
     this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [])));
     this.isLoading$ = new BehaviorSubject(false);
     this.subs.push(combineLatest(
@@ -116,9 +127,9 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       ]).pipe(
       take(1)
     ).subscribe(([entity, source, query]: [string, string, string]) => {
-      this.routeData = { entity: entity, sourceId: '', query: '' };
+      this.reload$.next({entity: entity, query: query, sourceId: source});
       this.selectLabel(entity);
-      this.retrieveExternalSources(entity, source, query);
+      this.retrieveExternalSources();
     }));
   }
 
@@ -129,10 +140,13 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.router.navigate(
       [],
       {
-        queryParams: { entity: event.entity, source: event.sourceId, query: event.query },
+        queryParams: event,
         replaceUrl: true
       }
-    ).then(() => this.retrieveExternalSources(event.entity, event.sourceId, event.query));
+    ).then(() => {
+      this.reload$.next(event);
+      this.retrieveExternalSources();
+    });
   }
 
   /**
@@ -149,53 +163,43 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Retrieve external sources on pagination change
-   */
-  paginationChange() {
-    this.retrieveExternalSources(
-      this.routeData.entity,
-      this.routeData.sourceId,
-      this.routeData.query
-    );
-  }
-
-  /**
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+    if (hasValue(this.retrieveExternalSourcesSub)) {
+      this.retrieveExternalSourcesSub.unsubscribe();
+    }
+
   }
 
   /**
    * Retrieve external source entries.
-   *
-   * @param entity The entity name
-   * @param source The source tupe
-   * @param query The query string to search
    */
-  private retrieveExternalSources(entity: string, source: string, query: string): void {
-    if (isNotEmpty(source) && isNotEmpty(query)) {
-      this.routeData.entity = entity;
-      this.routeData.sourceId = source;
-      this.routeData.query = query;
-      this.isLoading$.next(true);
-      this.subs.push(
-        this.searchConfigService.paginatedSearchOptions.pipe(
-          filter((searchOptions) => searchOptions.query === query),
-          take(1),
-          mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
-            getFinishedRemoteData(),
-            take(1)
-          )),
-          take(1)
-        ).subscribe((rdData) => {
-          this.entriesRD$.next(rdData);
-          this.isLoading$.next(false);
-        })
-      );
+  private retrieveExternalSources(): void {
+    if (hasValue(this.retrieveExternalSourcesSub)) {
+      this.retrieveExternalSourcesSub.unsubscribe();
     }
+    this.retrieveExternalSourcesSub = this.reload$.pipe(
+      filter((sourceQueryObject: ExternalSourceData) => isNotEmpty(sourceQueryObject.sourceId) && isNotEmpty(sourceQueryObject.query)),
+      switchMap((sourceQueryObject: ExternalSourceData) => {
+          const query = sourceQueryObject.query;
+          this.routeData = sourceQueryObject;
+          return this.searchConfigService.paginatedSearchOptions.pipe(
+            tap((v) => this.isLoading$.next(true)),
+            filter((searchOptions) => searchOptions.query === query),
+            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+              getFinishedRemoteData(),
+            )),
+          );
+        }
+      ),
+    ).subscribe((rdData) => {
+      this.entriesRD$.next(rdData);
+      this.isLoading$.next(false);
+    });
   }
 
   /**

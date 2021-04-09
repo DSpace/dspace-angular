@@ -9,8 +9,8 @@
       </button>
       <div class="align-middle pt-2">
         <a *ngIf="node!==loadingNode" [routerLink]="" (click)="getNextPage(node)"
-           class="btn btn-outline-secondary btn-sm">
-          {{ 'communityList.showMore' | translate }}
+           class="btn btn-outline-primary btn-sm" role="button">
+           <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </a>
         <ds-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-loading"></ds-loading>
       </div>
@@ -25,6 +25,7 @@
                  class="example-tree-node expandable-node">
     <div class="btn-group">
       <button type="button" class="btn btn-default" cdkTreeNodeToggle
+              [title]="'toggle ' + node.name"
               [attr.aria-label]="'toggle ' + node.name"
               (click)="toggleExpanded(node)"
               [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'">

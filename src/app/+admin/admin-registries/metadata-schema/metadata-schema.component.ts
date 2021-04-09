@@ -6,6 +6,7 @@ import {
   combineLatest as observableCombineLatest,
   combineLatest,
   Observable,
+  of as observableOf,
   zip
 } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -17,12 +18,10 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -48,7 +47,7 @@ export class MetadataSchemaComponent implements OnInit {
    * Pagination config used to display the list of metadata fields
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'registry-metadatafields-pagination',
+    id: 'rm',
     pageSize: 25,
     pageSizeOptions: [25, 50, 100, 200]
   });
@@ -62,6 +61,7 @@ export class MetadataSchemaComponent implements OnInit {
               private route: ActivatedRoute,
               private notificationsService: NotificationsService,
               private router: Router,
+              private paginationService: PaginationService,
               private translateService: TranslateService) {
 
   }
@@ -82,24 +82,16 @@ export class MetadataSchemaComponent implements OnInit {
   }
 
   /**
-   * Event triggered when the user changes page
-   * @param event
-   */
-  onPageChange(event) {
-    this.config.currentPage = event;
-    this.forceUpdateFields();
-  }
-
-  /**
    * Update the list of fields by fetching it from the rest api or cache
    */
   private updateFields() {
-    this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate$).pipe(
-      switchMap(([schema, update]: [MetadataSchema, boolean]) => {
+    this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      switchMap((currentPagination) => combineLatest(this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination))),
+      switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);
         }
-        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), !update, true);
+        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(currentPagination), !update, true);
       })
     );
   }
@@ -216,4 +208,8 @@ export class MetadataSchemaComponent implements OnInit {
       }
     });
   }
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

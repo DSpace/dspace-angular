@@ -298,6 +298,7 @@ describe('FormBuilderService test suite', () => {
           notRepeatable: false,
           relationshipConfig: undefined,
           submissionId: '1234',
+          isDraggable: true,
           showButtons: false,
           groupFactory: () => {
             return [

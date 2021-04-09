@@ -12,12 +12,15 @@
                       'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
         <div [ngClass]="getClass('grid', 'control')">
             <ng-container #componentViewContainer></ng-container>
-            <small *ngIf="hasHint && (model.repeatable === false || context?.index === 0) && (!showErrorMessages || errorMessages.length === 0)"
-                   class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+          <small *ngIf="hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)"
+                 class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+          <!-- In case of repeatable fields show empty space for all elements except the first -->
+          <div *ngIf="context?.index !== null
+              && (!showErrorMessages || errorMessages.length === 0)" class="clearfix w-100 mb-2"></div>
 
-            <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
-                <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
-            </div>
+          <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
+            <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
+          </div>
 
         </div>
         <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2" >
@@ -33,12 +36,12 @@
                 <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
             </select>
         </div>
-        <div *ngIf="isRelationship" class="col-auto text-center" [class.invisible]="context?.index > 0">
+        <div *ngIf="isRelationship && !isVirtual()" class="col-auto text-center">
             <button class="btn btn-secondary"
                     type="button"
                     ngbTooltip="{{'form.lookup-help' | translate}}"
                     placement="top"
-                    (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
+                    (click)="openLookup(); $event.stopPropagation();"><i class="fa fa-search"></i>
             </button>
         </div>
     </div>
@@ -66,6 +69,9 @@
                 [relationshipOptions]="model.relationship"
         >
         </ds-existing-relation-list-element>
+        <small *ngIf="hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)"
+             class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+        <div class="clearfix w-100 mb-2"></div>
     </ng-container>
     <ng-content></ng-content>
 </div>

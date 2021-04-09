@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { Item } from '../../../../../core/shared/item.model';
+import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
@@ -15,7 +13,7 @@ import { isNotEmpty } from '../../../../../shared/empty.util';
 /**
  * The component for displaying a list element for an item search result of the type Person
  */
-export class PersonSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
 
   getPersonName(): string {
     let personName = this.dso.name;

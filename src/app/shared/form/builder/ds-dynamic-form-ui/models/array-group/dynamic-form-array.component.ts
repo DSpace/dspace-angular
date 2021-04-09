@@ -5,7 +5,6 @@ import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
-  DynamicFormControlEventType,
   DynamicFormControlLayout,
   DynamicFormControlModel,
   DynamicFormLayout,
@@ -14,8 +13,8 @@ import {
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { hasValue } from '../../../../../empty.util';
+import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -29,7 +28,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
   @Input() layout: DynamicFormControlLayout;
-  @Input() model: DynamicRowArrayModel;
+  @Input() model: DynamicRowArrayModel;// DynamicRow?
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
   /* tslint:disable:no-output-rename */
@@ -47,22 +46,25 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   }
 
   moveSelection(event: CdkDragDrop<Relationship>) {
+
+    // prevent propagating events generated releasing on the same position
+    if (event.previousIndex === event.currentIndex) {
+      return;
+    }
+
     this.model.moveGroup(event.previousIndex, event.currentIndex - event.previousIndex);
-    const prevIndex = event.previousIndex - 1;
-    const index = event.currentIndex - 1;
+    const prevIndex = event.previousIndex;
+    const index = event.currentIndex;
 
     if (hasValue(this.model.groups[index]) && hasValue((this.control as any).controls[index])) {
-      const $event = {
-        $event: { previousIndex: prevIndex },
-        context: { index },
-        control: (this.control as any).controls[index],
-        group: this.group,
+      this.onCustomEvent({
+        previousIndex: prevIndex,
+        index,
+        arrayModel: this.model,
         model: this.model.groups[index].group[0],
-        type: DynamicFormControlEventType.Change
-      };
-
-      this.onChange($event);
-      }
+        control: (this.control as any).controls[index]
+      }, 'move');
+    }
   }
 
   update(event: any, index: number) {
@@ -71,5 +73,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     });
 
     this.onChange($event);
+  }
+
+  /**
+   * If the drag feature is disabled for this DynamicRowArrayModel.
+   */
+  get dragDisabled(): boolean {
+    return this.model.groups.length === 1 || !this.model.isDraggable;
   }
 }

@@ -24,7 +24,7 @@ export const getUrlWithoutEmbedParams = (url: string): string => {
     if (isNotEmpty(parsed.query)) {
       const parts = parsed.query.split(/[?|&]/)
         .filter((part: string) => isNotEmpty(part))
-        .filter((part: string) => !part.startsWith('embed='));
+        .filter((part: string) => !(part.startsWith('embed=') || part.startsWith('embed.size=')));
       let args = '';
       if (isNotEmpty(parts)) {
         args = `?${parts.join('&')}`;
@@ -35,6 +35,27 @@ export const getUrlWithoutEmbedParams = (url: string): string => {
   }
 
   return url;
+};
+
+/**
+ * Parse the embed size params from a url
+ * @param url The url to parse
+ */
+export const getEmbedSizeParams = (url: string): { name: string, size: number }[] => {
+  if (isNotEmpty(url)) {
+    const parsed = parse(url);
+    if (isNotEmpty(parsed.query)) {
+      return parsed.query.split(/[?|&]/)
+        .filter((part: string) => isNotEmpty(part))
+        .map((part: string) => part.match(/^embed.size=([^=]+)=(\d+)$/))
+        .filter((matches: RegExpMatchArray) => hasValue(matches) && hasValue(matches[1]) && hasValue(matches[2]))
+        .map((matches: RegExpMatchArray) => {
+          return { name: matches[1], size: Number(matches[2]) };
+        });
+    }
+  }
+
+  return [];
 };
 
 /**

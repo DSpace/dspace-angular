@@ -29,6 +29,7 @@
                                 [query]="(searchOptions$ | async)?.query"
                                 [currentUrl]="'./'"
                                 [inPlaceSearch]="true"
+                                [searchPlaceholder]="'item.edit.item-mapper.search-form.placeholder' | translate"
                                 (submitSearch)="performedSearch = true">
                 </ds-search-form>
               </div>

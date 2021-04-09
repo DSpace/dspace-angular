@@ -183,8 +183,12 @@ export const environment: GlobalConfig = {
     code: 'nl',
     label: 'Nederlands',
     active: true,
-  }, {
-    code: 'pt',
+  },{
+    code: 'pt-BR',
+    label: 'Português do Brasil',
+    active: true,
+  },{
+    code: 'pt-PT',
     label: 'Português',
     active: true,
   }, {
@@ -313,6 +317,13 @@ export const environment: GlobalConfig = {
   ],
   // Whether the UI should rewrite file download URLs to match its domain. Only necessary to enable when running UI and REST API on separate domains
   rewriteDownloadUrls: false,
+  // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
+  // For images, this enables a gallery viewer where you can zoom or page through images.
+  // For videos, this enables embedded video streaming
+  mediaViewer: {
+    image: false,
+    video: false,
+  },
   layout: {
     urn: [
       {

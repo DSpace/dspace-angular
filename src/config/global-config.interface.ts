@@ -12,6 +12,7 @@ import { CollectionPageConfig } from './collection-page-config.interface';
 import { ThemeConfig } from './theme.model';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
+import { MediaViewerConfig } from './media-viewer-config.interface';
 import { LayoutConfig } from './layout-config.interfaces';
 
 export interface GlobalConfig extends Config {
@@ -33,5 +34,6 @@ export interface GlobalConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   rewriteDownloadUrls: boolean;
+  mediaViewer: MediaViewerConfig;
   layout: LayoutConfig;
 }

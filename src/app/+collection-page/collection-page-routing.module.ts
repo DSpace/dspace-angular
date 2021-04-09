@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageResolver } from './collection-page.resolver';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
@@ -21,6 +20,7 @@ import {
 import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
 @NgModule({
   imports: [
@@ -62,7 +62,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
           },
           {
             path: '',
-            component: CollectionPageComponent,
+            component: ThemedCollectionPageComponent,
             pathMatch: 'full',
           }
         ],

@@ -1246,6 +1246,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@kolkov/ngx-gallery@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@kolkov/ngx-gallery/-/ngx-gallery-1.2.3.tgz#bb15d4b64a5c03905677aa4ca741835aabe41f43"
+  integrity sha512-Dpnhwq3DGPSXrNt65gexo+/Smb2L0bne14A0WONN04+racETtcY33fqFvNWfRw5Nvk2Eza+sq95eEA0NbgF/6g==
+
 "@ng-bootstrap/ng-bootstrap@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-7.0.0.tgz#3bfa62eb52fdb891b1ce693ea11c39127e2d1ab7"
@@ -10677,10 +10682,10 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-sortablejs@1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.10.1.tgz#3d52b00f871be00f00f84d99a60d120bf3dfe52c"
-  integrity sha512-N6r7GrVmO8RW1rn0cTdvK3JR0BcqecAJ0PmYMCL3ZuqTH3pY+9QyqkmJSkkLyyDvd+AJnwaxTP22Ybr/83V9hQ==
+sortablejs@1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.13.0.tgz#3ab2473f8c69ca63569e80b1cd1b5669b51269e9"
+  integrity sha512-RBJirPY0spWCrU5yCmWM1eFs/XgX2J5c6b275/YyxFRgnzPhKl/TDeU2hNR8Dt7ITq66NRPM4UlOt+e5O4CFHg==
 
 source-list-map@^2.0.0:
   version "2.0.1"

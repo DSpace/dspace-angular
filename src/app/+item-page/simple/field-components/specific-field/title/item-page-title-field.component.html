@@ -1,5 +1,5 @@
 <h2 class="item-page-title-field">
-  <div *ngIf="item.firstMetadataValue('relationship.type') as type">
+  <div *ngIf="item.firstMetadataValue('dspace.entity.type') as type">
     {{ type.toLowerCase() + '.page.titleprefix' | translate }}
   </div>
   <div class="d-flex justify-content-between">

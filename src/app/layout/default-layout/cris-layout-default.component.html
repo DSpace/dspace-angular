@@ -4,6 +4,7 @@
   </div>
   <div class="wrapper" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
       <ds-cris-layout-default-sidebar
+        [item]="item"
         [sidebarActive]="(hasSidebar() | async)"
         [sidebarStatus]="!(isSideBarHidden() | async)"
         [tabs]="(getTabs() | async)"

@@ -4,6 +4,7 @@ import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
+import { getItemPageRoute } from '../../../../../../+item-page/item-page-routing-paths';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -16,4 +17,13 @@ import { Item } from '../../../../../../core/shared/item.model';
  * The component for displaying a list element for an item search result of the type Publication
  */
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute: string;
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.itemPageRoute = getItemPageRoute(this.dso);
+  }
 }

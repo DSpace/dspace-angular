@@ -9,7 +9,7 @@ import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../..
 import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { HALLink } from '../../../../core/shared/hal-link.model';
-import { getGroupEditRoute } from '../../../../+admin/admin-access-control/admin-access-control-routing-paths';
+import { getGroupEditRoute } from '../../../../access-control/access-control-routing-paths';
 import { hasNoValue, hasValue } from '../../../empty.util';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 
@@ -96,6 +96,7 @@ export class ComcolRoleComponent implements OnInit {
     this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<Group>) => {
+
       if (rd.hasSucceeded) {
         this.groupService.clearGroupsRequests();
         this.requestService.setStaleByHrefSubstring(this.comcolRole.href);

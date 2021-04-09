@@ -11,6 +11,11 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -52,12 +57,15 @@ describe('ItemVersionsComponent', () => {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions))
   });
 
+  const paginationService = new PaginationServiceStub();
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemVersionsComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: VersionHistoryDataService, useValue: versionHistoryService }
+        { provide: VersionHistoryDataService, useValue: versionHistoryService },
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -105,18 +113,6 @@ describe('ItemVersionsComponent', () => {
     it(`should display summary ${version.summary} in the correct column for version ${version.id}`, () => {
       const summary = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-summary`));
       expect(summary.nativeElement.textContent).toEqual(version.summary);
-    });
-  });
-
-  describe('switchPage', () => {
-    const page = 5;
-
-    beforeEach(() => {
-      component.switchPage(page);
-    });
-
-    it('should set the option\'s currentPage to the new page', () => {
-      expect(component.options.currentPage).toEqual(page);
     });
   });
 });

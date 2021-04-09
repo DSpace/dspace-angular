@@ -80,6 +80,7 @@ const rowArrayQualdropConfig = {
   id: 'row_QUALDROP_GROUP',
   initialCount: 1,
   notRepeatable: true,
+  isDraggable: false,
   relationshipConfig: undefined,
   showButtons: true,
   groupFactory: () => {

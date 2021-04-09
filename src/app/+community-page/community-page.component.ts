@@ -13,8 +13,11 @@ import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
-import { redirectOn4xx } from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
   selector: 'ds-community-page',
@@ -33,15 +36,27 @@ export class CommunityPageComponent implements OnInit {
   communityRD$: Observable<RemoteData<Community>>;
 
   /**
+   * Whether the current user is a Community admin
+   */
+  isCommunityAdmin$: Observable<boolean>;
+
+  /**
    * The logo of this community
    */
   logoRD$: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * Route to the community page
+   */
+  communityPageRoute$: Observable<string>;
+
   constructor(
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private authorizationDataService: AuthorizationDataService
   ) {
 
   }
@@ -55,6 +70,10 @@ export class CommunityPageComponent implements OnInit {
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),
       mergeMap((community: Community) => community.logo));
+    this.communityPageRoute$ = this.communityRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((community) => getCommunityPageRoute(community.id))
+    );
+    this.isCommunityAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin);
   }
-
 }

@@ -2,6 +2,8 @@ import { BehaviorSubject, of as observableOf } from 'rxjs';
 
 export class SearchConfigurationServiceStub {
 
+  public paginationID = 'test-id';
+
   private searchOptions: BehaviorSubject<any> = new BehaviorSubject<any>({});
   private paginatedSearchOptions: BehaviorSubject<any> = new BehaviorSubject<any>({});
 

@@ -16,6 +16,11 @@ import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-si
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { RequestService } from '../../../../../core/data/request.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../core/data/request.models';
+import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -24,6 +29,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let bundleService: BundleDataService;
   let objectValuesPipe: ObjectValuesPipe;
   let requestService: RequestService;
+  let paginationService;
 
   const columnSizes = new ResponsiveTableSizes([
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
@@ -109,6 +115,8 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
       hasByHref$: observableOf(true)
     });
 
+    paginationService = new PaginationServiceStub();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
@@ -116,7 +124,8 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
+        { provide: PaginationService, useValue: paginationService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

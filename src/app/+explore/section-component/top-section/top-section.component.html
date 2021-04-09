@@ -5,7 +5,7 @@
       <div *ngFor="let topObject of ( topObjects | async ); let last=last"
            [class.border-bottom]="!last"
            class="p-3">
-          <a [routerLink]="getItemPage(topObject.id)">{{topObject.name}}</a>
+          <a [routerLink]="getItemPage(topObject)">{{topObject.name}}</a>
       </div>
     </div>
   </div>

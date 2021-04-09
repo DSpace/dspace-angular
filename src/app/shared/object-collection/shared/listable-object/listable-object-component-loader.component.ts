@@ -27,7 +27,7 @@ import { ThemeService } from '../../../theme-support/theme.service';
   templateUrl: './listable-object-component-loader.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
 export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy {
   /**
@@ -179,7 +179,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   }
 
   /**
-   * Fetch the component depending on the item's relationship type, view mode and context
+   * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
   getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],

@@ -5,6 +5,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { getItemEditRoute } from '../../../../+item-page/item-page-routing-paths';
+import { Item } from '../../../../core/shared/item.model';
 
 /**
  * Component to wrap a list of existing items inside a modal
@@ -28,6 +29,6 @@ export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent 
    * Navigate to the item edit page
    */
   navigate(dso: DSpaceObject) {
-    this.router.navigate([getItemEditRoute(dso.uuid)]);
+    this.router.navigate([getItemEditRoute(dso as Item)]);
   }
 }

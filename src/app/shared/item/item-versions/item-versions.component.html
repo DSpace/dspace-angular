@@ -8,8 +8,7 @@
                      [paginationOptions]="options"
                      [pageInfoState]="versions"
                      [collectionSize]="versions?.totalElements"
-                     [disableRouteParameterUpdate]="true"
-                     (pageChange)="switchPage($event)">
+                     [retainScrollPosition]="true">
         <table class="table table-striped my-2">
           <thead>
             <tr>
@@ -25,7 +24,7 @@
               <td class="version-row-element-version">{{version?.version}}</td>
               <td class="version-row-element-item">
                 <span *ngVar="(version?.item | async)?.payload as item">
-                  <a *ngIf="item" [routerLink]="['/items', item?.id]">{{item?.handle}}</a>
+                  <a *ngIf="item" [routerLink]="[(itemPageRoutes$ | async)[item?.id]]">{{item?.handle}}</a>
                   <span *ngIf="version?.id === itemVersion?.id">*</span>
                 </span>
               </td>

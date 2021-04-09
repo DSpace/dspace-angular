@@ -11,6 +11,7 @@ import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SearchObjects } from '../../../shared/search/search-objects.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * Component representing the Top component section.
@@ -50,16 +51,16 @@ export class TopSectionComponent implements OnInit {
     })).pipe(
       getFirstSucceededRemoteDataPayload(),
       map((response: SearchObjects<DSpaceObject>) => response.page
-        .map((searchResult: SearchResult<DSpaceObject>) => searchResult._embedded.indexableObject)
+        .map((searchResult: SearchResult<DSpaceObject>) => Object.assign(new DSpaceObject(), searchResult._embedded.indexableObject))
       )
     );
   }
 
   /**
    * Get the item page url
-   * @param id The item id for which the url is requested
+   * @param item The item for which the url is requested
    */
-  getItemPage(id: string): string {
-    return getItemPageRoute(id);
+  getItemPage(item: DSpaceObject): string {
+    return getItemPageRoute(item as Item);
   }
 }

@@ -14,6 +14,7 @@ import { SearchService } from '../core/shared/search/search.service';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
+import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
   ],
   declarations: [
     CollectionPageComponent,
+    ThemedCollectionPageComponent,
     CreateCollectionPageComponent,
     DeleteCollectionPageComponent,
     EditItemTemplatePageComponent,

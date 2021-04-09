@@ -245,6 +245,9 @@ export class RegistryService {
    * @param schema   The MetadataSchema to create the field in
    */
   public createMetadataField(field: MetadataField, schema: MetadataSchema): Observable<MetadataField> {
+    if (!field.qualifier) {
+      field.qualifier = null;
+    }
     return this.metadataFieldService.create(field, new RequestParam('schemaId', schema.id)).pipe(
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),
@@ -260,6 +263,9 @@ export class RegistryService {
    * @param field    The MetadataField to update
    */
   public updateMetadataField(field: MetadataField): Observable<MetadataField> {
+    if (!field.qualifier) {
+      field.qualifier = null;
+    }
     return this.metadataFieldService.put(field).pipe(
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),

@@ -14,6 +14,11 @@ import { FacetValue } from '../../../../facet-value.model';
 import { FilterType } from '../../../../filter-type.model';
 import { SearchFilterConfig } from '../../../../search-filter-config.model';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
+import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../../core/data/request.models';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 
 describe('SearchFacetSelectedOptionComponent', () => {
   let comp: SearchFacetSelectedOptionComponent;
@@ -106,6 +111,9 @@ describe('SearchFacetSelectedOptionComponent', () => {
   let router;
   const page = observableOf(0);
 
+  const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
+  const paginationService = new PaginationServiceStub(pagination);
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -113,6 +121,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
+        { provide: PaginationService, useValue: paginationService },
         {
           provide: SearchConfigurationService, useValue: {
             searchOptions: observableOf({})
@@ -156,7 +165,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
       (comp as any).updateRemoveParams(selectedValues);
       expect(comp.removeQueryParams).toEqual({
         [mockFilterConfig.paramName]: [value1],
-        page: 1
+        ['page-id.page']: 1
       });
     });
   });
@@ -172,7 +181,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
       (comp as any).updateRemoveParams(selectedAuthorityValues);
       expect(comp.removeQueryParams).toEqual({
         [mockAuthorityFilterConfig.paramName]: [`${value1},${operator}`],
-        page: 1
+        ['page-id.page']: 1
       });
     });
   });

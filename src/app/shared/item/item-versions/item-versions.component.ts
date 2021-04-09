@@ -4,7 +4,11 @@ import { Version } from '../../../core/shared/version.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getAllSucceededRemoteDataPayload,
+  getRemoteDataPayload
+} from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
@@ -13,6 +17,8 @@ import { PaginatedSearchOptions } from '../../search/paginated-search-options.mo
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValueOperator } from '../../empty.util';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions',
@@ -76,7 +82,7 @@ export class ItemVersionsComponent implements OnInit {
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(),{
-    id: 'item-versions-options',
+    id: 'ivo',
     currentPage: 1,
     pageSize: this.pageSize
   });
@@ -86,7 +92,18 @@ export class ItemVersionsComponent implements OnInit {
    */
   currentPage$ = new BehaviorSubject<number>(1);
 
-  constructor(private versionHistoryService: VersionHistoryDataService) {
+  /**
+   * The routes to the versions their item pages
+   * Key: Item ID
+   * Value: Route to item page
+   */
+  itemPageRoutes$: Observable<{
+    [itemId: string]: string
+  }>;
+
+  constructor(private versionHistoryService: VersionHistoryDataService,
+              private paginationService: PaginationService
+              ) {
   }
 
   /**
@@ -105,10 +122,11 @@ export class ItemVersionsComponent implements OnInit {
       getRemoteDataPayload(),
       hasValueOperator(),
     );
-    this.versionsRD$ = observableCombineLatest(versionHistory$, this.currentPage$).pipe(
-      switchMap(([versionHistory, page]: [VersionHistory, number]) =>
+    const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
+    this.versionsRD$ = observableCombineLatest(versionHistory$, currentPagination).pipe(
+      switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) =>
         this.versionHistoryService.getVersions(versionHistory.id,
-          new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })}),
+          new PaginatedSearchOptions({pagination: Object.assign({}, options, { currentPage: options.currentPage })}),
           true, true, followLink('item'), followLink('eperson')))
     );
     this.hasEpersons$ = this.versionsRD$.pipe(
@@ -118,15 +136,20 @@ export class ItemVersionsComponent implements OnInit {
       map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
       startWith(false)
     );
+    this.itemPageRoutes$ = this.versionsRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      switchMap((versions) => observableCombineLatest(...versions.page.map((version) => version.item.pipe(getAllSucceededRemoteDataPayload())))),
+      map((versions) => {
+        const itemPageRoutes = {};
+        versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
+        return itemPageRoutes;
+      })
+    );
   }
 
-  /**
-   * Update the current page
-   * @param page
-   */
-  switchPage(page: number) {
-    this.options.currentPage = page;
-    this.currentPage$.next(page);
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.options.id);
   }
+
 
 }

@@ -12,6 +12,14 @@ import { DeleteCommunityPageComponent } from './delete-community-page/delete-com
 import { StatisticsModule } from '../statistics/statistics.module';
 import { CommunityFormModule } from './community-form/community-form.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
+import { ThemedCommunityPageComponent } from './themed-community-page.component';
+
+const DECLARATIONS = [CommunityPageComponent,
+  ThemedCommunityPageComponent,
+  CommunityPageSubCollectionListComponent,
+  CommunityPageSubCommunityListComponent,
+  CreateCommunityPageComponent,
+  DeleteCommunityPageComponent];
 
 @NgModule({
   imports: [
@@ -23,11 +31,10 @@ import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
     ContextMenuModule
   ],
   declarations: [
-    CommunityPageComponent,
-    CommunityPageSubCollectionListComponent,
-    CommunityPageSubCommunityListComponent,
-    CreateCommunityPageComponent,
-    DeleteCommunityPageComponent
+    ...DECLARATIONS
+  ],
+  exports: [
+    ...DECLARATIONS
   ]
 })
 

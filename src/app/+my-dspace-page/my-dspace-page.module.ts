@@ -17,6 +17,18 @@ import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.
 import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { OpenaireModule } from '../openaire/openaire.module';
 import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
+import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
+
+const DECLARATIONS = [
+  MyDSpacePageComponent,
+  ThemedMyDSpacePageComponent,
+  MyDSpaceResultsComponent,
+  MyDSpaceNewSubmissionComponent,
+  CollectionSelectorComponent,
+  MyDSpaceNewSubmissionDropdownComponent,
+  MyDSpaceNewExternalDropdownComponent,
+  MyDSpaceNewBulkImportComponent
+];
 
 @NgModule({
   imports: [
@@ -26,21 +38,14 @@ import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-ds
     MyDspaceSearchModule.withEntryComponents(),
     OpenaireModule
   ],
-  declarations: [
-    MyDSpacePageComponent,
-    MyDSpaceResultsComponent,
-    MyDSpaceNewSubmissionComponent,
-    CollectionSelectorComponent,
-    MyDSpaceNewSubmissionDropdownComponent,
-    MyDSpaceNewExternalDropdownComponent,
-    MyDSpaceNewBulkImportComponent
-  ],
+  declarations: DECLARATIONS,
   providers: [
     MyDSpaceGuard,
     MyDSpaceConfigurationService,
     SuggestionsService,
     OpenaireSuggestionsDataService
-  ]
+  ],
+  exports: DECLARATIONS,
 })
 
 /**

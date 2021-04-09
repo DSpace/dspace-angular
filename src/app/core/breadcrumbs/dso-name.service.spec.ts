@@ -60,7 +60,7 @@ describe(`DSONameService`, () => {
       }
     });
 
-    service = new DSONameService();
+    service = new DSONameService({ instant: (a) => a } as any);
   });
 
   describe(`getName`, () => {

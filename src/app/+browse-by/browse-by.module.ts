@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BrowseByMetadataPageComponent } from './+browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './+browse-by-date-page/browse-by-date-page.component';
 import { BrowseBySwitcherComponent } from './+browse-by-switcher/browse-by-switcher.component';
+import { ThemedBrowseBySwitcherComponent } from './+browse-by-switcher/themed-browse-by-switcher.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -20,6 +21,7 @@ const ENTRY_COMPONENTS = [
   ],
   declarations: [
     BrowseBySwitcherComponent,
+    ThemedBrowseBySwitcherComponent,
     ...ENTRY_COMPONENTS
   ],
   exports: [

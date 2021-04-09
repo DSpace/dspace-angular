@@ -8,6 +8,12 @@ import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 
 import { SearchNavbarComponent } from './search-navbar.component';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { of as observableOf } from 'rxjs';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 
 describe('SearchNavbarComponent', () => {
   let component: SearchNavbarComponent;
@@ -15,6 +21,7 @@ describe('SearchNavbarComponent', () => {
   let mockSearchService: any;
   let router: Router;
   let routerStub;
+  let paginationService;
 
   beforeEach(waitForAsync(() => {
     mockSearchService = {
@@ -26,6 +33,9 @@ describe('SearchNavbarComponent', () => {
     routerStub = {
       navigate: (commands) => commands
     };
+
+    paginationService = new PaginationServiceStub();
+
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -40,7 +50,9 @@ describe('SearchNavbarComponent', () => {
       declarations: [SearchNavbarComponent],
       providers: [
         { provide: SearchService, useValue: mockSearchService },
-        { provide: Router, useValue: routerStub }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: Router, useValue: routerStub },
+        { provide: SearchConfigurationService, useValue: {paginationID: 'page-id'} }
       ]
     })
       .compileComponents();
@@ -88,7 +100,7 @@ describe('SearchNavbarComponent', () => {
         }));
         it('to search page with empty query', () => {
           expect(component.onSubmit).toHaveBeenCalledWith({ query: '' });
-          expect(router.navigate).toHaveBeenCalled();
+          expect(paginationService.updateRouteWithUrl).toHaveBeenCalled();
         });
       });
     });
@@ -112,7 +124,7 @@ describe('SearchNavbarComponent', () => {
         }));
         it('to search page with query', async () => {
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
-          expect(router.navigate).toHaveBeenCalled();
+          expect(paginationService.updateRouteWithUrl).toHaveBeenCalled();
         });
       });
     });

@@ -15,7 +15,8 @@ import { Injectable } from '@angular/core';
 import { ResponseParsingService } from './parsing.service';
 import { ParsedResponse } from '../cache/response.models';
 import { RestRequestMethod } from './rest-request-method';
-import { getUrlWithoutEmbedParams } from '../index/index.selectors';
+import { getUrlWithoutEmbedParams, getEmbedSizeParams } from '../index/index.selectors';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -86,6 +87,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
   }
 
   public process<ObjectDomain>(data: any, request: RestRequest, alternativeURL?: string): any {
+    const embedSizeParams = getEmbedSizeParams(request.href);
+
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;
@@ -100,7 +103,13 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
-              this.process<ObjectDomain>(data._embedded[property], request, data._links[property].href);
+              let embedAltUrl = data._links[property].href;
+              const match = embedSizeParams
+                .find((param: { name: string, size: number }) => param.name === property);
+              if (hasValue(match)) {
+                embedAltUrl = new URLCombiner(embedAltUrl, `?size=${match.size}`).toString();
+              }
+              this.process<ObjectDomain>(data._embedded[property], request, embedAltUrl);
             });
         }
 
