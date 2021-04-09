@@ -9,6 +9,7 @@
     </span>
     <button type="button" class="btn btn-secondary"
             title="{{'form.remove' | translate}}"
+            [disabled]="!canRemove"
             (click)="removeSelection()">
         <i class="fas fa-trash" aria-hidden="true"></i>
     </button>

@@ -16,6 +16,8 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -79,6 +81,7 @@ describe('ExistingMetadataListElementComponent', () => {
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

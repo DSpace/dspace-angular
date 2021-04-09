@@ -12,6 +12,7 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 // tslint:disable:max-classes-per-file
 /**
@@ -61,6 +62,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
   @Input() submissionId: string;
+  @Input() canRemove = true;
   relatedItem$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
   viewType = ViewMode.ListElement;
   @Output() remove: EventEmitter<any> = new EventEmitter();
@@ -72,6 +74,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
 
   constructor(
     private selectableListService: SelectableListService,
+    private submissionService: SubmissionService,
     private store: Store<AppState>
   ) {
   }
@@ -102,6 +105,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
    * Removes the selected relationship from the list
    */
   removeSelection() {
+    this.submissionService.dispatchSave(this.submissionId);
     this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem$.getValue() }));
     this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem$.getValue(), this.relationshipOptions.relationshipType, this.submissionId));
   }

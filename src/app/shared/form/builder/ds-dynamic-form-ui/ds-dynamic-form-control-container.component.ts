@@ -394,9 +394,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       size: 'lg'
     });
 
-    if (hasValue(this.model.value)) {
-      this.submissionService.dispatchSave(this.model.submissionId);
-    }
+    this.submissionService.dispatchSave(this.model.submissionId);
 
     const modalComp = this.modalRef.componentInstance;
 
@@ -440,6 +438,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   get hasHint(): boolean {
     return isNotEmpty(this.model.hint) && this.model.hint !== '&nbsp;';
+  }
+
+  canRemove() {
+    return this.model.parent.context.groups.length > 1;
   }
 
   /**
