@@ -1,0 +1,13 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://api7.dspace.org/server/api/authz/authorizations/search/object?uri=https://api7.dspace.org/server/api/core/items/96715576-3748-4761-ad45-001646632963&feature=canDelete"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 0,
+    "totalPages": 1,
+    "number": 0
+  }
+}

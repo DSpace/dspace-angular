@@ -10,7 +10,7 @@ import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 /**
- * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for a specific feature
+ * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for any specific feature in a list
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
 export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends SomeFeatureAuthorizationGuard {

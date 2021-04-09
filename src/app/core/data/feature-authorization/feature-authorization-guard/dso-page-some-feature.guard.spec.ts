@@ -4,29 +4,29 @@ import { RemoteData } from '../../remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
 import { FeatureID } from '../feature-id';
 import { AuthService } from '../../../auth/auth.service';
+import { DsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
 
 /**
- * Test implementation of abstract class DsoPageSingleFeatureGuard
+ * Test implementation of abstract class DsoPageSomeFeatureGuard
  */
-class DsoPageSingleFeatureGuardImpl extends DsoPageSingleFeatureGuard<any> {
+class DsoPageSomeFeatureGuardImpl extends DsoPageSomeFeatureGuard<any> {
   constructor(protected resolver: Resolve<RemoteData<any>>,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService,
-              protected featureID: FeatureID) {
+              protected featureIDs: FeatureID[]) {
     super(resolver, authorizationService, router, authService);
   }
 
-  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(this.featureID);
+  getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
+    return observableOf(this.featureIDs);
   }
 }
 
-describe('DsoPageSingleFeatureGuard', () => {
-  let guard: DsoPageSingleFeatureGuard<any>;
+describe('DsoPageSomeFeatureGuard', () => {
+  let guard: DsoPageSomeFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -62,7 +62,7 @@ describe('DsoPageSingleFeatureGuard', () => {
       },
       parent: parentRoute
     };
-    guard = new DsoPageSingleFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
+    guard = new DsoPageSomeFeatureGuardImpl(resolver, authorizationService, router, authService, []);
   }
 
   beforeEach(() => {
