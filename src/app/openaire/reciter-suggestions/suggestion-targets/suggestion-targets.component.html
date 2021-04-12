@@ -9,9 +9,8 @@
                      [collectionSize]="(totalElements$ | async)"
                      [hideGear]="false"
                      [hideSortOptions]="true"
-                     [hidePagerWhenSinglePage]="false"
-                     (pageChange)="setPage($event)"
-                     (pageSizeChange)="setPageSize($event)">
+                     [retainScrollPosition]="false"
+                     (paginationChange)="getSuggestionTargets()">
 
         <ds-loading class="container" *ngIf="(isTargetsProcessing() | async)" message="'reciter.suggestion.loading' | translate"></ds-loading>
         <ng-container *ngIf="!(isTargetsProcessing() | async)">

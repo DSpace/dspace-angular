@@ -251,7 +251,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateParams({ pageId: this.id, page: 1, pageSize: pageSize });
+    this.updateParams({ pageSize: pageSize });
     this.emitPaginationChange();
   }
 
@@ -262,7 +262,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateParams({ pageId: this.id, page: 1, sortDirection: sortDirection });
+    this.updateParams({ sortDirection: sortDirection });
     this.emitPaginationChange();
   }
 
@@ -273,7 +273,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort field being navigated to.
    */
   public doSortFieldChange(field: string) {
-    this.updateParams({ pageId: this.id, page: 1, sortField: field });
+    this.updateParams({ sortField: field });
     this.emitPaginationChange();
   }
 

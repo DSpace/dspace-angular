@@ -33,8 +33,7 @@ import { createTestComponent } from '../testing/utils.test';
 import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/request.models';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { BehaviorSubject } from 'rxjs';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -286,7 +285,7 @@ describe('Pagination component', () => {
 
     changePageSize(testFixture, '20');
     tick();
-    expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ pageId: 'test', page: 1, pageSize: 20}), {},  false);
+    expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({pageSize: 20}), {},  false);
   }));
 
   it('should respond to windows resize', () => {

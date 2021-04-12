@@ -15,9 +15,7 @@
                      [collectionSize]="(totalElements$ | async)"
                      [hideGear]="false"
                      [hideSortOptions]="true"
-                     [hidePagerWhenSinglePage]="false"
-                     (pageChange)="setPage($event)"
-                     (pageSizeChange)="setPageSize($event)">
+                     (paginationChange)="getOpenaireBrokerTopics()">
 
         <ds-loading class="container" *ngIf="(isTopicsProcessing() | async)" message="'openaire.broker.loading' | translate"></ds-loading>
         <ng-container *ngIf="!(isTopicsProcessing() | async)">

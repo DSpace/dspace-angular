@@ -14,11 +14,9 @@
 
         <ds-pagination *ngIf="audits.totalElements > 0"
                        [paginationOptions]="pageConfig"
-                       [pageInfoState]="audits"
                        [collectionSize]="audits.totalElements"
                        [hideGear]="true"
-                       [hidePagerWhenSinglePage]="true"
-                       (pageChange)="onPageChange($event)">
+                       [hidePagerWhenSinglePage]="true">
 
           <div class="table-responsive">
             <table class="table table-striped table-hover">

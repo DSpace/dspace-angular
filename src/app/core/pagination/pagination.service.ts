@@ -78,13 +78,21 @@ export class PaginationService {
    * Method to retrieve the current find list options for an ID based on the router params and default options
    * @param paginationId - The id to check the find list options for
    * @param defaultFindList - The default find list options to be used when no route info is present
+   * @param defaultPagination - The default pagination values to be used when no route info is present
    * @param ignoreDefault - Indicate whether the default should be ignored
    * @returns {Observable<FindListOptions>} Retrieves the current find list options based on the router params
    */
-  getFindListOptions(paginationId: string, defaultFindList: FindListOptions, ignoreDefault?: boolean): Observable<FindListOptions> {
-    const paginationComponentOptions = new PaginationComponentOptions();
-    paginationComponentOptions.currentPage = defaultFindList.currentPage;
-    paginationComponentOptions.pageSize = defaultFindList.elementsPerPage;
+  getFindListOptions(paginationId: string, defaultFindList: FindListOptions, defaultPagination?: PaginationComponentOptions, ignoreDefault?: boolean): Observable<FindListOptions> {
+    let paginationComponentOptions;
+    if (isEmpty(defaultPagination)) {
+      paginationComponentOptions = new PaginationComponentOptions();
+      paginationComponentOptions.id = paginationId;
+      paginationComponentOptions.currentPage = defaultFindList.currentPage;
+      paginationComponentOptions.pageSize = defaultFindList.elementsPerPage;
+    } else {
+      paginationComponentOptions = defaultPagination;
+    }
+
     const currentPagination$ = this.getCurrentPagination(paginationId, paginationComponentOptions);
     const currentSortOptions$ = this.getCurrentSort(paginationId, defaultFindList.sort, ignoreDefault);
 
@@ -186,7 +194,7 @@ export class PaginationService {
   }
 
   private getCurrentRouting(paginationId: string) {
-    return this.getFindListOptions(paginationId, {}, true).pipe(
+    return this.getFindListOptions(paginationId, {}, null, true).pipe(
       take(1),
       map((findListoptions: FindListOptions) => {
         return {

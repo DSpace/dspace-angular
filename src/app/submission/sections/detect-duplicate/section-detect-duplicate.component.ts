@@ -16,6 +16,7 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * This component represents a section that contains possible duplications.
@@ -56,13 +57,13 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
-  config: PaginationComponentOptions;
+  config$: Observable<PaginationComponentOptions>;
 
   /**
    * The duplications list sort options.
    * @type {SortOptions}
    */
-  sortConfig: SortOptions;
+  sortConfig: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   /**
    * If TRUE the submission scope is the 'workflow'; 'workspace' otherwise.
@@ -80,6 +81,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    * Initialize instance variables.
    *
    * @param {DetectDuplicateService} detectDuplicateService
+   * @param {PaginationService} paginationService
    * @param {TranslateService} translate
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -88,6 +90,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    * @param {string} injectedSubmissionId
    */
   constructor(protected detectDuplicateService: DetectDuplicateService,
+              protected paginationService: PaginationService,
               protected translate: TranslateService,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
@@ -101,10 +104,11 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    * Initialize all instance variables and retrieve configuration.
    */
   onSectionInit() {
-    this.config = new PaginationComponentOptions();
-    this.config.id = 'duplicated_items';
-    this.config.pageSize = 2;
-    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    const config = new PaginationComponentOptions();
+    config.id = 'dup';
+    config.pageSize = 2;
+    config.pageSizeOptions = [1, 2, 5];
+    this.config$ = this.paginationService.getCurrentPagination(config.id, config);
 
     if (this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem) {
       this.isWorkFlow = true;
@@ -147,16 +151,6 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     return this.sectionData$.pipe(
       map((totalMatches: any) => Object.keys(totalMatches.matches).length)
     );
-  }
-
-  /**
-   * Set the current page for the pagination system
-   *
-   * @param {number} page
-   *    the number of the current page
-   */
-  setPage(page: number) {
-    this.config.currentPage = page;
   }
 
   /**

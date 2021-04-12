@@ -1,22 +1,21 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
 
-<ng-container *ngIf="(getSectionStatus() | async)">
+<ng-container *ngIf="(getSectionStatus() | async) || !(config$ | async)">
   <ds-alert [type]="AlertTypeEnum.Info" [content]="('submission.sections.detect-duplicate.disclaimer-no-match' | translate)"></ds-alert>
 </ng-container>
 
-<ng-container *ngIf="!(getSectionStatus() | async)">
+<ng-container *ngIf="!(getSectionStatus() | async) && (config$ | async)">
   <ds-alert [type]="AlertTypeEnum.Warning" [content]="(disclaimer | async)"></ds-alert>
 
   <ds-pagination
-    [paginationOptions]="config"
+    [paginationOptions]="(config$ | async)"
     [collectionSize]="(getTotalMatches() | async)"
     [sortOptions]="sortConfig"
     [hideGear]="true"
     [hidePagerWhenSinglePage]="false"
-    [retainScrollPosition]="true"
-    (pageChange)="setPage($event)">
+    [retainScrollPosition]="true">
 
-    <ul class="list-unstyled">
+    <ul class="list-unstyled" *ngVar="(config$ | async) as config">
       <li *ngFor="let item of (sectionData$ | async)?.matches | dsObjNgFor
     | paginate: {id: config.id, itemsPerPage: config.pageSize, currentPage: config.currentPage}; let i = index; let l = last"
           class="mt-4 mb-4"

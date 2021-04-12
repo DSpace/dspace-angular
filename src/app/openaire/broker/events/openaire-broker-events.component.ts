@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, from, Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, scan, take } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of as observableOf, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, mergeMap, scan, switchMap, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -25,8 +25,8 @@ import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { AdminNotificationsOpenaireEventsPageParams } from '../../../+admin/admin-notifications/admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.resolver';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * Component to display the OpenAIRE Broker event list.
@@ -38,19 +38,20 @@ import { AdminNotificationsOpenaireEventsPageParams } from '../../../+admin/admi
 })
 export class OpenaireBrokerEventsComponent implements OnInit {
   /**
-   * The number of OpenAIRE Broker events per page.
-   */
-  public elementsPerPage = 10;
-  /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
-  public paginationConfig: PaginationComponentOptions;
+  public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'bep',
+    currentPage: 1,
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 20, 40, 60]
+  });
   /**
    * The OpenAIRE Broker event list sort options.
    * @type {SortOptions}
    */
-  public paginationSortConfig: SortOptions;
+  public paginationSortConfig: SortOptions = new SortOptions('trust', SortDirection.DESC);
   /**
    * Array to save the presence of a project inside an OpenAIRE Broker event.
    * @type {OpenaireBrokerEventData[]>}
@@ -97,6 +98,10 @@ export class OpenaireBrokerEventsComponent implements OnInit {
    */
   public showMore = false;
   /**
+   * The FindListOptions object
+   */
+  protected defaultConfig: FindListOptions = Object.assign(new FindListOptions(), {sort: this.paginationSortConfig});
+  /**
    * Array to track all the component subscriptions. Useful to unsubscribe them with 'onDestroy'.
    * @type {Array}
    */
@@ -105,16 +110,18 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   /**
    * Initialize the component variables.
    * @param {ActivatedRoute} activatedRoute
-   * @param {OpenaireBrokerEventRestService} openaireBrokerEventRestService
    * @param {NgbModal} modalService
    * @param {NotificationsService} notificationsService
+   * @param {OpenaireBrokerEventRestService} openaireBrokerEventRestService
+   * @param {PaginationService} paginationService
    * @param {TranslateService} translateService
    */
   constructor(
     private activatedRoute: ActivatedRoute,
-    private openaireBrokerEventRestService: OpenaireBrokerEventRestService,
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
+    private openaireBrokerEventRestService: OpenaireBrokerEventRestService,
+    private paginationService: PaginationService,
     private translateService: TranslateService
   ) {
   }
@@ -124,57 +131,17 @@ export class OpenaireBrokerEventsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.isEventPageLoading.next(true);
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'openaire_broker_events';
-    this.paginationConfig.pageSize = this.elementsPerPage;
-    this.paginationConfig.currentPage = 1;
-    this.paginationConfig.pageSizeOptions = [5, 10, 20, 30, 50];
-    this.paginationSortConfig = new SortOptions('trust', SortDirection.DESC);
 
-    this.subs.push(
-      combineLatest(
-        this.activatedRoute.paramMap.pipe(
-          map((params) => params.get('id'))
-        ),
-        this.activatedRoute.data.pipe(
-          map((data) => data.openaireBrokerEventsParams)
-        )
-      )
-        .subscribe(([id, openaireBrokerEventsRouteParams]: [string, any]) => {
-          this.updatePaginationFromRouteParams(openaireBrokerEventsRouteParams);
-          const regEx = /!/g;
-          this.showTopic = id.replace(regEx, '/');
-          this.topic = id;
-          this.isEventPageLoading.next(false);
-          this.getOpenaireBrokerEvents();
-        })
-    );
-  }
-
-  /**
-   * Set the current page for the pagination system.
-   *
-   * @param {number} page
-   *    the number of the current page
-   */
-  public setPage(page: number) {
-    if (this.paginationConfig.currentPage !== page) {
-      this.paginationConfig.currentPage = page;
+    this.activatedRoute.paramMap.pipe(
+      map((params) => params.get('id')),
+      take(1)
+    ).subscribe((id: string) => {
+      const regEx = /!/g;
+      this.showTopic = id.replace(regEx, '/');
+      this.topic = id;
+      this.isEventPageLoading.next(false);
       this.getOpenaireBrokerEvents();
-    }
-  }
-
-  /**
-   * Set the current sort direction for the pagination system.
-   *
-   * @param {SortDirection} direction
-   *    the current sort direction
-   */
-  public setSortDirection(direction: SortDirection) {
-    if (this.paginationSortConfig.direction !== direction) {
-      this.paginationSortConfig = new SortOptions('trust', direction);
-      this.getOpenaireBrokerEvents();
-    }
+    });
   }
 
   /**
@@ -366,6 +333,31 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     return this.computePIDHref(event);
   }
 
+
+  /**
+   * Dispatch the OpenAIRE Broker events retrival.
+   */
+  public getOpenaireBrokerEvents(): void {
+    this.paginationService.getFindListOptions(this.paginationConfig.id, this.defaultConfig, this.paginationConfig).pipe(
+      distinctUntilChanged(),
+      switchMap((options: FindListOptions) => this.openaireBrokerEventRestService.getEventsByTopic(
+        this.topic,
+        options,
+        followLink('target'), followLink('related')
+      )),
+      getFirstCompletedRemoteData(),
+    ).subscribe((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => {
+      if (rd.hasSucceeded) {
+        this.isEventLoading.next(false);
+        this.totalElements$ = observableOf(rd.payload.totalElements);
+        this.setEventUpdated(rd.payload.page);
+      } else {
+        throw new Error('Can\'t retrieve OpenAIRE Broker events from the Broker events REST service');
+      }
+      this.openaireBrokerEventRestService.clearFindByTopicRequests();
+    });
+  }
+
   /**
    * Unsubscribe from all subscriptions.
    */
@@ -373,38 +365,6 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-  }
-
-  /**
-   * Dispatch the OpenAIRE Broker events retrival.
-   */
-  protected getOpenaireBrokerEvents(): void {
-    this.isEventLoading.next(true);
-    this.eventsUpdated$ = new BehaviorSubject([]);
-    const options: FindListOptions = {
-      elementsPerPage: this.paginationConfig.pageSize,
-      currentPage: this.paginationConfig.currentPage,
-      sort: this.paginationSortConfig
-    };
-    this.subs.push(
-      this.openaireBrokerEventRestService.getEventsByTopic(
-        this.topic,
-        options,
-        followLink('target'), followLink('related')
-      ).pipe(
-        getFinishedRemoteData(),
-        take(1)
-      ).subscribe((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => {
-        if (rd.hasSucceeded) {
-          this.isEventLoading.next(false);
-          this.totalElements$ = observableOf(rd.payload.totalElements);
-          this.setEventUpdated(rd.payload.page);
-        } else {
-          throw new Error('Can\'t retrieve OpenAIRE Broker events from the Broker events REST service');
-        }
-        this.openaireBrokerEventRestService.clearFindByTopicRequests();
-      })
-    );
   }
 
   /**
@@ -449,24 +409,6 @@ export class OpenaireBrokerEventsComponent implements OnInit {
         }
       )
     );
-  }
-
-  /**
-   * Update pagination Config from route params
-   *
-   * @param eventsRouteParams
-   */
-  protected updatePaginationFromRouteParams(eventsRouteParams: AdminNotificationsOpenaireEventsPageParams): void {
-    if (eventsRouteParams.currentPage) {
-      this.paginationConfig.currentPage = eventsRouteParams.currentPage;
-    }
-    if (eventsRouteParams.pageSize) {
-      if (this.paginationConfig.pageSizeOptions.includes(eventsRouteParams.pageSize)) {
-        this.paginationConfig.pageSize = eventsRouteParams.pageSize;
-      } else {
-        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
-      }
-    }
   }
 
   protected computePIDHref(event: OpenaireBrokerEventMessageObject) {

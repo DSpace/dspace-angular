@@ -29,6 +29,8 @@ import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { PageInfo } from '../core/shared/page-info.model';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { PaginationService } from '../core/pagination/pagination.service';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -52,6 +54,7 @@ describe('SuggestionPageComponent', () => {
     isAuthenticated: observableOf(true),
     setRedirectUrl: {}
   });
+  const paginationService = new PaginationServiceStub();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -76,6 +79,7 @@ describe('SuggestionPageComponent', () => {
         { provide: SuggestionTargetsStateService, useValue: mockSuggestionsTargetStateService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: PaginationService, useValue: paginationService },
         SuggestionsPageComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

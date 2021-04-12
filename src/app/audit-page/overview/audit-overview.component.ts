@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+
+import { combineLatest, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
-import { mergeMap } from 'rxjs/operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Audit } from '../../core/audit/model/audit.model';
 import { AuditDataService } from '../../core/audit/audit-data.service';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
 
 /**
  * Component displaying a list of all audit in a paginated table
@@ -37,10 +40,15 @@ export class AuditOverviewComponent implements OnInit {
   });
 
   /**
+   * The pagination id
+   */
+  pageId = 'aop';
+
+  /**
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'audit-overview-pagination',
+    id: this.pageId,
     pageSize: 10
   });
 
@@ -50,7 +58,8 @@ export class AuditOverviewComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
   constructor(protected auditService: AuditDataService,
-              protected authorizationService: AuthorizationDataService) {
+              protected authorizationService: AuthorizationDataService,
+              protected paginationService: PaginationService) {
   }
 
   ngOnInit(): void {
@@ -58,25 +67,15 @@ export class AuditOverviewComponent implements OnInit {
   }
 
   /**
-   * When the page is changed, make sure to update the list of audits to match the new page
-   * @param event The page change event
-   */
-  onPageChange(event) {
-    this.config = Object.assign(new FindListOptions(), this.config, {
-      currentPage: event,
-    });
-    this.pageConfig.currentPage = event;
-    this.setAudits();
-  }
-
-  /**
    * Send a request to fetch all audits for the current page
    */
   setAudits() {
-    this.auditsRD$ = this.isCurrentUserAdmin().pipe(
-      mergeMap((isAdmin) => {
+    const config$ = this.paginationService.getFindListOptions(this.pageId, this.config);
+    const isAdmin$ = this.isCurrentUserAdmin();
+    this.auditsRD$ = combineLatest([isAdmin$, config$]).pipe(
+      mergeMap(([isAdmin, config]) => {
         if (isAdmin) {
-          return this.auditService.findAll(this.config);
+          return this.auditService.findAll(config);
         }
       })
     );

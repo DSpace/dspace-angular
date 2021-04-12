@@ -12,6 +12,8 @@ import { AuditOverviewComponent } from './audit-overview.component';
 import { AuditMock } from '../../shared/testing/audit.mock';
 import { Audit } from '../../core/audit/model/audit.model';
 import { AuditDataService } from '../../core/audit/audit-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 
 describe('AuditOverviewComponent', () => {
   let component: AuditOverviewComponent;
@@ -19,8 +21,8 @@ describe('AuditOverviewComponent', () => {
 
   let auditService: AuditDataService;
   let authorizationService: any;
-
   let audits: Audit[];
+  const paginationService = new PaginationServiceStub();
 
   function init() {
     audits = [ AuditMock, AuditMock, AuditMock ];
@@ -38,7 +40,8 @@ describe('AuditOverviewComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: AuditDataService, useValue: auditService },
-        { provide: AuthorizationDataService, useValue: authorizationService }
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -114,15 +117,6 @@ describe('AuditOverviewComponent', () => {
         });
       });
 
-
-      describe('onPageChange', () => {
-        const toPage = 2;
-        it('should call a new findAll with the corresponding page', () => {
-          component.onPageChange(toPage);
-          fixture.detectChanges();
-          expect(auditService.findAll).toHaveBeenCalledWith(jasmine.objectContaining({ currentPage: toPage }));
-        });
-      });
     });
 
   });

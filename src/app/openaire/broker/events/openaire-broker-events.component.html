@@ -22,12 +22,8 @@
       <ds-pagination *ngIf="!(isEventPageLoading | async)"
                       [paginationOptions]="paginationConfig"
                       [collectionSize]="(totalElements$ | async)"
-                      [hideGear]="false"
-                      [hideSortOptions]="false"
                       [sortOptions]="paginationSortConfig"
-                      [hidePagerWhenSinglePage]="false"
-                      (sortDirectionChange)="setSortDirection($event)"
-                      (pageChange)="setPage($event)">
+                      (paginationChange)="getOpenaireBrokerEvents()">
 
         <ds-loading class="container" *ngIf="(isEventLoading | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
         <ng-container *ngIf="!(isEventLoading | async)">

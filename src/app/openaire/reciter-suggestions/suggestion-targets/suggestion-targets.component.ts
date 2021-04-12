@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { distinctUntilChanged, take } from 'rxjs/operators';
 
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
-import { AdminNotificationsSuggestionTargetsPageParams } from '../../../+admin/admin-notifications/admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
 import { SuggestionsService } from '../suggestions.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -28,14 +28,14 @@ export class SuggestionTargetsComponent implements OnInit {
   @Input() source: string;
 
   /**
-   * The number of Suggestion Targets per page.
-   */
-  public elementsPerPage = 10;
-  /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
-  public paginationConfig: PaginationComponentOptions;
+  public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'stp',
+    pageSizeOptions: [5, 10, 20, 40, 60]
+  });
+
   /**
    * The Suggestion Target list.
    */
@@ -52,12 +52,13 @@ export class SuggestionTargetsComponent implements OnInit {
 
   /**
    * Initialize the component variables.
-   * @param {ActivatedRoute} activatedRoute
+   * @param {PaginationService} paginationService
    * @param {SuggestionTargetsStateService} suggestionTargetsStateService
+   * @param {SuggestionsService} suggestionService
    * @param {Router} router
    */
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private paginationService: PaginationService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private suggestionService: SuggestionsService,
     private router: Router
@@ -68,21 +69,8 @@ export class SuggestionTargetsComponent implements OnInit {
    * Component initialization.
    */
   ngOnInit(): void {
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'reciter_suggestion_target';
-    this.paginationConfig.pageSize = this.elementsPerPage;
-    this.paginationConfig.currentPage = 1;
-    this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
-    this.subs.push(
-      this.activatedRoute.data.pipe(
-        map((data) => data.reciterSuggestionTargetParams),
-        take(1)
-      ).subscribe((suggestionTargetsParams) => {
-        this.updatePaginationFromRouteParams(suggestionTargetsParams);
-        this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets();
-        this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals();
-      })
-    );
+    this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets();
+    this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals();
   }
 
   /**
@@ -119,32 +107,6 @@ export class SuggestionTargetsComponent implements OnInit {
   }
 
   /**
-   * Set the current page for the pagination system.
-   *
-   * @param {number} page
-   *    the number of the current page
-   */
-  public setPage(page: number) {
-    if (this.paginationConfig.currentPage !== page) {
-      this.paginationConfig.currentPage = page;
-      this.getSuggestionTargets();
-    }
-  }
-
-  /**
-   * Set the current page size for the pagination system.
-   *
-   * @param {number} pageSize
-   *    the number of the current page size
-   */
-  public setPageSize(pageSize: number) {
-    if (this.paginationConfig.pageSize !== pageSize) {
-      this.paginationConfig.pageSize = pageSize;
-      this.getSuggestionTargets();
-    }
-  }
-
-  /**
    * Redirect to suggestion page.
    *
    * @param {string} id
@@ -169,30 +131,17 @@ export class SuggestionTargetsComponent implements OnInit {
   /**
    * Dispatch the Suggestion Targets retrival.
    */
-  protected getSuggestionTargets(): void {
-    this.suggestionTargetsStateService.dispatchRetrieveReciterSuggestionTargets(
-      this.source,
-      this.paginationConfig.pageSize,
-      this.paginationConfig.currentPage
-    );
-  }
-
-  /**
-   * Update pagination Config from route params
-   *
-   * @param suggestionTargetsRouteParams
-   */
-  protected updatePaginationFromRouteParams(suggestionTargetsRouteParams: AdminNotificationsSuggestionTargetsPageParams) {
-    if (suggestionTargetsRouteParams.currentPage) {
-      this.paginationConfig.currentPage = suggestionTargetsRouteParams.currentPage;
-    }
-    if (suggestionTargetsRouteParams.pageSize) {
-      if (this.paginationConfig.pageSizeOptions.includes(suggestionTargetsRouteParams.pageSize)) {
-        this.paginationConfig.pageSize = suggestionTargetsRouteParams.pageSize;
-      } else {
-        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
-      }
-    }
+  public getSuggestionTargets(): void {
+    this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
+      distinctUntilChanged(),
+      take(1)
+    ).subscribe((options: PaginationComponentOptions) => {
+      this.suggestionTargetsStateService.dispatchRetrieveReciterSuggestionTargets(
+        this.source,
+        options.pageSize,
+        options.currentPage
+      );
+    });
   }
 
   public getTargetUuid(target: OpenaireSuggestionTarget) {

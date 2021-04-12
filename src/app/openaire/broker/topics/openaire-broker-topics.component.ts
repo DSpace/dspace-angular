@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { distinctUntilChanged, take } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
@@ -10,6 +9,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { OpenaireStateService } from '../../openaire-state.service';
 import { AdminNotificationsOpenaireTopicsPageParams } from '../../../+admin/admin-notifications/admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * Component to display the OpenAIRE Broker topic list.
@@ -21,14 +21,14 @@ import { AdminNotificationsOpenaireTopicsPageParams } from '../../../+admin/admi
 })
 export class OpenaireBrokerTopicsComponent implements OnInit {
   /**
-   * The number of OpenAIRE Broker topics per page.
-   */
-  public elementsPerPage = 10;
-  /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
-  public paginationConfig: PaginationComponentOptions;
+  public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'btp',
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 20, 40, 60]
+  });
   /**
    * The OpenAIRE Broker topic list sort options.
    * @type {SortOptions}
@@ -50,11 +50,11 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
 
   /**
    * Initialize the component variables.
-   * @param {ActivatedRoute} activatedRoute
+   * @param {PaginationService} paginationService
    * @param {OpenaireStateService} openaireStateService
    */
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private paginationService: PaginationService,
     private openaireStateService: OpenaireStateService,
   ) { }
 
@@ -62,21 +62,8 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
    * Component initialization.
    */
   ngOnInit(): void {
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'openaire_broker_topics';
-    this.paginationConfig.pageSize = this.elementsPerPage;
-    this.paginationConfig.currentPage = 1;
-    this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
-    this.subs.push(
-      this.activatedRoute.data.pipe(
-        map((data) => data.openaireBrokerTopicsParams),
-        take(1)
-      ).subscribe((eventsRouteParams) => {
-        this.updatePaginationFromRouteParams(eventsRouteParams);
-        this.topics$ = this.openaireStateService.getOpenaireBrokerTopics();
-        this.totalElements$ = this.openaireStateService.getOpenaireBrokerTopicsTotals();
-      })
-    );
+    this.topics$ = this.openaireStateService.getOpenaireBrokerTopics();
+    this.totalElements$ = this.openaireStateService.getOpenaireBrokerTopicsTotals();
   }
 
   /**
@@ -113,39 +100,17 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
   }
 
   /**
-   * Set the current page for the pagination system.
-   *
-   * @param {number} page
-   *    the number of the current page
-   */
-  public setPage(page: number) {
-    if (this.paginationConfig.currentPage !== page) {
-      this.paginationConfig.currentPage = page;
-      this.getOpenaireBrokerTopics();
-    }
-  }
-
-  /**
-   * Set the current page size for the pagination system.
-   *
-   * @param {number} pageSize
-   *    the number of the current page size
-   */
-  public setPageSize(pageSize: number) {
-    if (this.paginationConfig.pageSize !== pageSize) {
-      this.paginationConfig.pageSize = pageSize;
-      this.getOpenaireBrokerTopics();
-    }
-  }
-
-  /**
    * Dispatch the OpenAIRE Broker topics retrival.
    */
-  protected getOpenaireBrokerTopics(): void {
-    this.openaireStateService.dispatchRetrieveOpenaireBrokerTopics(
-      this.paginationConfig.pageSize,
-      this.paginationConfig.currentPage
-    );
+  public getOpenaireBrokerTopics(): void {
+    this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
+      distinctUntilChanged(),
+    ).subscribe((options: PaginationComponentOptions) => {
+      this.openaireStateService.dispatchRetrieveOpenaireBrokerTopics(
+        options.pageSize,
+        options.currentPage
+      );
+    });
   }
 
   /**

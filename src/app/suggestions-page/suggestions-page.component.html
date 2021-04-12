@@ -20,11 +20,13 @@
                                      (notMineClicked)="notMineAllSelected()"></ds-suggestion-actions>
               <i class='fas fa-circle-notch fa-spin' *ngIf="isBulkOperationPending"></i>
             </div>
-
-            <ds-pagination [paginationOptions]="config" [pageInfoState]="suggestionsRD?.pageInfo"
-                           [collectionSize]="suggestionsRD?.pageInfo?.totalElements" [sortOptions]="sortConfig" [hideGear]="false"
+            <ds-loading *ngIf="(processing$ | async)"></ds-loading>
+            <ds-pagination *ngIf="!(processing$ | async)"
+                           [paginationOptions]="paginationOptions"
+                           [sortOptions]="paginationSortConfig"
+                           [collectionSize]="suggestionsRD?.pageInfo?.totalElements" [hideGear]="false"
                            [hidePagerWhenSinglePage]="false" [hidePaginationDetail]="false"
-                           (paginationChange)="onPaginationChange($event)">
+                           (paginationChange)="onPaginationChange()">
               <ul class="list-unstyled">
                 <li *ngFor="let object of suggestionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
                   <ds-suggestion-list-item

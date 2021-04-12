@@ -20,7 +20,6 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { tap } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 
 /**
@@ -75,13 +74,15 @@ export class OrcidQueueService {
       searchParams: [new RequestParam('ownerId', itemId)],
       elementsPerPage: paginationOptions.pageSize,
       currentPage: paginationOptions.currentPage
-    }).pipe(tap((result) => {
-      this.requestService.removeByHrefSubstring(this.dataService.linkPath + '/search/findByOwner');
-    }));
+    },false,
+      true);
   }
 
   deleteById(orcidQueueId: number): Observable<RemoteData<NoContent>> {
     return this.dataService.delete(orcidQueueId + '');
   }
 
+  clearFindByOwnerRequests() {
+    this.requestService.setStaleByHrefSubstring(this.dataService.linkPath + '/search/findByOwner');
+  }
 }

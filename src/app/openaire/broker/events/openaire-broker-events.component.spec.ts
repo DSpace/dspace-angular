@@ -34,6 +34,8 @@ import {
 } from '../../../shared/remote-data.utils';
 import { FindListOptions } from '../../../core/data/request.models';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 
 describe('OpenaireBrokerEventsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerEventsComponent>;
@@ -61,6 +63,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     openaireBrokerEventObjectMissingProjectFound,
     openaireBrokerEventObjectMissingProjectNotFound
   ];
+  const paginationService = new PaginationServiceStub();
 
   function getOpenAireBrokerEventData1(): OpenaireBrokerEventData {
     return {
@@ -106,6 +109,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
         { provide: NgbModal, useValue: modalStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: PaginationService, useValue: paginationService },
         OpenaireBrokerEventsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -146,17 +150,6 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
       fixture.destroy();
       comp = null;
       compAsAny = null;
-    });
-
-    describe('setPage', () => {
-      it('should call getOpenaireBrokerEvents', () => {
-        spyOn(compAsAny, 'getOpenaireBrokerEvents');
-        comp.paginationConfig = new PaginationComponentOptions();
-        comp.paginationConfig.currentPage = 1;
-
-        comp.setPage(2);
-        expect(compAsAny.getOpenaireBrokerEvents).toHaveBeenCalled();
-      });
     });
 
     describe('setEventUpdated', () => {
@@ -284,15 +277,14 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     describe('getOpenaireBrokerEvents', () => {
       it('should call the "openaireBrokerEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
         comp.paginationConfig = new PaginationComponentOptions();
-        comp.paginationConfig.pageSize = 10;
         comp.paginationConfig.currentPage = 1;
+        comp.paginationConfig.pageSize = 20;
         comp.paginationSortConfig = new SortOptions('trust', SortDirection.DESC);
         comp.topic = activatedRouteParamsMap.id;
-        const options: FindListOptions = {
-          elementsPerPage: comp.paginationConfig.pageSize,
+        const options: FindListOptions = Object.assign(new FindListOptions(), {
           currentPage: comp.paginationConfig.currentPage,
-          sort: comp.paginationSortConfig
-        };
+          elementsPerPage: comp.paginationConfig.pageSize
+        });
 
         const pageInfo = new PageInfo({
           elementsPerPage: comp.paginationConfig.pageSize,

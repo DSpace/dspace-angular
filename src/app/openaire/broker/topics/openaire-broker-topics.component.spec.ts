@@ -13,6 +13,8 @@ import {
 import { OpenaireBrokerTopicsComponent } from './openaire-broker-topics.component';
 import { OpenaireStateService } from '../../openaire-state.service';
 import { cold } from 'jasmine-marbles';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 describe('OpenaireBrokerTopicsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerTopicsComponent>;
@@ -25,6 +27,7 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
       pageSize: 5
     }
   };
+  const paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -39,6 +42,7 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
       providers: [
         { provide: OpenaireStateService, useValue: mockOpenaireStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
+        { provide: PaginationService, useValue: paginationService },
         OpenaireBrokerTopicsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -128,23 +132,12 @@ describe('OpenaireBrokerTopicsComponent test suite', () => {
       }));
     });
 
-    it(('setPage should set the currentPage and call getOpenaireBrokerTopics'), () => {
-      spyOn(compAsAny, 'getOpenaireBrokerTopics');
-
-      comp.ngOnInit();
-      fixture.detectChanges();
-
-      comp.setPage(2);
-      expect(comp.paginationConfig.currentPage).toEqual(2);
-      expect(compAsAny.getOpenaireBrokerTopics).toHaveBeenCalled();
-    });
-
     it(('getOpenaireBrokerTopics should call the service to dispatch a STATE change'), () => {
       comp.ngOnInit();
       fixture.detectChanges();
 
-      compAsAny.openaireStateService.dispatchRetrieveOpenaireBrokerTopics(comp.elementsPerPage, comp.paginationConfig.currentPage).and.callThrough();
-      expect(compAsAny.openaireStateService.dispatchRetrieveOpenaireBrokerTopics).toHaveBeenCalledWith(comp.elementsPerPage, comp.paginationConfig.currentPage);
+      compAsAny.openaireStateService.dispatchRetrieveOpenaireBrokerTopics(comp.paginationConfig.pageSize, comp.paginationConfig.currentPage).and.callThrough();
+      expect(compAsAny.openaireStateService.dispatchRetrieveOpenaireBrokerTopics).toHaveBeenCalledWith(comp.paginationConfig.pageSize, comp.paginationConfig.currentPage);
     });
   });
 });
