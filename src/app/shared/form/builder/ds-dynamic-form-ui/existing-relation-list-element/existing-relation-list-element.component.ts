@@ -62,7 +62,6 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
   @Input() submissionId: string;
-  @Input() canRemove = true;
   relatedItem$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
   viewType = ViewMode.ListElement;
   @Output() remove: EventEmitter<any> = new EventEmitter();

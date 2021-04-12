@@ -146,7 +146,6 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
   @Input() submissionId: string;
-  @Input() canRemove = true;
   metadataRepresentation$: BehaviorSubject<MetadataRepresentation> = new BehaviorSubject<MetadataRepresentation>(undefined);
   relatedItem: Item;
   @Output() remove: EventEmitter<any> = new EventEmitter();

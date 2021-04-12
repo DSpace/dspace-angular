@@ -54,7 +54,6 @@
                 [metadataFields]="model.metadataFields"
                 [submissionId]="model.submissionId"
                 [relationshipOptions]="model.relationship"
-                [canRemove]="canRemove()"
                 (remove)="onRemove()"
         >
         </ds-existing-metadata-list-element>
@@ -67,7 +66,6 @@
                 [metadataFields]="model.metadataFields"
                 [submissionId]="model.submissionId"
                 [relationshipOptions]="model.relationship"
-                [canRemove]="canRemove()"
         >
         </ds-existing-relation-list-element>
         <small *ngIf="hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)"
