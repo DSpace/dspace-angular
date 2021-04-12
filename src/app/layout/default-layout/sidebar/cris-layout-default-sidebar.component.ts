@@ -42,22 +42,17 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.tabs && changes.tabs.currentValue) {
       // Check if the location contains a specific tab to show
-      const tks = this.location.path().split('/');
-      if (hasValue(tks)) {
-        const tabName = tks[tks.length - 1];
-        if (hasValue(tabName)) {
-          let idx = 0;
-          for (const tab of this.tabs) {
-            if (tab.shortname === tabName) {
-              this.selectTab(idx);
-              return;
-            }
-            idx++;
+      const tabName = this.getCurrentTabFromUrl();
+      if (hasValue(tabName)) {
+        let idx = 0;
+        for (const tab of this.tabs) {
+          if (tab.shortname === tabName) {
+            this.selectTab(idx);
+            return;
           }
-          if (idx === this.tabs.length) {
-            this.selectTab(0);
-          }
-        } else {
+          idx++;
+        }
+        if (idx === this.tabs.length) {
           this.selectTab(0);
         }
       } else {
@@ -76,12 +71,11 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
       tab.isActive = false;
     });
     this.tabs[idx].isActive = true;
-    const locationParts = this.location.path().split('/');
-    if (locationParts) {
-      const lastPart = locationParts.pop();
-      if (lastPart === this.item.uuid) {
+    const tabName = this.getCurrentTabFromUrl();
+    if (tabName) {
+      if (tabName === this.item.uuid) {
         this.router.navigate([this.tabs[idx].shortname], {replaceUrl: true, relativeTo: this.route});
-      } else if (lastPart !== this.tabs[idx].shortname) {
+      } else if (tabName !== this.tabs[idx].shortname) {
         this.router.navigate(['../', this.tabs[idx].shortname], {replaceUrl: true, relativeTo: this.route});
       }
     }
@@ -89,4 +83,17 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
     this.selectedTab.emit(this.tabs[idx]);
   }
 
+  private getCurrentTabFromUrl() {
+    let currentTab = null;
+    const locationParts = this.location.path().split('/');
+    if (locationParts) {
+      const lastPart = locationParts.pop();
+      currentTab = lastPart;
+      if (lastPart.includes('?')) {
+        const paramsParts = lastPart.split('?');
+        currentTab = paramsParts[0];
+      }
+    }
+    return currentTab;
+  }
 }
