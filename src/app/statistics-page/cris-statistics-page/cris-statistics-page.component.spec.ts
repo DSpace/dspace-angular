@@ -6,13 +6,10 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
-import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
 import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 
 
@@ -25,10 +22,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 
-
 describe('CrisStatisticsPageComponent', () => {
   let component: CrisStatisticsPageComponent;
   let fixture: ComponentFixture<CrisStatisticsPageComponent>;
+  let de: DebugElement;
 
   const authServiceStub = new AuthServiceStub();
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
@@ -71,6 +68,7 @@ describe('CrisStatisticsPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisStatisticsPageComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     fixture.detectChanges();
   });
 

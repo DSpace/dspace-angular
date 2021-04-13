@@ -1,22 +1,20 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
 
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 
- describe('StatisticsChartComponent', () => {
+describe('StatisticsChartComponent', () => {
   let component: StatisticsChartComponent;
   let fixture: ComponentFixture<StatisticsChartComponent>;
-  const de: DebugElement;
+  let de: DebugElement;
 
   const reports: UsageReport[] = [{
                 'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits',
@@ -175,6 +173,7 @@ import { DebugElement } from '@angular/core';
   beforeEach(() => {
     fixture = TestBed.createComponent(StatisticsChartComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     fixture.detectChanges();
   });
 

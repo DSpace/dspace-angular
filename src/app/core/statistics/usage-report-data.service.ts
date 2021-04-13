@@ -13,7 +13,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { USAGE_REPORT } from './models/usage-report.resource-type';
 import { UsageReport } from './models/usage-report.model';
 import { Observable } from 'rxjs';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { map } from 'rxjs/operators';
 
 
@@ -57,14 +57,14 @@ export class UsageReportService extends DataService<UsageReport> {
       }
     ];
 
-    if(startDate !== undefined) {
+    if (startDate !== undefined) {
       params.push({
         fieldName: `startDate`,
         fieldValue: startDate,
       });
     }
 
-    if(endDate !== undefined) {
+    if (endDate !== undefined) {
       params.push({
         fieldName: `endDate`,
         fieldValue: endDate,

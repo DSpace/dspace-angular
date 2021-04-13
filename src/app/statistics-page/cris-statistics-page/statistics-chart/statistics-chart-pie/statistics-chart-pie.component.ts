@@ -1,18 +1,15 @@
-import { Component,Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { StatisticsType } from '../../statistics-type.model';
 // import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../cris-statistics-element-decorator';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
-import { Observable,of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-
-import { ChartType } from '../../../../charts/models/chart-type';
+import { Observable, of } from 'rxjs';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
 
-import { UsageReport,Point } from '../../../../core/statistics/models/usage-report.model';
+import { Point } from '../../../../core/statistics/models/usage-report.model';
 
 /**
  * This component renders a simple item page.
@@ -43,7 +40,7 @@ export class StatisticsChartPieComponent extends StatisticsChartDataComponent {
 
     return of(this.report.points.map(
       (point: Point) => {
-    
+
         return {
           name: point.label,
           value: point.values[key],

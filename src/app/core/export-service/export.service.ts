@@ -1,6 +1,6 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 
 @Injectable()
 export class ExportService {
@@ -8,7 +8,7 @@ export class ExportService {
   /**
    * Configuration for CSV export process
    */
-  exportAsConfig:ExportAsConfig;
+  exportAsConfig: ExportAsConfig;
 
   constructor(private exportAsService: ExportAsService) { }
 
@@ -23,13 +23,13 @@ export class ExportService {
   export(type: any, elementIdOrContent: string, fileName: string, download: boolean = true) {
 
     this.exportAsConfig = {
-      type:type, 
+      type:type,
       elementIdOrContent: elementIdOrContent,
       fileName:fileName,
       download:download
     };
-     
+
     return this.exportAsService.save(this.exportAsConfig, fileName);
   }
-  
+
 }

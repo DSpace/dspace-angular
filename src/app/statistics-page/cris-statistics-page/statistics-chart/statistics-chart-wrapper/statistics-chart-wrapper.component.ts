@@ -4,7 +4,7 @@ import { StatisticsType } from '../../statistics-type.model';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { renderChartStatisticsType } from '../../cris-statistics-element-decorator';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
-import { DataReportService,REPORT_DATA } from '../../../../core/statistics/data-report.service';
+import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 
 @Component({
   selector: 'ds-statistics-chart-wrapper',
@@ -32,9 +32,7 @@ export class StatisticsChartWrapperComponent implements OnInit {
    */
   objectInjector: Injector;
 
-  constructor(private injector: Injector,
-    // protected dataReportService: DataReportService,
-    ) {
+  constructor(private injector: Injector) {
   }
 
   /**
@@ -42,6 +40,7 @@ export class StatisticsChartWrapperComponent implements OnInit {
    */
   ngOnInit(): void {
     this.chartData = this.getStatistics();
+    console.log(this.chartData);
     this.objectInjector = Injector.create({
       providers: [
         { provide: REPORT_DATA, useFactory: () => (this.report), deps: [] },
@@ -51,7 +50,6 @@ export class StatisticsChartWrapperComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // this.type = changes.type.currentValue;
     this.ngOnInit();
   }
 

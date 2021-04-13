@@ -13,7 +13,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { STATISTICS_CATEGORY } from './models/statistics-category.resource-type';
 import { StatisticsCategory } from './models/statistics-category.model';
 import { Observable } from 'rxjs';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { map } from 'rxjs/operators';
 
 
@@ -54,14 +54,14 @@ export class StatisticsCategoriesService extends DataService<StatisticsCategory>
       }
     ];
 
-    if(startDate !== undefined) {
+    if (startDate !== undefined) {
       params.push({
         fieldName: `startDate`,
         fieldValue: startDate,
       });
     }
 
-    if(endDate !== undefined) {
+    if (endDate !== undefined) {
       params.push({
         fieldName: `endDate`,
         fieldValue: endDate,
