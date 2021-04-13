@@ -26,6 +26,9 @@ export class UsageReport extends HALResource {
   @autoserialize
   id: string;
 
+  @autoserializeAs('view-mode')
+  viewMode: string;
+
   @autoserializeAs('report-type')
   reportType: string;
 
@@ -34,6 +37,7 @@ export class UsageReport extends HALResource {
 
   @deserialize
   _links: {
+    category?: HALLink;
     self: HALLink;
   };
 }
@@ -45,7 +49,9 @@ export interface Point {
   id: string;
   label: string;
   type: string;
-  values: {
-    views: number;
-  }[];
+  values: any | any[];
+  //  {
+  //   views?: number;
+  //   downloads?: number;
+  // }[];
 }

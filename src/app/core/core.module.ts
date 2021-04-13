@@ -196,6 +196,7 @@ import { OpenaireBrokerEventObject } from './openaire/broker/models/openaire-bro
 import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { OpenaireSuggestion } from './openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/openaire-suggestion-source.model';
+import { StatisticsCategory } from './statistics/models/statistics-category.model';
 import { RootDataService } from './data/root-data.service';
 import { SearchConfig } from '../shared/search/search-filters/search-config.model';
 
@@ -412,6 +413,7 @@ export const models =
     OpenaireSuggestion,
     OpenaireSuggestionTarget,
     OpenaireSuggestionSource,
+    StatisticsCategory,
     Root,
     SearchConfig
   ];

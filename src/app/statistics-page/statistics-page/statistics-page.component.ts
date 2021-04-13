@@ -50,13 +50,13 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
   }
 
   ngOnInit(): void {
-    this.scope$ = this.getScope$();
-    this.reports$ = this.getReports$();
-    this.hasData$ = this.reports$.pipe(
-      map((reports) => reports.some(
-        (report) => report.points.length > 0
-      )),
-    );
+    // this.scope$ = this.getScope$();
+    // this.reports$ = this.getReports$();
+    // this.hasData$ = this.reports$.pipe(
+    //   map((reports) => reports.some(
+    //     (report) => report.points.length > 0
+    //   )),
+    // );
   }
 
   /**

@@ -22,7 +22,8 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
           },
           data: {
             title: 'statistics.title',
-            breadcrumbKey: 'statistics'
+            breadcrumbKey: 'statistics',
+            type: 'site'
           },
           children: [
             {

@@ -211,6 +211,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
+            canActivate: [SiteAdministratorGuard]
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,

@@ -3991,6 +3991,15 @@
 
   "statistics.table.header.views": "Views",
 
+  "statistics.categories.title": "Statistics by Category",
+
+  "statistics.categories.mainReports.tab": "Main Reports",
+
+  "statistics.categories.projectsReports.tab": "Project Reports",
+
+  "statistics.categories.publicationsReports.tab": "Publication Reports",
+
+  "statistics.reports.title": "Reports",
 
 
   "submission.edit.breadcrumbs": "Edit Submission",

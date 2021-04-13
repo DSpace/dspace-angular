@@ -14,6 +14,8 @@ import { ThemedCollectionStatisticsPageComponent } from './collection-statistics
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { CrisStatisticsPageModule } from './cris-statistics-page/cris-statistics-page.module';
+import { StatisticsCategoriesService } from '../core/statistics/statistics-categories.service';
 
 const components = [
   StatisticsTableComponent,
@@ -31,12 +33,14 @@ const components = [
   imports: [
     CommonModule,
     SharedModule,
+    CrisStatisticsPageModule,
     CoreModule.forRoot(),
     StatisticsModule.forRoot()
   ],
   declarations: components,
   providers: [
     UsageReportService,
+    StatisticsCategoriesService,
   ],
   exports: components
 })
