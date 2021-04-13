@@ -6,6 +6,7 @@ import { CrisItemPageRoutingModule } from './cris-item-page-routing.module';
 import { CrisItemPageComponent } from './cris-item-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
+import {StatisticsModule} from '../statistics/statistics.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
     CommonModule,
     SharedModule,
     CrisItemPageRoutingModule,
-    LayoutModule
+    LayoutModule,
+    StatisticsModule
   ],
   exports: [
     CrisItemPageComponent
