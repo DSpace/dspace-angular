@@ -3,18 +3,18 @@ import { typedObject } from '../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { HALResource } from '../../shared/hal-resource.model';
-import { USAGE_REPORT } from './usage-report.resource-type';
+import { STATISTICS_CATEGORY } from './statistics-category.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
 import { deserialize, autoserializeAs } from 'cerialize';
 
 /**
- * A usage report.
+ * Statistics category.
  */
 @typedObject
 @inheritSerialization(HALResource)
-export class UsageReport extends HALResource {
+export class StatisticsCategory extends HALResource {
 
-  static type = USAGE_REPORT;
+  static type = STATISTICS_CATEGORY;
 
   /**
    * The object type
@@ -26,32 +26,12 @@ export class UsageReport extends HALResource {
   @autoserialize
   id: string;
 
-  @autoserializeAs('view-mode')
-  viewMode: string;
-
-  @autoserializeAs('report-type')
-  reportType: string;
-
-  @autoserialize
-  points: Point[];
+  @autoserializeAs('category-type')
+  categoryType: string;
 
   @deserialize
   _links: {
-    category?: HALLink;
     self: HALLink;
   };
 }
 
-/**
- * A statistics data point.
- */
-export interface Point {
-  id: string;
-  label: string;
-  type: string;
-  values: any | any[];
-  //  {
-  //   views?: number;
-  //   downloads?: number;
-  // }[];
-}

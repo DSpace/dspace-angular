@@ -1,5 +1,7 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClientJsonpModule } from '@angular/common/http';
+
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -68,6 +70,7 @@ const IMPORTS = [
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
+  HttpClientJsonpModule,
   ThemedEntryComponentModule.withEntryComponents(),
 ];
 

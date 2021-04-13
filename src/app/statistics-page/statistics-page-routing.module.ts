@@ -22,7 +22,8 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page/co
           },
           data: {
             title: 'statistics.title',
-            breadcrumbKey: 'statistics'
+            breadcrumbKey: 'statistics',
+            type: 'site'
           },
           children: [
             {
@@ -75,6 +76,7 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page/co
     I18nBreadcrumbsService,
     CollectionPageResolver,
     CommunityPageResolver,
+    ItemPageResolver,
   ]
 })
 export class StatisticsPageRoutingModule {

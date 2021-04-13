@@ -1,0 +1,31 @@
+
+  <ng-container *ngIf="!reports">
+    <ds-loading></ds-loading>
+  </ng-container>
+
+  <ng-container *ngIf="reports">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-40">
+          <h2>{{'statistics.reports.title' | translate}}</h2>
+          <ul class="nav nav-pills mb-2">
+            <li class="nav-item mr-3" *ngFor="let report of (reports | dsFilterMap : false)"
+                (click)="changeReport(report)">
+              <a class="nav-link" [ngClass]="{'active' : !!selectedReport && selectedReport.id == report.id}">
+                {{'statistics.table.title.' + report.reportType | translate}}
+              </a>
+            </li>
+          </ul>
+
+            <ng-container *ngIf="!selectedReport">
+              <ds-loading></ds-loading>
+            </ng-container>
+
+            <ng-container *ngIf="selectedReport">
+            	<ds-statistics-chart-wrapper [type]="selectedReport.viewMode" [report]="selectedReport"></ds-statistics-chart-wrapper>
+            </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </ng-container>

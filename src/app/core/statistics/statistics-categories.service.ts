@@ -10,24 +10,24 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { USAGE_REPORT } from './models/usage-report.resource-type';
-import { UsageReport } from './models/usage-report.model';
+import { STATISTICS_CATEGORY } from './models/statistics-category.resource-type';
+import { StatisticsCategory } from './models/statistics-category.model';
 import { Observable } from 'rxjs';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
 
 
 /**
- * A service to retrieve {@link UsageReport}s from the REST API
+ * A service to retrieve {@link StatisticsCategory}s from the REST API
  */
 @Injectable()
-@dataService(USAGE_REPORT)
-export class UsageReportService extends DataService<UsageReport> {
+@dataService(STATISTICS_CATEGORY)
+export class StatisticsCategoriesService extends DataService<StatisticsCategory> {
 
-  protected linkPath = 'usagereports';
+  protected linkPath = 'categories';
 
   constructor(
-    protected comparator: DefaultChangeAnalyzer<UsageReport>,
+    protected comparator: DefaultChangeAnalyzer<StatisticsCategory>,
     protected halService: HALEndpointService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService,
@@ -39,21 +39,18 @@ export class UsageReportService extends DataService<UsageReport> {
     super();
   }
 
-  getStatistic(scope: string, type: string): Observable<UsageReport> {
+  getStatistic(scope: string, type: string): Observable<StatisticsCategory> {
     return this.findById(`${scope}_${type}`).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     );
   }
 
-  searchStatistics(uri: string, page: number, size: number, categoryId?: string, startDate?: string, endDate?: string): Observable<UsageReport[]> {
+  getCategoriesStatistics(uri: string, page: number, size: number, startDate?: string, endDate?: string): Observable<StatisticsCategory[]> {
     const params = [
       {
         fieldName: `uri`,
         fieldValue: uri,
-      },{
-        fieldName: `category`,
-        fieldValue: categoryId,
       }
     ];
 
@@ -75,10 +72,11 @@ export class UsageReportService extends DataService<UsageReport> {
       searchParams: params,
       currentPage: page,
       elementsPerPage: size,
-    }, true, false).pipe(
+    }, false).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((list) => list.page),
     );
   }
+
 }
