@@ -8,6 +8,7 @@ import { StatisticsType } from '../../statistics-type.model';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { ExportService } from '../../../../core/export-service/export.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { StatisticsChartBarComponent } from '../statistics-chart-bar/statistics-chart-bar.component';
 
 
 describe('StatisticsChartWrapperComponent', () => {
@@ -43,7 +44,8 @@ describe('StatisticsChartWrapperComponent', () => {
         // BrowserAnimationsModule
       ],
       declarations: [
-        StatisticsChartWrapperComponent
+        StatisticsChartWrapperComponent,
+        StatisticsChartBarComponent
       ],
       providers: [
         { provide: REPORT_DATA, useValue: report},

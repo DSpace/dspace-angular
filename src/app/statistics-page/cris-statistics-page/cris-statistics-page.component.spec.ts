@@ -20,6 +20,8 @@ import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub
 
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 
 
 describe('CrisStatisticsPageComponent', () => {
@@ -52,7 +54,15 @@ describe('CrisStatisticsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports : [RouterTestingModule.withRoutes([])],
+      imports : [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        })
+      ],
       declarations: [ CrisStatisticsPageComponent ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
