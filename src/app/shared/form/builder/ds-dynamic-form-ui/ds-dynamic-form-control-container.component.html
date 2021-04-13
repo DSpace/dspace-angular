@@ -35,7 +35,7 @@
                 <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
             </select>
         </div>
-        <div *ngIf="isRelationship && !isVirtual()" class="col-auto text-center">
+        <div *ngIf="isRelationship" class="col-auto text-center">
             <button class="btn btn-secondary"
                     type="button"
                     ngbTooltip="{{'form.lookup-help' | translate}}"
