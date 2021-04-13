@@ -1,4 +1,4 @@
-import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
@@ -12,9 +12,11 @@ import { StatisticsTableComponent } from './statistics-table/statistics-table.co
 import { ExportService } from '../../../core/export-service/export.service';
 
 import { ExportAsModule } from 'ngx-export-as';
+import { StatisticsChartDataComponent } from './statistics-chart-data/statistics-chart-data.component';
 
 const components = [
   StatisticsChartComponent,
+  StatisticsChartDataComponent,
   StatisticsChartWrapperComponent,
   StatisticsChartPieComponent,
   StatisticsChartLineComponent,

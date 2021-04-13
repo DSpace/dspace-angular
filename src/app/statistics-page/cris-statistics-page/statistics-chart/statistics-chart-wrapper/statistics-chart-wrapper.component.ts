@@ -40,7 +40,6 @@ export class StatisticsChartWrapperComponent implements OnInit {
    */
   ngOnInit(): void {
     this.chartData = this.getStatistics();
-    console.log(this.chartData);
     this.objectInjector = Injector.create({
       providers: [
         { provide: REPORT_DATA, useFactory: () => (this.report), deps: [] },

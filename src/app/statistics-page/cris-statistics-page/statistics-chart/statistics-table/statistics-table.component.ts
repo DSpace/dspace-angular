@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { StatisticsType } from '../../statistics-type.model';
 import { renderChartFor } from '../../cris-statistics-element-decorator';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
-import { Observable,of } from 'rxjs';
 
 @Component({
   selector: 'ds-statistics-table',
@@ -14,9 +13,7 @@ import { Observable,of } from 'rxjs';
 /**
  * Component that represents a table for report
  */
-/* tslint:disable:no-string-literal */
-@renderChartFor(StatisticsType['table'])
-/* tslint:enable:no-string-literal */
+@renderChartFor(StatisticsType.table)
 export class StatisticsTableComponent extends StatisticsChartDataComponent implements OnInit {
 
 
@@ -36,34 +33,11 @@ export class StatisticsTableComponent extends StatisticsChartDataComponent imple
    * Insert table headers
    */
   ngOnInit() {
-    if ( !!this.report && this.report.points.length > 0 ) {
-      this.hasData = true;
-    } else {
-      this.hasData = false;
-    }
+    this.hasData = !!this.report && this.report.points.length > 0;
     if (this.hasData) {
-      this.headers = [ this.report.points[0].type ,Object.keys(this.report.points[0].values)[0] ];
+      this.headers = [this.report.points[0].type, Object.keys(this.report.points[0].values)[0]];
     }
   }
 
-
-  /**
-   * Get the row label to display for a statistics point.
-   * @param point the statistics point to get the label for
-   */
-  // getLabel(point: Point): Observable<string> {
-    // switch (this.report.reportType) {
-    //   case 'TotalVisits':
-    //     return this.dsoService.findById(point.id).pipe(
-    //       getFirstSucceededRemoteData(),
-    //       getRemoteDataPayload(),
-    //       map((item) => this.nameService.getName(item)),
-    //     );
-    //   case 'TopCities':
-    //   case 'topCountries':
-    //   default:
-        // return of(point.label);
-    // }
-  // }
 
 }

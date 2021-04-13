@@ -81,6 +81,7 @@ import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
+import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -169,7 +170,8 @@ const DECLARATIONS = [
     MyDspaceSearchModule,
     ContextMenuModule,
     OpenaireModule,
-    CrisItemPageModule
+    CrisItemPageModule,
+    CrisStatisticsPageModule
   ],
   declarations: DECLARATIONS
 })

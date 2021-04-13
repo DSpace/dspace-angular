@@ -1,20 +1,15 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
-import { Observable,of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 import { ChartType } from '../../../../charts/models/chart-type';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
-import { isNotEmpty } from '../../../../shared/empty.util';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { DataReportService,REPORT_DATA } from '../../../../core/statistics/data-report.service';
+import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 
-import { UsageReport,Point } from '../../../../core/statistics/models/usage-report.model';
+import { Point, UsageReport } from '../../../../core/statistics/models/usage-report.model';
 
 import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { saveAs } from 'file-saver';
 
 import { ExportService } from '../../../../core/export-service/export.service';
@@ -28,59 +23,36 @@ import { ExportService } from '../../../../core/export-service/export.service';
  */
 export class StatisticsChartDataComponent implements OnInit {
 
-  constructor(
-    @Inject(REPORT_DATA) public report: UsageReport,
-    private exportService: ExportService
-  ) {}
-
   /**
    * For the ChartType
    */
   chartType: any = ChartType;
-
   /**
    * Used to set width and height of the chart
    */
   view: any[] = null;
-
   /**
    * Emits an array of ChartSeries with values found for this chart
    */
-  results: Observable<ChartSeries[]|ChartData[]>;
-
-
+  results: Observable<ChartSeries[] | ChartData[]>;
   /**
    * Loading utilized for export functions to disable buttons
    */
   isLoading = false;
-
   /**
    * Loading utilized for export functions to disable buttons
    */
   isSecondLoading = false;
 
+  constructor(
+    @Inject(REPORT_DATA) public report: UsageReport,
+    private exportService: ExportService
+  ) {
+  }
+
   ngOnInit() {
     // super.ngOnInit();
     this.results = this.getInitData();
-  }
-  /**
-   * Parse information as needed by charts can be overriden
-   */
-  protected getInitData(): Observable<ChartSeries[]|ChartData[]> {
-    let key = 'views';
-
-    if ( !!this.report.points[0] ) {
-      key = Object.keys(this.report.points[0].values)[0];
-    }
-
-    return of(this.report.points.map(
-      (point: Point) => {
-        return {
-          name: point.label,
-          value: point.values[key],
-          extra: point,
-        };
-      }));
   }
 
   select(data) {
@@ -113,10 +85,10 @@ export class StatisticsChartDataComponent implements OnInit {
     const node = document.getElementById('chart');
     this.isLoading = true;
     htmlToImage.toBlob(node)
-    .then( (blob) => {
-      saveAs( blob, this.report.reportType + '.png' );
-      this.isLoading = false;
-    });
+      .then((blob) => {
+        saveAs(blob, this.report.reportType + '.png');
+        this.isLoading = false;
+      });
   }
 
   /**
@@ -127,10 +99,10 @@ export class StatisticsChartDataComponent implements OnInit {
     this.isSecondLoading = true;
 
     htmlToImage.toBlob(node)
-    .then( (blob) => {
-      saveAs( blob, this.report.reportType + '.jpeg' );
-      this.isSecondLoading = false;
-    });
+      .then((blob) => {
+        saveAs(blob, this.report.reportType + '.jpeg');
+        this.isSecondLoading = false;
+      });
   }
 
   /**
@@ -143,7 +115,6 @@ export class StatisticsChartDataComponent implements OnInit {
     });
   }
 
-
   /**
    * Export the table information in csv mode.
    */
@@ -152,6 +123,26 @@ export class StatisticsChartDataComponent implements OnInit {
     this.exportService.export('csv', 'dataTable', this.report.reportType, true).subscribe(() => {
       this.isSecondLoading = false;
     });
+  }
+
+  /**
+   * Parse information as needed by charts can be overriden
+   */
+  protected getInitData(): Observable<ChartSeries[] | ChartData[]> {
+    let key = 'views';
+
+    if (!!this.report.points[0]) {
+      key = Object.keys(this.report.points[0].values)[0];
+    }
+
+    return of(this.report.points.map(
+      (point: Point) => {
+        return {
+          name: point.label,
+          value: point.values[key],
+          extra: point,
+        };
+      }));
   }
 
 }

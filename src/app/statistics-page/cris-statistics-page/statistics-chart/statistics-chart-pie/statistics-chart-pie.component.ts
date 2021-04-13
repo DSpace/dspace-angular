@@ -32,7 +32,7 @@ export class StatisticsChartPieComponent extends StatisticsChartDataComponent {
   /**
    * Parse information as needed by pie chart overriding function
    */
-  public getInitData(): Observable<ChartSeries[]|ChartData[]> {
+  public getInitData(): Observable<ChartSeries[] | ChartData[]> {
     let key = 'views';
     if (!!this.report.points[0]) {
       key = Object.keys(this.report.points[0].values)[0];

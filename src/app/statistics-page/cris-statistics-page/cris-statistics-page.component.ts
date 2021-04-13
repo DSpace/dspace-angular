@@ -111,14 +111,11 @@ export class CrisStatisticsPageComponent implements OnInit,OnChanges {
    * Get the categories for this statistics page, as an Observable list
    */
   public getCategories$(): Observable<StatisticsCategory[]> {
-    console.log('getCategories$ ');
     return this.scope$.pipe(
       switchMap((scope) => {
-        console.log('getCategories$ scope ',scope);
         return this.statisticsCategoriesService.getCategoriesStatistics(scope._links.self.href,0,50,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
       }),
       tap( (categories: StatisticsCategory[]) => {
-        console.log('getCategories$',categories);
         this.categorieList = categories;
         this.selectedCategory = categories[0];
         this.getUserReports(this.selectedCategory);

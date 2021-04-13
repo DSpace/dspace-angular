@@ -1,18 +1,15 @@
-import { Component,Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { StatisticsType } from '../../statistics-type.model';
 import { renderChartFor } from '../../cris-statistics-element-decorator';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 
-import { Observable,of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-
-import { ChartType } from '../../../../charts/models/chart-type';
+import { Observable, of } from 'rxjs';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
 
-import { UsageReport,Point } from '../../../../core/statistics/models/usage-report.model';
+import { Point } from '../../../../core/statistics/models/usage-report.model';
 
 /**
  * This component renders a simple item page.
@@ -33,10 +30,10 @@ export class StatisticsChartBarComponent extends StatisticsChartDataComponent {
   /**
    * Parse information as needed by bar chart overriding function
    */
-  public getInitData(): Observable<ChartSeries[]|ChartData[]> {
+  public getInitData(): Observable<ChartSeries[] | ChartData[]> {
     let key = 'views';
 
-    if ( !!this.report.points[0] ) {
+    if (!!this.report.points[0]) {
       key = Object.keys(this.report.points[0].values)[0];
     }
 
