@@ -89,7 +89,7 @@ describe('CrisStatisticsPageComponent', () => {
       });
   });
 
-  it('check if can get categories information and view changed', () => {
+  xit('check if can get categories information and view changed', () => {
       component.categories$ = statisticsCategoriesServiceStub.searchStatistics('url', 1, 1);
       fixture.detectChanges();
       expect(de.query(By.css('categories-tabs'))).toBeTruthy();
