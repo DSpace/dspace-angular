@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -20,6 +20,7 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 
 // tslint:disable:max-classes-per-file
 /**
@@ -197,9 +198,13 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
    */
   removeSelection() {
     this.submissionService.dispatchSave(this.submissionId);
-    this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem }));
-    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId));
-    this.remove.emit();
+    this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
+      take(1)).subscribe(() => {
+      this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem }));
+      this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId));
+      this.remove.emit();
+    });
   }
 
   /**
