@@ -23,7 +23,9 @@
                   <input class="form-control date-input" placeholder="Start Date"
                          name="dp" [(ngModel)]="dateFrom" (ngModelChange)="dateChanged()" ngbDatepicker #df="ngbDatepicker">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="df.toggle()" type="button"></button>
+                    <button class="btn btn-outline-secondary" (click)="df.toggle()" type="button">
+                      <i class="far fa-calendar-alt"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -33,14 +35,16 @@
                          name="dp" [(ngModel)]="dateTo" (ngModelChange)="dateChanged()" ngbDatepicker #dt="ngbDatepicker">
 
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="dt.toggle()" type="button"></button>
+                    <button class="btn btn-outline-secondary" (click)="dt.toggle()" type="button">
+                      <i class="far fa-calendar-alt"></i>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </ng-container>
 
-          
+
 
           <ng-container *ngIf="!!categories && categories.length > 1">
             <ngb-tabset id="categories-tabs" (tabChange)="changeCategoryType($event)" [destroyOnHide]="true" #tabs="ngbTabset">
@@ -49,7 +53,7 @@
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>
-          </ng-container>  
+          </ng-container>
 
           <ng-container *ngVar="(reports$ | async) as reports">
 
@@ -110,7 +114,7 @@
   </ng-container>-->
 
 
-<!-- 
+<!--
 <ng-container *ngVar="categories$ | async as categories">
 
   <ng-container *ngIf="!categories">
