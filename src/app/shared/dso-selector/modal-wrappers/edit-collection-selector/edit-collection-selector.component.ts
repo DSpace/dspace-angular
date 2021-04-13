@@ -22,6 +22,7 @@ export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComp
   objectType = DSpaceObjectType.COLLECTION;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.EDIT;
+  configuration = 'editCollection';
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

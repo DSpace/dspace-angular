@@ -23,6 +23,7 @@ export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperCompo
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.EDIT;
+  configuration = 'editCommunity';
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
