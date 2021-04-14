@@ -99,7 +99,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         } else {
           this.submissionId = submissionObjectRD.payload.id.toString();
           this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
-          const metadata = (submissionObjectRD.payload.collection as Collection).metadata['relationship.type'];
+          const metadata = (submissionObjectRD.payload.collection as Collection).metadata['dspace.entity.type'];
           if (metadata && metadata[0]) {
             this.entityType = metadata[0].value;
           }

@@ -95,7 +95,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
     if ( this.contentType === 'collection' ) {
       return this.collectionService.findById(this.id).pipe(
         getFirstSucceededRemoteDataPayload(),
-        map( (collection) => collection.firstMetadataValue('relationship.type') ),
+        map( (collection) => collection.firstMetadataValue('dspace.entity.type') ),
         map ( (entityType) => entityType ? 'browse.collection.' + entityType : 'browse.collection' )
       );
     }

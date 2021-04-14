@@ -1,9 +1,14 @@
-import { DynamicCheckboxModelConfig, DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicCheckboxModelConfig,
+  DynamicFormControlModel,
+  DynamicInputModel,
+  DynamicTextAreaModel
+} from '@ng-dynamic-forms/core';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
-  name: 'relationship.type',
+  name: 'dspace.entity.type',
   required: true,
   disabled: false,
   validators: {

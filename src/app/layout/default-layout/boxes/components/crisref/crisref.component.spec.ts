@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { Item } from '../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
@@ -21,7 +21,7 @@ describe('CrisrefComponent', () => {
     id: '1',
     bundles: of({}),
     metadata: {
-      'relationship.type': [
+      'dspace.entity.type': [
         {
           value: 'Person'
         }
@@ -39,7 +39,7 @@ describe('CrisrefComponent', () => {
     id: '2',
     bundles: of({}),
     metadata: {
-      'relationship.type': [
+      'dspace.entity.type': [
         {
           value: 'OrgUnit'
         }

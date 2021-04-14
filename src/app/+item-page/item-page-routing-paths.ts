@@ -14,7 +14,7 @@ export function getItemModuleRoute() {
  * @param item  The item to retrieve the route for
  */
 export function getItemPageRoute(item: Item) {
-  const type = item.firstMetadataValue('dspace.entity.type') || item.firstMetadataValue('relationship.type');
+  const type = item.firstMetadataValue('dspace.entity.type');
   return getEntityPageRoute(type, item.uuid);
 }
 

@@ -41,7 +41,7 @@ export class ThumbnailComponent extends BitstreamRenderingModel implements OnIni
   }
 
   setDefaultImage(): void {
-    const eType = this.item.firstMetadataValue('relationship.type');
+    const eType = this.item.firstMetadataValue('dspace.entity.type');
     this.default = 'assets/images/person-placeholder.svg';
     if (hasValue(eType) && eType.toUpperCase() === 'PROJECT') {
       this.default = 'assets/images/project-placeholder.svg';

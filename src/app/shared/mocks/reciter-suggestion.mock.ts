@@ -75,7 +75,7 @@ export const mockSuggestionPublicationOne: OpenaireSuggestion =  {
         confidence: -1
       }  as any
     ],
-    'relationship.type': [
+    'dspace.entity.type': [
       {
         uuid: '95f21fe6-ce38-43d6-96d4-60ae66385a06',
         language: null,
@@ -177,7 +177,7 @@ export const mockSuggestionPublicationTwo: OpenaireSuggestion =  {
         confidence: -1
       } as any
     ],
-    'relationship.type': [
+    'dspace.entity.type': [
       {
         uuid: '95f21fe6-ce38-43d6-96d4-60ae66385a06',
         language: null,
