@@ -16,6 +16,9 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
+      # Force ChromeDriver to always match version of Chrome installed
+      # See https://www.npmjs.com/package/chromedriver#detect-chromedriver-version
+      DETECT_CHROMEDRIVER_VERSION: true
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -34,10 +37,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # Install latest stable Chrome & ChromeDriver which matches it
-      # https://github.com/nanasess/setup-chromedriver
-      - name: Install latest Chrome & corresponding ChromeDriver (for e2e tests)
-        uses: nanasess/setup-chromedriver@v1.0.1
+      - name: Install latest Chrome (for e2e tests)
+        run: |
+          sudo apt-get update
+          sudo apt-get --only-upgrade install google-chrome-stable -y
+          google-chrome --version
 
       # https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Get Yarn cache directory
