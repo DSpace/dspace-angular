@@ -11,7 +11,7 @@
                       'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
         <div [ngClass]="getClass('grid', 'control')">
             <ng-container #componentViewContainer></ng-container>
-          <small *ngIf="hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)"
+          <small *ngIf="hasHint && ((model.repeatable === false && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
                  class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
           <!-- In case of repeatable fields show empty space for all elements except the first -->
           <div *ngIf="context?.index !== null
@@ -35,7 +35,7 @@
                 <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
             </select>
         </div>
-        <div *ngIf="isRelationship && !isVirtual()" class="col-auto text-center">
+        <div *ngIf="isRelationship" class="col-auto text-center">
             <button class="btn btn-secondary"
                     type="button"
                     ngbTooltip="{{'form.lookup-help' | translate}}"
