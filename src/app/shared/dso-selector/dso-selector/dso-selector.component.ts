@@ -57,6 +57,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   @Input() types: DSpaceObjectType[];
 
+  /**
+   * The configuration.
+   */
+  @Input() configuration = 'default';
+
   // list of allowed selectable dsoTypes
   typesString: string;
 
@@ -197,6 +202,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       new PaginatedSearchOptions({
         query: query,
         dsoTypes: this.types,
+        configuration: this.configuration,
         pagination: Object.assign({}, this.defaultPagination, {
           currentPage: page
         })

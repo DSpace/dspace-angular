@@ -29,6 +29,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  configuration = 'editCommunity';
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
