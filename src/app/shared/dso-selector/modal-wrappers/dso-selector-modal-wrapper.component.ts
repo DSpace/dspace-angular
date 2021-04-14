@@ -21,6 +21,12 @@ export enum SelectorActionType {
   template: ''
 })
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
+
+  /**
+   * The discovery configuration.
+   */
+  @Input() configuration = 'default';
+
   /**
    * The current page's DSO
    */

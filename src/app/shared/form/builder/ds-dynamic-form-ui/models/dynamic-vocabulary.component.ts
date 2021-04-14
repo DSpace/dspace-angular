@@ -73,7 +73,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     let initValue$: Observable<FormFieldMetadataValueObject>;
     if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject)) {
       let initEntry$: Observable<VocabularyEntry>;
-      if (this.model.value.hasAuthority()) {
+      if (this.hasValidAuthority(this.model.value)) {
         initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions);
       } else {
         initEntry$ = this.vocabularyService.getVocabularyEntryByValue(this.model.value.value, this.model.vocabularyOptions);
@@ -253,4 +253,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     return newValue;
   }
 
+  private hasValidAuthority(value: FormFieldMetadataValueObject) {
+    return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
+  }
 }
