@@ -1891,8 +1891,8 @@
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace-ohjelmisto",
   
-  // "footer.link.duraspace": "DuraSpace",
-  "footer.link.duraspace": "DuraSpace",
+  // "footer.link.lyrasis": "LYRASIS",
+  "footer.link.lyrasis": "LYRASIS",
   
   // "footer.link.cookies": "Cookie settings",
   // TODO New key - Add a translation
