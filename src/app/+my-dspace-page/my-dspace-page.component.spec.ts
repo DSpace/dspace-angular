@@ -45,6 +45,7 @@ describe('MyDSpacePageComponent', () => {
   pagination.id = 'mydspace-results-pagination';
   pagination.currentPage = 1;
   pagination.pageSize = 10;
+  const sortOption = { name: 'score', metadata: null };
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
   const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
@@ -52,7 +53,8 @@ describe('MyDSpacePageComponent', () => {
     getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
-    setServiceOptions: {}
+    setServiceOptions: {},
+    getSearchConfigurationFor: createSuccessfulRemoteDataObject$({ sortOptions: [sortOption]})
   });
   const configurationParam = 'default';
   const queryParam = 'test query';
@@ -189,4 +191,23 @@ describe('MyDSpacePageComponent', () => {
 
   });
 
+  describe('when stable', () => {
+
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should have initialized the sortOptions$ observable', (done) => {
+
+      comp.sortOptions$.subscribe((sortOptions) => {
+
+        expect(sortOptions.length).toEqual(2);
+        expect(sortOptions[0]).toEqual(new SortOptions('score', SortDirection.ASC));
+        expect(sortOptions[1]).toEqual(new SortOptions('score', SortDirection.DESC));
+        done();
+      });
+
+    });
+
+  });
 });

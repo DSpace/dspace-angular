@@ -7,6 +7,8 @@
                          [configurationList]="(configurationList$ | async)"
                          [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                          [viewModeList]="viewModeList"
+                         [searchOptions]="(searchOptions$ | async)"
+                         [sortOptions]="(sortOptions$ | async)"
                          [refreshFilters]="refreshFilters.asObservable()"
                          [inPlaceSearch]="inPlaceSearch"></ds-search-sidebar>
       <div class="col-12 col-md-9">
@@ -29,6 +31,8 @@
                                      [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                                      (toggleSidebar)="closeSidebar()"
                                      [ngClass]="{'active': !(isSidebarCollapsed() | async)}"
+                                     [searchOptions]="(searchOptions$ | async)"
+                                     [sortOptions]="(sortOptions$ | async)"
                                      [refreshFilters]="refreshFilters.asObservable()"
                                      [inPlaceSearch]="inPlaceSearch">
                   </ds-search-sidebar>

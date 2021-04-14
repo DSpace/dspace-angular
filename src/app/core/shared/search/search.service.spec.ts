@@ -240,5 +240,55 @@ describe('SearchService', () => {
         expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
       });
     });
+
+    describe('when getSearchConfigurationFor is called without a scope', () => {
+      const endPoint = 'http://endpoint.com/test/config';
+      beforeEach(() => {
+        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+        spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
+        /* tslint:disable:no-empty */
+        searchService.getSearchConfigurationFor(null).subscribe((t) => {
+        }); // subscribe to make sure all methods are called
+        /* tslint:enable:no-empty */
+      });
+
+      it('should call getEndpoint on the halService', () => {
+        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
+      });
+
+      it('should send out the request on the request service', () => {
+        expect((searchService as any).requestService.send).toHaveBeenCalled();
+      });
+
+      it('should call send containing a request with the correct request url', () => {
+        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
+      });
+    });
+
+    describe('when getSearchConfigurationFor is called with a scope', () => {
+      const endPoint = 'http://endpoint.com/test/config';
+      const scope = 'test';
+      const requestUrl = endPoint + '?scope=' + scope;
+      beforeEach(() => {
+        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+        /* tslint:disable:no-empty */
+        searchService.getSearchConfigurationFor(scope).subscribe((t) => {
+        }); // subscribe to make sure all methods are called
+        /* tslint:enable:no-empty */
+      });
+
+      it('should call getEndpoint on the halService', () => {
+        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
+      });
+
+      it('should send out the request on the request service', () => {
+        expect((searchService as any).requestService.send).toHaveBeenCalled();
+      });
+
+      it('should call send containing a request with the correct request url', () => {
+        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
+      });
+    });
+
   });
 });

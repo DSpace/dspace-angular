@@ -34,11 +34,14 @@
 <ng-template #sidebarContent>
     <ds-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
+                       [searchOptions]="(searchOptions$ | async)"
+                       [sortOptions]="(sortOptions$ | async)"
                        [inPlaceSearch]="inPlaceSearch"></ds-search-sidebar>
     <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
-                       (toggleSidebar)="closeSidebar()"
-    >
+                       [searchOptions]="(searchOptions$ | async)"
+                       [sortOptions]="(sortOptions$ | async)"
+                       (toggleSidebar)="closeSidebar()">
     </ds-search-sidebar>
 </ng-template>
 

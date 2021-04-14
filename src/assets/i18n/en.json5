@@ -3962,11 +3962,17 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.score.DESC": "Relevance",
+  "sorting.score.ASC": "Relevance Ascending",
 
-  "sorting.ASC": "Ascending",
+  "sorting.score.DESC": "Relevance Descending",
 
-  "sorting.DESC": "Descending",
+  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+
+  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+
+  "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+
+  "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
 
 
   "statistics.title": "Statistics",

@@ -37,10 +37,10 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { FacetConfigResponse } from '../../../shared/search/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/facet-values.model';
+import { SearchConfig } from './search-filters/search-config.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -241,18 +241,26 @@ export class SearchService implements OnDestroy {
     );
   }
 
-  /**
-   * Request the filter configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
-   */
-  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    return this.getFilterConfigByLink(this.facetLinkPathPrefix, scope, configurationName);
+  private getConfigUrl(url: string, scope?: string, configurationName?: string) {
+    const args: string[] = [];
+
+    if (isNotEmpty(scope)) {
+      args.push(`scope=${scope}`);
+    }
+
+    if (isNotEmpty(configurationName)) {
+      args.push(`configuration=${configurationName}`);
+    }
+
+    if (isNotEmpty(args)) {
+      url = new URLCombiner(url, `?${args.join('&')}`).toString();
+    }
+
+    return url;
   }
 
   /**
-   * Request the filter configuration for a given scope or the whole repository by a link name
+   * Request the filter configuration for a given scope or the whole repository
    * @param {link}   link the link to use for the request
    * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
    * @param {string} configurationName the name of the configuration
@@ -286,7 +294,7 @@ export class SearchService implements OnDestroy {
           return FacetConfigResponseParsingService;
         }
       });
-        this.requestService.send(request, true);
+      this.requestService.send(request, true);
     });
 
     return this.rdb.buildFromHref(href$).pipe(
@@ -314,6 +322,17 @@ export class SearchService implements OnDestroy {
         }
       })
     );
+  }
+
+
+  /**
+   * Request the filter configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
+  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    return this.getFilterConfigByLink(this.facetLinkPathPrefix, scope, configurationName);
   }
 
   /**
@@ -439,28 +458,12 @@ export class SearchService implements OnDestroy {
    */
   getSearchConfigurationFor(scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
     const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
-      map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(scope)) {
-          args.push(`scope=${scope}`);
-        }
-
-        if (isNotEmpty(configurationName)) {
-          args.push(`configuration=${configurationName}`);
-        }
-
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
-        return url;
-      }),
+      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
     );
 
     href$.pipe(take(1)).subscribe((url: string) => {
       const request = new this.request(this.requestService.generateRequestId(), url);
-      this.requestService.send(request);
+      this.requestService.send(request, true);
     });
 
     return this.rdb.buildFromHref(href$);
