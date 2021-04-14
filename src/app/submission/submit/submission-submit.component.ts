@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotNull, isNotEmptyOperator } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -12,6 +12,11 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { switchMap, debounceTime } from 'rxjs/operators';
+import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { ItemDataService } from '../../core/data/item-data.service';
 
 /**
  * This component allows to submit a new workspaceitem.
@@ -28,6 +33,16 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @type {string}
    */
   public collectionId: string;
+
+  /**
+   * BehaviorSubject containing the self link to the item for this submission
+   * @private
+   */
+  private itemLink$: BehaviorSubject<string> = new BehaviorSubject(undefined);
+
+  /**
+   * The item for this submission.
+   */
   public item: Item;
 
   /**
@@ -71,6 +86,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {NotificationsService} notificationsService
+   * @param {ItemDataService} itemDataService
    * @param {SubmissionService} submissionService
    * @param {Router} router
    * @param {TranslateService} translate
@@ -80,13 +96,16 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private router: Router,
+              private itemDataService: ItemDataService,
               private submissionService: SubmissionService,
               private translate: TranslateService,
               private viewContainerRef: ViewContainerRef,
               private route: ActivatedRoute) {
     this.route
       .queryParams
-      .subscribe((params) => { this.collectionParam = (params.collection); });
+      .subscribe((params) => {
+        this.collectionParam = (params.collection);
+      });
   }
 
   /**
@@ -108,11 +127,24 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.selfUrl = submissionObject._links.self.href;
               this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
               this.submissionId = submissionObject.id;
+              this.itemLink$.next(submissionObject._links.item.href);
               this.item = submissionObject.item as Item;
-              this.changeDetectorRef.detectChanges();
             }
           }
-        })
+        }),
+      this.itemLink$.pipe(
+        isNotEmptyOperator(),
+        switchMap((itemLink: string) =>
+          this.itemDataService.findByHref(itemLink)
+        ),
+        getAllSucceededRemoteData(),
+        // Multiple sources can update the item in quick succession.
+        // We only want to rerender the form if the item is unchanged for some time
+        debounceTime(300),
+      ).subscribe((itemRd: RemoteData<Item>) => {
+        this.item = itemRd.payload;
+        this.changeDetectorRef.detectChanges();
+      })
     );
   }
 
