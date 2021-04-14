@@ -173,6 +173,7 @@ import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-p
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -306,6 +307,7 @@ const COMPONENTS = [
 
   LogInShibbolethComponent,
   LogInOidcComponent,
+  LogInOrcidComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -378,6 +380,7 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   LogInOidcComponent,
+  LogInOrcidComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
