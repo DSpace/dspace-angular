@@ -2491,6 +2491,8 @@
 
   "login.form.or-divider": "or",
 
+  "login.form.orcid": "Log in with ORCID",
+
   "login.form.password": "Password",
 
   "login.form.shibboleth": "Log in with Shibboleth",
