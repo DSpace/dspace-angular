@@ -5,7 +5,7 @@ import { hasNoValue } from '../../shared/empty.util';
 import { Item } from '../../core/shared/item.model';
 
 const layoutBoxesMap = new Map();
-const ITEM_METADATA_TYPE = 'relationship.type';
+const ITEM_METADATA_TYPE = 'dspace.entity.type';
 
 export function CrisLayoutBox(objectType: LayoutPage, tabName: LayoutTab, boxType: LayoutBox) {
   return function decorator(component: any) {
