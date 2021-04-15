@@ -3758,6 +3758,8 @@
 
   "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
 
+  "search.filters.applied.charts.RELATION.Project.fundings.title": "Fundings",
+
   "search.filters.applied.charts.no.data.found": "No data found",
 
 
@@ -3927,6 +3929,16 @@
 
 
   "search.results.head": "Search Results",
+
+  "default.search.results.head": "Search Results",
+
+  "infrastructure.search.results.head": "Infrastructures Search Results",
+
+  "project_funding.search.results.head": "Projects Search Results",
+
+  "researchoutputs.search.results.head": "Publications Search Results",
+
+  "orgunit.search.results.head": "Organizations Search Results",
 
   "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
 
