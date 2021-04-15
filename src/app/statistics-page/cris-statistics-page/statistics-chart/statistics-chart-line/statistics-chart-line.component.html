@@ -1,16 +1,12 @@
 
 <div class="export-buttons-container mb-2" *ngIf="(results | async) && !!report.points && report.points.length > 0">
-	<button class="btn btn-primary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadPng()">
-		<span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i>
-            {{'loading.default' | translate}}
-        </span>
-		Export as PNG
+	<button class="btn btn-secondary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadPng()">
+    <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+    <span *ngIf="!isLoading"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.png' | translate}}</span>
 	</button>
-	<button class="btn btn-primary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadJpeg()">
-          <span *ngIf="isSecondLoading"><i class='fas fa-circle-notch fa-spin'></i>
-            {{'loading.default' | translate}}
-        </span>
-		Export as JPEG
+	<button class="btn btn-secondary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadJpeg()">
+    <span *ngIf="isSecondLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+    <span *ngIf="!isSecondLoading"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.jpg' | translate}}</span>
 	</button>
 </div>
 

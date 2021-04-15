@@ -3975,6 +3975,14 @@
   "sorting.DESC": "Descending",
 
 
+  "statistics.export.csv": "Export CSV",
+
+  "statistics.export.excel": "Export Excel",
+
+  "statistics.export.jpg": "Export as JPEG",
+
+  "statistics.export.png": "Export as PNG",
+
   "statistics.title": "Statistics",
 
   "statistics.header": "Statistics for {{ scope }}",
