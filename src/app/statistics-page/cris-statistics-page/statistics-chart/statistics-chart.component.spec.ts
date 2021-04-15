@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
+import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
 
 import { By } from '@angular/platform-browser';
 
@@ -160,7 +161,7 @@ describe('StatisticsChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsPipesPageModule],
       declarations: [StatisticsChartComponent],
       providers: [
       ],
@@ -172,6 +173,7 @@ describe('StatisticsChartComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StatisticsChartComponent);
+    de = fixture.debugElement;
     component = fixture.componentInstance;
     de = fixture.debugElement;
     fixture.detectChanges();
@@ -186,8 +188,7 @@ describe('StatisticsChartComponent', () => {
       expect(de.query(By.css('.container'))).toBeNull();
   });
 
-
-  xit('after reports check if container of pills are truthly', () => {
+  it('after reports check if container of pills are truthly', () => {
     component.reports = reports;
     fixture.detectChanges();
     expect(de.query(By.css('.container'))).toBeTruthy();

@@ -1,3 +1,4 @@
+<div class="test"></div>
 <ng-container *ngVar="(categories$ | async) as categories">
 
   <ng-container *ngIf="!categories">
@@ -18,10 +19,11 @@
 
           <ng-container *ngIf="categories">
             <div class="datepicker-container">
-              <div class="form-group" >
+              <div class="form-group">
                 <div class="input-group">
                   <input class="form-control date-input" placeholder="Start Date"
-                         name="dp" [(ngModel)]="dateFrom" (ngModelChange)="dateChanged()" ngbDatepicker #df="ngbDatepicker">
+                         name="dp" [(ngModel)]="dateFrom" (ngModelChange)="dateChanged()" ngbDatepicker
+                         #df="ngbDatepicker">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" (click)="df.toggle()" type="button">
                       <i class="far fa-calendar-alt"></i>
@@ -32,7 +34,8 @@
               <div class="form-group">
                 <div class="input-group ml-2">
                   <input class="form-control date-input" placeholder="End Date"
-                         name="dp" [(ngModel)]="dateTo" (ngModelChange)="dateChanged()" ngbDatepicker #dt="ngbDatepicker">
+                         name="dp" [(ngModel)]="dateTo" (ngModelChange)="dateChanged()" ngbDatepicker
+                         #dt="ngbDatepicker">
 
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" (click)="dt.toggle()" type="button">
@@ -45,10 +48,11 @@
           </ng-container>
 
 
-
           <ng-container *ngIf="!!categories && categories.length > 1">
-            <ngb-tabset id="categories-tabs" (tabChange)="changeCategoryType($event)" [destroyOnHide]="true" #tabs="ngbTabset">
-              <ngb-tab *ngFor="let category of categories" title="{{'statistics.categories.' + category.categoryType + '.tab' | translate}}" [id]="category.id">
+            <ngb-tabset id="categories-tabs" (tabChange)="changeCategoryType($event)" [destroyOnHide]="true">
+              <ngb-tab *ngFor="let category of categories"
+                       title="{{'statistics.categories.' + category.categoryType + '.tab' | translate}}"
+                       [id]="category.id">
                 <ng-template ngbTabContent>
                 </ng-template>
               </ngb-tab>
@@ -64,11 +68,13 @@
             <ng-container *ngIf="reports">
 
               <ng-container>
-                <ds-statistics-map *ngFor="let report of (reports | dsFilterMap : true)" [report]="report"></ds-statistics-map>
+                <ds-statistics-map *ngFor="let report of (reports | dsFilterMap : true)"
+                                   [report]="report"></ds-statistics-map>
               </ng-container>
 
               <div>
-                <ds-statistics-chart *ngIf="!!selectedCategory" [category]="selectedCategory" [reports]="reports"> </ds-statistics-chart>
+                <ds-statistics-chart *ngIf="!!selectedCategory" [category]="selectedCategory"
+                                     [reports]="reports"></ds-statistics-chart>
               </div>
 
             </ng-container>
@@ -81,56 +87,3 @@
   </ng-container>
 
 </ng-container>
-
-<!-- <div class="container">
-  asdfasdfasdf
-</div> -->
-<!--<div class="container">-->
-
-  <!--<ng-container *ngVar="(scope$ | async) as scope">
-    <h2 *ngIf="scope"
-        class="header"
-        id="{{ scope.id }}">
-      {{ 'statistics.header' | translate: { scope: getName(scope) } }}
-    </h2>
-  </ng-container>
-
-  <ng-container *ngVar="reports$ | async as reports">
-
-    <ng-container *ngIf="!reports">
-      <ds-loading></ds-loading>
-    </ng-container>
-
-    <ng-container *ngIf="reports">
-      <ds-statistics-table *ngFor="let report of reports"
-                           [report]="report"
-                           class="m-2 {{ report.id }}">
-      </ds-statistics-table>
-      <div *ngIf="!(hasData$ | async)">
-        {{ 'statistics.page.no-data' | translate }}
-      </div>
-    </ng-container>
-
-  </ng-container>-->
-
-
-<!--
-<ng-container *ngVar="categories$ | async as categories">
-
-  <ng-container *ngIf="!categories">
-    <ds-loading></ds-loading>
-  </ng-container>
-
-  <ng-container *ngIf="categories">
-    {{categories | json}}
-    <div *ngIf="!(hasData$ | async)">
-      {{ 'statistics.page.no-data' | translate }}
-    </div>
-  </ng-container>
-
-</ng-container> -->
-
-
-
-
-<!--</div>-->

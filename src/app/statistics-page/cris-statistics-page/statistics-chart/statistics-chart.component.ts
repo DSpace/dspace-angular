@@ -1,11 +1,6 @@
-import { Component, Inject, Input, OnInit, SimpleChanges } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { slide } from '../../../shared/animations/slide';
-import { isNotEmpty } from '../../../shared/empty.util';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
-// import { DataReportService } from '../../../core/statistics/data-report.service';
 
 @Component({
   selector: 'ds-statistics-chart',
@@ -20,14 +15,14 @@ import { StatisticsCategory } from '../../../core/statistics/models/statistics-c
 export class StatisticsChartComponent implements OnInit {
 
 
-/**
- * Represents selected category
- */
+  /**
+   * Represents selected category
+   */
   @Input() category: StatisticsCategory;
 
-/**
- * Represents list of reports for the selected category
- */
+  /**
+   * Represents list of reports for the selected category
+   */
   @Input() reports: UsageReport[];
 
   /**
@@ -41,13 +36,10 @@ export class StatisticsChartComponent implements OnInit {
    * Else, the chart should initially be collapsed
    */
   ngOnInit() {
-    this.selectedReport = this.reports[0];
+    if (!!this.reports && this.reports.length > 0) {
+      this.selectedReport = this.reports[0];
+    }
     // this.dataReportService.setReport(this.selectedReport);
-  }
-
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.ngOnInit();
   }
 
   /**

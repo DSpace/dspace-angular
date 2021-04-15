@@ -1,1 +1,1 @@
- <google-chart [data]="geoChart"></google-chart>
+ <google-chart *ngIf="data.length > 0" [data]="geoChart"></google-chart>

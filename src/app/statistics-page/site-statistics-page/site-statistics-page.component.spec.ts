@@ -7,7 +7,6 @@ import { UsageReportService } from '../../core/statistics/usage-report-data.serv
 import { of as observableOf } from 'rxjs';
 import { Site } from '../../core/shared/site.model';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
@@ -95,13 +94,4 @@ describe('SiteStatisticsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should resolve to the correct site', () => {
-    expect(de.query(By.css('.header')).nativeElement.id)
-      .toEqual('site_id');
-  });
-
-  xit('should show a statistics table for each usage report', () => {
-    expect(de.query(By.css('ds-statistics-table.site_id-TotalVisits-report')).nativeElement)
-      .toBeTruthy();
-  });
 });
