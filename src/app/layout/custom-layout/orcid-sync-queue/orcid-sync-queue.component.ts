@@ -95,7 +95,7 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
         return 'fa fa-book';
       case 'Person':
         return 'fa fa-user';
-      case 'Project':
+      case 'Funding':
         return 'fa fa-folder';
       default:
         return 'fa fa-book';

@@ -3,5 +3,6 @@ export enum AuthMethodType {
   Shibboleth = 'shibboleth',
   Ldap = 'ldap',
   Ip = 'ip',
-  X509 = 'x509'
+  X509 = 'x509',
+  Orcid = 'orcid'
 }

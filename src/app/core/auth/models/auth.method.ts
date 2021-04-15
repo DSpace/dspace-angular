@@ -29,6 +29,11 @@ export class AuthMethod {
         this.authMethodType = AuthMethodType.Password;
         break;
       }
+      case 'orcid': {
+        this.authMethodType = AuthMethodType.Orcid;
+        this.location = location;
+        break;
+      }
 
       default: {
         break;
