@@ -2491,6 +2491,8 @@
 
   "login.form.or-divider": "or",
 
+  "login.form.orcid": "Log in with ORCID",
+
   "login.form.password": "Password",
 
   "login.form.shibboleth": "Log in with Shibboleth",
@@ -3063,7 +3065,7 @@
 
   "person.page.orcid.profile-preferences": "Profile preferences",
 
-  "person.page.orcid.project-preferences": "Project preferences",
+  "person.page.orcid.funding-preferences": "Funding preferences",
 
   "person.page.orcid.publications-preferences": "Publication preferences",
 
@@ -3073,19 +3075,19 @@
 
   "person.page.orcid.sync-profile.affiliation" : "Affiliation",
 
-  "person.page.orcid.sync-profile.bibliographic" : "Bibliographic data",
+  "person.page.orcid.sync-profile.biographical" : "Biographical data",
 
   "person.page.orcid.sync-profile.education" : "Education",
 
   "person.page.orcid.sync-profile.identifiers" : "Identifiers",
 
-  "person.page.orcid.sync-projects.all" : "All projects",
+  "person.page.orcid.sync-fundings.all" : "All fundings",
 
-  "person.page.orcid.sync-projects.mine" : "My projects",
+  "person.page.orcid.sync-fundings.mine" : "My fundings",
 
-  "person.page.orcid.sync-projects.my-selected" : "Selected projects",
+  "person.page.orcid.sync-fundings.my-selected" : "Selected fundings",
 
-  "person.page.orcid.sync-projects.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled" : "Disabled",
 
   "person.page.orcid.sync-publications.all" : "All publications",
 
