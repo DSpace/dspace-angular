@@ -26,13 +26,13 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
   currentSyncPublications: string;
 
-  currentSyncFundings: string;
+  currentSyncProjects: string;
 
   syncModes: {value: string, label: string}[];
 
   syncPublicationOptions: {value: string, label: string}[];
 
-  syncFundingOptions: {value: string, label: string}[];
+  syncProjectOptions: {value: string, label: string}[];
 
   syncProfileOptions: {value: string, label: string, checked: boolean}[];
 
@@ -75,21 +75,21 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       }
     ];
 
-    this.syncFundingOptions = [
+    this.syncProjectOptions = [
       {
-        label: this.messagePrefix + '.sync-fundings.disabled',
+        label: this.messagePrefix + '.sync-projects.disabled',
         value: 'DISABLED'
       },
       {
-        label: this.messagePrefix + '.sync-fundings.all',
+        label: this.messagePrefix + '.sync-projects.all',
         value: 'ALL'
       },
       {
-        label: this.messagePrefix + '.sync-fundings.my-selected',
+        label: this.messagePrefix + '.sync-projects.my-selected',
         value: 'MY_SELECTED'
       },
       {
-        label: this.messagePrefix + '.sync-fundings.mine',
+        label: this.messagePrefix + '.sync-projects.mine',
         value: 'MINE'
       }
     ];
@@ -107,14 +107,14 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
     this.currentSyncMode = this.item.hasMetadata('cris.orcid.sync-mode') ? this.item.firstMetadataValue('cris.orcid.sync-mode') : 'MANUAL';
     this.currentSyncPublications = this.item.hasMetadata('cris.orcid.sync-publications') ? this.item.firstMetadataValue('cris.orcid.sync-publications') : 'DISABLED';
-    this.currentSyncFundings = this.item.hasMetadata('cris.orcid.sync-fundings') ? this.item.firstMetadataValue('cris.orcid.sync-fundings') : 'DISABLED';
+    this.currentSyncProjects = this.item.hasMetadata('cris.orcid.sync-projects') ? this.item.firstMetadataValue('cris.orcid.sync-projects') : 'DISABLED';
   }
 
   onSubmit(form: FormGroup) {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
-    this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncFundings);
+    this.fillOperationsFor(operations, '/orcid/projects', form.value.syncProjects);
 
     const syncProfileValue = this.syncProfileOptions
       .map((syncProfileOption => syncProfileOption.value))
