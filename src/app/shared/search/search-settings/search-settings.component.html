@@ -1,4 +1,4 @@
-<ng-container *ngVar="(searchOptions$ | async) as config">
+<ng-container *ngVar="searchOptions as config">
     <h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
     <div class="result-order-settings">
     <ds-sidebar-dropdown
@@ -7,7 +7,7 @@
             [label]="'search.sidebar.settings.sort-by'"
             (change)="reloadOrder($event)"
     >
-        <option *ngFor="let sortOption of searchOptionPossibilities"
+        <option *ngFor="let sortOption of sortOptions"
                 [value]="sortOption.field + ',' + sortOption.direction.toString()"
                 [selected]="sortOption.field === config?.sort.field && sortOption.direction === (config?.sort.direction)? 'selected': null">
             {{'sorting.' + sortOption.field + '.' + sortOption.direction | translate}}

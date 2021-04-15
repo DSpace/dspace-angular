@@ -66,11 +66,10 @@ describe('StatisticsMapComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-  xit('geochart object should be null', () => {
+  it('geochart object should be null', () => {
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.geoChart).toBeNull();
+    expect(component.geoChart).toEqual(undefined);
   });
 
   it('geochart object should be set correctly after report object is set', () => {

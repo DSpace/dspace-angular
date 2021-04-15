@@ -12,7 +12,7 @@
         <div class="sidebar-content">
             <ds-search-switch-configuration [inPlaceSearch]="inPlaceSearch" *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
             <ds-search-filters [refreshFilters]="refreshFilters" [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
-            <ds-search-settings></ds-search-settings>
+            <ds-search-settings [searchOptions]="searchOptions" [sortOptions]="sortOptions"></ds-search-settings>
         </div>
     </div>
 </div>

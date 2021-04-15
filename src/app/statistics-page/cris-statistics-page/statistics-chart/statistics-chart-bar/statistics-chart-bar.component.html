@@ -1,16 +1,12 @@
 
-<div class="export-buttons-container mb-2">
-	<button class="btn btn-primary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadPng()">
-		<span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i>
-            {{'loading.default' | translate}}
-        </span>
-		Export as PNG
+<div *ngIf="(results | async) && (results | async).length > 0" class="export-buttons-container mb-2">
+	<button class="btn btn-secondary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadPng()">
+    <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+    <span *ngIf="!isLoading"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.png' | translate}}</span>
 	</button>
-	<button class="btn btn-primary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadJpeg()">
-          <span *ngIf="isSecondLoading"><i class='fas fa-circle-notch fa-spin'></i>
-            {{'loading.default' | translate}}
-        </span>
-		Export as JPEG
+	<button class="btn btn-secondary mr-2" [disabled]="isLoading || isSecondLoading" (click)="downloadJpeg()">
+    <span *ngIf="isSecondLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+    <span *ngIf="!isSecondLoading"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.jpg' | translate}}</span>
 	</button>
 </div>
 
@@ -19,6 +15,6 @@
     (select)="select($event)"></ds-chart>
 </div>
 <ng-template #noData>
-  <h2>{{'search.filters.applied.charts.no.data.found'}}</h2>
-   <!--| translate-->
+  <!-- <h2>{{'search.filters.applied.charts.no.data.found'}}</h2> -->
+    <ds-alert [type]="'alert-info'" [content]="'search.filters.applied.charts.no.data.found'"></ds-alert>
 </ng-template>

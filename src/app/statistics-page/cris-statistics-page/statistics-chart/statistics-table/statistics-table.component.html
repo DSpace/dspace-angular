@@ -5,21 +5,17 @@
   </h3> -->
 
   <div class="export-buttons-container mb-2" *ngIf="hasData">
-    <button class="btn btn-primary mr-2" [disabled]="isLoading || isSecondLoading" (click)="exportExcel()">
-      <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i>
-              {{'loading.default' | translate}}
-      </span>
-      Export Excel
+    <button class="btn btn-secondary mr-2" [disabled]="isLoading || isSecondLoading" (click)="exportExcel()">
+      <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      <span *ngIf="!isLoading"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.excel' | translate}}</span>
     </button>
-      <button class="btn btn-primary mr-2" [disabled]="isLoading || isSecondLoading" (click)="exportCsv()">
-      <span *ngIf="isSecondLoading"><i class='fas fa-circle-notch fa-spin'></i>
-              {{'loading.default' | translate}}
-      </span>
-      Export CSV
+    <button class="btn btn-secondary mr-2" [disabled]="isLoading || isSecondLoading" (click)="exportCsv()">
+      <span *ngIf="isSecondLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      <span *ngIf="!isSecondLoading"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.csv' | translate}}</span>
     </button>
   </div>
 
-  <table *ngIf="hasData" #dataTable id="dataTable" class="table table-striped">
+  <table *ngIf="hasData else noData" #dataTable id="dataTable" class="table table-striped">
 
     <tbody>
 
@@ -44,5 +40,9 @@
     </tbody>
 
   </table>
+
+  <ng-template #noData>
+    <ds-alert [type]="'alert-info'" [content]="'statistics.table.no-data'"></ds-alert>
+  </ng-template>
 
 </div>

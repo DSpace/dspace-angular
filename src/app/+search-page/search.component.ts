@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { startWith, switchMap, } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { map, startWith, switchMap, take, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { hasValue, isEmpty } from '../shared/empty.util';
+import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
@@ -16,8 +16,9 @@ import { SearchResult } from '../shared/search/search-result.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { currentPath } from '../shared/utils/route.utils';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { Context } from '../core/shared/context.model';
+import { SortOptions } from '../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-search',
@@ -46,6 +47,11 @@ export class SearchComponent implements OnInit {
    * The current paginated search options
    */
   searchOptions$: Observable<PaginatedSearchOptions>;
+
+  /**
+   * The current available sort options
+   */
+  sortOptions$: Observable<SortOptions[]>;
 
   /**
    * The current relevant scopes
@@ -129,9 +135,14 @@ export class SearchComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
-    if (!isNotEmpty(this.configuration$)) {
-      this.configuration$ = this.routeService.getRouteParameterValue('configuration');
+    if (isEmpty(this.configuration$)) {
+      this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
     }
+
+    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(this.configuration$, this.service);
+
+    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$);
+
   }
 
   /**
