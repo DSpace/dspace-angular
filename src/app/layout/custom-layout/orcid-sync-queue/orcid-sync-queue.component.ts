@@ -19,7 +19,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-orcid-sync-queue.component',
@@ -103,43 +103,49 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
   }
 
   deleteEntry(orcidQueue: OrcidQueue) {
-    this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id)
-      .subscribe((restResponse) => {
-        if (restResponse.isSuccess) {
-          this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
-          this.updateList();
-        } else {
-          this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.delete.error'));
-        }
-      }));
+    this.processing$.next(true);
+    this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
+      getFinishedRemoteData()
+    ).subscribe((remoteData) => {
+      this.processing$.next(false);
+      if (remoteData.isSuccess) {
+        this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
+        this.updateList();
+      } else {
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.delete.error'));
+      }
+    }));
   }
 
   send( orcidQueue: OrcidQueue ) {
-    this.subs.push(this.orcidHistoryService.sendToORCID(orcidQueue)
-      .subscribe((restResponse) => {
-        if (restResponse.hasSucceeded) {
+    this.processing$.next(true);
+    this.subs.push(this.orcidHistoryService.sendToORCID(orcidQueue).pipe(
+      getFinishedRemoteData()
+    ).subscribe((remoteData) => {
+      this.processing$.next(false);
+      if (remoteData.isSuccess) {
 
-          const orcidHistory: OrcidHistory = restResponse.payload;
-          switch (orcidHistory.status) {
-            case 200:
-            case 201:
-              this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
-              this.updateList();
-              break;
-            case 404:
-              this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.not-found-error'));
-              break;
-            case 409:
-              this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
-              break;
-            default:
-              this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
-          }
-
-        } else {
-          this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
+        const orcidHistory: OrcidHistory = remoteData.payload;
+        switch (orcidHistory.status) {
+          case 200:
+          case 201:
+            this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
+            this.updateList();
+            break;
+          case 404:
+            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.not-found-error'));
+            break;
+          case 409:
+            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
+            break;
+          default:
+            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
         }
-      }));
+
+      } else {
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
+      }
+    }));
   }
 
   /**

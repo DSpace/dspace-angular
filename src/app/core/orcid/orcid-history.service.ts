@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { catchError, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -17,7 +17,7 @@ import { DataService } from '../data/data.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { ItemDataService } from '../data/item-data.service';
 import { RemoteData } from '../data/remote-data';
-import { PostRequest } from '../data/request.models';
+import { PostRequest, RestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFinishedRemoteData, getResponseFromEntry, sendRequest } from '../shared/operators';
@@ -75,47 +75,20 @@ export class OrcidHistoryService {
 
   sendToORCID(orcidQueue: OrcidQueue): Observable<RemoteData<OrcidHistory>> {
     const requestId = this.requestService.generateRequestId();
-    const options: HttpOptions = Object.create({});
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'text/uri-list');
-    options.headers = headers;
-    this.getEndpoint().pipe(
-      map((href: string) => {
-        return new PostRequest(requestId, href, orcidQueue._links.self.href, options);
+    return this.getEndpoint().pipe(
+      map((endpointURL: string) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'text/uri-list');
+        options.headers = headers;
+        return new PostRequest(requestId, endpointURL, orcidQueue._links.self.href, options);
       }),
-      sendRequest(this.requestService)
-    ).subscribe();
-
-    return this.fetchCreateResponse(requestId).pipe(
-      getFinishedRemoteData(),
-      catchError((error: Error) => createFailedRemoteDataObject$() as Observable<RemoteData<OrcidHistory>>));
-    }
-
-  protected fetchCreateResponse(requestId: string): Observable <RemoteData<OrcidHistory>> {
-    // Resolve self link for new object
-    const selfLink$ = this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry(),
-      map((response: RestResponse) => {
-        if (!response.isSuccessful ) {
-          throw new Error((response as any).errorMessage);
-        } else {
-          return response;
-        }
-      }),
-      map((response: any) => {
-        if (isNotEmpty(response.resourceSelfLinks)) {
-          return response.resourceSelfLinks[0];
-        }
-      }),
-      distinctUntilChanged()
-    ) as Observable<string>;
-
-    return selfLink$.pipe(
-      switchMap((selfLink: string) => this.dataService.findByHref(selfLink)),
+      sendRequest(this.requestService),
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)  as Observable<RemoteData<OrcidHistory>>)
     );
   }
 
-  getEndpoint() {
+  getEndpoint(): Observable<string> {
     return this.halService.getEndpoint(this.dataService.linkPath);
   }
 

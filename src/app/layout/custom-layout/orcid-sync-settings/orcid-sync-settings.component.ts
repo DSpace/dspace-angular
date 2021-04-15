@@ -123,15 +123,11 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
     this.fillOperationsFor(operations, '/orcid/profile', syncProfileValue);
 
-    console.log(form);
-    console.log(operations);
-
     if (operations.length === 0 ) {
       return;
     }
 
     this.researcherProfileService.findById(this.item.firstMetadata('cris.owner').authority).pipe(
-      tap((x) => console.log(x)),
       switchMap((profile) => this.researcherProfileService.patch(profile, operations)),
       getFinishedRemoteData()
     ).subscribe((remoteData) => {
