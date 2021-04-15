@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { switchMap, tap } from 'rxjs/operators';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
+import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { getFinishedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
