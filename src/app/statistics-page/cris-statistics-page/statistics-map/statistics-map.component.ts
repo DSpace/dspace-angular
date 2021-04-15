@@ -1,7 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { GoogleChartInterface } from 'ng2-google-charts';
 
@@ -35,7 +32,7 @@ export class StatisticsMapComponent implements OnInit {
   chartColumns = [];
 
   ngOnInit(): void {
-    if ( !!this.report ) {
+    if ( !!this.report && !!this.report.points && this.report.points.length > 0 ) {
       this.getData();
     }
   }

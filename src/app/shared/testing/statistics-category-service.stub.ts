@@ -11,11 +11,21 @@ export class StatisticsCategoriesServiceStub {
             type: STATISTICS_CATEGORY,
             categoryType: 'mainReports',
             _links : {
-              'self' : {
-                'href' : 'https://{dspace.url}/server/api/statistics/categories/mainReports'
+              self : {
+                href : 'https://{dspace.url}/server/api/statistics/categories/mainReports'
               }
             }
-        } as StatisticsCategory
+        } as StatisticsCategory,
+        {
+            id: 'testReports',
+            type: STATISTICS_CATEGORY,
+            categoryType: 'testReports',
+            _links : {
+              self : {
+                href : 'https://{dspace.url}/server/api/statistics/categories/testReports'
+              }
+            }
+        }
     ]);
   }
 

@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,7 +7,6 @@ import { UsageReportService } from '../../core/statistics/usage-report-data.serv
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
@@ -94,21 +93,4 @@ describe('ItemStatisticsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should resolve to the correct item', () => {
-    expect(de.query(By.css('.header')).nativeElement.id)
-      .toEqual('item_id');
-  });
-
-  xit('should show a statistics table for each usage report', () => {
-    expect(de.query(By.css('ds-statistics-table.item_id-TotalVisits-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TotalVisitsPerMonth-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TotalDownloads-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TopCountries-report')).nativeElement)
-      .toBeTruthy();
-    expect(de.query(By.css('ds-statistics-table.item_id-TopCities-report')).nativeElement)
-      .toBeTruthy();
-  });
 });

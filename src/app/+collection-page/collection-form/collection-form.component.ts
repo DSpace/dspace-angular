@@ -89,7 +89,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     let currentDefinitionValue: MetadataValue[];
     let currentSharedWorkspaceValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
-      currentRelationshipValue = this.dso.metadata['relationship.type'];
+      currentRelationshipValue = this.dso.metadata['dspace.entity.type'];
       currentDefinitionValue = this.dso.metadata['cris.submission.definition'];
       currentSharedWorkspaceValue = this.dso.metadata['cris.workspace.shared'];
     }

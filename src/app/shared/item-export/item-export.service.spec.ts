@@ -12,7 +12,7 @@ const ThePublication = Object.assign(new Item(), {
   uuid: 'ThePublicationUUID',
   metadata: {
     'dc.title': [ { value: 'A Title' }],
-    'relationship.type': [ { value: 'Publication' }],
+    'dspace.entity.type': [ { value: 'Publication' }],
   }
 });
 

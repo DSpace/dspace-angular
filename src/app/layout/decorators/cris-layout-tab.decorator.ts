@@ -4,7 +4,7 @@ import { hasNoValue } from '../../shared/empty.util';
 import { Item } from '../../core/shared/item.model';
 
 const layoutTabsMap = new Map();
-const ITEM_METADATA_TYPE = 'relationship.type';
+const ITEM_METADATA_TYPE = 'dspace.entity.type';
 
 export function CrisLayoutTab(objectType: LayoutPage, tabName: LayoutTab) {
   return function decorator(component: any) {

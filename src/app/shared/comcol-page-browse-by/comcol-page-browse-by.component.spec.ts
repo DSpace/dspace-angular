@@ -37,7 +37,7 @@ describe('ComcolPageBrowseByComponent', () => {
         relationshipTypeValue.value = id === orgUnitId ? 'OrgUnit' : 'Publication';
         const collection = Object.assign(new Collection(), {
           metadata: {
-            'relationship.type' : [relationshipTypeValue]
+            'dspace.entity.type' : [relationshipTypeValue]
           }
         });
         return createSuccessfulRemoteDataObject$(collection);

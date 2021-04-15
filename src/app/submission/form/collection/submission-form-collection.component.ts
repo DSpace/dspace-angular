@@ -159,7 +159,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
     this.available$ = this.sectionsService.isSectionAvailable(this.submissionId, 'collection');
     if (this.entityType) {
-      this.metadata = 'relationship.type';
+      this.metadata = 'dspace.entity.type';
     }
   }
 

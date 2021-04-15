@@ -66,7 +66,7 @@ export class ItemExportService {
   }
 
   protected initialItemExportFormConfigurationSingle(item: Item): Observable<ItemExportFormConfiguration> {
-    const entityType = item.firstMetadataValue('relationship.type');
+    const entityType = item.firstMetadataValue('dspace.entity.type');
     if (isEmpty(entityType)) {
       throw Error('cannot get item entityType');
     }

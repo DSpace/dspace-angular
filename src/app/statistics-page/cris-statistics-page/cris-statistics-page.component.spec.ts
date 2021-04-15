@@ -1,26 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+import { of as observableOf } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { CrisStatisticsPageComponent } from './cris-statistics-page.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { of as observableOf } from 'rxjs';
-
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
-
-
+import { SharedModule } from '../../shared/shared.module';
 import { UsageReportServiceStub } from '../../shared/testing/usage-report-service.stub';
 import { StatisticsCategoriesServiceStub } from '../../shared/testing/statistics-category-service.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
-
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 
 
@@ -56,6 +54,7 @@ describe('CrisStatisticsPageComponent', () => {
     await TestBed.configureTestingModule({
       imports : [
         RouterTestingModule.withRoutes([]),
+        SharedModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -70,7 +69,8 @@ describe('CrisStatisticsPageComponent', () => {
         { provide: StatisticsCategoriesService, useValue: statisticsCategoriesServiceStub },
         { provide: SiteDataService, useValue: siteDataServiceStub },
         { provide: AuthService, useValue: authServiceStub },
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -99,10 +99,10 @@ describe('CrisStatisticsPageComponent', () => {
       });
   });
 
-  xit('check if can get categories information and view changed', () => {
+  it('check if can get categories information and view changed', () => {
       component.categories$ = statisticsCategoriesServiceStub.searchStatistics('url', 1, 1);
       fixture.detectChanges();
-      expect(de.query(By.css('categories-tabs'))).toBeTruthy();
+      expect(de.query(By.css('#categories-tabs'))).toBeTruthy();
   });
 
   it('check if can get report information', () => {

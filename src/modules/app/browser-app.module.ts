@@ -31,6 +31,8 @@ import {
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { RouterModule, NoPreloading } from '@angular/router';
+import { AuthRequestService } from '../../app/core/auth/auth-request.service';
+import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -104,6 +106,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: GoogleAnalyticsService,
       useClass: GoogleAnalyticsService,
+    },
+    {
+      provide: AuthRequestService,
+      useClass: BrowserAuthRequestService,
     },
     {
       provide: LocationToken,

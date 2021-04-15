@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FileService } from '../../core/shared/file.service';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 
 @Component({
   selector: 'ds-file-download-link',
@@ -15,37 +13,18 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
  * ensuring the user is authorized to download the file.
  */
 export class FileDownloadLinkComponent implements OnInit {
-  /**
-   * Href to link to
-   */
-  @Input() href: string;
 
   /**
-   * Optional file name for the download
+   * Optional bitstream instead of href and file name
    */
-  @Input() download: string;
-
-  /**
-   * Whether or not the current user is authenticated
-   */
-  isAuthenticated$: Observable<boolean>;
-
-  constructor(private fileService: FileService,
-              private authService: AuthService,
-              private redirectService: HardRedirectService) {
-  }
+  @Input() bitstream: Bitstream;
+  bitstreamPath: string;
 
   ngOnInit() {
-    this.isAuthenticated$ = this.authService.isAuthenticated();
-    this.href = this.redirectService.rewriteDownloadURL(this.href);
+    this.bitstreamPath = this.getBitstreamPath();
   }
 
-  /**
-   * Start a download of the file
-   * Return false to ensure the original href is displayed when the user hovers over the link
-   */
-  downloadFile(): boolean {
-    this.fileService.downloadFile(this.href);
-    return false;
+  getBitstreamPath() {
+    return getBitstreamDownloadRoute(this.bitstream);
   }
 }

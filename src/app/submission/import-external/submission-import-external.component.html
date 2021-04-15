@@ -3,14 +3,14 @@
     <div class="col-md-12">
       <h2 id="header" class="pb-2">{{'submission.import-external.title' + ((label) ? '.' + label : '') | translate}}</h2>
       <ds-submission-import-external-searchbar
-        *ngIf="routeData.entity"
-        [initExternalSourceData]="routeData"
+        *ngIf="reload$.value.entity"
+        [initExternalSourceData]="reload$.value"
         (externalSourceData) = "getExternalSourceData($event)">
       </ds-submission-import-external-searchbar>
     </div>
   </div>
-  <div class="row" *ngIf="routeData.entity">
-    <div *ngIf="routeData.sourceId !== ''" class="col-md-12">
+  <div class="row" *ngIf="reload$.value.entity">
+    <div *ngIf="reload$.value.sourceId !== ''" class="col-md-12">
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
         <h3 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title' | translate}}</h3>
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !(isLoading$ | async) && entriesRD?.payload?.page?.length > 0" @fadeIn
@@ -30,13 +30,13 @@
         </div>
       </ng-container>
     </div>
-    <div *ngIf="routeData.sourceId === ''" class="col-md-12">
+    <div *ngIf="reload$.value.sourceId === ''" class="col-md-12">
       <ds-alert [type]="'alert-info'">
         <p class="lead mb-0">{{'submission.import-external.page.hint' | translate}}</p>
       </ds-alert>
     </div>
   </div>
-  <div class="row" *ngIf="!routeData.entity">
+  <div class="row" *ngIf="!reload$.value.entity">
     <div class="col-md-12">
       <ds-alert [type]="'alert-warning'">
         <p class="lead mb-0">{{'submission.import-external.page.noentity' | translate}}</p>

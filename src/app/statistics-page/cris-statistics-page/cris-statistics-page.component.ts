@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng
   templateUrl: './cris-statistics-page.component.html',
   styleUrls: ['./cris-statistics-page.component.scss']
 })
-export class CrisStatisticsPageComponent implements OnInit,OnChanges {
+export class CrisStatisticsPageComponent implements OnInit {
 
   /**
    * The scope dso for this statistics page, as an Observable.
@@ -123,10 +123,6 @@ export class CrisStatisticsPageComponent implements OnInit,OnChanges {
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.ngOnInit();
-  }
-
   /**
    * Get the name of the scope dso.
    * @param scope the scope dso to get the name for
@@ -143,7 +139,9 @@ export class CrisStatisticsPageComponent implements OnInit,OnChanges {
    */
   changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
+    console.log(category);
     this.selectedCategory = category;
+    this.getUserReports(category);
   }
 
 
@@ -159,13 +157,13 @@ export class CrisStatisticsPageComponent implements OnInit,OnChanges {
    * Get the user reports for the specific category.
    * @param categoryId the that is being selected
    */
-    getReports$(categoryId) {
-      return this.scope$.pipe(
-        switchMap((scope) => {
-          return this.usageReportService.searchStatistics(scope._links.self.href,0,50,categoryId,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
-        }),
-      );
-    }
+   getReports$(categoryId) {
+     return this.scope$.pipe(
+       switchMap((scope) => {
+         return this.usageReportService.searchStatistics(scope._links.self.href,0,50,categoryId,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
+       }),
+     );
+   }
 
   /**
    * Refresh categories when the date from or date to is changed.

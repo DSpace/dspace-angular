@@ -35,7 +35,7 @@ const mockItem = Object.assign(new Item(), {
         value: 'test'
       }
     ],
-    'relationship.type': [
+    'dspace.entity.type': [
       {
         language: null,
         value: testType

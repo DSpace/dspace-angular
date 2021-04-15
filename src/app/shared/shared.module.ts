@@ -225,6 +225,7 @@ import { SearchObjects } from './search/search-objects.model';
 import { SearchResult } from './search/search-result.model';
 import { FacetConfigResponse } from './search/facet-config-response.model';
 import { FacetValues } from './search/facet-values.model';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { GenericItemPageFieldComponent } from '../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from '../+item-page/simple/related-items/related-items-component';
@@ -252,6 +253,7 @@ import { BulkImportSelectorComponent } from './dso-selector/modal-wrappers/bulk-
 import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
 import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -439,6 +441,7 @@ const COMPONENTS = [
   ExistingMetadataListElementComponent,
   ExistingRelationListElementComponent,
   LogInShibbolethComponent,
+  LogInOrcidComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -454,6 +457,7 @@ const COMPONENTS = [
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
+  BitstreamDownloadPageComponent,
   CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
@@ -543,11 +547,20 @@ const ENTRY_COMPONENTS = [
   SearchAuthorityFilterComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent,
+  LogInOrcidComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
+  CollectionDropdownComponent,
+  FileDownloadLinkComponent,
+  BitstreamDownloadPageComponent,
+  CurationFormComponent,
+  ExportMetadataSelectorComponent,
+  ConfirmationModalComponent,
+  VocabularyTreeviewComponent,
+  SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,

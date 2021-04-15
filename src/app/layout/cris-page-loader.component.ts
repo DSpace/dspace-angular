@@ -5,7 +5,7 @@ import { GenericConstructor } from '../core/shared/generic-constructor';
 import { getCrisLayoutPage } from './decorators/cris-layout-page.decorator';
 
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
 @Component({
   selector: 'ds-cris-page-loader',

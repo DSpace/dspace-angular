@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { ReplaceOperation } from 'fast-json-patch';
+import { Operation, ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
+import { catchError, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -84,8 +84,7 @@ export class ResearcherProfileService {
     findById(uuid: string): Observable<ResearcherProfile> {
         return this.dataService.findById ( uuid )
             .pipe ( getFinishedRemoteData(),
-                map((remoteData) => remoteData.payload),
-                tap((profile) => this.requestService.removeByHrefSubstring('cris/profiles/' + uuid)));
+                map((remoteData) => remoteData.payload));
     }
 
     /**
@@ -137,14 +136,19 @@ export class ResearcherProfileService {
      */
     setVisibility(researcherProfile: ResearcherProfile, visible: boolean): Observable<ResearcherProfile> {
 
-        const replaceOperation: ReplaceOperation<boolean> = {
-            path: '/visible',
-            op: 'replace',
-            value: visible
-        };
+      const replaceOperation: ReplaceOperation<boolean> = {
+          path: '/visible',
+          op: 'replace',
+          value: visible
+      };
 
-        return this.dataService.patch(researcherProfile, [replaceOperation])
-            .pipe (flatMap( (response ) => this.findById(researcherProfile.id)));
+      return this.patch(researcherProfile, [replaceOperation]).pipe (
+        switchMap( ( ) => this.findById(researcherProfile.id))
+      );
+    }
+
+    patch(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
+      return this.dataService.patch(researcherProfile, operations);
     }
 
 }
