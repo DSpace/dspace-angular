@@ -159,7 +159,7 @@ export class MyDSpacePageComponent implements OnInit {
         })
       );
 
-    const configuration$ = this.routeService.getRouteParameterValue('configuration');
+    const configuration$ = this.searchConfigService.getCurrentConfiguration('workspace');
 
     this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(configuration$, this.service);
 

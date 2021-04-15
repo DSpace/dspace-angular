@@ -3053,6 +3053,10 @@
 
   "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
 
+  "sorting.lastModified.ASC": "Last modified Ascending",
+
+  "sorting.lastModified.DESC": "Last modified Descending",
+
 
   "statistics.title": "Statistics",
 

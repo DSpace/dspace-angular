@@ -136,7 +136,7 @@ export class SearchComponent implements OnInit {
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
     if (isEmpty(this.configuration$)) {
-      this.configuration$ = this.routeService.getRouteParameterValue('configuration');
+      this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
     }
 
     this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(this.configuration$, this.service);
