@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
+import * as htmlToImage from 'html-to-image';
+import { saveAs } from 'file-saver';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+
+export enum ExportImageType {
+  png = 'png',
+  jpeg = 'jpeg',
+}
 
 @Injectable()
 export class ExportService {
@@ -20,7 +28,7 @@ export class ExportService {
    * @param elementIdOrContent is the content that is being exported.
    * @param download option if its going to be downloaded.
    */
-  export(type: any, elementIdOrContent: string, fileName: string, download: boolean = true) {
+  exportAsFile(type: any, elementIdOrContent: string, fileName: string, download: boolean = true) {
 
     this.exportAsConfig = {
       type:type,
@@ -30,6 +38,22 @@ export class ExportService {
     };
 
     return this.exportAsService.save(this.exportAsConfig, fileName);
+  }
+
+  /**
+   * Creates an image from the given element reference.
+   *
+   * @param domNode   The HTMLElement.
+   * @param type      The type of image to export.
+   * @param fileName  The file name to save as.
+   * @param isLoading A boolean representing the exporting process status.
+   */
+  exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>) {
+    htmlToImage.toBlob(domNode)
+      .then((blob) => {
+        saveAs(blob, fileName + '.' + type);
+        isLoading.next(false);
+      });
   }
 
 }

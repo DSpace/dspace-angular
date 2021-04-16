@@ -1,18 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { ChartType } from '../../../../charts/models/chart-type';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
-
 import { Point, UsageReport } from '../../../../core/statistics/models/usage-report.model';
-
-import * as htmlToImage from 'html-to-image';
-import { saveAs } from 'file-saver';
-
-import { ExportService } from '../../../../core/export-service/export.service';
+import { ExportImageType, ExportService } from '../../../../core/export-service/export.service';
 
 @Component({
   selector: 'ds-search-chart-filter',
@@ -38,11 +33,15 @@ export class StatisticsChartDataComponent implements OnInit {
   /**
    * Loading utilized for export functions to disable buttons
    */
-  isLoading = false;
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /**
    * Loading utilized for export functions to disable buttons
    */
-  isSecondLoading = false;
+  isSecondLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  /**
+   * Chart ElementRef
+   */
+  @ViewChild('chartRef') chartRef: ElementRef;
 
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
@@ -82,36 +81,27 @@ export class StatisticsChartDataComponent implements OnInit {
    * Download chart as image in png version.
    */
   downloadPng() {
-    const node = document.getElementById('chart');
-    this.isLoading = true;
-    htmlToImage.toBlob(node)
-      .then((blob) => {
-        saveAs(blob, this.report.reportType + '.png');
-        this.isLoading = false;
-      });
+    this.isLoading.next(false);
+    const node = this.chartRef.nativeElement;
+    this.exportService.exportAsImage(node, ExportImageType.png, this.report.reportType, this.isLoading);
   }
 
   /**
    * Download chart as image in jpeg version.
    */
   downloadJpeg() {
-    const node = document.getElementById('chart');
-    this.isSecondLoading = true;
-
-    htmlToImage.toBlob(node)
-      .then((blob) => {
-        saveAs(blob, this.report.reportType + '.jpeg');
-        this.isSecondLoading = false;
-      });
+    this.isSecondLoading.next(false);
+    const node = this.chartRef.nativeElement;
+    this.exportService.exportAsImage(node, ExportImageType.png, this.report.reportType, this.isSecondLoading);
   }
 
   /**
    * Export the table information in excel mode.
    */
   exportExcel() {
-    this.isLoading = true;
-    this.exportService.export('xlsx', 'dataTable', this.report.reportType, true).subscribe(() => {
-      this.isLoading = false;
+    this.isLoading.next(true);
+    this.exportService.exportAsFile('xlsx', 'dataTable', this.report.reportType, true).subscribe(() => {
+      this.isLoading.next(false);
     });
   }
 
@@ -119,9 +109,9 @@ export class StatisticsChartDataComponent implements OnInit {
    * Export the table information in csv mode.
    */
   exportCsv() {
-    this.isSecondLoading = true;
-    this.exportService.export('csv', 'dataTable', this.report.reportType, true).subscribe(() => {
-      this.isSecondLoading = false;
+    this.isSecondLoading.next(true);
+    this.exportService.exportAsFile('csv', 'dataTable', this.report.reportType, true).subscribe(() => {
+      this.isSecondLoading.next(false);
     });
   }
 
