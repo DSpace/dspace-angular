@@ -216,7 +216,7 @@ export const returnForbiddenUrlTreeOrLoginOnAllFalse = (router: Router, authServ
   (source: Observable<boolean[]>): Observable<boolean | UrlTree> =>
     observableCombineLatest(source, authService.isAuthenticated()).pipe(
       map(([authorizedList, authenticated]: [boolean[], boolean]) => {
-        if (authorizedList.indexOf(true) > -1) {
+        if (authorizedList.some((b: boolean) => b === true)) {
           return true;
         } else {
           if (authenticated) {

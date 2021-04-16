@@ -3,8 +3,8 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import { distinctUntilChanged, first, map } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
+import { distinctUntilChanged, first, map, mergeMap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, Observable, from as observableFrom } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -95,16 +95,19 @@ export class ItemStatusComponent implements OnInit {
 
       this.operations$.next(operations);
 
-      observableCombineLatest(operations.map((operation) => {
-        if (hasValue(operation.featureID)) {
-          return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
-            distinctUntilChanged(),
-            map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
-          );
-        } else {
-          return of(operation);
-        }
-      })).subscribe((ops) => this.operations$.next(ops));
+      observableFrom(operations).pipe(
+        mergeMap((operation) => {
+          if (hasValue(operation.featureID)) {
+            return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
+              distinctUntilChanged(),
+              map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+            );
+          } else {
+            return [operation];
+          }
+        }),
+        toArray()
+      ).subscribe((ops) => this.operations$.next(ops));
     });
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),

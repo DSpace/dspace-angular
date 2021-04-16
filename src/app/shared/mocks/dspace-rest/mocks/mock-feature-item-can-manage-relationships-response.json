@@ -1,0 +1,50 @@
+{
+  "_embedded": {
+    "authorizations": [
+      {
+        "id": "cd824a61-95be-4e16-bccd-51fea26707d0_canManageRelationships_core.item_047556d1-3d01-4c53-bc68-0cee7ad7ed4e",
+        "type": "authorization",
+        "_links": {
+          "eperson": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageRelationships_core.item_047556d1-3d01-4c53-bc68-0cee7ad7ed4e/eperson"
+          },
+          "feature": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageRelationships_core.item_047556d1-3d01-4c53-bc68-0cee7ad7ed4e/feature"
+          },
+          "object": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageRelationships_core.item_047556d1-3d01-4c53-bc68-0cee7ad7ed4e/object"
+          },
+          "self": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageRelationships_core.item_047556d1-3d01-4c53-bc68-0cee7ad7ed4e"
+          }
+        },
+        "_embedded": {
+          "feature": {
+            "id": "canManageRelationships",
+            "description": "It can be used to verify if the relationships of the specified objects can be managed",
+            "type": "feature",
+            "resourcetypes": [
+              "core.item"
+            ],
+            "_links": {
+              "self": {
+                "href": "https://api7.dspace.org/server/api/authz/features/canManageRelationships"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api7.dspace.org/server/api/authz/authorizations/search/object?uri=https://api7.dspace.org/server/api/core/items/047556d1-3d01-4c53-bc68-0cee7ad7ed4e&feature=canManageRelationships"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}

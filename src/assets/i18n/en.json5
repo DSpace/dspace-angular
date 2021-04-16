@@ -1761,7 +1761,7 @@
 
   "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
 
-  "item.edit.tabs.status.buttons.unauthorized": "You don't have permission to perform this action",
+  "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
   "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
 
