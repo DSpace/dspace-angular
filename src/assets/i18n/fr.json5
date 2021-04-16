@@ -32,24 +32,19 @@
   "404.page-not-found": "Page introuvable",
   
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.breadcrumbs": "System curation tasks",
+  "admin.curation-tasks.breadcrumbs": "Tâches de conservation système",
   
   // "admin.curation-tasks.title": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.title": "System curation tasks",
+  "admin.curation-tasks.title": "Tâches de conservation système",
   
   // "admin.curation-tasks.header": "System curation tasks",
-  // TODO New key - Add a translation
-  "admin.curation-tasks.header": "System curation tasks",
+  "admin.curation-tasks.header": "Tâches de conservation système",
   
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+  "admin.registries.bitstream-formats.breadcrumbs": "Registre des formats",
   
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Format Bitstream",
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
   "admin.registries.bitstream-formats.create.failure.content": "Une erreur s'est produite lors de l'ajout du nouveau format Bitstream.",
@@ -85,8 +80,7 @@
   "admin.registries.bitstream-formats.description": "Cette liste des formats Bitstream contient les informations relatives aux formats connus et leur niveau de support.",
   
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Format Bitstream",
   
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   "admin.registries.bitstream-formats.edit.description.hint": "",
@@ -101,7 +95,6 @@
   "admin.registries.bitstream-formats.edit.extensions.label": "Extensions de fichier",
   
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.edit.extensions.placeholder": "Veuillez entrer l'extension de fichier sans point",
   
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
@@ -114,7 +107,6 @@
   "admin.registries.bitstream-formats.edit.head": "Format Bitstream: {{ format }}",
   
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.edit.internal.hint": "Les formats identifiés en tant que formats internes sont cachés pour l'utilisateur et utilisés uniquement à des fins administratives.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
@@ -186,8 +178,7 @@
   
   
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+  "admin.registries.metadata.breadcrumbs": "Registre de métadonnées",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   "admin.registries.metadata.description": "Le registre de métadonnées présente une liste à jour de tous les champs de métadonnées disponibles dans le dépôt. Ces champs peuvent être répartis entre plusieurs schémas. Le schéma Dublin Core qualifié est toutefois requis dans DSpace.",
@@ -228,8 +219,7 @@
   
   
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs": "Schéma de métadonnées",
   
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Ceci est le schéma de métadonnées correspondant à l'espace de nommage « {{namespace}} ».",
@@ -306,172 +296,130 @@
   
   
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Supprimer EPerson",
   
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Se connecter en tant que cet(te) EPerson",
   
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Réinitialiser le mot de passe",
   
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Retour à votre propre EPerson ",
   
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
   
   // "admin.access-control.epeople.head": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.head": "EPeople",
   
   // "admin.access-control.epeople.search.head": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "Recherche",
   
   // "admin.access-control.epeople.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "Voir tout",
   
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+  "admin.access-control.epeople.search.scope.metadata": "Métadonnées",
   
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
   
   // "admin.access-control.epeople.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.button": "Search",
+  "admin.access-control.epeople.search.button": "Rechercher",
   
   // "admin.access-control.epeople.button.add": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "Ajouter EPerson",
   
   // "admin.access-control.epeople.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.id": "ID",
   
   // "admin.access-control.epeople.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "Nom",
   
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.email": "E-mail (exact)",
   
   // "admin.access-control.epeople.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit": "Edit",
+  "admin.access-control.epeople.table.edit": "Éditer",
   
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Éditer \"{{name}}\"",
   
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Supprimer \"{{name}}\"",
   
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "Aucune EPerson ne correspond à votre recherche",
   
   // "admin.access-control.epeople.form.create": "Create EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "Créer EPerson",
   
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "Éditer EPerson",
   
   // "admin.access-control.epeople.form.firstName": "First name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
-  
+  "admin.access-control.epeople.form.firstName": "Prénom",
+
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Nom de famille",
   
   // "admin.access-control.epeople.form.email": "E-mail",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.email": "E-mail",
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Il doit s'agir d'une adresse mail valide",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "Peut se connecter",
   
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "Doit avoir recours à un certificat",
   
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "EPerson \"{{name}}\" créée avec succès",
   
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Erreur lors de la création de l'EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Erreur lors de la création de l'EPerson \"{{name}}\", l'adresse mail \"{{email}}\" est déjà utilisée.",
   
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Erreur lors de la modification de l'EPerson \"{{name}}\", l'adresse mail \"{{email}}\" est déjà utilisée.",
   
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson \"{{name}}\" modifiée avec succès",
   
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Erreur lors de la modification de l'EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "EPerson \"{{name}}\" supprimée avec succès",
   
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Erreur lors de la suppression de l'EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membre des groupes suivants :",
   
   // "admin.access-control.epeople.form.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.table.id": "ID",
   
   // "admin.access-control.epeople.form.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "Nom",
   
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Cette EPerson n'est membre d'aucun groupe",
   
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "Ajouter groupe(s)",
   
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Erreur lors de la suppression de l'EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "EPerson \"{{name}}\" supprimée avec succès",
   
   
   
