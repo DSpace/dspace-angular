@@ -17,12 +17,14 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ItemDataService } from '../../core/data/item-data.service';
 
 describe('SubmissionEditComponent Component', () => {
 
   let comp: SubmissionEditComponent;
   let fixture: ComponentFixture<SubmissionEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let itemDataService: ItemDataService;
   let router: RouterStub;
 
   const submissionId = '826';
@@ -30,6 +32,9 @@ describe('SubmissionEditComponent Component', () => {
   const submissionObject: any = mockSubmissionObject;
 
   beforeEach(waitForAsync(() => {
+    itemDataService = jasmine.createSpyObj('itemDataService', {
+      findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
+    });
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -41,6 +46,7 @@ describe('SubmissionEditComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: ItemDataService, useValue: itemDataService },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },
@@ -63,7 +69,7 @@ describe('SubmissionEditComponent Component', () => {
     router = null;
   });
 
-  it('should init properly when a valid SubmissionObject has been retrieved', fakeAsync(() => {
+  it('should init properly when a valid SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(
@@ -78,9 +84,9 @@ describe('SubmissionEditComponent Component', () => {
     expect(comp.sections).toBe(submissionObject.sections);
     expect(comp.submissionDefinition).toBe(submissionObject.submissionDefinition);
 
-  }));
+  });
 
-  it('should redirect to mydspace when an empty SubmissionObject has been retrieved', fakeAsync(() => {
+  it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({})
@@ -90,9 +96,9 @@ describe('SubmissionEditComponent Component', () => {
 
     expect(router.navigate).toHaveBeenCalled();
 
-  }));
+  });
 
-  it('should not has effects when an invalid SubmissionObject has been retrieved', fakeAsync(() => {
+  it('should not has effects when an invalid SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(observableOf(null));
@@ -104,6 +110,6 @@ describe('SubmissionEditComponent Component', () => {
     expect(comp.selfUrl).toBeUndefined();
     expect(comp.sections).toBeUndefined();
     expect(comp.submissionDefinition).toBeUndefined();
-  }));
+  });
 
 });

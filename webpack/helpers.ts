@@ -6,8 +6,8 @@ export const projectRoot = (relativePath) => {
 
 export const globalCSSImports = () => {
   return [
-    projectRoot('src/styles/_variables.scss'),
-    projectRoot('src/styles/_mixins.scss'),
+    projectRoot(path.join('src', 'styles', '_variables.scss')),
+    projectRoot(path.join('src', 'styles', '_mixins.scss')),
   ];
 };
 

@@ -31,7 +31,6 @@ import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
-import { AuthRequestService } from './auth/auth-request.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { BrowseService } from './browse/browse.service';
@@ -188,7 +187,6 @@ const EXPORTS = [];
 const PROVIDERS = [
   ApiService,
   AuthenticatedGuard,
-  AuthRequestService,
   CommunityDataService,
   CollectionDataService,
   SiteDataService,
