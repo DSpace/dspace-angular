@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { EditBitstreamPageComponent } from './edit-bitstream-page/edit-bitstream-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { BitstreamPageResolver } from './bitstream-page.resolver';
+import { BitstreamDownloadPageComponent } from '../shared/bitstream-download-page/bitstream-download-page.component';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 
@@ -12,6 +13,13 @@ const EDIT_BITSTREAM_PATH = ':id/edit';
 @NgModule({
   imports: [
     RouterModule.forChild([
+      {
+        path:':id/download',
+        component: BitstreamDownloadPageComponent,
+        resolve: {
+          bitstream: BitstreamPageResolver
+        },
+      },
       {
         path: EDIT_BITSTREAM_PATH,
         component: EditBitstreamPageComponent,

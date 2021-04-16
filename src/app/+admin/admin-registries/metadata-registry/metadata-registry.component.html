@@ -13,8 +13,7 @@
                     [paginationOptions]="config"
                     [collectionSize]="(metadataSchemas | async)?.payload?.totalElements"
                     [hideGear]="true"
-                    [hidePagerWhenSinglePage]="true"
-                    (pageChange)="onPageChange($event)">
+                    [hidePagerWhenSinglePage]="true">
 
                 <div class="table-responsive">
                     <table id="metadata-schemas" class="table table-striped table-hover">

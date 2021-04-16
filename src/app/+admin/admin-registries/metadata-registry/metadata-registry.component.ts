@@ -13,6 +13,7 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -34,7 +35,7 @@ export class MetadataRegistryComponent {
    * Pagination config used to display the list of metadata schemas
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'registry-metadataschemas-pagination',
+    id: 'rm',
     pageSize: 25
   });
 
@@ -46,26 +47,20 @@ export class MetadataRegistryComponent {
   constructor(private registryService: RegistryService,
               private notificationsService: NotificationsService,
               private router: Router,
+              private paginationService: PaginationService,
               private translateService: TranslateService) {
     this.updateSchemas();
-  }
-
-  /**
-   * Event triggered when the user changes page
-   * @param event
-   */
-  onPageChange(event) {
-    this.config.currentPage = event;
-    this.forceUpdateSchemas();
   }
 
   /**
    * Update the list of schemas by fetching it from the rest api or cache
    */
   private updateSchemas() {
+
     this.metadataSchemas = this.needsUpdate$.pipe(
       filter((update) => update === true),
-      switchMap(() => this.registryService.getMetadataSchemas(toFindListOptions(this.config)))
+      switchMap(() => this.paginationService.getCurrentPagination(this.config.id, this.config)),
+      switchMap((currentPagination) => this.registryService.getMetadataSchemas(toFindListOptions(currentPagination)))
     );
   }
 
@@ -169,7 +164,7 @@ export class MetadataRegistryComponent {
     const suffix = success ? 'success' : 'failure';
     const messages = observableCombineLatest(
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}.deleted.${suffix}`, { amount: amount })
+      this.translateService.get(`${prefix}.deleted.${suffix}`, {amount: amount})
     );
     messages.subscribe(([head, content]) => {
       if (success) {
@@ -179,4 +174,8 @@ export class MetadataRegistryComponent {
       }
     });
   }
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.config.id);
+  }
+
 }

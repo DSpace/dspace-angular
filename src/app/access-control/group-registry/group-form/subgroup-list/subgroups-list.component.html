@@ -29,8 +29,7 @@
                  [pageInfoState]="(searchResults$ | async)?.payload"
                  [collectionSize]="(searchResults$ | async)?.payload?.totalElements"
                  [hideGear]="true"
-                 [hidePagerWhenSinglePage]="true"
-                 (pageChange)="onPageChangeSearch($event)">
+                 [hidePagerWhenSinglePage]="true">
 
     <div class="table-responsive">
       <table id="groupsSearch" class="table table-striped table-hover table-bordered">
@@ -83,8 +82,7 @@
                  [pageInfoState]="(subGroups$ | async)?.payload"
                  [collectionSize]="(subGroups$ | async)?.payload?.totalElements"
                  [hideGear]="true"
-                 [hidePagerWhenSinglePage]="true"
-                 (pageChange)="onPageChange($event)">
+                 [hidePagerWhenSinglePage]="true">
 
     <div class="table-responsive">
       <table id="subgroupsOfGroup" class="table table-striped table-hover table-bordered">

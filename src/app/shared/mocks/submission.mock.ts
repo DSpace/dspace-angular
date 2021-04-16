@@ -1101,6 +1101,91 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
   }
 });
 
+export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.assign({}, {
+  826: {
+    collection: mockSubmissionCollectionId,
+    definition: 'traditional',
+    selfUrl: mockSubmissionSelfUrl,
+    activeSection: null,
+    sections: {
+      extraction: {
+        config: '',
+        mandatory: true,
+        sectionType: 'utils',
+        visibility: {
+          main: 'HIDDEN',
+          other: 'HIDDEN'
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      collection: {
+        config: '',
+        mandatory: true,
+        sectionType: 'collection',
+        visibility: {
+          main: 'HIDDEN',
+          other: 'HIDDEN'
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      traditionalpageone: {
+        header: 'submit.progressbar.describe.stepone',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
+        mandatory: true,
+        sectionType: 'submission-form',
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        formId: '2_traditionalpageone',
+        isLoading: false,
+        isValid: false
+      } as any,
+      traditionalpagetwo: {
+        header: 'submit.progressbar.describe.steptwo',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
+        mandatory: false,
+        sectionType: 'submission-form',
+        collapsed: false,
+        enabled: false,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      license: {
+        header: 'submit.progressbar.license',
+        config: '',
+        mandatory: true,
+        sectionType: 'license',
+        visibility: {
+          main: null,
+          other: 'READONLY'
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any
+    },
+    isLoading: false,
+    savePending: false,
+    depositPending: false
+  }
+});
+
 export const mockSectionsState = Object.assign({}, {
   extraction: {
     config: '',

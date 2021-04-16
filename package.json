@@ -32,7 +32,7 @@
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
     "e2e": "ng e2e",
-    "e2e:ci": "ng e2e --protractor-config=./e2e/protractor-ci.conf.js",
+    "e2e:ci": "ng e2e --webdriver-update=false --protractor-config=./e2e/protractor-ci.conf.js",
     "compile:server": "webpack --config webpack.server.config.js --progress --color",
     "serve:ssr": "node dist/server",
     "clean:coverage": "rimraf coverage",

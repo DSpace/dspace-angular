@@ -224,6 +224,7 @@ import { SearchObjects } from './search/search-objects.model';
 import { SearchResult } from './search/search-result.model';
 import { FacetConfigResponse } from './search/facet-config-response.model';
 import { FacetValues } from './search/facet-values.model';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { GenericItemPageFieldComponent } from '../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from '../+item-page/simple/related-items/related-items-component';
@@ -434,6 +435,7 @@ const COMPONENTS = [
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
+  BitstreamDownloadPageComponent,
   CollectionDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
@@ -512,6 +514,14 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
+  CollectionDropdownComponent,
+  FileDownloadLinkComponent,
+  BitstreamDownloadPageComponent,
+  CurationFormComponent,
+  ExportMetadataSelectorComponent,
+  ConfirmationModalComponent,
+  VocabularyTreeviewComponent,
+  SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,

@@ -8,8 +8,7 @@
                            [paginationOptions]="originalOptions"
                            [pageInfoState]="originals"
                            [collectionSize]="originals?.totalElements"
-                           [disableRouteParameterUpdate]="true"
-                           (pageChange)="switchOriginalPage($event)">
+                           [retainScrollPosition]="true">
 
 
                 <div class="file-section row" *ngFor="let file of originals?.page;">
@@ -34,7 +33,7 @@
                         </dl>
                     </div>
                     <div class="col-2">
-                        <ds-file-download-link [href]="file._links.content.href" [download]="file.name">
+                        <ds-file-download-link [bitstream]="file">
                             {{"item.page.filesection.download" | translate}}
                         </ds-file-download-link>
                     </div>
@@ -51,8 +50,7 @@
                            [paginationOptions]="licenseOptions"
                            [pageInfoState]="licenses"
                            [collectionSize]="licenses?.totalElements"
-                           [disableRouteParameterUpdate]="true"
-                           (pageChange)="switchLicensePage($event)">
+                           [retainScrollPosition]="true">
 
 
                 <div class="file-section row" *ngFor="let file of licenses?.page;">
@@ -76,7 +74,7 @@
                         </dl>
                     </div>
                     <div class="col-2">
-                        <ds-file-download-link [href]="file._links.content.href" [download]="file.name">
+                        <ds-file-download-link [bitstream]="file">
                             {{"item.page.filesection.download" | translate}}
                         </ds-file-download-link>
                     </div>
