@@ -543,67 +543,51 @@
   "admin.access-control.groups.form.members-list.head": "EPeople",
   
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Ajouter EPeople",
   
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.members-list.button.see-all": "Voir tout",
   
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+  "admin.access-control.groups.form.members-list.headMembers": "Membres actuels",
   
   // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
+  "admin.access-control.groups.form.members-list.search.scope.metadata": "Métadonnées",
   
   // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
   
   // "admin.access-control.groups.form.members-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.button": "Search",
+  "admin.access-control.groups.form.members-list.search.button": "Rechercher",
   
   // "admin.access-control.groups.form.members-list.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.table.id": "ID",
   
   // "admin.access-control.groups.form.members-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.name": "Name",
+  "admin.access-control.groups.form.members-list.table.name": "Nom",
   
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.members-list.table.edit": "Supprimer / Ajouter",
   
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Supprimer \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Membre \"{{name}}\" ajouté avec succès",
   
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Erreur lors de l'ajout de \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Membre \"{{name}}\" supprimé avec succès",
   
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Erreur lors de la suppression de \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Ajouter \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
