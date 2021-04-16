@@ -424,161 +424,122 @@
   
   
   // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+  "admin.access-control.groups.title": "DSpace Angular :: Groupes",
   
   // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Éditer Groupe",
   
   // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Nouveau Groupe",
   
   // "admin.access-control.groups.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Groupes",
   
   // "admin.access-control.groups.button.add": "Add group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "Ajouter groupe",
   
   // "admin.access-control.groups.search.head": "Search groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "Recherche",
   
   // "admin.access-control.groups.button.see-all": "Browse all",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "Voir tout",
   
   // "admin.access-control.groups.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "Rechercher",
   
   // "admin.access-control.groups.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.table.id": "ID",
   
   // "admin.access-control.groups.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "Nom",
   
   // "admin.access-control.groups.table.members": "Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "Membres",
   
   // "admin.access-control.groups.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "Éditer",
   
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "Éditer \"{{name}}\"",
   
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Supprimer \"{{name}}\"",
   
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "Aucun groupe ne correspond à ce nom ou cet identifiant UUID",
   
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "Groupe \"{{name}}\" supprimé avec succès",
   
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Erreur lors de la suppression du groupe \"{{name}}\"",
   
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+  "admin.access-control.groups.notification.deleted.failure.content": "Cause : \"{{cause}}\"",
   
   
   
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.permanent": "Ce groupe est permanent et ne peut, par conséquent, être édité ou supprimé.  Ici, vous pouvez cependant ajouter ou retirer des membres au groupe.",
   
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Ce groupe ne peut être modifié ou supprimé car il correspond à un rôle dans le processus de dépôt et/ou de validation dans \"{{name}}\" {{comcol}}. Vous pouvez le supprimer depuis l'onglet <a href='{{comcolEditRolesRoute}}'>\"Attribuer des rôles\"</a> de la page d'édition {{comcol}}. Ici, vous pouvez cependant ajouter ou retirer des membres au groupe.",
   
   // "admin.access-control.groups.form.head.create": "Create group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "Créer groupe",
   
   // "admin.access-control.groups.form.head.edit": "Edit group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "Éditer groupe",
   
   // "admin.access-control.groups.form.groupName": "Group name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "Nom du groupe",
   
   // "admin.access-control.groups.form.groupDescription": "Description",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.groupDescription": "Description",
   
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "Groupe \"{{name}}\" créé avec succès",
   
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "Erreur lors de la création du groupe \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Erreur lors de la création du groupe \"{{name}}\", veuillez vérifier que ce nom n'est pas déjà utilisé.",
   
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "Erreur lors de la modification du groupe \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Le nom \"{{name}}\" est déjà utilisé!",
   
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": "Groupe \"{{name}}\" édité avec succès",
   
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.actions.delete": "Delete Group",
+  "admin.access-control.groups.form.actions.delete": "Supprimer groupe",
   
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": "Supprimer groupe \"{{ dsoName }}\"",
   
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Êtes-vous certain de vouloir supprimer le groupe \"{{ dsoName }}\"",
   
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Annuler",
   
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Supprimer",
   
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": "Groupe \"{{ name }}\" supprimé avec succès",
   
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Erreur lors de la suppression du groupe \"{{ name }}\"",
   
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause : \"{{ cause }}\"",
   
   // "admin.access-control.groups.form.members-list.head": "EPeople",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.head": "EPeople",
   
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
@@ -1214,7 +1175,7 @@
   
   // "collection.edit.tabs.roles.head": "Assign Roles",
   // TODO New key - Add a translation
-  "collection.edit.tabs.roles.head": "Assign Roles",
+  "collection.edit.tabs.roles.head": "Attribuer des rôles",
   
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
   // TODO New key - Add a translation
