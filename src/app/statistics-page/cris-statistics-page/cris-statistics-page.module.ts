@@ -17,7 +17,7 @@ const components = [
   declarations: components,
   imports: [
     CommonModule,
-    StatisticsChartModule,
+    StatisticsChartModule.withEntryComponents(),
     HttpClientJsonpModule,
     SharedModule.withEntryComponents(),
     StatisticsPipesPageModule,

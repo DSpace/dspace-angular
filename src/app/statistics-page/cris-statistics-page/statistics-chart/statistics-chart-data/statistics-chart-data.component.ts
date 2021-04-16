@@ -92,7 +92,7 @@ export class StatisticsChartDataComponent implements OnInit {
   downloadJpeg() {
     this.isSecondLoading.next(false);
     const node = this.chartRef.nativeElement;
-    this.exportService.exportAsImage(node, ExportImageType.png, this.report.reportType, this.isSecondLoading);
+    this.exportService.exportAsImage(node, ExportImageType.jpeg, this.report.reportType, this.isSecondLoading);
   }
 
   /**
