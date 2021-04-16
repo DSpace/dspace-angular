@@ -62,7 +62,7 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
-    // TODO: review whether the item.id should be sanitized. The query term should be (check mirador viewer).
+    // TODO: review whether the item.id should be sanitized. The query term probably should be.
     return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
   }
 
@@ -71,6 +71,7 @@ export class MiradorViewerComponent implements OnInit {
      * Initializes the iframe url observable.
      */
     if (isPlatformBrowser(this.platformId)) {
+      // This will not be responsive to resizing.
       if (window.innerWidth > 768) {
         this.notMobile = true;
       }
@@ -81,8 +82,9 @@ export class MiradorViewerComponent implements OnInit {
           map((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
             if (hasValue(bitstreamsRD.payload)) {
               if (bitstreamsRD.payload.totalElements > 2) {
-                /* IIIF bundle contains multiple images. The IIIF bundle also contains
-                 * a single json file so multi is true only when count is 3 or more . */
+                /* IIIF bundle contains multiple images and optionally a
+                 * a single json file, thus multi is true only when the count is 3 or more .
+                 * multi=true enables the side navigation panel in Mirador. */
                 this.multi = true;
               }
             }
