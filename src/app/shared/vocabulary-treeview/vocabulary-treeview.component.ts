@@ -304,6 +304,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Return an id for a given {@link VocabularyEntry}
    */
   private getEntryId(entry: VocabularyEntry): string {
-    return entry.authority || entry.otherInformation.id || undefined;
+    return entry.authority || entry?.otherInformation?.id || undefined;
   }
 }
