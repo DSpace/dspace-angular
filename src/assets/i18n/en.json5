@@ -4503,6 +4503,8 @@
 
   "submission.sections.submit.progressbar.describe.orgunit": "Org Unit basic information",
 
+  "submission.sections.submit.progressbar.describe.owner": "Owner",
+
   "submission.sections.submit.progressbar.describe.patent": "Patent basic information",
 
   "submission.sections.submit.progressbar.describe.patent_indexing": "Patent indexing",
