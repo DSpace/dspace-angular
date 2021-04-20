@@ -74,7 +74,16 @@ export class RowComponent implements OnInit {
   }
 
   hasFieldMetadataComponent(field: LayoutField) {
-    return field.fieldType === 'BITSTREAM' || field.fieldType === 'METADATAGROUP'  ||
+    // if it is metadatagroup and none of the nested metadatas has values then dont generate the component
+    let existOneMetadataWithValue = false;
+    if (field.fieldType === 'METADATAGROUP') {
+      field.metadataGroup.elements.forEach(el => {
+        if (this.item.metadata[el.metadata]) {
+          existOneMetadataWithValue = true;
+        }
+      });
+    }
+    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue ) ||
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
 

@@ -58,8 +58,9 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
 
   ngOnInit() {
     this.field.metadataGroup.elements.forEach(e => {
-      this.metadataGroup.push(e);
-
+      if (this.item.metadata[e.metadata]) {
+        this.metadataGroup.push(e);
+      }
     });
     this.metadataValues.forEach((mdv, index) => {
       this.metadataGroup.forEach(mdg => {
