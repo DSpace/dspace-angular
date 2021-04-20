@@ -22,7 +22,7 @@ import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 
-fdescribe('LogInOrcidComponent', () => {
+describe('LogInOrcidComponent', () => {
 
   let component: LogInOrcidComponent;
   let fixture: ComponentFixture<LogInOrcidComponent>;
