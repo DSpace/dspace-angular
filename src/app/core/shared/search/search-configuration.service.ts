@@ -21,7 +21,7 @@ import { RouteService } from '../../services/route.service';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchConfig } from './search-filters/search-config.model';
+import { SearchConfig, SortOption } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
 import { of } from 'rxjs/internal/observable/of';
 import { PaginationService } from '../../pagination/pagination.service';
@@ -216,9 +216,12 @@ export class SearchConfigurationService implements OnDestroy {
       getFirstSucceededRemoteDataPayload(),
       map((searchConfig: SearchConfig) => {
         const sortOptions = [];
-        searchConfig.sortOptions.forEach(sortOption => {
-          sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
-          sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
+        searchConfig.sortOptions.forEach((sortOption: SortOption) => {
+          console.log(sortOption);
+          const firstOrder = (sortOption.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase()) ? SortDirection.ASC : SortDirection.DESC;
+          const secondOrder = (sortOption.sortOrder.toLowerCase() !== SortDirection.ASC.toLowerCase()) ? SortDirection.ASC : SortDirection.DESC;
+          sortOptions.push(new SortOptions(sortOption.name, firstOrder));
+          sortOptions.push(new SortOptions(sortOption.name, secondOrder));
         });
         return sortOptions;
       }));
