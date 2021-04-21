@@ -65,6 +65,7 @@ export interface FilterConfig {
  */
 export interface SortOption {
   name: string;
+  sortOrder: string;
 }
 
 /**
