@@ -1,15 +1,18 @@
 import { RequestService } from './request.service';
 import { EpersonRegistrationService } from './eperson-registration.service';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from './request.reducer';
+import { RequestEntry, RequestEntryState } from './request.reducer';
 import { cold } from 'jasmine-marbles';
 import { PostRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs/internal/observable/of';
+import { TestScheduler } from 'rxjs/testing';
 
-describe('EpersonRegistrationService', () => {
+fdescribe('EpersonRegistrationService', () => {
+  let testScheduler;
+
   let service: EpersonRegistrationService;
   let requestService: RequestService;
 
@@ -29,6 +32,12 @@ describe('EpersonRegistrationService', () => {
     rd = createSuccessfulRemoteDataObject(registrationWithUser);
     halService = new HALEndpointServiceStub('rest-url');
 
+    testScheduler = new TestScheduler((actual, expected) => {
+      // asserting the two objects are equal
+      // e.g. using chai.
+      expect(actual).toEqual(expected);
+    });
+
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: 'request-id',
       send: {},
@@ -36,7 +45,8 @@ describe('EpersonRegistrationService', () => {
         { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) })
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildFromRequestUUID: observableOf(rd)
+      buildSingle: observableOf(rd),
+      buildFromRequestUUID: observableOf(rd),
     });
     service = new EpersonRegistrationService(
       requestService,
@@ -87,6 +97,49 @@ describe('EpersonRegistrationService', () => {
         })
       }));
 
+    });
+
+    it('should return the original registration if it was already cached', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        rdbService.buildSingle.and.returnValue(cold('a-b-c', {
+          a: createSuccessfulRemoteDataObject(registrationWithUser),
+          b: createPendingRemoteDataObject(),
+          c: createSuccessfulRemoteDataObject(new Registration())
+        }));
+
+        expectObservable(
+          service.searchByToken('test-token')
+        ).toBe('(a|)', {
+          a: Object.assign(new Registration(), {
+            email: registrationWithUser.email,
+            token: 'test-token',
+            user: registrationWithUser.user
+          })
+        });
+      });
+    });
+
+    it('should re-request the registration if it was already cached but stale', () => {
+      const rdCachedStale = createSuccessfulRemoteDataObject(new Registration());
+      rdCachedStale.state = RequestEntryState.SuccessStale;
+
+      testScheduler.run(({ cold, expectObservable }) => {
+        rdbService.buildSingle.and.returnValue(cold('a-b-c', {
+          a: rdCachedStale,
+          b: createPendingRemoteDataObject(),
+          c: createSuccessfulRemoteDataObject(registrationWithUser),
+        }));
+
+        expectObservable(
+          service.searchByToken('test-token')
+        ).toBe('----(c|)', {
+         c: Object.assign(new Registration(), {
+           email: registrationWithUser.email,
+           token: 'test-token',
+           user: registrationWithUser.user
+         })
+        });
+      });
     });
   });
 
