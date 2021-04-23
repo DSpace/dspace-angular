@@ -37,6 +37,7 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
+  DynamicFormControlEventType,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -395,8 +396,24 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     });
 
     if (hasValue(this.model.value)) {
-      this.submissionService.dispatchSave(this.model.submissionId);
+      this.focus.emit({
+        $event: new Event('focus'),
+        context: this.context,
+        control: this.control,
+        model: this.model,
+        type: DynamicFormControlEventType.Focus
+      } as DynamicFormControlEvent);
+
+      this.change.emit({
+        $event: new Event('change'),
+        context: this.context,
+        control: this.control,
+        model: this.model,
+        type: DynamicFormControlEventType.Change
+      } as DynamicFormControlEvent);
     }
+
+    this.submissionService.dispatchSave(this.model.submissionId);
 
     const modalComp = this.modalRef.componentInstance;
 
@@ -427,6 +444,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     const path = this.formBuilderService.getPath(arrayContext);
     const formArrayControl = this.group.root.get(path) as FormArray;
     this.formBuilderService.removeFormArrayGroup(this.context.index, formArrayControl, arrayContext);
+    if (this.model.parent.context.groups.length === 0) {
+      this.formBuilderService.addFormArrayGroup(formArrayControl, arrayContext);
+    }
   }
 
   /**

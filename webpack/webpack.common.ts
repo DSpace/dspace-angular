@@ -17,7 +17,9 @@ export const copyWebpackOptions = {
       to: 'assets',
     },
     {
-      from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*'),
+      // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
+      // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+      from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
       to: 'assets',
       noErrorOnMissing: true,
       transformPath(targetPath, absolutePath) {
@@ -77,7 +79,7 @@ export const commonExports = {
         test: /\.scss$/,
         exclude: [
           /node_modules/,
-          /(_exposed)?_variables.scss$|\/src\/themes\/[^/]+\/styles\/.+.scss$/
+          /(_exposed)?_variables.scss$|[\/|\\]src[\/|\\]themes[\/|\\].+?[\/|\\]styles[\/|\\].+\.scss$/
         ],
         use: [
           ...SCSS_LOADERS,
@@ -90,7 +92,7 @@ export const commonExports = {
         ]
       },
       {
-        test: /(_exposed)?_variables.scss$|\/src\/themes\/[^/]+\/styles\/.+.scss$/,
+        test: /(_exposed)?_variables.scss$|[\/|\\]src[\/|\\]themes[\/|\\].+?[\/|\\]styles[\/|\\].+\.scss$/,
         exclude: [/node_modules/],
         use: [
           ...SCSS_LOADERS,

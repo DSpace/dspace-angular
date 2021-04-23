@@ -3,7 +3,10 @@ import { FileDownloadLinkComponent } from './file-download-link.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { FileService } from '../../core/shared/file.service';
 import { of as observableOf } from 'rxjs';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { By } from '@angular/platform-browser';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { getBitstreamModuleRoute } from '../../app-routing-paths';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -11,14 +14,16 @@ describe('FileDownloadLinkComponent', () => {
 
   let authService: AuthService;
   let fileService: FileService;
-  let href: string;
+  let bitstream: Bitstream;
 
   function init() {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true)
     });
     fileService = jasmine.createSpyObj('fileService', ['downloadFile']);
-    href = 'test-download-file-link';
+    bitstream = Object.assign(new Bitstream(), {
+      uuid: 'bitstreamUuid',
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -28,7 +33,6 @@ describe('FileDownloadLinkComponent', () => {
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: FileService, useValue: fileService },
-        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a } },
       ]
     })
       .compileComponents();
@@ -37,23 +41,22 @@ describe('FileDownloadLinkComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FileDownloadLinkComponent);
     component = fixture.componentInstance;
-    component.href = href;
+    component.bitstream = bitstream;
     fixture.detectChanges();
   });
 
-  describe('downloadFile', () => {
-    let result;
+  describe('init', () => {
 
-    beforeEach(() => {
-      result = component.downloadFile();
+    describe('getBitstreamPath', () => {
+      it('should set the bitstreamPath based on the input bitstream', () => {
+        expect(component.bitstreamPath).toEqual(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
+      });
     });
 
-    it('should call fileService.downloadFile with the provided href', () => {
-      expect(fileService.downloadFile).toHaveBeenCalledWith(href);
+    it('should init the component', () => {
+      const link = fixture.debugElement.query(By.css('a')).nativeElement;
+      expect(link.href).toContain(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
     });
 
-    it('should return false', () => {
-      expect(result).toEqual(false);
-    });
   });
 });

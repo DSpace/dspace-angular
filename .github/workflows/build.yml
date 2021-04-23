@@ -53,6 +53,9 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
+      - name: Install the latest chromedriver compatible with the installed chrome version
+        run: yarn global add chromedriver --detect_chromedriver_version
+
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
 
@@ -94,7 +97,9 @@ jobs:
         run: curl http://localhost:8080/server/api
 
       - name: Run e2e tests (integration tests)
-        run: yarn run e2e:ci
+        run: |
+          chromedriver --url-base='/wd/hub' --port=4444 &
+          yarn run e2e:ci
 
       - name: Shutdown Docker containers
         run: docker-compose -f ./docker/docker-compose-ci.yml down

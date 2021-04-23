@@ -23,7 +23,7 @@ class CustomLoader implements TranslateLoader {
       'footer': {
         'copyright': 'copyright © 2002-{{ year }}',
         'link.dspace': 'DSpace software',
-        'link.duraspace': 'DuraSpace'
+        'link.lyrasis': 'LYRASIS'
       }
     });
   }
