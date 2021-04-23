@@ -21,7 +21,7 @@ import { RouteService } from '../../services/route.service';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchConfig, SortOption } from './search-filters/search-config.model';
+import { SearchConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
 import { of } from 'rxjs/internal/observable/of';
 import { PaginationService } from '../../pagination/pagination.service';
@@ -205,40 +205,33 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Creates an observable of SortOptions[] every time the configuration$ stream emits.
+   * Creates an observable of SearchConfig every time the configuration$ stream emits.
    * @param configuration$
    * @param service
    */
-  getConfigurationSortOptionsObservable(configuration$: Observable<string>, service: SearchService): Observable<SortOptions[]> {
+  getConfigurationSearchConfigObservable(configuration$: Observable<string>, service: SearchService): Observable<SearchConfig> {
     return configuration$.pipe(
       distinctUntilChanged(),
       switchMap((configuration) => service.getSearchConfigurationFor(null, configuration)),
-      getFirstSucceededRemoteDataPayload(),
-      map((searchConfig: SearchConfig) => {
-        const sortOptions = [];
-        searchConfig.sortOptions.forEach((sortOption: SortOption) => {
-          console.log(sortOption);
-          const firstOrder = (sortOption.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase()) ? SortDirection.ASC : SortDirection.DESC;
-          const secondOrder = (sortOption.sortOrder.toLowerCase() !== SortDirection.ASC.toLowerCase()) ? SortDirection.ASC : SortDirection.DESC;
-          sortOptions.push(new SortOptions(sortOption.name, firstOrder));
-          sortOptions.push(new SortOptions(sortOption.name, secondOrder));
-        });
-        return sortOptions;
-      }));
+      getFirstSucceededRemoteDataPayload());
   }
 
   /**
-   * Every time sortOptions change (after a configuration change) it update the navigation with the default sort option
+   * Every time searchConfig change (after a configuration change) it update the navigation with the default sort option
    * and emit the new paginateSearchOptions value.
    * @param configuration$
    * @param service
    */
-  initializeSortOptionsFromConfiguration(sortOptions$: Observable<SortOptions[]>) {
-    const subscription = sortOptions$.pipe(switchMap((sortOptions) => combineLatest([
-      of(sortOptions),
+  initializeSortOptionsFromConfiguration(searchConfig$: Observable<SearchConfig>) {
+    const subscription = searchConfig$.pipe(switchMap((searchConfig) => combineLatest([
+      of(searchConfig),
       this.paginatedSearchOptions.pipe(take(1))
-    ]))).subscribe(([sortOptions, searchOptions]) => {
-      const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, { sort: sortOptions[0]});
+    ]))).subscribe(([searchConfig, searchOptions]) => {
+      const field = searchConfig.sortOptions[0].name;
+      const direction = searchConfig.sortOptions[0].sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC;
+      const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
+        sort: new SortOptions(field, direction)
+      });
       this.paginationService.updateRoute(this.paginationID,
         {
           sortDirection: updateValue.sort.direction,
@@ -247,6 +240,22 @@ export class SearchConfigurationService implements OnDestroy {
       this.paginatedSearchOptions.next(updateValue);
     });
     this.subs.push(subscription);
+  }
+
+  /**
+   * Creates an observable of available SortOptions[] every time the searchConfig$ stream emits.
+   * @param searchConfig$
+   * @param service
+   */
+  getConfigurationSortOptionsObservable(searchConfig$: Observable<SearchConfig>): Observable<SortOptions[]> {
+    return searchConfig$.pipe(map((searchConfig) => {
+      const sortOptions = [];
+      searchConfig.sortOptions.forEach(sortOption => {
+        sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
+        sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
+      });
+      return sortOptions;
+    }));
   }
 
   /**
