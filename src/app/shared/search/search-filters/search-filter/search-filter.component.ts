@@ -35,7 +35,7 @@ export class SearchFilterComponent implements OnInit {
   /**
    * True when the filter is 100% collapsed in the UI
    */
-  closed = true;
+  closed: boolean;
 
   /**
    * Emits true when the filter is currently collapsed in the store
