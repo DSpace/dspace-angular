@@ -18,7 +18,7 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
@@ -29,6 +29,7 @@ import { SearchResult } from '../../../../shared/search/search-result.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -146,6 +147,11 @@ export class EditRelationshipListComponent implements OnInit {
     modalComp.repeatable = true;
     modalComp.listId = this.listId;
     modalComp.item = this.item;
+    this.item.owningCollection.pipe(
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((collection: Collection) => {
+      modalComp.collection = collection;
+    });
     modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
