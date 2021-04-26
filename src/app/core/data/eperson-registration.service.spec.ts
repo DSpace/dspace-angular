@@ -1,16 +1,16 @@
 import { RequestService } from './request.service';
 import { EpersonRegistrationService } from './eperson-registration.service';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry, RequestEntryState } from './request.reducer';
+import { RequestEntry } from './request.reducer';
 import { cold } from 'jasmine-marbles';
 import { PostRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { TestScheduler } from 'rxjs/testing';
 
-fdescribe('EpersonRegistrationService', () => {
+describe('EpersonRegistrationService', () => {
   let testScheduler;
 
   let service: EpersonRegistrationService;
@@ -96,51 +96,26 @@ fdescribe('EpersonRegistrationService', () => {
           user: registrationWithUser.user
         })
       }));
-
     });
 
-    it('should return the original registration if it was already cached', () => {
+    it('should use cached responses and /registrations/search/findByToken?', () => {
       testScheduler.run(({ cold, expectObservable }) => {
-        rdbService.buildSingle.and.returnValue(cold('a-b-c', {
-          a: createSuccessfulRemoteDataObject(registrationWithUser),
-          b: createPendingRemoteDataObject(),
-          c: createSuccessfulRemoteDataObject(new Registration())
-        }));
+        rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));
 
-        expectObservable(
-          service.searchByToken('test-token')
-        ).toBe('(a|)', {
-          a: Object.assign(new Registration(), {
-            email: registrationWithUser.email,
-            token: 'test-token',
-            user: registrationWithUser.user
-          })
+        service.searchByToken('test-token');
+
+        expect(requestService.send).toHaveBeenCalledWith(
+          jasmine.objectContaining({
+            uuid: 'request-id', method: 'GET',
+            href: 'rest-url/registrations/search/findByToken?token=test-token',
+          }), true
+        );
+        expectObservable(rdbService.buildSingle.calls.argsFor(0)[0]).toBe('(a|)', {
+          a: 'rest-url/registrations/search/findByToken?token=test-token'
         });
       });
     });
 
-    it('should re-request the registration if it was already cached but stale', () => {
-      const rdCachedStale = createSuccessfulRemoteDataObject(new Registration());
-      rdCachedStale.state = RequestEntryState.SuccessStale;
-
-      testScheduler.run(({ cold, expectObservable }) => {
-        rdbService.buildSingle.and.returnValue(cold('a-b-c', {
-          a: rdCachedStale,
-          b: createPendingRemoteDataObject(),
-          c: createSuccessfulRemoteDataObject(registrationWithUser),
-        }));
-
-        expectObservable(
-          service.searchByToken('test-token')
-        ).toBe('----(c|)', {
-         c: Object.assign(new Registration(), {
-           email: registrationWithUser.email,
-           token: 'test-token',
-           user: registrationWithUser.user
-         })
-        });
-      });
-    });
   });
 
 });
