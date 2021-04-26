@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, startWith, switchMap, take, } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -8,7 +8,7 @@ import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue, isEmpty } from '../shared/empty.util';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
@@ -139,9 +139,10 @@ export class SearchComponent implements OnInit {
       this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
     }
 
-    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(this.configuration$, this.service);
+    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(this.configuration$, this.service);
 
-    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$);
+    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(searchConfig$);
+    this.searchConfigService.initializeSortOptionsFromConfiguration(searchConfig$);
 
   }
 
