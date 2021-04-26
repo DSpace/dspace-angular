@@ -3097,15 +3097,39 @@
 
   "person.page.orcid.sync-publications.disabled" : "Disabled",
 
-  "person.page.orcid.sync-queue.delete" : "Delete",
+  "person.page.orcid.sync-queue.discard" : "Discard",
 
-  "person.page.orcid.sync-queue.delete.error": "The deletion of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
 
-  "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
+  "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
 
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
-  "person.page.orcid.sync-queue.entity-name" : "Name",
+  "person.page.orcid.sync-queue.description" : "Description",
+
+  "person.page.orcid.sync-queue.action" : "Action",
+
+  "person.page.orcid.sync-queue.action.delete" : "Delete",
+
+  "person.page.orcid.sync-queue.action.insert" : "Insert",
+
+  "person.page.orcid.sync-queue.action.update" : "Update",
+
+  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+
+  "person.page.orcid.sync-queue.description.country": "Country",
+
+  "person.page.orcid.sync-queue.description.education": "Educations",
+
+  "person.page.orcid.sync-queue.description.external_ids": "External ids",
+
+  "person.page.orcid.sync-queue.description.other_names": "Other names",
+
+  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+
+  "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+
+  "person.page.orcid.sync-queue.description.keywords": "Keywords",
 
   "person.page.orcid.sync-queue.send" : "Send",
 
