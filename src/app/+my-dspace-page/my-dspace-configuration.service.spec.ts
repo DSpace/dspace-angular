@@ -27,7 +27,10 @@ describe('MyDSpaceConfigurationService', () => {
     scope: ''
   });
 
-  const backendFilters = [new SearchFilter('f.namedresourcetype', ['another value']), new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'])];
+  const backendFilters = [
+    new SearchFilter('f.namedresourcetype', ['another value']),
+    new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'], 'equals')
+  ];
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
