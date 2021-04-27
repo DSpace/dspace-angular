@@ -9,6 +9,12 @@ import {
   getFirstSucceededRemoteData
 } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
+
+export const PAGINATED_RELATIONS_TO_ITEMS_OPERATOR = new InjectionToken<(thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>>('paginatedRelationsToItems', {
+  providedIn: 'root',
+  factory: () => paginatedRelationsToItems
+});
 
 /**
  * Operator for comparing arrays using a mapping function

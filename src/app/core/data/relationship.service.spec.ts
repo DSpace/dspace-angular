@@ -1,5 +1,4 @@
 import { of as observableOf } from 'rxjs';
-import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -15,9 +14,9 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createPaginatedList, spyOnOperator } from '../../shared/testing/utils.test';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
-xdescribe('RelationshipService', () => {
+describe('RelationshipService', () => {
   let service: RelationshipService;
   let requestService: RequestService;
 
@@ -132,7 +131,8 @@ xdescribe('RelationshipService', () => {
       null,
       null,
       null,
-      null
+      null,
+      jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
     );
   }
 
@@ -195,8 +195,6 @@ xdescribe('RelationshipService', () => {
 
       const rd$ = createSuccessfulRemoteDataObject$(relationsList);
       spyOn(service, 'getItemRelationshipsByLabel').and.returnValue(rd$);
-
-      spyOnOperator(ItemRelationshipsUtils, 'paginatedRelationsToItems').and.returnValue((v) => v);
     });
 
     it('should call getItemRelationshipsByLabel with the correct params', (done) => {
@@ -225,7 +223,7 @@ xdescribe('RelationshipService', () => {
         mockLabel,
         mockOptions
       ).subscribe((result) => {
-        expect(ItemRelationshipsUtils.paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
+        expect((service as any).paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
       });
     });

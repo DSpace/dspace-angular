@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { debounceTime, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import {
   getRemoteDataPayload,
-  getFirstSucceededRemoteData
+  getFirstSucceededRemoteData, DEBOUNCE_TIME_OPERATOR
 } from '../../../../../core/shared/operators';
 import {
   AddRelationshipAction,
@@ -71,7 +71,7 @@ export class RelationshipEffects {
             this.initialActionMap[identifier] = action.type;
             this.debounceMap[identifier] = new BehaviorSubject<string>(action.type);
             this.debounceMap[identifier].pipe(
-              debounceTime(DEBOUNCE_TIME),
+              this.debounceTime(DEBOUNCE_TIME),
               take(1)
             ).subscribe(
               (type) => {
@@ -159,6 +159,7 @@ export class RelationshipEffects {
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private selectableListService: SelectableListService,
+              @Inject(DEBOUNCE_TIME_OPERATOR) private debounceTime: <T>(dueTime: number) => (source: Observable<T>) => Observable<T>,
   ) {
   }
 

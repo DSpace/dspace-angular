@@ -1,6 +1,9 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
-import { MetadataRepresentation } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { getMetadataRepresentationComponent } from './metadata-representation.decorator';
+import { Component, ComponentFactoryResolver, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  MetadataRepresentation,
+  MetadataRepresentationType
+} from '../../core/shared/metadata-representation/metadata-representation.model';
+import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
@@ -45,7 +48,8 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    @Inject(METADATA_REPRESENTATION_COMPONENT_FACTORY) private getMetadataRepresentationComponent: (entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>,
   ) {
   }
 
@@ -68,6 +72,6 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
    * @returns {string}
    */
   private getComponent(): GenericConstructor<MetadataRepresentationListElementComponent> {
-    return getMetadataRepresentationComponent(this.mdRepresentation.itemType, this.mdRepresentation.representationType, this.context, this.themeService.getThemeName());
+    return this.getMetadataRepresentationComponent(this.mdRepresentation.itemType, this.mdRepresentation.representationType, this.context, this.themeService.getThemeName());
   }
 }
