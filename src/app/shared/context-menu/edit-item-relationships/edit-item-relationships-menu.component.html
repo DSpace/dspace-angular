@@ -1,0 +1,7 @@
+<ng-container *ngIf="(isEditAvailable() | async)">
+  <a ngbDropdownItem
+          *ngFor="let relation of relationships"
+          [routerLink]="['/edit-item-relationships', contextMenuObject.id , relation.shortname]">
+    {{relation.value ? (relation.value | translate) : ('context-menu.actions.edit-item-relationships.btn.' + relation.shortname | translate)}}
+  </a>
+</ng-container>

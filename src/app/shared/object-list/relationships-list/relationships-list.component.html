@@ -1,0 +1,4 @@
+<ds-relationships-items-list-preview [item]="dso"
+                      [object]="object" [customData]="customData"></ds-relationships-items-list-preview>
+
+<ds-relationships-items-actions [object]="dso" (processCompleted)="customEvent.emit($event)" [customData]="customData" ></ds-relationships-items-actions>

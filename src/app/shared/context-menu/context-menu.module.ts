@@ -12,6 +12,7 @@ import { AuditItemMenuComponent } from './audit-item/audit-item-menu.component';
 import { DsoPageEditMenuComponent } from './dso-page-edit/dso-page-edit-menu.component';
 import { ExportCollectionMenuComponent } from './export-collection/export-collection-menu.component';
 import { BulkImportMenuComponent } from './bulk-import/bulk-import-menu.component';
+import { EditItemRelationshipsMenuComponent } from './edit-item-relationships/edit-item-relationships-menu.component';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -20,7 +21,8 @@ const COMPONENTS = [
   ContextMenuComponent,
   EditItemMenuComponent,
   ExportItemMenuComponent,
-  ExportCollectionMenuComponent
+  ExportCollectionMenuComponent,
+  EditItemRelationshipsMenuComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -29,7 +31,8 @@ const ENTRY_COMPONENTS = [
   AuditItemMenuComponent,
   EditItemMenuComponent,
   ExportItemMenuComponent,
-  ExportCollectionMenuComponent
+  ExportCollectionMenuComponent,
+  EditItemRelationshipsMenuComponent
 ];
 
 const MODULE = [

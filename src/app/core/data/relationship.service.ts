@@ -34,6 +34,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
+  getAllSucceededRemoteData,
   getRemoteDataPayload
 } from '../shared/operators';
 import { DataService } from './data.service';
@@ -104,15 +105,20 @@ export class RelationshipService extends DataService<Relationship> {
   /**
    * Send a delete request for a relationship by ID
    * @param id
+   * @param copyVirtualMetadata
    */
-  deleteRelationship(id: string, copyVirtualMetadata: string): Observable<RemoteData<NoContent>> {
+  deleteRelationship(id: string, copyVirtualMetadata?: string): Observable<RemoteData<NoContent>> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       take(1),
       distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata)
-      ),
+      map( (endpointURL: string) => {
+        if ( !!copyVirtualMetadata ) {
+          return new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata);
+        } else {
+          return new DeleteRequest(this.requestService.generateRequestId(), endpointURL);
+        }
+      }),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
@@ -193,6 +199,24 @@ export class RelationshipService extends DataService<Relationship> {
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     return this.findAllByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((rels: PaginatedList<Relationship>) => rels.page),
+      hasValueOperator(),
+      distinctUntilChanged(compareArraysUsingIds()),
+    );
+  }
+
+
+  /**
+   * Get an item's relationships in the form of an array with size 100
+   *
+   * @param item            The {@link Item} to get {@link Relationship}s for
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                        should be automatically resolved
+   */
+  getItemRelationshipsAsArrayAll(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
+    return this.findAllByHref(item._links.relationships.href + '?size=100', undefined, false, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
@@ -457,6 +481,14 @@ export class RelationshipService extends DataService<Relationship> {
         this.refreshRelationshipItemsInCacheByRelationship(reoRel.relationship.id);
       }
     });
+
+    return update$;
+  }
+
+
+  public updateRightPlace(rel: Relationship): Observable<RemoteData<Relationship>> {
+
+    const update$ = this.update(rel);
 
     return update$;
   }

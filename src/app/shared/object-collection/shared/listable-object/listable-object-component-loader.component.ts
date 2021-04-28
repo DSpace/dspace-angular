@@ -76,6 +76,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   @Input() hideBadges = false;
 
   /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
+
+  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
@@ -90,6 +95,12 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    * Emit when the listable object has been reloaded.
    */
   @Output() contentChange = new EventEmitter<ListableObject>();
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
+
 
   /**
    * Whether or not the "Private" badge should be displayed for this listable object
@@ -152,6 +163,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
     (componentRef.instance as any).context = this.context;
     (componentRef.instance as any).viewMode = this.viewMode;
     (componentRef.instance as any).value = this.value;
+    (componentRef.instance as any).customData = this.customData;
 
     if ((componentRef.instance as any).reloadedObject) {
       (componentRef.instance as any).reloadedObject.pipe(take(1)).subscribe((reloadedObject: DSpaceObject) => {
@@ -163,6 +175,16 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
         }
       });
     }
+
+
+    if ((componentRef.instance as any).customEvent) {
+      (componentRef.instance as any).customEvent.subscribe((event: any) => {
+        if (event) {
+          this.customEvent.emit(event);
+        }
+      });
+    }
+
   }
 
   /**

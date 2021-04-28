@@ -54,6 +54,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
+
+  /**
    * Emit when one of the collection's object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
@@ -121,6 +126,11 @@ export class ObjectCollectionComponent implements OnInit {
    * Event's payload equals to the newly selected sort field.
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
 
   /**
    * Emits the current view mode

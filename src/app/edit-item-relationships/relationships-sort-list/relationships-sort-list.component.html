@@ -1,0 +1,24 @@
+<div cdkDropListGroup>
+  <div class="relationships-container">
+    <h2>{{ 'relationships.title' | translate }}</h2>
+    <div *ngIf="!!relationships && relationships.length > 0; else noData"
+      cdkDropList
+      [cdkDropListData]="relationships"
+      class="relationships-list"
+      (cdkDropListDropped)="drop($event)">
+
+      <div class="relationships-sort-list" *ngFor="let relationship of relationships" cdkDrag>
+        <ds-relationships-items-list-preview [item]="(relationship.leftItem | async)?.payload"></ds-relationships-items-list-preview>
+      </div>
+
+    </div>
+
+
+    <ng-template #noData>
+       <h2>{{ 'relationships.no.relationships.found' | translate }}</h2>
+    </ng-template>
+
+
+  </div>
+
+</div>

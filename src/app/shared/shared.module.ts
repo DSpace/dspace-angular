@@ -251,6 +251,9 @@ import { ItemExportAlertComponent } from './item-export/item-export-alert/item-e
 import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { BulkImportSelectorComponent } from './dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import { RelationshipsListComponent } from './object-list/relationships-list/relationships-list.component';
+import { RelationshipsItemsActionsComponent } from './object-list/relationships-list/relationships-items-actions/relationships-items-actions.component';
+import { RelationshipsItemsListPreviewComponent } from './object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
 import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
@@ -500,7 +503,10 @@ const COMPONENTS = [
   SearchChartComponent,
   SearchChartFilterComponent,
   VocabularyExternalSourceComponent,
-  SearchNavbarComponent
+  SearchNavbarComponent,
+  RelationshipsListComponent,
+  RelationshipsItemsActionsComponent,
+  RelationshipsItemsListPreviewComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -629,7 +635,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...SHARED_SEARCH_PAGE_COMPONENTS,
-    ItemExportAlertComponent
+    ItemExportAlertComponent,
   ],
   providers: [
     ...PROVIDERS
