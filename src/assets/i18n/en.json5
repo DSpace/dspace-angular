@@ -3008,6 +3008,8 @@
   "search.results.empty": "Your search returned no results.",
 
 
+  "default.search.results.head": "Search Results",
+
 
   "search.sidebar.close": "Back to results",
 
@@ -3041,9 +3043,9 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.score.ASC": "Relevance Ascending",
+  "sorting.score.ASC": "Least Relevant",
 
-  "sorting.score.DESC": "Relevance Descending",
+  "sorting.score.DESC": "Most Relevant",
 
   "sorting.dc.date.issued.ASC": "Date Issued Ascending",
 
