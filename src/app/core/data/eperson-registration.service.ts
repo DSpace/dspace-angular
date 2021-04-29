@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { GetRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, find, map, skipWhile, take } from 'rxjs/operators';
+import { filter, find, map, skipWhile } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Registration } from '../shared/registration.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
