@@ -109,28 +109,49 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     }
   }
 
-  getDescription(orcidQueue: OrcidQueue): Observable<string> {
-    if (orcidQueue.recordType && this.isProfileRecord(orcidQueue)) {
-      return this.translateService.get('person.page.orcid.sync-queue.description.' + orcidQueue.recordType.toLowerCase());
-    } else {
-      return of(orcidQueue.description);
-    }
-  }
+  getOperation(orcidQueue: OrcidQueue): Observable<string> {
 
-  getAction(orcidQueue: OrcidQueue): Observable<string> {
-    if (!orcidQueue.entityId && orcidQueue.putCode) {
-      return this.translateService.get('person.page.orcid.sync-queue.action.delete');
-    }
-
-    if (this.isProfileRecord(orcidQueue) || (orcidQueue.entityId && orcidQueue.putCode)) {
-      return this.translateService.get('person.page.orcid.sync-queue.action.update');
-    }
-
-    if (orcidQueue.entityId && !orcidQueue.putCode) {
-      return this.translateService.get('person.page.orcid.sync-queue.action.insert');
+    if (orcidQueue.operation) {
+      return this.translateService.get('person.page.orcid.sync-queue.operation.' + orcidQueue.operation.toLowerCase());
     }
 
     return of('');
+  }
+
+  getOperationBadgeClass(orcidQueue: OrcidQueue): string {
+
+    if (!orcidQueue.operation) {
+      return '';
+    }
+
+    switch (orcidQueue.operation.toLowerCase()) {
+      case 'insert':
+        return 'badge badge-success';
+      case 'update':
+        return 'badge badge-primary';
+      case 'delete':
+        return 'badge badge-danger';
+      default:
+        return '';
+    }
+  }
+
+  getOperationClass(orcidQueue: OrcidQueue): string {
+
+    if (!orcidQueue.operation) {
+      return '';
+    }
+
+    switch (orcidQueue.operation.toLowerCase()) {
+      case 'insert':
+        return 'fas fa-plus';
+      case 'update':
+        return 'fas fa-edit';
+      case 'delete':
+        return 'fas fa-trash-alt';
+      default:
+        return '';
+    }
   }
 
   discardEntry(orcidQueue: OrcidQueue) {
@@ -160,11 +181,16 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
         switch (orcidHistory.status) {
           case 200:
           case 201:
+          case 204:
             this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
             this.updateList();
             break;
+          case 400:
+            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'));
+            break;
           case 404:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.not-found-error'));
+            this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
+            this.updateList();
             break;
           case 409:
             this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));

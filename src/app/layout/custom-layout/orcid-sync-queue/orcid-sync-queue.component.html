@@ -22,15 +22,19 @@
               <tr class="text-center align-middle">
                 <th></th>
                 <th>{{'person.page.orcid.sync-queue.description' | translate}}</th>
-                <th>{{'person.page.orcid.sync-queue.action' | translate}}</th>
+                <th>{{'person.page.orcid.sync-queue.operation' | translate}}</th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let entry of (getList() | async)?.payload?.page" >
                 <td style="width: 3%" class="text-center align-middle" > <i [ngClass]="getIconClass(entry)" aria-hidden="true"></i> </td>
-                <td class="text-center align-middle">{{ getDescription(entry) | async }}</td>
-                <td style="width: 15%" class="text-center align-middle">{{ getAction(entry) | async }}</td>
+                <td class="text-center align-middle">{{ entry.description }}</td>
+                <td style="width: 15%" class="text-center align-middle">
+                  <span [ngClass]="getOperationBadgeClass(entry)">
+                    <i [ngClass]="getOperationClass(entry)"></i>
+                  </span>
+                </td>
                 <td style="width: 25%">
                   <div class="container">
                     <div class="row">

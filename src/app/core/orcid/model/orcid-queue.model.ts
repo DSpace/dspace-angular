@@ -52,10 +52,10 @@ export class OrcidQueue extends CacheableObject {
   recordType: string;
 
   /**
-   * The identifier of the entity on ORCID.
+   * The operation related to this Orcid Queue record.
    */
   @autoserialize
-  putCode: string;
+  operation: string;
 
   /**
    * The {@link HALLink}s for this Orcid Queue record

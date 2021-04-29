@@ -56,50 +56,30 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       }
     ];
 
-    this.syncPublicationOptions = [
-      {
-        label: this.messagePrefix + '.sync-publications.disabled',
-        value: 'DISABLED'
-      },
-      {
-        label: this.messagePrefix + '.sync-publications.all',
-        value: 'ALL'
-      },
-      {
-        label: this.messagePrefix + '.sync-publications.my-selected',
-        value: 'MY_SELECTED'
-      },
-      {
-        label: this.messagePrefix + '.sync-publications.mine',
-        value: 'MINE'
-      }
-    ];
+    // this.syncPublicationOptions = ['DISABLED', 'ALL', 'MY_SELECTED', 'MINE']
+    this.syncPublicationOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-publications.' + value.toLowerCase(),
+          value: value,
+        };
+    });
 
-    this.syncProjectOptions = [
-      {
-        label: this.messagePrefix + '.sync-projects.disabled',
-        value: 'DISABLED'
-      },
-      {
-        label: this.messagePrefix + '.sync-projects.all',
-        value: 'ALL'
-      },
-      {
-        label: this.messagePrefix + '.sync-projects.my-selected',
-        value: 'MY_SELECTED'
-      },
-      {
-        label: this.messagePrefix + '.sync-projects.mine',
-        value: 'MINE'
-      }
-    ];
+    // this.syncPublicationOptions = ['DISABLED', 'ALL', 'MY_SELECTED', 'MINE']
+    this.syncProjectOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-projects.' + value.toLowerCase(),
+          value: value,
+        };
+    });
 
     const syncProfilePreferences = this.item.allMetadataValues('cris.orcid.sync-profile');
 
     this.syncProfileOptions = ['AFFILIATION', 'EDUCATION', 'BIOGRAPHICAL', 'IDENTIFIERS']
       .map((value) => {
         return {
-          label: this.messagePrefix + '.sync-profile.' + value.toLocaleLowerCase(),
+          label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),
           value: value,
           checked: syncProfilePreferences.includes(value)
         };

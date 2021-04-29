@@ -3085,7 +3085,7 @@
 
   "person.page.orcid.sync-projects.mine" : "My projects",
 
-  "person.page.orcid.sync-projects.my-selected" : "Selected projects",
+  "person.page.orcid.sync-projects.my_selected" : "Selected projects",
 
   "person.page.orcid.sync-projects.disabled" : "Disabled",
 
@@ -3093,7 +3093,7 @@
 
   "person.page.orcid.sync-publications.mine" : "My publications",
 
-  "person.page.orcid.sync-publications.my-selected" : "Selected publications",
+  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
 
   "person.page.orcid.sync-publications.disabled" : "Disabled",
 
@@ -3107,13 +3107,13 @@
 
   "person.page.orcid.sync-queue.description" : "Description",
 
-  "person.page.orcid.sync-queue.action" : "Action",
+  "person.page.orcid.sync-queue.operation" : "Operation",
 
-  "person.page.orcid.sync-queue.action.delete" : "Delete",
+  "person.page.orcid.sync-queue.operation.delete" : "Delete",
 
-  "person.page.orcid.sync-queue.action.insert" : "Insert",
+  "person.page.orcid.sync-queue.operation.insert" : "Insert",
 
-  "person.page.orcid.sync-queue.action.update" : "Update",
+  "person.page.orcid.sync-queue.operation.update" : "Update",
 
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 
@@ -3133,11 +3133,13 @@
 
   "person.page.orcid.sync-queue.send" : "Send",
 
+  "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+
   "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
 
   "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
 
-  "person.page.orcid.sync-queue.send.not-found-error": "The submission to ORCID failed because the expected resource to be update does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
 
   "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
 
