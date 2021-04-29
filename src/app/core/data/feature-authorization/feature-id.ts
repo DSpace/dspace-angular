@@ -14,7 +14,7 @@ export enum FeatureID {
   IsCommunityAdmin = 'isCommunityAdmin',
   CanDownload = 'canDownload',
   CanManageVersions = 'canManageVersions',
-  CanManageBitstreams = 'canManageBitstreams',
+  CanManageBitstreamBundles = 'canManageBitstreamBundles',
   CanManageRelationships = 'canManageRelationships',
   CanManageMappings = 'canManageMappings',
   CanManagePolicies = 'canManagePolicies',

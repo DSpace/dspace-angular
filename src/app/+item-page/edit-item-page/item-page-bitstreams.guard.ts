@@ -26,6 +26,6 @@ export class ItemPageBitstreamsGuard extends DsoPageSingleFeatureGuard<Item> {
    * Check manage bitstreams authorization rights
    */
   getFeatureID(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(FeatureID.CanManageBitstreams);
+    return observableOf(FeatureID.CanManageBitstreamBundles);
   }
 }
