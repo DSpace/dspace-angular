@@ -84,7 +84,7 @@ export class EpersonRegistrationService {
 
     const href$ = this.getTokenSearchEndpoint(token).pipe(
       find((href: string) => hasValue(href)),
-    )
+    );
 
     href$.subscribe((href: string) => {
       const request = new GetRequest(requestId, href);

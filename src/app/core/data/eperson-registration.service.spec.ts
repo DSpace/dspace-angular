@@ -99,8 +99,8 @@ describe('EpersonRegistrationService', () => {
     });
 
     it('should use cached responses and /registrations/search/findByToken?', () => {
-      testScheduler.run(({ cold, expectObservable }) => {
-        rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));
+      testScheduler.run(({ tscold, expectObservable }) => {
+        rdbService.buildSingle.and.returnValue(tscold('a', { a: rd }));
 
         service.searchByToken('test-token');
 
@@ -119,3 +119,4 @@ describe('EpersonRegistrationService', () => {
   });
 
 });
+/**/
