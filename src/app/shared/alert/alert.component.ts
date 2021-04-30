@@ -26,6 +26,11 @@ export class AlertComponent {
   @Input() content: string;
 
   /**
+   * A boolean representing if alert is collapsible
+   */
+  @Input() collapsible = false;
+
+  /**
    * A boolean representing if alert is dismissible
    */
   @Input() dismissible = false;
@@ -33,7 +38,7 @@ export class AlertComponent {
   /**
    * The alert type
    */
-  @Input() type: AlertType;
+  @Input() type: AlertType|string;
 
   /**
    * An event fired when alert is dismissed.
@@ -48,7 +53,12 @@ export class AlertComponent {
   /**
    * A boolean representing if alert is dismissed or not
    */
-  public dismissed = false;
+  public isDismissed = false;
+
+  /**
+   * A boolean representing if alert is collapsed or not
+   */
+  public isCollapsed = false;
 
   /**
    * Initialize instance variables
@@ -66,11 +76,18 @@ export class AlertComponent {
       this.animate = 'fadeOut';
       this.cdr.detectChanges();
       setTimeout(() => {
-        this.dismissed = true;
+        this.isDismissed = true;
         this.close.emit();
         this.cdr.detectChanges();
       }, 300);
 
     }
+  }
+
+  /**
+   * Toggle collapsible text
+   */
+  toggle() {
+    this.isCollapsed = !this.isCollapsed;
   }
 }
