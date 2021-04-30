@@ -757,64 +757,49 @@
   "bitstream.edit.form.description.hint": "Il vous est possible d'entrer une description facultative pour le fichier, par exemple \"<i>Article principal</i>\" ou \"<i>Données sous-jacentes</i>\".",
   
   // "bitstream.edit.form.description.label": "Description",
-  // TODO New key - Add a translation
   "bitstream.edit.form.description.label": "Description",
   
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  "bitstream.edit.form.embargo.hint": "Le premier jour à partir duquel l'accès est autorisé. <b>Cette date ne peut être modifiée depuis ce formulaire.</b> Pour définir une date d'embargo sur un fichier, aller dans l'onglet <i>Statut Item</i>, cliquer sur <i>Autorisations...</i>, créer ou éditer les politiques <i>READ</i> du fichier et configurer la <i>Date de début</i> souhaitée."
   
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+  "bitstream.edit.form.embargo.label": "Embargo jusqu'à une date spécifique",
   
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "Changer le nom du fichier. Ceci modifiera l'URL affichée pour le fichier mais les anciens liens continuerons de fonctionner tant que le numéro de séquence n'est pas modifié.",
   
   // "bitstream.edit.form.fileName.label": "Filename",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.label": "Filename",
+  "bitstream.edit.form.fileName.label": "Nom du fichier",
   
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "Décrire nouveau format",
   
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "L'application utilisée pour créer le fichier et le numéro de version (par exemple, \"<i>ACMESoft SuperApp version 1.5</i>\").",
   
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Bitstream principal",
   
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "Si le format souhaité ne se trouve pas dans la liste ci-dessus, <b>sélectionner \"Format non disponible dans la liste\" ci-dessus</b> et le décrire via \"Décrire nouveau format\".",
   
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+  "bitstream.edit.form.selectedFormat.label": "Format sélectionné",
   
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+  "bitstream.edit.form.selectedFormat.unknown": "Format non disponible dans la liste",
   
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+  "bitstream.edit.notifications.error.format.title": "Une erreur s'est produite lors de la sauvegarde du format bitstream",
   
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.content": "Vos changements ont bien été sauvegardés.",
   
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+  "bitstream.edit.notifications.saved.title": "Bitstream sauvegardé",
   
   // "bitstream.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.title": "Edit bitstream",
+  "bitstream.edit.title": "Éditer Bitstream",
   
   
   
@@ -849,20 +834,16 @@
   "browse.metadata.title": "Titre",
   
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author.breadcrumbs": "Browse by Author",
+  "browse.metadata.author.breadcrumbs": "Parcourir par Auteur",
   
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+  "browse.metadata.dateissued.breadcrumbs": "Parcourir par Date",
   
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+  "browse.metadata.subject.breadcrumbs": "Parcourir par Sujet",
   
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title.breadcrumbs": "Browse by Title",
+  "browse.metadata.title.breadcrumbs": "Parcourir par Titre",
   
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Choisir point de départ)",
@@ -934,15 +915,13 @@
   "collection.create.head": "Créer une Collection",
   
   // "collection.create.notifications.success": "Successfully created the Collection",
-  // TODO New key - Add a translation
-  "collection.create.notifications.success": "Successfully created the Collection",
+  "collection.create.notifications.success": "Collection créée avec succès",
   
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
   "collection.create.sub-head": "Créer une Collection au sein de la Communauté {{ parent }}",
   
   // "collection.curate.header": "Curate Collection: {{collection}}",
-  // TODO New key - Add a translation
-  "collection.curate.header": "Curate Collection: {{collection}}",
+  "collection.curate.header": "Gestion contenu Collection: {{collection}}",
   
   // "collection.delete.cancel": "Cancel",
   "collection.delete.cancel": "Annuler",
@@ -971,17 +950,12 @@
   "collection.edit.head": "Éditer Collection",
   
   // "collection.edit.breadcrumbs": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.breadcrumbs": "Edit Collection",
-  
-  
-  
+  "collection.edit.breadcrumbs": "Éditer Collection",
+    
   // "collection.edit.tabs.mapper.head": "Item Mapper",
-  // TODO New key - Add a translation
   "collection.edit.tabs.mapper.head": "Item Mapper",
   
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  // TODO New key - Add a translation
   "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
   
   // "collection.edit.item-mapper.cancel": "Cancel",
@@ -1038,42 +1012,33 @@
   
   
   // "collection.edit.logo.label": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.label": "Collection logo",
+  "collection.edit.logo.label": "Logo de la collection",
   
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  "collection.edit.logo.notifications.add.error": "Erreur lors du chargement du logo de la collection. Veuillez vérifier le contenu et réessayer.",
   
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  "collection.edit.logo.notifications.add.success": "Logo de la collection chargé avec succès.",
   
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "collection.edit.logo.notifications.delete.success.title": "Logo supprimé",
   
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
+  "collection.edit.logo.notifications.delete.success.content": "Logo de la collection supprimé avec succès",
   
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "collection.edit.logo.notifications.delete.error.title": "Erreur lors de la suppression du logo de la collection.",
   
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  // TODO New key - Add a translation
-  "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  "collection.edit.logo.upload": "Glisser-Déposer un logo à charger pour la collection",
   
   
   
   // "collection.edit.notifications.success": "Successfully edited the Collection",
-  // TODO New key - Add a translation
-  "collection.edit.notifications.success": "Successfully edited the Collection",
+  "collection.edit.notifications.success": "Collection mise à jour avec succès",
   
   // "collection.edit.return": "Return",
-  // TODO New key - Add a translation
-  "collection.edit.return": "Return",
+  "collection.edit.return": "Retour",
   
   
   
