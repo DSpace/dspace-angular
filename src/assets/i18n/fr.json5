@@ -588,211 +588,157 @@
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Ajouter \"{{name}}\"",
   
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Pas de groupe actif, veuillez d'abord entrer un nom.",
   
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "Ce groupe ne contient pas encore de membres, vous pouvez en rechercher et les ajouter.",
   
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+  "admin.access-control.groups.form.members-list.no-items": "Aucune EPerson ne correspond à cette recherche",
   
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "Une erreur s'est produite : \"{{cause}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+  "admin.access-control.groups.form.subgroups-list.head": "Groupes",
   
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+  "admin.access-control.groups.form.subgroups-list.search.head": "Ajouter un sous-groupe",
   
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Parcourir tout",
   
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Sous-groupes actuels",
   
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+  "admin.access-control.groups.form.subgroups-list.search.button": "Rechercher",
   
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+  "admin.access-control.groups.form.subgroups-list.table.name": "Nom",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "Supprimer / Ajouter",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Supprimer le sous-groupe \"{{name}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Ajouter le sous-groupe \"{{name}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
+  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Groupe actuel",
   
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Sous-groupe \"{{name}}\" ajouté avec succès",
   
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Erreur lors de la création du sous-groupe \"{{name}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Sous-groupe \"{{name}}\" supprimé avec succès",
   
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Erreur lors de la suppression du sous-groupe \"{{name}}\"",
   
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Pas de groupe actif, veuillez d'abord entrer un nom.",
+ 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Il s'agit du groupe actuel, impossible de l'ajouter comme sous-groupe.",
   
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  
+  "admin.access-control.groups.form.subgroups-list.no-items": "Aucun groupe ne correspond à ce nom ou cet identifiant UUID",
+
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Pas encore de sous-groupes liés à ce groupe.",
   
   // "admin.access-control.groups.form.return": "Return to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.return": "Return to groups",
+  "admin.access-control.groups.form.return": "Retour aux groupes",
   
-  
+
   
   // "admin.search.breadcrumbs": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.breadcrumbs": "Administrative Search",
+  "admin.search.breadcrumbs": "Recherche Administrateur",
   
   // "admin.search.collection.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.collection.edit": "Edit",
+  "admin.search.collection.edit": "Éditer",
   
   // "admin.search.community.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.community.edit": "Edit",
+  "admin.search.community.edit": "Éditer",
   
   // "admin.search.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.search.item.delete": "Delete",
+  "admin.search.item.delete": "Supprimer",
   
   // "admin.search.item.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.item.edit": "Edit",
+  "admin.search.item.edit": "Éditer",
   
   // "admin.search.item.make-private": "Make Private",
-  // TODO New key - Add a translation
-  "admin.search.item.make-private": "Make Private",
+  "admin.search.item.make-private": "Rendre privé",
   
   // "admin.search.item.make-public": "Make Public",
-  // TODO New key - Add a translation
-  "admin.search.item.make-public": "Make Public",
+  "admin.search.item.make-public": "Rendre public",
   
   // "admin.search.item.move": "Move",
-  // TODO New key - Add a translation
-  "admin.search.item.move": "Move",
+  "admin.search.item.move": "Déplacer",
   
   // "admin.search.item.reinstate": "Reinstate",
-  // TODO New key - Add a translation
-  "admin.search.item.reinstate": "Reinstate",
+  "admin.search.item.reinstate": "Restaurer",
   
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "Retirer",
   
   // "admin.search.title": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.title": "Administrative Search",
+  "admin.search.title": "Recherche Administrateur",
   
   // "administrativeView.search.results.head": "Administrative Search",
-  // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
-  
-  
+  "administrativeView.search.results.head": "Recherche Administrateur",
   
   
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
+  "admin.workflow.breadcrumbs": "Workflow Administrateur",
   
   // "admin.workflow.title": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
+  "admin.workflow.title": "Workflow Adminisrateur",
   
   // "admin.workflow.item.workflow": "Workflow",
-  // TODO New key - Add a translation
   "admin.workflow.item.workflow": "Workflow",
   
   // "admin.workflow.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
+  "admin.workflow.item.delete": "Supprimer",
   
   // "admin.workflow.item.send-back": "Send back",
-  // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
-  
-  
+  "admin.workflow.item.send-back": "Retourner au déposant",
   
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "Importer Métadonnées",
   
   // "admin.metadata-import.title": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.title": "Import Metadata",
+  "admin.metadata-import.title": "Importer Métadonnées",
   
   // "admin.metadata-import.page.header": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.header": "Import Metadata",
+  "admin.metadata-import.page.header": "Importer Métadonnées",
   
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+  "admin.metadata-import.page.help": "Ici, vous pouvez glisser-déposer ou rechercher des fichiers CSV qui contiennent des opérations sur métadonnées",
   
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+  "admin.metadata-import.page.dropMsg": "Déposer un fichier CSV à importer",
   
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+  "admin.metadata-import.page.dropMsgReplace": "Déposer un nouveau fichier CSV pour remplacer le fichier à importer",
   
   // "admin.metadata-import.page.button.return": "Return",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.return": "Return",
+  "admin.metadata-import.page.button.return": "Retour",
   
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.proceed": "Proceed",
+  "admin.metadata-import.page.button.proceed": "Importer",
   
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFile": "Select file first!",
-  
+  "admin.metadata-import.page.error.addFile": "Veuillez d'abord sélectionner un fichier",
   
   
   
@@ -805,12 +751,10 @@
   
   
   // "bitstream.edit.bitstream": "Bitstream: ",
-  // TODO New key - Add a translation
   "bitstream.edit.bitstream": "Bitstream: ",
   
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "Il vous est possible d'entrer une description facultative pour le fichier, par exemple \"<i>Article principal</i>\" ou \"<i>Données sous-jacentes</i>\".",
   
   // "bitstream.edit.form.description.label": "Description",
   // TODO New key - Add a translation
