@@ -1043,126 +1043,97 @@
   
   
   // "collection.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.head": "Curate",
+  "collection.edit.tabs.curate.head": "Gestion du contenu",
   
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.title": "Collection Edit - Curate",
+  "collection.edit.tabs.curate.title": "Édition Collection - Gestion du contenu",
   
   // "collection.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.head": "Authorizations",
+  "collection.edit.tabs.authorizations.head": "Autorisations",
   
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+  "collection.edit.tabs.authorizations.title": "Édition Collection - Autorisations",
   
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.head": "Edit Metadata",
+  "collection.edit.tabs.metadata.head": "Éditer Métadonnées",
   
   // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
+  "collection.edit.tabs.metadata.title": "Édition Collection - Métadonnées",
   
   // "collection.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
   "collection.edit.tabs.roles.head": "Attribuer des rôles",
   
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.title": "Collection Edit - Roles",
+  "collection.edit.tabs.roles.title": "Édition Collection - Rôles",
   
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
+  "collection.edit.tabs.source.external": "Cette collection moissonne son contenu depuis une source externe",
   
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "Vous devez fournir l'ID du set OAI correspondant à la collection cible.",
   
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.harvestType": "Content being harvested",
+  "collection.edit.tabs.source.form.harvestType": "Contenu en cours de moissonnage",
   
   // "collection.edit.tabs.source.form.head": "Configure an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.head": "Configure an external source",
+  "collection.edit.tabs.source.form.head": "Configurer une source externe",
   
   // "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
+  "collection.edit.tabs.source.form.metadataConfigId": "Format de métadonnées",
   
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
+  "collection.edit.tabs.source.form.oaiSetId": "ID spécifique du set OAI",
   
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
+  "collection.edit.tabs.source.form.oaiSource": "Fournisseur OAI",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Moissonner métadonnées et bitstreams (le protocol ORE doit être supporté)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Moissonner métadonnées et bitstreams (le protocol ORE doit être supporté)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Moissonner métadonnées uniquement",
   
   // "collection.edit.tabs.source.head": "Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.head": "Content Source",
+  "collection.edit.tabs.source.head": "Source de contenu",
   
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "collection.edit.tabs.source.notifications.discarded.content": "Vos changements ont été annulés. Pour restaurer vos changements, veuillez cliquer sur le bouton 'Annuler'",
   
   // "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Changements annulés",
   
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "collection.edit.tabs.source.notifications.invalid.content": "Vos changements n'ont pas été sauvegardés. Veuillez vérifier que tous les champs sont valides avant de sauvegarder.",
   
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
+  "collection.edit.tabs.source.notifications.invalid.title": "Metadonnée invalide",
   
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
+  "collection.edit.tabs.source.notifications.saved.content": "Les changements relatifs à la source de contenu de cette collection ont bien été sauvegardés.",
   
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
+  "collection.edit.tabs.source.notifications.saved.title": "Source de contenu sauvegardée",
   
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.title": "Collection Edit - Content Source",
+  "collection.edit.tabs.source.title": "Édition Collection - Source de contenu",
   
   
   
   // "collection.edit.template.add-button": "Add",
-  // TODO New key - Add a translation
-  "collection.edit.template.add-button": "Add",
+  "collection.edit.template.add-button": "Ajouter",
   
   // "collection.edit.template.breadcrumbs": "Item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.breadcrumbs": "Item template",
+  "collection.edit.template.breadcrumbs": "Template Item",
   
   // "collection.edit.template.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.cancel": "Annuler",
   
   // "collection.edit.template.delete-button": "Delete",
-  // TODO New key - Add a translation
-  "collection.edit.template.delete-button": "Delete",
+  "collection.edit.template.delete-button": "Supprimer",
   
   // "collection.edit.template.edit-button": "Edit",
   // TODO New key - Add a translation
