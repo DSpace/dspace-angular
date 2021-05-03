@@ -3143,6 +3143,36 @@
 
   "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
 
+  "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+
+  "person.page.orcid.sync-queue.send.validation-error.project.external-id.required": "The project to be sent requires at least one identifier <br/>",
+
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "The type is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.project.coordinator.required": "The consortium coordinator is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a country",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+
   "person.page.orcid.synchronization-mode": "Synchronization mode",
 
   "person.page.orcid.synchronization-mode.batch": "Batch",

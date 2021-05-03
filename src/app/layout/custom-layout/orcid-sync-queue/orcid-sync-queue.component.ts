@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -199,6 +199,15 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
             this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
         }
 
+      } else if (remoteData.statusCode === 422) {
+        const translations = [this.translateService.get('person.page.orcid.sync-queue.send.validation-error')];
+        if (remoteData.errorMessage) {
+          remoteData.errorMessage.split(',')
+            .forEach((error) => translations.push(this.translateService.get('person.page.orcid.sync-queue.send.validation-error.' + error)));
+        }
+        combineLatest(translations).subscribe((messages) => {
+          this.notificationsService.error(messages.shift(), '<ul>' + messages.map(message => '<li>' + message + '</li>').join('') + '</ul>', {}, true);
+        });
       } else {
         this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
       }
