@@ -179,17 +179,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/processes/new'
           } as LinkMenuItemModel,
         },
-        {
-          id: 'new_item_version',
-          parentID: 'new',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.new_item_version',
-            link: ''
-          } as LinkMenuItemModel,
-        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'new_item_version',
+        //   parentID: 'new',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.new_item_version',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        // },
 
         /* Edit */
         {
@@ -244,32 +245,34 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         },
 
         /* Statistics */
-        {
-          id: 'statistics_task',
-          active: false,
-          visible: true,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics_task',
-            link: ''
-          } as LinkMenuItemModel,
-          icon: 'chart-bar',
-          index: 8
-        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'statistics_task',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.statistics_task',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        //   icon: 'chart-bar',
+        //   index: 8
+        // },
 
         /* Control Panel */
-        {
-          id: 'control_panel',
-          active: false,
-          visible: isSiteAdmin,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.control_panel',
-            link: ''
-          } as LinkMenuItemModel,
-          icon: 'cogs',
-          index: 9
-        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'control_panel',
+        //   active: false,
+        //   visible: isSiteAdmin,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.control_panel',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        //   icon: 'cogs',
+        //   index: 9
+        // },
 
         /* Processes */
         {
@@ -310,42 +313,45 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         index: 3,
         shouldPersistOnRouteChange: true
       },
-      {
-        id: 'export_community',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_community',
-          link: ''
-        } as LinkMenuItemModel,
-        shouldPersistOnRouteChange: true
-      },
-      {
-        id: 'export_collection',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_collection',
-          link: ''
-        } as LinkMenuItemModel,
-        shouldPersistOnRouteChange: true
-      },
-      {
-        id: 'export_item',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_item',
-          link: ''
-        } as LinkMenuItemModel,
-        shouldPersistOnRouteChange: true
-      },
+      // TODO: enable this menu item once the feature has been implemented
+      // {
+      //   id: 'export_community',
+      //   parentID: 'export',
+      //   active: false,
+      //   visible: true,
+      //   model: {
+      //     type: MenuItemType.LINK,
+      //     text: 'menu.section.export_community',
+      //     link: ''
+      //   } as LinkMenuItemModel,
+      //   shouldPersistOnRouteChange: true
+      // },
+      // TODO: enable this menu item once the feature has been implemented
+      // {
+      //   id: 'export_collection',
+      //   parentID: 'export',
+      //   active: false,
+      //   visible: true,
+      //   model: {
+      //     type: MenuItemType.LINK,
+      //     text: 'menu.section.export_collection',
+      //     link: ''
+      //   } as LinkMenuItemModel,
+      //   shouldPersistOnRouteChange: true
+      // },
+      // TODO: enable this menu item once the feature has been implemented
+      // {
+      //   id: 'export_item',
+      //   parentID: 'export',
+      //   active: false,
+      //   visible: true,
+      //   model: {
+      //     type: MenuItemType.LINK,
+      //     text: 'menu.section.export_item',
+      //     link: ''
+      //   } as LinkMenuItemModel,
+      //   shouldPersistOnRouteChange: true
+      // },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
@@ -392,17 +398,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'file-import',
         index: 2
       },
-      {
-        id: 'import_batch',
-        parentID: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.import_batch',
-          link: ''
-        } as LinkMenuItemModel,
-      }
+      // TODO: enable this menu item once the feature has been implemented
+      // {
+      //   id: 'import_batch',
+      //   parentID: 'import',
+      //   active: false,
+      //   visible: true,
+      //   model: {
+      //     type: MenuItemType.LINK,
+      //     text: 'menu.section.import_batch',
+      //     link: ''
+      //   } as LinkMenuItemModel,
+      // }
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
@@ -549,17 +556,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/access-control/groups'
           } as LinkMenuItemModel,
         },
-        {
-          id: 'access_control_authorizations',
-          parentID: 'access_control',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.access_control_authorizations',
-            link: ''
-          } as LinkMenuItemModel,
-        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'access_control_authorizations',
+        //   parentID: 'access_control',
+        //   active: false,
+        //   visible: authorized,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.access_control_authorizations',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        // },
         {
           id: 'access_control',
           active: false,
