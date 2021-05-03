@@ -243,20 +243,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           } as OnClickMenuItemModel,
         },
 
-        /* Curation tasks */
-        {
-          id: 'curation_tasks',
-          active: false,
-          visible: isCollectionAdmin,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.curation_task',
-            link: ''
-          } as LinkMenuItemModel,
-          icon: 'filter',
-          index: 7
-        },
-
         /* Statistics */
         {
           id: 'statistics_task',
