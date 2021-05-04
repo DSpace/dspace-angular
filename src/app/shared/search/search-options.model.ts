@@ -38,27 +38,38 @@ export class SearchOptions {
    */
   toRestUrl(url: string, args: string[] = []): string {
     if (isNotEmpty(this.configuration)) {
-      args.push(`configuration=${this.configuration}`);
+      args.push(`configuration=${encodeURIComponent(this.configuration)}`);
     }
     if (isNotEmpty(this.fixedFilter)) {
-      args.push(this.fixedFilter);
+      let fixedFilter: string;
+      const match = this.fixedFilter.match(/^([^=]+=)(.+)$/);
+
+      if (match) {
+        fixedFilter = match[1] + encodeURIComponent(match[2]);
+      } else {
+        fixedFilter = encodeURIComponent(this.fixedFilter);
+      }
+
+      args.push(fixedFilter);
     }
     if (isNotEmpty(this.query)) {
-      args.push(`query=${this.query}`);
+      args.push(`query=${encodeURIComponent(this.query)}`);
     }
     if (isNotEmpty(this.scope)) {
-      args.push(`scope=${this.scope}`);
+      args.push(`scope=${encodeURIComponent(this.scope)}`);
     }
     if (isNotEmpty(this.dsoTypes)) {
       this.dsoTypes.forEach((dsoType: string) => {
-        args.push(`dsoType=${dsoType}`);
+        args.push(`dsoType=${encodeURIComponent(dsoType)}`);
       });
     }
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {
         filter.values.forEach((value) => {
           const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
-          args.push(`${filter.key}=${filterValue}`);
+
+          // we don't want commas to get URI-encoded
+          args.push(`${filter.key}=${encodeURIComponent(filterValue).replace(/%2C/g, ',')}`);
         });
       });
     }
