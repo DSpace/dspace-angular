@@ -3,13 +3,15 @@
         {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.label' | translate}}
       </span>
 </div>
-<div *ngIf="!operation.disabled" class="col-9 float-left action-button">
-  <a class="btn btn-outline-primary" [routerLink]="operation.operationUrl">
-    {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
-  </a>
-</div>
-<div *ngIf="operation.disabled" class="col-9 float-left action-button">
-  <span class="btn btn-danger">
-    {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+<div class="col-9 float-left action-button">
+  <span *ngIf="operation.authorized">
+    <button class="btn btn-outline-primary" [disabled]="operation.disabled" [routerLink]="operation.operationUrl">
+      {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+    </button>
+  </span>
+  <span *ngIf="!operation.authorized" [ngbTooltip]="'item.edit.tabs.status.buttons.unauthorized' | translate">
+    <button class="btn btn-outline-primary" [disabled]="true">
+      {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+    </button>
   </span>
 </div>

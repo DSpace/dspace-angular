@@ -1,4 +1,4 @@
-import { FeatureAuthorizationGuard } from './feature-authorization.guard';
+import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { Observable, of as observableOf } from 'rxjs';
@@ -6,10 +6,10 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { AuthService } from '../../../auth/auth.service';
 
 /**
- * Test implementation of abstract class FeatureAuthorizationGuard
+ * Test implementation of abstract class SingleFeatureAuthorizationGuard
  * Provide the return values of the overwritten getters as constructor arguments
  */
-class FeatureAuthorizationGuardImpl extends FeatureAuthorizationGuard {
+class SingleFeatureAuthorizationGuardImpl extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService,
@@ -32,8 +32,8 @@ class FeatureAuthorizationGuardImpl extends FeatureAuthorizationGuard {
   }
 }
 
-describe('FeatureAuthorizationGuard', () => {
-  let guard: FeatureAuthorizationGuard;
+describe('SingleFeatureAuthorizationGuard', () => {
+  let guard: SingleFeatureAuthorizationGuard;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -56,7 +56,7 @@ describe('FeatureAuthorizationGuard', () => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true)
     });
-    guard = new FeatureAuthorizationGuardImpl(authorizationService, router, authService, featureId, objectUrl, ePersonUuid);
+    guard = new SingleFeatureAuthorizationGuardImpl(authorizationService, router, authService, featureId, objectUrl, ePersonUuid);
   }
 
   beforeEach(() => {

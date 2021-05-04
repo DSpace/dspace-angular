@@ -1,0 +1,50 @@
+{
+  "_embedded": {
+    "authorizations": [
+      {
+        "id": "cd824a61-95be-4e16-bccd-51fea26707d0_canManageMappings_core.item_e98b0f27-5c19-49a0-960d-eb6ad5287067",
+        "type": "authorization",
+        "_links": {
+          "eperson": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageMappings_core.item_e98b0f27-5c19-49a0-960d-eb6ad5287067/eperson"
+          },
+          "feature": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageMappings_core.item_e98b0f27-5c19-49a0-960d-eb6ad5287067/feature"
+          },
+          "object": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageMappings_core.item_e98b0f27-5c19-49a0-960d-eb6ad5287067/object"
+          },
+          "self": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageMappings_core.item_e98b0f27-5c19-49a0-960d-eb6ad5287067"
+          }
+        },
+        "_embedded": {
+          "feature": {
+            "id": "canManageMappings",
+            "description": "It can be used to verify if the mappings of the specified objects can be managed",
+            "type": "feature",
+            "resourcetypes": [
+              "core.item"
+            ],
+            "_links": {
+              "self": {
+                "href": "https://api7.dspace.org/server/api/authz/features/canManageMappings"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api7.dspace.org/server/api/authz/authorizations/search/object?uri=https://api7.dspace.org/server/api/core/items/e98b0f27-5c19-49a0-960d-eb6ad5287067&feature=canManageMappings"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}

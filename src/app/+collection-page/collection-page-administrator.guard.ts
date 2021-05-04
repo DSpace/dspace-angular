@@ -4,7 +4,7 @@ import { Collection } from '../core/shared/collection.model';
 import { CollectionPageResolver } from './collection-page.resolver';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { Observable, of as observableOf } from 'rxjs';
-import { DsoPageFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
+import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { AuthService } from '../core/auth/auth.service';
 
@@ -14,7 +14,7 @@ import { AuthService } from '../core/auth/auth.service';
 /**
  * Guard for preventing unauthorized access to certain {@link Collection} pages requiring administrator rights
  */
-export class CollectionPageAdministratorGuard extends DsoPageFeatureGuard<Collection> {
+export class CollectionPageAdministratorGuard extends DsoPageSingleFeatureGuard<Collection> {
   constructor(protected resolver: CollectionPageResolver,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,

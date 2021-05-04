@@ -1520,7 +1520,7 @@
 
   "item.edit.breadcrumbs": "Edit Item",
 
-  "item.edit.tabs.disabled.tooltip": "You don't have permission to access this tab",
+  "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
 
 
   "item.edit.tabs.mapper.head": "Collection Mapper",
@@ -1764,6 +1764,8 @@
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
 
   "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
+
+  "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
   "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
 

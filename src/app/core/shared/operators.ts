@@ -207,10 +207,23 @@ export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
  */
 export const returnForbiddenUrlTreeOrLoginOnFalse = (router: Router, authService: AuthService, redirectUrl: string) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
+    source.pipe(
+      map((authorized) => [authorized]),
+      returnForbiddenUrlTreeOrLoginOnAllFalse(router, authService, redirectUrl),
+    );
+
+/**
+ * Operator that returns a UrlTree to a forbidden page or the login page when the booleans received are all false
+ * @param router      The router used to navigate to a forbidden page
+ * @param authService The AuthService used to determine whether or not the user is logged in
+ * @param redirectUrl The URL to redirect back to after logging in
+ */
+export const returnForbiddenUrlTreeOrLoginOnAllFalse = (router: Router, authService: AuthService, redirectUrl: string) =>
+  (source: Observable<boolean[]>): Observable<boolean | UrlTree> =>
     observableCombineLatest(source, authService.isAuthenticated()).pipe(
-      map(([authorized, authenticated]: [boolean, boolean]) => {
-        if (authorized) {
-          return authorized;
+      map(([authorizedList, authenticated]: [boolean[], boolean]) => {
+        if (authorizedList.some((b: boolean) => b === true)) {
+          return true;
         } else {
           if (authenticated) {
             return router.parseUrl(getForbiddenRoute());

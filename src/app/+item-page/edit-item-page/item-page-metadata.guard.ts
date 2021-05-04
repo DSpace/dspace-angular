@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { ItemPageResolver } from './item-page.resolver';
-import { Item } from '../core/shared/item.model';
-import { DsoPageFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ItemPageResolver } from '../item-page.resolver';
+import { Item } from '../../core/shared/item.model';
+import { DsoPageSingleFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { Observable, of as observableOf } from 'rxjs';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthService } from '../core/auth/auth.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import { AuthService } from '../core/auth/auth.service';
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring edit metadata rights
  */
-export class ItemPageEditMetadataGuard extends DsoPageFeatureGuard<Item> {
+export class ItemPageMetadataGuard extends DsoPageSingleFeatureGuard<Item> {
   constructor(protected resolver: ItemPageResolver,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,

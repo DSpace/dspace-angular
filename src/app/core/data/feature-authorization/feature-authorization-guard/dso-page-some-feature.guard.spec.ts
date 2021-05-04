@@ -4,29 +4,29 @@ import { RemoteData } from '../../remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageFeatureGuard } from './dso-page-feature.guard';
 import { FeatureID } from '../feature-id';
 import { AuthService } from '../../../auth/auth.service';
+import { DsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
 
 /**
- * Test implementation of abstract class DsoPageAdministratorGuard
+ * Test implementation of abstract class DsoPageSomeFeatureGuard
  */
-class DsoPageFeatureGuardImpl extends DsoPageFeatureGuard<any> {
+class DsoPageSomeFeatureGuardImpl extends DsoPageSomeFeatureGuard<any> {
   constructor(protected resolver: Resolve<RemoteData<any>>,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService,
-              protected featureID: FeatureID) {
+              protected featureIDs: FeatureID[]) {
     super(resolver, authorizationService, router, authService);
   }
 
-  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(this.featureID);
+  getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
+    return observableOf(this.featureIDs);
   }
 }
 
-describe('DsoPageAdministratorGuard', () => {
-  let guard: DsoPageFeatureGuard<any>;
+describe('DsoPageSomeFeatureGuard', () => {
+  let guard: DsoPageSomeFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -62,7 +62,7 @@ describe('DsoPageAdministratorGuard', () => {
       },
       parent: parentRoute
     };
-    guard = new DsoPageFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
+    guard = new DsoPageSomeFeatureGuardImpl(resolver, authorizationService, router, authService, []);
   }
 
   beforeEach(() => {
