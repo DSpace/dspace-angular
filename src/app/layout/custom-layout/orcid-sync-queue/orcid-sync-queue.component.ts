@@ -109,13 +109,12 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     }
   }
 
-  getOperation(orcidQueue: OrcidQueue): Observable<string> {
-
-    if (orcidQueue.operation) {
-      return this.translateService.get('person.page.orcid.sync-queue.operation.' + orcidQueue.operation.toLowerCase());
+  getIconTooltip(orcidQueue: OrcidQueue): string {
+    if (!orcidQueue.recordType) {
+      return '';
     }
 
-    return of('');
+    return 'person.page.orcid.sync-queue.tooltip.' + orcidQueue.recordType.toLowerCase();
   }
 
   getOperationBadgeClass(orcidQueue: OrcidQueue): string {
@@ -134,6 +133,14 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
       default:
         return '';
     }
+  }
+
+  getOperationTooltip(orcidQueue: OrcidQueue): string {
+    if (!orcidQueue.operation) {
+      return '';
+    }
+
+    return 'person.page.orcid.sync-queue.tooltip.' + orcidQueue.operation.toLowerCase();
   }
 
   getOperationClass(orcidQueue: OrcidQueue): string {
@@ -176,42 +183,48 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
-
-        const orcidHistory: OrcidHistory = remoteData.payload;
-        switch (orcidHistory.status) {
-          case 200:
-          case 201:
-          case 204:
-            this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
-            this.updateList();
-            break;
-          case 400:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'));
-            break;
-          case 404:
-            this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
-            this.updateList();
-            break;
-          case 409:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
-            break;
-          default:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
-        }
-
+        this.handleOrcidHistoryRecordCreation(remoteData.payload);
       } else if (remoteData.statusCode === 422) {
-        const translations = [this.translateService.get('person.page.orcid.sync-queue.send.validation-error')];
-        if (remoteData.errorMessage) {
-          remoteData.errorMessage.split(',')
-            .forEach((error) => translations.push(this.translateService.get('person.page.orcid.sync-queue.send.validation-error.' + error)));
-        }
-        combineLatest(translations).subscribe((messages) => {
-          this.notificationsService.error(messages.shift(), '<ul>' + messages.map(message => '<li>' + message + '</li>').join('') + '</ul>', {}, true);
-        });
+        this.handleValidationErrors(remoteData);
       } else {
         this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
       }
     }));
+  }
+
+  handleOrcidHistoryRecordCreation(orcidHistory: OrcidHistory) {
+    switch (orcidHistory.status) {
+      case 200:
+      case 201:
+      case 204:
+        this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
+        this.updateList();
+        break;
+      case 400:
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'));
+        break;
+      case 404:
+        this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
+        this.updateList();
+        break;
+      case 409:
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
+        break;
+      default:
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
+    }
+  }
+
+  handleValidationErrors(remoteData: RemoteData<OrcidHistory>) {
+    const translations = [this.translateService.get('person.page.orcid.sync-queue.send.validation-error')];
+    const errorMessage = remoteData.errorMessage;
+    if (errorMessage && errorMessage.indexOf('Error codes:') > 0) {
+      errorMessage.substring(errorMessage.indexOf(':') + 1).trim().split(',')
+        .forEach((error) => translations.push(this.translateService.get('person.page.orcid.sync-queue.send.validation-error.' + error)));
+    }
+    combineLatest(translations).subscribe((messages) => {
+      this.notificationsService.error(messages.shift(), '<ul>' + messages.map((message) => '<li>' + message + '</li>').join('') + '</ul>', {}, true);
+    });
   }
 
   /**

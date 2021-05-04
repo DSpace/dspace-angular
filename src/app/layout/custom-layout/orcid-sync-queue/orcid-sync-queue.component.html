@@ -28,10 +28,14 @@
               </thead>
               <tbody>
               <tr *ngFor="let entry of (getList() | async)?.payload?.page" >
-                <td style="width: 3%" class="text-center align-middle" > <i [ngClass]="getIconClass(entry)" aria-hidden="true"></i> </td>
-                <td class="text-center align-middle">{{ entry.description }}</td>
+                <td style="width: 3%" class="text-center align-middle" > 
+                  <i [ngbTooltip] = "getIconTooltip(entry) | translate" [ngClass]="getIconClass(entry)" aria-hidden="true"></i> 
+                </td>
+                <td class="text-center align-middle">
+                  {{ entry.description }}
+                </td>
                 <td style="width: 15%" class="text-center align-middle">
-                  <span [ngClass]="getOperationBadgeClass(entry)">
+                  <span [ngbTooltip] = "getOperationTooltip(entry) | translate" [ngClass]="getOperationBadgeClass(entry)">
                     <i [ngClass]="getOperationClass(entry)"></i>
                   </span>
                 </td>

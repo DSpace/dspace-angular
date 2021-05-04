@@ -3109,12 +3109,6 @@
 
   "person.page.orcid.sync-queue.operation" : "Operation",
 
-  "person.page.orcid.sync-queue.operation.delete" : "Delete",
-
-  "person.page.orcid.sync-queue.operation.insert" : "Insert",
-
-  "person.page.orcid.sync-queue.operation.update" : "Update",
-
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 
   "person.page.orcid.sync-queue.description.country": "Country",
@@ -3130,6 +3124,32 @@
   "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
 
   "person.page.orcid.sync-queue.description.keywords": "Keywords",
+
+  "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.project": "Project",
+
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+
+  "person.page.orcid.sync-queue.tooltip.education": "Education",
+
+  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+
+  "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+
+  "person.page.orcid.sync-queue.tooltip.country": "Country",
+
+  "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+
+  "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
 
   "person.page.orcid.sync-queue.send" : "Send",
 
