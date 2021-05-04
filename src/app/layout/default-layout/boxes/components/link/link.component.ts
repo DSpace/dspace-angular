@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { hasValue } from '../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-value.model';
@@ -24,7 +24,7 @@ enum TYPES {
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.LINK)
+@MetadataBoxFieldRendering(FieldRenderingType.LINK)
 export class LinkComponent extends RenderingTypeModelComponent implements OnInit {
 
   /**

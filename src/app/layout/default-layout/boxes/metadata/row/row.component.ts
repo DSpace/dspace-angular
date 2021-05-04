@@ -14,7 +14,7 @@ import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { Box } from '../../../../../core/layout/models/box.model';
 import { LayoutField, Row } from '../../../../../core/layout/models/metadata-component.model';
 import { hasValue } from '../../../../../shared/empty.util';
-import { FieldRendetingType, getMetadataBoxFieldRendering } from '../../components/metadata-box.decorator';
+import { FieldRenderingType, getMetadataBoxFieldRendering } from '../../components/metadata-box.decorator';
 
 /**
  * This component renders the rows of metadata boxes
@@ -87,7 +87,7 @@ export class RowComponent implements OnInit {
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
 
-  computeSubType(rendering: string | FieldRendetingType): string {
+  computeSubType(rendering: string | FieldRenderingType): string {
     let subtype: string;
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
@@ -96,8 +96,8 @@ export class RowComponent implements OnInit {
     return subtype;
   }
 
-  computeRendering(field: LayoutField): string | FieldRendetingType {
-    let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
+  computeRendering(field: LayoutField): string | FieldRenderingType {
+    let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
       rendering = values[0];
@@ -105,23 +105,23 @@ export class RowComponent implements OnInit {
     return rendering;
   }
 
-  computeComponentFactory(rendering: string | FieldRendetingType): ComponentFactory<any> {
+  computeComponentFactory(rendering: string | FieldRenderingType): ComponentFactory<any> {
     let factory = this.componentFactoryResolver.resolveComponentFactory(
       this.getComponent(rendering)
     );
     // If the rendering type not exists will use TEXT type rendering
     if (!hasValue(factory)) {
       factory = this.componentFactoryResolver.resolveComponentFactory(
-        this.getComponent(FieldRendetingType.TEXT)
+        this.getComponent(FieldRenderingType.TEXT)
       );
     }
     return factory;
   }
 
-  generateComponentRef(factory: ComponentFactory<any>, field: LayoutField, rendering: string | FieldRendetingType): ComponentRef<any> {
+  generateComponentRef(factory: ComponentFactory<any>, field: LayoutField, rendering: string | FieldRenderingType): ComponentRef<any> {
     let metadataRef: ComponentRef<Component>;
     if (field.fieldType !== LayoutBox.METADATA &&
-      rendering.toUpperCase() === FieldRendetingType.THUMBNAIL) {
+      rendering.toUpperCase() === FieldRenderingType.THUMBNAIL) {
       this.hasThumbnail = true;
       // Create rendering component instance
       metadataRef = this.thumbnailContainerViewRef.createComponent(factory);

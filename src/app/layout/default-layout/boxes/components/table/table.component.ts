@@ -10,7 +10,7 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import { FieldRendetingType, getMetadataBoxFieldRendering, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, getMetadataBoxFieldRendering, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 import { hasValue } from '../../../../../shared/empty.util';
@@ -25,7 +25,7 @@ import { GenericConstructor } from '../../../../../core/shared/generic-construct
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.TABLE)
+@MetadataBoxFieldRendering(FieldRenderingType.TABLE)
 export class TableComponent extends RenderingTypeModelComponent implements OnInit, AfterViewInit {
   /**
    * This property is used to hold nested Layout Field inside a metadata group field
@@ -86,8 +86,8 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
     this.ref.detectChanges();
   }
 
-  computeRendering(field: LayoutField): string | FieldRendetingType {
-    let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
+  computeRendering(field: LayoutField): string | FieldRenderingType {
+    let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
       rendering = values[0];
@@ -95,7 +95,7 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
     return rendering;
   }
 
-  computeSubType(rendering: string | FieldRendetingType): string {
+  computeSubType(rendering: string | FieldRenderingType): string {
     let subtype: string;
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
@@ -104,23 +104,23 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
     return subtype;
   }
 
-  computeComponentFactory(rendering: string | FieldRendetingType): ComponentFactory<any> {
+  computeComponentFactory(rendering: string | FieldRenderingType): ComponentFactory<any> {
     let factory = this.componentFactoryResolver.resolveComponentFactory(
       this.getComponent(rendering)
     );
     // If the rendering type not exists will use TEXT type rendering
     if (!hasValue(factory)) {
       factory = this.componentFactoryResolver.resolveComponentFactory(
-        this.getComponent(FieldRendetingType.TEXT)
+        this.getComponent(FieldRenderingType.TEXT)
       );
     }
     return factory;
   }
 
-  generateComponentRef(factory: ComponentFactory<any>, field: LayoutField, rendering: string | FieldRendetingType, index: number): ComponentRef<any> {
+  generateComponentRef(factory: ComponentFactory<any>, field: LayoutField, rendering: string | FieldRenderingType, index: number): ComponentRef<any> {
     let metadataRef: ComponentRef<Component>;
     if (field.fieldType !== LayoutBox.METADATA &&
-      rendering.toUpperCase() === FieldRendetingType.THUMBNAIL) {
+      rendering.toUpperCase() === FieldRenderingType.THUMBNAIL) {
       this.hasThumbnail = true;
       // Create rendering component instance
       metadataRef = this.nestedthumbnail.toArray()[index].createComponent(factory);

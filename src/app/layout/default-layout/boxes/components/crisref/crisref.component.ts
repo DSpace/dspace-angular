@@ -4,7 +4,7 @@ import { from as observableFrom, Observable, of as observableOf, Subscription } 
 import { concatMap, map, reduce } from 'rxjs/operators';
 
 import { RenderingTypeModelComponent } from '../rendering-type.model';
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { hasValue } from '../../../../../shared/empty.util';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
@@ -28,7 +28,7 @@ interface CrisRef {
   templateUrl: './crisref.component.html',
   styleUrls: ['./crisref.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.CRISREF)
+@MetadataBoxFieldRendering(FieldRenderingType.CRISREF)
 export class CrisrefComponent extends RenderingTypeModelComponent implements OnInit {
 
   private entity2icon: Map<string, string>;

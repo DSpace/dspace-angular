@@ -7,7 +7,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { FieldRendetingType, getMetadataBoxFieldRendering, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, getMetadataBoxFieldRendering, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 import { hasValue } from '../../../../../shared/empty.util';
@@ -23,7 +23,7 @@ import { GenericConstructor } from '../../../../../core/shared/generic-construct
   templateUrl: './inline.component.html',
   styleUrls: ['./inline.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.INLINE)
+@MetadataBoxFieldRendering(FieldRenderingType.INLINE)
 export class InlineComponent extends RenderingTypeModelComponent implements OnInit {
   /**
    * This property is true if the current row containes a thumbnail, false otherwise
@@ -61,15 +61,15 @@ export class InlineComponent extends RenderingTypeModelComponent implements OnIn
     return field.fieldType === 'BITSTREAM' ||
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
-  computeRendering(field: LayoutField): string | FieldRendetingType {
-    let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
+  computeRendering(field: LayoutField): string | FieldRenderingType {
+    let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
       rendering = values[0];
     }
     return rendering;
   }
-  computeSubType(rendering: string | FieldRendetingType): string {
+  computeSubType(rendering: string | FieldRenderingType): string {
     let subtype: string;
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
@@ -77,22 +77,22 @@ export class InlineComponent extends RenderingTypeModelComponent implements OnIn
     }
     return subtype;
   }
-  computeComponentFactory(rendering: string | FieldRendetingType): ComponentFactory<any> {
+  computeComponentFactory(rendering: string | FieldRenderingType): ComponentFactory<any> {
     let factory = this.componentFactoryResolver.resolveComponentFactory(
       this.getComponent(rendering)
     );
     // If the rendering type not exists will use TEXT type rendering
     if (!hasValue(factory)) {
       factory = this.componentFactoryResolver.resolveComponentFactory(
-        this.getComponent(FieldRendetingType.TEXT)
+        this.getComponent(FieldRenderingType.TEXT)
       );
     }
     return factory;
   }
-  generateComponentRef(factory: ComponentFactory<any>, field: LayoutField, rendering: string | FieldRendetingType): ComponentRef<any> {
+  generateComponentRef(factory: ComponentFactory<any>, field: LayoutField, rendering: string | FieldRenderingType): ComponentRef<any> {
     let metadataRef: ComponentRef<Component>;
     if (field.fieldType !== LayoutBox.METADATA &&
-      rendering.toUpperCase() === FieldRendetingType.THUMBNAIL) {
+      rendering.toUpperCase() === FieldRenderingType.THUMBNAIL) {
       this.hasThumbnail = true;
       // Create rendering component instance
       metadataRef = this.thumbnailContainerViewRef.createComponent(factory);
