@@ -157,10 +157,9 @@ describe('ExportMetadataSelectorComponent', () => {
         done();
       });
     });
-    it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
+    it('metadata-export script is invoked with its -i handle', () => {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.handle }),
-        Object.assign(new ProcessParameter(), { name: '-f', value: mockCollection.uuid + '.csv' }),
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.uuid }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
@@ -182,10 +181,9 @@ describe('ExportMetadataSelectorComponent', () => {
         done();
       });
     });
-    it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
+    it('metadata-export script is invoked with its -i handle', () => {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.handle }),
-        Object.assign(new ProcessParameter(), { name: '-f', value: mockCommunity.uuid + '.csv' }),
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.uuid }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
