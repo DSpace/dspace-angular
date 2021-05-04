@@ -1,4 +1,4 @@
-import { isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { SearchFilter } from './search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -41,16 +41,7 @@ export class SearchOptions {
       args.push(`configuration=${encodeURIComponent(this.configuration)}`);
     }
     if (isNotEmpty(this.fixedFilter)) {
-      let fixedFilter: string;
-      const match = this.fixedFilter.match(/^([^=]+=)(.+)$/);
-
-      if (match) {
-        fixedFilter = match[1] + encodeURIComponent(match[2]).replace(/%2C/g, ',');
-      } else {
-        fixedFilter = encodeURIComponent(this.fixedFilter);
-      }
-
-      args.push(fixedFilter);
+      args.push(this.encodedFixedFilter);
     }
     if (isNotEmpty(this.query)) {
       args.push(`query=${encodeURIComponent(this.query)}`);
@@ -67,9 +58,7 @@ export class SearchOptions {
       this.filters.forEach((filter: SearchFilter) => {
         filter.values.forEach((value) => {
           const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
-
-          // we don't want commas to get URI-encoded
-          args.push(`${filter.key}=${encodeURIComponent(filterValue).replace(/%2C/g, ',')}`);
+          args.push(`${filter.key}=${this.encodeFilterQueryValue(filterValue)}`);
         });
       });
     }
@@ -77,5 +66,29 @@ export class SearchOptions {
       url = new URLCombiner(url, `?${args.join('&')}`).toString();
     }
     return url;
+  }
+
+  get encodedFixedFilter(): string {
+    // expected format: 'arg=value'
+    //  -> split the query agument into (arg=)(value) and only encode 'value'
+    const match = this.fixedFilter.match(/^([^=]+=)(.+)$/);
+
+    if (hasValue(match)) {
+      return match[1] + this.encodeFilterQueryValue(match[2]);
+    } else {
+      return this.encodeFilterQueryValue(this.fixedFilter);
+    }
+  }
+
+  encodeFilterQueryValue(filterQueryValue: string): string {
+    // expected format: 'value' or 'value,operator'
+    //  -> split into (value)(,operator) and only encode 'value'
+    const match = filterQueryValue.match(/^(.*)(,\w+)$/);
+
+    if (hasValue(match)) {
+      return encodeURIComponent(match[1]) + match[2];
+    } else {
+      return encodeURIComponent(filterQueryValue);
+    }
   }
 }
