@@ -13,10 +13,15 @@ export class SearchOptions {
   scope?: string;
   query?: string;
   dsoTypes?: DSpaceObjectType[];
-  filters?: any;
-  fixedFilter?: any;
+  filters?: SearchFilter[];
+  fixedFilter?: string;
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any}) {
+  constructor(
+    options: {
+      configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[],
+      fixedFilter?: string
+    }
+  ) {
       this.configuration = options.configuration;
       this.scope = options.scope;
       this.query = options.query;
