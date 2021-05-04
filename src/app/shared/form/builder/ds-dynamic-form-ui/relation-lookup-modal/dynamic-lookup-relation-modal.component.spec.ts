@@ -21,8 +21,6 @@ import { createPaginatedList } from '../../../../testing/utils.test';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SubmissionService } from '../../../../../submission/submission.service';
-import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 
@@ -46,8 +44,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let lookupRelationService;
   let rdbService;
   let submissionId;
-  let submissionService;
-  let submissionObjectDataService;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -99,12 +95,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     rdbService = jasmine.createSpyObj('rdbService', {
       aggregate: createSuccessfulRemoteDataObject$(externalSources)
     });
-    submissionService = jasmine.createSpyObj('SubmissionService', {
-      dispatchSave: jasmine.createSpy('dispatchSave')
-    });
-    submissionObjectDataService = jasmine.createSpyObj('SubmissionObjectDataService', {
-      findById: createSuccessfulRemoteDataObject$(testWSI)
-    });
     submissionId = '1234';
   }
 
@@ -129,8 +119,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         },
         { provide: RelationshipTypeService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
-        { provide: SubmissionService, useValue: submissionService },
-        { provide: SubmissionObjectDataService, useValue: submissionObjectDataService },
         {
           provide: Store, useValue: {
             // tslint:disable-next-line:no-empty
