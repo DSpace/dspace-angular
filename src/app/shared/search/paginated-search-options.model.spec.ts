@@ -13,6 +13,7 @@ describe('PaginatedSearchOptions', () => {
     new SearchFilter('f.example', ['another value', 'second value']),
     new SearchFilter('f.range', ['[2002 TO 2021]'], 'equals'),
   ];
+  const fixedFilter = 'f.fixed=1234 5678,equals';
   const query = 'search query';
   const scope = '0fde1ecb-82cc-425a-b600-ac3576d76b47';
   const baseUrl = 'www.rest.com';
@@ -23,7 +24,8 @@ describe('PaginatedSearchOptions', () => {
       filters: filters,
       query: query,
       scope: scope,
-      dsoTypes: [DSpaceObjectType.ITEM]
+      dsoTypes: [DSpaceObjectType.ITEM],
+      fixedFilter: fixedFilter,
     });
   });
 
@@ -35,6 +37,7 @@ describe('PaginatedSearchOptions', () => {
         'sort=test.field,DESC&' +
         'page=0&' +
         'size=40&' +
+        'f.fixed=1234%205678,equals&' +
         'query=search%20query&' +
         'scope=0fde1ecb-82cc-425a-b600-ac3576d76b47&' +
         'dsoType=ITEM&' +

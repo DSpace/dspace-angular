@@ -11,11 +11,18 @@ describe('SearchOptions', () => {
     new SearchFilter('f.example', ['another value', 'second value']),
     new SearchFilter('f.range', ['[2002 TO 2021]'], 'equals'),
   ];
+  const fixedFilter = 'f.fixed=1234 5678,equals';
   const query = 'search query';
   const scope = '0fde1ecb-82cc-425a-b600-ac3576d76b47';
   const baseUrl = 'www.rest.com';
   beforeEach(() => {
-    options = new SearchOptions({ filters: filters, query: query, scope: scope, dsoTypes: [DSpaceObjectType.ITEM] });
+    options = new SearchOptions({
+      filters: filters,
+      query: query,
+      scope: scope,
+      dsoTypes: [DSpaceObjectType.ITEM],
+      fixedFilter: fixedFilter,
+    });
   });
 
   describe('when toRestUrl is called', () => {
@@ -23,6 +30,7 @@ describe('SearchOptions', () => {
     it('should generate a string with all parameters that are present', () => {
       const outcome = options.toRestUrl(baseUrl);
       expect(outcome).toEqual('www.rest.com?' +
+        'f.fixed=1234%205678,equals&' +
         'query=search%20query&' +
         'scope=0fde1ecb-82cc-425a-b600-ac3576d76b47&' +
         'dsoType=ITEM&' +

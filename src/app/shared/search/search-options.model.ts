@@ -45,7 +45,7 @@ export class SearchOptions {
       const match = this.fixedFilter.match(/^([^=]+=)(.+)$/);
 
       if (match) {
-        fixedFilter = match[1] + encodeURIComponent(match[2]);
+        fixedFilter = match[1] + encodeURIComponent(match[2]).replace(/%2C/g, ',');
       } else {
         fixedFilter = encodeURIComponent(this.fixedFilter);
       }
