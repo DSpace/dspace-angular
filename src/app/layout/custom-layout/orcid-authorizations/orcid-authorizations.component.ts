@@ -1,16 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
-import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { Router } from '@angular/router';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
-import { environment } from '../../../../environments/environment';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../enums/layout-box.enum';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
 
 @Component({
   selector: 'ds-orcid-authorizations.component',
@@ -23,7 +22,6 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
 
   constructor(
     private configurationService: ConfigurationDataService,
-    private router: Router,
     @Inject(NativeWindowService) private _window: NativeWindowRef) {
     super();
   }
@@ -32,7 +30,7 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     super.ngOnInit();
 
     const scopes = this.getOrcidAuthorizations();
-    return this.configurationService.findByPropertyName('orcid-api.scope')
+    return this.configurationService.findByPropertyName('orcid.scope')
     .pipe(getFirstSucceededRemoteDataPayload(),
           map((configurationProperty) => configurationProperty.values),
           map((allScopes) => allScopes.filter( (scope) => !scopes.includes(scope))))
@@ -53,19 +51,15 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
 
   linkOrcid(): void {
     combineLatest(
-      this.configurationService.findByPropertyName('orcid-api.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid-api.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid-api.scope').pipe(getFirstSucceededRemoteDataPayload())
+      this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
+      this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
+      this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())
     ).subscribe(([authorizeUrl, clientId, scopes]) => {
       const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + this.item.id + '/?url=' + encodeURIComponent('/home');
       const orcidUrl = authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
       + scopes.values.join(' ');
       this._window.nativeWindow.location.href = orcidUrl;
     });
-  }
-
-  createOrcid(): void {
-    console.log('CREATE ORCID');
   }
 
 }

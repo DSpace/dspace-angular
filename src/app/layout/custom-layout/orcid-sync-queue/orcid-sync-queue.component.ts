@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-
-import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
-import { LayoutPage } from '../../enums/layout-page.enum';
-import { LayoutTab } from '../../enums/layout-tab.enum';
-import { LayoutBox } from '../../enums/layout-box.enum';
-import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
-import { RemoteData } from '../../../core/data/remote-data';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { hasValue } from '../../../shared/empty.util';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
+import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
+import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
+import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
+import { LayoutBox } from '../../enums/layout-box.enum';
+import { LayoutPage } from '../../enums/layout-page.enum';
+import { LayoutTab } from '../../enums/layout-tab.enum';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
+
+
 
 @Component({
   selector: 'ds-orcid-sync-queue.component',
@@ -87,32 +87,91 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
   }
 
   getIconClass(orcidQueue: OrcidQueue): string {
-    if (!orcidQueue.entityType) {
-      return 'fa fa-book';
+    if (!orcidQueue.recordType) {
+      return 'fa fa-user';
     }
-    switch (orcidQueue.entityType) {
-      case 'Publication':
+    switch (orcidQueue.recordType.toLowerCase()) {
+      case 'publication':
         return 'fa fa-book';
-      case 'Person':
-        return 'fa fa-user';
-      case 'Project':
+      case 'project':
         return 'fa fa-folder';
+      case 'education':
+        return 'fa fa-school';
+      case 'affiliation':
+        return 'fa fa-university';
+      case 'country':
+        return 'fas fa-globe-europe';
+      case 'external_ids':
+      case 'researcher_urls':
+        return 'fas fa-external-link-alt';
       default:
-        return 'fa fa-book';
+        return 'fa fa-user';
     }
   }
 
-  deleteEntry(orcidQueue: OrcidQueue) {
+  getIconTooltip(orcidQueue: OrcidQueue): string {
+    if (!orcidQueue.recordType) {
+      return '';
+    }
+
+    return 'person.page.orcid.sync-queue.tooltip.' + orcidQueue.recordType.toLowerCase();
+  }
+
+  getOperationBadgeClass(orcidQueue: OrcidQueue): string {
+
+    if (!orcidQueue.operation) {
+      return '';
+    }
+
+    switch (orcidQueue.operation.toLowerCase()) {
+      case 'insert':
+        return 'badge badge-success';
+      case 'update':
+        return 'badge badge-primary';
+      case 'delete':
+        return 'badge badge-danger';
+      default:
+        return '';
+    }
+  }
+
+  getOperationTooltip(orcidQueue: OrcidQueue): string {
+    if (!orcidQueue.operation) {
+      return '';
+    }
+
+    return 'person.page.orcid.sync-queue.tooltip.' + orcidQueue.operation.toLowerCase();
+  }
+
+  getOperationClass(orcidQueue: OrcidQueue): string {
+
+    if (!orcidQueue.operation) {
+      return '';
+    }
+
+    switch (orcidQueue.operation.toLowerCase()) {
+      case 'insert':
+        return 'fas fa-plus';
+      case 'update':
+        return 'fas fa-edit';
+      case 'delete':
+        return 'fas fa-trash-alt';
+      default:
+        return '';
+    }
+  }
+
+  discardEntry(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
       getFinishedRemoteData()
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
-        this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
+        this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.discard.success'));
         this.updateList();
       } else {
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.delete.error'));
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.discard.error'));
       }
     }));
   }
@@ -124,28 +183,48 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
-
-        const orcidHistory: OrcidHistory = remoteData.payload;
-        switch (orcidHistory.status) {
-          case 200:
-          case 201:
-            this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
-            this.updateList();
-            break;
-          case 404:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.not-found-error'));
-            break;
-          case 409:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
-            break;
-          default:
-            this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
-        }
-
+        this.handleOrcidHistoryRecordCreation(remoteData.payload);
+      } else if (remoteData.statusCode === 422) {
+        this.handleValidationErrors(remoteData);
       } else {
         this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
       }
     }));
+  }
+
+  handleOrcidHistoryRecordCreation(orcidHistory: OrcidHistory) {
+    switch (orcidHistory.status) {
+      case 200:
+      case 201:
+      case 204:
+        this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
+        this.updateList();
+        break;
+      case 400:
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'));
+        break;
+      case 404:
+        this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
+        this.updateList();
+        break;
+      case 409:
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
+        break;
+      default:
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
+    }
+  }
+
+  handleValidationErrors(remoteData: RemoteData<OrcidHistory>) {
+    const translations = [this.translateService.get('person.page.orcid.sync-queue.send.validation-error')];
+    const errorMessage = remoteData.errorMessage;
+    if (errorMessage && errorMessage.indexOf('Error codes:') > 0) {
+      errorMessage.substring(errorMessage.indexOf(':') + 1).trim().split(',')
+        .forEach((error) => translations.push(this.translateService.get('person.page.orcid.sync-queue.send.validation-error.' + error)));
+    }
+    combineLatest(translations).subscribe((messages) => {
+      this.notificationsService.error(messages.shift(), '<ul>' + messages.map((message) => '<li>' + message + '</li>').join('') + '</ul>', {}, true);
+    });
   }
 
   /**
@@ -155,5 +234,9 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     this.list$ = null;
     this.subs.filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  isProfileRecord(orcidQueue: OrcidQueue): boolean {
+    return orcidQueue.recordType !== 'Publication' && orcidQueue.recordType !== 'Project';
   }
 }
