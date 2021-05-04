@@ -168,7 +168,7 @@ export class SearchConfigurationService implements OnDestroy {
             if (hasNoValue(filters.find((f) => f.key === realKey))) {
               const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
               const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
-              filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']']));
+              filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']'], 'equals'));
             }
           } else {
             filters.push(new SearchFilter(key, filterParams[key]));
