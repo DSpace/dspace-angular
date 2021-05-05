@@ -37,8 +37,16 @@
       </div>
     </div>
   </div>
-  <div class="row mt-3 p-3 mb-2 bg-info text-white rounded d-flex justify-content-center">
+  <div *ngIf="(onlyAdminCanDisconnectProfileFromOrcid() | async)" class="row mt-3 p-3 mb-2 bg-info text-white rounded d-flex justify-content-center">
     {{ 'person.page.orcid.remove-orcid-message' | translate}}
+  </div>
+  <div class="row" *ngIf="(ownerCanDisconnectProfileFromOrcid() | async)">
+    <div class="col-md">
+      <button type="submit" class="btn btn-danger float-right m-2" (click)="unlinkOrcid()">
+        <i class="fas fa-unlink"></i>
+        {{ 'person.page.orcid.unlink' | translate }}
+      </button>
+    </div>
   </div>
 </ng-template>
 
@@ -48,6 +56,9 @@
   </div>
   <div class="row d-flex align-items-center">
     <img src="assets/images/orcid.logo.icon.svg" class="mr-3"/>
-    <button class="btn btn-primary"(click)="linkOrcid()">{{'person.page.orcid.link' | translate}}</button>
+    <button class="btn btn-primary"(click)="linkOrcid()">
+      <i class="fas fa-link"></i>
+      {{'person.page.orcid.link' | translate}}
+    </button>
   </div>
 </ng-template>

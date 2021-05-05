@@ -3073,6 +3073,8 @@
 
   "person.page.orcid.link": "Connect to ORCID ID",
 
+  "person.page.orcid.unlink": "Disconnect from ORCID",
+
   "person.page.orcid.missing-authorizations": "Missing authorizations",
 
   "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
@@ -3089,7 +3091,7 @@
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
 
-  "person.page.orcid.save.preference.changes": "Save changes",
+  "person.page.orcid.save.preference.changes": "Edit settings",
 
   "person.page.orcid.sync-profile.affiliation" : "Affiliation",
 
@@ -3115,7 +3117,7 @@
 
   "person.page.orcid.sync-publications.disabled" : "Disabled",
 
-  "person.page.orcid.sync-queue.discard" : "Discard",
+  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
 
   "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
 
@@ -3169,7 +3171,7 @@
 
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
 
-  "person.page.orcid.sync-queue.send" : "Send",
+  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
 
   "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
 
@@ -3233,6 +3235,10 @@
   "person.page.orcid.scope.activities-update": "Add/update your research activities",
 
   "person.page.orcid.scope.person-update": "Add/update other information about you",
+
+  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+
+  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
 
   "person.page.staffid": "Staff ID",
 

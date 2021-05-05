@@ -39,11 +39,15 @@
                     <i [ngClass]="getOperationClass(entry)"></i>
                   </span>
                 </td>
-                <td style="width: 25%">
+                <td style="width: 15%">
                   <div class="container">
                     <div class="row">
-                      <button class="btn btn-success m-1 col-md" (click)="send(entry)"> {{'person.page.orcid.sync-queue.send'| translate}} </button>
-                      <button class="btn btn-danger m-1 col-md" (click)="discardEntry(entry)"> {{'person.page.orcid.sync-queue.discard'| translate}} </button>
+                      <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" class="btn btn-success m-1 col-md" (click)="send(entry)"> 
+                        <i class="fas fa-share"></i>
+                      </button>
+                      <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" class="btn btn-danger m-1 col-md" (click)="discardEntry(entry)"> 
+                        <i class="fas fa-trash"></i>
+                      </button>
                     </div>
                   </div>
                 </td>
