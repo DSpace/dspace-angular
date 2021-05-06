@@ -10,7 +10,10 @@ import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-path
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
+import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
 
 @Component({
   selector: 'ds-item-status',
@@ -57,7 +60,8 @@ export class ItemStatusComponent implements OnInit {
   itemPageRoute$: Observable<string>;
 
   constructor(private route: ActivatedRoute,
-              private authorizationService: AuthorizationDataService) {
+              private authorizationService: AuthorizationDataService,
+              private researcherProfileService: ResearcherProfileService) {
   }
 
   ngOnInit(): void {
@@ -114,7 +118,19 @@ export class ItemStatusComponent implements OnInit {
           this.operations$.next(newOperations);
         });
       }
+
+      if (this.researcherProfileService.isLinkedToOrcid(item)) {
+        this.researcherProfileService.adminCanDisconnectProfileFromOrcid()
+          .subscribe( (canDisconnect) => {
+            if (canDisconnect) {
+              this.operations$.next([...this.operations$.value, new ItemOperation('unlinkOrcid', this.getCurrentUrl(item) + '/unlink-orcid')]);
+            }
+          }
+        );
+      }
+
     });
+
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))

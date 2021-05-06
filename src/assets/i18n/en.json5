@@ -2133,6 +2133,10 @@
 
   "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
 
+  "item.edit.tabs.status.buttons.unlinkOrcid.button": "Disconnect...",
+
+  "item.edit.tabs.status.buttons.unlinkOrcid.label": "Disconnect from ORCID",
+
   "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
 
   "item.edit.tabs.status.head": "Status",
@@ -2157,6 +2161,23 @@
 
   "item.edit.tabs.view.title": "Item Edit -  View",
 
+
+
+  "item.edit.unlink-orcid.cancel": "Cancel",
+
+  "item.edit.unlink-orcid.description": "From here you can disconnect the given profile item from the linked ORCID account, if any.",
+
+  "item.edit.unlink-orcid.head": "Disconnect from ORCID",
+
+  "item.edit.unlink-orcid.not-linked-to-orcid" : "The operation cannot be completed because the given item is not a profile linked to ORCID",
+
+  "item.edit.unlink-orcid.unlink": "Disconnect",
+
+  "item.edit.unlink-orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+
+  "item.edit.unlink-orcid.unlink.error" :"An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+
+  "item.edit.unlink-orcid.processing": "Processing",
 
 
   "item.edit.withdraw.cancel": "Cancel",

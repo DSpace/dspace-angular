@@ -2,7 +2,7 @@
   <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
     <ng-template ngbPanelContent>
       <div class="container">
-        <ng-container *ngIf="isOrcidLinked(); then orcidLinked; else orcidNotLinked"></ng-container>
+        <ng-container *ngIf="isLinkedToOrcid(); then orcidLinked; else orcidNotLinked"></ng-container>
       </div>
     </ng-template>
   </ngb-panel>

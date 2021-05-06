@@ -1,22 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { RemoveOperation } from 'fast-json-patch';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../../app/+item-page/item-page-routing-paths';
-import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { map } from 'rxjs/operators';
 import { NotificationsService } from '../../../../app/shared/notifications/notifications.service';
 import { environment } from '../../../../environments/environment';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
-import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../enums/layout-box.enum';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-orcid-authorizations.component',
@@ -52,8 +49,8 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     return this.item.allMetadataValues('cris.orcid.scope');
   }
 
-  isOrcidLinked(): boolean {
-    return this.item.hasMetadata('person.identifier.orcid') && this.item.hasMetadata('cris.orcid.access-token');
+  isLinkedToOrcid(): boolean {
+    return this.researcherProfileService.isLinkedToOrcid(this.item);
   }
 
   getAuthorizationDescription(scope: string) {
@@ -61,24 +58,11 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
   }
 
   onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => property.values.map( (value) => value.toLowerCase()).includes('only_admin'))
-    );
+    return this.researcherProfileService.onlyAdminCanDisconnectProfileFromOrcid();
   }
 
   ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
-      map((property) => {
-        const values = property.values.map( (value) => value.toLowerCase());
-        return values.includes('only_owner') || values.includes('admin_and_owner');
-      })
-    );
-  }
-
-  getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {
-    return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(
-      getFirstSucceededRemoteDataPayload()
-    );
+    return this.researcherProfileService.ownerCanDisconnectProfileFromOrcid();
   }
 
   linkOrcid(): void {
@@ -95,16 +79,7 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
   }
 
   unlinkOrcid(): void {
-
-    const operations: RemoveOperation[] = [{
-      path:'/orcid',
-      op:'remove'
-    }];
-
-    this.researcherProfileService.findById(this.item.firstMetadata('cris.owner').authority).pipe(
-      switchMap((profile) => this.researcherProfileService.patch(profile, operations)),
-      getFinishedRemoteData()
-    ).subscribe((remoteData) => {
+    this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData) => {
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
       } else {
