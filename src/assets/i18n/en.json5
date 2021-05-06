@@ -1168,6 +1168,8 @@
 
   "dso-selector.edit.item.head": "Edit item",
 
+  "dso-selector.error.title": "An error occurred searching for a {{ type }}",
+
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
   "dso-selector.no-results": "No {{ type }} found",
