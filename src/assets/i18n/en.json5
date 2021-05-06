@@ -565,6 +565,13 @@
 
 
 
+  "alert.close.aria": "Close",
+
+  "alert.toggle.hide": "Hide",
+
+  "alert.toggle.show": "Show",
+
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
@@ -1241,7 +1248,7 @@
 
   "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
 
-  
+
 
   "datafile.listelement.badge": "Data File",
 

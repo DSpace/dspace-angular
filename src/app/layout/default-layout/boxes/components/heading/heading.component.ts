@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 
 /**
@@ -10,7 +10,7 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
   templateUrl: './heading.component.html',
   styleUrls: ['./heading.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.HEADING)
+@MetadataBoxFieldRendering(FieldRenderingType.HEADING)
 export class HeadingComponent extends RenderingTypeModelComponent {
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 
 /**
@@ -12,5 +12,5 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
   templateUrl: './longtext.component.html',
   styleUrls: ['./longtext.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.LONGTEXT)
+@MetadataBoxFieldRendering(FieldRenderingType.LONGTEXT)
 export class LongtextComponent extends RenderingTypeModelComponent { }

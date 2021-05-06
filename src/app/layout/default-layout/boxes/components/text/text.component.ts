@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 
 /**
@@ -12,7 +12,7 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.TEXT)
+@MetadataBoxFieldRendering(FieldRenderingType.TEXT)
 export class TextComponent extends RenderingTypeModelComponent {
 
 }

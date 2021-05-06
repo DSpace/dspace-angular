@@ -1,3 +1,4 @@
-.close:focus {
+.close:focus, .btn-link:focus {
   outline: none !important;
+  box-shadow: none !important;
 }
