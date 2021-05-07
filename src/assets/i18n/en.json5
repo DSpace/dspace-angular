@@ -1212,6 +1212,8 @@
 
   "context-menu.actions.edit-item.btn.FULL": "Edit item",
 
+  "context-menu.actions.edit-item.btn.OWNER": "Edit own item",
+
   "context-menu.actions.request-correction.btn": "Request correction",
 
   "context-menu.actions.request-correction.confirm.cancel": "Cancel",
@@ -3154,8 +3156,6 @@
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
   "person.page.orcid.sync-queue.description" : "Description",
-
-  "person.page.orcid.sync-queue.operation" : "Operation",
 
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
 

@@ -125,11 +125,11 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
 
     switch (orcidQueue.operation.toLowerCase()) {
       case 'insert':
-        return 'badge badge-success';
+        return 'badge badge-pill badge-success';
       case 'update':
-        return 'badge badge-primary';
+        return 'badge badge-pill badge-primary';
       case 'delete':
-        return 'badge badge-danger';
+        return 'badge badge-pill badge-danger';
       default:
         return '';
     }
