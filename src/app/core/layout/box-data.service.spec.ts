@@ -185,14 +185,14 @@ describe('BoxDataService', () => {
         new RequestParam('uuid', itemUUID),
         new RequestParam('tab', tabId)
       ];
-      scheduler.schedule(() => service.findByItem(itemUUID, tabId));
+      scheduler.schedule(() => service.findByItem(itemUUID, tabId, true));
       scheduler.flush();
 
       expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true, true);
     });
 
     it('should return a RemoteData<PaginatedList<Box>> for the search', () => {
-      const result = service.findByItem(itemUUID, tabId);
+      const result = service.findByItem(itemUUID, tabId, true);
       const expected = cold('a|', {
         a: paginatedListRD
       });

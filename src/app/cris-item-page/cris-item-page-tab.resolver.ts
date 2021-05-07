@@ -25,7 +25,8 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<PaginatedList<Tab>>> {
     return this.tabService.findByItem(
-        route.params.id // Item UUID
+        route.params.id, // Item UUID
+        true
       ).pipe(getFirstCompletedRemoteData());
   }
 

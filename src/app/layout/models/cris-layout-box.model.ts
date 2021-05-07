@@ -1,5 +1,5 @@
 import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Box } from '../../core/layout/models/box.model';
 import { hasValue } from '../../shared/empty.util';
 
@@ -10,17 +10,30 @@ import { hasValue } from '../../shared/empty.util';
   template: ''
 })
 export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelComponent implements OnInit {
+
   /**
-   * Boxes list
+   * Box.
    */
   @Input() box: Box;
 
+  /**
+   * Emit a refresh box request from within the Box.
+   */
+  @Output() refreshBox: EventEmitter<void> = new EventEmitter<void>();
+
+  /**
+   * Emit a refresh tab request from within the Box.
+   */
+  @Output() refreshTab: EventEmitter<void> = new EventEmitter<void>();
+
   activeIds: string[] = [];
 
+  random = Math.floor(Math.random() * 10000000);
+
+  /**
+   * Check if the current box is collapsed or not
+   */
   ngOnInit(): void {
-    /**
-     * Check if the current box is collapsed or not
-     */
     if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }

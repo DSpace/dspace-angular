@@ -93,7 +93,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
     }));
 
     // Retrieve tabs by UUID of item
-    this.subs.push(this.tabService.findByItem(this.contextMenuObject.id).pipe(
+    this.subs.push(this.tabService.findByItem(this.contextMenuObject.id, true).pipe(
       getFirstSucceededRemoteListPayload()
     ).subscribe( (tabs) => {
       this.tabs = tabs;
@@ -115,7 +115,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * If boxes type is equal Relation add them to the list of relations to be managed
    */
   getBox(tab): void {
-    this.subs.push(this.boxService.findByItem(this.contextMenuObject.id, tab.id)
+    this.subs.push(this.boxService.findByItem(this.contextMenuObject.id, tab.id, true)
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe( (boxes: Box[]) => {
         const relationshipsBoxes = boxes.filter( (box) => box.boxType === 'RELATION');

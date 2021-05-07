@@ -8,8 +8,8 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
 
 import { Tab } from '../../core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
@@ -62,6 +62,8 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    */
   protected selectedTab: Tab;
 
+  private unsubscribe$ = new Subject<void>();
+
   /**
    * Directive hook used to place the dynamic child component
    */
@@ -76,8 +78,18 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   }
 
   ngOnInit() {
+    this.initializeComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyTab();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  initializeComponent() {
     // Retrieve tabs by UUID of item
-    this.tabs$ = this.tabService.findByItem(this.item.id).pipe(
+    this.tabs$ = this.tabService.findByItem(this.item.id, false).pipe(
       getFirstSucceededRemoteListPayload()
     );
 
@@ -91,6 +103,30 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
       this.sidebarStatus$.next(status);
     });
   }
+
+  /**
+   * Instantiate the Tab component.
+   * @param viewContainerRef
+   * @param componentFactory
+   * @param tab
+   */
+  instantiateTab(viewContainerRef: ViewContainerRef, componentFactory: ComponentFactory<any>, tab: Tab): ComponentRef<any> {
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as any).item = this.item;
+    (componentRef.instance as any).tab = tab;
+    (componentRef.instance as any).refreshTab.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.destroyTab();
+      this.initializeComponent();
+    });
+    return componentRef;
+  }
+
+  destroyTab() {
+    if (this.componentRef) {
+      this.componentRef.destroy();
+    }
+  }
+
 
   /**
    * It is used for hide/show the left sidebar
@@ -107,27 +143,10 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(tab.shortname));
     const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
     viewContainerRef.clear();
-
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
+    this.destroyTab();
     this.componentRef = this.instantiateTab(viewContainerRef, componentFactory, tab);
-    (this.componentRef.instance as any).item = this.item;
-    (this.componentRef.instance as any).tab = tab;
   }
 
-  /**
-   * Instantiate the Tab component.
-   * @param viewContainerRef
-   * @param componentFactory
-   * @param tab
-   */
-  instantiateTab(viewContainerRef: ViewContainerRef, componentFactory: ComponentFactory<any>, tab: Tab): ComponentRef<any> {
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as any).item = this.item;
-    (componentRef.instance as any).tab = tab;
-    return componentRef;
-  }
 
   /**
    * Fetch the component depending on the item type and shortname of tab
@@ -167,10 +186,5 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     return this.authService.isAuthenticated();
   }
 
-  ngOnDestroy(): void {
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
-  }
 
 }
