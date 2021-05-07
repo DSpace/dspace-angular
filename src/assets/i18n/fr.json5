@@ -1012,25 +1012,25 @@
   
   
   // "collection.edit.logo.label": "Collection logo",
-  "collection.edit.logo.label": "Logo de la collection",
+  "collection.edit.logo.label": "Logo de la Collection",
   
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "Erreur lors du chargement du logo de la collection. Veuillez vérifier le contenu et réessayer.",
+  "collection.edit.logo.notifications.add.error": "Erreur lors du chargement du logo de la Collection. Veuillez vérifier le contenu et réessayer.",
   
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
-  "collection.edit.logo.notifications.add.success": "Logo de la collection chargé avec succès.",
+  "collection.edit.logo.notifications.add.success": "Logo de la Collection chargé avec succès.",
   
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
   "collection.edit.logo.notifications.delete.success.title": "Logo supprimé",
   
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  "collection.edit.logo.notifications.delete.success.content": "Logo de la collection supprimé avec succès",
+  "collection.edit.logo.notifications.delete.success.content": "Logo de la Collection supprimé avec succès",
   
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  "collection.edit.logo.notifications.delete.error.title": "Erreur lors de la suppression du logo de la collection.",
+  "collection.edit.logo.notifications.delete.error.title": "Erreur lors de la suppression du logo de la Collection.",
   
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  "collection.edit.logo.upload": "Glisser-Déposer un logo à charger pour la collection",
+  "collection.edit.logo.upload": "Glisser-Déposer un logo à charger pour la Collection",
   
   
   
@@ -1067,10 +1067,10 @@
   "collection.edit.tabs.roles.title": "Édition Collection - Rôles",
   
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
-  "collection.edit.tabs.source.external": "Cette collection moissonne son contenu depuis une source externe",
+  "collection.edit.tabs.source.external": "Cette Collection moissonne son contenu depuis une source externe",
   
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "Vous devez fournir l'ID du set OAI correspondant à la collection cible.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "Vous devez fournir l'ID du set OAI correspondant à la Collection cible.",
   
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
   "collection.edit.tabs.source.form.harvestType": "Contenu en cours de moissonnage",
@@ -1100,7 +1100,6 @@
   "collection.edit.tabs.source.head": "Source de contenu",
   
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
   "collection.edit.tabs.source.notifications.discarded.content": "Vos changements ont été annulés. Pour restaurer vos changements, veuillez cliquer sur le bouton 'Annuler'",
   
   // "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
@@ -1113,7 +1112,7 @@
   "collection.edit.tabs.source.notifications.invalid.title": "Metadonnée invalide",
   
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
-  "collection.edit.tabs.source.notifications.saved.content": "Les changements relatifs à la source de contenu de cette collection ont bien été sauvegardés.",
+  "collection.edit.tabs.source.notifications.saved.content": "Les changements relatifs à la source de contenu de cette Collection ont bien été sauvegardés.",
   
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
   "collection.edit.tabs.source.notifications.saved.title": "Source de contenu sauvegardée",
@@ -1136,28 +1135,22 @@
   "collection.edit.template.delete-button": "Supprimer",
   
   // "collection.edit.template.edit-button": "Edit",
-  // TODO New key - Add a translation
-  "collection.edit.template.edit-button": "Edit",
+  "collection.edit.template.edit-button": "Éditer",
   
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "Éditer le Template Item (modèle de document) pour la Collection \"{{ collection }}\"",
   
   // "collection.edit.template.label": "Template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "Template Item",
   
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "Erreur lors de la suprresion du Template Item",
   
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "Item Template supprimé avec succès",
   
   // "collection.edit.template.title": "Edit Template Item",
-  // TODO New key - Add a translation
-  "collection.edit.template.title": "Edit Template Item",
+  "collection.edit.template.title": "Éditer Template Item",
   
   
   
@@ -1188,9 +1181,7 @@
   
   
   // "collection.listelement.badge": "Collection",
-  // TODO New key - Add a translation
   "collection.listelement.badge": "Collection",
-  
   
   
   // "collection.page.browse.recent.head": "Recent Submissions",
@@ -1200,8 +1191,7 @@
   "collection.page.browse.recent.empty": "Aucun dépôt disponible",
   
   // "collection.page.edit": "Edit this collection",
-  // TODO New key - Add a translation
-  "collection.page.edit": "Edit this collection",
+  "collection.page.edit": "Éditer cette Collection",
   
   // "collection.page.handle": "Permanent URI for this collection",
   "collection.page.handle": "URI permanent de cette Collection",
@@ -1226,25 +1216,19 @@
   
   
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+  "collection.source.update.notifications.error.content": "Les paramètres fournis sont invalides. La connection n'a pas pu être établie.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.title": "Server Error",
-  
-  
+  "collection.source.update.notifications.error.title": "Erreur serveur",
+    
   
   // "communityList.tabTitle": "DSpace - Community List",
-  // TODO New key - Add a translation
-  "communityList.tabTitle": "DSpace - Community List",
+  "communityList.tabTitle": "DSpace - Liste des Communautés",
   
   // "communityList.title": "List of Communities",
-  // TODO New key - Add a translation
-  "communityList.title": "List of Communities",
+  "communityList.title": "Liste des Communautés",
   
   // "communityList.showMore": "Show More",
-  // TODO New key - Add a translation
   "communityList.showMore": "Show More",
   
   
@@ -1253,15 +1237,13 @@
   "community.create.head": "Créer une Communauté",
   
   // "community.create.notifications.success": "Successfully created the Community",
-  // TODO New key - Add a translation
-  "community.create.notifications.success": "Successfully created the Community",
+  "community.create.notifications.success": "Communauté créée avec succès",
   
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   "community.create.sub-head": "Créer une Sous-Communauté pour la Communauté {{ parent }}",
   
   // "community.curate.header": "Curate Community: {{community}}",
-  // TODO New key - Add a translation
-  "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "Gestion contenu Communauté : {{community}}",
   
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "Annuler",
@@ -1288,149 +1270,116 @@
   "community.edit.head": "Éditer Communauté",
   
   // "community.edit.breadcrumbs": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.breadcrumbs": "Edit Community",
+  "community.edit.breadcrumbs": "Éditer Communauté",
   
   
   // "community.edit.logo.label": "Community logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.label": "Community logo",
+  "community.edit.logo.label": "Logo de la Communauté",
   
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  "community.edit.logo.notifications.add.error": "Erreur lors du chargement du logo de la Communauté. Veuillez vérifier le contenu et réessayer.",
   
   // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  "community.edit.logo.notifications.add.success": "Logo de la Communauté chargé avec succès.",
   
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "community.edit.logo.notifications.delete.success.title": "Logo supprimé",
   
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
+  "community.edit.logo.notifications.delete.success.content": "Logo de la Communauté supprimé avec succès",
   
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "community.edit.logo.notifications.delete.error.title": "Erreur lors de la suppression du logo de la Communauté.",
   
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
-  // TODO New key - Add a translation
-  "community.edit.logo.upload": "Drop a Community Logo to upload",
+  "community.edit.logo.upload": "Glisser-Déposer un logo à charger pour la Communauté",
   
   
   
   // "community.edit.notifications.success": "Successfully edited the Community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.success": "Successfully edited the Community",
+  "community.edit.notifications.success": "Communauté mise à jour avec succès",
   
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
-  // TODO New key - Add a translation
-  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+  "community.edit.notifications.unauthorized": "Vous n'avez pas les autorisations requises pour réaliser ce changement",
   
   // "community.edit.notifications.error": "An error occured while editing the Community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.error": "An error occured while editing the Community",
+  "community.edit.notifications.error": "Une erreur s'est produite lors de l'édition de la Communauté",
   
   // "community.edit.return": "Return",
-  // TODO New key - Add a translation
-  "community.edit.return": "Return",
+  "community.edit.return": "Retour",
   
   
   
   // "community.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.head": "Curate",
+  "community.edit.tabs.curate.head": "Gestion du contenu",
   
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.title": "Community Edit - Curate",
+  "community.edit.tabs.curate.title": "Édition Communauté - Gestion du contenu",
   
   // "community.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.head": "Edit Metadata",
+  "community.edit.tabs.metadata.head": "Éditer Métadonnées",
   
   // "community.edit.tabs.metadata.title": "Community Edit - Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.title": "Community Edit - Metadata",
+  "community.edit.tabs.metadata.title": "Édition Communauté - Métadonnées",
   
   // "community.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.head": "Assign Roles",
+  "community.edit.tabs.roles.head": "Attribuer des rôles",
   
   // "community.edit.tabs.roles.title": "Community Edit - Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.title": "Community Edit - Roles",
+  "community.edit.tabs.roles.title": "Édition Communauté - Rôles",
   
   // "community.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.head": "Authorizations",
+  "community.edit.tabs.authorizations.head": "Autorisations",
   
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+  "community.edit.tabs.authorizations.title": "Édition Communauté - Autorisations",
   
   
   
   // "community.listelement.badge": "Community",
-  // TODO New key - Add a translation
-  "community.listelement.badge": "Community",
+  "community.listelement.badge": "Communauté",
   
   
   
   // "comcol-role.edit.no-group": "None",
-  // TODO New key - Add a translation
-  "comcol-role.edit.no-group": "None",
+  "comcol-role.edit.no-group": "Aucun",
   
   // "comcol-role.edit.create": "Create",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create": "Create",
+  "comcol-role.edit.create": "Créer",
   
   // "comcol-role.edit.restrict": "Restrict",
-  // TODO New key - Add a translation
-  "comcol-role.edit.restrict": "Restrict",
+  "comcol-role.edit.restrict": "Restreindre",
   
   // "comcol-role.edit.delete": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete": "Delete",
+  "comcol-role.edit.delete": "Supprimer",
   
   
   // "comcol-role.edit.community-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.name": "Administrators",
+  "comcol-role.edit.community-admin.name": "Administrateurs",
   
   // "comcol-role.edit.collection-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.name": "Administrators",
+  "comcol-role.edit.collection-admin.name": "Administrateurs",
   
   
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.community-admin.description": "Les administrateurs de Communauté peuvent créer des Sous-Communautés ou Collections et gérer ou assigner la gestion de ces Sous-Communautés ou Collections. De plus, ils peuvent déterminer qui peut déposer des Items dans toutes les Collections de la Communauté, éditer les métadonnées (après dépôt) et ajouter (mapper) les Items existants dans d'autres Collections (en fonction des autorisations appropriées).",
   
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
+  "comcol-role.edit.collection-admin.description": "Les administrateurs de Collection peuvent déterminer qui peut déposer des Items dans la Collection, éditer les métadonnées (après dépôt) et ajouter (mapper) les Items existants dans d'autres collections (en fonction des autorisations appropriées).",
   
   
   // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "Déposants",
   
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
+  "comcol-role.edit.submitters.description": "Utilisateurs E-People et Groupes qui ont la permission de dépôt dans cette Collection.",
   
   
   // "comcol-role.edit.item_read.name": "Default item read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
+  "comcol-role.edit.item_read.name": "Accès en lecture (Item) par défaut",
   
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.item_read.description": "Utilisateurs E-People et Groupes qui peuvent voir les nouveaux Items déposés dans cette Collection. Les changements appliqués à ce rôle ne sont pas rétroactifs. Les Items existants dans le système resteront visibles par les utilisateurs/groupes qui disposaient des droits de lecture avant l'application du changement.",
   
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
   // TODO New key - Add a translation
@@ -2897,8 +2846,7 @@
   "item.page.uri": "URI",
   
   // "item.page.bitstreams.view-more": "Show more",
-  // TODO New key - Add a translation
-  "item.page.bitstreams.view-more": "Show more",
+  "item.page.bitstreams.view-more": "Plus de résultats",
   
   // "item.page.bitstreams.collapse": "Collapse",
   // TODO New key - Add a translation
