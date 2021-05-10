@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component, ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
@@ -9,12 +10,15 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { map, take, takeUntil, tap } from 'rxjs/operators';
 
 import { Tab } from '../../core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { TabDataService } from '../../core/layout/tab-data.service';
-import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload
+} from '../../core/shared/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCrisLayoutTab } from '../decorators/cris-layout-tab.decorator';
 import { CrisLayoutPage } from '../decorators/cris-layout-page.decorator';
@@ -22,6 +26,9 @@ import { CrisLayoutPageModelComponent as CrisLayoutPageObj } from '../models/cri
 import { LayoutPage } from '../enums/layout-page.enum';
 import { isNotEmpty } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { Item } from '../../core/shared/item.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -72,7 +79,9 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   constructor(
     protected tabService: TabDataService,
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected authService: AuthService
+    protected authService: AuthService,
+    protected itemService: ItemDataService,
+    protected changeDetector: ChangeDetectorRef
   ) {
     super();
   }
@@ -116,7 +125,10 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     (componentRef.instance as any).tab = tab;
     (componentRef.instance as any).refreshTab.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       this.destroyTab();
-      this.initializeComponent();
+      this.refreshItem().subscribe(() => {
+        this.initializeComponent();
+        this.changeDetector.detectChanges();
+      });
     });
     return componentRef;
   }
@@ -184,6 +196,21 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    */
   isAuthenticated() {
     return this.authService.isAuthenticated();
+  }
+
+  /**
+   * Refresh the item instance of this page, without a route change.
+   * This is the same call performed by the page resolver.
+   */
+  refreshItem(): Observable<Item> {
+    return this.itemService.findById(this.item.id,
+      false, true,
+      followLink('owningCollection'),
+      followLink('bundles'),
+      followLink('relationships'),
+      followLink('version', undefined, true, true, true,
+        followLink('versionhistory')),
+    ).pipe(getFirstSucceededRemoteDataPayload(), tap((item: Item) => (this.item = item)));
   }
 
 
