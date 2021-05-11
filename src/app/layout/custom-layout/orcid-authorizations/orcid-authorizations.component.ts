@@ -82,6 +82,7 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData) => {
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
+        this.refreshTab.emit();
       } else {
         this.notificationsService.error(this.translateService.get('person.page.orcid.unlink.error'));
       }
