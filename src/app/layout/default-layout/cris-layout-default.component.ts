@@ -124,14 +124,12 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     (componentRef.instance as any).item = this.item;
     (componentRef.instance as any).tab = tab;
     (componentRef.instance as any).refreshTab.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-      this.destroyTab();
-      this.refreshItem().subscribe(() => {
-        this.initializeComponent();
-        this.changeDetector.detectChanges();
-      });
+      this.refreshTab();
     });
     return componentRef;
   }
+
+
 
   destroyTab() {
     if (this.componentRef) {
@@ -199,6 +197,18 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   }
 
   /**
+   * Refresh the tab.
+   * @protected
+   */
+  refreshTab() {
+    this.destroyTab();
+    this.refreshItem().subscribe(() => {
+      this.initializeComponent();
+      this.changeDetector.detectChanges();
+    });
+  }
+
+  /**
    * Refresh the item instance of this page, without a route change.
    * This is the same call performed by the page resolver.
    */
@@ -212,6 +222,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
         followLink('versionhistory')),
     ).pipe(getFirstSucceededRemoteDataPayload(), tap((item: Item) => (this.item = item)));
   }
+
 
 
 }

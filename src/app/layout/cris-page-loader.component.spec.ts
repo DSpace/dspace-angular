@@ -21,6 +21,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { AuthService } from '../core/auth/auth.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { tabs } from '../shared/testing/tab.mock';
+import { ItemDataService } from '../core/data/item-data.service';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -64,6 +65,10 @@ const authServiceMock: any = jasmine.createSpyObj('AuthService', {
   isAuthenticated: jasmine.createSpy('isAuthenticated')
 });
 
+const itemDataServiceMock: any = jasmine.createSpyObj('ItemDataService', {
+  findById: jasmine.createSpy('findById')
+});
+
 describe('CrisPageLoaderComponent', () => {
   let component: CrisPageLoaderComponent;
   let fixture: ComponentFixture<CrisPageLoaderComponent>;
@@ -82,6 +87,7 @@ describe('CrisPageLoaderComponent', () => {
         { provide: EditItemDataService, useValue: editItemDataServiceMock },
         { provide: AuthorizationDataService, useValue: authorizationDataServiceMock },
         { provide: AuthService, useValue: authServiceMock },
+        { provide: ItemDataService, useValue: itemDataServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: ChangeDetectorRef, useValue: {} }
