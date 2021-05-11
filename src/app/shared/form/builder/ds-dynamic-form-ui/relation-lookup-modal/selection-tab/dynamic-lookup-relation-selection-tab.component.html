@@ -12,7 +12,7 @@
             <ds-viewable-collection [objects]="selectionRD$ | async"
                                     [selectable]="true"
                                     [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                                    [config]="initialPagination"
+                                    [config]="(currentPagination$ |async)"
                                     [hideGear]="true"
                                     [context]="context"
                                     (deselectObject)="deselectObject.emit($event)"

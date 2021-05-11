@@ -14,7 +14,7 @@
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !entriesRD?.isLoading && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                                [config]="initialPagination"
+                                [config]="(currentPagination$ |async)"
                                 [hideGear]="true"
                                 [context]="context"
                                 [importable]="true"

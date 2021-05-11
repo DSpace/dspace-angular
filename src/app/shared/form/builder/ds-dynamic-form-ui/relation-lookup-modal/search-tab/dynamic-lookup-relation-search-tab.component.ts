@@ -19,6 +19,7 @@ import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -117,7 +118,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     private selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
     private routeService: RouteService,
-    public lookupRelationService: LookupRelationService
+    public lookupRelationService: LookupRelationService,
+    private paginationService: PaginationService
   ) {
   }
 
@@ -137,9 +139,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Method to reset the route when the window is opened to make sure no strange pagination issues appears
    */
   resetRoute() {
-    this.router.navigate([], {
-      queryParams: Object.assign({ query: this.query }, this.route.snapshot.queryParams, this.initialPagination),
-    });
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, this.initialPagination);
   }
 
   /**
