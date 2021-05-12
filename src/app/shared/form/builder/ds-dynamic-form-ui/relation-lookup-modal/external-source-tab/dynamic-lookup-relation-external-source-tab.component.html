@@ -21,7 +21,7 @@
                                 [importConfig]="importConfig"
                                 (importObject)="import($event)">
         </ds-viewable-collection>
-        <ds-loading *ngIf="!entriesRD || !entriesRD?.payload || entriesRD?.isLoading"
+        <ds-loading *ngIf="!entriesRD || entriesRD?.isLoading"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
         <ds-error   *ngIf="entriesRD?.hasFailed && (!entriesRD?.errorMessage || entriesRD?.statusCode != 400)"
                     message="{{'error.search-results' | translate}}"></ds-error>
