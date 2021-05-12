@@ -78,7 +78,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isConcatGroup(controlModel)) {
-          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
+          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX)) || controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
             result = (controlModel as DynamicConcatModel).group[0];
             break;
           }
