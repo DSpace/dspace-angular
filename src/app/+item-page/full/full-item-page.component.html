@@ -7,7 +7,7 @@
       <div class="d-flex flex-row">
         <ds-item-page-title-field class="mr-auto" [item]="item"></ds-item-page-title-field>
         <div class="pl-2">
-          <ds-dso-page-edit-button [pageRoute]="itemPageRoute$ | async" [dso]="item" [tooltipMsg]="'item.page.edit'"></ds-dso-page-edit-button>
+          <ds-context-menu [contextMenuObject]="item" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
         </div>
       </div>
       <div class="simple-view-link my-3">
