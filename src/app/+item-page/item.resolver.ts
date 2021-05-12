@@ -12,20 +12,31 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
-import { ItemResolver } from './item.resolver';
 
 /**
- * This class represents a resolver that requests a specific item before the route is activated and will redirect to the
- * entity page
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
+  followLink('owningCollection', undefined, true, true, true,
+    followLink('parentCommunity', undefined, true, true, true,
+      followLink('parentCommunity'))
+  ),
+  followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams')),
+  followLink('relationships'),
+  followLink('version', undefined, true, true, true, followLink('versionhistory')),
+];
+
+/**
+ * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable()
-export class ItemPageResolver extends ItemResolver {
+export class ItemResolver implements Resolve<RemoteData<Item>> {
   constructor(
     protected itemService: ItemDataService,
     protected store: Store<any>,
     protected router: Router
   ) {
-    super(itemService, store, router);
   }
 
   /**
@@ -36,19 +47,18 @@ export class ItemPageResolver extends ItemResolver {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    return super.resolve(route, state).pipe(
-      map((rd: RemoteData<Item>) => {
-        if (rd.hasSucceeded && hasValue(rd.payload)) {
-          const itemRoute = getItemPageRoute(rd.payload);
-          const thisRoute = state.url;
-          if (!thisRoute.startsWith(itemRoute)) {
-            const itemId = rd.payload.uuid;
-            const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-            this.router.navigateByUrl(itemRoute + subRoute);
-          }
-        }
-        return rd;
-      })
+    const itemRD$ = this.itemService.findById(route.params.id,
+      true,
+      false,
+      ...ITEM_PAGE_LINKS_TO_FOLLOW
+    ).pipe(
+      getFirstCompletedRemoteData(),
     );
+
+    itemRD$.subscribe((itemRD: RemoteData<Item>) => {
+      this.store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+    });
+
+    return itemRD$;
   }
 }

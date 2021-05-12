@@ -15,9 +15,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
 import { getItemPageRoute } from '../../item-page-routing-paths';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page.resolver';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item.resolver';
 
 @Component({
   selector: 'ds-abstract-item-update',

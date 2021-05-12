@@ -10,6 +10,7 @@ import { ThemedCollectionStatisticsPageComponent } from './collection-statistics
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { ItemResolver } from '../+item-page/item.resolver';
 
 @NgModule({
   imports: [
@@ -34,7 +35,7 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
         {
           path: `items/:id`,
           resolve: {
-            scope: ItemPageResolver,
+            scope: ItemResolver,
             breadcrumb: I18nBreadcrumbResolver
           },
           data: {
@@ -75,7 +76,7 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
     I18nBreadcrumbsService,
     CollectionPageResolver,
     CommunityPageResolver,
-    ItemPageResolver
+    ItemResolver
   ]
 })
 export class StatisticsPageRoutingModule {
