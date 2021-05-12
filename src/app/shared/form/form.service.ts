@@ -128,6 +128,7 @@ export class FormService {
       error[errorKey] = true;
       // add the error in the form control
       field.setErrors(error);
+      field.setValidators(() => error);
     }
 
     field.markAsTouched();
@@ -140,6 +141,8 @@ export class FormService {
     if (field.hasError(errorKey)) {
       error[errorKey] = null;
       field.setErrors(error);
+      field.clearValidators();
+      field.updateValueAndValidity();
     }
 
     field.markAsUntouched();
