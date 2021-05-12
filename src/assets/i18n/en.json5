@@ -3038,6 +3038,8 @@
 
   "reciter.suggestion.source.oaire": "OpenAIRE Graph",
 
+  "reciter.suggestion.source.orcidWorks": "ORCID registry",
+
   "reciter.suggestion.from.source": "from the ",
 
   "reciter.suggestion.totalScore": "Total Score",
@@ -4260,6 +4262,8 @@
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
   "submission.import-external.source.orcid": "ORCID",
+
+  "submission.import-external.source.orcidWorks": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
 

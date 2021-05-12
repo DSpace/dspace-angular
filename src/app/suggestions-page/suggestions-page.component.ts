@@ -62,6 +62,7 @@ export class SuggestionsPageComponent implements OnInit {
   suggestionId: any;
   researcherName: any;
   researcherUuid: any;
+  suggestionSource: any;
 
   selectedSuggestions: { [id: string]: OpenaireSuggestion } = {};
   isBulkOperationPending = false;
@@ -94,6 +95,7 @@ export class SuggestionsPageComponent implements OnInit {
     ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
       this.suggestionId = suggestionTarget.id;
       this.researcherName = suggestionTarget.display;
+      this.suggestionSource = suggestionTarget.source;
       this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
       this.updatePage();
     });
@@ -181,7 +183,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId)
       .subscribe((response: any) => {
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-        this.notificationService.success('reciter.suggestion.approveAndImport.success');
+        this.notificationService.success(this.translateService.get('reciter.suggestion.approveAndImport.success'));
         this.updatePage();
       });
   }
@@ -244,6 +246,10 @@ export class SuggestionsPageComponent implements OnInit {
    */
   getSelectedSuggestionsCount(): number {
     return Object.keys(this.selectedSuggestions).length;
+  }
+
+  getSuggestionSourceLabel(): string {
+    return 'reciter.suggestion.source.' + this.suggestionSource;
   }
 
 }
