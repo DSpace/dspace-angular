@@ -3107,6 +3107,8 @@
 
   "person.page.orcid.unlink": "Disconnect from ORCID",
 
+  "person.page.orcid.unlink.processing": "Processing...",
+
   "person.page.orcid.missing-authorizations": "Missing authorizations",
 
   "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
