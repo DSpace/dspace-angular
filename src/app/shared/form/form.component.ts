@@ -277,7 +277,7 @@ export class FormComponent implements OnDestroy, OnInit {
     const control: FormControl = event.control;
     const fieldIndex: number = (event.context && event.context.index) ? event.context.index : 0;
     if (control.valid) {
-      this.formService.removeError(this.formId, event.model.id, fieldIndex);
+      this.formService.removeError(this.formId, event.model.name, fieldIndex);
     }
   }
 
