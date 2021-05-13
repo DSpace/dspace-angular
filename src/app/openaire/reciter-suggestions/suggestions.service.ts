@@ -240,7 +240,7 @@ export class SuggestionsService {
   public getNotificationSuggestionInterpolation(suggestionTarget: OpenaireSuggestionTarget): any {
     return {
       count: suggestionTarget.total,
-      source: this.translateService.instant('reciter.suggestion.source.oaire'),
+      source: this.translateService.instant('reciter.suggestion.source.' + suggestionTarget.source),
       suggestionId: suggestionTarget.id,
       displayName: suggestionTarget.display
     };

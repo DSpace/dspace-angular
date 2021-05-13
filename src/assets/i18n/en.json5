@@ -3038,6 +3038,8 @@
 
   "reciter.suggestion.source.oaire": "OpenAIRE Graph",
 
+  "reciter.suggestion.source.orcidWorks": "ORCID registry",
+
   "reciter.suggestion.from.source": "from the ",
 
   "reciter.suggestion.totalScore": "Total Score",
@@ -3104,6 +3106,8 @@
   "person.page.orcid.link": "Connect to ORCID ID",
 
   "person.page.orcid.unlink": "Disconnect from ORCID",
+
+  "person.page.orcid.unlink.processing": "Processing...",
 
   "person.page.orcid.missing-authorizations": "Missing authorizations",
 
@@ -4260,6 +4264,8 @@
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
   "submission.import-external.source.orcid": "ORCID",
+
+  "submission.import-external.source.orcidWorks": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
 

@@ -24,6 +24,8 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
 
   missingAuthorizations$ = new BehaviorSubject<string[]>([]);
 
+  unlinkProcessing = false;
+
   constructor(
     private configurationService: ConfigurationDataService,
     private researcherProfileService: ResearcherProfileService,
@@ -79,7 +81,9 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
   }
 
   unlinkOrcid(): void {
+    this.unlinkProcessing = true;
     this.researcherProfileService.unlinkOrcid(this.item).subscribe((remoteData) => {
+      this.unlinkProcessing = false;
       if (remoteData.isSuccess) {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
         this.refreshTab.emit();
