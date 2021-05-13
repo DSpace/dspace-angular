@@ -87,7 +87,6 @@ export class ConcatFieldParser extends FieldParser {
     if (this.configData.mandatory) {
       concatGroup.required = true;
       input1ModelConfig.required = true;
-      input2ModelConfig.required = true;
     }
 
     if (isNotEmpty(this.firstPlaceholder)) {
