@@ -76,19 +76,13 @@ export class ConcatFieldParser extends FieldParser {
       id + CONCAT_SECOND_INPUT_SUFFIX,
       false,
       true,
-      true,
+      false,
       false
     );
-    input2ModelConfig.name = this.getFieldId();
 
     if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
       concatGroup.hint = input1ModelConfig.hint;
       input1ModelConfig.hint = undefined;
-    }
-
-    if (this.configData.mandatory) {
-      concatGroup.required = true;
-      input1ModelConfig.required = true;
     }
 
     if (isNotEmpty(this.firstPlaceholder)) {
