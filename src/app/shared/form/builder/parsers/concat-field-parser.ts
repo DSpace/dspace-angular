@@ -71,6 +71,7 @@ export class ConcatFieldParser extends FieldParser {
       true,
       false
     );
+    input1ModelConfig.name = this.getFieldId();
     const input2ModelConfig: DynamicInputModelConfig = this.initModel(
       id + CONCAT_SECOND_INPUT_SUFFIX,
       false,
@@ -78,6 +79,7 @@ export class ConcatFieldParser extends FieldParser {
       true,
       false
     );
+    input2ModelConfig.name = this.getFieldId();
 
     if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
       concatGroup.hint = input1ModelConfig.hint;
@@ -87,7 +89,6 @@ export class ConcatFieldParser extends FieldParser {
     if (this.configData.mandatory) {
       concatGroup.required = true;
       input1ModelConfig.required = true;
-      input2ModelConfig.required = true;
     }
 
     if (isNotEmpty(this.firstPlaceholder)) {

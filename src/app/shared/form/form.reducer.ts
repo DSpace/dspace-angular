@@ -97,7 +97,7 @@ function addFormErrors(state: FormState, action: FormAddError) {
 
 function removeFormError(state: FormState, action: FormRemoveErrorAction) {
   const formId = action.payload.formId;
-  const fieldId = action.payload.fieldId;
+  const fieldId = action.payload.fieldId.replace(/\./g, '_');
   const fieldIndex = action.payload.fieldIndex;
   if (hasValue(state[formId])) {
     const errors = state[formId].errors.filter((error) => error.fieldId !== fieldId || error.fieldIndex !== fieldIndex);
