@@ -6,7 +6,8 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormArrayGroupModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel, isDynamicFormControlEvent
+  DynamicFormControlModel,
+  isDynamicFormControlEvent
 } from '@ng-dynamic-forms/core';
 
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
@@ -299,7 +300,7 @@ export class SectionFormOperationsService {
 
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
-      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context);
+      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
     }
 
@@ -368,7 +369,7 @@ export class SectionFormOperationsService {
 
    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
-      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context);
+      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
     }
 
@@ -498,23 +499,37 @@ export class SectionFormOperationsService {
                                           event: DynamicFormControlEvent,
                                           previousValue: FormFieldPreviousValueObject) {
 
-    return this.handleArrayGroupPatch(pathCombiner, event.$event, (event as any).$event.arrayModel);
+    return this.handleArrayGroupPatch(pathCombiner, event.$event, (event as any).$event.arrayModel, previousValue);
   }
 
   /**
    * Specific patch handler for a DynamicRowArrayModel.
    * Configure a Patch ADD with the current array value.
    * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
    * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
    * @param model
+   *    the [[DynamicRowArrayModel]] model
+   * @param previousValue
+   *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   private handleArrayGroupPatch(pathCombiner: JsonPatchOperationPathCombiner,
                                 event,
-                                model: DynamicRowArrayModel) {
+                                model: DynamicRowArrayModel,
+                                previousValue: FormFieldPreviousValueObject) {
+
     const arrayValue = this.formBuilder.getValueFromModel([model]);
-    const segmentedPath2 = this.getFieldPathSegmentedFromChangeEvent(event);
-    this.operationsBuilder.add(
-      pathCombiner.getPath(segmentedPath2),
-      arrayValue[segmentedPath2], false);
+    const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
+    if (isNotEmpty(arrayValue)) {
+      this.operationsBuilder.add(
+        pathCombiner.getPath(segmentedPath),
+        arrayValue[segmentedPath],
+        false
+      );
+    } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
+      this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
+    }
+
   }
 }
