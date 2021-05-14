@@ -5,7 +5,7 @@
 
         <ds-loading *ngIf="(processing$ | async)"></ds-loading>
 
-        <div *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0" class="row mt-3 p-3 mb-2 bg-info text-white rounded d-flex justify-content-center">
+        <div *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0" class="row alert alert-info">
           {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
         </div>
 
