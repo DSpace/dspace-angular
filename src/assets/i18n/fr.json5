@@ -1432,8 +1432,7 @@
   "community.form.title": "Nom",
   
   // "community.page.edit": "Edit this community",
-  // TODO New key - Add a translation
-  "community.page.edit": "Edit this community",
+  "community.page.edit": "Éditer cette Communauté",
   
   // "community.page.handle": "Permanent URI for this community",
   "community.page.handle": "URI permanent de cette Communauté",
@@ -1456,176 +1455,128 @@
   
   
   // "cookies.consent.accept-all": "Accept all",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-all": "Accept all",
+  "cookies.consent.accept-all": "Accepter tout",
   
   // "cookies.consent.accept-selected": "Accept selected",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-selected": "Accept selected",
+  "cookies.consent.accept-selected": "Accepter les entrées sélectionnées",
   
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+  "cookies.consent.app.opt-out.description": "Cette application est chargée par défaut (mais vous pouvez choisir de la désactiver)",
   
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-  // TODO New key - Add a translation
   "cookies.consent.app.opt-out.title": "(opt-out)",
   
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "usage",
   
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "Cette application est toujours nécessaire",
   
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(toujours nécessaire)",
   
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-  // TODO New key - Add a translation
-  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+  "cookies.consent.update": "Il y a eu des changements depuis votre dernière visite, veuillez mettre à jour votre consentement.",
   
   // "cookies.consent.close": "Close",
-  // TODO New key - Add a translation
-  "cookies.consent.close": "Close",
+  "cookies.consent.close": "Fermer",
   
   // "cookies.consent.decline": "Decline",
-  // TODO New key - Add a translation
-  "cookies.consent.decline": "Decline",
+  "cookies.consent.decline": "Refuser",
   
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Vos données personnelles sont récupérées et utilisées dans les contextes suivants : <strong>Authentification, Préférences, Consentement et Statistiques</strong>. <br/> Pour plus d'informations, veuillez vous référer à la {privacyPolicy}.",
   
   // "cookies.consent.content-notice.learnMore": "Customize",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.learnMore": "Customize",
+  "cookies.consent.content-notice.learnMore": "Personnaliser",
   
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+  "cookies.consent.content-modal.description": "Vous pouvez ici voir et personnaliser les informations privées que nous collectons à votre sujet.",
   
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+  "cookies.consent.content-modal.privacy-policy.name": "politique de protection de la vie privée",
   
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-modal.privacy-policy.text": "Pour plus d'informations, veuillez lire notre {privacyPolicy}.",
   
   // "cookies.consent.content-modal.title": "Information that we collect",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.title": "Information that we collect",
-  
+  "cookies.consent.content-modal.title": "Informations collectées",
   
   
   // "cookies.consent.app.title.authentication": "Authentication",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.authentication": "Authentication",
+  "cookies.consent.app.title.authentication": "Authentification",
   
   // "cookies.consent.app.description.authentication": "Required for signing you in",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.authentication": "Required for signing you in",
-  
-  
+  "cookies.consent.app.description.authentication": "Requis pour permettre votre connection",
+    
   // "cookies.consent.app.title.preferences": "Preferences",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.preferences": "Preferences",
+  "cookies.consent.app.title.preferences": "Préférences",
   
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.preferences": "Required for saving your preferences",
-  
-  
+  "cookies.consent.app.description.preferences": "Requis pour sauvegarder vos préférences",
   
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
+  "cookies.consent.app.title.acknowledgement": "Consentement",
   
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  
-  
+  "cookies.consent.app.description.acknowledgement": "Requis pour sauvegarder votre consentement",
   
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.google-analytics": "Google Analytics",
   
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  
-  
-  
+  "cookies.consent.app.description.google-analytics": "Permet l'enregistrement de données statistiques",
+    
   // "cookies.consent.purpose.functional": "Functional",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.functional": "Functional",
+  "cookies.consent.purpose.functional": "Fonctionnel",
   
   // "cookies.consent.purpose.statistical": "Statistical",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.statistical": "Statistical",
+  "cookies.consent.purpose.statistical": "Statistique",
   
   
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label":  "Vérification des liens dans les métadonnées",
   
   // "curation-task.task.noop.label": "NOOP",
-  // TODO New key - Add a translation
   "curation-task.task.noop.label": "NOOP",
   
   // "curation-task.task.profileformats.label": "Profile Bitstream Formats",
-  // TODO New key - Add a translation
-  "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+  "curation-task.task.profileformats.label": "Lister les formats Bitstreams",
   
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+  "curation-task.task.requiredmetadata.label": "Vérificaton des métadonnées obligatoires",
   
   // "curation-task.task.translate.label": "Microsoft Translator",
-  // TODO New key - Add a translation
-  "curation-task.task.translate.label": "Microsoft Translator",
+  "curation-task.task.translate.label": "Traducteur Microsoft",
   
   // "curation-task.task.vscan.label": "Virus Scan",
-  // TODO New key - Add a translation
   "curation-task.task.vscan.label": "Virus Scan",
   
   
   
   // "curation.form.task-select.label": "Task:",
-  // TODO New key - Add a translation
-  "curation.form.task-select.label": "Task:",
+  "curation.form.task-select.label": "Tâche :",
   
   // "curation.form.submit": "Start",
-  // TODO New key - Add a translation
-  "curation.form.submit": "Start",
+  "curation.form.submit": "Démarrer",
   
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.head": "The curation task has been started successfully",
+  "curation.form.submit.success.head": "La tâche de conservation a été lancée avec succès",
   
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+  "curation.form.submit.success.content": "Vous allez être redirigé vers la page de Processus correspondante.",
   
   // "curation.form.submit.error.head": "Running the curation task failed",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.head": "Running the curation task failed",
+  "curation.form.submit.error.head": "L'exécution de la tâche de conservation a échoué",
   
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "Une erreur s'est produite au lancement de la tâche de conservation.",
   
   // "curation.form.handle.label": "Handle:",
-  // TODO New key - Add a translation
-  "curation.form.handle.label": "Handle:",
+  "curation.form.handle.label": "Handle :",
   
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  // TODO New key - Add a translation
-  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+  "curation.form.handle.hint": "Aide : Entrer [votre-préfixe-handle]/0 afin de lancer une tâche de conservation sur l'entièreté du site (ceci peut ne pas être supporté pour toutes les tâches)",
   
   
   
@@ -1633,8 +1584,7 @@
   "dso-selector.create.collection.head": "Nouvelle Collection",
   
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
-  // TODO New key - Add a translation
-  "dso-selector.create.collection.sub-level": "Create a new collection in",
+  "dso-selector.create.collection.sub-level": "Créer une nouvelle Collection dans",
   
   // "dso-selector.create.community.head": "New community",
   "dso-selector.create.community.head": "Nouvelle Communauté",
@@ -1649,12 +1599,10 @@
   "dso-selector.create.item.head": "Nouvel Item",
   
   // "dso-selector.create.item.sub-level": "Create a new item in",
-  // TODO New key - Add a translation
-  "dso-selector.create.item.sub-level": "Create a new item in",
+  "dso-selector.create.item.sub-level": "Créer un nouvel Item dans",
   
   // "dso-selector.create.submission.head": "New submission",
-  // TODO New key - Add a translation
-  "dso-selector.create.submission.head": "New submission",
+  "dso-selector.create.submission.head": "Nouveau dépôt",
   
   // "dso-selector.edit.collection.head": "Edit collection",
   "dso-selector.edit.collection.head": "Éditer Collection",
@@ -1666,8 +1614,7 @@
   "dso-selector.edit.item.head": "Éditer Item",
   
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
-  // TODO New key - Add a translation
-  "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
+  "dso-selector.export-metadata.dspaceobject.head": "Exporter les métadonnées de",
   
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "Aucun {{ type }} trouvé",
@@ -1676,43 +1623,32 @@
   "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
   
   
-  
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+  "confirmation-modal.export-metadata.header": "Exporter métadonnées de {{ dsoName }}",
   
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
+  "confirmation-modal.export-metadata.info": "Êtes-vous certain de vouloir exporter les métadonnées de {{ dsoName }}",
   
   // "confirmation-modal.export-metadata.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.cancel": "Cancel",
+  "confirmation-modal.export-metadata.cancel": "Annuler",
   
   // "confirmation-modal.export-metadata.confirm": "Export",
-  // TODO New key - Add a translation
-  "confirmation-modal.export-metadata.confirm": "Export",
+  "confirmation-modal.export-metadata.confirm": "Exporter",
   
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": "Supprimer EPerson \"{{ dsoName }}\"",
   
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Êtes-vous certain de vouloir supprimer l'EPerson \"{{ dsoName }}\"",
   
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.cancel": "Cancel",
+  "confirmation-modal.delete-eperson.cancel": "Annuler",
   
   // "confirmation-modal.delete-eperson.confirm": "Delete",
-  // TODO New key - Add a translation
-  "confirmation-modal.delete-eperson.confirm": "Delete",
-  
+  "confirmation-modal.delete-eperson.confirm": "Supprimer",
   
   // "error.bitstream": "Error fetching bitstream",
-  // TODO New key - Add a translation
-  "error.bitstream": "Error fetching bitstream",
+  "error.bitstream": "Erreur lors de la récupération du/des Bitstream(s)",
   
   // "error.browse-by": "Error fetching items",
   "error.browse-by": "Erreur lors de la récupération des Items",
@@ -1727,7 +1663,7 @@
   "error.community": "Erreur lors de la récupération de la Communauté",
   
   // "error.identifier": "No item found for the identifier",
-  "error.identifier": "Aucun objet correspondant à cet identifiant",
+  "error.identifier": "Aucun Item correspondant à cet identifiant",
   
   // "error.default": "Error",
   "error.default": "Erreur",
@@ -1766,19 +1702,13 @@
   "error.validation.pattern": "Cette entrée est invalide en vertu du pattern : {{ pattern }}.",
   
   // "error.validation.filerequired": "The file upload is mandatory",
-  // TODO New key - Add a translation
-  "error.validation.filerequired": "The file upload is mandatory",
-  
-  
+  "error.validation.filerequired": "Le téléchargement de fichier est obligatoire",
   
   // "file-section.error.header": "Error obtaining files for this item",
-  // TODO New key - Add a translation
-  "file-section.error.header": "Error obtaining files for this item",
-  
+  "file-section.error.header": "Erreur lors de la récupération des fichiers liés à cet Item",
   
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
-  // TODO New key - Add a translation
   "footer.copyright": "copyright © 2002-{{ year }}",
   
   // "footer.link.dspace": "DSpace software",
@@ -1788,134 +1718,100 @@
   "footer.link.lyrasis": "LYRASIS",
   
   // "footer.link.cookies": "Cookie settings",
-  // TODO New key - Add a translation
-  "footer.link.cookies": "Cookie settings",
+  "footer.link.cookies": "Paramètre des cookies",
   
   // "footer.link.privacy-policy": "Privacy policy",
-  // TODO New key - Add a translation
-  "footer.link.privacy-policy": "Privacy policy",
+  "footer.link.privacy-policy": "Politique de protection de la vie privée",
   
   // "footer.link.end-user-agreement":"End User Agreement",
-  // TODO New key - Add a translation
-  "footer.link.end-user-agreement":"End User Agreement",
-  
+  "footer.link.end-user-agreement":"Licence de l'Utilisateur Final",
   
   
   // "forgot-email.form.header": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-email.form.header": "Forgot Password",
+  "forgot-email.form.header": "Mot de passe oublié",
   
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  // TODO New key - Add a translation
-  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "forgot-email.form.info": "Créer un compte pour vous abonner à des collections afin de recevoir des mises à jour via mail ainsi que pour déposer de nouveaux Items dans DSpace.",
   
   // "forgot-email.form.email": "Email Address *",
-  // TODO New key - Add a translation
-  "forgot-email.form.email": "Email Address *",
+  "forgot-email.form.email": "Adresse e-mail *",
   
   // "forgot-email.form.email.error.required": "Please fill in an email address",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.error.required": "Please fill in an email address",
+  "forgot-email.form.email.error.required": "Veuillez remplir une adresse e-mail",
   
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+  "forgot-email.form.email.error.pattern": "Veuillez remplir une adresse e-mail valide",
   
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
-  // TODO New key - Add a translation
-  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+  "forgot-email.form.email.hint": "Cette adresse sera vérifiée et utilisée en tant qu'identifiant de connection.",
   
   // "forgot-email.form.submit": "Submit",
-  // TODO New key - Add a translation
-  "forgot-email.form.submit": "Submit",
+  "forgot-email.form.submit": "Envoyer",
   
   // "forgot-email.form.success.head": "Verification email sent",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.head": "Verification email sent",
+  "forgot-email.form.success.head": "E-mail de vérification envoyé",
   
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  // TODO New key - Add a translation
-  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "forgot-email.form.success.content": "Un mail a été envoyé à {{ email }} avec une URL d'activation et de plus amples instructions.",
   
   // "forgot-email.form.error.head": "Error when trying to register email",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.head": "Error when trying to register email",
+  "forgot-email.form.error.head": "Erreur lors de l'enregistrement de l'adresse e-mail",
   
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  
-  
+  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",  
   
   // "forgot-password.title": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-password.title": "Forgot Password",
+  "forgot-password.title": "Mot de passe oublié",
   
   // "forgot-password.form.head": "Forgot Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.head": "Forgot Password",
+  "forgot-password.form.head": "Mot de passe oublié",
   
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "forgot-password.form.info": "Entrer un nouveau mot de passe dans le zone ci-dessous et confirmer en l'entrant à nouveau dans la seconde zone. Le mot de passe doit au moins faire 6 caractères.",
   
   // "forgot-password.form.card.security": "Security",
-  // TODO New key - Add a translation
-  "forgot-password.form.card.security": "Security",
+  "forgot-password.form.card.security": "Sécurité",
   
   // "forgot-password.form.identification.header": "Identify",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.header": "Identify",
+  "forgot-password.form.identification.header": "Identification",
   
   // "forgot-password.form.identification.email": "Email address: ",
-  // TODO New key - Add a translation
-  "forgot-password.form.identification.email": "Email address: ",
+  "forgot-password.form.identification.email": "Adresse e-mail : ",
   
   // "forgot-password.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.password": "Password",
+  "forgot-password.form.label.password": "Mot de passe",
   
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
-  // TODO New key - Add a translation
-  "forgot-password.form.label.passwordrepeat": "Retype to confirm",
+  "forgot-password.form.label.passwordrepeat": "Entrer à nouveau pour confirmer",
   
   // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  "forgot-password.form.error.empty-password": "Veuillez entrer un mot de passe dans la zone ci-dessous.",
   
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.matching-passwords": "The passwords do not match.",
+  "forgot-password.form.error.matching-passwords": "Les mots de passe ne correspondent pas.",
   
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
+  "forgot-password.form.error.password-length": "La longueur minimale du mot de passe est de 6 caractères.",
   
   // "forgot-password.form.notification.error.title": "Error when trying to submit new password",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.error.title": "Error when trying to submit new password",
+  "forgot-password.form.notification.error.title": "Erreur lors de l'enregistrement du mot de passe",
   
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
+  "forgot-password.form.notification.success.content": "La réinitialisation du mot de passe a été effectuée avec succès. Vous êtes connecté avec le compte de l'utilisateur ainsi créé.",
   
   // "forgot-password.form.notification.success.title": "Password reset completed",
-  // TODO New key - Add a translation
-  "forgot-password.form.notification.success.title": "Password reset completed",
+  "forgot-password.form.notification.success.title": "Réinitialisation du mot de passe terminée",
   
   // "forgot-password.form.submit": "Submit password",
-  // TODO New key - Add a translation
-  "forgot-password.form.submit": "Submit password",
+  "forgot-password.form.submit": "Confirmer mot de passe",
   
   
   
   // "form.add": "Add",
-  // TODO New key - Add a translation
-  "form.add": "Add",
+  "form.add": "Ajouter",
   
   // "form.add-help": "Click here to add the current entry and to add another one",
-  // TODO New key - Add a translation
-  "form.add-help": "Click here to add the current entry and to add another one",
+  "form.add-help": "Cliquer ici pour ajouter l'entrée actuelle et en ajouter une nouvelle",
   
   // "form.cancel": "Cancel",
   "form.cancel": "Annuler",
@@ -1954,12 +1850,10 @@
   "form.loading": "En cours de chargement...",
   
   // "form.lookup": "Lookup",
-  // TODO New key - Add a translation
-  "form.lookup": "Lookup",
+  "form.lookup": "Rechercher",
   
   // "form.lookup-help": "Click here to look up an existing relation",
-  // TODO New key - Add a translation
-  "form.lookup-help": "Click here to look up an existing relation",
+  "form.lookup-help": "Cliquer ici pour rechercher une relation existante",
   
   // "form.no-results": "No results found",
   "form.no-results": "Aucun résultat disponible",
@@ -1983,7 +1877,6 @@
   "form.search": "Rechercher",
   
   // "form.search-help": "Click here to look for an existing correspondence",
-  // TODO Source message changed - Revise the translation
   "form.search-help": "Cliquer ici pour rechercher une correspondance existante",
   
   // "form.submit": "Submit",
@@ -1995,8 +1888,7 @@
   "home.description": "",
   
   // "home.breadcrumbs": "Home",
-  // TODO New key - Add a translation
-  "home.breadcrumbs": "Home",
+  "home.breadcrumbs": "Accueil",
   
   // "home.title": "DSpace Angular :: Home",
   "home.title": "DSpace Angular :: Home",
@@ -2010,28 +1902,22 @@
   
   
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
+  "info.end-user-agreement.accept": "J'ai lu et j'accepte la Licence de l'Utilisateur Final",
   
   // "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
+  "info.end-user-agreement.accept.error": "Une erreur s'est produite lors de l'acceptation de la Licence de l'Utilisateur Final",
   
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
+  "info.end-user-agreement.accept.success": "Licence de l'Utilisateur Final mise à jour avec succès",
   
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.breadcrumbs": "End User Agreement",
+  "info.end-user-agreement.breadcrumbs": "Licence de l'Utilisateur Final",
   
   // "info.end-user-agreement.buttons.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.buttons.cancel": "Cancel",
+  "info.end-user-agreement.buttons.cancel": "Annuler",
   
   // "info.end-user-agreement.buttons.save": "Save",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.buttons.save": "Save",
+  "info.end-user-agreement.buttons.save": "Sauvegarder",
   
   // "info.end-user-agreement.head": "End User Agreement",
   // TODO New key - Add a translation
