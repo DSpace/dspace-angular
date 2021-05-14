@@ -1382,50 +1382,36 @@
   "comcol-role.edit.item_read.description": "Utilisateurs E-People et Groupes qui peuvent voir les nouveaux Items déposés dans cette Collection. Les changements appliqués à ce rôle ne sont pas rétroactifs. Les Items existants dans le système resteront visibles par les utilisateurs/groupes qui disposaient des droits de lecture avant l'application du changement.",
   
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+  "comcol-role.edit.item_read.anonymous-group": "Les droits de lecture par défaut sur les nouveaux Items sont actuellement octroyés au groupe Anonymous (correspondant aux utilisateurs non connectés).",
   
   
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "Droits de lecture Bitstream par défaut",
   
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.bitstream_read.description": "Les administrateurs de Communauté peuvent créer des Sous-Communautés ou Collections et gérer ou assigner la gestion de ces Sous-Communautés ou Collections. De plus, ils peuvent déterminer qui peut déposer des Items dans toutes les Collections de la Communauté, éditer les métadonnées (après dépôt) et ajouter (mapper) les Items existants dans d'autres Collections (en fonction des autorisations appropriées).",
   
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "Les droits de lecture par défaut sur les nouveaux Bitstreams sont actuellement octroyés au groupe Anonymous (correspondant aux utilisateurs non connectés).",
   
   
   // "comcol-role.edit.editor.name": "Editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.name": "Editors",
+  "comcol-role.edit.editor.name": "Éditeurs",
   
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  
+  "comcol-role.edit.editor.description": "Les éditeurs peuvent modifier les métadonnées des dépôts avant de les accepter ou de les refuser.",
   
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
+  "comcol-role.edit.finaleditor.name": "Éditeurs finaux",
   
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  
+  "comcol-role.edit.finaleditor.description": "Les éditeurs finaux peuvent modifier les métadonnées des dépôts mais ne sont pas en mesure de les rejeter.",
   
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
+  "comcol-role.edit.reviewer.name": "Approbateur",
   
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  
-  
+  "comcol-role.edit.reviewer.description": "Les approbateurs peuvent accepter ou refuser les dépôts mais ne sont pas en mesure de modifier les métadonnées de ces dépôts.",
   
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Description succincte",
