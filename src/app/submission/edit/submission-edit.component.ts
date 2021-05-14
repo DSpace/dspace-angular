@@ -15,6 +15,8 @@ import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
+import { SubmissionError } from '../objects/submission-objects.reducer';
+import parseSectionErrors from '../utils/parseSectionErrors';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -32,7 +34,18 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   public collectionId: string;
 
+  /**
+   * The entity type of the submission
+   * @type {string}
+   */
   public entityType: string;
+
+  /**
+   * The item related to the submission object
+   * @type {Item}
+   */
+  public item: Item;
+
   /**
    * The list of submission's sections
    * @type {WorkspaceitemSectionsObject}
@@ -52,6 +65,12 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   public submissionDefinition: SubmissionDefinitionsModel;
 
   /**
+   * The submission errors present in the submission object
+   * @type {SubmissionError}
+   */
+  public submissionErrors: SubmissionError;
+
+  /**
    * The submission id
    * @type {string}
    */
@@ -62,7 +81,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
-  public item: Item;
+
 
   /**
    * Initialize instance variables
@@ -97,6 +116,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
           this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
           this.router.navigate(['/mydspace']);
         } else {
+          const { errors } = submissionObjectRD.payload;
+          this.submissionErrors = parseSectionErrors(errors);
           this.submissionId = submissionObjectRD.payload.id.toString();
           this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
           const metadata = (submissionObjectRD.payload.collection as Collection).metadata['dspace.entity.type'];
