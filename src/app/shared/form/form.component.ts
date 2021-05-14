@@ -254,6 +254,13 @@ export class FormComponent implements OnDestroy, OnInit {
 
   onBlur(event: DynamicFormControlEvent): void {
     this.blur.emit(event);
+    const control: FormControl = event.control;
+    const fieldIndex: number = (event.context && event.context.index) ? event.context.index : 0;
+    if (control.valid) {
+      this.formService.removeError(this.formId, event.model.name, fieldIndex);
+    } else {
+      this.formService.addControlErrors(control, this.formId, event.model.name, fieldIndex);
+    }
   }
 
   onCustomEvent(event: any) {

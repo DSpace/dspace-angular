@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { filter, switchMap, debounceTime } from 'rxjs/operators';
+import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isEmpty, isNotNull, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SubmissionService } from '../submission.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -17,6 +17,8 @@ import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SubmissionError } from '../objects/submission-objects.reducer';
+import parseSectionErrors from '../utils/parseSectionErrors';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -51,6 +53,12 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {SubmissionDefinitionsModel}
    */
   public submissionDefinition: SubmissionDefinitionsModel;
+
+  /**
+   * The submission errors present in the submission object
+   * @type {SubmissionError}
+   */
+  public submissionErrors: SubmissionError;
 
   /**
    * The submission id
@@ -110,6 +118,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
             this.router.navigate(['/mydspace']);
           } else {
+          const { errors } = submissionObjectRD.payload;
+          this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();
             this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
             this.selfUrl = submissionObjectRD.payload._links.self.href;
