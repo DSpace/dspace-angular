@@ -28,19 +28,19 @@ describe('ItemOperationComponent', () => {
   });
 
   it('should render operation row', () => {
-    const span = fixture.debugElement.query(By.css('span')).nativeElement;
+    const span = fixture.debugElement.query(By.css('.action-label span')).nativeElement;
     expect(span.textContent).toContain('item.edit.tabs.status.buttons.key1.label');
-    const link = fixture.debugElement.query(By.css('a')).nativeElement;
-    expect(link.href).toContain('url1');
-    expect(link.textContent).toContain('item.edit.tabs.status.buttons.key1.button');
+    const button = fixture.debugElement.query(By.css('button')).nativeElement;
+    expect(button.textContent).toContain('item.edit.tabs.status.buttons.key1.button');
   });
   it('should render disabled operation row', () => {
     itemOperation.setDisabled(true);
     fixture.detectChanges();
 
-    const span = fixture.debugElement.query(By.css('span')).nativeElement;
+    const span = fixture.debugElement.query(By.css('.action-label span')).nativeElement;
     expect(span.textContent).toContain('item.edit.tabs.status.buttons.key1.label');
-    const span2 = fixture.debugElement.query(By.css('span.btn-danger')).nativeElement;
-    expect(span2.textContent).toContain('item.edit.tabs.status.buttons.key1.button');
+    const button = fixture.debugElement.query(By.css('button')).nativeElement;
+    expect(button.disabled).toBeTrue();
+    expect(button.textContent).toContain('item.edit.tabs.status.buttons.key1.button');
   });
 });

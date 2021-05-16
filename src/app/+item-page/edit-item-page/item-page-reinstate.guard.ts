@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DsoPageFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
+import { DsoPageSingleFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { Item } from '../../core/shared/item.model';
 import { ItemPageResolver } from '../item-page.resolver';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -14,7 +14,7 @@ import { AuthService } from '../../core/auth/auth.service';
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring reinstate rights
  */
-export class ItemPageReinstateGuard extends DsoPageFeatureGuard<Item> {
+export class ItemPageReinstateGuard extends DsoPageSingleFeatureGuard<Item> {
   constructor(protected resolver: ItemPageResolver,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,

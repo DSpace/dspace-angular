@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { ItemPageResolver } from './item-page.resolver';
 import { Item } from '../core/shared/item.model';
-import { DsoPageFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
+import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { Observable, of as observableOf } from 'rxjs';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { AuthService } from '../core/auth/auth.service';
@@ -14,7 +14,7 @@ import { AuthService } from '../core/auth/auth.service';
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring administrator rights
  */
-export class ItemPageAdministratorGuard extends DsoPageFeatureGuard<Item> {
+export class ItemPageAdministratorGuard extends DsoPageSingleFeatureGuard<Item> {
   constructor(protected resolver: ItemPageResolver,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,

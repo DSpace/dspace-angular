@@ -210,4 +210,11 @@ describe('GroupFormComponent', () => {
     });
   });
 
+  describe('ngOnDestroy', () => {
+    it('does NOT call router.navigate', () => {
+      component.ngOnDestroy();
+      expect(router.navigate).toHaveBeenCalledTimes(0);
+    });
+  });
+
 });

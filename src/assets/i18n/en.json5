@@ -1520,7 +1520,7 @@
 
   "item.edit.breadcrumbs": "Edit Item",
 
-  "item.edit.tabs.disabled.tooltip": "You don't have permission to access this tab",
+  "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
 
 
   "item.edit.tabs.mapper.head": "Collection Mapper",
@@ -1764,6 +1764,8 @@
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
 
   "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
+
+  "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
   "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
 
@@ -3030,6 +3032,8 @@
   "search.results.empty": "Your search returned no results.",
 
 
+  "default.search.results.head": "Search Results",
+
 
   "search.sidebar.close": "Back to results",
 
@@ -3063,8 +3067,21 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.score.DESC": "Relevance",
+  "sorting.score.ASC": "Least Relevant",
 
+  "sorting.score.DESC": "Most Relevant",
+
+  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+
+  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+
+  "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+
+  "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+
+  "sorting.lastModified.ASC": "Last modified Ascending",
+
+  "sorting.lastModified.DESC": "Last modified Descending",
 
 
   "statistics.title": "Statistics",

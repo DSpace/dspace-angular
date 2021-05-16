@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -17,29 +16,23 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 /**
  * This component represents the part of the search sidebar that contains the general search settings.
  */
-export class SearchSettingsComponent implements OnInit {
+export class SearchSettingsComponent {
+
   /**
    * The configuration for the current paginated search results
    */
-  searchOptions$: Observable<PaginatedSearchOptions>;
+  @Input() searchOptions: PaginatedSearchOptions;
 
   /**
    * All sort options that are shown in the settings
    */
-  searchOptionPossibilities = [new SortOptions('score', SortDirection.DESC), new SortOptions('dc.title', SortDirection.ASC), new SortOptions('dc.title', SortDirection.DESC)];
+  @Input() sortOptions: SortOptions[];
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private router: Router,
               private paginationService: PaginationService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService) {
-  }
-
-  /**
-   * Initialize paginated search options
-   */
-  ngOnInit(): void {
-    this.searchOptions$ = this.searchConfigurationService.paginatedSearchOptions;
   }
 
   /**
