@@ -3125,7 +3125,7 @@
 
   "person.page.orcid.profile-preferences": "Profile preferences",
 
-  "person.page.orcid.project-preferences": "Project preferences",
+  "person.page.orcid.funding-preferences": "Funding preferences",
 
   "person.page.orcid.publications-preferences": "Publication preferences",
 
@@ -3141,13 +3141,13 @@
 
   "person.page.orcid.sync-profile.identifiers" : "Identifiers",
 
-  "person.page.orcid.sync-projects.all" : "All projects",
+  "person.page.orcid.sync-fundings.all" : "All fundings",
 
-  "person.page.orcid.sync-projects.mine" : "My projects",
+  "person.page.orcid.sync-fundings.mine" : "My fundings",
 
-  "person.page.orcid.sync-projects.my_selected" : "Selected projects",
+  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
 
-  "person.page.orcid.sync-projects.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled" : "Disabled",
 
   "person.page.orcid.sync-publications.all" : "All publications",
 
@@ -3227,6 +3227,8 @@
 
   "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
 
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+
   "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
 
   "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
@@ -3235,7 +3237,7 @@
 
   "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
 
-  "person.page.orcid.sync-queue.send.validation-error.project.coordinator.required": "The consortium coordinator is required",
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
 
   "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
 

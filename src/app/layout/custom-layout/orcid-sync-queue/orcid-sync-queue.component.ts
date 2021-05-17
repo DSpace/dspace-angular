@@ -95,8 +95,8 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     switch (orcidQueue.recordType.toLowerCase()) {
       case 'publication':
         return 'fa fa-book';
-      case 'project':
-        return 'fa fa-folder';
+      case 'funding':
+        return 'fa fa-wallet';
       case 'education':
         return 'fa fa-school';
       case 'affiliation':
