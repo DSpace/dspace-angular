@@ -238,9 +238,10 @@ describe('submissionReducer test suite', () => {
       collapsed: false,
       enabled: true,
       data: {},
-      errors: [],
+      errorsToShow: [],
+      serverValidationErrors: [],
       isLoading: false,
-      isValid: false
+      isValid: true
     } as any;
 
     let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null);

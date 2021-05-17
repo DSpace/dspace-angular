@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -162,6 +162,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
           submissionId,
           sectionId,
           mockSectionsData[sectionId],
+          expectedErrors[sectionId],
           expectedErrors[sectionId]
         );
       });
@@ -188,6 +189,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
           submissionId,
           sectionId,
           mockSectionsData[sectionId],
+          expectedErrors[sectionId],
           expectedErrors[sectionId]
         );
       });
