@@ -1444,6 +1444,8 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
+
 
   "explore.browse-section.title" : "Browse",
 
