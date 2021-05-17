@@ -244,9 +244,10 @@ describe('submissionReducer test suite', () => {
       collapsed: false,
       enabled: true,
       data: {},
-      errors: [],
+      errorsToShow: [],
+      serverValidationErrors: [],
       isLoading: false,
-      isValid: false,
+      isValid: true,
       removePending: false
     } as any;
 

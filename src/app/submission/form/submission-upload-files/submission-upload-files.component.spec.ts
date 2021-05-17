@@ -162,6 +162,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
           submissionId,
           sectionId,
           mockSectionsData[sectionId],
+          expectedErrors[sectionId],
           expectedErrors[sectionId]
         );
       });
@@ -188,6 +189,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
           submissionId,
           sectionId,
           mockSectionsData[sectionId],
+          expectedErrors[sectionId],
           expectedErrors[sectionId]
         );
       });

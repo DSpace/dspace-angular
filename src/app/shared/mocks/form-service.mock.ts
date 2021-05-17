@@ -17,7 +17,9 @@ export function getMockFormService(
     resetForm: {},
     validateAllFormFields: jasmine.createSpy('validateAllFormFields'),
     isValid: jasmine.createSpy('isValid'),
-    isFormInitialized: observableOf(true)
+    isFormInitialized: observableOf(true),
+    addError: jasmine.createSpy('addError'),
+    removeError: jasmine.createSpy('removeError'),
   });
 
 }

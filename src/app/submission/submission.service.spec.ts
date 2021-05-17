@@ -70,7 +70,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -85,7 +86,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -97,7 +99,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -109,7 +112,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -121,7 +125,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: true
           },
@@ -133,7 +138,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -145,7 +151,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -157,7 +164,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -169,7 +177,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -185,7 +194,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           }
@@ -216,7 +226,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -231,7 +242,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -243,7 +255,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: true
           },
@@ -255,7 +268,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -267,7 +281,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: true
           },
@@ -279,7 +294,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -291,7 +307,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -303,7 +320,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: false,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: false
           },
@@ -315,7 +333,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: true
           },
@@ -331,7 +350,8 @@ describe('SubmissionService test suite', () => {
             collapsed: false,
             enabled: true,
             data: {},
-            errors: [],
+            errorsToShow: [],
+            serverValidationErrors: [],
             isLoading: false,
             isValid: true
           }
@@ -495,7 +515,7 @@ describe('SubmissionService test suite', () => {
         submissionDefinition,
         {},
         new Item(),
-        []
+        null
       );
       const expected = new InitSubmissionFormAction(
         collectionId,
@@ -504,7 +524,7 @@ describe('SubmissionService test suite', () => {
         submissionDefinition,
         {},
         new Item(),
-        []);
+        null);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
     });
@@ -607,7 +627,8 @@ describe('SubmissionService test suite', () => {
               mandatory: true,
               sectionType: 'submission-form',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.describe.indexing',
@@ -616,7 +637,8 @@ describe('SubmissionService test suite', () => {
               mandatory: false,
               sectionType: 'submission-form',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.describe.publicationchannel',
@@ -625,7 +647,8 @@ describe('SubmissionService test suite', () => {
               mandatory: true,
               sectionType: 'submission-form',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.describe.acknowledgement',
@@ -634,7 +657,8 @@ describe('SubmissionService test suite', () => {
               mandatory: false,
               sectionType: 'submission-form',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.describe.identifiers',
@@ -643,7 +667,8 @@ describe('SubmissionService test suite', () => {
               mandatory: false,
               sectionType: 'submission-form',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.describe.references',
@@ -652,7 +677,8 @@ describe('SubmissionService test suite', () => {
               mandatory: false,
               sectionType: 'submission-form',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.upload',
@@ -661,7 +687,8 @@ describe('SubmissionService test suite', () => {
               mandatory: true,
               sectionType: 'upload',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             },
             {
               header: 'submit.progressbar.license',
@@ -670,7 +697,8 @@ describe('SubmissionService test suite', () => {
               mandatory: true,
               sectionType: 'license',
               data: {},
-              errors: []
+              errorsToShow: [],
+              serverValidationErrors: []
             }
           ]
       });
@@ -839,7 +867,8 @@ describe('SubmissionService test suite', () => {
         collapsed: false,
         enabled: true,
         data: {},
-        errors: [],
+        errorsToShow: [],
+        serverValidationErrors: [],
         isLoading: false,
         isValid: false
       };
@@ -853,7 +882,8 @@ describe('SubmissionService test suite', () => {
         collapsed: false,
         enabled: true,
         data: {},
-        errors: [],
+        errorsToShow: [],
+        serverValidationErrors: [],
         isLoading: false,
         isValid: false
       };
