@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -67,6 +70,7 @@ export class ResearcherProfileService {
         protected halService: HALEndpointService,
         protected notificationsService: NotificationsService,
         protected http: HttpClient,
+        protected router: Router,
         protected comparator: DefaultChangeAnalyzer<ResearcherProfile>,
         protected itemService: ItemDataService,
         protected configurationService: ConfigurationDataService ) {
@@ -214,6 +218,19 @@ export class ResearcherProfileService {
         switchMap((profile) => this.patch(profile, operations)),
         getFinishedRemoteData()
       );
+    }
+
+    getOrcidAuthorizeUrl(profile: Item): Observable<string> {
+      return combineLatest([
+        this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
+        this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
+        this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
+      ).pipe(
+        map(([authorizeUrl, clientId, scopes]) => {
+          const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + profile.id + '/?url=' + encodeURIComponent(this.router.url);
+          return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
+          + scopes.values.join(' ');
+      }));
     }
 
     private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {

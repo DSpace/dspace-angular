@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationsService } from '../../../../app/shared/notifications/notifications.service';
-import { environment } from '../../../../environments/environment';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
@@ -31,7 +29,6 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     private researcherProfileService: ResearcherProfileService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
-    private router: Router,
     @Inject(NativeWindowService) private _window: NativeWindowRef) {
     super();
   }
@@ -55,6 +52,15 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     return this.researcherProfileService.isLinkedToOrcid(this.item);
   }
 
+  getOrcidNotLinkedMessage(): Observable<string> {
+    const orcid = this.item.firstMetadataValue('person.identifier.orcid');
+    if (orcid) {
+      return this.translateService.get('person.page.orcid.orcid-not-linked-message', { 'orcid' : orcid});
+    } else {
+      return this.translateService.get('person.page.orcid.no-orcid-message');
+    }
+  }
+
   getAuthorizationDescription(scope: string) {
     return 'person.page.orcid.scope.' + scope.substring(1).replace('/','-');
   }
@@ -68,15 +74,8 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
   }
 
   linkOrcid(): void {
-    combineLatest(
-      this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
-      this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())
-    ).subscribe(([authorizeUrl, clientId, scopes]) => {
-      const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + this.item.id + '/?url=' + encodeURIComponent(this.router.url);
-      const orcidUrl = authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
-      + scopes.values.join(' ');
-      this._window.nativeWindow.location.href = orcidUrl;
+    this.researcherProfileService.getOrcidAuthorizeUrl(this.item).subscribe((authorizeUrl) => {
+      this._window.nativeWindow.location.href = authorizeUrl;
     });
   }
 

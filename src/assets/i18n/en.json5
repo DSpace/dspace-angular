@@ -3103,7 +3103,11 @@
 
   "person.page.orcid.granted-authorizations": "Granted authorizations",
 
+  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+
   "person.page.orcid.link": "Connect to ORCID ID",
+
+  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
 
   "person.page.orcid.unlink": "Disconnect from ORCID",
 
@@ -3115,7 +3119,7 @@
 
   "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
 
-  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet",
+  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
 
   "person.page.orcid.profile-preferences": "Profile preferences",
 
@@ -3205,6 +3209,10 @@
 
   "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
 
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+
   "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
 
   "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
@@ -3217,7 +3225,7 @@
 
   "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
 
-  "person.page.orcid.sync-queue.send.validation-error.project.external-id.required": "The project to be sent requires at least one identifier <br/>",
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
 
   "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
 

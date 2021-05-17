@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
@@ -56,7 +57,8 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryService,
-              private paginationService: PaginationService) {
+              private paginationService: PaginationService,
+              private researcherProfileService: ResearcherProfileService) {
     super();
   }
 
@@ -203,9 +205,16 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
       case 400:
         this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'));
         break;
+      case 401:
+        combineLatest([
+          this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.title'),
+          this.getUnauthorizedErrorContent()],
+        ).subscribe(([title, content]) => {
+          this.notificationsService.error(title, content, {}, true);
+        });
+        break;
       case 404:
         this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
-        this.updateList();
         break;
       case 409:
         this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
@@ -225,6 +234,12 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     combineLatest(translations).subscribe((messages) => {
       this.notificationsService.error(messages.shift(), '<ul>' + messages.map((message) => '<li>' + message + '</li>').join('') + '</ul>', {}, true);
     });
+  }
+
+  private getUnauthorizedErrorContent(): Observable<string> {
+    return this.researcherProfileService.getOrcidAuthorizeUrl(this.item).pipe(
+      switchMap((authorizeUrl) => this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.content', { orcid : authorizeUrl}))
+    );
   }
 
   /**
