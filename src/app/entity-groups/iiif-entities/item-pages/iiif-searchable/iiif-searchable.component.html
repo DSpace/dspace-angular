@@ -12,6 +12,10 @@
       <h5>{{'iiifsearchable.page.titleprefix' | translate}}</h5><h3><ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values></h3>
     </div>
     <ds-generic-item-page-field class="item-page-fields" [item]="object"
+                                [fields]="['dc.description.abstract']"
+                                [label]="'item.preview.dc.description.abstract'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field class="item-page-fields" [item]="object"
                                 [fields]="['dc.identifier.citation']"
                                 [label]="'iiifsearchable.page.issue'">
     </ds-generic-item-page-field>
