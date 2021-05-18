@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
-import { Item } from 'src/app/core/shared/item.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from 'src/app/core/shared/operators';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { RemoteData } from '../../../../app/core/data/remote-data';
+import { ResearcherProfileService } from '../../../../app/core/profile/researcher-profile.service';
+import { Item } from '../../../../app/core/shared/item.model';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../app/core/shared/operators';
+import { NotificationsService } from '../../../../app/shared/notifications/notifications.service';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 
 /**

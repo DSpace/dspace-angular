@@ -1,19 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
-import { ItemOperation } from '../item-operation/itemOperation.model';
-import { distinctUntilChanged, first, map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import { distinctUntilChanged, first, map } from 'rxjs/operators';
+import { ResearcherProfileService } from '../../../../app/core/profile/researcher-profile.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { hasValue } from '../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
+import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
   selector: 'ds-item-status',

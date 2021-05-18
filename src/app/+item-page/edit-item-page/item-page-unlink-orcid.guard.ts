@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getForbiddenRoute } from 'src/app/app-routing-paths';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
+import { getForbiddenRoute } from '../../../app/app-routing-paths';
+import { ResearcherProfileService } from '../../../app/core/profile/researcher-profile.service';
 
 @Injectable({
   providedIn: 'root'

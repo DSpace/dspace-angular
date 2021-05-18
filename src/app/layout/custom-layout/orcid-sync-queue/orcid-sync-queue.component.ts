@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+import { ResearcherProfileService } from '../../../../app/core/profile/researcher-profile.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
