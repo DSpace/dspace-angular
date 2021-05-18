@@ -481,19 +481,22 @@ describe('FormBuilderService test suite', () => {
 
   it('should return form\'s fields value from form model', () => {
     const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
-    let value = {} as any;
-
+    let value: any = {
+      name: [new FormFieldMetadataValueObject()]
+    };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
     ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).value = 'test';
 
     value = {
+      name: [new FormFieldMetadataValueObject()],
       issue: [new FormFieldMetadataValueObject('test')]
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
     ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value = 'test one';
     value = {
+      name: [new FormFieldMetadataValueObject()],
       issue: [new FormFieldMetadataValueObject('test')],
       conference: [new FormFieldMetadataValueObject('test one')]
     };

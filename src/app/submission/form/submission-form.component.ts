@@ -11,7 +11,7 @@ import { WorkspaceitemSectionsObject } from '../../core/submission/models/worksp
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
-import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
+import { SubmissionError, SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';
 import { Item } from '../../core/shared/item.model';
@@ -40,6 +40,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @type {WorkspaceitemSectionsObject}
    */
   @Input() sections: WorkspaceitemSectionsObject;
+
+  /**
+   * The submission errors present in the submission object
+   * @type {SubmissionError}
+   */
+  @Input() submissionErrors: SubmissionError;
 
   /**
    * The submission self url
@@ -162,6 +168,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
+            // const { errors } = item;
             this.submissionService.dispatchInit(
               this.collectionId,
               this.submissionId,
@@ -169,7 +176,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
               this.submissionDefinition,
               this.sections,
               this.item,
-              null);
+              this.submissionErrors);
             this.changeDetectorRef.detectChanges();
           })
       );
