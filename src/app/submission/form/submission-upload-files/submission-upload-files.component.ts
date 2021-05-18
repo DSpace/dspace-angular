@@ -144,7 +144,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
                       this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
                     }
                   }
-                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors);
+                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
                 });
             }
 

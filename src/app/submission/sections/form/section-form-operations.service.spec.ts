@@ -4,7 +4,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormControlEvent
+  DynamicFormControlEvent,
+  DynamicInputModel
 } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -28,6 +29,7 @@ import {
 } from '../../../shared/mocks/form-models.mock';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;
@@ -81,6 +83,11 @@ describe('SectionFormOperationsService test suite', () => {
     service = TestBed.inject(SectionFormOperationsService);
     serviceAsAny = service;
     formBuilderService = TestBed.inject(FormBuilderService);
+  });
+
+  afterEach(() => {
+    jsonPatchOpBuilder.add.calls.reset();
+    jsonPatchOpBuilder.remove.calls.reset();
   });
 
   describe('dispatchOperationsFromEvent', () => {
@@ -760,4 +767,87 @@ describe('SectionFormOperationsService test suite', () => {
     });
   });
 
+  describe('handleArrayGroupPatch', () => {
+    let arrayModel;
+    let previousValue;
+    beforeEach(() => {
+      arrayModel = new DynamicRowArrayModel(
+        {
+          id: 'testFormRowArray',
+          initialCount: 5,
+          notRepeatable: false,
+          relationshipConfig: undefined,
+          submissionId: '1234',
+          isDraggable: true,
+          showButtons: false,
+          groupFactory: () => {
+            return [
+              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
+            ];
+          },
+          required: false,
+          metadataKey: 'dc.contributor.author',
+          metadataFields: ['dc.contributor.author'],
+          hasSelectableMetadata: true
+        }
+      );
+      spyOn(serviceAsAny, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
+      previousValue = new FormFieldPreviousValueObject(['path'], null);
+    });
+
+    it('should not dispatch a json-path operation when a array value is empty', () => {
+      formBuilderService.getValueFromModel.and.returnValue({});
+      spyOn(previousValue, 'isPathEqual').and.returnValue(false);
+
+      serviceAsAny.handleArrayGroupPatch(
+        pathCombiner,
+        dynamicFormControlChangeEvent,
+        arrayModel,
+        previousValue
+      );
+
+      expect(jsonPatchOpBuilder.add).not.toHaveBeenCalled();
+      expect(jsonPatchOpBuilder.remove).not.toHaveBeenCalled();
+    });
+
+    it('should dispatch a json-path add operation when a array value is not empty', () => {
+      const pathValue = [
+        new FormFieldMetadataValueObject('test'),
+        new FormFieldMetadataValueObject('test two')
+      ];
+      formBuilderService.getValueFromModel.and.returnValue({
+        path:pathValue
+      });
+      spyOn(previousValue, 'isPathEqual').and.returnValue(false);
+
+      serviceAsAny.handleArrayGroupPatch(
+        pathCombiner,
+        dynamicFormControlChangeEvent,
+        arrayModel,
+        previousValue
+      );
+
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath('path'),
+        pathValue,
+        false
+      );
+      expect(jsonPatchOpBuilder.remove).not.toHaveBeenCalled();
+    });
+
+    it('should dispatch a json-path remove operation when a array value is empty and has previous value', () => {
+      formBuilderService.getValueFromModel.and.returnValue({});
+      spyOn(previousValue, 'isPathEqual').and.returnValue(true);
+
+      serviceAsAny.handleArrayGroupPatch(
+        pathCombiner,
+        dynamicFormControlChangeEvent,
+        arrayModel,
+        previousValue
+      );
+
+      expect(jsonPatchOpBuilder.add).not.toHaveBeenCalled();
+      expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('path'));
+    });
+  });
 });

@@ -126,6 +126,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.submissionDefinition = submissionDefinition;
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
+      comp.submissionErrors = null;
       comp.item = new Item();
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
