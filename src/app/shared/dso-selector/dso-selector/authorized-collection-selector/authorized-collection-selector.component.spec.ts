@@ -10,6 +10,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { NotificationsService } from '../../../notifications/notifications.service';
 
 describe('AuthorizedCollectionSelectorComponent', () => {
   let component: AuthorizedCollectionSelectorComponent;
@@ -18,6 +19,8 @@ describe('AuthorizedCollectionSelectorComponent', () => {
   let collectionService;
   let collection;
 
+  let notificationsService: NotificationsService;
+
   beforeEach(waitForAsync(() => {
     collection = Object.assign(new Collection(), {
       id: 'authorized-collection'
@@ -25,12 +28,14 @@ describe('AuthorizedCollectionSelectorComponent', () => {
     collectionService = jasmine.createSpyObj('collectionService', {
       getAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection]))
     });
+    notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
       declarations: [AuthorizedCollectionSelectorComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: SearchService, useValue: {} },
-        { provide: CollectionDataService, useValue: collectionService }
+        { provide: CollectionDataService, useValue: collectionService },
+        { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -45,10 +50,10 @@ describe('AuthorizedCollectionSelectorComponent', () => {
 
   describe('search', () => {
     it('should call getAuthorizedCollection and return the authorized collection in a SearchResult', (done) => {
-      component.search('', 1).subscribe((result) => {
+      component.search('', 1).subscribe((resultRD) => {
         expect(collectionService.getAuthorizedCollection).toHaveBeenCalled();
-        expect(result.page.length).toEqual(1);
-        expect(result.page[0].indexableObject).toEqual(collection);
+        expect(resultRD.payload.page.length).toEqual(1);
+        expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
         done();
       });
     });
