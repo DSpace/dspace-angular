@@ -18,15 +18,15 @@
   "403.link.home-page": "Vissza a főoldalra",
   
   // "403.forbidden": "forbidden",
-  "403.forbidden": "elérhetetlen",
+  "403.forbidden": "tiltott",
   
   
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték. Az alsó gombbal visszakerülhet a honlapra ",
+  "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték. Az alábbi gombbal visszatérhet a főoldalra. ",
   
   // "404.link.home-page": "Take me to the home page",
-  "404.link.home-page": "Vissza a honlapra",
+  "404.link.home-page": "Vissza a főoldalra",
   
   // "404.page-not-found": "page not found",
   "404.page-not-found": "oldal nem található",
@@ -41,47 +41,46 @@
   "admin.curation-tasks.header": "Karbantartási feladatok",
   
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  "admin.registries.bitstream-formats.breadcrumbs": "Formátum regiszter",
+  "admin.registries.bitstream-formats.breadcrumbs": "Fájlformátumok jegyzéke",
   
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitfolyam formátum",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Fájlformátum",
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  "admin.registries.bitstream-formats.create.failure.content": "Bitfolyam létrehozása közben hiba történt",
+  "admin.registries.bitstream-formats.create.failure.content": "Hiba történt a fájlformátum létrehozása közben.",
   
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  "admin.registries.bitstream-formats.create.failure.head": "Nem sikerült",
+  "admin.registries.bitstream-formats.create.failure.head": "Hiba",
   
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  "admin.registries.bitstream-formats.create.head": "Bitfolyam formátum létrehozása",
+  "admin.registries.bitstream-formats.create.head": "Fájlformátum létrehozása",
   
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  "admin.registries.bitstream-formats.create.new": "Bitfolyam formátum hozzáadása.",
+  "admin.registries.bitstream-formats.create.new": "Fájlformátum hozzáadása.",
   
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  "admin.registries.bitstream-formats.create.success.content": "Új bitfolyam formátum sikeresen létrehozva.",
+  "admin.registries.bitstream-formats.create.success.content": "Az új fájlformátum sikeresen létrehozva.",
   
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  "admin.registries.bitstream-formats.create.success.head": "Sikerült",
+  "admin.registries.bitstream-formats.create.success.head": "Siker",
   
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.failure.amount": "A {{ amount }} formátum(ok) törlése nem sikerült",
+  "admin.registries.bitstream-formats.delete.failure.amount": "{{ amount }} db. formátum törlése nem sikerült",
   
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  "admin.registries.bitstream-formats.delete.failure.head": "Nem sikerült",
+  "admin.registries.bitstream-formats.delete.failure.head": "Hiba",
   
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.success.amount": "A {{ amount }} formátum(ok) sikeresen törölve",
+  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} formátum törölve",
   
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  "admin.registries.bitstream-formats.delete.success.head": "Sikerült",
+  "admin.registries.bitstream-formats.delete.success.head": "Siker",
   
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  "admin.registries.bitstream-formats.description": "Ez a bitfolyam formátum lista ismert formátumokról és azok támogatásáról nyújt információt.",
+  "admin.registries.bitstream-formats.description": "Ez a fájlformátum lista ismert formátumokról és azok támogatásáról nyújt információt.",
   
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Fájlformátum",
   
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   "admin.registries.bitstream-formats.edit.description.hint": "",
@@ -93,25 +92,25 @@
   "admin.registries.bitstream-formats.edit.extensions.hint": "A kiterjesztések olyan állomány kiterjesztések, amelyek arra használhatók, hogy automatikusan azonosítsák a feltöltött állomány formátumát. Minden formátumhoz megadhat több kiterjesztést.",
   
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  "admin.registries.bitstream-formats.edit.extensions.label": "Állomány kiterjesztés",
+  "admin.registries.bitstream-formats.edit.extensions.label": "Fájlkiterjesztés",
   
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Írja be az állomány kiterjesztését a pont nélkül",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Írja be a fájl kiterjesztését a pont nélkül",
   
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  "admin.registries.bitstream-formats.edit.failure.content": "Bitfolyam szerkesztése közben hiba történt.",
+  "admin.registries.bitstream-formats.edit.failure.content": "A fájlformátum szerkesztése közben hiba történt.",
   
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  "admin.registries.bitstream-formats.edit.failure.head": "Nem sikerült",
+  "admin.registries.bitstream-formats.edit.failure.head": "Hiba",
   
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  "admin.registries.bitstream-formats.edit.head": "Bitfolyam formátum: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Fájlformátum: {{ format }}",
   
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Belsőként megjelölt formátumokat a felhasználó nem láthat, ezek adminisztratív célokat szolgálnak.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Rejtettként megjelölt formátumokat a felhasználó nem láthat, ezek adminisztratív célokat szolgálnak.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  "admin.registries.bitstream-formats.edit.internal.label": "Belső",
+  "admin.registries.bitstream-formats.edit.internal.label": "Rejtett",
   
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   "admin.registries.bitstream-formats.edit.mimetype.hint": "Az ehhez a formátumhoz társított MIME típus nem kell, hogy egyedi legyen.",
@@ -126,31 +125,31 @@
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Név",
   
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "Bitfolyam formátum szerkesztése sikerült.",
+  "admin.registries.bitstream-formats.edit.success.content": "Fájlformátum szerkesztése sikerült.",
   
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  "admin.registries.bitstream-formats.edit.success.head": "Sikerült",
+  "admin.registries.bitstream-formats.edit.success.head": "Siker",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Intézménye ilyen szintű támogatást biztosít ennek a formátumnak.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Intézménye ilyen szintű támogatást biztosít ehhez a formátumhoz.",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Támogatási szint",
   
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Bitfolyam formátum leíró adatbázis",
+  "admin.registries.bitstream-formats.head": "Fájlformátum jegyzék",
   
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  "admin.registries.bitstream-formats.no-items": "Nincs látható bitfolyam formátum.",
+  "admin.registries.bitstream-formats.no-items": "Nem jeleníthető meg fájlformátum.",
   
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   "admin.registries.bitstream-formats.table.delete": "Kiválasztottak törlése",
   
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  "admin.registries.bitstream-formats.table.deselect-all": "Valamennyi kiválasztás megszüntetése",
+  "admin.registries.bitstream-formats.table.deselect-all": "Az összes kiválasztás megszüntetése",
   
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  "admin.registries.bitstream-formats.table.internal": "belső",
+  "admin.registries.bitstream-formats.table.internal": "rejtett",
   
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   "admin.registries.bitstream-formats.table.mimetype": "MIME típus",
@@ -174,7 +173,7 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Támogatási szint",
   
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitfolyam formátum leíró adatbázis",
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Fájlformátum jegyzék",
   
   
   
@@ -1925,10 +1924,10 @@
   "home.description": "",
   
   // "home.breadcrumbs": "Home",
-  "home.breadcrumbs": "Haza",
+  "home.breadcrumbs": "Főoldal",
   
   // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Haza",
+  "home.title": "DSpace Angular :: Főoldal",
   
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Közösségek a DSpace-en",
@@ -4377,10 +4376,10 @@
   "submission.general.cannot_submit": "Önnek nincs új feltöltéshez szükséges privilégiuma.",
   
   // "submission.general.deposit": "Deposit",
-  "submission.general.deposit": "Adattár",
+  "submission.general.deposit": "Beadás befejezése",
   
   // "submission.general.discard.confirm.cancel": "Cancel",
-  "submission.general.discard.confirm.cancel": "Mégse",
+  "submission.general.discard.confirm.cancel": "Mégsem",
   
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
   "submission.general.discard.confirm.info": "Ezt a műveletet nem lehet visszaváltoztatni. Biztos benne?",
