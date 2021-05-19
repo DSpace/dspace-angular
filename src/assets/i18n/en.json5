@@ -1715,6 +1715,10 @@
 
   "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
 
+  "form.other-information.data-person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
   "form.other-information.not-available": "Not available",
 
   "form.remove": "Remove",
