@@ -405,7 +405,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   @HostListener('window:beforeunload')
   ngOnDestroy(): void {
-    this.onCancel();
+    this.groupDataService.cancelEditGroup();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 

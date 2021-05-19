@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { map, switchMap, tap, } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
@@ -29,6 +29,8 @@ import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
+import { SortOptions } from '../core/cache/models/sort-options.model';
+import { RouteService } from '../core/services/route.service';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -72,6 +74,11 @@ export class MyDSpacePageComponent implements OnInit {
   searchOptions$: Observable<PaginatedSearchOptions>;
 
   /**
+   * The current available sort options
+   */
+  sortOptions$: Observable<SortOptions[]>;
+
+  /**
    * The current relevant scopes
    */
   scopeListRD$: Observable<DSpaceObject[]>;
@@ -109,7 +116,8 @@ export class MyDSpacePageComponent implements OnInit {
   constructor(private service: SearchService,
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService,
+              private routeService: RouteService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
@@ -150,6 +158,12 @@ export class MyDSpacePageComponent implements OnInit {
           }
         })
       );
+
+    const configuration$ = this.searchConfigService.getCurrentConfiguration('workspace');
+    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(configuration$, this.service);
+
+    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(searchConfig$);
+    this.searchConfigService.initializeSortOptionsFromConfiguration(searchConfig$);
 
   }
 

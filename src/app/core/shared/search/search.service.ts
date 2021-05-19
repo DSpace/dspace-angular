@@ -37,6 +37,7 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { FacetConfigResponse } from '../../../shared/search/facet-config-response.model';
 import { FacetValues } from '../../../shared/search/facet-values.model';
+import { SearchConfig } from './search-filters/search-config.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -46,6 +47,12 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
  */
 @Injectable()
 export class SearchService implements OnDestroy {
+
+  /**
+   * Endpoint link path for retrieving search configurations
+   */
+  private configurationLinkPath = 'discover/search';
+
   /**
    * Endpoint link path for retrieving general search results
    */
@@ -229,6 +236,24 @@ export class SearchService implements OnDestroy {
     );
   }
 
+  private getConfigUrl(url: string, scope?: string, configurationName?: string) {
+    const args: string[] = [];
+
+    if (isNotEmpty(scope)) {
+      args.push(`scope=${scope}`);
+    }
+
+    if (isNotEmpty(configurationName)) {
+      args.push(`configuration=${configurationName}`);
+    }
+
+    if (isNotEmpty(args)) {
+      url = new URLCombiner(url, `?${args.join('&')}`).toString();
+    }
+
+    return url;
+  }
+
   /**
    * Request the filter configuration for a given scope or the whole repository
    * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
@@ -237,33 +262,17 @@ export class SearchService implements OnDestroy {
    */
   getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
     const href$ = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
-      map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(scope)) {
-          args.push(`scope=${scope}`);
-        }
-
-        if (isNotEmpty(configurationName)) {
-          args.push(`configuration=${configurationName}`);
-        }
-
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
-        return url;
-      }),
+      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
     );
 
     href$.pipe(take(1)).subscribe((url: string) => {
-        let request = new this.request(this.requestService.generateRequestId(), url);
-        request = Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return FacetConfigResponseParsingService;
-          }
-        });
-        this.requestService.send(request, true);
+      let request = new this.request(this.requestService.generateRequestId(), url);
+      request = Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return FacetConfigResponseParsingService;
+        }
+      });
+      this.requestService.send(request, true);
     });
 
     return this.rdb.buildFromHref(href$).pipe(
@@ -396,6 +405,25 @@ export class SearchService implements OnDestroy {
         }
         this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
       });
+  }
+
+  /**
+   * Request the search configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
+   */
+  getSearchConfigurationFor(scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
+    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
+      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
+    );
+
+    href$.pipe(take(1)).subscribe((url: string) => {
+      const request = new this.request(this.requestService.generateRequestId(), url);
+      this.requestService.send(request, true);
+    });
+
+    return this.rdb.buildFromHref(href$);
   }
 
   /**

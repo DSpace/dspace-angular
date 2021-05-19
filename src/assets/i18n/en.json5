@@ -1168,6 +1168,8 @@
 
   "dso-selector.edit.item.head": "Edit item",
 
+  "dso-selector.error.title": "An error occurred searching for a {{ type }}",
+
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
   "dso-selector.no-results": "No {{ type }} found",
@@ -3010,6 +3012,8 @@
   "search.results.empty": "Your search returned no results.",
 
 
+  "default.search.results.head": "Search Results",
+
 
   "search.sidebar.close": "Back to results",
 
@@ -3043,8 +3047,21 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.score.DESC": "Relevance",
+  "sorting.score.ASC": "Least Relevant",
 
+  "sorting.score.DESC": "Most Relevant",
+
+  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+
+  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+
+  "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+
+  "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+
+  "sorting.lastModified.ASC": "Last modified Ascending",
+
+  "sorting.lastModified.DESC": "Last modified Descending",
 
 
   "statistics.title": "Statistics",
