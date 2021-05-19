@@ -18,7 +18,12 @@
     </ng-container>
     <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
-    <ds-item-page-author-field [item]="object"></ds-item-page-author-field>
+    <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
+      [parentItem]="object"
+      [itemType]="'Person'"
+      [metadataField]="'dc.contributor.author'"
+      [label]="'relationships.isAuthorOf' | translate">
+    </ds-metadata-representation-list>
     <ds-generic-item-page-field [item]="object"
       [fields]="['journal.title']"
       [label]="'publication.page.journal-title'">
@@ -37,12 +42,6 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
-    <ds-metadata-representation-list
-      [parentItem]="object"
-      [itemType]="'Person'"
-      [metadataField]="'dc.contributor.author'"
-      [label]="'relationships.isAuthorOf' | translate">
-    </ds-metadata-representation-list>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPublication'"
