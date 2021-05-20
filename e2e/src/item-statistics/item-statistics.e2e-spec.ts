@@ -1,5 +1,6 @@
 import { ProtractorPage } from './item-statistics.po';
 import { browser } from 'protractor';
+import { UIURLCombiner } from '../../../src/app/core/url-combiner/ui-url-combiner';
 
 describe('protractor Item statics', () => {
   let page: ProtractorPage;
@@ -16,7 +17,9 @@ describe('protractor Item statics', () => {
 
   it('should redirect to the entity page when navigating to an item page', () => {
     page.navigateToItemPage();
-    expect(browser.getCurrentUrl()).toEqual('http://localhost:4000' + page.ENTITYPAGE);
+    expect(browser.getCurrentUrl()).toEqual(new UIURLCombiner(page.ENTITYPAGE).toString());
+    expect(browser.getCurrentUrl()).not.toEqual(new UIURLCombiner(page.ITEMSTATISTICSPAGE).toString());
+    expect(browser.getCurrentUrl()).not.toEqual(new UIURLCombiner(page.ITEMPAGE).toString());
   });
 
   it('should contain element ds-item-statistics-page when navigating when navigating to an item statistics page', () => {
@@ -26,6 +29,8 @@ describe('protractor Item statics', () => {
   });
   it('should contain the item statistics page url when navigating to an item statistics page', () => {
     page.navigateToItemStatisticsPage();
-    expect(browser.getCurrentUrl()).toEqual('http://localhost:4000' + page.ITEMSTATISTICSPAGE);
+    expect(browser.getCurrentUrl()).toEqual(new UIURLCombiner(page.ITEMSTATISTICSPAGE).toString());
+    expect(browser.getCurrentUrl()).not.toEqual(new UIURLCombiner(page.ENTITYPAGE).toString());
+    expect(browser.getCurrentUrl()).not.toEqual(new UIURLCombiner(page.ITEMPAGE).toString());
   });
 });

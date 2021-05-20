@@ -15,9 +15,4 @@ export class ProtractorPage {
   elementTagExists(tag: string) {
     return element(by.tagName(tag)).isPresent();
   }
-
-  verifyCurrentUrl(url) {
-      browser.getCurrentUrl().then((currentUrl) => currentUrl === url );
-  }
-
 }
