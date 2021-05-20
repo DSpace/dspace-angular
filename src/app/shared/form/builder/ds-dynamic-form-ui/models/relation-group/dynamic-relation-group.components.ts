@@ -31,7 +31,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
 
@@ -54,8 +54,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  private selectedChipItem: ChipsItem;
-  private selectedChipItemIndex: number;
+  public selectedChipItem: ChipsItem;
+
+  protected selectedChipItemIndex: number;
+
   private subs: Subscription[] = [];
 
   constructor(private vocabularyService: VocabularyService,
@@ -84,17 +86,17 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     this.blur.emit();
   }
 
-  onChipSelected(index) {
+  onChipSelected(index): NgbModalRef {
     this.selectedChipItem = this.chips.getChipByIndex(index);
     this.selectedChipItemIndex = index;
-    this.openModal();
+    return this.openModal();
   }
 
   onFocus(event) {
     this.focus.emit(event);
   }
 
-  openModal() {
+  openModal(): NgbModalRef {
     const modalRef = this.modalService.open(DsDynamicRelationGroupModalComponent, {
       size: 'lg',
     });
@@ -117,6 +119,8 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       this.selectedChipItemIndex = null;
       this.selectedChipItem = null;
     });
+
+    return modalRef;
   }
 
   private initChipsFromModelValue() {
