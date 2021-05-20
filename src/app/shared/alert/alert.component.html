@@ -3,7 +3,12 @@
     <span aria-hidden="true">&times;</span>
   </button>
   <div class="d-flex flex-column">
-    <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+    <div *ngIf="collapsible" #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+      <span *ngIf="content" [innerHTML]="content | translate"></span>
+      <ng-content></ng-content>
+    </div>
+
+    <div *ngIf="!collapsible">
       <span *ngIf="content" [innerHTML]="content | translate"></span>
       <ng-content></ng-content>
     </div>
