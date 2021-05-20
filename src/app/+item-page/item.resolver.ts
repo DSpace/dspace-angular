@@ -9,9 +9,6 @@ import { FindListOptions } from '../core/data/request.models';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Store } from '@ngrx/store';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
-import { map } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
-import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

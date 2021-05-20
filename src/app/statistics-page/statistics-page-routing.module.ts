@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { StatisticsPageModule } from './statistics-page.module';
-import { ItemPageResolver } from '../+item-page/item-page.resolver';
 import { CollectionPageResolver } from '../+collection-page/collection-page.resolver';
 import { CommunityPageResolver } from '../+community-page/community-page.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
