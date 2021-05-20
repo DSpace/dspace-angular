@@ -1,15 +1,20 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, scan, take } from 'rxjs/operators';
+import { filter, map, mergeMap, scan, take } from 'rxjs/operators';
 import {
   DynamicFormControlComponent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
   DynamicFormLayoutService,
-  DynamicFormValidationService,
-  DynamicInputModel
+  DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
@@ -17,26 +22,18 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
 import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
-import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { environment } from '../../../../../../../environments/environment';
-import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyExternalSourceComponent } from '../../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
 
 /**
  * Component representing a group input field
@@ -49,7 +46,6 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
-  @Input() formId: string;
   @Input() group: FormGroup;
   @Input() model: DynamicRelationGroupModel;
 
@@ -58,19 +54,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  public formCollapsed = observableOf(false);
-  public formModel: DynamicFormControlModel[];
-  public editMode = false;
-
-  /**
-   * The vocabulary entry
-   */
-  public vocabulary$: Observable<Vocabulary>;
   private selectedChipItem: ChipsItem;
   private selectedChipItemIndex: number;
   private subs: Subscription[] = [];
-
-  @ViewChild('formRef') private formRef: FormComponent;
 
   constructor(private vocabularyService: VocabularyService,
               private formBuilderService: FormBuilderService,
@@ -85,47 +71,13 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   ngOnInit() {
-    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
-    if (!this.model.isEmpty()) {
-      this.formCollapsed = observableOf(true);
-    }
-    this.model.valueChanges.subscribe((value: any[]) => {
-      if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
-        this.collapseForm();
-      } else {
-        this.expandForm();
-      }
-    });
-
-    this.formId = this.formService.getUniqueId(this.model.id);
-    this.formModel = this.formBuilderService.modelFromConfiguration(
-      this.model.submissionId,
-      config,
-      this.model.scopeUUID,
-      {},
-      this.model.submissionScope,
-      this.model.readOnly,
-      null,
-      true);
-    this.formBuilderService.addFormModel(this.formId, this.formModel);
     this.initChipsFromModelValue();
-
-    const model = this.getMandatoryFieldModel();
-    if (model.vocabularyOptions && isNotEmpty(model.vocabularyOptions.name)) {
-      this.retrieveVocabulary(model.vocabularyOptions);
-    }
   }
 
-  isMandatoryFieldEmpty() {
-    const model = this.getMandatoryFieldModel();
-    return model.value == null;
-  }
-
-  hasMandatoryFieldAuthority() {
-    const model = this.getMandatoryFieldModel();
-    return hasValue(model.value)
-      && typeof model.value === 'object'
-      && (model.value as any).hasAuthority();
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
   onBlur(event) {
@@ -133,180 +85,38 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   onChipSelected(index) {
-    this.expandForm();
     this.selectedChipItem = this.chips.getChipByIndex(index);
     this.selectedChipItemIndex = index;
-    this.formModel.forEach((row) => {
-      const modelRow = row as DynamicFormGroupModel;
-      modelRow.group.forEach((model: DynamicInputModel) => {
-        const value = (this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA
-          || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
-          ? null
-          : this.selectedChipItem.item[model.name];
-
-        const nextValue = (this.formBuilderService.isInputModel(model) && isNotNull(value) && (typeof value !== 'string')) ?
-          value.value : value;
-        model.value = nextValue;
-
-      });
-    });
-
-    this.editMode = true;
+    this.openModal();
   }
 
   onFocus(event) {
     this.focus.emit(event);
   }
 
-  collapseForm() {
-    this.formCollapsed = observableOf(true);
-    this.clear();
-  }
-
-  expandForm() {
-    this.formCollapsed = observableOf(false);
-  }
-
-  clear() {
-    if (this.editMode) {
-      this.selectedChipItem.editMode = false;
-      this.selectedChipItem = null;
-      this.editMode = false;
-    }
-    this.resetForm();
-    if (!this.model.isEmpty()) {
-      this.formCollapsed = observableOf(true);
-    }
-  }
-
-  save() {
-    if (this.editMode) {
-      this.modifyChip();
-    } else {
-      this.addToChips();
-    }
-  }
-
-  delete() {
-    this.chips.remove(this.selectedChipItem);
-    this.clear();
-  }
-
-  canShowExternalSourceButton(): Observable<boolean> {
-    const model = this.getMandatoryFieldModel();
-    if ((this.model as any).submissionScope === SubmissionScopeType.WorkflowItem && model.vocabularyOptions && isNotEmpty(model.vocabularyOptions.name)) {
-      return this.vocabulary$.pipe(
-        filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-        map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.getExternalSourceByMetadata(this.model.mandatoryField)))
-      );
-    } else {
-      return observableOf(false);
-    }
-  }
-
-  canImport() {
-    return !this.isMandatoryFieldEmpty() && this.editMode && !this.hasMandatoryFieldAuthority();
-  }
-
-  /**
-   * Start the creation of an entity by opening up a collection choice modal window.
-   */
-  public createEntityFromMetadata(): void {
-    this.vocabulary$.pipe(
-      filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-      take(1)
-    ).subscribe((vocabulary: Vocabulary) => {
-      const modalRef = this.modalService.open(VocabularyExternalSourceComponent, {
-        size: 'lg',
-      });
-      modalRef.componentInstance.entityType = vocabulary.entity;
-      modalRef.componentInstance.externalSourceIdentifier = vocabulary.getExternalSourceByMetadata(this.model.mandatoryField);
-      modalRef.componentInstance.submissionObjectID = this.model.submissionId;
-      modalRef.componentInstance.metadataPlace = this.selectedChipItemIndex.toString(10) || '0';
-
-      modalRef.componentInstance.updateAuthority.pipe(take(1)).subscribe((authority) => {
-        setTimeout(() => {
-          this.updateAuthority(authority);
-        }, 100);
-      });
+  openModal() {
+    const modalRef = this.modalService.open(DsDynamicRelationGroupModalComponent, {
+      size: 'lg',
     });
-  }
 
-  /**
-   * Update the model authority value.
-   * @param authority
-   */
-  updateAuthority(authority: string) {
-    const model = this.getMandatoryFieldModel();
-    const currentValue: string = (model.value instanceof FormFieldMetadataValueObject
-      || model.value instanceof VocabularyEntry) ? model.value.value : model.value;
-    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
-    model.value = valueWithAuthority;
-    this.modifyChip();
-    setTimeout(() => {
-      this.submissionService.dispatchSave(this.model.submissionId);
-    }, 100);
-  }
+    modalRef.componentInstance.group = this.group;
+    modalRef.componentInstance.model = this.model;
 
-  ngOnDestroy(): void {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
-    this.formBuilderService.removeFormModel(this.formId);
-  }
+    modalRef.componentInstance.editMode = this.selectedChipItem ? true : false;
+    modalRef.componentInstance.itemIndex = this.selectedChipItemIndex;
+    modalRef.componentInstance.item = this.selectedChipItem?.item;
 
-  private addToChips() {
-    if (!this.formRef.formGroup.valid) {
-      this.formService.validateAllFormFields(this.formRef.formGroup);
-      return;
-    }
-
-    // Item to add
-    if (!this.isMandatoryFieldEmpty()) {
-      const item = this.buildChipItem();
-      this.chips.add(item);
-
-      this.resetForm();
-    }
-  }
-
-  private getMandatoryFieldModel(): DsDynamicInputModel {
-    let mandatoryFieldModel = null;
-    this.formModel.forEach((row) => {
-      const modelRow = row as DynamicFormGroupModel;
-      modelRow.group.forEach((model: DynamicInputModel) => {
-        if (model.name === this.model.mandatoryField) {
-          mandatoryFieldModel = model;
-          return;
-        }
-      });
-    });
-    return mandatoryFieldModel;
-  }
-
-  private modifyChip() {
-    if (!this.formRef.formGroup.valid) {
-      this.formService.validateAllFormFields(this.formRef.formGroup);
-      return;
-    }
-
-    if (!this.isMandatoryFieldEmpty()) {
-      const item = this.buildChipItem();
+    modalRef.componentInstance.edit.pipe(take(1)).subscribe((item) => {
       this.chips.update(this.selectedChipItem.id, item);
-      this.resetForm();
-      this.cdr.detectChanges();
-    }
-  }
-
-  private buildChipItem() {
-    const item = Object.create({});
-    this.formModel.forEach((row) => {
-      const modelRow = row as DynamicFormGroupModel;
-      modelRow.group.forEach((control: DynamicInputModel) => {
-        item[control.name] = control.value || PLACEHOLDER_PARENT_METADATA;
-      });
     });
-    return item;
+    modalRef.componentInstance.add.pipe(take(1)).subscribe((item) => {
+      this.chips.add(item);
+    });
+
+    modalRef.result.then(() => {
+      this.selectedChipItemIndex = null;
+      this.selectedChipItem = null;
+    });
   }
 
   private initChipsFromModelValue() {
@@ -325,20 +135,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
               if (isObject(valueObj[fieldName]) && this.hasValidAuthority(valueObj[fieldName])) {
-                const fieldId = fieldName.replace(/\./g, '_');
-                const model = this.formBuilderService.findById(fieldId, this.formModel);
-                return$ = this.vocabularyService.findEntryDetailById(
-                  valueObj[fieldName].authority,
-                  (model as any).vocabularyOptions.name
-                ).pipe(
-                  getFirstSucceededRemoteDataPayload(),
-                  map((entryDetail: VocabularyEntryDetail) => Object.assign(
-                    new FormFieldMetadataValueObject(),
-                    valueObj[fieldName],
-                    {
-                      otherInformation: entryDetail.otherInformation
-                    })
-                  ));
+                return$ = this.getVocabulary(valueObj, fieldName);
               } else {
                 return$ = observableOf(valueObj[fieldName]);
               }
@@ -397,17 +194,34 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     );
   }
 
-  private resetForm() {
-    if (this.formRef) {
-      this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
-    }
-  }
+  private getVocabulary(valueObj, fieldName): Observable<any> {
 
-  private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {
-    this.vocabulary$ = this.vocabularyService.findVocabularyById(vocabularyOptions.name).pipe(
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
+
+    const formModel = this.formBuilderService.modelFromConfiguration(
+      this.model.submissionId,
+      config,
+      this.model.scopeUUID,
+      {}, // @Input model.value
+      this.model.submissionScope,
+      this.model.readOnly,
+      null,
+      true);
+
+    const fieldId = fieldName.replace(/\./g, '_');
+    const model = this.formBuilderService.findById(fieldId, formModel);
+    return this.vocabularyService.findEntryDetailById(
+      valueObj[fieldName].authority,
+      (model as any).vocabularyOptions.name
+    ).pipe(
       getFirstSucceededRemoteDataPayload(),
-      distinctUntilChanged(),
-    );
+      map((entryDetail: VocabularyEntryDetail) => Object.assign(
+        new FormFieldMetadataValueObject(),
+        valueObj[fieldName],
+        {
+          otherInformation: entryDetail.otherInformation
+        })
+      ));
   }
 
   private hasValidAuthority(value: FormFieldMetadataValueObject) {
