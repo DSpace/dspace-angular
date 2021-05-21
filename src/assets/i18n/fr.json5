@@ -1229,7 +1229,7 @@
   "communityList.title": "Liste des Communautés",
   
   // "communityList.showMore": "Show More",
-  "communityList.showMore": "Show More",
+  "communityList.showMore": "Voir plus",
   
   
   
@@ -1920,146 +1920,109 @@
   "info.end-user-agreement.buttons.save": "Sauvegarder",
   
   // "info.end-user-agreement.head": "End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.head": "End User Agreement",
+  "info.end-user-agreement.head": "Licence de l'Utilisateur Final",
   
   // "info.end-user-agreement.title": "End User Agreement",
-  // TODO New key - Add a translation
-  "info.end-user-agreement.title": "End User Agreement",
+  "info.end-user-agreement.title": "Licence de l'Utilisateur Final",
   
   // "info.privacy.breadcrumbs": "Privacy Statement",
-  // TODO New key - Add a translation
-  "info.privacy.breadcrumbs": "Privacy Statement",
+  "info.privacy.breadcrumbs": "Déclaration de confidentialité",
   
   // "info.privacy.head": "Privacy Statement",
-  // TODO New key - Add a translation
-  "info.privacy.head": "Privacy Statement",
+  "info.privacy.head": "Déclaration de confidentialité",
   
   // "info.privacy.title": "Privacy Statement",
-  // TODO New key - Add a translation
-  "info.privacy.title": "Privacy Statement",
+  "info.privacy.title": "Déclaration de confidentialité",
   
   
   
   // "item.alerts.private": "This item is private",
-  // TODO New key - Add a translation
-  "item.alerts.private": "This item is private",
+  "item.alerts.private": "Cet Item est privé",
   
   // "item.alerts.withdrawn": "This item has been withdrawn",
-  // TODO New key - Add a translation
-  "item.alerts.withdrawn": "This item has been withdrawn",
-  
-  
+  "item.alerts.withdrawn": "Cet Item a été retiré",
   
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
+  "item.edit.authorizations.heading": "Depuis cette page, il vous est possible de visualiser et modifier les autorisations d'un Item et de ses composants Bundles et Bitstreams. Un Item peut inclure un ou plusieurs Bundle(s) et chaque Bundle peut inclure un ou plusieurs Bitstream(s). Les Items et Bundles ont habituellement des autorisations de type ADD/REMOVE/READ/WRITE alors que les Bitstreams ont uniquement des autorisations READ/WRITE.",
   
   // "item.edit.authorizations.title": "Edit item's Policies",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.title": "Edit item's Policies",
+  "item.edit.authorizations.title": "Modifier les autorisations de l'Item",
   
   
   
   // "item.badge.private": "Private",
-  // TODO New key - Add a translation
-  "item.badge.private": "Private",
+  "item.badge.private": "Privé",
   
   // "item.badge.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "item.badge.withdrawn": "Withdrawn",
-  
-  
+  "item.badge.withdrawn": "Retiré",
   
   // "item.bitstreams.upload.bundle": "Bundle",
-  // TODO New key - Add a translation
   "item.bitstreams.upload.bundle": "Bundle",
   
   // "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+  "item.bitstreams.upload.bundle.placeholder": "Selectionner un Bundle",
   
   // "item.bitstreams.upload.bundle.new": "Create bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundle.new": "Create bundle",
+  "item.bitstreams.upload.bundle.new": "Créer Bundle",
   
   // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
-  
+  "item.bitstreams.upload.bundles.empty": "Il n'existe pas, au niveau de cet Item, de Bundle dans lequel un Bitstream pourrait être ajouté.",
+
   // "item.bitstreams.upload.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.cancel": "Cancel",
+  "item.bitstreams.upload.cancel": "Annuler",
   
   // "item.bitstreams.upload.drop-message": "Drop a file to upload",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.drop-message": "Drop a file to upload",
+  "item.bitstreams.upload.drop-message": "Déposer un fichier pour l'ajouter",
   
   // "item.bitstreams.upload.item": "Item: ",
-  // TODO New key - Add a translation
   "item.bitstreams.upload.item": "Item: ",
   
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
+  "item.bitstreams.upload.notifications.bundle.created.content": "Bundle créé avec succès.",
   
   // "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
+  "item.bitstreams.upload.notifications.bundle.created.title": "Bundle créé",
   
   // "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
+  "item.bitstreams.upload.notifications.upload.failed": "Echec du téléchargement. Veuillez vérifier le contenu avant de réessayer.",
   
   // "item.bitstreams.upload.title": "Upload bitstream",
-  // TODO New key - Add a translation
-  "item.bitstreams.upload.title": "Upload bitstream",
+  "item.bitstreams.upload.title": "Ajouter Bitstream",
   
   
   
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+  "item.edit.bitstreams.bundle.edit.buttons.upload": "Ajouter",
   
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
+  "item.edit.bitstreams.bundle.displaying": "{{ amount }} Bitstreams actuellement visible(s) sur un total de {{ total }}.",
   
   // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+  "item.edit.bitstreams.bundle.load.all": "Charger tout ({{ total }})",
   
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.more": "Load more",
+  "item.edit.bitstreams.bundle.load.more": "Charger plus",
   
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
-  // TODO New key - Add a translation
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   
   // "item.edit.bitstreams.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.discard-button": "Discard",
+  "item.edit.bitstreams.discard-button": "Annuler",
   
   // "item.edit.bitstreams.edit.buttons.download": "Download",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.download": "Download",
+  "item.edit.bitstreams.edit.buttons.download": "Télécharger",
   
   // "item.edit.bitstreams.edit.buttons.drag": "Drag",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.drag": "Drag",
+  "item.edit.bitstreams.edit.buttons.drag": "Glisser-Déposer",
   
   // "item.edit.bitstreams.edit.buttons.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.edit": "Edit",
+  "item.edit.bitstreams.edit.buttons.edit": "Éditer",
   
   // "item.edit.bitstreams.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.remove": "Remove",
+  "item.edit.bitstreams.edit.buttons.remove": "Supprimer",
   
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
+  "item.edit.bitstreams.edit.buttons.undo": "Annuler changements",
   
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   // TODO New key - Add a translation
