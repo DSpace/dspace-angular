@@ -1758,7 +1758,7 @@
   "forgot-email.form.error.head": "Erreur lors de l'enregistrement de l'adresse e-mail",
   
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",  
+  "forgot-email.form.error.content": "Une erreur s'est produite au niveau de l'adresse e-mail suivante : {{ email }}",  
   
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Mot de passe oublié",
@@ -3439,215 +3439,163 @@
   
   
   // "process.detail.arguments" : "Arguments",
-  // TODO New key - Add a translation
   "process.detail.arguments" : "Arguments",
   
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  "process.detail.arguments.empty" : "Aucun argument défini pour ce processus",
   
   // "process.detail.back" : "Back",
-  // TODO New key - Add a translation
-  "process.detail.back" : "Back",
+  "process.detail.back" : "Retour",
   
   // "process.detail.output" : "Process Output",
-  // TODO New key - Add a translation
-  "process.detail.output" : "Process Output",
+  "process.detail.output" : "Rapport du processus",
   
   // "process.detail.logs.button": "Retrieve process output",
-  // TODO New key - Add a translation
-  "process.detail.logs.button": "Retrieve process output",
+  "process.detail.logs.button": "Récupérer le rapport du processus",
   
   // "process.detail.logs.loading": "Retrieving",
-  // TODO New key - Add a translation
-  "process.detail.logs.loading": "Retrieving",
+  "process.detail.logs.loading": "En cours de récupération",
   
   // "process.detail.logs.none": "This process has no output",
-  // TODO New key - Add a translation
-  "process.detail.logs.none": "This process has no output",
+  "process.detail.logs.none": "Aucun rapport pour ce processus",
   
   // "process.detail.output-files" : "Output Files",
-  // TODO New key - Add a translation
-  "process.detail.output-files" : "Output Files",
+  "process.detail.output-files" : "Fichiers de rapport",
   
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  // TODO New key - Add a translation
-  "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  "process.detail.output-files.empty" : "Aucun fichier de rapport pour ce processus",
   
   // "process.detail.script" : "Script",
-  // TODO New key - Add a translation
   "process.detail.script" : "Script",
   
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  // TODO New key - Add a translation
-  "process.detail.title" : "Process: {{ id }} - {{ name }}",
+  "process.detail.title" : "Processus : {{ id }} - {{ name }}",
   
   // "process.detail.start-time" : "Start time",
-  // TODO New key - Add a translation
-  "process.detail.start-time" : "Start time",
+  "process.detail.start-time" : "Heure de début",
   
   // "process.detail.end-time" : "Finish time",
-  // TODO New key - Add a translation
-  "process.detail.end-time" : "Finish time",
+  "process.detail.end-time" : "Heure de fin",
   
   // "process.detail.status" : "Status",
-  // TODO New key - Add a translation
-  "process.detail.status" : "Status",
+  "process.detail.status" : "Statut",
   
   // "process.detail.create" : "Create similar process",
-  // TODO New key - Add a translation
-  "process.detail.create" : "Create similar process",
+  "process.detail.create" : "Créer processus similaire",
   
   
   
   // "process.overview.table.finish" : "Finish time",
-  // TODO New key - Add a translation
-  "process.overview.table.finish" : "Finish time",
+  "process.overview.table.finish" : "Heure de fin",
   
   // "process.overview.table.id" : "Process ID",
-  // TODO New key - Add a translation
-  "process.overview.table.id" : "Process ID",
+  "process.overview.table.id" : "ID Processus",
   
   // "process.overview.table.name" : "Name",
-  // TODO New key - Add a translation
-  "process.overview.table.name" : "Name",
+  "process.overview.table.name" : "Nom",
   
   // "process.overview.table.start" : "Start time",
-  // TODO New key - Add a translation
-  "process.overview.table.start" : "Start time",
+  "process.overview.table.start" : "Heure de début",
   
   // "process.overview.table.status" : "Status",
-  // TODO New key - Add a translation
-  "process.overview.table.status" : "Status",
+  "process.overview.table.status" : "Statut",
   
   // "process.overview.table.user" : "User",
-  // TODO New key - Add a translation
-  "process.overview.table.user" : "User",
+  "process.overview.table.user" : "Utilisateur",
   
   // "process.overview.title": "Processes Overview",
-  // TODO New key - Add a translation
-  "process.overview.title": "Processes Overview",
+  "process.overview.title": "Sommaire des processus",
   
   // "process.overview.breadcrumbs": "Processes Overview",
-  // TODO New key - Add a translation
-  "process.overview.breadcrumbs": "Processes Overview",
+  "process.overview.breadcrumbs": "Sommaire des processus",
   
   // "process.overview.new": "New",
-  // TODO New key - Add a translation
-  "process.overview.new": "New",
+  "process.overview.new": "Nouveau",
   
   
   // "profile.breadcrumbs": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.breadcrumbs": "Update Profile",
+  "profile.breadcrumbs": "Mise à jour profil",
   
   // "profile.card.identify": "Identify",
-  // TODO New key - Add a translation
-  "profile.card.identify": "Identify",
+  "profile.card.identify": "Identification",
   
   // "profile.card.security": "Security",
-  // TODO New key - Add a translation
-  "profile.card.security": "Security",
+  "profile.card.security": "Sécurité",
   
   // "profile.form.submit": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.form.submit": "Update Profile",
+  "profile.form.submit": "Confirmer",
   
   // "profile.groups.head": "Authorization groups you belong to",
-  // TODO New key - Add a translation
-  "profile.groups.head": "Authorization groups you belong to",
+  "profile.groups.head": "Groupes auxquelles vous appartenez",
   
   // "profile.head": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.head": "Update Profile",
+  "profile.head": "Mise à jour profil",
   
   // "profile.metadata.form.error.firstname.required": "First Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.firstname.required": "First Name is required",
+  "profile.metadata.form.error.firstname.required": "Le prénom est obligatoire",
   
   // "profile.metadata.form.error.lastname.required": "Last Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
+  "profile.metadata.form.error.lastname.required": "Le nom de famille est obligatoire",
   
   // "profile.metadata.form.label.email": "Email Address",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.email": "Email Address",
+  "profile.metadata.form.label.email": "Adresse E-mail",
   
   // "profile.metadata.form.label.firstname": "First Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.firstname": "First Name",
+  "profile.metadata.form.label.firstname": "Prénom",
   
   // "profile.metadata.form.label.language": "Language",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.language": "Language",
+  "profile.metadata.form.label.language": "Langue",
   
   // "profile.metadata.form.label.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.lastname": "Last Name",
+  "profile.metadata.form.label.lastname": "Nom de famille",
   
   // "profile.metadata.form.label.phone": "Contact Telephone",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.phone": "Contact Telephone",
+  "profile.metadata.form.label.phone": "Numéro de téléphone",
   
   // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
+  "profile.metadata.form.notifications.success.content": "Les adaptations du profil ont été sauvegardées avec succès.",
   
   // "profile.metadata.form.notifications.success.title": "Profile saved",
-  // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.title": "Profile saved",
+  "profile.metadata.form.notifications.success.title": "Profil sauvegardé",
   
   // "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-  // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
+  "profile.notifications.warning.no-changes.content": "Aucun changement n'a été réalisé au niveau de ce profil.",
   
   // "profile.notifications.warning.no-changes.title": "No changes",
-  // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.title": "No changes",
+  "profile.notifications.warning.no-changes.title": "Aucun changement",
   
   // "profile.security.form.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "profile.security.form.error.matching-passwords": "The passwords do not match.",
+  "profile.security.form.error.matching-passwords": "Les mots de passe ne correspondent pas.",
   
   // "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
+  "profile.security.form.error.password-length": "Le mot de passe doit au moins faire 6 caractères..",
   
   // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "profile.security.form.info": "Un mot de passe facultatif peut être en dans les zone ci-dessous. Il doit faire au moins 6 caractères.",
   
   // "profile.security.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.password": "Password",
+  "profile.security.form.label.password": "Mot de passe",
   
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  // TODO New key - Add a translation
-  "profile.security.form.label.passwordrepeat": "Retype to confirm",
+  "profile.security.form.label.passwordrepeat": "Entrer à nouveau pour confirmer",
   
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
+  "profile.security.form.notifications.success.content": "Votre nouveau mot de passe a été sauvegardé avec succès.",
   
   // "profile.security.form.notifications.success.title": "Password saved",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.success.title": "Password saved",
+  "profile.security.form.notifications.success.title": "Mot de passe sauvegardé",
   
   // "profile.security.form.notifications.error.title": "Error changing passwords",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.title": "Error changing passwords",
+  "profile.security.form.notifications.error.title": "Erreur modification mot de passe",
   
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+  "profile.security.form.notifications.error.not-long-enough": "Le mot de passe doit faire au moins 6 caractères.",
   
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+  "profile.security.form.notifications.error.not-same": "Les mots de passe ne correspondent pas.",
   
   // "profile.title": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.title": "Update Profile",
+  "profile.title": "Mise à jour profil",
   
   
   
@@ -3661,8 +3609,7 @@
   "project.page.description": "Description",
   
   // "project.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "project.page.edit": "Edit this item",
+  "project.page.edit": "Éditer cet Item",
   
   // "project.page.expectedcompletion": "Expected Completion",
   "project.page.expectedcompletion": "Échéance prévue",
@@ -3683,8 +3630,7 @@
   "project.page.titleprefix": "Projet de recherche : ",
   
   // "project.search.results.head": "Project Search Results",
-  // TODO New key - Add a translation
-  "project.search.results.head": "Project Search Results",
+  "project.search.results.head": "Résultats de recherche Projet",
   
   
   
@@ -3695,8 +3641,7 @@
   "publication.page.description": "Description",
   
   // "publication.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "publication.page.edit": "Edit this item",
+  "publication.page.edit": "Éditer cet Item",
   
   // "publication.page.journal-issn": "Journal ISSN",
   "publication.page.journal-issn": "ISSN de la revue",
