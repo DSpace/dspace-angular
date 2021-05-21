@@ -314,7 +314,7 @@
   "admin.access-control.epeople.head": "Felhasználó",
   
   // "admin.access-control.epeople.search.head": "Search",
-  "admin.access-control.epeople.search.head": "Keresés",
+  "admin.access-control.epeople.search.head": "Keres",
   
   // "admin.access-control.epeople.button.see-all": "Browse All",
   "admin.access-control.epeople.button.see-all": "Valamennyi böngészése",
@@ -326,7 +326,7 @@
   "admin.access-control.epeople.search.scope.email": "E-mail (pontosan)",
   
   // "admin.access-control.epeople.search.button": "Search",
-  "admin.access-control.epeople.search.button": "Keresés",
+  "admin.access-control.epeople.search.button": "Keres",
   
   // "admin.access-control.epeople.button.add": "Add EPerson",
   "admin.access-control.epeople.button.add": "Felhasználó hozzáadása",
@@ -341,7 +341,7 @@
   "admin.access-control.epeople.table.email": "E-mail (pontosan)",
   
   // "admin.access-control.epeople.table.edit": "Edit",
-  "admin.access-control.epeople.table.edit": "Szerkesztés",
+  "admin.access-control.epeople.table.edit": "Szerkeszt",
   
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.edit": "\"{{name}}\" szerkesztése",
@@ -356,7 +356,6 @@
   "admin.access-control.epeople.form.create": "Felhasználó létrehozása",
   
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.edit": "Felhasználó szerkesztése",
   
   // "admin.access-control.epeople.form.firstName": "First name",
@@ -446,7 +445,7 @@
   "admin.access-control.groups.button.see-all": "Mindegyik böngészése",
   
   // "admin.access-control.groups.search.button": "Search",
-  "admin.access-control.groups.search.button": "Keresés",
+  "admin.access-control.groups.search.button": "Keres",
   
   // "admin.access-control.groups.table.id": "ID",
   "admin.access-control.groups.table.id": "ID",
@@ -559,7 +558,7 @@
   "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (pontosan)",
   
   // "admin.access-control.groups.form.members-list.search.button": "Search",
-  "admin.access-control.groups.form.members-list.search.button": "Keresés",
+  "admin.access-control.groups.form.members-list.search.button": "Keres",
   
   // "admin.access-control.groups.form.members-list.table.id": "ID",
   "admin.access-control.groups.form.members-list.table.id": "ID",
@@ -613,7 +612,7 @@
   "admin.access-control.groups.form.subgroups-list.headSubgroups": "Jelenlegi alcsoportok",
   
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
-  "admin.access-control.groups.form.subgroups-list.search.button": "keresés",
+  "admin.access-control.groups.form.subgroups-list.search.button": "Keres",
   
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
@@ -666,16 +665,16 @@
   "admin.search.breadcrumbs": "Adminisztratív keresés",
   
   // "admin.search.collection.edit": "Edit",
-  "admin.search.collection.edit": "Szerkesztés",
+  "admin.search.collection.edit": "Szerkeszt",
   
   // "admin.search.community.edit": "Edit",
-  "admin.search.community.edit": "Szerkesztés",
+  "admin.search.community.edit": "Szerkeszt",
   
   // "admin.search.item.delete": "Delete",
-  "admin.search.item.delete": "Törlés",
+  "admin.search.item.delete": "Töröl",
   
   // "admin.search.item.edit": "Edit",
-  "admin.search.item.edit": "Szerkesztés",
+  "admin.search.item.edit": "Szerkeszt",
   
   // "admin.search.item.make-private": "Make Private",
   "admin.search.item.make-private": "Legyen privát",
@@ -684,13 +683,13 @@
   "admin.search.item.make-public": "Legyen nyilvános",
   
   // "admin.search.item.move": "Move",
-  "admin.search.item.move": "Mozgatás",
+  "admin.search.item.move": "Mozgat",
   
   // "admin.search.item.reinstate": "Reinstate",
   "admin.search.item.reinstate": "Visszaállítás",
   
   // "admin.search.item.withdraw": "Withdraw",
-  "admin.search.item.withdraw": "Visszavonás",
+  "admin.search.item.withdraw": "Visszavon",
   
   // "admin.search.title": "Administrative Search",
   "admin.search.title": "Adminisztratív keresés",
@@ -711,10 +710,10 @@
   "admin.workflow.item.workflow": "Munkafolyamat",
   
   // "admin.workflow.item.delete": "Delete",
-  "admin.workflow.item.delete": "Törlés",
+  "admin.workflow.item.delete": "Töröl",
   
   // "admin.workflow.item.send-back": "Send back",
-  "admin.workflow.item.send-back": "Visszaküldés",
+  "admin.workflow.item.send-back": "Visszaküld",
   
   
   
@@ -740,7 +739,7 @@
   "admin.metadata-import.page.button.return": "Vissza",
   
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  "admin.metadata-import.page.button.proceed": "Végrehajtás",
+  "admin.metadata-import.page.button.proceed": "Végrehajt",
   
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Előbb válasszon fájlt!",
@@ -822,7 +821,7 @@
   "browse.comcol.by.title": "Cím szerint",
   
   // "browse.comcol.head": "Browse",
-  "browse.comcol.head": "Böngészés",
+  "browse.comcol.head": "Tallózás",
   
   // "browse.empty": "No items to show.",
   "browse.empty": "Nincs megjeleníthető dokumentum.",
@@ -933,7 +932,7 @@
   "collection.delete.cancel": "Mégsem",
   
   // "collection.delete.confirm": "Confirm",
-  "collection.delete.confirm": "Rendben",
+  "collection.delete.confirm": "Megerősít",
   
   // "collection.delete.head": "Delete Collection",
   "collection.delete.head": "Gyűjtemény törlése",
@@ -1004,19 +1003,19 @@
   "collection.edit.item-mapper.notifications.unmap.error.head": "Csatlakoztatási hibák törlése",
   
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.success.content": "A {{amount}} tárgyak térképezése sikeresen törölve.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "A(z) {{amount}} dokumentum térképezése sikeresen törölve.",
   
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Térképezés törlése befejeződött",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Csatlakoztatás törlése befejeződött",
   
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  "collection.edit.item-mapper.remove": "Kiválasztott térgyak térképezésének törlése",
+  "collection.edit.item-mapper.remove": "Kiválasztott dokumentumok csatlakoztatásának törlése",
   
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  "collection.edit.item-mapper.tabs.browse": "Térképezett tárgyak böngészése",
+  "collection.edit.item-mapper.tabs.browse": "Csatolt dokumentumok tallózása",
   
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  "collection.edit.item-mapper.tabs.map": "Új tárgyak térképezése",
+  "collection.edit.item-mapper.tabs.map": "Új dokumentumok csatlakoztatása",
   
   
   
@@ -1024,7 +1023,7 @@
   "collection.edit.logo.label": "Gyűjtemény logo",
   
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "Gyűjtemény logo feltöltése nem sikerült. Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
+  "collection.edit.logo.notifications.add.error": "Gyűjtemény logo feltöltése nem sikerült. Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálja.",
   
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Gyűjtemény logo feltöltése sikerült.",
@@ -1033,13 +1032,13 @@
   "collection.edit.logo.notifications.delete.success.title": "Logo törölve",
   
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  "collection.edit.logo.notifications.delete.success.content": "Gyűjteménylogo sikeresen törölve",
+  "collection.edit.logo.notifications.delete.success.content": "Gyűjtemény logo sikeresen törölve",
   
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  "collection.edit.logo.notifications.delete.error.title": "Logo törlése közben hiba történt",
+  "collection.edit.logo.notifications.delete.error.title": "A logo törlése közben hiba történt",
   
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  "collection.edit.logo.upload": "Feltöltéshez húzza ide a gyűjtemény Logót",
+  "collection.edit.logo.upload": "Feltöltéshez húzza ide a gyűjtemény logót",
   
   
   
@@ -1052,36 +1051,34 @@
   
   
   // "collection.edit.tabs.curate.head": "Curate",
-  "collection.edit.tabs.curate.head": "Gondozás",
+  "collection.edit.tabs.curate.head": "Felügyelet",
   
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  "collection.edit.tabs.curate.title": "Gyűjtemény szerkesztés - gondozás",
+  "collection.edit.tabs.curate.title": "Gyűjtemény szerkesztése - felügyelet",
   
   // "collection.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.head": "Authorizations",
+  "collection.edit.tabs.authorizations.head": "Jogosultságok",
   
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+  "collection.edit.tabs.authorizations.title": "Gyűjtemény szerkesztése - Jogosultságok",
   
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  "collection.edit.tabs.metadata.head": "Metaadat szerkesztés",
+  "collection.edit.tabs.metadata.head": "Metaadat szerkesztése",
   
   // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
-  "collection.edit.tabs.metadata.title": "Gyűjtemény szerkesztés - Metaadat",
+  "collection.edit.tabs.metadata.title": "Gyűjtemény szerkesztése - Metaadat",
   
   // "collection.edit.tabs.roles.head": "Assign Roles",
   "collection.edit.tabs.roles.head": "Jogok hozzárendelése",
   
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
-  "collection.edit.tabs.roles.title": "Gyűjtemény szerkesztése - Jogok",
+  "collection.edit.tabs.roles.title": "Gyűjtemény szerkesztése - Szerepkörök",
   
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
-  "collection.edit.tabs.source.external": "Ez a gyűjtemény külső forrásból gyűjti be tartalmát",
+  "collection.edit.tabs.source.external": "Ez a gyűjtemény külső forrásból veszi át tartalmát",
   
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "Beállított azonosítót kell megadnia a célgyűjteményhez.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "Meg kell adnia a célgyűjteményhez egy Set ID értéket.",
   
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
   "collection.edit.tabs.source.form.harvestType": "Tartalom begyűjtése folyamatban",
@@ -1093,19 +1090,19 @@
   "collection.edit.tabs.source.form.metadataConfigId": "Metaadat formátum",
   
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  "collection.edit.tabs.source.form.oaiSetId": "OAI sajátos beállított azonosító",
+  "collection.edit.tabs.source.form.oaiSetId": "OAI Set ID",
   
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
   "collection.edit.tabs.source.form.oaiSource": "OAI szolgáltató",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Metaadat és bitfolyam begyűjtése (ORE támogatás szükséges)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Metaadat és fájl begyűjtése (ORE támogatás szükséges)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "metaadatok és referenciák begyűjtése bitfolyamhoz (ORE támogatás szükséges)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Metaadatok és fájl-referenciák begyűjtése (ORE támogatás szükséges)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Csupán metaadatok begyűjtése",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Csak metaadatok begyűjtése",
   
   // "collection.edit.tabs.source.head": "Content Source",
   "collection.edit.tabs.source.head": "Tartalom forrása",
@@ -1117,10 +1114,10 @@
   "collection.edit.tabs.source.notifications.discarded.title": "Változtatások elvetve",
   
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "collection.edit.tabs.source.notifications.invalid.content": "Változtatások nincsenek mentve. Kérjük, ellenőrizze, hogy valamennyi mező érvényes, mielőtt mentene.",
+  "collection.edit.tabs.source.notifications.invalid.content": "A változtatások nem kerültek mentésre. Kérjük, mentés előtt ellenőrizze, hogy minden mező megfelelő értéket tartalmaz.",
   
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
-  "collection.edit.tabs.source.notifications.invalid.title": "Metaadat érvénytelen",
+  "collection.edit.tabs.source.notifications.invalid.title": "Érvénytelen metaadat",
   
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
   "collection.edit.tabs.source.notifications.saved.content": "A gyűjtemény tartalmának forrásával kapcsolatos változtatásai elmentve.",
@@ -1129,7 +1126,7 @@
   "collection.edit.tabs.source.notifications.saved.title": "Tartalom forrása elmentve",
   
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
-  "collection.edit.tabs.source.title": "Gyűjtemény szerkesztés - tartalom forrása",
+  "collection.edit.tabs.source.title": "Gyűjtemény szerkesztése - tartalom forrása",
   
   
   
@@ -1137,7 +1134,7 @@
   "collection.edit.template.add-button": "Hozzáad",
   
   // "collection.edit.template.breadcrumbs": "Item template",
-  "collection.edit.template.breadcrumbs": "Elemsablon",
+  "collection.edit.template.breadcrumbs": "Tétel sablon",
   
   // "collection.edit.template.cancel": "Cancel",
   "collection.edit.template.cancel": "Mégsem",
@@ -1149,19 +1146,19 @@
   "collection.edit.template.edit-button": "Szerkeszt",
   
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  "collection.edit.template.head": "Gyűjtemény elemsablon szerkesztése: \"{{ collection }}\"",
+  "collection.edit.template.head": "\"{{ collection }}\" gyűjtemény tétel sablon szerkesztése",
   
   // "collection.edit.template.label": "Template item",
-  "collection.edit.template.label": "Elemsablon",
+  "collection.edit.template.label": "Tétel sablon",
   
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  "collection.edit.template.notifications.delete.error": "Nem sikerült törölni az elemsablont",
+  "collection.edit.template.notifications.delete.error": "Nem sikerült törölni a tétel sablont",
   
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  "collection.edit.template.notifications.delete.success": "Sikeresen töröltük az elemsablont",
+  "collection.edit.template.notifications.delete.success": "Tétel sablon sikeresen törölve",
   
   // "collection.edit.template.title": "Edit Template Item",
-  "collection.edit.template.title": "Elemsablon szerkesztése",
+  "collection.edit.template.title": "Tétel sablon szerkesztése",
   
   
   
@@ -1175,13 +1172,13 @@
   "collection.form.errors.title.required": "Adja meg a gyűjtemény nevét",
   
   // "collection.form.license": "License",
-  "collection.form.license": "Engedély",
+  "collection.form.license": "Licensz",
   
   // "collection.form.provenance": "Provenance",
   "collection.form.provenance": "Eredet",
   
   // "collection.form.rights": "Copyright text (HTML)",
-  "collection.form.rights": "Szerzői jog szövege (HTML)",
+  "collection.form.rights": "Szerzői jogi szöveg (HTML)",
   
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Hírek (HTML)",
@@ -1197,19 +1194,19 @@
   
   
   // "collection.page.browse.recent.head": "Recent Submissions",
-  "collection.page.browse.recent.head": "Friss feltöltések",
+  "collection.page.browse.recent.head": "Nemrég feltöltött tételek",
   
   // "collection.page.browse.recent.empty": "No items to show",
-  "collection.page.browse.recent.empty": "Nincs tárgy",
+  "collection.page.browse.recent.empty": "Nincs megjeleníthető elem",
   
   // "collection.page.edit": "Edit this collection",
-  "collection.page.edit": "Gyűjtemény szerkesztése",
+  "collection.page.edit": "Ennek a gyűjteménynek a szerkesztése",
   
   // "collection.page.handle": "Permanent URI for this collection",
   "collection.page.handle": "Állandó URI ehhez a gyűjteményhez",
   
   // "collection.page.license": "License",
-  "collection.page.license": "Engedély",
+  "collection.page.license": "Licensz",
   
   // "collection.page.news": "News",
   "collection.page.news": "Hírek",
@@ -1217,10 +1214,10 @@
   
   
   // "collection.select.confirm": "Confirm selected",
-  "collection.select.confirm": "Kiválasztás igazolása",
+  "collection.select.confirm": "Kiválasztás megerősítése",
   
   // "collection.select.empty": "No collections to show",
-  "collection.select.empty": "Nincs gyűjtemény",
+  "collection.select.empty": "Nincs megjeleníthető gyűjtemény",
   
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Cím",
@@ -1228,7 +1225,7 @@
   
   
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  "collection.source.update.notifications.error.content": "A megadott beállításokat ellenőriztük és nem működnek.",
+  "collection.source.update.notifications.error.content": "A megadott beállítások tesztelve lettek és nem működtek.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Szerverhiba",
@@ -1236,87 +1233,87 @@
   
   
   // "communityList.tabTitle": "DSpace - Community List",
-  "communityList.tabTitle": "DSpace - Közösség lista",
+  "communityList.tabTitle": "DSpace - Kategóriák",
   
   // "communityList.title": "List of Communities",
-  "communityList.title": "Közösségek listája",
+  "communityList.title": "Kategóriák",
   
   // "communityList.showMore": "Show More",
-  "communityList.showMore": "Mutasson többet",
+  "communityList.showMore": "Több megjelenítése",
   
   
   
   // "community.create.head": "Create a Community",
-  "community.create.head": "Hozzon létre egy közösséget",
+  "community.create.head": "Kategória létrehozása",
   
   // "community.create.notifications.success": "Successfully created the Community",
-  "community.create.notifications.success": "Közösség sikeresen létrehozva",
+  "community.create.notifications.success": "A kategória sikeresen létre lett hozva",
   
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Hozzon létre egy alközösséget a közösségben {{ parent }}",
+  "community.create.sub-head": "Alkategória létrehozása a(z) {{ parent }} kategóriában",
   
   // "community.curate.header": "Curate Community: {{community}}",
-  "community.curate.header": "Közösség gondozása: {{community}}",
+  "community.curate.header": "A(z) {{community}} kategória felügyelete",
   
   // "community.delete.cancel": "Cancel",
-  "community.delete.cancel": "Mégse",
+  "community.delete.cancel": "Mégsem",
   
   // "community.delete.confirm": "Confirm",
-  "community.delete.confirm": "Igazolja",
+  "community.delete.confirm": "Jóváhagy",
   
   // "community.delete.head": "Delete Community",
-  "community.delete.head": "Közösség törlése",
+  "community.delete.head": "Kategória törlése",
   
   // "community.delete.notification.fail": "Community could not be deleted",
-  "community.delete.notification.fail": "Közösség törlése nem sikerült",
+  "community.delete.notification.fail": "A kategória törlése nem sikerült",
   
   // "community.delete.notification.success": "Successfully deleted community",
-  "community.delete.notification.success": "SKözösség sikeresen törölve",
+  "community.delete.notification.success": "A kategória sikeresen törölve",
   
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Biztos benne, hogy törölni szeretné a közösséget \"{{ dso }}\"",
+  "community.delete.text": "Biztos benne, hogy törölni szeretné a(z) \"{{ dso }}\" kategóriát",
   
   // "community.edit.delete": "Delete this community",
-  "community.edit.delete": "Törölje ezt a közösséget",
+  "community.edit.delete": "Ennek a kategóriának a törlése",
   
   // "community.edit.head": "Edit Community",
-  "community.edit.head": "Közösség szerkesztése",
+  "community.edit.head": "Kategória szerkesztése",
   
   // "community.edit.breadcrumbs": "Edit Community",
-  "community.edit.breadcrumbs": "Közösség szerkesztése",
+  "community.edit.breadcrumbs": "Kategória szerkesztése",
   
   
   // "community.edit.logo.label": "Community logo",
-  "community.edit.logo.label": "Közösségi logo",
+  "community.edit.logo.label": "Kategória logo",
   
   // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
-  "community.edit.logo.notifications.add.error": "Közösségi logo feltöltése nem sikerült Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
+  "community.edit.logo.notifications.add.error": "A kategória logojának feltöltése nem sikerült. Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
   
   // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
-  "community.edit.logo.notifications.add.success": "Közösségi logo feltöltve.",
+  "community.edit.logo.notifications.add.success": "Kategória logo feltöltve.",
   
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
   "community.edit.logo.notifications.delete.success.title": "Logo törölve",
   
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
-  "community.edit.logo.notifications.delete.success.content": "A közösség logóját sikeresen törölte",
+  "community.edit.logo.notifications.delete.success.content": "A kategória logóját sikeresen törölte",
   
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  "community.edit.logo.notifications.delete.error.title": "Logo törlése közben hiba történt",
+  "community.edit.logo.notifications.delete.error.title": "A logo törlése közben hiba történt",
   
   // "community.edit.logo.upload": "Drop a Community Logo to upload",
-  "community.edit.logo.upload": "Feltöltéshez húzza ide a közösségi logót",
+  "community.edit.logo.upload": "Feltöltéshez húzza ide a kategória logóját",
   
   
   
   // "community.edit.notifications.success": "Successfully edited the Community",
-  "community.edit.notifications.success": "Közösség szerkesztése sikerült",
+  "community.edit.notifications.success": "A kategória szerkesztése sikerült",
   
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Nincs meg a szükséges jogosultsága a változtatáshoz",
   
   // "community.edit.notifications.error": "An error occured while editing the Community",
-  "community.edit.notifications.error": "Hiba történt a közösség szerkesztésekor",
+  "community.edit.notifications.error": "Hiba történt a kategória szerkesztésekor",
   
   // "community.edit.return": "Return",
   "community.edit.return": "Vissza",
@@ -1324,33 +1321,33 @@
   
   
   // "community.edit.tabs.curate.head": "Curate",
-  "community.edit.tabs.curate.head": "Gondozás",
+  "community.edit.tabs.curate.head": "Felügyelet",
   
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  "community.edit.tabs.curate.title": "Közösség szerkesztés - Gondozás",
+  "community.edit.tabs.curate.title": "Kategória szerkesztése - Felügyelet",
   
   // "community.edit.tabs.metadata.head": "Edit Metadata",
-  "community.edit.tabs.metadata.head": "Metaadat szerkesztés",
+  "community.edit.tabs.metadata.head": "Metaadat szerkesztése",
   
   // "community.edit.tabs.metadata.title": "Community Edit - Metadata",
-  "community.edit.tabs.metadata.title": "Közösség szerkesztése - Metaadat",
+  "community.edit.tabs.metadata.title": "Kategória szerkesztése - Metaadat",
   
   // "community.edit.tabs.roles.head": "Assign Roles",
-  "community.edit.tabs.roles.head": "Feladatok kijelölése",
+  "community.edit.tabs.roles.head": "Szerepkörök hozzárendelése",
   
   // "community.edit.tabs.roles.title": "Community Edit - Roles",
-  "community.edit.tabs.roles.title": "Közösség szerkesztése - Feladatok",
+  "community.edit.tabs.roles.title": "Kategória szerkesztése - Szerepkörök",
   
   // "community.edit.tabs.authorizations.head": "Authorizations",
   "community.edit.tabs.authorizations.head": "Jogosultásgok",
   
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  "community.edit.tabs.authorizations.title": "Közösségi szerkesztés - Jogosultásgok",
+  "community.edit.tabs.authorizations.title": "Kategória szerkesztése - Jogosultásgok",
   
   
   
   // "community.listelement.badge": "Community",
-  "community.listelement.badge": "Közösség",
+  "community.listelement.badge": "Kategória",
   
   
   
@@ -1358,13 +1355,13 @@
   "comcol-role.edit.no-group": "Egyik sem",
   
   // "comcol-role.edit.create": "Create",
-  "comcol-role.edit.create": "Hozzon létre",
+  "comcol-role.edit.create": "Létrehoz",
   
   // "comcol-role.edit.restrict": "Restrict",
-  "comcol-role.edit.restrict": "Korlátozzon",
+  "comcol-role.edit.restrict": "Korlátoz",
   
   // "comcol-role.edit.delete": "Delete",
-  "comcol-role.edit.delete": "Törölje",
+  "comcol-role.edit.delete": "Töröl",
   
   
   // "comcol-role.edit.community-admin.name": "Administrators",
@@ -1375,58 +1372,58 @@
   
   
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.community-admin.description": "A közösségek adminisztrátorai létrehozhatnak alközösségeket vagy gyűjteményeket, irányíthatják azokat, vagy kijelölhetik azok irányítását. Továbbá ők döntik el ki tölthet fel tárgyakat bármely algyűjteménybe, ki szerkesztheti a tárgyak metaadatait (feltöltést követően) és ki adhat hozzá (térképezhet) létező tárgyakat más gyűjteményekből (felhatalmazás szükséges).",
+  "comcol-role.edit.community-admin.description": "A kategória adminisztrátorai alkategóriákat vagy gyűjteményeket hozhatnak létre, valamint kezelhetik ezek működését. Továbbá ők döntik el, ki tölthet fel dokumentumokat algyűjteményekbe, ki szerkesztheti ezek metaadatait (a feltöltést követően), és ki adhat (csatlakoztathat) meglévő dokumentumokat más gyűjteményekből (jogosultság kérdése).",
   
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  "comcol-role.edit.collection-admin.description": "A közösségek adminisztrátorai  öntik el ki tölthet fel tárgyakat bármely algyűjteménybe, ki szerkesztheti a tárgyak metaadatait (feltöltést követően) és ki adhat hozzá (térképezhet) létező tárgyakat más gyűjteményekből (felhatalmazás szükséges).",
+  "comcol-role.edit.collection-admin.description": "A kategória adminisztrátorai döntik el, ki tölthet fel tételeket a kategóriába, ki szerkesztheti ezek metaadatait (feltöltést követően), és ki adhat hozzá (csatlakoztathat) létező dokumentumokat más gyűjteményekből (e kategória jogosultságainak kérdése).",
   
   
   // "comcol-role.edit.submitters.name": "Submitters",
   "comcol-role.edit.submitters.name": "Feltöltők",
   
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  "comcol-role.edit.submitters.description": "E-People és csoportok akik feltölthetnek új tárgyakat ebbe a gyűjteménybe.",
+  "comcol-role.edit.submitters.description": "Felhasználók és csoportok, akiknek van joguk új dokumentumok feltöltésére ebbe a gyűjteménybe.",
   
   
   // "comcol-role.edit.item_read.name": "Default item read access",
-  "comcol-role.edit.item_read.name": "Alapbeállított tárgy olvasási hozzáférés",
+  "comcol-role.edit.item_read.name": "Alapértelmezett olvasási hozzáférés",
   
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  "comcol-role.edit.item_read.description": "Azon E-People és csoportok, amelyek olvashatják az ebbe a gyűjteménybe feltöltött tárgyakat. Az ebben a tekintetben végrehajtott változtatások nem visszamenő érvényűek. A meglévő tárgyak olvashatók maradnak mindazok számára, akik a feltöltés idején rendelkeztek ezzel a hozzáféréssel.",
+  "comcol-role.edit.item_read.description": "Azok a felhasználók és csoportok, akik olvashatják az ebbe a gyűjteménybe feltöltött dokumentumokat. Erre a szerepkörre vonatkozó módosítások visszamenőleg nem érvényesek. A már meglévő tételek mind megtekinthetőek maradnak azok által, akiknek olvasási joga volt a hozzáadás pillanatában.",
   
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  "comcol-role.edit.item_read.anonymous-group": "Beérkező tárgyak olvasási alapbeállítása jelenleg Névtelen.",
+  "comcol-role.edit.item_read.anonymous-group": "A beérkező dokumentumok alapértelmezett olvasási joga az Anonymous.",
   
   
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  "comcol-role.edit.bitstream_read.name": "Bitfolyam olvasási hozzáférés alapbeállítás",
+  "comcol-role.edit.bitstream_read.name": "Alapértelmezett fájl olvasási hozzáférés",
   
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.bitstream_read.description": "A közösségek adminisztrátorai létrehozhatnak alközösségeket vagy gyűjteményeket, irányíthatják azokat, vagy kijelölhetik azok irányítását. Továbbá ők döntik el ki tölthet fel tárgyakat bármely algyűjteménybe, ki szerkesztheti a tárgyak metaadatait (feltöltést követően) és ki adhat hozzá (térképezhet) létező tárgyakat más gyűjteményekből (felhatalmazás szükséges).",
+  "comcol-role.edit.bitstream_read.description": "A kategóriák adminisztrátorai alkategóriákat vagy gyűjteményeket hozhatnak létre, valamint kezelhetik ezek működését. Továbbá ők döntik el, ki tölthet fel dokumentumokat algyűjteményekbe, ki szerkesztheti ezek metaadatait (a feltöltést követően), és ki adhat (csatlakoztathat) meglévő dokumentumokat más gyűjteményekből (jogosultság kérdése).",
   
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  "comcol-role.edit.bitstream_read.anonymous-group": "Beérkező bitfolyamok olvasási alapbeállítása jelenleg Névtelen.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "A beérkező fájlok alapértelmezett olvasási joga az Anonymous.",
   
   
   // "comcol-role.edit.editor.name": "Editors",
   "comcol-role.edit.editor.name": "Szerkesztők",
   
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  "comcol-role.edit.editor.description": "Szerkesztők szerkeszthetik a beérkező feltöltések metaadatait és elfogadhatják, vagy elutasíthatják azokat.",
+  "comcol-role.edit.editor.description": "A szerkesztők szerkeszthetik a beérkező feltöltések metaadatait, és elfogadhatják, vagy elutasíthatják azokat.",
   
   
   // "comcol-role.edit.finaleditor.name": "Final editors",
   "comcol-role.edit.finaleditor.name": "Végső szerkesztők",
   
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  "comcol-role.edit.finaleditor.description": "Végső szerkesztők szerkeszthetik a beérkező feltöltések metaadatait de nem utasíthatják el azokat.",
+  "comcol-role.edit.finaleditor.description": "A végső szerkesztők a beérkező feltöltések metaadatait szerkeszthetik, de nem utasíthatják el azokat.",
   
   
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  "comcol-role.edit.reviewer.name": "Lektorálók",
+  "comcol-role.edit.reviewer.name": "Bírálók",
   
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  "comcol-role.edit.reviewer.description": "A lektorálók elfogadhatják, vagy elutasíthatják a beérkező feltöltéseket, de nem szerkeszthetik azok metaadatait.",
+  "comcol-role.edit.reviewer.description": "A bírálók elfogadhatják vagy elutasíthatják a beérkező feltöltéseket, azonban nem szerkeszthetik azok metaadatait.",
   
   
   
@@ -1437,7 +1434,7 @@
   "community.form.description": "Bevezető szöveg (HTML)",
   
   // "community.form.errors.title.required": "Please enter a community name",
-  "community.form.errors.title.required": "Kérjük adjon meg egy közösség nevet",
+  "community.form.errors.title.required": "Kérjük, adjon meg egy kategória nevet",
   
   // "community.form.rights": "Copyright text (HTML)",
   "community.form.rights": "Szerzői jog szövege (HTML)",
@@ -1449,36 +1446,36 @@
   "community.form.title": "Név",
   
   // "community.page.edit": "Edit this community",
-  "community.page.edit": "Közösség szerkesztése",
+  "community.page.edit": "Ennek a kategóriának a szerkesztése",
   
   // "community.page.handle": "Permanent URI for this community",
-  "community.page.handle": "Állandó URI ehhez a közösséghez",
+  "community.page.handle": "Állandó URI ehhez a kategóriához",
   
   // "community.page.license": "License",
-  "community.page.license": "Engedély",
+  "community.page.license": "Licensz",
   
   // "community.page.news": "News",
   "community.page.news": "Hírek",
   
   // "community.all-lists.head": "Subcommunities and Collections",
-  "community.all-lists.head": "Alközösségek és gyűjtemények",
+  "community.all-lists.head": "Alkategóriák és gyűjtemények",
   
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "Ennek a közösségnek a gyűjteményei",
+  "community.sub-collection-list.head": "Ennek a kategóriának a gyűjteményei",
   
   // "community.sub-community-list.head": "Communities of this Community",
-  "community.sub-community-list.head": "Ennek a közösségnek a közösségei",
+  "community.sub-community-list.head": "Ezeknek a gyűjteményeknek a kategóriája",
   
   
   
   // "cookies.consent.accept-all": "Accept all",
-  "cookies.consent.accept-all": "Mind elfogad",
+  "cookies.consent.accept-all": "Mindet elfogad",
   
   // "cookies.consent.accept-selected": "Accept selected",
   "cookies.consent.accept-selected": "Kiválasztottat elfogad",
   
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  "cookies.consent.app.opt-out.description": "Ez az app alaból betöltődik (de letilthatja)",
+  "cookies.consent.app.opt-out.description": "Ez az app alapból betöltődik (de letiltható)",
   
   // "cookies.consent.app.opt-out.title": "(opt-out)",
   "cookies.consent.app.opt-out.title": "(letilt)",
@@ -1487,13 +1484,13 @@
   "cookies.consent.app.purpose": "cél",
   
   // "cookies.consent.app.required.description": "This application is always required",
-  "cookies.consent.app.required.description": "Ez egy szükséges alkalmazás",
+  "cookies.consent.app.required.description": "Erre az alkalmazásra mindig szükség van",
   
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(mindig szükséges)",
   
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-  "cookies.consent.update": "Változások történtek az utolsó látogatása óta, frissítse a beleegyezését.",
+  "cookies.consent.update": "Változások történtek az utolsó látogatása óta, kérjük, frissítse a beleegyezését.",
   
   // "cookies.consent.close": "Close",
   "cookies.consent.close": "Bezár",
@@ -1502,22 +1499,22 @@
   "cookies.consent.decline": "Elutasít",
   
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  "cookies.consent.content-notice.description": "Mi gyűjtjük és feldolgozzuk a személyes adatait a következő célból: <strong>Hitelesítés, Beállítások, Elismerés és Statisztikák</strong>. <br/> Részletekért olvassa el: {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Személyes adatait a következő célból gyűjtjük és dolgozzuk fel: <strong>Hitelesítés, beállítások, igazolások és statisztikák</strong>. <br/>Részletekért olvassa el a {privacyPolicy}.",
   
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Személyreszab",
   
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
-  "cookies.consent.content-modal.description": "Itt láthatja és személyre szabhatja az Önről gyűjtött adatokat.",
+  "cookies.consent.content-modal.description": "Itt megnézheti és személyre szabhatja az önről gyűjtött adatokat.",
   
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
-  "cookies.consent.content-modal.privacy-policy.name": "Adatvédelmi irányelvek",
+  "cookies.consent.content-modal.privacy-policy.name": "adatvédelmi irányelvek",
   
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
-  "cookies.consent.content-modal.privacy-policy.text": "Továbbiakért olvassa el: {privacyPolicy}.",
+  "cookies.consent.content-modal.privacy-policy.text": "Továbbiakért olvassa el a {privacyPolicy}.",
   
   // "cookies.consent.content-modal.title": "Information that we collect",
-  "cookies.consent.content-modal.title": "Gyűjtött adatok",
+  "cookies.consent.content-modal.title": "Általunk gyűjtött adatok",
   
   
   
@@ -1537,10 +1534,10 @@
   
   
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
-  "cookies.consent.app.title.acknowledgement": "Elismerés",
+  "cookies.consent.app.title.acknowledgement": "Igazolás",
   
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  "cookies.consent.app.description.acknowledgement": "Szükséges az elismerésének és beleegyezésének a mentéséhez",
+  "cookies.consent.app.description.acknowledgement": "Szükséges a visszaigazolásának és a beleegyezésének a mentéséhez",
   
   
   
@@ -1563,13 +1560,13 @@
   "curation-task.task.checklinks.label":  "Hivatkozások ellenőrzése a metaadatokban",
   
   // "curation-task.task.noop.label": "NOOP",
-  "curation-task.task.noop.label": "NOOP",
+  "curation-task.task.noop.label": "Üres művelet",
   
   // "curation-task.task.profileformats.label": "Profile Bitstream Formats",
-  "curation-task.task.profileformats.label": "A profil bitfolyam formátumai",
+  "curation-task.task.profileformats.label": "Fájl formátumok összegyűjtése",
   
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
-  "curation-task.task.requiredmetadata.label": "Szükséges metaadatok ellenőrzése",
+  "curation-task.task.requiredmetadata.label": "Szükséges metaadatok ellenőrző",
   
   // "curation-task.task.translate.label": "Microsoft Translator",
   "curation-task.task.translate.label": "Microsoft fordító",
@@ -1586,22 +1583,22 @@
   "curation.form.submit": "Start",
   
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-  "curation.form.submit.success.head": "A kurátor feladat siskersen elkezdődött",
+  "curation.form.submit.success.head": "A feladat sikersen elkezdődött",
   
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
   "curation.form.submit.success.content": "Át lesz irányítva a megfelelő folyamatoldalra.",
   
   // "curation.form.submit.error.head": "Running the curation task failed",
-  "curation.form.submit.error.head": "A kurátor feladat futtatása sikertelen",
+  "curation.form.submit.error.head": "A feladat futtatása sikertelen",
   
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-  "curation.form.submit.error.content": "Hiba történt a kurátor feladat elindításakor.",
+  "curation.form.submit.error.content": "Hiba történt a feladat elindításakor.",
   
   // "curation.form.handle.label": "Handle:",
   "curation.form.handle.label": "Handle:",
   
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-  "curation.form.handle.hint": "Hint: Írja be a(z) [your-handle-prefix]/0 hogy futtasson egy feladatok az egész oldalon (nem minden feladat alakalmas a futtatásra)",
+  "curation.form.handle.hint": "Tipp: Írja be a [handle-prefix]/0 szöveget, hogy egy feladatot az egész repozitóriumon futtasson (nem minden feladat alakalmas ilyen futtatásra)",
   
   
   
@@ -1609,51 +1606,51 @@
   "dso-selector.create.collection.head": "Új gyűjtemény",
   
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
-  "dso-selector.create.collection.sub-level": "Új közösség létrehozása benne",
+  "dso-selector.create.collection.sub-level": "Új gyűjtemény létrehozása itt",
   
   // "dso-selector.create.community.head": "New community",
-  "dso-selector.create.community.head": "Új közösség",
+  "dso-selector.create.community.head": "Új kategória",
   
   // "dso-selector.create.community.sub-level": "Create a new community in",
-  "dso-selector.create.community.sub-level": "Hozzon létre új közösséget benne",
+  "dso-selector.create.community.sub-level": "Új kategória létrehozása itt",
   
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  "dso-selector.create.community.top-level": "Hozzon létre csúcsszintű közösséget",
+  "dso-selector.create.community.top-level": "Új felső szintű kategória létrehozása",
   
   // "dso-selector.create.item.head": "New item",
-  "dso-selector.create.item.head": "Új tárgy",
+  "dso-selector.create.item.head": "Új dokumentum",
   
   // "dso-selector.create.item.sub-level": "Create a new item in",
-  "dso-selector.create.item.sub-level": "Új elem létrehozása, itt",
+  "dso-selector.create.item.sub-level": "Új dokumentum létrehozása itt",
   
   // "dso-selector.create.submission.head": "New submission",
-  "dso-selector.create.submission.head": "Új beküldés",
+  "dso-selector.create.submission.head": "Új feltöltés",
   
   // "dso-selector.edit.collection.head": "Edit collection",
-  "dso-selector.edit.collection.head": "Szerkessze a gyűjteményt",
+  "dso-selector.edit.collection.head": "Gyűjtemény szerkesztése",
   
   // "dso-selector.edit.community.head": "Edit community",
-  "dso-selector.edit.community.head": "Szerkessze a közösséget",
+  "dso-selector.edit.community.head": "Kategória szerkesztése",
   
   // "dso-selector.edit.item.head": "Edit item",
-  "dso-selector.edit.item.head": "Szerkessze a tárgyat",
+  "dso-selector.edit.item.head": "Dokumentum szerkesztése",
   
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
   "dso-selector.export-metadata.dspaceobject.head": "Metaadat exportálása innen",
   
   // "dso-selector.no-results": "No {{ type }} found",
-  "dso-selector.no-results": "Nincs {{ type }} találat",
+  "dso-selector.no-results": "Nem található {{ type }}",
   
   // "dso-selector.placeholder": "Search for a {{ type }}",
-  "dso-selector.placeholder": "Keressen egy {{ type }}",
+  "dso-selector.placeholder": "Keresés: {{ type }}",
   
   
   
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
-  "confirmation-modal.export-metadata.header": "Metaadat exportálásának célja {{ dsoName }}",
+  "confirmation-modal.export-metadata.header": "{{ dsoName }} metaadatainak exportálása",
   
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  "confirmation-modal.export-metadata.info": "Biztos benne, hogy exportálni szeretné a metaadatok a követkő céllal: {{ dsoName }}",
+  "confirmation-modal.export-metadata.info": "Biztos benne, hogy exportálni szeretné a(z) {{ dsoName }} metaadatait",
   
   // "confirmation-modal.export-metadata.cancel": "Cancel",
   "confirmation-modal.export-metadata.cancel": "Mégsem",
@@ -1662,10 +1659,10 @@
   "confirmation-modal.export-metadata.confirm": "Export",
   
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.header": "EPerson törlése \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": "\"{{ dsoName }}\" felhasználó törlése",
   
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Biztos benne, hogy törli: EPerson \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Biztos benne, hogy törli a(z) \"{{ dsoName }}\" felhasználót",
   
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Mégsem",
@@ -1675,71 +1672,71 @@
   
   
   // "error.bitstream": "Error fetching bitstream",
-  "error.bitstream": "Bitfolyam megjelenítése közben hiba történt",
+  "error.bitstream": "Hiba történt a fájl betöltése közben",
   
   // "error.browse-by": "Error fetching items",
-  "error.browse-by": "Tárgy megjelenítése közben hiba történt",
+  "error.browse-by": "Hiba történt a dokumentum betöltése közben",
   
   // "error.collection": "Error fetching collection",
-  "error.collection": "Gyűjtemény megjelenítése közben hiba történt",
+  "error.collection": "Hiba történt a gyűjtemény betöltése közben",
   
   // "error.collections": "Error fetching collections",
-  "error.collections": "Gyűjtemények megjelenítése közben hiba történt",
+  "error.collections": "Hiba történt a gyűjtemények betöltése közben",
   
   // "error.community": "Error fetching community",
-  "error.community": "Közösség megjelenítése közben hiba történty",
+  "error.community": "Hiba történt a kategória betölése közben",
   
   // "error.identifier": "No item found for the identifier",
-  "error.identifier": "Ehhez az azonosítóhoz nem találtunk tárgyat",
+  "error.identifier": "Ehhez az azonosítóhoz nem található dokumentum",
   
   // "error.default": "Error",
   "error.default": "Hiba",
   
   // "error.item": "Error fetching item",
-  "error.item": "Tárgy megjelenítésekor hiba történt",
+  "error.item": "Hiba történt a dokumentum betöltése közben",
   
   // "error.items": "Error fetching items",
-  "error.items": "Tárgyak megjelenítésekor hiba történt",
+  "error.items": "Hiba történt a dokumentumok betöltése közben",
   
   // "error.objects": "Error fetching objects",
-  "error.objects": "Tárgyak megjelenítésekor hiba történt",
+  "error.objects": "Hiba történt az objektumok betöltése közben",
   
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions": "Friss feltöltések megjelenítésekor hiba történt",
+  "error.recent-submissions": "Hiba történt a legújabb feltöltések betöltésekor",
   
   // "error.search-results": "Error fetching search results",
-  "error.search-results": "keresési eredmények megjelenítésekor hiba történt",
+  "error.search-results": "Hiba történt a keresési eredmények betöltésekor",
   
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections": "Algyűjtemények megjelenítésekor hiba történt",
+  "error.sub-collections": "Hiba történt az algyűjtemények betöltésekor",
   
   // "error.sub-communities": "Error fetching sub-communities",
-  "error.sub-communities": "Alközösségek megjelenítésekor hiba történt",
+  "error.sub-communities": "Hiba történt az alkategóriák betöltésekor",
   
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  "error.submission.sections.init-form-error": "Szakasz kezdőértékének megadásakor hiba történt, kérjük ellenőrizze az adatbeviteli forma beállításait. Részletek alább : <br> <br>",
+  "error.submission.sections.init-form-error": "Hiba történt a szekció inicializálása közben. Kérjük, ellenőrizze az adatbeviteli űrlap beállításait. A részleteket alább olvashatja: <br> <br>",
   
   // "error.top-level-communities": "Error fetching top-level communities",
-  "error.top-level-communities": "Csúcsszintű közösségek megjelenítésekor hiba történt",
+  "error.top-level-communities": "Hiba történt a felső szintű kategóriák betöltése közben",
   
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "ezt az engedélyt meg kell adnia ahhoz, hogy befejezze a feltöltést. Ha jelenleg ez nem lehetséges, elmentheti az eddigi munkát és később folytathatja, vagy törölheti a feltöltést.",
+  "error.validation.license.notgranted": "El kell fogadnia ezt a licenszet, hogy befejezze a feltöltését. Ha ez jelenleg nem lehetséges, akkor elmentheti az eddigi munkáját, és később folytathatja, vagy törölheti a feltöltést.",
   
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  "error.validation.pattern": "Ezt a bevitelt korlátozza a jelenlegi útvonal: {{ pattern }}.",
+  "error.validation.pattern": "Ide csak a(z) {{ pattern }} minta alapján írhat be.",
   
   // "error.validation.filerequired": "The file upload is mandatory",
-  "error.validation.filerequired": "Az állomány feltöltése kötelező",
+  "error.validation.filerequired": "A fájl feltöltése kötelező",
   
   
   
   // "file-section.error.header": "Error obtaining files for this item",
-  "file-section.error.header": "Hiba történ az elemhez tartozó fájlok beszerzésekor",
+  "file-section.error.header": "Hiba történt a csatolt fájl kiolvasása közben",
   
   
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
-  "footer.copyright": "szerzői jog © 2002-{{ year }}",
+  "footer.copyright": "copyright © 2002-{{ year }}",
   
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace szoftver",
@@ -1751,30 +1748,30 @@
   "footer.link.cookies": "Süti beállítások",
   
   // "footer.link.privacy-policy": "Privacy policy",
-  "footer.link.privacy-policy": "Privacy policy",
+  "footer.link.privacy-policy": "Adatvédelmi irányelv",
   
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement":"Végfelhasználói szerződés",
   
   
   
   // "forgot-email.form.header": "Forgot Password",
-  "forgot-email.form.header": "Elfelejtettem a jelszót",
+  "forgot-email.form.header": "Elfelejtett jelszó",
   
   // "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "forgot-email.form.info": "Lépjen be a Fiók létrehozásába, hogy feliratkozhasson gyűjtemények e-mail értesítésére, és új elemeket tölthessen fel a DSpace-be.",
+  "forgot-email.form.info": "Lépjen be a Fiók létrehozása funkcióba, hogy feliratkozhasson gyűjtemények e-mailes értesítésére, és hogy új elemeket tölthessen fel a repozitóriumba.",
   
   // "forgot-email.form.email": "Email Address *",
-  "forgot-email.form.email": "Email Cím *",
+  "forgot-email.form.email": "E-mail Cím *",
   
   // "forgot-email.form.email.error.required": "Please fill in an email address",
-  "forgot-email.form.email.error.required": "Írjon be egy e-mail címet",
+  "forgot-email.form.email.error.required": "Kérjük, írjon be egy e-mail címet",
   
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  "forgot-email.form.email.error.pattern": "Írjon be egy érvényes e-mail címet",
+  "forgot-email.form.email.error.pattern": "Kérjük, érvényes e-mail címet írjon be",
   
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
-  "forgot-email.form.email.hint": "Ellenőrizni fogjuk a címet és ezt fogja használni a bejelentkezéshez.",
+  "forgot-email.form.email.hint": "Ellenőrizni fogjuk a címet és ez lesz az ön belépési neve.",
   
   // "forgot-email.form.submit": "Submit",
   "forgot-email.form.submit": "Beküld",
@@ -1783,24 +1780,24 @@
   "forgot-email.form.success.head": "Ellenőrző e-mail kiküldve",
   
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "forgot-email.form.success.content": "Egy levél ki lett küldve a(z) {{ email }} címre, ami tartalmaz egy speciális hivatkozást a következő lépéshez.",
+  "forgot-email.form.success.content": "Egy levél lett kiküldve a(z) {{ email }} címre, ami tartalmaz egy speciális hivatkozást a következő lépésekhez.",
   
   // "forgot-email.form.error.head": "Error when trying to register email",
-  "forgot-email.form.error.head": "Hiba történt az e-mail cím regisztrációjánál",
+  "forgot-email.form.error.head": "Hiba történt az e-mail cím regisztrációja közben",
   
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
-  "forgot-email.form.error.content": "Hiba történt a következő e-mail cím regisztrációjánál: {{ email }}",
+  "forgot-email.form.error.content": "Hiba történt a következő e-mail cím regisztrációja közben: {{ email }}",
   
   
   
   // "forgot-password.title": "Forgot Password",
-  "forgot-password.title": "Elfelejtettem a jelszót",
+  "forgot-password.title": "Elfelejtett jelszó",
   
   // "forgot-password.form.head": "Forgot Password",
-  "forgot-password.form.head": "Elfelejtettem a jelszót",
+  "forgot-password.form.head": "Elfelejtett jelszó",
   
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  "forgot-password.form.info": "Írjon be egy új jelszót a lenti mezőbe, és igazolja a második mezőbe újraírva azt. Legalább hat karakter hosszú kell legyen.",
+  "forgot-password.form.info": "Írjon be egy új jelszót a lenti mezőbe, és igazolja azt újra beírva a második mezőben. Legalább hat karakter hosszú kell, legyen.",
   
   // "forgot-password.form.card.security": "Security",
   "forgot-password.form.card.security": "Biztonság",
@@ -1815,39 +1812,39 @@
   "forgot-password.form.label.password": "Jelszó",
   
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
-  "forgot-password.form.label.passwordrepeat": "Írja újra a visszaigazoláshoz",
+  "forgot-password.form.label.passwordrepeat": "Írja újra a megerősítéshez",
   
   // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
-  "forgot-password.form.error.empty-password": "Írja be a jelszót a lenti mezőbe.",
+  "forgot-password.form.error.empty-password": "Kérjük, írja be a jelszót a lenti mezőbe.",
   
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
   "forgot-password.form.error.matching-passwords": "A jelszavak nem egyeznek.",
   
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  "forgot-password.form.error.password-length": "A jelszó legalább 6 karakter hosszú kell legyen.",
+  "forgot-password.form.error.password-length": "A jelszó legalább 6 karakter hosszú kell, legyen.",
   
   // "forgot-password.form.notification.error.title": "Error when trying to submit new password",
-  "forgot-password.form.notification.error.title": "Hiba történt a jelszó beküldésekor",
+  "forgot-password.form.notification.error.title": "Hiba történt a jelszó feltöltése közben",
   
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  "forgot-password.form.notification.success.content": "A jelszóvisszaállítás sikeres volt. Beléphet a létrehozott felhasználóval.",
+  "forgot-password.form.notification.success.content": "A jelszóvisszaállítás sikeres volt. Ön be lett léptetve a létrehozó felhasználóval.",
   
   // "forgot-password.form.notification.success.title": "Password reset completed",
   "forgot-password.form.notification.success.title": "Jelszóvisszaállítás befejeződött",
   
   // "forgot-password.form.submit": "Submit password",
-  "forgot-password.form.submit": "Jelszó beküldése",
+  "forgot-password.form.submit": "Jelszó elküldése",
   
   
   
   // "form.add": "Add",
-  "form.add": "Hozzáadás",
+  "form.add": "Hozzáad",
   
   // "form.add-help": "Click here to add the current entry and to add another one",
-  "form.add-help": "Kattintson ide a beírt adatok hozzáadásához, majd újabb megadásához",
+  "form.add-help": "Kattintson ide a jelenlegi és további bejegyzések hozzáadásához",
   
   // "form.cancel": "Cancel",
-  "form.cancel": "Mégse",
+  "form.cancel": "Mégsem",
   
   // "form.clear": "Clear",
   "form.clear": "Töröl",
@@ -1865,25 +1862,25 @@
   "form.first-name": "Keresztnév",
   
   // "form.group-collapse": "Collapse",
-  "form.group-collapse": "Kicsinyít",
+  "form.group-collapse": "Összecsuk",
   
   // "form.group-collapse-help": "Click here to collapse",
-  "form.group-collapse-help": "Kattintson ide a kicsinyítéshez",
+  "form.group-collapse-help": "Kattintson ide az összecsukáshoz",
   
   // "form.group-expand": "Expand",
-  "form.group-expand": "Felnagyít",
+  "form.group-expand": "Kinyit",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  "form.group-expand-help": "Kattintson ide, hogy felnagyítsa s újabb elemeket adjon hozzá",
+  "form.group-expand-help": "Kattintson ide a kinyitáshoz és további tételek hozzáadásához",
   
   // "form.last-name": "Last name",
-  "form.last-name": "Családnév",
+  "form.last-name": "Vezetéknévnév",
   
   // "form.loading": "Loading...",
   "form.loading": "Betöltés...",
   
   // "form.lookup": "Lookup",
-  "form.lookup": "Keresse ki",
+  "form.lookup": "Kikeres",
   
   // "form.lookup-help": "Click here to look up an existing relation",
   "form.lookup-help": "Kattintson ide egy meglévő kapcsolat kikereséséhez",
@@ -1898,22 +1895,22 @@
   "form.other-information": {},
   
   // "form.remove": "Remove",
-  "form.remove": "Törlés",
+  "form.remove": "Töröl",
   
   // "form.save": "Save",
-  "form.save": "Mentés",
+  "form.save": "Ment",
   
   // "form.save-help": "Save changes",
   "form.save-help": "Változtatások mentése",
   
   // "form.search": "Search",
-  "form.search": "Keresés",
+  "form.search": "Keres",
   
   // "form.search-help": "Click here to look for an existing correspondence",
-  "form.search-help": "Kattintson ide egy meglévő levelezés kikereséséhez",
+  "form.search-help": "Kattintson ide egy meglévő kapcsolat kikereséséhez",
   
   // "form.submit": "Submit",
-  "form.submit": "Feltöltés",
+  "form.submit": "Feltölt",
   
   
   
@@ -1930,33 +1927,33 @@
   "home.top-level-communities.head": "Közösségek a DSpace-en",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  "home.top-level-communities.help": "Válasszon ki egy közösséget, hogy böngéssze a gyűjteményeit.",
+  "home.top-level-communities.help": "Válasszon egy kategóriát a gyűjteményeik tallózásához.",
   
   
   
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
-  "info.end-user-agreement.accept": "Elolvastam és elfogadom a felhasználói feltételeket",
+  "info.end-user-agreement.accept": "Elolvastam és elfogadom a végfelhasználói feltételeket",
   
   // "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
-  "info.end-user-agreement.accept.error": "Hiba történt a felhasználói feltételek elfogadásakor",
+  "info.end-user-agreement.accept.error": "Hiba történt a végfelhasználói feltételek elfogadásakor",
   
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
-  "info.end-user-agreement.accept.success": "Sikeresen frissítette a felhasználói feltételeket",
+  "info.end-user-agreement.accept.success": "Sikeresen frissítette a végfelhasználói feltételeket",
   
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-  "info.end-user-agreement.breadcrumbs": "Felhasználói feltételek",
+  "info.end-user-agreement.breadcrumbs": "Végfelhasználói feltételek",
   
   // "info.end-user-agreement.buttons.cancel": "Cancel",
   "info.end-user-agreement.buttons.cancel": "Mégsem",
   
   // "info.end-user-agreement.buttons.save": "Save",
-  "info.end-user-agreement.buttons.save": "Mentés",
+  "info.end-user-agreement.buttons.save": "Ment",
   
   // "info.end-user-agreement.head": "End User Agreement",
-  "info.end-user-agreement.head": "Felhasználói feltételek",
+  "info.end-user-agreement.head": "Végfelhasználói feltételek",
   
   // "info.end-user-agreement.title": "End User Agreement",
-  "info.end-user-agreement.title": "Felhasználói feltételek",
+  "info.end-user-agreement.title": "Végfelhasználói feltételek",
   
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Adatvédelmi nyilatkozat",
@@ -1978,10 +1975,10 @@
   
   
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  "item.edit.authorizations.heading": "Evvel a szerkesztővel megnézheti vagy szerkesztheti egy elem jogosutságát, és szerkesztheti egy egyedi elem componenseinek jogosutságát: bundles és bitstreams. Röviden, egy elem a kötegek gyűjteménye, és a kötegek a bitsteramek gyűjteménye. A kötegeknek többnyire van ADD/REMOVE/READ/WRITE jogosultsága, miközben a bitstreameknek csak READ/WRITE jogosultsága.",
+  "item.edit.authorizations.heading": "Ebben a szerkesztőben megnézheti és módosíthatja egy dokumentum, valamint annak egyedi részeinek a szabályait (csomagok, fájlok). Röviden szólva egy dokumentum csomagok (bundle-ök) tárolója, a csomagok, vagy budle-ök pedig fájlok tárolói. A tárolóknak általában ADD/REMOVE/READ/WRITE jogosultságai, a fájloknak pedig csak READ/WRITE jogosultságai vannak.",
   
   // "item.edit.authorizations.title": "Edit item's Policies",
-  "item.edit.authorizations.title": "Jogosultásgok elem szerkesztése",
+  "item.edit.authorizations.title": "Dokumentum szabályainak szerkesztése",
   
   
   
@@ -2003,16 +2000,16 @@
   "item.bitstreams.upload.bundle.new": "Hozzon létre csomagot",
   
   // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
-  "item.bitstreams.upload.bundles.empty": "Ez a tárgy nem tartalmaz csomagot, ahova bitfolyamot lehetne feltölteni.",
+  "item.bitstreams.upload.bundles.empty": "Ez a dokumentum nem tartalmaz csomagot, ahová fájlt lehetne feltölteni.",
   
   // "item.bitstreams.upload.cancel": "Cancel",
-  "item.bitstreams.upload.cancel": "Mégse",
+  "item.bitstreams.upload.cancel": "Mégsem",
   
   // "item.bitstreams.upload.drop-message": "Drop a file to upload",
   "item.bitstreams.upload.drop-message": "Húzza ide a feltöltendő állományt",
   
   // "item.bitstreams.upload.item": "Item: ",
-  "item.bitstreams.upload.item": "Tárgy: ",
+  "item.bitstreams.upload.item": "Dokumentum: ",
   
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
   "item.bitstreams.upload.notifications.bundle.created.content": "Új csomag sikeresen létrehozva.",
@@ -2021,15 +2018,15 @@
   "item.bitstreams.upload.notifications.bundle.created.title": "Csomag létrehozva",
   
   // "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
-  "item.bitstreams.upload.notifications.upload.failed": "Feltöltés nem sikerült. Kérjük ellenőrizze a tartalmát, mielőtt újra próbálkozna.",
+  "item.bitstreams.upload.notifications.upload.failed": "A feltöltés nem sikerült. Kérjük, ellenőrizze a tartalmát az újrapróbálkozás előtt.",
   
   // "item.bitstreams.upload.title": "Upload bitstream",
-  "item.bitstreams.upload.title": "Bitfolyam feltöltése",
+  "item.bitstreams.upload.title": "Fájl feltöltése",
   
   
   
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
-  "item.edit.bitstreams.bundle.edit.buttons.upload": "Feltöltés",
+  "item.edit.bitstreams.bundle.edit.buttons.upload": "Feltölt",
   
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
   "item.edit.bitstreams.bundle.displaying": "Jelenleg látható {{ amount }} Bitfolyam ennyiből: {{ total }}.",
