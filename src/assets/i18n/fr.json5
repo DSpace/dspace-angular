@@ -2025,80 +2025,61 @@
   "item.edit.bitstreams.edit.buttons.undo": "Annuler changements",
   
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+  "item.edit.bitstreams.empty": "Aucun Bitstream n'est associé à cet Item. Utiliser le bouton d'ajout pour en créer un.",
   
   // "item.edit.bitstreams.headers.actions": "Actions",
-  // TODO New key - Add a translation
   "item.edit.bitstreams.headers.actions": "Actions",
   
   // "item.edit.bitstreams.headers.bundle": "Bundle",
-  // TODO New key - Add a translation
   "item.edit.bitstreams.headers.bundle": "Bundle",
   
   // "item.edit.bitstreams.headers.description": "Description",
-  // TODO New key - Add a translation
   "item.edit.bitstreams.headers.description": "Description",
   
   // "item.edit.bitstreams.headers.format": "Format",
-  // TODO New key - Add a translation
   "item.edit.bitstreams.headers.format": "Format",
   
   // "item.edit.bitstreams.headers.name": "Name",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.headers.name": "Name",
+  "item.edit.bitstreams.headers.name": "Nom",
   
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.bitstreams.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Rétablir'",
   
   // "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
+  "item.edit.bitstreams.notifications.discarded.title": "Changements annulés",
   
   // "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
+  "item.edit.bitstreams.notifications.move.failed.title": "Erreur lors du déplacement des Bitstreams",
   
   // "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
+  "item.edit.bitstreams.notifications.move.saved.content": "Les déplacements Bundles/Bitstreams de cet Item ont été sauvegardés avec succès.",
   
   // "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
+  "item.edit.bitstreams.notifications.move.saved.title": "Déplacements sauvegardés",
   
   // "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.bitstreams.notifications.outdated.content": "L'Item sur lequel vous êtes en train de travailler a été édité par un autre utilisateur. Vos changements en cours sont ignorés pour éviter des conflits",
   
   // "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
+  "item.edit.bitstreams.notifications.outdated.title": "Changements obsolètes",
   
   // "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
+  "item.edit.bitstreams.notifications.remove.failed.title": "Erreur lors de la suppression du Bitstream",
   
   // "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+  "item.edit.bitstreams.notifications.remove.saved.content": "La suppression du/des Bitstream(s) de cet Item a été sauvegardée avec succès.",
   
   // "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+  "item.edit.bitstreams.notifications.remove.saved.title": "Suppression(s) sauvegardée(s)",
   
   // "item.edit.bitstreams.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.reinstate-button": "Undo",
+  "item.edit.bitstreams.reinstate-button": "Rétablir",
   
   // "item.edit.bitstreams.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.save-button": "Save",
+  "item.edit.bitstreams.save-button": "Sauvegarder",
   
   // "item.edit.bitstreams.upload-button": "Upload",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.upload-button": "Upload",
+  "item.edit.bitstreams.upload-button": "Ajouter",
   
   
   
@@ -2124,17 +2105,14 @@
   "item.edit.head": "Éditer Item",
   
   // "item.edit.breadcrumbs": "Edit Item",
-  // TODO New key - Add a translation
-  "item.edit.breadcrumbs": "Edit Item",
+  "item.edit.breadcrumbs": "Éditer Item",
   
   
   // "item.edit.tabs.mapper.head": "Collection Mapper",
-  // TODO New key - Add a translation
   "item.edit.tabs.mapper.head": "Collection Mapper",
   
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
-  // TODO New key - Add a translation
-  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
+  "item.edit.tabs.item-mapper.title": "Édition Item - Collection Mapper",
   
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.add": "Associer Item aux Collections sélectionnées",
@@ -2208,8 +2186,7 @@
   "item.edit.metadata.edit.buttons.unedit": "Stopper l'édition",
   
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+  "item.edit.metadata.empty": "Aucune métadonnée n'est associée à cet Item. Cliquer 'Ajouter' pour commencer à ajouter une métadonnée.",
   
   // "item.edit.metadata.headers.edit": "Edit",
   "item.edit.metadata.headers.edit": "Éditer",
@@ -2233,8 +2210,7 @@
   "item.edit.metadata.notifications.discarded.title": "Changements annulés",
   
   // "item.edit.metadata.notifications.error.title": "An error occurred",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.error.title": "An error occurred",
+  "item.edit.metadata.notifications.error.title": "Une erreur s'est produite",
   
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   "item.edit.metadata.notifications.invalid.content": "Vos changements n'ont pas été sauvegardés. Veuillez vérifier que tous les champs sont valides avant de sauvegarder.",
@@ -2280,7 +2256,6 @@
   "item.edit.move.description": "Sélectionner la Collection dans laquelle vous souhaitez transférer l'Item. Pour limiter la liste de Collections affichées, vous pouvez utiliser le champ de recherche.",
   
   // "item.edit.move.error": "An error occurred when attempting to move the item",
-  // TODO Source message changed - Revise the translation
   "item.edit.move.error": "Une erreur s'est produite lors du transfert de l'Item",
   
   // "item.edit.move.head": "Move item: {{id}}",
@@ -2302,7 +2277,6 @@
   "item.edit.move.search.placeholder": "Rechercher Collection",
   
   // "item.edit.move.success": "The item has been moved successfully",
-  // TODO Source message changed - Revise the translation
   "item.edit.move.success": "L'Item a été transféré avec succès",
   
   // "item.edit.move.title": "Move item",
@@ -2374,8 +2348,7 @@
   "item.edit.relationships.discard-button": "Annuler",
   
   // "item.edit.relationships.edit.buttons.add": "Add",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.add": "Add",
+  "item.edit.relationships.edit.buttons.add": "Ajouter",
   
   // "item.edit.relationships.edit.buttons.remove": "Remove",
   "item.edit.relationships.edit.buttons.remove": "Supprimer",
@@ -2384,8 +2357,7 @@
   "item.edit.relationships.edit.buttons.undo": "Annuler changements",
   
   // "item.edit.relationships.no-relationships": "No relationships",
-  // TODO New key - Add a translation
-  "item.edit.relationships.no-relationships": "No relationships",
+  "item.edit.relationships.no-relationships": "Aucune relation",
   
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "item.edit.relationships.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Rétablir'",
@@ -2394,8 +2366,7 @@
   "item.edit.relationships.notifications.discarded.title": "Changements annulés",
   
   // "item.edit.relationships.notifications.failed.title": "Error editing relationships",
-  // TODO Source message changed - Revise the translation
-  "item.edit.relationships.notifications.failed.title": "Erreur lors de la suppression de la Relation",
+  "item.edit.relationships.notifications.failed.title": "Erreur lors de l'édition des relations",
   
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
   "item.edit.relationships.notifications.outdated.content": "L'Item sur lequel vous êtes en train de travailler a été édité par un autre utilisateur. Vos changements en cours sont ignorés pour éviter des conflits.",
@@ -2416,14 +2387,12 @@
   "item.edit.relationships.save-button": "Sauvegarder",
   
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
-  // TODO New key - Add a translation
-  "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
+  "item.edit.relationships.no-entity-type": "Ajouter la métadonnée 'dspace.entity.type' pour activer les relations pour cet Item",
   
   
   
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.bitstreams.head": "Bitstreams de l'Item",
+  "item.edit.tabs.bitstreams.head": "Bitstreams",
   
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
   "item.edit.tabs.bitstreams.title": "Édition Item - Bitstreams",
@@ -2435,15 +2404,12 @@
   "item.edit.tabs.curate.title": "Édition Item - Gestion de contenu",
   
   // "item.edit.tabs.metadata.head": "Metadata",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.metadata.head": "Métadonnées de l'Item",
+  "item.edit.tabs.metadata.head": "Métadonnées",
   
   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "Édition Item - Métadonnées",
   
   // "item.edit.tabs.relationships.head": "Relationships",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.relationships.head": "Relations de l'Item",
   
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
@@ -2501,8 +2467,7 @@
   "item.edit.tabs.status.description": "Bienvenue sur la page de gestion de l'Item. D'ici, vous pouvez retirer, réintégrer, transférer ou supprimer l'Item. Dans les autres onglets, vous pouvez également mettre à jour, ajouter ou supprimer des métadonnées et/ou bitstreams.",
   
   // "item.edit.tabs.status.head": "Status",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.status.head": "Statut Item",
+  "item.edit.tabs.status.head": "Statut",
   
   // "item.edit.tabs.status.labels.handle": "Handle",
   "item.edit.tabs.status.labels.handle": "Handle",
@@ -2520,16 +2485,13 @@
   "item.edit.tabs.status.title": "Édition Item - Statut",
   
   // "item.edit.tabs.versionhistory.head": "Version History",
-  // TODO New key - Add a translation
-  "item.edit.tabs.versionhistory.head": "Version History",
+  "item.edit.tabs.versionhistory.head": "Historique des versions",
   
   // "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
-  // TODO New key - Add a translation
-  "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
+  "item.edit.tabs.versionhistory.title": "Édition Item - Historique des versions",
   
   // "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
-  // TODO New key - Add a translation
-  "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
+  "item.edit.tabs.versionhistory.under-construction": "L'ajout ou l'édition de versions n'est pas encore possible depuis cette interface utilisateur.",
   
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "Voir Item",
@@ -2560,43 +2522,33 @@
   
   
   // "item.listelement.badge": "Item",
-  // TODO New key - Add a translation
   "item.listelement.badge": "Item",
   
   // "item.page.description": "Description",
-  // TODO New key - Add a translation
   "item.page.description": "Description",
   
   // "item.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Éditer cet Item",
   
   // "item.page.journal-issn": "Journal ISSN",
-  // TODO New key - Add a translation
-  "item.page.journal-issn": "Journal ISSN",
+  "item.page.journal-issn": "ISSN de la revue",
   
   // "item.page.journal-title": "Journal Title",
-  // TODO New key - Add a translation
-  "item.page.journal-title": "Journal Title",
+  "item.page.journal-title": "Nom de la revue",
   
   // "item.page.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "item.page.publisher": "Publisher",
+  "item.page.publisher": "Éditeur",
   
   // "item.page.titleprefix": "Item: ",
-  // TODO New key - Add a translation
   "item.page.titleprefix": "Item: ",
   
   // "item.page.volume-title": "Volume Title",
-  // TODO New key - Add a translation
-  "item.page.volume-title": "Volume Title",
+  "item.page.volume-title": "Titre du volume",
   
   // "item.search.results.head": "Item Search Results",
-  // TODO New key - Add a translation
-  "item.search.results.head": "Item Search Results",
+  "item.search.results.head": "Résultats de la recherche",
   
   // "item.search.title": "DSpace Angular :: Item Search",
-  // TODO New key - Add a translation
   "item.search.title": "DSpace Angular :: Item Search",
   
   
@@ -2617,8 +2569,7 @@
   "item.page.date": "Date",
   
   // "item.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Éditer cet item",
   
   // "item.page.files": "Files",
   "item.page.files": "Fichiers",
@@ -2639,7 +2590,7 @@
   "item.page.filesection.size": "Taille :",
   
   // "item.page.journal.search.title": "Articles in this journal",
-  "item.page.journal.search.title": "Articles dans ce Périodique",
+  "item.page.journal.search.title": "Articles dans cette revue",
   
   // "item.page.link.full": "Full item page",
   "item.page.link.full": "Notice complète",
@@ -2651,28 +2602,22 @@
   "item.page.person.search.title": "Articles de cet auteur",
   
   // "item.page.related-items.view-more": "Show {{ amount }} more",
-  // TODO Source message changed - Revise the translation
-  "item.page.related-items.view-more": "Plus de résultats",
+  "item.page.related-items.view-more": "Afficher {{ amount }} résultats supplémentaires",
   
   // "item.page.related-items.view-less": "Hide last {{ amount }}",
-  // TODO Source message changed - Revise the translation
-  "item.page.related-items.view-less": "Moins de résultats",
+  "item.page.related-items.view-less": "Masquer les {{ amount }} derniers résultats",
   
   // "item.page.relationships.isAuthorOfPublication": "Publications",
-  // TODO New key - Add a translation
   "item.page.relationships.isAuthorOfPublication": "Publications",
   
   // "item.page.relationships.isJournalOfPublication": "Publications",
-  // TODO New key - Add a translation
   "item.page.relationships.isJournalOfPublication": "Publications",
   
   // "item.page.relationships.isOrgUnitOfPerson": "Authors",
-  // TODO New key - Add a translation
-  "item.page.relationships.isOrgUnitOfPerson": "Authors",
+  "item.page.relationships.isOrgUnitOfPerson": "Auteurs",
   
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
+  "item.page.relationships.isOrgUnitOfProject": "Projets de recherche",
   
   // "item.page.subject": "Keywords",
   "item.page.subject": "Mots-clés",
@@ -2684,59 +2629,45 @@
   "item.page.bitstreams.view-more": "Plus de résultats",
   
   // "item.page.bitstreams.collapse": "Collapse",
-  // TODO New key - Add a translation
-  "item.page.bitstreams.collapse": "Collapse",
+  "item.page.bitstreams.collapse": "Réduire",
   
   // "item.page.filesection.original.bundle" : "Original bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.original.bundle" : "Original bundle",
+  "item.page.filesection.original.bundle" : "Bundle Original",
   
   // "item.page.filesection.license.bundle" : "License bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.license.bundle" : "License bundle",
+  "item.page.filesection.license.bundle" : "Bundle Licence",
   
   // "item.preview.dc.identifier.uri": "Identifier:",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.uri": "Identifier:",
+  "item.preview.dc.identifier.uri": "Identifiant :",
   
   // "item.preview.dc.contributor.author": "Authors:",
-  // TODO New key - Add a translation
-  "item.preview.dc.contributor.author": "Authors:",
+  "item.preview.dc.contributor.author": "Auteurs :",
   
   // "item.preview.dc.date.issued": "Published date:",
-  // TODO New key - Add a translation
-  "item.preview.dc.date.issued": "Published date:",
+  "item.preview.dc.date.issued": "Date de publication :",
   
   // "item.preview.dc.description.abstract": "Abstract:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description.abstract": "Abstract:",
+  "item.preview.dc.description.abstract": "Résumé :",
   
   // "item.preview.dc.identifier.other": "Other identifier:",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.other": "Other identifier:",
+  "item.preview.dc.identifier.other": "Autre identifiant :",
   
   // "item.preview.dc.language.iso": "Language:",
-  // TODO New key - Add a translation
-  "item.preview.dc.language.iso": "Language:",
+  "item.preview.dc.language.iso": "Langue :",
   
   // "item.preview.dc.subject": "Subjects:",
-  // TODO New key - Add a translation
-  "item.preview.dc.subject": "Subjects:",
+  "item.preview.dc.subject": "Sujets :",
   
   // "item.preview.dc.title": "Title:",
-  // TODO New key - Add a translation
-  "item.preview.dc.title": "Title:",
+  "item.preview.dc.title": "Title :",
   
   // "item.preview.person.familyName": "Surname:",
-  // TODO New key - Add a translation
-  "item.preview.person.familyName": "Surname:",
+  "item.preview.person.familyName": "Nom de famille :",
   
   // "item.preview.person.givenName": "Name:",
-  // TODO New key - Add a translation
-  "item.preview.person.givenName": "Name:",
+  "item.preview.person.givenName": "Prénom:",
   
   // "item.preview.person.identifier.orcid": "ORCID:",
-  // TODO New key - Add a translation
   "item.preview.person.identifier.orcid": "ORCID:",
   
   
@@ -2757,58 +2688,47 @@
   
   
   // "item.version.history.empty": "There are no other versions for this item yet.",
-  // TODO New key - Add a translation
-  "item.version.history.empty": "There are no other versions for this item yet.",
+  "item.version.history.empty": "Il n'y a pas encore d'autres versions de cet Item.",
   
   // "item.version.history.head": "Version History",
-  // TODO New key - Add a translation
-  "item.version.history.head": "Version History",
+  "item.version.history.head": "Historique des versions",
   
   // "item.version.history.return": "Return",
-  // TODO New key - Add a translation
-  "item.version.history.return": "Return",
+  "item.version.history.return": "Retour",
   
   // "item.version.history.selected": "Selected version",
-  // TODO New key - Add a translation
-  "item.version.history.selected": "Selected version",
+  "item.version.history.selected": "Version sélectionnée",
   
   // "item.version.history.table.version": "Version",
-  // TODO New key - Add a translation
   "item.version.history.table.version": "Version",
   
   // "item.version.history.table.item": "Item",
-  // TODO New key - Add a translation
   "item.version.history.table.item": "Item",
   
   // "item.version.history.table.editor": "Editor",
-  // TODO New key - Add a translation
-  "item.version.history.table.editor": "Editor",
+  "item.version.history.table.editor": "Éditeur",
   
   // "item.version.history.table.date": "Date",
-  // TODO New key - Add a translation
   "item.version.history.table.date": "Date",
   
   // "item.version.history.table.summary": "Summary",
-  // TODO New key - Add a translation
-  "item.version.history.table.summary": "Summary",
+  "item.version.history.table.summary": "Résumé",
   
   
   
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
-  // TODO New key - Add a translation
-  "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+  "item.version.notice": "Ceci n'est pas la version la plus récente de cet Item. La dernière version est accessible <a href='{{destination}}'>ici</a>.",
   
   
   
   // "journal.listelement.badge": "Journal",
-  "journal.listelement.badge": "Périodique",
+  "journal.listelement.badge": "Revue",
   
   // "journal.page.description": "Description",
   "journal.page.description": "Description",
   
   // "journal.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "journal.page.edit": "Edit this item",
+  "journal.page.edit": "Éditer cet Item",
   
   // "journal.page.editor": "Editor-in-Chief",
   "journal.page.editor": "Rédacteur en chef",
@@ -2820,34 +2740,33 @@
   "journal.page.publisher": "Éditeur",
   
   // "journal.page.titleprefix": "Journal: ",
-  "journal.page.titleprefix": "Périodique : ",
+  "journal.page.titleprefix": "Revue : ",
   
   // "journal.search.results.head": "Journal Search Results",
-  "journal.search.results.head": "Résultats de recherche Périodique",
+  "journal.search.results.head": "Résultats de recherche Revue",
   
   // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Recherche Périodique",
+  "journal.search.title": "DSpace Angular :: Recherche Revue",
   
   
   
   // "journalissue.listelement.badge": "Journal Issue",
-  "journalissue.listelement.badge": "Numéro de Périodique",
+  "journalissue.listelement.badge": "Numéro de revue",
   
   // "journalissue.page.description": "Description",
   "journalissue.page.description": "Description",
   
   // "journalissue.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "journalissue.page.edit": "Edit this item",
+  "journalissue.page.edit": "Éditer cet Item",
   
   // "journalissue.page.issuedate": "Issue Date",
   "journalissue.page.issuedate": "Date de publication",
   
   // "journalissue.page.journal-issn": "Journal ISSN",
-  "journalissue.page.journal-issn": "ISSN du Périodique",
+  "journalissue.page.journal-issn": "ISSN de la revue",
   
   // "journalissue.page.journal-title": "Journal Title",
-  "journalissue.page.journal-title": "Titre du Périodique",
+  "journalissue.page.journal-title": "Titre de la revue",
   
   // "journalissue.page.keyword": "Keywords",
   "journalissue.page.keyword": "Mots-clés",
@@ -2856,25 +2775,24 @@
   "journalissue.page.number": "Nombre",
   
   // "journalissue.page.titleprefix": "Journal Issue: ",
-  "journalissue.page.titleprefix": "Numéro de Périodique : ",
+  "journalissue.page.titleprefix": "Numéro de revue : ",
   
   
   
   // "journalvolume.listelement.badge": "Journal Volume",
-  "journalvolume.listelement.badge": "Volume de Périodique",
+  "journalvolume.listelement.badge": "Volume de la revue",
   
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "Description",
   
   // "journalvolume.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "journalvolume.page.edit": "Edit this item",
+  "journalvolume.page.edit": "Éditer cet item",
   
   // "journalvolume.page.issuedate": "Issue Date",
   "journalvolume.page.issuedate": "Date de publication",
   
   // "journalvolume.page.titleprefix": "Journal Volume: ",
-  "journalvolume.page.titleprefix": "Volume de Périodique : ",
+  "journalvolume.page.titleprefix": "Volume de la revue : ",
   
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Volume",
@@ -2882,12 +2800,10 @@
   
   
   // "loading.bitstream": "Loading bitstream...",
-  // TODO New key - Add a translation
-  "loading.bitstream": "Loading bitstream...",
+  "loading.bitstream": "Bitstream en cours de chargement...",
   
   // "loading.bitstreams": "Loading bitstreams...",
-  // TODO New key - Add a translation
-  "loading.bitstreams": "Loading bitstreams...",
+  "loading.bitstreams": "Bitstreams en cours de chargement...",
   
   // "loading.browse-by": "Loading items...",
   "loading.browse-by": "Items en cours de chargement...",
@@ -2902,8 +2818,7 @@
   "loading.collections": "Collections en cours de chargement...",
   
   // "loading.content-source": "Loading content source...",
-  // TODO New key - Add a translation
-  "loading.content-source": "Loading content source...",
+  "loading.content-source": "Source de contenu en cours de chargement...",
   
   // "loading.community": "Loading community...",
   "loading.community": "Communauté en cours de chargement...",
@@ -2953,15 +2868,13 @@
   "login.form.new-user": "Pas encore de compte ? Cliquez ici pour vous enregistrer.",
   
   // "login.form.or-divider": "or",
-  // TODO New key - Add a translation
-  "login.form.or-divider": "or",
+  "login.form.or-divider": "ou",
   
   // "login.form.password": "Password",
   "login.form.password": "Mot de passe",
   
   // "login.form.shibboleth": "Log in with Shibboleth",
-  // TODO New key - Add a translation
-  "login.form.shibboleth": "Log in with Shibboleth",
+  "login.form.shibboleth": "Se connecter via Shibboleth",
   
   // "login.form.submit": "Log in",
   "login.form.submit": "Se connecter",
@@ -2970,8 +2883,7 @@
   "login.title": "Connection",
   
   // "login.breadcrumbs": "Login",
-  // TODO New key - Add a translation
-  "login.breadcrumbs": "Login",
+  "login.breadcrumbs": "Connection",
   
   
   
@@ -3009,8 +2921,7 @@
   
   
   // "menu.section.admin_search": "Admin Search",
-  // TODO New key - Add a translation
-  "menu.section.admin_search": "Admin Search",
+  "menu.section.admin_search": "Recherche Administrateur",
   
   
   
@@ -3089,8 +3000,7 @@
   "menu.section.icon.access_control": "Section du menu relative au contrôle d'accès",
   
   // "menu.section.icon.admin_search": "Admin search menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.admin_search": "Admin search menu section",
+  "menu.section.icon.admin_search": "Section du menu relative à la recherche Administrateur",
   
   // "menu.section.icon.control_panel": "Control Panel menu section",
   "menu.section.icon.control_panel": "Section du menu relative au panneau de configuration",
@@ -3117,8 +3027,7 @@
   "menu.section.icon.pin": "Epingler menu latéral",
   
   // "menu.section.icon.processes": "Processes menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.processes": "Processes menu section",
+  "menu.section.icon.processes": "Section du menu relatif aux Processus",
   
   // "menu.section.icon.registries": "Registries menu section",
   "menu.section.icon.registries": "Section du menu relative aux Registres",
@@ -3135,8 +3044,7 @@
   "menu.section.import": "Importer",
   
   // "menu.section.import_batch": "Batch Import (ZIP)",
-  // TODO New key - Add a translation
-  "menu.section.import_batch": "Batch Import (ZIP)",
+  "menu.section.import_batch": "Import par lot (ZIP)",
   
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Import de métadonnées",
@@ -3159,8 +3067,7 @@
   "menu.section.new_item_version": "Version",
   
   // "menu.section.new_process": "Process",
-  // TODO New key - Add a translation
-  "menu.section.new_process": "Process",
+  "menu.section.new_process": "Processus",
   
   
   
@@ -3173,8 +3080,7 @@
   
   
   // "menu.section.processes": "Processes",
-  // TODO New key - Add a translation
-  "menu.section.processes": "Processes",
+  "menu.section.processes": "Processus",
   
   
   
@@ -3229,16 +3135,14 @@
   
   
   // "menu.section.workflow": "Administer Workflow",
-  // TODO New key - Add a translation
-  "menu.section.workflow": "Administer Workflow",
+  "menu.section.workflow": "Workflow Administrateur",
   
   
   // "mydspace.description": "",
   "mydspace.description": "",
   
   // "mydspace.general.text-here": "here",
-  // TODO Source message changed - Revise the translation
-  "mydspace.general.text-here": "ICI",
+  "mydspace.general.text-here": "ici",
   
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
@@ -3283,12 +3187,10 @@
   "mydspace.new-submission": "Nouveau dépôt",
   
   // "mydspace.new-submission-external": "Import metadata from external source",
-  // TODO New key - Add a translation
-  "mydspace.new-submission-external": "Import metadata from external source",
+  "mydspace.new-submission-external": "Importer les métadonnées depuis une source externe",
   
   // "mydspace.new-submission-external-short": "Import metadata",
-  // TODO New key - Add a translation
-  "mydspace.new-submission-external-short": "Import metadata",
+  "mydspace.new-submission-external-short": "Importer métadonnées",
   
   // "mydspace.results.head": "Your submissions",
   "mydspace.results.head": "Vos dépôts",
@@ -3345,12 +3247,10 @@
   "mydspace.upload.upload-failed": "Erreur à la création du Workspace. Veuillez vérifier le contenu téléchargé avant de réessayer.",
   
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
+  "mydspace.upload.upload-failed-manyentries": "Erreur lors du traitement du fichier. Maximum une entrée fichier autorisée.",
   
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
+  "mydspace.upload.upload-failed-moreonefile": "Erreur lors du traitement de la requête. Un seul fichier est autorisé.",
   
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans le Workspace.",
@@ -3382,8 +3282,7 @@
   "nav.mydspace": "MyDSpace",
   
   // "nav.profile": "Profile",
-  // TODO New key - Add a translation
-  "nav.profile": "Profile",
+  "nav.profile": "Profil",
   
   // "nav.search": "Search",
   "nav.search": "Rechercher",
@@ -3392,8 +3291,7 @@
   "nav.statistics.header": "Statistiques",
   
   // "nav.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "nav.stop-impersonating": "Stop impersonating EPerson",
+  "nav.stop-impersonating": "Retour à votre propre EPerson",
   
   
   
@@ -3413,8 +3311,7 @@
   "orgunit.page.description": "Description",
   
   // "orgunit.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "orgunit.page.edit": "Edit this item",
+  "orgunit.page.edit": "Éditer cet item",
   
   // "orgunit.page.id": "ID",
   "orgunit.page.id": "ID",
@@ -3442,15 +3339,13 @@
   "person.listelement.badge": "Personne",
   
   // "person.listelement.no-title": "No name found",
-  // TODO New key - Add a translation
-  "person.listelement.no-title": "No name found",
+  "person.listelement.no-title": "Aucun nom trouvé",
   
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "Date de naissance",
   
   // "person.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "person.page.edit": "Edit this item",
+  "person.page.edit": "Éditer cet item",
   
   // "person.page.email": "Email Address",
   "person.page.email": "Adresse mail",
@@ -3485,80 +3380,61 @@
   
   
   // "process.new.select-parameters": "Parameters",
-  // TODO New key - Add a translation
-  "process.new.select-parameters": "Parameters",
+  "process.new.select-parameters": "Paramètres",
   
   // "process.new.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "process.new.cancel": "Cancel",
+  "process.new.cancel": "Annuler",
   
   // "process.new.submit": "Submit",
-  // TODO New key - Add a translation
-  "process.new.submit": "Submit",
+  "process.new.submit": "Confirmer",
   
   // "process.new.select-script": "Script",
-  // TODO New key - Add a translation
   "process.new.select-script": "Script",
   
   // "process.new.select-script.placeholder": "Choose a script...",
-  // TODO New key - Add a translation
-  "process.new.select-script.placeholder": "Choose a script...",
+  "process.new.select-script.placeholder": "Sélectionner un script...",
   
   // "process.new.select-script.required": "Script is required",
-  // TODO New key - Add a translation
-  "process.new.select-script.required": "Script is required",
+  "process.new.select-script.required": "Veuillez sélectionner un script",
   
   // "process.new.parameter.file.upload-button": "Select file...",
-  // TODO New key - Add a translation
-  "process.new.parameter.file.upload-button": "Select file...",
+  "process.new.parameter.file.upload-button": "Sélectionner fichier...",
   
   // "process.new.parameter.file.required": "Please select a file",
-  // TODO New key - Add a translation
-  "process.new.parameter.file.required": "Please select a file",
+  "process.new.parameter.file.required": "Veuillez sélectionner un fichier",
   
   // "process.new.parameter.string.required": "Parameter value is required",
-  // TODO New key - Add a translation
-  "process.new.parameter.string.required": "Parameter value is required",
+  "process.new.parameter.string.required": "Veuillez spécifier un paramètre",
   
   // "process.new.parameter.type.value": "value",
-  // TODO New key - Add a translation
-  "process.new.parameter.type.value": "value",
+  "process.new.parameter.type.value": "valeur",
   
   // "process.new.parameter.type.file": "file",
-  // TODO New key - Add a translation
-  "process.new.parameter.type.file": "file",
+  "process.new.parameter.type.file": "fichier",
   
   // "process.new.parameter.required.missing": "The following parameters are required but still missing:",
-  // TODO New key - Add a translation
-  "process.new.parameter.required.missing": "The following parameters are required but still missing:",
+  "process.new.parameter.required.missing": "Les paramètres obligatoires suivants n'ont pas été détectés :",
   
   // "process.new.notification.success.title": "Success",
-  // TODO New key - Add a translation
-  "process.new.notification.success.title": "Success",
+  "process.new.notification.success.title": "Succès",
   
   // "process.new.notification.success.content": "The process was successfully created",
-  // TODO New key - Add a translation
-  "process.new.notification.success.content": "The process was successfully created",
+  "process.new.notification.success.content": "Le processus a été créé avec succès",
   
   // "process.new.notification.error.title": "Error",
-  // TODO New key - Add a translation
-  "process.new.notification.error.title": "Error",
+  "process.new.notification.error.title": "Erreur",
   
   // "process.new.notification.error.content": "An error occurred while creating this process",
-  // TODO New key - Add a translation
-  "process.new.notification.error.content": "An error occurred while creating this process",
+  "process.new.notification.error.content": "Une erreur s'est produite lors de la création du processus",
   
   // "process.new.header": "Create a new process",
-  // TODO New key - Add a translation
-  "process.new.header": "Create a new process",
+  "process.new.header": "Créer nouveau processus",
   
   // "process.new.title": "Create a new process",
-  // TODO New key - Add a translation
-  "process.new.title": "Create a new process",
+  "process.new.title": "Créer nouveau processus",
   
   // "process.new.breadcrumbs": "Create a new process",
-  // TODO New key - Add a translation
-  "process.new.breadcrumbs": "Create a new process",
+  "process.new.breadcrumbs": "Créer nouveau processus",
   
   
   
@@ -3823,10 +3699,10 @@
   "publication.page.edit": "Edit this item",
   
   // "publication.page.journal-issn": "Journal ISSN",
-  "publication.page.journal-issn": "ISSN du Périodique",
+  "publication.page.journal-issn": "ISSN de la revue",
   
   // "publication.page.journal-title": "Journal Title",
-  "publication.page.journal-title": "Titre du Périodique",
+  "publication.page.journal-title": "Titre de la revue",
   
   // "publication.page.publisher": "Publisher",
   "publication.page.publisher": "Éditeur",
@@ -4003,13 +3879,13 @@
   "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
   
   // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Numéros de Périodique",
+  "relationships.isIssueOf": "Numéros de revue",
   
   // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Numéro de Périodique",
+  "relationships.isJournalIssueOf": "Numéro de revue",
   
   // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Périodiques",
+  "relationships.isJournalOf": "Revues",
   
   // "relationships.isOrgUnitOf": "Organizational Units",
   "relationships.isOrgUnitOf": "Structure organisationnelle",
@@ -4027,13 +3903,13 @@
   "relationships.isPublicationOfJournalIssue": "Articles",
   
   // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Périodique",
+  "relationships.isSingleJournalOf": "Revue",
   
   // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volume de Périodique",
+  "relationships.isSingleVolumeOf": "Volume revue",
   
   // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volumes de Périodique",
+  "relationships.isVolumeOf": "Volumes revue",
   
   // "relationships.isContributorOf": "Contributors",
   // TODO New key - Add a translation
