@@ -9,7 +9,6 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
  */
 @Component({
   selector: 'ds-alert',
-  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('enterLeave', [
       fadeOutLeave, fadeOutState,
