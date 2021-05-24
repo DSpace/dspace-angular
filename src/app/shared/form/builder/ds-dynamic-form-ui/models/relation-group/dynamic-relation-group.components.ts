@@ -116,6 +116,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     });
 
     modalRef.result.then(() => {
+      // close
+      this.selectedChipItemIndex = null;
+      this.selectedChipItem = null;
+    }, () => {
+      // dismiss
       this.selectedChipItemIndex = null;
       this.selectedChipItem = null;
     });
@@ -138,7 +143,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
-              if (isObject(valueObj[fieldName]) && this.hasValidAuthority(valueObj[fieldName])) {
+              if (isObject(valueObj[fieldName]) && this.hasValidAuthority(valueObj[fieldName]) && valueObj[fieldName].otherInformation === null) {
                 return$ = this.getVocabulary(valueObj, fieldName);
               } else {
                 return$ = observableOf(valueObj[fieldName]);
