@@ -1348,6 +1348,7 @@
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
+  "dataset.listelement.badge": "Dataset",
 
 
   "dso.name.untitled": "Untitled",
@@ -2315,6 +2316,8 @@
 
   "item.preview.dc.identifier.doi" : "DOI",
 
+  "item.preview.dc.identifier.isi" : "ISI",
+
   "item.preview.dc.identifier.issn" : "ISSN",
 
   "item.preview.dc.identifier.scopus" : "Scopus id",
@@ -2375,6 +2378,12 @@
 
   "item.preview.dc.relation.issn" : "ISSN",
 
+  "item.preview.oaire.citation.endPage" : "End Page",
+
+  "item.preview.oaire.citation.edition": "Edition",
+
+  "item.preview.oaire.citation.startPage" : "Start Page",
+
   "item.preview.oaire.citation.issue" : "Issue",
 
   "item.preview.oaire.citation.volume" : "Volume",
@@ -2386,6 +2395,8 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.person.identifier.rid": "Researcher ID:",
 
   "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
 
@@ -4278,6 +4289,8 @@
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals ISSN",
 
   "submission.import-external.source.orcid": "ORCID",
 
