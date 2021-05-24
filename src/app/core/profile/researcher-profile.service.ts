@@ -162,7 +162,7 @@ export class ResearcherProfileService {
      * @returns the check result
      */
     isLinkedToOrcid(item: Item): boolean {
-      return item.hasMetadata('person.identifier.orcid') && item.hasMetadata('cris.orcid.access-token');
+      return item.hasMetadata('cris.orcid.authenticated');
     }
 
     /**
