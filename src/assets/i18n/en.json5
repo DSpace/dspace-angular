@@ -4653,7 +4653,7 @@
 
   "submission.sections.general.no-sections": "No options available",
 
-  "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
+  "submission.sections.general.save_error_notice": "There was an unexpected error when saving the item. Refresh the page and try again. After refreshing unsaved modifications could be lost.",
 
   "submission.sections.general.save_success_notice": "Submission saved successfully.",
 

@@ -1,0 +1,48 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ getHeader() }}</h5>
+  </div>
+  <div class="modal-body">
+
+    <div class="pt-2" [ngClass]="{'border border-danger': showErrorMessages}">
+      <div class="d-flex justify-content-between w-100">
+        <ds-form  #formRef="formComponent"
+                  class="flex-grow-1"
+                  [formId]="formId"
+                  [formModel]="formModel"
+                  [displaySubmit]="false"
+                  [displayCancel]="false"
+                  [emitChange]="false"
+                  (dfBlur)="onBlur($event)"
+                  (dfFocus)="onFocus($event)"></ds-form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+
+    <button type="button"
+            class="btn btn-light mr-2 mr-auto"
+            (click)="closeModal()">
+      <span>Close</span>
+    </button>
+    <button *ngIf="(canShowExternalSourceButton() | async)"
+            type="button"
+            class="btn btn-link"
+            ngbTooltip="{{'form.external.source.group-help' | translate}}"
+            [disabled]="!canImport()"
+            (click)="createEntityFromMetadata()">
+      <i class="far fa-share-square text-primary fa-2x"
+         aria-hidden="true"></i>
+    </button>
+    <button type="button"
+            class="btn btn-primary mr-2"
+            [disabled]="isMandatoryFieldEmpty()"
+            (click)="save()">
+      <span *ngIf="item">Set</span>
+      <span *ngIf="!item">Add</span>
+    </button>
+
+  </div>
+</div>
