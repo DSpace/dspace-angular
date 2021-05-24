@@ -89,7 +89,8 @@ export class ChipsComponent implements OnChanges {
               .forEach((otherField) => {
                 this.translate.get('form.other-information.' + otherField)
                   .subscribe((label) => {
-                    textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
+                    const otherInformationText = chipsItem.item[field].otherInformation[otherField].split('::')[0];
+                    textToDisplay.push(label + ': ' + otherInformationText);
                   });
             });
           }
