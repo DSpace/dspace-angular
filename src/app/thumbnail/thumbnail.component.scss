@@ -18,9 +18,9 @@ img {
     left: 0;
 
     > .thumbnail-placeholder {
-      background: var(--bs-gray-100);
-      border: 1px solid var(--bs-gray-300);
-      color: var(--bs-gray-800);
+      background: var(--ds-thumbnail-placeholder-background);
+      border: var(--ds-thumbnail-placeholder-border);
+      color: var(--ds-thumbnail-placeholder-color);
       font-weight: bold;
       display: flex;
       justify-content: center;
