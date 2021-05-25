@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { getFinishedRemoteData } from '../../../core/shared/operators';
@@ -28,13 +28,29 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
   currentSyncProjects: string;
 
-  syncModes: {value: string, label: string}[];
+  syncModes: { value: string, label: string }[];
 
-  syncPublicationOptions: {value: string, label: string}[];
+  syncPublicationOptions: { value: string, label: string }[];
 
-  syncProjectOptions: {value: string, label: string}[];
+  syncProjectOptions: { value: string, label: string }[];
 
-  syncProfileOptions: {value: string, label: string, checked: boolean}[];
+  syncProfileOptions: { value: string, label: string, checked: boolean }[];
+
+  /**
+   * Variable to understand if the next box clear value
+   */
+  nextBoxClear = true;
+
+  /**
+   * Dynamic styling of the component host selector
+   */
+  @HostBinding('style.flex') flex = '0 0 100%';
+
+  /**
+   * Dynamic styling of the component host selector
+   */
+  @HostBinding('style.marginRight') margin = '0px';
+
 
   constructor(private researcherProfileService: ResearcherProfileService,
               private translateService: TranslateService,
@@ -63,7 +79,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
           label: this.messagePrefix + '.sync-publications.' + value.toLowerCase(),
           value: value,
         };
-    });
+      });
 
     // this.syncPublicationOptions = ['DISABLED', 'ALL', 'MY_SELECTED', 'MINE']
     this.syncProjectOptions = ['DISABLED', 'ALL']
@@ -72,7 +88,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
           label: this.messagePrefix + '.sync-fundings.' + value.toLowerCase(),
           value: value,
         };
-    });
+      });
 
     const syncProfilePreferences = this.item.allMetadataValues('cris.orcid.sync-profile');
 
@@ -103,7 +119,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
     this.fillOperationsFor(operations, '/orcid/profile', syncProfileValue);
 
-    if (operations.length === 0 ) {
+    if (operations.length === 0) {
       return;
     }
 

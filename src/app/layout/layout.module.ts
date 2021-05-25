@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { SharedModule } from '../shared/shared.module';
-
-
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { CrisPageLoaderComponent } from './cris-page-loader.component';
 import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default.component';

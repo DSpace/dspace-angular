@@ -90,10 +90,4 @@ describe('CrisLayoutSidebarItemComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('When the component is rendered', () => {
-    it('should call the getCrisLayoutBox function with the right types', () => {
-      spyOn((component as any), 'getComponent').and.returnValue(CrisLayoutMetadataBoxComponent);
-      expect(component).toBeDefined();
-    });
-  });
 });

@@ -59,9 +59,9 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
 
   selectFromTabName(tabName): void {
     let result = null;
-    this.tabs.forEach((tab,i) => {
+    this.tabs.forEach( (tab,i) => {
       if (!!tab.children && tab.children.length > 0) {
-        tab.children.forEach((subtab, j) => {
+        tab.children.forEach( (subtab,j) => {
           if (subtab.shortname === tabName) {
             result = [i,j];
             this.selectTab(i,j);
@@ -92,10 +92,10 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
    * @param idx id of tab
    */
   selectTab(idx: number,idy?: number) {
-    this.tabs.forEach((tab) => {
-      tab.isActive = false;
-      if (!!tab.children && tab.children.length > 0) {
-        tab.children.forEach((subtab, j) => {
+    this.tabs.forEach((tabElm) => {
+      tabElm.isActive = false;
+      if (!!tabElm.children && tabElm.children.length > 0) {
+        tabElm.children.forEach((subtab,j) => {
           subtab.isActive = false;
         });
       }
@@ -111,9 +111,19 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
     const tabName = this.getCurrentTabFromUrl();
     if (tabName) {
       if (tabName === this.item.uuid) {
-        this.router.navigate([selectedTab.shortname], {replaceUrl: true, relativeTo: this.route});
+        this.router.navigate(
+          [selectedTab.shortname],
+          {
+            replaceUrl: true,
+            relativeTo: this.route
+          });
       } else if (tabName !== selectedTab.shortname) {
-        this.router.navigate(['../', selectedTab.shortname], {replaceUrl: true, relativeTo: this.route});
+        this.router.navigate(
+          ['../', selectedTab.shortname],
+          {
+            replaceUrl: true,
+            relativeTo: this.route
+          });
       }
     }
     // Notify selected tab at parent
@@ -136,22 +146,23 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
 
   private parseTabs(): void {
       const tabs = [];
-
       this.tabs.forEach((tab) => {
           // create children where tab has "::"
           if (tab.shortname.includes('::')) {
             const splitedTabs = tab.shortname.split('::');
-            const previousTab = tabs.find((tmpTab) => tmpTab.header === splitedTabs[0]);
+            const splitedHeaderTabs = tab.header.split('::');
+            const previousTab = tabs.find((seltab) => seltab.shortname === splitedTabs[0]);
 
             if (!previousTab) {
               const parentTab = Object.assign({},tab);
-              parentTab.header = splitedTabs[0];
-              const childTab = Object.assign(tab,{header:splitedTabs[1]});
+              parentTab.header = splitedHeaderTabs[0];
+              parentTab.shortname = splitedTabs[0];
+              const childTab = Object.assign(tab,{header:splitedHeaderTabs[1]});
               parentTab.children = [];
               parentTab.children.push(childTab);
               tabs.push(parentTab);
             } else {
-              tab.header = splitedTabs[1];
+              tab.header = splitedHeaderTabs[1];
               previousTab.children.push(tab);
             }
           } else {

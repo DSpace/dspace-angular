@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Tab } from '../../../../core/layout/models/tab.model';
+import { rotate } from '../../../../shared/animations/rotate';
+import { slide } from '../../../../shared/animations/slide';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -10,18 +12,19 @@ import { Tab } from '../../../../core/layout/models/tab.model';
 @Component({
   selector: 'ds-cris-layout-sidebar-item',
   templateUrl: './cris-layout-sidebar-item.component.html',
-  styleUrls: ['./cris-layout-sidebar-item.component.scss']
+  styleUrls: ['./cris-layout-sidebar-item.component.scss'],
+  animations: [rotate, slide]
 })
 export class CrisLayoutSidebarItemComponent {
   /**
    * The tab that will be shown
    */
   @Input() tab: Tab;
+
   /**
    * used for notify tab selection
    */
   @Input() selectedTab: Tab;
-
 
   /**
    * used for notify tab selection
@@ -45,11 +48,11 @@ export class CrisLayoutSidebarItemComponent {
     }
   }
 
-  toggleSection(event) {
+  toggleSection(event): void {
     this.expanded = !this.expanded;
   }
 
-  selectTab(tab) {
+  selectTab(tab): void {
     this.tabSelectedChange.emit(tab);
   }
 

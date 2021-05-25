@@ -1,5 +1,7 @@
 <nav *ngIf="sidebarActive" id="sidebar" [ngClass]="{'active': !sidebarStatus}">
   <ul class="list-unstyled components">
- 	<ds-cris-layout-sidebar-item *ngFor="let tab of tabs; let i = index;" (tabSelectedChange)="getTabSelected($event)"  [tab]="tab"></ds-cris-layout-sidebar-item>
+ 	<ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
+                               [tab]="tab"
+                               (tabSelectedChange)="getTabSelected($event)"></ds-cris-layout-sidebar-item>
   </ul>
 </nav>

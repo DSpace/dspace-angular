@@ -1,13 +1,16 @@
 <li class="sidebar-section" [ngClass]="{ 'expanded': expanded, 'active' : tab.isActive }" >
     <div class="icon-wrapper" *ngIf="!tab.children || tab.children.length == 0 ">
-        <a class="nav-item nav-link shortcut-icon" attr.aria.labelledby="sidebarName-{{tab.id}}" [title]="tab.header" (click)="selectTab(tab)" routerLink="./">
+        <a class="nav-item nav-link shortcut-icon" routerLink="./"
+           attr.aria.labelledby="sidebarName-{{tab.id}}"
+           [title]="tab.header"
+           (click)="$event.preventDefault();selectTab(tab)">
         	{{tab.header}}
             <!-- <i class="fas fa-{{tab.icon}} fa-fw"></i> -->
         </a>
     </div>
     <div *ngIf="!!tab.children && tab.children.length > 0 " class="sidebar-collapsible">
         <a class="nav-item nav-link shortcut-icon" routerLink="./"
-           (click)="toggleSection($event)">
+           (click)="$event.preventDefault();toggleSection($event)">
             <span id="sidebarName-{{tab.id}}" class="section-header-text">
                 {{tab.header}}
             </span>
@@ -17,8 +20,8 @@
         <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="expanded">
             <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : subTab.isActive}">
                 <a class="nav-item nav-link shortcut-icon" routerLink="./"
-		           (click)="selectTab(subTab)">
-		            <span id="sidebarName-{{tab.id}}" class="section-header-text">
+                   (click)="$event.preventDefault();selectTab(subTab)">
+		            <span id="sidebarName-{{subTab.id}}" class="section-header-text">
 		                {{subTab.header}}
 		            </span>
 		        </a>
