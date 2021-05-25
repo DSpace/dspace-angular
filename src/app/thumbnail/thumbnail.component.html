@@ -1,4 +1,11 @@
 <div class="thumbnail">
-  <img [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()" class="img-fluid"/>
+  <img *ngIf="src !== null" [src]="src | dsSafeUrl" [alt]="alt" (error)="errorHandler()" class="img-fluid"/>
+  <div *ngIf="src === null" class="outer">
+    <div class="inner">
+      <div class="thumbnail-placeholder w-100 h-100 p-3">
+        {{ placeholder | translate }}
+      </div>
+    </div>
+  </div>
 </div>
 

@@ -3539,9 +3539,23 @@
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
 
+
   "thumbnail.default.alt": "Thumbnail Image",
 
   "thumbnail.default.placeholder": "No Thumbnail Available",
+
+  "thumbnail.project.alt": "Project Logo",
+
+  "thumbnail.project.placeholder": "Project Placeholder Image",
+
+  "thumbnail.orgunit.alt": "OrgUnit Logo",
+
+  "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+
+  "thumbnail.person.alt": "Profile Picture",
+
+  "thumbnail.person.placeholder": "No Profile Picture Available",
+
 
 
   "title": "DSpace",
