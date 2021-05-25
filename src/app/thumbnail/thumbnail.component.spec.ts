@@ -5,8 +5,8 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 
 import { ThumbnailComponent } from './thumbnail.component';
-import { TranslateService } from '@ngx-translate/core';
 
+// tslint:disable-next-line:pipe-prefix
 @Pipe({ name: 'translate' })
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {
