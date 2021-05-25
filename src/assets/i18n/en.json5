@@ -3539,6 +3539,10 @@
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
 
+  "thumbnail.default.alt": "Thumbnail Image",
+
+  "thumbnail.default.placeholder": "No Thumbnail Available",
+
 
   "title": "DSpace",
 

@@ -1,3 +1,31 @@
 img {
   max-width: 100%;
 }
+
+.outer {  // .outer/.inner generated ~ https://ratiobuddy.com/
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: (210 / 297) * 100%;  // A4 ratio
+  }
+  > .inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    > .thumbnail-placeholder {
+      background: var(--bs-gray-100);
+      border: var(--bs-gray-200) 1px;
+      color: var(--bs-gray-600);
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}

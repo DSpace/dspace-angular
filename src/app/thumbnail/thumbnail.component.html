@@ -1,4 +1,4 @@
 <div class="thumbnail">
-  <img [src]="src | dsSafeUrl" (error)="errorHandler()" class="img-fluid"/>
+  <img [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()" class="img-fluid"/>
 </div>
 

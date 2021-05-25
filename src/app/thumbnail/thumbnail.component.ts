@@ -18,7 +18,6 @@ export const THUMBNAIL_PLACEHOLDER = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20
   templateUrl: './thumbnail.component.html'
 })
 export class ThumbnailComponent implements OnInit {
-
   /**
    * The thumbnail Bitstream
    */
@@ -33,6 +32,11 @@ export class ThumbnailComponent implements OnInit {
    * The src attribute used in the template to render the image.
    */
   src: string;
+
+  /**
+   * i18n key of thumbnail alt text
+   */
+  @Input() alt? = 'thumbnail.default.alt';
 
   /**
    * Initialize the thumbnail.
