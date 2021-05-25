@@ -8,6 +8,7 @@ import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ChipsItem } from './models/chips-item.model';
 
 @Component({
   selector: 'ds-chips',
@@ -108,6 +109,16 @@ export class ChipsComponent implements OnChanges {
       }
 
     }
+  }
+
+  hasPlusIcon(chip: ChipsItem, icon) {
+    const metadata = chip.item[icon.metadata];
+    return metadata?.authority?.startsWith('will be generated::');
+  }
+
+  hasSearchIcon(chip: ChipsItem, icon) {
+    const metadata = chip.item[icon.metadata];
+    return metadata?.authority?.startsWith('will be referenced::');
   }
 
 }

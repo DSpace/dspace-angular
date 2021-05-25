@@ -5,3 +5,18 @@
 .chip-label {
   max-width: 10rem;
 }
+
+.chip-stacked-icons {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+}
+
+.chip-stacked-icon {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.4rem;
+  font-size: 0.8rem;
+  color: white !important;
+}

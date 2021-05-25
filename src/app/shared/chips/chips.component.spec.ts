@@ -146,6 +146,49 @@ describe('ChipsComponent test suite', () => {
       expect(chipsComp.tipText).toEqual(['main test']);
     });
   });
+
+  describe('hasPlusIcon', () => {
+    beforeEach(() => {
+      chips = new Chips([]);
+      chipsFixture = TestBed.createComponent(ChipsComponent);
+      chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.chips = chips;
+      chipsFixture.detectChanges();
+    });
+
+    it('should return true if authority starts with will be generated and false otherwise', () => {
+      const icon = { 'metadata': 'dc.title' };
+      let chip;
+      chip = { item: { 'dc.title': { authority: 'will be generated::'}}} as any;
+      expect(chipsComp.hasPlusIcon(chip, icon)).toEqual(true);
+
+      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      expect(chipsComp.hasPlusIcon(chip, icon)).toEqual(false);
+    });
+
+  });
+
+  describe('hasSearchIcon', () => {
+    beforeEach(() => {
+      chips = new Chips([]);
+      chipsFixture = TestBed.createComponent(ChipsComponent);
+      chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.chips = chips;
+      chipsFixture.detectChanges();
+    });
+
+    it('should return true if authority starts with will be referenced and false otherwise', () => {
+      const icon = { 'metadata': 'dc.title' };
+      let chip;
+      chip = { item: { 'dc.title': { authority: 'will be referenced::'}}} as any;
+      expect(chipsComp.hasSearchIcon(chip, icon)).toEqual(true);
+
+      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      expect(chipsComp.hasSearchIcon(chip, icon)).toEqual(false);
+    });
+
+  });
+
 });
 
 // declare a test component
