@@ -69,7 +69,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     } else if (isNotEmpty(secondValue) && isNotEmpty(secondValue.value)) {
       return Object.assign(new FormFieldMetadataValueObject(), secondValue);
     } else {
-      return null;
+      return new FormFieldMetadataValueObject();
     }
   }
 

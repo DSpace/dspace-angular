@@ -36,7 +36,7 @@ export abstract class RenderingTypeModelComponent {
   @Input() nested: boolean;
   @Input() indexToBeRendered;
   get metadataValues(): string[] {
-    return this.item.allMetadataValues(this.field.metadata);
+    return this.field.metadata ? this.item.allMetadataValues(this.field.metadata) : [];
   }
 
   /**

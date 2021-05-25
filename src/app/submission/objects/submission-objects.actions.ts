@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { SectionVisibility, SubmissionSectionError } from './submission-objects.reducer';
+import { SectionVisibility, SubmissionError, SubmissionSectionError } from './submission-objects.reducer';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
@@ -251,7 +251,8 @@ export class UpdateSectionDataAction implements Action {
     submissionId: string;
     sectionId: string;
     data: WorkspaceitemSectionDataType;
-    errors: SubmissionSectionError[];
+    errorsToShow: SubmissionSectionError[];
+    serverValidationErrors: SubmissionSectionError[];
     metadata: string[];
   };
 
@@ -264,17 +265,20 @@ export class UpdateSectionDataAction implements Action {
    *    the section's ID to add
    * @param data
    *    the section's data
-   * @param errors
-   *    the section's errors
+   * @param errorsToShow
+   *    the list of the section's errors to show
+   * @param serverValidationErrors
+   *    the list of the section errors detected by the server
    * @param metadata
    *    the section's metadata
    */
   constructor(submissionId: string,
               sectionId: string,
               data: WorkspaceitemSectionDataType,
-              errors: SubmissionSectionError[],
+              errorsToShow: SubmissionSectionError[],
+              serverValidationErrors: SubmissionSectionError[],
               metadata?: string[]) {
-    this.payload = { submissionId, sectionId, data, errors, metadata };
+    this.payload = { submissionId, sectionId, data, errorsToShow, serverValidationErrors, metadata };
   }
 }
 
@@ -353,7 +357,7 @@ export class InitSubmissionFormAction implements Action {
     submissionDefinition: SubmissionDefinitionsModel;
     sections: WorkspaceitemSectionsObject;
     item: Item;
-    errors: SubmissionSectionError[];
+    errors: SubmissionError;
   };
 
   /**
@@ -378,7 +382,7 @@ export class InitSubmissionFormAction implements Action {
               submissionDefinition: SubmissionDefinitionsModel,
               sections: WorkspaceitemSectionsObject,
               item: Item,
-              errors: SubmissionSectionError[]) {
+              errors: SubmissionError) {
     this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors };
   }
 }

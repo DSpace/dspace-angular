@@ -198,6 +198,7 @@ import { OpenaireSuggestionSource } from './openaire/reciter-suggestions/models/
 import { StatisticsCategory } from './statistics/models/statistics-category.model';
 import { RootDataService } from './data/root-data.service';
 import { SearchConfig } from '../shared/search/search-filters/search-config.model';
+import { EditItemRelationsGuard } from '../edit-item-relationships/guards/edit-item-relationships.guard';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -334,7 +335,8 @@ const PROVIDERS = [
   OrcidQueueService,
   OrcidHistoryService,
   EditItemDataService,
-  EditItemModeDataService
+  EditItemModeDataService,
+  EditItemRelationsGuard,
 ];
 
 /**

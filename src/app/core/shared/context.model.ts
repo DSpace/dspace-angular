@@ -15,4 +15,5 @@ export enum Context {
   AdminWorkflowSearch = 'adminWorkflowSearch',
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
+  RelationshipItem = 'relationshipItem',
 }

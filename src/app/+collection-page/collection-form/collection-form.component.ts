@@ -22,15 +22,15 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import {
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
   collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig
 } from './collection-form.models';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
+import { ConfigObject } from '../../core/config/models/config.model';
 
 /**
  * Form used for creating and editing collections
@@ -98,13 +98,11 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
       getFirstSucceededRemoteListPayload()
     );
 
-    const definitions$: Observable<SubmissionDefinitionModel[]> = this.submissionDefinitionService
+    const definitions$: Observable<ConfigObject[]> = this.submissionDefinitionService
       .findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
-        map((result: any) => result.payload as PaginatedList<SubmissionDefinitionModel>),
-        map((result: PaginatedList<SubmissionDefinitionModel>) => result.page),
+        getFirstSucceededRemoteListPayload(),
         catchError(() => observableOf([]))
       );
-    combineLatest([]);
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
     combineLatest([entities$, definitions$])

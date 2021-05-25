@@ -73,15 +73,16 @@ export class BoxDataService {
    * of the current user and available data in the items (empty boxes are not included).
    * @param itemUuid UUID of item
    * @param tabId id of tab
+   * @param useCachedVersionIfAvailable
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByItem(itemUuid: string, tabId: number, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
+  findByItem(itemUuid: string, tabId: number, useCachedVersionIfAvailable: boolean, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();
     options.searchParams = [
       new RequestParam('uuid', itemUuid),
       new RequestParam('tab', tabId)
     ];
-    return this.dataService.searchBy(this.searchFindByItem, options, true, true, ...linksToFollow);
+    return this.dataService.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable, true, ...linksToFollow);
   }
 
   /**

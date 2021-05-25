@@ -72,7 +72,6 @@ describe('ChipsComponent test suite', () => {
       chips = new Chips(['a', 'b', 'c']);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
-      chipsComp.editable = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();
     });
@@ -82,35 +81,7 @@ describe('ChipsComponent test suite', () => {
       chipsComp = null;
     });
 
-    it('should set edit mode when a chip item is selected', fakeAsync(() => {
-
-      spyOn(chipsComp.selected, 'emit');
-
-      chipsComp.chipsSelected(new Event('click'), 1);
-      chipsFixture.detectChanges();
-      tick();
-
-      const item = chipsComp.chips.getChipByIndex(1);
-
-      expect(item.editMode).toBe(true);
-      expect(chipsComp.selected.emit).toHaveBeenCalledWith(1);
-    }));
-
-    it('should not set edit mode when a chip item is selected and editable is false', fakeAsync(() => {
-      chipsComp.editable = false;
-      spyOn(chipsComp.selected, 'emit');
-
-      chipsComp.chipsSelected(new Event('click'), 1);
-      chipsFixture.detectChanges();
-      tick();
-
-      const item = chipsComp.chips.getChipByIndex(1);
-
-      expect(item.editMode).toBe(false);
-      expect(chipsComp.selected.emit).not.toHaveBeenCalledWith(1);
-    }));
-
-    it('should emit when a chip item is removed and editable is true', fakeAsync(() => {
+    it('should emit when a chip item is removed', fakeAsync(() => {
 
       spyOn(chipsComp.chips, 'remove');
 
@@ -153,7 +124,6 @@ describe('ChipsComponent test suite', () => {
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
-      chipsComp.editable = true;
       chipsComp.showIcons = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();

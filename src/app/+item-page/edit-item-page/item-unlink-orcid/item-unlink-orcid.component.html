@@ -1,0 +1,27 @@
+<div class="container">
+
+  <h2>{{'item.edit.unlink-orcid.head' | translate }}</h2>
+  <p>{{'item.edit.unlink-orcid.description' | translate}}</p>
+
+  <ds-alert *ngIf="!isLinkedToOrcid()" [type]="'alert-info'" [content]="'item.edit.unlink-orcid.not-linked-to-orcid'"></ds-alert>
+  
+  <div class="row" *ngIf="isLinkedToOrcid()">
+    <ds-modify-item-overview [item]="item"></ds-modify-item-overview>
+  </div>
+
+  <button *ngIf="isLinkedToOrcid()" (click)="unlinkOrcid()" class="btn btn-danger">
+    <span *ngIf="!processing">
+      <i class='fas fa-unlink'></i>
+      {{'item.edit.unlink-orcid.unlink' | translate}}
+    </span>
+    <span *ngIf="processing">
+      <i class='fas fa-circle-notch fa-spin'></i>
+      {{'item.edit.unlink-orcid.processing' | translate}}
+    </span>
+  </button>
+
+  <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
+    {{'item.edit.unlink-orcid.cancel' | translate}}
+  </button>
+
+</div>

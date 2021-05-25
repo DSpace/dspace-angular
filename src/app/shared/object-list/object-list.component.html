@@ -23,7 +23,9 @@
                                            (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
           <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
                                                [listID]="selectionConfig?.listId"
+                                               [customData]="customData"
                                                (contentChange)="contentChange.emit()"
+                                               (customEvent)="customEvent.emit($event)"
           ></ds-listable-object-component-loader>
         </li>
     </ul>

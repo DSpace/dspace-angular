@@ -5,7 +5,7 @@
 
         <ds-loading *ngIf="(processing$ | async)"></ds-loading>
 
-        <div *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0" class="row mt-3 p-3 mb-2 bg-info text-white rounded d-flex justify-content-center">
+        <div *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0" class="row alert alert-info">
           {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
         </div>
 
@@ -19,21 +19,35 @@
           <div class="table-responsive">
             <table id="groups" class="table table-sm table-striped table-hover table-bordered">
               <thead>
-              <tr class="text-center">
+              <tr class="text-center align-middle">
                 <th></th>
-                <th>{{'person.page.orcid.sync-queue.entity-name' | translate}}</th>
+                <th></th>
+                <th>{{'person.page.orcid.sync-queue.description' | translate}}</th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let entry of (getList() | async)?.payload?.page" >
-                <td style="width: 3%" > <i [ngClass]="getIconClass(entry)" aria-hidden="true"></i> </td>
-                <td class="text-center">{{entry.entityName}}</td>
-                <td style="width: 25%">
+                <td style="width: 3%" class="text-center align-middle">
+                  <span [ngbTooltip] = "getOperationTooltip(entry) | translate" [ngClass]="getOperationBadgeClass(entry)">
+                    <i [ngClass]="getOperationClass(entry)"></i>
+                  </span>
+                </td>
+                <td style="width: 3%" class="text-center align-middle" > 
+                  <i [ngbTooltip] = "getIconTooltip(entry) | translate" [ngClass]="getIconClass(entry)" aria-hidden="true"></i> 
+                </td>
+                <td class="text-center align-middle">
+                  {{ entry.description }}
+                </td>
+                <td style="width: 15%">
                   <div class="container">
                     <div class="row">
-                      <button class="btn btn-success m-1 col-md" (click)="send(entry)"> {{'person.page.orcid.sync-queue.send'| translate}} </button>
-                      <button class="btn btn-danger m-1 col-md" (click)="deleteEntry(entry)"> {{'person.page.orcid.sync-queue.delete'| translate}} </button>
+                      <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" class="btn btn-success m-1 col-md" (click)="send(entry)"> 
+                        <i class="fas fa-cogs"></i>
+                      </button>
+                      <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" class="btn btn-danger m-1 col-md" (click)="discardEntry(entry)"> 
+                        <i class="fas fa-times"></i>
+                      </button>
                     </div>
                   </div>
                 </td>

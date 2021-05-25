@@ -75,7 +75,7 @@ describe('submissionReducer test suite', () => {
       }
     };
 
-    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), []);
+    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null);
     const newState = submissionObjectReducer({}, action);
 
     expect(newState).toEqual(expectedState);
@@ -244,13 +244,14 @@ describe('submissionReducer test suite', () => {
       collapsed: false,
       enabled: true,
       data: {},
-      errors: [],
+      errorsToShow: [],
+      serverValidationErrors: [],
       isLoading: false,
-      isValid: false,
+      isValid: true,
       removePending: false
     } as any;
 
-    let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), []);
+    let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null);
     let newState = submissionObjectReducer({}, action);
 
     action = new InitSectionAction(
@@ -344,7 +345,7 @@ describe('submissionReducer test suite', () => {
       ]
     } as any;
 
-    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', data, []);
+    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', data, [], []);
     const newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].sections.traditionalpageone.data).toEqual(data);
@@ -355,7 +356,7 @@ describe('submissionReducer test suite', () => {
     } as any;
     const metadata = ['dc.title', 'dc.contributor.author'];
 
-    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', data, [], metadata);
+    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', data, [], [], metadata);
     const newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].sections.traditionalpageone.metadata).toEqual(metadata);
@@ -369,10 +370,10 @@ describe('submissionReducer test suite', () => {
       }
     ];
 
-    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors);
+    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors, errors);
     const newState = submissionObjectReducer(initState, action);
 
-    expect(newState[826].sections.traditionalpageone.errors).toEqual(errors);
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual(errors);
   });
 
   it('should remove all submission section errors properly', () => {
@@ -381,7 +382,7 @@ describe('submissionReducer test suite', () => {
 
     newState = submissionObjectReducer(initState, action);
 
-    expect(newState[826].sections.traditionalpageone.errors).toEqual([]);
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual([]);
   });
 
   it('should add submission section error properly', () => {
@@ -393,7 +394,7 @@ describe('submissionReducer test suite', () => {
     const action = new InertSectionErrorsAction(submissionId, 'traditionalpageone', error);
     const newState = submissionObjectReducer(initState, action);
 
-    expect(newState[826].sections.traditionalpageone.errors).toEqual([error]);
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual([error]);
   });
 
   it('should remove specified submission section error/s properly', () => {
@@ -417,21 +418,21 @@ describe('submissionReducer test suite', () => {
       message: 'error.validation.required'
     }];
 
-    let action: any = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors);
+    let action: any = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors, errors);
     let newState = submissionObjectReducer(initState, action);
 
     action = new DeleteSectionErrorsAction(submissionId, 'traditionalpageone', error);
     newState = submissionObjectReducer(newState, action);
 
-    expect(newState[826].sections.traditionalpageone.errors).toEqual(expectedErrors);
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual(expectedErrors);
 
-    action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors);
+    action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors, errors);
     newState = submissionObjectReducer(initState, action);
 
     action = new DeleteSectionErrorsAction(submissionId, 'traditionalpageone', errors);
     newState = submissionObjectReducer(newState, action);
 
-    expect(newState[826].sections.traditionalpageone.errors).toEqual([]);
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual([]);
   });
 
   it('should add a new file', () => {

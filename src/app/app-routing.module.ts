@@ -218,6 +218,11 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
             canActivate: [GroupAdministratorGuard],
           },
+          {
+            path: 'edit-item-relationships',
+            loadChildren: () => import('./edit-item-relationships/edit-item-relationships.module')
+              .then((m) => m.EditItemRelationshipsModule),
+          },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{

@@ -1,0 +1,29 @@
+<button class="btn btn-success mt-1 mb-3" 
+			*ngIf="!isSelected"
+            ngbTooltip="{{'relationships.select' | translate}}"
+            (click)="emitAction('select')">
+        {{"relationships.select" | translate}}
+</button>
+
+<button class="btn btn-primary mt-1 mb-3"  
+			*ngIf="!!isSelected"
+            ngbTooltip="{{'relationships.unselect' | translate}}"
+            (click)="emitAction('unselect')">
+        {{"relationships.unselect" | translate}}
+</button>
+
+
+<button class="btn btn-danger mt-1 mb-3"
+			*ngIf="!isHidden"
+            ngbTooltip="{{'relationships.hide' | translate}}"
+            (click)="emitAction('hide')"> 
+        {{"relationships.hide" | translate}}
+</button>
+
+
+<button class="btn btn-warning mt-1 mb-3"
+			*ngIf="!!isHidden"
+            ngbTooltip="{{'relationships.unhide' | translate}}"
+            (click)="emitAction('unhide')"> 
+        {{"relationships.unhide" | translate}}
+</button>

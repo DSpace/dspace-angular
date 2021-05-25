@@ -9,9 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { SubmissionError } from '../objects/submission-objects.reducer';
 
 /**
  * This component allows to submit a new workspaceitem.
@@ -28,6 +28,11 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @type {string}
    */
   public collectionId: string;
+
+  /**
+   * The item related to the submission object
+   * @type {Item}
+   */
   public item: Item;
 
   /**
@@ -61,6 +66,12 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   public submissionDefinition: SubmissionDefinitionsModel;
 
   /**
+   * The submission errors present in the submission object
+   * @type {SubmissionError}
+   */
+  public submissionErrors: SubmissionError;
+
+  /**
    * The submission id
    * @type {string}
    */
@@ -71,6 +82,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   protected subs: Subscription[] = [];
+
 
   /**
    * Initialize instance variables
@@ -112,13 +124,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
               this.router.navigate(['/mydspace']);
             } else {
-              this.collectionId = (submissionObject.collection as Collection).id;
-              this.sections = submissionObject.sections;
-              this.selfUrl = submissionObject._links.self.href;
-              this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
-              this.submissionId = submissionObject.id;
-              this.item = submissionObject.item as Item;
-              this.changeDetectorRef.detectChanges();
+              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true});
             }
           }
         })

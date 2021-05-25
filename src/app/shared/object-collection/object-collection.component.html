@@ -17,8 +17,10 @@
                 [selectionConfig]="selectionConfig"
                 [importable]="importable"
                 [importConfig]="importConfig"
+                [customData]="customData"
                 (importObject)="importObject.emit($event)"
                 (contentChange)="contentChange.emit()"
+                (customEvent)="customEvent.emit($event)"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
 </ds-object-list>
 

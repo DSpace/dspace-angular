@@ -72,6 +72,11 @@ export class ObjectListComponent {
   @Input() importable = false;
 
   /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
+
+  /**
    * Config used for the import button
    */
   @Input() importConfig: { importLabel: string };
@@ -80,6 +85,11 @@ export class ObjectListComponent {
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
 
   /**
    * The current listable objects

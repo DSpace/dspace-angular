@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RenderingTypeModelComponent } from '../rendering-type.model';
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../services/resolver-strategy.service';
 import { hasValue } from '../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-value.model';
@@ -14,7 +14,7 @@ import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-
   templateUrl: './identifier.component.html',
   styleUrls: ['./identifier.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.IDENTIFIER)
+@MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 export class IdentifierComponent extends RenderingTypeModelComponent implements OnInit {
 
   /**

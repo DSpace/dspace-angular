@@ -565,6 +565,13 @@
 
 
 
+  "alert.close.aria": "Close",
+
+  "alert.toggle.hide": "Hide",
+
+  "alert.toggle.show": "Show",
+
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
@@ -1205,6 +1212,8 @@
 
   "context-menu.actions.edit-item.btn.FULL": "Edit item",
 
+  "context-menu.actions.edit-item.btn.OWNER": "Edit own item",
+
   "context-menu.actions.request-correction.btn": "Request correction",
 
   "context-menu.actions.request-correction.confirm.cancel": "Cancel",
@@ -1224,6 +1233,24 @@
   "context-menu.actions.dso-page-edit.COLLECTION.btn": "Administer",
 
   "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
+
+  "context-menu.actions.edit-item-relationships.btn.researchoutputs": "Manage Research Outputs",
+
+  "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
+
+  "context-menu.actions.edit-item-relationships.btn.organizations": "Manage Organizations",
+
+  "context-menu.actions.edit-item-relationships.btn.rppublications": "Manage Rppublications",
+
+  "context-menu.actions.edit-item-relationships.btn.publications": "Manage Publications",
+
+  "context-menu.actions.edit-item-relationships.btn.rpprojects": "Manage Rpprojects",
+
+  "context-menu.actions.edit-item-relationships.btn.people": "Manage People",
+
+  "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
+
+
 
   "datafile.listelement.badge": "Data File",
 
@@ -1321,6 +1348,7 @@
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
+  "dataset.listelement.badge": "Dataset",
 
 
   "dso.name.untitled": "Untitled",
@@ -1416,6 +1444,8 @@
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
   "error.validation.filerequired": "The file upload is mandatory",
+
+  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
 
 
   "explore.browse-section.title" : "Browse",
@@ -1685,6 +1715,10 @@
   "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
 
   "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.data-person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
 
   "form.other-information.not-available": "Not available",
 
@@ -2115,6 +2149,10 @@
 
   "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
 
+  "item.edit.tabs.status.buttons.unlinkOrcid.button": "Disconnect...",
+
+  "item.edit.tabs.status.buttons.unlinkOrcid.label": "Disconnect from ORCID",
+
   "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
 
   "item.edit.tabs.status.head": "Status",
@@ -2139,6 +2177,23 @@
 
   "item.edit.tabs.view.title": "Item Edit -  View",
 
+
+
+  "item.edit.unlink-orcid.cancel": "Cancel",
+
+  "item.edit.unlink-orcid.description": "From here you can disconnect the given profile item from the linked ORCID account, if any.",
+
+  "item.edit.unlink-orcid.head": "Disconnect from ORCID",
+
+  "item.edit.unlink-orcid.not-linked-to-orcid" : "The operation cannot be completed because the given item is not a profile linked to ORCID",
+
+  "item.edit.unlink-orcid.unlink": "Disconnect",
+
+  "item.edit.unlink-orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+
+  "item.edit.unlink-orcid.unlink.error" :"An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+
+  "item.edit.unlink-orcid.processing": "Processing",
 
 
   "item.edit.withdraw.cancel": "Cancel",
@@ -2261,6 +2316,8 @@
 
   "item.preview.dc.identifier.doi" : "DOI",
 
+  "item.preview.dc.identifier.isi" : "ISI",
+
   "item.preview.dc.identifier.issn" : "ISSN",
 
   "item.preview.dc.identifier.scopus" : "Scopus id",
@@ -2321,6 +2378,12 @@
 
   "item.preview.dc.relation.issn" : "ISSN",
 
+  "item.preview.oaire.citation.endPage" : "End Page",
+
+  "item.preview.oaire.citation.edition": "Edition",
+
+  "item.preview.oaire.citation.startPage" : "Start Page",
+
   "item.preview.oaire.citation.issue" : "Issue",
 
   "item.preview.oaire.citation.volume" : "Volume",
@@ -2332,6 +2395,8 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.person.identifier.rid": "Researcher ID:",
 
   "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
 
@@ -2990,6 +3055,8 @@
 
   "reciter.suggestion.source.oaire": "OpenAIRE Graph",
 
+  "reciter.suggestion.source.orcidWorks": "ORCID registry",
+
   "reciter.suggestion.from.source": "from the ",
 
   "reciter.suggestion.totalScore": "Total Score",
@@ -3053,7 +3120,15 @@
 
   "person.page.orcid.granted-authorizations": "Granted authorizations",
 
+  "person.page.orcid.grant-authorizations" : "Grant authorizations",
+
   "person.page.orcid.link": "Connect to ORCID ID",
+
+  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+
+  "person.page.orcid.unlink": "Disconnect from ORCID",
+
+  "person.page.orcid.unlink.processing": "Processing...",
 
   "person.page.orcid.missing-authorizations": "Missing authorizations",
 
@@ -3061,17 +3136,17 @@
 
   "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
 
-  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet",
+  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
 
   "person.page.orcid.profile-preferences": "Profile preferences",
 
-  "person.page.orcid.project-preferences": "Project preferences",
+  "person.page.orcid.funding-preferences": "Funding preferences",
 
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
 
-  "person.page.orcid.save.preference.changes": "Save changes",
+  "person.page.orcid.save.preference.changes": "Edit settings",
 
   "person.page.orcid.sync-profile.affiliation" : "Affiliation",
 
@@ -3081,41 +3156,121 @@
 
   "person.page.orcid.sync-profile.identifiers" : "Identifiers",
 
-  "person.page.orcid.sync-projects.all" : "All projects",
+  "person.page.orcid.sync-fundings.all" : "All fundings",
 
-  "person.page.orcid.sync-projects.mine" : "My projects",
+  "person.page.orcid.sync-fundings.mine" : "My fundings",
 
-  "person.page.orcid.sync-projects.my-selected" : "Selected projects",
+  "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
 
-  "person.page.orcid.sync-projects.disabled" : "Disabled",
+  "person.page.orcid.sync-fundings.disabled" : "Disabled",
 
   "person.page.orcid.sync-publications.all" : "All publications",
 
   "person.page.orcid.sync-publications.mine" : "My publications",
 
-  "person.page.orcid.sync-publications.my-selected" : "Selected publications",
+  "person.page.orcid.sync-publications.my_selected" : "Selected publications",
 
   "person.page.orcid.sync-publications.disabled" : "Disabled",
 
-  "person.page.orcid.sync-queue.delete" : "Delete",
+  "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
 
-  "person.page.orcid.sync-queue.delete.error": "The deletion of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
 
-  "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
+  "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
 
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
-  "person.page.orcid.sync-queue.entity-name" : "Name",
+  "person.page.orcid.sync-queue.description" : "Description",
 
-  "person.page.orcid.sync-queue.send" : "Send",
+  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+
+  "person.page.orcid.sync-queue.description.country": "Country",
+
+  "person.page.orcid.sync-queue.description.education": "Educations",
+
+  "person.page.orcid.sync-queue.description.external_ids": "External ids",
+
+  "person.page.orcid.sync-queue.description.other_names": "Other names",
+
+  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+
+  "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+
+  "person.page.orcid.sync-queue.description.keywords": "Keywords",
+
+  "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.project": "Project",
+
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+
+  "person.page.orcid.sync-queue.tooltip.education": "Education",
+
+  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+
+  "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+
+  "person.page.orcid.sync-queue.tooltip.country": "Country",
+
+  "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+
+  "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+
+  "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+
+  "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
 
   "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
 
   "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
 
-  "person.page.orcid.sync-queue.send.not-found-error": "The submission to ORCID failed because the expected resource to be update does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
 
   "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+
+  "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "The type is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a country",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
 
   "person.page.orcid.synchronization-mode": "Synchronization mode",
 
@@ -3139,6 +3294,10 @@
   "person.page.orcid.scope.activities-update": "Add/update your research activities",
 
   "person.page.orcid.scope.person-update": "Add/update other information about you",
+
+  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+
+  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
 
   "person.page.staffid": "Staff ID",
 
@@ -3558,6 +3717,20 @@
   "relationships.isVolumeOf": "Journal Volumes",
 
   "relationships.isContributorOf": "Contributors",
+
+  "relationships.select": "Select",
+
+  "relationships.hide": "Hide",
+
+  "relationships.unselect": "Unselect",
+
+  "relationships.unhide": "Unhide",
+
+  "relationships.title" : "Relationships",
+
+  "relationships.no.relationships.found" : "No relationships",
+
+  "relationships.no.data.found" : "No data found",
 
 
   "repository.image.logo": "Repository logo",
@@ -4117,7 +4290,11 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals ISSN",
+
   "submission.import-external.source.orcid": "ORCID",
+
+  "submission.import-external.source.orcidWorks": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
 
@@ -4125,7 +4302,11 @@
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
+  "submission.import-external.source.scielo": "Scopus",
+
   "submission.import-external.source.scopus": "Scopus",
+
+  "submission.import-external.source.wos": "Web Of Science",
 
   "submission.import-external.source.openaire": "OpenAIRE by Author",
 
@@ -4437,6 +4618,10 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
@@ -4481,7 +4666,7 @@
 
   "submission.sections.general.no-sections": "No options available",
 
-  "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
+  "submission.sections.general.save_error_notice": "There was an unexpected error when saving the item. Refresh the page and try again. After refreshing unsaved modifications could be lost.",
 
   "submission.sections.general.save_success_notice": "Submission saved successfully.",
 

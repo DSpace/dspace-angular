@@ -22,9 +22,9 @@ import {
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
 import {
+  SubmissionError,
   SubmissionObjectEntry,
   SubmissionSectionEntry,
-  SubmissionSectionError,
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
@@ -223,7 +223,7 @@ export class SubmissionService {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-    errors: SubmissionSectionError[]) {
+    errors: SubmissionError) {
     this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors));
   }
 
@@ -332,7 +332,8 @@ export class SubmissionService {
             sectionObject.config = sections[sectionId].config;
             sectionObject.mandatory = sections[sectionId].mandatory;
             sectionObject.data = sections[sectionId].data;
-            sectionObject.errors = sections[sectionId].errors;
+            sectionObject.errorsToShow = sections[sectionId].errorsToShow;
+            sectionObject.serverValidationErrors = sections[sectionId].serverValidationErrors;
             sectionObject.header = sections[sectionId].header;
             sectionObject.id = sectionId;
             sectionObject.sectionType = sections[sectionId].sectionType;

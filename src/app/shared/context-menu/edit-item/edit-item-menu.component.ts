@@ -46,6 +46,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   private sub: Subscription;
 
+
   /**
    * Initialize instance variables
    *

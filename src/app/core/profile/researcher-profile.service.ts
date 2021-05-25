@@ -1,31 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Operation, ReplaceOperation } from 'fast-json-patch';
+import { Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
-
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
+import { ConfigurationDataService } from '../data/configuration-data.service';
 import { DataService } from '../data/data.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { ItemDataService } from '../data/item-data.service';
+import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { NoContent } from '../shared/NoContent.model';
 import {
-    getFirstSucceededRemoteDataPayload,
-    getFinishedRemoteData,
-    getFirstCompletedRemoteData
+  getFinishedRemoteData,
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
 } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
-import { RestResponse } from '../cache/response.models';
-import { RemoteData } from '../data/remote-data';
-import { NoContent } from '../shared/NoContent.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -68,8 +70,10 @@ export class ResearcherProfileService {
         protected halService: HALEndpointService,
         protected notificationsService: NotificationsService,
         protected http: HttpClient,
+        protected router: Router,
         protected comparator: DefaultChangeAnalyzer<ResearcherProfile>,
-        protected itemService: ItemDataService ) {
+        protected itemService: ItemDataService,
+        protected configurationService: ConfigurationDataService ) {
 
             this.dataService = new ResearcherProfileServiceImpl(requestService, rdbService, store, objectCache, halService,
                 notificationsService, http, comparator);
@@ -149,6 +153,90 @@ export class ResearcherProfileService {
 
     patch(researcherProfile: ResearcherProfile, operations: Operation[]): Observable<RemoteData<ResearcherProfile>> {
       return this.dataService.patch(researcherProfile, operations);
+    }
+
+    /**
+     * Check if the given item is linked to an ORCID profile.
+     *
+     * @param item the item to check
+     * @returns the check result
+     */
+    isLinkedToOrcid(item: Item): boolean {
+      return item.hasMetadata('person.identifier.orcid') && item.hasMetadata('cris.orcid.access-token');
+    }
+
+    /**
+     * Returns true if only the admin users can disconnect a researcher profile from ORCID.
+     *
+     * @returns the check result
+     */
+    onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
+      return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
+        map((property) => property.values.map( (value) => value.toLowerCase()).includes('only_admin'))
+      );
+    }
+
+    /**
+     * Returns true if the profile's owner can disconnect that profile from ORCID.
+     *
+     * @returns the check result
+     */
+    ownerCanDisconnectProfileFromOrcid(): Observable<boolean> {
+      return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
+        map((property) => {
+          const values = property.values.map( (value) => value.toLowerCase());
+          return values.includes('only_owner') || values.includes('admin_and_owner');
+        })
+      );
+    }
+
+    /**
+     * Returns true if the admin users can disconnect a researcher profile from ORCID.
+     *
+     * @returns the check result
+     */
+    adminCanDisconnectProfileFromOrcid(): Observable<boolean> {
+      return this.getOrcidDisconnectionAllowedUsersConfiguration().pipe(
+        map((property) => {
+          const values = property.values.map( (value) => value.toLowerCase());
+          return values.includes('only_admin') || values.includes('admin_and_owner');
+        })
+      );
+    }
+
+    /**
+     * If the given item represents a profile unlink it from ORCID.
+     */
+     unlinkOrcid(item: Item): Observable<RemoteData<ResearcherProfile>> {
+
+      const operations: RemoveOperation[] = [{
+        path:'/orcid',
+        op:'remove'
+      }];
+
+      return this.findById(item.firstMetadata('cris.owner').authority).pipe(
+        switchMap((profile) => this.patch(profile, operations)),
+        getFinishedRemoteData()
+      );
+    }
+
+    getOrcidAuthorizeUrl(profile: Item): Observable<string> {
+      return combineLatest([
+        this.configurationService.findByPropertyName('orcid.authorize-url').pipe(getFirstSucceededRemoteDataPayload()),
+        this.configurationService.findByPropertyName('orcid.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
+        this.configurationService.findByPropertyName('orcid.scope').pipe(getFirstSucceededRemoteDataPayload())]
+      ).pipe(
+        map(([authorizeUrl, clientId, scopes]) => {
+          const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + profile.id + '/?url=' + encodeURIComponent(this.router.url);
+          return authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
+          + scopes.values.join(' ');
+      }));
+    }
+
+    private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {
+      return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(
+        getFirstSucceededRemoteDataPayload()
+      );
     }
 
 }

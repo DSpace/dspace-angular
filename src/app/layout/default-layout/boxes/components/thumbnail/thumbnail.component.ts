@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../../../../../shared/empty.util';
@@ -13,7 +13,7 @@ import { BitstreamRenderingModel } from '../bitstream-rendering.model';
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.THUMBNAIL)
+@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL)
 export class ThumbnailComponent extends BitstreamRenderingModel implements OnInit {
 
   bitstream$: Observable<Bitstream>;

@@ -31,6 +31,7 @@ import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.co
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
+import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -53,6 +54,7 @@ import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
     ItemPrivateComponent,
     ItemPublicComponent,
     ItemDeleteComponent,
+    ItemUnlinkOrcidComponent,
     ItemStatusComponent,
     ItemMetadataComponent,
     ItemRelationshipsComponent,

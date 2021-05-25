@@ -1,10 +1,10 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
-import { typedObject } from '../../cache/builders/build-decorators';
-import { ORCID_QUEUE } from './orcid-queue.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { autoserialize, deserialize } from 'cerialize';
-import { ResourceType } from '../../shared/resource-type';
+import { typedObject } from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { ORCID_QUEUE } from './orcid-queue.resource-type';
 
 /**
  * Class the represents a Orcid Queue.
@@ -28,10 +28,10 @@ export class OrcidQueue extends CacheableObject {
   id: number;
 
   /**
-   * The name of the related entity
+   * The record description.
    */
   @autoserialize
-  entityName: string;
+  description: string;
 
   /**
    * The identifier of the owner of this Orcid Queue record.
@@ -46,10 +46,16 @@ export class OrcidQueue extends CacheableObject {
   entityId: string;
 
   /**
-   * The type of the entity related to this Orcid Queue record.
+   * The type of this Orcid Queue record.
    */
   @autoserialize
-  entityType: string;
+  recordType: string;
+
+  /**
+   * The operation related to this Orcid Queue record.
+   */
+  @autoserialize
+  operation: string;
 
   /**
    * The {@link HALLink}s for this Orcid Queue record

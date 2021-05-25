@@ -56,50 +56,30 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       }
     ];
 
-    this.syncPublicationOptions = [
-      {
-        label: this.messagePrefix + '.sync-publications.disabled',
-        value: 'DISABLED'
-      },
-      {
-        label: this.messagePrefix + '.sync-publications.all',
-        value: 'ALL'
-      },
-      {
-        label: this.messagePrefix + '.sync-publications.my-selected',
-        value: 'MY_SELECTED'
-      },
-      {
-        label: this.messagePrefix + '.sync-publications.mine',
-        value: 'MINE'
-      }
-    ];
+    // this.syncPublicationOptions = ['DISABLED', 'ALL', 'MY_SELECTED', 'MINE']
+    this.syncPublicationOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-publications.' + value.toLowerCase(),
+          value: value,
+        };
+    });
 
-    this.syncProjectOptions = [
-      {
-        label: this.messagePrefix + '.sync-projects.disabled',
-        value: 'DISABLED'
-      },
-      {
-        label: this.messagePrefix + '.sync-projects.all',
-        value: 'ALL'
-      },
-      {
-        label: this.messagePrefix + '.sync-projects.my-selected',
-        value: 'MY_SELECTED'
-      },
-      {
-        label: this.messagePrefix + '.sync-projects.mine',
-        value: 'MINE'
-      }
-    ];
+    // this.syncPublicationOptions = ['DISABLED', 'ALL', 'MY_SELECTED', 'MINE']
+    this.syncProjectOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-fundings.' + value.toLowerCase(),
+          value: value,
+        };
+    });
 
     const syncProfilePreferences = this.item.allMetadataValues('cris.orcid.sync-profile');
 
     this.syncProfileOptions = ['AFFILIATION', 'EDUCATION', 'BIOGRAPHICAL', 'IDENTIFIERS']
       .map((value) => {
         return {
-          label: this.messagePrefix + '.sync-profile.' + value.toLocaleLowerCase(),
+          label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),
           value: value,
           checked: syncProfilePreferences.includes(value)
         };
@@ -107,14 +87,14 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
     this.currentSyncMode = this.item.hasMetadata('cris.orcid.sync-mode') ? this.item.firstMetadataValue('cris.orcid.sync-mode') : 'MANUAL';
     this.currentSyncPublications = this.item.hasMetadata('cris.orcid.sync-publications') ? this.item.firstMetadataValue('cris.orcid.sync-publications') : 'DISABLED';
-    this.currentSyncProjects = this.item.hasMetadata('cris.orcid.sync-projects') ? this.item.firstMetadataValue('cris.orcid.sync-projects') : 'DISABLED';
+    this.currentSyncProjects = this.item.hasMetadata('cris.orcid.sync-fundings') ? this.item.firstMetadataValue('cris.orcid.sync-fundings') : 'DISABLED';
   }
 
   onSubmit(form: FormGroup) {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
-    this.fillOperationsFor(operations, '/orcid/projects', form.value.syncProjects);
+    this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncProjects);
 
     const syncProfileValue = this.syncProfileOptions
       .map((syncProfileOption => syncProfileOption.value))

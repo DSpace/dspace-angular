@@ -72,12 +72,13 @@ export class TabDataService {
    * priority ascending. This are filtered based on the permission of the current user and
    * available data. Empty tabs are filter out.
    * @param itemUuid UUID of the Item
+   * @param useCachedVersionIfAvailable
    * @param linkToFollow
    */
-  findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
+  findByItem(itemUuid: string, useCachedVersionIfAvailable, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', itemUuid)];
-    return this.dataService.searchBy(this.searchFindByItem, options);
+    return this.dataService.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
   }
 
   /**

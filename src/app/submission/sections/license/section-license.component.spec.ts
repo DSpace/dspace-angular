@@ -70,7 +70,8 @@ const sectionObject: SectionDataObject = {
     acceptanceDate: null,
     granted: false
   },
-  errors: [],
+  errorsToShow: [],
+  serverValidationErrors: [],
   header: 'submit.progressbar.describe.license',
   id: 'license',
   sectionType: SectionsType.License

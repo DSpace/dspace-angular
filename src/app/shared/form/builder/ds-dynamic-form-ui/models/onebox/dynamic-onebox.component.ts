@@ -277,7 +277,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param itemValue the initial item value
    */
   getOtherInfoValue( itemValue: string): string {
-    if (!itemValue) {
+    if (!itemValue || !itemValue.includes('::')) {
       return itemValue;
     }
     return itemValue.substring(0, itemValue.lastIndexOf('::'));

@@ -153,10 +153,10 @@ export class MyDSpacePageComponent implements OnInit {
       );
 
     const configuration$ = this.searchConfigService.getCurrentConfiguration('workspace');
+    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(configuration$, this.service);
 
-    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(configuration$, this.service);
-
-    this.searchConfigService.initializeSortOptionsFromConfiguration(this.sortOptions$);
+    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(searchConfig$);
+    this.searchConfigService.initializeSortOptionsFromConfiguration(searchConfig$);
 
   }
 

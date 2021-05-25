@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
+import { MetadataBoxFieldRendering, FieldRenderingType } from '../metadata-box.decorator';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { Bitstream } from '../../../../../core/shared/bitstream.model';
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRendetingType.ATTACHMENT)
+@MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT)
 export class AttachmentComponent extends BitstreamRenderingModel implements OnInit {
 
   bitstreams$: Observable<Bitstream[]>;
