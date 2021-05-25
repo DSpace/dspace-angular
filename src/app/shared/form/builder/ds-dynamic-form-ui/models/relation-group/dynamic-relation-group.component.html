@@ -1,68 +1,4 @@
-<a *ngIf="!(formCollapsed | async)"
-   class="close position-relative"
-   ngbTooltip="{{'form.group-collapse-help' | translate}}"
-   placement="left">
-  <span class="fas fa-angle-up fa-fw fa-2x"
-        aria-hidden="true"
-        (click)="collapseForm()"></span>
-</a>
-<a *ngIf="(formCollapsed | async)"
-   class="close position-relative"
-   ngbTooltip="{{'form.group-expand-help' | translate}}"
-   placement="left">
-  <span class="fas fa-angle-down fa-fw fa-2x"
-        aria-hidden="true"
-        (click)="expandForm()"></span>
-</a>
-
-<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}" [hidden]="model.hidden">
-  <div *ngIf="!(formCollapsed | async)" class="d-flex justify-content-between w-100"  @shrinkInOut>
-    <ds-form #formRef="formComponent"
-             class="flex-grow-1"
-             [formId]="formId"
-             [formModel]="formModel"
-             [displaySubmit]="false"
-             [displayCancel]="false"
-             [emitChange]="false"
-             (dfBlur)="onBlur($event)"
-             (dfFocus)="onFocus($event)"></ds-form>
-
-    <div *ngIf="!(formCollapsed | async)" class="p-0 m-0 d-flex justify-content-center align-items-center">
-
-      <button type="button"
-              class="btn btn-link"
-              [disabled]="isMandatoryFieldEmpty()"
-              (click)="save()">
-        <i class="fas fa-save text-primary fa-2x"
-           aria-hidden="true"></i>
-      </button>
-      <button type="button"
-              class="btn btn-link"
-              [disabled]="!editMode"
-              (click)="delete()">
-        <i class="fas fa-trash text-danger fa-2x"
-           aria-hidden="true"></i>
-      </button>
-      <button type="button"
-              class="btn btn-link"
-              [disabled]="isMandatoryFieldEmpty()"
-              (click)="clear()">
-        <i class="fas fa-undo fa-2x"
-           aria-hidden="true"></i>
-      </button>
-      <button *ngIf="(canShowExternalSourceButton() | async)"
-              type="button"
-              class="btn btn-link"
-              ngbTooltip="{{'form.external.source.group-help' | translate}}"
-              [disabled]="!canImport()"
-              (click)="createEntityFromMetadata()">
-        <i class="far fa-share-square text-primary fa-2x"
-           aria-hidden="true"></i>
-      </button>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-
+<div class="pt-2">
   <div class="d-flex">
     <ds-loading *ngIf="!chips" [showMessage]="false"></ds-loading>
     <div *ngIf="chips && !chips.hasItems()">
@@ -75,8 +11,12 @@
     <ds-chips
       *ngIf="chips && chips.hasItems()"
       [chips]="chips"
-      [editable]="true"
       [showIcons]="true"
       (selected)="onChipSelected($event)"></ds-chips>
+    <button type="button" class="ds-form-add-more btn btn-link"
+            title="{{'form.add' | translate}}"
+            (click)="openModal()">
+      <span attr.aria-label="{{'form.add' | translate}}"><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
+    </button>
   </div>
 </div>

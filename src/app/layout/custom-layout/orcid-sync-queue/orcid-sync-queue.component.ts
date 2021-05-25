@@ -219,24 +219,24 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
         this.updateList();
         break;
       case 400:
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'));
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.bad-request-error'), null, { timeOut: -1 });
         break;
       case 401:
         combineLatest([
           this.translateService.get('person.page.orcid.sync-queue.send.unauthorized-error.title'),
           this.getUnauthorizedErrorContent()],
         ).subscribe(([title, content]) => {
-          this.notificationsService.error(title, content, {}, true);
+          this.notificationsService.error(title, content, { timeOut: -1}, true);
         });
         break;
       case 404:
         this.notificationsService.warning(this.translateService.get('person.page.orcid.sync-queue.send.not-found-warning'));
         break;
       case 409:
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'));
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.conflict-error'), null, { timeOut: -1 });
         break;
       default:
-        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
+        this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'), null, { timeOut: -1 });
     }
   }
 
@@ -248,7 +248,9 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
         .forEach((error) => translations.push(this.translateService.get('person.page.orcid.sync-queue.send.validation-error.' + error)));
     }
     combineLatest(translations).subscribe((messages) => {
-      this.notificationsService.error(messages.shift(), '<ul>' + messages.map((message) => '<li>' + message + '</li>').join('') + '</ul>', {}, true);
+      const title = messages.shift();
+      const content = '<ul>' + messages.map((message) => '<li>' + message + '</li>').join('') + '</ul>';
+      this.notificationsService.error(title, content, { timeOut: -1 }, true);
     });
   }
 
