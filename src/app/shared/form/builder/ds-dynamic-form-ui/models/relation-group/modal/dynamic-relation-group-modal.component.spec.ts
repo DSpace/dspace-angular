@@ -205,7 +205,7 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
       testComponent = null;
     });
 
-    fit('should create DsDynamicRelationGroupModelComponent', () => {
+    it('should create DsDynamicRelationGroupModelComponent', () => {
       expect(testComponent).toBeDefined();
     });
   });

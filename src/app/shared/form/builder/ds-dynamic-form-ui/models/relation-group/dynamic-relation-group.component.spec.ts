@@ -134,7 +134,7 @@ function init() {
 
 }
 
-fdescribe('DsDynamicRelationGroupComponent test suite', () => {
+describe('DsDynamicRelationGroupComponent test suite', () => {
   let testComp: TestComponent;
   let groupComp: DsDynamicRelationGroupComponent;
   let testFixture: ComponentFixture<TestComponent>;
