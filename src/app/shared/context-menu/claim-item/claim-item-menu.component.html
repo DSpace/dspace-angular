@@ -1,0 +1,4 @@
+<button *ngIf="(isClaimable() | async)" class="dropdown-item"
+        (click)="claim()">
+  {{'context-menu.actions.claim.btn' | translate}}
+</button>

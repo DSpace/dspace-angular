@@ -1206,6 +1206,8 @@
 
   "context-menu.actions.bulk-import.btn": "Import items into collection",
 
+  "context-menu.actions.claim.btn": "Claim this profile",
+
   "context-menu.actions.export-item.btn": "Export",
 
   "context-menu.actions.label": "Options",
@@ -3757,6 +3759,14 @@
   "researcher.profile.private.visibility" : "PRIVATE",
 
   "researcher.profile.public.visibility" : "PUBLIC",
+
+  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+
+  "researcherprofile.error.claim.title" : "Error",
+
+  "researcherprofile.success.claim.body" : "Profile claimed with success",
+
+  "researcherprofile.success.claim.title" : "Success",
 
 
 
