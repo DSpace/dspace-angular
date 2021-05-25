@@ -1,16 +1,12 @@
-<span class="{{containerStyle}}">
+<span class="{{containerStyle}}" *ngIf="(bitstreams$ | async).length > 0">
   <span *ngIf="!nested" class="{{labelStyle}}">
     {{label | translate}}
   </span>
   <span class="{{valueStyle}}">
-    <div *ngFor="let attachment of (bitstreams$ | async)">
-      <a
-        class="btn-link"
-        target="_blank"
-        href="{{getLink(attachment)}}"
-        rel="noopener noreferrer">
-        {{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})
-      </a>
-    </div>
+    <ng-container *ngFor="let attachment of (bitstreams$ | async)">
+       <ds-file-download-link [bitstream]="attachment">
+         <span>{{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})</span>
+       </ds-file-download-link>
+    </ng-container>
   </span>
 </span>
