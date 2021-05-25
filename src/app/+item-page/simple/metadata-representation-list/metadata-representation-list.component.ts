@@ -42,7 +42,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
   /**
    * The metadata field to use for fetching metadata from the item
    */
-  @Input() metadataField: string;
+  @Input() metadataFields: string[];
 
   /**
    * An i18n label to use as a title for the list
@@ -70,7 +70,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    * @param page  The page to fetch
    */
   getPage(page: number): Observable<MetadataRepresentation[]> {
-    const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataField);
+    const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataFields);
     this.total = metadata.length;
     return this.resolveMetadataRepresentations(metadata, page);
   }

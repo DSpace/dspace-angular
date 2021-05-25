@@ -11,7 +11,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
 
 const itemType = 'Person';
-const metadataField = 'dc.contributor.author';
+const metadataFields = ['dc.contributor.author', 'dc.creator'];
 const parentItem: Item = Object.assign(new Item(), {
   id: 'parent-item',
   metadata: {
@@ -27,6 +27,14 @@ const parentItem: Item = Object.assign(new Item(), {
         value: 'Author without authority',
         place: 1
       }
+    ],
+    'dc.creator': [
+      {
+        language: null,
+        value: 'Related Creator with authority',
+        authority: 'virtual::related-creator',
+        place: 3,
+      },
     ],
     'dc.title': [
       {
@@ -81,13 +89,13 @@ describe('MetadataRepresentationListComponent', () => {
     comp = fixture.componentInstance;
     comp.parentItem = parentItem;
     comp.itemType = itemType;
-    comp.metadataField = metadataField;
+    comp.metadataFields = metadataFields;
     fixture.detectChanges();
   }));
 
-  it('should load 2 ds-metadata-representation-loader components', () => {
+  it('should load 3 ds-metadata-representation-loader components', () => {
     const fields = fixture.debugElement.queryAll(By.css('ds-metadata-representation-loader'));
-    expect(fields.length).toBe(2);
+    expect(fields.length).toBe(3);
   });
 
   it('should contain one page of items', () => {
