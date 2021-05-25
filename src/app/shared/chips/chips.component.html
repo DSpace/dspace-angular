@@ -25,6 +25,7 @@
               <span *ngFor="let icon of c.icons; let l = last" class="chip-stacked-icons">
                               <i
                                  [ngbTooltip]="tipContent"
+                                 placement="right"
                                  triggers="manual"
                                  #t="ngbTooltip"
                                  class="{{icon.style}}"
@@ -37,12 +38,12 @@
                                  (dragstart)="t.close();"
                                  (mouseover)="showTooltip(t, i, icon.metadata)"
                                  (mouseout)="t.close()"></i>
-                <i *ngIf="hasPlusIcon(c, icon)"
+                <i *ngIf="hasWillBeGenerated(c, icon.metadata)"
                    dsAuthorityConfidenceState
                    [authorityValue]="c.item[icon.metadata] || c.item"
                    [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
                    class="fas fa-plus fa-stack-1x chip-stacked-icon"></i>
-                <i *ngIf="hasSearchIcon(c, icon)"
+                <i *ngIf="hasWillBeReferenced(c, icon.metadata)"
                    dsAuthorityConfidenceState
                    [authorityValue]="c.item[icon.metadata] || c.item"
                    [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"

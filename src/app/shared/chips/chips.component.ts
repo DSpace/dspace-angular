@@ -80,6 +80,7 @@ export class ChipsComponent implements OnChanges {
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const chipsItem = this.chips.getChipByIndex(index);
+    console.log(chipsItem, field);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
@@ -94,6 +95,9 @@ export class ChipsComponent implements OnChanges {
                     textToDisplay.push(label + ': ' + otherInformationText);
                   });
             });
+          }
+          if (this.hasWillBeReferenced(chipsItem, field)) {
+            textToDisplay.push(this.getWillBeReferencedContent(chipsItem, field));
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);
@@ -111,14 +115,22 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  hasPlusIcon(chip: ChipsItem, icon) {
-    const metadata = chip.item[icon.metadata];
-    return metadata?.authority?.startsWith('will be generated::');
+  hasWillBeGenerated(chip: ChipsItem, metadata: string) {
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.startsWith('will be generated::');
   }
 
-  hasSearchIcon(chip: ChipsItem, icon) {
-    const metadata = chip.item[icon.metadata];
-    return metadata?.authority?.startsWith('will be referenced::');
+  hasWillBeReferenced(chip: ChipsItem, metadata: string) {
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.startsWith('will be referenced::');
+  }
+
+  getWillBeReferencedContent(chip: ChipsItem, metadata: string) {
+    if (!this.hasWillBeReferenced(chip, metadata)) {
+      return null;
+    }
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.substring(metadataValue?.authority.indexOf('::') + 2);
   }
 
 }

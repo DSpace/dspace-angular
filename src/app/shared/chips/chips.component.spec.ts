@@ -147,7 +147,7 @@ describe('ChipsComponent test suite', () => {
     });
   });
 
-  describe('hasPlusIcon', () => {
+  describe('hasWillBeGenerated', () => {
     beforeEach(() => {
       chips = new Chips([]);
       chipsFixture = TestBed.createComponent(ChipsComponent);
@@ -157,18 +157,18 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should return true if authority starts with will be generated and false otherwise', () => {
-      const icon = { 'metadata': 'dc.title' };
+      const metadata = 'dc.title';
       let chip;
       chip = { item: { 'dc.title': { authority: 'will be generated::'}}} as any;
-      expect(chipsComp.hasPlusIcon(chip, icon)).toEqual(true);
+      expect(chipsComp.hasWillBeGenerated(chip, metadata)).toEqual(true);
 
       chip = { item: { 'dc.title': { authority: ''}}} as any;
-      expect(chipsComp.hasPlusIcon(chip, icon)).toEqual(false);
+      expect(chipsComp.hasWillBeGenerated(chip, metadata)).toEqual(false);
     });
 
   });
 
-  describe('hasSearchIcon', () => {
+  describe('hasWillBeReferenced', () => {
     beforeEach(() => {
       chips = new Chips([]);
       chipsFixture = TestBed.createComponent(ChipsComponent);
@@ -178,13 +178,34 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should return true if authority starts with will be referenced and false otherwise', () => {
-      const icon = { 'metadata': 'dc.title' };
+      const metadata = 'dc.title';
       let chip;
       chip = { item: { 'dc.title': { authority: 'will be referenced::'}}} as any;
-      expect(chipsComp.hasSearchIcon(chip, icon)).toEqual(true);
+      expect(chipsComp.hasWillBeReferenced(chip, metadata)).toEqual(true);
 
       chip = { item: { 'dc.title': { authority: ''}}} as any;
-      expect(chipsComp.hasSearchIcon(chip, icon)).toEqual(false);
+      expect(chipsComp.hasWillBeReferenced(chip, metadata)).toEqual(false);
+    });
+
+  });
+
+  describe('getWillBeReferencedContent', () => {
+    beforeEach(() => {
+      chips = new Chips([]);
+      chipsFixture = TestBed.createComponent(ChipsComponent);
+      chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.chips = chips;
+      chipsFixture.detectChanges();
+    });
+
+    it('should return the value of the reference if present, null otherwise', () => {
+      const metadata = 'dc.title';
+      let chip;
+      chip = { item: { 'dc.title': { authority: 'will be referenced::ORCID::0000'}}} as any;
+      expect(chipsComp.getWillBeReferencedContent(chip, metadata)).toEqual('ORCID::0000');
+
+      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      expect(chipsComp.getWillBeReferencedContent(chip, metadata)).toEqual(null);
     });
 
   });
