@@ -9,23 +9,23 @@ import { DSpaceObject } from '../../../../app/core/shared/dspace-object.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { getFirstSucceededRemoteData } from '../../../../app/core/shared/operators';
-import { mergeMap, switchMap } from 'rxjs/operators';
+import {mergeMap, take} from 'rxjs/operators';
 import { RemoteData } from '../../../../app/core/data/remote-data';
 import { ResearcherProfile } from '../../../../app/core/profile/model/researcher-profile.model';
 import { isNotUndefined } from '../../empty.util';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import { AuthService } from '../../../../app/core/auth/auth.service';
 import {TranslateService} from '@ngx-translate/core';
-import {EditItemMode} from '../../../core/submission/models/edititem-mode.model';
 
 @Component({
   selector: 'ds-context-menu-claim-item',
   templateUrl: './claim-item-menu.component.html'
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
-export class ClaimItemMenuComponent extends ContextMenuEntryComponent {
+export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
-  // claimable: BehaviorSubject<Observable<boolean>> =  new BehaviorSubject<Observable<boolean>>(of(false));
+  public claimable$: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
+  public isProcessing$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Initialize instance variables
@@ -47,12 +47,14 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent {
     super(injectedContextMenuObject, injectedContextMenuObjectType);
   }
 
-  // ngOnInit() {
-  //   this.claimable.next(this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.contextMenuObject.self));
-  // }
+  ngOnInit() {
+    this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.contextMenuObject.self).pipe(
+      take(1)
+    ).subscribe((isAuthorized: boolean) => (this.claimable$.next(isAuthorized)));
+  }
 
   claim() {
-
+    this.isProcessing$.next(true);
     this.researcherProfileService.createFromExternalSource(this.injectedContextMenuObject.self)
       .pipe(
         getFirstSucceededRemoteData(),
@@ -63,8 +65,8 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent {
         if (isNotUndefined(id)) {
           this.notificationsService.success(this.translate.get('researcherprofile.success.claim.title'),
             this.translate.get('researcherprofile.success.claim.body'));
-          window.location.reload();
-          // this.router.navigateByUrl('/items/' + id);
+          this.claimable$.next(false);
+          this.isProcessing$.next(false);
         } else {
           this.notificationsService.error(
             this.translate.get('researcherprofile.error.claim.title'),
@@ -75,8 +77,6 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent {
   }
 
   isClaimable(): Observable<boolean> {
-    // return this.claimable.getValue();
-    return this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.contextMenuObject.self);
+    return this.claimable$;
   }
-
 }

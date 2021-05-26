@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import {of, of as observableOf} from 'rxjs/internal/observable/of';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NotificationsService } from './../../notifications/notifications.service';
 import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
@@ -17,7 +17,7 @@ import { By } from '@angular/platform-browser';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
 
-describe('ClaimItemMenuComponent', () => {
+fdescribe('ClaimItemMenuComponent', () => {
   let component: ClaimItemMenuComponent;
   let componentAsAny: any;
   let fixture: ComponentFixture<ClaimItemMenuComponent>;
@@ -60,7 +60,7 @@ describe('ClaimItemMenuComponent', () => {
         { provide: ResearcherProfileService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: {} },
         { provide: AuthService, useValue: authService },
-        { provide: TranslateService, useValue: {} },
+        { provide: TranslateService, useValue: { get: () => of('test') } },
       ]
     })
       .compileComponents();
@@ -80,10 +80,11 @@ describe('ClaimItemMenuComponent', () => {
   describe('when the user can claim the item', () => {
     beforeEach(() => {
       authorizationService.isAuthorized.and.returnValue(observableOf(true));
+      debugger;
       fixture.detectChanges();
     });
 
-    it('should render a button', () => {
+    fit('should render a button', () => {
       const link = fixture.debugElement.query(By.css('button'));
       expect(link).not.toBeNull();
     });
