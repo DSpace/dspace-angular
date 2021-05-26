@@ -16,8 +16,9 @@ import { TestScheduler } from 'rxjs/internal/testing/TestScheduler';
 import { By } from '@angular/platform-browser';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
+import { EventEmitter } from '@angular/core';
 
-fdescribe('ClaimItemMenuComponent', () => {
+describe('ClaimItemMenuComponent', () => {
   let component: ClaimItemMenuComponent;
   let componentAsAny: any;
   let fixture: ComponentFixture<ClaimItemMenuComponent>;
@@ -27,6 +28,7 @@ fdescribe('ClaimItemMenuComponent', () => {
   let authorizationService: any;
   let authService: AuthServiceStub;
   let researcherProfileService: any;
+  let translateService: any;
 
   beforeEach(async(() => {
 
@@ -43,6 +45,13 @@ fdescribe('ClaimItemMenuComponent', () => {
       createFromExternalSource: jasmine.createSpy('createFromExternalSource')
     });
     authService = new AuthServiceStub();
+    translateService = {
+      get: () => of('test'),
+      onTranslationChange: new EventEmitter(),
+      onLangChange: new EventEmitter(),
+      onDefaultLangChange: new EventEmitter()
+    };
+
     TestBed.configureTestingModule({
       declarations: [ ClaimItemMenuComponent ],
       imports: [
@@ -60,7 +69,7 @@ fdescribe('ClaimItemMenuComponent', () => {
         { provide: ResearcherProfileService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: {} },
         { provide: AuthService, useValue: authService },
-        { provide: TranslateService, useValue: { get: () => of('test') } },
+        { provide: TranslateService, useValue: translateService },
       ]
     })
       .compileComponents();
@@ -80,11 +89,10 @@ fdescribe('ClaimItemMenuComponent', () => {
   describe('when the user can claim the item', () => {
     beforeEach(() => {
       authorizationService.isAuthorized.and.returnValue(observableOf(true));
-      debugger;
       fixture.detectChanges();
     });
 
-    fit('should render a button', () => {
+    it('should render a button', () => {
       const link = fixture.debugElement.query(By.css('button'));
       expect(link).not.toBeNull();
     });
