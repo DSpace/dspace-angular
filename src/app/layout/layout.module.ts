@@ -35,6 +35,7 @@ import { MetricDspacecrisComponent } from './default-layout/boxes/components/met
 import { MetricGooglescholarComponent } from './default-layout/boxes/components/metric/metric-googlescholar/metric-googlescholar.component';
 import { TableComponent } from './default-layout/boxes/components/table/table.component';
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
+import { OrcidComponent } from './default-layout/boxes/components/orcid/orcid.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -44,6 +45,7 @@ const ENTRY_COMPONENTS = [
   CrisLayoutMetricsBoxComponent,
   CrisLayoutSearchBoxComponent,
   TextComponent,
+  OrcidComponent,
   HeadingComponent,
   LongtextComponent,
   DateComponent,
@@ -67,6 +69,7 @@ const ENTRY_COMPONENTS = [
     CrisLayoutMetricsBoxComponent,
     RowComponent,
     TextComponent,
+    OrcidComponent,
     HeadingComponent,
     CrisLayoutSearchBoxComponent,
     LongtextComponent,

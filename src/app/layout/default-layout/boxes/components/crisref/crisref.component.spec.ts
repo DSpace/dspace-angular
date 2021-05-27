@@ -31,6 +31,18 @@ describe('CrisrefComponent', () => {
           value: 'OrgUnit',
           authority: '2'
         }
+      ],
+      'person.identifier.orcid': [
+        {
+          language: 'en_US',
+          value: '0000-0001-8918-3592'
+        }
+      ],
+      'cris.orcid.authenticated': [
+        {
+          language: null,
+          value: 'authenticated'
+        }
       ]
     }
   });
@@ -43,7 +55,13 @@ describe('CrisrefComponent', () => {
         {
           value: 'OrgUnit'
         }
-      ]
+      ],
+      'orgunit.person.id': [
+        {
+          value: 'Person',
+          authority: '1'
+        }
+      ],
     }
   });
 
@@ -52,6 +70,13 @@ describe('CrisrefComponent', () => {
     label: 'Field Label',
     style: 'col-md-6',
     metadata: 'person.orgunit.id'
+  }) as LayoutField;
+
+  const testOrcidField = Object.assign({
+    id: 1,
+    label: 'Orcid Field Label',
+    style: 'col-md-6',
+    metadata: 'orgunit.person.id'
   }) as LayoutField;
 
   itemService = Object.assign( {
@@ -98,6 +123,29 @@ describe('CrisrefComponent', () => {
 
     it('should has orgunit icon', () => {
       const icon = fixture.debugElement.query(By.css('.fa-university'));
+
+      expect(icon).toBeTruthy();
+    });
+
+  });
+
+  describe('Check Orcid icon', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(CrisrefComponent);
+      component = fixture.componentInstance;
+      component.item = testOrgunit;
+      component.field = testOrcidField;
+      debugger;
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should has orcid icon', () => {
+      debugger;
+      const icon = fixture.debugElement.query(By.css('.orcid-icon'));
 
       expect(icon).toBeTruthy();
     });
