@@ -1,4 +1,4 @@
-<div [ngClass]="{ 'thumbnail': true, 'limit-width': limitWidth }">
+<div class="thumbnail" [class.limitWidth]="limitWidth">
   <ds-loading *ngIf="isLoading; else showThumbnail" class="thumbnail-content" [showMessage]="false">
     text-content
   </ds-loading>
