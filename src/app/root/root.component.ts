@@ -38,14 +38,14 @@ export class RootComponent implements OnInit {
   models;
 
   /**
-   * Whether or not the authentication is currently blocking the UI
+   * Whether or not to show a full screen loader
    */
-  @Input() isNotAuthBlocking: boolean;
+  @Input() shouldShowFullscreenLoader: boolean;
 
   /**
-   * Whether or not the the application is loading;
+   * Whether or not to show a loader across the router outlet
    */
-  @Input() isLoading: boolean;
+  @Input() shouldShowRouteLoader: boolean;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
