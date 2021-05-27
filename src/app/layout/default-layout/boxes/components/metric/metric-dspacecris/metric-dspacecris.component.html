@@ -14,8 +14,8 @@
     <div class="col text-center">
         <strong>{{ metric.metricCount }}</strong>
         <span *ngIf="getDetailUrl()"
-              ngbTooltip="{{'metric.detail-url'}}">
-        <a href="{{ getDetailUrl() }}}"><i class="fas fa-info-circle"></i></a>
+              ngbTooltip="{{'item.page.metric.details' | translate}}">
+        <a href="{{getDetailUrl()}}"><i class="fas fa-info-circle"></i></a>
       </span>
     </div>
 </div>
