@@ -5,7 +5,7 @@ import { hasValue } from '../shared/empty.util';
 /**
  * This component renders a given Bitstream as a thumbnail.
  * One input parameter of type Bitstream is expected.
- * If no Bitstream is provided, a holderjs image will be rendered instead.
+ * If no Bitstream is provided, a HTML placeholder will be rendered instead.
  */
 @Component({
   selector: 'ds-thumbnail',
@@ -38,6 +38,11 @@ export class ThumbnailComponent implements OnInit {
    * i18n key of HTML placeholder text
    */
   @Input() placeholder? = 'thumbnail.default.placeholder';
+
+  /**
+   * Limit thumbnail width to --ds-thumbnail-max-width
+   */
+  @Input() limitWidth? = true;
 
   /**
    * Initialize the thumbnail.
