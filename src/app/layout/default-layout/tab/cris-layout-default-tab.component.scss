@@ -8,3 +8,8 @@
   border-bottom-left-radius: 0.25rem !important;
   border-bottom-right-radius: 0.25rem !important;
 }
+
+:host{
+	display:flex;
+	flex-wrap: wrap;
+}

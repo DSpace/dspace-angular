@@ -76,4 +76,10 @@ export class Tab extends CacheableObject {
    */
   @link(BOX)
   boxes?: Observable<RemoteData<PaginatedList<Box>>>;
+
+
+  /**
+   * Contains nested tabs if exist
+   */
+  children?: Tab[];
 }

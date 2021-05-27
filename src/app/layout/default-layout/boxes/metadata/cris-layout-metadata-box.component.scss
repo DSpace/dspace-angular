@@ -1,4 +1,7 @@
-.contenitore {
-  display: flex;
-  flex-direction: row;
+:host{
+	display:flex;
+	// flex:1;
+}
+ngb-accordion{
+	flex-grow:1;
 }

@@ -29,7 +29,7 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
   const router = jasmine.createSpyObj('router', ['navigate']);
   const location = {
     path(): string {
-      return '/items/a96c6d24-757a-411d-8132-bbcbbbb04210/person-biography';
+      return '/entities/orgunit/a14ba215-c0f0-4b74-b21a-06359bfabd45/rp::publications';
     }
   };
   beforeEach(async(() => {
@@ -55,8 +55,11 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
   });
 
   it('check sidebar tabs rendering', () => {
-    const navbarTabsFound = fixture.debugElement.queryAll(By.css('#sidebar ul li'));
-    expect(navbarTabsFound.length).toEqual(3);
+    const navbarTabsFound = fixture.debugElement.queryAll(By.css('#sidebar ul ds-cris-layout-sidebar-item'));
+    console.log(fixture.debugElement.queryAll(By.css('ds-cris-layout-sidebar-item')));
+    console.log(location.path());
+
+    expect(navbarTabsFound.length).toEqual(5);
   });
 
   it('check if the component selects the correct tab', () => {
@@ -66,6 +69,6 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
       }
     });
     component.ngOnChanges(change);
-    expect(component.selectTab).toHaveBeenCalledWith(1);
+    expect(component.selectTab).toHaveBeenCalledWith(0,null);
   });
 });

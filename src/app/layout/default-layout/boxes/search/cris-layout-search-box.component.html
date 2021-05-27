@@ -1,4 +1,4 @@
-<ngb-accordion [activeIds]="activeIds">
+<ngb-accordion [activeIds]="activeIds" [ngStyle]="{'margin-right': !box.clear && !nextBoxClear ? '10px': '0px'}">
   <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
     <ng-template ngbPanelContent>
       <ds-configuration-search-page

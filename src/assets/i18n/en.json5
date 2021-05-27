@@ -567,9 +567,9 @@
 
   "alert.close.aria": "Close",
 
-  "alert.toggle.hide": "Hide",
+  "alert.toggle.hide": "Show less",
 
-  "alert.toggle.show": "Show",
+  "alert.toggle.show": "Show more",
 
 
   "auth.errors.invalid-user": "Invalid email address or password.",

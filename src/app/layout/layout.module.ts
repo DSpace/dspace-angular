@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 
+import { SharedModule } from '../shared/shared.module';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { CrisPageLoaderComponent } from './cris-page-loader.component';
 import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default.component';
@@ -35,6 +35,7 @@ import { MetricDspacecrisComponent } from './default-layout/boxes/components/met
 import { MetricGooglescholarComponent } from './default-layout/boxes/components/metric/metric-googlescholar/metric-googlescholar.component';
 import { TableComponent } from './default-layout/boxes/components/table/table.component';
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
+import { CrisLayoutSidebarItemComponent } from './default-layout/sidebar/sidebar-item/cris-layout-sidebar-item.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -87,14 +88,15 @@ const ENTRY_COMPONENTS = [
     MetricDspacecrisComponent,
     MetricGooglescholarComponent,
     TableComponent,
-    InlineComponent
+    InlineComponent,
+    CrisLayoutSidebarItemComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     SearchPageModule,
     MyDSpacePageModule,
-    ContextMenuModule
+    ContextMenuModule,
   ],
   exports: [
     CrisPageLoaderComponent,
