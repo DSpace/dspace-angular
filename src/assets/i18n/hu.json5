@@ -1234,6 +1234,9 @@
   
   // "communityList.tabTitle": "DSpace - Community List",
   "communityList.tabTitle": "DSpace - Kategóriák",
+
+  // "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "Kategóriák",
   
   // "communityList.title": "List of Communities",
   "communityList.title": "Kategóriák",
@@ -1911,8 +1914,7 @@
   
   // "form.submit": "Submit",
   "form.submit": "Feltölt",
-  
-  
+ 
   
   // "home.description": "",
   "home.description": "",
@@ -4934,6 +4936,9 @@
   
   
   
+  // "submission.submit.breadcrumbs": "New submission",
+  "submission.submit.breadcrumbs": "Új beküldés",
+
   // "submission.submit.title": "Submission",
   "submission.submit.title": "Beküldés",
   
