@@ -36,6 +36,8 @@ import { MetricGooglescholarComponent } from './default-layout/boxes/components/
 import { TableComponent } from './default-layout/boxes/components/table/table.component';
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
 import { CrisLayoutSidebarItemComponent } from './default-layout/sidebar/sidebar-item/cris-layout-sidebar-item.component';
+import { MetricEmbeddedViewComponent } from './default-layout/boxes/components/metric/metric-embedded-view/metric-embedded-view.component';
+import { MetricEmbeddedDownloadComponent } from './default-layout/boxes/components/metric/metric-embedded-download/metric-embedded-download.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -89,7 +91,9 @@ const ENTRY_COMPONENTS = [
     MetricGooglescholarComponent,
     TableComponent,
     InlineComponent,
-    CrisLayoutSidebarItemComponent
+    CrisLayoutSidebarItemComponent,
+    MetricEmbeddedViewComponent,
+    MetricEmbeddedDownloadComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,12 @@
+<button *ngIf="(isClaimable() | async)" class="dropdown-item"
+        (click)="claim()">
+  <ng-container *ngIf="!(isProcessing$ | async) else spinner">
+    {{'context-menu.actions.claim.btn' | translate}}
+  </ng-container>
+
+</button>
+
+<ng-template #spinner>
+  <i class="fa fa-spinner fa-spin fa-fw"></i>
+  <span class="sr-only">Loading...</span>
+</ng-template>

@@ -52,7 +52,9 @@ export class MenuEffects {
         if (index > -1) {
           shouldNotPersistIDs.splice(index, 1);
         } else {
-          this.menuService.addSection(menuID, section);
+          if ( (section.model as any).text && (section.model as any).text !== 'menu.section.statistics') {
+            this.menuService.addSection(menuID, section);
+          }
         }
       });
       shouldNotPersistIDs.forEach((id) => {
