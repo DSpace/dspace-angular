@@ -13,6 +13,7 @@ import { DsoPageEditMenuComponent } from './dso-page-edit/dso-page-edit-menu.com
 import { ExportCollectionMenuComponent } from './export-collection/export-collection-menu.component';
 import { BulkImportMenuComponent } from './bulk-import/bulk-import-menu.component';
 import { EditItemRelationshipsMenuComponent } from './edit-item-relationships/edit-item-relationships-menu.component';
+import {ClaimItemMenuComponent} from './claim-item/claim-item-menu.component';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -22,7 +23,8 @@ const COMPONENTS = [
   EditItemMenuComponent,
   ExportItemMenuComponent,
   ExportCollectionMenuComponent,
-  EditItemRelationshipsMenuComponent
+  EditItemRelationshipsMenuComponent,
+  ClaimItemMenuComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -32,7 +34,8 @@ const ENTRY_COMPONENTS = [
   EditItemMenuComponent,
   ExportItemMenuComponent,
   ExportCollectionMenuComponent,
-  EditItemRelationshipsMenuComponent
+  EditItemRelationshipsMenuComponent,
+  ClaimItemMenuComponent
 ];
 
 const MODULE = [

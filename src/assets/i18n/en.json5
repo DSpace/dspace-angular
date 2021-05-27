@@ -1206,6 +1206,8 @@
 
   "context-menu.actions.bulk-import.btn": "Import items into collection",
 
+  "context-menu.actions.claim.btn": "Claim this profile",
+
   "context-menu.actions.export-item.btn": "Export",
 
   "context-menu.actions.label": "Options",
@@ -2266,7 +2268,14 @@
 
   "item.page.metric.deltaPeriod2": "Last Month",
 
+  "item.page.metric.details": "Details",
+
   "item.page.metric.label.altmetrics": "Altmetrics",
+
+
+  "item.page.metric.label.download": "Downloads",
+
+  "item.page.metric.label.view": "Views",
 
   "item.page.metric.label.google-scholar": "Google Scholar",
 
@@ -3758,6 +3767,14 @@
 
   "researcher.profile.public.visibility" : "PUBLIC",
 
+  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+
+  "researcherprofile.error.claim.title" : "Error",
+
+  "researcherprofile.success.claim.body" : "Profile claimed with success",
+
+  "researcherprofile.success.claim.title" : "Success",
+
 
 
   "resource-policies.add.button": "Add",
@@ -4194,6 +4211,8 @@
 
   "statistics.table.title.TotalDownloads": "File Visits",
 
+  "statistics.table.title.TotalVisitsAndDownloads": "Items and file Visits",
+
   "statistics.table.title.TopCountries": "Top country views",
 
   "statistics.table.title.TopCities": "Top city views",
@@ -4206,7 +4225,11 @@
 
   "statistics.categories.projectsReports.tab": "Project Reports",
 
-  "statistics.categories.publicationsReports.tab": "Publication Reports",
+  "statistics.categories.rpprojectsReports.tab": "Researchers Projects Reports",
+
+  "statistics.categories.publicationsReports.tab": "Publications Reports",
+
+  "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
 
   "statistics.reports.title": "Reports",
 

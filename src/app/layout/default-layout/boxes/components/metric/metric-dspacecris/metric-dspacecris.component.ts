@@ -17,7 +17,7 @@ export class MetricDspacecrisComponent extends BaseMetricComponent {
    */
   getDetailUrl() {
     const remark = this.metric.remark;
-    return remark ? (remark as any).detailUrl : null;
+    return remark ? JSON.parse(remark).detailUrl : null;
   }
 
 }

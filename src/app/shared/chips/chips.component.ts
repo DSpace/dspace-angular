@@ -8,6 +8,7 @@ import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ChipsItem } from './models/chips-item.model';
 
 @Component({
   selector: 'ds-chips',
@@ -79,6 +80,7 @@ export class ChipsComponent implements OnChanges {
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const chipsItem = this.chips.getChipByIndex(index);
+    console.log(chipsItem, field);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
@@ -94,6 +96,9 @@ export class ChipsComponent implements OnChanges {
                   });
             });
           }
+          if (this.hasWillBeReferenced(chipsItem, field)) {
+            textToDisplay.push(this.getWillBeReferencedContent(chipsItem, field));
+          }
         } else {
           textToDisplay.push(chipsItem.item[field]);
         }
@@ -108,6 +113,24 @@ export class ChipsComponent implements OnChanges {
       }
 
     }
+  }
+
+  hasWillBeGenerated(chip: ChipsItem, metadata: string) {
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.startsWith('will be generated::');
+  }
+
+  hasWillBeReferenced(chip: ChipsItem, metadata: string) {
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.startsWith('will be referenced::');
+  }
+
+  getWillBeReferencedContent(chip: ChipsItem, metadata: string) {
+    if (!this.hasWillBeReferenced(chip, metadata)) {
+      return null;
+    }
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.substring(metadataValue?.authority.indexOf('::') + 2);
   }
 
 }

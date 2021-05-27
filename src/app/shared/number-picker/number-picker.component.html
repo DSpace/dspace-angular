@@ -1,16 +1,7 @@
-<div class="d-flex flex-column align-items-center justify-content-around mr-3">
-    <button
-      class="btn btn-link"
-      type="button"
-      tabindex="-1"
-      [disabled]="disabled"
-      (click)="toggleUp()">
-      <span class="chevron"></span>
-      <span class="sr-only">Increment</span>
-    </button>
+<div class="d-flex align-items-stretch justify-content-around position-relative mr-3">
     <input
       type="text"
-      class="form-control d-inline-block text-center"
+      class="form-control d-inline-block text-center {{ widthClass }}"
       maxlength="{{size}}"
       size="{{size}}"
       placeholder="{{placeholder}}"
@@ -24,13 +15,25 @@
       [ngClass]="{'is-invalid': invalid}"
       aria-label="name"
     >
-    <button
-      class="btn btn-link"
-      type="button"
-      tabindex="-1"
-      [disabled]="disabled"
-      (click)="toggleDown()">
-      <span class="chevron bottom"></span>
-      <span class="sr-only">Decrement</span>
-    </button>
+    <div class="d-flex flex-column justify-content-between">
+        <button
+                class="btn btn-link btn-date"
+                type="button"
+                tabindex="-1"
+                [disabled]="disabled"
+                (click)="toggleUp()">
+            <span class="chevron"></span>
+            <span class="sr-only">Increment</span>
+        </button>
+        <button
+                class="btn btn-link btn-date"
+                type="button"
+                tabindex="-1"
+                [disabled]="disabled"
+                (click)="toggleDown()">
+            <span class="chevron bottom"></span>
+            <span class="sr-only">Decrement</span>
+        </button>
+    </div>
+
 </div>

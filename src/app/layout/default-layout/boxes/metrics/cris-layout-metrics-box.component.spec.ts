@@ -51,6 +51,9 @@ export const metricAltmetricMock = {...metric1Mock, metricType: 'altmetric', rem
 
 export const metricDimensionsMock = {...metric1Mock, metricType: 'dimensions', remark: dimensionsExample};
 
+export const metricEmbeddedView = {...metric1Mock, metricType: 'embedded-view', remark: ''};
+export const metricEmbeddedDownload = {...metric1Mock, metricType: 'embedded-download', remark: ''};
+
 export const metricRowsMock = [{
   metrics: [metric1Mock, metric2Mock]
 }];

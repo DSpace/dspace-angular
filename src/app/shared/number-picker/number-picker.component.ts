@@ -22,6 +22,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() invalid: boolean;
   @Input() value: number;
+  @Input() widthClass: 'four-digits' | 'two-digits' | undefined;
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
