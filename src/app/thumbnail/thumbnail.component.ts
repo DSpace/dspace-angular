@@ -2,7 +2,6 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { hasValue } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
-import { BITSTREAM } from '../core/shared/bitstream.resource-type';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -57,7 +56,7 @@ export class ThumbnailComponent implements OnChanges {
       return;
     }
     if (this.thumbnail instanceof Bitstream) {
-      this.resolveThumbnail(this.thumbnail as Bitstream)
+      this.resolveThumbnail(this.thumbnail as Bitstream);
     } else {
       const thumbnailRD = this.thumbnail as RemoteData<Bitstream>;
       if (thumbnailRD.isLoading) {

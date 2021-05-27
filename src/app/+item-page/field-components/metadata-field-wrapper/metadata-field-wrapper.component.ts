@@ -17,10 +17,5 @@ export class MetadataFieldWrapperComponent {
    */
   @Input() label: string;
 
-  /**
-   * Make hasNoValue() available in the template
-   */
-  hasNoValue(o: any): boolean {
-    return hasNoValue(o);
-  }
+  @Input() hideIfNoTextContent = true;
 }
