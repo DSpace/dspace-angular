@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { SectionVisibility, SubmissionError, SubmissionSectionError } from './submission-objects.reducer';
+import { SubmissionError, SubmissionSectionError } from './submission-objects.reducer';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
@@ -11,6 +11,7 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SectionsType } from '../sections/sections-type';
 import { Item } from '../../core/shared/item.model';
+import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -120,7 +121,7 @@ export class InitSectionAction implements Action {
     config: string;
     mandatory: boolean;
     sectionType: SectionsType;
-    visibility: SectionVisibility;
+    visibility: SubmissionVisibilityType;
     enabled: boolean;
     data: WorkspaceitemSectionDataType;
     errors: SubmissionSectionError[];
@@ -156,7 +157,7 @@ export class InitSectionAction implements Action {
               config: string,
               mandatory: boolean,
               sectionType: SectionsType,
-              visibility: SectionVisibility,
+              visibility: SubmissionVisibilityType,
               enabled: boolean,
               data: WorkspaceitemSectionDataType,
               errors: SubmissionSectionError[]) {

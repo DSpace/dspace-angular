@@ -37,6 +37,7 @@ import { storeModuleConfig } from '../../app.reducer';
 import { SectionsType } from './sections-type';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';
+import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;
@@ -254,10 +255,10 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionReadOnly', () => {
     it('should return an observable of true when it\'s a readonly section and scope is not workspace', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
       store.select.and.returnValue(observableOf({
         visibility: {
-          main: null,
-          other: 'READONLY'
+          workflow: SubmissionVisibilityValue.ReadOnly
         }
       }));
 
@@ -269,10 +270,10 @@ describe('SectionsService test suite', () => {
     });
 
     it('should return an observable of false when it\'s a readonly section and scope is workspace', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
       store.select.and.returnValue(observableOf({
         visibility: {
-          main: null,
-          other: 'READONLY'
+          workflow: SubmissionVisibilityValue.ReadOnly
         }
       }));
 

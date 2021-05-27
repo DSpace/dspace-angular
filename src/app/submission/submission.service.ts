@@ -48,6 +48,7 @@ import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { SubmissionVisibility } from './utils/visibility.util';
 
 /**
  * A service that provides methods used in submission process.
@@ -337,6 +338,7 @@ export class SubmissionService {
             sectionObject.header = sections[sectionId].header;
             sectionObject.id = sectionId;
             sectionObject.sectionType = sections[sectionId].sectionType;
+            sectionObject.sectionVisibility = sections[sectionId].visibility;
             availableSections.push(sectionObject);
           });
         return availableSections;
@@ -503,17 +505,16 @@ export class SubmissionService {
   }
 
   /**
-   * Return the visibility status of the specified section
+   * Return the hidden visibility status of the specified section
    *
    * @param sectionData
    *    The section data
    * @return boolean
    *    true if section is hidden, false otherwise
    */
-  isSectionHidden(sectionData: SubmissionSectionObject): boolean {
-    return (isNotUndefined(sectionData.visibility)
-      && sectionData.visibility.main === 'HIDDEN'
-      && sectionData.visibility.other === 'HIDDEN');
+  private isSectionHidden(sectionData: SubmissionSectionObject): boolean {
+    const scope = this.getSubmissionScope();
+    return SubmissionVisibility.isHidden(sectionData.visibility, scope);
   }
 
   /**

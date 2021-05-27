@@ -43,14 +43,7 @@ import { WorkspaceitemSectionDataType } from '../../core/submission/models/works
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SectionsType } from '../sections/sections-type';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
-
-/**
- * An interface to represent section visibility
- */
-export interface SectionVisibility {
-  main: any;
-  other: any;
-}
+import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
 
 /**
  * An interface to represent section object state
@@ -79,7 +72,7 @@ export interface SubmissionSectionObject {
   /**
    * The section visibility
    */
-  visibility: SectionVisibility;
+  visibility: SubmissionVisibilityType;
 
   /**
    * A boolean representing if this section is collapsed

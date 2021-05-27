@@ -68,6 +68,13 @@ export class SectionsDirective implements OnDestroy, OnInit {
    */
   private enabled: Observable<boolean>;
 
+
+  /**
+   * A boolean representing if section has read-only visibility
+   * @type {boolean}
+   */
+  private readOnly: Observable<boolean>;
+
   /**
    * A boolean representing the panel collapsible state: opened (true) or closed (false)
    * @type {boolean}
@@ -144,6 +151,11 @@ export class SectionsDirective implements OnDestroy, OnInit {
     );
 
     this.enabled = this.sectionService.isSectionEnabled(this.submissionId, this.sectionId);
+    this.readOnly = this.sectionService.isSectionReadOnly(
+      this.submissionId,
+      this.sectionId,
+      this.submissionService.getSubmissionScope()
+    );
   }
 
   /**
@@ -203,6 +215,16 @@ export class SectionsDirective implements OnDestroy, OnInit {
    */
   public isEnabled(): Observable<boolean> {
     return this.enabled;
+  }
+
+  /**
+   * Check if section has visibility read only
+   *
+   * @returns {Observable<boolean>}
+   *    Emits true whenever section is read only
+   */
+  public isReadOnly(): Observable<boolean> {
+    return this.readOnly;
   }
 
   /**

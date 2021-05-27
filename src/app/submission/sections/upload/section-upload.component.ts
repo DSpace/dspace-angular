@@ -1,11 +1,6 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription
-} from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
@@ -30,6 +25,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -215,6 +211,16 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
             this.changeDetectorRef.detectChanges();
           }
         )
+    );
+  }
+
+  /**
+   * Check if upload section has read-only visibility
+   */
+  isReadOnly(): boolean {
+    return SubmissionVisibility.isReadOnly(
+      this.sectionData.sectionVisibility,
+      this.submissionService.getSubmissionScope()
     );
   }
 

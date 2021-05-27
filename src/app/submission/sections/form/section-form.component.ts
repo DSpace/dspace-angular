@@ -34,6 +34,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 
 /**
  * This component represents a section that contains a Form.
@@ -259,7 +260,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
         this.formConfig,
         this.collectionId,
         sectionData,
-        this.submissionService.getSubmissionScope()
+        this.submissionService.getSubmissionScope(),
+        SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope())
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
