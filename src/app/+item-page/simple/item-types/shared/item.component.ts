@@ -4,8 +4,10 @@ import { environment } from '../../../../../environments/environment';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, takeUntilCompletedRemoteData } from '../../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { RemoteData } from '../../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-item',
@@ -18,6 +20,11 @@ export class ItemComponent implements OnInit {
   @Input() object: Item;
 
   /**
+   * The Item's thumbnail
+   */
+  thumbnail$: BehaviorSubject<RemoteData<Bitstream>>;
+
+  /**
    * Route to the item page
    */
   itemPageRoute: string;
@@ -28,12 +35,12 @@ export class ItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemPageRoute = getItemPageRoute(this.object);
-  }
 
-  // TODO refactor to return RemoteData, and thumbnail template to deal with loading
-  getThumbnail(): Observable<Bitstream> {
-    return this.bitstreamDataService.getThumbnailFor(this.object).pipe(
-      getFirstSucceededRemoteDataPayload()
-    );
+    this.thumbnail$ = new BehaviorSubject<RemoteData<Bitstream>>(undefined);
+    this.bitstreamDataService.getThumbnailFor(this.object).pipe(
+      takeUntilCompletedRemoteData(),
+    ).subscribe((rd: RemoteData<Bitstream>) => {
+      this.thumbnail$.next(rd);
+    });
   }
 }

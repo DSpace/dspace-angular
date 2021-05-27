@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { hasValue } from '../shared/empty.util';
+import { RemoteData } from '../core/data/remote-data';
+import { BITSTREAM } from '../core/shared/bitstream.resource-type';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -12,11 +14,11 @@ import { hasValue } from '../shared/empty.util';
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
 })
-export class ThumbnailComponent implements OnInit {
+export class ThumbnailComponent implements OnChanges {
   /**
    * The thumbnail Bitstream
    */
-  @Input() thumbnail: Bitstream;
+  @Input() thumbnail: Bitstream | RemoteData<Bitstream>;
 
   /**
    * The default image, used if the thumbnail isn't set or can't be downloaded.
@@ -27,7 +29,7 @@ export class ThumbnailComponent implements OnInit {
   /**
    * The src attribute used in the template to render the image.
    */
-  src: string;
+  src: string = null;
 
   /**
    * i18n key of thumbnail alt text
@@ -44,18 +46,37 @@ export class ThumbnailComponent implements OnInit {
    */
   @Input() limitWidth? = true;
 
+  isLoading: boolean;
+
   /**
-   * Initialize the thumbnail.
+   * Resolve the thumbnail.
    * Use a default image if no actual image is available.
    */
-  ngOnInit(): void {
-    if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links)
-                                 && hasValue(this.thumbnail._links.content)
-                                 && this.thumbnail._links.content.href) {
-      this.src = this.thumbnail._links.content.href;
+  ngOnChanges(): void {
+    if (this.thumbnail === undefined || this.thumbnail === null) {
+      return;
+    }
+    if (this.thumbnail instanceof Bitstream) {
+      this.resolveThumbnail(this.thumbnail as Bitstream)
+    } else {
+      const thumbnailRD = this.thumbnail as RemoteData<Bitstream>;
+      if (thumbnailRD.isLoading) {
+        this.isLoading = true;
+      } else {
+        this.resolveThumbnail(thumbnailRD.payload as Bitstream);
+      }
+    }
+  }
+
+  private resolveThumbnail(thumbnail: Bitstream): void {
+    if (hasValue(thumbnail) && hasValue(thumbnail._links)
+                            && hasValue(thumbnail._links.content)
+                            && thumbnail._links.content.href) {
+      this.src = thumbnail._links.content.href;
     } else {
       this.src = this.defaultImage;
     }
+    this.isLoading = false;
   }
 
   /**

@@ -8,7 +8,7 @@
        rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
        class="card-img-top full-width">
       <div>
-        <ds-thumbnail [thumbnail]="getThumbnail() | async">
+        <ds-thumbnail [thumbnail]="getThumbnail() | async" [limitWidth]="false">
         </ds-thumbnail>
       </div>
     </a>

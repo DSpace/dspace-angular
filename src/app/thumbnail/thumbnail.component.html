@@ -1,10 +1,14 @@
 <div [ngClass]="{ 'thumbnail': true, 'limit-width': limitWidth }">
-  <img *ngIf="src !== null" class="thumbnail-content img-fluid"
-       [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()"/>
-  <div *ngIf="src === null" class="thumbnail-content outer">
-    <div class="inner">
-      <div class="thumbnail-placeholder w-100 h-100 p-3 lead">{{ placeholder | translate }}</div>
+  <ds-loading *ngIf="isLoading; else showThumbnail" class="thumbnail-content" [showMessage]="false">
+    text-content
+  </ds-loading>
+  <ng-template #showThumbnail>
+    <img *ngIf="src !== null" class="thumbnail-content img-fluid"
+         [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()">
+    <div *ngIf="src === null" class="thumbnail-content outer">
+      <div class="inner">
+        <div class="thumbnail-placeholder w-100 h-100 p-3 lead">{{ placeholder | translate }}</div>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>
-
