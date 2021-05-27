@@ -26,13 +26,13 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
   currentSyncPublications: string;
 
-  currentSyncProjects: string;
+  currentSyncFundings: string;
 
   syncModes: {value: string, label: string}[];
 
   syncPublicationOptions: {value: string, label: string}[];
 
-  syncProjectOptions: {value: string, label: string}[];
+  syncFundingOptions: {value: string, label: string}[];
 
   syncProfileOptions: {value: string, label: string, checked: boolean}[];
 
@@ -66,7 +66,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
     });
 
     // this.syncPublicationOptions = ['DISABLED', 'ALL', 'MY_SELECTED', 'MINE']
-    this.syncProjectOptions = ['DISABLED', 'ALL']
+    this.syncFundingOptions = ['DISABLED', 'ALL']
       .map((value) => {
         return {
           label: this.messagePrefix + '.sync-fundings.' + value.toLowerCase(),
@@ -85,16 +85,16 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
         };
       });
 
-    this.currentSyncMode = this.item.hasMetadata('cris.orcid.sync-mode') ? this.item.firstMetadataValue('cris.orcid.sync-mode') : 'MANUAL';
-    this.currentSyncPublications = this.item.hasMetadata('cris.orcid.sync-publications') ? this.item.firstMetadataValue('cris.orcid.sync-publications') : 'DISABLED';
-    this.currentSyncProjects = this.item.hasMetadata('cris.orcid.sync-fundings') ? this.item.firstMetadataValue('cris.orcid.sync-fundings') : 'DISABLED';
+    this.currentSyncMode = this.getCurrentPreference('cris.orcid.sync-mode', ['BATCH, MANUAL'], 'MANUAL');
+    this.currentSyncPublications = this.getCurrentPreference('cris.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
+    this.currentSyncFundings = this.getCurrentPreference('cris.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
   }
 
   onSubmit(form: FormGroup) {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
-    this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncProjects);
+    this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncFundings);
 
     const syncProfileValue = this.syncProfileOptions
       .map((syncProfileOption => syncProfileOption.value))
@@ -125,6 +125,11 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       op: 'replace',
       value: currentValue
     });
+  }
+
+  getCurrentPreference(metadataField: string, allowedValues: string[], defaultValue: string) : string{
+    const currentPreference = this.item.firstMetadataValue(metadataField);
+    return (currentPreference && allowedValues.includes(currentPreference)) ? currentPreference : defaultValue;
   }
 
 }
