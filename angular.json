@@ -47,6 +47,7 @@
               "src/robots.txt"
             ],
             "styles": [
+              "src/styles/startup.scss",
               {
                 "input": "src/styles/base-theme.scss",
                 "inject": false,
