@@ -16,6 +16,11 @@
      [routerLink]="['/items/' + ref.id]">
     {{ref.value}} <i class="{{ref.icon}}"></i>
   </a>
+  <img *ngIf="ref.orcidAuthenticated"
+       placement="top"
+       ngbTooltip="{{ ref.orcidAuthenticated }}"
+       class="orcid-icon"
+       src="assets/images/orcid.logo.icon.svg"/>
 </ng-template>
 
 <ng-template #withoutAuthority let-ref="ref">

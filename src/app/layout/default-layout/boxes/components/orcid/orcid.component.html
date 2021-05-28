@@ -1,0 +1,21 @@
+<div class="{{containerStyle}}" *ngIf="hasOrcid()">
+  <span
+    *ngIf="hasLabel && !nested"
+    class="{{labelStyle}}">
+    {{label | translate}}
+  </span>
+
+  <div>
+    <div  [class]="'d-flex flex-column ' + valueStyle">
+    <span *ngFor="let metadataValue of metadataValues" class="txt-value">
+      {{ normalizeValue(metadataValue) | dsDate }}
+      <img *ngIf="hasOrcidBadge()"
+           placement="top"
+           ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
+           class="orcid-icon"
+           src="assets/images/orcid.logo.icon.svg"/>
+    </span>
+    </div>
+  </div>
+
+</div>

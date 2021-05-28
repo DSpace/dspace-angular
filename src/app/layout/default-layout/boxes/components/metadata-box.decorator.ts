@@ -9,7 +9,8 @@ export enum FieldRenderingType {
   THUMBNAIL = 'THUMBNAIL',
   ATTACHMENT = 'ATTACHMENT',
   TABLE = 'TABLE',
-  INLINE = 'INLINE'
+  INLINE = 'INLINE',
+  ORCID = 'ORCID',
 }
 
 const fieldType = new Map();
