@@ -97,10 +97,8 @@ export class ResearcherProfileService {
     /**
      * Create a new researcher profile for the current user.
      */
-    create(): Observable<ResearcherProfile> {
-        return this.dataService.create( new ResearcherProfile())
-            .pipe ( getFinishedRemoteData(),
-                map((remoteData) => remoteData.payload));
+    create(): Observable<RemoteData<ResearcherProfile>> {
+        return this.dataService.create( new ResearcherProfile());
     }
 
     /**

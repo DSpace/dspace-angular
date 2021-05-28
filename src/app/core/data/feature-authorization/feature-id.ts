@@ -13,5 +13,6 @@ export enum FeatureID {
   IsCollectionAdmin = 'isCollectionAdmin',
   IsCommunityAdmin = 'isCommunityAdmin',
   CanDownload = 'canDownload',
+  ShowClaimItem = 'showClaimItem',
   CanClaimItem = 'canClaimItem'
 }
