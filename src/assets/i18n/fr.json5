@@ -243,7 +243,7 @@
   "admin.registries.schema.form.create": "Ajouter un champ de métadonnées",
   
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  "admin.registries.schema.form.edit": "Modifier champ de métadonnées",
+  "admin.registries.schema.form.edit": "Éditer champ de métadonnées",
   
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Élément",
@@ -1946,7 +1946,7 @@
   "item.edit.authorizations.heading": "Depuis cette page, il vous est possible de visualiser et modifier les autorisations d'un Item et de ses composants Bundles et Bitstreams. Un Item peut inclure un ou plusieurs Bundle(s) et chaque Bundle peut inclure un ou plusieurs Bitstream(s). Les Items et Bundles ont habituellement des autorisations de type ADD/REMOVE/READ/WRITE alors que les Bitstreams ont uniquement des autorisations READ/WRITE.",
   
   // "item.edit.authorizations.title": "Edit item's Policies",
-  "item.edit.authorizations.title": "Modifier les autorisations de l'Item",
+  "item.edit.authorizations.title": "Éditer les autorisations de l'Item",
   
   
   
@@ -3666,162 +3666,124 @@
   
   
   // "register-email.title": "New user registration",
-  // TODO New key - Add a translation
-  "register-email.title": "New user registration",
+  "register-email.title": "Inscription nouvel utilisateur",
   
   // "register-page.create-profile.header": "Create Profile",
-  // TODO New key - Add a translation
-  "register-page.create-profile.header": "Create Profile",
+  "register-page.create-profile.header": "Créer Profil",
   
   // "register-page.create-profile.identification.header": "Identify",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.header": "Identify",
+  "register-page.create-profile.identification.header": "Identification",
   
   // "register-page.create-profile.identification.email": "Email Address",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.email": "Email Address",
+  "register-page.create-profile.identification.email": "Adresse e-mail",
   
   // "register-page.create-profile.identification.first-name": "First Name *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.first-name": "First Name *",
+  "register-page.create-profile.identification.first-name": "Prénom *",
   
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
+  "register-page.create-profile.identification.first-name.error": "Veuillez remplir le prénom",
   
   // "register-page.create-profile.identification.last-name": "Last Name *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name": "Last Name *",
+  "register-page.create-profile.identification.last-name": "Nom de famille *",
   
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
+  "register-page.create-profile.identification.last-name.error": "Veuillez remplir le nom de famille",
   
   // "register-page.create-profile.identification.contact": "Contact Telephone",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.contact": "Contact Telephone",
+  "register-page.create-profile.identification.contact": "N° Téléphone",
   
   // "register-page.create-profile.identification.language": "Language",
-  // TODO New key - Add a translation
-  "register-page.create-profile.identification.language": "Language",
+  "register-page.create-profile.identification.language": "Langue",
   
   // "register-page.create-profile.security.header": "Security",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.header": "Security",
+  "register-page.create-profile.security.header": "Sécurité",
   
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+  "register-page.create-profile.security.info": "Veuillez entrer un mot de passe dans la zone ci-dessous et confirmer en l'entrant à nouveau dans la seconde zone. Le mot de passe doit au moins faire 6 caractères.",
   
   // "register-page.create-profile.security.label.password": "Password *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.label.password": "Password *",
+  "register-page.create-profile.security.label.password": "Mot de passe *",
   
   // "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
+  "register-page.create-profile.security.label.passwordrepeat": "Entrer à nouveau pour confirmer *",
   
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
+  "register-page.create-profile.security.error.empty-password": "Veuillez entrer un mot de passe dans la zone ci-dessous.",
   
   // "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
+  "register-page.create-profile.security.error.matching-passwords": "Les mots de passe ne correspondent pas.",
   
   // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
+  "register-page.create-profile.security.error.password-length": "Le mot de passe doit au moins faire 6 caractères.",
   
   // "register-page.create-profile.submit": "Complete Registration",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit": "Complete Registration",
+  "register-page.create-profile.submit": "Confirmer l'inscription",
   
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
+  "register-page.create-profile.submit.error.content": "Une erreur s'est produite lors de la création de l'utilisateur.",
   
   // "register-page.create-profile.submit.error.head": "Registration failed",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.error.head": "Registration failed",
+  "register-page.create-profile.submit.error.head": "Echec lors de l'inscription",
   
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
+  "register-page.create-profile.submit.success.content": "L'utilisateur a été créé avec succès. Vous êtes connecté avec le compte de l'utilisateur ainsi créé.",
   
   // "register-page.create-profile.submit.success.head": "Registration completed",
-  // TODO New key - Add a translation
-  "register-page.create-profile.submit.success.head": "Registration completed",
+  "register-page.create-profile.submit.success.head": "Inscription terminée",
   
   
   // "register-page.registration.header": "New user registration",
-  // TODO New key - Add a translation
-  "register-page.registration.header": "New user registration",
+  "register-page.registration.header": "Inscription nouvel utilisateur",
   
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  // TODO New key - Add a translation
-  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "register-page.registration.info": "Créer un compte pour pouvoir vous abonner aux collections et recevoir les nouveautés via mail ainsi que déposer de nouveaux Items dans DSpace.",
   
   // "register-page.registration.email": "Email Address *",
-  // TODO New key - Add a translation
-  "register-page.registration.email": "Email Address *",
+  "register-page.registration.email": "Adresse e-mail *",
   
   // "register-page.registration.email.error.required": "Please fill in an email address",
-  // TODO New key - Add a translation
-  "register-page.registration.email.error.required": "Please fill in an email address",
+  "register-page.registration.email.error.required": "Veuillez remplir une adresse e-mail",
   
   // "register-page.registration.email.error.pattern": "Please fill in a valid email address",
-  // TODO New key - Add a translation
-  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+  "register-page.registration.email.error.pattern": "Veuillez remplir une adresse e-mail valide",
   
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  // TODO New key - Add a translation
-  "register-page.registration.email.hint": "This address will be verified and used as your login name.",
+  "register-page.registration.email.hint": "Cette adresse va être vérifiée et utilisée en tant qu'identifiant de connection.",
   
   // "register-page.registration.submit": "Register",
-  // TODO New key - Add a translation
-  "register-page.registration.submit": "Register",
+  "register-page.registration.submit": "Enregistrer",
   
   // "register-page.registration.success.head": "Verification email sent",
-  // TODO New key - Add a translation
-  "register-page.registration.success.head": "Verification email sent",
+  "register-page.registration.success.head": "Mail de vérification",
   
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  // TODO New key - Add a translation
-  "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+  "register-page.registration.success.content": "Un mail de vérification a été envoyé à l'adresse et contient une URL de validation ainsi que de plus amples instructions.",
   
   // "register-page.registration.error.head": "Error when trying to register email",
-  // TODO New key - Add a translation
-  "register-page.registration.error.head": "Error when trying to register email",
+  "register-page.registration.error.head": "Erreur lors de l'inscription",
   
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "Une erreur s'est produite lors de l'inscription de l'adresse e-mail : {{ email }}",
   
   
   
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
-  // TODO New key - Add a translation
-  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+  "relationships.add.error.relationship-type.content": "Aucune correspondante adéquate détectée pour la relation de type {{ type }} entre ces 2 Items",
   
   // "relationships.add.error.server.content": "The server returned an error",
-  // TODO New key - Add a translation
-  "relationships.add.error.server.content": "The server returned an error",
+  "relationships.add.error.server.content": "Le serveur a retourné une erreur",
   
   // "relationships.add.error.title": "Unable to add relationship",
-  // TODO New key - Add a translation
-  "relationships.add.error.title": "Unable to add relationship",
+  "relationships.add.error.title": "Impossible d'ajouter la relation",
   
   // "relationships.isAuthorOf": "Authors",
   "relationships.isAuthorOf": "Auteurs",
   
   // "relationships.isAuthorOf.Person": "Authors (persons)",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.isAuthorOf.Person": "Auteurs (personnes)",
   
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.isAuthorOf.OrgUnit": "Auteurs (structures)",
   
   // "relationships.isIssueOf": "Journal Issues",
   "relationships.isIssueOf": "Numéros de revue",
@@ -3857,210 +3819,159 @@
   "relationships.isVolumeOf": "Volumes revue",
   
   // "relationships.isContributorOf": "Contributors",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf": "Contributors",
+  "relationships.isContributorOf": "Contributeurs",
   
   
   
   // "resource-policies.add.button": "Add",
-  // TODO New key - Add a translation
-  "resource-policies.add.button": "Add",
+  "resource-policies.add.button": "Ajouter",
   
   // "resource-policies.add.for.": "Add a new policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.": "Add a new policy",
+  "resource-policies.add.for.": "Ajouter nouvelle règle",
   
   // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+  "resource-policies.add.for.bitstream": "Ajouter une nouvelle règle Bitstream",
   
   // "resource-policies.add.for.bundle": "Add a new Bundle policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bundle": "Add a new Bundle policy",
+  "resource-policies.add.for.bundle": "Ajouter une nouvelle règle Bundle",
   
   // "resource-policies.add.for.item": "Add a new Item policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.item": "Add a new Item policy",
+  "resource-policies.add.for.item": "Ajouter une nouvelle règle Item",
   
   // "resource-policies.add.for.community": "Add a new Community policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.community": "Add a new Community policy",
+  "resource-policies.add.for.community": "Ajouter une nouvelle règle Communauté",
   
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.collection": "Add a new Collection policy",
+  "resource-policies.add.for.collection": "Ajouter une nouvelle règle Collection",
   
   // "resource-policies.create.page.heading": "Create new resource policy for ",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.heading": "Create new resource policy for ",
+  "resource-policies.create.page.heading": "Ajouter une nouvelle règle d'accès pour ",
   
   // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
+  "resource-policies.create.page.failure.content": "Une erreur s'est produite lors de la création de la règle d'accès.",
   
   // "resource-policies.create.page.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.success.content": "Operation successful",
+  "resource-policies.create.page.success.content": "Règle créée avec succès",
   
   // "resource-policies.create.page.title": "Create new resource policy",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.title": "Create new resource policy",
+  "resource-policies.create.page.title": "Créer nouvelle règle d'autorisation",
   
   // "resource-policies.delete.btn": "Delete selected",
-  // TODO New key - Add a translation
-  "resource-policies.delete.btn": "Delete selected",
+  "resource-policies.delete.btn": "Supprimer sélection",
   
   // "resource-policies.delete.btn.title": "Delete selected resource policies",
-  // TODO New key - Add a translation
-  "resource-policies.delete.btn.title": "Delete selected resource policies",
+  "resource-policies.delete.btn.title": "Supprimer les règles d'autorisation sélectionnées",
   
   // "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
-  // TODO New key - Add a translation
-  "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
+  "resource-policies.delete.failure.content": "Une erreur s'est produite lors de la suppression des règles d'autorisation.",
   
   // "resource-policies.delete.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.delete.success.content": "Operation successful",
+  "resource-policies.delete.success.content": "Règle supprimée avec succès",
   
   // "resource-policies.edit.page.heading": "Edit resource policy ",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.heading": "Edit resource policy ",
+  "resource-policies.edit.page.heading": "Éditer règle d'autorisation",
   
   // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
+  "resource-policies.edit.page.failure.content": "Une erreur s'est produite lors de la modification de la règle d'autorisation.",
   
   // "resource-policies.edit.page.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.success.content": "Operation successful",
+  "resource-policies.edit.page.success.content": "Règle mise à jour avec succès",
   
   // "resource-policies.edit.page.title": "Edit resource policy",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.title": "Edit resource policy",
+  "resource-policies.edit.page.title": "Éditer règle d'autorisation",
   
   // "resource-policies.form.action-type.label": "Select the action type",
-  // TODO New key - Add a translation
-  "resource-policies.form.action-type.label": "Select the action type",
+  "resource-policies.form.action-type.label": "Sélectionner le type d'action",
   
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  // TODO New key - Add a translation
-  "resource-policies.form.action-type.required": "You must select the resource policy action.",
+  "resource-policies.form.action-type.required": "Vous devez sélectioner l'action couverte par cette règle d'autorisation.",
   
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
+  "resource-policies.form.eperson-group-list.label": "La permission sera octroyée à l'utilisateur Eperson ou le groupe",
   
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.select.btn": "Select",
+  "resource-policies.form.eperson-group-list.select.btn": "Sélectionner",
   
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Rechercher ePerson",
   
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
+  "resource-policies.form.eperson-group-list.tab.group": "Rechercher groupe",
   
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
-  // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.table.headers.action": "Action",
   
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
-  // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
   
   // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+  "resource-policies.form.eperson-group-list.table.headers.name": "Nom",
   
   // "resource-policies.form.date.end.label": "End Date",
-  // TODO New key - Add a translation
-  "resource-policies.form.date.end.label": "End Date",
+  "resource-policies.form.date.end.label": "Date de fin",
   
   // "resource-policies.form.date.start.label": "Start Date",
-  // TODO New key - Add a translation
-  "resource-policies.form.date.start.label": "Start Date",
+  "resource-policies.form.date.start.label": "Date de début",
   
   // "resource-policies.form.description.label": "Description",
-  // TODO New key - Add a translation
   "resource-policies.form.description.label": "Description",
   
   // "resource-policies.form.name.label": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.form.name.label": "Name",
+  "resource-policies.form.name.label": "Nom",
   
   // "resource-policies.form.policy-type.label": "Select the policy type",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.label": "Select the policy type",
+  "resource-policies.form.policy-type.label": "Sélectionner le type de règle",
   
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.required": "You must select the resource policy type.",
+  "resource-policies.form.policy-type.required": "Vous devez sélectionner le type de règle d'autorisation.",
   
   // "resource-policies.table.headers.action": "Action",
-  // TODO New key - Add a translation
   "resource-policies.table.headers.action": "Action",
   
   // "resource-policies.table.headers.date.end": "End Date",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.date.end": "End Date",
+  "resource-policies.table.headers.date.end": "Date de fin",
   
   // "resource-policies.table.headers.date.start": "Start Date",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.date.start": "Start Date",
+  "resource-policies.table.headers.date.start": "Date de début",
   
   // "resource-policies.table.headers.edit": "Edit",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit": "Edit",
+  "resource-policies.table.headers.edit": "Éditer",
   
   // "resource-policies.table.headers.edit.group": "Edit group",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.group": "Edit group",
+  "resource-policies.table.headers.edit.group": "Éditer groupe",
   
   // "resource-policies.table.headers.edit.policy": "Edit policy",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.policy": "Edit policy",
+  "resource-policies.table.headers.edit.policy": "Éditer règle",
   
   // "resource-policies.table.headers.eperson": "EPerson",
-  // TODO New key - Add a translation
   "resource-policies.table.headers.eperson": "EPerson",
   
   // "resource-policies.table.headers.group": "Group",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.group": "Group",
+  "resource-policies.table.headers.group": "Groupe",
   
   // "resource-policies.table.headers.id": "ID",
-  // TODO New key - Add a translation
   "resource-policies.table.headers.id": "ID",
   
   // "resource-policies.table.headers.name": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.name": "Name",
+  "resource-policies.table.headers.name": "Nom",
   
   // "resource-policies.table.headers.policyType": "type",
-  // TODO New key - Add a translation
   "resource-policies.table.headers.policyType": "type",
   
   // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+  "resource-policies.table.headers.title.for.bitstream": "Règles Bitstream",
   
   // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
+  "resource-policies.table.headers.title.for.bundle": "Règles Bundle",
   
   // "resource-policies.table.headers.title.for.item": "Policies for Item",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.item": "Policies for Item",
+  "resource-policies.table.headers.title.for.item": "Règles Item",
   
   // "resource-policies.table.headers.title.for.community": "Policies for Community",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.community": "Policies for Community",
+  "resource-policies.table.headers.title.for.community": "Règles Communauté",
   
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+  "resource-policies.table.headers.title.for.collection": "Règles Collection",
   
   
   
@@ -4074,8 +3985,7 @@
   "search.title": "DSpace Angular :: Recherche",
   
   // "search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "search.breadcrumbs": "Search",
+  "search.breadcrumbs": "Recherche",
   
   
   // "search.filters.applied.f.author": "Author",
@@ -4091,8 +4001,7 @@
   "search.filters.applied.f.dateSubmitted": "Date de dépôt",
   
   // "search.filters.applied.f.discoverable": "Private",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.discoverable": "Private",
+  "search.filters.applied.f.discoverable": "Privé",
   
   // "search.filters.applied.f.entityType": "Item Type",
   "search.filters.applied.f.entityType": "Type d'Item",
@@ -4113,20 +4022,16 @@
   "search.filters.applied.f.submitter": "Déposant",
   
   // "search.filters.applied.f.jobTitle": "Job Title",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.jobTitle": "Job Title",
+  "search.filters.applied.f.jobTitle": "Fonction",
   
   // "search.filters.applied.f.birthDate.max": "End birth date",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.birthDate.max": "End birth date",
+  "search.filters.applied.f.birthDate.max": "Date de naissance max",
   
   // "search.filters.applied.f.birthDate.min": "Start birth date",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.birthDate.min": "Start birth date",
+  "search.filters.applied.f.birthDate.min": "Date de naissance min",
   
   // "search.filters.applied.f.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.withdrawn": "Withdrawn",
+  "search.filters.applied.f.withdrawn": "Retiré",
   
   
   
@@ -4182,12 +4087,10 @@
   "search.filters.filter.dateSubmitted.placeholder": "Date de dépôt",
   
   // "search.filters.filter.discoverable.head": "Private",
-  // TODO New key - Add a translation
-  "search.filters.filter.discoverable.head": "Private",
+  "search.filters.filter.discoverable.head": "Privé",
   
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  // TODO New key - Add a translation
-  "search.filters.filter.withdrawn.head": "Withdrawn",
+  "search.filters.filter.withdrawn.head": "Retiré",
   
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Type d'Item",
@@ -4273,40 +4176,31 @@
   
   
   // "search.filters.entityType.JournalIssue": "Journal Issue",
-  // TODO New key - Add a translation
-  "search.filters.entityType.JournalIssue": "Journal Issue",
+  "search.filters.entityType.JournalIssue": "Numéro de revue",
   
   // "search.filters.entityType.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "search.filters.entityType.JournalVolume": "Journal Volume",
+  "search.filters.entityType.JournalVolume": "Volume de la revue",
   
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
-  // TODO New key - Add a translation
-  "search.filters.entityType.OrgUnit": "Organizational Unit",
+  "search.filters.entityType.OrgUnit": "Structure",
   
   // "search.filters.has_content_in_original_bundle.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.true": "Yes",
+  "search.filters.has_content_in_original_bundle.true": "Oui",
   
   // "search.filters.has_content_in_original_bundle.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.false": "No",
+  "search.filters.has_content_in_original_bundle.false": "Non",
   
   // "search.filters.discoverable.true": "No",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.true": "No",
+  "search.filters.discoverable.true": "Non",
   
   // "search.filters.discoverable.false": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.false": "Yes",
+  "search.filters.discoverable.false": "Oui",
   
   // "search.filters.withdrawn.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.true": "Yes",
+  "search.filters.withdrawn.true": "Oui",
   
   // "search.filters.withdrawn.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.false": "No",
+  "search.filters.withdrawn.false": "Non",
   
   
   // "search.filters.head": "Filters",
@@ -4338,8 +4232,7 @@
   "search.results.no-results-link": "des guillemets avant et après les termes recherchés",
   
   // "search.results.empty": "Your search returned no results.",
-  // TODO New key - Add a translation
-  "search.results.empty": "Your search returned no results.",
+  "search.results.empty": "Votre recherche n'a retourné aucun résultat.",
   
   
   
@@ -4378,12 +4271,10 @@
   
   
   // "sorting.ASC": "Ascending",
-  // TODO New key - Add a translation
-  "sorting.ASC": "Ascending",
+  "sorting.ASC": "Croissant",
   
   // "sorting.DESC": "Descending",
-  // TODO New key - Add a translation
-  "sorting.DESC": "Descending",
+  "sorting.DESC": "Décroissant",
   
   // "sorting.dc.title.ASC": "Title Ascending",
   "sorting.dc.title.ASC": "Titre croissant",
@@ -4397,48 +4288,37 @@
   
   
   // "statistics.title": "Statistics",
-  // TODO New key - Add a translation
-  "statistics.title": "Statistics",
+  "statistics.title": "Statistiques",
   
   // "statistics.header": "Statistics for {{ scope }}",
-  // TODO New key - Add a translation
-  "statistics.header": "Statistics for {{ scope }}",
+  "statistics.header": "Statistiques pour {{ scope }}",
   
   // "statistics.breadcrumbs": "Statistics",
-  // TODO New key - Add a translation
-  "statistics.breadcrumbs": "Statistics",
+  "statistics.breadcrumbs": "Statistiques",
   
   // "statistics.page.no-data": "No data available",
-  // TODO New key - Add a translation
-  "statistics.page.no-data": "No data available",
+  "statistics.page.no-data": "Aucune donnée disponible",
   
   // "statistics.table.no-data": "No data available",
-  // TODO New key - Add a translation
-  "statistics.table.no-data": "No data available",
+  "statistics.table.no-data": "Aucune donnée disponible",
   
   // "statistics.table.title.TotalVisits": "Total visits",
-  // TODO New key - Add a translation
-  "statistics.table.title.TotalVisits": "Total visits",
+  "statistics.table.title.TotalVisits": "Total visites",
   
   // "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
-  // TODO New key - Add a translation
-  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+  "statistics.table.title.TotalVisitsPerMonth": "Total visites par mois",
   
   // "statistics.table.title.TotalDownloads": "File Visits",
-  // TODO New key - Add a translation
-  "statistics.table.title.TotalDownloads": "File Visits",
+  "statistics.table.title.TotalDownloads": "Téléchargements",
   
   // "statistics.table.title.TopCountries": "Top country views",
-  // TODO New key - Add a translation
-  "statistics.table.title.TopCountries": "Top country views",
+  "statistics.table.title.TopCountries": "Vues par pays",
   
   // "statistics.table.title.TopCities": "Top city views",
-  // TODO New key - Add a translation
-  "statistics.table.title.TopCities": "Top city views",
+  "statistics.table.title.TopCities": "Vues par villes",
   
   // "statistics.table.header.views": "Views",
-  // TODO New key - Add a translation
-  "statistics.table.header.views": "Views",
+  "statistics.table.header.views": "Vues",
   
   
   
@@ -4474,176 +4354,133 @@
   
   
   // "submission.import-external.page.title": "Import metadata from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.page.title": "Import metadata from an external source",
+  "submission.import-external.page.title": "Importer les métadonnées depuis une source externe",
   
   // "submission.import-external.title": "Import metadata from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title": "Import metadata from an external source",
+  "submission.import-external.title": "Importer les métadonnées depuis une source externe",
   
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  // TODO New key - Add a translation
-  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+  "submission.import-external.page.hint": "Entrer votre recherche ci-dessus pour rechercher les publications à importer.",
   
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
-  // TODO New key - Add a translation
-  "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
+  "submission.import-external.back-to-my-dspace": "De retour vers MyDSpace",
   
   // "submission.import-external.search.placeholder": "Search the external source",
-  // TODO New key - Add a translation
-  "submission.import-external.search.placeholder": "Search the external source",
+  "submission.import-external.search.placeholder": "Recherche source externe",
   
   // "submission.import-external.search.button": "Search",
-  // TODO New key - Add a translation
-  "submission.import-external.search.button": "Search",
+  "submission.import-external.search.button": "Rechercher",
   
   // "submission.import-external.search.button.hint": "Write some words to search",
-  // TODO New key - Add a translation
-  "submission.import-external.search.button.hint": "Write some words to search",
+  "submission.import-external.search.button.hint": "Votre recherche",
   
   // "submission.import-external.search.source.hint": "Pick an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.search.source.hint": "Pick an external source",
+  "submission.import-external.search.source.hint": "Choisir source externe",
   
   // "submission.import-external.source.arxiv": "arXiv",
-  // TODO New key - Add a translation
   "submission.import-external.source.arxiv": "arXiv",
   
   // "submission.import-external.source.loading": "Loading ...",
-  // TODO New key - Add a translation
-  "submission.import-external.source.loading": "Loading ...",
+  "submission.import-external.source.loading": "En cours de chargement ...",
   
   // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  "submission.import-external.source.sherpaJournal": "Sherpa Journals",
   
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  // TODO New key - Add a translation
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
   
   // "submission.import-external.source.orcid": "ORCID",
-  // TODO New key - Add a translation
   "submission.import-external.source.orcid": "ORCID",
   
   // "submission.import-external.source.pubmed": "Pubmed",
-  // TODO New key - Add a translation
   "submission.import-external.source.pubmed": "Pubmed",
   
   // "submission.import-external.source.lcname": "Library of Congress Names",
-  // TODO New key - Add a translation
   "submission.import-external.source.lcname": "Library of Congress Names",
   
   // "submission.import-external.preview.title": "Item Preview",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.title": "Item Preview",
+  "submission.import-external.preview.title": "Prévisualisation Item",
   
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
+  "submission.import-external.preview.subtitle": "Les métadonnées ci-dessous ont été importées depuis une source externe. Le formulaire de dépôt sera pré-rempli avec ces métadonnées lorsque vous initierez le dépôt.",
   
   // "submission.import-external.preview.button.import": "Start submission",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.button.import": "Start submission",
+  "submission.import-external.preview.button.import": "Démarrer dépôt",
   
   // "submission.import-external.preview.error.import.title": "Submission error",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.error.import.title": "Submission error",
+  "submission.import-external.preview.error.import.title": "Erreur dépôt",
   
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
-  // TODO New key - Add a translation
-  "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+  "submission.import-external.preview.error.import.body": "Une erreur s'est produite lors de l'import depuis la source externe.",
   
   // "submission.sections.describe.relationship-lookup.close": "Close",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.close": "Close",
+  "submission.sections.describe.relationship-lookup.close": "Fermer",
   
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.added": "Entrée locale ajoutée avec succès à la sélection",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importer auteur externe",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importer revue externe",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Importer numéro de revue externe",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Importer volume de revue externe",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importer auteur externe",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Auteur local ajouté avec succès à la sélection",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Auteur externe importé et ajouté à la sélection avec succès",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Autorité",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Importer en tant que nouvelle autorité locale",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Annuler",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Sélectionner une collection dans laquelle importer les nouvelles entrées",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entités",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Importer en tant que nouvelle entité locale",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Import depuis LC Name en cours",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Import depuis ORCID en cours",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Import depuis Sherpa Journal en cours",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Import depuis Sherpa Publisher en cours",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Import depuis PubMed en cours",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Import depuis arXiv en cours",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Importer revue externe",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Successfully added local journal to the selection",
   // TODO New key - Add a translation
