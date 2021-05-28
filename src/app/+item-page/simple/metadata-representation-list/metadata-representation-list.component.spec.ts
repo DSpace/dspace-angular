@@ -5,7 +5,7 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { Item } from '../../../core/shared/item.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
@@ -35,6 +35,12 @@ const parentItem: Item = Object.assign(new Item(), {
         authority: 'virtual::related-creator',
         place: 3,
       },
+      {
+        language: null,
+        value: 'Related Creator with authority - unauthorized',
+        authority: 'virtual::related-creator-unauthorized',
+        place: 4,
+      },
     ],
     'dc.title': [
       {
@@ -55,21 +61,49 @@ const relatedAuthor: Item = Object.assign(new Item(), {
     ]
   }
 });
-const relation: Relationship = Object.assign(new Relationship(), {
+const relatedCreator: Item = Object.assign(new Item(), {
+  id: 'related-creator',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'Related Creator'
+      }
+    ],
+    'dspace.entity.type': 'Person',
+  }
+});
+const authorRelation: Relationship = Object.assign(new Relationship(), {
   leftItem: createSuccessfulRemoteDataObject$(parentItem),
   rightItem: createSuccessfulRemoteDataObject$(relatedAuthor)
 });
-let relationshipService: RelationshipService;
+const creatorRelation: Relationship = Object.assign(new Relationship(), {
+  leftItem: createSuccessfulRemoteDataObject$(parentItem),
+  rightItem: createSuccessfulRemoteDataObject$(relatedCreator),
+});
+const creatorRelationUnauthorized: Relationship = Object.assign(new Relationship(), {
+  leftItem: createSuccessfulRemoteDataObject$(parentItem),
+  rightItem: createFailedRemoteDataObject$('Unauthorized', 401),
+});
+let relationshipService;
 
 describe('MetadataRepresentationListComponent', () => {
   let comp: MetadataRepresentationListComponent;
   let fixture: ComponentFixture<MetadataRepresentationListComponent>;
 
-  relationshipService = jasmine.createSpyObj('relationshipService',
-    {
-      findById: createSuccessfulRemoteDataObject$(relation)
-    }
-  );
+  relationshipService = {
+    findById: (id: string) => {
+      if (id === 'related-author') {
+        return createSuccessfulRemoteDataObject$(authorRelation);
+      }
+      if (id === 'related-creator') {
+        return createSuccessfulRemoteDataObject$(creatorRelation);
+      }
+      if (id === 'related-creator-unauthorized') {
+        return createSuccessfulRemoteDataObject$(creatorRelationUnauthorized);
+      }
+    },
+  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -93,9 +127,9 @@ describe('MetadataRepresentationListComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should load 3 ds-metadata-representation-loader components', () => {
+  it('should load 4 ds-metadata-representation-loader components', () => {
     const fields = fixture.debugElement.queryAll(By.css('ds-metadata-representation-loader'));
-    expect(fields.length).toBe(3);
+    expect(fields.length).toBe(4);
   });
 
   it('should contain one page of items', () => {
