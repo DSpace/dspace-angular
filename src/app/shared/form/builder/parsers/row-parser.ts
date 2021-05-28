@@ -12,6 +12,8 @@ import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
 import { setLayout } from './parser.utils';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
+import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -118,15 +120,25 @@ export class RowParser {
     return parsedResult;
   }
 
-  checksFieldScope(fieldScope, submissionScope) {
-    return (isEmpty(fieldScope) || isEmpty(submissionScope) || fieldScope === submissionScope);
+  /**
+   * Check if a field is visible with the given scope
+   * @param visibility
+   * @param submissionScope
+   */
+  checksFieldScope(visibility: SubmissionVisibilityType, submissionScope) {
+    return isEmpty(submissionScope) || !SubmissionVisibility.isHidden(visibility, submissionScope);
   }
 
+  /**
+   * Return the list of row's field visible with the given scope
+   * @param fields
+   * @param submissionScope
+   */
   filterScopedFields(fields: FormFieldModel[], submissionScope): FormFieldModel[] {
     const filteredFields: FormFieldModel[] = [];
     fields.forEach((field: FormFieldModel) => {
       // Whether field scope doesn't match the submission scope, skip it
-      if (this.checksFieldScope(field.scope, submissionScope)) {
+      if (this.checksFieldScope(field.visibility, submissionScope)) {
         filteredFields.push(field);
       }
     });
