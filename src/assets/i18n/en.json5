@@ -3155,7 +3155,7 @@
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
 
-  "person.page.orcid.save.preference.changes": "Edit settings",
+  "person.page.orcid.save.preference.changes": "Update settings",
 
   "person.page.orcid.sync-profile.affiliation" : "Affiliation",
 
@@ -3215,7 +3215,7 @@
 
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
 
-  "person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.funding": "Funding",
 
   "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
 
