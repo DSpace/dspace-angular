@@ -3,6 +3,7 @@ import { autoserialize } from 'cerialize';
 import { LanguageCode } from './form-field-language-value.model';
 import { RelationshipOptions } from './relationship-options.model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 
 /**
  * Representing SelectableMetadata properties
@@ -121,4 +122,10 @@ export class FormFieldModel {
 
   @autoserialize
   value: any;
+
+  /**
+   * The visibility object for this field
+   */
+  @autoserialize
+  visibility: SubmissionVisibilityType;
 }

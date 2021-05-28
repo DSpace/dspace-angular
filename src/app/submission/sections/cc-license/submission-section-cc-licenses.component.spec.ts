@@ -31,7 +31,8 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     serverValidationErrors: [],
     header: 'test header',
     id: 'test section id',
-    sectionType: SectionsType.SubmissionForm
+    sectionType: SectionsType.SubmissionForm,
+    sectionVisibility: null
   };
 
   const submissionCcLicenses: SubmissionCcLicence[] = [

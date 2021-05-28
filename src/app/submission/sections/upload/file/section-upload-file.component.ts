@@ -76,6 +76,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   @Input() fileName: string;
 
   /**
+   * Representing the possibility to edit or not the files
+   * @type {boolean}
+   */
+  @Input() readOnly = false;
+
+  /**
    * The section id
    * @type {string}
    */

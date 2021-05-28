@@ -26,7 +26,7 @@
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"
                   aria-hidden="true"></span>
           </a>
-          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
+          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory() && !(sectionRef.isReadOnly() | async)"
              (click)="removeSection($event)">
             <i *ngIf="!(isRemoving | async)" class="far fa-trash-alt" aria-hidden="true"></i>
             <i *ngIf="(isRemoving | async)" class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>

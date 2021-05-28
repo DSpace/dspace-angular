@@ -1690,17 +1690,17 @@
 
   "form.external.source-help": "Click here to create a new item from this field",
 
+  "form.external.source.group.btn": "Create entity",
+
   "form.external.source.group-help": "Click here to create a new item from this group of fields",
 
   "form.first-name": "First name",
 
-  "form.group-collapse": "Collapse",
+  "form.group.add": "Add",
 
-  "form.group-collapse-help": "Click here to collapse",
+  "form.group.close": "Close",
 
-  "form.group-expand": "Expand",
-
-  "form.group-expand-help": "Click here to expand and add more elements",
+  "form.group.set": "Set",
 
   "form.last-name": "Last name",
 

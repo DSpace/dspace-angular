@@ -17,6 +17,7 @@ import { DetectDuplicateService } from './detect-duplicate.service';
 import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 
 /**
  * This component represents a section that contains possible duplications.
@@ -150,6 +151,16 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
   getTotalMatches(): Observable<number> {
     return this.sectionData$.pipe(
       map((totalMatches: any) => Object.keys(totalMatches.matches).length)
+    );
+  }
+
+  /**
+   * Check if upload section has read-only visibility
+   */
+  isReadOnly(): boolean {
+    return SubmissionVisibility.isReadOnly(
+      this.sectionData.sectionVisibility,
+      this.submissionService.getSubmissionScope()
     );
   }
 

@@ -1,6 +1,6 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
 
@@ -285,6 +285,7 @@ describe('DuplicateMatchComponent test suite', () => {
   let comp: DuplicateMatchComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<DuplicateMatchComponent>;
+  let de: DebugElement;
   let submissionServiceStub: any;
   let modalService: any;
   let formBuilder: FormBuilder;
@@ -354,6 +355,7 @@ describe('DuplicateMatchComponent test suite', () => {
       compAsAny.sectionService.isSectionActive.and.returnValue(observableOf(true));
       spyOn(modalService, 'open').and.returnValue({ dismiss: () => true });
       spyOn(operationsBuilder, 'add');
+      de = fixture.debugElement;
     });
 
     afterEach(() => {
@@ -367,6 +369,8 @@ describe('DuplicateMatchComponent test suite', () => {
       comp.match = matchWorkflowMock;
 
       fixture.detectChanges();
+      const button = de.query(By.css('.btn'));
+      expect(button).not.toBeNull();
       expect(comp.decisionType).toEqual(DuplicateDecisionType.WORKFLOW);
       expect(comp.hasDecision).toBeTrue();
       expect(comp.submitterNote).toBeUndefined();
@@ -459,7 +463,17 @@ describe('DuplicateMatchComponent test suite', () => {
       comp.openModal({});
       expect(comp.rejectForm.reset).toHaveBeenCalled();
     });
+
+    it('should not show any decision buttons when ready-only is true', () => {
+      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      comp.match = matchWorkflowMock;
+      comp.readOnly = true;
+      fixture.detectChanges();
+      const button = de.query(By.css('.btn'));
+      expect(button).toBeNull();
+    });
   });
+
 });
 
 // declare a test component

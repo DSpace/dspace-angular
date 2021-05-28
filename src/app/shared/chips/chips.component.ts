@@ -19,6 +19,7 @@ import { ChipsItem } from './models/chips-item.model';
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
   @Input() wrapperClass: string;
+  @Input() readOnly = false;
   @Input() showIcons = false;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();

@@ -24,6 +24,7 @@
           *ngVar="(i + (config.currentPage-1)*config.pageSize) as totalIndex"
           [sectionId]="sectionData.id"
           [match]="item.value"
+          [readOnly]="isReadOnly()"
           [submissionId]="submissionId"
           [index]=totalIndex
           [itemId]="item.key"></ds-duplicate-match>

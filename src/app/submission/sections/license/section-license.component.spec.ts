@@ -74,7 +74,8 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors: [],
   header: 'submit.progressbar.describe.license',
   id: 'license',
-  sectionType: SectionsType.License
+  sectionType: SectionsType.License,
+  sectionVisibility: null
 };
 
 const dynamicFormControlEvent: DynamicFormControlEvent = {
