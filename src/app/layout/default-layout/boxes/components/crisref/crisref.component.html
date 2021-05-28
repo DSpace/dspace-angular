@@ -4,8 +4,10 @@
   </span>
   <div [class]="'d-flex flex-column ' + valueStyle">
     <span *ngFor="let ref of (references| async)" class="txt-value">
-      <ng-container [ngTemplateOutlet]="ref.id ? withAuthority : withoutAuthority"
-                    [ngTemplateOutletContext]="{ref:ref}"></ng-container>
+      <span class="d-inline-flex align-items-center">
+        <ng-container [ngTemplateOutlet]="ref.id ? withAuthority : withoutAuthority"
+                      [ngTemplateOutletContext]="{ref:ref}"></ng-container>
+      </span>
     </span>
   </div>
 </div>
