@@ -311,9 +311,16 @@ export class FormComponent implements OnDestroy, OnInit {
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     const event = this.getEvent($event, arrayContext, index, 'remove');
+    if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      // In case of qualdrop value remove event must be dispatched before removing the control from array
+      this.removeArrayItem.emit(event);
+    }
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     this.formService.changeForm(this.formId, this.formModel);
-    this.removeArrayItem.emit(event);
+    if (!this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      // dispatch remove event for any field type except for qualdrop value
+      this.removeArrayItem.emit(event);
+    }
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {

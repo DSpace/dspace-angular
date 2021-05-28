@@ -298,16 +298,13 @@ export class SectionFormOperationsService {
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject): void {
 
-    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
-      // Model is a DynamicRowArrayModel
-      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
-      return;
-    }
-
     const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
+    } else if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+      // Model is a DynamicRowArrayModel
+      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
     } else if ((isNotEmpty(value) && typeof value === 'string') || (isNotEmpty(value) && value instanceof FormFieldMetadataValueObject && value.hasValue())) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     }
