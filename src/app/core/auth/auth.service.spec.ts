@@ -27,6 +27,10 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { authMethodsMock } from '../../shared/testing/auth-service.stub';
 import { AuthMethod } from './models/auth.method';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 describe('AuthService test', () => {
 
@@ -107,6 +111,8 @@ describe('AuthService test', () => {
           { provide: Store, useValue: mockStore },
           { provide: EPersonDataService, useValue: mockEpersonDataService },
           { provide: HardRedirectService, useValue: hardRedirectService },
+          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: TranslateService, useValue: getMockTranslateService() },
           CookieService,
           AuthService
         ],
@@ -207,13 +213,13 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -277,7 +283,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService) => {
+    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       const expiredToken: AuthTokenInfo = new AuthTokenInfo('test_token');
       expiredToken.expires = Date.now() - (1000 * 60 * 60);
       authenticatedState = {
@@ -292,7 +298,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.inject(RouteService);
       routerStub = TestBed.inject(Router);
@@ -493,13 +499,13 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = unAuthenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
     }));
 
     it('should return null for the shortlived token', () => {

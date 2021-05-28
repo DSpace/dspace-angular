@@ -1,4 +1,4 @@
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Component, Inject, OnInit, Optional, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -21,6 +21,8 @@ import { environment } from '../../environments/environment';
 import { LocaleService } from '../core/locale/locale.service';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { slideSidebarPadding } from '../shared/animations/slide';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IdleModalComponent } from '../shared/idle-modal/idle-modal.component';
 
 @Component({
   selector: 'ds-root',
@@ -47,6 +49,11 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
+  /**
+   * Whether or not the idle modal is is currently open
+   */
+  idleModalOpen: boolean;
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translate: TranslateService,
@@ -60,7 +67,8 @@ export class RootComponent implements OnInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
     private localeService: LocaleService,
-    @Optional() private cookiesService: KlaroService
+    @Optional() private cookiesService: KlaroService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -75,5 +83,19 @@ export class RootComponent implements OnInit {
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile)
       );
+
+    this.authService.isUserIdle().subscribe((userIdle: boolean) => {
+      if (userIdle) {
+        if (!this.idleModalOpen) {
+          const modalRef = this.modalService.open(IdleModalComponent);
+          this.idleModalOpen = true;
+          modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+            if (closed) {
+              this.idleModalOpen = false;
+            }
+          });
+        }
+      }
+    });
   }
 }

@@ -3691,5 +3691,15 @@
 
   "workflow-item.send-back.button.cancel": "Cancel",
 
-  "workflow-item.send-back.button.confirm": "Send back"
+  "workflow-item.send-back.button.confirm": "Send back",
+
+
+
+  "idle-modal.header": "Session will expire soon",
+
+  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?”",
+
+  "idle-modal.log-out": "Log out",
+
+  "idle-modal.extend-session": "Extend session"
 }

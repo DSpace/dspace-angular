@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, timer } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -37,9 +37,19 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  RetrieveTokenAction
+  RetrieveTokenAction, SetUserAsIdleAction
 } from './auth.actions';
 import { hasValue } from '../../shared/empty.util';
+import { environment } from '../../../environments/environment';
+import { RequestActionTypes } from '../data/request.actions';
+import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
+import { ObjectCacheActionTypes } from '../cache/object-cache.actions';
+import { NO_OP_ACTION_TYPE } from '../../shared/ngrx/no-op.action';
+
+// Action Types that do not break/prevent the user from an idle state
+const IDLE_TIMER_IGNORE_TYPES: string[]
+  = [...Object.values(AuthActionTypes).filter((t: string) => t !== AuthActionTypes.UNSET_USER_AS_IDLE),
+  ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
 
 @Injectable()
 export class AuthEffects {
@@ -241,6 +251,25 @@ export class AuthEffects {
           );
       })
     );
+
+  /**
+   * For any action that is not in {@link IDLE_TIMER_IGNORE_TYPES} that comes in => Start the idleness timer
+   * If the idleness timer runs out (so no un-ignored action come through for that amount of time)
+   * => Return the action to set the user as idle ({@link SetUserAsIdleAction})
+   * @method trackIdleness
+   */
+  @Effect()
+  public trackIdleness$: Observable<Action> = this.actions$.pipe(
+    filter((action: Action) => !IDLE_TIMER_IGNORE_TYPES.includes(action.type)),
+    // Using switchMap the timer will be interrupted and restarted if a new action comes in, so idleness timer restarts
+    switchMap(() => {
+      this.authService.isAuthenticated();
+      return timer(environment.auth.ui.timeUntilIdle);
+    }),
+    map(() => {
+      return new SetUserAsIdleAction();
+    })
+  );
 
   /**
    * @constructor

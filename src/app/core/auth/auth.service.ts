@@ -29,6 +29,7 @@ import {
   getRedirectUrl,
   isAuthenticated,
   isAuthenticatedLoaded,
+  isIdle,
   isTokenRefreshing
 } from './selectors';
 import { AppState } from '../../app.reducer';
@@ -36,7 +37,9 @@ import {
   CheckAuthenticationTokenAction, RefreshTokenAction,
   ResetAuthenticationMessagesAction,
   RetrieveAuthMethodsAction,
-  SetRedirectUrlAction
+  SetRedirectUrlAction,
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction
 } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
@@ -197,7 +200,7 @@ export class AuthService {
     return this.store.pipe(
       select(getAuthenticatedUserId),
       hasValueOperator(),
-      switchMap((id: string) => this.epersonService.findById(id) ),
+      switchMap((id: string) => this.epersonService.findById(id)),
       getAllSucceededRemoteDataPayload()
     );
   }
@@ -279,7 +282,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
+    const options: HttpOptions = Object.create({headers, responseType: 'text'});
     return this.authRequestService.postToEndpoint('logout', options).pipe(
       map((rd: RemoteData<AuthStatus>) => {
         const status = rd.payload;
@@ -324,20 +327,20 @@ export class AuthService {
     let currentlyRefreshingToken = false;
     this.store.pipe(select(getAuthenticationToken)).subscribe((authTokenInfo: AuthTokenInfo) => {
       // If new token is undefined an it wasn't previously => Refresh failed
-      if (currentlyRefreshingToken && token != undefined && authTokenInfo == undefined) {
+      if (currentlyRefreshingToken && token !== undefined && authTokenInfo === undefined) {
         // Token refresh failed => Error notification => 10 second wait => Page reloads & user logged out
         this.notificationService.error(this.translateService.get('auth.messages.token-refresh-failed'));
         setTimeout(() => this.navigateToRedirectUrl(this.hardRedirectService.getCurrentRoute()), 10000);
         currentlyRefreshingToken = false;
       }
       // If new token.expires is different => Refresh succeeded
-      if (currentlyRefreshingToken && authTokenInfo != undefined && token.expires != authTokenInfo.expires) {
+      if (currentlyRefreshingToken && authTokenInfo !== undefined && token.expires !== authTokenInfo.expires) {
         currentlyRefreshingToken = false;
       }
       // Check if/when token needs to be refreshed
       if (!currentlyRefreshingToken) {
         token = authTokenInfo || null;
-        if (token != undefined && token != null) {
+        if (token !== undefined && token !== null) {
           let timeLeftBeforeRefresh = token.expires - new Date().getTime() - environment.auth.rest.timeLeftBeforeTokenRefresh;
           if (timeLeftBeforeRefresh < 0) {
             timeLeftBeforeRefresh = 0;
@@ -394,7 +397,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -483,7 +486,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
@@ -574,6 +577,26 @@ export class AuthService {
    */
   getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
     return new RetrieveAuthMethodsAction(authStatus, false);
+  }
+
+  /**
+   * Determines if current user is idle
+   * @returns {Observable<boolean>}
+   */
+  public isUserIdle(): Observable<boolean> {
+    return this.store.pipe(select(isIdle));
+  }
+
+  /**
+   * Set idle of auth state
+   * @returns {Observable<boolean>}
+   */
+  public setIdle(idle: boolean): void {
+    if (idle) {
+      this.store.dispatch(new SetUserAsIdleAction());
+    } else {
+      this.store.dispatch(new UnsetUserAsIdleAction());
+    }
   }
 
 }
