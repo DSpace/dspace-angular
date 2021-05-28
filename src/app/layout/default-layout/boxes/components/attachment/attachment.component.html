@@ -1,4 +1,4 @@
-<span class="{{containerStyle}}" *ngIf="(bitstreams$ | async).length > 0">
+<span class="{{containerStyle}}" *ngIf="(bitstreams$ | async)?.length > 0">
   <span *ngIf="!nested" class="{{labelStyle}}">
     {{label | translate}}
   </span>
