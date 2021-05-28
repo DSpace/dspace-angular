@@ -128,6 +128,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       getFinishedRemoteData()
     ).subscribe((remoteData) => {
       if (remoteData.isSuccess) {
+        this.refreshTab.emit();
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.error'));

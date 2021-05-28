@@ -35,6 +35,7 @@ import { MetricDspacecrisComponent } from './default-layout/boxes/components/met
 import { MetricGooglescholarComponent } from './default-layout/boxes/components/metric/metric-googlescholar/metric-googlescholar.component';
 import { TableComponent } from './default-layout/boxes/components/table/table.component';
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
+import { OrcidComponent } from './default-layout/boxes/components/orcid/orcid.component';
 import { CrisLayoutSidebarItemComponent } from './default-layout/sidebar/sidebar-item/cris-layout-sidebar-item.component';
 import { MetricEmbeddedViewComponent } from './default-layout/boxes/components/metric/metric-embedded-view/metric-embedded-view.component';
 import { MetricEmbeddedDownloadComponent } from './default-layout/boxes/components/metric/metric-embedded-download/metric-embedded-download.component';
@@ -47,6 +48,7 @@ const ENTRY_COMPONENTS = [
   CrisLayoutMetricsBoxComponent,
   CrisLayoutSearchBoxComponent,
   TextComponent,
+  OrcidComponent,
   HeadingComponent,
   LongtextComponent,
   DateComponent,
@@ -70,6 +72,7 @@ const ENTRY_COMPONENTS = [
     CrisLayoutMetricsBoxComponent,
     RowComponent,
     TextComponent,
+    OrcidComponent,
     HeadingComponent,
     CrisLayoutSearchBoxComponent,
     LongtextComponent,
