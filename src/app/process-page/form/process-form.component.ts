@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
+import {hasValue, isUndefined} from '../../shared/empty.util';
 
 /**
  * Component to create a new script
@@ -73,13 +74,17 @@ export class ProcessFormComponent implements OnInit {
       return;
     }
 
-    const stringParameters: ProcessParameter[] = this.parameters.map((parameter: ProcessParameter) => {
-        return {
-          name: parameter.name,
-          value: this.checkValue(parameter)
-        };
-      }
-    );
+    let stringParameters: ProcessParameter[] = [];
+
+    if (hasValue(this.parameters)) {
+      stringParameters = this.parameters.map((parameter: ProcessParameter) => {
+          return {
+            name: parameter.name,
+            value: this.checkValue(parameter)
+          };
+        }
+      );
+    }
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
       .pipe(getFirstCompletedRemoteData())
       .subscribe((rd: RemoteData<Process>) => {
@@ -128,6 +133,9 @@ export class ProcessFormComponent implements OnInit {
 
   private isRequiredMissing() {
     this.missingParameters = [];
+    if (isUndefined(this.parameters)) {
+      return false;
+    }
     const setParams: string[] = this.parameters
       .map((param) => param.name);
     const requiredParams: ScriptParameter[] = this.selectedScript.parameters.filter((param) => param.mandatory);
