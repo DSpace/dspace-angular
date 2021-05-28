@@ -27,7 +27,6 @@ describe('SubmissionSubmitComponent Component', () => {
   let submissionServiceStub: SubmissionServiceStub;
   let router: RouterStub;
 
-  const submissionId = '826';
   const submissionObject: any = mockSubmissionObject;
 
   beforeEach(waitForAsync(() => {
@@ -65,27 +64,23 @@ describe('SubmissionSubmitComponent Component', () => {
     router = null;
   });
 
-  it('should init properly when a valid SubmissionObject has been retrieved', fakeAsync(() => {
-
-    submissionServiceStub.createSubmission.and.returnValue(observableOf(submissionObject));
-
-    fixture.detectChanges();
-
-    expect(comp.submissionId.toString()).toEqual(submissionId);
-    expect(comp.collectionId).toBe(submissionObject.collection.id);
-    expect(comp.selfUrl).toBe(submissionObject._links.self.href);
-    expect(comp.sections).toBe(submissionObject.sections);
-    expect(comp.submissionDefinition).toBe(submissionObject.submissionDefinition);
-
-  }));
-
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved', fakeAsync(() => {
 
     submissionServiceStub.createSubmission.and.returnValue(observableOf({}));
 
     fixture.detectChanges();
 
-    expect(router.navigate).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/mydspace']);
+
+  }));
+
+  it('should redirect to workspaceitem edit when a not empty SubmissionObject has been retrieved',fakeAsync(() => {
+
+    submissionServiceStub.createSubmission.and.returnValue(observableOf({ id: '1234'}));
+
+    fixture.detectChanges();
+
+    expect(router.navigate).toHaveBeenCalledWith(['/workspaceitems', '1234', 'edit'], { replaceUrl: true});
 
   }));
 

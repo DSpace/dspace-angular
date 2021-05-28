@@ -17,6 +17,7 @@ import { Item } from '../../core/shared/item.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { SubmissionError } from '../objects/submission-objects.reducer';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -99,7 +100,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private router: Router,
               private submissionService: SubmissionService,
               private collectionDataService: CollectionDataService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -147,5 +149,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+
+    this.submissionJsonPatchOperationsService.deletePendingJsonPatchOperations();
   }
 }
