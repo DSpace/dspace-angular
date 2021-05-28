@@ -1,0 +1,23 @@
+<button *ngIf="canCreateCorrection() | async" class="dropdown-item"
+        (click)="$event.preventDefault();openRequestModal(requestCorrectionModal);">
+  {{'context-menu.actions.request-correction.btn' | translate}}
+</button>
+
+<ng-template #requestCorrectionModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'context-menu.actions.request-correction.title' | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{'context-menu.actions.request-correction.info' | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'context-menu.actions.request-correction.confirm.cancel' | translate}}</button>
+    <button type="button" class="btn btn-success" (click)="requestCorrection()" [disabled]="(processing$ | async)">
+      <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+      <span *ngIf="!(processing$ | async)">{{'context-menu.actions.request-correction.confirm.submit' | translate}}</span>
+      </button>
+  </div>
+</ng-template>
