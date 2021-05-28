@@ -33,7 +33,7 @@ import {
 } from './selectors';
 import { AppState } from '../../app.reducer';
 import {
-  CheckAuthenticationTokenAction,
+  CheckAuthenticationTokenAction, RefreshTokenAction,
   ResetAuthenticationMessagesAction,
   RetrieveAuthMethodsAction,
   SetRedirectUrlAction
@@ -46,6 +46,9 @@ import { getAllSucceededRemoteDataPayload } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RemoteData } from '../data/remote-data';
+import { environment } from '../../../environments/environment';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -64,6 +67,11 @@ export class AuthService {
    */
   protected _authenticated: boolean;
 
+  /**
+   * Timer to track time until token refresh
+   */
+  private tokenRefreshTimer;
+
   constructor(@Inject(REQUEST) protected req: any,
               @Inject(NativeWindowService) protected _window: NativeWindowRef,
               @Optional() @Inject(RESPONSE) private response: any,
@@ -73,7 +81,9 @@ export class AuthService {
               protected routeService: RouteService,
               protected storage: CookieService,
               protected store: Store<AppState>,
-              protected hardRedirectService: HardRedirectService
+              protected hardRedirectService: HardRedirectService,
+              private notificationService: NotificationsService,
+              private translateService: TranslateService
   ) {
     this.store.pipe(
       select(isAuthenticated),
@@ -298,12 +308,50 @@ export class AuthService {
    */
   public getToken(): AuthTokenInfo {
     let token: AuthTokenInfo;
-    this.store.pipe(select(getAuthenticationToken))
+    this.store.pipe(take(1), select(getAuthenticationToken))
       .subscribe((authTokenInfo: AuthTokenInfo) => {
         // Retrieve authentication token info and check if is valid
         token = authTokenInfo || null;
       });
     return token;
+  }
+
+  /**
+   * Method that checks when the session token from store expires and refreshes it when needed
+   */
+  public trackTokenExpiration(): void {
+    let token: AuthTokenInfo;
+    let currentlyRefreshingToken = false;
+    this.store.pipe(select(getAuthenticationToken)).subscribe((authTokenInfo: AuthTokenInfo) => {
+      // If new token is undefined an it wasn't previously => Refresh failed
+      if (currentlyRefreshingToken && token != undefined && authTokenInfo == undefined) {
+        // Token refresh failed => Error notification => 10 second wait => Page reloads & user logged out
+        this.notificationService.error(this.translateService.get('auth.messages.token-refresh-failed'));
+        setTimeout(() => this.navigateToRedirectUrl(this.hardRedirectService.getCurrentRoute()), 10000);
+        currentlyRefreshingToken = false;
+      }
+      // If new token.expires is different => Refresh succeeded
+      if (currentlyRefreshingToken && authTokenInfo != undefined && token.expires != authTokenInfo.expires) {
+        currentlyRefreshingToken = false;
+      }
+      // Check if/when token needs to be refreshed
+      if (!currentlyRefreshingToken) {
+        token = authTokenInfo || null;
+        if (token != undefined && token != null) {
+          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - environment.auth.rest.timeLeftBeforeTokenRefresh;
+          if (timeLeftBeforeRefresh < 0) {
+            timeLeftBeforeRefresh = 0;
+          }
+          if (hasValue(this.tokenRefreshTimer)) {
+            clearTimeout(this.tokenRefreshTimer);
+          }
+          this.tokenRefreshTimer = setTimeout(() => {
+            this.store.dispatch(new RefreshTokenAction(token));
+            currentlyRefreshingToken = true;
+          }, timeLeftBeforeRefresh);
+        }
+      }
+    });
   }
 
   /**

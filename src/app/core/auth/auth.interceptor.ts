@@ -28,7 +28,7 @@ import { AuthMethodType } from './models/auth.method-type';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  // Intercetor is called twice per request,
+  // Interceptor is called twice per request,
   // so to prevent RefreshTokenAction is dispatched twice
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
@@ -216,23 +216,8 @@ export class AuthInterceptor implements HttpInterceptor {
     let authorization: string;
 
     if (authService.isTokenExpired()) {
-      authService.setRedirectUrl(this.router.url);
-      // The access token is expired
-      // Redirect to the login route
-      this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
       return observableOf(null);
     } else if ((!this.isAuthRequest(req) || this.isLogoutResponse(req)) && isNotEmpty(token)) {
-      // Intercept a request that is not to the authentication endpoint
-      authService.isTokenExpiring().pipe(
-        filter((isExpiring) => isExpiring))
-        .subscribe(() => {
-          // If the current request url is already in the refresh token request list, skip it
-          if (isUndefined(find(this.refreshTokenRequestUrls, req.url))) {
-            // When a token is about to expire, refresh it
-            this.store.dispatch(new RefreshTokenAction(token));
-            this.refreshTokenRequestUrls.push(req.url);
-          }
-        });
       // Get the auth header from the service.
       authorization = authService.buildAuthHeader(token);
       let newHeaders = req.headers.set('authorization', authorization);

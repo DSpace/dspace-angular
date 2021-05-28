@@ -130,7 +130,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(environment);
     }
     this.storeCSSVariables();
-
+    this.authService.trackTokenExpiration();
   }
 
   ngOnInit() {
