@@ -1,0 +1,54 @@
+<div class="alert {{notificationType}} alert-dismissible m-3 shadow" role="alert"
+     [@enterLeave]="animate">
+
+    <button *ngIf="notification.options.clickToClose"
+            (click)="remove()"
+            [disabled]="!(finished | async)"
+            type="button" class="close pt-0 pr-1 pl-0 pb-0" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+
+  <div class="d-flex flex-column">
+
+    <div class="d-flex flex-column justify-content-center align-content-stretch">
+      <div *ngIf="title">
+        <strong>
+          <div class="notification-title pl-1" *ngIf="titleIsTemplate; else regularTitle">
+            <ng-container *ngTemplateOutlet="title"></ng-container>
+          </div>
+          <ng-template #regularTitle>
+            <div class="notification-title pl-1">
+            {{(title | async)}}
+          </div>
+          </ng-template>
+        </strong>
+      </div>
+
+      <span  *ngIf="(finished | async)" class="notification-content pl-1">
+        {{process.processStatus.toString() | titlecase}}
+      </span>
+      <span *ngIf="!(finished | async)" class="notification-content pl-1">
+        {{'process.new.notification.process.processing' | translate}}
+      </span>
+
+      <div class="pl-1" class="progress" *ngIf="!(finished | async)">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div  *ngIf="(finished | async) && files && files?.length > 0">
+          <div class="notification-content pl-1">{{ 'process.new.notification.process.files' | translate}}</div>
+      </div>
+
+      <div class="pl-2" *ngIf="(finished | async) && files && files?.length > 0">
+        <ds-file-download-link *ngFor="let file of files; let last=last;" [isBlank]="true" [bitstream]="file">
+          <span>{{getFileName(file)}}</span>
+          <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+        </ds-file-download-link>
+      </div>
+
+  </div>
+
+
+</div>

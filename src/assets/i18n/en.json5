@@ -2463,6 +2463,8 @@
 
   "item-export.form.btn.cancel": "Cancel",
 
+  "item-export.process.title": "Bulk export item",
+
   "journal.listelement.badge": "Journal",
 
   "journal.page.description": "Description",
@@ -3349,6 +3351,10 @@
   "process.new.notification.error.title": "Error",
 
   "process.new.notification.error.content": "An error occurred while creating this process",
+
+  "process.new.notification.process.processing": "Processing...",
+
+  "process.new.notification.process.files": "Output Files: ",
 
   "process.new.header": "Create a new process",
 

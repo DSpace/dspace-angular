@@ -1,4 +1,4 @@
-<a [href]="bitstreamPath"><ng-container *ngTemplateOutlet="content"></ng-container></a>
+<a [href]="bitstreamPath" [target]="isBlank ? '_blank': '_self'"><ng-container *ngTemplateOutlet="content"></ng-container></a>
 
 
 <ng-template #content>
