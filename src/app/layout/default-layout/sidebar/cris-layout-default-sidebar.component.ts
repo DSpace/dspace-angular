@@ -40,25 +40,50 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
   constructor(private location: Location, private router: Router, private route: ActivatedRoute) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if (changes.tabs && changes.tabs.currentValue) {
+      this.parseTabs();
       // Check if the location contains a specific tab to show
       const tabName = this.getCurrentTabFromUrl();
       if (hasValue(tabName)) {
-        let idx = 0;
-        for (const tab of this.tabs) {
-          if (tab.shortname === tabName) {
-            this.selectTab(idx);
-            return;
-          }
-          idx++;
-        }
-        if (idx === this.tabs.length) {
-          this.selectTab(0);
-        }
+        this.selectFromTabName(tabName);
       } else {
-        this.selectTab(0);
+        if (this.tabs[0].children && this.tabs[0].children.length > 0) {
+          this.selectTab(0,0);
+        } else {
+          this.selectTab(0,null);
+        }
       }
     }
+  }
+
+  selectFromTabName(tabName): void {
+    let result = null;
+    this.tabs.forEach( (tab,i) => {
+      if (!!tab.children && tab.children.length > 0) {
+        tab.children.forEach( (subtab,j) => {
+          if (subtab.shortname === tabName) {
+            result = [i,j];
+            this.selectTab(i,j);
+            return;
+          }
+        });
+      } else {
+        if (tab.shortname === tabName) {
+          result = [i,null];
+          this.selectTab(i,null);
+          return;
+        }
+      }
+    });
+    if (result == null) {
+      if (this.tabs[0].children && this.tabs[0].children.length > 0) {
+        this.selectTab(0,0);
+      } else {
+        this.selectTab(0,null);
+      }
+    }
+
   }
 
   /**
@@ -66,21 +91,43 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
    * notify the change at parent component
    * @param idx id of tab
    */
-  selectTab(idx: number) {
-    this.tabs.forEach((tab) => {
-      tab.isActive = false;
+  selectTab(idx: number,idy?: number) {
+    this.tabs.forEach((tabElm) => {
+      tabElm.isActive = false;
+      if (!!tabElm.children && tabElm.children.length > 0) {
+        tabElm.children.forEach((subtab,j) => {
+          subtab.isActive = false;
+        });
+      }
     });
-    this.tabs[idx].isActive = true;
+    let selectedTab = null;
+    if (idy != null) {
+      selectedTab = this.tabs[idx].children[idy];
+      this.tabs[idx].children[idy].isActive = true;
+    } else {
+      selectedTab = this.tabs[idx];
+      this.tabs[idx].isActive = true;
+    }
     const tabName = this.getCurrentTabFromUrl();
     if (tabName) {
       if (tabName === this.item.uuid) {
-        this.router.navigate([this.tabs[idx].shortname], {replaceUrl: true, relativeTo: this.route});
-      } else if (tabName !== this.tabs[idx].shortname) {
-        this.router.navigate(['../', this.tabs[idx].shortname], {replaceUrl: true, relativeTo: this.route});
+        this.router.navigate(
+          [selectedTab.shortname],
+          {
+            replaceUrl: true,
+            relativeTo: this.route
+          });
+      } else if (tabName !== selectedTab.shortname) {
+        this.router.navigate(
+          ['../', selectedTab.shortname],
+          {
+            replaceUrl: true,
+            relativeTo: this.route
+          });
       }
     }
     // Notify selected tab at parent
-    this.selectedTab.emit(this.tabs[idx]);
+    this.selectedTab.emit(selectedTab);
   }
 
   private getCurrentTabFromUrl() {
@@ -96,4 +143,38 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
     }
     return currentTab;
   }
+
+  private parseTabs(): void {
+      const tabs = [];
+      this.tabs.forEach((tab) => {
+          // create children where tab has "::"
+          if (tab.shortname.includes('::')) {
+            const splitedTabs = tab.shortname.split('::');
+            const splitedHeaderTabs = tab.header.split('::');
+            const previousTab = tabs.find((seltab) => seltab.shortname === splitedTabs[0]);
+
+            if (!previousTab) {
+              const parentTab = Object.assign({},tab);
+              parentTab.header = splitedHeaderTabs[0];
+              parentTab.shortname = splitedTabs[0];
+              const childTab = Object.assign(tab,{header:splitedHeaderTabs[1]});
+              parentTab.children = [];
+              parentTab.children.push(childTab);
+              tabs.push(parentTab);
+            } else {
+              tab.header = splitedHeaderTabs[1];
+              previousTab.children.push(tab);
+            }
+          } else {
+            tabs.push(tab);
+          }
+      });
+      this.tabs = tabs;
+  }
+
+  getTabSelected(tab) {
+    this.selectFromTabName(tab.shortname);
+  }
+
+
 }

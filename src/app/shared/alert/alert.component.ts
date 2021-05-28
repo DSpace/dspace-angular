@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { trigger } from '@angular/animations';
 
 import { AlertType } from './aletr-type';
@@ -9,7 +9,6 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
  */
 @Component({
   selector: 'ds-alert',
-  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('enterLeave', [
       fadeOutLeave, fadeOutState,
@@ -18,7 +17,7 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss']
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit {
 
   /**
    * The alert content
@@ -29,6 +28,11 @@ export class AlertComponent {
    * A boolean representing if alert is collapsible
    */
   @Input() collapsible = false;
+
+  /**
+   * A boolean representing if alert is rendered already collapsed
+   */
+  @Input() collapsed = true;
 
   /**
    * A boolean representing if alert is dismissible
@@ -66,6 +70,13 @@ export class AlertComponent {
    * @param {ChangeDetectorRef} cdr
    */
   constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  /**
+   * Initialize the component
+   */
+  ngOnInit() {
+    this.isCollapsed = this.collapsed;
   }
 
   /**

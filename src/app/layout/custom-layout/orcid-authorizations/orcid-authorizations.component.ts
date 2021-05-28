@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NotificationsService } from '../../../../app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
@@ -22,6 +22,21 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
 
   missingAuthorizations$ = new BehaviorSubject<string[]>([]);
 
+  /**
+   * Variable to understand if the next box clear value
+   */
+  nextBoxClear = true;
+
+  /**
+   * Dynamic styling of the component host selector
+   */
+  @HostBinding('style.flex') flex = '0 0 100%';
+
+  /**
+   * Dynamic styling of the component host selector
+   */
+  @HostBinding('style.marginRight') margin = '0px';
+
   unlinkProcessing = false;
 
   constructor(
@@ -38,10 +53,10 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
 
     const scopes = this.getOrcidAuthorizations();
     return this.configurationService.findByPropertyName('orcid.scope')
-    .pipe(getFirstSucceededRemoteDataPayload(),
-          map((configurationProperty) => configurationProperty.values),
-          map((allScopes) => allScopes.filter( (scope) => !scopes.includes(scope))))
-    .subscribe((missingScopes) => this.missingAuthorizations$.next(missingScopes));
+      .pipe(getFirstSucceededRemoteDataPayload(),
+        map((configurationProperty) => configurationProperty.values),
+        map((allScopes) => allScopes.filter((scope) => !scopes.includes(scope))))
+      .subscribe((missingScopes) => this.missingAuthorizations$.next(missingScopes));
   }
 
   getOrcidAuthorizations(): string[] {
@@ -55,14 +70,14 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
   getOrcidNotLinkedMessage(): Observable<string> {
     const orcid = this.item.firstMetadataValue('person.identifier.orcid');
     if (orcid) {
-      return this.translateService.get('person.page.orcid.orcid-not-linked-message', { 'orcid' : orcid});
+      return this.translateService.get('person.page.orcid.orcid-not-linked-message', { 'orcid': orcid });
     } else {
       return this.translateService.get('person.page.orcid.no-orcid-message');
     }
   }
 
   getAuthorizationDescription(scope: string) {
-    return 'person.page.orcid.scope.' + scope.substring(1).replace('/','-');
+    return 'person.page.orcid.scope.' + scope.substring(1).replace('/', '-');
   }
 
   onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {

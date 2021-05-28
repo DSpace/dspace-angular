@@ -1,7 +1,7 @@
 <nav *ngIf="sidebarActive" id="sidebar" [ngClass]="{'active': !sidebarStatus}">
   <ul class="list-unstyled components">
-      <li *ngFor="let tab of tabs; let i = index;" [ngClass]="{'active' : tab.isActive}">
-          <a [routerLink]="" (click)="selectTab(i)">{{tab.header}}</a>
-      </li>
+ 	<ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
+                               [tab]="tab"
+                               (tabSelectedChange)="getTabSelected($event)"></ds-cris-layout-sidebar-item>
   </ul>
 </nav>

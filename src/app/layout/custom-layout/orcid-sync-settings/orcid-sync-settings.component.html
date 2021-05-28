@@ -41,10 +41,10 @@
               <div class="card-body">
                 <div class="m-3">
                   <div class="form-group" >
-                    <div *ngFor="let option of syncProjectOptions" class="row form-check">
-                      <input type="radio" [(ngModel)]="currentSyncProjects" 
-                        name="syncProjects" id="projectOption_{{option.value}}" [value]="option.value" required >
-                      <label for="projectOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                    <div *ngFor="let option of syncFundingOptions" class="row form-check">
+                      <input type="radio" [(ngModel)]="currentSyncFundings" 
+                        name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value" required >
+                      <label for="fundingOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
                     </div>
                   </div>
                 </div>

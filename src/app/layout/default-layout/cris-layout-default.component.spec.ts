@@ -11,7 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CrisLayoutDefaultComponent } from './cris-layout-default.component';
 import { LayoutPage } from '../enums/layout-page.enum';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { tabPersonProfile, tabPersonTest, tabs } from '../../shared/testing/tab.mock';
+import { tabDetailsTest, tabPublicationsTest, tabs } from '../../shared/testing/new-tab.mock';
 import { TabDataService } from '../../core/layout/tab-data.service';
 import { CrisLayoutDefaultTabComponent } from './tab/cris-layout-default-tab.component';
 import { Item } from '../../core/shared/item.model';
@@ -25,6 +25,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { BoxDataService } from '../../core/layout/box-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { boxMetadata } from '../../shared/testing/box.mock';
+import { tabPersonProfile } from '../../shared/testing/tab.mock';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -159,8 +160,8 @@ describe('CrisLayoutDefaultComponent', () => {
       spyOn((component as any), 'getComponent').and.returnValue(CrisLayoutDefaultTabComponent);
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
-      component.changeTab(tabPersonTest);
-      expect((component as any).getComponent).toHaveBeenCalledWith(tabPersonTest.shortname);
+      component.changeTab(tabPublicationsTest);
+      expect((component as any).getComponent).toHaveBeenCalledWith(tabPublicationsTest.shortname);
 
       done();
     });
@@ -192,7 +193,7 @@ describe('CrisLayoutDefaultComponent', () => {
 
     beforeEach(() => {
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([tabPersonProfile]))
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabDetailsTest]))
       }));
     });
 

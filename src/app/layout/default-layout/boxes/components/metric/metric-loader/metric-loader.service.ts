@@ -4,6 +4,8 @@ import { MetricAltmetricComponent } from '../metric-altmetric/metric-altmetric.c
 import { MetricDimensionsComponent } from '../metric-dimensions/metric-dimensions.component';
 import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-googlescholar.component';
 import { MetricDspacecrisComponent } from '../metric-dspacecris/metric-dspacecris.component';
+import {MetricEmbeddedViewComponent} from '../metric-embedded-view/metric-embedded-view.component';
+import {MetricEmbeddedDownloadComponent} from '../metric-embedded-download/metric-embedded-download.component';
 
 declare var document: any;
 
@@ -32,6 +34,16 @@ export const MetricTypesConfig: MetricTypeConf[] = [
   {
     id: 'google-scholar',
     component: MetricGooglescholarComponent,
+    script: null
+  },
+  {
+    id: 'embedded-view',
+    component: MetricEmbeddedViewComponent,
+    script: null
+  },
+  {
+    id: 'embedded-download',
+    component: MetricEmbeddedDownloadComponent,
     script: null
   }
 ];

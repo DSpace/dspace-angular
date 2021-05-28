@@ -1,11 +1,13 @@
 import {
   ChangeDetectorRef,
-  Component, ComponentFactory,
+  Component,
+  ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
   OnDestroy,
   OnInit,
-  ViewChild, ViewContainerRef
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import { Box } from '../../../core/layout/models/box.model';
 import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.directive';
@@ -19,9 +21,7 @@ import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
+import { Observable, of, Subject } from 'rxjs';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -73,7 +73,13 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
       const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
       viewContainerRef.clear();
       this.boxes.forEach((box, index) => {
-        const componentRef = this.createBox(viewContainerRef, box, index);
+        let nextBoxClear = true;
+
+        if ( !!this.boxes[ index + 1 ] ) {
+          nextBoxClear = this.boxes[ index + 1 ].clear;
+        }
+
+        const componentRef = this.createBox(viewContainerRef, box, index, nextBoxClear);
         this.componentRef.push(componentRef);
       });
       this.cd.markForCheck();
@@ -81,18 +87,20 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
     });
   }
 
-  protected createBox(viewContainerRef: ViewContainerRef, box: Box, boxPosition: number): ComponentRef<Component> {
+
+  protected createBox(viewContainerRef: ViewContainerRef, box: Box, boxPosition: number, nextBoxClear?: boolean): ComponentRef<Component> {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       this.getComponent(box.boxType)
     );
 
-    const componentRef = this.instantiateBox(viewContainerRef, componentFactory, box, boxPosition);
+    const componentRef = this.instantiateBox(viewContainerRef, componentFactory, box, boxPosition, nextBoxClear);
 
     (componentRef.instance as any).refreshTab.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       this.refreshTab.emit();
     });
     (componentRef.instance as any).refreshBox.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       this.onRefreshBox(viewContainerRef, componentRef, box, boxPosition);
+
     });
 
     this.cd.markForCheck();
@@ -112,10 +120,11 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
     }
   }
 
-  instantiateBox(viewContainerRef: ViewContainerRef, componentFactory: ComponentFactory<any>, box: Box, boxPosition: number): ComponentRef<any> {
+  instantiateBox(viewContainerRef: ViewContainerRef, componentFactory: ComponentFactory<any>, box: Box, boxPosition: number, nextBoxClear?: boolean): ComponentRef<any> {
     const componentRef = viewContainerRef.createComponent(componentFactory, boxPosition);
     (componentRef.instance as any).item = this.item;
     (componentRef.instance as any).box = box;
+    (componentRef.instance as any).nextBoxClear = nextBoxClear;
     return componentRef;
   }
 
@@ -125,7 +134,14 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
       const refreshedBox = boxes.find((b) => b.id === box.id);
       if (refreshedBox) {
         this.destroyBox(componentRef);
-        this.createBox(viewContainerRef, refreshedBox, boxPosition);
+
+        let nextBoxClear = true;
+
+        if ( !!this.boxes[ boxPosition + 1 ] ) {
+          nextBoxClear = this.boxes[ boxPosition + 1 ].clear;
+        }
+
+        this.createBox(viewContainerRef, refreshedBox, boxPosition,nextBoxClear);
       }
     });
   }

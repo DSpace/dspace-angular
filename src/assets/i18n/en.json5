@@ -567,9 +567,9 @@
 
   "alert.close.aria": "Close",
 
-  "alert.toggle.hide": "Hide",
+  "alert.toggle.hide": "Show less",
 
-  "alert.toggle.show": "Show",
+  "alert.toggle.show": "Show more",
 
 
   "auth.errors.invalid-user": "Invalid email address or password.",
@@ -1206,6 +1206,8 @@
 
   "context-menu.actions.bulk-import.btn": "Import items into collection",
 
+  "context-menu.actions.claim.btn": "Claim this profile",
+
   "context-menu.actions.export-item.btn": "Export",
 
   "context-menu.actions.label": "Options",
@@ -1348,6 +1350,7 @@
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
+  "dataset.listelement.badge": "Dataset",
 
 
   "dso.name.untitled": "Untitled",
@@ -2265,7 +2268,14 @@
 
   "item.page.metric.deltaPeriod2": "Last Month",
 
+  "item.page.metric.details": "Details",
+
   "item.page.metric.label.altmetrics": "Altmetrics",
+
+
+  "item.page.metric.label.download": "Downloads",
+
+  "item.page.metric.label.view": "Views",
 
   "item.page.metric.label.google-scholar": "Google Scholar",
 
@@ -2314,6 +2324,8 @@
   "item.preview.dc.description.tableOfContents" : "Table of Contents",
 
   "item.preview.dc.identifier.doi" : "DOI",
+
+  "item.preview.dc.identifier.isi" : "ISI",
 
   "item.preview.dc.identifier.issn" : "ISSN",
 
@@ -2375,6 +2387,12 @@
 
   "item.preview.dc.relation.issn" : "ISSN",
 
+  "item.preview.oaire.citation.endPage" : "End Page",
+
+  "item.preview.oaire.citation.edition": "Edition",
+
+  "item.preview.oaire.citation.startPage" : "Start Page",
+
   "item.preview.oaire.citation.issue" : "Issue",
 
   "item.preview.oaire.citation.volume" : "Volume",
@@ -2386,6 +2404,8 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.person.identifier.rid": "Researcher ID:",
 
   "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
 
@@ -3135,7 +3155,7 @@
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
 
-  "person.page.orcid.save.preference.changes": "Edit settings",
+  "person.page.orcid.save.preference.changes": "Update settings",
 
   "person.page.orcid.sync-profile.affiliation" : "Affiliation",
 
@@ -3195,7 +3215,7 @@
 
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
 
-  "person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.funding": "Funding",
 
   "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
 
@@ -3747,6 +3767,14 @@
 
   "researcher.profile.public.visibility" : "PUBLIC",
 
+  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+
+  "researcherprofile.error.claim.title" : "Error",
+
+  "researcherprofile.success.claim.body" : "Profile claimed with success",
+
+  "researcherprofile.success.claim.title" : "Success",
+
 
 
   "resource-policies.add.button": "Add",
@@ -4183,6 +4211,8 @@
 
   "statistics.table.title.TotalDownloads": "File Visits",
 
+  "statistics.table.title.TotalVisitsAndDownloads": "Items and file Visits",
+
   "statistics.table.title.TopCountries": "Top country views",
 
   "statistics.table.title.TopCities": "Top city views",
@@ -4195,7 +4225,11 @@
 
   "statistics.categories.projectsReports.tab": "Project Reports",
 
-  "statistics.categories.publicationsReports.tab": "Publication Reports",
+  "statistics.categories.rpprojectsReports.tab": "Researchers Projects Reports",
+
+  "statistics.categories.publicationsReports.tab": "Publications Reports",
+
+  "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
 
   "statistics.reports.title": "Reports",
 
@@ -4278,6 +4312,8 @@
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals ISSN",
 
   "submission.import-external.source.orcid": "ORCID",
 
@@ -4653,7 +4689,7 @@
 
   "submission.sections.general.no-sections": "No options available",
 
-  "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
+  "submission.sections.general.save_error_notice": "There was an unexpected error when saving the item. Refresh the page and try again. After refreshing unsaved modifications could be lost.",
 
   "submission.sections.general.save_success_notice": "Submission saved successfully.",
 

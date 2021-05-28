@@ -4,11 +4,11 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { isObject } from 'lodash';
 
 import { Chips } from './models/chips.model';
-import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ChipsItem } from './models/chips-item.model';
 
 @Component({
   selector: 'ds-chips',
@@ -19,7 +19,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
   @Input() wrapperClass: string;
-  @Input() editable = true;
   @Input() showIcons = false;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
@@ -53,16 +52,7 @@ export class ChipsComponent implements OnChanges {
 
   chipsSelected(event: Event, index: number) {
     event.preventDefault();
-    if (this.editable) {
-      this.chips.getChips().forEach((item: ChipsItem, i: number) => {
-        if (i === index) {
-          item.setEditMode();
-        } else {
-          item.unsetEditMode();
-        }
-      });
-      this.selected.emit(index);
-    }
+    this.selected.emit(index);
   }
 
   removeChips(event: Event, index: number) {
@@ -90,6 +80,7 @@ export class ChipsComponent implements OnChanges {
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const chipsItem = this.chips.getChipByIndex(index);
+    console.log(chipsItem, field);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
@@ -100,9 +91,13 @@ export class ChipsComponent implements OnChanges {
               .forEach((otherField) => {
                 this.translate.get('form.other-information.' + otherField)
                   .subscribe((label) => {
-                    textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
+                    const otherInformationText = chipsItem.item[field].otherInformation[otherField].split('::')[0];
+                    textToDisplay.push(label + ': ' + otherInformationText);
                   });
             });
+          }
+          if (this.hasWillBeReferenced(chipsItem, field)) {
+            textToDisplay.push(this.getWillBeReferencedContent(chipsItem, field));
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);
@@ -118,6 +113,24 @@ export class ChipsComponent implements OnChanges {
       }
 
     }
+  }
+
+  hasWillBeGenerated(chip: ChipsItem, metadata: string) {
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.startsWith('will be generated::');
+  }
+
+  hasWillBeReferenced(chip: ChipsItem, metadata: string) {
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.startsWith('will be referenced::');
+  }
+
+  getWillBeReferencedContent(chip: ChipsItem, metadata: string) {
+    if (!this.hasWillBeReferenced(chip, metadata)) {
+      return null;
+    }
+    const metadataValue = chip.item[metadata];
+    return metadataValue?.authority?.substring(metadataValue?.authority.indexOf('::') + 2);
   }
 
 }

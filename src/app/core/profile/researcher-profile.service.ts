@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import {catchError, find, map, switchMap, tap} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -28,6 +28,9 @@ import {
 } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
+import {HttpOptions} from '../dspace-rest/dspace-rest.service';
+import {PostRequest} from '../data/request.models';
+import {hasValue} from '../../shared/empty.util';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -232,6 +235,30 @@ export class ResearcherProfileService {
           + scopes.values.join(' ');
       }));
     }
+
+  /**
+   * Creates a researcher profile starting from an external source URI
+   * @param sourceUri URI of source item of researcher profile.
+   */
+  public createFromExternalSource(sourceUri: string): Observable<RemoteData<ResearcherProfile>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.dataService.getLinkPath());
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, sourceUri, options);
+        this.requestService.send(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
 
     private getOrcidDisconnectionAllowedUsersConfiguration(): Observable<ConfigurationProperty> {
       return this.configurationService.findByPropertyName('orcid.disconnection.allowed-users').pipe(

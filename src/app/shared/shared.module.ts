@@ -257,6 +257,7 @@ import { RelationshipsItemsListPreviewComponent } from './object-list/relationsh
 import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
+import { DsDynamicRelationGroupModalComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -340,6 +341,7 @@ const COMPONENTS = [
   DsDynamicTagComponent,
   DsDynamicOneboxComponent,
   DsDynamicRelationGroupComponent,
+  DsDynamicRelationGroupModalComponent,
   DsDynamicRelationInlineGroupComponent,
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
