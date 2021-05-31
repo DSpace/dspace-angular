@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Metric } from '../../../core/shared/metric.model';
 import { hasValue } from '../../empty.util';
@@ -9,15 +9,18 @@ import { Item } from '../../../core/shared/item.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../utils/follow-link-config.model';
 
+export const allowedDonuts = ['altmetric', 'dimensions'];
+
 @Component({
-  selector: 'ds-metric-badges',
-  templateUrl: './metric-badges.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'ds-metric-donuts',
+  templateUrl: './metric-donuts.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 /**
  * Component rendering the metric badges of a Dspace Object
  */
-export class MetricBadgesComponent implements OnInit {
+export class MetricDonutsComponent implements OnInit {
 
   @Input() item: Item;
 
@@ -31,15 +34,20 @@ export class MetricBadgesComponent implements OnInit {
   /**
    * Filter metrics with a positive metricCount value.
    */
-  metrics(): Observable<Metric[]> {
+  donuts(): Observable<Metric[]> {
     if (!hasValue(this.item.metrics)) {
       return of([]);
     }
     return this.item.metrics.pipe(
       getFirstSucceededRemoteListPayload(),
       map((metrics: Metric[]) => {
-        return metrics.filter(metric => metric.metricCount && metric.metricCount > 0);
+        console.log(metrics);
+        return metrics.filter(metric => allowedDonuts.includes(metric.metricType));
       }));
+  }
+
+  identify(index, item) {
+    return item.id;
   }
 
 }

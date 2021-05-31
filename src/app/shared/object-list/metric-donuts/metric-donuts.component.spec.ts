@@ -3,13 +3,13 @@ import { of as observableOf } from 'rxjs';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetricBadgesComponent } from './metric-badges.component';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { followLink } from '../../utils/follow-link-config.model';
+import { MetricDonutsComponent } from './metric-donuts.component';
 
-let comp: MetricBadgesComponent;
-let fixture: ComponentFixture<MetricBadgesComponent>;
+let comp: MetricDonutsComponent;
+let fixture: ComponentFixture<MetricDonutsComponent>;
 let linkService: LinkService;
 const type = 'authorOfPublication';
 
@@ -37,14 +37,14 @@ const mockItem = Object.assign(new Item(), {
 //   }
 // });
 
-describe('MetricBadgesComponent', () => {
+describe('MetricDonutsComponent', () => {
 
   linkService = getMockLinkService();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [MetricBadgesComponent],
+      declarations: [MetricDonutsComponent],
       providers: [
         { provide: LinkService, useValue: linkService }
       ],
@@ -53,7 +53,7 @@ describe('MetricBadgesComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
-    fixture = TestBed.createComponent(MetricBadgesComponent);
+    fixture = TestBed.createComponent(MetricDonutsComponent);
     comp = fixture.componentInstance;
     comp.item = mockItem;
   }));
