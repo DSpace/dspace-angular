@@ -59,7 +59,7 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
     console.log(fixture.debugElement.queryAll(By.css('ds-cris-layout-sidebar-item')));
     console.log(location.path());
 
-    expect(navbarTabsFound.length).toEqual(5);
+    expect(navbarTabsFound.length).toEqual(3);
   });
 
   it('check if the component selects the correct tab', () => {

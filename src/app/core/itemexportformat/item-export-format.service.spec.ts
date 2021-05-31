@@ -34,6 +34,7 @@ describe('ItemExportFormatService', () => {
   } as any;
   let scriptDataService: ScriptDataService;
   const TheProcess = Object.assign(new Process(), {
+    processId: 1234,
     resourceSelfLinks: ['process/1234']
   });
 

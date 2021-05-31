@@ -13,6 +13,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -37,10 +38,16 @@ describe('ItemStatusComponent', () => {
   };
 
   let authorizationService: AuthorizationDataService;
+  let researcherProfileService: any;
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
+    });
+
+    researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
+      adminCanDisconnectProfileFromOrcid: observableOf ( true ),
+      isLinkedToOrcid: true
     });
 
     TestBed.configureTestingModule({
@@ -50,6 +57,7 @@ describe('ItemStatusComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ResearcherProfileService, useValue: researcherProfileService },
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
