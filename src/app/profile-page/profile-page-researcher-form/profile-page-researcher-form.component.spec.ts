@@ -18,7 +18,7 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
-fdescribe('ProfilePageResearcherFormComponent', () => {
+describe('ProfilePageResearcherFormComponent', () => {
 
     let component: ProfilePageResearcherFormComponent;
     let fixture: ComponentFixture<ProfilePageResearcherFormComponent>;
