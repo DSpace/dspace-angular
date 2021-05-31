@@ -2613,6 +2613,20 @@
   "logout.title": "Logout",
 
 
+  "manage.relationships.select": "Select",
+
+  "manage.relationships.hide": "Hide",
+
+  "manage.relationships.unselect": "Unselect",
+
+  "manage.relationships.unhide": "Unhide",
+
+  "manage.relationships.title" : "Selected items",
+
+  "manage.relationships.no.relationships.found" : "Empty selection",
+
+  "manage.relationships.no.data.found" : "No data found",
+
 
   "menu.header.admin": "Management",
 
@@ -3758,20 +3772,6 @@
 
   "relationships.isContributorOf": "Contributors",
 
-  "relationships.select": "Select",
-
-  "relationships.hide": "Hide",
-
-  "relationships.unselect": "Unselect",
-
-  "relationships.unhide": "Unhide",
-
-  "relationships.title" : "Selected items",
-
-  "relationships.no.relationships.found" : "Empty selection",
-
-  "relationships.no.data.found" : "No data found",
-
 
   "repository.image.logo": "Repository logo",
 
@@ -4223,9 +4223,9 @@
 
   "sorting.lastModified.DESC": "Last modified Descending",
 
-  "sorting.ownerselection.ASC": "Owner Relevance Descending ",
+  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
 
-  "sorting.ownerselection.DESC": "Owner Relevance Ascending",
+  "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
 
   "statistics.export.csv": "Export CSV",

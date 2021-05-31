@@ -1,39 +1,39 @@
 <button class="action-buttons btn btn-success mt-1 mb-3"
 			*ngIf="!isSelected && !!object"
-            ngbTooltip="{{'relationships.select' | translate}}"
+            ngbTooltip="{{'manage.relationships.select' | translate}}"
             (click)="emitAction('select')"
-            [disabled]="isLoading"
+            [disabled]="isProcessing()"
             >
-      <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
-      <span *ngIf="!isLoading"> {{"relationships.select" | translate}}</span>
+      <span *ngIf="isProcessingSelect"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      <span *ngIf="!isProcessingSelect"> {{"manage.relationships.select" | translate}}</span>
 
 </button>
 <button class="action-buttons btn btn-primary mt-1 mb-3"
 			*ngIf="!!isSelected && !!object"
-            ngbTooltip="{{'relationships.unselect' | translate}}"
+            ngbTooltip="{{'manage.relationships.unselect' | translate}}"
             (click)="emitAction('unselect')"
-            [disabled]="isLoading"
+            [disabled]="isProcessing()"
             >
-      <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
-      <span *ngIf="!isLoading"> {{"relationships.unselect" | translate}}</span>
+      <span *ngIf="isProcessingUnselect"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      <span *ngIf="!isProcessingUnselect"> {{"manage.relationships.unselect" | translate}}</span>
 
 </button>
 <button class="action-buttons btn btn-danger mt-1 mb-3"
 			*ngIf="!isHidden && !!object"
-            ngbTooltip="{{'relationships.hide' | translate}}"
+            ngbTooltip="{{'manage.relationships.hide' | translate}}"
             (click)="emitAction('hide')"
-            [disabled]="isLoading"
+            [disabled]="isProcessing()"
             >
-      <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
-      <span *ngIf="!isLoading"> {{"relationships.hide" | translate}}</span>
+      <span *ngIf="isProcessingHide"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      <span *ngIf="!isProcessingHide"> {{"manage.relationships.hide" | translate}}</span>
 </button>
 <button class="action-buttons btn btn-warning mt-1 mb-3"
 			*ngIf="!!isHidden && !!object"
-            ngbTooltip="{{'relationships.unhide' | translate}}"
+            ngbTooltip="{{'manage.relationships.unhide' | translate}}"
             (click)="emitAction('unhide')"
-            [disabled]="isLoading"
+            [disabled]="isProcessing()"
             >
-      <span *ngIf="isLoading"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
-      <span *ngIf="!isLoading"> {{"relationships.unhide" | translate}}</span>
+      <span *ngIf="isProcessingUnhide"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
+      <span *ngIf="!isProcessingUnhide"> {{"manage.relationships.unhide" | translate}}</span>
 
 </button>

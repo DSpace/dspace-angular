@@ -216,7 +216,11 @@ export class RelationshipService extends DataService<Relationship> {
    *                        should be automatically resolved
    */
   getItemRelationshipsAsArrayAll(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
-    return this.findAllByHref(item._links.relationships.href + '?size=100', undefined, false, false, ...linksToFollow).pipe(
+    // Set the pagination info
+    const findOptions: FindListOptions = {
+      elementsPerPage: 100
+    };
+    return this.findAllByHref(item._links.relationships.href, findOptions, false, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),

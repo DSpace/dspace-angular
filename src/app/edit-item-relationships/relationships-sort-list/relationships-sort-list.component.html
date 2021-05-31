@@ -1,23 +1,24 @@
 <div cdkDropListGroup>
   <div class="relationships-container">
-    <h2>{{ 'relationships.title' | translate }}</h2>
-    <div *ngIf="!!filteredRelationships && filteredRelationships.length > 0; else noData"
-      cdkDropList
-      [cdkDropListData]="filteredRelationships"
-      class="relationships-list"
-      (cdkDropListDropped)="drop($event)">
+    <h2>{{ 'manage.relationships.title' | translate }}</h2>
+    <ds-loading *ngIf="(isLoading | async)"></ds-loading>
+    <ng-container *ngIf="!(this.isLoading | async)">
+      <div *ngIf="(filteredRelationships && filteredRelationships.length > 0) ; else noData"
+        cdkDropList
+        [cdkDropListData]="filteredRelationships"
+        class="relationships-list"
+        (cdkDropListDropped)="drop($event)">
 
-      <div class="relationships-sort-list" *ngFor="let relationship of filteredRelationships" cdkDrag>
-        <ds-relationships-items-list-preview (deleteRelationship)="deleteRelationship.emit($event)" [viewConfig]="'relationship-sort-list'" [customData]="{ relationship: relationship }" [item]="(relationship.leftItem | async)?.payload"></ds-relationships-items-list-preview>
+        <div *ngFor="let relationship of filteredRelationships; let last = last" class="relationships-sort-list"
+             [class.border-bottom]="!last" cdkDrag>
+          <ds-relationships-items-list-preview (deleteRelationship)="deleteRelationship.emit($event)" [viewConfig]="'relationship-sort-list'" [customData]="{ relationship: relationship }" [item]="(relationship.leftItem | async)?.payload"></ds-relationships-items-list-preview>
+        </div>
       </div>
 
-    </div>
-
-
-    <ng-template #noData>
-       <h2>{{ 'relationships.no.relationships.found' | translate }}</h2>
-    </ng-template>
-
+      <ng-template #noData>
+         <ds-alert [type]="'alert-info'">{{ 'manage.relationships.no.relationships.found' | translate }}</ds-alert>
+      </ng-template>
+    </ng-container>
 
   </div>
 

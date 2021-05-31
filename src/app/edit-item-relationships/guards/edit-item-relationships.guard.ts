@@ -1,19 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, mergeMap, startWith, tap } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { map, mergeMap } from 'rxjs/operators';
+import { isNotEmpty } from '../../shared/empty.util';
 
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
-
-import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { EditItem } from '../../core/submission/models/edititem.model';
@@ -30,9 +22,10 @@ export class EditItemRelationsGuard implements CanActivate {
    * @constructor
    */
   constructor(private router: Router,
-    private editItemService: EditItemDataService,
-    private authService: AuthService
-  ) {}
+              private editItemService: EditItemDataService,
+              private authService: AuthService
+  ) {
+  }
 
   /**
    * True when user is authenticated
@@ -41,7 +34,7 @@ export class EditItemRelationsGuard implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     const url = state.url;
-    return this.handleEditable(route.params.id,url);
+    return this.handleEditable(route.params.id, url);
   }
 
   /**
@@ -58,8 +51,7 @@ export class EditItemRelationsGuard implements CanActivate {
     return this.editItemService.findById(itemId + ':none', true, true, followLink('modes')).pipe(
       getAllSucceededRemoteDataPayload(),
       mergeMap((editItem: EditItem) => editItem.modes.pipe(
-          getFirstSucceededRemoteListPayload(),
-        )
+        getFirstSucceededRemoteListPayload())
       ),
       map((editModes) => {
         if (isNotEmpty(editModes) && editModes.length > 0) {
