@@ -1,4 +1,5 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
+   [tabIndex]="-1"
    [routerLink]="[searchLink]"
    [queryParams]="addQueryParams" queryParamsHandling="merge">
   <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
