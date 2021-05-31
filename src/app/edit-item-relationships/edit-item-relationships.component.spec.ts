@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 
 import { of as observableOf } from 'rxjs';
@@ -7,38 +7,24 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { SharedModule } from '../shared/shared.module';
 
-import { defaultIfEmpty, filter, map, mergeMap, switchMap, take,tap,first, mergeAll } from 'rxjs/operators';
-
 import { EditItemRelationshipsComponent } from './edit-item-relationships.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { AuthServiceStub } from '../shared/testing/auth-service.stub';
 import { AuthService } from '../core/auth/auth.service';
-import { RelationshipService  } from '../core/data/relationship.service';
+import { RelationshipService } from '../core/data/relationship.service';
 import { EntityTypeService } from '../core/data/entity-type.service';
 import { SearchServiceStub } from '../shared/testing/search-service.stub';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { RelationshipsServiceStub } from '../shared/testing/relationships-service.stub';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { RemoteData } from '../core/data/remote-data';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { RoleService } from '../core/roles/role.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouteService } from '../core/services/route.service';
-// import { SearchResultsMock } from '../shared/testing/search-results-mocks';
-import { ItemInfo, RelationshipsTypesData, RelationshipsData } from '../shared/testing/relationships-mocks';
-
+import { RelationshipsData, RelationshipsTypesData } from '../shared/testing/relationships-mocks';
 import { HostWindowService } from '../shared/host-window.service';
-
 
 describe('EditItemRelationshipsComponent', () => {
   let component: EditItemRelationshipsComponent;
@@ -66,28 +52,28 @@ describe('EditItemRelationshipsComponent', () => {
 
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(emptyList),
-    /* tslint: disable: no-empty */
-    clearDiscoveryRequests: () => {},
-    /* tslint: enable: no-empty */
+    // tslint:disable-next-line:no-empty
+    clearDiscoveryRequests: () => {
+    },
   });
 
   // const searchResults = SearchResultsMock;
 
 
   const roleServiceStub = {
-    isSubmitter : () => {
+    isSubmitter: () => {
       return observableOf(true);
     },
-    isController : () => {
+    isController: () => {
       return observableOf(false);
     },
-    isAdmin : () => {
+    isAdmin: () => {
       return observableOf(true);
     },
   };
 
   const routeServiceStub = {
-    isSubmitter : () => {
+    isSubmitter: () => {
       return observableOf(true);
     },
     getRouteParameterValue: () => {
@@ -103,38 +89,38 @@ describe('EditItemRelationshipsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-        imports : [
-          RouterTestingModule.withRoutes([]),
-          SharedModule,
-          TranslateModule.forRoot({
-            loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
-          })
-        ],
-        declarations: [ EditItemRelationshipsComponent ],
-        providers: [
-          { provide: ActivatedRoute, useValue: activatedRouteStub },
-          { provide: AuthService, useValue: authServiceStub },
-          { provide: RelationshipService, useValue: relationshipsServiceStub },
-          { provide: SearchService, useValue: searchServiceStub },
-          { provide: EntityTypeService, useValue: {} },
-          { provide: RoleService, useValue: roleServiceStub },
-          { provide: RouteService, useValue: routeServiceStub },
-          {
-            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-              {
-                isXs: observableOf(true),
-                isSm: observableOf(false),
-                isXsOrSm: observableOf(true)
-              })
-          },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      })
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        SharedModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        })
+      ],
+      declarations: [EditItemRelationshipsComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: RelationshipService, useValue: relationshipsServiceStub },
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: EntityTypeService, useValue: {} },
+        { provide: RoleService, useValue: roleServiceStub },
+        { provide: RouteService, useValue: routeServiceStub },
+        {
+          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
+            {
+              isXs: observableOf(true),
+              isSm: observableOf(false),
+              isXsOrSm: observableOf(true)
+            })
+        },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
       .compileComponents();
-    });
+  });
 
 
   beforeEach(() => {
