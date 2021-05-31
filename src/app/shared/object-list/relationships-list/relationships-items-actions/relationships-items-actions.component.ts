@@ -42,24 +42,30 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
    */
   sub: Subscription;
 
+  isLoading = false;
+
   /**
    * Subscribe to the relationships list
    */
   ngOnInit(): void {
-    this.sub = this.customData.relationships$.subscribe( (relationships) => {
-      this.getSelected(relationships);
-      this.getHidden(relationships);
-    });
+    if (!!this.customData && !!this.customData.relationships$) {
+      this.sub = this.customData.relationships$.subscribe( (relationships) => {
+        this.getSelected(relationships);
+        this.getHidden(relationships);
+        this.isLoading = false;
+      });
+    }
   }
 
   /**
    * When a button is clicked emit the event in the parent components
    */
   emitAction(action): void {
-    let relationship = {};
-    if ( action === 'unselect' ) {
+    this.isLoading = true;
+    let relationship = null;
+    if ( !!this.isSelected ) {
       relationship = this.isSelected;
-    } else if ( action === 'unhide' ) {
+    } else if ( !!this.isHidden ) {
       relationship = this.isHidden;
     }
     this.processCompleted.emit({ action: action, item: this.object, relationship: relationship });
@@ -72,13 +78,12 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
 
     this.isSelected = null;
     const relationshipType = this.customData.entityType;
-
     relationships.forEach( relation => {
       relation.leftItem.pipe(
         map((itemRd: RemoteData<Item>) => itemRd.payload),
         take(1)
       ).subscribe( (item: Item) => {
-        if (relation.leftwardValue.toLowerCase().includes('select') && relation.leftwardValue.toLowerCase().includes(relationshipType) && this.object.uuid === item.uuid) {
+        if (relation.leftwardValue.toLowerCase().includes('select') && relation.leftwardValue.toLowerCase().includes('is' + relationshipType) && this.object.uuid === item.uuid) {
           this.isSelected = relation;
         }
       });
@@ -100,7 +105,7 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
         map((itemRd: RemoteData<Item>) => itemRd.payload),
         take(1)
       ).subscribe( (item: Item) => {
-        if (relation.leftwardValue.toLowerCase().includes('hidden') && relation.leftwardValue.toLowerCase().includes(relationshipType) && this.object.uuid === item.uuid) {
+        if (relation.leftwardValue.toLowerCase().includes('hidden') && relation.leftwardValue.toLowerCase().includes('is' + relationshipType) && this.object.uuid === item.uuid) {
           this.isHidden = relation;
         }
       });
@@ -113,7 +118,9 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
    * On destroy unsubscribe
    */
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (!!this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
 }

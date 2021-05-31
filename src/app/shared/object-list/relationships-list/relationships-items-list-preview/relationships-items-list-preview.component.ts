@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { fadeInOut } from '../../../animations/fade';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchResult } from '../../../search/search-result.model';
@@ -10,8 +10,7 @@ import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/secti
   styleUrls: ['./relationships-items-list-preview.component.scss'],
   animations: [fadeInOut]
 })
-export class RelationshipsItemsListPreviewComponent implements OnInit {
-
+export class RelationshipsItemsListPreviewComponent {
 
   /**
    * The item to display
@@ -34,12 +33,19 @@ export class RelationshipsItemsListPreviewComponent implements OnInit {
   @Input() showSubmitter = false;
 
   /**
-   * An object representing the duplicate match
+   * An string utilized for specifying the type of view which component is being used for
    */
-  @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
+  @Input() viewConfig = 'default';
 
+  /**
+   * Emit when trying to delete the relationship
+   */
+  @Output() deleteRelationship = new EventEmitter<any>();
 
-  ngOnInit(): void {
-    // console.log(this.item);
+  /**
+   * When a button is clicked emit the event to the parent components
+   */
+  emitAction(): void {
+    this.deleteRelationship.emit({ action: 'delete', item: this.object, relationship: this.customData.relationship });
   }
 }

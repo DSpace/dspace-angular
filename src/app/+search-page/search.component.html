@@ -26,7 +26,9 @@
                                [searchConfig]="searchOptions$ | async"
                                [configuration]="configuration$ | async"
                                [disableHeader]="!searchEnabled"
-                               [context]="context"></ds-search-results>
+                               [context]="context"
+                               [customData]="customData"
+                               (customEvent)="customEvent.emit($event)"></ds-search-results>
         </div>
     </div>
 </ds-page-with-sidebar>

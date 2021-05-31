@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { map, startWith, switchMap, take, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -106,6 +106,16 @@ export class SearchComponent implements OnInit {
    * Observable for whether or not the sidebar is currently collapsed
    */
   isSidebarCollapsed$: Observable<boolean>;
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
+
+  /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
 
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,

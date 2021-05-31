@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, mergeMap, startWith } from 'rxjs/operators';
+import { map, mergeMap, startWith, } from 'rxjs/operators';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';

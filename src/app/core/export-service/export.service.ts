@@ -50,15 +50,23 @@ export class ExportService {
    * @param isLoading A boolean representing the exporting process status.
    */
   exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>): void {
-    let options: Options = {};
+
+    const options: Options = { backgroundColor: '#ffffff' };
+
     if (type === ExportImageType.png) {
-      options = {backgroundColor: '#ffffff'};
-    }
-    htmlToImage.toBlob(domNode, options)
-      .then((blob) => {
-        saveAs(blob, fileName + '.' + type);
+      htmlToImage.toPng(domNode, options)
+      .then((dataUrl) => {
+        saveAs(dataUrl, fileName + '.' + type);
         isLoading.next(false);
       });
+    } else {
+      htmlToImage.toJpeg(domNode, options)
+      .then((dataUrl) => {
+        saveAs(dataUrl, fileName + '.' + type);
+        isLoading.next(false);
+      });
+    }
+
   }
 
 }

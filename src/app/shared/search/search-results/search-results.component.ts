@@ -79,6 +79,16 @@ export class SearchResultsComponent {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
+
+  /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
+
+  /**
    * Method to change the given string by surrounding it by quotes if not already present.
    */
   surroundStringWithQuotes(input: string): string {

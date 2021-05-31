@@ -1,35 +1,27 @@
 <div class="container">
 
-	<div class="row">
-		<div class="col-md-8">
-            <ng-container *ngVar="(searchOptions$ | async) as searchConfig">
-                <ng-container *ngVar="(resultsRD$ | async) as searchResults">
-                    <ng-container *ngIf="!searchResults?.hasSucceeded ; else noData ">
-                      <ds-loading></ds-loading>
-                    </ng-container>
-                    <div *ngIf="searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0" class="search-results">
-                      <ds-viewable-collection
-                        [config]="searchConfig.pagination"
-                        [hasBorder]="hasBorder"
-                        [sortConfig]="searchConfig.sort"
-                        [objects]="searchResults"
-                        [hideGear]="true"
-                        [context]="context"
-                        [customData]="{ relationships$ : relationshipResults$, entityType: relationshipType }"
-                        (customEvent)="manageRelationship($event)">
-                      </ds-viewable-collection>
-                    </div>
-
-                    <ng-template #noData>
-                       <h2>{{ 'relationships.no.data.found' | translate }}</h2>
-                    </ng-template>
-
-                </ng-container>
-            </ng-container>
+    <div class="row">
+        <div class="col-md-12 mb-4 pl-4">
+            <button class="btn btn-primary" id="backButton"
+                  (click)="onReturn()">{{'admin.metadata-import.page.button.return' | translate}}</button>
+        </div>
+    </div>
+     
+    <div class="row">
+		<div class="col-md-{{ (isSideBarHidden() | async) ? '12' : '8' }}">
+            <ds-configuration-search-page *ngIf="!!relationshipConfig && !!searchFilter" [configuration]="relationshipConfig" [context]="context" [fixedFilterQuery]="searchFilter" 
+            [customData]="{ relationships$ : relationshipResults$, entityType: relationshipType }"
+            (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
+            
+            <div *ngIf="!(isXsOrSm$ | async)">
+                <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
+                    <i class="fa fa-chevron-circle-{{(isSideBarHidden() | async) ? 'left' : 'right'}} fa-2x" aria-hidden="true"></i>
+                </button>
+            </div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-4" *ngIf="!(isSideBarHidden() | async)">
             <ng-container *ngVar="(relationshipResults$ | async) as relationships">
-                <ds-relationships-sort-list (itemDrop)="itemDropped($event)" [item]="item" [relationships]="relationships"></ds-relationships-sort-list>
+                <ds-relationships-sort-list (deleteRelationship)="manageRelationship($event)" (itemDrop)="itemDropped($event)" [item]="item" [relationships]="relationships"></ds-relationships-sort-list>
             </ng-container>
 		</div>
 	</div>
