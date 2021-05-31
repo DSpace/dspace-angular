@@ -1368,7 +1368,6 @@
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
-  "dataset.listelement.badge": "Dataset",
 
 
   "dso.name.untitled": "Untitled",
@@ -3508,6 +3507,8 @@
 
   "patent.listelement.badge": "Patent",
 
+  "product.listelement.badge": "Product",
+
   "profile.breadcrumbs": "Update Profile",
 
   "profile.card.identify": "Identify",
@@ -4327,9 +4328,7 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
-  "submission.import-external.title.Dataset": "Import dataset from an external source",
-
-  "submission.import-external.title.Equipment": "Import equipment from an external source",
+    "submission.import-external.title.Equipment": "Import equipment from an external source",
 
   "submission.import-external.title.Event": "Import event from an external source",
 
@@ -4343,6 +4342,8 @@
 
   "submission.import-external.title.Person": "Import person from an external source",
 
+  "submission.import-external.title.Product": "Import product from an external source",
+  
   "submission.import-external.title.Project": "Import project from an external source",
 
   "submission.import-external.title.Publication": "Import publication from an external source",
@@ -4399,8 +4400,6 @@
 
   "submission.import-external.source.epo": "European Patent Office (EPO)",
 
-  "submission.import-external.preview.title.Dataset": "Dataset Preview",
-
   "submission.import-external.preview.title.Equipment": "Equipment Preview",
 
   "submission.import-external.preview.title.Event": "Event Preview",
@@ -4414,6 +4413,8 @@
   "submission.import-external.preview.title.Patent": "Patent Preview",
 
   "submission.import-external.preview.title.Person": "Person Preview",
+
+  "submission.import-external.preview.title.Product": "Product Preview",
 
   "submission.import-external.preview.title.Project": "Project Preview",
 
@@ -4482,7 +4483,7 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Dataset": "Import remote dataset",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
 
@@ -4955,7 +4956,7 @@
 
 
 
-  "vocabulary.import-external.preview.title.Dataset": "Dataset Preview",
+  "vocabulary.import-external.preview.title.Product": "Product Preview",
 
   "vocabulary.import-external.preview.title.Equipment": "Equipment Preview",
 
