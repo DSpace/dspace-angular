@@ -1619,10 +1619,17 @@
   "file-section.error.header": "Error obtaining files for this item",
 
 
-
+  "footer.built-with":"Built with",
+  
   "footer.copyright": "copyright © 2002-{{ year }}",
 
+  "footer.extension-by": "- Extension maintained and optimized by",
+
+  "footer.link.4science": "4Science",
+
   "footer.link.dspace": "DSpace software",
+
+  "footer.link.dspace-cris": "DSpace-CRIS software",
 
   "footer.link.duraspace": "DuraSpace",
 
@@ -1632,7 +1639,7 @@
 
   "footer.link.end-user-agreement":"End User Agreement",
 
-
+  
 
   "forgot-email.form.header": "Forgot Password",
 
