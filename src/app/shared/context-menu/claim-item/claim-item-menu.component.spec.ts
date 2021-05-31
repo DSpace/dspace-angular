@@ -1,16 +1,16 @@
 import {of, of as observableOf} from 'rxjs/internal/observable/of';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NotificationsService } from './../../notifications/notifications.service';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
+import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClaimItemMenuComponent } from './claim-item-menu.component';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../testing/translate-loader.mock';
-import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { Item } from 'src/app/core/shared/item.model';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { DSpaceObjectType } from 'src/app/core/shared/dspace-object-type.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Item } from '../../../core/shared/item.model';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestScheduler } from 'rxjs/internal/testing/TestScheduler';
 import { By } from '@angular/platform-browser';

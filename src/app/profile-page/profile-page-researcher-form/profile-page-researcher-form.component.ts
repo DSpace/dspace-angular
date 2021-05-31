@@ -1,9 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { take } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ClaimItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
+import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 
 @Component({
     selector: 'ds-profile-page-researcher-form',
@@ -38,7 +47,12 @@ export class ProfilePageResearcherFormComponent implements OnInit {
     processingCreate$: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
 
     constructor( protected researcherProfileService: ResearcherProfileService,
-                 protected router: Router) {
+                 protected profileClaimService: ProfileClaimService,
+                 protected translationService: TranslateService,
+                 protected notificationService: NotificationsService,
+                 protected authService: AuthService,
+                 protected router: Router,
+                 protected modalService: NgbModal) {
 
     }
 
@@ -58,12 +72,24 @@ export class ProfilePageResearcherFormComponent implements OnInit {
      * Create a new profile for the current user.
      */
     createProfile(): void {
-        this.processingCreate$.next(true);
-        this.researcherProfileService.create()
-            .subscribe ( (researcherProfile) => {
-                this.researcherProfile$.next(researcherProfile);
-                this.processingCreate$.next(false);
+      this.processingCreate$.next(true);
+
+      this.authService.getAuthenticatedUserFromStore().pipe(
+        switchMap((currentUser) => this.profileClaimService.canClaimProfiles(currentUser)))
+        .subscribe((canClaimProfiles) => {
+
+          if (canClaimProfiles) {
+            this.processingCreate$.next(false);
+            const modal = this.modalService.open(ClaimItemSelectorComponent);
+            modal.componentInstance.dso = this.user;
+            modal.componentInstance.create.pipe(take(1)).subscribe(() => {
+              this.createProfileFromScratch();
             });
+          } else {
+            this.createProfileFromScratch();
+          }
+
+        });
     }
 
     /**
@@ -122,6 +148,21 @@ export class ProfilePageResearcherFormComponent implements OnInit {
      */
     isProcessingCreate(): Observable<boolean> {
         return this.processingCreate$.asObservable();
+    }
+
+    createProfileFromScratch() {
+      this.processingCreate$.next(true);
+      this.researcherProfileService.create().pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe((remoteData) => {
+        this.processingCreate$.next(false);
+        if (remoteData.isSuccess) {
+          this.researcherProfile$.next(remoteData.payload);
+          this.notificationService.success(this.translationService.get('researcher.profile.create.success'));
+        } else {
+          this.notificationService.error(this.translationService.get('researcher.profile.create.fail'));
+        }
+      });
     }
 
 }

@@ -5,6 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
@@ -12,6 +14,9 @@ import { ResearcherProfileService } from '../../core/profile/researcher-profile.
 import { RouterStub } from '../../shared/testing/router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';
+import { ProfileClaimService } from '../profile-claim/profile-claim.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 describe('ProfilePageResearcherFormComponent', () => {
 
@@ -23,6 +28,12 @@ describe('ProfilePageResearcherFormComponent', () => {
     let profile: ResearcherProfile;
 
     let researcherProfileService: ResearcherProfileService;
+
+    let notificationsServiceStub: NotificationsServiceStub;
+
+    let profileClaimService: ProfileClaimService;
+
+    let authService: AuthService;
 
     function init() {
         router = new RouterStub();
@@ -37,6 +48,10 @@ describe('ProfilePageResearcherFormComponent', () => {
             type: 'profile'
           });
 
+        authService = jasmine.createSpyObj('authService', {
+          getAuthenticatedUserFromStore: observableOf(user)
+        });
+
         researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
            findById: observableOf ( profile ),
            create: observableOf ( profile ),
@@ -44,6 +59,12 @@ describe('ProfilePageResearcherFormComponent', () => {
            delete: observableOf ( true ),
            findRelatedItemId: observableOf ( 'a42557ca-cbb8-4442-af9c-3bb5cad2d075' )
         });
+
+        notificationsServiceStub = new NotificationsServiceStub();
+
+        profileClaimService = jasmine.createSpyObj('profileClaimService', {
+          canClaimProfiles: observableOf ( false ),
+       });
 
     }
 
@@ -53,8 +74,12 @@ describe('ProfilePageResearcherFormComponent', () => {
           declarations: [ProfilePageResearcherFormComponent, VarDirective],
           imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
           providers: [
+            NgbModal,
             { provide: ResearcherProfileService, useValue: researcherProfileService },
-            {provide: Router, useValue: router}
+            { provide: Router, useValue: router },
+            { provide: NotificationsService, useValue: notificationsServiceStub },
+            { provide: ProfileClaimService, useValue: profileClaimService },
+            { provide: AuthService, useValue: authService }
           ],
           schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();

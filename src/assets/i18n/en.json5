@@ -1374,6 +1374,13 @@
   "dso.name.untitled": "Untitled",
 
 
+  "dso-selector.claim.item.head": "Profile tips",
+
+  "dso-selector.claim.item.body": "These are existing profiles that may be related to you. If you recognize yourself in one of these profiles, select it and on the detail page, among the options, choose to claim it. Otherwise you can create a new profile from scratch using the button below.",
+
+  "dso-selector.claim.item.create-from-scratch": "Create a new one",
+
+  "dso-selector.claim.item.not-mine-label": "None of these are mine",
 
   "dso-selector.create.collection.head": "New collection",
 
@@ -3784,6 +3791,10 @@
 
   "researcher.profile.create.new": "Create new",
 
+  "researcher.profile.create.success": "Researcher profile created succcessfully",
+
+  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+
   "researcher.profile.delete": "Delete",
 
   "researcher.profile.expose": "Expose",
@@ -3797,6 +3808,8 @@
   "researcher.profile.private.visibility" : "PRIVATE",
 
   "researcher.profile.public.visibility" : "PUBLIC",
+
+  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
 
   "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
 

@@ -258,6 +258,7 @@ import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-c
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { DsDynamicRelationGroupModalComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
+import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -401,6 +402,7 @@ const COMPONENTS = [
   EditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
   EditItemSelectorComponent,
+  ClaimItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   BrowseByComponent,
@@ -535,6 +537,7 @@ const ENTRY_COMPONENTS = [
   CreateCollectionParentSelectorComponent,
   CreateItemParentSelectorComponent,
   BulkImportSelectorComponent,
+  ClaimItemSelectorComponent,
   EditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
   EditItemSelectorComponent,

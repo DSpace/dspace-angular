@@ -135,7 +135,6 @@ describe('CrisrefComponent', () => {
       component = fixture.componentInstance;
       component.item = testOrgunit;
       component.field = testOrcidField;
-      debugger;
       fixture.detectChanges();
     });
 
@@ -144,7 +143,6 @@ describe('CrisrefComponent', () => {
     });
 
     it('should has orcid icon', () => {
-      debugger;
       const icon = fixture.debugElement.query(By.css('.orcid-icon'));
 
       expect(icon).toBeTruthy();
