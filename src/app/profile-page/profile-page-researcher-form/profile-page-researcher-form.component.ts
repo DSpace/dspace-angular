@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateCompiler, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { take } from 'rxjs/operators';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { ClaimItemSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ClaimItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';

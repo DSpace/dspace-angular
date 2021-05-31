@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ClaimItemSelectorComponent } from './claim-item-selector.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProfileClaimService } from 'src/app/profile-page/profile-claim/profile-claim.service';
+import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
 import { of } from 'rxjs/internal/observable/of';
 
 describe('ClaimItemSelectorComponent', () => {
@@ -41,5 +41,5 @@ describe('ClaimItemSelectorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-//   FIXME: to be completed
+
 });

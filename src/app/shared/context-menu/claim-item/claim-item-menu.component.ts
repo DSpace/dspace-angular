@@ -1,5 +1,4 @@
 import { NotificationsService } from './../../notifications/notifications.service';
-import { Router } from '@angular/router';
 import { ResearcherProfileService } from './../../../core/profile/researcher-profile.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthorizationDataService } from '../../../../app/core/data/feature-authorization/authorization-data.service';
@@ -13,8 +12,7 @@ import {mergeMap, take} from 'rxjs/operators';
 import { RemoteData } from '../../../../app/core/data/remote-data';
 import { ResearcherProfile } from '../../../../app/core/profile/model/researcher-profile.model';
 import { isNotUndefined } from '../../empty.util';
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
-import { AuthService } from '../../../../app/core/auth/auth.service';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -39,9 +37,7 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
     private researcherProfileService: ResearcherProfileService,
-    private router: Router,
     private notificationsService: NotificationsService,
-    private authService: AuthService,
     private translate: TranslateService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);

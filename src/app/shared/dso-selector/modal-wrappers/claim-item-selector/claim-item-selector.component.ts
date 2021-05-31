@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
@@ -37,8 +36,7 @@ export class ClaimItemSelectorComponent extends DSOSelectorModalWrapperComponent
   @Output() create: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router,
-              private profileClaimService: ProfileClaimService,
-              private researcherProfileService: ResearcherProfileService) {
+              private profileClaimService: ProfileClaimService) {
     super(activeModal, route);
   }
 
