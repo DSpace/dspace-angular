@@ -5,10 +5,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of as observableOf, EMPTY } from 'rxjs';
+import { distinctUntilKeyChanged, filter, map, take, switchMap, expand } from 'rxjs/operators';
 
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, hasNoValue } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { BitstreamDataService } from '../data/bitstream-data.service';
@@ -21,11 +21,15 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstCompletedRemoteData
 } from '../shared/operators';
 import { environment } from '../../../environments/environment';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
+import { BundleDataService } from '../data/bundle-data.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { Bundle } from '../shared/bundle.model';
+import { PaginatedList } from '../data/paginated-list.model';
 
 @Injectable()
 export class MetadataService {
@@ -42,6 +46,7 @@ export class MetadataService {
     private meta: Meta,
     private title: Title,
     private dsoNameService: DSONameService,
+    private bundleDataService: BundleDataService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
     private rootService: RootDataService
@@ -275,26 +280,110 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      this.bitstreamDataService.findAllByItemAndBundleName(item, 'ORIGINAL')
-        .pipe(
-          getFirstSucceededRemoteListPayload(),
-          first((files) => isNotEmpty(files)),
-          catchError((error) => {
-            console.debug(error.message);
-            return [];
-          }))
-        .subscribe((bitstreams: Bitstream[]) => {
-          for (const bitstream of bitstreams) {
-            this.bitstreamFormatDataService.findByBitstream(bitstream).pipe(
-              getFirstSucceededRemoteDataPayload()
-            ).subscribe((format: BitstreamFormat) => {
-              if (format.mimetype === 'application/pdf') {
-                const bitstreamLink =  getBitstreamDownloadRoute(bitstream);
-                this.addMetaTag('citation_pdf_url', bitstreamLink);
+
+      // Retrieve the ORIGINAL bundle for the item
+      this.bundleDataService.findByItemAndName(
+        item,
+        'ORIGINAL',
+        true,
+        true,
+        followLink('primaryBitstream'),
+        followLink('bitstreams',
+          undefined,
+          true,
+          true,
+          true,
+          followLink('format')
+        )
+      ).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        switchMap((bundle: Bundle) =>
+
+          // First try the primary bitstream
+          bundle.primaryBitstream.pipe(
+            getFirstCompletedRemoteData(),
+            map((rd: RemoteData<Bitstream>) => {
+              if (hasValue(rd.payload)) {
+                return rd.payload;
+              } else {
+                return null;
               }
-            });
+            }),
+            // return the bundle as well so we can use it again if there's no primary bitstream
+            map((bitstream: Bitstream) => [bundle, bitstream])
+          )
+        ),
+        switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
+          if (hasValue(primaryBitstream)) {
+            // If there was a primary bitstream, emit its link
+            return [getBitstreamDownloadRoute(primaryBitstream)];
+          } else {
+            // Otherwise consider the regular bitstreams in the bundle
+            return bundle.bitstreams.pipe(
+              getFirstCompletedRemoteData(),
+              switchMap((bitstreamRd: RemoteData<PaginatedList<Bitstream>>) => {
+                if (hasValue(bitstreamRd.payload) && bitstreamRd.payload.totalElements === 1) {
+                  // If there's only one bitstream in the bundle, emit its link
+                  return [getBitstreamDownloadRoute(bitstreamRd.payload.page[0])];
+                } else {
+                  // Otherwise check all bitstreams to see if one matches the format whitelist
+                  return observableOf(bitstreamRd.payload).pipe(
+                    // Because there can be more than one page of bitstreams, this expand operator
+                    // will retrieve them in turn due to the take(1) at the bottom, it will only
+                    // retrieve pages until a match is found
+                    expand((paginatedList: PaginatedList<Bitstream>) => {
+                      if (hasNoValue(paginatedList.next)) {
+                        // If there's no next page, stop.
+                        return EMPTY;
+                      } else {
+                        // Otherwise retrieve the next page
+                        return this.bitstreamDataService.findAllByHref(
+                          paginatedList.next,
+                          undefined,
+                          true,
+                          true,
+                          followLink('format')
+                        ).pipe(
+                          getFirstCompletedRemoteData(),
+                          map((next: RemoteData<PaginatedList<Bitstream>>) => {
+                            if (hasValue(next.payload)) {
+                              return next.payload;
+                            } else {
+                              return EMPTY;
+                            }
+                          })
+                        );
+                      }
+                    }),
+                    // Return the array of bitstreams inside each paginated list
+                    map((paginatedList: PaginatedList<Bitstream>) => paginatedList.page),
+                    // Emit the bitstreams in the list one at a time
+                    switchMap((bitstreams: Bitstream[]) => bitstreams),
+                    // Retrieve the format for each bitstream
+                    switchMap((bitstream: Bitstream) => bitstream.format.pipe(
+                      getFirstSucceededRemoteDataPayload(),
+                      // Keep the original bitstream, because it, not the format, is what we'll need
+                      // for the link at the end
+                      map((format: BitstreamFormat) => [bitstream, format])
+                    )),
+                    // Filter out only pairs with whitelisted formats
+                    filter(([, format]: [Bitstream, BitstreamFormat]) =>
+                      hasValue(format) && format.mimetype === 'application/pdf'), // TODO change to check map of mimetypes
+                    // We only need 1
+                    take(1),
+                    // Emit the link of the match
+                    map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+                  );
+                }
+              })
+            );
           }
-        });
+        }),
+        take(1)
+      ).subscribe((link: string) => {
+        // Use the found link to set the <meta> tag
+        this.addMetaTag('citation_pdf_url', link);
+      });
     }
   }
 
