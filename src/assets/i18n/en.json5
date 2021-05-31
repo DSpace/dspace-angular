@@ -1754,6 +1754,8 @@
 
   "form.other-information.institution-affiliation-name": "Affiliation(s)",
 
+  "form.other-information.data-dc_relation_grantno": "Grant Number",
+
   "form.other-information.not-available": "Not available",
 
   "form.remove": "Remove",
