@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Metric } from '../../../../../../core/shared/metric.model';
+import { Metric } from '../../../core/shared/metric.model';
 
 @Component({
   template: ''
@@ -7,5 +7,7 @@ import { Metric } from '../../../../../../core/shared/metric.model';
 export abstract class BaseMetricComponent {
 
   @Input() metric: Metric;
+
+  @Input() hideLabel = false;
 
 }

@@ -259,6 +259,15 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { DsDynamicRelationGroupModalComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
 import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
+import { MetricBadgesComponent } from './object-list/metric-badges/metric-badges.component';
+import { MetricLoaderComponent } from './metric/metric-loader/metric-loader.component';
+import { MetricAltmetricComponent } from './metric/metric-altmetric/metric-altmetric.component';
+import { MetricDimensionsComponent } from './metric/metric-dimensions/metric-dimensions.component';
+import { MetricDspacecrisComponent } from './metric/metric-dspacecris/metric-dspacecris.component';
+import { MetricGooglescholarComponent } from './metric/metric-googlescholar/metric-googlescholar.component';
+import { MetricEmbeddedViewComponent } from './metric/metric-embedded-view/metric-embedded-view.component';
+import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-download/metric-embedded-download.component';
+import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -436,6 +445,8 @@ const COMPONENTS = [
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   TypeBadgeComponent,
+  MetricBadgesComponent,
+  MetricDonutsComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
   CustomSwitchComponent,
@@ -511,6 +522,13 @@ const COMPONENTS = [
   RelationshipsListComponent,
   RelationshipsItemsActionsComponent,
   RelationshipsItemsListPreviewComponent,
+  MetricLoaderComponent,
+  MetricAltmetricComponent,
+  MetricDimensionsComponent,
+  MetricDspacecrisComponent,
+  MetricGooglescholarComponent,
+  MetricEmbeddedViewComponent,
+  MetricEmbeddedDownloadComponent
 ];
 
 const ENTRY_COMPONENTS = [

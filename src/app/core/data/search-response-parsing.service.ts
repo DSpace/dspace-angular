@@ -47,11 +47,31 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
       .map((object, index) => Object.assign({}, object, {
         indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
+        _embedded: this.filterEmbeddedObjects(object, request)
       }));
     payload.objects = objects;
     const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
     deserialized.pageInfo = this.processPageInfo(payload);
     this.addToObjectCache(deserialized, request, data);
     return new ParsedResponse(data.statusCode, deserialized._links.self);
+  }
+
+  protected filterEmbeddedObjects(object, request: RestRequest) {
+    const embeddedKeys = hasValue((request as any)?.searchOptions?.forcedEmbeddedKeys)
+      ? (request as any)?.searchOptions?.forcedEmbeddedKeys : [];
+    if (object._embedded.indexableObject && object._embedded.indexableObject._embedded) {
+      return Object.assign({}, object._embedded, {
+        indexableObject: Object.assign({}, object._embedded.indexableObject, {
+          _embedded: Object.keys(object._embedded.indexableObject._embedded)
+            .filter((key) => embeddedKeys.includes(key))
+            .reduce((obj, key) => {
+              obj[key] = object._embedded.indexableObject._embedded[key];
+              return obj;
+            }, {})
+        })
+      });
+    } else {
+      return object;
+    }
   }
 }

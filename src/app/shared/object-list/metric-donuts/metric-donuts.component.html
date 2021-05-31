@@ -1,0 +1,4 @@
+<ng-container *ngFor="let metric of donuts() | async;  trackBy:identify">
+    <ds-metric-loader class="d-inline-block" [metric]="metric" [hideLabel]="true"></ds-metric-loader>
+</ng-container>
+
