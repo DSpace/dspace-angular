@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { hasNoValue } from '../../../shared/empty.util';
 
 /**
  * This component renders any content inside this wrapper.

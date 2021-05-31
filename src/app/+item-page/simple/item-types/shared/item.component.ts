@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload, takeUntilCompletedRemoteData } from '../../../../core/shared/operators';
+import { takeUntilCompletedRemoteData } from '../../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { RemoteData } from '../../../../core/data/remote-data';
