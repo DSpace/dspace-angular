@@ -49,6 +49,12 @@ export class DuplicateMatchComponent implements OnInit {
   @Input() match: DetectDuplicateMatch;
 
   /**
+   * Representing the possibility to take decisions on the matches
+   * @type {boolean}
+   */
+  @Input() readOnly = false;
+
+  /**
    * The submission ID.
    * @type {string}
    */

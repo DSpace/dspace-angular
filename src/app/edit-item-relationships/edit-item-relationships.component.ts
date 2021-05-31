@@ -23,10 +23,8 @@ import { AuthService } from '../core/auth/auth.service';
 import { EntityTypeService } from '../core/data/entity-type.service';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { RelationshipsConfigurationService } from './relationships-configuration.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
-import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
+
 
 import { MyDSpaceRequest } from '../core/data/request.models';
 
@@ -35,6 +33,8 @@ import { Context } from '../core/shared/context.model';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SearchResult } from '../shared/search/search-result.model';
+import { HostWindowService } from '../shared/host-window.service';
+import { Location } from '@angular/common';
 
 import {
   combineLatest as observableCombineLatest,
@@ -44,20 +44,12 @@ import {
   of as observableOf,
   zip as observableZip,
 } from 'rxjs';
-
-export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
-
+import {getItemPageRoute} from '../+item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-item-relationships',
   templateUrl: './edit-item-relationships.component.html',
   styleUrls: ['./edit-item-relationships.component.scss'],
-  providers: [
-    {
-      provide: SEARCH_CONFIG_SERVICE,
-      useClass: RelationshipsConfigurationService
-    }
-  ]
 })
 export class EditItemRelationshipsComponent implements OnInit {
 
@@ -109,21 +101,6 @@ export class EditItemRelationshipsComponent implements OnInit {
   hasBorder = true;
 
   /**
-   * The current search results
-   */
-  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
-
-  /**
-   * The current paginated search options
-   */
-  searchOptions$: Observable<PaginatedSearchOptions>;
-
-  /**
-   * The list of available configuration options
-   */
-  configurationList$: Observable<SearchConfigurationOption[]>;
-
-  /**
    * The current context of this page: workspace or workflow
    */
   context: Context = Context.RelationshipItem;
@@ -138,17 +115,40 @@ export class EditItemRelationshipsComponent implements OnInit {
    */
   relationshipResults$: BehaviorSubject<Relationship[]> = new BehaviorSubject([]);
 
+  /**
+   * The relationship configuration
+   */
+  relationshipConfig: string;
+
+  /**
+   * The relationship configuration
+   */
+  searchFilter: string;
+
+  /**
+   * This parameter define the status of sidebar (hide/show)
+   */
+  private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
+  /**
+   * Emits true if were on a small screen
+   */
+  isXsOrSm$: Observable<boolean>;
+
+
   constructor(protected relationshipService: RelationshipService,
     private route: ActivatedRoute,
     private authService: AuthService,
     protected entityTypeService: EntityTypeService,
     protected linkService: LinkService,
     private service: SearchService,
-    private router: Router,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: RelationshipsConfigurationService) {
+    private windowService: HostWindowService,
+    private location: Location,
+    private router: Router
+    ) {
 
     this.relationshipType = this.route.snapshot.params.type;
-    // this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
 
   }
 
@@ -164,15 +164,10 @@ export class EditItemRelationshipsComponent implements OnInit {
       getFirstSucceededRemoteData()
     ) as Observable<RemoteData<Item>>;
 
-    this.itemRD$.pipe(first()).subscribe((rd) => {
-        this.item = rd.payload;
+    this.itemRD$.pipe(first()).subscribe((remoteData) => {
 
-        this.itemType = this.item.firstMetadataValue('dspace.entity.type');
-        const relationshipConfig = 'RELATION.' + this.itemType + '.' + this.relationshipType;
+        this.getInfo(remoteData);
 
-        this.searchConfigService.setOptions(relationshipConfig,this.item.id);
-
-        this.getResults();
 
         this.getEntityType();
 
@@ -182,19 +177,15 @@ export class EditItemRelationshipsComponent implements OnInit {
 
   }
 
-  /**
-   * Get all results of the relation to manage
-   */
-  getResults(): void {
-    this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
-    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-    this.searchOptions$.pipe(
-      tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getFirstSucceededRemoteData())))
-      .subscribe((results) => {
-        console.log(results);
-        this.resultsRD$.next(results);
-      });
+  getInfo(remoteData) {
+
+        this.item = remoteData.payload;
+
+        this.itemType = this.item.firstMetadataValue('dspace.entity.type');
+
+        this.relationshipConfig = 'RELATION.' + this.itemType + '.' + this.relationshipType;
+
+        this.searchFilter = `scope=${this.item.id}`;
   }
 
   /**
@@ -206,11 +197,10 @@ export class EditItemRelationshipsComponent implements OnInit {
       followLink('leftItem')
     )
     .subscribe((relationships: Relationship[]) => {
-      const relations = relationships.filter((relation) => relation.leftwardValue.toLowerCase().includes(this.relationshipType));
+      const relations = relationships.filter((relation) => relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
       setTimeout( () => {
-        console.log(relations);
         this.relationshipResults$.next(relations);
-      }, 500);
+      }, 800);
     });
   }
 
@@ -297,17 +287,20 @@ export class EditItemRelationshipsComponent implements OnInit {
    * @param event  the event from which comes an action type
    */
   manageRelationship(event): void {
-    if ( event.action === 'select' ) {
-      const relationshipType = this.relTypes.find((type) => type.leftwardType.toLowerCase().includes('select') && type.leftwardType.toLowerCase().includes(this.relationshipType));
-      this.addRelationship(relationshipType, event.item);
-    } else if ( event.action === 'hide' ) {
-      const relationshipType = this.relTypes.find((type) => type.leftwardType.toLowerCase().includes('hidden') && type.leftwardType.toLowerCase().includes(this.relationshipType));
-      this.addRelationship(relationshipType, event.item);
+    if ( event.action === 'select' || event.action === 'hide') {
+      const relType = event.action === 'select' ? 'select' : 'hidden';
+      const relationshipType = this.relTypes.find((type) => type.leftwardType.toLowerCase().includes(relType) && type.leftwardType.toLowerCase().includes('is' + this.relationshipType));
+
+      if (!event.relationship) {
+        this.addRelationship(relationshipType, event.item);
+      } else {
+        this.deleteAddRelationship(relationshipType, event.item,event.relationship);
+      }
+
     } else {
       this.deleteRelationship(event.relationship);
     }
   }
-
 
   /**
    * Request for adding relationship between two items
@@ -342,6 +335,39 @@ export class EditItemRelationshipsComponent implements OnInit {
     });
   }
 
+  /**
+   * Request for deleting a relationship and then adding a new relationship between two items
+   * @param type  the relationship type of the relationship created
+   * @param ojbectItem  the relationship type of the relationship created
+   * @param relationship  the relationship to delete
+   */
+  deleteAddRelationship(type: RelationshipType, objectItem: Item, relationship: Relationship) {
+    this.relationshipService.deleteRelationship(relationship.id).subscribe((res) => {
+      this.addRelationship(type, objectItem);
+    });
+  }
 
+  /**
+   * It is used for hide/show the right relationship list
+   */
+  toggleSidebar(): void {
+    this.sidebarStatus$.next(!this.sidebarStatus$.value);
+  }
+
+  /**
+   * Return the relationship list status
+   */
+  isSideBarHidden(): Observable<boolean> {
+    return this.sidebarStatus$.asObservable().pipe(
+      map((status: boolean) => !status)
+    );
+  }
+
+  /**
+   * When return button is pressed go to previous location
+   */
+  public onReturn() {
+    window.location.href = getItemPageRoute(this.item);
+  }
 
 }

@@ -1236,23 +1236,41 @@
 
   "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
 
+  "context-menu.actions.edit-item-relationships.btn.fundings": "Manage Fundints",
+
   "context-menu.actions.edit-item-relationships.btn.researchoutputs": "Manage Research Outputs",
 
   "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
 
-  "context-menu.actions.edit-item-relationships.btn.organizations": "Manage Organizations",
+  "context-menu.actions.edit-item-relationships.btn.organizations": "Manage SubOrganizations",
 
-  "context-menu.actions.edit-item-relationships.btn.rppublications": "Manage Rppublications",
+  "context-menu.actions.edit-item-relationships.btn.rppublications": "Manage Researchers Publications",
 
   "context-menu.actions.edit-item-relationships.btn.publications": "Manage Publications",
 
-  "context-menu.actions.edit-item-relationships.btn.rpprojects": "Manage Rpprojects",
+  "context-menu.actions.edit-item-relationships.btn.rpprojects": "Manage Researchers Projects",
 
   "context-menu.actions.edit-item-relationships.btn.people": "Manage People",
 
   "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
 
+  "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
 
+  "RELATION.Person.projects.search.results.head" : "Projects",
+
+  "RELATION.OrgUnit.organizations.search.results.head" : "Organizations",
+
+  "RELATION.OrgUnit.rppublications.search.results.head" : "Researchers Publications",
+
+  "RELATION.OrgUnit.publications.search.results.head" : "Publications",
+
+  "RELATION.OrgUnit.rpprojects.search.results.head" : "Researchers Projects",
+
+  "RELATION.OrgUnit.projects.search.results.head" : "Projects",
+
+  "RELATION.Project.researchoutputs.search.results.head" : "Publications",
+
+  "RELATION.OrgUnit.people.search.results.head" : "People",
 
   "datafile.listelement.badge": "Data File",
 
@@ -1697,17 +1715,17 @@
 
   "form.external.source-help": "Click here to create a new item from this field",
 
+  "form.external.source.group.btn": "Create entity",
+
   "form.external.source.group-help": "Click here to create a new item from this group of fields",
 
   "form.first-name": "First name",
 
-  "form.group-collapse": "Collapse",
+  "form.group.add": "Add",
 
-  "form.group-collapse-help": "Click here to collapse",
+  "form.group.close": "Close",
 
-  "form.group-expand": "Expand",
-
-  "form.group-expand-help": "Click here to expand and add more elements",
+  "form.group.set": "Set",
 
   "form.last-name": "Last name",
 
@@ -2469,6 +2487,8 @@
   "item-export.form.btn.submit": "Export",
 
   "item-export.form.btn.cancel": "Cancel",
+
+  "item-export.process.title": "Bulk export item",
 
   "journal.listelement.badge": "Journal",
 
@@ -3357,6 +3377,10 @@
 
   "process.new.notification.error.content": "An error occurred while creating this process",
 
+  "process.new.notification.process.processing": "Processing...",
+
+  "process.new.notification.process.files": "Output Files: ",
+
   "process.new.header": "Create a new process",
 
   "process.new.title": "Create a new process",
@@ -3742,9 +3766,9 @@
 
   "relationships.unhide": "Unhide",
 
-  "relationships.title" : "Relationships",
+  "relationships.title" : "Selected items",
 
-  "relationships.no.relationships.found" : "No relationships",
+  "relationships.no.relationships.found" : "Empty selection",
 
   "relationships.no.data.found" : "No data found",
 
@@ -4198,6 +4222,10 @@
   "sorting.lastModified.ASC": "Last modified Ascending",
 
   "sorting.lastModified.DESC": "Last modified Descending",
+
+  "sorting.ownerselection.ASC": "Owner Relevance Descending ",
+
+  "sorting.ownerselection.DESC": "Owner Relevance Ascending",
 
 
   "statistics.export.csv": "Export CSV",

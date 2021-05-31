@@ -12,6 +12,8 @@
             [hidePaginationDetail]="hidePaginationDetail"
             (deselectObject)="deselectObject.emit($event)"
             (selectObject)="selectObject.emit($event)"
+            [customData]="customData"
+            (customEvent)="customEvent.emit($event)"
             >
     </ds-viewable-collection>
 </div>

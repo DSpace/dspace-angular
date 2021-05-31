@@ -1,10 +1,11 @@
 import { NotificationsActions, NotificationsActionTypes, RemoveNotificationAction } from './notifications.actions';
 import { INotification } from './models/notification.model';
+import { IProcessNotification } from './models/process-notification.model';
 
 /**
  * The notification state.
  */
-export interface NotificationsState extends Array<INotification> {
+export interface NotificationsState extends Array<INotification|IProcessNotification> {
 
 }
 

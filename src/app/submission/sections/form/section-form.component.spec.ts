@@ -64,7 +64,8 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors: [],
   header: 'submit.progressbar.describe.stepone',
   id: 'traditionalpageone',
-  sectionType: SectionsType.SubmissionForm
+  sectionType: SectionsType.SubmissionForm,
+  sectionVisibility: null
 };
 
 const testFormConfiguration = {

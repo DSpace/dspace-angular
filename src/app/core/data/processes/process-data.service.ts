@@ -48,11 +48,30 @@ export class ProcessDataService extends DataService<Process> {
   }
 
   /**
+   * Get the endpoint for a process self
+   * @param processId The ID of the process
+   */
+  getProcessEndpoint(processId: string): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      switchMap((href) => this.halService.getEndpoint('self', `${href}/${processId}`))
+    );
+  }
+
+  /**
    * Get a process' output files
    * @param processId The ID of the process
    */
   getFiles(processId: string): Observable<RemoteData<PaginatedList<Bitstream>>> {
     const href$ = this.getFilesEndpoint(processId);
     return this.bitstreamDataService.findAllByHref(href$);
+  }
+
+  /**
+   * Get process' details
+   * @param processId The ID of the process
+   */
+  getProcess(processId: string): Observable<RemoteData<Process>> {
+    const href$ = this.getProcessEndpoint(processId);
+    return this.findByHref(href$,false);
   }
 }

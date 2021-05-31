@@ -20,6 +20,11 @@ export class FileDownloadLinkComponent implements OnInit {
   @Input() bitstream: Bitstream;
   bitstreamPath: string;
 
+  /**
+   * Optional bitstream link, show in same tab or a new tab.
+   */
+  @Input() isBlank = false;
+
   ngOnInit() {
     this.bitstreamPath = this.getBitstreamPath();
   }

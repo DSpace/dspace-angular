@@ -43,6 +43,7 @@ import { parseReviver } from '@ng-dynamic-forms/core';
 import { FormService } from '../../shared/form/form.service';
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormError } from '../../shared/form/form.reducer';
+import { SubmissionVisibility } from '../utils/visibility.util';
 
 /**
  * A service that provides methods used in submission process.
@@ -306,6 +307,27 @@ export class SectionsService {
   }
 
   /**
+   * Check if a given section is an hidden section
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param submissionScope
+   *    The submission scope
+   * @return Observable<boolean>
+   *    Emits true whenever a given section should be read only
+   */
+  public isSectionHidden(submissionId: string, sectionId: string, submissionScope: SubmissionScopeType): Observable<boolean> {
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
+      filter((sectionObj) => hasValue(sectionObj)),
+      map((sectionObj: SubmissionSectionObject) => {
+        return SubmissionVisibility.isHidden(sectionObj.visibility, submissionScope);
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
    * Check if a given section is a read only section
    *
    * @param submissionId
@@ -321,9 +343,7 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => {
-        return isNotEmpty(sectionObj.visibility)
-          && sectionObj.visibility.other === 'READONLY'
-          && submissionScope !== SubmissionScopeType.WorkspaceItem;
+        return SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope);
       }),
       distinctUntilChanged());
   }

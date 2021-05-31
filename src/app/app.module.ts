@@ -31,6 +31,7 @@ import { NavbarModule } from './navbar/navbar.module';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
+import { ProcessNotificationComponent } from './shared/notifications/process-notification/process-notification.component';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
@@ -145,6 +146,7 @@ const DECLARATIONS = [
   ThemedBreadcrumbsComponent,
   ForbiddenComponent,
   ThemedForbiddenComponent,
+  ProcessNotificationComponent,
 ];
 
 const EXPORTS = [

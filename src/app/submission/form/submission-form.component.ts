@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
@@ -150,7 +150,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             return observableOf([]);
           }
         }));
-      this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
+      const isAvailable$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
+      const isReadOnly$ = this.sectionsService.isSectionReadOnly(
+        this.submissionId,
+        SectionsType.Upload,
+        this.submissionService.getSubmissionScope()
+      );
+      this.uploadEnabled$ = combineLatest([isAvailable$, isReadOnly$]).pipe(
+        map(([isAvailable, isReadOnly]: [boolean, boolean]) => isAvailable && !isReadOnly)
+      );
 
       // check if is submission loading
       this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(

@@ -26,7 +26,6 @@ import {
   ITEM_EXPORT_SCRIPT_NAME,
   ScriptDataService
 } from '../data/processes/script-data.service';
-import { isNotEmpty } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchOptions } from '../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
@@ -162,14 +161,8 @@ export class ItemExportFormatService {
         getFirstCompletedRemoteData(),
         map((rd: RemoteData<Process>) => {
           if (rd.isSuccess) {
-            const title = this.translate.get('process.new.notification.success.title');
-            const content = this.translate.get('process.new.notification.success.content');
-            this.notificationsService.success(title, content);
             const payload: any = rd.payload;
-            if (isNotEmpty(payload.resourceSelfLinks)) {
-              const processNumber = payload.resourceSelfLinks[0].split('/').pop();
-              return +processNumber;
-            }
+            return payload.processId;
           } else {
             const title = this.translate.get('process.new.notification.error.title');
             const content = this.translate.get('process.new.notification.error.content');

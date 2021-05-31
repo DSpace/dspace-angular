@@ -17,6 +17,8 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
+import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
+import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -267,7 +269,8 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.parserOptions.readOnly;
+    controlModel.readOnly = this.parserOptions.readOnly
+      || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
     controlModel.disabled = this.parserOptions.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
@@ -303,6 +306,15 @@ export abstract class FieldParser {
     }
 
     return controlModel;
+  }
+
+  /**
+   * Check if a field is read-only with the given scope
+   * @param visibility
+   * @param submissionScope
+   */
+  private isFieldReadOnly(visibility: SubmissionVisibilityType, submissionScope) {
+    return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
   }
 
   private getTypeBindRelations(configuredTypeBindValues: string[]): any[] {

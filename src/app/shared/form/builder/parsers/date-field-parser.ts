@@ -13,6 +13,7 @@ export class DateFieldParser extends FieldParser {
     let malformedDate = false;
     const inputDateModelConfig: DynamicDsDatePickerModelConfig = this.initModel(null, label);
 
+    inputDateModelConfig.disabled = inputDateModelConfig.readOnly;
     inputDateModelConfig.toggleIcon = 'fas fa-calendar';
     this.setValues(inputDateModelConfig as any, fieldValue);
     // Init Data and validity check

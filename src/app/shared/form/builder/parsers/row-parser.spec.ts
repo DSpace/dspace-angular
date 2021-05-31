@@ -3,6 +3,11 @@ import { RowParser } from './row-parser';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue
+} from '../../../../core/config/models/config-submission-section.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 describe('RowParser test suite', () => {
 
@@ -20,7 +25,7 @@ describe('RowParser test suite', () => {
   const submissionId = '1234';
   const scopeUUID = 'testScopeUUID';
   const initFormValues = {};
-  const submissionScope = 'WORKSPACE';
+  const submissionScope = SubmissionScopeType.WorkspaceItem;
   const readOnly = false;
 
   beforeEach(() => {
@@ -115,7 +120,9 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
-          scope: 'WORKFLOW',
+          visibility: {
+            submission: SubmissionVisibilityValue.Hidden
+          } as SubmissionVisibilityType,
           selectableMetadata: [
             {
               metadata: 'otherTitle',

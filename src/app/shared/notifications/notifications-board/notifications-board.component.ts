@@ -18,6 +18,7 @@ import { notificationsStateSelector } from '../selectors';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { IProcessNotification } from '../models/process-notification.model';
 
 @Component({
   selector: 'ds-notifications-board',
@@ -34,6 +35,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   }
 
   public notifications: INotification[] = [];
+  public processNotifications: IProcessNotification[] = [];
   public position: ['top' | 'bottom' | 'middle', 'right' | 'left' | 'center'] = ['bottom', 'right'];
 
   // Received values
@@ -56,20 +58,31 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
           this.notifications = [];
         } else if (state.length > this.notifications.length) {
           // Add
-          const newElem = difference(state, this.notifications);
+          const newElem = difference(state, [...this.notifications,...this.processNotifications]);
           newElem.forEach((notification) => {
-            this.add(notification);
+
+            if ('processId' in notification) {
+              this.addProccess(notification);
+            } else {
+              this.add(notification);
+            }
+
           });
         } else {
           // Remove
-          const delElem = difference(this.notifications, state);
+          const delElem = difference([...this.notifications,...this.processNotifications], state);
           delElem.forEach((notification) => {
             this.notifications = this.notifications.filter((item: INotification) => item.id !== notification.id);
-
+            this.processNotifications = this.processNotifications.filter((item: INotification) => item.id !== notification.id);
           });
         }
         this.cdr.detectChanges();
       });
+  }
+
+  // Add the new process notification to the processNotifications array
+  addProccess(item: IProcessNotification): void {
+    this.processNotifications.push(item);
   }
 
   // Add the new notification to the notification array

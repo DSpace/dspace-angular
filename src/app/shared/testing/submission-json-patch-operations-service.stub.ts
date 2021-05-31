@@ -6,5 +6,6 @@ export class SubmissionJsonPatchOperationsServiceStub {
 
   jsonPatchByResourceType = jasmine.createSpy('jsonPatchByResourceType');
   jsonPatchByResourceID = jasmine.createSpy('jsonPatchByResourceID');
+  deletePendingJsonPatchOperations = jasmine.createSpy('deletePendingJsonPatchOperations');
 
 }

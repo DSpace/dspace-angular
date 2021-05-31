@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -51,6 +51,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
+  let de: DebugElement;
   let submissionServiceStub: SubmissionServiceStub;
   let uploadService: any;
   let fileService: any;
@@ -149,6 +150,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileComponent);
       comp = fixture.componentInstance;
+      de = fixture.debugElement;
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       uploadService = TestBed.inject(SectionUploadService);
@@ -189,12 +191,22 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       expect(comp.fileData).toEqual(fileData);
     });
 
+    it('should not show any buttons when ready-only is true', () => {
+      comp.fileData = fileData;
+      comp.readOnly = true;
+
+      fixture.detectChanges();
+
+      const button = de.query(By.css('.btn'));
+      expect(button).toBeNull();
+      expect(comp.fileData).toEqual(fileData);
+    });
+
     it('should call deleteFile on delete confirmation', () => {
       spyOn(compAsAny, 'deleteFile');
       comp.fileData = fileData;
 
       fixture.detectChanges();
-
       const modalBtn = fixture.debugElement.query(By.css('.fa-trash '));
 
       modalBtn.nativeElement.click();

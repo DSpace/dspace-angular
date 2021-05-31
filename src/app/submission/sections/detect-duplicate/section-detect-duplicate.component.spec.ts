@@ -103,7 +103,8 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors: [],
   header: 'submit.progressbar.detect-duplicate',
   id: 'detect-duplicate',
-  sectionType: SectionsType.DetectDuplicate
+  sectionType: SectionsType.DetectDuplicate,
+  sectionVisibility: null
 };
 
 describe('SubmissionSectionDetectDuplicateComponent test suite', () => {

@@ -199,14 +199,14 @@ export class RelationshipService extends DataService<Relationship> {
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     return this.findAllByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
-      getFirstSucceededRemoteData(),
+      // getFirstSucceededRemoteData(),
+      getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
       hasValueOperator(),
       distinctUntilChanged(compareArraysUsingIds()),
     );
   }
-
 
   /**
    * Get an item's relationships in the form of an array with size 100
