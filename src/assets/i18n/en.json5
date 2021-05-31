@@ -1212,11 +1212,11 @@
 
   "context-menu.actions.label": "Options",
 
-  "context-menu.actions.edit-item.btn.FULL": "Edit item",
+  "context-menu.actions.edit-item.btn.FULL": "Edit all the details",
 
-  "context-menu.actions.edit-item.btn.OWNER": "Edit own item",
+  "context-menu.actions.edit-item.btn.OWNER": "Edit",
 
-  "context-menu.actions.request-correction.btn": "Request correction",
+  "context-menu.actions.request-correction.btn": "Request a correction",
 
   "context-menu.actions.request-correction.confirm.cancel": "Cancel",
 
@@ -1626,10 +1626,17 @@
   "file-section.error.header": "Error obtaining files for this item",
 
 
-
+  "footer.built-with":"Built with",
+  
   "footer.copyright": "copyright © 2002-{{ year }}",
 
+  "footer.extension-by": "- Extension maintained and optimized by",
+
+  "footer.link.4science": "4Science",
+
   "footer.link.dspace": "DSpace software",
+
+  "footer.link.dspace-cris": "DSpace-CRIS software",
 
   "footer.link.duraspace": "DuraSpace",
 
@@ -1639,7 +1646,7 @@
 
   "footer.link.end-user-agreement":"End User Agreement",
 
-
+  
 
   "forgot-email.form.header": "Forgot Password",
 
@@ -1747,6 +1754,8 @@
 
   "form.other-information.institution-affiliation-name": "Affiliation(s)",
 
+  "form.other-information.data-dc_relation_grantno": "Grant Number",
+
   "form.other-information.not-available": "Not available",
 
   "form.remove": "Remove",
@@ -1765,6 +1774,8 @@
 
 
   "funding.listelement.badge" : "Funding",
+
+  "funding.page.titleprefix" : "Funding:",
 
 
   "home.description": "",
@@ -2295,7 +2306,7 @@
 
   "item.page.metric.details": "Details",
 
-  "item.page.metric.label.altmetrics": "Altmetrics",
+  "item.page.metric.label.altmetrics": "Altmetrics©",
 
 
   "item.page.metric.label.download": "Downloads",
@@ -2304,21 +2315,21 @@
 
   "item.page.metric.label.google-scholar": "Google Scholar",
 
-  "item.page.metric.label.scopusCitation": "Scopus citations",
+  "item.page.metric.label.scopusCitation": "Scopus© citations",
 
-  "item.page.metric.label.scopus-author-h-index": "H-index",
+  "item.page.metric.label.scopus-author-h-index": "Scopus© H-Index",
 
-  "item.page.metric.label.scopus-author-coauthor-count": "Coauthor",
+  "item.page.metric.label.scopus-author-coauthor-count": "Scopus© Coauthor",
 
-  "item.page.metric.label.scopus-author-cited-count": "Cited By",
+  "item.page.metric.label.scopus-author-cited-count": "Scopus© Cited By",
 
-  "item.page.metric.label.scopus-author-citation-count": "Author Citations",
+  "item.page.metric.label.scopus-author-citation-count": "Scopus© Citations",
 
-  "item.page.metric.label.scopus-author-document-count": "Author Documents",
+  "item.page.metric.label.scopus-author-document-count": "Scopus© Documents",
 
-  "item.page.metric.label.wosCitation": "WOS citations",
+  "item.page.metric.label.wosCitation": "Web of Science© citations",
 
-  "item.page.metric.label.wosPersonCitation": "WOS citations",
+  "item.page.metric.label.wosPersonCitation": "Web of Science© citations",
 
   "item.page.person.search.title": "Articles by this author",
 
@@ -3939,11 +3950,19 @@
 
   "search.filters.applied.f.entityType": "Item Type",
 
+  "search.filters.applied.f.editor": "Editor",
+
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
 
+  "search.filters.applied.f.investigators": "Investigator",
+  
   "search.filters.applied.f.itemtype": "Type",
 
   "search.filters.applied.f.namedresourcetype": "Status",
+
+  "search.filters.applied.f.personorgunits": "Organisation",
+
+  "search.filters.applied.f.projectorgunits": "Organisation",
 
   "search.filters.applied.f.subject": "Subject",
 
@@ -3964,6 +3983,8 @@
   "search.filters.applied.f.graphpubldateltr": "Public date LTR",
 
   "search.filters.applied.f.graphpubldatetrl": "Public date RTL",
+
+  "search.filters.applied.f.organization": "Organisation",
 
 
 
