@@ -77,13 +77,13 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    super.ngOnInit();
     if (hasValue(this.configuration)) {
       this.routeService.setParameter('configuration', this.configuration);
     }
     if (hasValue(this.fixedFilterQuery)) {
       this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
+    super.ngOnInit();
   }
 
   /**

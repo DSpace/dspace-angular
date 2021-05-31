@@ -228,8 +228,8 @@ export class SearchConfigurationService implements OnDestroy {
   initializeSortOptionsFromConfiguration(searchConfig$: Observable<SearchConfig>) {
     const subscription = searchConfig$.pipe(switchMap((searchConfig) => combineLatest([
       of(searchConfig),
-      this.paginatedSearchOptions.pipe(take(1))
-    ]))).subscribe(([searchConfig, searchOptions]) => {
+      this.paginatedSearchOptions
+    ]))).pipe(take(1)).subscribe(([searchConfig, searchOptions]) => {
       const field = searchConfig.sortOptions[0].name;
       const direction = searchConfig.sortOptions[0].sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC;
       const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
