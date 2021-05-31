@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MetricDimensionsComponent } from './metric-dimensions.component';
-import { metricDimensionsMock } from '../../../metrics/cris-layout-metrics-box.component.spec';
+import { MetricAltmetricComponent } from './metric-altmetric.component';
+import { metricAltmetricMock } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 
-describe('MetricDimensionsComponent', () => {
-  let component: MetricDimensionsComponent;
-  let fixture: ComponentFixture<MetricDimensionsComponent>;
+describe('MetricAltmetricComponent', () => {
+  let component: MetricAltmetricComponent;
+  let fixture: ComponentFixture<MetricAltmetricComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,15 +17,15 @@ describe('MetricDimensionsComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [ MetricDimensionsComponent ]
+      declarations: [ MetricAltmetricComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MetricDimensionsComponent);
+    fixture = TestBed.createComponent(MetricAltmetricComponent);
     component = fixture.componentInstance;
-    component.metric = metricDimensionsMock;
+    component.metric = metricAltmetricMock;
     component.success = true;
     component.maxRetry = 0;
     fixture.detectChanges();

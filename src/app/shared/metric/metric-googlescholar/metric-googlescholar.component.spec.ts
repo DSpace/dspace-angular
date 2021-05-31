@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetricGooglescholarComponent } from './metric-googlescholar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
-import { metricGoogleScholarMock } from '../../../metrics/cris-layout-metrics-box.component.spec';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { metricGoogleScholarMock } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
 
 describe('MetricGooglescholarComponent', () => {
   let component: MetricGooglescholarComponent;
