@@ -301,14 +301,14 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'processes',
           active: false,
-          visible: false,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.processes',
             link: '/processes'
           } as LinkMenuItemModel,
           icon: 'terminal',
-          index: 11
+          index: 10
         },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
