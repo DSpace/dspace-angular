@@ -22,6 +22,7 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from '../admin-notifications/admin-notifications-routing-paths';
+import { MenuSection } from '../../shared/menu/menu.reducer';
 
 /**
  * Component representing the admin sidebar
@@ -76,15 +77,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
+    // admin sidebar menu hidden by default when no visible top sections are found
+    this.menuService.hideMenu(this.menuID);
+    this.subs.push(this.menuService.getMenuTopSections(this.menuID).subscribe((topSections: MenuSection[]) => {
+        if (topSections.filter((topSection: MenuSection) => topSection.visible).length > 0) {
+          this.menuService.showMenu(this.menuID);
+        } else {
+          this.menuService.hideMenu(this.menuID);
+        }
+      }
+    ));
     this.createMenu();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
-    this.authService.isAuthenticated()
-      .subscribe((loggedIn: boolean) => {
-        if (loggedIn) {
-          this.menuService.showMenu(this.menuID);
-        }
-      });
     this.menuCollapsed.pipe(first())
       .subscribe((collapsed: boolean) => {
         this.sidebarOpen = !collapsed;
@@ -100,34 +105,37 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Initialize all menu sections and items for this menu
    */
   createMenu() {
-    this.createMainMenuSections();
-    this.createSiteAdministratorMenuSections();
-    this.createExportMenuSections();
-    this.createImportMenuSections();
-    this.createAccessControlMenuSections();
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
+      this.createMainMenuSections(isCollectionAdmin, isCommunityAdmin, isSiteAdmin);
+      this.createSiteAdministratorMenuSections();
+      this.createExportMenuSections();
+      this.createImportMenuSections();
+      this.createAccessControlMenuSections();
+
+    });
   }
 
   /**
    * Initialize the main menu sections.
    * edit_community / edit_collection is only included if the current user is a Community or Collection admin
    */
-  createMainMenuSections() {
-    combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
-      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
+  createMainMenuSections(isCollectionAdmin: boolean, isCommunityAdmin: boolean, isSiteAdmin: boolean) {
+
       const menuList = [
         /* News */
         {
           id: 'new',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
           } as TextMenuItemModel,
-        icon: 'plus',
+          icon: 'plus',
           index: 0
         },
         {
@@ -185,7 +193,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         //   id: 'new_item_version',
         //   parentID: 'new',
         //   active: false,
-        //   visible: true,
+        //   visible: false,
         //   model: {
         //     type: MenuItemType.LINK,
         //     text: 'menu.section.new_item_version',
@@ -197,7 +205,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'edit',
           active: false,
-          visible: true,
+          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.edit'
@@ -249,14 +257,14 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'curation_tasks',
           active: false,
-          visible: isCollectionAdmin,
+          visible: false,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.curation_task',
             link: ''
           } as LinkMenuItemModel,
           icon: 'filter',
-        index: 8
+          index: 8
         },
 
         /* Statistics */
@@ -293,20 +301,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'processes',
           active: false,
-          visible: isSiteAdmin,
+          visible: false,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.processes',
             link: '/processes'
           } as LinkMenuItemModel,
           icon: 'terminal',
-        index: 11
+          index: 11
         },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
       })));
-    });
   }
 
   /**
@@ -319,7 +326,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       {
         id: 'export',
         active: false,
-        visible: true,
+        visible: false,
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.export'
@@ -377,12 +384,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed; otherwise even in production mode, the metadata export button is only available after a refresh (and not in dev mode)
       // filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
-    ).subscribe(() => {
+    ).subscribe(([isAuthorized]) => {
       this.menuService.addSection(this.menuID, {
         id: 'export_metadata',
         parentID: 'export',
         active: true,
-        visible: true,
+        visible: isAuthorized,
         model: {
           type: MenuItemType.ONCLICK,
           text: 'menu.section.export_metadata',
@@ -400,35 +407,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * the import scripts exist and the current user is allowed to execute them
    */
   createImportMenuSections() {
-    const menuList = [
-      /* Import */
-      {
-        id: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.import'
-        } as TextMenuItemModel,
-        icon: 'file-import',
-        index: 2
-      },
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'import_batch',
-      //   parentID: 'import',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.import_batch',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      // }
-    ];
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-      shouldPersistOnRouteChange: true
-    })));
+
 
     observableCombineLatest(
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
@@ -437,7 +416,38 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed
       // filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
       take(1)
-    ).subscribe(() => {
+    ).subscribe(([isAuthorized]) => {
+
+      const menuList = [
+        /* Import */
+        {
+          id: 'import',
+          active: false,
+          visible: isAuthorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.import'
+          } as TextMenuItemModel,
+          icon: 'file-import',
+          index: 2
+        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'import_batch',
+        //   parentID: 'import',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.import_batch',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        // }
+      ];
+      menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
+      })));
+
       this.menuService.addSection(this.menuID, {
         id: 'import_metadata',
         parentID: 'import',

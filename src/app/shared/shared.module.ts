@@ -268,6 +268,7 @@ import { MetricGooglescholarComponent } from './metric/metric-googlescholar/metr
 import { MetricEmbeddedViewComponent } from './metric/metric-embedded-view/metric-embedded-view.component';
 import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-download/metric-embedded-download.component';
 import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts.component';
+import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -528,7 +529,8 @@ const COMPONENTS = [
   MetricDspacecrisComponent,
   MetricGooglescholarComponent,
   MetricEmbeddedViewComponent,
-  MetricEmbeddedDownloadComponent
+  MetricEmbeddedDownloadComponent,
+  BrowseMostElementsComponent
 ];
 
 const ENTRY_COMPONENTS = [
