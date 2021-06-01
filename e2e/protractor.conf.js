@@ -69,7 +69,6 @@ exports.config = {
   plugins: [{
     path: '../node_modules/protractor-istanbul-plugin'
   }],
-
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
@@ -85,7 +84,7 @@ exports.config = {
   onPrepare: function () {
     jasmine.getEnv().addReporter(new SpecReporter({
       spec: {
-        displayStacktrace: true
+        displayStacktrace: 'pretty'
       }
     }));
   }
