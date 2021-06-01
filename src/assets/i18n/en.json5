@@ -2853,9 +2853,21 @@
 
   "metric-badges.scopusCitation": "Scopus© Citations",
 
+  "metric-badges.scopus-author-citation-count": "Scopus© Citations",
+
+  "metric-badges.scopus-author-coauthor-count": "Scopus© Coauthor",
+
+  "metric-badges.scopus-author-document-count": "Scopus© Author",
+
+  "metric-badges.scopus-author-h-index": "Scopus© H-Index",
+
+  "metric-badges.scopus-author-cited-count": "Scopus© Cited",
+
   "metric-badges.wosCitation": "WOS© Citations",
 
   "metric-badges.view": "Views",
+
+  "metric-badges.download": "Downloads",
 
 
   "mydspace.breadcrumbs": "MyDSpace",
