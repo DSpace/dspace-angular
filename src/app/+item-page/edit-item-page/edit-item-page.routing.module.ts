@@ -194,7 +194,6 @@ import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
     ItemPageRelationshipsGuard,
     ItemPageVersionHistoryGuard,
     ItemPageCollectionMapperGuard,
-    ItemPageEditMetadataGuard,
     ItemPageUnlinkOrcidGuard,
   ]
 })

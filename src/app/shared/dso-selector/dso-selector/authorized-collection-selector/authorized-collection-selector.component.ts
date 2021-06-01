@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DSOSelectorComponent } from '../dso-selector.component';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
@@ -50,7 +50,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    * @param query Query to search objects for
    * @param page  Page to retrieve
    */
-  search(query: string, page: number): Observable<PaginatedList<SearchResult<DSpaceObject>>> {
+  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
     const findOptions: FindListOptions = {
       currentPage: page,

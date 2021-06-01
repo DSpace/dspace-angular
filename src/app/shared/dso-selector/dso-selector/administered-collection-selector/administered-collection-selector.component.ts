@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { NotificationsService } from '../../../notifications/notifications.service';
+
+import { hasValue } from '../../../empty.util';
 
 @Component({
   selector: 'ds-administered-collection-selector',
@@ -22,8 +29,10 @@ import { DSOSelectorComponent } from '../dso-selector.component';
 export class AdministeredCollectionSelectorComponent extends DSOSelectorComponent {
 
   constructor(protected searchService: SearchService,
-              protected collectionDataService: CollectionDataService) {
-    super(searchService);
+              protected collectionDataService: CollectionDataService,
+              protected notifcationsService: NotificationsService,
+              protected translate: TranslateService) {
+    super(searchService, notifcationsService, translate);
   }
 
   /**
@@ -38,15 +47,17 @@ export class AdministeredCollectionSelectorComponent extends DSOSelectorComponen
    * @param query Query to search objects for
    * @param page  Page to retrieve
    */
-  search(query: string, page: number): Observable<PaginatedList<SearchResult<DSpaceObject>>> {
+  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const findOptions: FindListOptions = {
       currentPage: page,
       elementsPerPage: this.defaultPagination.pageSize
     };
 
     return this.collectionDataService.getAdministeredCollection(query, findOptions).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((list) => buildPaginatedList(list.pageInfo, list.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))))
+      getFirstCompletedRemoteData(),
+      map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
+        payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
+      }))
     );
   }
 }

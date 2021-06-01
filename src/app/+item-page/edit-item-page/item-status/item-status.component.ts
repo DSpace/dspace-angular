@@ -3,14 +3,15 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import { distinctUntilChanged, first, map, mergeMap, toArray } from 'rxjs/operators';
-import { BehaviorSubject, from as observableFrom, Observable } from 'rxjs';
+import { distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 
 @Component({
   selector: 'ds-item-status',
@@ -57,7 +58,8 @@ export class ItemStatusComponent implements OnInit {
   itemPageRoute$: Observable<string>;
 
   constructor(private route: ActivatedRoute,
-              private authorizationService: AuthorizationDataService) {
+              private authorizationService: AuthorizationDataService,
+              private researcherProfileService: ResearcherProfileService) {
   }
 
   ngOnInit(): void {
@@ -65,50 +67,69 @@ export class ItemStatusComponent implements OnInit {
     this.itemRD$.pipe(
       first(),
       map((data: RemoteData<Item>) => data.payload)
-    ).subscribe((item: Item) => {
-      this.statusData = Object.assign({
-        id: item.id,
-        handle: item.handle,
-        lastModified: item.lastModified
-      });
-      this.statusDataKeys = Object.keys(this.statusData);
-      /*
-        The key is used to build messages
-          i18n example: 'item.edit.tabs.status.buttons.<key>.label'
-        The value is supposed to be a href for the button
-      */
-      const operations = [];
-      operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
-      operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
-      if (item.isWithdrawn) {
-        operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate', FeatureID.ReinstateItem, true));
-      } else {
-        operations.push(new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw', FeatureID.WithdrawItem, true));
-      }
-      if (item.isDiscoverable) {
-        operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private', FeatureID.CanMakePrivate, true));
-      } else {
-        operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public', FeatureID.CanMakePrivate, true));
-      }
-      operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete', FeatureID.CanDelete, true));
-      operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
+    ).pipe(
+      switchMap((item: Item) => {
+        this.statusData = Object.assign({
+          id: item.id,
+          handle: item.handle,
+          lastModified: item.lastModified
+        });
+        this.statusDataKeys = Object.keys(this.statusData);
+        /*
+          The key is used to build messages
+            i18n example: 'item.edit.tabs.status.buttons.<key>.label'
+          The value is supposed to be a href for the button
+        */
+        const operations = [];
+        operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
+        operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
+        if (item.isWithdrawn) {
+          operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate', FeatureID.ReinstateItem, true));
+        } else {
+          operations.push(new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw', FeatureID.WithdrawItem, true));
+        }
+        if (item.isDiscoverable) {
+          operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private', FeatureID.CanMakePrivate, true));
+        } else {
+          operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public', FeatureID.CanMakePrivate, true));
+        }
+        operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete', FeatureID.CanDelete, true));
+        operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
 
-      this.operations$.next(operations);
+        this.operations$.next(operations);
 
-      observableFrom(operations).pipe(
-        mergeMap((operation) => {
-          if (hasValue(operation.featureID)) {
-            return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
-              distinctUntilChanged(),
-              map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+        const ops$ = observableFrom(operations).pipe(
+          mergeMap((operation) => {
+            if (hasValue(operation.featureID)) {
+              return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
+                distinctUntilChanged(),
+                map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+              );
+            } else {
+              return [operation];
+            }
+          }),
+          toArray()
+        );
+
+        let orcidOps$ = observableOf([]);
+        if (this.researcherProfileService.isLinkedToOrcid(item)) {
+          orcidOps$ = this.researcherProfileService.adminCanDisconnectProfileFromOrcid().pipe(
+              map((canDisconnect) => {
+                if (canDisconnect) {
+                  return [new ItemOperation('unlinkOrcid', this.getCurrentUrl(item) + '/unlink-orcid')];
+                } else {
+                  return [];
+                }
+              })
             );
-          } else {
-            return [operation];
-          }
-        }),
-        toArray()
-      ).subscribe((ops) => this.operations$.next(ops));
-    });
+        }
+
+        return combineLatest([ops$, orcidOps$]);
+      }),
+      map(([ops, orcidOps]: [ItemOperation[], ItemOperation[]]) => [...ops, ...orcidOps])
+    ).subscribe((ops) => this.operations$.next(ops));
+
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))

@@ -22,6 +22,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams')),
   followLink('relationships'),
   followLink('version', undefined, true, true, true, followLink('versionhistory')),
+  followLink('metrics')
 ];
 
 /**
