@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -17,7 +17,8 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {CollectionDataService} from '../../core/data/collection-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
@@ -26,6 +27,7 @@ describe('SubmissionEditComponent Component', () => {
   let comp: SubmissionEditComponent;
   let fixture: ComponentFixture<SubmissionEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let itemDataService: ItemDataService;
   let submissionJsonPatchOperationsServiceStub: SubmissionJsonPatchOperationsServiceStub;
   let router: RouterStub;
 
@@ -39,6 +41,9 @@ describe('SubmissionEditComponent Component', () => {
   });
 
   beforeEach(waitForAsync(() => {
+    itemDataService = jasmine.createSpyObj('itemDataService', {
+      findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
+    });
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -50,6 +55,7 @@ describe('SubmissionEditComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: ItemDataService, useValue: itemDataService },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
@@ -75,7 +81,7 @@ describe('SubmissionEditComponent Component', () => {
     router = null;
   });
 
-  it('should init properly when a valid SubmissionObject has been retrieved', fakeAsync(() => {
+  it('should init properly when a valid SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(
@@ -90,9 +96,9 @@ describe('SubmissionEditComponent Component', () => {
     expect(comp.sections).toBe(submissionObject.sections);
     expect(comp.submissionDefinition).toBe(submissionObject.submissionDefinition);
 
-  }));
+  });
 
-  it('should redirect to mydspace when an empty SubmissionObject has been retrieved', fakeAsync(() => {
+  it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({})
@@ -102,9 +108,9 @@ describe('SubmissionEditComponent Component', () => {
 
     expect(router.navigate).toHaveBeenCalled();
 
-  }));
+  });
 
-  it('should not has effects when an invalid SubmissionObject has been retrieved', fakeAsync(() => {
+  it('should not has effects when an invalid SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(observableOf(null));
@@ -116,7 +122,7 @@ describe('SubmissionEditComponent Component', () => {
     expect(comp.selfUrl).toBeUndefined();
     expect(comp.sections).toBeUndefined();
     expect(comp.submissionDefinition).toBeUndefined();
-  }));
+  });
 
   describe('ngOnDestroy', () => {
     it('should call delete pending json patch operations', fakeAsync(() => {
@@ -126,8 +132,5 @@ describe('SubmissionEditComponent Component', () => {
 
       expect(submissionJsonPatchOperationsServiceStub.deletePendingJsonPatchOperations).toHaveBeenCalled();
     }));
-
   });
-
-
 });

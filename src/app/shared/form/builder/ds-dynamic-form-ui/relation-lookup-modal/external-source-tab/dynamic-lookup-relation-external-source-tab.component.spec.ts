@@ -24,6 +24,8 @@ import { Collection } from '../../../../../../core/shared/collection.model';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { createPaginatedList } from '../../../../../testing/utils.test';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
@@ -103,7 +105,8 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
           }
         },
         { provide: ExternalSourceService, useValue: externalSourceService },
-        { provide: SelectableListService, useValue: selectableListService }
+        { provide: SelectableListService, useValue: selectableListService },
+        { provide: PaginationService, useValue: new PaginationServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -15,6 +15,8 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 
 describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   let component: DsDynamicLookupRelationSelectionTabComponent;
@@ -54,6 +56,9 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
         },
         {
           provide: Router, useValue: router
+        },
+        {
+          provide: PaginationService, useValue: new PaginationServiceStub()
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]

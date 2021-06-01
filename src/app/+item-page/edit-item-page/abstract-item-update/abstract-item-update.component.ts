@@ -1,13 +1,10 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import {
-  FieldUpdate,
-  FieldUpdates
-} from '../../../core/data/object-updates/object-updates.reducer';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { first, map, switchMap, tap } from 'rxjs/operators';
@@ -15,9 +12,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
 import { getItemPageRoute } from '../../item-page-routing-paths';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page.resolver';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item.resolver';
 
 @Component({
   selector: 'ds-abstract-item-update',

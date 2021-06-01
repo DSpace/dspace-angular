@@ -1,4 +1,4 @@
-<span class="mb-5">{{ licenseText$ | async }}</span>
+<span class="mb-5" [innerHTML]="licenseText$ | async"></span>
 <br> <br>
 <ds-form *ngIf="formModel" #formRef="formComponent"
          [formId]="formId"

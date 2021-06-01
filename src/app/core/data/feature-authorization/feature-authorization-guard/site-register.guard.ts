@@ -1,4 +1,4 @@
-import { FeatureAuthorizationGuard } from './feature-authorization.guard';
+import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
 import { Injectable } from '@angular/core';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
@@ -13,7 +13,7 @@ import { AuthService } from '../../../auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SiteRegisterGuard extends FeatureAuthorizationGuard {
+export class SiteRegisterGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
     super(authorizationService, router, authService);
   }

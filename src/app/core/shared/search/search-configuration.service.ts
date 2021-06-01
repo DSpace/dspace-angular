@@ -18,10 +18,7 @@ import { RemoteData } from '../../data/remote-data';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteData
-} from '../operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchConfig } from './search-filters/search-config.model';
@@ -181,7 +178,7 @@ export class SearchConfigurationService implements OnDestroy {
             if (hasNoValue(filters.find((f) => f.key === realKey))) {
               const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
               const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
-              filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']']));
+              filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']'], 'equals'));
             }
           } else {
             filters.push(new SearchFilter(key, filterParams[key]));

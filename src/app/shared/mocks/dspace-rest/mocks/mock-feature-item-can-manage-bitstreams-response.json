@@ -1,0 +1,51 @@
+{
+  "_embedded": {
+    "authorizations": [
+      {
+        "id": "cd824a61-95be-4e16-bccd-51fea26707d0_canManageBitstreams_core.item_96715576-3748-4761-ad45-001646632963",
+        "type": "authorization",
+        "_links": {
+          "eperson": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageBitstreams_core.item_96715576-3748-4761-ad45-001646632963/eperson"
+          },
+          "feature": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageBitstreams_core.item_96715576-3748-4761-ad45-001646632963/feature"
+          },
+          "object": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageBitstreams_core.item_96715576-3748-4761-ad45-001646632963/object"
+          },
+          "self": {
+            "href": "https://api7.dspace.org/server/api/authz/authorizations/cd824a61-95be-4e16-bccd-51fea26707d0_canManageBitstreams_core.item_96715576-3748-4761-ad45-001646632963"
+          }
+        },
+        "_embedded": {
+          "feature": {
+            "id": "canManageBitstreams",
+            "description": "It can be used to verify if the bitstreams of the specified objects can be managed",
+            "type": "feature",
+            "resourcetypes": [
+              "core.item",
+              "core.bundle"
+            ],
+            "_links": {
+              "self": {
+                "href": "https://api7.dspace.org/server/api/authz/features/canManageBitstreams"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "https://api7.dspace.org/server/api/authz/authorizations/search/object?uri=https://api7.dspace.org/server/api/core/items/96715576-3748-4761-ad45-001646632963&feature=canManageBitstreams"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}

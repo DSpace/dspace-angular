@@ -27,8 +27,9 @@ export function isNgbDateStruct(value: object): boolean {
  * @return string
  *    the formatted date
  */
-export function dateToISOFormat(date: Date | NgbDateStruct): string {
-  const dateObj: Date = (date instanceof Date) ? date : ngbDateStructToDate(date);
+export function dateToISOFormat(date: Date | NgbDateStruct | string): string {
+  const dateObj: Date = (date instanceof Date) ? date :
+    ((typeof date === 'string') ? ngbDateStructToDate(stringToNgbDateStruct(date)) : ngbDateStructToDate(date));
 
   let year = dateObj.getFullYear().toString();
   let month = (dateObj.getMonth() + 1).toString();

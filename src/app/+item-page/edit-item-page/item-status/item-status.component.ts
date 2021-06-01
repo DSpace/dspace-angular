@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
+import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, first, map } from 'rxjs/operators';
-import { ResearcherProfileService } from '../../../../app/core/profile/researcher-profile.service';
+import { ItemOperation } from '../item-operation/itemOperation.model';
+import { distinctUntilChanged, first, map, mergeMap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, from as observableFrom, Observable } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { hasValue } from '../../../shared/empty.util';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
-import { ItemOperation } from '../item-operation/itemOperation.model';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-status',
@@ -58,8 +57,7 @@ export class ItemStatusComponent implements OnInit {
   itemPageRoute$: Observable<string>;
 
   constructor(private route: ActivatedRoute,
-              private authorizationService: AuthorizationDataService,
-              private researcherProfileService: ResearcherProfileService) {
+              private authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -80,55 +78,37 @@ export class ItemStatusComponent implements OnInit {
         The value is supposed to be a href for the button
       */
       const operations = [];
-      operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations'));
-      operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper'));
-      operations.push(undefined);
-      // Store the index of the "withdraw" or "reinstate" operation, because it's added asynchronously
-      const indexOfWithdrawReinstate = operations.length - 1;
-      if (item.isDiscoverable) {
-        operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private'));
+      operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
+      operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
+      if (item.isWithdrawn) {
+        operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate', FeatureID.ReinstateItem, true));
       } else {
-        operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
+        operations.push(new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw', FeatureID.WithdrawItem, true));
       }
-      operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
-      operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
+      if (item.isDiscoverable) {
+        operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private', FeatureID.CanMakePrivate, true));
+      } else {
+        operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public', FeatureID.CanMakePrivate, true));
+      }
+      operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete', FeatureID.CanDelete, true));
+      operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
 
       this.operations$.next(operations);
 
-      if (item.isWithdrawn) {
-        this.authorizationService.isAuthorized(FeatureID.ReinstateItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
-          const newOperations = [...this.operations$.value];
-          if (authorized) {
-            newOperations[indexOfWithdrawReinstate] = new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate');
+      observableFrom(operations).pipe(
+        mergeMap((operation) => {
+          if (hasValue(operation.featureID)) {
+            return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
+              distinctUntilChanged(),
+              map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+            );
           } else {
-            newOperations[indexOfWithdrawReinstate] = undefined;
+            return [operation];
           }
-          this.operations$.next(newOperations);
-        });
-      } else {
-        this.authorizationService.isAuthorized(FeatureID.WithdrawItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
-          const newOperations = [...this.operations$.value];
-          if (authorized) {
-            newOperations[indexOfWithdrawReinstate] = new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw');
-          } else {
-            newOperations[indexOfWithdrawReinstate] = undefined;
-          }
-          this.operations$.next(newOperations);
-        });
-      }
-
-      if (this.researcherProfileService.isLinkedToOrcid(item)) {
-        this.researcherProfileService.adminCanDisconnectProfileFromOrcid()
-          .subscribe( (canDisconnect) => {
-            if (canDisconnect) {
-              this.operations$.next([...this.operations$.value, new ItemOperation('unlinkOrcid', this.getCurrentUrl(item) + '/unlink-orcid')]);
-            }
-          }
-        );
-      }
-
+        }),
+        toArray()
+      ).subscribe((ops) => this.operations$.next(ops));
     });
-
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))

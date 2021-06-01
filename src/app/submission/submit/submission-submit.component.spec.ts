@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
@@ -15,7 +15,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import {CollectionDataService} from '../../core/data/collection-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 
 describe('SubmissionSubmitComponent Component', () => {
   const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
