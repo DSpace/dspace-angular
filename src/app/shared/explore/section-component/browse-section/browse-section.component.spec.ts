@@ -6,7 +6,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { BrowseSectionComponent } from './browse-section.component';
 
 describe('BrowseSectionComponent', () => {

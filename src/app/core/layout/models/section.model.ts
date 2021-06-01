@@ -53,15 +53,41 @@ export interface TopSection extends SectionComponent {
   discoveryConfigurationName: string;
   sortField: string;
   order: string;
+  titleKey: string;
   componentType: 'top';
 }
 
 export interface SearchSection extends SectionComponent {
   discoveryConfigurationName: string;
   componentType: 'search';
+  searchType: string;
+  initialStatements: number;
+  displayTitle: boolean;
 }
 
 export interface FacetSection extends SectionComponent {
   discoveryConfigurationName: string;
   componentType: 'facet';
+  facetsPerRow: number;
+}
+
+export interface TextRowSection extends SectionComponent {
+  content: string;
+  contentType: string;
+  componentType: 'text-row';
+}
+
+export interface MultiColumnTopSection extends SectionComponent {
+  discoveryConfigurationName: string;
+  sortField: string;
+  order: string;
+  titleKey: string;
+  columnList: TopSectionColumn[];
+  componentType: 'multi-column-top';
+}
+
+export interface TopSectionColumn {
+  style: string;
+  metadataField: string;
+  titleKey: string;
 }

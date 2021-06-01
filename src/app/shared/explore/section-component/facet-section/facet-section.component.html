@@ -1,7 +1,7 @@
 <div class="col-12">
   <h2>{{ 'explore.facet-section.title' | translate }}</h2>
   <div class="row">
-    <div *ngFor="let facet of (facets$ | async)" class="col-3 mb-4">
+    <div *ngFor="let facet of (facets$ | async)" class="col-{{getFacetsBoxCol()}} mb-4">
       <span>{{'explore.index.' + facet.name | translate}}</span>
       <div *ngFor="let facetValue of facet._embedded.values" class="border p-3">
         <a [routerLink]="[searchService.getSearchLink()]" 

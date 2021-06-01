@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { TopSection } from '../../../core/layout/models/section.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { Context } from '../../../core/shared/context.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { TopSection } from '../../../../core/layout/models/section.model';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
+import { Context } from '../../../../core/shared/context.model';
 
 /**
  * Component representing the Top component section.
