@@ -4,7 +4,7 @@
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
      params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}
     }">
-    <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
+    <ds-themed-header-navbar-wrapper></ds-themed-header-navbar-wrapper>
 
     <ds-notifications-board
       [options]="notificationOptions">

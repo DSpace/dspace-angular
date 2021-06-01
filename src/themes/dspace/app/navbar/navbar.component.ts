@@ -8,7 +8,7 @@ import { slideMobileNav } from '../../../../app/shared/animations/slide';
 @Component({
   selector: 'ds-navbar',
   styleUrls: ['./navbar.component.scss'],
-  templateUrl: '../../../../app/navbar/navbar.component.html',
+  templateUrl: './navbar.component.html',
   animations: [slideMobileNav]
 })
 export class NavbarComponent extends BaseComponent {

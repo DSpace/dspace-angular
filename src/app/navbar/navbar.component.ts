@@ -46,6 +46,7 @@ export class NavbarComponent extends MenuComponent {
         id: `browse_global_communities_and_collections`,
         active: false,
         visible: true,
+        index: 0,
         model: {
           type: MenuItemType.LINK,
           text: `menu.section.browse_global_communities_and_collections`,
@@ -57,11 +58,11 @@ export class NavbarComponent extends MenuComponent {
         id: 'browse_global',
         active: false,
         visible: true,
+        index: 1,
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.browse_global'
         } as TextMenuItemModel,
-        index: 0
       },
     ];
     // Read the different Browse-By types from config and add them to the browse menu
