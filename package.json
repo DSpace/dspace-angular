@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "0.0.0",
+  "version": "2021.01.00",
   "scripts": {
     "ng": "ng",
     "config:dev": "ts-node --project ./tsconfig.ts-node.json scripts/set-env.ts --dev",
