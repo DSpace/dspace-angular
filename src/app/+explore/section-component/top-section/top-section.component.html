@@ -3,11 +3,7 @@
     <div *ngIf="topSection.titleKey" class="card-header">{{ 'explore.index.' + topSection.titleKey | translate }}</div>
     <div *ngIf="!topSection.titleKey" class="card-header">{{ 'explore.index.' + topSection.sortField | translate }}</div>
     <div class="card-body p-0">
-      <div *ngFor="let topObject of ( topObjects | async ); let last=last"
-           [class.border-bottom]="!last"
-           class="p-3">
-          <a [routerLink]="getItemPage(topObject)">{{topObject.name}}</a>
-      </div>
+      <ds-browse-most-elements [context]="context" [paginatedSearchOptions]="paginatedSearchOptions"></ds-browse-most-elements>
     </div>
   </div>
 </div>

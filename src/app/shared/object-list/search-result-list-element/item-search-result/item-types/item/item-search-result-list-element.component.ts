@@ -5,9 +5,11 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../../../+item-page/item-page-routing-paths';
+import { Context } from '../../../../../../core/shared/context.model';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.BrowseMostElements)
 @Component({
   selector: 'ds-item-search-result-list-element',
   styleUrls: ['./item-search-result-list-element.component.scss'],
