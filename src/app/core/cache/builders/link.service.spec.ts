@@ -5,15 +5,9 @@ import { FindListOptions } from '../../data/request.models';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import * as decorators from './build-decorators';
 import { LinkService } from './link.service';
-
-const spyOnFunction = <T>(obj: T, func: keyof T) => {
-  const spy = jasmine.createSpy(func as string);
-  spyOnProperty(obj, func, 'get').and.returnValue(spy);
-
-  return spy;
-};
+import { DATA_SERVICE_FACTORY, LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
+import { isEmpty } from 'rxjs/operators';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;
@@ -51,7 +45,7 @@ let testDataService: TestDataService;
 
 let testModel: TestModel;
 
-xdescribe('LinkService', () => {
+describe('LinkService', () => {
   let service: LinkService;
 
   beforeEach(() => {
@@ -76,6 +70,30 @@ xdescribe('LinkService', () => {
       providers: [LinkService, {
         provide: TestDataService,
         useValue: testDataService
+      }, {
+        provide: DATA_SERVICE_FACTORY,
+        useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService),
+      }, {
+        provide: LINK_DEFINITION_FACTORY,
+        useValue: jasmine.createSpy('getLinkDefinition').and.returnValue({
+          resourceType: TEST_MODEL,
+          linkName: 'predecessor',
+          propertyName: 'predecessor'
+        }),
+      }, {
+        provide: LINK_DEFINITION_MAP_FACTORY,
+        useValue: jasmine.createSpy('getLinkDefinitions').and.returnValue([
+          {
+            resourceType: TEST_MODEL,
+            linkName: 'predecessor',
+            propertyName: 'predecessor',
+          },
+          {
+            resourceType: TEST_MODEL,
+            linkName: 'successor',
+            propertyName: 'successor',
+          }
+        ]),
       }]
     });
     service = TestBed.inject(LinkService);
@@ -84,12 +102,6 @@ xdescribe('LinkService', () => {
   describe('resolveLink', () => {
     describe(`when the linkdefinition concerns a single object`, () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
-          resourceType: TEST_MODEL,
-          linkName: 'predecessor',
-          propertyName: 'predecessor'
-        });
-        spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
         service.resolveLink(testModel, followLink('predecessor', {}, true, true, true, followLink('successor')));
       });
       it('should call dataservice.findByHref with the correct href and nested links', () => {
@@ -98,13 +110,12 @@ xdescribe('LinkService', () => {
     });
     describe(`when the linkdefinition concerns a list`, () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
+        ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue({
           resourceType: TEST_MODEL,
           linkName: 'predecessor',
           propertyName: 'predecessor',
           isList: true
         });
-        spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
         service.resolveLink(testModel, followLink('predecessor', { some: 'options ' } as any, true, true, true, followLink('successor')));
       });
       it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
@@ -113,21 +124,15 @@ xdescribe('LinkService', () => {
     });
     describe('either way', () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
-          resourceType: TEST_MODEL,
-          linkName: 'predecessor',
-          propertyName: 'predecessor'
-        });
-        spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
         result = service.resolveLink(testModel, followLink('predecessor', {}, true, true, true, followLink('successor')));
       });
 
       it('should call getLinkDefinition with the correct model and link', () => {
-        expect(decorators.getLinkDefinition).toHaveBeenCalledWith(testModel.constructor as any, 'predecessor');
+        expect((service as any).getLinkDefinition).toHaveBeenCalledWith(testModel.constructor as any, 'predecessor');
       });
 
       it('should call getDataServiceFor with the correct resource type', () => {
-        expect(decorators.getDataServiceFor).toHaveBeenCalledWith(TEST_MODEL);
+        expect((service as any).getDataServiceFor).toHaveBeenCalledWith(TEST_MODEL);
       });
 
       it('should return the model with the resolved link', () => {
@@ -140,7 +145,7 @@ xdescribe('LinkService', () => {
 
     describe(`when the specified link doesn't exist on the model's class`, () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue(undefined);
+        ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue(undefined);
       });
       it('should throw an error', () => {
         expect(() => {
@@ -151,12 +156,7 @@ xdescribe('LinkService', () => {
 
     describe(`when there is no dataservice for the resourcetype in the link`, () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
-          resourceType: TEST_MODEL,
-          linkName: 'predecessor',
-          propertyName: 'predecessor'
-        });
-        spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(undefined);
+        ((service as any).getDataServiceFor as jasmine.Spy).and.returnValue(undefined);
       });
       it('should throw an error', () => {
         expect(() => {
@@ -188,18 +188,6 @@ xdescribe('LinkService', () => {
     beforeEach(() => {
       testModel.predecessor = 'predecessor value' as any;
       testModel.successor = 'successor value' as any;
-      spyOnFunction(decorators, 'getLinkDefinitions').and.returnValue([
-        {
-          resourceType: TEST_MODEL,
-          linkName: 'predecessor',
-          propertyName: 'predecessor',
-        },
-        {
-          resourceType: TEST_MODEL,
-          linkName: 'successor',
-          propertyName: 'successor',
-        }
-      ]);
     });
 
     it('should return a new version of the object without any resolved links', () => {
@@ -231,16 +219,10 @@ xdescribe('LinkService', () => {
           }
         }
       });
-      spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
     });
 
     describe('resolving the available link', () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
-          resourceType: TEST_MODEL,
-          linkName: 'predecessor',
-          propertyName: 'predecessor'
-        });
         result = service.resolveLinks(testModel, followLink('predecessor'));
       });
 
@@ -251,7 +233,7 @@ xdescribe('LinkService', () => {
 
     describe('resolving the missing link', () => {
       beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
+        ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue({
           resourceType: TEST_MODEL,
           linkName: 'successor',
           propertyName: 'successor'
@@ -259,8 +241,11 @@ xdescribe('LinkService', () => {
         result = service.resolveLinks(testModel, followLink('successor'));
       });
 
-      it('should return the model with no resolved link', () => {
-        expect(result.successor).toBeUndefined();
+      it('should resolve to an empty observable', (done) => {
+        result.successor.pipe(isEmpty()).subscribe((v) => {
+          expect(v).toEqual(true);
+          done();
+        });
       });
     });
   });

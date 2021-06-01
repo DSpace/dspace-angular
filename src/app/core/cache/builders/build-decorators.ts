@@ -3,11 +3,21 @@ import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import {
-  CacheableObject,
-  TypedObject,
-  getResourceTypeValueFor
-} from '../object-cache.reducer';
+import { CacheableObject, getResourceTypeValueFor, TypedObject } from '../object-cache.reducer';
+import { InjectionToken } from '@angular/core';
+
+export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<any>>('getDataServiceFor', {
+  providedIn: 'root',
+  factory: () => getDataServiceFor
+});
+export const LINK_DEFINITION_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>>('getLinkDefinition', {
+  providedIn: 'root',
+  factory: () => getLinkDefinition
+});
+export const LINK_DEFINITION_MAP_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>>('getLinkDefinitions', {
+  providedIn: 'root',
+  factory: () => getLinkDefinitions
+});
 
 const resolvedLinkKey = Symbol('resolvedLink');
 

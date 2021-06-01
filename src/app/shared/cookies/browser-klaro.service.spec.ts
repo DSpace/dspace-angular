@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { BrowserKlaroService, COOKIE_MDFIELD } from './browser-klaro.service';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { of as observableOf } from 'rxjs';
@@ -13,7 +12,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { cloneDeep } from 'lodash';
 
-xdescribe('BrowserKlaroService', () => {
+describe('BrowserKlaroService', () => {
   let translateService;
   let ePersonService;
   let authService;
@@ -81,7 +80,7 @@ xdescribe('BrowserKlaroService', () => {
           }
         }
       },
-      apps: [{
+      services: [{
         name: appName,
         purposes: [purpose]
       }],

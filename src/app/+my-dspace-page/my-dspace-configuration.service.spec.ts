@@ -10,7 +10,6 @@ import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { PaginationService } from '../core/pagination/pagination.service';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;
@@ -27,7 +26,10 @@ describe('MyDSpaceConfigurationService', () => {
     scope: ''
   });
 
-  const backendFilters = [new SearchFilter('f.namedresourcetype', ['another value']), new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'])];
+  const backendFilters = [
+    new SearchFilter('f.namedresourcetype', ['another value']),
+    new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'], 'equals')
+  ];
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),

@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, find, map, mergeMap, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { debounceTime, filter, find, map, mergeMap, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -15,6 +15,12 @@ import { DSpaceObject } from './dspace-object.model';
 import { getForbiddenRoute, getPageNotFoundRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 import { AuthService } from '../auth/auth.service';
+import { InjectionToken } from '@angular/core';
+
+export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) => (source: Observable<T>) => Observable<T>>('debounceTime', {
+  providedIn: 'root',
+  factory: () => debounceTime
+});
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -45,32 +51,32 @@ export const sendRequest = (requestService: RequestService) =>
   (source: Observable<RestRequest>): Observable<RestRequest> =>
     source.pipe(tap((request: RestRequest) => requestService.send(request)));
 
-export const getRemoteDataPayload = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+export const getRemoteDataPayload = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(map((remoteData: RemoteData<T>) => remoteData.payload));
 
-export const getPaginatedListPayload = () =>
-  <T>(source: Observable<PaginatedList<T>>): Observable<T[]> =>
+export const getPaginatedListPayload = <T>() =>
+  (source: Observable<PaginatedList<T>>): Observable<T[]> =>
     source.pipe(map((list: PaginatedList<T>) => list.page));
 
-export const getAllCompletedRemoteData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const getAllCompletedRemoteData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(filter((rd: RemoteData<T>) => hasValue(rd) && rd.hasCompleted));
 
-export const getFirstCompletedRemoteData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const getFirstCompletedRemoteData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(getAllCompletedRemoteData(), take(1));
 
-export const takeUntilCompletedRemoteData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const takeUntilCompletedRemoteData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(takeWhile((rd: RemoteData<T>) => hasNoValue(rd) || rd.isLoading, true));
 
-export const getFirstSucceededRemoteData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const getFirstSucceededRemoteData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(filter((rd: RemoteData<T>) => rd.hasSucceeded), take(1));
 
-export const getFirstSucceededRemoteWithNotEmptyData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const getFirstSucceededRemoteWithNotEmptyData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded && isNotEmpty(rd.payload)));
 
 /**
@@ -83,8 +89,8 @@ export const getFirstSucceededRemoteWithNotEmptyData = () =>
  * These operators were created as a first step in refactoring
  * out all the instances where this is used incorrectly.
  */
-export const getFirstSucceededRemoteDataPayload = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+export const getFirstSucceededRemoteDataPayload = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload()
@@ -100,8 +106,8 @@ export const getFirstSucceededRemoteDataPayload = () =>
  * These operators were created as a first step in refactoring
  * out all the instances where this is used incorrectly.
  */
-export const getFirstSucceededRemoteDataWithNotEmptyPayload = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+export const getFirstSucceededRemoteDataWithNotEmptyPayload = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getFirstSucceededRemoteWithNotEmptyData(),
       getRemoteDataPayload()
@@ -117,8 +123,8 @@ export const getFirstSucceededRemoteDataWithNotEmptyPayload = () =>
  * These operators were created as a first step in refactoring
  * out all the instances where this is used incorrectly.
  */
-export const getAllSucceededRemoteDataPayload = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+export const getAllSucceededRemoteDataPayload = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload()
@@ -138,8 +144,8 @@ export const getAllSucceededRemoteDataPayload = () =>
  * These operators were created as a first step in refactoring
  * out all the instances where this is used incorrectly.
  */
-export const getFirstSucceededRemoteListPayload = () =>
-  <T>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+export const getFirstSucceededRemoteListPayload = <T>() =>
+  (source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
     source.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -160,8 +166,8 @@ export const getFirstSucceededRemoteListPayload = () =>
  * These operators were created as a first step in refactoring
  * out all the instances where this is used incorrectly.
  */
-export const getAllSucceededRemoteListPayload = () =>
-  <T>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+export const getAllSucceededRemoteListPayload = <T>() =>
+  (source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
     source.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -174,8 +180,8 @@ export const getAllSucceededRemoteListPayload = () =>
  * @param router The router used to navigate to a new page
  * @param authService Service to check if the user is authenticated
  */
-export const redirectOn4xx = (router: Router, authService: AuthService) =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     observableCombineLatest(source, authService.isAuthenticated()).pipe(
       map(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
         if (rd.hasFailed) {
@@ -201,10 +207,23 @@ export const redirectOn4xx = (router: Router, authService: AuthService) =>
  */
 export const returnForbiddenUrlTreeOrLoginOnFalse = (router: Router, authService: AuthService, redirectUrl: string) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
+    source.pipe(
+      map((authorized) => [authorized]),
+      returnForbiddenUrlTreeOrLoginOnAllFalse(router, authService, redirectUrl),
+    );
+
+/**
+ * Operator that returns a UrlTree to a forbidden page or the login page when the booleans received are all false
+ * @param router      The router used to navigate to a forbidden page
+ * @param authService The AuthService used to determine whether or not the user is logged in
+ * @param redirectUrl The URL to redirect back to after logging in
+ */
+export const returnForbiddenUrlTreeOrLoginOnAllFalse = (router: Router, authService: AuthService, redirectUrl: string) =>
+  (source: Observable<boolean[]>): Observable<boolean | UrlTree> =>
     observableCombineLatest(source, authService.isAuthenticated()).pipe(
-      map(([authorized, authenticated]: [boolean, boolean]) => {
-        if (authorized) {
-          return authorized;
+      map(([authorizedList, authenticated]: [boolean[], boolean]) => {
+        if (authorizedList.some((b: boolean) => b === true)) {
+          return true;
         } else {
           if (authenticated) {
             return router.parseUrl(getForbiddenRoute());
@@ -229,16 +248,16 @@ export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: s
         return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
       }));
 
-export const getFinishedRemoteData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const getFinishedRemoteData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => !rd.isLoading));
 
-export const getAllSucceededRemoteData = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+export const getAllSucceededRemoteData = <T>() =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(filter((rd: RemoteData<T>) => rd.hasSucceeded));
 
-export const toDSpaceObjectListRD = () =>
-  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>
+export const toDSpaceObjectListRD = <T extends DSpaceObject>() =>
+  (source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>
     source.pipe(
       filter((rd: RemoteData<PaginatedList<SearchResult<T>>>) => rd.hasSucceeded),
       map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {

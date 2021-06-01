@@ -56,7 +56,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
       modalRef.componentInstance.confirmIcon = 'fas fa-file-export';
       const resp$ =  modalRef.componentInstance.response.pipe(switchMap((confirm: boolean) => {
         if (confirm) {
-          const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso, dso.handle);
+          const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso);
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
               return observableOf(r);
@@ -78,12 +78,10 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
    * Start export-metadata script of dso & navigate to process if successful
    * Otherwise show error message
    * @param dso    Dso to export
-   * @param handle Dso handle to export
    */
-  private startScriptNotifyAndRedirect(dso: DSpaceObject, handle: string): Observable<boolean> {
+  private startScriptNotifyAndRedirect(dso: DSpaceObject): Observable<boolean> {
     const parameterValues: ProcessParameter[] = [
-      Object.assign(new ProcessParameter(), { name: '-i', value: handle }),
-      Object.assign(new ProcessParameter(), { name: '-f', value: dso.uuid + '.csv' }),
+      Object.assign(new ProcessParameter(), { name: '-i', value: dso.uuid }),
     ];
     return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, [])
       .pipe(

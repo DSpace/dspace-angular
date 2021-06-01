@@ -17,6 +17,8 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { Item } from '../../../../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let component: DsDynamicLookupRelationSearchTabComponent;
@@ -88,7 +90,8 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
           }
         },
         { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
-        { provide: LookupRelationService, useValue: lookupRelationService }
+        { provide: LookupRelationService, useValue: lookupRelationService },
+        { provide: PaginationService, useValue: new PaginationServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

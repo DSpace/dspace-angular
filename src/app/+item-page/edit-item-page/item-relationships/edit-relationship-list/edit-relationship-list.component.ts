@@ -11,14 +11,15 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import { defaultIfEmpty, map, mergeMap, switchMap, take, startWith } from 'rxjs/operators';
+import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
 import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteData,
-  getRemoteDataPayload,
   getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
@@ -29,6 +30,7 @@ import { SearchResult } from '../../../../shared/search/search-result.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -146,6 +148,11 @@ export class EditRelationshipListComponent implements OnInit {
     modalComp.repeatable = true;
     modalComp.listId = this.listId;
     modalComp.item = this.item;
+    this.item.owningCollection.pipe(
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((collection: Collection) => {
+      modalComp.collection = collection;
+    });
     modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;

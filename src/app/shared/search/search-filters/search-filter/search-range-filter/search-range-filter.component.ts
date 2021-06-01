@@ -7,7 +7,11 @@ import { FilterType } from '../../../filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../search-filter-config.model';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -56,7 +60,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Fallback maximum for the range
    */
-  max = 2018;
+  max = new Date().getFullYear();
 
   /**
    * The current range of the filter

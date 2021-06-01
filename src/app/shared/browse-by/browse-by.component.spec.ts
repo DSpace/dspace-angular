@@ -18,9 +18,10 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { storeModuleConfig } from '../../app.reducer';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { MetricService } from '../../core/data/metric.service';
+import { LinkService } from '../../core/cache/builders/link.service';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -55,7 +56,10 @@ describe('BrowseByComponent', () => {
     pageSize: 15
   });
   const paginationService = new PaginationServiceStub(paginationConfig);
-
+  const linkService = {
+    resolveLink: () => null,
+    resolveLinks: () => null,
+  };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -73,9 +77,11 @@ describe('BrowseByComponent', () => {
         RouterTestingModule,
         BrowserAnimationsModule
       ],
-      declarations: [],
+      declarations: [BrowseByComponent],
       providers: [
-        {provide: PaginationService, useValue: paginationService}
+        {provide: PaginationService, useValue: paginationService},
+        {provide: MetricService, useValue: {}},
+        {provide: LinkService, useValue: linkService}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

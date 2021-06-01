@@ -29,7 +29,7 @@
 :host ::ng-deep #sidebar {
   min-width: 250px;
   max-width: 250px;
-  transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+  //transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
   transform-origin: bottom left;
 }
 
@@ -109,7 +109,7 @@
 :host ::ng-deep #content {
   width: 100%;
   min-height: 100vh;
-  transition: all 0.3s;
+  //transition: all 0.5s;
 }
 
 :host ::ng-deep #sidebarCollapse {
@@ -125,8 +125,8 @@
   margin: 0 auto;
   display: block;
   background: #555;
-  transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
-  transition-delay: 0.2s;
+  //transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+  //transition-delay: 0.5s;
 }
 
 :host ::ng-deep #sidebarCollapse span:first-of-type {
