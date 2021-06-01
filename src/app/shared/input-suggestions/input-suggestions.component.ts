@@ -54,6 +54,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   @Input() valid = true;
 
   /**
+   * Label for the input field. Used for screen readers.
+   */
+  @Input() label? = '';
+
+  /**
    * Output for when the form is submitted
    */
   @Output() submitSuggestion = new EventEmitter();
@@ -106,10 +111,10 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   @Input() disabled = false;
   propagateChange = (_: any) => {
     /* Empty implementation */
-  }
+  };
   propagateTouch = (_: any) => {
     /* Empty implementation */
-  }
+  };
 
   /**
    * When any of the inputs change, check if we should still show the suggestions

@@ -2878,9 +2878,13 @@
 
   "search.filters.filter.author.placeholder": "Author name",
 
+  "search.filters.filter.author.label": "Search author name",
+
   "search.filters.filter.birthDate.head": "Birth Date",
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
+
+  "search.filters.filter.birthDate.label": "Search birth date",
 
   "search.filters.filter.collapse": "Collapse filter",
 
@@ -2888,17 +2892,25 @@
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
 
+  "search.filters.filter.creativeDatePublished.label": "Search date published",
+
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
   "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
+
+  "search.filters.filter.creativeWorkEditor.label": "Search editor",
 
   "search.filters.filter.creativeWorkKeywords.head": "Subject",
 
   "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
 
+  "search.filters.filter.creativeWorkKeywords.label": "Search subject",
+
   "search.filters.filter.creativeWorkPublisher.head": "Publisher",
 
   "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
+
+  "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
 
   "search.filters.filter.dateIssued.head": "Date",
 
@@ -2910,6 +2922,8 @@
 
   "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
 
+  "search.filters.filter.dateSubmitted.label": "Search date submitted",
+
   "search.filters.filter.discoverable.head": "Private",
 
   "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -2917,6 +2931,8 @@
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
+
+  "search.filters.filter.entityType.label": "Search item type",
 
   "search.filters.filter.expand": "Expand filter",
 
@@ -2926,37 +2942,55 @@
 
   "search.filters.filter.itemtype.placeholder": "Type",
 
+  "search.filters.filter.itemtype.label": "Search type",
+
   "search.filters.filter.jobTitle.head": "Job Title",
 
   "search.filters.filter.jobTitle.placeholder": "Job Title",
+
+  "search.filters.filter.jobTitle.label": "Search job title",
 
   "search.filters.filter.knowsLanguage.head": "Known language",
 
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
 
+  "search.filters.filter.knowsLanguage.label": "Search known language",
+
   "search.filters.filter.namedresourcetype.head": "Status",
 
   "search.filters.filter.namedresourcetype.placeholder": "Status",
+
+  "search.filters.filter.namedresourcetype.label": "Search status",
 
   "search.filters.filter.objectpeople.head": "People",
 
   "search.filters.filter.objectpeople.placeholder": "People",
 
+  "search.filters.filter.objectpeople.label": "Search people",
+
   "search.filters.filter.organizationAddressCountry.head": "Country",
 
   "search.filters.filter.organizationAddressCountry.placeholder": "Country",
+
+  "search.filters.filter.organizationAddressCountry.label": "Search country",
 
   "search.filters.filter.organizationAddressLocality.head": "City",
 
   "search.filters.filter.organizationAddressLocality.placeholder": "City",
 
+  "search.filters.filter.organizationAddressLocality.label": "Search city",
+
   "search.filters.filter.organizationFoundingDate.head": "Date Founded",
 
   "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
 
+  "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+
   "search.filters.filter.scope.head": "Scope",
 
   "search.filters.filter.scope.placeholder": "Scope filter",
+
+  "search.filters.filter.scope.label": "Search scope filter",
 
   "search.filters.filter.show-less": "Collapse",
 
@@ -2966,9 +3000,13 @@
 
   "search.filters.filter.subject.placeholder": "Subject",
 
+  "search.filters.filter.subject.label": "Search subject",
+
   "search.filters.filter.submitter.head": "Submitter",
 
   "search.filters.filter.submitter.placeholder": "Submitter",
+
+  "search.filters.filter.submitter.label": "Search submitter",
 
 
 
@@ -2994,6 +3032,8 @@
   "search.filters.head": "Filters",
 
   "search.filters.reset": "Reset filters",
+
+  "search.filters.search.submit": "Submit",
 
 
 
