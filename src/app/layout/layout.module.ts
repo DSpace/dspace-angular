@@ -28,17 +28,10 @@ import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings/
 import { CrisLayoutMetricsBoxComponent } from './default-layout/boxes/metrics/cris-layout-metrics-box.component';
 import { MetricRowComponent } from './default-layout/boxes/components/metric-row/metric-row.component';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
-import { MetricLoaderComponent } from './default-layout/boxes/components/metric/metric-loader/metric-loader.component';
-import { MetricAltmetricComponent } from './default-layout/boxes/components/metric/metric-altmetric/metric-altmetric.component';
-import { MetricDimensionsComponent } from './default-layout/boxes/components/metric/metric-dimensions/metric-dimensions.component';
-import { MetricDspacecrisComponent } from './default-layout/boxes/components/metric/metric-dspacecris/metric-dspacecris.component';
-import { MetricGooglescholarComponent } from './default-layout/boxes/components/metric/metric-googlescholar/metric-googlescholar.component';
 import { TableComponent } from './default-layout/boxes/components/table/table.component';
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
 import { OrcidComponent } from './default-layout/boxes/components/orcid/orcid.component';
 import { CrisLayoutSidebarItemComponent } from './default-layout/sidebar/sidebar-item/cris-layout-sidebar-item.component';
-import { MetricEmbeddedViewComponent } from './default-layout/boxes/components/metric/metric-embedded-view/metric-embedded-view.component';
-import { MetricEmbeddedDownloadComponent } from './default-layout/boxes/components/metric/metric-embedded-download/metric-embedded-download.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -87,16 +80,9 @@ const ENTRY_COMPONENTS = [
     OrcidSyncQueueComponent,
     OrcidAuthorizationsComponent,
     MetricRowComponent,
-    MetricLoaderComponent,
-    MetricAltmetricComponent,
-    MetricDimensionsComponent,
-    MetricDspacecrisComponent,
-    MetricGooglescholarComponent,
     TableComponent,
     InlineComponent,
-    CrisLayoutSidebarItemComponent,
-    MetricEmbeddedViewComponent,
-    MetricEmbeddedDownloadComponent
+    CrisLayoutSidebarItemComponent
   ],
   imports: [
     CommonModule,

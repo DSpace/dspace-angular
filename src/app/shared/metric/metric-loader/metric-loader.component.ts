@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Metric } from '../../../../../../core/shared/metric.model';
+import { Metric } from '../../../core/shared/metric.model';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
 
@@ -11,6 +11,8 @@ import { MetricLoaderService } from './metric-loader.service';
 export class MetricLoaderComponent implements OnInit {
 
   @Input() metric: Metric;
+
+  @Input() hideLabel = false;
 
   @ViewChild('container', { read: ViewContainerRef, static: false }) container: ViewContainerRef;
 
@@ -35,6 +37,7 @@ export class MetricLoaderComponent implements OnInit {
     const ref = this.container.createComponent(factory);
     const componentInstance = (ref.instance as BaseMetricComponent);
     componentInstance.metric = metric;
+    componentInstance.hideLabel = this.hideLabel;
     ref.changeDetectorRef.detectChanges();
   }
 
