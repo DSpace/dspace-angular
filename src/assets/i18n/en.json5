@@ -1240,8 +1240,6 @@
 
   "context-menu.actions.edit-item-relationships.btn.researchoutputs": "Manage Research Outputs",
 
-  "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
-
   "context-menu.actions.edit-item-relationships.btn.organizations": "Manage SubOrganizations",
 
   "context-menu.actions.edit-item-relationships.btn.rppublications": "Manage Researchers Publications",
@@ -2255,8 +2253,6 @@
 
   "item.page.description": "Description",
 
-  "item.page.edit": "Edit this item",
-
   "item.page.journal-issn": "Journal ISSN",
 
   "item.page.journal-title": "Journal Title",
@@ -2361,6 +2357,14 @@
   "item.page.filesection.license.bundle" : "License bundle",
 
   "item.preview.dc.description.tableOfContents" : "Table of Contents",
+
+  "item.preview.dc.identifier.arxiv": "arXiv ID",
+
+  "item.preview.dc.identifier.patentno": "Patent Number",
+
+  "item.preview.dc.subject.ipc": "Subject IPC",
+
+  "item.preview.dcterms.dateSubmitted": "Registration Date",
 
   "item.preview.dc.identifier.doi" : "DOI",
 
@@ -3518,6 +3522,8 @@
 
   "product.listelement.badge": "Product",
 
+
+
   "profile.breadcrumbs": "Update Profile",
 
   "profile.card.identify": "Identify",
@@ -3574,65 +3580,7 @@
 
   "profile.title": "Update Profile",
 
-
-
-  "profile.breadcrumbs": "Update Profile",
-
-  "profile.card.identify": "Identify",
-
-  "profile.card.security": "Security",
-
   "profile.card.researcher": "Researcher Profile",
-
-  "profile.form.submit": "Save",
-
-  "profile.groups.head": "Authorization groups you belong to",
-
-  "profile.head": "Update Profile",
-
-  "profile.metadata.form.error.firstname.required": "First Name is required",
-
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
-
-  "profile.metadata.form.label.email": "Email Address",
-
-  "profile.metadata.form.label.firstname": "First Name",
-
-  "profile.metadata.form.label.language": "Language",
-
-  "profile.metadata.form.label.lastname": "Last Name",
-
-  "profile.metadata.form.label.phone": "Contact Telephone",
-
-  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-
-  "profile.metadata.form.notifications.success.title": "Profile saved",
-
-  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-
-  "profile.notifications.warning.no-changes.title": "No changes",
-
-  "profile.security.form.error.matching-passwords": "The passwords do not match.",
-
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-
-  "profile.security.form.label.password": "Password",
-
-  "profile.security.form.label.passwordrepeat": "Retype to confirm",
-
-  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-
-  "profile.security.form.notifications.success.title": "Password saved",
-
-  "profile.security.form.notifications.error.title": "Error changing passwords",
-
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-
-  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-
-  "profile.title": "Update Profile",
 
 
 
@@ -4203,9 +4151,6 @@
   "search.results.no-results-link": "quotes around it",
 
   "search.results.empty": "Your search returned no results.",
-
-
-  "default.search.results.head": "Search Results",
 
 
   "search.sidebar.close": "Back to results",
