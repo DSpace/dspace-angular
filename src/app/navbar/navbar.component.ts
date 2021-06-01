@@ -64,7 +64,9 @@ export class NavbarComponent extends MenuComponent {
     this.sectionDataService.findAll()
       .pipe( getFirstSucceededRemoteListPayload())
       .subscribe( (sections: Section[]) => {
-        sections.forEach( (section) => {
+        sections
+          .filter((section) => section.id !== 'site')
+          .forEach( (section) => {
           const menuSection = {
             id: `explore_${section.id}`,
             active: false,
