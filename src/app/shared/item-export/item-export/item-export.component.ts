@@ -7,7 +7,7 @@ import { Item } from '../../../core/shared/item.model';
 import { SearchOptions } from '../../search/search-options.model';
 import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -67,9 +67,8 @@ export class ItemExportComponent implements OnInit {
         this.exportForm.value.format).pipe(take(1)).subscribe((processId) => {
 
         const title = this.translate.get('item-export.process.title');
-        this.notificationsService.process(processId.toString(),5000,title);
+        this.notificationsService.process(processId.toString(),5000, title);
 
-        // this.routeToProcess(processNumber);
         this.activeModal.close();
       });
     }

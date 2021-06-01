@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { GetRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, find, map, take } from 'rxjs/operators';
+import { filter, find, map, skipWhile } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Registration } from '../shared/registration.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../shared/operators';
@@ -60,9 +60,9 @@ export class EpersonRegistrationService {
 
     const requestId = this.requestService.generateRequestId();
 
-    const hrefObs = this.getRegistrationEndpoint();
+    const href$ = this.getRegistrationEndpoint();
 
-    hrefObs.pipe(
+    href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new PostRequest(requestId, href, registration);
@@ -82,27 +82,28 @@ export class EpersonRegistrationService {
   searchByToken(token: string): Observable<Registration> {
     const requestId = this.requestService.generateRequestId();
 
-    const hrefObs = this.getTokenSearchEndpoint(token);
-
-    hrefObs.pipe(
+    const href$ = this.getTokenSearchEndpoint(token).pipe(
       find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new GetRequest(requestId, href);
-        Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return RegistrationResponseParsingService;
-          }
-        });
-        this.requestService.send(request, true);
-      })
-    ).subscribe();
+    );
 
-    return this.rdbService.buildFromRequestUUID<Registration>(requestId).pipe(
+    href$.subscribe((href: string) => {
+      const request = new GetRequest(requestId, href);
+      Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return RegistrationResponseParsingService;
+        }
+      });
+      this.requestService.send(request, true);
+    });
+
+    return this.rdbService.buildSingle<Registration>(href$).pipe(
+      skipWhile((rd: RemoteData<Registration>) => rd.isStale),
       getFirstSucceededRemoteData(),
       map((restResponse: RemoteData<Registration>) => {
-        return Object.assign(new Registration(), {email: restResponse.payload.email, token: token, user: restResponse.payload.user});
+        return Object.assign(new Registration(), {
+          email: restResponse.payload.email, token: token, user: restResponse.payload.user
+        });
       }),
-      take(1),
     );
 
   }

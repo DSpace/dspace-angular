@@ -13,6 +13,8 @@ import { ItemExportAlertStubComponent } from '../item-export-alert/item-export-a
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
@@ -45,6 +47,7 @@ describe('ItemExportComponent', () => {
       providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: NgbActiveModal, useValue: modal },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: router }
       ]
     })
@@ -161,14 +164,13 @@ describe('ItemExportComponent', () => {
 
       // spies
       itemExportService.submitForm.and.returnValue(of('processNumber'));
-      spyOn(component, 'routeToProcess').and.callFake(() => { /**/});
     });
 
     it('should call the submitForm and then route to process number and close modal', () => {
       component.onSubmit();
 
       expect(itemExportService.submitForm).toHaveBeenCalledWith('molteplicity', 'item', 'searchOptions', 'entityType', 'format');
-      expect(component.routeToProcess).toHaveBeenCalledWith('processNumber' as any);
+      expect((component as any).notificationsService.process).toHaveBeenCalled();
       expect(component.activeModal.close).toHaveBeenCalled();
     });
 

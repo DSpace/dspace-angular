@@ -9,7 +9,7 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../+item-page/item-page.resolver';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../+item-page/item.resolver';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated

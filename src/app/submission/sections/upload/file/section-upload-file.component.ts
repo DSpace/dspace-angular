@@ -261,6 +261,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
           });
         const accessConditionsToSave = [];
         formData.accessConditions
+          .map((accessConditions) => accessConditions.accessConditionGroup)
           .filter((accessCondition) => isNotEmpty(accessCondition))
           .forEach((accessCondition) => {
             let accessConditionOpt;

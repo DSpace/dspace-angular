@@ -8,18 +8,16 @@
 
 ::ng-deep
 {
-  --ds-slider-handle-width: 18px;
-
     html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
         right: calc(var(--ds-slider-handle-width) / -2);
     }
     .noUi-horizontal .noUi-handle {
         width: var(--ds-slider-handle-width);
         &:before {
-            left: calc(calc(calc(var(--ds-slider-handle-width) - 2) / 2) - 2);
+            left: calc(((var(--ds-slider-handle-width) - 2px) / 2) - 2px);
         }
         &:after {
-            left: calc(calc(calc(var(--ds-slider-handle-width) - 2) / 2) + 2);
+            left: calc(((var(--ds-slider-handle-width) - 2px) / 2) + 2px);
         }
         &:focus {
             outline: none;

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 import { map } from 'rxjs/operators';
-import { getComponentByBrowseByType } from './browse-by-decorator';
+import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
 import { environment } from '../../../environments/environment';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 
 @Component({
   selector: 'ds-browse-by-switcher',
@@ -20,7 +21,8 @@ export class BrowseBySwitcherComponent implements OnInit {
    */
   browseByComponent: Observable<any>;
 
-  public constructor(protected route: ActivatedRoute) {
+  public constructor(protected route: ActivatedRoute,
+                     @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType) => GenericConstructor<any>) {
   }
 
   /**
@@ -32,7 +34,7 @@ export class BrowseBySwitcherComponent implements OnInit {
         const id = params.id;
         return environment.browseBy.types.find((config: BrowseByTypeConfig) => config.id === id);
       }),
-      map((config: BrowseByTypeConfig) => getComponentByBrowseByType(config.type))
+      map((config: BrowseByTypeConfig) => this.getComponentByBrowseByType(config.type))
     );
   }
 

@@ -66,6 +66,8 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {EditItemDataService} editItemService
+   * @param {TabDataService} tabService
+   * @param {BoxDataService} boxService
    */
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
@@ -138,7 +140,6 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
       map((editModes) => isNotEmpty(editModes) && editModes.length > 0)
     );
   }
-
 
   /**
    * Make sure the subscription is unsubscribed from when this component is destroyed

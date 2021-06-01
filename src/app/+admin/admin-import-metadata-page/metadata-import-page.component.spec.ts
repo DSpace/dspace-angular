@@ -6,10 +6,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
 import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -22,12 +19,9 @@ describe('MetadataImportPageComponent', () => {
   let comp: MetadataImportPageComponent;
   let fixture: ComponentFixture<MetadataImportPageComponent>;
 
-  let user;
-
   let notificationService: NotificationsServiceStub;
   let scriptService: any;
   let router;
-  let authService;
   let locationStub;
 
   function init() {
@@ -37,13 +31,6 @@ describe('MetadataImportPageComponent', () => {
         invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
       }
     );
-    user = Object.assign(new EPerson(), {
-      id: 'userId',
-      email: 'user@test.com'
-    });
-    authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
-    });
     router = jasmine.createSpyObj('router', {
       navigateByUrl: jasmine.createSpy('navigateByUrl')
     });
@@ -65,7 +52,6 @@ describe('MetadataImportPageComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: Router, useValue: router },
-        { provide: AuthService, useValue: authService },
         { provide: Location, useValue: locationStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -107,9 +93,8 @@ describe('MetadataImportPageComponent', () => {
         proceed.click();
         fixture.detectChanges();
       }));
-      it('metadata-import script is invoked with its -e currentUserEmail, -f fileName and the mockFile', () => {
+      it('metadata-import script is invoked with -f fileName and the mockFile', () => {
         const parameterValues: ProcessParameter[] = [
-          Object.assign(new ProcessParameter(), { name: '-e', value: user.email }),
           Object.assign(new ProcessParameter(), { name: '-f', value: 'filename.txt' }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);

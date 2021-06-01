@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
   compareArraysUsingIds,
-  paginatedRelationsToItems,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
@@ -30,12 +30,12 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
-  sendRequest,
+  getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getAllSucceededRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
+  sendRequest
 } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
@@ -88,7 +88,8 @@ export class RelationshipService extends DataService<Relationship> {
               protected notificationsService: NotificationsService,
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<Relationship>,
-              protected appStore: Store<AppState>) {
+              protected appStore: Store<AppState>,
+              @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>) {
     super();
   }
 
@@ -216,7 +217,11 @@ export class RelationshipService extends DataService<Relationship> {
    *                        should be automatically resolved
    */
   getItemRelationshipsAsArrayAll(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
-    return this.findAllByHref(item._links.relationships.href + '?size=100', undefined, false, false, ...linksToFollow).pipe(
+    // Set the pagination info
+    const findOptions: FindListOptions = {
+      elementsPerPage: 100
+    };
+    return this.findAllByHref(item._links.relationships.href, findOptions, false, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
@@ -278,7 +283,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getItemRelationshipsByLabel(item, label, options, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(paginatedRelationsToItems(item.uuid));
+    return this.getItemRelationshipsByLabel(item, label, options, true, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(this.paginatedRelationsToItems(item.uuid));
   }
 
   /**

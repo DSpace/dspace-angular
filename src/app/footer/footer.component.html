@@ -54,9 +54,12 @@
   <div class="footer p-1 d-flex justify-content-center align-items-center text-white">
     <div class="content-container">
       <p class="m-0">
-        <a class="text-white" href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
-        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
-        <a class="text-white" href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
+        {{ 'footer.built-with' | translate }}
+        <a class="text-white" href="https://wiki.lyrasis.org/display/DSPACECRIS/">{{ 'footer.link.dspace-cris' | translate}}</a>
+        {{ 'footer.extension-by' | translate }}
+        <a class="text-white" href="https://www.4science.it/en/">
+          <img src="assets/images/logo-4science-small.png" alt="{{ 'footer.link.4science' | translate}}"/>
+        </a>
       </p>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
         <li>

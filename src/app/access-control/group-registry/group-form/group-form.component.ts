@@ -10,9 +10,9 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  ObservedValueOf,
   combineLatest as observableCombineLatest,
   Observable,
+  ObservedValueOf,
   of as observableOf,
   Subscription
 } from 'rxjs';
@@ -32,13 +32,13 @@ import { Collection } from '../../../core/shared/collection.model';
 import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
-  getRemoteDataPayload,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getRemoteDataPayload
 } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -405,7 +405,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   @HostListener('window:beforeunload')
   ngOnDestroy(): void {
-    this.onCancel();
+    this.groupDataService.cancelEditGroup();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 

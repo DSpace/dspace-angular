@@ -12,7 +12,7 @@ import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { tabs } from '../../../shared/testing/tab.mock';
+import { tabs } from '../../testing/tab.mock';
 import { TabDataService } from '../../../core/layout/tab-data.service';
 import { cold } from 'jasmine-marbles';
 import { BoxDataService } from '../../../core/layout/box-data.service';
@@ -164,7 +164,37 @@ describe('EditItemRelationshipsMenuComponent', () => {
   describe('when edit modes are available', () => {
     beforeEach(() => {
       editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(editItem));
+      tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabs[0]]))
+      }));
+      boxDataServiceMock.findByItem.and.returnValue(cold('a|', {
+        a: createSuccessfulRemoteDataObject(
+          createPaginatedList(boxes)
+        )
+      }));
 
+      fixture = TestBed.createComponent(EditItemRelationshipsMenuComponent);
+      component = fixture.componentInstance;
+      componentAsAny = fixture.componentInstance;
+      component.contextMenuObject = dso;
+      fixture.detectChanges();
+    });
+
+    it('should init edit mode properly', () => {
+      expect(componentAsAny.editModes$.value).toEqual([editItemMode]);
+    });
+
+    it('should render an anchor', () => {
+        component.relationships = relationships;
+        fixture.detectChanges();
+        const link = fixture.debugElement.query(By.css('a'));
+        expect(link).not.toBeNull();
+    });
+  });
+
+  describe('when no edit modes are available', () => {
+    beforeEach(() => {
+      editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(noEditItem));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
         a: createSuccessfulRemoteDataObject(createPaginatedList([tabs[0]]))
       }));
@@ -183,32 +213,10 @@ describe('EditItemRelationshipsMenuComponent', () => {
     });
 
     it('should init edit mode properly', () => {
-      expect(componentAsAny.editModes$.value).toEqual([editItemMode]);
-    });
-
-    it('should render a tag', () => {
-        component.relationships = relationships;
-        fixture.detectChanges();
-        const link = fixture.debugElement.query(By.css('a'));
-        expect(link).not.toBeNull();
-    });
-  });
-
-  describe('when no edit modes are available', () => {
-    beforeEach(() => {
-      editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(noEditItem));
-      fixture = TestBed.createComponent(EditItemRelationshipsMenuComponent);
-      component = fixture.componentInstance;
-      componentAsAny = fixture.componentInstance;
-      component.contextMenuObject = dso;
-      fixture.detectChanges();
-    });
-
-    it('should init edit mode properly', () => {
       expect(componentAsAny.editModes$.value).toEqual([]);
     });
 
-    it('should render a tag', () => {
+    it('should not render an anchor', () => {
       const link = fixture.debugElement.query(By.css('a'));
       expect(link).toBeNull();
     });

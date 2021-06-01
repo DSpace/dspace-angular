@@ -1,9 +1,11 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { map, take } from 'rxjs/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-relationships-items-actions',
@@ -42,7 +44,10 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
    */
   sub: Subscription;
 
-  isLoading = false;
+  isProcessingHide = false;
+  isProcessingSelect = false;
+  isProcessingUnhide = false;
+  isProcessingUnselect = false;
 
   /**
    * Subscribe to the relationships list
@@ -52,7 +57,10 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
       this.sub = this.customData.relationships$.subscribe( (relationships) => {
         this.getSelected(relationships);
         this.getHidden(relationships);
-        this.isLoading = false;
+        this.isProcessingHide = false;
+        this.isProcessingSelect = false;
+        this.isProcessingUnhide = false;
+        this.isProcessingUnselect = false;
       });
     }
   }
@@ -61,7 +69,7 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
    * When a button is clicked emit the event in the parent components
    */
   emitAction(action): void {
-    this.isLoading = true;
+    this.setProcessing(action);
     let relationship = null;
     if ( !!this.isSelected ) {
       relationship = this.isSelected;
@@ -69,6 +77,23 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
       relationship = this.isHidden;
     }
     this.processCompleted.emit({ action: action, item: this.object, relationship: relationship });
+  }
+
+  private setProcessing(action: string): void {
+    switch (action) {
+      case 'hide':
+        this.isProcessingHide = true;
+        break;
+      case 'select':
+        this.isProcessingSelect = true;
+        break;
+      case 'unhide':
+        this.isProcessingUnhide = true;
+        break;
+      case 'unselect':
+        this.isProcessingUnselect = true;
+        break;
+    }
   }
 
   /**
@@ -112,6 +137,10 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
 
     });
 
+  }
+
+  isProcessing(): boolean {
+    return this.isProcessingHide || this.isProcessingSelect || this.isProcessingUnhide || this.isProcessingUnselect;
   }
 
   /**

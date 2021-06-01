@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { fadeInOut } from '../../../animations/fade';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchResult } from '../../../search/search-result.model';
-import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 @Component({
   selector: 'ds-relationships-items-list-preview',
@@ -42,10 +41,13 @@ export class RelationshipsItemsListPreviewComponent {
    */
   @Output() deleteRelationship = new EventEmitter<any>();
 
+  processing = false;
+
   /**
    * When a button is clicked emit the event to the parent components
    */
-  emitAction(): void {
+  dispatchDelete(): void {
+    this.processing = true;
     this.deleteRelationship.emit({ action: 'delete', item: this.object, relationship: this.customData.relationship });
   }
 }

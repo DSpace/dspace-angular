@@ -32,8 +32,13 @@ import {
 } from './edit-item-page.routing-paths';
 import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
 import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
-import { ItemPageEditMetadataGuard } from '../item-page-edit-metadata.guard';
+import { ItemPageMetadataGuard } from './item-page-metadata.guard';
 import { ItemPageAdministratorGuard } from '../item-page-administrator.guard';
+import { ItemPageStatusGuard } from './item-page-status.guard';
+import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
+import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
+import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
+import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
 
@@ -63,25 +68,25 @@ import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
                 path: 'status',
                 component: ItemStatusComponent,
                 data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
-                canActivate: [ItemPageAdministratorGuard]
+                canActivate: [ItemPageStatusGuard]
               },
               {
                 path: 'bitstreams',
                 component: ItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true },
-                canActivate: [ItemPageAdministratorGuard]
+                canActivate: [ItemPageBitstreamsGuard]
               },
               {
                 path: 'metadata',
                 component: ItemMetadataComponent,
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
-                canActivate: [ItemPageEditMetadataGuard]
+                canActivate: [ItemPageMetadataGuard]
               },
               {
                 path: 'relationships',
                 component: ItemRelationshipsComponent,
                 data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true },
-                canActivate: [ItemPageEditMetadataGuard]
+                canActivate: [ItemPageRelationshipsGuard]
               },
               /* TODO - uncomment & fix when view page exists
               {
@@ -99,13 +104,13 @@ import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
                 path: 'versionhistory',
                 component: ItemVersionHistoryComponent,
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
-                canActivate: [ItemPageAdministratorGuard]
+                canActivate: [ItemPageVersionHistoryGuard]
               },
               {
                 path: 'mapper',
                 component: ItemCollectionMapperComponent,
                 data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
-                canActivate: [ItemPageAdministratorGuard]
+                canActivate: [ItemPageCollectionMapperGuard]
               }
             ]
           },
@@ -183,7 +188,12 @@ import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
     ItemPageReinstateGuard,
     ItemPageWithdrawGuard,
     ItemPageAdministratorGuard,
-    ItemPageEditMetadataGuard,
+    ItemPageMetadataGuard,
+    ItemPageStatusGuard,
+    ItemPageBitstreamsGuard,
+    ItemPageRelationshipsGuard,
+    ItemPageVersionHistoryGuard,
+    ItemPageCollectionMapperGuard,
     ItemPageUnlinkOrcidGuard,
   ]
 })

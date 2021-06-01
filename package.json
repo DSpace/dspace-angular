@@ -33,7 +33,7 @@
     "lint": "ng lint",
     "lint-fix": "npm run ng-high-memory -- lint --fix=true",
     "e2e": "ng e2e",
-    "e2e:ci": "ng e2e --protractor-config=./e2e/protractor-ci.conf.js",
+    "e2e:ci": "ng e2e --webdriver-update=false --protractor-config=./e2e/protractor-ci.conf.js",
     "compile:server": "webpack --config webpack.server.config.js --progress --color",
     "serve:ssr": "node dist/server",
     "clean:coverage": "rimraf coverage",
@@ -63,7 +63,8 @@
   },
   "private": true,
   "resolutions": {
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "webdriver-manager": "^12.1.8"
   },
   "dependencies": {
     "@angular/animations": "~10.2.3",
