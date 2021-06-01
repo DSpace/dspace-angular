@@ -13,6 +13,7 @@ import { MultiColumnTopSection } from '../../../core/layout/models/section.model
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
+import { Item } from '../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-multi-column-top-section',
@@ -56,10 +57,10 @@ export class MultiColumnTopSectionComponent implements OnInit {
 
   /**
    * Get the item page url
-   * @param id The item id for which the url is requested
+   * @param item The item for which the url is requested
    */
-  getItemPage(id: string): string {
-    return getItemPageRoute(id);
+  getItemPage(item: DSpaceObject): string {
+    return getItemPageRoute((item as Item));
   }
 
   getColumns(): TopSectionColumn[] {

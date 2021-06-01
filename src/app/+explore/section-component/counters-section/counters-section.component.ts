@@ -17,39 +17,45 @@ import { hasValue } from './../../../shared/empty.util';
 })
 export class CountersSectionComponent implements OnInit {
 
-    @Input()
-    sectionId: string;
+  @Input()
+  sectionId: string;
 
-    @Input()
-    countersSection: CountersSection;
+  @Input()
+  countersSection: CountersSection;
 
-    counterData: CounterData[] = [];
-    counterData$: Observable<CounterData[]>;
-    isLoading$ = new BehaviorSubject(true);
+  counterData: CounterData[] = [];
+  counterData$: Observable<CounterData[]>;
+  isLoading$ = new BehaviorSubject(true);
+
+  pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'counters-pagination',
+    pageSize: 1,
+    currentPage: 1
+  });
 
 
   constructor(private searchService: SearchService, @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
 
-   }
+  }
 
   ngOnInit() {
     this.counterData$ = forkJoin(
-    this.countersSection.counterSettingsList.map((counterSettings: CountersSettings) =>
-    this.searchService.search(new PaginatedSearchOptions({
-      configuration: counterSettings.discoveryConfigurationName,
-      pagination: this.pagination})).pipe(
-        getFirstSucceededRemoteDataPayload(),
-        map((rs: SearchObjects<DSpaceObject>) => rs.totalElements),
-        map((total: number) => {
-          return {
-            count: total.toString(),
-            label: counterSettings.entityName,
-            icon: counterSettings.icon,
-            link: counterSettings.link
+      this.countersSection.counterSettingsList.map((counterSettings: CountersSettings) =>
+        this.searchService.search(new PaginatedSearchOptions({
+          configuration: counterSettings.discoveryConfigurationName,
+          pagination: this.pagination})).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          map((rs: SearchObjects<DSpaceObject>) => rs.totalElements),
+          map((total: number) => {
+            return {
+              count: total.toString(),
+              label: counterSettings.entityName,
+              icon: counterSettings.icon,
+              link: counterSettings.link
 
-          };
-        })
-    )));
+            };
+          })
+        )));
     this.counterData$.subscribe(() => this.isLoading$.next(false));
   }
 

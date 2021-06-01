@@ -32,5 +32,4 @@ xdescribe('CountersSectionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  // FIXME complete tests
 });

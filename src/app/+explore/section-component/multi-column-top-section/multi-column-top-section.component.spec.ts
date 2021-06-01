@@ -26,4 +26,3 @@ xdescribe('MultiColumnTopSectionComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-// FIXME complete scenarios
