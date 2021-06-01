@@ -8,7 +8,7 @@
 
           <ds-item-export-alert [item]="item"></ds-item-export-alert>
 
-          <form *ngIf="exportForm" [formGroup]="exportForm" (ngSubmit)="onSubmit()">
+          <form *ngIf="exportForm" [formGroup]="exportForm">
 
               <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
                   <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
@@ -36,14 +36,15 @@
   </div>
 </div>
 <div class="modal-footer">
-  <div class="text-right">
+  <div *ngIf="exportForm" class="text-right">
     <button type="button"
             class="btn btn-outline-secondary mr-2"
             (click)="activeModal.close('Close click')">
       <span><i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}</span>
     </button>
     <button type="submit" class="btn btn-primary"
-            [disabled]='!exportForm.valid'>
+            [disabled]='!exportForm.valid'
+            (click)="onSubmit()">
       <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
     </button>
   </div>
