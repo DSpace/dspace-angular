@@ -2,7 +2,7 @@ import { ProtractorPage } from './item-statistics.po';
 import { browser } from 'protractor';
 import { UIURLCombiner } from '../../../src/app/core/url-combiner/ui-url-combiner';
 
-describe('protractor Item statics', () => {
+xdescribe('protractor Item statics', () => {
   let page: ProtractorPage;
 
   beforeEach(() => {
