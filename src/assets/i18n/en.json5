@@ -2448,6 +2448,8 @@
 
   "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
 
+  "item.preview.oairecerif.funding.identifier": "Grant Number / Funding identifier",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
