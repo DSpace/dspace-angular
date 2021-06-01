@@ -3,7 +3,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspa
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Router } from '@angular/router';
 import { ExternalSourceService } from '../../../../../../core/data/external-source.service';
-import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
@@ -21,6 +20,8 @@ import { hasValue } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { Collection } from '../../../../../../core/shared/collection.model';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -81,9 +82,14 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * The initial pagination options
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'submission-external-source-relation-list',
+    id: 'spc',
     pageSize: 5
   });
+
+  /**
+   * The current pagination options
+   */
+  currentPagination$: Observable<PaginationComponentOptions>;
 
   /**
    * The external source we're selecting entries for
@@ -114,17 +120,21 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
               public searchConfigService: SearchConfigurationService,
               private externalSourceService: ExternalSourceService,
               private modalService: NgbModal,
-              private selectableListService: SelectableListService) {
+              private selectableListService: SelectableListService,
+              private paginationService: PaginationService
+  ) {
   }
 
   /**
    * Get the entries for the selected external source
    */
   ngOnInit(): void {
+    this.resetRoute();
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) =>
         this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined)))
     );
+    this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
     this.importConfig = {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
     };
@@ -158,5 +168,15 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     if (hasValue(this.importObjectSub)) {
       this.importObjectSub.unsubscribe();
     }
+  }
+
+  /**
+   * Method to reset the route when the tab is opened to make sure no strange pagination issues appears
+   */
+  resetRoute() {
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, {
+      page: 1,
+      pageSize: 5
+    });
   }
 }
