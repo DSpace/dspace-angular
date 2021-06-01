@@ -38,6 +38,16 @@ export class SearchFilterComponent implements OnInit {
   closed: boolean;
 
   /**
+   * True when the filter controls should be hidden & removed from the tablist
+   */
+  notab: boolean;
+
+  /**
+   * True when the filter toggle button is focused
+   */
+  focusBox: boolean = false;
+
+  /**
    * Emits true when the filter is currently collapsed in the store
    */
   collapsed$: Observable<boolean>;
@@ -112,6 +122,9 @@ export class SearchFilterComponent implements OnInit {
     if (event.fromState === 'collapsed') {
       this.closed = false;
     }
+    if (event.toState === 'collapsed') {
+      this.notab = true;
+    }
   }
 
   /**
@@ -122,6 +135,17 @@ export class SearchFilterComponent implements OnInit {
     if (event.toState === 'collapsed') {
       this.closed = true;
     }
+    if (event.fromState === 'collapsed') {
+      this.notab = false;
+    }
+  }
+
+  get regionId(): string {
+    return `search-filter-region-${this.constructor['ɵcmp'].id}`;
+  }
+
+  get toggleId(): string {
+    return `search-filter-toggle-${this.constructor['ɵcmp'].id}`;
   }
 
   /**
