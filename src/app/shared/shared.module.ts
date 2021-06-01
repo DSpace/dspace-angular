@@ -268,6 +268,14 @@ import { MetricGooglescholarComponent } from './metric/metric-googlescholar/metr
 import { MetricEmbeddedViewComponent } from './metric/metric-embedded-view/metric-embedded-view.component';
 import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-download/metric-embedded-download.component';
 import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts.component';
+import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
+import { BrowseSectionComponent } from './explore/section-component/browse-section/browse-section.component';
+import { TopSectionComponent } from './explore/section-component/top-section/top-section.component';
+import { FacetSectionComponent } from './explore/section-component/facet-section/facet-section.component';
+import { SearchSectionComponent } from './explore/section-component/search-section/search-section.component';
+import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
+import { CountersSectionComponent } from './explore/section-component/counters-section/counters-section.component';
+import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -528,7 +536,15 @@ const COMPONENTS = [
   MetricDspacecrisComponent,
   MetricGooglescholarComponent,
   MetricEmbeddedViewComponent,
-  MetricEmbeddedDownloadComponent
+  MetricEmbeddedDownloadComponent,
+  BrowseMostElementsComponent,
+  BrowseSectionComponent,
+  TopSectionComponent,
+  FacetSectionComponent,
+  SearchSectionComponent,
+  TextSectionComponent,
+  CountersSectionComponent,
+  MultiColumnTopSectionComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -595,7 +611,14 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   LinkMenuItemComponent,
   OnClickMenuItemComponent,
-  TextMenuItemComponent
+  TextMenuItemComponent,
+  BrowseSectionComponent,
+  TopSectionComponent,
+  FacetSectionComponent,
+  SearchSectionComponent,
+  TextSectionComponent,
+  CountersSectionComponent,
+  MultiColumnTopSectionComponent
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [

@@ -14,6 +14,12 @@
       <ds-facet-section *ngSwitchCase="'facet'"
                         [sectionId]=sectionId
                         [facetSection]=sectionComponent></ds-facet-section>
+      <ds-text-section *ngSwitchCase="'text-row'"
+                       [sectionId] = sectionId
+                       [textRowSection] = sectionComponent ></ds-text-section>
+      <ds-counters-section *ngSwitchCase="'counters'"
+                           [sectionId] = sectionId
+                           [countersSection] = sectionComponent ></ds-counters-section>
     </div>
   </div>
 </div>

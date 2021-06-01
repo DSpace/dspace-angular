@@ -33,19 +33,24 @@ describe('ExploreComponent', () => {
     componentType: 'top',
     style: 'col-md-6',
     order: 'desc',
-    sortField: 'dc.date.accessioned'
+    sortField: 'dc.date.accessioned',
+    titleKey: 'lastPublications'
   };
 
   const searchComponent: SearchSection = {
     discoveryConfigurationName: 'publication',
     componentType: 'search',
-    style: 'col-md-8'
+    style: 'col-md-8',
+    searchType: 'advanced',
+    initialStatements: 3,
+    displayTitle: true
   };
 
   const facetComponent: FacetSection = {
     discoveryConfigurationName: 'publication',
     componentType: 'facet',
-    style: 'col-md-12'
+    style: 'col-md-12',
+    facetsPerRow: 4
   };
 
   beforeEach(async(() => {

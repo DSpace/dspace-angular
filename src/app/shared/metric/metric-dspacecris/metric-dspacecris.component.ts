@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
+import { hasNoValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-metric-dspacecris',
@@ -16,8 +17,21 @@ export class MetricDspacecrisComponent extends BaseMetricComponent {
    * Get the detail url form metric remark if present.
    */
   getDetailUrl() {
-    const remark = this.metric.remark;
-    return remark ? JSON.parse(remark).detailUrl : null;
+    if (hasNoValue(this.metric.remark)) {
+      return null;
+    }
+    try {
+      const _remark = JSON.parse(this.metric.remark);
+      if (_remark.detailUrl) {
+        return _remark.detailUrl;
+      }
+      if (_remark.link) {
+        return _remark.link;
+      }
+    } catch (error) {
+      /* */
+    }
+    return null;
   }
 
 }
