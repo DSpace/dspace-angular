@@ -12,6 +12,8 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 import { of as observableOf } from 'rxjs';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 
 describe('ExistingRelationListElementComponent', () => {
   let component: ExistingRelationListElementComponent;
@@ -67,6 +69,7 @@ describe('ExistingRelationListElementComponent', () => {
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

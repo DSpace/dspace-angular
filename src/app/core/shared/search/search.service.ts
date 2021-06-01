@@ -138,6 +138,7 @@ export class SearchService implements OnDestroy {
 
     href$.pipe(take(1)).subscribe((url: string) => {
       const request = new this.request(this.requestService.generateRequestId(), url);
+      request.href = request.href + this.formatEmbeddedKeysQueryParams(searchOptions.forcedEmbeddedKeys);
 
       const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
         return this.parser;
@@ -257,6 +258,14 @@ export class SearchService implements OnDestroy {
     }
 
     return url;
+  }
+
+  private formatEmbeddedKeysQueryParams(keys: string[]): string {
+    let params = '';
+    if (hasValue(keys)) {
+      keys.forEach((key: string) => (params = params + '&embed=' + key));
+    }
+    return params;
   }
 
   /**

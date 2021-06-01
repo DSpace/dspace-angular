@@ -23,7 +23,10 @@ describe('SearchConfigurationService', () => {
     scope: ''
   });
 
-  const backendFilters = [new SearchFilter('f.author', ['another value']), new SearchFilter('f.date', ['[2013 TO 2018]'])];
+  const backendFilters = [
+    new SearchFilter('f.author', ['another value']),
+    new SearchFilter('f.date', ['[2013 TO 2018]'], 'equals')
+  ];
 
   const routeService = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),

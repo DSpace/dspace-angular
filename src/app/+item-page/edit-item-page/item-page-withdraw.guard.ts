@@ -1,4 +1,4 @@
-import { DsoPageFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
+import { DsoPageSingleFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { Item } from '../../core/shared/item.model';
 import { Injectable } from '@angular/core';
 import { ItemPageResolver } from '../item-page.resolver';
@@ -14,7 +14,7 @@ import { AuthService } from '../../core/auth/auth.service';
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring withdraw rights
  */
-export class ItemPageWithdrawGuard extends DsoPageFeatureGuard<Item> {
+export class ItemPageWithdrawGuard extends DsoPageSingleFeatureGuard<Item> {
   constructor(protected resolver: ItemPageResolver,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,

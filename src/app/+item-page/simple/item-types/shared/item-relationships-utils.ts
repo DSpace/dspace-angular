@@ -4,11 +4,14 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteData
-} from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
+
+export const PAGINATED_RELATIONS_TO_ITEMS_OPERATOR = new InjectionToken<(thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>>('paginatedRelationsToItems', {
+  providedIn: 'root',
+  factory: () => paginatedRelationsToItems
+});
 
 /**
  * Operator for comparing arrays using a mapping function

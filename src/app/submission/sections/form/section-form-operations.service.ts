@@ -385,7 +385,7 @@ export class SectionFormOperationsService {
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
         value, true);
-    } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model)) || hasStoredValue) {
+    } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model)) || (hasStoredValue && isNotEmpty(previousValue.value)) ) {
       // Here model has a previous value changed or stored in the server
       if (hasValue(event.$event) && hasValue(event.$event.previousIndex)) {
         if (event.$event.previousIndex < 0) {
@@ -418,7 +418,7 @@ export class SectionFormOperationsService {
       previousValue.delete();
     } else if (value.hasValue()) {
       // Here model has no previous value but a new one
-      if (isUndefined(this.getArrayIndexFromEvent(event))   || this.getArrayIndexFromEvent(event) === 0) {
+      if (isUndefined(this.getArrayIndexFromEvent(event)) || this.getArrayIndexFromEvent(event) === 0) {
         // Model is single field or is part of an array model but is the first item,
         // so dispatch an add operation that initialize the values of a specific metadata
         this.operationsBuilder.add(

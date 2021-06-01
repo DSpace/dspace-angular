@@ -18,6 +18,8 @@ import {
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
+  BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
+  BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG,
@@ -43,6 +45,7 @@ import { FormComponent } from '../../../../../shared/form/form.component';
  */
 @Component({
   selector: 'ds-submission-section-upload-file-edit',
+  styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
 })
 export class SubmissionSectionUploadFileEditComponent implements OnChanges {
@@ -209,8 +212,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
 
         const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
         const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
-
-        return [type, startDate, endDate];
+        const accessConditionGroupConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG);
+        accessConditionGroupConfig.group = [type, startDate, endDate];
+        return [new DynamicFormGroupModel(accessConditionGroupConfig, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT)];
       };
 
       // Number of access conditions blocks in form

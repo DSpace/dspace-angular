@@ -1,0 +1,5 @@
+<div class="font-weight-bold" *ngIf="!hideLabel">
+    {{metric.metricType | translate}}
+</div>
+<div #metricChild [innerHtml]="sanitizedInnerHtml"></div>
+

@@ -1,4 +1,6 @@
 import { hasNoValue } from '../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 
 export enum BrowseByType {
   Title = 'title',
@@ -7,6 +9,11 @@ export enum BrowseByType {
 }
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByType.Metadata;
+
+export const BROWSE_BY_COMPONENT_FACTORY = new InjectionToken<(browseByType) => GenericConstructor<any>>('getComponentByBrowseByType', {
+  providedIn: 'root',
+  factory: () => getComponentByBrowseByType
+});
 
 const map = new Map();
 

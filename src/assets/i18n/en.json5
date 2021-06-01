@@ -1407,6 +1407,8 @@
 
   "dso-selector.edit.item.head": "Edit item",
 
+  "dso-selector.error.title": "An error occurred searching for a {{ type }}",
+
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
   "dso-selector.import-item.item.head": "Import items",
@@ -1630,7 +1632,7 @@
 
 
   "footer.built-with":"Built with",
-  
+
   "footer.copyright": "copyright © 2002-{{ year }}",
 
   "footer.extension-by": "- Extension maintained and optimized by",
@@ -1641,7 +1643,7 @@
 
   "footer.link.dspace-cris": "DSpace-CRIS software",
 
-  "footer.link.duraspace": "DuraSpace",
+  "footer.link.lyrasis": "LYRASIS",
 
   "footer.link.cookies": "Cookie settings",
 
@@ -1649,7 +1651,7 @@
 
   "footer.link.end-user-agreement":"End User Agreement",
 
-  
+
 
   "forgot-email.form.header": "Forgot Password",
 
@@ -1941,7 +1943,7 @@
 
   "item.edit.breadcrumbs": "Edit Item",
 
-  "item.edit.tabs.disabled.tooltip": "You don't have permission to access this tab",
+  "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
 
 
   "item.edit.tabs.mapper.head": "Collection Mapper",
@@ -2185,6 +2187,8 @@
   "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
 
   "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
+
+  "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
   "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
 
@@ -2827,6 +2831,11 @@
   "menu.section.edit_user_agreement":"Edit User Agreement",
 
   "menu.section.workflow": "Administer Workflow",
+
+
+  "metric-badges.scopusCitation": "Scopus© Citations",
+
+  "metric-badges.wosCitation": "WOS© Citations",
 
 
   "mydspace.breadcrumbs": "MyDSpace",
@@ -3960,7 +3969,7 @@
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
 
   "search.filters.applied.f.investigators": "Investigator",
-  
+
   "search.filters.applied.f.itemtype": "Type",
 
   "search.filters.applied.f.namedresourcetype": "Status",
@@ -4200,6 +4209,8 @@
   "search.results.empty": "Your search returned no results.",
 
 
+  "default.search.results.head": "Search Results",
+
 
   "search.sidebar.close": "Back to results",
 
@@ -4233,9 +4244,9 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.score.ASC": "Relevance Ascending",
+  "sorting.score.ASC": "Least Relevant",
 
-  "sorting.score.DESC": "Relevance Descending",
+  "sorting.score.DESC": "Most Relevant",
 
   "sorting.dc.date.issued.ASC": "Date Issued Ascending",
 
@@ -4347,7 +4358,7 @@
   "submission.import-external.title.Person": "Import person from an external source",
 
   "submission.import-external.title.Product": "Import product from an external source",
-  
+
   "submission.import-external.title.Project": "Import project from an external source",
 
   "submission.import-external.title.Publication": "Import publication from an external source",

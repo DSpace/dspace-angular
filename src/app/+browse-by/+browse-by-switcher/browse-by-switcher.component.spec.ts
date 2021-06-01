@@ -2,12 +2,11 @@ import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as decorator from './browse-by-decorator';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import createSpy = jasmine.createSpy;
+import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
 
-xdescribe('BrowseBySwitcherComponent', () => {
+describe('BrowseBySwitcherComponent', () => {
   let comp: BrowseBySwitcherComponent;
   let fixture: ComponentFixture<BrowseBySwitcherComponent>;
 
@@ -23,7 +22,8 @@ xdescribe('BrowseBySwitcherComponent', () => {
     TestBed.configureTestingModule({
       declarations: [BrowseBySwitcherComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub }
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: BROWSE_BY_COMPONENT_FACTORY, useValue: jasmine.createSpy('getComponentByBrowseByType').and.returnValue(null) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -32,7 +32,6 @@ xdescribe('BrowseBySwitcherComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(BrowseBySwitcherComponent);
     comp = fixture.componentInstance;
-    spyOnProperty(decorator, 'getComponentByBrowseByType').and.returnValue(createSpy('getComponentByItemType'));
   }));
 
   types.forEach((type) => {
@@ -43,7 +42,7 @@ xdescribe('BrowseBySwitcherComponent', () => {
       });
 
       it(`should call getComponentByBrowseByType with type "${type.type}"`, () => {
-        expect(decorator.getComponentByBrowseByType).toHaveBeenCalledWith(type.type);
+        expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.type);
       });
     });
   });
