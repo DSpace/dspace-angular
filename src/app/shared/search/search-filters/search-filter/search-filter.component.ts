@@ -45,7 +45,7 @@ export class SearchFilterComponent implements OnInit {
   /**
    * True when the filter toggle button is focused
    */
-  focusBox: boolean = false;
+  focusBox = false;
 
   /**
    * Emits true when the filter is currently collapsed in the store
@@ -141,10 +141,12 @@ export class SearchFilterComponent implements OnInit {
   }
 
   get regionId(): string {
+    // tslint:disable-next-line:no-string-literal
     return `search-filter-region-${this.constructor['ɵcmp'].id}`;
   }
 
   get toggleId(): string {
+    // tslint:disable-next-line:no-string-literal
     return `search-filter-toggle-${this.constructor['ɵcmp'].id}`;
   }
 
