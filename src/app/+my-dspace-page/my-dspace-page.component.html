@@ -12,14 +12,17 @@
                          [refreshFilters]="refreshFilters.asObservable()"
                          [inPlaceSearch]="inPlaceSearch"></ds-search-sidebar>
       <div class="col-12 col-md-9">
-          <ds-search-form id="search-form"
-                          [query]="(searchOptions$ | async)?.query"
-                          [scope]="(searchOptions$ | async)?.scope"
-                          [currentUrl]="getSearchLink()"
-                          [scopes]="(scopeListRD$ | async)"
-                          [inPlaceSearch]="inPlaceSearch"
-                          [searchPlaceholder]="'mydspace.search-form.placeholder' | translate">
-          </ds-search-form>
+          <div class="d-flex">
+              <ds-search-form id="search-form" class="flex-grow-1"
+                              [query]="(searchOptions$ | async)?.query"
+                              [scope]="(searchOptions$ | async)?.scope"
+                              [currentUrl]="getSearchLink()"
+                              [scopes]="(scopeListRD$ | async)"
+                              [inPlaceSearch]="inPlaceSearch"
+                              [searchPlaceholder]="'mydspace.search-form.placeholder' | translate">
+              </ds-search-form>
+              <ds-item-export-modal-launcher class="ml-4 flex-grow-0" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
+          </div>
           <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
           <div class="row">
               <div id="search-body"
@@ -37,7 +40,7 @@
                                      [inPlaceSearch]="inPlaceSearch">
                   </ds-search-sidebar>
                   <div id="search-content" class="col-12">
-                      <ds-item-export-modal-launcher class="float-right" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
+
                       <div class="d-block d-md-none search-controls clearfix">
                           <ds-view-mode-switch [viewModeList]="viewModeList" [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
                           <button (click)="openSidebar()" aria-controls="#search-body"

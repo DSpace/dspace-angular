@@ -1,45 +1,52 @@
 <div class="modal-header">
-    <h4 class="modal-title">Item Export Process Launcher</h4>
+  <h4 class="modal-title">Item Export Process Launcher</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+
+      <div class="col">
+
+          <ds-item-export-alert [item]="item"></ds-item-export-alert>
+
+          <form *ngIf="exportForm" [formGroup]="exportForm" (ngSubmit)="onSubmit()">
+
+              <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
+                  <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
+                  <select id="entityType" class="custom-select" formControlName="entityType">
+                      <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
+                      <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
+                          {{ entityType }}
+                      </option>
+                  </select>
+              </div>
+
+
+              <div class="form-group">
+                  <label for="format">{{ 'item-export.form.format' | translate }}</label>
+                  <select id="format" class="custom-select" formControlName="format">
+                      <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
+                      <option *ngFor="let format of configuration.formats" [ngValue]="format">
+                          {{ format.id }}
+                      </option>
+                  </select>
+              </div>
+          </form>
+
+      </div>
   </div>
-  <div class="modal-body">
-    <div class="row">
-
-        <div class="col">
-
-            <ds-item-export-alert [item]="item"></ds-item-export-alert>
-
-            <form *ngIf="exportForm" [formGroup]="exportForm" (ngSubmit)="onSubmit()">
-
-                <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
-                    <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
-                    <select id="entityType" class="custom-select" formControlName="entityType">
-                        <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
-                        <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
-                            {{ entityType }}
-                        </option>
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="format">{{ 'item-export.form.format' | translate }}</label>
-                    <select id="format" class="custom-select" formControlName="format">
-                        <option [ngValue]="null" disabled>{{ 'item-export.form.format.tip' | translate }}</option>
-                        <option *ngFor="let format of configuration.formats" [ngValue]="format">
-                            {{ format.id }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="text-center mt-3">
-                    <button [disabled]='!exportForm.valid' type="submit" class="btn btn-primary"><i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}</button>
-                    <button type="button" class="btn btn-outline-dark float-right" (click)="activeModal.close('Close click')">{{ 'item-export.form.btn.cancel' | translate }}</button>
-                </div>
-
-            </form>
-            
-        </div>
-    </div>
+</div>
+<div class="modal-footer">
+  <div class="text-right">
+    <button type="button"
+            class="btn btn-outline-secondary mr-2"
+            (click)="activeModal.close('Close click')">
+      <span><i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}</span>
+    </button>
+    <button type="submit" class="btn btn-primary"
+            [disabled]='!exportForm.valid'>
+      <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
+    </button>
   </div>
+</div>
 
 
