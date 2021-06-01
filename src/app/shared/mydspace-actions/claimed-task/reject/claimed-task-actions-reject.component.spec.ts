@@ -115,7 +115,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     component.modalRef.close();
   });
 
-  describe('on form submit', () => {
+  xdescribe('on form submit', () => {
     let expectedBody;
 
     beforeEach(() => {
