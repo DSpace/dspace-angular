@@ -65,10 +65,10 @@ describe('AuthorizedCollectionSelectorComponent', () => {
       it('should call getAuthorizedCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
         component.entityType = 'test';
         fixture.detectChanges();
-        component.search('', 1).subscribe((result) => {
+        component.search('', 1).subscribe((resultRD) => {
           expect(collectionService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
-          expect(result.page.length).toEqual(1);
-          expect(result.page[0].indexableObject).toEqual(collection);
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
           done();
         });
       });
