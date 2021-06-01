@@ -1482,6 +1482,10 @@
 
   "explore.counters-section.rprofiles" : "People",
 
+  "explore.counters-section.publications" : "Research outputs",
+
+  "explore.counters-section.project_funding" : "Projects",
+
   "explore.facet-section.title" : "Discover",
 
   "explore.index.all" : "All",
@@ -1489,6 +1493,12 @@
   "explore.index.author" : "Author",
 
   "explore.index.birthDate" : "Birthday",
+
+  "explore.index.metric.view" : "Most viewed",
+
+  "explore.index.metric.download" : "Most downloaded",
+
+  "explore.index.metric.scopus.citation" : "Most cited",
 
   "explore.index.chart.pie.itemtype_filter" : "Item Type",
 
@@ -2844,6 +2854,8 @@
   "metric-badges.scopusCitation": "Scopus© Citations",
 
   "metric-badges.wosCitation": "WOS© Citations",
+
+  "metric-badges.view": "Views",
 
 
   "mydspace.breadcrumbs": "MyDSpace",
