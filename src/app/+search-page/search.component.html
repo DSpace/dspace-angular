@@ -46,7 +46,7 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <div class="d-flex">
+    <div class="d-flex" [class.justify-content-end]="!searchEnabled">
         <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
@@ -55,7 +55,7 @@
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="'search.search-form.placeholder' | translate">
         </ds-search-form>
-        <ds-item-export-modal-launcher class="ml-4 flex-grow-0" [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
+        <ds-item-export-modal-launcher [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
     </div>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9 offset-sm-3">
