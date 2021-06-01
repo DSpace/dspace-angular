@@ -32,7 +32,8 @@
 
         <ng-container *ngIf="shouldShowSlider()">
             <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
-                        [dsDebounce]="500" (onDebounce)="onSubmit()"
+                        [dsDebounce]="250" (onDebounce)="onSubmit()"
+                        (keydown)="startKeyboardControl()" (keyup)="stopKeyboardControl()"
                         [(ngModel)]="range" ngDefaultControl>
             </nouislider>
         </ng-container>
