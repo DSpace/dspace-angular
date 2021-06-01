@@ -32,8 +32,9 @@
 
         <ng-container *ngIf="shouldShowSlider()">
             <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
-                        [(ngModel)]="range" (change)="onSubmit()" ngDefaultControl></nouislider>
-
+                        [dsDebounce]="500" (onDebounce)="onSubmit()"
+                        [(ngModel)]="range" ngDefaultControl>
+            </nouislider>
         </ng-container>
       <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
         <div [@facetLoad]="animationState">
