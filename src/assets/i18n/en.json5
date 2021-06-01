@@ -1216,6 +1216,10 @@
 
   "context-menu.actions.edit-item.btn.OWNER": "Edit",
 
+  "context-menu.actions.edit-item.btn.DIRECTOR": "Edit",
+
+  "context-menu.actions.edit-item.btn.INVESTIGATOR": "Edit",
+
   "context-menu.actions.request-correction.btn": "Request a correction",
 
   "context-menu.actions.request-correction.confirm.cancel": "Cancel",
