@@ -18,12 +18,8 @@ import { hasValue } from '../../shared/empty.util';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { getEntityEditRoute, getItemEditRoute } from '../../+item-page/item-page-routing-paths';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getEntityEditRoute } from '../../+item-page/item-page-routing-paths';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 
@@ -39,7 +35,6 @@ let bitstream: Bitstream;
 let selectedFormat: BitstreamFormat;
 let allFormats: BitstreamFormat[];
 let router: Router;
-let routerStub;
 
 describe('EditBitstreamPageComponent', () => {
   let comp: EditBitstreamPageComponent;
@@ -129,10 +124,6 @@ describe('EditBitstreamPageComponent', () => {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
     });
 
-    const itemPageUrl = `fake-url/some-uuid`;
-    routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}`
-    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
       declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
@@ -142,7 +133,6 @@ describe('EditBitstreamPageComponent', () => {
         { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }), snapshot: { queryParams: {} } } },
         { provide: BitstreamDataService, useValue: bitstreamService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-        { provide: Router, useValue: routerStub },
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -154,7 +144,8 @@ describe('EditBitstreamPageComponent', () => {
     fixture = TestBed.createComponent(EditBitstreamPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
-    router = (comp as any).router;
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigate');
   });
 
   describe('on startup', () => {
@@ -241,14 +232,14 @@ describe('EditBitstreamPageComponent', () => {
     it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
       comp.itemId = 'some-uuid1';
       comp.navigateToItemEditBitstreams();
-      expect(routerStub.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid1'), 'bitstreams']);
+      expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid1'), 'bitstreams']);
     });
   });
   describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
     it('should redirect to the item edit page on the bitstreams tab with the itemId from the bundle links ', () => {
       comp.itemId = undefined;
       comp.navigateToItemEditBitstreams();
-      expect(routerStub.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid'), 'bitstreams']);
+      expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid'), 'bitstreams']);
     });
   });
 });
