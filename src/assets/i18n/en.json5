@@ -2914,9 +2914,13 @@
 
   "search.filters.filter.dateIssued.head": "Date",
 
-  "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
+  "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
 
-  "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
+  "search.filters.filter.dateIssued.max.label": "End",
+
+  "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
+
+  "search.filters.filter.dateIssued.min.label": "Start",
 
   "search.filters.filter.dateSubmitted.head": "Date submitted",
 
