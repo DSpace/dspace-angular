@@ -1,19 +1,19 @@
-import { Metadata } from './../../../core/shared/metadata.utils';
+import { Metadata } from '../../../../core/shared/metadata.utils';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { TopSectionColumn } from './../../../core/layout/models/section.model';
-import { SearchResult } from '../../../shared/search/search-result.model';
-import { SearchObjects } from '../../../shared/search/search-objects.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchService } from '../../../core/shared/search/search.service';
+import { TopSectionColumn } from '../../../../core/layout/models/section.model';
+import { SearchResult } from '../../../search/search-result.model';
+import { SearchObjects } from '../../../search/search-objects.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MultiColumnTopSection } from '../../../core/layout/models/section.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { MultiColumnTopSection } from '../../../../core/layout/models/section.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { map } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
-import { Item } from '../../../core/shared/item.model';
+import { getItemPageRoute } from '../../../../+item-page/item-page-routing-paths';
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-multi-column-top-section',

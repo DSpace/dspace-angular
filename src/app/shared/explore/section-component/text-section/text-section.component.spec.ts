@@ -1,4 +1,4 @@
-import { SearchService } from './../../../core/shared/search/search.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { waitForAsync } from '@angular/core/testing';
 /* tslint:disable:no-unused-variable */
 import { ComponentFixture, TestBed } from '@angular/core/testing';

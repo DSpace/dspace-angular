@@ -7,13 +7,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
-import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
+import { SearchConfig } from '../../../search/search-filters/search-config.model';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;

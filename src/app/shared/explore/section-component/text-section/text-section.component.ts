@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { TextRowSection } from './../../../core/layout/models/section.model';
+import { TextRowSection } from '../../../../core/layout/models/section.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

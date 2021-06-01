@@ -7,13 +7,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { FacetValue } from '../../../shared/search/facet-value.model';
-import { FilterType } from '../../../shared/search/filter-type.model';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { FacetValue } from '../../../search/facet-value.model';
+import { FilterType } from '../../../search/filter-type.model';
+import { SearchFilterConfig } from '../../../search/search-filter-config.model';
 import { FacetSectionComponent } from './facet-section.component';
 
 describe('FacetSectionComponent', () => {

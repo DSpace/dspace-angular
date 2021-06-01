@@ -3,10 +3,10 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SearchSection } from '../../../core/layout/models/section.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
+import { SearchSection } from '../../../../core/layout/models/section.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfig } from '../../../search/search-filters/search-config.model';
 
 /**
  * Component representing the Search component section.

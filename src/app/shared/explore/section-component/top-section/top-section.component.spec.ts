@@ -8,12 +8,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { SearchService } from '../../../core/shared/search/search.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { TopSectionComponent } from './top-section.component';
-import { SearchResult } from '../../../shared/search/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SearchResult } from '../../../search/search-result.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('TopSectionComponent', () => {
   let component: TopSectionComponent;
