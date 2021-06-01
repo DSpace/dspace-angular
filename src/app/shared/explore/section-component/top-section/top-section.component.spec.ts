@@ -8,12 +8,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { SearchService } from '../../../core/shared/search/search.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { TopSectionComponent } from './top-section.component';
-import { SearchResult } from '../../../shared/search/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SearchResult } from '../../../search/search-result.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('TopSectionComponent', () => {
   let component: TopSectionComponent;
@@ -80,7 +80,8 @@ describe('TopSectionComponent', () => {
       componentType: 'top',
       style: 'col-md-6',
       order: 'desc',
-      sortField: 'dc.date.accessioned'
+      sortField: 'dc.date.accessioned',
+      titleKey: undefined
     };
 
     fixture.detectChanges();
@@ -90,19 +91,48 @@ describe('TopSectionComponent', () => {
     expect(comp).toBeDefined();
   }));
 
-  it('should create a top section with two entries', () => {
+  // it('should create a top section with two entries', () => {
+  //
+  //   const cardElement = fixture.debugElement.query(By.css('.card.mb-4'));
+  //   expect(cardElement).not.toBeNull();
+  //   expect(cardElement.query(By.css('.card-header')).nativeElement.textContent).toEqual('explore.index.dc.date.accessioned');
+  //
+  //   const links = cardElement.queryAll(By.css('a'));
+  //   expect(links.length).toEqual(2);
+  //   expect(links[0].nativeElement.href).toContain('/entities/publication/d317835d-7b06-4219-91e2-1191900cb897');
+  //   expect(links[0].nativeElement.textContent).toEqual('My first publication');
+  //   expect(links[1].nativeElement.href).toContain('items/0c34d491-b5ed-4a78-8b29-83d0bad80e5a');
+  //   expect(links[1].nativeElement.textContent).toEqual('This is a publication');
+  //
+  // });
 
-    const cardElement = fixture.debugElement.query(By.css('.card.mb-4'));
-    expect(cardElement).not.toBeNull();
-    expect(cardElement.query(By.css('.card-header')).nativeElement.textContent).toEqual('explore.index.dc.date.accessioned');
+  describe('Top section with title key defined', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(TopSectionComponent);
+      component = fixture.componentInstance;
+      searchServiceStub.search.and.returnValue(createSuccessfulRemoteDataObject$({ page: [firstSearchResult, secondSearchResult] }));
+      searchServiceStub.getSearchLink.and.returnValue('/search');
+      component.sectionId = 'publications';
+      component.topSection = {
+        discoveryConfigurationName: 'publication',
+        componentType: 'top',
+        style: 'col-md-6',
+        order: 'desc',
+        sortField: 'dc.date.foo',
+        titleKey: 'lastPublications'
+      };
 
-    const links = cardElement.queryAll(By.css('a'));
-    expect(links.length).toEqual(2);
-    expect(links[0].nativeElement.href).toContain('/entities/publication/d317835d-7b06-4219-91e2-1191900cb897');
-    expect(links[0].nativeElement.textContent).toEqual('My first publication');
-    expect(links[1].nativeElement.href).toContain('items/0c34d491-b5ed-4a78-8b29-83d0bad80e5a');
-    expect(links[1].nativeElement.textContent).toEqual('This is a publication');
+      fixture.detectChanges();
+    });
 
+    it('should create a top section with title', () => {
+
+      const cardElement = fixture.debugElement.query(By.css('.card.mb-4'));
+      expect(cardElement).not.toBeNull();
+      expect(cardElement.query(By.css('.card-header')).nativeElement.textContent).toEqual('explore.index.lastPublications');
+
+
+    });
   });
 
-});
+  });

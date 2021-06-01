@@ -12,7 +12,7 @@ import { VarDirective } from '../../../utils/var.directive';
 import { AdministeredCollectionSelectorComponent } from './administered-collection-selector.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 
-fdescribe('AdministeredCollectionSelectorComponent', () => {
+describe('AdministeredCollectionSelectorComponent', () => {
   let component: AdministeredCollectionSelectorComponent;
   let fixture: ComponentFixture<AdministeredCollectionSelectorComponent>;
 

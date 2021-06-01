@@ -1,5 +1,6 @@
-<div class="font-weight-bold">
-  {{metric.metricType | translate}}
+<div class="text-center">
+  <div class="font-weight-bold">
+    {{metric.metricType | translate}}
+  </div>
+  <div [innerHtml]="sanitizedInnerHtml"></div>
 </div>
-<div [innerHtml]="sanitizedInnerHtml"></div>
-

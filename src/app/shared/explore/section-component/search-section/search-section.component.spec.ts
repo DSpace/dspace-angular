@@ -7,13 +7,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
-import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
+import { SearchConfig } from '../../../search/search-filters/search-config.model';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;
@@ -83,7 +83,10 @@ describe('SearchSectionComponent', () => {
     component.searchSection = {
       discoveryConfigurationName: 'publication',
       componentType: 'search',
-      style: 'col-md-8'
+      style: 'col-md-8',
+      searchType: 'advanced',
+      initialStatements: 3,
+      displayTitle: false
     };
 
     fixture.detectChanges();
@@ -199,6 +202,31 @@ describe('SearchSectionComponent', () => {
         queryParams: { page: 1, configuration: 'publication', query: 'author:(Adam) OR (test)' }
       });
     });
+  });
+
+  describe('when basic search is configured', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SearchSectionComponent);
+      component = fixture.componentInstance;
+
+      component.sectionId = 'publications';
+      component.searchSection = {
+        discoveryConfigurationName: 'publication',
+        componentType: 'search',
+        style: 'col-md-8',
+        searchType: 'basic',
+        initialStatements: 3,
+        displayTitle: false
+      };
+
+      fixture.detectChanges();
+    });
+
+    it('should display basic search form', () => {
+      expect(fixture.debugElement.query(By.css('ds-search-form')))
+      .toBeTruthy();
+    });
+
   });
 
 });
