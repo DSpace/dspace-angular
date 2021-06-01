@@ -1,12 +1,15 @@
-<ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+<div class="d-flex justify-content-between">
+    <div>
+        <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+        <ds-metric-badges class="d-inline-block" [item]="dso"></ds-metric-badges>
 
-<ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
-       [routerLink]="[itemPageRoute]" class="lead item-list-title"
-       [innerHTML]="dsoTitle"></a>
-    <span *ngIf="linkType == linkTypes.None" class="lead item-list-title"
-          [innerHTML]="dsoTitle"></span>
-    <span class="text-muted">
+        <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
+            <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
+               [routerLink]="[itemPageRoute]" class="lead item-list-title"
+               [innerHTML]="dsoTitle"></a>
+            <span *ngIf="linkType == linkTypes.None" class="lead item-list-title"
+                  [innerHTML]="dsoTitle"></span>
+            <span class="text-muted">
       <ds-truncatable-part [id]="dso.id" [minLines]="1">
         <ng-container *ngIf="dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')">
           (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher') + ', '"></span>
@@ -20,9 +23,18 @@
         </span>
       </ds-truncatable-part>
     </span>
-    <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
-        <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-                [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
-        </ds-truncatable-part>
+            <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
+                <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
+                        [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+                </ds-truncatable-part>
+            </div>
+        </ds-truncatable>
     </div>
-</ds-truncatable>
+    <div class="align-self-center">
+        <div>
+            <ds-metric-donuts [item]="dso"></ds-metric-donuts>
+        </div>
+    </div>
+</div>
+
+

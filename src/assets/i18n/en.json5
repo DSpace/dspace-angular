@@ -2825,6 +2825,11 @@
   "menu.section.workflow": "Administer Workflow",
 
 
+  "metric-badges.scopusCitation": "Scopus© Citations",
+
+  "metric-badges.wosCitation": "WOS© Citations",
+
+
   "mydspace.breadcrumbs": "MyDSpace",
 
   "mydspace.description": "",

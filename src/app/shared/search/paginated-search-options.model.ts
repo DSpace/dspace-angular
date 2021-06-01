@@ -11,11 +11,13 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 export class PaginatedSearchOptions extends SearchOptions {
   pagination?: PaginationComponentOptions;
   sort?: SortOptions;
+  forcedEmbeddedKeys?: string[];
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, forcedEmbeddedKeys?: string[]}) {
     super(options);
     this.pagination = options.pagination;
     this.sort = options.sort;
+    this.forcedEmbeddedKeys = options.forcedEmbeddedKeys;
   }
 
   /**

@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { metricEmbeddedView } from '../../../metrics/cris-layout-metrics-box.component.spec';
+import { metricEmbeddedView } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
 
 import { MetricEmbeddedViewComponent } from './metric-embedded-view.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateLoaderMock} from '../../../../../../shared/mocks/translate-loader.mock';
+import {TranslateLoaderMock} from '../../mocks/translate-loader.mock';
 
 describe('MetricEmbeddedViewComponent', () => {
   let component: MetricEmbeddedViewComponent;
