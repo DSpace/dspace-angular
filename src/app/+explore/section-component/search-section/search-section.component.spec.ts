@@ -85,7 +85,8 @@ describe('SearchSectionComponent', () => {
       componentType: 'search',
       style: 'col-md-8',
       searchType: 'advanced',
-      initialStatements: 3
+      initialStatements: 3,
+      displayTitle: false
     };
 
     fixture.detectChanges();
@@ -214,7 +215,8 @@ describe('SearchSectionComponent', () => {
         componentType: 'search',
         style: 'col-md-8',
         searchType: 'basic',
-        initialStatements: 3
+        initialStatements: 3,
+        displayTitle: false
       };
 
       fixture.detectChanges();

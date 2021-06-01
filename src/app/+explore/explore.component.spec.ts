@@ -42,7 +42,8 @@ describe('ExploreComponent', () => {
     componentType: 'search',
     style: 'col-md-8',
     searchType: 'advanced',
-    initialStatements: 3
+    initialStatements: 3,
+    displayTitle: true
   };
 
   const facetComponent: FacetSection = {
