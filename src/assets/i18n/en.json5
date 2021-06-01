@@ -4358,6 +4358,8 @@
 
   "submission.import-external.source.wos": "Web Of Science",
 
+  "submission.import-external.source.openaireProject": "OpenAIRE",
+
   "submission.import-external.source.openaire": "OpenAIRE by Author",
 
   "submission.import-external.source.openaireTitle": "OpenAIRE by Title",
