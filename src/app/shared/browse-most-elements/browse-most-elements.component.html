@@ -8,6 +8,9 @@
                 ></ds-listable-object-component-loader>
             </li>
         </ul>
+        <div *ngIf="searchResults?.hasFailed">
+            {{ 'remote.error' | translate }}
+        </div>
     </ng-container>
     <ds-loading *ngIf="!searchResults"></ds-loading>
 </div>
