@@ -69,8 +69,10 @@ export class MetricsComponentsDataService {
    * Get matching metrics for item.
    */
   getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): MetricRow[] {
-
-    const metricRows = this.computeMetricsRows(metrics, 3, metricTypes);
+    if (maxColumn == null || maxColumn <= 0) {
+      maxColumn = 3;
+    }
+    const metricRows = this.computeMetricsRows(metrics, maxColumn, metricTypes);
 
     return metricRows;
   }
