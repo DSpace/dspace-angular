@@ -1509,7 +1509,7 @@
 
   "explore.index.dateissued" : "Date issued",
 
-  "explore.index.dc.date.accessioned" : "Date accesioned",
+  "explore.index.dc.date.accessioned" : "Recent Addition",
 
   "explore.index.dc.title" : "Title",
 
@@ -2372,6 +2372,8 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.preview.dc.description" : "Summary",
+
   "item.preview.dc.description.tableOfContents" : "Table of Contents",
 
   "item.preview.dc.identifier.arxiv": "arXiv ID",
@@ -2456,9 +2458,19 @@
 
   "item.preview.oaire.citation.volume" : "Volume",
 
-  "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
+  "item.preview.oairecerif.acronym" : "Acronym",
+  
+  "item.preview.oairecerif.affiliation.orgunit" : "Affiliation",
 
-  "item.preview.oairecerif.funding.identifier": "Grant Number / Funding identifier",
+  "item.preview.oairecerif.funder" : "Funder",
+
+  "item.preview.oairecerif.funding.identifier" : "Grant Number / Funding identifier",
+
+  "item.preview.oairecerif.funding.endDate" : "End Date",
+
+  "item.preview.oairecerif.funding.startDate" : "Start Date",
+
+  "item.preview.oairecerif.oamandate" : "OA Mandate",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2855,19 +2867,19 @@
 
   "metric-badges.scopus-author-citation-count": "Scopus© Citations",
 
-  "metric-badges.scopus-author-coauthor-count": "Scopus© Coauthor",
+  "metric-badges.scopus-author-coauthor-count": "<span class=\"fa fa-users\" title=\"Scopus© Coauthors\">&nbsp;</span>",
 
-  "metric-badges.scopus-author-document-count": "Scopus© Author",
+  "metric-badges.scopus-author-document-count": "<span class=\"fa fa-book-open\" title=\"Scopus© Documents\">&nbsp;</span>",
 
   "metric-badges.scopus-author-h-index": "Scopus© H-Index",
 
-  "metric-badges.scopus-author-cited-count": "Scopus© Cited",
+  "metric-badges.scopus-author-cited-count": "Scopus© Cited By",
 
   "metric-badges.wosCitation": "WOS© Citations",
 
-  "metric-badges.view": "Views",
+  "metric-badges.view": "<span class=\"fa fa-eye\" title=\"View\">&nbsp;</span>",
 
-  "metric-badges.download": "Downloads",
+  "metric-badges.download": "<span class=\"fa fa-download\" title=\"Downloads\">&nbsp;</span>",
 
 
   "mydspace.breadcrumbs": "MyDSpace",

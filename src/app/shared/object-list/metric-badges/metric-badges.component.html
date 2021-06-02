@@ -1,3 +1,3 @@
-<span class="badge badge-info badge-metric mr-1 {{metric.metricType}}" *ngFor="let metric of (metrics() | async)">
-    {{ 'metric-badges.' + metric.metricType | translate }} {{ metric.metricCount }}
+<span class="badge badge-info badge-metric mr-1 {{metric.metricType}}" *ngFor="let metric of (metrics() | async)"
+    [innerHTML]="('metric-badges.' + metric.metricType | translate) + ' ' + metric.metricCount">
 </span>
