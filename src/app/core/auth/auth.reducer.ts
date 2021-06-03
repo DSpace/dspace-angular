@@ -193,6 +193,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         authToken: (action as RefreshTokenSuccessAction).payload,
         refreshing: false,
+        blocking: false
       });
 
     case AuthActionTypes.ADD_MESSAGE:

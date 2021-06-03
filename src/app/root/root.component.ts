@@ -2,7 +2,12 @@ import { map, take } from 'rxjs/operators';
 import { Component, Inject, OnInit, Optional, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  combineLatest as combineLatestObservable,
+  Observable,
+  of
+} from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
@@ -84,18 +89,19 @@ export class RootComponent implements OnInit {
         map(([collapsed, mobile]) => collapsed || mobile)
       );
 
-    this.authService.isUserIdle().subscribe((userIdle: boolean) => {
-      if (userIdle) {
-        if (!this.idleModalOpen) {
-          const modalRef = this.modalService.open(IdleModalComponent);
-          this.idleModalOpen = true;
-          modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
-            if (closed) {
-              this.idleModalOpen = false;
-            }
-          });
+    observableCombineLatest([this.authService.isUserIdle(), this.authService.isAuthenticated()])
+      .subscribe(([userIdle, authenticated]) => {
+        if (userIdle && authenticated) {
+          if (!this.idleModalOpen) {
+            const modalRef = this.modalService.open(IdleModalComponent);
+            this.idleModalOpen = true;
+            modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+              if (closed) {
+                this.idleModalOpen = false;
+              }
+            });
+          }
         }
-      }
     });
   }
 }

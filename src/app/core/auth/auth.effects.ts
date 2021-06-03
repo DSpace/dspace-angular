@@ -263,7 +263,6 @@ export class AuthEffects {
     filter((action: Action) => !IDLE_TIMER_IGNORE_TYPES.includes(action.type)),
     // Using switchMap the timer will be interrupted and restarted if a new action comes in, so idleness timer restarts
     switchMap(() => {
-      this.authService.isAuthenticated();
       return timer(environment.auth.ui.timeUntilIdle);
     }),
     map(() => {

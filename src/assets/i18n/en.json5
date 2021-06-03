@@ -3697,7 +3697,7 @@
 
   "idle-modal.header": "Session will expire soon",
 
-  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?”",
+  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
 
   "idle-modal.log-out": "Log out",
 
