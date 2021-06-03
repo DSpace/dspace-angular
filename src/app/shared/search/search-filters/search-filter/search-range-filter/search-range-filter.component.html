@@ -2,26 +2,28 @@
     <div class="filters py-2">
         <form #form="ngForm" (ngSubmit)="onSubmit()" class="add-filter row"
               [action]="currentUrl">
-            <div class="col-6">
-                <label class="mb-0">
+            <div class="col-6 form-group mb-0">
+                <label>
+                  <span class="font-weight-bold d-block mb-2">
+                    {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
+                  </span>
                   <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
                          class="form-control" (blur)="onSubmit()"
                          aria-label="Mininum value"
-                         [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder' | translate"/>
-                  <span class="d-none">
-                    {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
-                  </span>
+                         [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder' | translate"
+                  />
                 </label>
             </div>
             <div class="col-6">
-                <label class="mb-0">
+                <label>
+                    <span class="font-weight-bold d-block mb-2">
+                      {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
+                    </span>
                     <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
                            class="form-control" (blur)="onSubmit()"
                            aria-label="Maximum value"
-                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder' | translate"/>
-                    <span class="d-none">
-                      {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
-                    </span>
+                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder' | translate"
+                    />
                 </label>
             </div>
             <label class="d-none">

@@ -3,20 +3,25 @@
       (keydown.arrowdown)="shiftFocusDown($event)"
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
       (dsClickOutside)="close();">
-  <label *ngIf="label; else searchInput" class="mb-0">
-    <ng-container *ngTemplateOutlet="searchInput"></ng-container>
-    <span class="d-none">{{label}}</span>
-  </label>
+  <div class="form-group mb-0">
+    <label *ngIf="label; else searchInput">
+      <span class="font-weight-bold d-block mb-2">
+        {{label}}
+      </span>
+      <ng-container *ngTemplateOutlet="searchInput"></ng-container>
+    </label>
+  </div>
   <ng-template #searchInput>
     <input #inputField type="text" [(ngModel)]="value" [name]="name"
            class="form-control suggestion_input"
            [ngClass]="{'is-invalid': !valid}"
            [dsDebounce]="debounceTime" (onDebounce)="find($event)"
            [placeholder]="placeholder"
-           [ngModelOptions]="{standalone: true}" autocomplete="off"/>
+           [ngModelOptions]="{standalone: true}" autocomplete="off"
+    />
   </ng-template>
   <label class="d-none">
-    <input type="submit" class="d-none"/>
+    <input type="submit"/>
     <span>{{'search.filters.search.submit' | translate}}</span>
   </label>
   <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
