@@ -4,7 +4,7 @@
               [action]="currentUrl">
             <div class="col-6 form-group mb-0">
                 <label>
-                  <span class="font-weight-bold d-block mb-2">
+                  <span class="font-weight-bold">
                     {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
                   </span>
                   <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
@@ -16,7 +16,7 @@
             </div>
             <div class="col-6">
                 <label>
-                    <span class="font-weight-bold d-block mb-2">
+                    <span class="font-weight-bold">
                       {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
                     </span>
                     <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
