@@ -40,6 +40,15 @@ export class MetadataService {
 
   private currentObject: BehaviorSubject<DSpaceObject>;
 
+  private readonly ALLOWED_MIMETYPES = [
+    'application/pdf',                                                          // .pdf
+    'application/postscript',                                                   // .ps
+    'application/msword',                                                       // .doc
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document ', // .docx
+    'application/rtf',                                                          // .rtf
+    'application/epub+zip',                                                     // .epub
+  ];
+
   constructor(
     private router: Router,
     private translate: TranslateService,
@@ -383,7 +392,7 @@ export class MetadataService {
       )),
       // Filter out only pairs with whitelisted formats
       filter(([, format]: [Bitstream, BitstreamFormat]) =>
-        hasValue(format) && format.mimetype === 'application/pdf'), // TODO change to check map of mimetypes
+        hasValue(format) && this.ALLOWED_MIMETYPES.includes(format.mimetype)),
       // We only need 1
       take(1),
       // Emit the link of the match
