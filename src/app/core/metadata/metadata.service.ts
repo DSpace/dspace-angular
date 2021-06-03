@@ -327,53 +327,7 @@ export class MetadataService {
                   return [getBitstreamDownloadRoute(bitstreamRd.payload.page[0])];
                 } else {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
-                  return observableOf(bitstreamRd.payload).pipe(
-                    // Because there can be more than one page of bitstreams, this expand operator
-                    // will retrieve them in turn due to the take(1) at the bottom, it will only
-                    // retrieve pages until a match is found
-                    expand((paginatedList: PaginatedList<Bitstream>) => {
-                      if (hasNoValue(paginatedList.next)) {
-                        // If there's no next page, stop.
-                        return EMPTY;
-                      } else {
-                        // Otherwise retrieve the next page
-                        return this.bitstreamDataService.findAllByHref(
-                          paginatedList.next,
-                          undefined,
-                          true,
-                          true,
-                          followLink('format')
-                        ).pipe(
-                          getFirstCompletedRemoteData(),
-                          map((next: RemoteData<PaginatedList<Bitstream>>) => {
-                            if (hasValue(next.payload)) {
-                              return next.payload;
-                            } else {
-                              return EMPTY;
-                            }
-                          })
-                        );
-                      }
-                    }),
-                    // Return the array of bitstreams inside each paginated list
-                    map((paginatedList: PaginatedList<Bitstream>) => paginatedList.page),
-                    // Emit the bitstreams in the list one at a time
-                    switchMap((bitstreams: Bitstream[]) => bitstreams),
-                    // Retrieve the format for each bitstream
-                    switchMap((bitstream: Bitstream) => bitstream.format.pipe(
-                      getFirstSucceededRemoteDataPayload(),
-                      // Keep the original bitstream, because it, not the format, is what we'll need
-                      // for the link at the end
-                      map((format: BitstreamFormat) => [bitstream, format])
-                    )),
-                    // Filter out only pairs with whitelisted formats
-                    filter(([, format]: [Bitstream, BitstreamFormat]) =>
-                      hasValue(format) && format.mimetype === 'application/pdf'), // TODO change to check map of mimetypes
-                    // We only need 1
-                    take(1),
-                    // Emit the link of the match
-                    map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
-                  );
+                  return this.getBitstreamDownloadRoute(bitstreamRd);
                 }
               })
             );
@@ -385,6 +339,56 @@ export class MetadataService {
         this.addMetaTag('citation_pdf_url', link);
       });
     }
+  }
+
+  private getBitstreamDownloadRoute(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
+    return observableOf(bitstreamRd.payload).pipe(
+      // Because there can be more than one page of bitstreams, this expand operator
+      // will retrieve them in turn due to the take(1) at the bottom, it will only
+      // retrieve pages until a match is found
+      expand((paginatedList: PaginatedList<Bitstream>) => {
+        if (hasNoValue(paginatedList.next)) {
+          // If there's no next page, stop.
+          return EMPTY;
+        } else {
+          // Otherwise retrieve the next page
+          return this.bitstreamDataService.findAllByHref(
+            paginatedList.next,
+            undefined,
+            true,
+            true,
+            followLink('format')
+          ).pipe(
+            getFirstCompletedRemoteData(),
+            map((next: RemoteData<PaginatedList<Bitstream>>) => {
+              if (hasValue(next.payload)) {
+                return next.payload;
+              } else {
+                return EMPTY;
+              }
+            })
+          );
+        }
+      }),
+      // Return the array of bitstreams inside each paginated list
+      map((paginatedList: PaginatedList<Bitstream>) => paginatedList.page),
+      // Emit the bitstreams in the list one at a time
+      switchMap((bitstreams: Bitstream[]) => bitstreams),
+      // Retrieve the format for each bitstream
+      switchMap((bitstream: Bitstream) => bitstream.format.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        // Keep the original bitstream, because it, not the format, is what we'll need
+        // for the link at the end
+        map((format: BitstreamFormat) => [bitstream, format])
+      )),
+      // Filter out only pairs with whitelisted formats
+      filter(([, format]: [Bitstream, BitstreamFormat]) =>
+        hasValue(format) && format.mimetype === 'application/pdf'), // TODO change to check map of mimetypes
+      // We only need 1
+      take(1),
+      // Emit the link of the match
+      map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+    );
   }
 
   /**
