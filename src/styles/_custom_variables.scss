@@ -61,12 +61,12 @@
   --ds-sidebar-items-width: #{$sidebar-items-width};
   --ds-total-sidebar-width: #{$total-sidebar-width};
 
-  --ds-top-footer-bg: #{$gray-200} !important;
-  --ds-footer-bg: #{theme-color('primary')} !important;
+  --ds-top-footer-bg: #{$gray-200};
+  --ds-footer-bg: #{theme-color('primary')};
   --ds-footer-border: 1px solid var(--bs-gray-400);
-  --ds-footer-padding: 0 !important;
-  --ds-footer-padding-bottom: 0 !important;
-  --ds-footer-logo-height: 50px !important;
+  --ds-footer-padding: 0;
+  --ds-footer-padding-bottom: 0;
+  --ds-footer-logo-height: 50px;
 
   $home-news-link-color: $cyan;
   --ds-home-news-link-color: #{$home-news-link-color};
