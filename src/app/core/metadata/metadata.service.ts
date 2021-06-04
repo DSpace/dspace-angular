@@ -44,7 +44,7 @@ export class MetadataService {
     'application/pdf',                                                          // .pdf
     'application/postscript',                                                   // .ps
     'application/msword',                                                       // .doc
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document ', // .docx
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
     'application/rtf',                                                          // .rtf
     'application/epub+zip',                                                     // .epub
   ];

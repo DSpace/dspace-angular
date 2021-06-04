@@ -15,11 +15,9 @@ import { RemoteData } from '../data/remote-data';
 import { Item } from '../shared/item.model';
 
 import {
-  ItemMock,
-  MockBitstream1,
-  MockBitstream2,
-  MockBitstreamFormat1,
-  MockBitstreamFormat2
+  ItemMock, MockBitstream1, MockBitstream2, MockBitstream3, MockBitstreamFormat1, MockBitstreamFormat2,
+  MockBitstreamFormat3,
+  MockOriginalBundle,
 } from '../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -51,10 +49,11 @@ import { UUIDService } from '../shared/uuid.service';
 import { MetadataService } from './metadata.service';
 import { environment } from '../../../environments/environment';
 import { storeModuleConfig } from '../../app.reducer';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { URLCombiner } from '../url-combiner/url-combiner';
 import { RootDataService } from '../data/root-data.service';
 import { Root } from '../data/root.model';
+import { Bundle } from '../shared/bundle.model';
+import { BundleDataService } from '../data/bundle-data.service';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -92,6 +91,8 @@ describe('MetadataService', () => {
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
+  let bundleDataService;
+  let bitstreamDataService;
   let authService: AuthService;
   let rootService: RootDataService;
   let translateService: TranslateService;
@@ -111,7 +112,7 @@ describe('MetadataService', () => {
     uuidService = new UUIDService();
     requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, undefined, requestService);
-    const mockBitstreamDataService = {
+    bitstreamDataService = {
       findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
         if (item.equals(ItemMock)) {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
@@ -119,6 +120,7 @@ describe('MetadataService', () => {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       },
+      findAllByHref: jasmine.createSpy(),
     };
     const mockBitstreamFormatDataService = {
       findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {
@@ -129,11 +131,17 @@ describe('MetadataService', () => {
           case MockBitstream2:
             return createSuccessfulRemoteDataObject$(MockBitstreamFormat2);
             break;
+          case MockBitstream3:
+            return createSuccessfulRemoteDataObject$(MockBitstreamFormat3);
+            break;
           default:
             return createSuccessfulRemoteDataObject$(new BitstreamFormat());
         }
       }
     };
+    bundleDataService = jasmine.createSpyObj('bundleDataService', {
+      findByItemAndName: createSuccessfulRemoteDataObject$(MockOriginalBundle),
+    });
     rootService = jasmine.createSpyObj('rootService', {
       findRoot: createSuccessfulRemoteDataObject$(Object.assign(new Root(), {
         dspaceVersion: 'mock-dspace-version'
@@ -176,7 +184,8 @@ describe('MetadataService', () => {
         { provide: CommunityDataService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: mockBitstreamFormatDataService },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: BitstreamDataService, useValue: bitstreamDataService },
+        { provide: BundleDataService, useValue: bundleDataService },
         { provide: RootDataService, useValue: rootService },
         Meta,
         Title,
@@ -264,8 +273,42 @@ describe('MetadataService', () => {
 
   });
 
+  describe('citation_pdf_url', () => {
+    it('should link to primary Bitstream URL regardless of format', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
+      bundleDataService.findByItemAndName.and.returnValue(mockBundleRD$([], MockBitstream3));
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download');
+    }));
+
+    describe('no primary Bitstream', () => {
+      it('should link to first and only Bitstream regardless of format', fakeAsync(() => {
+        spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
+        bundleDataService.findByItemAndName.and.returnValue(mockBundleRD$([MockBitstream3]));
+        router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+        tick();
+        expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download');
+      }));
+
+      it('should link to first Bitstream with allowed format', fakeAsync(() => {
+        spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
+
+        const bitstreams = [MockBitstream3, MockBitstream3, MockBitstream1];
+        bundleDataService.findByItemAndName.and.returnValue(mockBundleRD$(bitstreams));
+        bitstreamDataService.findAllByHref.and.returnValues(
+          ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
+        );
+
+        router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+        tick();
+        expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/download');
+      }));
+    });
+  });
+
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
-    return createSuccessfulRemoteDataObject$(ItemMock);
+    return createSuccessfulRemoteDataObject$(mockItem);
   };
 
   const mockType = (mockItem: Item, type: string): Item => {
@@ -285,4 +328,24 @@ describe('MetadataService', () => {
     return publishedMockItem;
   };
 
+  const mockBundleRD$ = (bitstreams: Bitstream[], primary?: Bitstream): Observable<RemoteData<Bundle>> => {
+    return createSuccessfulRemoteDataObject$(
+      Object.assign(new Bundle(), {
+        name: 'ORIGINAL',
+        bitstreams: createSuccessfulRemoteDataObject$(mockBitstreamPages$(bitstreams)[0]),
+        primaryBitstream: createSuccessfulRemoteDataObject$(primary),
+      })
+    );
+  };
+
+  const mockBitstreamPages$ = (bitstreams: Bitstream[]): PaginatedList<Bitstream>[] => {
+    return bitstreams.map((bitstream, index) => Object.assign(createPaginatedList([bitstream]), {
+      pageInfo: {
+        totalElements: bitstreams.length,       // announce multiple elements/pages
+      },
+      _links: index < bitstreams.length - 1
+        ? { next: { href: 'not empty' }}        // fake link to the next bitstream page
+        : { next: { href: undefined }},         // last page has no link
+    }));
+  };
 });
