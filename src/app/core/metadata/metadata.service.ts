@@ -274,8 +274,11 @@ export class MetadataService {
    */
   private setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
-      const value = [environment.ui.baseUrl, this.router.url].join('');
-      this.addMetaTag('citation_abstract_html_url', value);
+      let url = this.getMetaTagValue('dc.identifier.uri');
+      if (hasNoValue(url)) {
+        url = this.router.url;  // Google should handle relative URL
+      }
+      this.addMetaTag('citation_abstract_html_url', url);
     }
   }
 

@@ -230,7 +230,6 @@ describe('MetadataService', () => {
     tick();
     expect(tagStore.get('citation_dissertation_name')[0].content).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_dissertation_institution')[0].content).toEqual('Mock Publisher');
-    expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual([environment.ui.baseUrl, router.url].join(''));
     expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download');
   }));
 
@@ -271,6 +270,22 @@ describe('MetadataService', () => {
       expect(metadataService.processRemoteData).not.toThrow(new EmptyError());
     }));
 
+  });
+
+  describe('citation_abstract_html_url', () => {
+    it('should use dc.identifier.uri if available', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockUri(ItemMock, 'https://ddg.gg')));
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual('https://ddg.gg');
+    }));
+
+    it('should use current route as fallback', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockUri(ItemMock)));
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual('/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357');
+    }));
   });
 
   describe('citation_pdf_url', () => {
@@ -325,6 +340,12 @@ describe('MetadataService', () => {
         value: 'Mock Publisher'
       }
     ] as MetadataValue[];
+    return publishedMockItem;
+  };
+
+  const mockUri = (mockItem: Item, uri?: string): Item => {
+    const publishedMockItem = Object.assign(new Item(), mockItem) as Item;
+    publishedMockItem.metadata['dc.identifier.uri'] = [{ value: uri }] as MetadataValue[];
     return publishedMockItem;
   };
 
