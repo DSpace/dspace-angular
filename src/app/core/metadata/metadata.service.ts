@@ -144,14 +144,10 @@ export class MetadataService {
 
     this.setCitationAbstractUrlTag();
     this.setCitationPdfUrlTag();
+    this.setCitationPublisherTag();
 
     if (this.isDissertation()) {
       this.setCitationDissertationNameTag();
-      this.setCitationDissertationInstitutionTag();
-    }
-
-    if (this.isTechReport()) {
-      this.setCitationTechReportInstitutionTag();
     }
 
     // this.setCitationJournalTitleTag();
@@ -246,19 +242,17 @@ export class MetadataService {
   }
 
   /**
-   * Add <meta name="citation_dissertation_institution" ... >  to the <head>
+   * Add dc.publisher to the <head>. The tag name depends on the item type.
    */
-  private setCitationDissertationInstitutionTag(): void {
+  private setCitationPublisherTag(): void {
     const value = this.getMetaTagValue('dc.publisher');
-    this.addMetaTag('citation_dissertation_institution', value);
-  }
-
-  /**
-   * Add <meta name="citation_technical_report_institution" ... >  to the <head>
-   */
-  private setCitationTechReportInstitutionTag(): void {
-    const value = this.getMetaTagValue('dc.publisher');
-    this.addMetaTag('citation_technical_report_institution', value);
+    if (this.isDissertation()) {
+      this.addMetaTag('citation_dissertation_institution', value);
+    } else if (this.isTechReport()) {
+      this.addMetaTag('citation_technical_report_institution', value);
+    } else {
+      this.addMetaTag('citation_publisher', value);
+    }
   }
 
   /**

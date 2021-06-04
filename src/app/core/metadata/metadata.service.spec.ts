@@ -229,7 +229,6 @@ describe('MetadataService', () => {
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
     expect(tagStore.get('citation_dissertation_name')[0].content).toEqual('Test PowerPoint Document');
-    expect(tagStore.get('citation_dissertation_institution')[0].content).toEqual('Mock Publisher');
     expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download');
   }));
 
@@ -284,7 +283,36 @@ describe('MetadataService', () => {
       spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockUri(ItemMock)));
       router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
       tick();
-      expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual('/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357');
+       expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual('/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357');
+    }));
+  });
+
+  describe('citation_*_institution / citation_publisher', () => {
+    it('should use citation_dissertation_institution tag for dissertations', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockPublisher(mockType(ItemMock, 'Thesis'))));
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(tagStore.get('citation_dissertation_institution')[0].content).toEqual('Mock Publisher');
+      expect(tagStore.get('citation_technical_report_institution')).toBeFalsy();
+      expect(tagStore.get('citation_publisher')).toBeFalsy();
+    }));
+
+    it('should use citation_tech_report_institution tag for tech reports', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockPublisher(mockType(ItemMock, 'Technical Report'))));
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(tagStore.get('citation_dissertation_institution')).toBeFalsy();
+      expect(tagStore.get('citation_technical_report_institution')[0].content).toEqual('Mock Publisher');
+      expect(tagStore.get('citation_publisher')).toBeFalsy();
+    }));
+
+    it('should use citation_publisher for other item types', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockPublisher(mockType(ItemMock, 'Some Other Type'))));
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(tagStore.get('citation_dissertation_institution')).toBeFalsy();
+      expect(tagStore.get('citation_technical_report_institution')).toBeFalsy();
+      expect(tagStore.get('citation_publisher')[0].content).toEqual('Mock Publisher');
     }));
   });
 
