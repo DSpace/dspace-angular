@@ -329,7 +329,7 @@ export class MetadataService {
                   return [getBitstreamDownloadRoute(bitstreamRd.payload.page[0])];
                 } else {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
-                  return this.getBitstreamDownloadRoute(bitstreamRd);
+                  return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
                 }
               })
             );
@@ -343,7 +343,7 @@ export class MetadataService {
     }
   }
 
-  private getBitstreamDownloadRoute(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
+  private getFirstAllowedFormatBitstreamLink(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     return observableOf(bitstreamRd.payload).pipe(
       // Because there can be more than one page of bitstreams, this expand operator
       // will retrieve them in turn due to the take(1) at the bottom, it will only
