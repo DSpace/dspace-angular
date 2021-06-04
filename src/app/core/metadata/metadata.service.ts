@@ -62,10 +62,6 @@ export class MetadataService {
   ) {
     // TODO: determine what open graph meta tags are needed and whether
     // the differ per route. potentially add image based on DSpaceObject
-    this.meta.addTags([
-      { property: 'og:title', content: 'DSpace Angular Universal' },
-      { property: 'og:description', content: 'The modern front-end for DSpace 7.' }
-    ]);
     this.initialized = false;
     this.tagStore = new Map<string, MetaDefinition[]>();
   }
