@@ -218,7 +218,7 @@ describe('MetadataService', () => {
     expect(title.getTitle()).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_title')[0].content).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_author')[0].content).toEqual('Doe, Jane');
-    expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26');
+    expect(tagStore.get('citation_publication_date')[0].content).toEqual('1650-06-26');
     expect(tagStore.get('citation_issn')[0].content).toEqual('123456789');
     expect(tagStore.get('citation_language')[0].content).toEqual('en');
     expect(tagStore.get('citation_keywords')[0].content).toEqual('keyword1; keyword2; keyword3');

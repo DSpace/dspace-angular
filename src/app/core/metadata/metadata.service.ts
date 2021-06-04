@@ -135,7 +135,7 @@ export class MetadataService {
 
     this.setCitationTitleTag();
     this.setCitationAuthorTags();
-    this.setCitationDateTag();
+    this.setCitationPublicationDateTag();
     this.setCitationISSNTag();
     this.setCitationISBNTag();
 
@@ -208,9 +208,9 @@ export class MetadataService {
   /**
    * Add <meta name="citation_date" ... >  to the <head>
    */
-  private setCitationDateTag(): void {
+  private setCitationPublicationDateTag(): void {
     const value = this.getFirstMetaTagValue(['dc.date.copyright', 'dc.date.issued', 'dc.date.available', 'dc.date.accessioned']);
-    this.addMetaTag('citation_date', value);
+    this.addMetaTag('citation_publication_date', value);
   }
 
   /**
