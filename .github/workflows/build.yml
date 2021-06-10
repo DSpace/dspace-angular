@@ -16,6 +16,9 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
+      # When Chrome version is specified, we pin to a specific version of Chrome & ChromeDriver
+      # Comment this out to use the latest release of both.
+      CHROME_VERSION: "90.0.4430.212-1"
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -34,10 +37,20 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install latest Chrome (for e2e tests)
+      # If CHROME_VERSION env variable specified above, then pin to that version.
+      # Otherwise, just install latest version of Chrome.
+      - name: Install Chrome (for e2e tests)
         run: |
-          sudo apt-get update
-          sudo apt-get --only-upgrade install google-chrome-stable -y
+          if [[ -z "${CHROME_VERSION}" ]]
+          then
+             echo "Installing latest stable version"
+             sudo apt-get update
+             sudo apt-get --only-upgrade install google-chrome-stable -y
+          else
+             echo "Installing version ${CHROME_VERSION}"
+             wget -q "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb"
+             sudo dpkg -i "google-chrome-stable_${CHROME_VERSION}_amd64.deb"
+          fi
           google-chrome --version
 
       # https://github.com/actions/cache/blob/main/examples.md#node---yarn
@@ -53,8 +66,23 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      - name: Install the latest chromedriver compatible with the installed chrome version
-        run: yarn global add chromedriver --detect_chromedriver_version
+      # If CHROME_VERSION env variable specified above, determine the corresponding latest ChromeDriver version
+      # and install it manually (we must install manually as it seems to be the only way to downgrade). 
+      # Otherwise use "detect" flag to install based on installed Chrome version.
+      - name: Install ChromeDriver compatible with installed Chrome
+        run: |
+          if [[ -z "${CHROME_VERSION}" ]]
+          then
+              echo "Installing version based on Chrome"
+              yarn global add chromedriver --detect_chromedriver_version
+          else
+              latest_version_string="LATEST_RELEASE_$(echo $CHROME_VERSION | cut -d'.' -f1)"
+              version=$(curl -s "https://chromedriver.storage.googleapis.com/${latest_version_string}")
+              echo "Installing ${latest_version_string} (${version})"
+              wget -qP /tmp/ "https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
+              sudo unzip -o /tmp/chromedriver_linux64.zip -d /usr/bin
+          fi
+          chromedriver -v
 
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
