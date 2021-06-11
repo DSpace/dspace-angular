@@ -8,7 +8,11 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   templateUrl: '../item-page-field.component.html'
 })
 /**
- * This component is used for displaying the author (dc.contributor.author, dc.creator and dc.contributor) metadata of an item
+ * This component is used for displaying the author (dc.contributor.author, dc.creator and
+ * dc.contributor) metadata of an item.
+ *
+ * Note that it purely deals with metadata. It won't turn related Person authors into links to their
+ * item page. For that use a {@link MetadataRepresentationListComponent} instead.
  */
 export class ItemPageAuthorFieldComponent extends ItemPageFieldComponent {
 
