@@ -66,23 +66,9 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      # If CHROME_VERSION env variable specified above, determine the corresponding latest ChromeDriver version
-      # and install it manually (we must install manually as it seems to be the only way to downgrade). 
-      # Otherwise use "detect" flag to install based on installed Chrome version.
-      - name: Install ChromeDriver compatible with installed Chrome
-        run: |
-          if [[ -z "${CHROME_VERSION}" ]]
-          then
-              echo "Installing version based on Chrome"
-              yarn global add chromedriver --detect_chromedriver_version
-          else
-              latest_version_string="LATEST_RELEASE_$(echo $CHROME_VERSION | cut -d'.' -f1)"
-              version=$(curl -s "https://chromedriver.storage.googleapis.com/${latest_version_string}")
-              echo "Installing ${latest_version_string} (${version})"
-              wget -qP /tmp/ "https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
-              sudo unzip -o /tmp/chromedriver_linux64.zip -d /usr/bin
-          fi
-          chromedriver -v
+      - name: Install the latest chromedriver compatible with the installed chrome version
+        # needs to be npm, the --detect_chromedriver_version flag doesn't work with yarn global
+        run: npm install -g chromedriver --detect_chromedriver_version
 
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
