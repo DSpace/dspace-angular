@@ -66,9 +66,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      - name: Install the latest chromedriver compatible with the installed chrome version
+      - name: Install latest ChromeDriver compatible with installed Chrome
         # needs to be npm, the --detect_chromedriver_version flag doesn't work with yarn global
-        run: npm install -g chromedriver --detect_chromedriver_version
+        run: |
+          npm install -g chromedriver --detect_chromedriver_version
+          chromedriver -v
 
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
