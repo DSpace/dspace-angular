@@ -40,7 +40,13 @@ export class MetadataService {
 
   private currentObject: BehaviorSubject<DSpaceObject>;
 
-  private readonly ALLOWED_MIMETYPES = [
+  /**
+   * When generating the citation_pdf_url meta tag for Items with more than one Bitstream (and no primary Bitstream),
+   * the first Bitstream to match one of the following MIME types is selected.
+   * See {@linkcode getFirstAllowedFormatBitstreamLink}
+   * @private
+   */
+  private readonly CITATION_PDF_URL_MIMETYPES = [
     'application/pdf',                                                          // .pdf
     'application/postscript',                                                   // .ps
     'application/msword',                                                       // .doc
@@ -202,7 +208,7 @@ export class MetadataService {
   }
 
   /**
-   * Add <meta name="citation_date" ... >  to the <head>
+   * Add <meta name="citation_publication_date" ... >  to the <head>
    */
   private setCitationPublicationDateTag(): void {
     const value = this.getFirstMetaTagValue(['dc.date.copyright', 'dc.date.issued', 'dc.date.available', 'dc.date.accessioned']);
@@ -343,6 +349,12 @@ export class MetadataService {
     }
   }
 
+  /**
+   * For Items with more than one Bitstream (and no primary Bitstream), link to the first Bitstream with a MIME type
+   * included in {@linkcode CITATION_PDF_URL_MIMETYPES}
+   * @param bitstreamRd
+   * @private
+   */
   private getFirstAllowedFormatBitstreamLink(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     return observableOf(bitstreamRd.payload).pipe(
       // Because there can be more than one page of bitstreams, this expand operator
@@ -385,7 +397,7 @@ export class MetadataService {
       )),
       // Filter out only pairs with whitelisted formats
       filter(([, format]: [Bitstream, BitstreamFormat]) =>
-        hasValue(format) && this.ALLOWED_MIMETYPES.includes(format.mimetype)),
+        hasValue(format) && this.CITATION_PDF_URL_MIMETYPES.includes(format.mimetype)),
       // We only need 1
       take(1),
       // Emit the link of the match
