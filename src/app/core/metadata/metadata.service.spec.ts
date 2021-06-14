@@ -47,13 +47,13 @@ import { PageInfo } from '../shared/page-info.model';
 import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
-import { environment } from '../../../environments/environment';
 import { storeModuleConfig } from '../../app.reducer';
 import { RootDataService } from '../data/root-data.service';
 import { Root } from '../data/root.model';
 import { Bundle } from '../shared/bundle.model';
 import { BundleDataService } from '../data/bundle-data.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -96,6 +96,7 @@ describe('MetadataService', () => {
   let authService: AuthService;
   let rootService: RootDataService;
   let translateService: TranslateService;
+  let hardRedirectService: HardRedirectService;
 
   let location: Location;
   let router: Router;
@@ -147,6 +148,9 @@ describe('MetadataService', () => {
         dspaceVersion: 'mock-dspace-version'
       }))
     });
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      getRequestOrigin: 'https://request.org',
+    });
 
     TestBed.configureTestingModule({
       imports: [
@@ -187,6 +191,7 @@ describe('MetadataService', () => {
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: BundleDataService, useValue: bundleDataService },
         { provide: RootDataService, useValue: rootService },
+        { provide: HardRedirectService, useValue: hardRedirectService },
         Meta,
         Title,
         // tslint:disable-next-line:no-empty
@@ -229,7 +234,7 @@ describe('MetadataService', () => {
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
     expect(tagStore.get('citation_dissertation_name')[0].content).toEqual('Test PowerPoint Document');
-    expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download');
+    expect(tagStore.get('citation_pdf_url')[0].content).toEqual('https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download');
   }));
 
   it('items page should set meta tags as published Technical Report', fakeAsync(() => {
@@ -283,7 +288,7 @@ describe('MetadataService', () => {
       spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(mockUri(ItemMock)));
       router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
       tick();
-       expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual('/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357');
+       expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual('https://request.org/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357');
     }));
   });
 
@@ -322,7 +327,7 @@ describe('MetadataService', () => {
       bundleDataService.findByItemAndName.and.returnValue(mockBundleRD$([], MockBitstream3));
       router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
       tick();
-      expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download');
+      expect(tagStore.get('citation_pdf_url')[0].content).toEqual('https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download');
     }));
 
     describe('no primary Bitstream', () => {
@@ -331,7 +336,7 @@ describe('MetadataService', () => {
         bundleDataService.findByItemAndName.and.returnValue(mockBundleRD$([MockBitstream3]));
         router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
         tick();
-        expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download');
+        expect(tagStore.get('citation_pdf_url')[0].content).toEqual('https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download');
       }));
 
       it('should link to first Bitstream with allowed format', fakeAsync(() => {
@@ -345,7 +350,7 @@ describe('MetadataService', () => {
 
         router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
         tick();
-        expect(tagStore.get('citation_pdf_url')[0].content).toEqual('/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/download');
+        expect(tagStore.get('citation_pdf_url')[0].content).toEqual('https://request.org/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/download');
       }));
     });
   });

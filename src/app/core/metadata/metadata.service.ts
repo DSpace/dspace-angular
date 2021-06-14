@@ -23,7 +23,6 @@ import {
   getFirstSucceededRemoteDataPayload,
   getFirstCompletedRemoteData
 } from '../shared/operators';
-import { environment } from '../../../environments/environment';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
