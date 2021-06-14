@@ -30,6 +30,8 @@ import { BundleDataService } from '../data/bundle-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { Bundle } from '../shared/bundle.model';
 import { PaginatedList } from '../data/paginated-list.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 @Injectable()
 export class MetadataService {
@@ -64,7 +66,8 @@ export class MetadataService {
     private bundleDataService: BundleDataService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
-    private rootService: RootDataService
+    private rootService: RootDataService,
+    private hardRedirectService: HardRedirectService,
   ) {
     // TODO: determine what open graph meta tags are needed and whether
     // the differ per route. potentially add image based on DSpaceObject
@@ -276,7 +279,7 @@ export class MetadataService {
     if (this.currentObject.value instanceof Item) {
       let url = this.getMetaTagValue('dc.identifier.uri');
       if (hasNoValue(url)) {
-        url = this.router.url;  // Google should handle relative URL
+        url = new URLCombiner(this.hardRedirectService.getRequestOrigin(), this.router.url).toString();
       }
       this.addMetaTag('citation_abstract_html_url', url);
     }
@@ -344,7 +347,10 @@ export class MetadataService {
         take(1)
       ).subscribe((link: string) => {
         // Use the found link to set the <meta> tag
-        this.addMetaTag('citation_pdf_url', link);
+        this.addMetaTag(
+          'citation_pdf_url',
+          new URLCombiner(this.hardRedirectService.getRequestOrigin(), link).toString()
+        );
       });
     }
   }
