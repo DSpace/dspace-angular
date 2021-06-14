@@ -42,7 +42,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
   /**
    * The metadata field to use for fetching metadata from the item
    */
-  @Input() metadataField: string;
+  @Input() metadataFields: string[];
 
   /**
    * An i18n label to use as a title for the list
@@ -70,7 +70,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    * @param page  The page to fetch
    */
   getPage(page: number): Observable<MetadataRepresentation[]> {
-    const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataField);
+    const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataFields);
     this.total = metadata.length;
     return this.resolveMetadataRepresentations(metadata, page);
   }
@@ -91,9 +91,11 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
               getFirstSucceededRemoteData(),
               switchMap((relRD: RemoteData<Relationship>) =>
                 observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(
-                  filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded),
+                  filter(([leftItem, rightItem]) => leftItem.hasCompleted && rightItem.hasCompleted),
                   map(([leftItem, rightItem]) => {
-                    if (leftItem.payload.id === this.parentItem.id) {
+                    if (!leftItem.hasSucceeded || !rightItem.hasSucceeded) {
+                      return observableOf(Object.assign(new MetadatumRepresentation(this.itemType), metadatum));
+                    } else if (rightItem.hasSucceeded && leftItem.payload.id === this.parentItem.id) {
                       return rightItem.payload;
                     } else if (rightItem.payload.id === this.parentItem.id) {
                       return leftItem.payload;

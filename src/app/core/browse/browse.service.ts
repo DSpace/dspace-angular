@@ -130,7 +130,7 @@ export class BrowseService {
           args.push(`startsWith=${options.startsWith}`);
         }
         if (isNotEmpty(filterValue)) {
-          args.push(`filterValue=${filterValue}`);
+          args.push(`filterValue=${encodeURIComponent(filterValue)}`);
         }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
