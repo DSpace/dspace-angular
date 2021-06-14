@@ -10,14 +10,14 @@
     <div class="sidebar-top-level-items">
         <ul class="navbar-nav">
             <li class="admin-menu-header sidebar-section">
-                <a class="shortcut-icon navbar-brand mr-0" href="#">
+                <a class="shortcut-icon navbar-brand mr-0" href="javascript:void(0);">
                 <span class="logo-wrapper">
                     <img class="admin-logo" src="assets/images/dspace-logo-mini.svg"
                          [alt]="('menu.header.image.logo') | translate">
                 </span>
                 </a>
                 <div class="sidebar-collapsible">
-                    <a class="navbar-brand mr-0" href="#">
+                    <a class="navbar-brand mr-0" href="javascript:void(0);">
                         <h4 class="section-header-text mb-0">{{'menu.header.admin' |
                             translate}}</h4>
                     </a>
@@ -33,7 +33,7 @@
     <div class="navbar-nav">
         <div class="sidebar-section" id="sidebar-collapse-toggle">
             <a class="nav-item nav-link shortcut-icon"
-               href="#"
+               href="javascript:void(0);"
                (click)="toggle($event)">
                 <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
                    [title]="'menu.section.icon.pin' | translate"></i>
@@ -42,7 +42,7 @@
             </a>
             <div class="sidebar-collapsible">
                 <a class="nav-item nav-link sidebar-section"
-                   href="#"
+                   href="javascript:void(0);"
                    (click)="toggle($event)">
                     <span *ngIf="menuCollapsed | async" class="section-header-text">{{'menu.section.pin' | translate }}</span>
                     <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'menu.section.unpin' | translate }}</span>
