@@ -364,7 +364,7 @@ export class MetadataService {
   private getFirstAllowedFormatBitstreamLink(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     return observableOf(bitstreamRd.payload).pipe(
       // Because there can be more than one page of bitstreams, this expand operator
-      // will retrieve them in turn due to the take(1) at the bottom, it will only
+      // will retrieve them in turn. Due to the take(1) at the bottom, it will only
       // retrieve pages until a match is found
       expand((paginatedList: PaginatedList<Bitstream>) => {
         if (hasNoValue(paginatedList.next)) {
