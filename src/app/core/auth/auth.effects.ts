@@ -1,7 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, timer } from 'rxjs';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  timer,
+  asyncScheduler, queueScheduler
+} from 'rxjs';
+import { catchError, filter, map, switchMap, take, tap, observeOn } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -43,8 +49,8 @@ import { hasValue } from '../../shared/empty.util';
 import { environment } from '../../../environments/environment';
 import { RequestActionTypes } from '../data/request.actions';
 import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
-import { ObjectCacheActionTypes } from '../cache/object-cache.actions';
-import { NO_OP_ACTION_TYPE } from '../../shared/ngrx/no-op.action';
+import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
+import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
 
 // Action Types that do not break/prevent the user from an idle state
 const IDLE_TIMER_IGNORE_TYPES: string[]
@@ -261,22 +267,26 @@ export class AuthEffects {
   @Effect()
   public trackIdleness$: Observable<Action> = this.actions$.pipe(
     filter((action: Action) => !IDLE_TIMER_IGNORE_TYPES.includes(action.type)),
-    // Using switchMap the timer will be interrupted and restarted if a new action comes in, so idleness timer restarts
-    switchMap(() => {
-      return timer(environment.auth.ui.timeUntilIdle);
-    }),
-    map(() => {
-      return new SetUserAsIdleAction();
-    })
+    // Using switchMap the effect will stop subscribing to the previous timer if a new action comes
+    // in, and start a new timer
+    switchMap(() =>
+      // Start a timer outside of Angular's zone
+      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler))
+    ),
+    // Re-enter the zone to dispatch the action
+    observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),
+    map(() => new SetUserAsIdleAction()),
   );
 
   /**
    * @constructor
    * @param {Actions} actions$
+   * @param {NgZone} zone
    * @param {AuthService} authService
    * @param {Store} store
    */
   constructor(private actions$: Actions,
+              private zone: NgZone,
               private authService: AuthService,
               private store: Store<AppState>) {
   }
