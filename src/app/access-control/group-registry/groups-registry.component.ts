@@ -141,29 +141,35 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         if (groups.page.length === 0) {
           return observableOf(buildPaginatedList(groups.pageInfo, []));
         }
-        return observableCombineLatest(groups.page.map((group: Group) => {
-          if (!this.deletedGroupsIds.includes(group.id)) {
-            return observableCombineLatest([
-              this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-              this.hasLinkedDSO(group),
-              this.getSubgroups(group),
-              this.getMembers(group)
-            ]).pipe(
-              map(([isAuthorized, hasLinkedDSO, subgroups, members]:
-                     [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                  const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                  groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
-                  groupDtoModel.group = group;
-                  groupDtoModel.subgroups = subgroups.payload;
-                  groupDtoModel.epersons = members.payload;
-                  return groupDtoModel;
-                }
-              )
-            );
-          }
-        })).pipe(map((dtos: GroupDtoModel[]) => {
-          return buildPaginatedList(groups.pageInfo, dtos);
-        }));
+        return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+          switchMap((isSiteAdmin: boolean) => {
+            return observableCombineLatest(groups.page.map((group: Group) => {
+              if (hasValue(group) && !this.deletedGroupsIds.includes(group.id)) {
+                return observableCombineLatest([
+                  this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self),
+                  this.canManageGroup$(isSiteAdmin, group),
+                  this.hasLinkedDSO(group),
+                  this.getSubgroups(group),
+                  this.getMembers(group)
+                ]).pipe(
+                  map(([canDelete, canManageGroup, hasLinkedDSO, subgroups, members]:
+                         [boolean, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
+                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
+                      groupDtoModel.ableToEdit = canManageGroup;
+                      groupDtoModel.group = group;
+                      groupDtoModel.subgroups = subgroups.payload;
+                      groupDtoModel.epersons = members.payload;
+                      return groupDtoModel;
+                    }
+                  )
+                );
+              }
+            })).pipe(map((dtos: GroupDtoModel[]) => {
+              return buildPaginatedList(groups.pageInfo, dtos);
+            }));
+          })
+        );
       })
     ).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
@@ -173,6 +179,14 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
     this.subs.push(this.searchSub);
       }
+
+  canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
+    if (isSiteAdmin) {
+      return observableOf(true);
+    } else {
+      return this.authorizationService.isAuthorized(FeatureID.CanManageGroup, group.self);
+    }
+  }
 
   /**
    * Delete Group
