@@ -62,14 +62,14 @@
                   <ng-container [ngSwitch]="groupDto.ableToEdit">
                     <button *ngSwitchCase="true"
                       [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
-                      class="btn btn-outline-primary btn-sm"
+                      class="btn btn-outline-primary btn-sm btn-edit"
                       title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: groupDto.group.name} }}"
                     >
                       <i class="fas fa-edit fa-fw"></i>
                     </button>
                     <button *ngSwitchCase="false"
                       [disabled]="true"
-                      class="btn btn-outline-primary btn-sm"
+                      class="btn btn-outline-primary btn-sm btn-edit"
                       placement="left"
                       [ngbTooltip]="'admin.access-control.epeople.table.edit.buttons.edit-disabled' | translate"
                     >
