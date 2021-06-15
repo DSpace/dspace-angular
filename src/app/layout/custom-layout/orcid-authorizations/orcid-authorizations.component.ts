@@ -42,10 +42,10 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
   constructor(
     private configurationService: ConfigurationDataService,
     private researcherProfileService: ResearcherProfileService,
-    private translateService: TranslateService,
+    protected translateService: TranslateService,
     private notificationsService: NotificationsService,
     @Inject(NativeWindowService) private _window: NativeWindowRef) {
-    super();
+    super(translateService);
   }
 
   ngOnInit() {
