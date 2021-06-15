@@ -5,6 +5,7 @@ import { GroupFormComponent } from './group-registry/group-form/group-form.compo
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { GROUP_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { GroupPageGuard } from './group-registry/group-page.guard';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' }
+        data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' },
+        canActivate: [GroupPageGuard]
       }
     ])
   ]
