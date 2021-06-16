@@ -1,10 +1,10 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}"
      [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
      class="navbar navbar-expand-md navbar-light p-0 navbar-container"
-     role="navigation" role="navigation" [attr.aria-label]="'nav.main.description' |translate">
+     role="navigation" [attr.aria-label]="'nav.main.description' | translate">
   <div class="container h-100">
     <a class="navbar-brand my-2" routerLink="/home">
-      <img src="assets/images/dspace-logo.svg" alt="logo"/>
+      <img src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
     </a>
 
     <div id="collapsingNav" class="w-100 h-100">

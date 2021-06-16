@@ -1,6 +1,7 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}"
      [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
-     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container">    <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
+     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container"
+     role="navigation" [attr.aria-label]="'nav.main.description' | translate">    <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
     <div class="container">
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">

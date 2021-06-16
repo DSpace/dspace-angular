@@ -2,10 +2,10 @@
   <div class="container">
     <div class="d-flex flex-row justify-content-between">
       <a class="navbar-brand my-2" routerLink="/home">
-        <img src="assets/images/dspace-logo.svg"/>
+        <img src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
       </a>
 
-      <nav class="navbar navbar-light navbar-expand-md flex-shrink-0 px-0">
+      <nav role="navigation" [attr.aria-label]="'nav.user.description' | translate" class="navbar navbar-light navbar-expand-md flex-shrink-0 px-0">
         <ds-search-navbar></ds-search-navbar>
         <ds-lang-switch></ds-lang-switch>
         <ds-auth-nav-menu></ds-auth-nav-menu>
@@ -13,7 +13,7 @@
         <div class="pl-2">
           <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
                   aria-controls="collapsingNav"
-                  aria-expanded="false" aria-label="Toggle navigation">
+                  aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
             <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
           </button>
         </div>
