@@ -5,13 +5,6 @@
 
 // $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 //
-// $gray-base: #000 !default;
-// $gray-900: lighten($gray-base, 13.5%) !default; // #222
-// $gray-800: lighten($gray-base, 26.6%) !default; // #444
-// $gray-700: lighten($gray-base, 46.6%) !default; // #777
-// $gray-600: lighten($gray-base, 73.3%) !default; // #bbb
-// $gray-100: lighten($gray-base, 93.5%) !default; // #eee
-//
 // $blue:   #2B4E72 !default;
 // $green:  #94BA65 !default;
 // $cyan:   #006666 !default;
@@ -21,12 +14,12 @@
 //
 // $theme-colors: (
 //   primary: $blue,
-//   secondary: $gray-700,
+//   secondary: #495057,   // Bootstrap $gray-700
 //   success: $green,
 //   info: $cyan,
 //   warning: $yellow,
 //   danger: $red,
-//   light: $gray-100,
+//   light: #f8f9fa,       // Bootstrap $gray-100
 //   dark: $dark
 // ) !default;
 //
