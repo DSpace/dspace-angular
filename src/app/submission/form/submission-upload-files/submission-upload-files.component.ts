@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 import { SectionsService } from '../../sections/sections.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
@@ -131,16 +131,18 @@ export class SubmissionUploadFilesComponent implements OnChanges {
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
                   const sectionErrors = errorsList[sectionId];
-                  this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.Upload).subscribe((isUpload) => {
-                    if (isUpload) {
-                      // Look for errors on upload
-                      if ((isEmpty(sectionErrors))) {
-                        this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
-                      } else {
-                        this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
-                      }
-                    }
-                  });
+                  this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.Upload)
+                      .pipe(take(1))
+                      .subscribe((isUpload) => {
+                        if (isUpload) {
+                          // Look for errors on upload
+                          if ((isEmpty(sectionErrors))) {
+                            this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
+                          } else {
+                            this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+                          }
+                        }
+                      });
                   this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors);
                 });
             }
