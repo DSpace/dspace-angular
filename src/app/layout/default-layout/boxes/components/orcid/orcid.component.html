@@ -8,12 +8,24 @@
   <div>
     <div  [class]="'d-flex flex-column ' + valueStyle">
     <span *ngFor="let metadataValue of metadataValues" class="d-flex align-items-center txt-value">
-      {{ normalizeValue(metadataValue) | dsDate }}
-      <img *ngIf="hasOrcidBadge()"
-           placement="top"
-           ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
-           class="orcid-icon"
-           src="assets/images/orcid.logo.icon.svg"/>
+      <ng-container *ngIf="hasOrcidBadge(); else noOrcidBadge">
+
+        <a *ngIf="orcidUrl; else noOrcidUrl" href="{{orcidUrl}}/{{metadataValue}}" target="_blank">
+          {{ normalizeValue(metadataValue) | dsDate }}
+        </a>
+
+        <ng-template #noOrcidUrl>{{ normalizeValue(metadataValue) | dsDate }}</ng-template>
+
+        <img placement="top"
+             ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
+             class="orcid-icon"
+             src="assets/images/orcid.logo.icon.svg"/>
+      </ng-container>
+
+      <ng-template #noOrcidBadge>
+        {{ normalizeValue(metadataValue) | dsDate }}
+      </ng-template>
+
     </span>
     </div>
   </div>

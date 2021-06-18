@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -10,6 +10,8 @@ import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loade
 import { DsDatePipe } from '../../../../pipes/ds-date.pipe';
 import { MetadataComponent } from '../../../../../core/layout/models/metadata-component.model';
 import { METADATACOMPONENT } from '../../../../../core/layout/models/metadata-component.resource-type';
+import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 
 export const testItem: Item = Object.assign(new Item(), {
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
@@ -58,8 +60,14 @@ export const medataComponent: MetadataComponent = {
 describe('OrcidComponent', () => {
   let component: OrcidComponent;
   let fixture: ComponentFixture<OrcidComponent>;
+  let configurationDataService;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
+
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['https://sandbox.orcid.org'] })
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -67,7 +75,8 @@ describe('OrcidComponent', () => {
           useClass: TranslateLoaderMock
         }
       }), BrowserAnimationsModule],
-      declarations: [ OrcidComponent, DsDatePipe ]
+      declarations: [ OrcidComponent, DsDatePipe ],
+      providers: [ { provide: ConfigurationDataService, useValue: configurationDataService}]
     })
     .compileComponents();
   }));
@@ -77,21 +86,30 @@ describe('OrcidComponent', () => {
     component = fixture.componentInstance;
     component.item = testItem;
     component.field = medataComponent.rows[0].fields[0];
+    component.ngOnInit();
     fixture.detectChanges();
   });
 
-  it('check metadata rendering', (done) => {
-    const spanValueFound = fixture.debugElement.queryAll(By.css('span.txt-value'));
-    expect(spanValueFound.length).toBe(1);
-    expect(spanValueFound[0].nativeElement.textContent).toContain('0000-0001-8918-3592');
+  it('check metadata rendering',  fakeAsync(() => {
+    tick();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('span.txt-value'));
+      expect(spanValueFound.length).toBe(1);
+      expect(spanValueFound[0].nativeElement.textContent).toContain('0000-0001-8918-3592');
 
-    const orcidIconFound = fixture.debugElement.queryAll(By.css('.orcid-icon'));
-    expect(orcidIconFound.length).toBe(1);
-    expect(orcidIconFound[0].nativeElement.src).toContain('assets/images/orcid.logo.icon.svg');
+      const orcidLinkFound = fixture.debugElement.queryAll(By.css('a'));
+      expect(orcidLinkFound.length).toBe(1);
+      expect(orcidLinkFound[0].nativeElement.href).toBe('https://sandbox.orcid.org/0000-0001-8918-3592');
 
-    const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataComponent.rows[0].fields[0].style));
-    const label: HTMLElement = spanLabelFound.nativeElement;
-    expect(label.textContent).toContain(medataComponent.rows[0].fields[0].label);
-    done();
-  });
+      const orcidIconFound = fixture.debugElement.queryAll(By.css('.orcid-icon'));
+      expect(orcidIconFound.length).toBe(1);
+      expect(orcidIconFound[0].nativeElement.src).toContain('assets/images/orcid.logo.icon.svg');
+
+      const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataComponent.rows[0].fields[0].style));
+      const label: HTMLElement = spanLabelFound.nativeElement;
+      expect(label.textContent).toContain(medataComponent.rows[0].fields[0].label);
+    });
+
+  }));
 });
