@@ -17,10 +17,13 @@ $yellow: #ec9433 !default;
 $red: #CF4444 !default;
 $dark: #43515f !default;
 
-$body-color: #343a40 !default;                    // Bootstrap $gray-800
+$gray-800: #343a40; !default
+$gray-400: #ced4da; !default
+$gray-100: #f8f9fa; !default
 
-$table-accent-bg:             #f8f9fa !default;   // Bootstrap $gray-100
-$table-hover-bg:              #ced4da !default;   // Bootstrap $gray-400
+$body-color: $gray-800 !default;                    // Bootstrap $gray-800
+
+$table-accent-bg: $gray-100 !default;   // Bootstrap $gray-100
+$table-hover-bg: $gray-400 !default;   // Bootstrap $gray-400
 
 $yiq-contrasted-threshold:  170 !default;
-

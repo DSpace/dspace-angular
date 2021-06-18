@@ -12,6 +12,8 @@ $image-path: "../assets/images" !default;
 
 /** Bootstrap Variables **/
 /* Colors */
+$gray-700: #495057; !default  // Bootstrap $gray-700
+$gray-100: #f8f9fa; !default  //           $gray-100
 
 /* Reassign color vars to semantic color scheme */
 $blue:   #2B4E72 !default;
@@ -23,12 +25,12 @@ $dark:   darken($blue, 17%) !default;
 
 $theme-colors: (
         primary: $blue,
-        secondary: #495057,   // Bootstrap $gray-700
+        secondary: $gray-700,
         success: $green,
         info: $cyan,
         warning: $yellow,
         danger: $red,
-        light: #f8f9fa,       // Bootstrap $gray-100
+        light: $gray-100,
         dark: $dark
 ) !default;
 /* Fonts */
