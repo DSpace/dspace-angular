@@ -28,6 +28,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -134,6 +135,52 @@ export class BitstreamDataService extends DataService<Bitstream> {
     });
 
     return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of a {@link Bitstream}, based on a handle and an
+   * optional sequenceId or filename, with a list of {@link FollowLinkConfig}, to automatically
+   * resolve {@link HALLink}s of the object
+   *
+   * @param handle                      The handle of the bitstream we want to retrieve
+   * @param sequenceId                  The sequence id of the bitstream we want to retrieve
+   * @param filename                    The filename of the bitstream we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findByItemHandle(
+    handle: string,
+    sequenceId?: string,
+    filename?: string,
+    useCachedVersionIfAvailable = true,
+    reRequestOnStale = true,
+    ...linksToFollow: FollowLinkConfig<Bitstream>[]
+  ): Observable<RemoteData<Bitstream>> {
+    const searchParams = [];
+    searchParams.push(new RequestParam('handle', handle));
+    if (hasValue(sequenceId)) {
+      searchParams.push(new RequestParam('sequenceId', sequenceId));
+    }
+    if (hasValue(filename)) {
+      searchParams.push(new RequestParam('filename', filename));
+    }
+
+    const hrefObs = this.getSearchByHref(
+      'byItemHandle',
+      { searchParams },
+      ...linksToFollow
+    );
+
+    return this.findByHref(
+      hrefObs,
+      useCachedVersionIfAvailable,
+      reRequestOnStale,
+      ...linksToFollow
+    );
   }
 
 }
