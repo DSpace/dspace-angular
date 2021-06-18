@@ -4,7 +4,9 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 import { Subject } from 'rxjs';
 import { hasValue } from '../empty.util';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
+import { LogOutAction } from '../../core/auth/auth.actions';
 
 @Component({
   selector: 'ds-idle-modal',
@@ -31,7 +33,7 @@ export class IdleModalComponent implements OnInit {
 
   constructor(private activeModal: NgbActiveModal,
               private authService: AuthService,
-              protected hardRedirectService: HardRedirectService) {
+              private store: Store<AppState>) {
     this.timeToExpire = (environment.auth.ui.timeUntilIdle + environment.auth.ui.idleGracePeriod) / 1000 / 60; // ms => min
   }
 
@@ -56,8 +58,7 @@ export class IdleModalComponent implements OnInit {
    */
   logOutPressed() {
     this.closeModal();
-    this.authService.logout();
-    this.authService.navigateToRedirectUrl(this.hardRedirectService.getCurrentRoute());
+    this.store.dispatch(new LogOutAction());
   }
 
   /**

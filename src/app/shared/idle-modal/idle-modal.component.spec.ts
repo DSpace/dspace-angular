@@ -5,26 +5,29 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IdleModalComponent } from './idle-modal.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { By } from '@angular/platform-browser';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { Store } from '@ngrx/store';
+import { LogOutAction } from '../../core/auth/auth.actions';
 
 describe('IdleModalComponent', () => {
   let component: IdleModalComponent;
   let fixture: ComponentFixture<IdleModalComponent>;
   let debugElement: DebugElement;
 
-  const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const authServiceStub = jasmine.createSpyObj('authService', ['setIdle', 'logout', 'navigateToRedirectUrl']);
-  let hardRedirectService;
+  let modalStub;
+  let authServiceStub;
+  let storeStub;
 
   beforeEach(waitForAsync(() => {
-    hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['getCurrentRoute']);
+    modalStub = jasmine.createSpyObj('modalStub', ['close']);
+    authServiceStub = jasmine.createSpyObj('authService', ['setIdle']);
+    storeStub = jasmine.createSpyObj('store', ['dispatch']);
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [IdleModalComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: HardRedirectService, useValue: hardRedirectService }
+        { provide: Store, useValue: storeStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -61,15 +64,11 @@ describe('IdleModalComponent', () => {
     beforeEach(() => {
       component.logOutPressed();
     });
-    it('should logout', () => {
-      expect(authServiceStub.logout).toHaveBeenCalled();
-    });
     it('should close the modal', () => {
       expect(modalStub.close).toHaveBeenCalled();
     });
-    it('should reload', () => {
-      expect(hardRedirectService.getCurrentRoute).toHaveBeenCalled();
-      expect(authServiceStub.navigateToRedirectUrl).toHaveBeenCalled();
+    it('should send logout action', () => {
+      expect(storeStub.dispatch).toHaveBeenCalledWith(new LogOutAction());
     });
   });
 
