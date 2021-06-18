@@ -150,9 +150,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
     describe('on upload complete', () => {
       beforeEach(() => {
-        sectionsServiceStub.isSectionType.and.callFake((submissionId, sectionId, sectionType) => {
-          return observableOf(sectionId === 'upload')
-        });
+        sectionsServiceStub.isSectionType.and.callFake((_, sectionId, __) => observableOf(sectionId === 'upload'));
         compAsAny.uploadEnabled = observableOf(true);
       });
 
