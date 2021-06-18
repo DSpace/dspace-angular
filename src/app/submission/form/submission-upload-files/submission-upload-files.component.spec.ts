@@ -83,7 +83,6 @@ describe('SubmissionUploadFilesComponent Component', () => {
       const html = `
         <ds-submission-upload-files [submissionId]="submissionId"
                                     [collectionId]="collectionId"
-                                    [sectionId]="'upload'"
                                     [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -108,11 +107,11 @@ describe('SubmissionUploadFilesComponent Component', () => {
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       sectionsServiceStub = TestBed.inject(SectionsService as any);
+      sectionsServiceStub.isSectionTypeAvailable.and.returnValue(observableOf(true));
       notificationsServiceStub = TestBed.inject(NotificationsService as any);
       translateService = TestBed.inject(TranslateService);
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
-      comp.sectionId = 'upload';
       comp.uploadFilesOptions = Object.assign(new UploaderOptions(),{
         url: '',
         authToken: null,
@@ -133,7 +132,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
     });
 
     it('should init uploadEnabled properly', () => {
-      sectionsServiceStub.isSectionAvailable.and.returnValue(hot('-a-b', {
+      sectionsServiceStub.isSectionTypeAvailable.and.returnValue(hot('-a-b', {
         a: false,
         b: true
       }));
@@ -149,53 +148,56 @@ describe('SubmissionUploadFilesComponent Component', () => {
       expect(compAsAny.uploadEnabled).toBeObservable(expected);
     });
 
-    it('should show a success notification and call updateSectionData on upload complete', () => {
-
-      const expectedErrors: any = mockUploadResponse1ParsedErrors;
-      compAsAny.uploadEnabled = observableOf(true);
-      fixture.detectChanges();
-
-      comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
-
-      Object.keys(mockSectionsData).forEach((sectionId) => {
-        expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
-          submissionId,
-          sectionId,
-          mockSectionsData[sectionId],
-          expectedErrors[sectionId]
-        );
+    describe('on upload complete', () => {
+      beforeEach(() => {
+        sectionsServiceStub.isSectionType.and.callFake((submissionId, sectionId, sectionType) => {
+          return observableOf(sectionId === 'upload')
+        });
+        compAsAny.uploadEnabled = observableOf(true);
       });
 
-      expect(notificationsServiceStub.success).toHaveBeenCalled();
+      it('should show a success notification and call updateSectionData if successful', () => {
+        const expectedErrors: any = mockUploadResponse1ParsedErrors;
+        fixture.detectChanges();
 
-    });
+        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
 
-    it('should show an error notification and call updateSectionData on upload complete', () => {
+        Object.keys(mockSectionsData).forEach((sectionId) => {
+          expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
+            submissionId,
+            sectionId,
+            mockSectionsData[sectionId],
+            expectedErrors[sectionId]
+          );
+        });
 
-      const responseErrors = mockUploadResponse2Errors;
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
 
-      const expectedErrors: any = mockUploadResponse2ParsedErrors;
-      compAsAny.uploadEnabled = observableOf(true);
-      fixture.detectChanges();
-
-      comp.onCompleteItem(Object.assign({}, uploadRestResponse, {
-        sections: mockSectionsData,
-        errors: responseErrors.errors
-      }));
-
-      Object.keys(mockSectionsData).forEach((sectionId) => {
-        expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
-          submissionId,
-          sectionId,
-          mockSectionsData[sectionId],
-          expectedErrors[sectionId]
-        );
       });
 
-      expect(notificationsServiceStub.success).not.toHaveBeenCalled();
+      it('should show an error notification and call updateSectionData if unsuccessful', () => {
+        const responseErrors = mockUploadResponse2Errors;
+        const expectedErrors: any = mockUploadResponse2ParsedErrors;
+        fixture.detectChanges();
 
+        comp.onCompleteItem(Object.assign({}, uploadRestResponse, {
+          sections: mockSectionsData,
+          errors: responseErrors.errors
+        }));
+
+        Object.keys(mockSectionsData).forEach((sectionId) => {
+          expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
+            submissionId,
+            sectionId,
+            mockSectionsData[sectionId],
+            expectedErrors[sectionId]
+          );
+        });
+
+        expect(notificationsServiceStub.success).not.toHaveBeenCalled();
+
+      });
     });
-
   });
 });
 
@@ -208,7 +210,6 @@ class TestComponent {
 
   submissionId = mockSubmissionId;
   collectionId = mockSubmissionCollectionId;
-  sectionId = 'upload';
   uploadFilesOptions = Object.assign(new UploaderOptions(), {
     url: '',
     authToken: null,
