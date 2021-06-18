@@ -1,6 +1,6 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 
-import { catchError, filter, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,
@@ -12,14 +12,13 @@ import {
   HttpResponse,
   HttpResponseBase
 } from '@angular/common/http';
-import { find } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { hasValue, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
-import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
+import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
+import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AuthMethod } from './models/auth.method';
