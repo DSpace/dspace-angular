@@ -240,15 +240,9 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.SET_USER_AS_IDLE:
-      if (state.authenticated) {
-        return Object.assign({}, state, {
-          idle: true,
-        });
-      } else {
-        return Object.assign({}, state, {
-          idle: false,
-        });
-      }
+      return Object.assign({}, state, {
+        idle: true,
+      });
 
     case AuthActionTypes.UNSET_USER_AS_IDLE:
       return Object.assign({}, state, {

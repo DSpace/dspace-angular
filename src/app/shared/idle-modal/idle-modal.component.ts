@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 import { Subject } from 'rxjs';
 import { hasValue } from '../empty.util';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 @Component({
   selector: 'ds-idle-modal',
@@ -29,7 +30,8 @@ export class IdleModalComponent implements OnInit {
   response: Subject<boolean> = new Subject();
 
   constructor(private activeModal: NgbActiveModal,
-              private authService: AuthService) {
+              private authService: AuthService,
+              protected hardRedirectService: HardRedirectService) {
     this.timeToExpire = (environment.auth.ui.timeUntilIdle + environment.auth.ui.idleGracePeriod) / 1000 / 60; // ms => min
   }
 
@@ -53,8 +55,9 @@ export class IdleModalComponent implements OnInit {
    * Close modal and logout
    */
   logOutPressed() {
-    this.authService.logout();
     this.closeModal();
+    this.authService.logout();
+    this.authService.navigateToRedirectUrl(this.hardRedirectService.getCurrentRoute());
   }
 
   /**

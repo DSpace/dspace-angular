@@ -282,7 +282,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({headers, responseType: 'text'});
+    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
     return this.authRequestService.postToEndpoint('logout', options).pipe(
       map((rd: RemoteData<AuthStatus>) => {
         const status = rd.payload;
@@ -447,11 +447,14 @@ export class AuthService {
    * @param redirectUrl
    */
   public navigateToRedirectUrl(redirectUrl: string) {
-    let url = `/reload/${new Date().getTime()}`;
-    if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
-      url += `?redirect=${encodeURIComponent(redirectUrl)}`;
+    // Don't do redirect if already on reload url
+    if (!hasValue(redirectUrl) || !redirectUrl.includes('/reload/')) {
+      let url = `/reload/${new Date().getTime()}`;
+      if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
+        url += `?redirect=${encodeURIComponent(redirectUrl)}`;
+      }
+      this.hardRedirectService.redirect(url);
     }
-    this.hardRedirectService.redirect(url);
   }
 
   /**

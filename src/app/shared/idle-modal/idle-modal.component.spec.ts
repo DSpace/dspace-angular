@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IdleModalComponent } from './idle-modal.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { By } from '@angular/platform-browser';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 describe('IdleModalComponent', () => {
   let component: IdleModalComponent;
@@ -12,15 +13,18 @@ describe('IdleModalComponent', () => {
   let debugElement: DebugElement;
 
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const authServiceStub = jasmine.createSpyObj('authService', ['setIdle', 'logout']);
+  const authServiceStub = jasmine.createSpyObj('authService', ['setIdle', 'logout', 'navigateToRedirectUrl']);
+  let hardRedirectService;
 
   beforeEach(waitForAsync(() => {
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['getCurrentRoute']);
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [IdleModalComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: AuthService, useValue: authServiceStub }
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: HardRedirectService, useValue: hardRedirectService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -62,6 +66,10 @@ describe('IdleModalComponent', () => {
     });
     it('should close the modal', () => {
       expect(modalStub.close).toHaveBeenCalled();
+    });
+    it('should reload', () => {
+      expect(hardRedirectService.getCurrentRoute).toHaveBeenCalled();
+      expect(authServiceStub.navigateToRedirectUrl).toHaveBeenCalled();
     });
   });
 
