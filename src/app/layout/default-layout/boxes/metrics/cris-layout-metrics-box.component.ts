@@ -1,16 +1,20 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy,HostBinding } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../models/cris-layout-box.model';
 import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
 import { LayoutTab } from '../../../enums/layout-tab.enum';
 import { LayoutBox } from '../../../enums/layout-box.enum';
 import { LayoutPage } from '../../../enums/layout-page.enum';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload
+} from '../../../../core/shared/operators';
 import { Subscription } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
 import { MetricsComponent } from '../../../../core/layout/models/metrics-component.model';
 import { MetricsComponentsDataService } from '../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface MetricRow {
   metrics: Metric[];
@@ -68,9 +72,10 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
   constructor(
     public cd: ChangeDetectorRef,
     protected metricscomponentsService: MetricsComponentsDataService,
-    protected itemService: ItemDataService
+    protected itemService: ItemDataService,
+    protected translateService: TranslateService
   ) {
-    super();
+    super(translateService);
   }
 
   ngOnInit() {

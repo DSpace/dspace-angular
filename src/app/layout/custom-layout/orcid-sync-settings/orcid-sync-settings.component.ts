@@ -53,10 +53,10 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
 
   constructor(private researcherProfileService: ResearcherProfileService,
-              private translateService: TranslateService,
+              protected translateService: TranslateService,
               private notificationsService: NotificationsService,
               public authService: AuthService) {
-    super();
+    super(translateService);
   }
 
   ngOnInit() {

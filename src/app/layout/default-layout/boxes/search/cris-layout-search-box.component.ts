@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, HostBinding } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
 import { LayoutPage } from '../../../enums/layout-page.enum';
 import { LayoutTab } from '../../../enums/layout-tab.enum';
@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-cris-layout-search-box',
@@ -53,8 +54,8 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
   @HostBinding('style.marginRight') margin = '0px';
 
 
-  constructor(public cd: ChangeDetectorRef) {
-    super();
+  constructor(public cd: ChangeDetectorRef, protected translateService: TranslateService) {
+    super(translateService);
   }
 
   ngOnInit(): void {

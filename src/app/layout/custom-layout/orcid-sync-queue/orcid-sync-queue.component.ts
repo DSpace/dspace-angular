@@ -21,7 +21,6 @@ import { LayoutTab } from '../../enums/layout-tab.enum';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
 
 
-
 @Component({
   selector: 'ds-orcid-sync-queue.component',
   templateUrl: './orcid-sync-queue.component.html'
@@ -70,12 +69,12 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
 
 
   constructor(private orcidQueueService: OrcidQueueService,
-              private translateService: TranslateService,
+              protected translateService: TranslateService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryService,
               private paginationService: PaginationService,
               private researcherProfileService: ResearcherProfileService) {
-    super();
+    super(translateService);
   }
 
   ngOnInit() {

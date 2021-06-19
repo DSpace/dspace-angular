@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostBinding } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../models/cris-layout-box.model';
 import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
 import { LayoutTab } from '../../../enums/layout-tab.enum';
@@ -9,6 +9,7 @@ import { MetadataComponentsDataService } from '../../../../core/layout/metadata-
 import { getAllSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { Subscription } from 'rxjs';
 import { hasValue } from '../../../../shared/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component renders the metadata boxes of items
@@ -58,9 +59,10 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
 
   constructor(
     public cd: ChangeDetectorRef,
-    protected metadatacomponentsService: MetadataComponentsDataService
+    protected metadatacomponentsService: MetadataComponentsDataService,
+    protected translateService: TranslateService,
   ) {
-    super();
+    super(translateService);
   }
 
   ngOnInit() {
