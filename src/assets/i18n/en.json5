@@ -2408,6 +2408,8 @@
 
   "item.preview.dc.contributor.author": "Authors:",
 
+  "item.preview.dc.contributor.applicant": "Applicant",
+
   "item.preview.dc.contributor.editor": "Editors:",
 
   "item.preview.dc.date.embargoEnd" : "Embargo End",
@@ -2469,6 +2471,8 @@
   "item.preview.oairecerif.funding.endDate" : "End Date",
 
   "item.preview.oairecerif.funding.startDate" : "Start Date",
+
+  "item.preview.oairecerif.fundingParent" : "Funding Program / Call",
 
   "item.preview.oairecerif.oamandate" : "OA Mandate",
 
@@ -4323,30 +4327,29 @@
 
   "submission.general.save-later.edit-item": "Save and return",
 
-
   "submission.import-external.page.title": "Import metadata from an external source",
 
   "submission.import-external.title": "Import metadata from an external source",
 
-    "submission.import-external.title.Equipment": "Import equipment from an external source",
+  "submission.import-external.title.Equipment": "Import an equipment from an external source",
 
-  "submission.import-external.title.Event": "Import event from an external source",
+  "submission.import-external.title.Event": "Import an event from an external source",
 
-  "submission.import-external.title.Funding": "Import fund from an external source",
+  "submission.import-external.title.Funding": "Import a funding from an external source",
 
-  "submission.import-external.title.Journal": "Import journal from an external source",
+  "submission.import-external.title.Journal": "Import a journal from an external source",
 
-  "submission.import-external.title.OrgUnit": "Import publisher from an external source",
+  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
 
-  "submission.import-external.title.Patent": "Import patent from an external source",
+  "submission.import-external.title.Patent": "Import a patent from an external source",
 
-  "submission.import-external.title.Person": "Import person from an external source",
+  "submission.import-external.title.Person": "Import a person from an external source",
 
-  "submission.import-external.title.Product": "Import product from an external source",
+  "submission.import-external.title.Product": "Import a product from an external source",
 
-  "submission.import-external.title.Project": "Import project from an external source",
+  "submission.import-external.title.Project": "Import a project from an external source",
 
-  "submission.import-external.title.Publication": "Import publication from an external source",
+  "submission.import-external.title.Publication": "Import a publication from an external source",
 
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
