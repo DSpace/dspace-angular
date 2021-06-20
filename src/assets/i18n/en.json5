@@ -4395,6 +4395,8 @@
 
   "submission.import-external.source.scopus": "Scopus",
 
+  "submission.import-external.source.vufind": "VuFind",
+
   "submission.import-external.source.wos": "Web Of Science",
 
   "submission.import-external.source.openaireProject": "OpenAIRE",
