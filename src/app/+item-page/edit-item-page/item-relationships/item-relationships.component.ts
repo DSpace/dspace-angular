@@ -227,7 +227,6 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    console.log('init');
     return this.relationshipService.getRelatedItems(this.item).pipe(
       take(1),
     ).subscribe((items: Item[]) => {
