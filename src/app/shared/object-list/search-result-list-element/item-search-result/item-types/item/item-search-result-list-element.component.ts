@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
@@ -19,6 +19,9 @@ import { Context } from '../../../../../../core/shared/context.model';
  * The component for displaying a list element for an item search result of the type Publication
  */
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+
+  @Input() hideMetrics = false;
+
   /**
    * Route to the item's page
    */
