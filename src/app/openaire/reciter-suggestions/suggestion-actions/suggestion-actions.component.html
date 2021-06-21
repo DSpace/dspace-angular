@@ -1,16 +1,23 @@
 <div class="d-inline">
   <div ngbDropdown class="d-inline">
-    <button class="btn btn-success" id="dropdownSubmission" ngbDropdownToggle
-            type="button">
+    <button *ngIf="isCollectionFixed; else chooseCollection" class="btn btn-success" type="button" (click)="approveAndImportCollectionFixed()">
       <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
-      <span class="caret"></span>
     </button>
-    <div ngbDropdownMenu
-         class="dropdown-menu"
-         id="entityControlsDropdownMenu"
-         aria-labelledby="dropdownSubmission">
-      <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
-    </div>
+    <ng-template #chooseCollection>
+      <button class="btn btn-success" id="dropdownSubmission" ngbDropdownToggle
+              type="button">
+        <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
+        <span class="caret"></span>
+      </button>
+
+      <div ngbDropdownMenu
+           class="dropdown-menu"
+           id="entityControlsDropdownMenu"
+           aria-labelledby="dropdownSubmission">
+        <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
+      </div>
+    </ng-template>
+
   </div>
   <button (click)="notMine()" class="btn btn-danger ml-2"><i class="fa fa-ban"></i>
     {{ notMineLabel() | translate}}</button>
