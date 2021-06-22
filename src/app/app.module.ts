@@ -46,6 +46,7 @@ import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component
 import { ThemedHeaderComponent } from './header/themed-header.component';
 import { ThemedFooterComponent } from './footer/themed-footer.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
+import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -129,6 +130,7 @@ const DECLARATIONS = [
   HeaderComponent,
   ThemedHeaderComponent,
   HeaderNavbarWrapperComponent,
+  ThemedHeaderNavbarWrapperComponent,
   AdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
