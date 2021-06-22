@@ -79,6 +79,17 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   @Input() relationshipType: RelationshipType;
 
+  /**
+   * Observable that emits the left and right item type of {@link relationshipType} simultaneously.
+   */
+  private relationshipLeftAndRightType$: Observable<[ItemType, ItemType]>;
+
+  /**
+   * Observable that emits true if {@link itemType} is on the left-hand side of {@link relationshipType},
+   * false if it is on the right-hand side and undefined in the rare case that it is on neither side.
+   */
+  private currentItemIsLeftItem$: Observable<boolean>;
+
   private relatedEntityType$: Observable<ItemType>;
 
   /**
@@ -326,23 +337,39 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // store the left and right type of the relationship in a single observable
+    this.relationshipLeftAndRightType$ = observableCombineLatest([
+      this.relationshipType.leftType,
+      this.relationshipType.rightType,
+    ].map((type) => type.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ))) as Observable<[ItemType, ItemType]>;
 
-    this.relatedEntityType$ =
-      observableCombineLatest([
-        this.relationshipType.leftType,
-        this.relationshipType.rightType,
-      ].map((type) => type.pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-      ))).pipe(
-        map((relatedTypes: ItemType[]) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
-        hasValueOperator()
-      );
+    this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
+      map((relatedTypes: ItemType[]) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
+      hasValueOperator()
+    );
 
     this.relatedEntityType$.pipe(
       take(1)
     ).subscribe(
       (relatedEntityType) => this.listId = `edit-relationship-${this.itemType.id}-${relatedEntityType.id}`
+    );
+
+    this.currentItemIsLeftItem$ = this.relationshipLeftAndRightType$.pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.id === this.itemType.id) {
+          return true;
+        }
+
+        if (rightType.id === this.itemType.id) {
+          return false;
+        }
+
+        // should never happen...
+        return undefined;
+      })
     );
 
     // initialize the pagination options
@@ -351,41 +378,48 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
 
+    // get the pagination params from the route
+    const currentPagination$ = this.paginationService.getCurrentPagination(
+      this.paginationConfig.id,
+      this.paginationConfig
+    ).pipe(
+      tap(() => this.loading$.next(true))
+    );
+
     this.subs.push(
-      // get the pagination params from the route
-      this.paginationService.getCurrentPagination(
-        this.paginationConfig.id,
-        this.paginationConfig
-      ).pipe(
-        tap(() => {
-          this.loading$.next(true);
-        }),
-        switchMap((currentPagination: PaginationComponentOptions) =>
+      observableCombineLatest([
+        currentPagination$,
+        this.currentItemIsLeftItem$,
+      ]).pipe(
+        switchMap(([currentPagination, currentItemIsLeftItem]: [PaginationComponentOptions, boolean]) =>
           // get the relationships for the current item, relationshiptype and page
           this.relationshipService.getItemRelationshipsByLabel(
             this.item,
-            this.relationshipType.rightwardType,
+            currentItemIsLeftItem ? this.relationshipType.leftwardType : this.relationshipType.rightwardType,
             {
               elementsPerPage: currentPagination.pageSize,
-              currentPage: currentPagination.currentPage
+              currentPage: currentPagination.currentPage,
             },
             false,
             true,
             followLink('leftItem'),
-            followLink('rightItem')
-          ))
+            followLink('rightItem'),
+          )),
       ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
         this.relationshipsRd$.next(rd);
-      }));
+      })
+    );
 
     // keep isLastPage$ up to date based on relationshipsRd$
     this.subs.push(this.relationshipsRd$.pipe(
+      hasValueOperator(),
       getAllSucceededRemoteData()
     ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
       this.isLastPage$.next(hasNoValue(rd.payload._links.next));
     }));
 
     this.subs.push(this.relationshipsRd$.pipe(
+      hasValueOperator(),
       getAllSucceededRemoteData(),
       switchMap((rd: RemoteData<PaginatedList<Relationship>>) =>
         // emit each relationship in the page separately
