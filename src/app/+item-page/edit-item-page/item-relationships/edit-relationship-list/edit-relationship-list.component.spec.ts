@@ -16,6 +16,10 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { HostWindowService } from '../../../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -25,6 +29,8 @@ let linkService;
 let objectUpdatesService;
 let relationshipService;
 let selectableListService;
+let paginationService;
+let hostWindowService;
 
 const url = 'http://test-url.com/test-url';
 
@@ -141,6 +147,10 @@ describe('EditRelationshipListComponent', () => {
       resolveLinks: () => null,
     };
 
+    paginationService = new PaginationServiceStub();
+
+    hostWindowService = new HostWindowServiceStub(1200);
+
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [EditRelationshipListComponent],
@@ -149,6 +159,8 @@ describe('EditRelationshipListComponent', () => {
         { provide: RelationshipService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: LinkService, useValue: linkService },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: HostWindowService, useValue: hostWindowService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
