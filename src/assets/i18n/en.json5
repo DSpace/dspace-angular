@@ -661,6 +661,8 @@
 
   "collection.delete.confirm": "Confirm",
 
+  "collection.delete.processing": "Deleting",
+
   "collection.delete.head": "Delete Collection",
 
   "collection.delete.notification.fail": "Collection could not be deleted",
@@ -898,6 +900,8 @@
   "community.delete.cancel": "Cancel",
 
   "community.delete.confirm": "Confirm",
+
+  "community.delete.processing": "Deleting...",
 
   "community.delete.head": "Delete Community",
 
