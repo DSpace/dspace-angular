@@ -1,24 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { first, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllSucceededRemoteDataPayload
+  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData,
 } from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { Collection } from '../../../core/shared/collection.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { SearchResult } from '../../../shared/search/search-result.model';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
@@ -46,8 +40,6 @@ export class ItemMoveComponent implements OnInit {
   item: Item;
   processing = false;
 
-  pagination = new PaginationComponentOptions();
-
   /**
    * Route to the item's page
    */
@@ -73,28 +65,6 @@ export class ItemMoveComponent implements OnInit {
         this.item = rd.payload;
       }
     );
-    this.pagination.pageSize = 5;
-    this.loadSuggestions('');
-  }
-
-  /**
-   * Load all available collections to move the item to.
-   *  TODO: When the API support it, only fetch collections where user has ADD rights to.
-   */
-  loadSuggestions(query): void {
-    this.collectionSearchResults = this.searchService.search(new PaginatedSearchOptions({
-      pagination: this.pagination,
-      dsoTypes: [DSpaceObjectType.COLLECTION],
-      query: query
-    })).pipe(
-      first(),
-      map((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-        return rd.payload.page.map((searchResult) => {
-          return searchResult.indexableObject;
-        });
-      }) ,
-    );
-
   }
 
   /**
@@ -119,8 +89,10 @@ export class ItemMoveComponent implements OnInit {
    */
   moveCollection() {
     this.processing = true;
-    this.itemDataService.moveToCollection(this.item.id, this.selectedCollection).pipe(getFirstCompletedRemoteData()).subscribe(
-      (response: RemoteData<Collection>) => {
+    this.itemDataService.moveToCollection(this.item.id, this.selectedCollection)
+                        .pipe(getFirstCompletedRemoteData())
+                        .subscribe(
+      (response: RemoteData<any>) => {
         this.router.navigate([getItemEditRoute(this.item)]);
         if (response.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('item.edit.move.success'));
