@@ -48,11 +48,13 @@ describe('ItemMoveComponent', () => {
   });
 
   const mockItemDataService = jasmine.createSpyObj({
-    moveToCollection: createSuccessfulRemoteDataObject$(collection1)
+    moveToCollection: createSuccessfulRemoteDataObject$(collection1),
+    findById: createSuccessfulRemoteDataObject$(mockItem),
   });
 
   const mockItemDataServiceFail = jasmine.createSpyObj({
-    moveToCollection: createFailedRemoteDataObject$('Internal server error', 500)
+    moveToCollection: createFailedRemoteDataObject$('Internal server error', 500),
+    findById: createSuccessfulRemoteDataObject$(mockItem),
   });
 
   const routeStub = {

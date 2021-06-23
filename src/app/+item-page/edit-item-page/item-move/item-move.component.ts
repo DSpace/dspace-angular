@@ -14,6 +14,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { Collection } from '../../../core/shared/collection.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-item-move',
@@ -93,13 +94,17 @@ export class ItemMoveComponent implements OnInit {
                         .pipe(getFirstCompletedRemoteData())
                         .subscribe(
       (response: RemoteData<any>) => {
-        this.router.navigate([getItemEditRoute(this.item)]);
+        this.itemDataService.findById(
+          this.item.id, false, true, followLink('owningCollection', undefined, true, false)
+        ).subscribe(() => {
+          this.processing = false;
+          this.router.navigate([getItemEditRoute(this.item)]);
+        });
         if (response.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('item.edit.move.success'));
         } else {
           this.notificationsService.error(this.translateService.get('item.edit.move.error'));
         }
-        this.processing = false;
       }
     );
   }
