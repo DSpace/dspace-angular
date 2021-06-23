@@ -30,16 +30,24 @@
                 </div>
             </div>
 
-            <button (click)="moveCollection()" class="btn btn-primary" [disabled]=!canMove>
-                <span *ngIf="!processing"> {{'item.edit.move.move' | translate}}</span>
-                <span *ngIf="processing"><i class='fas fa-circle-notch fa-spin'></i>
-                    {{'item.edit.move.processing' | translate}}
-                </span>
-            </button>
-            <button [routerLink]="[(itemPageRoute$ | async), 'edit']"
-                    class="btn btn-outline-secondary">
-                {{'item.edit.move.cancel' | translate}}
-            </button>
+          <div class="button-row bottom">
+            <div class="float-right">
+              <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
+              </button>
+              <button class="btn btn-primary mr-0" [disabled]="!canMove" (click)="moveCollection()">
+              <span *ngIf="!processing">
+                <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
+              </span>
+                <span *ngIf="processing">
+                <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
+              </span>
+              </button>
+              <button class="btn btn-danger" [disabled]="!canSubmit" (click)="discard()">
+                <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
+              </button>
+            </div>
+          </div>
         </div>
     </div>
 </div>

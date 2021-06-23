@@ -121,6 +121,11 @@ export class ItemMoveComponent implements OnInit {
     );
   }
 
+  discard(): void {
+    this.selectedCollection = null;
+    this.canSubmit = false;
+  }
+
   get canMove(): boolean {
     return this.canSubmit && this.selectedCollection?.id !== this.originalCollection.id;
   }
