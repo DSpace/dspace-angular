@@ -120,12 +120,12 @@ describe('ItemMoveComponent', () => {
         });
         comp.selectedCollectionName = 'selected-collection-id';
         comp.selectedCollection = collection1;
-        comp.moveCollection();
+        comp.moveToCollection();
 
         expect(mockItemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
       });
       it('should call notificationsService success message on success', () => {
-        comp.moveCollection();
+        comp.moveToCollection();
 
         expect(notificationsServiceStub.success).toHaveBeenCalled();
       });
@@ -153,7 +153,7 @@ describe('ItemMoveComponent', () => {
     });
 
     it('should call notificationsService error message on fail', () => {
-      comp.moveCollection();
+      comp.moveToCollection();
 
       expect(notificationsServiceStub.error).toHaveBeenCalled();
     });

@@ -100,25 +100,26 @@ export class ItemMoveComponent implements OnInit {
   /**
    * Moves the item to a new collection based on the selected collection
    */
-  moveCollection() {
+  moveToCollection() {
     this.processing = true;
-    this.itemDataService.moveToCollection(this.item.id, this.selectedCollection)
-                        .pipe(getFirstCompletedRemoteData())
-                        .subscribe(
-      (response: RemoteData<any>) => {
-        this.itemDataService.findById(
-          this.item.id, false, true, followLink('owningCollection', undefined, true, false)
-        ).subscribe(() => {
-          this.processing = false;
-          this.router.navigate([getItemEditRoute(this.item)]);
-        });
-        if (response.hasSucceeded) {
-          this.notificationsService.success(this.translateService.get('item.edit.move.success'));
-        } else {
-          this.notificationsService.error(this.translateService.get('item.edit.move.error'));
-        }
+    const move$ = this.itemDataService.moveToCollection(this.item.id, this.selectedCollection)
+                                      .pipe(getFirstCompletedRemoteData());
+
+    move$.subscribe((response: RemoteData<any>) => {
+      if (response.hasSucceeded) {
+        this.notificationsService.success(this.translateService.get('item.edit.move.success'));
+      } else {
+        this.notificationsService.error(this.translateService.get('item.edit.move.error'));
       }
-    );
+    });
+
+    move$.pipe(
+      switchMap(() => this.itemDataService.findById(
+        this.item.id, false, true, followLink('owningCollection', undefined, true, false)))
+    ).subscribe(() => {
+      this.processing = false;
+      this.router.navigate([getItemEditRoute(this.item)]);
+    });
   }
 
   discard(): void {
