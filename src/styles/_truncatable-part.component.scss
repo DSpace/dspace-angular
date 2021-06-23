@@ -48,6 +48,7 @@ $h4-factor: strip-unit($h4-font-size);
   .clamp-default-#{$i} {
     @include clamp-with-titles($i, $body-bg);
   }
+  :focus .clamp-default-#{$i},
   .ds-hover .clamp-default-#{$i} {
     @include clamp-with-titles($i, $list-group-hover-bg);
   }
@@ -56,6 +57,7 @@ $h4-factor: strip-unit($h4-font-size);
     @include clamp-with-titles($i, $primary);
   }
 
+  :focus .clamp-primary-#{$i},
   .ds-hover .clamp-primary-#{$i} {
     @include clamp-with-titles($i, darken($primary, 10%));
   }
