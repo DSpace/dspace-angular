@@ -98,24 +98,14 @@ describe('ItemMoveComponent', () => {
       comp = fixture.componentInstance;
       fixture.detectChanges();
     });
-    it('should load suggestions', () => {
-      const expected = [
-        collection1,
-        collection2
-      ];
 
-      comp.collectionSearchResults.subscribe((value) => {
-          expect(value).toEqual(expected);
-        }
-      );
-    });
     it('should get current url ', () => {
       expect(comp.getCurrentUrl()).toEqual('fake-url/fake-id/edit');
     });
-    it('should on click select the correct collection name and id', () => {
+    it('should select the correct collection name and id on click', () => {
       const data = collection1;
 
-      comp.onClick(data);
+      comp.selectDso(data);
 
       expect(comp.selectedCollectionName).toEqual('Test collection 1');
       expect(comp.selectedCollection).toEqual(collection1);
