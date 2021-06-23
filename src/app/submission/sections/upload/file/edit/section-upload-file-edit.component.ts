@@ -237,7 +237,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
   public initModelData(formModel: DynamicFormControlModel[]) {
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
-        .filter((key) => accessCondition.hasOwnProperty(key))
+        .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
         .forEach((key) => {
           const metadataModel: any = this.formBuilderService.findById(key, formModel, index);
           if (metadataModel) {
