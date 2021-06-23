@@ -53,6 +53,8 @@ export class ItemMoveComponent implements OnInit {
    */
   itemPageRoute$: Observable<string>;
 
+  COLLECTIONS = [DSpaceObjectType.COLLECTION];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private notificationsService: NotificationsService,
@@ -73,14 +75,6 @@ export class ItemMoveComponent implements OnInit {
     );
     this.pagination.pageSize = 5;
     this.loadSuggestions('');
-  }
-
-  /**
-   * Find suggestions based on entered query
-   * @param query - Search query
-   */
-  findSuggestions(query): void {
-    this.loadSuggestions(query);
   }
 
   /**
@@ -107,7 +101,7 @@ export class ItemMoveComponent implements OnInit {
    * Set the collection name and id based on the selected value
    * @param data - obtained from the ds-input-suggestions component
    */
-  onClick(data: any): void {
+  selectDso(data: any): void {
     this.selectedCollection = data;
     this.selectedCollectionName = data.name;
     this.canSubmit = true;
@@ -136,13 +130,5 @@ export class ItemMoveComponent implements OnInit {
         this.processing = false;
       }
     );
-  }
-
-  /**
-   * Resets the can submit when the user changes the content of the input field
-   * @param data
-   */
-  resetCollection(data: any) {
-    this.canSubmit = false;
   }
 }
