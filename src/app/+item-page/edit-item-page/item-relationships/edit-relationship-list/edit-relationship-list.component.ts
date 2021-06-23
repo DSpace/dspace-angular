@@ -368,6 +368,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         }
 
         // should never happen...
+        console.warn(`The item ${this.item.uuid} is not on the right or the left side of relationship type ${this.relationshipType.uuid}`);
         return undefined;
       })
     );
