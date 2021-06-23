@@ -9,7 +9,7 @@
                     <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'collection' } }}</div>
                     <div class="card-body">
                       <ds-authorized-collection-selector [types]="COLLECTIONS"
-                                                         [currentDSOId]="selectedCollection?.id"
+                                                         [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"
                                                          (onSelect)="selectDso($event)">
                       </ds-authorized-collection-selector>
                     </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <button (click)="moveCollection()" class="btn btn-primary" [disabled]=!canSubmit>
+            <button (click)="moveCollection()" class="btn btn-primary" [disabled]=!canMove>
                 <span *ngIf="!processing"> {{'item.edit.move.move' | translate}}</span>
                 <span *ngIf="processing"><i class='fas fa-circle-notch fa-spin'></i>
                     {{'item.edit.move.processing' | translate}}

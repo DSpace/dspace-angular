@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData,
+  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Observable, of as observableOf } from 'rxjs';
@@ -33,7 +33,8 @@ export class ItemMoveComponent implements OnInit {
 
   inheritPolicies = false;
   itemRD$: Observable<RemoteData<Item>>;
-  collectionSearchResults: Observable<any[]> = observableOf([]);
+  originalCollection: Collection;
+
   selectedCollectionName: string;
   selectedCollection: Collection;
   canSubmit = false;
@@ -57,7 +58,9 @@ export class ItemMoveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.dso), getFirstSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.data.pipe(
+      map((data) => data.dso), getFirstSucceededRemoteData()
+    ) as Observable<RemoteData<Item>>;
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))
@@ -66,6 +69,15 @@ export class ItemMoveComponent implements OnInit {
         this.item = rd.payload;
       }
     );
+    this.itemRD$.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((item) => item.owningCollection),
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ).subscribe((collection) => {
+      this.originalCollection = collection;
+    });
   }
 
   /**
@@ -107,5 +119,9 @@ export class ItemMoveComponent implements OnInit {
         }
       }
     );
+  }
+
+  get canMove(): boolean {
+    return this.canSubmit && this.selectedCollection?.id !== this.originalCollection.id;
   }
 }
