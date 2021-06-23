@@ -60,7 +60,10 @@ describe('ItemMoveComponent', () => {
   const routeStub = {
     data: observableOf({
       dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
-        id: 'item1'
+        id: 'item1',
+        owningCollection: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
+          id: 'originalOwningCollection',
+        }))
       }))
     })
   };
