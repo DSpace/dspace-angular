@@ -1,5 +1,5 @@
 <div dsSection #sectionRef="sectionRef"
-     [attr.id]="sectionData.id"
+     [attr.id]="'section_' + sectionData.id"
      [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }"
      [mandatory]="sectionData.mandatory"
      [submissionId]="submissionId"
