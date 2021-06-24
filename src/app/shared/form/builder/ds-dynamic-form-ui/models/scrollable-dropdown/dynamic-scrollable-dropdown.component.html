@@ -1,16 +1,21 @@
 <div #sdRef="ngbDropdown" ngbDropdown class="w-100">
-  <input ngbDropdownToggle class="form-control custom-select"
-         [attr.autoComplete]="model.autoComplete"
-         [class.is-invalid]="showErrorMessages"
-         [id]="id"
-         [name]="model.name"
-         [readonly]="model.readOnly"
-         [type]="model.inputType"
-         [value]="(currentValue | async)"
-         (blur)="onBlur($event)"
-         (click)="$event.stopPropagation(); openDropdown(sdRef);"
-         (focus)="onFocus($event)"
-         (keypress)="$event.preventDefault()">
+  <div class="position-relative right-addon">
+    <i ngbDropdownToggle class="far fa-caret-down position-absolute scrollable-dropdown-toggle"
+       aria-hidden="true"></i>
+    <input class="form-control"
+           [attr.autoComplete]="model.autoComplete"
+           [class.is-invalid]="showErrorMessages"
+           [class.scrollable-dropdown-input]="!model.readOnly"
+           [id]="id"
+           [name]="model.name"
+           [readonly]="true"
+           [type]="model.inputType"
+           [value]="(currentValue | async)"
+           (blur)="onBlur($event)"
+           (click)="$event.stopPropagation(); openDropdown(sdRef);"
+           (focus)="onFocus($event)"
+           (keypress)="$event.preventDefault()">
+  </div>
 
   <div ngbDropdownMenu
        class="dropdown-menu scrollable-dropdown-menu w-100"
