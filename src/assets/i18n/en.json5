@@ -3428,6 +3428,16 @@
 
 
 
+  "submission.sections.status.errors.title": "Errors",
+
+  "submission.sections.status.valid.title": "Valid",
+
+  "submission.sections.status.warnings.title": "Warnings",
+
+  "submission.sections.toggle.open": "Open section",
+
+  "submission.sections.toggle.close": "Close section",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
