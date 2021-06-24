@@ -531,14 +531,17 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Create menu sections dependent on whether or not the current user can manage access control groups
    */
   createAccessControlMenuSections() {
-    this.authorizationService.isAuthorized(FeatureID.CanManageGroups).subscribe((authorized) => {
+    observableCombineLatest(
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanManageGroups)
+    ).subscribe(([isSiteAdmin, canManageGroups]) => {
       const menuList = [
         /* Access Control */
         {
           id: 'access_control_people',
           parentID: 'access_control',
           active: false,
-          visible: authorized,
+          visible: isSiteAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.access_control_people',
@@ -549,7 +552,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           id: 'access_control_groups',
           parentID: 'access_control',
           active: false,
-          visible: authorized,
+          visible: canManageGroups,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.access_control_groups',
@@ -571,7 +574,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'access_control',
           active: false,
-          visible: authorized,
+          visible: canManageGroups || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.access_control'

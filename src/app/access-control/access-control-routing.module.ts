@@ -5,6 +5,9 @@ import { GroupFormComponent } from './group-registry/group-form/group-form.compo
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { GROUP_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { GroupPageGuard } from './group-registry/group-page.guard';
+import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [
@@ -15,7 +18,8 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' }
+        data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' },
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: GROUP_EDIT_PATH,
@@ -23,7 +27,8 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' }
+        data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
+        canActivate: [GroupAdministratorGuard]
       },
       {
         path: `${GROUP_EDIT_PATH}/newGroup`,
@@ -31,7 +36,8 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { title: 'admin.access-control.groups.title.addGroup', breadcrumbKey: 'admin.access-control.groups.addGroup' }
+        data: { title: 'admin.access-control.groups.title.addGroup', breadcrumbKey: 'admin.access-control.groups.addGroup' },
+        canActivate: [GroupAdministratorGuard]
       },
       {
         path: `${GROUP_EDIT_PATH}/:groupId`,
@@ -39,7 +45,8 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' }
+        data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' },
+        canActivate: [GroupPageGuard]
       }
     ])
   ]

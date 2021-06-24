@@ -238,6 +238,8 @@
 
   "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
 
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+
   "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
 
   "admin.access-control.epeople.no-items": "No EPeople to show.",

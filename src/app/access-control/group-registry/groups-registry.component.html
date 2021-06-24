@@ -33,9 +33,9 @@
         </div>
       </form>
 
-      <ds-loading *ngIf="searching$ | async"></ds-loading>
+      <ds-loading *ngIf="loading$ | async"></ds-loading>
       <ds-pagination
-        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
+        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(loading$ | async)"
         [paginationOptions]="config"
         [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
@@ -59,11 +59,23 @@
               <td>{{groupDto.epersons?.totalElements + groupDto.subgroups?.totalElements}}</td>
               <td>
                 <div class="btn-group edit-field">
-                  <button [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
-                          class="btn btn-outline-primary btn-sm"
-                          title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: groupDto.group.name} }}">
-                    <i class="fas fa-edit fa-fw"></i>
-                  </button>
+                  <ng-container [ngSwitch]="groupDto.ableToEdit">
+                    <button *ngSwitchCase="true"
+                      [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
+                      class="btn btn-outline-primary btn-sm btn-edit"
+                      title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: groupDto.group.name} }}"
+                    >
+                      <i class="fas fa-edit fa-fw"></i>
+                    </button>
+                    <button *ngSwitchCase="false"
+                      [disabled]="true"
+                      class="btn btn-outline-primary btn-sm btn-edit"
+                      placement="left"
+                      [ngbTooltip]="'admin.access-control.epeople.table.edit.buttons.edit-disabled' | translate"
+                    >
+                      <i class="fas fa-edit fa-fw"></i>
+                    </button>
+                  </ng-container>
                   <button *ngIf="!groupDto.group?.permanent && groupDto.ableToDelete"
                           (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm"
                           title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: groupDto.group.name} }}">
