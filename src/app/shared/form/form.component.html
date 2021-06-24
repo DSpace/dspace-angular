@@ -15,7 +15,7 @@
         <!--Array with repeatable items-->
         <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
-            <button type="button" class="btn btn-secondary"
+            <button type="button" class="btn btn-secondary" role="button"
                     title="{{'form.remove' | translate}}"
                     (click)="removeItem($event, context, index)"
                     [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
@@ -24,7 +24,7 @@
         </div>
         <div *ngIf="(!context.notRepeatable) && index === (group.context.groups.length - 1)" class="clearfix pl-4 w-100">
           <div class="btn-group" role="group" aria-label="remove button">
-            <button type="button" class="ds-form-add-more btn btn-link"
+            <button type="button" role="button" class="ds-form-add-more btn btn-link"
                     title="{{'form.add' | translate}}"
                     [disabled]="isItemReadOnly(context, index)"
                     (click)="insertItem($event, group.context, group.context.groups.length)">
@@ -36,7 +36,7 @@
         <!--Array with non repeatable items - Only discard button-->
         <div *ngIf="context.notRepeatable && context.showButtons && group.context.groups.length > 1"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
-          <div class="btn-group" role="group" aria-label="Remove button">
+          <div class="btn-group" role="button" aria-label="Remove button">
             <button type="button" class="btn btn-secondary"
                     title="{{'form.discard' | translate}}"
                     (click)="removeItem($event, context, index)"

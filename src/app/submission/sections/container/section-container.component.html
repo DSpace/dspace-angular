@@ -12,7 +12,7 @@
                  [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
-        <span class="float-left">{{ 'submission.sections.'+sectionData.header | translate }}</span>
+        <span class="float-left section-title" tabindex="0">{{ 'submission.sections.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
           <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-warning mr-3"
              aria-hidden="true"></i>
@@ -20,7 +20,7 @@
              aria-hidden="true"></i>
           <i *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-check-circle text-success mr-3"
              aria-hidden="true"></i>
-          <a class="close" aria-label="Close">
+          <a class="close" aria-label="Close" tabindex="0">
             <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"
                   aria-hidden="true"></span>
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"
@@ -28,7 +28,7 @@
           </a>
           <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
              (click)="removeSection($event)">
-            <i class="fas fa-trash-o" aria-hidden="true"></i>
+            <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
           </a>
         </div>
       </ng-template>
