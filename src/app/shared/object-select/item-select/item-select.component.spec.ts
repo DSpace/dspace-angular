@@ -156,13 +156,15 @@ describe('ItemSelectComponent', () => {
     beforeEach(() => {
       comp.featureId = FeatureID.CanManageMappings;
       spyOn(authorizationDataService, 'isAuthorized').and.returnValue(of(false));
-      fixture.detectChanges();
     });
 
-    it('should disable the checkbox', () => {
-      const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
-      expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
-      expect(checkbox.checked).toBeFalsy();
-    });
+    it('should disable the checkbox', waitForAsync(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
+        expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
+        expect(checkbox.disabled).toBeTrue();
+      });
+    }));
   });
 });
