@@ -10,10 +10,20 @@
       </div>
       <div class="float-right w-15" [class.sticky-buttons]="!readMode">
         <ng-container *ngIf="readMode">
-          <button class="btn btn-link" (click)="downloadBitstreamFile(); $event.stopPropagation()"><i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i></button>
-          <!--<a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>-->
-          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();"><i class="fa fa-edit fa-2x text-normal"></i></button>
           <button class="btn btn-link"
+                  [attr.aria-label]="'submission.sections.upload.download.title' | translate"
+                  title="{{ 'submission.sections.upload.download.title' | translate }}"
+                  (click)="downloadBitstreamFile(); $event.stopPropagation()">
+            <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-link"
+                  [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
+                  title="{{ 'submission.sections.upload.edit.title' | translate }}"
+                  (click)="$event.preventDefault();switchMode();">
+            <i class="fa fa-edit fa-2x text-normal"></i>
+          </button>
+          <button class="btn btn-link"
+                  [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
@@ -22,9 +32,18 @@
           </button>
         </ng-container>
         <ng-container *ngIf="!readMode">
-          <button class="btn btn-link" (click)="saveBitstreamData($event);" title="{{ 'submission.sections.upload.save-metadata' | translate }}"><i class="fa fa-save fa-2x text-success"></i></button>
-          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();" title="{{ 'submission.sections.upload.undo' | translate }}"><i class="fa fa-ban fa-2x text-warning"></i></button>
           <button class="btn btn-link"
+                  [attr.aria-label]="'submission.sections.upload.save-metadata' | translate"
+                  title="{{ 'submission.sections.upload.save-metadata' | translate }}"
+                  (click)="saveBitstreamData($event);">
+            <i class="fa fa-save fa-2x text-success"></i>
+          </button>
+          <button class="btn btn-link"
+                  [attr.aria-label]="'submission.sections.upload.undo' | translate"
+                  title="{{ 'submission.sections.upload.undo' | translate }}"
+                  (click)="$event.preventDefault();switchMode();"><i class="fa fa-ban fa-2x text-warning"></i></button>
+          <button class="btn btn-link"
+                  [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">

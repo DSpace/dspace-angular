@@ -26,6 +26,7 @@
 
         <button class="btn btn-outline-secondary"
                 type="button"
+                [attr.aria-labelledby]="'label_' + model.id"
                 [class.disabled]="model.disabled"
                 [disabled]="model.disabled"
                 (click)="datepicker.toggle()">

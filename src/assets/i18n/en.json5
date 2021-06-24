@@ -3438,7 +3438,11 @@
 
   "submission.sections.upload.delete.submit": "Delete",
 
+  "submission.sections.upload.download.title": "Download bitstream",
+
   "submission.sections.upload.drop-message": "Drop files to attach them to the item",
+
+  "submission.sections.upload.edit.title": "Edit bitstream",
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
