@@ -15,7 +15,7 @@
              [cdkDragDisabled]="dragDisabled"
              [cdkDragPreviewClass]="'ds-submission-reorder-dragging'">
           <!-- Item content -->
-          <i class="drag-icon fas fa-grip-vertical fa-fw" [class.invisible]="dragDisabled"></i>
+          <i class="drag-icon fas fa-grip-vertical fa-fw" [class.invisible]="dragDisabled" tabindex="0"></i>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
           <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
                                              [bindId]="false"
