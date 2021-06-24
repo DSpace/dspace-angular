@@ -3136,6 +3136,8 @@
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
