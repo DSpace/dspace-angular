@@ -3,6 +3,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
 import { isNotEmpty } from '../../empty.util';
 import { ObjectSelectService } from '../object-select.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
   selector: 'ds-collection-select',
@@ -14,8 +15,9 @@ import { ObjectSelectService } from '../object-select.service';
  */
 export class CollectionSelectComponent extends ObjectSelectComponent<Collection> {
 
-  constructor(protected objectSelectService: ObjectSelectService) {
-    super(objectSelectService);
+  constructor(protected objectSelectService: ObjectSelectService,
+              protected authorizationService: AuthorizationDataService) {
+    super(objectSelectService, authorizationService);
   }
 
   ngOnInit(): void {
