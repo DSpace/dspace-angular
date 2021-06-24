@@ -7,13 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
+  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Collection } from '../../../core/shared/collection.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
