@@ -22,9 +22,9 @@
        class="dropdown-menu scrollable-dropdown-menu w-100"
        aria-haspopup="true"
        aria-expanded="false"
-       aria-labelledby="scrollableDropdownMenuButton">
+       [attr.aria-labelledby]="'label_' + model.id">
     <div class="scrollable-menu"
-         aria-labelledby="scrollableDropdownMenuButton"
+         [attr.aria-labelledby]="'label_' + model.id"
          infiniteScroll
          [infiniteScrollDistance]="2"
          [infiniteScrollThrottle]="50"
