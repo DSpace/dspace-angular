@@ -6,12 +6,14 @@ import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
 import {
   WORKFLOW_ITEM_DELETE_PATH,
   WORKFLOW_ITEM_EDIT_PATH,
-  WORKFLOW_ITEM_SEND_BACK_PATH
+  WORKFLOW_ITEM_SEND_BACK_PATH,
+  WORKFLOW_ITEM_VIEW_PATH
 } from './workflowitems-edit-page-routing-paths';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ThemedWorkflowItemViewComponent } from './workflow-item-view/themed-workflow-item-view.component';
 
 @NgModule({
   imports: [
@@ -28,6 +30,15 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
               breadcrumb: I18nBreadcrumbResolver
             },
             data: { title: 'workflow-item.edit.title', breadcrumbKey: 'workflow-item.edit' }
+          },
+          {
+            canActivate: [AuthenticatedGuard],
+            path: WORKFLOW_ITEM_VIEW_PATH,
+            component: ThemedWorkflowItemViewComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.view.title', breadcrumbKey: 'workflow-item.view' }
           },
           {
             canActivate: [AuthenticatedGuard],

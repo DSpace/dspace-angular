@@ -3588,6 +3588,8 @@
 
   "workflow-item.edit.title": "Edit workflowitem",
 
+  "workflow-item.edit.title": "View workflowitem",
+
   "workflow-item.delete.notification.success.title": "Deleted",
 
   "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
