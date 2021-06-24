@@ -11,6 +11,7 @@
          [authorityValue]="model.value"
          (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted(sdRef, $event)"></i>
       <input class="form-control"
+             [attr.aria-labelledby]="'label_' + model.id"
              [attr.autoComplete]="model.autoComplete"
              [class.is-invalid]="showErrorMessages"
              [id]="model.id"
@@ -30,6 +31,7 @@
     <div *ngIf="isLookupName()" class="col" >
       <input  class="form-control"
               [ngClass]="{}"
+              [attr.aria-labelledby]="'label_' + model.id"
               [attr.autoComplete]="model.autoComplete"
               [class.is-invalid]="showErrorMessages"
               [id]="id"

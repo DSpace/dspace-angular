@@ -1,6 +1,7 @@
 <div [formGroup]="group" class="input-group">
 
     <input ngbDatepicker class="form-control" #datepicker="ngbDatepicker"
+           [attr.aria-labelledby]="'label_' + model.id"
            [class.is-invalid]="showErrorMessages"
            [displayMonths]="model.getAdditional('displayMonths', config['displayMonths'])"
            [id]="id"

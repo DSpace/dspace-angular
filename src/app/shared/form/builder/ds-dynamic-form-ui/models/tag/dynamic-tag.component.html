@@ -26,6 +26,7 @@
          class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1"
          type="text"
          role="textbox"
+         [attr.aria-labelledby]="'label_' + model.id"
          [(ngModel)]="currentValue"
          [attr.autoComplete]="model.autoComplete"
          [class.is-invalid]="showErrorMessages"

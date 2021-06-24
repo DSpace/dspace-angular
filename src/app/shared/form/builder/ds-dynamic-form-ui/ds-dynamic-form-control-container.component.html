@@ -2,7 +2,8 @@
      [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
     <label *ngIf="!isCheckbox && hasLabel"
-           [for]="model.id"
+           [id]="'label_' + model.id"
+           [for]="id"
            [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>

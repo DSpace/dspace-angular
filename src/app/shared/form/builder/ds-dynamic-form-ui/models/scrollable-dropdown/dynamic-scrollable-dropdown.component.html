@@ -3,6 +3,7 @@
     <i ngbDropdownToggle class="far fa-caret-down position-absolute scrollable-dropdown-toggle"
        aria-hidden="true"></i>
     <input class="form-control"
+           [attr.aria-labelledby]="'label_' + model.id"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
            [class.scrollable-dropdown-input]="!model.readOnly"

@@ -30,6 +30,7 @@
      (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
   <input #instance="ngbTypeahead"
          class="form-control"
+         [attr.aria-labelledby]="'label_' + model.id"
          [attr.autoComplete]="model.autoComplete"
          [class.is-invalid]="showErrorMessages"
          [id]="model.id"
@@ -52,6 +53,7 @@
 
 <input *ngIf="(isHierarchicalVocabulary() | async)"
        class="form-control custom-select"
+       [attr.aria-labelledby]="'label_' + model.id"
        [attr.autoComplete]="model.autoComplete"
        [class.is-invalid]="showErrorMessages"
        [id]="id"
