@@ -92,7 +92,7 @@ function init() {
   });
 }
 
-fdescribe('ClaimedTaskActionsComponent', () => {
+describe('ClaimedTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
