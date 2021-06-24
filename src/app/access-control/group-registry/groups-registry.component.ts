@@ -75,7 +75,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   /**
    * A boolean representing if a search is pending
    */
-  searching$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   // Current search in groups registry
   currentSearchQuery: string;
@@ -118,7 +118,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param data  Contains query param
    */
   search(data: any) {
-    this.searching$.next(true);
+    this.loading$.next(true);
     if (hasValue(this.searchSub)) {
       this.searchSub.unsubscribe();
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
@@ -174,7 +174,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     ).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
-      this.searching$.next(false);
+      this.loading$.next(false);
     });
 
     this.subs.push(this.searchSub);
