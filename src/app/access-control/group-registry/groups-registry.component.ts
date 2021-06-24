@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -118,12 +118,12 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param data  Contains query param
    */
   search(data: any) {
-    this.loading$.next(true);
     if (hasValue(this.searchSub)) {
       this.searchSub.unsubscribe();
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
     }
     this.searchSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      tap(() => this.loading$.next(true)),
       switchMap((paginationOptions) => {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
