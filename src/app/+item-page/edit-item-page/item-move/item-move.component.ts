@@ -7,7 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Observable, of as observableOf } from 'rxjs';
@@ -103,7 +106,7 @@ export class ItemMoveComponent implements OnInit {
   moveToCollection() {
     this.processing = true;
     const move$ = this.itemDataService.moveToCollection(this.item.id, this.selectedCollection)
-                                      .pipe(getFirstCompletedRemoteData());
+      .pipe(getFirstCompletedRemoteData());
 
     move$.subscribe((response: RemoteData<any>) => {
       if (response.hasSucceeded) {
@@ -114,8 +117,14 @@ export class ItemMoveComponent implements OnInit {
     });
 
     move$.pipe(
-      switchMap(() => this.itemDataService.findById(
-        this.item.id, false, true, followLink('owningCollection', undefined, true, false)))
+      switchMap(() =>
+        this.itemDataService.findById(
+          this.item.id,
+          false,
+          true,
+          followLink('owningCollection')
+      )),
+      getFirstCompletedRemoteData()
     ).subscribe(() => {
       this.processing = false;
       this.router.navigate([getItemEditRoute(this.item)]);
