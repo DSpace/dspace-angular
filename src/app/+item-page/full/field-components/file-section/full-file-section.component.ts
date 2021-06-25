@@ -68,7 +68,8 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         {elementsPerPage: options.pageSize, currentPage: options.currentPage},
         true,
         true,
-        followLink('format')
+        followLink('format'),
+        followLink('thumbnail'),
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
           if (hasValue(rd.errorMessage)) {
@@ -85,7 +86,8 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         {elementsPerPage: options.pageSize, currentPage: options.currentPage},
         true,
         true,
-        followLink('format')
+        followLink('format'),
+        followLink('thumbnail'),
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
           if (hasValue(rd.errorMessage)) {
