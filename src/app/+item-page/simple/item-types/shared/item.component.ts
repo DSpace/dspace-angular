@@ -7,6 +7,7 @@ import { takeUntilCompletedRemoteData } from '../../../../core/shared/operators'
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'ds-item',
@@ -19,27 +20,13 @@ export class ItemComponent implements OnInit {
   @Input() object: Item;
 
   /**
-   * The Item's thumbnail
-   */
-  thumbnail$: BehaviorSubject<RemoteData<Bitstream>>;
-
-  /**
    * Route to the item page
    */
   itemPageRoute: string;
-  mediaViewer = environment.mediaViewer;
 
-  constructor(protected bitstreamDataService: BitstreamDataService) {
-  }
+  mediaViewer = environment.mediaViewer;
 
   ngOnInit(): void {
     this.itemPageRoute = getItemPageRoute(this.object);
-
-    this.thumbnail$ = new BehaviorSubject<RemoteData<Bitstream>>(undefined);
-    this.bitstreamDataService.getThumbnailFor(this.object).pipe(
-      takeUntilCompletedRemoteData(),
-    ).subscribe((rd: RemoteData<Bitstream>) => {
-      this.thumbnail$.next(rd);
-    });
   }
 }
