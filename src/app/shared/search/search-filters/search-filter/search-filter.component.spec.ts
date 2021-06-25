@@ -51,12 +51,15 @@ describe('SearchFilterComponent', () => {
 
   };
   let filterService;
+  let sequenceService;
   const mockResults = observableOf(['test', 'data']);
   const searchServiceStub = {
     getFacetValuesFor: (filter) => mockResults
   };
 
   beforeEach(waitForAsync(() => {
+    sequenceService = jasmine.createSpyObj('sequenceService', { next: 17 });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
       declarations: [SearchFilterComponent],
@@ -67,7 +70,7 @@ describe('SearchFilterComponent', () => {
           useValue: mockFilterService
         },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: SequenceService, useValue: new SequenceService() },
+        { provide: SequenceService, useValue: sequenceService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFilterComponent, {
@@ -81,6 +84,12 @@ describe('SearchFilterComponent', () => {
     comp.filter = mockFilterConfig;
     fixture.detectChanges();
     filterService = (comp as any).filterService;
+  });
+
+  it('should generate unique IDs', () => {
+    expect(sequenceService.next).toHaveBeenCalled();
+    expect(comp.toggleId).toContain('17');
+    expect(comp.regionId).toContain('17');
   });
 
   describe('when the toggle method is triggered', () => {
