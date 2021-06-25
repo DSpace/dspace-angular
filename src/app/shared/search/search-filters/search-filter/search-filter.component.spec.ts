@@ -12,6 +12,7 @@ import { SearchFilterConfig } from '../../search-filter-config.model';
 import { FilterType } from '../../filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SequenceService } from '../../../../core/shared/sequence.service';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -65,7 +66,8 @@ describe('SearchFilterComponent', () => {
           provide: SearchFilterService,
           useValue: mockFilterService
         },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: SequenceService, useValue: new SequenceService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFilterComponent, {

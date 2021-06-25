@@ -10,6 +10,7 @@ import { isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SequenceService } from '../../../../core/shared/sequence.service';
 
 @Component({
   selector: 'ds-search-filter',
@@ -62,10 +63,15 @@ export class SearchFilterComponent implements OnInit {
    */
   active$: Observable<boolean>;
 
+  private readonly sequenceId: number;
+
   constructor(
     private filterService: SearchFilterService,
     private searchService: SearchService,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
+    private sequenceService: SequenceService,
+  ) {
+    this.sequenceId = this.sequenceService.next();
   }
 
   /**
@@ -141,13 +147,11 @@ export class SearchFilterComponent implements OnInit {
   }
 
   get regionId(): string {
-    // tslint:disable-next-line:no-string-literal
-    return `search-filter-region-${this.constructor['ɵcmp'].id}`;
+    return `search-filter-region-${this.sequenceId}`;
   }
 
   get toggleId(): string {
-    // tslint:disable-next-line:no-string-literal
-    return `search-filter-toggle-${this.constructor['ɵcmp'].id}`;
+    return `search-filter-toggle-${this.sequenceId}`;
   }
 
   /**
