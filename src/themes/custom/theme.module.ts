@@ -78,6 +78,7 @@ import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
+import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -117,6 +118,7 @@ const DECLARATIONS = [
   FooterComponent,
   HeaderComponent,
   NavbarComponent,
+  HeaderNavbarWrapperComponent,
   BreadcrumbsComponent
 ];
 

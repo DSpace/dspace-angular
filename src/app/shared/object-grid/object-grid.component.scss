@@ -1,7 +1,7 @@
 :host ::ng-deep {
   --ds-wrapper-grid-spacing: calc(var(--bs-spacer) / 2);
 
-  div.thumbnail > img {
+  div.thumbnail > .thumbnail-content {
     height: var(--ds-card-thumbnail-height);
     width: 100%;
     display: block;
