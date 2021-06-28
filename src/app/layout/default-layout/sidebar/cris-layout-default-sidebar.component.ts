@@ -157,12 +157,16 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
               const parentTab = Object.assign({},tab);
               parentTab.header = splitedHeaderTabs[0];
               parentTab.shortname = splitedTabs[0];
-              const childTab = Object.assign(tab,{header:splitedHeaderTabs[1]});
+              const childTab = Object.assign(tab,{
+                header:splitedHeaderTabs[1],
+                shortname:splitedTabs[1]
+              });
               parentTab.children = [];
               parentTab.children.push(childTab);
               tabs.push(parentTab);
             } else {
               tab.header = splitedHeaderTabs[1];
+              tab.shortname = splitedTabs[1];
               previousTab.children.push(tab);
             }
           } else {

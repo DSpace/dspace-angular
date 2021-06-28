@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tab } from '../../../../core/layout/models/tab.model';
 import { rotate } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -27,6 +28,11 @@ export class CrisLayoutSidebarItemComponent {
   @Input() selectedTab: Tab;
 
   /**
+   * The prefix used for box header's i18n key
+   */
+  tabI18nPrefix = 'layout.tab.header.';
+
+  /**
    * used for notify tab selection
    */
   @Output() tabSelectedChange = new EventEmitter<Tab>();
@@ -37,6 +43,9 @@ export class CrisLayoutSidebarItemComponent {
    */
   expanded = false;
 
+  constructor(protected translateService: TranslateService) {
+  }
+
   ngOnInit() {
     if (!!this.tab.children && this.tab.children.length > 0) {
       this.tab.children.forEach((subtab) => {
@@ -45,6 +54,19 @@ export class CrisLayoutSidebarItemComponent {
           return;
         }
       });
+    }
+  }
+
+  getTabHeader(tab: Tab): string {
+    const tabHeaderI18nKey = this.tabI18nPrefix + tab.shortname;
+    console.log(tabHeaderI18nKey);
+    const header: string = this.translateService.instant(tabHeaderI18nKey);
+    if (header === tabHeaderI18nKey ) {
+      console.log(tabHeaderI18nKey);
+      // if translation does not exist return the value present in the header property
+      return this.translateService.instant(tab.header);
+    } else {
+      return header;
     }
   }
 
