@@ -15,13 +15,13 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
  * Requesting them as embeds will limit the number of requests
  */
 export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
-  followLink('owningCollection', undefined, true, true, true,
-    followLink('parentCommunity', undefined, true, true, true,
+  followLink('owningCollection', {},
+    followLink('parentCommunity', {},
       followLink('parentCommunity'))
   ),
-  followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams')),
+  followLink('bundles', {}, followLink('bitstreams')),
   followLink('relationships'),
-  followLink('version', undefined, true, true, true, followLink('versionhistory')),
+  followLink('version', {}, followLink('versionhistory')),
 ];
 
 /**

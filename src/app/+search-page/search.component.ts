@@ -16,9 +16,11 @@ import { SearchResult } from '../shared/search/search-result.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { currentPath } from '../shared/utils/route.utils';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { Context } from '../core/shared/context.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
+import { followLink } from '../shared/utils/follow-link-config.model';
+import { Item } from '../core/shared/item.model';
 
 @Component({
   selector: 'ds-search',

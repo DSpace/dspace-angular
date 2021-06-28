@@ -173,7 +173,7 @@ export class VocabularyService {
     );
 
     // TODO remove false for the entries embed when https://github.com/DSpace/DSpace/issues/3096 is solved
-    return this.findVocabularyById(vocabularyOptions.name, true, true, followLink('entries', options,  false)).pipe(
+    return this.findVocabularyById(vocabularyOptions.name, true, true, followLink('entries', { findListOptions: options, shouldEmbed: false })).pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((vocabulary: Vocabulary) => vocabulary.entries),
     );
@@ -200,7 +200,7 @@ export class VocabularyService {
     );
 
     // TODO remove false for the entries embed when https://github.com/DSpace/DSpace/issues/3096 is solved
-    return this.findVocabularyById(vocabularyOptions.name, true, true, followLink('entries', options, false)).pipe(
+    return this.findVocabularyById(vocabularyOptions.name, true, true, followLink('entries', { findListOptions: options, shouldEmbed: false })).pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((vocabulary: Vocabulary) => vocabulary.entries),
     );
@@ -249,7 +249,7 @@ export class VocabularyService {
     );
 
     // TODO remove false for the entries embed when https://github.com/DSpace/DSpace/issues/3096 is solved
-    return this.findVocabularyById(vocabularyOptions.name, true, true, followLink('entries', options, false)).pipe(
+    return this.findVocabularyById(vocabularyOptions.name, true, true, followLink('entries', { findListOptions: options, shouldEmbed: false })).pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((vocabulary: Vocabulary) => vocabulary.entries),
       getFirstSucceededRemoteListPayload(),

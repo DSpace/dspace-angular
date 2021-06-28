@@ -323,7 +323,7 @@ export class EditRelationshipListComponent implements OnInit {
 
   private getItemRelationships() {
     this.linkService.resolveLink(this.item,
-      followLink('relationships', undefined, true, true, true,
+      followLink('relationships', {},
         followLink('relationshipType'),
         followLink('leftItem'),
         followLink('rightItem'),

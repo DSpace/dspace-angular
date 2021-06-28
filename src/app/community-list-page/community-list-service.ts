@@ -174,8 +174,8 @@ export class CommunityListService {
           direction: options.sort.direction
         }
       },
-      followLink('subcommunities', this.configOnePage, true, true),
-      followLink('collections', this.configOnePage, true, true))
+      followLink('subcommunities', { findListOptions: this.configOnePage }),
+      followLink('collections', { findListOptions: this.configOnePage }))
       .pipe(
         getFirstSucceededRemoteData(),
         map((results) => results.payload),
@@ -242,8 +242,8 @@ export class CommunityListService {
             elementsPerPage: MAX_COMCOLS_PER_PAGE,
             currentPage: i
           },
-          followLink('subcommunities', this.configOnePage, true, true),
-          followLink('collections', this.configOnePage, true, true))
+          followLink('subcommunities', { findListOptions: this.configOnePage }),
+          followLink('collections', { findListOptions: this.configOnePage }))
           .pipe(
             getFirstCompletedRemoteData(),
             switchMap((rd: RemoteData<PaginatedList<Community>>) => {
