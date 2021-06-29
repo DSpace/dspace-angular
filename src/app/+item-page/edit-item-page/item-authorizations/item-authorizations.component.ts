@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, filter, first, map, mergeMap, take } from 'rxjs/operators';
 
-import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataWithNotEmptyPayload
+  getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -15,7 +14,6 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { FindListOptions } from '../../../core/data/request.models';
 
 /**
  * Interface for a bundle's bitstream map entry

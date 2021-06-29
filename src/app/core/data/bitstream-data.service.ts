@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -18,7 +18,7 @@ import { Item } from '../shared/item.model';
 import { BundleDataService } from './bundle-data.service';
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList, buildPaginatedList } from './paginated-list.model';
+import { buildPaginatedList, PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { FindListOptions, PutRequest } from './request.models';
 import { RequestService } from './request.service';
@@ -28,7 +28,6 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
-import { RequestEntryState } from './request.reducer';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
