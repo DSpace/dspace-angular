@@ -59,10 +59,8 @@ export class CrisLayoutSidebarItemComponent {
 
   getTabHeader(tab: Tab): string {
     const tabHeaderI18nKey = this.tabI18nPrefix + tab.shortname;
-    console.log(tabHeaderI18nKey);
     const header: string = this.translateService.instant(tabHeaderI18nKey);
     if (header === tabHeaderI18nKey ) {
-      console.log(tabHeaderI18nKey);
       // if translation does not exist return the value present in the header property
       return this.translateService.instant(tab.header);
     } else {

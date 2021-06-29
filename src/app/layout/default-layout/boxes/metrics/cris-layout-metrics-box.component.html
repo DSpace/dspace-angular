@@ -1,5 +1,8 @@
 <ngb-accordion [activeIds]="activeIds" [ngStyle]="{'margin-right': !box.clear && !nextBoxClear ? '10px': '0px'}">
-  <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
+  <ngb-panel id="{{box.shortname}}">
+    <ng-template ngbPanelTitle>
+      <span [innerHTML]="getBoxHeader()"></span>
+    </ng-template>
     <ng-template ngbPanelContent>
       <div class="{{box.style}}">
 

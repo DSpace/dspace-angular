@@ -58,7 +58,6 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
   getBoxHeader(): string {
     const header: string = this.translateService.instant(this.boxHeaderI18nKey);
     if (header === this.boxHeaderI18nKey ) {
-      console.log(this.boxHeaderI18nKey);
       // if translation does not exist return the value present in the header property
       return this.translateService.instant(this.box.header);
     } else {
