@@ -12,6 +12,7 @@ import { environment } from '../../../../../../environments/environment';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Item } from '../../../../../core/shared/item.model';
+import { TranslateService } from '@ngx-translate/core';
 
 interface CrisRef {
   id: string;
@@ -46,8 +47,8 @@ export class CrisrefComponent extends RenderingTypeModelComponent implements OnI
    */
   subs: Subscription[] = [];
 
-  constructor(private itemService: ItemDataService) {
-    super();
+  constructor(private itemService: ItemDataService, protected translateService: TranslateService) {
+    super(translateService);
 
     this.entity2icon = new Map();
     const confValue = environment.layout.crisRef;

@@ -4,7 +4,7 @@ import { ThumbnailComponent } from './thumbnail.component';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
@@ -13,6 +13,8 @@ import { FindListOptions } from '../../../../../core/data/request.models';
 import { FollowLinkConfig } from '../../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { createPaginatedList } from '../../../../../shared/testing/utils.test';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 
 describe('ThumbnailComponent', () => {
   let component: ThumbnailComponent;
@@ -55,7 +57,13 @@ describe('ThumbnailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+        SharedModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        })
       ],
       declarations: [ ThumbnailComponent ],
       providers: [

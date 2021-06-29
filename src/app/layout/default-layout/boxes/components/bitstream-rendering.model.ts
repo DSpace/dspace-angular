@@ -5,6 +5,7 @@ import { hasValue } from '../../../../shared/empty.util';
 import { getAllSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -16,8 +17,8 @@ export class BitstreamRenderingModel extends RenderingTypeModelComponent {
   private SOURCE_METADATA = 'dc.source';
   private TYPE_METADATA = 'dc.type';
 
-  constructor(protected bitstreamDataService: BitstreamDataService) {
-    super();
+  constructor(protected bitstreamDataService: BitstreamDataService, protected translateService: TranslateService) {
+    super(translateService);
   }
 
   getBitstream(): Observable<Bitstream[]> {

@@ -16,6 +16,7 @@ import { LayoutField } from '../../../../../core/layout/models/metadata-componen
 import { hasValue } from '../../../../../shared/empty.util';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component renders the table  metadata group fields
@@ -52,8 +53,9 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
   hasThumbnail = false;
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver,
-              private ref: ChangeDetectorRef) {
-    super();
+              private ref: ChangeDetectorRef,
+              protected translateService: TranslateService) {
+    super(translateService);
   }
 
   ngOnInit() {

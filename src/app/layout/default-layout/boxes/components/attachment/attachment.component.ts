@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MetadataBoxFieldRendering, FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { Observable } from 'rxjs';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-attachment',
@@ -15,8 +16,8 @@ export class AttachmentComponent extends BitstreamRenderingModel implements OnIn
 
   bitstreams$: Observable<Bitstream[]>;
 
-  constructor(protected bitstreamDataService: BitstreamDataService) {
-    super(bitstreamDataService);
+  constructor(protected bitstreamDataService: BitstreamDataService, protected translateService: TranslateService) {
+    super(bitstreamDataService, translateService);
   }
 
   ngOnInit() {

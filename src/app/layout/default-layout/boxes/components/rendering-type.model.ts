@@ -4,6 +4,7 @@ import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { Item } from '../../../../core/shared/item.model';
 import { LayoutField } from '../../../../core/layout/models/metadata-component.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -32,9 +33,18 @@ export abstract class RenderingTypeModelComponent {
   /**
    * Returns the value of the metadata to show
    */
-
   @Input() nested: boolean;
+
   @Input() indexToBeRendered;
+
+  /**
+   * The prefix used for box field label's i18n key
+   */
+  fieldI18nPrefix = 'layout.field.label.';
+
+  constructor(protected translateService: TranslateService) {
+  }
+
   get metadataValues(): string[] {
     return this.field.metadata ? this.item.allMetadataValues(this.field.metadata) : [];
   }
@@ -47,10 +57,17 @@ export abstract class RenderingTypeModelComponent {
   }
 
   /**
-   * Returns a string representig the label of field if exists
+   * Returns a string representing the label of field if exists
    */
   get label(): string {
-    return this.field.label;
+    const fieldLabelI18nKey = this.fieldI18nPrefix + this.field.label;
+    const header: string = this.translateService.instant(fieldLabelI18nKey);
+    if (header === fieldLabelI18nKey ) {
+      // if translation does not exist return the value present in the header property
+      return this.translateService.instant(this.field.label);
+    } else {
+      return header;
+    }
   }
 
   /**

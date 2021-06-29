@@ -5,6 +5,7 @@ import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.d
 import { ResolverStrategyService } from '../../../../services/resolver-strategy.service';
 import { hasValue } from '../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-value.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component renders the identifier metadata fields.
@@ -34,8 +35,8 @@ export class IdentifierComponent extends RenderingTypeModelComponent implements 
    */
   target = '_blank';
 
-  constructor(private resolver: ResolverStrategyService) {
-    super();
+  constructor(private resolver: ResolverStrategyService, protected translateService: TranslateService) {
+    super(translateService);
   }
 
   ngOnInit(): void {

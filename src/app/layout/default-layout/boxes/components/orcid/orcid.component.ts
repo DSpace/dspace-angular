@@ -5,6 +5,7 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component renders the text metadata fields
@@ -20,8 +21,8 @@ export class OrcidComponent extends RenderingTypeModelComponent implements OnIni
 
   public orcidUrl: string;
 
-  constructor(private configurationService: ConfigurationDataService) {
-    super();
+  constructor(private configurationService: ConfigurationDataService, protected translateService: TranslateService) {
+    super(translateService);
   }
 
   ngOnInit() {

@@ -6,6 +6,7 @@ import { hasValue } from '../../../../../shared/empty.util';
 import { Observable } from 'rxjs';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -20,8 +21,8 @@ export class ThumbnailComponent extends BitstreamRenderingModel implements OnIni
 
   default: string;
 
-  constructor(protected bitstreamDataService: BitstreamDataService) {
-    super(bitstreamDataService);
+  constructor(protected bitstreamDataService: BitstreamDataService, protected translateService: TranslateService) {
+    super(bitstreamDataService, translateService);
   }
 
   ngOnInit(): void {

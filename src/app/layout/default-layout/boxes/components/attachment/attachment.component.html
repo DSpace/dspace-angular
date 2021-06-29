@@ -1,6 +1,6 @@
 <span class="{{containerStyle}}" *ngIf="(bitstreams$ | async)?.length > 0">
   <span *ngIf="!nested" class="{{labelStyle}}">
-    {{label | translate}}
+    {{label}}
   </span>
   <span class="{{valueStyle}}">
     <ng-container *ngFor="let attachment of (bitstreams$ | async)">

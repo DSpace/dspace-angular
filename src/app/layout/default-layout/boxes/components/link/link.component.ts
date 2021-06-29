@@ -32,8 +32,8 @@ export class LinkComponent extends RenderingTypeModelComponent implements OnInit
    */
   links: MetadataLinkValue[] = [];
 
-  constructor(private translateService: TranslateService) {
-    super();
+  constructor(protected translateService: TranslateService) {
+    super(translateService);
   }
 
   ngOnInit(): void {

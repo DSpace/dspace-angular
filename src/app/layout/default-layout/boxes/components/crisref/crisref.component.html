@@ -1,6 +1,6 @@
 <div class="{{containerStyle}}">
   <span  *ngIf="!nested" class="{{labelStyle}}">
-    {{label | translate}}
+    {{label}}
   </span>
   <div [class]="'d-flex flex-column ' + valueStyle">
     <span *ngFor="let ref of (references| async)" class="txt-value">

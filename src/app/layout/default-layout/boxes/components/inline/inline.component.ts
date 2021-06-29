@@ -13,6 +13,7 @@ import { LayoutField } from '../../../../../core/layout/models/metadata-componen
 import { hasValue } from '../../../../../shared/empty.util';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component renders the inline  metadata group fields
@@ -30,8 +31,8 @@ export class InlineComponent extends RenderingTypeModelComponent implements OnIn
    */
   hasThumbnail = false;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
-    super();
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver, protected translateService: TranslateService) {
+    super(translateService);
   }
   /**
    * Directive hook used to place the dynamic child component
