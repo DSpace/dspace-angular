@@ -49,7 +49,9 @@ describe('ItemMoveComponent', () => {
     name: 'Test collection 2'
   });
 
-  const mockItemDataService = jasmine.createSpyObj({
+  let itemDataService;
+
+  const mockItemDataServiceSuccess = jasmine.createSpyObj({
     moveToCollection: createSuccessfulRemoteDataObject$(collection1),
     findById: createSuccessfulRemoteDataObject$(mockItem),
   });
@@ -86,25 +88,31 @@ describe('ItemMoveComponent', () => {
 
   const notificationsServiceStub = new NotificationsServiceStub();
 
+  const init = (mockItemDataService) => {
+    itemDataService = mockItemDataService;
+
+    TestBed.configureTestingModule({
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
+      declarations: [ItemMoveComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: routerStub },
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: SearchService, useValue: mockSearchService },
+        { provide: RequestService, useValue: getMockRequestService() },
+      ], schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
+    }).compileComponents();
+    fixture = TestBed.createComponent(ItemMoveComponent);
+    comp = fixture.componentInstance;
+    fixture.detectChanges();
+  };
+
   describe('ItemMoveComponent success', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [ItemMoveComponent],
-        providers: [
-          { provide: ActivatedRoute, useValue: routeStub },
-          { provide: Router, useValue: routerStub },
-          { provide: ItemDataService, useValue: mockItemDataService },
-          { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: SearchService, useValue: mockSearchService },
-          { provide: RequestService, useValue: getMockRequestService() },
-        ], schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      }).compileComponents();
-      fixture = TestBed.createComponent(ItemMoveComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
+      init(mockItemDataServiceSuccess);
     });
 
     it('should get current url ', () => {
@@ -128,7 +136,7 @@ describe('ItemMoveComponent', () => {
         comp.selectedCollection = collection1;
         comp.moveToCollection();
 
-        expect(mockItemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
+        expect(itemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
       });
       it('should call notificationsService success message on success', () => {
         comp.moveToCollection();
@@ -140,22 +148,7 @@ describe('ItemMoveComponent', () => {
 
   describe('ItemMoveComponent fail', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [ItemMoveComponent],
-        providers: [
-          { provide: ActivatedRoute, useValue: routeStub },
-          { provide: Router, useValue: routerStub },
-          { provide: ItemDataService, useValue: mockItemDataServiceFail },
-          { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: SearchService, useValue: mockSearchService },
-        ], schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      }).compileComponents();
-      fixture = TestBed.createComponent(ItemMoveComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
+      init(mockItemDataServiceFail);
     });
 
     it('should call notificationsService error message on fail', () => {
