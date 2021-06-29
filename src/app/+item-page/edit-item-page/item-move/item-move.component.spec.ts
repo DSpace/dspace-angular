@@ -21,6 +21,8 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RequestService } from '../../../core/data/request.service';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -95,6 +97,7 @@ describe('ItemMoveComponent', () => {
           { provide: ItemDataService, useValue: mockItemDataService },
           { provide: NotificationsService, useValue: notificationsServiceStub },
           { provide: SearchService, useValue: mockSearchService },
+          { provide: RequestService, useValue: getMockRequestService() },
         ], schemas: [
           CUSTOM_ELEMENTS_SCHEMA
         ]

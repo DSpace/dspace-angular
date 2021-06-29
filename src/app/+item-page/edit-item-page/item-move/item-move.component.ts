@@ -15,6 +15,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { RequestService } from '../../../core/data/request.service';
 
 @Component({
   selector: 'ds-item-move',
@@ -54,8 +55,9 @@ export class ItemMoveComponent implements OnInit {
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
               private searchService: SearchService,
-              private translateService: TranslateService) {
-  }
+              private translateService: TranslateService,
+              private requestService: RequestService,
+  ) {}
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
@@ -114,6 +116,7 @@ export class ItemMoveComponent implements OnInit {
     });
 
     move$.pipe(
+      switchMap(() => this.requestService.setStaleByHrefSubstring(this.item.id)),
       switchMap(() =>
         this.itemDataService.findById(
           this.item.id,
