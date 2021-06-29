@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
@@ -39,7 +39,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
   /**
    * The Date of the last modification of this Item
    */
-  @deserialize
+  @deserializeAs(Date)
   lastModified: Date;
 
   /**
