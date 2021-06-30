@@ -17,6 +17,7 @@ import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -92,7 +93,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private router: Router,
               private itemDataService: ItemDataService,
               private submissionService: SubmissionService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -149,5 +151,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+
+    this.submissionJsonPatchOperationsService.deletePendingJsonPatchOperations();
   }
 }

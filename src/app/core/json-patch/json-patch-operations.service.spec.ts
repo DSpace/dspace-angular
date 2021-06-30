@@ -17,6 +17,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { JsonPatchOperationsEntry, JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import {
   CommitPatchOperationsAction,
+  DeletePendingJsonPatchOperationsAction,
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
@@ -285,6 +286,21 @@ describe('JsonPatchOperationsService test suite', () => {
 
         expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
+    });
+  });
+
+  describe('deletePendingJsonPatchOperations', () => {
+    beforeEach(() => {
+      store.dispatch.and.callFake(() => { /* */ });
+    });
+
+    it('should dispatch a new DeletePendingJsonPatchOperationsAction', () => {
+
+      const expectedAction = new DeletePendingJsonPatchOperationsAction();
+      scheduler.schedule(() => service.deletePendingJsonPatchOperations());
+      scheduler.flush();
+
+      expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
     });
   });
 
