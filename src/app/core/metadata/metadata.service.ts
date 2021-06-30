@@ -6,11 +6,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { BehaviorSubject, combineLatest, Observable, of as observableOf, EMPTY } from 'rxjs';
-import { distinctUntilKeyChanged, filter, map, take, switchMap, expand } from 'rxjs/operators';
+import { filter, map, take, switchMap, expand } from 'rxjs/operators';
 
 import { hasValue, hasNoValue } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
 
@@ -35,11 +34,9 @@ import { HardRedirectService } from '../services/hard-redirect.service';
 @Injectable()
 export class MetadataService {
 
-  private initialized: boolean;
-
   private tagStore: Map<string, MetaDefinition[]>;
 
-  private currentObject: BehaviorSubject<DSpaceObject>;
+  private currentObject: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
   /**
    * When generating the citation_pdf_url meta tag for Items with more than one Bitstream (and no primary Bitstream),
@@ -70,11 +67,13 @@ export class MetadataService {
   ) {
     // TODO: determine what open graph meta tags are needed and whether
     // the differ per route. potentially add image based on DSpaceObject
-    this.initialized = false;
     this.tagStore = new Map<string, MetaDefinition[]>();
   }
 
   public listenForRouteChange(): void {
+    // This never changes, set it only once
+    this.setGenerator();
+
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this.router.routerState.root),
@@ -86,22 +85,9 @@ export class MetadataService {
     });
   }
 
-  public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
-    remoteData.pipe(map((rd: RemoteData<CacheableObject>) => rd.payload),
-      filter((co: CacheableObject) => hasValue(co)),
-      take(1))
-      .subscribe((dspaceObject: DSpaceObject) => {
-        if (!this.initialized) {
-          this.initialize(dspaceObject);
-        }
-        this.currentObject.next(dspaceObject);
-      });
-  }
-
   private processRouteChange(routeInfo: any): void {
-    if (routeInfo.params.value.id === undefined) {
-      this.clearMetaTags();
-    }
+    this.clearMetaTags();
+
     if (routeInfo.data.value.title) {
       const titlePrefix = this.translate.get('repository.title.prefix');
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
@@ -116,15 +102,10 @@ export class MetadataService {
       });
     }
 
-    this.setGenerator();
-  }
-
-  private initialize(dspaceObject: DSpaceObject): void {
-    this.currentObject = new BehaviorSubject<DSpaceObject>(dspaceObject);
-    this.currentObject.asObservable().pipe(distinctUntilKeyChanged('uuid')).subscribe(() => {
-      this.setMetaTags();
-    });
-    this.initialized = true;
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+    }
   }
 
   private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
@@ -134,9 +115,7 @@ export class MetadataService {
     return route;
   }
 
-  private setMetaTags(): void {
-
-    this.clearMetaTags();
+  private setDSOMetaTags(): void {
 
     this.setTitleTag();
     this.setDescriptionTag();
@@ -415,7 +394,7 @@ export class MetadataService {
    */
   private setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
-      this.addMetaTag('Generator', root.dspaceVersion);
+      this.meta.addTag({ property: 'Generator', content: root.dspaceVersion });
     });
   }
 
