@@ -14,7 +14,7 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
  * Requesting them as embeds will limit the number of requests
  */
 export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
-  followLink('parentCommunity', undefined, true, true, true,
+  followLink('parentCommunity', {},
     followLink('parentCommunity')
   ),
   followLink('logo')
