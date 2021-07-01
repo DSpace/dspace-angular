@@ -30,11 +30,32 @@ import { Bundle } from '../shared/bundle.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { MetaTagState } from './meta-tag.reducer';
+import { Store, createSelector, select, MemoizedSelector } from '@ngrx/store';
+import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
+import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core.reducers';
+import { ObjectCacheEntry, ObjectCacheState } from '../cache/object-cache.reducer';
+
+/**
+ * The base selector function to select the metaTag section in the store
+ */
+const metaTagSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state.metaTag
+);
+
+/**
+ * Selector function to select the tags in use from the MetaTagState
+ */
+const tagsInUseSelector =
+  createSelector(
+    metaTagSelector,
+    (state: MetaTagState) => state.tagsInUse,
+  );
 
 @Injectable()
 export class MetadataService {
-
-  private tagStore: Map<string, MetaDefinition[]>;
 
   private currentObject: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
@@ -63,11 +84,9 @@ export class MetadataService {
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
     private rootService: RootDataService,
+    private store: Store<MetaTagState>,
     private hardRedirectService: HardRedirectService,
   ) {
-    // TODO: determine what open graph meta tags are needed and whether
-    // the differ per route. potentially add image based on DSpaceObject
-    this.tagStore = new Map<string, MetaDefinition[]>();
   }
 
   public listenForRouteChange(): void {
@@ -442,7 +461,7 @@ export class MetadataService {
     if (content) {
       const tag = { property, content } as MetaDefinition;
       this.meta.addTag(tag);
-      this.storeTag(property, tag);
+      this.storeTag(property);
     }
   }
 
@@ -452,33 +471,21 @@ export class MetadataService {
     }
   }
 
-  private storeTag(key: string, tag: MetaDefinition): void {
-    const tags: MetaDefinition[] = this.getTags(key);
-    tags.push(tag);
-    this.setTags(key, tags);
-  }
-
-  private getTags(key: string): MetaDefinition[] {
-    let tags: MetaDefinition[] = this.tagStore.get(key);
-    if (tags === undefined) {
-      tags = [];
-    }
-    return tags;
-  }
-
-  private setTags(key: string, tags: MetaDefinition[]): void {
-    this.tagStore.set(key, tags);
+  private storeTag(key: string): void {
+    this.store.dispatch(new AddMetaTagAction(key));
   }
 
   public clearMetaTags() {
-    this.tagStore.forEach((tags: MetaDefinition[], property: string) => {
-      this.meta.removeTag('property=\'' + property + '\'');
+    this.store.pipe(
+      select(tagsInUseSelector),
+      take(1)
+    ).subscribe((tagsInUse: string[]) => {
+      for (const property of tagsInUse) {
+        this.meta.removeTag('property=\'' + property + '\'');
+      }
+      this.store.dispatch(new ClearMetaTagAction());
     });
-    this.tagStore.clear();
   }
 
-  public getTagStore(): Map<string, MetaDefinition[]> {
-    return this.tagStore;
-  }
 
 }
