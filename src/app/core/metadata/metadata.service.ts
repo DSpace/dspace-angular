@@ -292,13 +292,7 @@ export class MetadataService {
         true,
         true,
         followLink('primaryBitstream'),
-        followLink('bitstreams',
-          undefined,
-          true,
-          true,
-          true,
-          followLink('format')
-        )
+        followLink('bitstreams', {}, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((bundle: Bundle) =>
