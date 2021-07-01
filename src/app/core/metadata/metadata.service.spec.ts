@@ -1,6 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
@@ -8,11 +8,8 @@ import { Observable, of } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { Item } from '../shared/item.model';
 
-import { ItemMock, MockBitstream1, MockBitstream3, } from '../../shared/mocks/item.mock';
-import {
-  createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject
-} from '../../shared/remote-data.utils';
+import { ItemMock, MockBitstream1, MockBitstream3 } from '../../shared/mocks/item.mock';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { MetadataValue } from '../shared/metadata.models';
@@ -24,6 +21,11 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { getMockStore, MockStore } from '@ngrx/store/testing';
+import { CoreState } from '../core.reducers';
+import { MetaTagState } from './meta-tag.reducer';
+import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
+import { Community } from '../shared/community.model';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;
@@ -41,6 +43,10 @@ describe('MetadataService', () => {
   let hardRedirectService: HardRedirectService;
 
   let router: Router;
+  let store;
+
+  const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] }}};
+
 
   beforeEach(() => {
     rootService = jasmine.createSpyObj({
@@ -53,7 +59,7 @@ describe('MetadataService', () => {
       findByItemAndName: mockBundleRD$([MockBitstream3])
     });
     translateService = getMockTranslateService();
-    meta = jasmine.createSpyObj({
+    meta = jasmine.createSpyObj('meta', {
       addTag: {},
       removeTag: {}
     });
@@ -73,6 +79,11 @@ describe('MetadataService', () => {
     hardRedirectService = jasmine.createSpyObj( {
       getRequestOrigin: 'https://request.org',
     });
+
+    //@ts-ignore
+    store = getMockStore({ initialState });
+    spyOn(store, 'dispatch');
+
     metadataService = new MetadataService(
       router,
       translateService,
@@ -83,6 +94,7 @@ describe('MetadataService', () => {
       bitstreamDataService,
       undefined,
       rootService,
+      store,
       hardRedirectService
     );
   });
@@ -329,6 +341,30 @@ describe('MetadataService', () => {
           content: 'https://request.org/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/download'
         });
       }));
+    });
+  });
+
+  describe('tagstore', () => {
+    beforeEach(fakeAsync(() => {
+      (metadataService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          }
+        }
+      });
+      tick();
+    }));
+
+    it('should remove previous tags on route change', fakeAsync(() => {
+      expect(meta.removeTag).toHaveBeenCalledWith('property=\'title\'');
+      expect(meta.removeTag).toHaveBeenCalledWith('property=\'description\'');
+    }));
+
+    it('should clear all tags and add new ones on route change', () => {
+      expect(store.dispatch.calls.argsFor(0)).toEqual([new ClearMetaTagAction()]);
+      expect(store.dispatch.calls.argsFor(1)).toEqual([new AddMetaTagAction('title')]);
+      expect(store.dispatch.calls.argsFor(2)).toEqual([new AddMetaTagAction('description')]);
     });
   });
 

@@ -5,10 +5,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject, combineLatest, Observable, of as observableOf, EMPTY } from 'rxjs';
-import { filter, map, take, switchMap, expand } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, of as observableOf } from 'rxjs';
+import { expand, filter, map, switchMap, take } from 'rxjs/operators';
 
-import { hasValue, hasNoValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
@@ -18,10 +18,7 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData
-} from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
@@ -31,11 +28,10 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { MetaTagState } from './meta-tag.reducer';
-import { Store, createSelector, select, MemoizedSelector } from '@ngrx/store';
+import { createSelector, select, Store } from '@ngrx/store';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core.reducers';
-import { ObjectCacheEntry, ObjectCacheState } from '../cache/object-cache.reducer';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -84,7 +80,7 @@ export class MetadataService {
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
     private rootService: RootDataService,
-    private store: Store<MetaTagState>,
+    private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
   ) {
   }
