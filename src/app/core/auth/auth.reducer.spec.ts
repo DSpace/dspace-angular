@@ -610,7 +610,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: false,
-      authMethods: authMethods
+      authMethods: authMethods,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -621,7 +622,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
-      authMethods: []
+      authMethods: [],
+      idle: false
     };
 
     const action = new RetrieveAuthMethodsErrorAction(false);
@@ -685,7 +687,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
-      authMethods: []
+      authMethods: [],
+      idle: false
     };
 
     const action = new RetrieveAuthMethodsErrorAction(true);
@@ -695,7 +698,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: false,
-      authMethods: [new AuthMethod(AuthMethodType.Password)]
+      authMethods: [new AuthMethod(AuthMethodType.Password)],
+      idle: false
     };
     expect(newState).toEqual(state);
   });
