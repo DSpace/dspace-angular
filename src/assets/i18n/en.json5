@@ -532,6 +532,12 @@
 
 
 
+  "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+
+  "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+
+  "bitstream.edit.return": "Back",
+
   "bitstream.edit.bitstream": "Bitstream: ",
 
   "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
@@ -1822,8 +1828,6 @@
   "item.listelement.badge": "Item",
 
   "item.page.description": "Description",
-
-  "item.page.edit": "Edit this item",
 
   "item.page.journal-issn": "Journal ISSN",
 

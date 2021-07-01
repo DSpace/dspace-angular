@@ -19,10 +19,10 @@ import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import {
   getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
 } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
@@ -132,15 +132,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * The Dynamic Input Model for the file's embargo (disabled on this page)
-   */
-  embargoModel = new DynamicInputModel({
-    id: 'embargo',
-    name: 'embargo',
-    disabled: true
-  });
-
-  /**
    * The Dynamic Input Model for the selected format
    */
   selectedFormatModel = new DynamicSelectModel({
@@ -159,7 +150,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.embargoModel, this.selectedFormatModel, this.newFormatModel];
+  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.selectedFormatModel, this.newFormatModel];
 
   /**
    * The dynamic form fields used for editing the information of a bitstream
@@ -177,12 +168,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       id: 'descriptionContainer',
       group: [
         this.descriptionModel
-      ]
-    }),
-    new DynamicFormGroupModel({
-      id: 'embargoContainer',
-      group: [
-        this.embargoModel
       ]
     }),
     new DynamicFormGroupModel({
@@ -239,11 +224,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       }
     },
     descriptionContainer: {
-      grid: {
-        host: 'row'
-      }
-    },
-    embargoContainer: {
       grid: {
         host: 'row'
       }
