@@ -5,19 +5,16 @@
             <p>{{'item.edit.move.description' | translate}}</p>
             <div class="row">
                 <div class="col-12">
-                    <ds-dso-input-suggestions #f id="search-form"
-                                          [suggestions]="(collectionSearchResults | async)"
-                                          [placeholder]="'item.edit.move.search.placeholder'| translate"
-                                          [action]="getCurrentUrl()"
-                                          [name]="'item-move'"
-                                          [(ngModel)]="selectedCollectionName"
-                                          (clickSuggestion)="onClick($event)"
-                                          (typeSuggestion)="resetCollection($event)"
-                                          (findSuggestions)="findSuggestions($event)"
-                                          (click)="f.open()"
-                                          ngDefaultControl>
-                    </ds-dso-input-suggestions>
-
+                  <div class="card mb-3">
+                    <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'collection' } }}</div>
+                    <div class="card-body">
+                      <ds-authorized-collection-selector [types]="COLLECTIONS"
+                                                         [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"
+                                                         (onSelect)="selectDso($event)">
+                      </ds-authorized-collection-selector>
+                    </div>
+                    <div></div>
+                  </div>
                 </div>
             </div>
             <div class="row">
@@ -33,16 +30,24 @@
                 </div>
             </div>
 
-            <button (click)="moveCollection()" class="btn btn-primary" [disabled]=!canSubmit>
-                <span *ngIf="!processing"> {{'item.edit.move.move' | translate}}</span>
-                <span *ngIf="processing"><i class='fas fa-circle-notch fa-spin'></i>
-                    {{'item.edit.move.processing' | translate}}
-                </span>
-            </button>
-            <button [routerLink]="[(itemPageRoute$ | async), 'edit']"
-                    class="btn btn-outline-secondary">
-                {{'item.edit.move.cancel' | translate}}
-            </button>
+          <div class="button-row bottom">
+            <div class="float-right">
+              <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
+              </button>
+              <button class="btn btn-primary mr-0" [disabled]="!canMove" (click)="moveToCollection()">
+              <span *ngIf="!processing">
+                <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
+              </span>
+                <span *ngIf="processing">
+                <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
+              </span>
+              </button>
+              <button class="btn btn-danger" [disabled]="!canSubmit" (click)="discard()">
+                <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
+              </button>
+            </div>
+          </div>
         </div>
     </div>
 </div>

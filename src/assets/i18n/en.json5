@@ -1635,7 +1635,11 @@
 
 
 
-  "item.edit.move.cancel": "Cancel",
+  "item.edit.move.cancel": "Back",
+
+  "item.edit.move.save-button": "Save",
+
+  "item.edit.move.discard-button": "Discard",
 
   "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
 
