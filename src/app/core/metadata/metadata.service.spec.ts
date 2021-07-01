@@ -21,11 +21,8 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
-import { getMockStore, MockStore } from '@ngrx/store/testing';
-import { CoreState } from '../core.reducers';
-import { MetaTagState } from './meta-tag.reducer';
+import { getMockStore } from '@ngrx/store/testing';
 import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
-import { Community } from '../shared/community.model';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;
@@ -80,7 +77,7 @@ describe('MetadataService', () => {
       getRequestOrigin: 'https://request.org',
     });
 
-    //@ts-ignore
+    // @ts-ignore
     store = getMockStore({ initialState });
     spyOn(store, 'dispatch');
 
