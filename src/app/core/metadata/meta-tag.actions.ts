@@ -1,6 +1,5 @@
 import { type } from '../../shared/ngrx/type';
 import { Action } from '@ngrx/store';
-import { MetaDefinition } from '@angular/platform-browser';
 
 // tslint:disable:max-classes-per-file
 export const MetaTagTypes = {
