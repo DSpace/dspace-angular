@@ -35,16 +35,16 @@ export const environment: Partial<GlobalConfig> = {
       timePerMethod: {[RestRequestMethod.PATCH]: 3} as any // time in seconds
     }
   },
-  // Authority settings
+  // Authentication settings
   auth: {
-    // Authority UI settings
+    // Authentication UI settings
     ui: {
       // the amount of time before the idle warning is shown
       timeUntilIdle: 20000, // 20 sec
       // the amount of time the user has to react after the idle warning is shown before they are logged out.
       idleGracePeriod: 20000, // 20 sec
     },
-    // Authority REST settings
+    // Authentication REST settings
     rest: {
       // If the rest token expires in less than this amount of time, it will be refreshed automatically.
       // This is independent from the idle warning.

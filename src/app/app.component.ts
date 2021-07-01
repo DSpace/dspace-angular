@@ -249,7 +249,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       .subscribe(([userIdle, authenticated]) => {
         if (userIdle && authenticated) {
           if (!this.idleModalOpen) {
-            const modalRef = this.modalService.open(IdleModalComponent);
+            const modalRef = this.modalService.open(IdleModalComponent, { ariaLabelledBy: 'idle-modal.header' });
             this.idleModalOpen = true;
             modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
               if (closed) {

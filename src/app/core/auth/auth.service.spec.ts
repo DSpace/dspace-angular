@@ -31,6 +31,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateService } from '@ngx-translate/core';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
 
 describe('AuthService test', () => {
 
@@ -51,6 +52,7 @@ describe('AuthService test', () => {
   let token: AuthTokenInfo;
   let authenticatedState;
   let unAuthenticatedState;
+  let idleState;
   let linkService;
   let hardRedirectService;
 
@@ -68,14 +70,24 @@ describe('AuthService test', () => {
       loaded: true,
       loading: false,
       authToken: token,
-      user: EPersonMock
+      user: EPersonMock,
+      idle: false
     };
     unAuthenticatedState = {
       authenticated: false,
       loaded: true,
       loading: false,
       authToken: undefined,
-      user: undefined
+      user: undefined,
+      idle: false
+    };
+    idleState = {
+      authenticated: true,
+      loaded: true,
+      loading: false,
+      authToken: token,
+      user: EPersonMock,
+      idle: true
     };
     authRequest = new AuthRequestServiceStub();
     routeStub = new ActivatedRouteStub();
@@ -186,6 +198,26 @@ describe('AuthService test', () => {
         expect(authMethods.length).toBe(2);
       });
     });
+
+    describe('setIdle true', () => {
+      beforeEach(() => {
+        authService.setIdle(true);
+      });
+
+      it('store should dispatch SetUserAsIdleAction', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new SetUserAsIdleAction());
+      });
+    });
+
+    describe('setIdle false', () => {
+      beforeEach(() => {
+        authService.setIdle(false);
+      });
+
+      it('store should dispatch UnsetUserAsIdleAction', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
+      });
+    });
   });
 
   describe('', () => {
@@ -253,6 +285,12 @@ describe('AuthService test', () => {
     it('should return true when authentication is loaded', () => {
       authService.isAuthenticationLoaded().subscribe((status: boolean) => {
         expect(status).toBe(true);
+      });
+    });
+
+    it('isUserIdle should return false when user is not yet idle', () => {
+      authService.isUserIdle().subscribe((status: boolean) => {
+        expect(status).toBe(false);
       });
     });
 
@@ -511,6 +549,46 @@ describe('AuthService test', () => {
     it('should return null for the shortlived token', () => {
       authService.getShortlivedToken().subscribe((shortlivedToken: string) => {
         expect(shortlivedToken).toBeNull();
+      });
+    });
+  });
+
+  describe('when user is idle', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      TestBed.configureTestingModule({
+        imports: [
+          StoreModule.forRoot({ authReducer }, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          })
+        ],
+        providers: [
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: RouteService, useValue: routeServiceStub },
+          { provide: RemoteDataBuildService, useValue: linkService },
+          CookieService,
+          AuthService
+        ]
+      }).compileComponents();
+    }));
+
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+      store
+        .subscribe((state) => {
+          (state as any).core = Object.create({});
+          (state as any).core.auth = idleState;
+        });
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+    }));
+
+    it('isUserIdle should return true when user is not idle', () => {
+      authService.isUserIdle().subscribe((status: boolean) => {
+        expect(status).toBe(true);
       });
     });
   });
