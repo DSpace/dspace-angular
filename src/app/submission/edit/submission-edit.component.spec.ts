@@ -18,6 +18,8 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -25,6 +27,7 @@ describe('SubmissionEditComponent Component', () => {
   let fixture: ComponentFixture<SubmissionEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let itemDataService: ItemDataService;
+  let submissionJsonPatchOperationsServiceStub: SubmissionJsonPatchOperationsServiceStub;
   let router: RouterStub;
 
   const submissionId = '826';
@@ -46,6 +49,7 @@ describe('SubmissionEditComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
@@ -60,6 +64,7 @@ describe('SubmissionEditComponent Component', () => {
     fixture = TestBed.createComponent(SubmissionEditComponent);
     comp = fixture.componentInstance;
     submissionServiceStub = TestBed.inject(SubmissionService as any);
+    submissionJsonPatchOperationsServiceStub = TestBed.inject(SubmissionJsonPatchOperationsService as any);
     router = TestBed.inject(Router as any);
   });
 
@@ -111,5 +116,17 @@ describe('SubmissionEditComponent Component', () => {
     expect(comp.sections).toBeUndefined();
     expect(comp.submissionDefinition).toBeUndefined();
   });
+
+  describe('ngOnDestroy', () => {
+    it('should call delete pending json patch operations', fakeAsync(() => {
+
+      submissionJsonPatchOperationsServiceStub.deletePendingJsonPatchOperations.and.callFake(() => { /* */ });
+      comp.ngOnDestroy();
+
+      expect(submissionJsonPatchOperationsServiceStub.deletePendingJsonPatchOperations).toHaveBeenCalled();
+    }));
+
+  });
+
 
 });

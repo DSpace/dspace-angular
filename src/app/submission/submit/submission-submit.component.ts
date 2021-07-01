@@ -122,13 +122,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
               this.router.navigate(['/mydspace']);
             } else {
-              this.collectionId = (submissionObject.collection as Collection).id;
-              this.sections = submissionObject.sections;
-              this.selfUrl = submissionObject._links.self.href;
-              this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
-              this.submissionId = submissionObject.id;
-              this.itemLink$.next(submissionObject._links.item.href);
-              this.item = submissionObject.item as Item;
+              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true});
             }
           }
         }),

@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -75,7 +75,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   /**
    * A boolean representing if a search is pending
    */
-  searching$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   // Current search in groups registry
   currentSearchQuery: string;
@@ -118,12 +118,12 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param data  Contains query param
    */
   search(data: any) {
-    this.searching$.next(true);
     if (hasValue(this.searchSub)) {
       this.searchSub.unsubscribe();
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
     }
     this.searchSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      tap(() => this.loading$.next(true)),
       switchMap((paginationOptions) => {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
@@ -141,38 +141,52 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         if (groups.page.length === 0) {
           return observableOf(buildPaginatedList(groups.pageInfo, []));
         }
-        return observableCombineLatest(groups.page.map((group: Group) => {
-          if (!this.deletedGroupsIds.includes(group.id)) {
-            return observableCombineLatest([
-              this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-              this.hasLinkedDSO(group),
-              this.getSubgroups(group),
-              this.getMembers(group)
-            ]).pipe(
-              map(([isAuthorized, hasLinkedDSO, subgroups, members]:
-                     [boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                  const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                  groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
-                  groupDtoModel.group = group;
-                  groupDtoModel.subgroups = subgroups.payload;
-                  groupDtoModel.epersons = members.payload;
-                  return groupDtoModel;
-                }
-              )
-            );
-          }
-        })).pipe(map((dtos: GroupDtoModel[]) => {
-          return buildPaginatedList(groups.pageInfo, dtos);
-        }));
+        return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+          switchMap((isSiteAdmin: boolean) => {
+            return observableCombineLatest(groups.page.map((group: Group) => {
+              if (hasValue(group) && !this.deletedGroupsIds.includes(group.id)) {
+                return observableCombineLatest([
+                  this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self),
+                  this.canManageGroup$(isSiteAdmin, group),
+                  this.hasLinkedDSO(group),
+                  this.getSubgroups(group),
+                  this.getMembers(group)
+                ]).pipe(
+                  map(([canDelete, canManageGroup, hasLinkedDSO, subgroups, members]:
+                         [boolean, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
+                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
+                      groupDtoModel.ableToEdit = canManageGroup;
+                      groupDtoModel.group = group;
+                      groupDtoModel.subgroups = subgroups.payload;
+                      groupDtoModel.epersons = members.payload;
+                      return groupDtoModel;
+                    }
+                  )
+                );
+              }
+            })).pipe(map((dtos: GroupDtoModel[]) => {
+              return buildPaginatedList(groups.pageInfo, dtos);
+            }));
+          })
+        );
       })
     ).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
-      this.searching$.next(false);
+      this.loading$.next(false);
     });
 
     this.subs.push(this.searchSub);
       }
+
+  canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
+    if (isSiteAdmin) {
+      return observableOf(true);
+    } else {
+      return this.authorizationService.isAuthorized(FeatureID.CanManageGroup, group.self);
+    }
+  }
 
   /**
    * Delete Group

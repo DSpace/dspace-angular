@@ -4,7 +4,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormControlEvent
+  DynamicFormControlEvent,
+  DynamicInputModel
 } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -28,6 +29,7 @@ import {
 } from '../../../shared/mocks/form-models.mock';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;
@@ -81,6 +83,11 @@ describe('SectionFormOperationsService test suite', () => {
     service = TestBed.inject(SectionFormOperationsService);
     serviceAsAny = service;
     formBuilderService = TestBed.inject(FormBuilderService);
+  });
+
+  afterEach(() => {
+    jsonPatchOpBuilder.add.calls.reset();
+    jsonPatchOpBuilder.remove.calls.reset();
   });
 
   describe('dispatchOperationsFromEvent', () => {
@@ -567,7 +574,7 @@ describe('SectionFormOperationsService test suite', () => {
     });
 
     it('should dispatch a json-path remove operation when has a stored value', () => {
-      const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
+      let previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
           parent: mockRowGroupModel
@@ -590,6 +597,7 @@ describe('SectionFormOperationsService test suite', () => {
 
       spyIndex.and.returnValue(1);
       spyPath.and.returnValue('path/1');
+      previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       serviceAsAny.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, true);
 
       expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('path/1'));
@@ -618,6 +626,32 @@ describe('SectionFormOperationsService test suite', () => {
       expect(jsonPatchOpBuilder.replace).toHaveBeenCalledWith(
         pathCombiner.getPath('path/0'),
         new FormFieldMetadataValueObject('test'));
+    });
+
+    it('should dispatch a json-path add operation when has a stored value but previous value is empty', () => {
+      const previousValue = new FormFieldPreviousValueObject(['path', 'test'], null);
+      const event = Object.assign({}, dynamicFormControlChangeEvent, {
+        model: {
+          parent: mockRowGroupModel
+        }
+      });
+      spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
+      spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
+      spyOn(service, 'getFieldValueFromChangeEvent').and.returnValue(new FormFieldMetadataValueObject('test'));
+      spyOn(service, 'getArrayIndexFromEvent').and.returnValue(0);
+      spyOn(serviceAsAny, 'getValueMap');
+      spyOn(serviceAsAny, 'dispatchOperationsFromMap');
+      formBuilderService.isQualdropGroup.and.returnValue(false);
+      formBuilderService.isRelationGroup.and.returnValue(false);
+      formBuilderService.hasArrayGroupValue.and.returnValue(false);
+      spyOn(previousValue, 'isPathEqual').and.returnValue(false);
+
+      serviceAsAny.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, true);
+
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath('path'),
+        new FormFieldMetadataValueObject('test'),
+        true);
     });
 
     it('should dispatch a json-path add operation when has a value and field index is zero or undefined', () => {
@@ -760,4 +794,86 @@ describe('SectionFormOperationsService test suite', () => {
     });
   });
 
+  describe('handleArrayGroupPatch', () => {
+    let arrayModel;
+    let previousValue;
+    beforeEach(() => {
+      arrayModel = new DynamicRowArrayModel(
+        {
+          id: 'testFormRowArray',
+          initialCount: 5,
+          notRepeatable: false,
+          relationshipConfig: undefined,
+          submissionId: '1234',
+          isDraggable: true,
+          groupFactory: () => {
+            return [
+              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
+            ];
+          },
+          required: false,
+          metadataKey: 'dc.contributor.author',
+          metadataFields: ['dc.contributor.author'],
+          hasSelectableMetadata: true
+        }
+      );
+      spyOn(serviceAsAny, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
+      previousValue = new FormFieldPreviousValueObject(['path'], null);
+    });
+
+    it('should not dispatch a json-path operation when a array value is empty', () => {
+      formBuilderService.getValueFromModel.and.returnValue({});
+      spyOn(previousValue, 'isPathEqual').and.returnValue(false);
+
+      serviceAsAny.handleArrayGroupPatch(
+        pathCombiner,
+        dynamicFormControlChangeEvent,
+        arrayModel,
+        previousValue
+      );
+
+      expect(jsonPatchOpBuilder.add).not.toHaveBeenCalled();
+      expect(jsonPatchOpBuilder.remove).not.toHaveBeenCalled();
+    });
+
+    it('should dispatch a json-path add operation when a array value is not empty', () => {
+      const pathValue = [
+        new FormFieldMetadataValueObject('test'),
+        new FormFieldMetadataValueObject('test two')
+      ];
+      formBuilderService.getValueFromModel.and.returnValue({
+        path:pathValue
+      });
+      spyOn(previousValue, 'isPathEqual').and.returnValue(false);
+
+      serviceAsAny.handleArrayGroupPatch(
+        pathCombiner,
+        dynamicFormControlChangeEvent,
+        arrayModel,
+        previousValue
+      );
+
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath('path'),
+        pathValue,
+        false
+      );
+      expect(jsonPatchOpBuilder.remove).not.toHaveBeenCalled();
+    });
+
+    it('should dispatch a json-path remove operation when a array value is empty and has previous value', () => {
+      formBuilderService.getValueFromModel.and.returnValue({});
+      spyOn(previousValue, 'isPathEqual').and.returnValue(true);
+
+      serviceAsAny.handleArrayGroupPatch(
+        pathCombiner,
+        dynamicFormControlChangeEvent,
+        arrayModel,
+        previousValue
+      );
+
+      expect(jsonPatchOpBuilder.add).not.toHaveBeenCalled();
+      expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('path'));
+    });
+  });
 });

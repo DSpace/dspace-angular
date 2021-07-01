@@ -3,7 +3,7 @@
 // imports the base global style
 @import '../../../styles/_global-styles.scss';
 
-.facet-filter,.setting-option {
+.facet-filter, .setting-option {
   background-color: var(--bs-light);
   border-radius: var(--bs-border-radius);
 
@@ -19,5 +19,15 @@
 
   h5 {
     font-size: 1.1rem
+  }
+}
+
+header {
+  ds-navbar-section > li,
+  ds-expandable-navbar-section > li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
   }
 }

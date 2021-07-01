@@ -6,12 +6,8 @@
     color: white;
     background-color: var(--bs-info);
     position: relative;
-    background-position-y: -200px;
     background-image: url('/assets/dspace/images/banner.jpg');
     background-size: cover;
-    @media screen and (max-width: map-get($grid-breakpoints, lg)) {
-      background-position-y: 0;
-    }
 
     .container {
       position: relative;

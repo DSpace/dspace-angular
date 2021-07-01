@@ -523,7 +523,7 @@ describe('RemoteDataBuildService', () => {
       let paginatedLinksToFollow;
       beforeEach(() => {
         paginatedLinksToFollow = [
-          followLink('page', undefined, true, true, true, ...linksToFollow),
+          followLink('page', {}, ...linksToFollow),
           ...linksToFollow
         ];
       });
