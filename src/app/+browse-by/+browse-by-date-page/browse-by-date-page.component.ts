@@ -92,7 +92,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           }
         }
         const options = [];
-        const currentYear = new Date().getFullYear();
+        const currentYear = new Date().getUTCFullYear();
         const oneYearBreak = Math.floor((currentYear - environment.browseBy.oneYearLimit) / 5) * 5;
         const fiveYearBreak = Math.floor((currentYear - environment.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
