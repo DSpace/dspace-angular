@@ -184,7 +184,7 @@ export class MetadataService {
   private setDescriptionTag(): void {
     // TODO: truncate abstract
     const value = this.getMetaTagValue('dc.description.abstract');
-    this.addMetaTag('desciption', value);
+    this.addMetaTag('description', value);
   }
 
   /**
