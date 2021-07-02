@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter, first, mergeMap, take } from 'rxjs/operators';
+import { filter, mergeMap, take } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,12 +14,12 @@ import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submissio
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { dateToISOFormat } from '../../../../shared/date.util';
 import { SubmissionService } from '../../../submission.service';
-import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -145,7 +145,6 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
-   * @param {FileService} fileService
    * @param {FormService} formService
    * @param {HALEndpointService} halService
    * @param {NgbModal} modalService
@@ -155,7 +154,6 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * @param {SectionUploadService} uploadService
    */
   constructor(private cdr: ChangeDetectorRef,
-              private fileService: FileService,
               private formService: FormService,
               private halService: HALEndpointService,
               private modalService: NgbModal,
@@ -223,15 +221,14 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   }
 
   /**
-   * Perform bitstream download
+   * Build a Bitstream object by the current file uuid
+   *
+   * @return Bitstream object
    */
-  public downloadBitstreamFile() {
-    this.halService.getEndpoint('bitstreams').pipe(
-      first())
-      .subscribe((url) => {
-        const fileUrl = `${url}/${this.fileData.uuid}/content`;
-        this.fileService.retrieveFileDownloadLink(fileUrl);
-      });
+  public getBitstream(): Bitstream {
+    return Object.assign(new Bitstream(), {
+      uuid: this.fileData.uuid
+    });
   }
 
   /**

@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { FileService } from '../../../../core/shared/file.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -19,7 +18,6 @@ import { SubmissionSectionUploadFileComponent } from './section-upload-file.comp
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import {
   mockFileFormData,
-  mockGroup,
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockSubmissionObject,
@@ -35,16 +33,8 @@ import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { Group } from '../../../../core/eperson/models/group.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-
-function getMockFileService(): FileService {
-  return jasmine.createSpyObj('FileService', {
-    retrieveFileDownloadLink: jasmine.createSpy('retrieveFileDownloadLink'),
-    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition')
-  });
-}
 
 describe('SubmissionSectionUploadFileComponent test suite', () => {
 
@@ -54,7 +44,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let de: DebugElement;
   let submissionServiceStub: SubmissionServiceStub;
   let uploadService: any;
-  let fileService: any;
   let formService: any;
   let halService: any;
   let operationsBuilder: any;
@@ -65,10 +54,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
   const availableAccessConditionOptions = mockUploadConfigResponse.accessConditionOptions;
-  const availableGroupsMap: Map<string, Group[]> = new Map([
-    [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
-    [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
-  ]);
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
   const fileIndex = '0';
   const fileName = '123456-test-upload.jpg';
@@ -96,7 +81,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         TestComponent
       ],
       providers: [
-        { provide: FileService, useValue: getMockFileService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
@@ -154,7 +138,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       uploadService = TestBed.inject(SectionUploadService);
-      fileService = TestBed.inject(FileService);
       formService = TestBed.inject(FormService);
       halService = TestBed.inject(HALEndpointService);
       operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
@@ -237,15 +220,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         pathCombiner.rootElement,
         pathCombiner.subRootElement);
     });
-
-    it('should download Bitstream File properly', fakeAsync(() => {
-      comp.fileData = fileData;
-      comp.downloadBitstreamFile();
-
-      tick();
-
-      expect(fileService.retrieveFileDownloadLink).toHaveBeenCalled();
-    }));
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
       compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
