@@ -20,6 +20,7 @@ export const JsonPatchOperationsActionTypes = {
   ROLLBACK_JSON_PATCH_OPERATIONS: type('dspace/core/patch/ROLLBACK_JSON_PATCH_OPERATIONS'),
   FLUSH_JSON_PATCH_OPERATIONS: type('dspace/core/patch/FLUSH_JSON_PATCH_OPERATIONS'),
   START_TRANSACTION_JSON_PATCH_OPERATIONS: type('dspace/core/patch/START_TRANSACTION_JSON_PATCH_OPERATIONS'),
+  DELETE_PENDING_JSON_PATCH_OPERATIONS: type('dspace/core/patch/DELETE_PENDING_JSON_PATCH_OPERATIONS'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -261,6 +262,13 @@ export class NewPatchReplaceOperationAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to delete all pending JSON Patch Operations.
+ */
+export class DeletePendingJsonPatchOperationsAction implements Action {
+  type = JsonPatchOperationsActionTypes.DELETE_PENDING_JSON_PATCH_OPERATIONS;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -276,4 +284,5 @@ export type PatchOperationsActions
   | NewPatchRemoveOperationAction
   | NewPatchReplaceOperationAction
   | RollbacktPatchOperationsAction
-  | StartTransactionPatchOperationsAction;
+  | StartTransactionPatchOperationsAction
+  | DeletePendingJsonPatchOperationsAction;

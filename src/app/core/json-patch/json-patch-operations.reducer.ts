@@ -11,7 +11,8 @@ import {
   NewPatchReplaceOperationAction,
   CommitPatchOperationsAction,
   StartTransactionPatchOperationsAction,
-  RollbacktPatchOperationsAction
+  RollbacktPatchOperationsAction,
+  DeletePendingJsonPatchOperationsAction
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
 
@@ -101,6 +102,10 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
       return startTransactionPatchOperations(state, action as StartTransactionPatchOperationsAction);
     }
 
+    case JsonPatchOperationsActionTypes.DELETE_PENDING_JSON_PATCH_OPERATIONS: {
+      return deletePendingOperations(state, action as DeletePendingJsonPatchOperationsAction);
+    }
+
     default: {
       return state;
     }
@@ -176,6 +181,20 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
   } else {
     return state;
   }
+}
+
+/**
+ * Set the JsonPatchOperationsState to its initial value.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an DeletePendingJsonPatchOperationsAction
+ * @return JsonPatchOperationsState
+ *    the new state.
+ */
+function deletePendingOperations(state: JsonPatchOperationsState, action: DeletePendingJsonPatchOperationsAction): JsonPatchOperationsState {
+  return null;
 }
 
 /**

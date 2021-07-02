@@ -16,6 +16,12 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { HostWindowService } from '../../../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -25,6 +31,8 @@ let linkService;
 let objectUpdatesService;
 let relationshipService;
 let selectableListService;
+let paginationService;
+let hostWindowService;
 
 const url = 'http://test-url.com/test-url';
 
@@ -37,8 +45,20 @@ let fieldUpdate1;
 let fieldUpdate2;
 let relationships;
 let relationshipType;
+let paginationOptions;
 
 describe('EditRelationshipListComponent', () => {
+
+  const resetComponent = () => {
+    fixture = TestBed.createComponent(EditRelationshipListComponent);
+    comp = fixture.componentInstance;
+    de = fixture.debugElement;
+    comp.item = item;
+    comp.itemType = entityType;
+    comp.url = url;
+    comp.relationshipType = relationshipType;
+    fixture.detectChanges();
+  };
 
   beforeEach(waitForAsync(() => {
 
@@ -61,6 +81,12 @@ describe('EditRelationshipListComponent', () => {
       rightType: createSuccessfulRemoteDataObject$(relatedEntityType),
       leftwardType: 'isAuthorOfPublication',
       rightwardType: 'isPublicationOfAuthor',
+    });
+
+    paginationOptions = Object.assign(new PaginationComponentOptions(), {
+      id: `er${relationshipType.id}`,
+      pageSize: 5,
+      currentPage: 1,
     });
 
     author1 = Object.assign(new Item(), {
@@ -141,6 +167,10 @@ describe('EditRelationshipListComponent', () => {
       resolveLinks: () => null,
     };
 
+    paginationService = new PaginationServiceStub(paginationOptions);
+
+    hostWindowService = new HostWindowServiceStub(1200);
+
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [EditRelationshipListComponent],
@@ -149,22 +179,15 @@ describe('EditRelationshipListComponent', () => {
         { provide: RelationshipService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: LinkService, useValue: linkService },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: HostWindowService, useValue: hostWindowService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EditRelationshipListComponent);
-    comp = fixture.componentInstance;
-    de = fixture.debugElement;
-    comp.item = item;
-    comp.itemType = entityType;
-    comp.url = url;
-    comp.relationshipType = relationshipType;
-    fixture.detectChanges();
-  });
+    resetComponent();
+  }));
 
   describe('changeType is REMOVE', () => {
     beforeEach(() => {
@@ -176,4 +199,82 @@ describe('EditRelationshipListComponent', () => {
       expect(element.classList).toContain('alert-danger');
     });
   });
+
+  describe('pagination component', () => {
+    let paginationComp: PaginationComponent;
+
+    beforeEach(() => {
+      paginationComp = de.query(By.css('ds-pagination')).componentInstance;
+    });
+
+    it('should receive the correct pagination config', () => {
+      expect(paginationComp.paginationOptions).toEqual(paginationOptions);
+    });
+
+    it('should receive correct collection size', () => {
+      expect(paginationComp.collectionSize).toEqual(relationships.length);
+    });
+
+  });
+
+  describe('relationshipService.getItemRelationshipsByLabel', () => {
+    it('should receive the correct pagination info', () => {
+      expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
+
+      const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
+      const findListOptions = callArgs[2];
+
+      expect(findListOptions.elementsPerPage).toEqual(paginationOptions.pageSize);
+      expect(findListOptions.currentPage).toEqual(paginationOptions.currentPage);
+    });
+
+    describe('when the publication is on the left side of the relationship', () => {
+      beforeEach(() => {
+        relationshipType = Object.assign(new RelationshipType(), {
+          id: '1',
+          uuid: '1',
+          leftType: createSuccessfulRemoteDataObject$(entityType), // publication
+          rightType: createSuccessfulRemoteDataObject$(relatedEntityType), // author
+          leftwardType: 'isAuthorOfPublication',
+          rightwardType: 'isPublicationOfAuthor',
+        });
+        relationshipService.getItemRelationshipsByLabel.calls.reset();
+        resetComponent();
+      });
+
+      it('should fetch isAuthorOfPublication', () => {
+        expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
+
+        const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
+        const label = callArgs[1];
+
+        expect(label).toEqual('isAuthorOfPublication');
+      });
+    });
+
+    describe('when the publication is on the right side of the relationship', () => {
+      beforeEach(() => {
+        relationshipType = Object.assign(new RelationshipType(), {
+          id: '1',
+          uuid: '1',
+          leftType: createSuccessfulRemoteDataObject$(relatedEntityType), // author
+          rightType: createSuccessfulRemoteDataObject$(entityType), // publication
+          leftwardType: 'isPublicationOfAuthor',
+          rightwardType: 'isAuthorOfPublication',
+        });
+        relationshipService.getItemRelationshipsByLabel.calls.reset();
+        resetComponent();
+      });
+
+      it('should fetch isAuthorOfPublication', () => {
+        expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
+
+        const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
+        const label = callArgs[1];
+
+        expect(label).toEqual('isAuthorOfPublication');
+      });
+    });
+  });
+
 });

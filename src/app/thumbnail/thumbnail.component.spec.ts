@@ -78,6 +78,7 @@ describe('ThumbnailComponent', () => {
         bundle: { href: 'bundle.url' },
         format: { href: 'format.url' },
         content: { href: 'content.url' },
+        thumbnail: undefined,
       };
     });
 
@@ -126,6 +127,7 @@ describe('ThumbnailComponent', () => {
           bundle: { href: 'bundle.url' },
           format: { href: 'format.url' },
           content: { href: 'content.url' },
+          thumbnail: undefined,
         };
         thumbnail = createSuccessfulRemoteDataObject(bitstream);
       });

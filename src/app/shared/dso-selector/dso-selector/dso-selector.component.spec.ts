@@ -92,12 +92,18 @@ describe('DSOSelectorComponent', () => {
   });
 
   describe('populating listEntries', () => {
-    it('should not be empty', () => {
-      expect(component.listEntries.length).toBeGreaterThan(0);
+    it('should not be empty', (done) => {
+      component.listEntries$.subscribe((listEntries) => {
+        expect(listEntries.length).toBeGreaterThan(0);
+        done();
+      });
     });
 
-    it('should contain a combination of the current DSO and first page results', () => {
-      expect(component.listEntries).toEqual([searchResult, ...firstPageResults]);
+    it('should contain a combination of the current DSO and first page results', (done) => {
+      component.listEntries$.subscribe((listEntries) => {
+        expect(listEntries).toEqual([searchResult, ...firstPageResults]);
+        done();
+      });
     });
 
     describe('when current page increases', () => {
@@ -105,8 +111,11 @@ describe('DSOSelectorComponent', () => {
         component.currentPage$.next(2);
       });
 
-      it('should contain a combination of the current DSO, as well as first and second page results', () => {
-        expect(component.listEntries).toEqual([searchResult, ...firstPageResults, ...nextPageResults]);
+      it('should contain a combination of the current DSO, as well as first and second page results', (done) => {
+        component.listEntries$.subscribe((listEntries) => {
+          expect(listEntries).toEqual([searchResult, ...firstPageResults, ...nextPageResults]);
+          done();
+        });
       });
     });
   });

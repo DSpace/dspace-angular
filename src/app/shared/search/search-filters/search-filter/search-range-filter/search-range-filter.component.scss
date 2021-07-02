@@ -21,6 +21,7 @@
         }
         &:focus {
             outline: none;
+            box-shadow: var(--bs-input-btn-focus-box-shadow);
         }
     }
 
