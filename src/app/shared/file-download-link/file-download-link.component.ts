@@ -25,7 +25,7 @@ export class FileDownloadLinkComponent implements OnInit {
   @Input() cssClasses = '';
 
   /**
-   * Optional bitstream link, show in same tab or a new tab.
+   * A boolean representing if link is shown in same tab or in a new one.
    */
   @Input() isBlank = false;
 
