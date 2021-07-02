@@ -30,6 +30,7 @@ import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -42,6 +43,26 @@ describe('GroupRegistryComponent', () => {
   let mockGroups;
   let mockEPeople;
   let paginationService;
+
+  /**
+   * Set authorizationService.isAuthorized to return the following values.
+   * @param isAdmin whether or not the current user is an admin.
+   * @param canManageGroup whether or not the current user can manage all groups.
+   */
+  const setIsAuthorized = (isAdmin: boolean, canManageGroup: boolean) => {
+    (authorizationService as any).isAuthorized.and.callFake((featureId?: FeatureID) => {
+      switch (featureId) {
+        case FeatureID.AdministratorOf:
+          return observableOf(isAdmin);
+        case FeatureID.CanManageGroup:
+          return observableOf(canManageGroup);
+        case FeatureID.CanDelete:
+          return observableOf(true);
+        default:
+          throw new Error(`setIsAuthorized: this fake implementation does not support ${featureId}.`);
+      }
+    });
+  };
 
   beforeEach(waitForAsync(() => {
     mockGroups = [GroupMock, GroupMock2];
@@ -131,9 +152,8 @@ describe('GroupRegistryComponent', () => {
         return createSuccessfulRemoteDataObject$(undefined);
       }
     };
-    authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
-    });
+    authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+    setIsAuthorized(true, true);
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
@@ -177,6 +197,81 @@ describe('GroupRegistryComponent', () => {
       expect(groupIdsFound.find((foundEl) => {
         return (foundEl.nativeElement.textContent.trim() === group.uuid);
       })).toBeTruthy();
+    });
+  });
+
+  describe('edit buttons', () => {
+    describe('when the user is a general admin', () => {
+      beforeEach(fakeAsync(() => {
+        // NOTE: setting canManageGroup to false should not matter, since isAdmin takes priority
+        setIsAuthorized(true, false);
+
+        // force rerender after setup changes
+        component.search({ query: '' });
+        tick();
+        fixture.detectChanges();
+      }));
+
+      it('should be active', () => {
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        expect(editButtonsFound.length).toEqual(2);
+        editButtonsFound.forEach((editButtonFound) => {
+          expect(editButtonFound.nativeElement.disabled).toBeFalse();
+        });
+      });
+
+      it('should not check the canManageGroup permissions', () => {
+        expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
+          FeatureID.CanManageGroup, mockGroups[0].self
+        );
+        expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
+          FeatureID.CanManageGroup, mockGroups[0].self, undefined // treated differently
+        );
+        expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
+          FeatureID.CanManageGroup, mockGroups[1].self
+        );
+        expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
+          FeatureID.CanManageGroup, mockGroups[1].self, undefined // treated differently
+        );
+      });
+    });
+
+    describe('when the user can edit the groups', () => {
+      beforeEach(fakeAsync(() => {
+        setIsAuthorized(false, true);
+
+        // force rerender after setup changes
+        component.search({ query: '' });
+        tick();
+        fixture.detectChanges();
+      }));
+
+      it('should be active', () => {
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        expect(editButtonsFound.length).toEqual(2);
+        editButtonsFound.forEach((editButtonFound) => {
+          expect(editButtonFound.nativeElement.disabled).toBeFalse();
+        });
+      });
+    });
+
+    describe('when the user can not edit the groups', () => {
+      beforeEach(fakeAsync(() => {
+        setIsAuthorized(false, false);
+
+        // force rerender after setup changes
+        component.search({ query: '' });
+        tick();
+        fixture.detectChanges();
+      }));
+
+      it('should not be active', () => {
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        expect(editButtonsFound.length).toEqual(2);
+        editButtonsFound.forEach((editButtonFound) => {
+          expect(editButtonFound.nativeElement.disabled).toBeTrue();
+        });
+      });
     });
   });
 

@@ -1519,83 +1519,87 @@ export const mockFileFormData = {
   },
   accessConditions: [
     {
-      name: [
-        {
-          value: 'openaccess',
-          language: null,
-          authority: null,
-          display: 'openaccess',
-          confidence: -1,
-          place: 0,
-          otherInformation: null
-        }
-      ],
-    }
-    ,
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'openaccess',
+            language: null,
+            authority: null,
+            display: 'openaccess',
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+      },
+    },
     {
-      name: [
-        {
-          value: 'lease',
-          language: null,
-          authority: null,
-          display: 'lease',
-          confidence: -1,
-          place: 0,
-          otherInformation: null
-        }
-      ],
-      endDate: [
-        {
-          value: {
-            year: 2019,
-            month: 1,
-            day: 16
-          },
-          language: null,
-          authority: null,
-          display: {
-            year: 2019,
-            month: 1,
-            day: 16
-          },
-          confidence: -1,
-          place: 0,
-          otherInformation: null
-        }
-      ],
-    }
-    ,
+      accessConditionGroup:{
+        name: [
+          {
+            value: 'lease',
+            language: null,
+            authority: null,
+            display: 'lease',
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+        endDate: [
+          {
+            value: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            language: null,
+            authority: null,
+            display: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+      }
+    },
     {
-      name: [
-        {
-          value: 'embargo',
-          language: null,
-          authority: null,
-          display: 'lease',
-          confidence: -1,
-          place: 0,
-          otherInformation: null
-        }
-      ],
-      startDate: [
-        {
-          value: {
-            year: 2019,
-            month: 1,
-            day: 16
-          },
-          language: null,
-          authority: null,
-          display: {
-            year: 2019,
-            month: 1,
-            day: 16
-          },
-          confidence: -1,
-          place: 0,
-          otherInformation: null
-        }
-      ],
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'embargo',
+            language: null,
+            authority: null,
+            display: 'lease',
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+        startDate: [
+          {
+            value: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            language: null,
+            authority: null,
+            display: {
+              year: 2019,
+              month: 1,
+              day: 16
+            },
+            confidence: -1,
+            place: 0,
+            otherInformation: null
+          }
+        ],
+      }
     }
   ]
 };

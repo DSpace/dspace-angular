@@ -8,14 +8,14 @@
        rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
        class="card-img-top full-width">
       <div>
-        <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
-        </ds-grid-thumbnail>
+        <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
+        </ds-thumbnail>
       </div>
     </a>
     <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
             <div>
-                <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
-                </ds-grid-thumbnail>
+                <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
+                </ds-thumbnail>
             </div>
         </span>
     <div class="card-body">
