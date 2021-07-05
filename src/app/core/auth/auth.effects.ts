@@ -145,7 +145,7 @@ export class AuthEffects {
           if (response.authenticated) {
             return new RetrieveTokenAction();
           } else {
-            return new RetrieveAuthMethodsAction(response);
+            return this.authService.getRetrieveAuthMethodsAction(response);
           }
         }),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
@@ -234,10 +234,10 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
       switchMap((action: RetrieveAuthMethodsAction) => {
-        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
+        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload.status)
           .pipe(
-            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
-            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
+            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels, action.payload.blocking)),
+            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction(action.payload.blocking)))
           );
       })
     );

@@ -126,13 +126,6 @@ describe('ItemDetailPreviewComponent', () => {
 
   }));
 
-  it('should get item thumbnail', (done) => {
-    component.getThumbnail().subscribe((thumbnail) => {
-      expect(thumbnail).toBeDefined();
-      done();
-    });
-  });
-
   it('should get item bitstreams', (done) => {
     component.getFiles().subscribe((bitstreams) => {
       expect(bitstreams).toBeDefined();

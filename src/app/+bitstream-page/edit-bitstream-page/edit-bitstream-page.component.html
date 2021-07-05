@@ -19,7 +19,11 @@
                   [submitLabel]="'form.save'"
                   (submitForm)="onSubmit()"
                   (cancel)="onCancel()"
-                  (dfChange)="onChange($event)"></ds-form>
+                  (dfChange)="onChange($event)">
+          <div additional class="container py-3">
+            <a [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
+          </div>
+        </ds-form>
       </div>
     </div>
     <ds-error *ngIf="bitstreamRD?.hasFailed" message="{{'error.bitstream' | translate}}"></ds-error>

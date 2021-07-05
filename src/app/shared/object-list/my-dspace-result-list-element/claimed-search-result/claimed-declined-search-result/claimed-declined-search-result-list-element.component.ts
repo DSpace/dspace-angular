@@ -56,10 +56,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso,
       followLink('workflowitem',
-        null,
-        true,
-        false,
-        true,
+        { useCachedVersionIfAvailable: false },
         followLink('item'),
         followLink('submitter')
       ),

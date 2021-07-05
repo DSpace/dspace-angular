@@ -119,7 +119,7 @@ describe('DsoRedirectDataService', () => {
     });
     it('should navigate to entities route with the corresponding entity type', () => {
       remoteData.payload.type = 'item';
-      remoteData.payload.metadata =  {
+      remoteData.payload.metadata = {
         'dspace.entity.type': [
           {
             language: 'en_US',
@@ -174,13 +174,29 @@ describe('DsoRedirectDataService', () => {
 
     it('should not include linksToFollow with shouldEmbed = false', () => {
       const expected = `${requestUUIDURL}&embed=templateItemOf`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('bundles', undefined, false), followLink('owningCollection', undefined, false), followLink('templateItemOf'));
+      const result = (service as any).getIDHref(
+        pidLink,
+        dsoUUID,
+        followLink('bundles', { shouldEmbed: false }),
+        followLink('owningCollection', { shouldEmbed: false }),
+        followLink('templateItemOf')
+      );
       expect(result).toEqual(expected);
     });
 
     it('should include nested linksToFollow 3lvl', () => {
       const expected = `${requestUUIDURL}&embed=owningCollection/itemtemplate/relationships`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', undefined, true, true, true, followLink('relationships'))));
+      const result = (service as any).getIDHref(
+        pidLink,
+        dsoUUID,
+        followLink('owningCollection',
+          {},
+          followLink('itemtemplate',
+            {},
+            followLink('relationships')
+          )
+        )
+      );
       expect(result).toEqual(expected);
     });
   });

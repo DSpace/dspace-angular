@@ -35,6 +35,7 @@ import { AppState } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
   ResetAuthenticationMessagesAction,
+  RetrieveAuthMethodsAction,
   SetRedirectUrlAction
 } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -516,6 +517,15 @@ export class AuthService {
     return this.isAuthenticated().pipe(
       switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null))
     );
+  }
+
+  /**
+   * Return a new instance of RetrieveAuthMethodsAction
+   *
+   * @param authStatus The auth status
+   */
+  getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
+    return new RetrieveAuthMethodsAction(authStatus, false);
   }
 
 }

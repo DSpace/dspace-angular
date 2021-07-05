@@ -3,7 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { isObject } from 'lodash';
 import * as moment from 'moment';
 
-import { isNull } from './empty.util';
+import { isNull, isUndefined } from './empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.
@@ -27,8 +27,9 @@ export function isNgbDateStruct(value: object): boolean {
  * @return string
  *    the formatted date
  */
-export function dateToISOFormat(date: Date | NgbDateStruct): string {
-  const dateObj: Date = (date instanceof Date) ? date : ngbDateStructToDate(date);
+export function dateToISOFormat(date: Date | NgbDateStruct | string): string {
+  const dateObj: Date = (date instanceof Date) ? date :
+    ((typeof date === 'string') ? ngbDateStructToDate(stringToNgbDateStruct(date)) : ngbDateStructToDate(date));
 
   let year = dateObj.getFullYear().toString();
   let month = (dateObj.getMonth() + 1).toString();
@@ -80,7 +81,7 @@ export function stringToNgbDateStruct(date: string): NgbDateStruct {
  *    the NgbDateStruct object
  */
 export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
-  if (isNull(date)) {
+  if (isNull(date) || isUndefined(date)) {
     date = new Date();
   }
 

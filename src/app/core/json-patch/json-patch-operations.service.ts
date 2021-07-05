@@ -10,7 +10,7 @@ import { CoreState } from '../core.reducers';
 import { jsonPatchOperationsByResourceType } from './selectors';
 import { JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import {
-  CommitPatchOperationsAction,
+  CommitPatchOperationsAction, DeletePendingJsonPatchOperationsAction,
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
@@ -103,6 +103,13 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
         );
         }))
     );
+  }
+
+  /**
+   * Dispatch an action to delete all pending JSON patch Operations.
+   */
+  public deletePendingJsonPatchOperations() {
+    this.store.dispatch(new DeletePendingJsonPatchOperationsAction());
   }
 
   /**

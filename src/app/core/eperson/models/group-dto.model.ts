@@ -18,6 +18,11 @@ export class GroupDtoModel {
   public ableToDelete: boolean;
 
   /**
+   * Whether or not the current user is able to edit the linked group
+   */
+  public ableToEdit: boolean;
+
+  /**
    * List of subgroups of this group
    */
   public subgroups: PaginatedList<Group>;

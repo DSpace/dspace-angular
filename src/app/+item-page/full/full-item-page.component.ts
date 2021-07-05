@@ -1,4 +1,4 @@
-import {filter, map} from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
@@ -10,8 +10,6 @@ import { ItemDataService } from '../../core/data/item-data.service';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-
-import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';

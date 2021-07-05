@@ -1,5 +1,6 @@
 import { FindListOptions } from '../../core/data/request.models';
 import { HALResource } from '../../core/shared/hal-resource.model';
+import { hasValue } from '../empty.util';
 
 /**
  * A class to send the retrieval of a {@link HALLink}
@@ -40,6 +41,12 @@ export class FollowLinkConfig<R extends HALResource> {
    * Defaults to true
    */
   reRequestOnStale? = true;
+
+  /**
+   * If this is false an error will be thrown if the link doesn't exist on the model it is used on
+   * Defaults to false
+   */
+  isOptional? = false;
 }
 
 /**
@@ -57,23 +64,35 @@ export class FollowLinkConfig<R extends HALResource> {
  * no valid cached version. Defaults
  * @param reRequestOnStale: Whether or not the link should automatically be re-requested after the
  * response becomes stale
+ * @param isOptional: Whether or not to fail if the link doesn't exist
  * @param linksToFollow: a list of {@link FollowLinkConfig}s to
  * use on the retrieved object.
  */
 export const followLink = <R extends HALResource>(
   linkName: keyof R['_links'],
-  findListOptions?: FindListOptions,
-  shouldEmbed = true,
-  useCachedVersionIfAvailable = true,
-  reRequestOnStale = true,
-  ...linksToFollow: FollowLinkConfig<any>[]
-): FollowLinkConfig<R> => {
-  return {
-    name: linkName,
+  {
     findListOptions,
     shouldEmbed,
     useCachedVersionIfAvailable,
     reRequestOnStale,
+    isOptional
+  }: {
+    findListOptions?: FindListOptions,
+    shouldEmbed?: boolean,
+    useCachedVersionIfAvailable?: boolean,
+    reRequestOnStale?: boolean,
+    isOptional?: boolean,
+  } = {},
+  ...linksToFollow: FollowLinkConfig<any>[]
+): FollowLinkConfig<R> => {
+  const followLinkConfig = {
+    name: linkName,
+    findListOptions: hasValue(findListOptions) ? findListOptions : new FindListOptions(),
+    shouldEmbed: hasValue(shouldEmbed) ? shouldEmbed : true,
+    useCachedVersionIfAvailable: hasValue(useCachedVersionIfAvailable) ? useCachedVersionIfAvailable : true,
+    reRequestOnStale: hasValue(reRequestOnStale) ? reRequestOnStale : true,
+    isOptional: hasValue(isOptional) ? isOptional : false,
     linksToFollow
   };
+  return followLinkConfig;
 };
