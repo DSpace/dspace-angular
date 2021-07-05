@@ -1,7 +1,7 @@
-import { Injectable, Injector } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
-import { coreSelector } from '../../core.selectors';
+import {Injectable, Injector} from '@angular/core';
+import {createSelector, MemoizedSelector, select, Store} from '@ngrx/store';
+import {CoreState} from '../../core.reducers';
+import {coreSelector} from '../../core.selectors';
 import {
   FieldState,
   FieldUpdates,
@@ -11,7 +11,7 @@ import {
   ObjectUpdatesState,
   VirtualMetadataSource
 } from './object-updates.reducer';
-import { Observable } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -23,7 +23,7 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {
   hasNoValue,
   hasValue,
@@ -31,10 +31,10 @@ import {
   isNotEmpty,
   hasValueOperator
 } from '../../../shared/empty.util';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import { Operation } from 'fast-json-patch';
-import { PatchOperationService } from './patch-operation-service/patch-operation.service';
-import { GenericConstructor } from '../../shared/generic-constructor';
+import {INotification} from '../../../shared/notifications/models/notification.model';
+import {Operation} from 'fast-json-patch';
+import {PatchOperationService} from './patch-operation-service/patch-operation.service';
+import {GenericConstructor} from '../../shared/generic-constructor';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -87,6 +87,9 @@ export class ObjectUpdatesService {
    * @param url The URL to filter by
    */
   private getObjectEntry(url: string): Observable<ObjectUpdatesEntry> {
+    this.store.pipe(select(filterByUrlObjectUpdatesStateSelector(url))).subscribe(res => {
+
+    })
     return this.store.pipe(select(filterByUrlObjectUpdatesStateSelector(url)));
   }
 
@@ -119,6 +122,7 @@ export class ObjectUpdatesService {
         return this.getFieldUpdatesExclusive(url, initialFields).pipe(
           map((fieldUpdatesExclusive) => {
             Object.keys(fieldUpdatesExclusive).forEach((uuid) => {
+
               fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
             });
             return fieldUpdates;
@@ -139,16 +143,16 @@ export class ObjectUpdatesService {
     return objectUpdates.pipe(
       hasValueOperator(),
       map((objectEntry) => {
-      const fieldUpdates: FieldUpdates = {};
-      for (const object of initialFields) {
-        let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
-        if (isEmpty(fieldUpdate)) {
-          fieldUpdate = { field: object, changeType: undefined };
+        const fieldUpdates: FieldUpdates = {};
+        for (const object of initialFields) {
+          let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
+          if (isEmpty(fieldUpdate)) {
+            fieldUpdate = {field: object, changeType: undefined};
+          }
+          fieldUpdates[object.uuid] = fieldUpdate;
         }
-        fieldUpdates[object.uuid] = fieldUpdate;
-      }
-      return fieldUpdates;
-    }));
+        return fieldUpdates;
+      }));
   }
 
   /**
@@ -234,7 +238,7 @@ export class ObjectUpdatesService {
       .pipe(
         select(virtualMetadataSourceSelector(url, relationship)),
         map((virtualMetadataSource) => virtualMetadataSource && virtualMetadataSource[item]),
-    );
+      );
   }
 
   /**

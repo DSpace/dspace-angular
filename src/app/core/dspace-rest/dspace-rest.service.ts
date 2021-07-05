@@ -49,7 +49,6 @@ export class DspaceRestService {
         statusText: res.statusText
       })),
       catchError((err) => {
-        console.log('Error: ', err);
         return observableThrowError({
           statusCode: err.status,
           statusText: err.statusText,

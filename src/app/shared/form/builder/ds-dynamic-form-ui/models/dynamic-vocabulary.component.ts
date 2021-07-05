@@ -84,6 +84,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           return new FormFieldMetadataValueObject(
             initEntry.value,
             null,
+            null,
             initEntry.authority,
             initEntry.display,
             (this.model.value as any).place,
@@ -98,6 +99,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = observableOf(
         new FormFieldMetadataValueObject(
           this.model.value.value,
+          null,
           null,
           this.model.value.authority,
           this.model.value.display,

@@ -222,5 +222,8 @@
       }
     }
   },
-  "defaultProject": "dspace-angular"
+  "defaultProject": "dspace-angular",
+  "cli": {
+    "analytics": "6438660b-6b5d-4192-b544-9351401974b3"
+  }
 }

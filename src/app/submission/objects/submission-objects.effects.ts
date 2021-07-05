@@ -223,9 +223,9 @@ export class SubmissionObjectEffects {
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
-/*  @Effect() removeFormError$ = this.actions$.pipe(
-    ofType(FormActionTypes.FORM_REMOVE_ERROR),
-  );*/
+  /*  @Effect() removeFormError$ = this.actions$.pipe(
+      ofType(FormActionTypes.FORM_REMOVE_ERROR),
+    );*/
 
   @Effect() removeSection$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISABLE_SECTION),
@@ -253,7 +253,7 @@ export class SubmissionObjectEffects {
           response)
         ),
         catchError(() => observableOf(new SetDuplicateDecisionErrorAction(action.payload.submissionId))));
-  }));
+    }));
 
   @Effect({dispatch: false}) setDuplicateDecisionSuccess$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS),

@@ -282,7 +282,9 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   public setCurrentValue(value: any, init = false) {
     if (init) {
       this.getInitValueFromModel()
-        .subscribe((formValue: FormFieldMetadataValueObject) => this.setDisplayInputValue(formValue.display));
+        .subscribe((formValue: FormFieldMetadataValueObject) => {
+          this.setDisplayInputValue(formValue.display)
+        });
     } else if (hasValue(value)) {
       if (value instanceof FormFieldMetadataValueObject || value instanceof VocabularyEntry) {
         this.setDisplayInputValue(value.display);

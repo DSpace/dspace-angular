@@ -32,6 +32,7 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
+import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -71,14 +72,16 @@ import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.
     ItemMoveComponent,
     ItemEditBitstreamDragHandleComponent,
     VirtualMetadataComponent,
-    ItemAuthorizationsComponent
+    ItemAuthorizationsComponent,
+
   ],
   providers: [
     BundleDataService,
     ObjectValuesPipe
   ],
   exports: [
-    ItemMetadataComponent
+    ItemMetadataComponent,
+    EditMetadataSecurityComponent
   ]
 })
 export class EditItemPageModule {

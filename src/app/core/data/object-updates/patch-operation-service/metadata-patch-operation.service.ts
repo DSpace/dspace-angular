@@ -69,13 +69,13 @@ export class MetadataPatchOperationService implements PatchOperationService {
    */
   fieldUpdatesToMetadataPatchOperations(fieldUpdates: FieldUpdates): MetadataPatchOperation[] {
     const metadataPatch = [];
-
     Object.keys(fieldUpdates).forEach((uuid) => {
       const update = fieldUpdates[uuid];
       const metadatum = update.field as MetadatumViewModel;
       const val = {
         value: metadatum.value,
-        language: metadatum.language
+        language: metadatum.language,
+        securityLevel: metadatum.securityLevel
       };
 
       let operation: MetadataPatchOperation;
@@ -90,7 +90,6 @@ export class MetadataPatchOperationService implements PatchOperationService {
           operation = new MetadataPatchReplaceOperation(metadatum.key, metadatum.place, val);
           break;
       }
-
       metadataPatch.push(operation);
     });
 

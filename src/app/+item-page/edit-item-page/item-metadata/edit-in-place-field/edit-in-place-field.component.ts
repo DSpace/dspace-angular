@@ -1,31 +1,45 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  EventEmitter, Output
+} from '@angular/core';
 import {
   metadataFieldsToString,
   getFirstSucceededRemoteData
 } from '../../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { cloneDeep } from 'lodash';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { NgModel } from '@angular/forms';
-import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
-import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import {hasValue, isNotEmpty} from '../../../../shared/empty.util';
+import {RegistryService} from '../../../../core/registry/registry.service';
+import {cloneDeep} from 'lodash';
+import {BehaviorSubject, Observable, of as observableOf} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {FieldChangeType} from '../../../../core/data/object-updates/object-updates.actions';
+import {FieldUpdate} from '../../../../core/data/object-updates/object-updates.reducer';
+import {ObjectUpdatesService} from '../../../../core/data/object-updates/object-updates.service';
+import {NgModel} from '@angular/forms';
+import {MetadatumViewModel} from '../../../../core/shared/metadata.models';
+import {InputSuggestion} from '../../../../shared/input-suggestions/input-suggestions.model';
+import {followLink} from '../../../../shared/utils/follow-link-config.model';
+import 'src/assets/images/keySecurity.png';
+
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[ds-edit-in-place-field]',
   styleUrls: ['./edit-in-place-field.component.scss'],
   templateUrl: './edit-in-place-field.component.html',
+
 })
 /**
  * Component that displays a single metadatum of an item on the edit page
  */
 export class EditInPlaceFieldComponent implements OnInit, OnChanges {
+  @Input() securityLevelConfig: number = 0;
+  data: any
   /**
    * The current field, value and state of the metadatum
    */
@@ -40,6 +54,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The metadatum of this field
    */
   @Input() metadata: MetadatumViewModel;
+  @Output() selectNewMetadata = new EventEmitter();
 
   /**
    * Emits whether or not this field is currently editable
@@ -56,9 +71,11 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
-  constructor(
-    private registryService: RegistryService,
-    private objectUpdatesService: ObjectUpdatesService,
+  levelSecurityConfig = 3;
+
+  constructor(private ref: ChangeDetectorRef,
+              private registryService: RegistryService,
+              private objectUpdatesService: ObjectUpdatesService,
   ) {
   }
 
@@ -66,9 +83,14 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets up an observable that keeps track of the current editable and valid state of this field
    */
   ngOnInit(): void {
+    this.data = this.fieldUpdate
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
+    this.ref.detectChanges()
+
+
   }
+
 
   /**
    * Sends a new change update for this field to the object updates service
@@ -76,7 +98,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   update(ngModel?: NgModel) {
     this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(this.metadata));
     if (hasValue(ngModel)) {
+
       this.checkValidity(ngModel);
+
     }
   }
 
@@ -85,6 +109,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * @param ngModel
    */
   public checkValidity(ngModel: NgModel) {
+
     ngModel.control.setValue(ngModel.viewModel);
     ngModel.control.updateValueAndValidity();
     this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, ngModel.control.valid);
@@ -115,8 +140,12 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   /**
    * Sets the current metadatafield based on the fieldUpdate input field
    */
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+
     this.metadata = cloneDeep(this.fieldUpdate.field) as MetadatumViewModel;
+    this.fieldUpdate.field = changes['fieldUpdate'].currentValue.field
+    this.data = changes['fieldUpdate'].currentValue;
+
   }
 
   /**
@@ -131,8 +160,8 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
         getFirstSucceededRemoteData(),
         metadataFieldsToString(),
       ).subscribe((fieldNames: string[]) => {
-          this.setInputSuggestions(fieldNames);
-        });
+        this.setInputSuggestions(fieldNames);
+      });
     } else {
       this.metadataFieldSuggestions.next([]);
     }
@@ -197,5 +226,19 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
 
   protected isNotEmpty(value): boolean {
     return isNotEmpty(value);
+  }
+
+  changeSelectedSecurity(securityLevel) {
+    this.metadata.securityLevel = securityLevel
+    this.update();
+
+  }
+
+  ngAfterViewInit() {
+    this.ref.markForCheck()
+  }
+
+  selectSuggestionMetadata(suggestionControl) {
+    this.selectNewMetadata.next(suggestionControl)
   }
 }

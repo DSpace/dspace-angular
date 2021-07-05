@@ -1,7 +1,7 @@
-import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
-import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
-import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
+import {hasValue, isEmpty, isNotEmpty, isNotNull} from '../../../empty.util';
+import {ConfidenceType} from '../../../../core/shared/confidence-type';
+import {MetadataValueInterface, VIRTUAL_METADATA_PREFIX} from '../../../../core/shared/metadata.models';
+import {PLACEHOLDER_PARENT_METADATA} from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {
   [name: string]: string;
@@ -19,10 +19,12 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   confidence: ConfidenceType;
   place: number;
   label: string;
+  securityLevel: number;
   otherInformation: OtherInformation;
 
   constructor(value: any = null,
               language: any = null,
+              securityLevel: any = null,
               authority: string = null,
               display: string = null,
               place: number = 0,
@@ -33,7 +35,9 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     this.language = language;
     this.authority = authority;
     this.display = display || value;
-
+    if (securityLevel != null) {
+      this.securityLevel = securityLevel
+    }
     this.confidence = confidence;
     if (authority != null && (isEmpty(confidence) || confidence === -1)) {
       this.confidence = ConfidenceType.CF_ACCEPTED;
@@ -78,6 +82,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   hasPlaceholder() {
     return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
   }
+  /**
+   * Returns true if this object value contains a placeholder
+   */
+  hasSecurityLevel() {
+    return isNotEmpty(this.securityLevel);
+  }
+
 
   /**
    * Returns true if this Metadatum's authority key starts with 'virtual::'

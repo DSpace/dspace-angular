@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import {combineLatest as observableCombineLatest, Observable, Subject, Subscription} from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -32,7 +32,8 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * The current values and updates for all this item's fields
    * Should be initialized in the initializeUpdates method of the child component
    */
-  updates$: Observable<FieldUpdates>;
+
+  updates$: Observable<FieldUpdates>
 
   /**
    * Route to the item's page
@@ -153,7 +154,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Prevent unnecessary rerendering so fields don't lose focus
    */
   trackUpdate(index, update: FieldUpdate) {
-    return update && update.field ? update.field.uuid : undefined;
+     return update && update.field ? update.field.uuid : undefined;
   }
 
   /**

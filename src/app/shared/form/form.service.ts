@@ -1,7 +1,7 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
@@ -24,6 +24,8 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
+  test= new Subject()
+  test$ = this.test.asObservable();
 
   constructor(
     private formBuilderService: FormBuilderService,

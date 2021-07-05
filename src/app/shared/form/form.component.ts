@@ -44,6 +44,11 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() displayCancel = true;
 
   /**
+   * A String that indicate the entity type of the item
+   */
+  @Input() entityType;
+
+  /**
    * A boolean that indicate if to emit a form change event
    */
   @Input() emitChange = true;
@@ -126,8 +131,8 @@ export class FormComponent implements OnDestroy, OnInit {
   private getFormGroup(): FormGroup {
     if (!!this.parentFormModel) {
       return this.formGroup.parent as FormGroup;
-    }
 
+    }
     return this.formGroup;
   }
 
@@ -274,9 +279,8 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event: DynamicFormControlEvent): void {
-    this.formService.changeForm(this.formId, this.formModel);
+     this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
-
     if (this.emitChange) {
       this.change.emit(event);
     }
@@ -352,4 +356,6 @@ export class FormComponent implements OnDestroy, OnInit {
     const control = group.controls[index] as FormControl;
     return { $event, context, control, group, model, type };
   }
+
+
 }
