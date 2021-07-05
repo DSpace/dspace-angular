@@ -42,9 +42,12 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
 
   subs = [];
 
-  constructor(protected route: ActivatedRoute, router: Router, items: ItemDataService, metadataService: MetadataService, authService: AuthService,
+  constructor(protected route: ActivatedRoute,
+              router: Router,
+              items: ItemDataService,
+              authService: AuthService,
               private _location: Location) {
-    super(route, router, items, metadataService, authService);
+    super(route, router, items, authService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
