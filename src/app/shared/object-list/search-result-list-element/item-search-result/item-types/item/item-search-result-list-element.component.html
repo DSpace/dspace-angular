@@ -27,11 +27,11 @@
                 </ds-truncatable-part>
             </div>
         </ds-truncatable>
-        <ds-metric-badges class="d-block clearfix" [item]="dso"></ds-metric-badges>
+        <ds-metric-badges *ngIf="!hideMetrics" class="d-block clearfix" [item]="dso"></ds-metric-badges>
     </div>
     <div class="align-self-center">
         <div>
-            <ds-metric-donuts [item]="dso"></ds-metric-donuts>
+            <ds-metric-donuts *ngIf="!hideMetrics" [item]="dso"></ds-metric-donuts>
         </div>
     </div>
 </div>
