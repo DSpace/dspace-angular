@@ -79,7 +79,6 @@ import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { WorkflowItemViewComponent } from './app/+workflowitems-edit-page/workflow-item-view/workflow-item-view.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -116,7 +115,6 @@ const DECLARATIONS = [
   SubmissionSubmitComponent,
   WorkflowItemDeleteComponent,
   WorkflowItemSendBackComponent,
-  WorkflowItemViewComponent,
   FooterComponent,
   HeaderComponent,
   NavbarComponent,

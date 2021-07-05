@@ -1,9 +1,0 @@
-<div class="container" *ngVar="(itemRD$ | async) as itemRD">
-    <div class="item-page" *ngIf="itemRD?.hasSucceeded">
-        <div *ngIf="itemRD?.payload as item">
-            <ds-untyped-item [object]="item"></ds-untyped-item>
-        </div>
-    </div>
-    <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
-    <ds-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
-</div>

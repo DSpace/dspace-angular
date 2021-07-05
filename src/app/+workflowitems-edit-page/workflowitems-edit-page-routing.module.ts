@@ -13,7 +13,8 @@ import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submiss
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { ThemedWorkflowItemViewComponent } from './workflow-item-view/themed-workflow-item-view.component';
+import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
+import { ThemedFullItemPageComponent } from '../+item-page/full/themed-full-item-page.component';
 
 @NgModule({
   imports: [
@@ -34,8 +35,9 @@ import { ThemedWorkflowItemViewComponent } from './workflow-item-view/themed-wor
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_VIEW_PATH,
-            component: ThemedWorkflowItemViewComponent,
+            component: ThemedFullItemPageComponent,
             resolve: {
+              dso: ItemFromWorkflowResolver,
               breadcrumb: I18nBreadcrumbResolver
             },
             data: { title: 'workflow-item.view.title', breadcrumbKey: 'workflow-item.view' }
@@ -62,7 +64,7 @@ import { ThemedWorkflowItemViewComponent } from './workflow-item-view/themed-wor
       }]
     )
   ],
-  providers: [WorkflowItemPageResolver]
+  providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver]
 })
 /**
  * This module defines the default component to load when navigating to the workflowitems edit page path.

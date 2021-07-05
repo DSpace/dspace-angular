@@ -7,8 +7,6 @@ import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-ite
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
-import { WorkflowItemViewComponent } from './workflow-item-view/workflow-item-view.component';
-import { ThemedWorkflowItemViewComponent } from './workflow-item-view/themed-workflow-item-view.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ItemPageModule } from '../+item-page/item-page.module';
 
@@ -25,9 +23,7 @@ import { ItemPageModule } from '../+item-page/item-page.module';
     WorkflowItemDeleteComponent,
     ThemedWorkflowItemDeleteComponent,
     WorkflowItemSendBackComponent,
-    ThemedWorkflowItemSendBackComponent,
-    WorkflowItemViewComponent,
-    ThemedWorkflowItemViewComponent
+    ThemedWorkflowItemSendBackComponent
   ]
 })
 /**

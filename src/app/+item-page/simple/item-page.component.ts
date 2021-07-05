@@ -51,7 +51,7 @@ export class ItemPageComponent implements OnInit {
   itemPageRoute$: Observable<string>;
 
   constructor(
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
     private router: Router,
     private items: ItemDataService,
     private metadataService: MetadataService,
