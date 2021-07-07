@@ -1256,6 +1256,8 @@
 
   "context-menu.actions.edit-item-relationships.btn.projects": "Manage Projects",
 
+  "context-menu.actions.statistics.btn": "Statistics",
+
   "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
 
   "RELATION.Person.projects.search.results.head" : "Projects",
@@ -2461,7 +2463,7 @@
   "item.preview.oaire.citation.volume" : "Volume",
 
   "item.preview.oairecerif.acronym" : "Acronym",
-  
+
   "item.preview.oairecerif.affiliation.orgunit" : "Affiliation",
 
   "item.preview.oairecerif.funder" : "Funder",
@@ -2840,6 +2842,7 @@
 
   "menu.section.statistics_task": "Statistics Task",
 
+  "statistics": "Statistics",
 
 
   "menu.section.toggle.access_control": "Toggle Access Control section",

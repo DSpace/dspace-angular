@@ -1,0 +1,4 @@
+<button *ngIf="isAuthorized$ | async" class="dropdown-item"
+        [routerLink]="['/statistics/' + getPageRoutePrefix(), contextMenuObject.id]">
+  {{'context-menu.actions.statistics.btn' | translate}}
+</button>
