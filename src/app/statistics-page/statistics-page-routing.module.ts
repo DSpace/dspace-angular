@@ -11,6 +11,8 @@ import { ThemedCommunityStatisticsPageComponent } from './community-statistics-p
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 
+import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-breadcrumb.resolver';
+
 @NgModule({
   imports: [
     StatisticsPageModule,
@@ -36,7 +38,7 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
           path: `items/:id`,
           resolve: {
             scope: StatisticsItemPageResolver,
-            breadcrumb: I18nBreadcrumbResolver
+            breadcrumb: DsoContextBreadcrumbResolver
           },
           data: {
             title: 'statistics.title',
@@ -48,7 +50,7 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
           path: `collections/:id`,
           resolve: {
             scope: CollectionPageResolver,
-            breadcrumb: I18nBreadcrumbResolver
+            breadcrumb: DsoContextBreadcrumbResolver
           },
           data: {
             title: 'statistics.title',
@@ -60,7 +62,7 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
           path: `communities/:id`,
           resolve: {
             scope: CommunityPageResolver,
-            breadcrumb: I18nBreadcrumbResolver
+            breadcrumb: DsoContextBreadcrumbResolver
           },
           data: {
             title: 'statistics.title',
