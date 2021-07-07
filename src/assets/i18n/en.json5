@@ -1905,6 +1905,8 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.page.return": "Back",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
