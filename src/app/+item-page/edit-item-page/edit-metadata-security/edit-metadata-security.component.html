@@ -1,27 +1,19 @@
-
 <div class="switch-container">
   <div *ngIf="securityConfigLevel > 1" class="switch-opt opt-1" (click)="changeSelectedSecurity(0)  "
        [ngStyle]="{'background-color': securityLevel === 0 ? 'white' : 'rgb(204,204,204)' }">
-    <img class="img img-1" width="20" height="20" *ngIf="securityLevel === 0 " src="/assets/images/user.png"
-         alt="dspace-cris logo"/>
-    <img class="img img-1" width="20" height="20" *ngIf="securityLevel != 0 " src="/assets/images/user-disable.png"
-         alt="dspace-cris logo"/>
+    <img class="img img-1" width="20" height="20" *ngIf="securityLevel === 0 " src="/assets/images/user.png"/>
+    <img class="img img-1" width="20" height="20" *ngIf="securityLevel != 0 " src="/assets/images/user-disable.png"/>
   </div>
   <div *ngIf="securityConfigLevel >= 2"
        [ngClass]="securityConfigLevel ==2 ?  'switch-opt opt-2-limit' : 'switch-opt opt-2'"
        (click)="changeSelectedSecurity(1)"
        [ngStyle]="{'background-color': securityLevel === 1 ? 'white' : 'rgb(204,204,204)' }">
-    <!--        <img src="assets/images/dspace-cris-logo.png" alt="dspace-cris logo"/>-->
-    <img class="img" width="20" height="20" *ngIf=" securityLevel === 1" src="/assets/images/keySecurity.png"
-         alt="dspace-cris logo"/>
-    <img class="img" width="20" height="20" *ngIf=" securityLevel != 1" src="/assets/images/key-security-disable.png"
-         alt="dspace-cris logo"/>
+    <img class="img" width="20" height="20" *ngIf=" securityLevel === 1" src="/assets/images/keySecurity.png"/>
+    <img class="img" width="20" height="20" *ngIf=" securityLevel != 1" src="/assets/images/key-security-disable.png"/>
   </div>
   <div *ngIf="securityConfigLevel >= 3" class="switch-opt opt-3" (click)="changeSelectedSecurity(2)"
        [ngStyle]="{'background-color': securityLevel === 2 ? 'white' : 'rgb(204,204,204)' }">
-    <img class="img" width="20" height="20" *ngIf="securityLevel === 2" src="/assets/images/padlock.png"
-         alt="dspace-cris logo"/>
-    <img class="img" width="20" height="20" *ngIf=" securityLevel != 2" src="/assets/images/padlock-disable.png"
-         alt="dspace-cris logo"/>
+    <img class="img" width="20" height="20" *ngIf="securityLevel === 2" src="/assets/images/padlock.png"/>
+    <img class="img" width="20" height="20" *ngIf=" securityLevel != 2" src="/assets/images/padlock-disable.png"/>
   </div>
 </div>

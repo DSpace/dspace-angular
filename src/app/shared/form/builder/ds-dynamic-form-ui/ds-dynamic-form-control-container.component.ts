@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
@@ -120,12 +119,7 @@ import {RelationshipOptions} from '../models/relationship-options.model';
 import {FormBuilderService} from '../form-builder.service';
 import {DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP} from './ds-dynamic-form-constants';
 import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
-import {$} from "protractor";
-import {ChangeDetection} from "@angular/cli/lib/config/schema";
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
-import {cloneDeep} from "lodash";
 import {ConfigurationDataService} from "../../../../core/data/configuration-data.service";
-import {DynamicFormControlRef} from "@ng-dynamic-forms/core/lib/service/dynamic-form-component.service";
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -214,8 +208,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-  @Input() entityType: string;
-  @Input() securityFallBackLevel: number
+  entityType: string;
   securityLevelConfig: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
@@ -275,9 +268,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Sets up the necessary variables for when this control can be used to add relationships to the submitted item
    */
   ngOnInit(): void {
-    this.formService.test$.subscribe(res => {
+    this.formService.entityTypeAndSecurityfallBack$.subscribe((res: any) => {
+      this.entityType = res.entityType;
       if (this.model.hasSelectableMetadata)
-        this.findSecurityLevelConfig(res)
+        this.findSecurityLevelConfig(res.securityConfig)
     })
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
@@ -393,8 +387,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       if (instance) {
         (instance as any).formModel = this.formModel;
         (instance as any).formGroup = this.formGroup;
-        (instance.instance as any).hasMetadataModel = "sg";
-        (instance as any).hasMetadataModel = "sg";
+        (instance.instance as any).hasMetadataModel = true;
       }
     }
   }
@@ -523,7 +516,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   addSecurityLevelToMetadata($event) {
-     if (this.model.metadataValue == null) {
+
+    if (this.model.metadataValue == null) {
       this.model.metadataValue = new FormFieldMetadataValueObject()
       if (typeof (this.model.value) == 'string') {
         this.model.metadataValue.value = this.model.value;
@@ -532,19 +526,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.model.metadataValue.securityLevel = $event;
     } else {
       this.model.metadataValue.securityLevel = $event;
-      this.change.emit(
-        {
-          $event: new Event('change'),
-          context: this.context,
-          control: this.control,
-          model: this.model,
-          type: 'securityLevelChange',
-        } as DynamicFormControlEvent);
     }
+    this.change.emit(
+      {
+        $event: new Event('change'),
+        context: this.context,
+        control: this.control,
+        model: this.model,
+        type: 'securityLevelChange',
+      } as DynamicFormControlEvent);
   }
 
   findSecurityLevelConfig(levelFallbackSecurity) {
-    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + "Person." + this.model.metadataFields[0] + ".settings").pipe(
+    // it finds the level of security fir each metadata corresponding to the item
+    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + "." + this.model.metadataFields[0] + ".settings").pipe(
       getFirstCompletedRemoteData(),
     ).subscribe(res1 => {
       if (res1.state == "Error") {

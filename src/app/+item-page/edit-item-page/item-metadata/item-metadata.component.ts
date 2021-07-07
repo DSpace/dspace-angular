@@ -16,8 +16,8 @@ import {hasNoValue, hasValue} from '../../../shared/empty.util';
 import {AlertType} from '../../../shared/alert/aletr-type';
 import {Operation} from 'fast-json-patch';
 import {MetadataPatchOperationService} from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
-
 import {ConfigurationDataService} from "../../../core/data/configuration-data.service";
+import {Collection} from "../../../core/shared/collection.model";
 
 @Component({
   selector: 'ds-item-metadata',
@@ -29,7 +29,8 @@ import {ConfigurationDataService} from "../../../core/data/configuration-data.se
  * Component for displaying an item's metadata edit page
  */
 export class ItemMetadataComponent extends AbstractItemUpdateComponent {
-  securityConfigState={}
+  entityType: string;
+  securityConfigState: any = {}
   securityLevelConfig: number = 0;
   /**
    * The AlertType enumeration
@@ -58,14 +59,13 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Set up and initialize all fields
    */
   async ngOnInit() {
-    // this.findFallbackValuesOfSecurity();
     super.ngOnInit();
     if (hasNoValue(this.updateService)) {
       this.updateService = this.itemService;
     }
     this.findFallbackValuesOfSecurity().then(done => {
       this.item.metadataAsList.map(el => {
-        this.configurationDataService.findByPropertyName("metadatavalue.visibility." + "Person." + el.key + ".settings").pipe(
+        this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + "." + el.key + ".settings").pipe(
           getFirstCompletedRemoteData(),
         ).subscribe(res1 => {
           if (res1.state == "Error") {
@@ -78,7 +78,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
               this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
             }
             this.securityConfigState[el.key] = parseInt(res1.payload.values[0])
-
           }
         })
       })
@@ -88,9 +87,12 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   /**
    * Initialize the values and updates of the current item's metadata fields
    */
-
   public initializeUpdates(): void {
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+    let securityLevels = this.item.metadataAsList.map(el => {
+      el.securityConfigurationLevelLimit = this.securityConfigState[el.key];
+      return el
+    })
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevels);
   }
 
   /**
@@ -138,7 +140,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
               this.item = rd.payload;
               this.checkAndFixMetadataUUIDs();
               this.initializeOriginalFields();
-              let securityLevels =  this.item.metadataAsList.map(el => {
+              let securityLevels = this.item.metadataAsList.map(el => {
                 el.securityConfigurationLevelLimit = this.securityConfigState[el.key];
                 return el
               })
@@ -165,29 +167,33 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   }
 
   findFallbackValuesOfSecurity = () => new Promise(resolve => {
-    // this.findMetadataSecurityConfigurationsForItem("metadatavalue.visibility." +  this.item.entityType + ".settings").subscribe(res => {
-    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + "Person" + ".settings").pipe(
+    this.item.owningCollection.pipe(
       getFirstCompletedRemoteData(),
-    ).subscribe(res1 => {
-      if (res1.state == "Error") {
-        //default fallback lookup
-        this.configurationDataService.findByPropertyName("metadatavalue.visibility.settings").pipe(
-          getFirstCompletedRemoteData(),
-        ).subscribe(res => {
-          this.securityLevelConfig = parseInt(res.payload.values[0]);
-          resolve()
-        })
-      } else {
-        if (res1.state == "Success") {
-          this.securityLevelConfig = parseInt(res1.payload.values[0]);
-          resolve()
+    ).subscribe((data: RemoteData<Collection>) => {
+      this.entityType = data.payload.firstMetadata("dspace.entity.type").value
+      this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + ".settings").pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe(res1 => {
+        if (res1.state == "Error") {
+          //default fallback lookup
+          this.configurationDataService.findByPropertyName("metadatavalue.visibility.settings").pipe(
+            getFirstCompletedRemoteData(),
+          ).subscribe(res => {
+            this.securityLevelConfig = parseInt(res.payload.values[0]);
+            resolve()
+          })
+        } else {
+          if (res1.state == "Success") {
+            this.securityLevelConfig = parseInt(res1.payload.values[0]);
+            resolve()
+          }
         }
-      }
+      })
     })
   });
 
   addMetadata(suggestionControl) {
-    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + "Person." + suggestionControl.viewModel + ".settings").pipe(
+    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + "." + suggestionControl.viewModel + ".settings").pipe(
       getFirstCompletedRemoteData(),
     ).subscribe(res1 => {
       if (res1.state == "Error") {
@@ -221,7 +227,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
             this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
           }
           this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = parseInt(res1.payload.values[0]);
-
         }
       }
     })

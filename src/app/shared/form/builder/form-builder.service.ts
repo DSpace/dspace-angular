@@ -127,7 +127,6 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   getValueFromModel(groupModel: DynamicFormControlModel[]): void {
-
     let result = Object.create({});
 
     const customizer = (objValue, srcValue) => {

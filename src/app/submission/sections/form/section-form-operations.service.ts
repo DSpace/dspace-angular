@@ -268,7 +268,6 @@ export class SectionFormOperationsService {
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
-      debugger
       if ((event.model as any).metadataValue && (event.model as any).metadataValue.securityLevel != null && (event.model as any).metadataValue.securityLevel != undefined) {
         const securityLevel = (event.model as any).metadataValue.securityLevel;
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);

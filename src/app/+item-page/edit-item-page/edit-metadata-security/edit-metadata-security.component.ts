@@ -1,18 +1,10 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
+import {ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output
 } from '@angular/core';
-import {ObjectUpdatesService} from "../../../core/data/object-updates/object-updates.service";
-import {Observable} from "rxjs/internal/Observable";
-import {FieldUpdates} from "../../../core/data/object-updates/object-updates.reducer";
-import {Subject} from "rxjs";
-
 @Component({
   selector: 'ds-edit-metadata-security',
   templateUrl: './edit-metadata-security.component.html',
@@ -26,7 +18,7 @@ export class EditMetadataSecurityComponent implements OnInit {
   @Input() securityConfigLevel: number;
   @Output() changeSecurityLevel = new EventEmitter<number>()
 
-  constructor(private ref: ChangeDetectorRef) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -36,7 +28,5 @@ export class EditMetadataSecurityComponent implements OnInit {
   changeSelectedSecurity(number: number) {
     this.changeSecurityLevel.emit(number);
   }
-
-
 
 }

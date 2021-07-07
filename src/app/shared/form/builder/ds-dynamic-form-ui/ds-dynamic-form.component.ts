@@ -34,7 +34,6 @@ export class DsDynamicFormComponent extends DynamicFormComponent implements OnIn
   @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
   @Input() entityType: String;
-  securityLevelConfig: number;
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -55,7 +54,6 @@ export class DsDynamicFormComponent extends DynamicFormComponent implements OnIn
   }
 
   ngOnInit() {
-    console.log(this.formModel)
     // for the metadata security we first check if we have group type to make requests
     if (this.entityType) {
       this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + ".settings").pipe(
@@ -66,14 +64,19 @@ export class DsDynamicFormComponent extends DynamicFormComponent implements OnIn
           this.configurationDataService.findByPropertyName("metadatavalue.visibility.settings").pipe(
             getFirstCompletedRemoteData(),
           ).subscribe(res => {
-            this.formService.test.next(parseInt(res.payload.values[0]+""))
-            // this.securityLevelConfig = parseInt(res.payload.values[0]+"");
-            // this.changeDetectorRef.markForCheck();
+            const notifyForEntityAndSecurity ={
+              entityType: this.entityType,
+              securityConfig: parseInt(res.payload.values[0])
+            }
+            this.formService.entityTypeAndSecurityfallBack.next(notifyForEntityAndSecurity)
           })
         } else {
           if (res1.state == "Success") {
-            this.formService.test.next(parseInt(res1.payload.values[0]+""))
-            // this.changeDetectorRef.markForCheck();
+            const notifyForEntityAndSecurity ={
+              entityType: this.entityType,
+              securityConfig: parseInt(res1.payload.values[0])
+            }
+            this.formService.entityTypeAndSecurityfallBack.next(notifyForEntityAndSecurity)
           }
         }
       })

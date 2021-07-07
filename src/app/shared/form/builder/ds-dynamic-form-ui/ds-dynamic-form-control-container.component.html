@@ -1,4 +1,3 @@
-
 <div
   [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
   [class.d-none]="model.hidden"
@@ -27,10 +26,6 @@
           </div>
         </div>
       </div>
-
-      <!--  <div style="top: -52%; position: relative; left: 102%;" *ngIf="model.hasSelectableMetadata">-->
-
-      <!--        </div>-->
       <small
         *ngIf="hasHint && ((model.repeatable === false && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
         class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>

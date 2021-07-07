@@ -1,8 +1,8 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
 
-import { Observable, Subscription } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -10,14 +10,14 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { findIndex } from 'lodash';
+import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {findIndex} from 'lodash';
 
-import { FormBuilderService } from './builder/form-builder.service';
-import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
-import { FormService } from './form.service';
-import { FormEntry, FormError } from './form.reducer';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import {FormBuilderService} from './builder/form-builder.service';
+import {hasValue, isNotEmpty, isNotNull, isNull} from '../empty.util';
+import {FormService} from './form.service';
+import {FormEntry, FormError} from './form.reducer';
+import {FormFieldMetadataValueObject} from './builder/models/form-field-metadata-value.model';
 
 /**
  * The default form component.
@@ -179,15 +179,15 @@ export class FormComponent implements OnDestroy, OnInit {
         map((formState) => formState.errors),
         distinctUntilChanged())
         .subscribe((errors: FormError[]) => {
-          const { formGroup, formModel } = this;
+          const {formGroup, formModel} = this;
           errors
             .filter((error: FormError) => findIndex(this.formErrors, {
               fieldId: error.fieldId,
               fieldIndex: error.fieldIndex
             }) === -1)
             .forEach((error: FormError) => {
-              const { fieldId } = error;
-              const { fieldIndex } = error;
+              const {fieldId} = error;
+              const {fieldIndex} = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
@@ -209,8 +209,8 @@ export class FormComponent implements OnDestroy, OnInit {
               fieldIndex: error.fieldIndex
             }) === -1)
             .forEach((error: FormError) => {
-              const { fieldId } = error;
-              const { fieldIndex } = error;
+              const {fieldId} = error;
+              const {fieldIndex} = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
@@ -279,7 +279,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event: DynamicFormControlEvent): void {
-     this.formService.changeForm(this.formId, this.formModel);
+    this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
@@ -354,7 +354,7 @@ export class FormComponent implements OnDestroy, OnInit {
     }
     const model = context.group[0] as DynamicFormControlModel;
     const control = group.controls[index] as FormControl;
-    return { $event, context, control, group, model, type };
+    return {$event, context, control, group, model, type};
   }
 
 
