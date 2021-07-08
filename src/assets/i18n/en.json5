@@ -526,6 +526,8 @@
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
 
+  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+
 
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
@@ -3703,6 +3705,14 @@
 
   "workflow-item.send-back.button.confirm": "Send back",
 
-  "workflow-item.view.breadcrumbs": "Workflow View"
+  "workflow-item.view.breadcrumbs": "Workflow View",
 
+
+  "idle-modal.header": "Session will expire soon",
+
+  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+
+  "idle-modal.log-out": "Log out",
+
+  "idle-modal.extend-session": "Extend session"
 }

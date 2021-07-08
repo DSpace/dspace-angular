@@ -120,7 +120,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
   });
 
   const sectionsService: any = jasmine.createSpyObj('sectionsService', {
-    isSectionAvailable: of(true)
+    isSectionTypeAvailable: of(true)
   });
 
   beforeEach(waitForAsync(() => {
