@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
@@ -12,14 +12,12 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { isEmpty } from '../../../../../empty.util';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import {
-  PaginatedList,
-  buildPaginatedList
-} from '../../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 
 /**
  * Component representing a dropdown input field
@@ -29,7 +27,7 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
   templateUrl: './dynamic-scrollable-dropdown.component.html'
 })
-export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
+export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit, OnDestroy {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -41,7 +39,23 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public currentValue: Observable<string>;
   public loading = false;
   public pageInfo: PageInfo;
-  public optionsList: any;
+  public optionsList: VocabularyEntry[] = [];
+
+
+  /**
+   * The text that is being searched
+   */
+  searchText: string = null;
+
+  /**
+   * The subject that is being subscribed to understand when the change happens to implement debounce
+   */
+  filterTextChanged: Subject<string> = new Subject<string>();
+
+  /**
+   * The subscribtion to be utilized on destroy to remove filterTextChange subscription
+   */
+  subSearch: Subscription;
 
   constructor(protected vocabularyService: VocabularyService,
               protected cdr: ChangeDetectorRef,
@@ -59,33 +73,35 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    */
   ngOnInit() {
     this.updatePageInfo(this.model.maxOptions, 1);
-    this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      catchError(() => observableOf(buildPaginatedList(
-        new PageInfo(),
-        []
-        ))
-      ))
-      .subscribe((list: PaginatedList<VocabularyEntry>) => {
-        this.optionsList = list.page;
-        if (this.model.value) {
-          this.setCurrentValue(this.model.value, true);
-        }
-
-        this.updatePageInfo(
-          list.pageInfo.elementsPerPage,
-          list.pageInfo.currentPage,
-          list.pageInfo.totalElements,
-          list.pageInfo.totalPages
-        );
-        this.cdr.detectChanges();
-      });
+    this.retrieveEntries(null, true);
 
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
       .subscribe((value) => {
         this.setCurrentValue(value);
       });
+    this.initFilterSubscriber();
   }
+
+
+  /**
+   * Start subscription for filterTextChange to detect change and implement debounce
+   */
+  initFilterSubscriber(): void {
+    this.subSearch = this.filterTextChanged.pipe(
+      debounceTime(700),
+      distinctUntilChanged()
+    ).subscribe((searchText) => {
+      this.retrieveEntries(searchText);
+    });
+  }
+
+  /**
+   * On input change value we set the change to filterTextChanged subject
+   */
+  filter(filterText: string) {
+    this.filterTextChanged.next(filterText);
+  }
+
 
   /**
    * Converts an item from the result list to a `string` to display in the `<input>` field.
@@ -115,24 +131,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.totalElements,
         this.pageInfo.totalPages
       );
-      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
-        getFirstSucceededRemoteDataPayload(),
-        catchError(() => observableOf(buildPaginatedList(
-          new PageInfo(),
-          []
-          ))
-        ),
-        tap(() => this.loading = false))
-        .subscribe((list: PaginatedList<VocabularyEntry>) => {
-          this.optionsList = this.optionsList.concat(list.page);
-          this.updatePageInfo(
-            list.pageInfo.elementsPerPage,
-            list.pageInfo.currentPage,
-            list.pageInfo.totalElements,
-            list.pageInfo.totalPages
-          );
-          this.cdr.detectChanges();
-        });
+      this.retrieveEntries(this.searchText, false, true);
     }
   }
 
@@ -169,6 +168,48 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     }
 
     this.currentValue = result;
+  }
+
+  /**
+   * Retrieve entries from vocabulary
+   * @param searchText If present filter entries for the given text
+   * @param initModel  If true set the current value
+   * @param concatResults  If true concat results to the current list
+   * @private
+   */
+  private retrieveEntries(searchText = null, initModel = false, concatResults = false) {
+    this.searchText = searchText;
+    let search$: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
+    if (searchText) {
+      search$ = this.vocabularyService.getVocabularyEntriesByValue(this.searchText, false, this.model.vocabularyOptions, this.pageInfo);
+    } else {
+      search$ = this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo);
+    }
+    search$.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      catchError(() => observableOf(buildPaginatedList(
+          new PageInfo(),
+          []
+        ))
+      ),
+      tap(() => this.loading = false))
+      .subscribe((list: PaginatedList<VocabularyEntry>) => {
+        this.optionsList = (concatResults) ? this.optionsList.concat(list.page) : list.page;
+        if (initModel && this.model.value) {
+          this.setCurrentValue(this.model.value, true);
+        }
+        this.updatePageInfo(
+          list.pageInfo.elementsPerPage,
+          list.pageInfo.currentPage,
+          list.pageInfo.totalElements,
+          list.pageInfo.totalPages
+        );
+        this.cdr.detectChanges();
+      });
+  }
+
+  ngOnDestroy() {
+    this.subSearch.unsubscribe();
   }
 
 }

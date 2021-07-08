@@ -4,6 +4,7 @@
   height: auto;
   max-height: var(--ds-dropdown-menu-max-height);
   overflow-x: hidden;
+  border-top: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color) !important;
 }
 
 .collection-item {
@@ -23,6 +24,12 @@
   left: 0 !important;
   margin-bottom: var(--bs-spacer);
   z-index: 1000;
+}
+
+.scrollable-dropdown-search-input{
+  width:96%;
+  margin:auto;
+  margin-bottom:8px;
 }
 
 .scrollable-dropdown-toggle {
