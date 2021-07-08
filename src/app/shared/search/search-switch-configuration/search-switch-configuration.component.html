@@ -2,7 +2,7 @@
   <h5 id="configuration-switch">{{ 'search.switch-configuration.title' | translate}}</h5>
 
   <select class="form-control"
-          attr.aria-labelledby="configuration-switch"
+          aria-labelledby="configuration-switch"
           [compareWith]="compare"
           [(ngModel)]="selectedOption"
           (change)="onSelect()">

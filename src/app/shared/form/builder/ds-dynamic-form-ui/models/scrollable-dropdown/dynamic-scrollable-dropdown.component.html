@@ -3,7 +3,7 @@
     <i ngbDropdownToggle class="far fa-caret-down position-absolute scrollable-dropdown-toggle"
        aria-hidden="true"></i>
     <input class="form-control"
-           [attr.aria-labelledby]="'label_' + model.id"
+           [attr.aria-label]="model.placeholder"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
            [class.scrollable-dropdown-input]="!model.readOnly"
@@ -22,9 +22,9 @@
        class="dropdown-menu scrollable-dropdown-menu w-100"
        aria-haspopup="true"
        aria-expanded="false"
-       [attr.aria-labelledby]="'label_' + model.id">
+       [attr.aria-label]="model.placeholder">
     <div class="scrollable-menu"
-         [attr.aria-labelledby]="'label_' + model.id"
+         [attr.aria-label]="model.placeholder"
          infiniteScroll
          [infiniteScrollDistance]="2"
          [infiniteScrollThrottle]="50"
