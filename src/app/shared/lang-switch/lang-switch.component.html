@@ -7,7 +7,7 @@
     <i class="fas fa-globe-asia fa-lg fa-fw"></i>
   </a>
   <ul ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate">
-    <li class="dropdown-item" #langSelect *ngFor="let lang of translate.getLangs()"
+    <li class="dropdown-item" tabindex="0" #langSelect *ngFor="let lang of translate.getLangs()"
             (click)="useLang(lang)"
             [class.active]="lang === translate.currentLang">
                 {{ langLabel(lang) }}
