@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+
 import { CookieService } from '../services/cookie.service';
 
 /**
@@ -16,15 +16,15 @@ export class LogInterceptor implements HttpInterceptor {
 
   constructor(private cookieService: CookieService, private router: Router) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // Get Unique id of the user from the cookies
     const correlationId = this.cookieService.get('CORRELATION-ID');
 
     // Add headers from the intercepted request
     let headers = request.headers;
-    headers = headers.set('X-CORRELATION-ID', correlationId);
-    headers = headers.set('X-REFERRER', this.router.url);
+    headers = headers.append('X-CORRELATION-ID', correlationId);
+    headers = headers.append('X-REFERRER', this.router.url);
 
     // Add new headers to the intercepted request
     request = request.clone({ withCredentials: true, headers: headers });
