@@ -19,4 +19,11 @@ export class AuthServiceMock {
 
   public setRedirectUrl(url: string) {
   }
+
+  public trackTokenExpiration(): void {
+  }
+
+  public isUserIdle(): Observable<boolean> {
+    return observableOf(false);
+  }
 }

@@ -44,7 +44,8 @@ describe('AuthNavMenuComponent', () => {
       authenticated: false,
       loaded: false,
       blocking: false,
-      loading: false
+      loading: false,
+      idle: false
     };
     authState = {
       authenticated: true,
@@ -52,7 +53,8 @@ describe('AuthNavMenuComponent', () => {
       blocking: false,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
   }
 
