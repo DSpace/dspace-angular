@@ -120,7 +120,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
   });
 
   const sectionsService: any = jasmine.createSpyObj('sectionsService', {
-    isSectionAvailable: of(true)
+    isSectionTypeAvailable: of(true)
   });
 
   beforeEach(waitForAsync(() => {
@@ -261,9 +261,10 @@ describe('SubmissionFormCollectionComponent Component', () => {
         expect(comp.toggled).toHaveBeenCalled();
       });
 
-      it('should ', () => {
+      it('should change collection properly', () => {
         spyOn(comp.collectionChange, 'emit').and.callThrough();
         jsonPatchOpServiceStub.jsonPatchByResourceID.and.returnValue(of(submissionRestResponse));
+        submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$(submissionRestResponse[0]));
         comp.ngOnInit();
         comp.onSelect(mockCollectionList[1]);
         fixture.detectChanges();

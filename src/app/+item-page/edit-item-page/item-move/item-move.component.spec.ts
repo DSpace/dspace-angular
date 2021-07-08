@@ -21,6 +21,8 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RequestService } from '../../../core/data/request.service';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -47,18 +49,25 @@ describe('ItemMoveComponent', () => {
     name: 'Test collection 2'
   });
 
-  const mockItemDataService = jasmine.createSpyObj({
-    moveToCollection: createSuccessfulRemoteDataObject$(collection1)
+  let itemDataService;
+
+  const mockItemDataServiceSuccess = jasmine.createSpyObj({
+    moveToCollection: createSuccessfulRemoteDataObject$(collection1),
+    findById: createSuccessfulRemoteDataObject$(mockItem),
   });
 
   const mockItemDataServiceFail = jasmine.createSpyObj({
-    moveToCollection: createFailedRemoteDataObject$('Internal server error', 500)
+    moveToCollection: createFailedRemoteDataObject$('Internal server error', 500),
+    findById: createSuccessfulRemoteDataObject$(mockItem),
   });
 
   const routeStub = {
     data: observableOf({
       dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
-        id: 'item1'
+        id: 'item1',
+        owningCollection: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
+          id: 'originalOwningCollection',
+        }))
       }))
     })
   };
@@ -79,43 +88,40 @@ describe('ItemMoveComponent', () => {
 
   const notificationsServiceStub = new NotificationsServiceStub();
 
+  const init = (mockItemDataService) => {
+    itemDataService = mockItemDataService;
+
+    TestBed.configureTestingModule({
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
+      declarations: [ItemMoveComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: routerStub },
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: SearchService, useValue: mockSearchService },
+        { provide: RequestService, useValue: getMockRequestService() },
+      ], schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
+    }).compileComponents();
+    fixture = TestBed.createComponent(ItemMoveComponent);
+    comp = fixture.componentInstance;
+    fixture.detectChanges();
+  };
+
   describe('ItemMoveComponent success', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [ItemMoveComponent],
-        providers: [
-          { provide: ActivatedRoute, useValue: routeStub },
-          { provide: Router, useValue: routerStub },
-          { provide: ItemDataService, useValue: mockItemDataService },
-          { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: SearchService, useValue: mockSearchService },
-        ], schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      }).compileComponents();
-      fixture = TestBed.createComponent(ItemMoveComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
+      init(mockItemDataServiceSuccess);
     });
-    it('should load suggestions', () => {
-      const expected = [
-        collection1,
-        collection2
-      ];
 
-      comp.collectionSearchResults.subscribe((value) => {
-          expect(value).toEqual(expected);
-        }
-      );
-    });
     it('should get current url ', () => {
       expect(comp.getCurrentUrl()).toEqual('fake-url/fake-id/edit');
     });
-    it('should on click select the correct collection name and id', () => {
+    it('should select the correct collection name and id on click', () => {
       const data = collection1;
 
-      comp.onClick(data);
+      comp.selectDso(data);
 
       expect(comp.selectedCollectionName).toEqual('Test collection 1');
       expect(comp.selectedCollection).toEqual(collection1);
@@ -128,12 +134,12 @@ describe('ItemMoveComponent', () => {
         });
         comp.selectedCollectionName = 'selected-collection-id';
         comp.selectedCollection = collection1;
-        comp.moveCollection();
+        comp.moveToCollection();
 
-        expect(mockItemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
+        expect(itemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
       });
       it('should call notificationsService success message on success', () => {
-        comp.moveCollection();
+        comp.moveToCollection();
 
         expect(notificationsServiceStub.success).toHaveBeenCalled();
       });
@@ -142,26 +148,11 @@ describe('ItemMoveComponent', () => {
 
   describe('ItemMoveComponent fail', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [ItemMoveComponent],
-        providers: [
-          { provide: ActivatedRoute, useValue: routeStub },
-          { provide: Router, useValue: routerStub },
-          { provide: ItemDataService, useValue: mockItemDataServiceFail },
-          { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: SearchService, useValue: mockSearchService },
-        ], schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      }).compileComponents();
-      fixture = TestBed.createComponent(ItemMoveComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
+      init(mockItemDataServiceFail);
     });
 
     it('should call notificationsService error message on fail', () => {
-      comp.moveCollection();
+      comp.moveToCollection();
 
       expect(notificationsServiceStub.error).toHaveBeenCalled();
     });

@@ -6,11 +6,12 @@
                 <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dso.name } }}</p>
                 <div class="form-group row">
                     <div class="col text-right">
-                        <button class="btn btn-outline-secondary" (click)="onCancel(dso)">
+                        <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [disabled]="(processing$ | async)">
                             <i class="fas fa-times"></i> {{'community.delete.cancel' | translate}}
                         </button>
-                        <button class="btn btn-danger mr-2" (click)="onConfirm(dso)">
-                            <i class="fas fa-trash"></i> {{'community.delete.confirm' | translate}}
+                        <button class="btn btn-danger mr-2" (click)="onConfirm(dso)" [disabled]="(processing$ | async)">
+                            <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'community.delete.processing' | translate}}</span>
+                            <span *ngIf="!(processing$ | async)"><i class="fas fa-trash"></i> {{'community.delete.confirm' | translate}}</span>
                         </button>
                     </div>
                 </div>

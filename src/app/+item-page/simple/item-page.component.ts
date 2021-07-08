@@ -8,8 +8,6 @@ import { RemoteData } from '../../core/data/remote-data';
 
 import { Item } from '../../core/shared/item.model';
 
-import { MetadataService } from '../../core/metadata/metadata.service';
-
 import { fadeInOut } from '../../shared/animations/fade';
 import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
@@ -54,7 +52,6 @@ export class ItemPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private items: ItemDataService,
-    private metadataService: MetadataService,
     private authService: AuthService,
   ) { }
 
@@ -66,7 +63,6 @@ export class ItemPageComponent implements OnInit {
       map((data) => data.dso as RemoteData<Item>),
       redirectOn4xx(this.router, this.authService)
     );
-    this.metadataService.processRemoteData(this.itemRD$);
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item))

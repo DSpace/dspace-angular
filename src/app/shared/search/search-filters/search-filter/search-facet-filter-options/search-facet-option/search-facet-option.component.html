@@ -1,10 +1,13 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
+   [tabIndex]="-1"
    [routerLink]="[searchLink]"
    [queryParams]="addQueryParams" queryParamsHandling="merge">
-  <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
-  <span class="filter-value px-1">
+  <label class="mb-0">
+    <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
+    <span class="filter-value px-1">
       {{ 'search.filters.' + filterConfig.name + '.' + filterValue.value | translate: {default: filterValue.value} }}
-  </span>
+    </span>
+  </label>
   <span class="float-right filter-value-count ml-auto">
                         <span class="badge badge-secondary badge-pill">{{filterValue.count}}</span>
                     </span>

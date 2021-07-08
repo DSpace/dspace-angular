@@ -14,12 +14,12 @@
     [infiniteScrollContainer]="'.scrollable-menu'"
     [fromRoot]="true"
     (scrolled)="onScrollDown()">
-    <ng-container *ngIf="listEntries">
+    <ng-container *ngIf="listEntries$ | async">
       <button class="list-group-item list-group-item-action border-0 disabled"
-              *ngIf="listEntries.length == 0">
+              *ngIf="(listEntries$ | async).length == 0">
         {{'dso-selector.no-results' | translate: { type: typesString } }}
       </button>
-      <button *ngFor="let listEntry of listEntries"
+      <button *ngFor="let listEntry of (listEntries$ | async)"
               class="list-group-item list-group-item-action border-0 list-entry"
               [ngClass]="{'bg-primary': listEntry.indexableObject.id === currentDSOId}"
               title="{{ listEntry.indexableObject.name }}"
