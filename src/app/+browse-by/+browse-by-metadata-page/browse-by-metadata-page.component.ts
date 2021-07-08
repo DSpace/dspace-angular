@@ -167,7 +167,6 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * @param value          The value of the browse-entry to display items for
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
-    console.log('updatePAge', searchOptions);
     this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
   }
 
