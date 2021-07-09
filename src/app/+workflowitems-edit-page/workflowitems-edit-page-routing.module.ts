@@ -6,12 +6,15 @@ import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
 import {
   WORKFLOW_ITEM_DELETE_PATH,
   WORKFLOW_ITEM_EDIT_PATH,
-  WORKFLOW_ITEM_SEND_BACK_PATH
+  WORKFLOW_ITEM_SEND_BACK_PATH,
+  WORKFLOW_ITEM_VIEW_PATH
 } from './workflowitems-edit-page-routing-paths';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
+import { ThemedFullItemPageComponent } from '../+item-page/full/themed-full-item-page.component';
 
 @NgModule({
   imports: [
@@ -28,6 +31,16 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
               breadcrumb: I18nBreadcrumbResolver
             },
             data: { title: 'workflow-item.edit.title', breadcrumbKey: 'workflow-item.edit' }
+          },
+          {
+            canActivate: [AuthenticatedGuard],
+            path: WORKFLOW_ITEM_VIEW_PATH,
+            component: ThemedFullItemPageComponent,
+            resolve: {
+              dso: ItemFromWorkflowResolver,
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'workflow-item.view.title', breadcrumbKey: 'workflow-item.view' }
           },
           {
             canActivate: [AuthenticatedGuard],
@@ -51,7 +64,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
       }]
     )
   ],
-  providers: [WorkflowItemPageResolver]
+  providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver]
 })
 /**
  * This module defines the default component to load when navigating to the workflowitems edit page path.

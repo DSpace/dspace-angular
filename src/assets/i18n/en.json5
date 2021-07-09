@@ -1907,6 +1907,8 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.page.return": "Back",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -3668,6 +3670,8 @@
 
   "workflow-item.edit.title": "Edit workflowitem",
 
+  "workflow-item.edit.title": "View workflowitem",
+
   "workflow-item.delete.notification.success.title": "Deleted",
 
   "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
@@ -3701,6 +3705,7 @@
 
   "workflow-item.send-back.button.confirm": "Send back",
 
+  "workflow-item.view.breadcrumbs": "Workflow View",
 
 
   "idle-modal.header": "Session will expire soon",
