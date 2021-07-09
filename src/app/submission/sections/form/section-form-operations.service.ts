@@ -69,9 +69,6 @@ export class SectionFormOperationsService {
       case 'move':
         this.dispatchOperationsFromMoveEvent(pathCombiner, event, previousValue);
         break;
-      case 'securityLevelChange':
-        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
-        break;
       default:
         break;
     }
@@ -387,7 +384,10 @@ export class SectionFormOperationsService {
     }
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.getFieldValueFromChangeEvent(event);
+    let value = this.getFieldValueFromChangeEvent(event);
+    if (event.model['securityLevel'] != null) {
+      value.securityLevel = event.model['securityLevel']
+    }
     // Detect which operation must be dispatched
     if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
       || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {

@@ -18,6 +18,7 @@ export class FormFieldPreviousValueObject {
     this._path = path;
   }
 
+
   get value() {
     return this._value;
   }

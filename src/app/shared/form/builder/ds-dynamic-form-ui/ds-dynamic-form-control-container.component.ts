@@ -516,25 +516,29 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   addSecurityLevelToMetadata($event) {
-
     if (this.model.metadataValue == null) {
-      this.model.metadataValue = new FormFieldMetadataValueObject()
-      if (typeof (this.model.value) == 'string') {
-        this.model.metadataValue.value = this.model.value;
-        this.model.metadataValue.display = this.model.placeholder;
-      }
-      this.model.metadataValue.securityLevel = $event;
+      this.model['securityLevel'] = $event
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'change',
+        } as DynamicFormControlEvent
+      );
     } else {
       this.model.metadataValue.securityLevel = $event;
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'change',
+        } as DynamicFormControlEvent
+      );
     }
-    this.change.emit(
-      {
-        $event: new Event('change'),
-        context: this.context,
-        control: this.control,
-        model: this.model,
-        type: 'securityLevelChange',
-      } as DynamicFormControlEvent);
   }
 
   findSecurityLevelConfig(levelFallbackSecurity) {

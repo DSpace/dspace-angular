@@ -286,9 +286,6 @@ export class SubmissionService {
       find((isPending: boolean) => !isPending)
     ).subscribe(() => {
       this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
-      return this.store.select(submissionObjectFromIdSelector(submissionId)).subscribe(res => {
-      })
-
     });
   }
 

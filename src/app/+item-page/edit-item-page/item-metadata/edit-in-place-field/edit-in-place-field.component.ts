@@ -238,6 +238,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   }
 
   selectSuggestionMetadata(suggestionControl) {
-    this.selectNewMetadata.next(suggestionControl)
+     this.selectNewMetadata.next(suggestionControl)
   }
 }

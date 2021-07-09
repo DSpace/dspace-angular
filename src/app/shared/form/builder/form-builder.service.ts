@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {AbstractControl, FormGroup} from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -17,21 +17,21 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import { isObject, isString, mergeWith } from 'lodash';
+import {isObject, isString, mergeWith} from 'lodash';
 
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { RowParser } from './parsers/row-parser';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { dateToString, isNgbDateStruct } from '../../date.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
+import {hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull} from '../../empty.util';
+import {DynamicQualdropModel} from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import {SubmissionFormsModel} from '../../../core/config/models/config-submission-forms.model';
+import {DYNAMIC_FORM_CONTROL_TYPE_TAG} from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import {RowParser} from './parsers/row-parser';
+import {DynamicRelationGroupModel} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {DynamicRowArrayModel} from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import {DsDynamicInputModel} from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {FormFieldMetadataValueObject} from './models/form-field-metadata-value.model';
+import {dateToString, isNgbDateStruct} from '../../date.util';
+import {DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP} from './ds-dynamic-form-ui/ds-dynamic-form-constants';
+import {CONCAT_GROUP_SUFFIX, DynamicConcatModel} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import {VIRTUAL_METADATA_PREFIX} from '../../../core/shared/metadata.models';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -137,13 +137,13 @@ export class FormBuilderService extends DynamicFormService {
 
     const normalizeValue = (controlModel, controlValue, controlModelIndex) => {
       const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
+      const securityLevel = (controlModel as any).metadataValue ?  (controlModel as any).metadataValue.securityLevel !=null ? (controlModel as any).metadataValue.securityLevel : null : null;
 
       if (controlModel?.metadataValue?.authority?.includes(VIRTUAL_METADATA_PREFIX)) {
         return controlModel.metadataValue;
       }
-
       if (isString(controlValue)) {
-        return new FormFieldMetadataValueObject(controlValue, controlLanguage, null, null, controlModelIndex);
+        return new FormFieldMetadataValueObject(controlValue, controlLanguage, securityLevel, null, controlModelIndex);
       } else if (isNgbDateStruct(controlValue)) {
         return new FormFieldMetadataValueObject(dateToString(controlValue));
       } else if (isObject(controlValue)) {
@@ -162,7 +162,6 @@ export class FormBuilderService extends DynamicFormService {
 
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
-
         if (this.isRowGroup(controlModel) && !this.isCustomOrListGroup(controlModel)) {
           iterateResult = mergeWith(iterateResult, iterateControlModels((controlModel as DynamicFormGroupModel).group), customizer);
           continue;
@@ -196,7 +195,7 @@ export class FormBuilderService extends DynamicFormService {
         } else {
           controlId = controlModel.name;
         }
-
+        const controlArrayValue = [];
         if (this.isRelationGroup(controlModel)) {
           const values = (controlModel as DynamicRelationGroupModel).getGroupValue();
           values.forEach((groupValue, groupIndex) => {
@@ -214,7 +213,7 @@ export class FormBuilderService extends DynamicFormService {
               });
           });
         } else if (isNotUndefined((controlModel as any).value) && isNotEmpty((controlModel as any).value)) {
-          const controlArrayValue = [];
+
           // Normalize control value as an array of FormFieldMetadataValueObject
           const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
           values.forEach((controlValue) => {
@@ -227,14 +226,17 @@ export class FormBuilderService extends DynamicFormService {
             iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
           }
         }
+        // even there is no value check to save the state of the security level if changes
+        else {
+          controlArrayValue.push(normalizeValue(controlModel, "", controlModelIndex));
+          iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
+
+        }
 
       }
-
       return iterateResult;
     };
-
     result = iterateControlModels(groupModel);
-
     return result;
   }
 
@@ -376,7 +378,7 @@ export class FormBuilderService extends DynamicFormService {
    * @param value new value to set
    */
   updateValue(fieldId: string, value: any) {
-    this.formModels.forEach( (model, formId) => {
+    this.formModels.forEach((model, formId) => {
       const fieldModel: any = this.findById(fieldId, model);
       if (hasValue(fieldModel)) {
         fieldModel.value = value;

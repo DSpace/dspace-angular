@@ -365,15 +365,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-       this.formOperationsService.dispatchOperationsFromEvent(
+    this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
       this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
-
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    this.submissionService.dispatchSave(this.submissionId);
     if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }

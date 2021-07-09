@@ -107,7 +107,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * @param metadata The metadata to add, if no parameter is supplied, create a new Metadatum
    */
   add(metadata: MetadatumViewModel = new MetadatumViewModel()) {
-
     this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata);
   }
 
@@ -170,7 +169,8 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     this.item.owningCollection.pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((data: RemoteData<Collection>) => {
-      this.entityType = data.payload.firstMetadata("dspace.entity.type").value
+      if (data.payload.firstMetadata("dspace.entity.type"))
+        this.entityType = data.payload.firstMetadata("dspace.entity.type").value
       this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + ".settings").pipe(
         getFirstCompletedRemoteData(),
       ).subscribe(res1 => {
@@ -201,16 +201,20 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
         this.item.metadataAsList.forEach(el => {
           if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
             found = true
-            el.securityConfigurationLevelLimit = 0;
+            el.securityConfigurationLevelLimit = this.securityLevelConfig;
             el.key = suggestionControl.viewModel;
+            // if new metadata value set the most restricted option of security
             this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
           }
         })
         if (!found) {
-          suggestionControl.valueAccessor.metadata['securityConfigurationLevelLimit'] = 0;
+          suggestionControl.valueAccessor.metadata['securityConfigurationLevelLimit'] = this.securityLevelConfig;
+          if (this.securityLevelConfig - 1 > 0) {
+            suggestionControl.valueAccessor.metadata['securityLevel'] = this.securityLevelConfig - 1
+          }
           this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
         }
-        this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = 0;
+        this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = this.securityLevelConfig;
       } else {
         if (res1.state == "Success") {
           let found = false
@@ -222,11 +226,15 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
               this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
             }
           })
+          const security = parseInt(res1.payload.values[0])
           if (!found) {
-            suggestionControl.valueAccessor.metadata['securityConfigurationLevelLimit'] = parseInt(res1.payload.values[0]);
+            suggestionControl.valueAccessor.metadata['securityConfigurationLevelLimit'] = security;
+            if (security - 1 > 0) {
+              suggestionControl.valueAccessor.metadata['securityLevel'] = security - 1;
+            }
             this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
           }
-          this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = parseInt(res1.payload.values[0]);
+          this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = security;
         }
       }
     })
