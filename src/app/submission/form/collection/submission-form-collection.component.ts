@@ -13,7 +13,7 @@ import {
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
   find,
-  map
+  map, mergeMap
 } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
@@ -27,6 +27,8 @@ import { SubmissionJsonPatchOperationsService } from '../../../core/submission/s
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { SectionsType } from '../../sections/sections-type';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -141,7 +143,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.available$ = this.sectionsService.isSectionAvailable(this.submissionId, 'collection');
+    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
   }
 
   /**
@@ -164,11 +166,17 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,
       'sections',
-      'collection')
-      .subscribe((submissionObject: SubmissionObject[]) => {
+      'collection').pipe(
+        mergeMap((submissionObject: SubmissionObject[]) => {
+          // retrieve the full submission object with embeds
+          return this.submissionService.retrieveSubmission(submissionObject[0].id).pipe(
+            getFirstSucceededRemoteDataPayload()
+          );
+        })
+      ).subscribe((submissionObject: SubmissionObject) => {
         this.selectedCollectionId = event.collection.id;
         this.selectedCollectionName$ = observableOf(event.collection.name);
-        this.collectionChange.emit(submissionObject[0]);
+        this.collectionChange.emit(submissionObject);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
         this.processingChange$.next(false);
         this.cdr.detectChanges();

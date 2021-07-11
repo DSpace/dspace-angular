@@ -46,6 +46,8 @@ import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component
 import { ThemedHeaderComponent } from './header/themed-header.component';
 import { ThemedFooterComponent } from './footer/themed-footer.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
+import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -129,6 +131,7 @@ const DECLARATIONS = [
   HeaderComponent,
   ThemedHeaderComponent,
   HeaderNavbarWrapperComponent,
+  ThemedHeaderNavbarWrapperComponent,
   AdminSidebarComponent,
   AdminSidebarSectionComponent,
   ExpandableAdminSidebarSectionComponent,
@@ -142,6 +145,7 @@ const DECLARATIONS = [
   ThemedBreadcrumbsComponent,
   ForbiddenComponent,
   ThemedForbiddenComponent,
+  IdleModalComponent
 ];
 
 const EXPORTS = [

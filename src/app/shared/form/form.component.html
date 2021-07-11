@@ -48,7 +48,7 @@
       </ng-template>
 
     </ds-dynamic-form>
-
+        <ng-content select="[additional]"></ng-content>
         <ng-content *ngIf="!displaySubmit && !displayCancel"></ng-content>
 
     <div *ngIf="displaySubmit || displayCancel">

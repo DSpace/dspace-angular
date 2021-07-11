@@ -46,7 +46,6 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SearchResultGridElementComponent } from './object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
-import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
@@ -54,8 +53,7 @@ import { FormComponent } from './form/form.component';
 import { DsDynamicOneboxComponent } from './form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
+  DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn,
 } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DragClickDirective } from './utils/drag-click.directive';
@@ -342,7 +340,6 @@ const COMPONENTS = [
   SidebarFilterComponent,
   SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
-  GridThumbnailComponent,
   UploaderComponent,
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,

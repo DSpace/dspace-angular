@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subject
+} from 'rxjs';
 import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
@@ -8,8 +13,6 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-
-import { MetadataService } from '../core/metadata/metadata.service';
 import { Bitstream } from '../core/shared/bitstream.model';
 
 import { Collection } from '../core/shared/collection.model';
@@ -65,7 +68,6 @@ export class CollectionPageComponent implements OnInit {
   constructor(
     private collectionDataService: CollectionDataService,
     private searchService: SearchService,
-    private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -122,10 +124,6 @@ export class CollectionPageComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       map((collection) => getCollectionPageRoute(collection.id))
     );
-
-    this.route.queryParams.pipe(take(1)).subscribe((params) => {
-      this.metadata.processRemoteData(this.collectionRD$);
-    });
   }
 
   isNotEmpty(object: any) {

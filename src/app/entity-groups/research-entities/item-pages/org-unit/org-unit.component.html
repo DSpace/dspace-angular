@@ -8,8 +8,13 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
-    <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
+    <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
+      <ds-thumbnail [thumbnail]="object?.thumbnail | async"
+                    [defaultImage]="'assets/images/orgunit-placeholder.svg'"
+                    [alt]="'thumbnail.orgunit.alt'"
+                    [placeholder]="'thumbnail.orgunit.placeholder'"
+      >
+      </ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="object"
       [fields]="['organization.foundingDate']"

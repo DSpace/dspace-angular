@@ -27,6 +27,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { RouteService } from '../core/services/route.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('RootComponent', () => {
   let component: RootComponent;
@@ -36,6 +37,7 @@ describe('RootComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
+        NoopAnimationsModule,
         StoreModule.forRoot(authReducer, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {

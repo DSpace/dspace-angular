@@ -127,7 +127,8 @@ describe('BrowseService', () => {
   });
 
   describe('getBrowseEntriesFor and findList', () => {
-    const mockAuthorName = 'Donald Smith';
+    // should contain special characters such that url encoding can be tested as well
+    const mockAuthorName = 'Donald Smith & Sons';
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
@@ -152,7 +153,7 @@ describe('BrowseService', () => {
 
     describe('when findList is called with a valid browse definition id', () => {
       it('should call hrefOnlyDataService.findAllByHref with the expected href', () => {
-        const expected = browseDefinitions[1]._links.items.href + '?filterValue=' + mockAuthorName;
+        const expected = browseDefinitions[1]._links.items.href + '?filterValue=' + encodeURIComponent(mockAuthorName);
 
         scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();

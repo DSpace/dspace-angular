@@ -12,12 +12,8 @@ $image-path: "../assets/images" !default;
 
 /** Bootstrap Variables **/
 /* Colors */
-$gray-base: #000 !default;
-$gray-900: lighten($gray-base, 13.5%) !default; // #222
-$gray-800: lighten($gray-base, 26.6%) !default; // #444
-$gray-700: lighten($gray-base, 46.6%) !default; // #777
-$gray-600: lighten($gray-base, 73.3%) !default; // #bbb
-$gray-100: lighten($gray-base, 93.5%) !default; // #eee
+$gray-700: #495057 !default;  // Bootstrap $gray-700
+$gray-100: #f8f9fa !default;  //           $gray-100
 
 /* Reassign color vars to semantic color scheme */
 $blue:   #2B4E72 !default;

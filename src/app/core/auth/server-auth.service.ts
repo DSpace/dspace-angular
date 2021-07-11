@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { RemoteData } from '../data/remote-data';
+import { RetrieveAuthMethodsAction } from './auth.actions';
 
 /**
  * The auth service.
@@ -59,5 +60,14 @@ export class ServerAuthService extends AuthService {
     return this.authRequestService.getRequest('status', options).pipe(
       map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload))
     );
+  }
+
+  /**
+   * Return a new instance of RetrieveAuthMethodsAction
+   *
+   * @param authStatus The auth status
+   */
+  getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
+    return new RetrieveAuthMethodsAction(authStatus, true);
   }
 }

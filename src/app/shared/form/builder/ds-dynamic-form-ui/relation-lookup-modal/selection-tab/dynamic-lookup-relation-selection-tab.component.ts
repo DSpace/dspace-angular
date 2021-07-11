@@ -15,6 +15,7 @@ import { PaginatedSearchOptions } from '../../../../../search/paginated-search-o
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',
@@ -76,18 +77,26 @@ export class DsDynamicLookupRelationSelectionTabComponent {
    * The initial pagination to use
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'submission-relation-list',
+    id: 'spc',
     pageSize: 5
   });
 
+  /**
+   * The current pagination options
+   */
+  currentPagination$: Observable<PaginationComponentOptions>;
+
   constructor(private router: Router,
-              private searchConfigService: SearchConfigurationService) {
+              private searchConfigService: SearchConfigurationService,
+              private paginationService: PaginationService
+  ) {
   }
 
   /**
    * Set up the selection and pagination on load
    */
   ngOnInit() {
+    this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(
         map((options: PaginatedSearchOptions) => options.pagination),
@@ -110,5 +119,16 @@ export class DsDynamicLookupRelationSelectionTabComponent {
           );
         })
       );
+    this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
+  }
+
+  /**
+   * Method to reset the route when the tab is opened to make sure no strange pagination issues appears
+   */
+  resetRoute() {
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, {
+      page: 1,
+      pageSize: 5
+    });
   }
 }

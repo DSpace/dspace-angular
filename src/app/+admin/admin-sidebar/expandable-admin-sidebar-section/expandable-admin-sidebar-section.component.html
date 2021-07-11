@@ -3,12 +3,12 @@
      value: ((expanded | async) ? 'endBackground' : 'startBackground'),
      params: {endColor: (sidebarActiveBg | async)}}">
     <div class="icon-wrapper">
-        <a class="nav-item nav-link shortcut-icon" attr.aria.labelledby="sidebarName-{{section.id}}" [title]="('menu.section.icon.' + section.id) | translate" (click)="toggleSection($event)" href="#">
+        <a class="nav-item nav-link shortcut-icon" attr.aria.labelledby="sidebarName-{{section.id}}" [title]="('menu.section.icon.' + section.id) | translate" (click)="toggleSection($event)" href="javascript:void(0);">
             <i class="fas fa-{{section.icon}} fa-fw"></i>
         </a>
     </div>
     <div class="sidebar-collapsible">
-        <a class="nav-item nav-link" href="#"
+        <a class="nav-item nav-link" href="javascript:void(0);" tabindex="-1"
            (click)="toggleSection($event)">
             <span id="sidebarName-{{section.id}}" class="section-header-text">
                 <ng-container

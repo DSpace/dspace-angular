@@ -10,8 +10,9 @@
       </div>
       <div class="float-right w-15" [class.sticky-buttons]="!readMode">
         <ng-container *ngIf="readMode">
-          <button class="btn btn-link" (click)="downloadBitstreamFile(); $event.stopPropagation()"><i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i></button>
-          <!--<a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>-->
+          <ds-file-download-link [cssClasses]="'btn btn-link'" [isBlank]="true" [bitstream]="getBitstream()">
+            <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+          </ds-file-download-link>
           <button class="btn btn-link" (click)="$event.preventDefault();switchMode();"><i class="fa fa-edit fa-2x text-normal"></i></button>
           <button class="btn btn-link"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
