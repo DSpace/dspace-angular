@@ -52,7 +52,7 @@
 </div>
 
 <div *ngIf="(isHierarchicalVocabulary() | async)" class="position-relative right-addon">
-  <i ngbDropdownToggle class="position-absolute tree-toggle"
+  <i class="dropdown-toggle position-absolute tree-toggle" (click)="openTree($event)"
      aria-hidden="true"></i>
   <input class="form-control"
          [attr.aria-labelledby]="'label_' + model.id"
