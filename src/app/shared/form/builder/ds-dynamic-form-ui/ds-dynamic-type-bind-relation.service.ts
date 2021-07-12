@@ -2,7 +2,7 @@ import { Inject, Injectable, Injector, Optional } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
-import { distinctUntilChanged, startWith } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators';
 
 import {
   AND_OPERATOR,
@@ -15,8 +15,10 @@ import {
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
-import { isUndefined } from '../../../empty.util';
+import { isNotUndefined, isUndefined } from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 
 @Injectable()
 export class DsDynamicTypeBindRelationService {
@@ -56,42 +58,55 @@ export class DsDynamicTypeBindRelationService {
 
       const bindModel: any = this.formBuilderService.getTypeBindModel();
 
-      let value;
-      if (isUndefined(bindModel.value) || typeof bindModel.value === 'string') {
-        value = bindModel.value;
-      } else if (bindModel.value.hasAuthority()) {
-        value = bindModel.value.authority;
+      let values: string[];
+      let bindModelValue = bindModel.value;
+
+      if (bindModel.type === DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP) {
+        bindModelValue = bindModel.value.map((entry) => entry[bindModel.mandatoryField]);
+      }
+      if (Array.isArray(bindModelValue)) {
+        values = [...bindModelValue.map((entry) => this.getTypeBindValue(entry))];
       } else {
-        value = bindModel.value.value;
+        values = [this.getTypeBindValue(bindModelValue)];
       }
 
-      if (bindModel && relation.match === matcher.match) {
+      let returnValue = (!(bindModel && relation.match === matcher.match));
+      for (const value of values) {
+        if (bindModel && relation.match === matcher.match) {
 
-        if (index > 0 && operator === AND_OPERATOR && !hasAlreadyMatched) {
-          return false;
+          if (index > 0 && operator === AND_OPERATOR && !hasAlreadyMatched) {
+            returnValue =  false;
+          }
+
+          if (index > 0 && operator === OR_OPERATOR && hasAlreadyMatched) {
+            returnValue = true;
+          }
+
+          returnValue = condition.value === value;
+
+          if (returnValue) {
+            break;
+          }
         }
 
-        if (index > 0 && operator === OR_OPERATOR && hasAlreadyMatched) {
-          return true;
-        }
+        if (bindModel && relation.match === matcher.opposingMatch) {
 
-        return condition.value === value;
+          if (index > 0 && operator === AND_OPERATOR && hasAlreadyMatched) {
+            returnValue = true;
+          }
+
+          if (index > 0 && operator === OR_OPERATOR && !hasAlreadyMatched) {
+            returnValue =  false;
+          }
+
+          returnValue = !(condition.value === value);
+
+          if (!returnValue) {
+            break;
+          }
+        }
       }
-
-      if (bindModel && relation.match === matcher.opposingMatch) {
-
-        if (index > 0 && operator === AND_OPERATOR && hasAlreadyMatched) {
-          return true;
-        }
-
-        if (index > 0 && operator === OR_OPERATOR && !hasAlreadyMatched) {
-          return false;
-        }
-
-        return !(condition.value === value);
-      }
-
-      return false;
+      return returnValue;
 
     }, false);
   }
@@ -103,28 +118,48 @@ export class DsDynamicTypeBindRelationService {
 
     Object.values(relatedModels).forEach((relatedModel: any) => {
 
-      const initValue = (isUndefined(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value : relatedModel.value.value;
+      if (isNotUndefined(relatedModel)) {
+        const initValue = (isUndefined(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
+          (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
 
-      const valueChanges = relatedModel.valueChanges.pipe(
-        startWith(initValue),
-        distinctUntilChanged()
-      );
+        const valueChanges = relatedModel.valueChanges.pipe(
+          startWith(initValue)
+        );
 
-      subscriptions.push(valueChanges.subscribe(() => {
+        subscriptions.push(valueChanges.subscribe((v) => {
 
-        this.dynamicMatchers.forEach((matcher) => {
+          this.dynamicMatchers.forEach((matcher) => {
 
-          const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
+            const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
 
-          if (relation !== undefined) {
+            if (relation !== undefined) {
 
-            const hasMatch = this.matchesCondition(relation, matcher);
-            matcher.onChange(hasMatch, model, control, this.injector);
-          }
-        });
-      }));
+              const hasMatch = this.matchesCondition(relation, matcher);
+              matcher.onChange(hasMatch, model, control, this.injector);
+            }
+          });
+        }));
+      }
     });
 
     return subscriptions;
+  }
+
+  /**
+   * Return the string value of the type bind model
+   * @param bindModelValue
+   * @private
+   */
+  private getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject): string {
+    let value;
+    if (isUndefined(bindModelValue) || typeof bindModelValue === 'string') {
+      value = bindModelValue;
+    } else if (bindModelValue.hasAuthority()) {
+      value = bindModelValue.authority;
+    } else {
+      value = bindModelValue.value;
+    }
+
+    return value;
   }
 }
