@@ -20,9 +20,8 @@ export class IIIFSearchableComponent extends ItemComponent implements OnInit {
 
   query: Observable<string>;
 
-  constructor(protected routeService: RouteService,
-              protected bitstreamService: BitstreamDataService) {
-    super(bitstreamService);
+  constructor(protected routeService: RouteService) {
+     super();
   }
 
   ngOnInit(): void {
