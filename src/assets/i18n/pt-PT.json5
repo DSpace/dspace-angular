@@ -1,5 +1,51 @@
 {
 
+"submission.edit.breadcrumbs": "Editar Submissão",
+"search.filters.filter.subject.label": "Pesquisar Assunto",
+"search.filters.filter.entityType.label": "Pesquisar Tipo",
+"search.filters.filter.author.label": "Pesquisar Autor",
+"sorting.dc.date.accessioned.ASC": "Data de Disponibilização Ascendente",
+"sorting.dc.date.accessioned.DESC": "Data de Disponibilização Descendente",
+"search.search-form.placeholder": "Pesquisar ...",
+"item.edit.item-mapper.search-form.placeholder": "Pesquisar coleções...",
+"item.edit.return": "Voltar",
+"repository.title.prefix": "DSpace ::",
+"repository.title.prefixDSpace": "DSpace ::",
+"thumbnail.person.placeholder": "Sem Fotografia de Perfil",
+
+"admin.access-control.groups.breadcrumbs": "Grupos",
+"admin.access-control.groups.search.placeholder": "Pesquisar Grupos...",
+"admin.access-control.epeople.breadcrumbs": "Utilizador",
+"admin.access-control.epeople.search.placeholder": "Pesquisar Utilizador",
+"admin.access-control.epeople.form.return": "Voltar",
+"collection.edit.item-mapper-search-form.placeholder": "Pesquisar Item a Mapear...",
+
+"submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Financiador de Projeto",
+"submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Financiador de Projeto",
+"relationships.isFundingAgencyOf.OrgUnit": "Financiador de Projeto",
+
+"submission.submit.breadcrumbs": "Nova Submissão",
+"search.filters.filter.namedresourcetype.label": "Pesquisar Estado",
+"sorting.dc.date.issued.ASC": "Data de Publicação Ascendente",
+"sorting.dc.date.issued.DESC": "Data de Publicação Descendente",
+"sorting.score.ASC": "Menos Relevante",
+"search.filters.filter.dateIssued.min.label": "Início",
+"search.filters.filter.dateIssued.max.label": "Fim",
+"search.filters.search.submit": "Enviar",
+"default.search.results.head": "Resultados da Pesquisa",
+"communityList.breadcrumbs": "Lista de Comunidades",
+"browse.previous.button": "Anterior",
+"browse.next.button": "Próximo",
+"pagination.options.description": "Opções de Paginação",
+"mydspace.breadcrumbs": "Área Pessoal",
+"thumbnail.default.placeholder": "Miniatura",
+"submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Pesquisar ...",
+"home.search-form.placeholder": "Pesquisar ...",
+"mydspace.search-form.placeholder": "Pesquisar na Área Pessoal ...",
+
+
+// OLD strings
+
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Use o botão abaixo para regressar à página inicial.",
   
@@ -103,7 +149,7 @@
   "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
   
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como internos são ocultos para o utilizador, usados por motivos administrativos.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como internos são ocultos para o Utilizador, usados por motivos administrativos.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   "admin.registries.bitstream-formats.edit.internal.label": "Interno",
@@ -169,16 +215,16 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Nível de Suporte",
   
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registo de Formato de Ficheiro",
+  "admin.registries.bitstream-formats.title": "DSpace :: Registo de Formato de Ficheiro",
   
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registo de Metadados",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "O registo de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podêm ser divididos em multiplos esquemas. Entretanto, o DSpace requer esquemas de Dublin Core qualificados.",
+  "admin.registries.metadata.description": "O registo de metadados mantém a lista de todos os campos de metadados disponíveis no repositório. Estes campos podem ser divididos em multiplos esquemas. No entanto, o DSpace requer esquemas de Dublin Core qualificados.",
   
   // "admin.registries.metadata.form.create": "Create metadata schema",
-  "admin.registries.metadata.form.create": "Criar esquema de metadados",
+  "admin.registries.metadata.form.create": "Criar Esquema de Metadados",
   
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
   "admin.registries.metadata.form.edit": "Editar esquema de metadados",
@@ -208,7 +254,7 @@
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
   
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Registo de Metadados",
+  "admin.registries.metadata.title": "DSpace :: Registo de Metadados",
   
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Esquema de Metadados",
@@ -217,7 +263,7 @@
   "admin.registries.schema.description": "Este é o esquema de metadados para \"{{namespace}}\".",
   
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  "admin.registries.schema.fields.head": "Campos do esquema de metadados",
+  "admin.registries.schema.fields.head": "Campos do Esquema de Metadados",
   
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
   "admin.registries.schema.fields.no-items": "Nenhum campo de metadado para exibir.",
@@ -229,13 +275,13 @@
   "admin.registries.schema.fields.table.field": "Campo",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  "admin.registries.schema.fields.table.scopenote": "Nota de Âmbito",
+  "admin.registries.schema.fields.table.scopenote": "Descrição",
   
   // "admin.registries.schema.form.create": "Create metadata field",
-  "admin.registries.schema.form.create": "Criar campo de metadado",
+  "admin.registries.schema.form.create": "Criar Elemento de Metadado",
   
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  "admin.registries.schema.form.edit": "Editar campo de metadado",
+  "admin.registries.schema.form.edit": "Editar Campo de Metadados",
   
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Elemento",
@@ -283,7 +329,7 @@
   "admin.registries.schema.return": "Voltar",
   
   // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Registo de Esquema de Metadados",
+  "admin.registries.schema.title": "DSpace :: Registo de Esquema de Metadados",
   
   
   
@@ -300,7 +346,7 @@
   "admin.access-control.epeople.actions.stop-impersonating": "Deixar de assumir o papel do Utilizador",
   
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
-  "admin.access-control.epeople.title": "DSpace Angular :: Utilizador",
+  "admin.access-control.epeople.title": "DSpace :: Utilizador",
   
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Utilizador",
@@ -378,7 +424,7 @@
   "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar o Utilizador \"{{name}}\", o email \"{{email}}\" já está registado no repositório.",
   
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar o utilizador \"{{name}}\", o email \"{{email}}\" já está registado no repositório.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar o Utilizador \"{{name}}\", o email \"{{email}}\" já está registado no repositório.",
   
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.edited.success": "Utilizador editado com successo \"{{name}}\"",
@@ -390,7 +436,7 @@
   "admin.access-control.epeople.form.notification.deleted.success": "Utilizador apagado com sucesso \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao apagar utilizador \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao apagar Utilizador \"{{name}}\"",
   
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro dos grupos:",
@@ -416,13 +462,13 @@
   
   
   // "admin.access-control.groups.title": "DSpace Angular :: Groups",
-  "admin.access-control.groups.title": "DSpace Angular :: Grupos",
+  "admin.access-control.groups.title": "DSpace :: Grupos",
   
   // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Editar Grupo",
+  "admin.access-control.groups.title.singleGroup": "DSpace :: Editar Grupo",
   
   // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Novo Grupo",
+  "admin.access-control.groups.title.addGroup": "DSpace :: Novo Grupo",
   
   // "admin.access-control.groups.head": "Groups",
   "admin.access-control.groups.head": "Grupos",
@@ -586,7 +632,7 @@
   "admin.access-control.groups.form.members-list.no-members-yet": "Grupo sem membros, pesquise e adicione novos membros.",
   
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  "admin.access-control.groups.form.members-list.no-items": "Não foram encontrados utilizadores nesta pesquisa",
+  "admin.access-control.groups.form.members-list.no-items": "Não foram encontrados Utilizadores nesta pesquisa",
   
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Algo correu mal: \"{{cause}}\"",
@@ -891,7 +937,7 @@
   "browse.startsWith.months.september": "Setembro",
   
   // "browse.startsWith.submit": "Go",
-  "browse.startsWith.submit": "Ir",
+  "browse.startsWith.submit": "Pesquisar",
   
   // "browse.startsWith.type_date": "Or type in a date (year-month):",
   "browse.startsWith.type_date": "Ou indique uma data (ano-mês):",
@@ -1081,10 +1127,10 @@
   "collection.edit.tabs.source.form.metadataConfigId": "Formato de Metadados",
   
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  "collection.edit.tabs.source.form.oaiSetId": "ID do set OAI",
+  "collection.edit.tabs.source.form.oaiSetId": "ID do set OAI-PMH",
   
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
-  "collection.edit.tabs.source.form.oaiSource": "Provedor de OAI",
+  "collection.edit.tabs.source.form.oaiSource": "Endereço OAI-PMH base",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
   "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Agregar metadados e ficheiros (requer suporet ORE)",
@@ -1169,7 +1215,7 @@
   "collection.form.provenance": "Proveniência",
   
   // "collection.form.rights": "Copyright text (HTML)",
-  "collection.form.rights": "Texto de direito de cópia (HTML)",
+  "collection.form.rights": "Texto sobre direitos de autor (HTML)",
   
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Notícias (HTML)",
@@ -1373,7 +1419,7 @@
   "comcol-role.edit.submitters.name": "Depositantes",
   
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  "comcol-role.edit.submitters.description": "Os utilizadores e Grupos que possuem permissões de depósito nesta coleção.",
+  "comcol-role.edit.submitters.description": "Os Utilizadores e Grupos que possuem permissões de depósito nesta coleção.",
   
   
   // "comcol-role.edit.item_read.name": "Default item read access",
@@ -1762,7 +1808,7 @@
   "forgot-email.form.email.error.pattern": "Indique um endereço de correio eletrónico válido",
   
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
-  "forgot-email.form.email.hint": "Este endereço de correio eletrónico será validado e usado como o seu nome de utilizador para autenticação.",
+  "forgot-email.form.email.hint": "Este endereço de correio eletrónico será validado e usado como o seu nome de Utilizador para autenticação.",
   
   // "forgot-email.form.submit": "Submit",
   "forgot-email.form.submit": "Guardar",
@@ -1771,7 +1817,7 @@
   "forgot-email.form.success.head": "Email de Confirmação enviado",
   
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "forgot-email.form.success.content": "Foi enviado uma mensagem para {{ email }} com instruções e um endereço de validação da sua conta de utilizador.",
+  "forgot-email.form.success.content": "Foi enviado uma mensagem para {{ email }} com instruções e um endereço de validação da sua conta de Utilizador.",
   
   // "forgot-email.form.error.head": "Error when trying to register email",
   "forgot-email.form.error.head": "Erro ao tentar registar este email",
@@ -1818,7 +1864,7 @@
   "forgot-password.form.notification.error.title": "Erro ao submeter nova palavra-chave",
   
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  "forgot-password.form.notification.success.content": "A recuperação da palavra-chave foi efetuada com sucesso. Foi iniciada sessão com o utilizador criado.",
+  "forgot-password.form.notification.success.content": "A recuperação da palavra-chave foi efetuada com sucesso. Foi iniciada sessão com o Utilizador criado.",
   
   // "forgot-password.form.notification.success.title": "Password reset completed",
   "forgot-password.form.notification.success.title": "recuperação da palavra-chave efetuada com sucesso",
@@ -1912,7 +1958,7 @@
   "home.breadcrumbs": "Principal",
   
   // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Início",
+  "home.title": "DSpace :: Início",
   
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Comunidades",
@@ -2081,7 +2127,7 @@
   "item.edit.bitstreams.notifications.move.saved.title": "Alteração guardada",
   
   // "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.bitstreams.notifications.outdated.content": "O item em que está a trabalhar foi alterado por outro utilizador. As suas alterações serão descartadas para evitar conflitos",
+  "item.edit.bitstreams.notifications.outdated.content": "O item em que está a trabalhar foi alterado por outro Utilizador. As suas alterações serão descartadas para evitar conflitos",
   
   // "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
   "item.edit.bitstreams.notifications.outdated.title": "Alterações desatualizadas",
@@ -2514,7 +2560,7 @@
   "item.edit.tabs.versionhistory.title": "Edições do Item - Histórico de Versões",
   
   // "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
-  "item.edit.tabs.versionhistory.under-construction": "Editar ou adicionar novas versões ainda não é possível neste interface de utilizador.",
+  "item.edit.tabs.versionhistory.under-construction": "Editar ou adicionar novas versões ainda não é possível neste interface de Utilizador.",
   
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "Visualizar Item",
@@ -2572,7 +2618,7 @@
   "item.search.results.head": "Resultados da Pesquisa de Item",
   
   // "item.search.title": "DSpace Angular :: Item Search",
-  "item.search.title": "DSpace Angular :: Pesquisa de Item",
+  "item.search.title": "DSpace :: Pesquisa de Item",
   
   
   
@@ -2768,7 +2814,7 @@
   "journal.search.results.head": "Resultado da Pesquisa de Revistas",
   
   // "journal.search.title": "DSpace Angular :: Journal Search",
-  "journal.search.title": "DSpace Angular :: Pesquisa de Revistas",
+  "journal.search.title": "DSpace :: Pesquisa de Revistas",
   
   
   
@@ -2887,7 +2933,7 @@
   "login.form.header": "Por favor entre no repositório",
   
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user": "Novo utilizador? Clique aqui para se registar.",
+  "login.form.new-user": "Novo Utilizador? Clique aqui para se registar.",
   
   // "login.form.or-divider": "or",
   "login.form.or-divider": "ou",
@@ -3318,7 +3364,7 @@
   
   
   // "orgunit.listelement.badge": "Organizational Unit",
-  "orgunit.listelement.badge": "Unidade Organizacional",
+  "orgunit.listelement.badge": "Organização",
   
   // "orgunit.page.city": "City",
   "orgunit.page.city": "Cidade",
@@ -3339,7 +3385,7 @@
   "orgunit.page.id": "ID",
   
   // "orgunit.page.titleprefix": "Organizational Unit: ",
-  "orgunit.page.titleprefix": "Unidade Organizacional: ",
+  "orgunit.page.titleprefix": "Organização: ",
   
   
   
@@ -3350,7 +3396,7 @@
   "pagination.showing.detail": "{{ range }} de {{ total }}",
   
   // "pagination.showing.label": "Now showing ",
-  "pagination.showing.label": "Apresentando ",
+  "pagination.showing.label": "A mostrar ",
   
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Opções de Ordenação",
@@ -3397,7 +3443,7 @@
   "person.search.results.head": "Resultado da pesquisa de Pessoa",
   
   // "person.search.title": "DSpace Angular :: Person Search",
-  "person.search.title": "DSpace Angular :: Procurar Pessoa",
+  "person.search.title": "DSpace :: Pesquisar Pessoa",
   
   
   
@@ -3622,7 +3668,7 @@
   
   
   // "project.listelement.badge": "Research Project",
-  "project.listelement.badge": "Projeto de Pesquisa",
+  "project.listelement.badge": "Projeto de Investigação",
   
   // "project.page.contributor": "Contributors",
   "project.page.contributor": "Contribuidores",
@@ -3684,7 +3730,7 @@
   "publication.search.results.head": "Resultados da Busca de Publicação",
   
   // "publication.search.title": "DSpace Angular :: Publication Search",
-  "publication.search.title": "DSpace Angular :: Busca de Publicações",
+  "publication.search.title": "DSpace :: Busca de Publicações",
   
   
   // "register-email.title": "New user registration",
@@ -3742,13 +3788,13 @@
   "register-page.create-profile.submit": "Finalizar Registo",
   
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  "register-page.create-profile.submit.error.content": "Ocorreu um erro ao registar o utilizador.",
+  "register-page.create-profile.submit.error.content": "Ocorreu um erro ao registar o Utilizador.",
   
   // "register-page.create-profile.submit.error.head": "Registration failed",
   "register-page.create-profile.submit.error.head": "Falha no Registo",
   
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content": "O registo foi criado com sucesso. Foi iniciada sessão com o utilizador criado.",
+  "register-page.create-profile.submit.success.content": "O registo foi criado com sucesso. Foi iniciada sessão com o Utilizador criado.",
   
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Registo Finalizado com Sucesso",
@@ -3758,7 +3804,7 @@
   "register-page.registration.header": "Registo de Novo Utilizador",
   
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "register-page.registration.info": "Registe uma conta de utilizador para subscrever novos conteúdos das coleções e depositar itens no repositório.",
+  "register-page.registration.info": "Registe uma conta de Utilizador para subscrever novos conteúdos das coleções e depositar itens no repositório.",
   
   // "register-page.registration.email": "Email Address *",
   "register-page.registration.email": "Endereço de Correio Eletrónico *",
@@ -3909,13 +3955,13 @@
   "resource-policies.form.action-type.required": "Deve selecionar a ação da política de recurso.",
   
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
-  "resource-policies.form.eperson-group-list.label": "O utilizador ou grupo ao qual serão atribuídas as permissões",
+  "resource-policies.form.eperson-group-list.label": "O Utilizador ou grupo ao qual serão atribuídas as permissões",
   
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "Seleccionar",
   
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
-  "resource-policies.form.eperson-group-list.tab.eperson": "Pesquisar um utilizador",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Pesquisar um Utilizador",
   
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
   "resource-policies.form.eperson-group-list.tab.group": "Pesquisar um grupo",
@@ -4004,7 +4050,7 @@
   "search.switch-configuration.title": "Mostrar",
   
   // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Pesquisa",
+  "search.title": "DSpace :: Pesquisa",
   
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Pesquisar",
@@ -4202,7 +4248,7 @@
   "search.filters.entityType.JournalVolume": "Volume de Revista",
   
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
-  "search.filters.entityType.OrgUnit": "Unidade Organizacional",
+  "search.filters.entityType.OrgUnit": "Organização",
   
   // "search.filters.has_content_in_original_bundle.true": "Yes",
   "search.filters.has_content_in_original_bundle.true": "Sim",
@@ -4232,10 +4278,10 @@
   
   
   // "search.form.search": "Search",
-  "search.form.search": "Buscar",
+  "search.form.search": "Pesquisar",
   
   // "search.form.search_dspace": "Search DSpace",
-  "search.form.search_dspace": "Buscar no DSpace",
+  "search.form.search_dspace": "Pesquisar",
   
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Pesquisar na Área Pessoal",
@@ -4249,7 +4295,7 @@
   "search.results.no-results": "Sua pesquisa não retornou resultados. Tem dificuldade em encontrar o que procura? Tente incluir ",
   
   // "search.results.no-results-link": "quotes around it",
-  "search.results.no-results-link": "o termo entre aspas",
+  "search.results.no-results-link": "os termos entre aspas",
   
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "A sua pesquisa não retornou resultados.",
@@ -4669,7 +4715,7 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Financiamento",
   
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
-  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Unidade Organizacional Principal",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Organização Principal",
   
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Alternar menu dropdown",
@@ -4726,7 +4772,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Número Selecionado",
   
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Unidade Organizacional Selecionada",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Organização Selecionada",
   
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Resultados da Pesquisa",
@@ -4816,7 +4862,7 @@
   "submission.sections.general.save_success_notice": "Submissão salva com sucesso.",
   
   // "submission.sections.general.search-collection": "Search for a collection",
-  "submission.sections.general.search-collection": "Buscar uma coleção",
+  "submission.sections.general.search-collection": "Pesquisar uma coleção",
   
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Há seções incompletas.",
@@ -5043,7 +5089,7 @@
   "uploader.browse": "Navegar",
   
   // "uploader.drag-message": "Drag & Drop your files here",
-  "uploader.drag-message": "Clique e arraste seus ficheiros aqui",
+  "uploader.drag-message": "Clique e arraste os seus ficheiros aqui",
   
   // "uploader.or": ", or ",
   "uploader.or": ", ou",
