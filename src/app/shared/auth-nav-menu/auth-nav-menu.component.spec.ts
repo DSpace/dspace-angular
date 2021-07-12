@@ -320,7 +320,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render login link', () => {
-        const loginDropdownMenu = deNavMenuItem.query(By.css('a[id=loginLink]'));
+        const loginDropdownMenu = deNavMenuItem.query(By.css('.loginLink'));
         expect(loginDropdownMenu.nativeElement).toBeDefined();
       });
     });
