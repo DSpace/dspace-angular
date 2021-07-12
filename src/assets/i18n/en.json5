@@ -3172,6 +3172,10 @@
 
   "submission.general.discard.submit": "Discard",
 
+  "submission.general.info.saved": "Saved",
+
+  "submission.general.info.pending-changes": "Unsaved changes",
+
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
@@ -3198,7 +3202,7 @@
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  
+
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
