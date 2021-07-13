@@ -107,6 +107,6 @@ describe('BrowseByDatePageComponent', () => {
   });
 
   it('should create a list of startsWith options with the current year first', () => {
-    expect(comp.startsWithOptions[0]).toEqual(new Date().getFullYear());
+    expect(comp.startsWithOptions[0]).toEqual(new Date().getUTCFullYear());
   });
 });
