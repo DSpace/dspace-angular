@@ -8,6 +8,7 @@
   </a>
   <ul ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate">
     <li class="dropdown-item" tabindex="0" #langSelect *ngFor="let lang of translate.getLangs()"
+            (keyup.enter)="useLang(lang)"
             (click)="useLang(lang)"
             [class.active]="lang === translate.currentLang">
                 {{ langLabel(lang) }}
