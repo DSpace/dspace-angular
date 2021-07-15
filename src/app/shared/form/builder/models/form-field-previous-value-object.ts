@@ -5,7 +5,7 @@ export class FormFieldPreviousValueObject {
   private _path;
   private _value;
 
-  constructor(path: any[] = null, value: any = null) {
+  constructor(path: any[] = null, value: any = null, securityLevel: any = null) {
     this._path = path;
     this._value = value;
   }

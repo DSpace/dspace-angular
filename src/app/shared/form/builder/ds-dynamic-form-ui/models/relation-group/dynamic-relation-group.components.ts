@@ -107,8 +107,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     modalRef.componentInstance.editMode = this.selectedChipItem ? true : false;
     modalRef.componentInstance.itemIndex = this.selectedChipItemIndex;
     modalRef.componentInstance.item = this.selectedChipItem?.item;
+    modalRef.componentInstance.changedSecurity = false;
 
     modalRef.componentInstance.edit.pipe(take(1)).subscribe((item) => {
+      this.chips.triggerUpdate = modalRef.componentInstance.changedSecurity
       this.chips.update(this.selectedChipItem.id, item);
     });
     modalRef.componentInstance.add.pipe(take(1)).subscribe((item) => {
@@ -197,6 +199,12 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
             if (!(isEmpty(items) && this.model.isEmpty())) {
               this.model.value = items;
               this.change.emit();
+            }
+          }
+          else {
+            if (this.chips.triggerUpdate) {
+              this.change.emit();
+              this.chips.triggerUpdate = false;
             }
           }
         }),

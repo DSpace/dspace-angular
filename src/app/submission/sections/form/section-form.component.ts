@@ -257,7 +257,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    */
   initForm(sectionData: WorkspaceitemSectionFormObject): void {
     try {
-      this.formModel = this.formBuilderService.modelFromConfiguration(
+       this.formModel = this.formBuilderService.modelFromConfiguration(
         this.submissionId,
         this.formConfig,
         this.collectionId,
@@ -279,6 +279,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       };
       this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
     }
+    console.log(this.formModel)
   }
 
   /**

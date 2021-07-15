@@ -160,11 +160,14 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event
    */
   onInput(event) {
-    if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
+      if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
-      if ((this.model.value as any).securityLevel) {
-        this.inputValue.securityLevel = (this.model.value as any).securityLevel;
+      if (this.model.value) {
+        if ((this.model.value as any).securityLevel != null) {
+          this.inputValue.securityLevel = (this.model.value as any).securityLevel;
+        }
       }
+
     }
   }
 
@@ -178,8 +181,9 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
         if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
           this.dispatchUpdate(this.inputValue);
         }
-        this.inputValue = null;
+         this.inputValue = null;
       }
+      debugger
       this.blur.emit(event);
     } else {
       // prevent on blur propagation if typeahed suggestions are showed
@@ -195,7 +199,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event The change event.
    */
   onChange(event: Event) {
-    event.stopPropagation();
+      event.stopPropagation();
     if (isEmpty(this.currentValue)) {
       this.dispatchUpdate(null);
     }

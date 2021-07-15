@@ -12,16 +12,17 @@
   <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,'d-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
       <!--      <div class="form-row">-->
-      <div [ngClass]="{'form-row': model.hasSelectableMetadata}">
-        <div [ngClass]="{'col-11': model.hasSelectableMetadata}">
+      <div [style.display]="model.type != 'GROUP' ? 'flex': ''"   [style.flex-wrap]="model.type != 'GROUP' ? 'wrap': ''"  >
+        <div [style.width]="model.type != 'GROUP' ? '90%': ''" >
           <ng-container #componentViewContainer></ng-container>
-        </div>
-        <div   [ngClass]="{'col-1': model.hasSelectableMetadata}" >
-          <div style="margin-left: 15px" *ngIf="model.hasSelectableMetadata">
-            <ds-edit-metadata-security
-                                       [securityConfigLevel]="securityLevelConfig"
-                                       [securityLevel]="model.metadataValue ? model.metadataValue.securityLevel  : null "
-                                       (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
+        </div >
+        <div>
+          <div [style.width]="model.type != 'GROUP' ? '10%': ''"  class="security-panel"  *ngIf=" model.type != 'GROUP' &&  model.type != 'SCROLLABLE_DROPDOWN' && model.type != 'TAG'">
+             <ds-edit-metadata-security *ngIf="model.parent" [ngClass]="getClass('grid', 'control')"
+              [securityConfigLevel]="3"
+              [securityLevel]=" model.securityLevel != undefined && model.securityLevel!=null ? model.securityLevel  : (model.metadataValue ?
+              model.metadataValue.securityLevel  : model.value ? model.value.securityLevel : null)"
+              (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
             </ds-edit-metadata-security>
           </div>
         </div>

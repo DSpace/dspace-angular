@@ -59,7 +59,7 @@ export class SectionFormOperationsService {
                                      event: DynamicFormControlEvent,
                                      previousValue: FormFieldPreviousValueObject,
                                      hasStoredValue: boolean): void {
-     switch (event.type) {
+    switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
         break;
@@ -68,6 +68,9 @@ export class SectionFormOperationsService {
         break;
       case 'move':
         this.dispatchOperationsFromMoveEvent(pathCombiner, event, previousValue);
+        break;
+      case 'changeSecurityLevel':
+        this.changeSecurityLevel(pathCombiner, event, previousValue);
         break;
       default:
         break;
@@ -255,7 +258,7 @@ export class SectionFormOperationsService {
 
       }
     } else if (isNgbDateStruct(value)) {
-      if ((event.model as any).securityLevel !=null && (event.model as any).securityLevel !=undefined) {
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
         const securityLevel = (event.model as any).metadataValue.securityLevel;
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
       } else {
@@ -530,7 +533,6 @@ export class SectionFormOperationsService {
                                 event,
                                 model: DynamicRowArrayModel,
                                 previousValue: FormFieldPreviousValueObject) {
-
     const arrayValue = this.formBuilder.getValueFromModel([model]);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     if (isNotEmpty(arrayValue)) {
@@ -542,6 +544,24 @@ export class SectionFormOperationsService {
     } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
       this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
     }
+  }
 
+  protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
+                                event: DynamicFormControlEvent,
+                                previousValue: FormFieldPreviousValueObject): void {
+    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+      // Model is a DynamicRowArrayModel
+      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
+      return;
+    }
+    const path = this.getFieldPathFromEvent(event);
+    let value = this.getFieldValueFromChangeEvent(event);
+    if (event.model['securityLevel'] != null) {
+      value.securityLevel = event.model['securityLevel']
+      this.operationsBuilder.replace(
+        pathCombiner.getPath(path),
+        value);
+      previousValue.delete();
+    }
   }
 }

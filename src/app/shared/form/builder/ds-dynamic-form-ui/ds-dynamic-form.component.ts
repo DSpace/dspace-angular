@@ -38,6 +38,7 @@ export class DsDynamicFormComponent extends DynamicFormComponent implements OnIn
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('changeSecurity') changeSecurity: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
   /* tslint:enable:no-output-rename */
 
@@ -83,4 +84,7 @@ export class DsDynamicFormComponent extends DynamicFormComponent implements OnIn
     }
   }
 
+  changeSecurityLevel($event: DynamicFormControlEvent) {
+    this.changeSecurity.next()
+  }
 }

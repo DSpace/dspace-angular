@@ -229,6 +229,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('changeSecurity') changeSecurity: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
   @ViewChild('componentViewContainer', {
     read: ViewContainerRef,
@@ -345,7 +346,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
       }
     }
-    console.log(this)
+    console.log(this.model)
   }
 
   get isCheckbox(): boolean {
@@ -385,9 +386,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
       const instance = this.dynamicFormComponentService.getFormControlRef(this.model.id);
       if (instance) {
-        (instance as any).formModel = this.formModel;
-        (instance as any).formGroup = this.formGroup;
-        (instance.instance as any).hasMetadataModel = true;
+        // (instance as any).formModel = this.formModel;
+        // (instance as any).formGroup = this.formGroup;
+        // (instance.instance as any).hasMetadataModel = true;
       }
     }
   }
@@ -516,7 +517,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   addSecurityLevelToMetadata($event) {
-    if (this.model.metadataValue == null) {
+     if (!this.model.value) {
+      this.model['securityLevel'] = $event
+    } else {
       this.model['securityLevel'] = $event
       this.change.emit(
         {
@@ -524,20 +527,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           context: this.context,
           control: this.control,
           model: this.model,
-          type: 'change',
+          type: 'changeSecurityLevel',
         } as DynamicFormControlEvent
       );
-    } else {
-      this.model.metadataValue.securityLevel = $event;
-      this.change.emit(
-        {
+      if (this.model.type == "ONEBOX") {
+        this.customEvent.next({
           $event: new Event('change'),
           context: this.context,
           control: this.control,
           model: this.model,
-          type: 'change',
-        } as DynamicFormControlEvent
-      );
+          type: 'changeSecurityLevel',
+        } as DynamicFormControlEvent)
+      }
     }
   }
 

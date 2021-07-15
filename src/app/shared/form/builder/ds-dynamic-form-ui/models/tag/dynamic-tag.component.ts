@@ -111,11 +111,12 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
 
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
-        const items = this.chips.getChipsItems();
-        // Does not emit change if model value is equal to the current value
-        if (!isEqual(items, this.model.value)) {
-          this.dispatchUpdate(items);
-        }
+         const items = this.chips.getChipsItems();
+          // Does not emit change if model value is equal to the current value
+          if (!isEqual(items, this.model.value)) {
+            this.dispatchUpdate(items);
+          }
+
       });
   }
 

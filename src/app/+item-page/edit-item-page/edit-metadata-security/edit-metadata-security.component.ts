@@ -41,10 +41,10 @@ export class EditMetadataSecurityComponent implements OnInit, OnChanges {
 
   private filterSecurityLevelsMap() {
     this.securityLevelsMap = environment.security.levels;
-    if (this.securityConfigLevel) {
+     if (this.securityConfigLevel) {
       this.securityLevelsMap = this.securityLevelsMap.filter((el: any) => {
         return el.value < this.securityConfigLevel && this.securityConfigLevel > 0 && this.securityConfigLevel > 1
       })
     }
-  }
+   }
 }

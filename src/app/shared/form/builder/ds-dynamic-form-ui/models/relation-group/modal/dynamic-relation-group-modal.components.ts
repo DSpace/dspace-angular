@@ -39,6 +39,7 @@ import { VocabularyEntry } from '../../../../../../../core/submission/vocabulari
 import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
 import { VocabularyOptions } from '../../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import {$e} from "codelyzer/angular/styles/chars";
 
 
 /**
@@ -58,6 +59,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   @Input() item: any;
   @Input() itemIndex: number;
+  @Input() changedSecurity: boolean;
 
   @Input() value: any;
 
@@ -90,7 +92,6 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   ngOnInit() {
-
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
 
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -104,7 +105,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       null,
       true);
     this.formBuilderService.addFormModel(this.formId, this.formModel);
-
+    console.log(this.formModel)
     if (this.item) {
       this.formModel.forEach((row) => {
         const modelRow = row as DynamicFormGroupModel;
@@ -285,5 +286,9 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
 
-
+  changeSecurity($event) {
+    if ($event.type == 'changeSecurityLevel') {
+      this.changedSecurity = true;
+    }
+  }
 }

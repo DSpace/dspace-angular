@@ -127,7 +127,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   getValueFromModel(groupModel: DynamicFormControlModel[]): void {
-    let result = Object.create({});
+     let result = Object.create({});
 
     const customizer = (objValue, srcValue) => {
       if (Array.isArray(objValue)) {
@@ -136,14 +136,13 @@ export class FormBuilderService extends DynamicFormService {
     };
 
     const normalizeValue = (controlModel, controlValue, controlModelIndex) => {
-      const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
-      const securityLevel = (controlModel as any).metadataValue ?  (controlModel as any).metadataValue.securityLevel !=null ? (controlModel as any).metadataValue.securityLevel : null : null;
+       const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
 
       if (controlModel?.metadataValue?.authority?.includes(VIRTUAL_METADATA_PREFIX)) {
         return controlModel.metadataValue;
       }
       if (isString(controlValue)) {
-        return new FormFieldMetadataValueObject(controlValue, controlLanguage, securityLevel, null, controlModelIndex);
+        return new FormFieldMetadataValueObject(controlValue, controlLanguage, (controlValue as any).securityLevel, null, controlModelIndex);
       } else if (isNgbDateStruct(controlValue)) {
         return new FormFieldMetadataValueObject(dateToString(controlValue));
       } else if (isObject(controlValue)) {
@@ -152,16 +151,27 @@ export class FormBuilderService extends DynamicFormService {
         if (isNgbDateStruct(controlValue)) {
           return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue as any, place);
         } else {
-          return new FormFieldMetadataValueObject((controlValue as any).value, controlLanguage, authority, (controlValue as any).display, place, (controlValue as any).confidence);
+          return new FormFieldMetadataValueObject((controlValue as any).value, controlLanguage, (controlValue as any).securityLevel, authority, (controlValue as any).display, place, (controlValue as any).confidence);
         }
       }
     };
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): void => {
       let iterateResult = Object.create({});
-
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
+        if (controlModel['securityLevel'] != null) {
+          if ((controlModel as any).value)
+            if ( typeof ((controlModel as any).value) ==  'string')  {
+              if ( (controlModel as any).metadataValue)
+              (controlModel as any).metadataValue.securityLevel = controlModel['securityLevel']
+            }
+          else  {
+              (controlModel as any).value.securityLevel = controlModel['securityLevel']
+
+            }
+
+        }
         if (this.isRowGroup(controlModel) && !this.isCustomOrListGroup(controlModel)) {
           iterateResult = mergeWith(iterateResult, iterateControlModels((controlModel as DynamicFormGroupModel).group), customizer);
           continue;
@@ -213,8 +223,7 @@ export class FormBuilderService extends DynamicFormService {
               });
           });
         } else if (isNotUndefined((controlModel as any).value) && isNotEmpty((controlModel as any).value)) {
-
-          // Normalize control value as an array of FormFieldMetadataValueObject
+           // Normalize control value as an array of FormFieldMetadataValueObject
           const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
           values.forEach((controlValue) => {
             controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex));
