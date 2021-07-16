@@ -8,18 +8,18 @@
   <div class="p-3">
     <ds-alert *ngIf="description | async" [content]="description | async" [type]="'alert-info'"></ds-alert>
     <div class="treeview-header row">
-      <div class="col-12">
+      <div class="col-12 d-flex">
         <div class="input-group">
           <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
-          <div class="input-group-append" id="button-addon4">
-            <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
-              {{'vocabulary-treeview.search.form.search' | translate}}
-            </button>
-            <button class="btn btn-outline-secondary" type="button" (click)="reset()">
-              {{'vocabulary-treeview.search.form.reset' | translate}}
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
+              <span><i class="fas fa-search"></i> {{'vocabulary-treeview.search.form.search' | translate}}</span>
             </button>
           </div>
         </div>
+        <button class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="reset()">
+          <span><i class="fas fa-eraser"></i> {{'vocabulary-treeview.search.form.reset' | translate}}</span>
+        </button>
       </div>
     </div>
     <div class="treeview-container">
