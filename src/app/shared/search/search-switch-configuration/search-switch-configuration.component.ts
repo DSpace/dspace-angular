@@ -31,6 +31,11 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
   @Input() configurationList: SearchConfigurationOption[] = [];
 
   /**
+   * The current scope
+   */
+  public currentScope: string;
+
+  /**
    * The selected option
    */
   public selectedOption: string;
@@ -49,6 +54,8 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    * Init current configuration
    */
   ngOnInit() {
+    this.searchConfigService.getCurrentScope('default')
+      .subscribe((currentScope) => this.currentScope = currentScope);
     this.searchConfigService.getCurrentConfiguration('default')
       .subscribe((currentConfiguration) => this.selectedOption = currentConfiguration);
   }
@@ -58,7 +65,10 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   onSelect() {
     const navigationExtras: NavigationExtras = {
-      queryParams: {configuration: this.selectedOption},
+      queryParams: {
+        configuration: this.selectedOption,
+        scope: this.currentScope
+      },
     };
 
     this.router.navigate(this.getSearchLinkParts(), navigationExtras);

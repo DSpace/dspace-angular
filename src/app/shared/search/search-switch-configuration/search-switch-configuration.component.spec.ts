@@ -97,7 +97,10 @@ describe('SearchSwitchConfigurationComponent', () => {
     spyOn((comp as any), 'getSearchLinkParts').and.returnValue([MYDSPACE_ROUTE]);
     comp.selectedOption = MyDSpaceConfigurationValueType.Workflow;
     const navigationExtras: NavigationExtras = {
-      queryParams: { configuration: MyDSpaceConfigurationValueType.Workflow },
+      queryParams: {
+        configuration: MyDSpaceConfigurationValueType.Workflow,
+        scope: 'test-id'
+      },
     };
 
     fixture.detectChanges();
