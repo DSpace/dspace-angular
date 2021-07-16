@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import { Injectable } from '@angular/core';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -17,21 +17,21 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import {isObject, isString, mergeWith} from 'lodash';
+import { isObject, isString, mergeWith } from 'lodash';
 
-import {hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull} from '../../empty.util';
-import {DynamicQualdropModel} from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import {SubmissionFormsModel} from '../../../core/config/models/config-submission-forms.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_TAG} from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import {RowParser} from './parsers/row-parser';
-import {DynamicRelationGroupModel} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import {DynamicRowArrayModel} from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import {DsDynamicInputModel} from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import {FormFieldMetadataValueObject} from './models/form-field-metadata-value.model';
-import {dateToString, isNgbDateStruct} from '../../date.util';
-import {DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP} from './ds-dynamic-form-ui/ds-dynamic-form-constants';
-import {CONCAT_GROUP_SUFFIX, DynamicConcatModel} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import {VIRTUAL_METADATA_PREFIX} from '../../../core/shared/metadata.models';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isObjectEmpty } from '../../empty.util';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { RowParser } from './parsers/row-parser';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { dateToString, isNgbDateStruct } from '../../date.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -514,5 +514,30 @@ export class FormBuilderService extends DynamicFormService {
 
     return Object.keys(result);
   }
+
+  /**
+   * Add new formbuilder in forma array by copying current formBuilder index
+   * @param index index of formBuilder selected to be copied
+   * @param formArray formArray of the inline group forms
+   * @param formArrayModel formArrayModel model of forms that will be created
+   */
+  copyFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel) {
+
+      const groupModel = formArrayModel.insertGroup(index);
+      const previousGroup = formArray.controls[index] as FormGroup;
+      const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
+      const previousKey = Object.keys(previousGroup.getRawValue())[0];
+      const newKey = Object.keys(newGroup.getRawValue())[0];
+
+      if (!isObjectEmpty(previousGroup.getRawValue()[previousKey])) {
+        newGroup.get(newKey).setValue(previousGroup.getRawValue()[previousKey]);
+      }
+
+      formArray.insert(index, newGroup);
+
+      return newGroup;
+  }
+
+
 
 }

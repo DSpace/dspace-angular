@@ -14,7 +14,8 @@
              cdkDrag
              cdkDragHandle
              [cdkDragDisabled]="dragDisabled"
-             [cdkDragPreviewClass]="'ds-submission-reorder-dragging'">
+             [cdkDragPreviewClass]="'ds-submission-reorder-dragging'"
+             [class.grey-background]="model.isInlineGroupArray">
           <!-- Item content -->
           <i class="drag-icon fas fa-grip-vertical fa-fw" [class.invisible]="dragDisabled"></i>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>

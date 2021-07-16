@@ -13,23 +13,30 @@
        (ngbEvent)="onCustomEvent($event)">
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <!--Array with repeatable items-->
-        <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"
+        <div style="margin-bottom: 0.5rem;" *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
-             [class]="arrayButtonsStyle">
+             [class]="arrayButtonsStyle" [ngClass]="{'justify-content-sm-end' : isInlineGroupForm }">
             <button type="button" class="btn btn-secondary"
                     title="{{'form.remove' | translate}}"
                     (click)="removeItem($event, context, index)"
                     [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <span attr.aria-label="{{'form.remove' | translate}}"><i class="fas fa-trash" aria-hidden="true"></i></span>
             </button>
+            <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
         </div>
-        <div *ngIf="(!context.notRepeatable) && index === (group.context.groups.length - 1)" class="clearfix pl-4 w-100">
+        <div *ngIf="(!context.notRepeatable) && (index === (group.context.groups.length - 1) || isInlineGroupForm )" class="clearfix pl-4 w-100">
           <div class="btn-group" role="group" aria-label="remove button">
-            <button type="button" class="ds-form-add-more btn btn-link"
+            <button *ngIf="index === (group.context.groups.length - 1)" type="button" class="ds-form-add-more btn btn-link"
                     title="{{'form.add' | translate}}"
                     [disabled]="isItemReadOnly(context, index)"
                     (click)="insertItem($event, group.context, group.context.groups.length)">
               <span attr.aria-label="{{'form.add' | translate}}"><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
+            </button>
+            <button *ngIf="isInlineGroupForm" type="button" class="ds-form-add-more btn btn-link"
+                    title="{{'form.copy' | translate}}"
+                    [disabled]="isItemReadOnly(context, index)"
+                    (click)="copyItem($event, group.context, index)">
+              <span attr.aria-label="{{'form.copy' | translate}}"><i class="fas fa-copy"></i> {{'form.copy' | translate}}</span>
             </button>
           </div>
         </div>
@@ -45,6 +52,7 @@
                     [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <span attr.aria-label="{{'form.discard' | translate}}">{{'form.discard' | translate}}</span>
             </button>
+            <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
           </div>
         </div>
       </ng-template>
