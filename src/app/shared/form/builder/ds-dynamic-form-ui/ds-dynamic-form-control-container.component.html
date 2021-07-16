@@ -9,24 +9,29 @@
          [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model;"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
-  <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,'d-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
+  <div
+    [ngClass]="{'form-row': model.hasLanguages || isRelationship,'d-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
       <!--      <div class="form-row">-->
-      <div [style.display]="model.type != 'GROUP' ? 'flex': ''"   [style.flex-wrap]="model.type != 'GROUP' ? 'wrap': ''"  >
-        <div [style.width]="model.type != 'GROUP' ? '90%': ''" >
-          <ng-container #componentViewContainer></ng-container>
-        </div >
+
+        <!--      <div [style.display]="model.type != 'GROUP' ? 'flex': ''"   [style.flex-wrap]="model.type != 'GROUP' ? 'wrap': ''"  >-->
+        <!--        <div [style.width]="model.type != 'GROUP' ? '80%': ''" >-->
+
+          <ng-container    #componentViewContainer></ng-container>
+
         <div>
-          <div [style.width]="model.type != 'GROUP' ? '10%': ''"  class="security-panel"  *ngIf=" model.type != 'GROUP' &&  model.type != 'SCROLLABLE_DROPDOWN' && model.type != 'TAG'">
-             <ds-edit-metadata-security *ngIf="model.parent" [ngClass]="getClass('grid', 'control')"
-              [securityConfigLevel]="3"
-              [securityLevel]=" model.securityLevel != undefined && model.securityLevel!=null ? model.securityLevel  : (model.metadataValue ?
+          <div
+            *ngIf=" model.type != 'GROUP' &&  model.type != 'SCROLLABLE_DROPDOWN' && model.type != 'TAG' && model.type != 'SELECT' ">
+            <!--             <ds-edit-metadata-security *ngIf="model.parent" [ngClass]="getClass('grid', 'control')"-->
+            <ds-edit-metadata-security *ngIf="model.parent"
+                                       [securityConfigLevel]="3"
+                                       [securityLevel]=" model.securityLevel != undefined && model.securityLevel!=null ? model.securityLevel  : (model.metadataValue ?
               model.metadataValue.securityLevel  : model.value ? model.value.securityLevel : null)"
-              (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
+                                       (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
             </ds-edit-metadata-security>
           </div>
         </div>
-      </div>
+
       <small
         *ngIf="hasHint && ((model.repeatable === false && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
         class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
