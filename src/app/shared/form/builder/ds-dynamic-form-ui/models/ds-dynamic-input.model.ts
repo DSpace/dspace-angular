@@ -1,4 +1,5 @@
 import {
+  AUTOCOMPLETE_OFF,
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   DynamicInputModel,
@@ -48,6 +49,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
+    this.autoComplete = AUTOCOMPLETE_OFF;
     this.repeatable = config.repeatable;
     this.metadataFields = config.metadataFields;
     this.hint = config.hint;
