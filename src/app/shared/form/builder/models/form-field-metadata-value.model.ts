@@ -34,7 +34,8 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;
-   this.securityLevel = securityLevel
+    this.display = display || value;
+    this.securityLevel = securityLevel
     this.confidence = confidence;
     if (authority != null && (isEmpty(confidence) || confidence === -1)) {
       this.confidence = ConfidenceType.CF_ACCEPTED;
@@ -79,6 +80,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   hasPlaceholder() {
     return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
   }
+
   /**
    * Returns true if this object value contains a placeholder
    */

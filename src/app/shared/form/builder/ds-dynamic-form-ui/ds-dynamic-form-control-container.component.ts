@@ -517,7 +517,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   addSecurityLevelToMetadata($event) {
-     if (!this.model.value) {
+    if (!this.model.value) {
       this.model['securityLevel'] = $event
     } else {
       this.model['securityLevel'] = $event
@@ -557,5 +557,15 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         }
       }
     })
+  }
+
+  positionToggle() {
+    if (this.model.parent && this.model.parent.group && this.model.parent.group.length == 2) {
+      return '80%'
+    }
+    if (this.model.parent && this.model.parent.group && this.model.parent.group.length == 3) {
+      return '70%'
+    }
+    return  null
   }
 }
