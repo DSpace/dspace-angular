@@ -291,8 +291,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the section errors retrieved from the server
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
-
-    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
       if (this.hasMetadataEnrichment(sectionData)) {
         this.isUpdating = true;
@@ -366,6 +365,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
+debugger
     this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
@@ -472,7 +472,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    * @param $event
    */
   onCustomEvent(event: DynamicFormControlEvent) {
-    this.formOperationsService.dispatchOperationsFromEvent(
+     this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,

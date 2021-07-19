@@ -345,7 +345,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null, 'testDisplay');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay');
         oneboxCompFixture.detectChanges();
       });
 
@@ -356,7 +356,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, 'testDisplay'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
       }));
 
@@ -382,7 +382,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, 'test001');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null, 'test001');
         oneboxCompFixture.detectChanges();
       });
 
@@ -393,7 +393,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, 'test001', 'test'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, null,'test001', 'test'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
       }));
 
@@ -454,7 +454,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null, 'testDisplay');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null,  null, 'testDisplay');
         oneboxCompFixture.detectChanges();
       });
 
@@ -465,7 +465,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, 'testDisplay'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
       }));
 

@@ -210,6 +210,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() model: any;
   entityType: string;
   securityLevelConfig: number;
+  securityLevel:number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -346,6 +347,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
       }
     }
+    if (this.model && this.model.value && this.model.value.securityLevel != undefined) {
+      this.securityLevel = this.model.value.securityLevel;
+    }
     console.log(this.model)
   }
 
@@ -354,7 +358,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes && !this.isRelationship && hasValue(this.group.get(this.model.id))) {
+       if (changes && !this.isRelationship && hasValue(this.group.get(this.model.id))) {
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
@@ -427,7 +431,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
 
@@ -502,7 +506,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    *  Initialize this.item$ based on this.model.submissionId
    */
   private setItem() {
-    const submissionObject$ = this.submissionObjectService
+     const submissionObject$ = this.submissionObjectService
       .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload()
@@ -519,8 +523,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   addSecurityLevelToMetadata($event) {
     if (!this.model.value) {
       this.model['securityLevel'] = $event
+       this.securityLevel = $event;
     } else {
       this.model['securityLevel'] = $event
+       this.securityLevel = $event;
       this.change.emit(
         {
           $event: new Event('change'),
@@ -536,7 +542,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           context: this.context,
           control: this.control,
           model: this.model,
-          type: 'changeSecurityLevel',
+          type: 'changeSecurityLevelGroup',
         } as DynamicFormControlEvent)
       }
     }
@@ -567,5 +573,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       return '70%'
     }
     return  null
+  }
+  showToggleFirstLimit(){
+    // return this.model.parent && !(this.model.parent instanceof DynamicConcatModel)
+    return this.model.parent;
   }
 }

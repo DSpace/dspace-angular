@@ -1,18 +1,18 @@
-import { Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
+import {Store} from '@ngrx/store';
+import {CoreState} from '../../core.reducers';
 import {
   NewPatchAddOperationAction,
   NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
   NewPatchReplaceOperationAction
 } from '../json-patch-operations.actions';
-import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
-import { Injectable } from '@angular/core';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { dateToISOFormat, dateToString, isNgbDateStruct } from '../../../shared/date.util';
-import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import {JsonPatchOperationPathObject} from './json-patch-operation-path-combiner';
+import {Injectable} from '@angular/core';
+import {hasNoValue, hasValue, isEmpty, isNotEmpty} from '../../../shared/empty.util';
+import {dateToISOFormat, dateToString, isNgbDateStruct} from '../../../shared/date.util';
+import {VocabularyEntry} from '../../submission/vocabularies/models/vocabulary-entry.model';
+import {FormFieldMetadataValueObject} from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import {FormFieldLanguageValueObject} from '../../../shared/form/builder/models/form-field-language-value.model';
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions
@@ -52,8 +52,9 @@ export class JsonPatchOperationsBuilder {
    *    the value to update the referenced path
    * @param plain
    *    a boolean representing if the value to be added is a plain text value
+   * @param securityLevel
    */
-  replace(path: JsonPatchOperationPathObject, value, plain = false) {
+  replace(path: JsonPatchOperationPathObject, value, plain = false, securityLevel = null) {
     if (hasNoValue(value) || (typeof value === 'object' && hasNoValue(value.value))) {
       this.remove(path);
     } else {
@@ -62,7 +63,7 @@ export class JsonPatchOperationsBuilder {
           path.rootElement,
           path.subRootElement,
           path.path,
-          this.prepareValue(value, plain, false)));
+          this.prepareValue(value, plain, false, securityLevel)));
     }
   }
 
@@ -99,8 +100,8 @@ export class JsonPatchOperationsBuilder {
         path.path));
   }
 
-  protected prepareValue(value: any, plain: boolean, first: boolean) {
-    let operationValue: any = null;
+  protected prepareValue(value: any, plain: boolean, first: boolean, securityLevel = null) {
+      let operationValue: any = null;
     if (hasValue(value)) {
       if (plain) {
         operationValue = value;
@@ -109,42 +110,75 @@ export class JsonPatchOperationsBuilder {
           operationValue = [];
           value.forEach((entry) => {
             if ((typeof entry === 'object')) {
-              operationValue.push(this.prepareObjectValue(entry));
+              if (securityLevel != null) {
+                operationValue.push(this.prepareObjectValue(entry, securityLevel));
+              }
+              else {
+                operationValue.push(this.prepareObjectValue(entry));
+              }
+
             } else {
-              operationValue.push(new FormFieldMetadataValueObject(entry));
+              operationValue.push(new FormFieldMetadataValueObject(entry, null, securityLevel));
             }
           });
         } else if (typeof value === 'object') {
-          operationValue = this.prepareObjectValue(value);
+          if (securityLevel != null) {
+            operationValue = this.prepareObjectValue(value, securityLevel);
+          }
+          else {
+            operationValue = this.prepareObjectValue(value);
+          }
+
         } else {
-          operationValue = new FormFieldMetadataValueObject(value);
+          // add the possibility to add security level when value is string
+          // in this case security level is set on metadata value
+          if (securityLevel != null) {
+            operationValue = new FormFieldMetadataValueObject(value, null, securityLevel);
+          }
+          else  {
+            operationValue = new FormFieldMetadataValueObject(value, null);
+          }
+
         }
       }
     }
     return (first && !Array.isArray(operationValue)) ? [operationValue] : operationValue;
   }
 
-  protected prepareObjectValue(value: any) {
-    let operationValue = Object.create({});
+  protected prepareObjectValue(value: any, securityLevel = null) {
+     let operationValue = Object.create({});
     if (isEmpty(value) || value instanceof FormFieldMetadataValueObject) {
-      operationValue = value;
+      if (securityLevel !=null)
+      operationValue = {...value, securityLevel: securityLevel}
+      else  {
+        operationValue = value
+      }
     } else if (value instanceof Date) {
-      operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value));
+      if (securityLevel !=null)
+      operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value), null, securityLevel);
+      else {
+        operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value));
+      }
     } else if (value instanceof VocabularyEntry) {
       operationValue = this.prepareAuthorityValue(value);
     } else if (value instanceof FormFieldLanguageValueObject) {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language);
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, securityLevel);
     } else if (value.hasOwnProperty('authority')) {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.authority);
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.securityLevel, value.authority);
     } else if (isNgbDateStruct(value)) {
-      operationValue = new FormFieldMetadataValueObject(dateToString(value));
+      operationValue = new FormFieldMetadataValueObject(dateToString(value), null, securityLevel);
     } else if (value.hasOwnProperty('value')) {
-      operationValue = new FormFieldMetadataValueObject(value.value);
+      operationValue = new FormFieldMetadataValueObject(value.value, null, securityLevel);
     } else {
       Object.keys(value)
         .forEach((key) => {
           if (typeof value[key] === 'object') {
-            operationValue[key] = this.prepareObjectValue(value[key]);
+            if (securityLevel != null)
+            operationValue[key] = this.prepareObjectValue(value[key], securityLevel);
+            else
+            { operationValue[key] = this.prepareObjectValue(value[key]);
+
+            }
           } else {
             operationValue[key] = value[key];
           }
@@ -156,7 +190,7 @@ export class JsonPatchOperationsBuilder {
   protected prepareAuthorityValue(value: any): FormFieldMetadataValueObject {
     let operationValue: FormFieldMetadataValueObject;
     if (isNotEmpty(value.authority)) {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.authority);
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.securityLevel, value.authority);
     } else {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
     }

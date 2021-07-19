@@ -124,7 +124,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-    if (this.model.value) {
+     if (this.model.value) {
       this.setCurrentValue(this.model.value, true);
     }
     this.initVocabulary();
@@ -160,14 +160,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event
    */
   onInput(event) {
-      if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
+        if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
       if (this.model.value) {
         if ((this.model.value as any).securityLevel != null) {
           this.inputValue.securityLevel = (this.model.value as any).securityLevel;
         }
       }
-
     }
   }
 
@@ -183,7 +182,6 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
         }
          this.inputValue = null;
       }
-      debugger
       this.blur.emit(event);
     } else {
       // prevent on blur propagation if typeahed suggestions are showed
@@ -295,5 +293,4 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-
 }

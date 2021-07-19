@@ -252,7 +252,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Emit a new select Event
    */
   onSelect(entry: VocabularyEntryDetail) {
-    const value = new FormFieldMetadataValueObject(entry.value, null, entry.id);
+     const value = new FormFieldMetadataValueObject(entry.value, null, entry.securityLevel, entry.id);
     this.select.emit(value);
     this.activeModal.close(value);
   }

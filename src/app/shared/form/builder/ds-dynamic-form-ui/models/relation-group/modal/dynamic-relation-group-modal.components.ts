@@ -8,10 +8,10 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import {Observable, of as observableOf, Subscription} from 'rxjs';
+import {distinctUntilChanged, filter, map, take} from 'rxjs/operators';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -20,27 +20,25 @@ import {
   DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { shrinkInOut } from '../../../../../../animations/shrink';
-import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
-import { Vocabulary } from '../../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { FormComponent } from '../../../../../form.component';
-import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
-import { FormBuilderService } from '../../../../form-builder.service';
-import { FormService } from '../../../../../form.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SubmissionService } from '../../../../../../../submission/submission.service';
-import { SubmissionFormsModel } from '../../../../../../../core/config/models/config-submission-forms.model';
-import { hasValue, isNotEmpty, isNotNull } from '../../../../../../empty.util';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../ds-dynamic-form-constants';
-import { SubmissionScopeType } from '../../../../../../../core/submission/submission-scope-type';
-import { VocabularyExternalSourceComponent } from '../../../../../../vocabulary-external-source/vocabulary-external-source.component';
-import { FormFieldMetadataValueObject } from '../../../../models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
-import { VocabularyOptions } from '../../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import {$e} from "codelyzer/angular/styles/chars";
-
+import {shrinkInOut} from '../../../../../../animations/shrink';
+import {DynamicRelationGroupModel} from '../dynamic-relation-group.model';
+import {Vocabulary} from '../../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import {FormComponent} from '../../../../../form.component';
+import {VocabularyService} from '../../../../../../../core/submission/vocabularies/vocabulary.service';
+import {FormBuilderService} from '../../../../form-builder.service';
+import {FormService} from '../../../../../form.service';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SubmissionService} from '../../../../../../../submission/submission.service';
+import {SubmissionFormsModel} from '../../../../../../../core/config/models/config-submission-forms.model';
+import {hasValue, isNotEmpty, isNotNull} from '../../../../../../empty.util';
+import {PLACEHOLDER_PARENT_METADATA} from '../../../ds-dynamic-form-constants';
+import {SubmissionScopeType} from '../../../../../../../core/submission/submission-scope-type';
+import {VocabularyExternalSourceComponent} from '../../../../../../vocabulary-external-source/vocabulary-external-source.component';
+import {FormFieldMetadataValueObject} from '../../../../models/form-field-metadata-value.model';
+import {VocabularyEntry} from '../../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import {DsDynamicInputModel} from '../../ds-dynamic-input.model';
+import {getFirstSucceededRemoteDataPayload} from '../../../../../../../core/shared/operators';
+import {VocabularyOptions} from '../../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 
 /**
  * Component representing a group input field
@@ -70,7 +68,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   @Output() edit: EventEmitter<any> = new EventEmitter<any>();
   @Output() add: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('formRef', { static: false }) private formRef: FormComponent;
+  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
   public formModel: DynamicFormControlModel[];
   public vocabulary$: Observable<Vocabulary>;
@@ -92,8 +90,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   ngOnInit() {
-    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
-
+    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(
       this.model.submissionId,
@@ -114,15 +111,12 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
             || this.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
             ? null
             : this.item[model.name];
-
           const nextValue = (this.formBuilderService.isInputModel(model) && isNotNull(value) && (typeof value !== 'string')) ?
             value.value : value;
           model.value = nextValue;
-
         });
       });
     }
-
     const mandatoryFieldModel = this.getMandatoryFieldModel(); // @Input
     if (mandatoryFieldModel.vocabularyOptions && isNotEmpty(mandatoryFieldModel.vocabularyOptions.name)) {
       this.retrieveVocabulary(mandatoryFieldModel.vocabularyOptions);
@@ -214,7 +208,15 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     const model = this.getMandatoryFieldModel();
     const currentValue: string = (model.value instanceof FormFieldMetadataValueObject
       || model.value instanceof VocabularyEntry) ? model.value.value : model.value;
-    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
+    let security = null;
+    if (this.model.value instanceof VocabularyEntry) {
+      security = this.model.value.securityLevel
+    } else {
+      if (this.model.metadataValue) {
+        security = this.model.metadataValue.securityLevel
+      }
+    }
+    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, security, authority);
     model.value = valueWithAuthority;
     this.modifyChip();
     setTimeout(() => {
@@ -287,7 +289,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
 
   changeSecurity($event) {
-    if ($event.type == 'changeSecurityLevel') {
+    if ($event.type == 'changeSecurityLevelGroup') {
       this.changedSecurity = true;
     }
   }

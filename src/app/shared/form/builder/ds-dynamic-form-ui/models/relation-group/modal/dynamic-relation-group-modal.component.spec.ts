@@ -442,7 +442,7 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
       groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
       groupComp.model.submissionScope = SubmissionScopeType.WorkflowItem;
       modelValue = [{
-        'dc.contributor.author': new FormFieldMetadataValueObject('test author', null, 'authorityTest'),
+        'dc.contributor.author': new FormFieldMetadataValueObject('test author', null, null, 'authorityTest'),
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
       }];
       groupComp.model.value = modelValue;

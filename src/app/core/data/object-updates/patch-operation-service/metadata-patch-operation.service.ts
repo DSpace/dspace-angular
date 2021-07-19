@@ -68,7 +68,7 @@ export class MetadataPatchOperationService implements PatchOperationService {
    * @param fieldUpdates
    */
   fieldUpdatesToMetadataPatchOperations(fieldUpdates: FieldUpdates): MetadataPatchOperation[] {
-    const metadataPatch = [];
+     const metadataPatch = [];
     Object.keys(fieldUpdates).forEach((uuid) => {
       const update = fieldUpdates[uuid];
       const metadatum = update.field as MetadatumViewModel;

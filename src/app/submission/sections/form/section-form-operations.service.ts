@@ -249,8 +249,8 @@ export class SectionFormOperationsService {
         }
       } else {
         // Language without Authority (input, textArea)
-        if ((event.model as any).metadataValue.securityLevel != null && (event.model as any).metadataValue.securityLevel != undefined) {
-          const securityLevel = (event.model as any).metadataValue.securityLevel;
+        if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
+          const securityLevel = (event.model as any).securityLevel;
           fieldValue = new FormFieldMetadataValueObject(value, language, securityLevel);
         } else {
           fieldValue = new FormFieldMetadataValueObject(value, language);
@@ -268,8 +268,8 @@ export class SectionFormOperationsService {
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
-      if ((event.model as any).metadataValue && (event.model as any).metadataValue.securityLevel != null && (event.model as any).metadataValue.securityLevel != undefined) {
-        const securityLevel = (event.model as any).metadataValue.securityLevel;
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
+        const securityLevel = (event.model as any).securityLevel
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
       } else {
         fieldValue = new FormFieldMetadataValueObject(value);
@@ -380,7 +380,7 @@ export class SectionFormOperationsService {
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
                                               hasStoredValue: boolean): void {
-    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
@@ -549,18 +549,23 @@ export class SectionFormOperationsService {
   protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
                                 event: DynamicFormControlEvent,
                                 previousValue: FormFieldPreviousValueObject): void {
-    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
     }
     const path = this.getFieldPathFromEvent(event);
     let value = this.getFieldValueFromChangeEvent(event);
-    if (event.model['securityLevel'] != null) {
-      value.securityLevel = event.model['securityLevel']
-      this.operationsBuilder.replace(
-        pathCombiner.getPath(path),
-        value);
+    if (event.model['securityLevel'] != null && event.model['securityLevel'] != undefined) {
+      if (value && typeof value == 'string') {
+        this.operationsBuilder.replace(
+          pathCombiner.getPath(path),
+          value, false, event.model['securityLevel']);
+      } else {
+         this.operationsBuilder.replace(
+          pathCombiner.getPath(path),
+          value, false, event.model['securityLevel']);
+      }
       previousValue.delete();
     }
   }

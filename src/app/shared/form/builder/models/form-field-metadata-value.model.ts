@@ -64,7 +64,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
    * Returns true if this this object has a value
    */
   hasValue(): boolean {
-    return isNotEmpty(this.value);
+     return isNotEmpty(this.value);
   }
 
   /**
