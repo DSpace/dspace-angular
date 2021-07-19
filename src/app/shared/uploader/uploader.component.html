@@ -32,7 +32,7 @@
               <span *ngIf="!uploader.options.disableMultipart">{{'uploader.queue-length' | translate}}: {{ uploader?.queue?.length }} | </span>{{ uploader?.queue[0]?.file.name }}
             </span>
             <div class="btn-group btn-group-sm float-right" role="group">
-              <button type="button" class="btn btn-danger" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+              <button type="button" class="btn btn-danger" title="{{'uploader.delete.btn-title' | translate}}" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>
