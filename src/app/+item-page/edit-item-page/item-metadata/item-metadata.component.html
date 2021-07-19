@@ -25,9 +25,9 @@
     <table class="table table-responsive table-striped table-bordered" *ngIf="((updates$ | async)| dsObjectValues).length > 0">
         <tbody>
         <tr>
-            <th>{{'item.edit.metadata.headers.field' | translate}}</th>
-            <th>{{'item.edit.metadata.headers.value' | translate}}</th>
-            <th class="text-center">{{'item.edit.metadata.headers.language' | translate}}</th>
+            <th><span id="fieldName">{{'item.edit.metadata.headers.field' | translate}}</span></th>
+            <th><span id="fieldValue">{{'item.edit.metadata.headers.value' | translate}}</span></th>
+            <th class="text-center"><span id="fieldLang">{{'item.edit.metadata.headers.language' | translate}}</span></th>
             <th class="text-center">{{'item.edit.metadata.headers.edit' | translate}}</th>
         </tr>
         <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"

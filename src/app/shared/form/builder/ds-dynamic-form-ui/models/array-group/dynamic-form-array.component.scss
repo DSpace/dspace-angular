@@ -26,8 +26,20 @@
 
 }
 
+.drag-handle {
+  &:hover {
+    cursor: move;
+  }
+
+  &:focus {
+    .drag-icon {
+      visibility: visible;
+    }
+  }
+}
+
 .cdk-drop-list-dragging {
-  .cdk-drag {
+  .drag-handle {
     cursor: grabbing;
     .drag-icon {
       visibility: hidden;

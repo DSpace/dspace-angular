@@ -1,3 +1,5 @@
+@import '../../../../form.component';
+
 :host ::ng-deep .dropdown-menu {
   width: 100% !important;
   max-height: var(--ds-dropdown-menu-max-height);
@@ -20,4 +22,12 @@
 .treeview .modal-body {
   max-height: 85vh !important;
   overflow-y: auto;
+}
+
+.tree-toggle {
+  padding:  0.70rem 0.70rem 0 0.70rem ;
+}
+
+.tree-input[readonly]{
+  background-color: #fff;
 }
