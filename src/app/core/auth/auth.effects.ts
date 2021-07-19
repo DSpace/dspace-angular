@@ -1,13 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 
 import {
+  asyncScheduler,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  timer,
-  asyncScheduler, queueScheduler
+  queueScheduler,
+  timer
 } from 'rxjs';
-import { catchError, filter, map, switchMap, take, tap, observeOn } from 'rxjs/operators';
+import { catchError, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -43,7 +44,8 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  RetrieveTokenAction, SetUserAsIdleAction
+  RetrieveTokenAction,
+  SetUserAsIdleAction
 } from './auth.actions';
 import { hasValue } from '../../shared/empty.util';
 import { environment } from '../../../environments/environment';
@@ -161,7 +163,7 @@ export class AuthEffects {
           if (response.authenticated) {
             return new RetrieveTokenAction();
           } else {
-            return this.authService.getRetrieveAuthMethodsAction(response);
+            return new RetrieveAuthMethodsAction(response);
           }
         }),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
@@ -250,10 +252,10 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
       switchMap((action: RetrieveAuthMethodsAction) => {
-        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload.status)
+        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
           .pipe(
-            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels, action.payload.blocking)),
-            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction(action.payload.blocking)))
+            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
+            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
           );
       })
     );

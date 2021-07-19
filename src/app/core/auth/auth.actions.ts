@@ -294,13 +294,10 @@ export class ResetAuthenticationMessagesAction implements Action {
 export class RetrieveAuthMethodsAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS;
 
-  payload: {
-    status: AuthStatus;
-    blocking: boolean;
-  };
+  payload: AuthStatus;
 
-  constructor(status: AuthStatus, blocking: boolean) {
-    this.payload = { status, blocking };
+  constructor(authStatus: AuthStatus) {
+    this.payload = authStatus;
   }
 }
 
@@ -311,14 +308,10 @@ export class RetrieveAuthMethodsAction implements Action {
  */
 export class RetrieveAuthMethodsSuccessAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS;
+  payload: AuthMethod[];
 
-  payload: {
-    authMethods: AuthMethod[];
-    blocking: boolean;
-  };
-
-  constructor(authMethods: AuthMethod[], blocking: boolean ) {
-    this.payload = { authMethods, blocking };
+  constructor(authMethods: AuthMethod[] ) {
+    this.payload = authMethods;
   }
 }
 
@@ -329,12 +322,6 @@ export class RetrieveAuthMethodsSuccessAction implements Action {
  */
 export class RetrieveAuthMethodsErrorAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR;
-
-  payload: boolean;
-
-  constructor(blocking: boolean) {
-    this.payload = blocking;
-  }
 }
 
 /**
