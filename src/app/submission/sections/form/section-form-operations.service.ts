@@ -200,26 +200,31 @@ export class SectionFormOperationsService {
   }
 
   public getSecurityLevelsFromQualdropModel(event: DynamicFormControlEvent): number[] {
-    let securities = [];
-    const context = this.formBuilder.isQualdropGroup(event.model)
-      ? (event.model.parent as DynamicFormArrayGroupModel).context
-      : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
-    context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
-      const groupModel = arrayModel.group[0] as DynamicQualdropModel;
-      groupModel.group.map((groupModel: any) => {
-        if (groupModel['securityLevel'] != undefined) {
-          let metadataToBeAdded
-          securities.push(groupModel['securityLevel'])
-        } else {
-          if (groupModel.metadataValue) {
-            if (groupModel.metadataValue.securityLevel !== undefined) {
-              securities.push(groupModel.metadataValue.securityLevel)
+    try {
+      let securities = [];
+      const context = this.formBuilder.isQualdropGroup(event.model)
+        ? (event.model.parent as DynamicFormArrayGroupModel).context
+        : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
+      context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
+        const groupModel = arrayModel.group[0] as DynamicQualdropModel;
+        groupModel.group.map((groupModel: any) => {
+          if (groupModel['securityLevel'] != undefined) {
+            let metadataToBeAdded
+            securities.push(groupModel['securityLevel'])
+          } else {
+            if (groupModel.metadataValue) {
+              if (groupModel.metadataValue.securityLevel !== undefined) {
+                securities.push(groupModel.metadataValue.securityLevel)
+              }
             }
           }
-        }
-      })
-    });
-    return securities;
+        })
+      });
+      return securities;
+    } catch (error) {
+      return [];
+    }
+
   }
 
   /**
@@ -402,7 +407,7 @@ export class SectionFormOperationsService {
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
                                               hasStoredValue: boolean): void {
-     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
@@ -498,22 +503,26 @@ export class SectionFormOperationsService {
       const path = this.getQualdropItemPathFromEvent(event);
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     } else {
-      const securities = this.getSecurityLevelsFromQualdropModel(event)
+      let securities = null
+      if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
+        || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel))
+        securities = this.getSecurityLevelsFromQualdropModel(event)
       if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
         previousValue.value.forEach((entry, index) => {
           let currentValue = currentValueMap.get(index);
           if (currentValue) {
             if (!isEqual(entry, currentValue)) {
               if (Array.isArray(currentValue)) {
-                currentValue = currentValue.map((el, index) => {
-                  if (typeof el == 'string') {
-                    return {
-                      value: el,
-                      securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
-                    }
-                  } else return el
-                })
-                // add one by one to ensure
+                if (securities) {
+                  currentValue = currentValue.map((el, index) => {
+                    if (typeof el == 'string') {
+                      return {
+                        value: el,
+                        securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
+                      }
+                    } else return el
+                  })
+                }
               }
               this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
             }

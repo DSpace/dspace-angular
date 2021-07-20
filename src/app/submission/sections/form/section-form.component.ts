@@ -279,7 +279,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       };
       this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
     }
-    console.log(this.formModel)
   }
 
   /**

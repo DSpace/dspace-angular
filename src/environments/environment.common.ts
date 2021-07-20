@@ -62,6 +62,7 @@ export const environment: GlobalConfig = {
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
     animate: NotificationAnimationsType.Scale
   },
+
   // Submission settings
   submission: {
     autosave: {
@@ -357,5 +358,24 @@ export const environment: GlobalConfig = {
         icon: 'fa fa-university'
       }
     ]
-  }
+  },
+  security: {
+    levels: [
+      {
+        value: 0,
+        icon: 'fa fa-globe',
+        color: 'green'
+      },
+      {
+        value: 1,
+        icon: 'fa fa-key',
+        color: 'yellow'
+      },
+      {
+        value: 2,
+        icon: 'fa fa-lock',
+        color: 'red'
+      }
+    ]
+  },
 };

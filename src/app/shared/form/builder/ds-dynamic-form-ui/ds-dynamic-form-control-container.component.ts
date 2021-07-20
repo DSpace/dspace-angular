@@ -230,7 +230,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  @Output('changeSecurity') changeSecurity: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
   @ViewChild('componentViewContainer', {
     read: ViewContainerRef,
@@ -271,13 +270,15 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   ngOnInit(): void {
     this.formService.entityTypeAndSecurityfallBack$.subscribe((res: any) => {
-      this.entityType = res.entityType;
-      if (this.model.hasSelectableMetadata)
-        this.findSecurityLevelConfig(res.securityConfig)
+      if (res)
+      {
+        this.entityType = res.entityType;
+        if (this.model.hasSelectableMetadata)
+          this.findSecurityLevelConfig(res.securityConfig)
+      }
     })
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
-
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
       const relationshipOptions = Object.assign(new RelationshipOptions(), config);
@@ -298,7 +299,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               followLink('rightItem'),
               followLink('relationshipType')
             );
-
             relationshipsRD$.pipe(
               getFirstSucceededRemoteDataPayload(),
               getPaginatedListPayload()
@@ -350,7 +350,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.model && this.model.value && this.model.value.securityLevel != undefined) {
       this.securityLevel = this.model.value.securityLevel;
     }
-    console.log(this.model)
   }
 
   get isCheckbox(): boolean {
@@ -388,11 +387,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       if (this.context && this.context instanceof DynamicFormArrayGroupModel) {
         index = this.context.index;
       }
-      const instance = this.dynamicFormComponentService.getFormControlRef(this.model.id);
+      const instance = this.dynamicFormComponentService.getFormControlRef(this.model, index);
       if (instance) {
-        // (instance as any).formModel = this.formModel;
-        // (instance as any).formGroup = this.formGroup;
-        // (instance.instance as any).hasMetadataModel = true;
+        (instance as any).formModel = this.formModel;
+        (instance as any).formGroup = this.formGroup;
       }
     }
   }
@@ -464,7 +462,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         modalComp.query = this.model.value.value;
       }
     }
-
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
     modalComp.relationshipOptions = this.model.relationship;
@@ -514,7 +511,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     this.item$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
     const collection$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.collection as Observable<RemoteData<Collection>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
-
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
@@ -564,7 +560,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
     })
   }
-
+  //this method is needed if is needed to change the design
   positionToggle() {
     if (this.model.parent && this.model.parent.group && this.model.parent.group.length == 2) {
       return '80%'

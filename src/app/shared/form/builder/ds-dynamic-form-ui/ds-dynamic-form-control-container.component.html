@@ -18,10 +18,9 @@
           <ng-container    #componentViewContainer></ng-container>
         <div>
           <div  style="margin-top: 2px" *ngIf=" model.type != 'GROUP' &&  model.type != 'SCROLLABLE_DROPDOWN' && model.type != 'TAG' && model.type != 'SELECT' ">
-            <!--             <ds-edit-metadata-security *ngIf="model.parent" [ngClass]="getClass('grid', 'control')"-->
-
+            <!-- <ds-edit-metadata-security *ngIf="model.parent" [ngClass]="getClass('grid', 'control')"-->
             <ds-edit-metadata-security *ngIf="showToggleFirstLimit()"
-                                       [securityConfigLevel]="3"
+                                       [securityConfigLevel]="securityLevelConfig"
                                        [securityLevel]=" model.securityLevel != undefined && model.securityLevel!=null ? model.securityLevel  : (model.metadataValue ?
               model.metadataValue.securityLevel  : securityLevel != null && securityLevel != undefined  ? securityLevel : null)"
                                        (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
