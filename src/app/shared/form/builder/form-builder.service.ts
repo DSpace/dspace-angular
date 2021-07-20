@@ -127,8 +127,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   getValueFromModel(groupModel: DynamicFormControlModel[]): void {
-     let result = Object.create({});
-
+    let result = Object.create({});
     const customizer = (objValue, srcValue) => {
       if (Array.isArray(objValue)) {
         return objValue.concat(srcValue);

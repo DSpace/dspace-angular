@@ -137,7 +137,6 @@ export class SectionFormOperationsService {
    */
   public getQualdropValueMap(event: DynamicFormControlEvent): Map<string, any> {
     const metadataValueMap = new Map();
-
     const context = this.formBuilder.isQualdropGroup(event.model)
       ? (event.model.parent as DynamicFormArrayGroupModel).context
       : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
@@ -198,6 +197,29 @@ export class SectionFormOperationsService {
     });
 
     return path;
+  }
+
+  public getSecurityLevelsFromQualdropModel(event: DynamicFormControlEvent): number[] {
+    let securities = [];
+    const context = this.formBuilder.isQualdropGroup(event.model)
+      ? (event.model.parent as DynamicFormArrayGroupModel).context
+      : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
+    context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
+      const groupModel = arrayModel.group[0] as DynamicQualdropModel;
+      groupModel.group.map((groupModel: any) => {
+        if (groupModel['securityLevel'] != undefined) {
+          let metadataToBeAdded
+          securities.push(groupModel['securityLevel'])
+        } else {
+          if (groupModel.metadataValue) {
+            if (groupModel.metadataValue.securityLevel !== undefined) {
+              securities.push(groupModel.metadataValue.securityLevel)
+            }
+          }
+        }
+      })
+    });
+    return securities;
   }
 
   /**
@@ -389,7 +411,9 @@ export class SectionFormOperationsService {
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     let value = this.getFieldValueFromChangeEvent(event);
     if (event.model['securityLevel'] != null) {
-      value.securityLevel = event.model['securityLevel']
+      if (typeof value != 'string') {
+        value.securityLevel = event.model['securityLevel']
+      }
     }
     // Detect which operation must be dispatched
     if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
@@ -474,11 +498,23 @@ export class SectionFormOperationsService {
       const path = this.getQualdropItemPathFromEvent(event);
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     } else {
+      const securities = this.getSecurityLevelsFromQualdropModel(event)
       if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
         previousValue.value.forEach((entry, index) => {
-          const currentValue = currentValueMap.get(index);
+          let currentValue = currentValueMap.get(index);
           if (currentValue) {
             if (!isEqual(entry, currentValue)) {
+              if (Array.isArray(currentValue)) {
+                currentValue = currentValue.map((el, index) => {
+                  if (typeof el == 'string') {
+                    return {
+                      value: el,
+                      securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
+                    }
+                  } else return el
+                })
+                // add one by one to ensure
+              }
               this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
             }
             currentValueMap.delete(index);
@@ -492,11 +528,20 @@ export class SectionFormOperationsService {
           // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
         } else {
+          entry = entry.map((el, index) => {
+            if (typeof el == 'string') {
+              return {
+                value: el,
+                securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
+              }
+            } else return el
+          })
+          // add one by one to ensure
+
           this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
         }
       });
     }
-
     previousValue.delete();
   }
 
@@ -549,24 +594,31 @@ export class SectionFormOperationsService {
   protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
                                 event: DynamicFormControlEvent,
                                 previousValue: FormFieldPreviousValueObject): void {
-     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
       return;
     }
-    const path = this.getFieldPathFromEvent(event);
-    let value = this.getFieldValueFromChangeEvent(event);
-    if (event.model['securityLevel'] != null && event.model['securityLevel'] != undefined) {
-      if (value && typeof value == 'string') {
-        this.operationsBuilder.replace(
-          pathCombiner.getPath(path),
-          value, false, event.model['securityLevel']);
-      } else {
-         this.operationsBuilder.replace(
-          pathCombiner.getPath(path),
-          value, false, event.model['securityLevel']);
+    // Detect which operation must be dispatched
+    if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
+      || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      // It's a qualdrup model
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
+    } else {
+      const path = this.getFieldPathFromEvent(event);
+      let value = this.getFieldValueFromChangeEvent(event);
+      if (event.model['securityLevel'] != null && event.model['securityLevel'] != undefined) {
+        if (value && typeof value == 'string') {
+          this.operationsBuilder.replace(
+            pathCombiner.getPath(path),
+            value, false, event.model['securityLevel']);
+        } else {
+          this.operationsBuilder.replace(
+            pathCombiner.getPath(path),
+            value, false, event.model['securityLevel']);
+        }
+        previousValue.delete();
       }
-      previousValue.delete();
     }
   }
 }

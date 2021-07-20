@@ -365,7 +365,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-debugger
     this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
