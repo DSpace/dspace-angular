@@ -121,8 +121,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
             this.router.navigate(['/mydspace']);
           } else {
-          const { errors } = submissionObjectRD.payload;
-          this.submissionErrors = parseSectionErrors(errors);
+            const { errors } = submissionObjectRD.payload;
+            this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();
             this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
             this.selfUrl = submissionObjectRD.payload._links.self.href;

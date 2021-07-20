@@ -173,6 +173,16 @@ export class SectionsService {
     );
   }
 
+  /**
+   * Get the list of validation errors present in the given section
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param sectionType
+   *    The type of section for which retrieve errors
+   */
   getShownSectionErrors(submissionId: string, sectionId: string, sectionType: SectionsType): Observable<SubmissionSectionError[]> {
     let errorsState$: Observable<SubmissionSectionError[]>;
     if (sectionType !== SectionsType.SubmissionForm) {
@@ -422,9 +432,11 @@ export class SectionsService {
    * @param data
    *    The section data
    * @param errorsToShow
-   *    the list of the section's errors to show
+   *    The list of the section's errors to show. It contains the error list
+   *    to display when section is not pristine
    * @param serverValidationErrors
-   *    the list of the section errors detected by the server
+   *    The list of the section's errors detected by the server.
+   *    They may not be shown yet if section is pristine
    * @param metadata
    *    The section metadata
    */

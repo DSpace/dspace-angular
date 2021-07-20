@@ -108,11 +108,14 @@ export class FormService {
     });
   }
 
+  /**
+   * Check if form group has an invalid form control
+   * @param formGroup The form group to check
+   */
   public hasValidationErrors(formGroup: FormGroup | FormArray): boolean {
     let hasErrors = false;
     const fields: string[] = Object.keys(formGroup.controls);
     for (const field of fields) {
-    // Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         hasErrors = !control.valid && control.touched;
@@ -122,7 +125,6 @@ export class FormService {
       if (hasErrors) {
         break;
       }
-    // });
     }
     return hasErrors;
   }
