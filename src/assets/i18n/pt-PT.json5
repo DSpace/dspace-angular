@@ -1,46 +1,156 @@
 {
 
-"submission.edit.breadcrumbs": "Editar Submissão",
-"search.filters.filter.subject.label": "Pesquisar Assunto",
-"search.filters.filter.entityType.label": "Pesquisar Tipo",
-"search.filters.filter.author.label": "Pesquisar Autor",
-"sorting.dc.date.accessioned.ASC": "Data de Disponibilização Ascendente",
-"sorting.dc.date.accessioned.DESC": "Data de Disponibilização Descendente",
-"search.search-form.placeholder": "Pesquisar ...",
-"item.edit.item-mapper.search-form.placeholder": "Pesquisar coleções...",
-"item.edit.return": "Voltar",
-"repository.title.prefix": "DSpace ::",
-"repository.title.prefixDSpace": "DSpace ::",
-"thumbnail.person.placeholder": "Sem Fotografia de Perfil",
+// NOTE 1 - Doesn't exist on en_EN
 
-"admin.access-control.groups.breadcrumbs": "Grupos",
-"admin.access-control.groups.search.placeholder": "Pesquisar Grupos...",
-"admin.access-control.epeople.breadcrumbs": "Utilizador",
-"admin.access-control.epeople.search.placeholder": "Pesquisar Utilizador",
-"admin.access-control.epeople.form.return": "Voltar",
+// "repository.title.prefixDSpace": "DSpace ::",
+"repository.title.prefixDSpace": "DSpace ::",
+
+// "collection.edit.item-mapper-search-form.placeholder": "Search Item to Map...",
 "collection.edit.item-mapper-search-form.placeholder": "Pesquisar Item a Mapear...",
 
-"submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Financiador de Projeto",
-"submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Financiador de Projeto",
-"relationships.isFundingAgencyOf.OrgUnit": "Financiador de Projeto",
 
+
+
+
+// NOTE 2 - Add to other languages - needed for OpenAIRE compliance - relations between entities
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+"submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projetos",
+
+// "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+"submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projetos",
+
+// "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+"relationships.isContributorOf.OrgUnit": "Contribuidor (Unidade organizacional)",
+
+// "relationships.isContributorOf.Person": "Contributor",
+"relationships.isContributorOf.Person": "Contribuidor",
+
+// "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+"submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Financiador de Projeto",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+"submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Financiador de Projeto",
+
+// "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+"relationships.isFundingAgencyOf.OrgUnit": "Financiador",
+
+
+
+
+
+
+
+
+// Other strings 
+
+// "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+"bitstream.edit.authorizations.link": "Editar Polítcas de Ficheiros",
+
+// "bitstream.edit.return": "Back",
+"bitstream.edit.return": "Voltar",
+
+// "submission.edit.breadcrumbs": "Edit Submission",
+"submission.edit.breadcrumbs": "Editar Submissão",
+
+// "search.filters.filter.subject.label": "Search subject",
+"search.filters.filter.subject.label": "Pesquisar Assunto",
+
+// "search.filters.filter.entityType.label": "Search item type",
+"search.filters.filter.entityType.label": "Pesquisar Tipo",
+
+// "search.filters.filter.author.label": "Search author name",
+"search.filters.filter.author.label": "Pesquisar Autor",
+
+// "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
+"sorting.dc.date.accessioned.ASC": "Data de Disponibilização Ascendente",
+
+// "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
+"sorting.dc.date.accessioned.DESC": "Data de Disponibilização Descendente",
+
+// "search.search-form.placeholder": "Search the repository ...",
+"search.search-form.placeholder": "Pesquisar ...",
+
+//  "item.edit.item-mapper.search-form.placeholder": "Search collections...",
+"item.edit.item-mapper.search-form.placeholder": "Pesquisar coleções...",
+
+// "item.edit.return": "Back",
+"item.edit.return": "Voltar",
+
+// "repository.title.prefix": "DSpace Angular :: ",
+"repository.title.prefix": "DSpace ::",
+
+
+// "thumbnail.person.placeholder": "No Profile Picture Available",
+"thumbnail.person.placeholder": "Sem Fotografia de Perfil",
+
+// "admin.access-control.groups.breadcrumbs": "Groups",
+"admin.access-control.groups.breadcrumbs": "Grupos",
+
+// "admin.access-control.groups.search.placeholder": "Search groups...",
+"admin.access-control.groups.search.placeholder": "Pesquisar Grupos...",
+
+// "admin.access-control.epeople.breadcrumbs": "EPeople",
+"admin.access-control.epeople.breadcrumbs": "Utilizador",
+
+// "admin.access-control.epeople.search.placeholder": "Search people...",
+"admin.access-control.epeople.search.placeholder": "Pesquisar Utilizadores...",
+
+// "admin.access-control.epeople.form.return": "Back",
+"admin.access-control.epeople.form.return": "Voltar",
+
+//  "submission.submit.breadcrumbs": "New submission",
 "submission.submit.breadcrumbs": "Nova Submissão",
+
+// "search.filters.filter.namedresourcetype.label": "Search status",
 "search.filters.filter.namedresourcetype.label": "Pesquisar Estado",
+
+// "sorting.dc.date.issued.ASC": "Date Issued Ascending",
 "sorting.dc.date.issued.ASC": "Data de Publicação Ascendente",
+
+// "sorting.dc.date.issued.DESC": "Date Issued Descending",
 "sorting.dc.date.issued.DESC": "Data de Publicação Descendente",
+
+// "sorting.score.ASC": "Least Relevant",
 "sorting.score.ASC": "Menos Relevante",
+
+// "search.filters.filter.dateIssued.min.label": "Start",
 "search.filters.filter.dateIssued.min.label": "Início",
+
+// "search.filters.filter.dateIssued.max.label": "End",
 "search.filters.filter.dateIssued.max.label": "Fim",
+
+// "search.filters.search.submit": "Submit",
 "search.filters.search.submit": "Enviar",
+
+// "default.search.results.head": "Search Results",
 "default.search.results.head": "Resultados da Pesquisa",
+
+// "communityList.breadcrumbs": "Community List",
 "communityList.breadcrumbs": "Lista de Comunidades",
+
+// "browse.previous.button": "Previous",
 "browse.previous.button": "Anterior",
+
+// "browse.next.button": "Next",
 "browse.next.button": "Próximo",
+
+// "pagination.options.description": "Pagination options",
 "pagination.options.description": "Opções de Paginação",
+
+// "mydspace.breadcrumbs": "MyDSpace",
 "mydspace.breadcrumbs": "Área Pessoal",
-"thumbnail.default.placeholder": "Miniatura",
+
+// "thumbnail.default.placeholder": "No Thumbnail Available",
+"thumbnail.default.placeholder": "Sem Miniatura",
+
+// "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
 "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Pesquisar ...",
+
+// "home.search-form.placeholder": "Search the repository ...",
 "home.search-form.placeholder": "Pesquisar ...",
+
+// "mydspace.search-form.placeholder": "Search in mydspace...",
 "mydspace.search-form.placeholder": "Pesquisar na Área Pessoal ...",
 
 
@@ -1742,7 +1852,7 @@
   "error.recent-submissions": "Erro ao carregar as submissões recentes",
   
   // "error.search-results": "Error fetching search results",
-  "error.search-results": "Erro ao carregar os resultados de pesquisa",
+  "error.search-results": "Erro ao carregar os resultados da pesquisa",
   
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Erro ao carregar sub-coleções",
@@ -3695,7 +3805,7 @@
   "project.page.status": "Estado",
   
   // "project.page.titleprefix": "Research Project: ",
-  "project.page.titleprefix": "Projeto de Pesquisa: ",
+  "project.page.titleprefix": "Projeto de Investigação: ",
   
   // "project.search.results.head": "Project Search Results",
   "project.search.results.head": "Resultado da Pesquisa de Projetos",
@@ -3848,7 +3958,7 @@
   "relationships.isAuthorOf": "Autores",
   
   // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Authores (pessoas)",
+  "relationships.isAuthorOf.Person": "Autores (pessoas)",
   
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
   "relationships.isAuthorOf.OrgUnit": "Autores (Unidades organizacionais)",
@@ -3869,7 +3979,7 @@
   "relationships.isPersonOf": "Autores",
   
   // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Projetos de Pesquisa",
+  "relationships.isProjectOf": "Projetos de Investigação",
   
   // "relationships.isPublicationOf": "Publications",
   "relationships.isPublicationOf": "Publicações",
