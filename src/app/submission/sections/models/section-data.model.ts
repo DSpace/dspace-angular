@@ -18,9 +18,14 @@ export interface SectionDataObject {
   data: WorkspaceitemSectionDataType;
 
   /**
-   * The list of the section errors
+   * The list of the section's errors to show
    */
-  errors: SubmissionSectionError[];
+  errorsToShow: SubmissionSectionError[];
+
+  /**
+   * The list of the section's errors detected by the server
+   */
+  serverValidationErrors: SubmissionSectionError[];
 
   /**
    * The section header

@@ -2,15 +2,7 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  map,
-  take,
-  tap,
-  mergeMap
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { findIndex, isEqual } from 'lodash';
 
@@ -19,7 +11,7 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
@@ -183,7 +175,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       take(1))
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
         if (isUndefined(this.formModel)) {
-          this.sectionData.errors = [];
+          // this.sectionData.errorsToShow = [];
           this.workspaceItem = workspaceItem;
           // Is the first loading so init form
           this.initForm(sectionData);
@@ -211,7 +203,14 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *     the section status
    */
   protected getSectionStatus(): Observable<boolean> {
-    return this.formService.isValid(this.formId);
+    const formStatus$ = this.formService.isValid(this.formId);
+    const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
+      map((validationErrors) => isEmpty(validationErrors))
+    );
+
+    return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
+      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation)
+    );
   }
 
   /**
@@ -263,7 +262,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         this.submissionService.getSubmissionScope()
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
-      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, [], sectionMetadata);
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
 
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
@@ -296,10 +295,10 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         this.checksForErrors(errors);
         this.isUpdating = false;
         this.cdr.detectChanges();
-      } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
+      } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errorsToShow)) {
         this.checksForErrors(errors);
       }
-    } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
+    } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errorsToShow)) {
       this.checksForErrors(errors);
     }
 
@@ -315,8 +314,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     this.formService.isFormInitialized(this.formId).pipe(
       find((status: boolean) => status === true && !this.isUpdating))
       .subscribe(() => {
-        this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errors);
-        this.sectionData.errors = errors;
+        this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errorsToShow);
+        this.sectionData.errorsToShow = errors;
         this.cdr.detectChanges();
       });
   }
@@ -340,13 +339,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
        */
       this.sectionService.getSectionState(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
         filter((sectionState: SubmissionSectionObject) => {
-          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors));
+          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errorsToShow));
         }),
         distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.sectionMetadata = sectionState.metadata;
-          this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errors);
+          this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errorsToShow);
         })
     );
   }
@@ -367,8 +366,19 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+    if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
+    }
+  }
+
+  private hasRelatedCustomError(medatata): boolean {
+    const index = findIndex(this.sectionData.errorsToShow, {path: this.pathCombiner.getPath(medatata).path});
+    if (index  !== -1) {
+      const error = this.sectionData.errorsToShow[index];
+      const validator = error.message.replace('error.validation.', '');
+      return !environment.form.validatorMap.hasOwnProperty(validator);
+    } else {
+      return false;
     }
   }
 
