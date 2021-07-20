@@ -168,7 +168,7 @@ export class JsonPatchOperationsBuilder {
     } else if (isNgbDateStruct(value)) {
       operationValue = new FormFieldMetadataValueObject(dateToString(value), null, securityLevel);
     } else if (value.hasOwnProperty('value')) {
-      operationValue = new FormFieldMetadataValueObject(value.value, null, securityLevel);
+      operationValue = new FormFieldMetadataValueObject(value.value, null, value.securityLevel);
     } else {
       Object.keys(value)
         .forEach((key) => {

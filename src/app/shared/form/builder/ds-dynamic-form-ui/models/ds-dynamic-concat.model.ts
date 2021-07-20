@@ -60,10 +60,10 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   get value() {
     const [firstValue, secondValue] = this.group.map((inputModel: DsDynamicInputModel) =>
       (typeof inputModel.value === 'string') ?
-        Object.assign(new FormFieldMetadataValueObject(), { value: inputModel.value, display: inputModel.value }) :
+        Object.assign(new FormFieldMetadataValueObject(), {value: inputModel.value, display: inputModel.value}) :
         (inputModel.value as any));
     if (isNotEmpty(firstValue) && isNotEmpty(firstValue.value) && isNotEmpty(secondValue) && isNotEmpty(secondValue.value)) {
-      return Object.assign(new FormFieldMetadataValueObject(), firstValue, { value: firstValue.value + this.separator + secondValue.value });
+      return Object.assign(new FormFieldMetadataValueObject(), firstValue, {value: firstValue.value + this.separator + secondValue.value});
     } else if (isNotEmpty(firstValue) && isNotEmpty(firstValue.value)) {
       return Object.assign(new FormFieldMetadataValueObject(), firstValue);
     } else if (isNotEmpty(secondValue) && isNotEmpty(secondValue.value)) {
@@ -86,7 +86,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
       tempValue = '';
     }
     values = [...tempValue.split(this.separator), null].map((v) =>
-      Object.assign(new FormFieldMetadataValueObject(), value, { display: v, value: v }));
+      Object.assign(new FormFieldMetadataValueObject(), value, {display: v, value: v}));
 
     if (values[0].value) {
       (this.get(0) as DsDynamicInputModel).value = values[0];

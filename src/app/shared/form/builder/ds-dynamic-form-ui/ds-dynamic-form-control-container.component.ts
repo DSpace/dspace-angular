@@ -521,7 +521,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   addSecurityLevelToMetadata($event) {
-    if (!this.model.value) {
+      if (!this.model.value) {
       this.model['securityLevel'] = $event
        this.securityLevel = $event;
     } else {

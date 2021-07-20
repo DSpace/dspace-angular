@@ -135,22 +135,59 @@ export class FormBuilderService extends DynamicFormService {
     };
 
     const normalizeValue = (controlModel, controlValue, controlModelIndex) => {
-       const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
+      let securityLevel = null;
+      if (controlModel instanceof DynamicQualdropModel) {
+        //get the security value inside in the metadataValue of input
+        if (controlModel.group) {
+             controlModel.group.map((formModelDynamic: any) => {
+               if (formModelDynamic.metadataValue) {
+                 if (formModelDynamic.metadataValue.securityLevel !== undefined) {
+                   securityLevel = formModelDynamic.metadataValue.securityLevel
+                 }
+               }
+               else {
+                 if (formModelDynamic.value) {
+                   if (typeof  formModelDynamic.value != 'string') {
+                     if (formModelDynamic.value.securityLevel !== undefined) {
+                       securityLevel = formModelDynamic.value.securityLevel
+                     }
+                   }
+                 }
+               }
+            if (!formModelDynamic.metadataValue && formModelDynamic.value &&  typeof  formModelDynamic.value == 'string') {
+                if (formModelDynamic.securityLevel !== undefined) {
+                  securityLevel = formModelDynamic.securityLevel;
+                }
+           }})
+        }
+      }
+      if (controlModel && (controlModel as any).securityLevel !== undefined) {
+        securityLevel = (controlModel as any).securityLevel;
+      } else {
+        if (controlValue && (controlValue as any).securityLevel !== undefined) {
+          securityLevel = (controlValue as any).securityLevel;
+        } else {
+          if (controlModel && controlModel.metadataValue && controlModel.metadataValue.securityLevel !== undefined) {
+            securityLevel = controlModel.metadataValue.securityLevel;
+          }
+        }
+      }
+      const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
 
       if (controlModel?.metadataValue?.authority?.includes(VIRTUAL_METADATA_PREFIX)) {
         return controlModel.metadataValue;
       }
       if (isString(controlValue)) {
-        return new FormFieldMetadataValueObject(controlValue, controlLanguage, (controlValue as any).securityLevel, null, controlModelIndex);
+        return new FormFieldMetadataValueObject(controlValue, controlLanguage, securityLevel, null, controlModelIndex);
       } else if (isNgbDateStruct(controlValue)) {
         return new FormFieldMetadataValueObject(dateToString(controlValue));
       } else if (isObject(controlValue)) {
         const authority = (controlValue as any).authority || (controlValue as any).id || null;
         const place = controlModelIndex || (controlValue as any).place;
         if (isNgbDateStruct(controlValue)) {
-          return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue as any, place);
+          return new FormFieldMetadataValueObject(controlValue, controlLanguage, securityLevel, authority, controlValue as any, place);
         } else {
-          return new FormFieldMetadataValueObject((controlValue as any).value, controlLanguage, (controlValue as any).securityLevel, authority, (controlValue as any).display, place, (controlValue as any).confidence);
+          return new FormFieldMetadataValueObject((controlValue as any).value, controlLanguage, securityLevel, authority, (controlValue as any).display, place, (controlValue as any).confidence);
         }
       }
     };
@@ -159,18 +196,36 @@ export class FormBuilderService extends DynamicFormService {
       let iterateResult = Object.create({});
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
-        if (controlModel['securityLevel'] != null) {
-          if ((controlModel as any).value)
-            if ( typeof ((controlModel as any).value) ==  'string')  {
-              if ( (controlModel as any).metadataValue)
-              (controlModel as any).metadataValue.securityLevel = controlModel['securityLevel']
-            }
-          else  {
-              (controlModel as any).value.securityLevel = controlModel['securityLevel']
+          if (controlModel['securityLevel'] != undefined && controlModel['securityLevel'] != null) {
+            if ((controlModel as any).value)
+              if (typeof ((controlModel as any).value) == 'string') {
+                if ((controlModel as any).metadataValue)
+                  (controlModel as any).metadataValue= new FormFieldMetadataValueObject(
+                    (controlModel as any).metadataValue.value,
+                    (controlModel as any).metadataValue.language,
+                    controlModel['securityLevel'],
+                    (controlModel as any).metadataValue.authority,
+                    (controlModel as any).metadataValue.display,
+                    (controlModel as any).metadataValue.place,
+                    (controlModel as any).metadataValue.confidence,
+                    (controlModel as any).metadataValue.otherInformation,
+                    (controlModel as any).metadataValue.metadata);
 
-            }
+              } else {
+                  (controlModel as any).value = new FormFieldMetadataValueObject(
+                    (controlModel as any).value.value,
+                    (controlModel as any).value.language,
+                    controlModel['securityLevel'],
+                    (controlModel as any).value.authority,
+                    (controlModel as any).value.display,
+                    (controlModel as any).value.place,
+                    (controlModel as any).value.confidence,
+                    (controlModel as any).value.otherInformation,
+                    (controlModel as any).value.metadata);
+              }
+          }
 
-        }
+
         if (this.isRowGroup(controlModel) && !this.isCustomOrListGroup(controlModel)) {
           iterateResult = mergeWith(iterateResult, iterateControlModels((controlModel as DynamicFormGroupModel).group), customizer);
           continue;
@@ -222,25 +277,18 @@ export class FormBuilderService extends DynamicFormService {
               });
           });
         } else if (isNotUndefined((controlModel as any).value) && isNotEmpty((controlModel as any).value)) {
-           // Normalize control value as an array of FormFieldMetadataValueObject
-          const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
-          values.forEach((controlValue) => {
-            controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex));
-          });
+            // Normalize control value as an array of FormFieldMetadataValueObject
+            const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
+            values.forEach((controlValue, pos) => {
+              controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex));
+            });
 
-          if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
-            iterateResult[controlId] = iterateResult[controlId].concat(controlArrayValue);
-          } else {
-            iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
+            if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
+              iterateResult[controlId] = iterateResult[controlId].concat(controlArrayValue);
+            } else {
+              iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
+            }
           }
-        }
-        // even there is no value check to save the state of the security level if changes
-        else {
-          controlArrayValue.push(normalizeValue(controlModel, "", controlModelIndex));
-          iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
-
-        }
-
       }
       return iterateResult;
     };
