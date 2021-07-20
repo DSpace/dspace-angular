@@ -1,9 +1,10 @@
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { StoreActionTypes } from '../../store.actions';
 import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 
 @Injectable()
 export class ObjectCacheEffects {
@@ -18,10 +19,11 @@ export class ObjectCacheEffects {
    */
   @Effect() fixTimestampsOnRehydrate = this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
-      map(() => new ResetObjectCacheTimestampsAction(new Date().getTime()))
+      map(() => new ResetObjectCacheTimestampsAction(new Date().getTime())),
+      tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
     );
 
-  constructor(private actions$: Actions) {
+  constructor(private actions$: Actions, private authorizationsService: AuthorizationDataService) {
   }
 
 }
