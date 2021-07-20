@@ -1,5 +1,5 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -38,6 +38,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
+import { LogInterceptor } from './core/log/log.interceptor';
 import { RootComponent } from './root/root.component';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { ThemedEntryComponentModule } from '../themes/themed-entry-component.module';
@@ -48,6 +49,9 @@ import { ThemedFooterComponent } from './footer/themed-footer.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+
+import { UUIDService } from './core/shared/uuid.service';
+import { CookieService } from './core/services/cookie.service';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -120,6 +124,27 @@ const PROVIDERS = [
     provide: HTTP_INTERCEPTORS,
     useClass: XsrfInterceptor,
     multi: true
+  },
+  // register LogInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LogInterceptor,
+    multi: true
+  },
+  // insert the unique id of the user that is using the application utilizing cookies
+  {
+   provide: APP_INITIALIZER,
+    useFactory: (cookieService: CookieService, uuidService: UUIDService) => {
+      const correlationId = cookieService.get('CORRELATION-ID');
+
+      // Check if cookie exists, if don't, set it with unique id
+      if (!correlationId) {
+        cookieService.set('CORRELATION-ID', uuidService.generate());
+      }
+      return () => true;
+    },
+   multi: true,
+   deps: [ CookieService, UUIDService ]
   },
   ...DYNAMIC_MATCHER_PROVIDERS,
 ];
