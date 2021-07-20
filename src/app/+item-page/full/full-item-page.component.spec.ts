@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -29,9 +29,7 @@ const mockItem: Item = Object.assign(new Item(), {
     ]
   }
 });
-const routeStub = Object.assign(new ActivatedRouteStub(), {
-  data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
-});
+
 const metadataServiceStub = {
   /* tslint:disable:no-empty */
   processRemoteData: () => {
@@ -44,11 +42,23 @@ describe('FullItemPageComponent', () => {
   let fixture: ComponentFixture<FullItemPageComponent>;
 
   let authService: AuthService;
+  let routeStub: ActivatedRouteStub;
+  let routeData;
+
+
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {}
+    });
+
+    routeData = {
+      dso: createSuccessfulRemoteDataObject(mockItem),
+    };
+
+    routeStub = Object.assign(new ActivatedRouteStub(), {
+      data: observableOf(routeData)
     });
 
     TestBed.configureTestingModule({
@@ -84,4 +94,21 @@ describe('FullItemPageComponent', () => {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
   });
+
+  it('should show simple view button when not originated from workflow item', () => {
+    expect(comp.fromWfi).toBe(false);
+    const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
+    expect(simpleViewBtn).toBeTruthy();
+  });
+
+  it('should not show simple view button when originated from workflow', fakeAsync(() => {
+    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId'});
+    comp.ngOnInit();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(comp.fromWfi).toBe(true);
+      const simpleViewBtn = fixture.debugElement.query(By.css('.simple-view-link'));
+      expect(simpleViewBtn).toBeFalsy();
+    });
+  }));
 });

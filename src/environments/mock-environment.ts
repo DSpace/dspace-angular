@@ -35,6 +35,22 @@ export const environment: Partial<GlobalConfig> = {
       timePerMethod: {[RestRequestMethod.PATCH]: 3} as any // time in seconds
     }
   },
+  // Authentication settings
+  auth: {
+    // Authentication UI settings
+    ui: {
+      // the amount of time before the idle warning is shown
+      timeUntilIdle: 20000, // 20 sec
+      // the amount of time the user has to react after the idle warning is shown before they are logged out.
+      idleGracePeriod: 20000, // 20 sec
+    },
+    // Authentication REST settings
+    rest: {
+      // If the rest token expires in less than this amount of time, it will be refreshed automatically.
+      // This is independent from the idle warning.
+      timeLeftBeforeTokenRefresh: 20000, // 20 sec
+    },
+  },
   // Form settings
   form: {
     // NOTE: Map server-side validators to comparative Angular form validators

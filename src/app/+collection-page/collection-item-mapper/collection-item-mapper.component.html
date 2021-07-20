@@ -42,6 +42,7 @@
                 [key]="'map'"
                 [dsoRD$]="mappedItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
+                [featureId]="FeatureIds.CanManageMappings"
                 [confirmButton]="'collection.edit.item-mapper.confirm'"
                 [cancelButton]="'collection.edit.item-mapper.cancel'"
                 (confirm)="mapItems($event)"

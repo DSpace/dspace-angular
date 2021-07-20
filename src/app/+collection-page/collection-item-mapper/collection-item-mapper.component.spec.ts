@@ -40,6 +40,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -136,6 +137,10 @@ describe('CollectionItemMapperComponent', () => {
     }
   };
 
+  const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+    isAuthorized: observableOf(true)
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
@@ -152,6 +157,7 @@ describe('CollectionItemMapperComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: AuthorizationDataService, useValue: authorizationDataService }
       ]
     }).compileComponents();
   }));

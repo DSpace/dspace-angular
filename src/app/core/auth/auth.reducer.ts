@@ -59,6 +59,9 @@ export interface AuthState {
   // all authentication Methods enabled at the backend
   authMethods?: AuthMethod[];
 
+  // true when the current user is idle
+  idle: boolean;
+
 }
 
 /**
@@ -69,7 +72,8 @@ const initialState: AuthState = {
   loaded: false,
   blocking: true,
   loading: false,
-  authMethods: []
+  authMethods: [],
+  idle: false
 };
 
 /**
@@ -189,6 +193,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         authToken: (action as RefreshTokenSuccessAction).payload,
         refreshing: false,
+        blocking: false
       });
 
     case AuthActionTypes.ADD_MESSAGE:
@@ -232,6 +237,16 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         loading: true,
         blocking: true,
+      });
+
+    case AuthActionTypes.SET_USER_AS_IDLE:
+      return Object.assign({}, state, {
+        idle: true,
+      });
+
+    case AuthActionTypes.UNSET_USER_AS_IDLE:
+      return Object.assign({}, state, {
+        idle: false,
       });
 
     default:

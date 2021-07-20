@@ -10,7 +10,7 @@
           <ds-dso-page-edit-button [pageRoute]="itemPageRoute$ | async" [dso]="item" [tooltipMsg]="'item.page.edit'"></ds-dso-page-edit-button>
         </div>
       </div>
-      <div class="simple-view-link my-3">
+      <div class="simple-view-link my-3" *ngIf="!fromWfi">
         <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
           {{"item.page.link.simple" | translate}}
         </a>
@@ -29,6 +29,11 @@
       <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
       <ds-item-page-collections [item]="item"></ds-item-page-collections>
       <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
+      <div class="button-row bottom" *ngIf="fromWfi">
+        <div class="text-right">
+          <button class="btn btn-outline-secondary mr-1" (click)="back()"><i class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
+        </div>
+      </div>
     </div>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>

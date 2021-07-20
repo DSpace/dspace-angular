@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 import { SectionsService } from '../../sections/sections.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
@@ -13,6 +13,7 @@ import { UploaderOptions } from '../../../shared/uploader/uploader-options.model
 import parseSectionErrors from '../../utils/parseSectionErrors';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { SectionsType } from '../../sections/sections-type';
 
 /**
  * This component represents the drop zone that provides to add files to the submission.
@@ -34,12 +35,6 @@ export class SubmissionUploadFilesComponent implements OnChanges {
    * @type {string}
    */
   @Input() submissionId: string;
-
-  /**
-   * The upload section id
-   * @type {string}
-   */
-  @Input() sectionId: string;
 
   /**
    * The uploader configuration options
@@ -110,7 +105,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
    * Check if upload functionality is enabled
    */
   ngOnChanges() {
-    this.uploadEnabled = this.sectionService.isSectionAvailable(this.submissionId, this.sectionId);
+    this.uploadEnabled = this.sectionService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
   }
 
   /**
@@ -136,14 +131,18 @@ export class SubmissionUploadFilesComponent implements OnChanges {
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
                   const sectionErrors = errorsList[sectionId];
-                  if (sectionId === 'upload') {
-                    // Look for errors on upload
-                    if ((isEmpty(sectionErrors))) {
-                      this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
-                    } else {
-                      this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
-                    }
-                  }
+                  this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.Upload)
+                      .pipe(take(1))
+                      .subscribe((isUpload) => {
+                        if (isUpload) {
+                          // Look for errors on upload
+                          if ((isEmpty(sectionErrors))) {
+                            this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
+                          } else {
+                            this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+                          }
+                        }
+                      });
                   this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
                 });
             }

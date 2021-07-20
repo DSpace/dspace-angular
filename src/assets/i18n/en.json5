@@ -526,6 +526,8 @@
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
 
+  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+
 
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
@@ -1333,6 +1335,8 @@
 
   "form.discard": "Discard",
 
+  "form.drag": "Drag",
+
   "form.edit": "Edit",
 
   "form.edit-help": "Click here to edit the selected value",
@@ -1904,6 +1908,8 @@
   "item.page.filesection.original.bundle" : "Original bundle",
 
   "item.page.filesection.license.bundle" : "License bundle",
+
+  "item.page.return": "Back",
 
   "item.preview.dc.identifier.uri": "Identifier:",
 
@@ -3168,6 +3174,10 @@
 
   "submission.general.discard.submit": "Discard",
 
+  "submission.general.info.saved": "Saved",
+
+  "submission.general.info.pending-changes": "Unsaved changes",
+
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
@@ -3194,7 +3204,7 @@
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  
+
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
@@ -3488,6 +3498,16 @@
 
 
 
+  "submission.sections.status.errors.title": "Errors",
+
+  "submission.sections.status.valid.title": "Valid",
+
+  "submission.sections.status.warnings.title": "Warnings",
+
+  "submission.sections.toggle.open": "Open section",
+
+  "submission.sections.toggle.close": "Close section",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
@@ -3498,7 +3518,11 @@
 
   "submission.sections.upload.delete.submit": "Delete",
 
+  "submission.sections.upload.download.title": "Download bitstream",
+
   "submission.sections.upload.drop-message": "Drop files to attach them to the item",
+
+  "submission.sections.upload.edit.title": "Edit bitstream",
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
@@ -3644,6 +3668,8 @@
 
   "uploader.drag-message": "Drag & Drop your files here",
 
+  "uploader.delete.btn-title": "Delete",
+
   "uploader.or": ", or ",
 
   "uploader.processing": "Processing",
@@ -3665,6 +3691,8 @@
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
+
+  "workflow-item.edit.title": "View workflowitem",
 
   "workflow-item.delete.notification.success.title": "Deleted",
 
@@ -3697,5 +3725,16 @@
 
   "workflow-item.send-back.button.cancel": "Cancel",
 
-  "workflow-item.send-back.button.confirm": "Send back"
+  "workflow-item.send-back.button.confirm": "Send back",
+
+  "workflow-item.view.breadcrumbs": "Workflow View",
+
+
+  "idle-modal.header": "Session will expire soon",
+
+  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+
+  "idle-modal.log-out": "Log out",
+
+  "idle-modal.extend-session": "Extend session"
 }

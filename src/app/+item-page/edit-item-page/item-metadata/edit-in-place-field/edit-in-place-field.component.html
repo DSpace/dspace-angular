@@ -29,7 +29,7 @@
             <span>{{metadata?.value}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
-            <textarea class="form-control" type="textarea" [(ngModel)]="metadata.value" [dsDebounce]
+            <textarea class="form-control" type="textarea" attr.aria-labelledby="fieldValue" [(ngModel)]="metadata.value" [dsDebounce]
                       (onDebounce)="update()"></textarea>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <span>{{metadata?.language}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
-            <input class="form-control" type="text" [(ngModel)]="metadata.language" [dsDebounce]
+            <input class="form-control" type="text" attr.aria-labelledby="fieldLang" [(ngModel)]="metadata.language" [dsDebounce]
                    (onDebounce)="update()"/>
         </div>
     </div>

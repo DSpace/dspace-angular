@@ -1,4 +1,4 @@
-import { delay, distinctUntilChanged, filter, take } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, take, withLatestFrom } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -38,6 +38,8 @@ import { ThemeService } from './shared/theme-support/theme.service';
 import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
 import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-app',
@@ -70,6 +72,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   isThemeLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
+  /**
+   * Whether or not the idle modal is is currently open
+   */
+  idleModalOpen: boolean;
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject(DOCUMENT) private document: any,
@@ -87,6 +94,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private windowService: HostWindowService,
     private localeService: LocaleService,
     private breadcrumbsService: BreadcrumbsService,
+    private modalService: NgbModal,
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -107,6 +115,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.setThemeCss(BASE_THEME_NAME);
       }
     });
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.authService.trackTokenExpiration();
+      this.trackIdleModal();
+    }
 
     // Load all the languages that are defined as active from the config file
     translate.addLangs(environment.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
@@ -130,7 +143,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(environment);
     }
     this.storeCSSVariables();
-
   }
 
   ngOnInit() {
@@ -228,5 +240,24 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.isThemeLoading$.next(false);
     };
     head.appendChild(link);
+  }
+
+  private trackIdleModal() {
+    const isIdle$ = this.authService.isUserIdle();
+    const isAuthenticated$ = this.authService.isAuthenticated();
+    isIdle$.pipe(withLatestFrom(isAuthenticated$))
+      .subscribe(([userIdle, authenticated]) => {
+        if (userIdle && authenticated) {
+          if (!this.idleModalOpen) {
+            const modalRef = this.modalService.open(IdleModalComponent, { ariaLabelledBy: 'idle-modal.header' });
+            this.idleModalOpen = true;
+            modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+              if (closed) {
+                this.idleModalOpen = false;
+              }
+            });
+          }
+        }
+      });
   }
 }

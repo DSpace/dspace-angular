@@ -28,6 +28,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { SearchService } from '../../core/shared/search/search.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -49,6 +50,8 @@ import { NoContent } from '../../core/shared/NoContent.model';
  * Component used to map items to a collection
  */
 export class CollectionItemMapperComponent implements OnInit {
+
+  FeatureIds = FeatureID;
 
   /**
    * A view on the tabset element

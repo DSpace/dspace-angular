@@ -367,6 +367,22 @@ export class SectionsService {
   }
 
   /**
+   * Check if given section id is of a given section type
+   * @param submissionId
+   * @param sectionId
+   * @param sectionType
+   */
+  public isSectionType(submissionId: string, sectionId: string, sectionType: SectionsType): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
+      map((submissionState: SubmissionObjectEntry) => {
+        return isNotUndefined(submissionState.sections) && isNotUndefined(submissionState.sections[sectionId])
+          && submissionState.sections[sectionId].sectionType === sectionType;
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
    * Dispatch a new [EnableSectionAction] to add a new section and move page target to it
    *
    * @param submissionId

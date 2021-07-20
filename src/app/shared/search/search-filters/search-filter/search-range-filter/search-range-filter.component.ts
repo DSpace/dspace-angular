@@ -56,7 +56,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Fallback maximum for the range
    */
-  max = new Date().getFullYear();
+  max = new Date().getUTCFullYear();
 
   /**
    * The current range of the filter
