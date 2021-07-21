@@ -10,6 +10,11 @@ import { URLCombiner } from './core/url-combiner/url-combiner';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
 
+/**
+ * The bitstream module path to resolve XMLUI and JSPUI bitstream download URLs
+ */
+export const LEGACY_BITSTREAM_MODULE_PATH = 'bitstream';
+
 export function getBitstreamModuleRoute() {
   return `/${BITSTREAM_MODULE_PATH}`;
 }

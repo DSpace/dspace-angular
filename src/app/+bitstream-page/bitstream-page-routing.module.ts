@@ -9,6 +9,7 @@ import { ResourcePolicyCreateComponent } from '../shared/resource-policies/creat
 import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
+import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -20,7 +21,24 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
   imports: [
     RouterModule.forChild([
       {
-        path:':id/download',
+        // Resolve XMLUI bitstream download URLs
+        path: 'handle/:prefix/:suffix/:filename',
+        component: BitstreamDownloadPageComponent,
+        resolve: {
+          bitstream: LegacyBitstreamUrlResolver
+        },
+      },
+      {
+        // Resolve JSPUI bitstream download URLs
+        path: ':prefix/:suffix/:sequence_id/:filename',
+        component: BitstreamDownloadPageComponent,
+        resolve: {
+          bitstream: LegacyBitstreamUrlResolver
+        },
+      },
+      {
+        // Resolve angular bitstream download URLs
+        path: ':id/download',
         component: BitstreamDownloadPageComponent,
         resolve: {
           bitstream: BitstreamPageResolver

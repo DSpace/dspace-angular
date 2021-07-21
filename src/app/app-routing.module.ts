@@ -14,6 +14,7 @@ import {
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
@@ -91,6 +92,12 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
           { path: 'entities/:entity-type',
             loadChildren: () => import('./+item-page/item-page.module')
               .then((m) => m.ItemPageModule),
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: LEGACY_BITSTREAM_MODULE_PATH,
+            loadChildren: () => import('./+bitstream-page/bitstream-page.module')
+              .then((m) => m.BitstreamPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
