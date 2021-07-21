@@ -52,7 +52,7 @@ export const SD_TEST_MODEL_CONFIG = {
   hasSelectableMetadata: false
 };
 
-fdescribe('Dynamic Dynamic Scrollable Dropdown component', () => {
+describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 
   let testComp: TestComponent;
   let scrollableDropdownComp: DsDynamicScrollableDropdownComponent;

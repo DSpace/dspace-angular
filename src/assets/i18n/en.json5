@@ -1841,6 +1841,8 @@
 
   "form.save-help": "Save changes",
 
+  "form.search": "Search",
+
   "form.scrollable-input.search": "Search",
 
   "form.search-help": "Click here to look for an existing correspondence",
@@ -1848,9 +1850,6 @@
   "form.submit": "Save",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
-
-  "form.search": "Drop the item in the new position",
-
 
   "funding.listelement.badge" : "Funding",
 
