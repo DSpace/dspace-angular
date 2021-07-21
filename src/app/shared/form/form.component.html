@@ -13,7 +13,8 @@
        (ngbEvent)="onCustomEvent($event)">
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <!--Array with repeatable items-->
-        <div style="margin-bottom: 0.5rem;" *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"
+        <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"
+             [class.isInlineGroupForm-delete]="isInlineGroupForm"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
              [class]="arrayButtonsStyle" [ngClass]="{'justify-content-sm-end' : isInlineGroupForm }">
             <button type="button" class="btn btn-secondary"
