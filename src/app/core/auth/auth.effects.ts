@@ -53,6 +53,7 @@ import { RequestActionTypes } from '../data/request.actions';
 import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
 import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 
 // Action Types that do not break/prevent the user from an idle state
 const IDLE_TIMER_IGNORE_TYPES: string[]
@@ -218,6 +219,16 @@ export class AuthEffects {
       );
     }));
 
+  /**
+   * When the store is rehydrated in the browser, invalidate all cache hits regarding the
+   * authorizations endpoint, to be sure to have consistent responses after a login with external idp
+   *
+   */
+  @Effect({ dispatch: false }) invalidateAuthorizationsRequestCache$ = this.actions$
+    .pipe(ofType(StoreActionTypes.REHYDRATE),
+      tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
+    );
+
   @Effect()
   public logOut$: Observable<Action> = this.actions$
     .pipe(
@@ -284,11 +295,13 @@ export class AuthEffects {
    * @constructor
    * @param {Actions} actions$
    * @param {NgZone} zone
+   * @param {AuthorizationDataService} authorizationsService
    * @param {AuthService} authService
    * @param {Store} store
    */
   constructor(private actions$: Actions,
               private zone: NgZone,
+              private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
               private store: Store<AppState>) {
   }

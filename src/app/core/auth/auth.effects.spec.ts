@@ -35,6 +35,7 @@ import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
@@ -43,6 +44,8 @@ describe('AuthEffects', () => {
   let initialState;
   let token;
   let store: MockStore<AppState>;
+
+  const authorizationService = jasmine.createSpyObj(['invalidateAuthorizationsRequestCache']);
 
   function init() {
     authServiceStub = new AuthServiceStub();
@@ -68,6 +71,7 @@ describe('AuthEffects', () => {
       providers: [
         AuthEffects,
         provideMockStore({ initialState }),
+        { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: AuthService, useValue: authServiceStub },
         provideMockActions(() => actions),
         // other providers
@@ -415,6 +419,18 @@ describe('AuthEffects', () => {
         });
 
       }));
+    });
+  });
+
+  describe('invalidateAuthorizationsRequestCache$', () => {
+    it('should call invalidateAuthorizationsRequestCache method in response to a REHYDRATE action', (done) => {
+      actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+
+      authEffects.invalidateAuthorizationsRequestCache$.subscribe(() => {
+        expect((authEffects as  any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
+      });
+
+      done();
     });
   });
 });
