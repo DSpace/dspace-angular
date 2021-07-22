@@ -21,6 +21,10 @@ describe('AuthorizationDataService', () => {
   let site: Site;
   let ePerson: EPerson;
 
+  const requestService = jasmine.createSpyObj('requestService', {
+    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+  });
+
   function init() {
     site = Object.assign(new Site(), {
       id: 'test-site',
@@ -39,12 +43,17 @@ describe('AuthorizationDataService', () => {
       isAuthenticated: () => observableOf(true),
       getAuthenticatedUserFromStore: () => observableOf(ePerson)
     } as AuthService;
-    service = new AuthorizationDataService(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, authService, siteService);
+    service = new AuthorizationDataService(requestService, undefined, undefined, undefined, undefined, undefined, undefined, undefined, authService, siteService);
   }
 
   beforeEach(() => {
     init();
     spyOn(service, 'searchBy').and.returnValue(observableOf(undefined));
+  });
+
+  it('should call setStaleByHrefSubstring method', () => {
+    service.invalidateAuthorizationsRequestCache();
+    expect((service as any).requestService.setStaleByHrefSubstring).toHaveBeenCalledWith((service as any).linkPath);
   });
 
   describe('searchByObject', () => {

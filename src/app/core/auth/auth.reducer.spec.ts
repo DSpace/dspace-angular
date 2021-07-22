@@ -23,7 +23,9 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  SetRedirectUrlAction, SetUserAsIdleAction, UnsetUserAsIdleAction
+  SetRedirectUrlAction,
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPersonMock } from '../../shared/testing/eperson.mock';
@@ -551,7 +553,7 @@ describe('authReducer', () => {
       authMethods: [],
       idle: false
     };
-    const action = new RetrieveAuthMethodsAction(new AuthStatus(), true);
+    const action = new RetrieveAuthMethodsAction(new AuthStatus());
     const newState = authReducer(initialState, action);
     state = {
       authenticated: false,
@@ -577,7 +579,7 @@ describe('authReducer', () => {
       new AuthMethod(AuthMethodType.Password),
       new AuthMethod(AuthMethodType.Shibboleth, 'location')
     ];
-    const action = new RetrieveAuthMethodsSuccessAction(authMethods, false);
+    const action = new RetrieveAuthMethodsSuccessAction(authMethods);
     const newState = authReducer(initialState, action);
     state = {
       authenticated: false,
@@ -590,33 +592,7 @@ describe('authReducer', () => {
     expect(newState).toEqual(state);
   });
 
-  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS_SUCCESS action with blocking as true', () => {
-    initialState = {
-      authenticated: false,
-      loaded: false,
-      blocking: true,
-      loading: true,
-      authMethods: [],
-      idle: false
-    };
-    const authMethods = [
-      new AuthMethod(AuthMethodType.Password),
-      new AuthMethod(AuthMethodType.Shibboleth, 'location')
-    ];
-    const action = new RetrieveAuthMethodsSuccessAction(authMethods, true);
-    const newState = authReducer(initialState, action);
-    state = {
-      authenticated: false,
-      loaded: false,
-      blocking: true,
-      loading: false,
-      authMethods: authMethods,
-      idle: false
-    };
-    expect(newState).toEqual(state);
-  });
-
-  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS_ERROR action ', () => {
+  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS_ERROR action', () => {
     initialState = {
       authenticated: false,
       loaded: false,
@@ -626,7 +602,7 @@ describe('authReducer', () => {
       idle: false
     };
 
-    const action = new RetrieveAuthMethodsErrorAction(false);
+    const action = new RetrieveAuthMethodsErrorAction();
     const newState = authReducer(initialState, action);
     state = {
       authenticated: false,
@@ -676,29 +652,6 @@ describe('authReducer', () => {
       loaded: true,
       blocking: false,
       loading: false,
-      idle: false
-    };
-    expect(newState).toEqual(state);
-  });
-
-  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS_ERROR action with blocking as true', () => {
-    initialState = {
-      authenticated: false,
-      loaded: false,
-      blocking: true,
-      loading: true,
-      authMethods: [],
-      idle: false
-    };
-
-    const action = new RetrieveAuthMethodsErrorAction(true);
-    const newState = authReducer(initialState, action);
-    state = {
-      authenticated: false,
-      loaded: false,
-      blocking: true,
-      loading: false,
-      authMethods: [new AuthMethod(AuthMethodType.Password)],
       idle: false
     };
     expect(newState).toEqual(state);

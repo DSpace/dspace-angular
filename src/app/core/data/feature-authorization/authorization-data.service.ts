@@ -52,6 +52,13 @@ export class AuthorizationDataService extends DataService<Authorization> {
   }
 
   /**
+   * Set all authorization requests to stale
+   */
+  invalidateAuthorizationsRequestCache() {
+    this.requestService.setStaleByHrefSubstring(this.linkPath);
+  }
+
+  /**
    * Checks if an {@link EPerson} (or anonymous) has access to a specific object within a {@link Feature}
    * @param objectUrl     URL to the object to search {@link Authorization}s for.
    *                      If not provided, the repository's {@link Site} will be used.
