@@ -126,8 +126,6 @@ export const environment: Partial<GlobalConfig> = {
     async: true,
     time: false
   },
-  // Log directory
-  logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
   debug: false,
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
