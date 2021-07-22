@@ -272,7 +272,7 @@ export class MetadataService {
     if (this.currentObject.value instanceof Item) {
       let url = this.getMetaTagValue('dc.identifier.uri');
       if (hasNoValue(url)) {
-        url = new URLCombiner(this.hardRedirectService.getRequestOrigin(), this.router.url).toString();
+        url = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
       }
       this.addMetaTag('citation_abstract_html_url', url);
     }
@@ -336,7 +336,7 @@ export class MetadataService {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
           'citation_pdf_url',
-          new URLCombiner(this.hardRedirectService.getRequestOrigin(), link).toString()
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
         );
       });
     }
