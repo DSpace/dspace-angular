@@ -1,16 +1,16 @@
 <div class="container-fluid">
   <form class="form-horizontal" [formGroup]="formGroup">
-
     <ds-dynamic-form
       [formId]="formId"
       [formGroup]="formGroup"
       [formModel]="formModel"
       [formLayout]="formLayout"
+      [entityType]="entityType"
       (change)="$event.stopPropagation();"
       (dfBlur)="onBlur($event)"
       (dfChange)="onChange($event)"
       (dfFocus)="onFocus($event)"
-      (ngbEvent)="onCustomEvent($event)">
+       (ngbEvent)="onCustomEvent($event)">
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <!--Array with repeatable items-->
         <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index)"

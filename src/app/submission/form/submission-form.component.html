@@ -28,6 +28,7 @@
         <ng-container *ngFor="let object of (submissionSections | async)">
             <ds-submission-section-container [collectionId]="collectionId"
                                              [submissionId]="submissionId"
+                                             [entityType]="entityType"
                                              [sectionData]="object"></ds-submission-section-container>
         </ng-container>
     </div>

@@ -1,6 +1,6 @@
-import { Chips } from './chips.model';
-import { ChipsItem } from './chips-item.model';
-import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import {Chips} from './chips.model';
+import {ChipsItem} from './chips-item.model';
+import {FormFieldMetadataValueObject} from '../../form/builder/models/form-field-metadata-value.model';
 
 describe('Chips model test suite', () => {
   let items: any[];
@@ -72,15 +72,15 @@ describe('Chips model test suite', () => {
   it('should set a different displayObj', () => {
     items = [
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'a'
       },
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'a'
       },
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'a'
       },
     ];
@@ -93,15 +93,15 @@ describe('Chips model test suite', () => {
   it('should set iconsConfig', () => {
     items = [
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'a'
       },
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'a'
       },
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'a'
       },
     ];

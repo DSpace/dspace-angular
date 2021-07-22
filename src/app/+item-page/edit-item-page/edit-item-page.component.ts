@@ -1,13 +1,15 @@
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Route, Router } from '@angular/router';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { isNotEmpty } from '../../shared/empty.util';
-import { getItemPageRoute } from '../item-page-routing-paths';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {fadeIn, fadeInOut} from '../../shared/animations/fade';
+import {ChangeDetectionStrategy, Component, Injector, OnInit} from '@angular/core';
+import {ActivatedRoute, CanActivate, Route, Router} from '@angular/router';
+import {RemoteData} from '../../core/data/remote-data';
+import {Item} from '../../core/shared/item.model';
+import {combineLatest as observableCombineLatest, Observable, of as observableOf} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {isNotEmpty} from '../../shared/empty.util';
+import {getItemPageRoute} from '../item-page-routing-paths';
+import {GenericConstructor} from '../../core/shared/generic-constructor';
+import {ConfigurationDataService} from "../../core/data/configuration-data.service";
+import {ConfigurationProperty} from "../../core/shared/configuration-property.model";
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -28,6 +30,7 @@ export class EditItemPageComponent implements OnInit {
    */
   itemRD$: Observable<RemoteData<Item>>;
 
+
   /**
    * The current page outlet string
    */
@@ -38,8 +41,12 @@ export class EditItemPageComponent implements OnInit {
    */
   pages: { page: string, enabled: Observable<boolean> }[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private injector: Injector) {
-    this.router.events.subscribe(() => this.initPageParamsByRoute());
+  constructor(private route: ActivatedRoute, private router: Router, private injector: Injector
+  ) {
+    this.router.events.subscribe(
+      () => {
+        this.initPageParamsByRoute()
+      });
   }
 
   ngOnInit(): void {
@@ -57,7 +64,7 @@ export class EditItemPageComponent implements OnInit {
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true))
           );
         }
-        return { page: child.path, enabled: enabled };
+        return {page: child.path, enabled: enabled};
       }); // ignore reroutes
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
   }
@@ -76,4 +83,5 @@ export class EditItemPageComponent implements OnInit {
   initPageParamsByRoute() {
     this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
   }
+
 }

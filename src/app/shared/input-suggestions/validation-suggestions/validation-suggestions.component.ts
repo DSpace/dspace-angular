@@ -1,10 +1,10 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { MetadatumViewModel } from '../../../core/shared/metadata.models';
-import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
-import { InputSuggestionsComponent } from '../input-suggestions.component';
-import { InputSuggestion } from '../input-suggestions.model';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
+import {MetadatumViewModel} from '../../../core/shared/metadata.models';
+import {MetadataFieldValidator} from '../../utils/metadatafield-validator.directive';
+import {InputSuggestionsComponent} from '../input-suggestions.component';
+import {InputSuggestion} from '../input-suggestions.model';
 
 @Component({
   selector: 'ds-validation-suggestions',
@@ -63,8 +63,9 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
   }
 
   onClickSuggestion(data) {
-    this.value = data;
+     this.value = data;
     this.clickSuggestion.emit(data);
+    this.selectSuggestionMetadata.emit(data);
     this.close();
     this.blockReopen = true;
     this.queryInput.nativeElement.focus();

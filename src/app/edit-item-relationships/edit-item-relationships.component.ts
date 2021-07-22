@@ -163,7 +163,6 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
         const itemType = item.firstMetadataValue('dspace.entity.type');
         this.relationshipConfig = 'RELATION.' + itemType + '.' + this.relationshipType;
         this.searchFilter = `scope=${item.id}`;
-        console.log(this.relationshipConfig);
         this.isActive = true;
       })
     );

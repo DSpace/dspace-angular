@@ -88,7 +88,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   }
 
   onChange(event) {
-    // update year-month-day
+     // update year-month-day
     switch (event.field) {
       case 'year': {
         if (event.value !== null) {

@@ -33,7 +33,7 @@
            class="form-control"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
-         [id]="model.id"
+           [id]="model.id"
            [inputFormatter]="formatter"
            [name]="model.name"
            [ngbTypeahead]="search"
@@ -58,7 +58,6 @@
       <i class="far fa-share-square"></i>
     </button>
   </div>
-
 </div>
 
 <input *ngIf="(isHierarchicalVocabulary() | async)"

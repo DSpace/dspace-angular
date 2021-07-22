@@ -1,15 +1,14 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-
-import { AppState } from '../../app.reducer';
-import { formObjectFromIdSelector } from './selectors';
-import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
-import { isEmpty, isNotUndefined } from '../empty.util';
-import { uniqueId } from 'lodash';
+import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
+import {Observable, Subject} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../app.reducer';
+import {formObjectFromIdSelector} from './selectors';
+import {FormBuilderService} from './builder/form-builder.service';
+import {DynamicFormControlEvent, DynamicFormControlModel} from '@ng-dynamic-forms/core';
+import {isEmpty, isNotUndefined} from '../empty.util';
+import {uniqueId} from 'lodash';
 import {
   FormAddError,
   FormAddTouchedAction,
@@ -19,11 +18,14 @@ import {
   FormRemoveErrorAction,
   FormStatusChangeAction
 } from './form.actions';
-import { FormEntry, FormError, FormTouchedState } from './form.reducer';
-import { environment } from '../../../environments/environment';
+import {FormEntry, FormError, FormTouchedState} from './form.reducer';
+import {environment} from '../../../environments/environment';
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 
 @Injectable()
 export class FormService {
+  entityTypeAndSecurityfallBack  = new BehaviorSubject(null);
+  entityTypeAndSecurityfallBack$ = this.entityTypeAndSecurityfallBack.asObservable();
 
   constructor(
     private formBuilderService: FormBuilderService,
@@ -100,8 +102,8 @@ export class FormService {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-        control.markAsDirty({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
+        control.markAsDirty({onlySelf: true});
       } else if (control instanceof FormGroup || control instanceof FormArray) {
         this.validateAllFormFields(control);
       }
@@ -112,7 +114,7 @@ export class FormService {
     let hasErrors = false;
     const fields: string[] = Object.keys(formGroup.controls);
     for (const field of fields) {
-    // Object.keys(formGroup.controls).forEach((field) => {
+      // Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         hasErrors = !control.valid && control.touched;
@@ -122,7 +124,7 @@ export class FormService {
       if (hasErrors) {
         break;
       }
-    // });
+      // });
     }
     return hasErrors;
   }

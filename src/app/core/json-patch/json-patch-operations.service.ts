@@ -76,13 +76,13 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
             return this.getRequestInstance(requestId, endpointURL, body);
           }));
       })));
-
     return observableMerge(
       emptyRequest$.pipe(
         filter((request: PatchRequestDefinition) => isEmpty(request.body)),
         tap(() => startTransactionTime = null),
         map(() => null)),
       patchRequest$.pipe(
+
         filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
         tap((request: PatchRequestDefinition) => this.requestService.send(request)),
@@ -100,6 +100,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
               }
             }),
             distinctUntilChanged()
+
         );
         }))
     );

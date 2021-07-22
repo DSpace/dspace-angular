@@ -1,4 +1,4 @@
-<ds-dynamic-form-control-container *ngFor="let model of formModel; trackBy: trackByFn"
+<ds-dynamic-form-control-container *ngFor="let model of formModel ; trackBy: trackByFn"
                                    [formId]="formId"
                                    [formModel]="formModel"
                                    [group]="formGroup"
@@ -11,4 +11,4 @@
                                    (dfBlur)="onCustomEvent($event, blur)"
                                    (dfChange)="onCustomEvent($event, change)"
                                    (dfFocus)="onCustomEvent($event, focus)"
-                                   (ngbEvent)="onCustomEvent($event, ngbEvent)"></ds-dynamic-form-control-container>
+                                   (ngbEvent)="onCustomEvent($event, ngbEvent)" ></ds-dynamic-form-control-container>

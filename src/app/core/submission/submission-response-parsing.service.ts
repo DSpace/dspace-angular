@@ -46,6 +46,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
       result = new FormFieldMetadataValueObject(
         obj.value,
         obj.language,
+        obj.securityLevel,
         obj.authority,
         (obj.display || obj.value),
         obj.place || objIndex,

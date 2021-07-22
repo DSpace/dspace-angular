@@ -107,8 +107,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     modalRef.componentInstance.editMode = this.selectedChipItem ? true : false;
     modalRef.componentInstance.itemIndex = this.selectedChipItemIndex;
     modalRef.componentInstance.item = this.selectedChipItem?.item;
+    modalRef.componentInstance.changedSecurity = false;
 
     modalRef.componentInstance.edit.pipe(take(1)).subscribe((item) => {
+       console.log(this.model)
+      this.chips.triggerUpdate = modalRef.componentInstance.changedSecurity
       this.chips.update(this.selectedChipItem.id, item);
     });
     modalRef.componentInstance.add.pipe(take(1)).subscribe((item) => {
@@ -129,13 +132,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   private initChipsFromModelValue() {
-
-    let initChipsValue$: Observable<any[]>;
+     let initChipsValue$: Observable<any[]>;
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
       initChipsValue$ = observableOf(this.model.value as any[]);
-
       // If authority
       this.subs.push(initChipsValue$.pipe(
         mergeMap((valueModel) => {
@@ -191,7 +192,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     this.subs.push(
       this.chips.chipsItems
         .subscribe(() => {
-          const items = this.chips.getChipsItems();
+            const items = this.chips.getChipsItems();
           // Does not emit change if model value is equal to the current value
           if (!isEqual(items, this.model.value)) {
             if (!(isEmpty(items) && this.model.isEmpty())) {
@@ -199,14 +200,18 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               this.change.emit();
             }
           }
+          else {
+            if (this.chips.triggerUpdate) {
+              this.change.emit();
+              this.chips.triggerUpdate = false;
+            }
+          }
         }),
     );
   }
 
   private getVocabulary(valueObj, fieldName): Observable<any> {
-
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
-
     const formModel = this.formBuilderService.modelFromConfiguration(
       this.model.submissionId,
       config,
@@ -216,7 +221,6 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       this.model.readOnly,
       null,
       true);
-
     const fieldId = fieldName.replace(/\./g, '_');
     const model = this.formBuilderService.findById(fieldId, formModel);
     return this.vocabularyService.findEntryDetailById(

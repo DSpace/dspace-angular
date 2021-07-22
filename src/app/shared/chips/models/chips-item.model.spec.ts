@@ -68,7 +68,7 @@ describe('ChipsItem model test suite', () => {
   it('should set display property with a different objToDisplay', () => {
     item = new ChipsItem(
       {
-        toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
+        toDisplay: new FormFieldMetadataValueObject('a', null, null, 'a'),
         otherProperty: 'other'
       },
       'value', 'toDisplay');

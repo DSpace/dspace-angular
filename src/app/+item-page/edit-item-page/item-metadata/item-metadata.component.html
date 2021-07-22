@@ -28,18 +28,19 @@
             <th>{{'item.edit.metadata.headers.field' | translate}}</th>
             <th>{{'item.edit.metadata.headers.value' | translate}}</th>
             <th class="text-center">{{'item.edit.metadata.headers.language' | translate}}</th>
+            <th class="text-center">{{'Security Level'| translate}}</th>
             <th class="text-center">{{'item.edit.metadata.headers.edit' | translate}}</th>
         </tr>
-        <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
+        <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate; let i = index"
             ds-edit-in-place-field
             [fieldUpdate]="updateValue || {}"
             [url]="url"
+            (selectNewMetadata) ="addMetadata($event)"
             [ngClass]="{
                 'table-warning': updateValue.changeType === 0,
                 'table-danger': updateValue.changeType === 2,
                 'table-success': updateValue.changeType === 1
             }">
-
         </tr>
         </tbody>
     </table>
