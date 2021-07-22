@@ -7,11 +7,12 @@ describe('ServerHardRedirectService', () => {
   const mockResponse = jasmine.createSpyObj(['redirect', 'end']);
 
   const service: ServerHardRedirectService = new ServerHardRedirectService(mockRequest, mockResponse);
-  const origin = 'test-host';
+  const origin = 'https://test-host.com:4000';
 
   beforeEach(() => {
+    mockRequest.protocol = 'https';
     mockRequest.headers = {
-      host: 'test-host',
+      host: 'test-host.com:4000',
     };
 
     TestBed.configureTestingModule({});
@@ -49,7 +50,7 @@ describe('ServerHardRedirectService', () => {
   describe('when requesting the origin', () => {
 
     it('should return the location origin', () => {
-      expect(service.getRequestOrigin()).toEqual(origin);
+      expect(service.getCurrentOrigin()).toEqual(origin);
     });
   });
 

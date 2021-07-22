@@ -74,7 +74,7 @@ describe('MetadataService', () => {
       }
     } as any as Router;
     hardRedirectService = jasmine.createSpyObj( {
-      getRequestOrigin: 'https://request.org',
+      getCurrentOrigin: 'https://request.org',
     });
 
     // @ts-ignore

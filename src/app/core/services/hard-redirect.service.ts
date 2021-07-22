@@ -18,10 +18,13 @@ export abstract class HardRedirectService {
    * Get the current route, with query params included
    * e.g. /search?page=1&query=open%20access&f.dateIssued.min=1980&f.dateIssued.max=2020
    */
-  abstract getCurrentRoute();
+  abstract getCurrentRoute(): string;
 
   /**
-   * Get the hostname of the request
+   * Get the origin of the current URL
+   * i.e. <scheme> "://" <hostname> [ ":" <port> ]
+   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
+   * the origin would be https://demo7.dspace.org
    */
-  abstract getRequestOrigin();
+  abstract getCurrentOrigin(): string;
 }
