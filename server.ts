@@ -41,6 +41,8 @@ import { UIServerConfig } from './src/config/ui-server-config.interface';
  * Set path for the browser application's dist folder
  */
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
+// Set path fir IIIF viewer.
+const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
 const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
 
@@ -135,6 +137,10 @@ export function app() {
    * Serve static resources (images, i18n messages, …)
    */
   server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  /*
+  * Fallthrough to the IIIF viewer (must be included in the build).
+  */
+  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
 
   // Register the ngApp callback function to handle incoming requests
   server.get('*', ngApp);

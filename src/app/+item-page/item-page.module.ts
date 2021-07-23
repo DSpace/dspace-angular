@@ -12,7 +12,6 @@ import { ItemPageAbstractFieldComponent } from './simple/field-components/specif
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageTitleFieldComponent } from './simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageFieldComponent } from './simple/field-components/specific-field/item-page-field.component';
-import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
@@ -27,6 +26,7 @@ import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
+import { IIIFEntitiesModule } from '../entity-groups/iiif-entities/iiif-entities.module';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
@@ -50,7 +50,6 @@ const DECLARATIONS = [
   ItemPageUriFieldComponent,
   ItemPageTitleFieldComponent,
   ItemPageFieldComponent,
-  FileSectionComponent,
   CollectionsComponent,
   FullFileSectionComponent,
   PublicationComponent,
@@ -72,7 +71,8 @@ const DECLARATIONS = [
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
-     NgxGalleryModule,
+    IIIFEntitiesModule.withEntryComponents(),
+    NgxGalleryModule,
   ],
   declarations: [
     ...DECLARATIONS
