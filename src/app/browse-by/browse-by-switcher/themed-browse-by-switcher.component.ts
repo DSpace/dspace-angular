@@ -17,7 +17,7 @@ export class ThemedBrowseBySwitcherComponent extends ThemedComponent<BrowseBySwi
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../themes/${themeName}/app/browse-by/+browse-by-switcher/browse-by-switcher.component`);
+    return import(`../../../themes/${themeName}/app/browse-by/browse-by-switcher/browse-by-switcher.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {
