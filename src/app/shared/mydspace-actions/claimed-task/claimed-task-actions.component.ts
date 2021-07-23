@@ -17,7 +17,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { WORKFLOW_TASK_OPTION_RETURN_TO_POOL } from './return-to-pool/claimed-task-actions-return-to-pool.component';
-import { getWorkflowItemViewRoute } from '../../../+workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 /**
  * This component represents actions related to ClaimedTask object.

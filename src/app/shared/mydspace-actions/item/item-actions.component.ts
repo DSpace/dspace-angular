@@ -7,7 +7,7 @@ import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 /**
  * This component represents mydspace actions related to Item object.

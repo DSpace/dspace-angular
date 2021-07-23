@@ -7,7 +7,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { Params, Router } from '@angular/router';
 import { SearchLabelComponent } from './search-label.component';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';

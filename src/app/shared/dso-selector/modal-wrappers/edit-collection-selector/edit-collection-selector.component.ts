@@ -7,7 +7,7 @@ import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
-import { getCollectionEditRoute } from '../../../../+collection-page/collection-page-routing-paths';
+import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
 
 /**
  * Component to wrap a list of existing collections inside a modal

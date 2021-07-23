@@ -15,7 +15,7 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
-} from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
+} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

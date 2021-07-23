@@ -12,7 +12,7 @@ import { filter, map, startWith, switchMap } from 'rxjs/operators';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { AlertType } from '../../../alert/aletr-type';
-import { getItemPageRoute } from '../../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',

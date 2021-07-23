@@ -6,7 +6,7 @@ import { hasValueOperator, isNotEmpty } from '../../empty.util';
 import { Observable } from 'rxjs';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 @Component({

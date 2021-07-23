@@ -8,7 +8,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
-import { compareArraysUsingIds } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 
 /**
  * A basic implementation of a MenuComponent

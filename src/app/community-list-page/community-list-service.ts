@@ -16,8 +16,8 @@ import { PaginatedList, buildPaginatedList } from '../core/data/paginated-list.m
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
-import { getCommunityPageRoute } from '../+community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../+collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../core/shared/operators';
 import { followLink } from '../shared/utils/follow-link-config.model';
 
