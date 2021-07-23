@@ -11,7 +11,7 @@ import { routeReducer, RouteState } from './services/route.reducer';
 import {
   bitstreamFormatReducer,
   BitstreamFormatRegistryState
-} from '../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+} from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { historyReducer, HistoryState } from './history/history.reducer';
 import { metaTagReducer, MetaTagState } from './metadata/meta-tag.reducer';
 

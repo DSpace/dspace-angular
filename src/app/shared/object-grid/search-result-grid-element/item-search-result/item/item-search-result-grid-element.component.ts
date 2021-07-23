@@ -5,7 +5,7 @@ import { listableObjectComponent } from '../../../../object-collection/shared/li
 import { SearchResultGridElementComponent } from '../../search-result-grid-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { getItemPageRoute } from '../../../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)

@@ -1,7 +1,7 @@
 import {
   createRelationshipsObservable,
   getItemPageFieldsTest
-} from '../../../../+item-page/simple/item-types/shared/item.component.spec';
+} from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
