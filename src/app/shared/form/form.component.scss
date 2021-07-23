@@ -50,4 +50,5 @@ button.ds-form-add-more:focus {
 
 .isInlineGroupForm-delete {
   margin-bottom: -2.5rem;
+  z-index: var(--bs-zindex-dropdown);
 }
