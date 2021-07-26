@@ -142,6 +142,7 @@ export abstract class FieldParser {
         modelConfig.value = fieldValue;
       } else if (typeof fieldValue === 'object') {
         modelConfig.metadataValue = fieldValue;
+        modelConfig.securityLevel = fieldValue.securityLevel;
         modelConfig.language = fieldValue.language;
         modelConfig.place = fieldValue.place;
         if (forceValueAsObj) {

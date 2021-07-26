@@ -201,30 +201,28 @@ export class SectionFormOperationsService {
 
   public getSecurityLevelsFromQualdropModel(event: DynamicFormControlEvent): number[] {
     try {
-      let securities = [];
+      const securities = [];
       const context = this.formBuilder.isQualdropGroup(event.model)
         ? (event.model.parent as DynamicFormArrayGroupModel).context
         : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
       context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
         const groupModel = arrayModel.group[0] as DynamicQualdropModel;
-        groupModel.group.map((groupModel: any) => {
-          if (groupModel['securityLevel'] != undefined) {
-            let metadataToBeAdded
-            securities.push(groupModel['securityLevel'])
+        groupModel.group.map((model: any) => {
+          if (model.securityLevel !== undefined) {
+            securities.push(model.securityLevel);
           } else {
-            if (groupModel.metadataValue) {
-              if (groupModel.metadataValue.securityLevel !== undefined) {
-                securities.push(groupModel.metadataValue.securityLevel)
+            if (model.metadataValue) {
+              if (model.metadataValue.securityLevel !== undefined) {
+                securities.push(model.metadataValue.securityLevel);
               }
             }
           }
-        })
+        });
       });
       return securities;
     } catch (error) {
       return [];
     }
-
   }
 
   /**
@@ -276,7 +274,7 @@ export class SectionFormOperationsService {
         }
       } else {
         // Language without Authority (input, textArea)
-        if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
+        if ((event.model as any).securityLevel != null && (event.model as any).securityLevel !== undefined) {
           const securityLevel = (event.model as any).securityLevel;
           fieldValue = new FormFieldMetadataValueObject(value, language, securityLevel);
         } else {
@@ -285,7 +283,7 @@ export class SectionFormOperationsService {
 
       }
     } else if (isNgbDateStruct(value)) {
-      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel !== undefined) {
         const securityLevel = (event.model as any).metadataValue.securityLevel;
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
       } else {
@@ -295,8 +293,8 @@ export class SectionFormOperationsService {
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
-      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
-        const securityLevel = (event.model as any).securityLevel
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel !== undefined) {
+        const securityLevel = (event.model as any).securityLevel;
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
       } else {
         fieldValue = new FormFieldMetadataValueObject(value);
@@ -414,10 +412,10 @@ export class SectionFormOperationsService {
     }
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
-    let value = this.getFieldValueFromChangeEvent(event);
-    if (event.model['securityLevel'] != null) {
-      if (typeof value != 'string') {
-        value.securityLevel = event.model['securityLevel']
+    const value = this.getFieldValueFromChangeEvent(event);
+    if ((event.model as any).securityLevel !== null) {
+      if (typeof value !== 'string') {
+        value.securityLevel = (event.model as any).securityLevel;
       }
     }
     // Detect which operation must be dispatched
@@ -503,10 +501,11 @@ export class SectionFormOperationsService {
       const path = this.getQualdropItemPathFromEvent(event);
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     } else {
-      let securities = null
+      let securities = null;
       if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
-        || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel))
-        securities = this.getSecurityLevelsFromQualdropModel(event)
+        || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
+        securities = this.getSecurityLevelsFromQualdropModel(event);
+      }
       if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
         previousValue.value.forEach((entry, index) => {
           let currentValue = currentValueMap.get(index);
@@ -514,14 +513,16 @@ export class SectionFormOperationsService {
             if (!isEqual(entry, currentValue)) {
               if (Array.isArray(currentValue)) {
                 if (securities) {
-                  currentValue = currentValue.map((el, index) => {
-                    if (typeof el == 'string') {
+                  currentValue = currentValue.map((el, pos) => {
+                    if (typeof el === 'string') {
                       return {
                         value: el,
-                        securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
-                      }
-                    } else return el
-                  })
+                        securityLevel: securities ? securities[pos] !== undefined ? securities[pos] : null : null
+                      };
+                    } else {
+                      return el;
+                    }
+                  });
                 }
               }
               this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
@@ -537,16 +538,14 @@ export class SectionFormOperationsService {
           // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
         } else {
-          entry = entry.map((el, index) => {
-            if (typeof el == 'string') {
+          entry = entry.map((el, indexPos) => {
+            if (typeof el === 'string') {
               return {
                 value: el,
-                securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
-              }
-            } else return el
-          })
-          // add one by one to ensure
-
+                securityLevel: securities ? securities[indexPos] !== undefined ? securities[indexPos] : null : null
+              };
+            } else { return el; }
+          });
           this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
         }
       });
@@ -615,16 +614,16 @@ export class SectionFormOperationsService {
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else {
       const path = this.getFieldPathFromEvent(event);
-      let value = this.getFieldValueFromChangeEvent(event);
-      if (event.model['securityLevel'] != null && event.model['securityLevel'] != undefined) {
-        if (value && typeof value == 'string') {
+      const value = this.getFieldValueFromChangeEvent(event);
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel !== undefined) {
+        if (value && typeof value === 'string') {
           this.operationsBuilder.replace(
             pathCombiner.getPath(path),
-            value, false, event.model['securityLevel']);
+            value, false, (event.model as any).securityLevel);
         } else {
           this.operationsBuilder.replace(
             pathCombiner.getPath(path),
-            value, false, event.model['securityLevel']);
+            value, false, (event.model as any).securityLevel);
         }
         previousValue.delete();
       }

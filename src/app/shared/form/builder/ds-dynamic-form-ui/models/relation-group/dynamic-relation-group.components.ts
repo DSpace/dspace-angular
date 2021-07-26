@@ -110,8 +110,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     modalRef.componentInstance.changedSecurity = false;
 
     modalRef.componentInstance.edit.pipe(take(1)).subscribe((item) => {
-       console.log(this.model)
-      this.chips.triggerUpdate = modalRef.componentInstance.changedSecurity
+      this.chips.triggerUpdate = modalRef.componentInstance.changedSecurity;
       this.chips.update(this.selectedChipItem.id, item);
     });
     modalRef.componentInstance.add.pipe(take(1)).subscribe((item) => {
@@ -199,8 +198,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               this.model.value = items;
               this.change.emit();
             }
-          }
-          else {
+          } else {
             if (this.chips.triggerUpdate) {
               this.change.emit();
               this.chips.triggerUpdate = false;

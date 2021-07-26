@@ -284,6 +284,11 @@ export class FormComponent implements OnDestroy, OnInit {
     if (this.emitChange) {
       this.change.emit(event);
     }
+    // emit an event for dx-dynamic-form-control-container in order to preselect the security level
+    if (event.type === 'change') {
+      this.formService.dynamicBoxChangeEmitter.next(event);
+    }
+
   }
 
   /**

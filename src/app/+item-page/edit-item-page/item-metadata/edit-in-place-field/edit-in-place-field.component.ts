@@ -37,8 +37,8 @@ import 'src/assets/images/keySecurity.png';
  * Component that displays a single metadatum of an item on the edit page
  */
 export class EditInPlaceFieldComponent implements OnInit, OnChanges {
-  @Input() securityLevelConfig: number = 0;
-  data: any
+  @Input() securityLevelConfig = 0;
+  data: any;
   /**
    * The current field, value and state of the metadatum
    */
@@ -82,10 +82,10 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets up an observable that keeps track of the current editable and valid state of this field
    */
   ngOnInit(): void {
-    this.data = this.fieldUpdate
+    this.data = this.fieldUpdate;
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
-    this.ref.detectChanges()
+    this.ref.detectChanges();
 
 
   }
@@ -140,11 +140,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets the current metadatafield based on the fieldUpdate input field
    */
   ngOnChanges(changes: SimpleChanges): void {
-
     this.metadata = cloneDeep(this.fieldUpdate.field) as MetadatumViewModel;
-    this.fieldUpdate.field = changes['fieldUpdate'].currentValue.field
-    this.data = changes['fieldUpdate'].currentValue;
-
   }
 
   /**
@@ -228,16 +224,16 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   }
 
   changeSelectedSecurity(securityLevel) {
-    this.metadata.securityLevel = securityLevel
+    this.metadata.securityLevel = securityLevel;
     this.update();
 
   }
 
   ngAfterViewInit() {
-    this.ref.markForCheck()
+    this.ref.markForCheck();
   }
 
   selectSuggestionMetadata(suggestionControl) {
-     this.selectNewMetadata.next(suggestionControl)
+     this.selectNewMetadata.next(suggestionControl);
   }
 }

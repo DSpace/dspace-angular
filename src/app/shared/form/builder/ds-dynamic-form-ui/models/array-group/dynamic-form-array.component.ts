@@ -21,7 +21,7 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
   templateUrl: './dynamic-form-array.component.html',
   styleUrls: ['./dynamic-form-array.component.scss']
 })
-export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent{
+export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
   @Input() bindId = true;
   @Input() formModel: DynamicFormControlModel[];

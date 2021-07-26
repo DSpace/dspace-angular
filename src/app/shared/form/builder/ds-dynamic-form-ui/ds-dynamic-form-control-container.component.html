@@ -2,7 +2,9 @@
   [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
   [class.d-none]="model.hidden"
   [formGroup]="group"
-  [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
+  [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]"
+  (input)="preselectMostRestrictedOption($event)"
+  (change)= "preselectMostRestrictedOption($event)">
   <label *ngIf="!isCheckbox && hasLabel"
          [for]="model.id"
          [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
@@ -17,7 +19,8 @@
         <!--        <div [style.width]="model.type != 'GROUP' ? '80%': ''" >-->
           <ng-container    #componentViewContainer></ng-container>
         <div>
-          <div  style="margin-top: 2px" *ngIf=" model.type != 'GROUP' &&  model.type != 'SCROLLABLE_DROPDOWN' && model.type != 'TAG' && model.type != 'SELECT' ">
+          <div style="margin-top: 4px" *ngIf=" model.type != 'GROUP' &&  model.type != 'SCROLLABLE_DROPDOWN' && model.type != 'TAG' && model.type
+               != 'SELECT' && model.type != 'ARRAY' && model.type != 'RELATION' && model.type != 'DATE' && model.type != 'CHECKBOX'">
             <!-- <ds-edit-metadata-security *ngIf="model.parent" [ngClass]="getClass('grid', 'control')"-->
             <ds-edit-metadata-security *ngIf="showToggleFirstLimit()"
                                        [securityConfigLevel]="securityLevelConfig"
