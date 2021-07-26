@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { CookieService } from '../services/cookie.service';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to
@@ -23,7 +24,9 @@ export class LogInterceptor implements HttpInterceptor {
 
     // Add headers from the intercepted request
     let headers = request.headers;
-    headers = headers.append('X-CORRELATION-ID', correlationId);
+    if (hasValue(correlationId)) {
+      headers = headers.append('X-CORRELATION-ID', correlationId);
+    }
     headers = headers.append('X-REFERRER', this.router.url);
 
     // Add new headers to the intercepted request
