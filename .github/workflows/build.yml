@@ -117,5 +117,28 @@ jobs:
           chromedriver --url-base='/wd/hub' --port=4444 &
           yarn run e2e:ci
 
+      # Start up the app with SSR enabled (run in background)
+      - name: Start app in SSR (server-side rendering) mode
+        run: |
+          nohup yarn run serve:ssr &
+          printf 'Waiting for app to start'
+          until curl --output /dev/null --silent --head --fail http://localhost:4000/home; do
+            printf '.'
+            sleep 2
+          done
+          echo "App started successfully."
+
+      # Get homepage and verify that the <meta name="title"> tag includes "DSpace".
+      # If it does, then SSR is working, as this tag is created by our MetadataService.
+      # This step also prints entire HTML of homepage for easier debugging if grep fails.
+      - name: Verify SSR (server-side rendering)
+        run: |
+          result=$(wget -O- -q http://localhost:4000/home)
+          echo "$result"
+          echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
+
+      - name: Stop running app
+        run: kill -9 $(lsof -t -i:4000)
+
       - name: Shutdown Docker containers
         run: docker-compose -f ./docker/docker-compose-ci.yml down
