@@ -107,18 +107,18 @@ describe('MetadataService', () => {
     tick();
     expect(title.setTitle).toHaveBeenCalledWith('Test PowerPoint Document');
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'citation_title',
+      name: 'citation_title',
       content: 'Test PowerPoint Document'
     });
-    expect(meta.addTag).toHaveBeenCalledWith({ property: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'citation_publication_date',
+      name: 'citation_publication_date',
       content: '1650-06-26'
     });
-    expect(meta.addTag).toHaveBeenCalledWith({ property: 'citation_issn', content: '123456789' });
-    expect(meta.addTag).toHaveBeenCalledWith({ property: 'citation_language', content: 'en' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_issn', content: '123456789' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_language', content: 'en' });
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'citation_keywords',
+      name: 'citation_keywords',
       content: 'keyword1; keyword2; keyword3'
     });
   }));
@@ -133,11 +133,11 @@ describe('MetadataService', () => {
     });
     tick();
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'citation_dissertation_name',
+      name: 'citation_dissertation_name',
       content: 'Test PowerPoint Document'
     });
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'citation_pdf_url',
+      name: 'citation_pdf_url',
       content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download'
     });
   }));
@@ -152,7 +152,7 @@ describe('MetadataService', () => {
     });
     tick();
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'citation_technical_report_institution',
+      name: 'citation_technical_report_institution',
       content: 'Mock Publisher'
     });
   }));
@@ -170,11 +170,11 @@ describe('MetadataService', () => {
     tick();
     expect(title.setTitle).toHaveBeenCalledWith('DSpace :: Dummy Title');
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'title',
+      name: 'title',
       content: 'DSpace :: Dummy Title'
     });
     expect(meta.addTag).toHaveBeenCalledWith({
-      property: 'description',
+      name: 'description',
       content: 'This is a dummy item component for testing!'
     });
   }));
@@ -191,7 +191,7 @@ describe('MetadataService', () => {
       metadataService.listenForRouteChange();
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'Generator',
+        name: 'Generator',
         content: 'mock-dspace-version'
       });
     }));
@@ -208,7 +208,7 @@ describe('MetadataService', () => {
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'citation_abstract_html_url',
+        name: 'citation_abstract_html_url',
         content: 'https://ddg.gg'
       });
     }));
@@ -223,7 +223,7 @@ describe('MetadataService', () => {
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'citation_abstract_html_url',
+        name: 'citation_abstract_html_url',
         content: 'https://request.org/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
       });
     }));
@@ -240,11 +240,11 @@ describe('MetadataService', () => {
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'citation_dissertation_institution',
+        name: 'citation_dissertation_institution',
         content: 'Mock Publisher'
       });
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ property: 'citation_technical_report_institution' }));
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ property: 'citation_publisher' }));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
     }));
 
     it('should use citation_tech_report_institution tag for tech reports', fakeAsync(() => {
@@ -256,12 +256,12 @@ describe('MetadataService', () => {
         }
       });
       tick();
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ property: 'citation_dissertation_institution' }));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'citation_technical_report_institution',
+        name: 'citation_technical_report_institution',
         content: 'Mock Publisher'
       });
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ property: 'citation_publisher' }));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
     }));
 
     it('should use citation_publisher for other item types', fakeAsync(() => {
@@ -273,10 +273,10 @@ describe('MetadataService', () => {
         }
       });
       tick();
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ property: 'citation_dissertation_institution' }));
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ property: 'citation_technical_report_institution' }));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
+      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'citation_publisher',
+        name: 'citation_publisher',
         content: 'Mock Publisher'
       });
     }));
@@ -295,7 +295,7 @@ describe('MetadataService', () => {
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
-        property: 'citation_pdf_url',
+        name: 'citation_pdf_url',
         content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download'
       });
     }));
@@ -313,7 +313,7 @@ describe('MetadataService', () => {
         });
         tick();
         expect(meta.addTag).toHaveBeenCalledWith({
-          property: 'citation_pdf_url',
+          name: 'citation_pdf_url',
           content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download'
         });
       }));
@@ -334,7 +334,7 @@ describe('MetadataService', () => {
         });
         tick();
         expect(meta.addTag).toHaveBeenCalledWith({
-          property: 'citation_pdf_url',
+          name: 'citation_pdf_url',
           content: 'https://request.org/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/download'
         });
       }));
@@ -354,8 +354,8 @@ describe('MetadataService', () => {
     }));
 
     it('should remove previous tags on route change', fakeAsync(() => {
-      expect(meta.removeTag).toHaveBeenCalledWith('property=\'title\'');
-      expect(meta.removeTag).toHaveBeenCalledWith('property=\'description\'');
+      expect(meta.removeTag).toHaveBeenCalledWith('name=\'title\'');
+      expect(meta.removeTag).toHaveBeenCalledWith('name=\'description\'');
     }));
 
     it('should clear all tags and add new ones on route change', () => {
