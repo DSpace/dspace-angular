@@ -95,6 +95,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     sectionObject = {
       config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/upload',
       mandatory: true,
+      opened: true,
       data: {
         files: []
       },

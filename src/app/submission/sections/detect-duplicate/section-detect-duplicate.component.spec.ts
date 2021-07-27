@@ -98,6 +98,7 @@ const sectionData: WorkspaceitemSectionDetectDuplicateObject = {
 const sectionObject: SectionDataObject = {
   config: 'https://dspace.org/api/config/submissionforms/detect-duplicate',
   mandatory: true,
+  opened: true,
   data: sectionData,
   errorsToShow: [],
   serverValidationErrors: [],

@@ -59,6 +59,7 @@ function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
 const sectionObject: SectionDataObject = {
   config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
   mandatory: true,
+  opened: true,
   data: {},
   errorsToShow: [],
   serverValidationErrors: [],

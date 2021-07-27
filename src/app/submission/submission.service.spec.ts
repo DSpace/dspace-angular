@@ -606,12 +606,12 @@ describe('SubmissionService test suite', () => {
     });
   });
 
-  describe('getSubmissionSections', () => {
+  fdescribe('getSubmissionSections', () => {
     it('should return submission form sections', () => {
       spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
-      spyOn((service as any).store, 'select').and.returnValue(hot('a|', {
-        a: subState.objects[826]
-      }));
+      // spyOn((service as any).store, 'select').and.returnValue(hot('a|', {
+      //   a: subState.objects[826]
+      // }));
 
       const result = service.getSubmissionSections('826');
       const expected = cold('(bc|)', {

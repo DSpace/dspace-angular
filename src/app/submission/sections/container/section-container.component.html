@@ -8,7 +8,7 @@
   <ngb-accordion #acc="ngbAccordion"
                  *ngIf="(sectionRef.isEnabled() | async)"
                  (panelChange)="sectionRef.sectionChange($event)"
-                 activeIds="{{ sectionData.id }}"
+                 activeIds="{{ sectionData.opened ? [sectionData.id] : [] }}"
                  [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>

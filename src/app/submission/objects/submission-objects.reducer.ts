@@ -65,6 +65,11 @@ export interface SubmissionSectionObject {
   mandatory: boolean;
 
   /**
+   * A boolean representing if this section is opened or collapsed by default
+   */
+  opened: boolean;
+
+  /**
    * The section type
    */
   sectionType: SectionsType;
@@ -681,6 +686,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             header: action.payload.header,
             config: action.payload.config,
             mandatory: action.payload.mandatory,
+            opened: action.payload.opened,
             sectionType: action.payload.sectionType,
             visibility: action.payload.visibility,
             collapsed: false,
