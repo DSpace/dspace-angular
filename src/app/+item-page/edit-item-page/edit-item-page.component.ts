@@ -8,8 +8,6 @@ import {map} from 'rxjs/operators';
 import {isNotEmpty} from '../../shared/empty.util';
 import {getItemPageRoute} from '../item-page-routing-paths';
 import {GenericConstructor} from '../../core/shared/generic-constructor';
-import {ConfigurationDataService} from "../../core/data/configuration-data.service";
-import {ConfigurationProperty} from "../../core/shared/configuration-property.model";
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -45,7 +43,7 @@ export class EditItemPageComponent implements OnInit {
   ) {
     this.router.events.subscribe(
       () => {
-        this.initPageParamsByRoute()
+        this.initPageParamsByRoute();
       });
   }
 

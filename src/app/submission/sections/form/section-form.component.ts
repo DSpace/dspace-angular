@@ -14,7 +14,11 @@ import {SubmissionFormsConfigService} from '../../../core/config/submission-form
 import {hasValue, isEmpty, isNotEmpty, isUndefined} from '../../../shared/empty.util';
 import {JsonPatchOperationPathCombiner} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import {SubmissionFormsModel} from '../../../core/config/models/config-submission-forms.model';
-import {SubmissionSectionError, SubmissionSectionObject} from '../../objects/submission-objects.reducer';
+import {
+  SubmissionObjectEntry,
+  SubmissionSectionError,
+  SubmissionSectionObject
+} from '../../objects/submission-objects.reducer';
 import {FormFieldPreviousValueObject} from '../../../shared/form/builder/models/form-field-previous-value-object';
 import {SectionDataObject} from '../models/section-data.model';
 import {renderSectionFor} from '../sections-decorator';
@@ -35,6 +39,7 @@ import {environment} from '../../../../environments/environment';
 import {ConfigObject} from '../../../core/config/models/config.model';
 import {RemoteData} from '../../../core/data/remote-data';
 import {SubmissionVisibility} from '../../utils/visibility.util';
+import {MetadataSecurityConfiguration} from '../../../core/submission/models/metadata-security-configuration';
 
 /**
  * This component represents a section that contains a Form.
@@ -112,8 +117,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    * @type {Array}
    */
   protected subs: Subscription[] = [];
-
   protected workspaceItem: WorkspaceItem;
+  protected metadataSecurityConfiguration: MetadataSecurityConfiguration;
   /**
    * The FormComponent reference
    */
@@ -162,6 +167,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    * Initialize all instance variables and retrieve form configuration
    */
   onSectionInit() {
+    this.getSecurityConfigurationLevelsFromStore();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
     this.sectionService.dispatchSetSectionFormId(this.submissionId, this.sectionData.id, this.formId);
@@ -256,29 +262,22 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the section data retrieved from the server
    */
   initForm(sectionData: WorkspaceitemSectionFormObject): void {
-    try {
-       this.formModel = this.formBuilderService.modelFromConfiguration(
-        this.submissionId,
-        this.formConfig,
-        this.collectionId,
-        sectionData,
-        this.submissionService.getSubmissionScope(),
-        SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope())
-      );
-
-      const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
-      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
-
-      // Add created model to formBulderService
-      this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
-    } catch (e) {
-      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
-      const sectionError: SubmissionSectionError = {
-        message: msg,
-        path: '/sections/' + this.sectionData.id
-      };
-      this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
-    }
+    this.formModel = this.formBuilderService.modelFromConfiguration(
+      this.submissionId,
+      this.formConfig,
+      this.collectionId,
+      sectionData,
+      this.submissionService.getSubmissionScope(),
+      SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope(),
+      ),
+      null,
+      false,
+      this.metadataSecurityConfiguration
+    );
+     const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
+    this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
+    // Add created model to formBulderService
+    this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
   }
 
   /**
@@ -290,7 +289,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the section errors retrieved from the server
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
-     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
       if (this.hasMetadataEnrichment(sectionData)) {
         this.isUpdating = true;
@@ -467,10 +466,10 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
   /**
    * Handle the customEvent (ex. drag-drop move event).
    * The customEvent is stored inside event.$event
-   * @param $event
+   * @param event
    */
   onCustomEvent(event: DynamicFormControlEvent) {
-     this.formOperationsService.dispatchOperationsFromEvent(
+    this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
@@ -482,4 +481,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
     // Remove this model from formBulderService
     this.formBuilderService.removeFormModel(this.sectionData.id);
   }
+
+  getSecurityConfigurationLevelsFromStore(): void {
+    this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
+      take(1)).subscribe((res: SubmissionObjectEntry) => {
+      this.metadataSecurityConfiguration = res.metadataSecurityConfiguration;
+    });
+  }
+
 }

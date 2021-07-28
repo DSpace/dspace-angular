@@ -127,9 +127,8 @@ export class MetadatumViewModel {
   /** The security level value */
   securityLevel: number;
 
-
-  /** The security level value of configuration*/
-  securityConfigurationLevelLimit?: number;
+  /** The security level value of configuration */
+  securityConfigurationLevelLimit?: number[];
 }
 
 /** Serializer used for MetadataMaps.

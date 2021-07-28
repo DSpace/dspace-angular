@@ -1,12 +1,11 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input, OnChanges,
   OnInit,
   Output, SimpleChanges
 } from '@angular/core';
-import {environment} from "../../../../environments/environment";
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-edit-metadata-security',
@@ -17,34 +16,49 @@ import {environment} from "../../../../environments/environment";
 export class EditMetadataSecurityComponent implements OnInit, OnChanges {
 
   @Input() securityLevel: number;
-  @Input() securityConfigLevel: number;
-  @Output() changeSecurityLevel = new EventEmitter<number>()
-  public securityLevelsMap: Record<number, String>[] = environment.security.levels;
-
-  constructor() {
-  }
+  @Input() securityConfigLevel: number[];
+  @Output() changeSecurityLevel = new EventEmitter<number>();
+  public securityLevelsMap: Record<number, string>[] = environment.security.levels;
 
   ngOnInit(): void {
     this.filterSecurityLevelsMap();
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes && changes['securityConfigLevel'] && changes['securityConfigLevel'].currentValue) {
+    if (changes && changes.securityConfigLevel && changes.securityConfigLevel.currentValue) {
       this.filterSecurityLevelsMap();
     }
   }
 
-  changeSelectedSecurity(number: number) {
-    this.changeSecurityLevel.emit(number);
+  changeSelectedSecurity(level: number) {
+    this.changeSecurityLevel.emit(level);
   }
 
   private filterSecurityLevelsMap() {
     this.securityLevelsMap = environment.security.levels;
-     if (this.securityConfigLevel) {
-      this.securityLevelsMap = this.securityLevelsMap.filter((el: any) => {
-        return el.value < this.securityConfigLevel && this.securityConfigLevel > 0 && this.securityConfigLevel > 1
-      })
+    if (this.securityConfigLevel === undefined) {
+      this.securityLevelsMap = null;
+    } else {
+      if (this.securityConfigLevel === null) {
+        this.securityLevelsMap = null;
+        this.changeSecurityLevel.emit(0);
+      } else {
+        if (this.securityConfigLevel === [0]) {
+          this.securityLevelsMap = null;
+          this.changeSecurityLevel.emit(0);
+        } else {
+          if (this.securityConfigLevel.length === 1) {
+            // include even value 0 => public
+            this.securityLevelsMap = this.securityLevelsMap.filter((el: any, index) => {
+              return index === 0 || this.securityConfigLevel.includes(el.value);
+            });
+          } else {
+            this.securityLevelsMap = this.securityLevelsMap.filter((el: any) => {
+              return this.securityConfigLevel.includes(el.value);
+            });
+          }
+        }
+      }
     }
-   }
+  }
 }

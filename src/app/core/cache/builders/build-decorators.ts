@@ -1,10 +1,10 @@
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import {hasNoValue, hasValue} from '../../../shared/empty.util';
 
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { HALResource } from '../../shared/hal-resource.model';
-import { ResourceType } from '../../shared/resource-type';
-import { CacheableObject, getResourceTypeValueFor, TypedObject } from '../object-cache.reducer';
-import { InjectionToken } from '@angular/core';
+import {GenericConstructor} from '../../shared/generic-constructor';
+import {HALResource} from '../../shared/hal-resource.model';
+import {ResourceType} from '../../shared/resource-type';
+import {CacheableObject, getResourceTypeValueFor, TypedObject} from '../object-cache.reducer';
+import {InjectionToken} from '@angular/core';
 
 export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<any>>('getDataServiceFor', {
   providedIn: 'root',
@@ -102,7 +102,7 @@ export const link = <T extends HALResource>(
   resourceType: ResourceType,
   isList = false,
   linkName?: keyof T['_links'],
-  ) => {
+) => {
   return (target: T, propertyName: string) => {
     let targetMap = linkMap.get(target.constructor);
 

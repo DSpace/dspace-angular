@@ -1,6 +1,6 @@
-import { Inject } from '@angular/core';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import {Inject} from '@angular/core';
+import {FormFieldModel} from '../models/form-field.model';
+import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
 import {
   DynamicFormControlLayout,
   DynamicInputModel,
@@ -13,13 +13,13 @@ import {
   DynamicConcatModel,
   DynamicConcatModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
-import { ParserOptions } from './parser-options';
+import {hasNoValue, hasValue, isNotEmpty} from '../../../empty.util';
+import {ParserOptions} from './parser-options';
 import {
   CONFIG_DATA,
   FieldParser,
   INIT_FORM_VALUES,
-  PARSER_OPTIONS,
+  PARSER_OPTIONS, SECURITY_CONFIG,
   SUBMISSION_ID
 } from './field-parser';
 
@@ -30,18 +30,17 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
+    @Inject(SECURITY_CONFIG) securityConfig: any,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions);
-
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig);
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
     this.secondPlaceholder = secondPlaceholder;
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-
     let clsGroup: DynamicFormControlLayout;
     let clsInput1: DynamicFormControlLayout;
     let clsInput2: DynamicFormControlLayout;

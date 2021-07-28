@@ -200,11 +200,10 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       || this.model.value instanceof VocabularyEntry) ? this.model.value.value : this.model.value;
     let security = null;
     if ( this.model.value instanceof VocabularyEntry) {
-       security  = this.model.value.securityLevel
-    }
-    else {
+       security  = this.model.value.securityLevel;
+    } else {
       if (this.model.metadataValue) {
-        security  = this.model.metadataValue.securityLevel
+        security  = this.model.metadataValue.securityLevel;
       }
     }
     const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, security, authority);

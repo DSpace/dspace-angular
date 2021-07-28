@@ -205,7 +205,7 @@ export class SectionFormOperationsService {
       const context = this.formBuilder.isQualdropGroup(event.model)
         ? (event.model.parent as DynamicFormArrayGroupModel).context
         : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
-      context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
+      context.groups.forEach((arrayModel: DynamicFormArrayGroupModel) => {
         const groupModel = arrayModel.group[0] as DynamicQualdropModel;
         groupModel.group.map((model: any) => {
           if (model.securityLevel !== undefined) {
@@ -413,7 +413,7 @@ export class SectionFormOperationsService {
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
-    if ((event.model as any).securityLevel !== null) {
+    if ((event.model as any).securityLevel !== null && (event.model as any).securityLevel !== undefined) {
       if (typeof value !== 'string') {
         value.securityLevel = (event.model as any).securityLevel;
       }

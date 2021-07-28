@@ -37,7 +37,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: MetadataValue;
-
+  @serializable() securityConfigLevel?: number[];
   isCustomGroup = true;
   valueChanges: Subject<string>;
 
@@ -54,6 +54,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
     this.valueChanges = new Subject<string>();
+    this.securityConfigLevel = (config as any).securityConfigLevel;
     this.valueChanges.subscribe((value: string) => this.value = value);
   }
 

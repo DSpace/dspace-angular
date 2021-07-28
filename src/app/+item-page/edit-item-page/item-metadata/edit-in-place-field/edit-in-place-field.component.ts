@@ -37,8 +37,6 @@ import 'src/assets/images/keySecurity.png';
  * Component that displays a single metadatum of an item on the edit page
  */
 export class EditInPlaceFieldComponent implements OnInit, OnChanges {
-  @Input() securityLevelConfig = 0;
-  data: any;
   /**
    * The current field, value and state of the metadatum
    */
@@ -53,6 +51,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The metadatum of this field
    */
   @Input() metadata: MetadatumViewModel;
+  /**
+   * Emits a new selection
+   */
   @Output() selectNewMetadata = new EventEmitter();
 
   /**
@@ -70,7 +71,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
-  levelSecurityConfig = 3;
 
   constructor(private ref: ChangeDetectorRef,
               private registryService: RegistryService,
@@ -82,7 +82,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets up an observable that keeps track of the current editable and valid state of this field
    */
   ngOnInit(): void {
-    this.data = this.fieldUpdate;
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
     this.ref.detectChanges();

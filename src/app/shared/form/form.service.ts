@@ -20,14 +20,10 @@ import {
 } from './form.actions';
 import {FormEntry, FormError, FormTouchedState} from './form.reducer';
 import {environment} from '../../../environments/environment';
-import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 
 @Injectable()
 export class FormService {
-  entityTypeAndSecurityfallBack  = new BehaviorSubject(null);
-  entityTypeAndSecurityfallBack$ = this.entityTypeAndSecurityfallBack.asObservable();
   dynamicBoxChangeEmitter: Subject<DynamicFormControlEvent> = new Subject();
-
   constructor(
     private formBuilderService: FormBuilderService,
     private store: Store<AppState>) {

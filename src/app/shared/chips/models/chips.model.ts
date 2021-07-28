@@ -12,7 +12,7 @@ export class Chips {
   displayField: string;
   displayObj: string;
   iconsConfig: MetadataIconConfig[];
-  triggerUpdate: boolean = false;
+  triggerUpdate = false;
 
   private _items: ChipsItem[];
 

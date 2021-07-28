@@ -33,7 +33,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Should be initialized in the initializeUpdates method of the child component
    */
 
-  updates$: Observable<FieldUpdates>
+  updates$: Observable<FieldUpdates>;
 
   /**
    * Route to the item's page

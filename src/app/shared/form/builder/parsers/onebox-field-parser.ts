@@ -19,7 +19,7 @@ import {
 export class OneboxFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-    if (this.configData.selectableMetadata.length > 1) {
+     if (this.configData.selectableMetadata.length > 1) {
       // Case Qualdrop Model
       const clsGroup = {
         element: {

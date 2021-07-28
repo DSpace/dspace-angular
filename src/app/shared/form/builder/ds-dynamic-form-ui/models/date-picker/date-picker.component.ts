@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 import { hasValue } from '../../../../../empty.util';
@@ -7,9 +7,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import {getFirstCompletedRemoteData} from '../../../../../../core/shared/operators';
-import {ConfigurationDataService} from '../../../../../../core/data/configuration-data.service';
-import {FormService} from '../../../../form.service';
+
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
@@ -54,10 +52,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   securityLevelConfig: number;
   securityLevel: number;
   constructor(protected layoutService: DynamicFormLayoutService,
-              private formService: FormService,
               protected validationService: DynamicFormValidationService,
-              private configurationDataService: ConfigurationDataService,
-              private changeDetectorRef: ChangeDetectorRef,
   ) {
     super(layoutService, validationService);
   }
@@ -85,13 +80,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
         this.day = this.initialDay;
       }
     }
-
     this.maxYear = this.initialYear + 100;
-    this.formService.entityTypeAndSecurityfallBack$.subscribe((res: any) => {
-      if (res) {
-        this.findSecurityLevelConfig(res.securityConfig, res.entityType);
-      }
-    });
   }
 
   onBlur(event) {
@@ -184,22 +173,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     // Last Day of the same month (+1 month, -1 day)
     date.setMonth(date.getMonth() + 1, 0);
     return date.getDate();
-  }
-  findSecurityLevelConfig(levelFallbackSecurity, entityType: string) {
-    // it finds the level of security fir each metadata corresponding to the item
-    this.configurationDataService.findByPropertyName('metadatavalue.visibility.' + entityType + '.' + this.model.name + '.settings').pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe(res1 => {
-      if (res1.state === 'Error') {
-        this.securityLevelConfig = levelFallbackSecurity;
-        this.changeDetectorRef.markForCheck();
-      } else {
-        if (res1.state === 'Success') {
-          this.securityLevelConfig = +res1.payload.values[0];
-          this.changeDetectorRef.markForCheck();
-        }
-      }
-    });
   }
   addSecurityLevelToMetadata($event) {
     if (!this.model.value) {

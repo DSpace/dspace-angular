@@ -3,7 +3,6 @@ import { typedObject } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { autoserialize, deserializeAs, deserialize } from 'cerialize';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 

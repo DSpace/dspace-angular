@@ -1,26 +1,28 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
-import { Subscription } from 'rxjs';
-import { debounceTime, filter, switchMap } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
+import {debounceTime, filter, switchMap} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionService } from '../submission.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Collection } from '../../core/shared/collection.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { SubmissionError } from '../objects/submission-objects.reducer';
+import {WorkspaceitemSectionsObject} from '../../core/submission/models/workspaceitem-sections.model';
+import {hasValue, isEmpty, isNotEmptyOperator, isNotNull} from '../../shared/empty.util';
+import {SubmissionDefinitionsModel} from '../../core/config/models/config-submission-definitions.model';
+import {SubmissionService} from '../submission.service';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {SubmissionObject} from '../../core/submission/models/submission-object.model';
+import {Collection} from '../../core/shared/collection.model';
+import {RemoteData} from '../../core/data/remote-data';
+import {Item} from '../../core/shared/item.model';
+import {getAllSucceededRemoteData, getFirstCompletedRemoteData} from '../../core/shared/operators';
+import {ItemDataService} from '../../core/data/item-data.service';
+import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
+import {CollectionDataService} from '../../core/data/collection-data.service';
+import {SubmissionError} from '../objects/submission-objects.reducer';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import {SubmissionJsonPatchOperationsService} from '../../core/submission/submission-json-patch-operations.service';
+import {MetadataSecurityConfigurationService} from '../../core/submission/metadatasecurityconfig-data.service';
+import {MetadataSecurityConfiguration} from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -90,6 +92,10 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * The item for this submission.
    */
   public item: Item;
+  /**
+   * The metadata security configuration for the entity.
+   */
+  public metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
   /**
    * Initialize instance variables
@@ -103,6 +109,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @param {CollectionDataService} collectionDataService
    * @param {TranslateService} translate
    * @param {SubmissionJsonPatchOperationsService} submissionJsonPatchOperationsService
+   * @param metadataSecurityConfigDataService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
@@ -112,7 +119,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private submissionService: SubmissionService,
               private collectionDataService: CollectionDataService,
               private translate: TranslateService,
-              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
+              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService,
+              private metadataSecurityConfigDataService: MetadataSecurityConfigurationService) {
   }
 
   /**
@@ -126,28 +134,35 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD))
       ).subscribe((submissionObjectRD: RemoteData<SubmissionObject>) => {
         if (submissionObjectRD.hasSucceeded) {
-          if (isEmpty(submissionObjectRD.payload)) {
-            this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
-            this.router.navigate(['/mydspace']);
-          } else {
-          const { errors } = submissionObjectRD.payload;
-          this.submissionErrors = parseSectionErrors(errors);
-            this.submissionId = submissionObjectRD.payload.id.toString();
-            this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
           const metadata = (submissionObjectRD.payload.collection as Collection).metadata['dspace.entity.type'];
           if (metadata && metadata[0]) {
             this.entityType = metadata[0].value;
           }
-            this.selfUrl = submissionObjectRD.payload._links.self.href;
-            this.sections = submissionObjectRD.payload.sections;
-            this.itemLink$.next(submissionObjectRD.payload._links.item.href);
-            this.item = submissionObjectRD.payload.item;
-            this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
-          }
+          // get security configuration based on entity type
+          this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
+            getFirstCompletedRemoteData(),
+          ).subscribe(res => {
+            this.metadataSecurityConfiguration = res.payload;
+            if (isEmpty(submissionObjectRD.payload)) {
+              this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
+              this.router.navigate(['/mydspace']);
+            } else {
+              const {errors} = submissionObjectRD.payload;
+              this.submissionErrors = parseSectionErrors(errors);
+              this.submissionId = submissionObjectRD.payload.id.toString();
+              this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
+
+              this.selfUrl = submissionObjectRD.payload._links.self.href;
+              this.sections = submissionObjectRD.payload.sections;
+              this.itemLink$.next(submissionObjectRD.payload._links.item.href);
+              this.item = submissionObjectRD.payload.item;
+              this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
+            }
+          });
         } else {
           if (submissionObjectRD.statusCode === 404) {
             // redirect to not found page
-            this.router.navigate(['/404'], { skipLocationChange: true });
+            this.router.navigate(['/404'], {skipLocationChange: true});
           }
           // TODO handle generic error
         }
@@ -162,7 +177,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         // We only want to rerender the form if the item is unchanged for some time
         debounceTime(300),
       ).subscribe((itemRd: RemoteData<Item>) => {
-        this.item = itemRd.payload;
+         this.item = itemRd.payload;
         this.changeDetectorRef.detectChanges();
       }),
     );

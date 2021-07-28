@@ -87,9 +87,6 @@ export class ObjectUpdatesService {
    * @param url The URL to filter by
    */
   private getObjectEntry(url: string): Observable<ObjectUpdatesEntry> {
-    this.store.pipe(select(filterByUrlObjectUpdatesStateSelector(url))).subscribe(res => {
-
-    })
     return this.store.pipe(select(filterByUrlObjectUpdatesStateSelector(url)));
   }
 

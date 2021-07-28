@@ -32,6 +32,7 @@ import {dateToString, isNgbDateStruct} from '../../date.util';
 import {DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP} from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {CONCAT_GROUP_SUFFIX, DynamicConcatModel} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import {VIRTUAL_METADATA_PREFIX} from '../../../core/shared/metadata.models';
+import {MetadataSecurityConfiguration} from '../../../core/submission/models/metadata-security-configuration';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -193,7 +194,7 @@ export class FormBuilderService extends DynamicFormService {
     };
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): void => {
-      let iterateResult = Object.create({});
+       let iterateResult = Object.create({});
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
         if ((controlModel as any).securityLevel !== undefined && (controlModel as any).securityLevel != null) {
@@ -298,12 +299,22 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false, typeBindModel = null, isInnerForm = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
+                         submissionScope?: string, readOnly = false, typeBindModel = null, isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
+
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm);
+        // if (securityConfig) {
+        //   currentRow.fields.forEach((field, index) => {
+        //     field.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(securityConfig, field.selectableMetadata ?
+        //       field.selectableMetadata[0].metadata ? field.selectableMetadata[0].metadata : null : null);
+        //     currentRow.fields[index] = field;
+        //   });
+        // }
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm, securityConfig);
+
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -449,7 +460,6 @@ export class FormBuilderService extends DynamicFormService {
    * @param event
    */
   getMetadataIdsFromEvent(event: DynamicFormControlEvent): string[] {
-
     let model = event.model;
     while (model.parent) {
       model = model.parent as any;
@@ -457,7 +467,6 @@ export class FormBuilderService extends DynamicFormService {
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): string[] => {
       let iterateResult = Object.create({});
-
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
 
@@ -514,6 +523,25 @@ export class FormBuilderService extends DynamicFormService {
     const result = iterateControlModels([model]);
 
     return Object.keys(result);
+  }
+
+  mapBetweenMetadataRowAndSecurityMetadataLevels(metadataSecurityConfig: MetadataSecurityConfiguration, metadata: string): any {
+    // look to find security for metadata
+    if (metadataSecurityConfig.metadataCustomSecurity && metadata) {
+       const metadataSettings = metadata + 'settings';
+      const metadataConfig = (metadataSecurityConfig.metadataCustomSecurity as any).metadataSettings;
+      if (metadataConfig) {
+        return metadataConfig;
+      } else {
+        // if not found look at fallback level config
+        if (metadataSecurityConfig.metadataSecurityDefault !== undefined) {
+          return metadataSecurityConfig.metadataSecurityDefault;
+        } else {
+          // else undefined in order to manage differently from null value
+          return undefined;
+        }
+      }
+    }
   }
 
 }

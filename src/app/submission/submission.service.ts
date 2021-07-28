@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
+import {Router} from '@angular/router';
 
-import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
-import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {Observable, of as observableOf, Subscription, timer as observableTimer} from 'rxjs';
+import {catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {TranslateService} from '@ngx-translate/core';
 
-import { submissionSelector, SubmissionState } from './submission.reducers';
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
+import {submissionSelector, SubmissionState} from './submission.reducers';
+import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../shared/empty.util';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -27,28 +27,29 @@ import {
   SubmissionSectionEntry,
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
-import { submissionObjectFromIdSelector } from './selectors';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { SectionDataObject } from './sections/models/section-data.model';
-import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { SubmissionObject } from '../core/submission/models/submission-object.model';
-import { RouteService } from '../core/services/route.service';
-import { SectionsType } from './sections/sections-type';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
-import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
-import { RemoteData } from '../core/data/remote-data';
-import { ErrorResponse } from '../core/cache/response.models';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { RequestService } from '../core/data/request.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { Item } from '../core/shared/item.model';
-import { environment } from '../../environments/environment';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { SubmissionVisibility } from './utils/visibility.util';
+import {submissionObjectFromIdSelector} from './selectors';
+import {HttpOptions} from '../core/dspace-rest/dspace-rest.service';
+import {SubmissionRestService} from '../core/submission/submission-rest.service';
+import {SectionDataObject} from './sections/models/section-data.model';
+import {SubmissionScopeType} from '../core/submission/submission-scope-type';
+import {SubmissionObject} from '../core/submission/models/submission-object.model';
+import {RouteService} from '../core/services/route.service';
+import {SectionsType} from './sections/sections-type';
+import {NotificationsService} from '../shared/notifications/notifications.service';
+import {SubmissionDefinitionsModel} from '../core/config/models/config-submission-definitions.model';
+import {WorkspaceitemSectionsObject} from '../core/submission/models/workspaceitem-sections.model';
+import {RemoteData} from '../core/data/remote-data';
+import {ErrorResponse} from '../core/cache/response.models';
+import {createFailedRemoteDataObject$, createSuccessfulRemoteDataObject} from '../shared/remote-data.utils';
+import {RequestService} from '../core/data/request.service';
+import {SearchService} from '../core/shared/search/search.service';
+import {Item} from '../core/shared/item.model';
+import {environment} from '../../environments/environment';
+import {SubmissionJsonPatchOperationsService} from '../core/submission/submission-json-patch-operations.service';
+import {NotificationOptions} from '../shared/notifications/models/notification-options.model';
+import {ScrollToConfigOptions, ScrollToService} from '@nicky-lenaers/ngx-scroll-to';
+import {SubmissionVisibility} from './utils/visibility.util';
+import {MetadataSecurityConfiguration} from '../core/submission/models/metadata-security-configuration';
 
 /**
  * A service that provides methods used in submission process.
@@ -69,6 +70,7 @@ export class SubmissionService {
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
   private editItemsLinkPath = 'edititems';
+
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -239,8 +241,10 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
    * @param errors
    *    The [SubmissionSectionError] that define submission sections init errors
+   * @param metadataSecurityConfiguration
    */
   dispatchInit(
     collectionId: string,
@@ -249,8 +253,9 @@ export class SubmissionService {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-    errors: SubmissionError) {
-    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors));
+    errors: SubmissionError,
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
+    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors, metadataSecurityConfiguration));
   }
 
   /**
@@ -569,7 +574,7 @@ export class SubmissionService {
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
     if (sectionType === SectionsType.DetectDuplicate || sectionId === 'detect-duplicate') {
       this.setActiveSection(submissionId, sectionId);
-      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', { sectionId });
+      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', {sectionId});
       this.notificationsService.warning(null, msg, new NotificationOptions(10000));
       const config: ScrollToConfigOptions = {
         target: sectionId,
@@ -578,7 +583,7 @@ export class SubmissionService {
 
       this.scrollToService.scrollTo(config);
     } else {
-      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
+      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
       this.notificationsService.info(null, m, null, true);
     }
   }
@@ -602,7 +607,7 @@ export class SubmissionService {
             } else {
               this.router.navigateByUrl(previousUrl);
             }
-        })))
+          })))
     ).subscribe();
   }
 
@@ -615,7 +620,7 @@ export class SubmissionService {
       // Now, do redirect.
       tap(() => {
         const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-        this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
+        this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true});
       })
     ).subscribe();
   }
@@ -640,6 +645,7 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
    */
   resetSubmissionObject(
     collectionId: string,

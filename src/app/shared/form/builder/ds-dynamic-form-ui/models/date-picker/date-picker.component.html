@@ -49,8 +49,8 @@
   ></ds-number-picker>
 
 </div>
-<div *ngIf="securityLevelConfig" style="margin-top: 4px">
-  <ds-edit-metadata-security   [securityConfigLevel]="securityLevelConfig"
+<div style="margin-top: 4px">
+  <ds-edit-metadata-security   [securityConfigLevel]="model.securityConfigLevel"
                                [securityLevel]=" $any(model).securityLevel != undefined && $any(model).securityLevel!=null ? $any(model).securityLevel  :
                                              ($any(model).metadataValue ? $any(model).metadataValue.securityLevel  :
                                               securityLevel != null && securityLevel != undefined  ? securityLevel : null)"

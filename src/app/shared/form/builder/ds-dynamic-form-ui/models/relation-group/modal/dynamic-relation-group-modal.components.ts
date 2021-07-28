@@ -39,6 +39,7 @@ import {VocabularyEntry} from '../../../../../../../core/submission/vocabularies
 import {DsDynamicInputModel} from '../../ds-dynamic-input.model';
 import {getFirstSucceededRemoteDataPayload} from '../../../../../../../core/shared/operators';
 import {VocabularyOptions} from '../../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import {MetadataSecurityConfiguration} from '../../../../../../../core/submission/models/metadata-security-configuration';
 
 /**
  * Component representing a group input field
@@ -58,6 +59,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   @Input() item: any;
   @Input() itemIndex: number;
   @Input() changedSecurity: boolean;
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
   @Input() value: any;
 
@@ -100,7 +102,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       this.model.submissionScope,
       this.model.readOnly,
       null,
-      true);
+      true,
+      this.metadataSecurityConfiguration);
     this.formBuilderService.addFormModel(this.formId, this.formModel);
     if (this.item) {
       this.formModel.forEach((row) => {
@@ -124,6 +127,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     if (mandatoryFieldModel.vocabularyOptions && isNotEmpty(mandatoryFieldModel.vocabularyOptions.name)) {
       this.retrieveVocabulary(mandatoryFieldModel.vocabularyOptions);
     }
+
   }
 
   getHeader() {
@@ -293,7 +297,6 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       distinctUntilChanged(),
     );
   }
-
 
   changeSecurity($event) {
     if ($event.type === 'changeSecurityLevelGroup') {

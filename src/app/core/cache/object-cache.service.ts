@@ -134,7 +134,7 @@ export class ObjectCacheService {
    *    An observable of the requested object
    */
   getObjectByHref<T extends CacheableObject>(href: string): Observable<T> {
-    return this.getByHref(href).pipe(
+     return this.getByHref(href).pipe(
       map((entry: ObjectCacheEntry) => {
           if (isNotEmpty(entry.patches)) {
             const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));

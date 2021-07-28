@@ -276,8 +276,7 @@ import { SearchSectionComponent } from './explore/section-component/search-secti
 import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
 import { CountersSectionComponent } from './explore/section-component/counters-section/counters-section.component';
 import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
-import {EditItemPageModule} from "../+item-page/edit-item-page/edit-item-page.module";
-import {EditMetadataSecurityComponent} from "../+item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component";
+import {EditMetadataSecurityComponent} from '../+item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
