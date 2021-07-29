@@ -731,6 +731,7 @@
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
 
+  "collection.edit.item-mapper-search-form.placeholder": "Search Item to Map...",
 
 
   "collection.edit.logo.delete.title": "Delete logo",
@@ -1251,6 +1252,14 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
+  
+  "idle.modal.header":"Your Session is About to Expire!",
+
+  "idle.modal.info":"Your session is about to expire, would you like to logout or continue the session?",
+
+  "idle.modal.log-out":"Logout",
+
+  "idle.modal.extend-session":"Continue Session",
 
 
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -1932,6 +1941,19 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.project.funder.name": "Funder:",
+
+  "item.preview.project.funder.identifier": "Funder Identifier:",
+
+  "item.preview.oaire.awardNumber": "Funding ID:",
+
+  "item.preview.dc.title.alternative": "Acronym:",
+
+  "item.preview.dc.coverage.spatial": "Jurisdiction:",
+
+  "item.preview.oaire.fundingStream": "Funding Stream:",
+
 
 
   "item.select.confirm": "Confirm selected",
@@ -2745,10 +2767,18 @@
 
   "relationships.isContributorOf": "Contributors",
 
+  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+
+  "relationships.isContributorOf.Person": "Contributor",
+
+  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+
 
   "repository.image.logo": "Repository logo",
 
   "repository.title.prefix": "DSpace Angular :: ",
+
+  "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   "resource-policies.add.button": "Add",
@@ -3209,6 +3239,8 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
+  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
+
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
@@ -3236,6 +3268,14 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
@@ -3347,6 +3387,23 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+
+
+
 
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
@@ -3691,8 +3748,6 @@
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
-
-  "workflow-item.edit.title": "View workflowitem",
 
   "workflow-item.delete.notification.success.title": "Deleted",
 
