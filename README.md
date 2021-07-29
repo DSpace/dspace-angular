@@ -3,12 +3,34 @@
 dspace-angular
 ==============
 
-> The next UI for DSpace 7, based on Angular Universal.
+> The DSpace User Interface built on [Angular](https://angular.io/), written in [TypeScript](https://www.typescriptlang.org/) and using [Angular Universal](https://angular.io/guide/universal).
 
-This project is currently under active development. For more information on the DSpace 7 release see the [DSpace 7.0 Release Status wiki page](https://wiki.lyrasis.org/display/DSPACE/DSpace+Release+7.0+Status)
+Overview
+--------
 
-You can find additional information on the DSpace 7 Angular UI on the [wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+-+Angular+UI+Development).
+DSpace open source software is a turnkey repository application used by more than
+2,000 organizations and institutions worldwide to provide durable access to digital resources.
+For more information, visit http://www.dspace.org/
 
+DSpace consists of both a Java-based backend and an Angular-based frontend.
+
+* Backend (https://github.com/DSpace/DSpace/) provides a REST API, along with other machine-based interfaces (e.g. OAI-PMH, SWORD, etc)
+    * The REST Contract is at https://github.com/DSpace/RestContract
+* Frontend (this codebase) is the User Interface built on the REST API
+
+Downloads
+---------
+
+* Backend (REST API): https://github.com/DSpace/DSpace/releases
+* Frontend (User Interface): https://github.com/DSpace/dspace-angular/releases
+
+
+## Documentation / Installation
+
+Documentation for each release may be viewed online or downloaded via our [Documentation Wiki](https://wiki.lyrasis.org/display/DSDOC/).
+
+The latest DSpace Installation instructions are available at:
+https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace
 
 Quick start
 -----------
@@ -146,6 +168,9 @@ This will build the application and put the result in the `dist` folder.  You ca
 
 
 ### Running the application with Docker
+NOTE: At this time, we do not have production-ready Docker images for DSpace.
+That said, we do have quick-start Docker Compose scripts for development or testing purposes.
+
 See [Docker Runtime Options](docker/README.md)
 
 
@@ -403,8 +428,8 @@ Frequently asked questions
 	-	You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
 -	How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
 	-	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
--	What are the naming conventions for Angular 2?
-	-	See [the official angular 2 style guide](https://angular.io/styleguide)
+-	What are the naming conventions for Angular?
+	-	See [the official angular style guide](https://angular.io/styleguide)
 -	Why is the size of my app larger in development?
 	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
 -	node-pre-gyp ERR in yarn install (Windows)
@@ -414,6 +439,32 @@ Frequently asked questions
 	-	now run `yarn install` again. Yarn will create a new lockfile that contains both sets of changes.
 	-	then run `git add yarn.lock` to stage the lockfile for commit
 	-	and `git commit` to conclude the merge
+
+Getting Help
+------------
+
+DSpace provides public mailing lists where you can post questions or raise topics for discussion.
+We welcome everyone to participate in these lists:
+
+* [dspace-community@googlegroups.com](https://groups.google.com/d/forum/dspace-community) : General discussion about DSpace platform, announcements, sharing of best practices
+* [dspace-tech@googlegroups.com](https://groups.google.com/d/forum/dspace-tech) : Technical support mailing list. See also our guide for [How to troubleshoot an error](https://wiki.lyrasis.org/display/DSPACE/Troubleshoot+an+error).
+* [dspace-devel@googlegroups.com](https://groups.google.com/d/forum/dspace-devel) : Developers / Development mailing list
+
+Great Q&A is also available under the [DSpace tag on Stackoverflow](http://stackoverflow.com/questions/tagged/dspace)
+
+Additional support options are at https://wiki.lyrasis.org/display/DSPACE/Support
+
+DSpace also has an active service provider network. If you'd rather hire a service provider to
+install, upgrade, customize or host DSpace, then we recommend getting in touch with one of our
+[Registered Service Providers](http://www.dspace.org/service-providers).
+
+
+Issue Tracker
+-------------
+
+DSpace uses GitHub to track issues:
+* Backend (REST API) issues: https://github.com/DSpace/DSpace/issues
+* Frontend (User Interface) issues: https://github.com/DSpace/dspace-angular/issues
 
 License
 -------
