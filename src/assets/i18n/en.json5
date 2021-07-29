@@ -731,8 +731,6 @@
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
 
-  "collection.edit.item-mapper-search-form.placeholder": "Search Item to Map...",
-
 
   "collection.edit.logo.delete.title": "Delete logo",
 
@@ -1253,14 +1251,6 @@
   "file-section.error.header": "Error obtaining files for this item",
 
   
-  "idle.modal.header":"Your Session is About to Expire!",
-
-  "idle.modal.info":"Your session is about to expire, would you like to logout or continue the session?",
-
-  "idle.modal.log-out":"Logout",
-
-  "idle.modal.extend-session":"Continue Session",
-
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
