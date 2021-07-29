@@ -167,7 +167,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    * Initialize all instance variables and retrieve form configuration
    */
   onSectionInit() {
-    this.getSecurityConfigurationLevelsFromStore();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
     this.sectionService.dispatchSetSectionFormId(this.submissionId, this.sectionData.id, this.formId);
@@ -183,16 +182,18 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
         ])),
       take(1))
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
-        if (isUndefined(this.formModel)) {
-          // this.sectionData.errorsToShow = [];
-          this.workspaceItem = workspaceItem;
-          // Is the first loading so init form
-          this.initForm(sectionData);
-          this.sectionData.data = sectionData;
-          this.subscriptions();
-          this.isLoading = false;
-          this.cdr.detectChanges();
-        }
+        this.getSecurityConfigurationLevelsFromStore().then(() => {
+          if (isUndefined(this.formModel)) {
+            // this.sectionData.errorsToShow = [];
+            this.workspaceItem = workspaceItem;
+            // Is the first loading so init form
+            this.initForm(sectionData);
+            this.sectionData.data = sectionData;
+            this.subscriptions();
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          }
+        });
       });
   }
 
@@ -289,7 +290,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the section errors retrieved from the server
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
-    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
       if (this.hasMetadataEnrichment(sectionData)) {
         this.isUpdating = true;
@@ -481,12 +482,14 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
     // Remove this model from formBulderService
     this.formBuilderService.removeFormModel(this.sectionData.id);
   }
-
-  getSecurityConfigurationLevelsFromStore(): void {
-    this.submissionService.getSubmissionObject(this.submissionId).pipe(
-      filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
-      take(1)).subscribe((res: SubmissionObjectEntry) => {
-      this.metadataSecurityConfiguration = res.metadataSecurityConfiguration;
+  getSecurityConfigurationLevelsFromStore() {
+     return new Promise((resolve) => {
+      this.submissionService.getSubmissionObject(this.submissionId).pipe(
+        filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
+        take(1)).subscribe((res: SubmissionObjectEntry) => {
+        this.metadataSecurityConfiguration = res.metadataSecurityConfiguration;
+         resolve(res.metadataSecurityConfiguration);
+      });
     });
   }
 

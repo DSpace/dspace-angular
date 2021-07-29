@@ -1,17 +1,16 @@
-import { Action } from '@ngrx/store';
-
-import { type } from '../../shared/ngrx/type';
-import { SubmissionError, SubmissionSectionError } from './submission-objects.reducer';
-import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
+import {Action} from '@ngrx/store';
+import {type} from '../../shared/ngrx/type';
+import {SubmissionError, SubmissionSectionError} from './submission-objects.reducer';
+import {WorkspaceitemSectionUploadFileObject} from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject
 } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SectionsType } from '../sections/sections-type';
-import { Item } from '../../core/shared/item.model';
-import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
+import {SubmissionObject} from '../../core/submission/models/submission-object.model';
+import {SubmissionDefinitionsModel} from '../../core/config/models/config-submission-definitions.model';
+import {SectionsType} from '../sections/sections-type';
+import {Item} from '../../core/shared/item.model';
+import {SubmissionVisibilityType} from '../../core/config/models/config-submission-section.model';
 import {MetadataSecurityConfiguration} from '../../core/submission/models/metadata-security-configuration';
 
 /**
@@ -88,7 +87,7 @@ export class InertSectionErrorsAction implements Action {
   };
 
   constructor(submissionId: string, sectionId: string, error: SubmissionSectionError | SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, error };
+    this.payload = {submissionId, sectionId, error};
   }
 }
 
@@ -107,7 +106,7 @@ export class DeleteSectionErrorsAction implements Action {
   };
 
   constructor(submissionId: string, sectionId: string, errors: SubmissionSectionError | SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, errors };
+    this.payload = {submissionId, sectionId, errors};
   }
 }
 
@@ -164,7 +163,7 @@ export class InitSectionAction implements Action {
               data: WorkspaceitemSectionDataType,
               errors: SubmissionSectionError[],
               metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
-    this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors };
+    this.payload = {submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors};
   }
 }
 
@@ -185,7 +184,7 @@ export class EnableSectionAction implements Action {
    */
   constructor(submissionId: string,
               sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -205,7 +204,7 @@ export class DisableSectionAction implements Action {
    *    the section's ID to remove
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -225,7 +224,7 @@ export class DisableSectionSuccessAction implements Action {
    *    the section's ID to remove
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -245,7 +244,7 @@ export class DisableSectionErrorAction implements Action {
    *    the section's ID to remove
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -282,7 +281,7 @@ export class UpdateSectionDataAction implements Action {
               errorsToShow: SubmissionSectionError[],
               serverValidationErrors: SubmissionSectionError[],
               metadata?: string[]) {
-    this.payload = { submissionId, sectionId, data, errorsToShow, serverValidationErrors, metadata };
+    this.payload = {submissionId, sectionId, data, errorsToShow, serverValidationErrors, metadata};
   }
 }
 
@@ -306,7 +305,7 @@ export class RemoveSectionErrorsAction implements Action {
    *    the section's ID to add
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -329,7 +328,7 @@ export class SetSectionFormId implements Action {
    *    the section's formId
    */
   constructor(submissionId: string, sectionId: string, formId: string) {
-    this.payload = { submissionId, sectionId, formId };
+    this.payload = {submissionId, sectionId, formId};
   }
 }
 
@@ -348,7 +347,7 @@ export class CompleteInitSubmissionFormAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -391,7 +390,16 @@ export class InitSubmissionFormAction implements Action {
               item: Item,
               errors: SubmissionError,
               metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
-    this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors , metadataSecurityConfiguration};
+    this.payload = {
+      collectionId,
+      submissionId,
+      selfUrl,
+      submissionDefinition,
+      sections,
+      item,
+      errors,
+      metadataSecurityConfiguration
+    };
   }
 }
 
@@ -408,7 +416,7 @@ export class SaveForLaterSubmissionFormAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -428,7 +436,7 @@ export class SaveForLaterSubmissionFormSuccessAction implements Action {
    *    the submission's Object
    */
   constructor(submissionId: string, submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, submissionObject };
+    this.payload = {submissionId, submissionObject};
   }
 }
 
@@ -445,7 +453,7 @@ export class SaveForLaterSubmissionFormErrorAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -463,7 +471,7 @@ export class SaveSubmissionFormAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string, isManual: boolean = false) {
-    this.payload = { submissionId, isManual };
+    this.payload = {submissionId, isManual};
   }
 }
 
@@ -484,7 +492,7 @@ export class SaveSubmissionFormSuccessAction implements Action {
    *    the submission's Object
    */
   constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
-    this.payload = { submissionId, submissionObject, notify };
+    this.payload = {submissionId, submissionObject, notify};
   }
 }
 
@@ -501,7 +509,7 @@ export class SaveSubmissionFormErrorAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -521,7 +529,7 @@ export class SaveSubmissionSectionFormAction implements Action {
    *    the section's ID
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -542,7 +550,7 @@ export class SaveSubmissionSectionFormSuccessAction implements Action {
    *    the submission's Object
    */
   constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
-    this.payload = { submissionId, submissionObject, notify };
+    this.payload = {submissionId, submissionObject, notify};
   }
 }
 
@@ -559,7 +567,7 @@ export class SaveSubmissionSectionFormErrorAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -588,9 +596,19 @@ export class ResetSubmissionFormAction implements Action {
    *    the submission's sections
    * @param submissionDefinition
    *    the submission's form definition
+   * @param item
+   * @param metadataSecurityConfiguration
    */
-  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel, item: Item) {
-    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition, item };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel, item: Item, metadataSecurityConfiguration = null) {
+    this.payload = {
+      collectionId,
+      submissionId,
+      selfUrl,
+      sections,
+      submissionDefinition,
+      item,
+      metadataSecurityConfiguration
+    };
   }
 }
 
@@ -614,7 +632,7 @@ export class ChangeSubmissionCollectionAction implements Action {
    *    the new collection's ID
    */
   constructor(submissionId: string, collectionId: string) {
-    this.payload = { submissionId, collectionId };
+    this.payload = {submissionId, collectionId};
   }
 }
 
@@ -631,7 +649,7 @@ export class SaveAndDepositSubmissionAction implements Action {
    *    the submission's ID to deposit
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -648,7 +666,7 @@ export class DepositSubmissionAction implements Action {
    *    the submission's ID to deposit
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -665,7 +683,7 @@ export class DepositSubmissionSuccessAction implements Action {
    *    the submission's ID to deposit
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -682,7 +700,7 @@ export class DepositSubmissionErrorAction implements Action {
    *    the submission's ID to deposit
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -699,7 +717,7 @@ export class DiscardSubmissionAction implements Action {
    *    the submission's ID to discard
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -716,7 +734,7 @@ export class DiscardSubmissionSuccessAction implements Action {
    *    the submission's ID to discard
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -733,7 +751,7 @@ export class DiscardSubmissionErrorAction implements Action {
    *    the submission's ID to discard
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 
@@ -756,7 +774,7 @@ export class SectionStatusChangeAction implements Action {
    *    the section validity status (true if is valid)
    */
   constructor(submissionId: string, sectionId: string, status: boolean) {
-    this.payload = { submissionId, sectionId, status };
+    this.payload = {submissionId, sectionId, status};
   }
 }
 
@@ -776,7 +794,7 @@ export class SetActiveSectionAction implements Action {
    *    the section's ID to active
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 // Upload file actions
@@ -803,7 +821,7 @@ export class NewUploadedFileAction implements Action {
    *    the metadata of the new bitstream
    */
   constructor(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
-    this.payload = { submissionId, sectionId, fileId, data };
+    this.payload = {submissionId, sectionId, fileId, data};
   }
 }
 
@@ -829,7 +847,7 @@ export class EditFileDataAction implements Action {
    *    the metadata of the new bitstream
    */
   constructor(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
-    this.payload = { submissionId, sectionId, fileId: fileId, data };
+    this.payload = {submissionId, sectionId, fileId: fileId, data};
   }
 }
 
@@ -852,7 +870,7 @@ export class DeleteUploadedFileAction implements Action {
    *    the file's ID
    */
   constructor(submissionId: string, sectionId: string, fileId: string) {
-    this.payload = { submissionId, sectionId, fileId };
+    this.payload = {submissionId, sectionId, fileId};
   }
 }
 
@@ -872,7 +890,7 @@ export class SetDuplicateDecisionAction implements Action {
    *    the section's ID
    */
   constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
+    this.payload = {submissionId, sectionId};
   }
 }
 
@@ -894,8 +912,8 @@ export class SetDuplicateDecisionSuccessAction implements Action {
    * @param submissionObject
    *    the submission's Object
    */
-  constructor(submissionId: string, sectionId: string,  submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, sectionId, submissionObject };
+  constructor(submissionId: string, sectionId: string, submissionObject: SubmissionObject[]) {
+    this.payload = {submissionId, sectionId, submissionObject};
   }
 }
 
@@ -912,7 +930,7 @@ export class SetDuplicateDecisionErrorAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string) {
-    this.payload = { submissionId };
+    this.payload = {submissionId};
   }
 }
 

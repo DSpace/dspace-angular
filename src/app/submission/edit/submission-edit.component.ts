@@ -1,10 +1,8 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-
 import {Subscription} from 'rxjs';
 import {debounceTime, filter, switchMap} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-
 import {WorkspaceitemSectionsObject} from '../../core/submission/models/workspaceitem-sections.model';
 import {hasValue, isEmpty, isNotEmptyOperator, isNotNull} from '../../shared/empty.util';
 import {SubmissionDefinitionsModel} from '../../core/config/models/config-submission-definitions.model';
@@ -177,7 +175,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         // We only want to rerender the form if the item is unchanged for some time
         debounceTime(300),
       ).subscribe((itemRd: RemoteData<Item>) => {
-         this.item = itemRd.payload;
+        this.item = itemRd.payload;
         this.changeDetectorRef.detectChanges();
       }),
     );
@@ -190,7 +188,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-
     this.submissionJsonPatchOperationsService.deletePendingJsonPatchOperations();
   }
 }

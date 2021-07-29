@@ -646,6 +646,7 @@ export class SubmissionService {
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
    * @param item
+   * @param metadataSecurityConfiguration
    */
   resetSubmissionObject(
     collectionId: string,
@@ -653,9 +654,10 @@ export class SubmissionService {
     selfUrl: string,
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
-    item: Item
+    item: Item,
+    metadataSecurityConfiguration: MetadataSecurityConfiguration = null
   ) {
-    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item));
+    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item, metadataSecurityConfiguration));
   }
 
   /**
