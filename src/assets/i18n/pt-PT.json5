@@ -8,11 +8,65 @@
 // "collection.edit.item-mapper-search-form.placeholder": "Search Item to Map...",
 "collection.edit.item-mapper-search-form.placeholder": "Pesquisar Item a Mapear...",
 
+// "idle.modal.header":"Your Session is About to Expire!",
+"idle.modal.header":"A sua sessão está prestes a expirar!",
+
+// "idle.modal.info":"Your session is about to expire, would you like to logout or continue the session?",
+"idle.modal.info":"A sua sessão está prestes a expirar, pretende sair ou continuar a sessão?",
+
+// "idle.modal.log-out":"Logout",
+"idle.modal.log-out":"Sair",
+
+// "idle.modal.extend-session":"Continue Session",
+"idle.modal.extend-session":"Continuar a Sessão",
+
 
 
 
 
 // NOTE 2 - Add to other languages - needed for OpenAIRE compliance - relations between entities
+
+// "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+"submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "Nova Entidade Adicionada!",
+
+// "item.preview.project.funder.name": "Funder",
+"item.preview.project.funder.name": "Financiador",
+
+// "item.preview.project.funder.identifier": "Funder Identifier",
+"item.preview.project.funder.identifier": "Identificador do Financiador",
+
+// "item.preview.oaire.awardNumber": "Funding ID",
+"item.preview.oaire.awardNumber": "ID de Financiamento",
+
+// "item.preview.dc.title.alternative": "Acronym",
+"item.preview.dc.title.alternative": "Acrónimo",
+
+// "item.preview.dc.coverage.spatial": "Jurisdiction",
+"item.preview.dc.coverage.spatial": "Jurisdição",
+
+// "item.preview.oaire.fundingStream": "Funding Stream",
+"item.preview.oaire.fundingStream": "Linha de Financiamento",
+
+// "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
+"submission.import-external.source.openAIREFunding": "Financiamento API OpenAIRE",
+
+// "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+"submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Projeto",
+
+// "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+"submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projeto",
+
+// "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
+"submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Financiamento API OpenAIRE",
+
+// "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+"submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Financiamento API OpenAIRE",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+"submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Financiamento API OpenAIRE",
+
+// "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projeto",
+"submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projeto",
 
 // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
 "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projetos",
@@ -43,6 +97,12 @@
 
 
 // Other strings 
+
+//"submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+"submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Pesquisar...",
+
+// "submission.general.info.saved": "Saved",
+"submission.general.info.saved": "Informação Guardada",
 
 // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
 "bitstream.edit.authorizations.link": "Editar Polítcas de Ficheiros",
@@ -3230,7 +3290,7 @@
   
   
   // "menu.section.new": "New",
-  "menu.section.new": "Nova",
+  "menu.section.new": "Novo",
   
   // "menu.section.new_collection": "Collection",
   "menu.section.new_collection": "Coleção",
@@ -4599,7 +4659,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importar autor remoto",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importar Revista remota",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importar Informação Remota",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Importar Número de revista remoto",
