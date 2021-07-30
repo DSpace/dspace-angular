@@ -21,7 +21,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 
 describe('SearchFacetFilterComponent', () => {

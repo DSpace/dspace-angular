@@ -1335,6 +1335,8 @@
 
   "form.discard": "Discard",
 
+  "form.drag": "Drag",
+
   "form.edit": "Edit",
 
   "form.edit-help": "Click here to edit the selected value",
@@ -3194,6 +3196,10 @@
 
   "submission.general.discard.submit": "Discard",
 
+  "submission.general.info.saved": "Saved",
+
+  "submission.general.info.pending-changes": "Unsaved changes",
+
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
@@ -3220,7 +3226,7 @@
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  
+
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
@@ -3514,6 +3520,16 @@
 
 
 
+  "submission.sections.status.errors.title": "Errors",
+
+  "submission.sections.status.valid.title": "Valid",
+
+  "submission.sections.status.warnings.title": "Warnings",
+
+  "submission.sections.toggle.open": "Open section",
+
+  "submission.sections.toggle.close": "Close section",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
@@ -3524,7 +3540,11 @@
 
   "submission.sections.upload.delete.submit": "Delete",
 
+  "submission.sections.upload.download.title": "Download bitstream",
+
   "submission.sections.upload.drop-message": "Drop files to attach them to the item",
+
+  "submission.sections.upload.edit.title": "Edit bitstream",
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
@@ -3669,6 +3689,8 @@
   "uploader.browse": "browse",
 
   "uploader.drag-message": "Drag & Drop your files here",
+
+  "uploader.delete.btn-title": "Delete",
 
   "uploader.or": ", or ",
 

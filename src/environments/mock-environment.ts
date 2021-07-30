@@ -1,5 +1,5 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.prod.ts
-import { BrowseByType } from '../app/+browse-by/+browse-by-switcher/browse-by-decorator';
+import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { GlobalConfig } from '../config/global-config.interface';
@@ -126,8 +126,6 @@ export const environment: Partial<GlobalConfig> = {
     async: true,
     time: false
   },
-  // Log directory
-  logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
   debug: false,
   // Default Language in which the UI will be rendered if the user's browser language is not an active language

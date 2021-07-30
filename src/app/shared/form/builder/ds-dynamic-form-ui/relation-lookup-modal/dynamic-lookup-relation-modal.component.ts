@@ -3,7 +3,7 @@ import { combineLatest as observableCombineLatest, Observable, Subscription } fr
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { map, skip, switchMap, take } from 'rxjs/operators';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';

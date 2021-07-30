@@ -143,7 +143,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
                           }
                         }
                       });
-                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors);
+                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
                 });
             }
 

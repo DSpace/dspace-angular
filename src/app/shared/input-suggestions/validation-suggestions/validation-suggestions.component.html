@@ -3,7 +3,7 @@
       (keydown.arrowdown)="shiftFocusDown($event)"
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
       (dsClickOutside)="checkIfValidInput(form);close();">
-  <input #inputField type="text" formControlName="metadataNameField" [(ngModel)]="value" id="name" [name]="name"
+  <input #inputField type="text" formControlName="metadataNameField" attr.aria-labelledby="fieldName" [(ngModel)]="value" id="name" [name]="name"
          class="form-control suggestion_input"
          [ngClass]="{'is-invalid': !valid}"
          [dsDebounce]="debounceTime" (onDebounce)="find($event)"

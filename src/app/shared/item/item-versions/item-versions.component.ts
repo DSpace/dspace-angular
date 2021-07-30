@@ -18,7 +18,7 @@ import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions',

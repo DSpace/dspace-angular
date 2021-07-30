@@ -6,7 +6,7 @@ import { uniq } from 'lodash';
 
 import { SectionsService } from './sections.service';
 import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
-import { SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import { SubmissionSectionError } from '../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SubmissionService } from '../submission.service';
 import { SectionsType } from './sections-type';
@@ -111,8 +111,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
       }));
 
     this.subs.push(
-      this.sectionService.getSectionState(this.submissionId, this.sectionId, this.sectionType).pipe(
-        map((state: SubmissionSectionObject) => state.errors))
+      this.sectionService.getShownSectionErrors(this.submissionId, this.sectionId, this.sectionType)
         .subscribe((errors: SubmissionSectionError[]) => {
           if (isNotEmpty(errors)) {
             errors.forEach((errorItem: SubmissionSectionError) => {

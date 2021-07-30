@@ -11,7 +11,7 @@ import {
 import {
   metadataRegistryReducer,
   MetadataRegistryState
-} from './+admin/admin-registries/metadata-registry/metadata-registry.reducers';
+} from './admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import {
   CommunityListReducer,
   CommunityListState

@@ -11,7 +11,7 @@ import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../..
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
@@ -56,7 +56,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Fallback maximum for the range
    */
-  max = new Date().getFullYear();
+  max = new Date().getUTCFullYear();
 
   /**
    * The current range of the filter

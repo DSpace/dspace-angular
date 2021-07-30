@@ -30,6 +30,7 @@
      (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
   <input #instance="ngbTypeahead"
          class="form-control"
+         [attr.aria-labelledby]="'label_' + model.id"
          [attr.autoComplete]="model.autoComplete"
          [class.is-invalid]="showErrorMessages"
          [id]="model.id"
@@ -50,19 +51,24 @@
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 </div>
 
-<input *ngIf="(isHierarchicalVocabulary() | async)"
-       class="form-control custom-select"
-       [attr.autoComplete]="model.autoComplete"
-       [class.is-invalid]="showErrorMessages"
-       [id]="id"
-       [name]="model.name"
-       [placeholder]="model.placeholder"
-       [readonly]="model.readOnly"
-       [type]="model.inputType"
-       [value]="currentValue?.display"
-       (focus)="onFocus($event)"
-       (change)="onChange($event)"
-       (click)="openTree($event)"
-       (keydown)="$event.preventDefault()"
-       (keypress)="$event.preventDefault()"
-       (keyup)="$event.preventDefault()">
+<div *ngIf="(isHierarchicalVocabulary() | async)" class="position-relative right-addon">
+  <i class="dropdown-toggle position-absolute tree-toggle" (click)="openTree($event)"
+     aria-hidden="true"></i>
+  <input class="form-control"
+         [attr.aria-labelledby]="'label_' + model.id"
+         [attr.autoComplete]="model.autoComplete"
+         [class.is-invalid]="showErrorMessages"
+         [class.tree-input]="!model.readOnly"
+         [id]="id"
+         [name]="model.name"
+         [placeholder]="model.placeholder"
+         [readonly]="true"
+         [type]="model.inputType"
+         [value]="currentValue?.display"
+         (focus)="onFocus($event)"
+         (change)="onChange($event)"
+         (click)="openTree($event)"
+         (keydown)="$event.preventDefault()"
+         (keypress)="$event.preventDefault()"
+         (keyup)="$event.preventDefault()">
+</div>

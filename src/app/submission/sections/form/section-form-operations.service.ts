@@ -300,7 +300,6 @@ export class SectionFormOperationsService {
 
     const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
-    console.log(value);
     if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else if (event.context && event.context instanceof DynamicFormArrayGroupModel) {

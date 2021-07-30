@@ -272,7 +272,7 @@ export class MetadataService {
     if (this.currentObject.value instanceof Item) {
       let url = this.getMetaTagValue('dc.identifier.uri');
       if (hasNoValue(url)) {
-        url = new URLCombiner(this.hardRedirectService.getRequestOrigin(), this.router.url).toString();
+        url = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
       }
       this.addMetaTag('citation_abstract_html_url', url);
     }
@@ -336,7 +336,7 @@ export class MetadataService {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
           'citation_pdf_url',
-          new URLCombiner(this.hardRedirectService.getRequestOrigin(), link).toString()
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
         );
       });
     }
@@ -403,7 +403,7 @@ export class MetadataService {
    */
   private setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
-      this.meta.addTag({ property: 'Generator', content: root.dspaceVersion });
+      this.meta.addTag({ name: 'Generator', content: root.dspaceVersion });
     });
   }
 
@@ -447,17 +447,17 @@ export class MetadataService {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  private addMetaTag(property: string, content: string): void {
+  private addMetaTag(name: string, content: string): void {
     if (content) {
-      const tag = { property, content } as MetaDefinition;
+      const tag = { name, content } as MetaDefinition;
       this.meta.addTag(tag);
-      this.storeTag(property);
+      this.storeTag(name);
     }
   }
 
-  private addMetaTags(property: string, content: string[]): void {
+  private addMetaTags(name: string, content: string[]): void {
     for (const value of content) {
-      this.addMetaTag(property, value);
+      this.addMetaTag(name, value);
     }
   }
 
@@ -470,8 +470,8 @@ export class MetadataService {
       select(tagsInUseSelector),
       take(1)
     ).subscribe((tagsInUse: string[]) => {
-      for (const property of tagsInUse) {
-        this.meta.removeTag('property=\'' + property + '\'');
+      for (const name of tagsInUse) {
+        this.meta.removeTag('name=\'' + name + '\'');
       }
       this.store.dispatch(new ClearMetaTagAction());
     });

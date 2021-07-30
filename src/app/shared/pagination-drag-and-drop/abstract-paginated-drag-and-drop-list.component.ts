@@ -16,7 +16,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
-import { compareArraysUsing } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 
 /**

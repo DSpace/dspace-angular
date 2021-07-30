@@ -2,13 +2,18 @@ import { DSpaceObject } from './core/shared/dspace-object.model';
 import { Community } from './core/shared/community.model';
 import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
-import { getCommunityPageRoute } from './+community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from './+collection-page/collection-page-routing-paths';
-import { getItemPageRoute } from './+item-page/item-page-routing-paths';
+import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
+import { getItemPageRoute } from './item-page/item-page-routing-paths';
 import { hasValue } from './shared/empty.util';
 import { URLCombiner } from './core/url-combiner/url-combiner';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
+
+/**
+ * The bitstream module path to resolve XMLUI and JSPUI bitstream download URLs
+ */
+export const LEGACY_BITSTREAM_MODULE_PATH = 'bitstream';
 
 export function getBitstreamModuleRoute() {
   return `/${BITSTREAM_MODULE_PATH}`;
