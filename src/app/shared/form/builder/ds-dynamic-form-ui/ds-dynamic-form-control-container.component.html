@@ -25,7 +25,7 @@
           <ds-edit-metadata-security *ngIf="showToggleFirstLimit()"
                                      [securityConfigLevel]="model.securityConfigLevel"
                                      [securityLevel]=" model.securityLevel != undefined && model.securityLevel!=null ? model.securityLevel  : (model.metadataValue ?
-              model.metadataValue.securityLevel  : securityLevel != null && securityLevel != undefined  ? securityLevel : null)"
+                                     model.metadataValue.securityLevel  : securityLevel != null && securityLevel != undefined  ? securityLevel : null)"
                                      (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
           </ds-edit-metadata-security>
         </div>

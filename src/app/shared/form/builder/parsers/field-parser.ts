@@ -379,8 +379,7 @@ export abstract class FieldParser {
     // look to find security for metadata
     if (this.securityConfig && metadata) {
       if (this.securityConfig.metadataCustomSecurity) {
-        const metadataSettings = metadata;
-        const metadataConfig = (this.securityConfig.metadataCustomSecurity as any).metadataSettings;
+        const metadataConfig = (this.securityConfig.metadataCustomSecurity as any)[metadata];
         if (metadataConfig) {
           return metadataConfig;
         } else {

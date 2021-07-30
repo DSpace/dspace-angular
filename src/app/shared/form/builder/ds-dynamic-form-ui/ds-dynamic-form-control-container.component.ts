@@ -360,8 +360,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               // in this case must be applied the logic of security preset
               if ((change.model as any).value || (change.model as any).metadataValue) {
                 // it has added a value into metadata so preset maximum value of security
-                this.securityLevel = this.securityLevelConfig - 1;
-                this.model.securityLevel = this.securityLevelConfig - 1;
+                if (this.model.securityConfigLevel && this.model.securityConfigLevel.length > 0) {
+                  this.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+                  this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+                }
               }
             }
             this.previousValue = (change.model as any).value;
@@ -618,7 +620,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   preselectMostRestrictedOption($event) {
     if (this.model.securityConfigLevel && this.model.securityConfigLevel.length > 0 && this.model.type !== 'GROUP') {
       // ask if user is typing for the first time in the input
-      if (!this.previousValue && !this.securityChanged) {
+      if ((!this.previousValue || !((this.previousValue && this.previousValue.value && this.previousValue.value.length > 0))) && !this.securityChanged) {
         if ($event.target.value && $event.target.value !== '') {
           // preselect
           this.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];

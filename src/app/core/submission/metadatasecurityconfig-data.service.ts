@@ -50,7 +50,8 @@ export class MetadataSecurityConfigurationService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<MetadataSecurityConfiguration>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+    this.dataService = new DataServiceImpl(requestService, rdbService,
+      null, objectCache, halService, notificationsService, http, comparator);
   }
 
   /**

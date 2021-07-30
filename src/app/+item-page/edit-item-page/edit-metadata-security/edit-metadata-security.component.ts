@@ -43,7 +43,7 @@ export class EditMetadataSecurityComponent implements OnInit, OnChanges {
         this.securityLevelsMap = null;
         this.changeSecurityLevel.emit(0);
       } else {
-        if (this.securityConfigLevel === [0]) {
+        if (this.securityConfigLevel.length === 1 && this.securityConfigLevel.includes(0)) {
           this.securityLevelsMap = null;
           this.changeSecurityLevel.emit(0);
         } else {
