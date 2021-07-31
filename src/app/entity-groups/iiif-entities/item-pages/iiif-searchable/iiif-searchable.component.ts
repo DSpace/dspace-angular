@@ -5,7 +5,6 @@ import { ItemComponent } from '../../../../item-page/simple/item-types/shared/it
 import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, map, take } from 'rxjs/operators';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
 @listableObjectComponent('IIIFSearchable', ViewMode.StandalonePage)
 @Component({
