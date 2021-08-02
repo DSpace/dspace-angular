@@ -3822,6 +3822,8 @@
 
   "researcher.profile.public.visibility" : "PUBLIC",
 
+  "researcher.profile.status": "Status:",
+
   "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
 
   "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",

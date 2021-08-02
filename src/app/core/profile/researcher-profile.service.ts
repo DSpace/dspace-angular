@@ -1,11 +1,11 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Operation, RemoveOperation, ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import {catchError, find, map, switchMap, tap} from 'rxjs/operators';
+import { catchError, find, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
@@ -24,13 +24,14 @@ import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import {
   getFinishedRemoteData,
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
 } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
-import {HttpOptions} from '../dspace-rest/dspace-rest.service';
-import {PostRequest} from '../data/request.models';
-import {hasValue} from '../../shared/empty.util';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { PostRequest } from '../data/request.models';
+import { hasValue } from '../../shared/empty.util';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -89,7 +90,7 @@ export class ResearcherProfileService {
      * @param uuid the profile uuid
      */
     findById(uuid: string): Observable<ResearcherProfile> {
-        return this.dataService.findById ( uuid )
+        return this.dataService.findById(uuid, false)
             .pipe ( getFinishedRemoteData(),
                 map((remoteData) => remoteData.payload));
     }
@@ -124,7 +125,7 @@ export class ResearcherProfileService {
      * @param researcherProfile the profile to find for
      */
     findRelatedItemId( researcherProfile: ResearcherProfile ): Observable<string> {
-        return this.itemService.findByHref ( researcherProfile._links.item.href)
+        return this.itemService.findByHref(researcherProfile._links.item.href, false)
             .pipe (getFirstSucceededRemoteDataPayload(),
             catchError((error) => {
                 console.debug(error);
