@@ -120,6 +120,7 @@ export class InitSectionAction implements Action {
     header: string;
     config: string;
     mandatory: boolean;
+    opened: boolean;
     sectionType: SectionsType;
     visibility: SubmissionVisibilityType;
     enabled: boolean;
@@ -140,6 +141,8 @@ export class InitSectionAction implements Action {
    *    the section's config
    * @param mandatory
    *    the section's mandatory
+   * @param opened
+   *    the section's opened
    * @param sectionType
    *    the section's type
    * @param visibility
@@ -156,12 +159,13 @@ export class InitSectionAction implements Action {
               header: string,
               config: string,
               mandatory: boolean,
+              opened: boolean,
               sectionType: SectionsType,
               visibility: SubmissionVisibilityType,
               enabled: boolean,
               data: WorkspaceitemSectionDataType,
               errors: SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors };
+    this.payload = { submissionId, sectionId, header, config, mandatory, opened, sectionType, visibility, enabled, data, errors };
   }
 }
 

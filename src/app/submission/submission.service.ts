@@ -357,6 +357,7 @@ export class SubmissionService {
             const sectionObject: SectionDataObject = Object.create({});
             sectionObject.config = sections[sectionId].config;
             sectionObject.mandatory = sections[sectionId].mandatory;
+            sectionObject.opened = sections[sectionId].opened;
             sectionObject.data = sections[sectionId].data;
             sectionObject.errorsToShow = sections[sectionId].errorsToShow;
             sectionObject.serverValidationErrors = sections[sectionId].serverValidationErrors;

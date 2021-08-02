@@ -44,6 +44,11 @@ export interface SectionDataObject {
   mandatory: boolean;
 
   /**
+   * A boolean representing if this section is opened or collapsed by default
+   */
+  opened: boolean;
+
+  /**
    * The section type
    */
   sectionType: SectionsType;

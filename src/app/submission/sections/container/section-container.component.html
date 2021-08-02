@@ -2,13 +2,14 @@
      [attr.id]="sectionData.id"
      [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() && !(isRemoving | async) }"
      [mandatory]="sectionData.mandatory"
+     [opened]="sectionData.opened"
      [submissionId]="submissionId"
      [sectionType]="sectionData.sectionType"
      [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion"
                  *ngIf="(sectionRef.isEnabled() | async)"
                  (panelChange)="sectionRef.sectionChange($event)"
-                 activeIds="{{ sectionData.id }}"
+                 activeIds="{{ sectionRef.isOpened() ? [sectionRef.sectionId] : [] }}"
                  [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
