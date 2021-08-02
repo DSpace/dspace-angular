@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { MultiColumnTopSection } from '../../../../core/layout/models/section.model';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { map } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { Item } from '../../../../core/shared/item.model';
 
 @Component({

@@ -12,8 +12,8 @@ import { RowComponent } from './default-layout/boxes/metadata/row/row.component'
 import { TextComponent } from './default-layout/boxes/components/text/text.component';
 import { HeadingComponent } from './default-layout/boxes/components/heading/heading.component';
 import { CrisLayoutSearchBoxComponent } from './default-layout/boxes/search/cris-layout-search-box.component';
-import { SearchPageModule } from '../+search-page/search-page.module';
-import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
+import { SearchPageModule } from '../search-page/search-page.module';
+import { MyDSpacePageModule } from '../my-dspace-page/my-dspace-page.module';
 import { LongtextComponent } from './default-layout/boxes/components/longtext/longtext.component';
 import { DateComponent } from './default-layout/boxes/components/date/date.component';
 import { DsDatePipe } from './pipes/ds-date.pipe';

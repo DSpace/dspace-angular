@@ -8,7 +8,7 @@ import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { OpenaireStateService } from '../../openaire-state.service';
-import { AdminNotificationsOpenaireTopicsPageParams } from '../../../+admin/admin-notifications/admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
+import { AdminNotificationsOpenaireTopicsPageParams } from '../../../admin/admin-notifications/admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**

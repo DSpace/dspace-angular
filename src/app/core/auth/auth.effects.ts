@@ -168,7 +168,7 @@ export class AuthEffects {
           if (response.authenticated) {
             return new RetrieveTokenAction();
           } else {
-            return this.authService.getRetrieveAuthMethodsAction(response);
+            return new RetrieveAuthMethodsAction(response);
           }
         }),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
