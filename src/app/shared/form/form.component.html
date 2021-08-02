@@ -27,17 +27,28 @@
         </div>
         <div *ngIf="(!context.notRepeatable) && (index === (group.context.groups.length - 1) || isInlineGroupForm )" class="clearfix pl-4 w-100">
           <div class="btn-group" role="group" aria-label="remove button">
-            <button *ngIf="index === (group.context.groups.length - 1)" type="button" class="ds-form-add-more btn btn-link"
+           <!--  <button *ngIf="index === (group.context.groups.length - 1)" type="button" class="ds-form-add-more btn btn-link"
                     title="{{'form.add' | translate}}"
                     [disabled]="isItemReadOnly(context, index)"
                     (click)="insertItem($event, group.context, group.context.groups.length)">
               <span attr.aria-label="{{'form.add' | translate}}"><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
-            </button>
+            </button> -->
             <button *ngIf="isInlineGroupForm" type="button" class="ds-form-add-more btn btn-link"
                     title="{{'form.copy' | translate}}"
                     [disabled]="isItemReadOnly(context, index)"
                     (click)="copyItem($event, group.context, index)">
               <span attr.aria-label="{{'form.copy' | translate}}"><i class="fas fa-copy"></i> {{'form.copy' | translate}}</span>
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="(!context.notRepeatable) && (index === (group.context.groups.length - 1) )" class="clearfix pl-4 w-100 white-background">
+          <div class="btn-group" role="group" aria-label="remove button">
+            <button type="button" class="ds-form-add-more btn btn-link"
+                title="{{'form.add' | translate}}"
+                [disabled]="isItemReadOnly(context, index)"
+                (click)="insertItem($event, group.context, group.context.groups.length)">
+            <span attr.aria-label="{{'form.add' | translate}}"><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
             </button>
           </div>
         </div>
@@ -60,7 +71,7 @@
 
     </ds-dynamic-form>
 
-        <ng-content *ngIf="!displaySubmit && !displayCancel"></ng-content>
+    <ng-content *ngIf="!displaySubmit && !displayCancel"></ng-content>
 
     <div *ngIf="displaySubmit || displayCancel">
       <hr>
