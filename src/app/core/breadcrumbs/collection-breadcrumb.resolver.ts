@@ -4,7 +4,7 @@ import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { Collection } from '../shared/collection.model';
 import { CollectionDataService } from '../data/collection-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../+collection-page/collection-page.resolver';
+import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a Collection

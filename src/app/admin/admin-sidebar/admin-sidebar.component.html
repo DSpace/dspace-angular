@@ -1,0 +1,53 @@
+<nav @slideHorizontal class="navbar navbar-dark p-0"
+     [ngClass]="{'active': sidebarOpen, 'inactive': sidebarClosed}"
+     [@slideSidebar]="{
+      value: (!(sidebarExpanded | async) ? 'collapsed' : 'expanded'),
+      params: {sidebarWidth: (sidebarWidth | async)}
+     }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)"
+     *ngIf="menuVisible | async" (mouseenter)="expandPreview($event)"
+     (mouseleave)="collapsePreview($event)"
+     role="navigation" [attr.aria-label]="'menu.header.admin.description' |translate">
+    <div class="sidebar-top-level-items">
+        <ul class="navbar-nav">
+            <li class="admin-menu-header sidebar-section">
+                <a class="shortcut-icon navbar-brand mr-0" href="javascript:void(0);">
+                <span class="logo-wrapper">
+                    <img class="admin-logo" src="assets/images/dspace-logo-mini.svg"
+                         [alt]="('menu.header.image.logo') | translate">
+                </span>
+                </a>
+                <div class="sidebar-collapsible">
+                    <a class="navbar-brand mr-0" href="javascript:void(0);">
+                        <h4 class="section-header-text mb-0">{{'menu.header.admin' |
+                            translate}}</h4>
+                    </a>
+                </div>
+            </li>
+
+            <ng-container *ngFor="let section of (sections | async)">
+                <ng-container
+                        *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+            </ng-container>
+        </ul>
+    </div>
+    <div class="navbar-nav">
+        <div class="sidebar-section" id="sidebar-collapse-toggle">
+            <a class="nav-item nav-link shortcut-icon"
+               href="javascript:void(0);"
+               (click)="toggle($event)">
+                <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
+                   [title]="'menu.section.icon.pin' | translate"></i>
+                <i *ngIf="!(menuCollapsed | async)" class="fas fa-fw fa-angle-double-left"
+                   [title]="'menu.section.icon.unpin' | translate"></i>
+            </a>
+            <div class="sidebar-collapsible">
+                <a class="nav-item nav-link sidebar-section"
+                   href="javascript:void(0);"
+                   (click)="toggle($event)">
+                    <span *ngIf="menuCollapsed | async" class="section-header-text">{{'menu.section.pin' | translate }}</span>
+                    <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'menu.section.unpin' | translate }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

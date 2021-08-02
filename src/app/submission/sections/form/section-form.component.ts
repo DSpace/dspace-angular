@@ -1,40 +1,40 @@
-import {ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild} from '@angular/core';
-import {DynamicFormControlEvent, DynamicFormControlModel} from '@ng-dynamic-forms/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import {combineLatest as observableCombineLatest, Observable, Subscription} from 'rxjs';
-import {distinctUntilChanged, filter, find, map, mergeMap, take, tap} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
-import {findIndex, isEqual} from 'lodash';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { findIndex, isEqual } from 'lodash';
 
-import {FormBuilderService} from '../../../shared/form/builder/form-builder.service';
-import {FormComponent} from '../../../shared/form/form.component';
-import {FormService} from '../../../shared/form/form.service';
-import {SectionModelComponent} from '../models/section.model';
-import {SubmissionFormsConfigService} from '../../../core/config/submission-forms-config.service';
-import {hasValue, isEmpty, isNotEmpty, isUndefined} from '../../../shared/empty.util';
-import {JsonPatchOperationPathCombiner} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import {SubmissionFormsModel} from '../../../core/config/models/config-submission-forms.model';
-import {SubmissionSectionError, SubmissionSectionObject} from '../../objects/submission-objects.reducer';
-import {FormFieldPreviousValueObject} from '../../../shared/form/builder/models/form-field-previous-value-object';
-import {SectionDataObject} from '../models/section-data.model';
-import {renderSectionFor} from '../sections-decorator';
-import {SectionsType} from '../sections-type';
-import {SubmissionService} from '../../submission.service';
-import {SectionFormOperationsService} from './section-form-operations.service';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {SectionsService} from '../sections.service';
-import {difference} from '../../../shared/object.util';
-import {WorkspaceitemSectionFormObject} from '../../../core/submission/models/workspaceitem-section-form.model';
-import {WorkspaceItem} from '../../../core/submission/models/workspaceitem.model';
-import {getFirstSucceededRemoteData, getRemoteDataPayload} from '../../../core/shared/operators';
-import {SubmissionObjectDataService} from '../../../core/submission/submission-object-data.service';
-import {ObjectCacheService} from '../../../core/cache/object-cache.service';
-import {RequestService} from '../../../core/data/request.service';
-import {followLink} from '../../../shared/utils/follow-link-config.model';
-import {environment} from '../../../../environments/environment';
-import {ConfigObject} from '../../../core/config/models/config.model';
-import {RemoteData} from '../../../core/data/remote-data';
-import {SubmissionVisibility} from '../../utils/visibility.util';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { FormService } from '../../../shared/form/form.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
+import { SectionDataObject } from '../models/section-data.model';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
+import { SubmissionService } from '../../submission.service';
+import { SectionFormOperationsService } from './section-form-operations.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SectionsService } from '../sections.service';
+import { difference } from '../../../shared/object.util';
+import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { environment } from '../../../../environments/environment';
+import { ConfigObject } from '../../../core/config/models/config.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 
 /**
  * This component represents a section that contains a Form.
@@ -45,7 +45,7 @@ import {SubmissionVisibility} from '../../utils/visibility.util';
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class SubmissionSectionformComponent extends SectionModelComponent implements OnDestroy {
+export class SubmissionSectionformComponent extends SectionModelComponent {
 
   /**
    * The form id
@@ -371,6 +371,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
+
     if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
@@ -467,7 +468,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
   /**
    * Handle the customEvent (ex. drag-drop move event).
    * The customEvent is stored inside event.$event
-   * @param $event
+   * @param event
    */
   onCustomEvent(event: DynamicFormControlEvent) {
      this.formOperationsService.dispatchOperationsFromEvent(

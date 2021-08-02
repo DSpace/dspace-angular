@@ -100,12 +100,12 @@ export interface SubmissionSectionObject {
   data: WorkspaceitemSectionDataType;
 
   /**
-   * The list of the section's errors to show
+   * The list of the section's errors to show. It contains the error list to display when section is not pristine
    */
   errorsToShow: SubmissionSectionError[];
 
   /**
-   * The list of the section's errors detected by the server
+   * The list of the section's errors detected by the server. They may not be shown yet if section is pristine
    */
   serverValidationErrors: SubmissionSectionError[];
 

@@ -98,28 +98,28 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload
 } from '../../../../core/shared/operators';
-import {RemoteData} from '../../../../core/data/remote-data';
-import {Item} from '../../../../core/shared/item.model';
-import {ItemDataService} from '../../../../core/data/item-data.service';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../../app.reducer';
-import {SubmissionObjectDataService} from '../../../../core/submission/submission-object-data.service';
-import {SubmissionObject} from '../../../../core/submission/models/submission-object.model';
-import {PaginatedList} from '../../../../core/data/paginated-list.model';
-import {ItemSearchResult} from '../../../object-collection/shared/item-search-result.model';
-import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
-import {Collection} from '../../../../core/shared/collection.model';
-import {MetadataValue, VIRTUAL_METADATA_PREFIX} from '../../../../core/shared/metadata.models';
-import {FormService} from '../../form.service';
-import {SelectableListState} from '../../../object-list/selectable-list/selectable-list.reducer';
-import {SubmissionService} from '../../../../submission/submission.service';
-import {followLink} from '../../../utils/follow-link-config.model';
-import {paginatedRelationsToItems} from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
-import {RelationshipOptions} from '../models/relationship-options.model';
-import {FormBuilderService} from '../form-builder.service';
-import {DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP} from './ds-dynamic-form-constants';
-import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
-import {ConfigurationDataService} from "../../../../core/data/configuration-data.service";
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Item } from '../../../../core/shared/item.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../app.reducer';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
+import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { Collection } from '../../../../core/shared/collection.model';
+import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
+import { FormService } from '../../form.service';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { SubmissionService } from '../../../../submission/submission.service';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
+import { RelationshipOptions } from '../models/relationship-options.model';
+import { FormBuilderService } from '../form-builder.service';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {

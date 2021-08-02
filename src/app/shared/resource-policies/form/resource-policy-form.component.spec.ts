@@ -25,7 +25,7 @@ import { getMockFormService } from '../../mocks/form-service.mock';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { FormComponent } from '../../form/form.component';
-import { stringToNgbDateStruct } from '../../date.util';
+import { stringToNgbDateStruct, dateToISOFormat } from '../../date.util';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { EPersonMock } from '../../testing/eperson.mock';
@@ -107,8 +107,8 @@ export const submittedResourcePolicy = Object.assign(new ResourcePolicy(), {
   description: 'description',
   policyType: PolicyType.TYPE_WORKFLOW,
   action: ActionType.WRITE,
-  startDate: '2019-04-14T00:00:00Z',
-  endDate: '2020-04-14T00:00:00Z',
+  startDate: dateToISOFormat('2019-04-14T00:00:00Z'),
+  endDate: dateToISOFormat('2020-04-14T00:00:00Z'),
   type: RESOURCE_POLICY
 });
 

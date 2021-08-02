@@ -1,4 +1,4 @@
-import { delay, map, distinctUntilChanged, filter, take } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, take, withLatestFrom } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,6 +7,7 @@ import {
   Inject,
   OnInit,
   Optional,
+  PLATFORM_ID,
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
@@ -32,11 +33,13 @@ import { LocaleService } from './core/locale/locale.service';
 import { hasValue, isNotEmpty } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { GoogleAnalyticsService } from './statistics/google-analytics.service';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
 import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-app',
@@ -45,7 +48,6 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   sidebarVisible: Observable<boolean>;
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
@@ -57,11 +59,28 @@ export class AppComponent implements OnInit, AfterViewInit {
   /**
    * Whether or not the authentication is currently blocking the UI
    */
-  isNotAuthBlocking$: Observable<boolean>;
+  isAuthBlocking$: Observable<boolean>;
+
+  /**
+   * Whether or not the app is in the process of rerouting
+   */
+  isRouteLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * Whether or not the theme is in the process of being swapped
+   */
+  isThemeLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+
+  /**
+   * Whether or not the idle modal is is currently open
+   */
+  idleModalOpen: boolean;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
-      @Inject(DOCUMENT) private document: any,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: any,
     private themeService: ThemeService,
     private translate: TranslateService,
     private store: Store<HostWindowState>,
@@ -75,6 +94,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private windowService: HostWindowService,
     private localeService: LocaleService,
     private breadcrumbsService: BreadcrumbsService,
+    private modalService: NgbModal,
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
@@ -83,6 +103,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.models = models;
 
     this.themeService.getThemeName$().subscribe((themeName: string) => {
+      if (isPlatformBrowser(this.platformId)) {
+        // the theme css will never download server side, so this should only happen on the browser
+        this.isThemeLoading$.next(true);
+      }
       if (hasValue(themeName)) {
         this.setThemeCss(themeName);
       } else if (hasValue(DEFAULT_THEME_CONFIG)) {
@@ -91,6 +115,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.setThemeCss(BASE_THEME_NAME);
       }
     });
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.authService.trackTokenExpiration();
+      this.trackIdleModal();
+    }
 
     // Load all the languages that are defined as active from the config file
     translate.addLangs(environment.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
@@ -114,17 +143,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(environment);
     }
     this.storeCSSVariables();
-
   }
 
   ngOnInit() {
-    this.isNotAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
-      map((isBlocking: boolean) => isBlocking === false),
+    this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
       distinctUntilChanged()
     );
-    this.isNotAuthBlocking$
+    this.isAuthBlocking$
       .pipe(
-        filter((notBlocking: boolean) => notBlocking),
+        filter((isBlocking: boolean) => isBlocking === false),
         take(1)
       ).subscribe(() => this.initializeKlaro());
 
@@ -156,12 +183,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       delay(0)
     ).subscribe((event) => {
       if (event instanceof NavigationStart) {
-        this.isLoading$.next(true);
+        this.isRouteLoading$.next(true);
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
       ) {
-        this.isLoading$.next(false);
+        this.isRouteLoading$.next(false);
       }
     });
   }
@@ -209,7 +236,28 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         });
       }
+      // the fact that this callback is used, proves we're on the browser.
+      this.isThemeLoading$.next(false);
     };
     head.appendChild(link);
+  }
+
+  private trackIdleModal() {
+    const isIdle$ = this.authService.isUserIdle();
+    const isAuthenticated$ = this.authService.isAuthenticated();
+    isIdle$.pipe(withLatestFrom(isAuthenticated$))
+      .subscribe(([userIdle, authenticated]) => {
+        if (userIdle && authenticated) {
+          if (!this.idleModalOpen) {
+            const modalRef = this.modalService.open(IdleModalComponent, { ariaLabelledBy: 'idle-modal.header' });
+            this.idleModalOpen = true;
+            modalRef.componentInstance.response.pipe(take(1)).subscribe((closed: boolean) => {
+              if (closed) {
+                this.idleModalOpen = false;
+              }
+            });
+          }
+        }
+      });
   }
 }

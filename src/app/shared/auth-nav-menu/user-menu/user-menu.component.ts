@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../app.reducer';
 import { isAuthenticationLoading } from '../../../core/auth/selectors';
-import { MYDSPACE_ROUTE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { AuthService } from '../../../core/auth/auth.service';
 import { getProfileModuleRoute } from '../../../app-routing-paths';
 

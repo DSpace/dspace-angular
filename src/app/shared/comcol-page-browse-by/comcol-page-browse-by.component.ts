@@ -5,8 +5,9 @@ import { Observable, of as obeservableOf } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
-import { getCommunityPageRoute } from '../../+community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing-paths';
+import { environment } from '../../../environments/environment';
+import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';

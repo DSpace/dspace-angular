@@ -1,11 +1,10 @@
 :host {
-
-  .top-footer {
-    background-color: var(--ds-top-footer-bg);
-    border-top: var(--ds-footer-border);
+  footer {
+    background-color: var(--ds-footer-bg);
     text-align: center;
-    padding: var(--ds-footer-padding);
     z-index: var(--ds-footer-z-index);
+    border-top: var(--ds-footer-border);
+    padding: var(--ds-footer-padding);
 
     p {
       margin: 0;
@@ -15,12 +14,18 @@
       height: var(--ds-footer-logo-height);
     }
 
-    .footer {
-      background-color: var(--ds-footer-bg);
 
+    .top-footer {
+      background-color: var(--ds-top-footer-bg);
+      padding: var(--ds-footer-padding);
+      margin: calc(var(--ds-footer-padding) * -1);
+    }
+
+    .bottom-footer {
       ul {
         li {
           display: inline-flex;
+
           a {
             padding: 0 calc(var(--bs-spacer) / 2);
             color: inherit

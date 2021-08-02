@@ -15,7 +15,7 @@ import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction
-} from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
+} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { TestScheduler } from 'rxjs/testing';
 import { CoreState } from '../core.reducers';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';

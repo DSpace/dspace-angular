@@ -4,7 +4,7 @@ import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { Context } from '../../../../../../core/shared/context.model';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)

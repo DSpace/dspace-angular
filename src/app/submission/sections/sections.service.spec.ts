@@ -341,6 +341,38 @@ describe('SectionsService test suite', () => {
     });
   });
 
+  describe('isSectionType', () => {
+    it('should return true if the section matches the provided type', () => {
+      store.select.and.returnValue(observableOf(submissionState));
+
+      const expected = cold('(b|)', {
+        b: true
+      });
+
+      expect(service.isSectionType(submissionId, 'upload', SectionsType.Upload)).toBeObservable(expected);
+    });
+
+    it('should return false if the section doesn\'t match the provided type', () => {
+      store.select.and.returnValue(observableOf(submissionState));
+
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(service.isSectionType(submissionId, sectionId, SectionsType.Upload)).toBeObservable(expected);
+    });
+
+    it('should return false if the provided sectionId doesn\'t exist', () => {
+      store.select.and.returnValue(observableOf(submissionState));
+
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(service.isSectionType(submissionId, 'no-such-id', SectionsType.Upload)).toBeObservable(expected);
+    });
+  });
+
   describe('addSection', () => {
     it('should dispatch a new EnableSectionAction a move target to new section', () => {
 

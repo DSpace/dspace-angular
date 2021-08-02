@@ -13,11 +13,10 @@ import { CollectionSelectComponent } from './collection-select.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -41,6 +40,10 @@ describe('CollectionSelectComponent', () => {
     currentPage: 1
   });
 
+  const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+    isAuthorized: observableOf(true)
+  });
+
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -49,7 +52,8 @@ describe('CollectionSelectComponent', () => {
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

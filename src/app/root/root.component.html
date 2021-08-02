@@ -1,10 +1,10 @@
-<div class="outer-wrapper" *ngIf="isNotAuthBlocking; else authLoader">
+<div class="outer-wrapper" *ngIf="!shouldShowFullscreenLoader; else fullScreenLoader">
   <ds-admin-sidebar></ds-admin-sidebar>
   <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
      params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}
     }">
-    <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
+    <ds-themed-header-navbar-wrapper></ds-themed-header-navbar-wrapper>
 
     <ds-notifications-board
       [options]="notificationOptions">
@@ -12,10 +12,10 @@
     <main class="main-content">
       <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
 
-      <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="isLoading">
+      <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
         <ds-loading [showMessage]="false"></ds-loading>
       </div>
-      <div [class.d-none]="isLoading">
+      <div [class.d-none]="shouldShowRouteLoader">
         <router-outlet></router-outlet>
       </div>
     </main>
@@ -23,8 +23,8 @@
     <ds-themed-footer></ds-themed-footer>
   </div>
 </div>
-<ng-template #authLoader>
-  <div class="text-center ds-full-screen-loader d-flex align-items-center flex-column justify-content-center">
+<ng-template #fullScreenLoader>
+  <div class="ds-full-screen-loader">
     <ds-loading [showMessage]="false"></ds-loading>
   </div>
 </ng-template>

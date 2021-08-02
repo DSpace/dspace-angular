@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Component, Inject, OnInit, Optional, Input } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
@@ -18,8 +18,6 @@ import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.model';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
-import { LocaleService } from '../core/locale/locale.service';
-import { KlaroService } from '../shared/cookies/klaro.service';
 import { slideSidebarPadding } from '../shared/animations/slide';
 
 @Component({
@@ -38,14 +36,14 @@ export class RootComponent implements OnInit {
   models;
 
   /**
-   * Whether or not the authentication is currently blocking the UI
+   * Whether or not to show a full screen loader
    */
-  @Input() isNotAuthBlocking: boolean;
+  @Input() shouldShowFullscreenLoader: boolean;
 
   /**
-   * Whether or not the the application is loading;
+   * Whether or not to show a loader across the router outlet
    */
-  @Input() isLoading: boolean;
+  @Input() shouldShowRouteLoader: boolean;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
@@ -58,9 +56,7 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService,
-    private localeService: LocaleService,
-    @Optional() private cookiesService: KlaroService
+    private windowService: HostWindowService
   ) {
   }
 

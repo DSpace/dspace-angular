@@ -26,7 +26,6 @@ export interface GlobalConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   universal: UniversalConfig;
-  logDirectory: string;
   debug: boolean;
   defaultLanguage: string;
   languages: LangConfig[];
@@ -34,7 +33,6 @@ export interface GlobalConfig extends Config {
   item: ItemPageConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
-  rewriteDownloadUrls: boolean;
   mediaViewer: MediaViewerConfig;
   layout: LayoutConfig;
   security: MetadataSecurityConfig

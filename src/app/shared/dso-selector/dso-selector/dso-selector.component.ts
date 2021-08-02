@@ -86,7 +86,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * List with search results of DSpace objects for the current query
    */
-  listEntries: SearchResult<DSpaceObject>[] = null;
+  listEntries$: BehaviorSubject<SearchResult<DSpaceObject>[]> = new BehaviorSubject(null);
 
   /**
    * The current page to load
@@ -165,7 +165,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         this.loading = true;
         if (page === 1) {
           // The first page is loading, this means we should reset the list instead of adding to it
-          this.listEntries = null;
+          this.listEntries$.next(null);
         }
         return this.search(query, page).pipe(
           map((rd) => {
@@ -186,15 +186,16 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     ).subscribe((rd) => {
       this.loading = false;
       if (rd.hasSucceeded) {
-        if (hasNoValue(this.listEntries)) {
-          this.listEntries = rd.payload.page;
+        const currentEntries = this.listEntries$.getValue();
+        if (hasNoValue(currentEntries)) {
+          this.listEntries$.next(rd.payload.page);
         } else {
-          this.listEntries.push(...rd.payload.page);
+          this.listEntries$.next([...currentEntries, ...rd.payload.page]);
         }
         // Check if there are more pages available after the current one
-        this.hasNextPage = rd.payload.totalElements > this.listEntries.length;
+        this.hasNextPage = rd.payload.totalElements > this.listEntries$.getValue().length;
       } else {
-        this.listEntries = null;
+        this.listEntries$.next(null);
         this.hasNextPage = false;
       }
     }));

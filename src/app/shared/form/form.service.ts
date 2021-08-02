@@ -1,14 +1,15 @@
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
-import {select, Store} from '@ngrx/store';
-import {AppState} from '../../app.reducer';
-import {formObjectFromIdSelector} from './selectors';
-import {FormBuilderService} from './builder/form-builder.service';
-import {DynamicFormControlEvent, DynamicFormControlModel} from '@ng-dynamic-forms/core';
-import {isEmpty, isNotUndefined} from '../empty.util';
-import {uniqueId} from 'lodash';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+
+import { AppState } from '../../app.reducer';
+import { formObjectFromIdSelector } from './selectors';
+import { FormBuilderService } from './builder/form-builder.service';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { isEmpty, isNotUndefined } from '../empty.util';
+import { uniqueId } from 'lodash';
 import {
   FormAddError,
   FormAddTouchedAction,
@@ -18,9 +19,8 @@ import {
   FormRemoveErrorAction,
   FormStatusChangeAction
 } from './form.actions';
-import {FormEntry, FormError, FormTouchedState} from './form.reducer';
-import {environment} from '../../../environments/environment';
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
+import { FormEntry, FormError, FormTouchedState } from './form.reducer';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
@@ -102,19 +102,22 @@ export class FormService {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({onlySelf: true});
-        control.markAsDirty({onlySelf: true});
+        control.markAsTouched({ onlySelf: true });
+        control.markAsDirty({ onlySelf: true });
       } else if (control instanceof FormGroup || control instanceof FormArray) {
         this.validateAllFormFields(control);
       }
     });
   }
 
+  /**
+   * Check if form group has an invalid form control
+   * @param formGroup The form group to check
+   */
   public hasValidationErrors(formGroup: FormGroup | FormArray): boolean {
     let hasErrors = false;
     const fields: string[] = Object.keys(formGroup.controls);
     for (const field of fields) {
-      // Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         hasErrors = !control.valid && control.touched;
@@ -124,7 +127,6 @@ export class FormService {
       if (hasErrors) {
         break;
       }
-      // });
     }
     return hasErrors;
   }

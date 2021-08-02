@@ -8,7 +8,7 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { of as observableOf, Subject } from 'rxjs';
-import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 
 describe('SearchFiltersComponent', () => {

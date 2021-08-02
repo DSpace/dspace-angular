@@ -1,6 +1,17 @@
 import { Router, UrlTree } from '@angular/router';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { debounceTime, filter, find, map, mergeMap, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  filter,
+  find,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  takeWhile,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -20,6 +31,11 @@ import { InjectionToken } from '@angular/core';
 export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) => (source: Observable<T>) => Observable<T>>('debounceTime', {
   providedIn: 'root',
   factory: () => debounceTime
+});
+
+export const REDIRECT_ON_4XX = new InjectionToken<<T>(router: Router, authService: AuthService) => (source: Observable<RemoteData<T>>) => Observable<RemoteData<T>>>('redirectOn4xx', {
+  providedIn: 'root',
+  factory: () => redirectOn4xx
 });
 
 /**
@@ -175,29 +191,37 @@ export const getAllSucceededRemoteListPayload = <T>() =>
     );
 
 /**
- * Operator that checks if a remote data object returned a 401 or 404 error
- * When it does contain such an error, it will redirect the user to the related error page, without altering the current URL
+ * Operator that checks if a remote data object returned a 4xx error
+ * When it does contain such an error, it will redirect the user to the related error page, without
+ * altering the current URL
+ *
  * @param router The router used to navigate to a new page
  * @param authService Service to check if the user is authenticated
  */
 export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
   (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    observableCombineLatest(source, authService.isAuthenticated()).pipe(
-      map(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
+    source.pipe(
+      withLatestFrom(authService.isAuthenticated()),
+      filter(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
         if (rd.hasFailed) {
-          if (rd.statusCode === 404) {
-            router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
+          if (rd.statusCode === 404 || rd.statusCode === 422) {
+            router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true });
+            return false;
           } else if (rd.statusCode === 403 || rd.statusCode === 401) {
             if (isAuthenticated) {
-              router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+              router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
+              return false;
             } else {
               authService.setRedirectUrl(router.url);
               router.navigateByUrl('login');
+              return false;
             }
           }
         }
-        return rd;
-      }));
+        return true;
+      }),
+      map(([rd,]: [RemoteData<T>, boolean]) => rd)
+    );
 
 /**
  * Operator that returns a UrlTree to a forbidden page or the login page when the boolean received is false

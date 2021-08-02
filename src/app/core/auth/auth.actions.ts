@@ -39,6 +39,8 @@ export const AuthActionTypes = {
   REFRESH_TOKEN_AND_REDIRECT: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT'),
   REFRESH_TOKEN_AND_REDIRECT_SUCCESS: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_SUCCESS'),
   REFRESH_TOKEN_AND_REDIRECT_ERROR: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_ERROR'),
+  SET_USER_AS_IDLE: type('dspace/auth/SET_USER_AS_IDLE'),
+  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -296,13 +298,10 @@ export class ResetAuthenticationMessagesAction implements Action {
 export class RetrieveAuthMethodsAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS;
 
-  payload: {
-    status: AuthStatus;
-    blocking: boolean;
-  };
+  payload: AuthStatus;
 
-  constructor(status: AuthStatus, blocking: boolean) {
-    this.payload = { status, blocking };
+  constructor(authStatus: AuthStatus) {
+    this.payload = authStatus;
   }
 }
 
@@ -313,14 +312,10 @@ export class RetrieveAuthMethodsAction implements Action {
  */
 export class RetrieveAuthMethodsSuccessAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS;
+  payload: AuthMethod[];
 
-  payload: {
-    authMethods: AuthMethod[];
-    blocking: boolean;
-  };
-
-  constructor(authMethods: AuthMethod[], blocking: boolean ) {
-    this.payload = { authMethods, blocking };
+  constructor(authMethods: AuthMethod[] ) {
+    this.payload = authMethods;
   }
 }
 
@@ -331,12 +326,6 @@ export class RetrieveAuthMethodsSuccessAction implements Action {
  */
 export class RetrieveAuthMethodsErrorAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR;
-
-  payload: boolean;
-
-  constructor(blocking: boolean) {
-    this.payload = blocking;
-  }
 }
 
 /**
@@ -407,6 +396,24 @@ export class RetrieveAuthenticatedEpersonErrorAction implements Action {
   constructor(payload: Error) {
     this.payload = payload ;
   }
+}
+
+/**
+ * Set the current user as being idle.
+ * @class SetUserAsIdleAction
+ * @implements {Action}
+ */
+export class SetUserAsIdleAction implements Action {
+  public type: string = AuthActionTypes.SET_USER_AS_IDLE;
+}
+
+/**
+ * Unset the current user as being idle.
+ * @class UnsetUserAsIdleAction
+ * @implements {Action}
+ */
+export class UnsetUserAsIdleAction implements Action {
+  public type: string = AuthActionTypes.UNSET_USER_AS_IDLE;
 }
 
 /**
@@ -485,4 +492,7 @@ export type AuthActions
   | RedirectAfterLoginSuccessAction
   | RefreshTokenAndRedirectAction
   | RefreshTokenAndRedirectErrorAction
-  | RefreshTokenAndRedirectSuccessAction;
+  | RefreshTokenAndRedirectSuccessAction
+  | SetUserAsIdleAction
+  | UnsetUserAsIdleAction;
+

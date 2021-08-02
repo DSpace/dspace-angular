@@ -11,13 +11,13 @@ import { HostWindowService } from '../../host-window.service';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { of as observableOf, of } from 'rxjs';
+import { of } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/request.models';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -39,7 +39,8 @@ describe('ItemSelectComponent', () => {
           key: 'dc.type',
           language: null,
           value: 'Article'
-        }]
+        }],
+      _links: { self: { href: 'selfId1' } }
     }),
     Object.assign(new Item(), {
       id: 'id2',
@@ -54,7 +55,8 @@ describe('ItemSelectComponent', () => {
           key: 'dc.type',
           language: null,
           value: 'Article'
-        }]
+        }],
+      _links: { self: { href: 'selfId2' } }
     })
   ];
   const mockItems = createSuccessfulRemoteDataObject$(createPaginatedList(mockItemList));
@@ -66,6 +68,7 @@ describe('ItemSelectComponent', () => {
 
   paginationService = new PaginationServiceStub(mockPaginationOptions);
 
+  const authorizationDataService = new AuthorizationDataService(null, null, null, null, null, null, null, null, null, null);
 
 
   beforeEach(waitForAsync(() => {
@@ -75,7 +78,8 @@ describe('ItemSelectComponent', () => {
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -145,5 +149,22 @@ describe('ItemSelectComponent', () => {
       cancelButton.click();
       expect(comp.cancel.emit).toHaveBeenCalled();
     });
+  });
+
+  describe('when the authorize feature is not authorized', () => {
+
+    beforeEach(() => {
+      comp.featureId = FeatureID.CanManageMappings;
+      spyOn(authorizationDataService, 'isAuthorized').and.returnValue(of(false));
+    });
+
+    it('should disable the checkbox', waitForAsync(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
+        expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
+        expect(checkbox.disabled).toBeTrue();
+      });
+    }));
   });
 });

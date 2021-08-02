@@ -206,7 +206,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       comp.showDepositAndDiscard = observableOf(true);
       compAsAny.submissionIsInvalid = observableOf(true);
       fixture.detectChanges();
-      const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
+      const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
 
       expect(depositBtn.nativeElement.disabled).toBeTruthy();
     });
@@ -215,7 +215,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       comp.showDepositAndDiscard = observableOf(true);
       compAsAny.submissionIsInvalid = observableOf(false);
       fixture.detectChanges();
-      const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
+      const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
 
       expect(depositBtn.nativeElement.disabled).toBeFalsy();
     });

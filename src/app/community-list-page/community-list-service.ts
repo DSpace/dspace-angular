@@ -16,8 +16,8 @@ import { PaginatedList, buildPaginatedList } from '../core/data/paginated-list.m
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
-import { getCommunityPageRoute } from '../+community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../+collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../core/shared/operators';
 import { followLink } from '../shared/utils/follow-link-config.model';
 
@@ -174,8 +174,8 @@ export class CommunityListService {
           direction: options.sort.direction
         }
       },
-      followLink('subcommunities', this.configOnePage, true, true),
-      followLink('collections', this.configOnePage, true, true))
+      followLink('subcommunities', { findListOptions: this.configOnePage }),
+      followLink('collections', { findListOptions: this.configOnePage }))
       .pipe(
         getFirstSucceededRemoteData(),
         map((results) => results.payload),
@@ -242,8 +242,8 @@ export class CommunityListService {
             elementsPerPage: MAX_COMCOLS_PER_PAGE,
             currentPage: i
           },
-          followLink('subcommunities', this.configOnePage, true, true),
-          followLink('collections', this.configOnePage, true, true))
+          followLink('subcommunities', { findListOptions: this.configOnePage }),
+          followLink('collections', { findListOptions: this.configOnePage }))
           .pipe(
             getFirstCompletedRemoteData(),
             switchMap((rd: RemoteData<PaginatedList<Community>>) => {
