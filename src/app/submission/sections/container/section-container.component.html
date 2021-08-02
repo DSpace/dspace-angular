@@ -6,7 +6,6 @@
      [submissionId]="submissionId"
      [sectionType]="sectionData.sectionType"
      [sectionId]="sectionData.id">
-     <!-- <p>{{ sectionRef.isOpened() + ' ' + sectionData.id }}</p> -->
   <ngb-accordion #acc="ngbAccordion"
                  *ngIf="(sectionRef.isEnabled() | async)"
                  (panelChange)="sectionRef.sectionChange($event)"
