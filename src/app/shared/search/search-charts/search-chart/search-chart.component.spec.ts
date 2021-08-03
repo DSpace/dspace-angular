@@ -11,7 +11,7 @@ import { SearchChartComponent } from './search-chart.component';
 import { SearchFilterConfig } from '../../search-filter-config.model';
 import { FilterType } from '../../filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 
 xdescribe('SearchChartComponent', () => {
   let comp: SearchChartComponent;
