@@ -1,7 +1,7 @@
-import {Injectable, Injector} from '@angular/core';
-import {createSelector, MemoizedSelector, select, Store} from '@ngrx/store';
-import {CoreState} from '../../core.reducers';
-import {coreSelector} from '../../core.selectors';
+import { Injectable, Injector } from '@angular/core';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { CoreState } from '../../core.reducers';
+import { coreSelector } from '../../core.selectors';
 import {
   FieldState,
   FieldUpdates,
@@ -11,7 +11,7 @@ import {
   ObjectUpdatesState,
   VirtualMetadataSource
 } from './object-updates.reducer';
-import {Observable, Subject} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -23,18 +23,12 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  hasValueOperator
-} from '../../../shared/empty.util';
-import {INotification} from '../../../shared/notifications/models/notification.model';
-import {Operation} from 'fast-json-patch';
-import {PatchOperationService} from './patch-operation-service/patch-operation.service';
-import {GenericConstructor} from '../../shared/generic-constructor';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { INotification } from '../../../shared/notifications/models/notification.model';
+import { Operation } from 'fast-json-patch';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -87,9 +81,6 @@ export class ObjectUpdatesService {
    * @param url The URL to filter by
    */
   private getObjectEntry(url: string): Observable<ObjectUpdatesEntry> {
-    this.store.pipe(select(filterByUrlObjectUpdatesStateSelector(url))).subscribe(res => {
-
-    })
     return this.store.pipe(select(filterByUrlObjectUpdatesStateSelector(url)));
   }
 

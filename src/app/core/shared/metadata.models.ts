@@ -1,5 +1,5 @@
 import * as uuidv4 from 'uuid/v4';
-import { autoserialize, Serialize, Deserialize } from 'cerialize';
+import { autoserialize, Deserialize, Serialize } from 'cerialize';
 import { hasValue } from '../../shared/empty.util';
 /* tslint:disable:max-classes-per-file */
 
@@ -127,9 +127,8 @@ export class MetadatumViewModel {
   /** The security level value */
   securityLevel: number;
 
-
-  /** The security level value of configuration*/
-  securityConfigurationLevelLimit?: number;
+  /** The security level value of configuration */
+  securityConfigurationLevelLimit?: number[];
 }
 
 /** Serializer used for MetadataMaps.

@@ -28,11 +28,11 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() relationFields: string[];
   @serializable() scopeUUID: string;
   @serializable() submissionScope: string;
+  @serializable() securityLevels: any;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP;
 
   constructor(config: DynamicRelationGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-
     this.submissionId = config.submissionId;
     this.formConfiguration = config.formConfiguration;
     this.mandatoryField = config.mandatoryField;

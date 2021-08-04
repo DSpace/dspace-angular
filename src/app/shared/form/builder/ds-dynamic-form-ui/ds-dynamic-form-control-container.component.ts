@@ -16,7 +16,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {FormArray, FormGroup} from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -54,45 +54,46 @@ import {
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import {TranslateService} from '@ngx-translate/core';
-import {ReorderableRelationship} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { TranslateService } from '@ngx-translate/core';
+import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
 
-import {DYNAMIC_FORM_CONTROL_TYPE_ONEBOX} from './models/onebox/dynamic-onebox.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_TAG} from './models/tag/dynamic-tag.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER} from './models/date-picker/date-picker.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_LOOKUP} from './models/lookup/dynamic-lookup.model';
-import {DynamicListCheckboxGroupModel} from './models/list/dynamic-list-checkbox-group.model';
-import {DynamicListRadioGroupModel} from './models/list/dynamic-list-radio-group.model';
-import {hasNoValue, hasValue, isNotEmpty, isNotUndefined} from '../../../empty.util';
-import {DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME} from './models/lookup/dynamic-lookup-name.model';
-import {DsDynamicTagComponent} from './models/tag/dynamic-tag.component';
-import {DsDatePickerComponent} from './models/date-picker/date-picker.component';
-import {DsDynamicListComponent} from './models/list/dynamic-list.component';
-import {DsDynamicOneboxComponent} from './models/onebox/dynamic-onebox.component';
-import {DsDynamicScrollableDropdownComponent} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import {DsDynamicLookupComponent} from './models/lookup/dynamic-lookup.component';
-import {DsDynamicFormGroupComponent} from './models/form-group/dynamic-form-group.component';
-import {DsDynamicFormArrayComponent} from './models/array-group/dynamic-form-array.component';
-import {DsDynamicRelationGroupComponent} from './models/relation-group/dynamic-relation-group.components';
-import {DynamicRelationGroupModel} from './models/relation-group/dynamic-relation-group.model';
-import {DsDatePickerInlineComponent} from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import {DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH} from './models/custom-switch/custom-switch.model';
-import {CustomSwitchComponent} from './models/custom-switch/custom-switch.component';
-import {find, map, startWith, switchMap, take} from 'rxjs/operators';
-import {combineLatest as observableCombineLatest, Observable, Subscription} from 'rxjs';
-import {DsDynamicTypeBindRelationService} from './ds-dynamic-type-bind-relation.service';
-import {DsDynamicRelationInlineGroupComponent} from './models/relation-inline-group/dynamic-relation-inline-group.components';
-import {SearchResult} from '../../../search/search-result.model';
-import {DSpaceObject} from '../../../../core/shared/dspace-object.model';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {RelationshipService} from '../../../../core/data/relationship.service';
-import {SelectableListService} from '../../../object-list/selectable-list/selectable-list.service';
-import {DsDynamicDisabledComponent} from './models/disabled/dynamic-disabled.component';
-import {DYNAMIC_FORM_CONTROL_TYPE_DISABLED} from './models/disabled/dynamic-disabled.model';
-import {DsDynamicLookupRelationModalComponent} from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX, DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
+import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
+import { DsDynamicListComponent } from './models/list/dynamic-list.component';
+import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
+import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
+import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
+import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
+import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
+import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
+import { find, map, startWith, switchMap, take } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
+import { SearchResult } from '../../../search/search-result.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { RelationshipService } from '../../../../core/data/relationship.service';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
+import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import {
-  getAllSucceededRemoteData, getFirstCompletedRemoteData,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
@@ -120,6 +121,8 @@ import { FormBuilderService } from '../form-builder.service';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
+import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -210,7 +213,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() model: any;
   entityType: string;
   securityLevelConfig: number;
-  securityLevel:number;
+  securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -220,6 +223,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   listId: string;
   searchConfig: string;
   value: MetadataValue;
+  // will hold previous value of the model and may be string or object
+  previousValue: any;
+  // will show if the securityLevel has changed
+  securityChanged: boolean;
   /**
    * List of subscriptions to unsubscribe from
    */
@@ -269,14 +276,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Sets up the necessary variables for when this control can be used to add relationships to the submitted item
    */
   ngOnInit(): void {
-    this.formService.entityTypeAndSecurityfallBack$.subscribe((res: any) => {
-      if (res)
-      {
-        this.entityType = res.entityType;
-        if (this.model.hasSelectableMetadata)
-          this.findSecurityLevelConfig(res.securityConfig)
-      }
-    })
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
     if (this.isRelationship || isWrapperAroundRelationshipList) {
@@ -347,8 +346,37 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
       }
     }
-    if (this.model && this.model.value && this.model.value.securityLevel != undefined) {
+    if (this.model && this.model.value && this.model.value.securityLevel !== undefined) {
       this.securityLevel = this.model.value.securityLevel;
+    }
+    // save the previous value
+    this.model && this.model.value ? this.previousValue = this.model.value : this.model.metadataValue ? this.previousValue = this.model.metadataValue : this.previousValue = null;
+    this.formService.dynamicBoxChangeEmitter.subscribe((change: DynamicFormControlEvent) => {
+      console.log(change);
+      if (this.model) {
+        console.log(change);
+        if (change.model.id === this.model.id) {
+          if (change.model instanceof DynamicOneboxModel) {
+            // is the model of the component
+            if (!this.previousValue && !this.securityChanged) {
+              // is the first time that edit a metadata
+              // in this case must be applied the logic of security preset
+              if ((change.model as any).value || (change.model as any).metadataValue) {
+                // it has added a value into metadata so preset maximum value of security
+                if (this.model.securityConfigLevel && this.model.securityConfigLevel.length > 0) {
+                  this.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+                  this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+                }
+              }
+            }
+            this.previousValue = (change.model as any).value;
+          }
+        }
+      }
+    });
+    if (this.model && this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+      this.model.securityConfigLevel = this.model.parent.securityConfigLevel;
+      // this.model.securityLevel = this.model.parent.securityLevel;
     }
   }
 
@@ -357,7 +385,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnChanges(changes: SimpleChanges) {
-       if (changes && !this.isRelationship && hasValue(this.group.get(this.model.id))) {
+    if (changes && !this.isRelationship && hasValue(this.group.get(this.model.id))) {
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
@@ -429,7 +457,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
 
@@ -503,7 +531,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    *  Initialize this.item$ based on this.model.submissionId
    */
   private setItem() {
-     const submissionObject$ = this.submissionObjectService
+    const submissionObject$ = this.submissionObjectService
       .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload()
@@ -517,12 +545,22 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   addSecurityLevelToMetadata($event) {
-      if (!this.model.value) {
-      this.model['securityLevel'] = $event
-       this.securityLevel = $event;
-    } else {
-      this.model['securityLevel'] = $event
-       this.securityLevel = $event;
+    this.model.securityLevel = $event;
+    this.securityLevel = $event;
+    if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+      this.model.parent.securityLevel = $event;
+      // this.model.parent.group.forEach(el => {
+      //   if (el instanceof DynamicInputModel) {
+      //     (el as any).securityLevel = $event;
+      //   }
+      // });
+    }
+    if (this.model.value) {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+      if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+        this.model.parent.securityLevel = $event;
+      }
       this.change.emit(
         {
           $event: new Event('change'),
@@ -532,46 +570,70 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           type: 'changeSecurityLevel',
         } as DynamicFormControlEvent
       );
-      if (this.model.type == "ONEBOX") {
+      if (this.model.type === 'ONEBOX') {
         this.customEvent.next({
           $event: new Event('change'),
           context: this.context,
           control: this.control,
           model: this.model,
           type: 'changeSecurityLevelGroup',
-        } as DynamicFormControlEvent)
+        } as DynamicFormControlEvent);
       }
     }
+    this.securityChanged = true;
+
   }
 
   findSecurityLevelConfig(levelFallbackSecurity) {
     // it finds the level of security fir each metadata corresponding to the item
-    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + "." + this.model.metadataFields[0] + ".settings").pipe(
+    this.configurationDataService.findByPropertyName('metadatavalue.visibility.' + this.entityType + '.' + this.model.name + '.settings').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe(res1 => {
-      if (res1.state == "Error") {
+      if (res1.state === 'Error') {
         this.securityLevelConfig = levelFallbackSecurity;
         this.changeDetectorRef.markForCheck();
       } else {
-        if (res1.state == "Success") {
-          this.securityLevelConfig = parseInt(res1.payload.values[0])
+        if (res1.state === 'Success') {
+          this.securityLevelConfig = +res1.payload.values[0];
           this.changeDetectorRef.markForCheck();
         }
       }
-    })
+    });
   }
-  //this method is needed if is needed to change the design
+
+  // this method is needed if is needed to change the design
   positionToggle() {
-    if (this.model.parent && this.model.parent.group && this.model.parent.group.length == 2) {
-      return '80%'
+    if (this.model.parent && this.model.parent.group && this.model.parent.group.length === 2) {
+      return '80%';
     }
-    if (this.model.parent && this.model.parent.group && this.model.parent.group.length == 3) {
-      return '70%'
+    if (this.model.parent && this.model.parent.group && this.model.parent.group.length === 3) {
+      return '70%';
     }
-    return  null
+    return null;
   }
-  showToggleFirstLimit(){
-    // return this.model.parent && !(this.model.parent instanceof DynamicConcatModel)
-    return this.model.parent;
+
+  showToggleFirstLimit() {
+    let concatCheck = true;
+    if (this.model.parent instanceof DynamicConcatModel) {
+      concatCheck = this.model.parent.group && this.model.parent.group.indexOf(this.model) < 1;
+    }
+    return this.model.parent !== undefined && !(this.model.parent instanceof DynamicQualdropModel) && concatCheck;
+  }
+
+  preselectMostRestrictedOption($event) {
+    if (this.model.securityConfigLevel && this.model.securityConfigLevel.length > 0 && this.model.type !== 'GROUP') {
+      // ask if user is typing for the first time in the input
+      if ((!this.previousValue || !((this.previousValue && this.previousValue.value && this.previousValue.value.length > 0))) && !this.securityChanged) {
+        if ($event.target.value && $event.target.value !== '') {
+          // preselect
+          this.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+          this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+        } else {
+          // do not preselect because the metadata has not value
+          this.securityLevel = null;
+          this.model.securityLevel = undefined;
+        }
+      }
+    }
   }
 }

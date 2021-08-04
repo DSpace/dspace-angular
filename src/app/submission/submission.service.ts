@@ -49,6 +49,7 @@ import { SubmissionJsonPatchOperationsService } from '../core/submission/submiss
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { SubmissionVisibility } from './utils/visibility.util';
+import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
 
 /**
  * A service that provides methods used in submission process.
@@ -69,6 +70,7 @@ export class SubmissionService {
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
   private editItemsLinkPath = 'edititems';
+
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -239,8 +241,10 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
    * @param errors
    *    The [SubmissionSectionError] that define submission sections init errors
+   * @param metadataSecurityConfiguration
    */
   dispatchInit(
     collectionId: string,
@@ -249,8 +253,9 @@ export class SubmissionService {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-    errors: SubmissionError) {
-    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors));
+    errors: SubmissionError,
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
+    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors, metadataSecurityConfiguration));
   }
 
   /**
@@ -570,7 +575,7 @@ export class SubmissionService {
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
     if (sectionType === SectionsType.DetectDuplicate || sectionId === 'detect-duplicate') {
       this.setActiveSection(submissionId, sectionId);
-      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', { sectionId });
+      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', {sectionId});
       this.notificationsService.warning(null, msg, new NotificationOptions(10000));
       const config: ScrollToConfigOptions = {
         target: sectionId,
@@ -579,7 +584,7 @@ export class SubmissionService {
 
       this.scrollToService.scrollTo(config);
     } else {
-      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
+      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
       this.notificationsService.info(null, m, null, true);
     }
   }
@@ -603,7 +608,7 @@ export class SubmissionService {
             } else {
               this.router.navigateByUrl(previousUrl);
             }
-        })))
+          })))
     ).subscribe();
   }
 
@@ -616,7 +621,7 @@ export class SubmissionService {
       // Now, do redirect.
       tap(() => {
         const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-        this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
+        this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true});
       })
     ).subscribe();
   }
@@ -641,6 +646,8 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
+   * @param metadataSecurityConfiguration
    */
   resetSubmissionObject(
     collectionId: string,
@@ -648,9 +655,10 @@ export class SubmissionService {
     selfUrl: string,
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
-    item: Item
+    item: Item,
+    metadataSecurityConfiguration: MetadataSecurityConfiguration = null
   ) {
-    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item));
+    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item, metadataSecurityConfiguration));
   }
 
   /**

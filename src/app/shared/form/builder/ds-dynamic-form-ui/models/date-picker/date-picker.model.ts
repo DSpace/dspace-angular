@@ -10,6 +10,7 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { isEmpty, isNotUndefined } from '../../../../../empty.util';
+import { MetadataValue } from '../../../../../../core/shared/metadata.models';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
@@ -24,23 +25,29 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() hiddenUpdates: Subject<boolean>;
   @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
+  @serializable() metadataValue: MetadataValue;
+  @serializable() securityConfigLevel: number[];
   malformedDate: boolean;
   hasLanguages = false;
   repeatable = false;
+  securityLevel: number;
 
   constructor(config: DynamicDsDatePickerModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.malformedDate = false;
+    this.metadataValue = (config as any).metadataValue;
+    if ((config as any).securityLevel !== undefined) {
+      this.securityLevel = (config as any).securityLevel;
+    }
+    this.securityConfigLevel = (config as any).securityConfigLevel;
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
     this.hiddenUpdates.subscribe((hidden: boolean) => {
       this.hidden = hidden;
-
       const parentModel = this.getRootParent(this);
       if (parentModel && isNotUndefined(parentModel.hidden)) {
         parentModel.hidden = hidden;
       }
-
     });
   }
 

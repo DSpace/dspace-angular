@@ -6,13 +6,13 @@ import {
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
-import {LanguageCode} from '../../models/form-field-language-value.model';
-import {VocabularyOptions} from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import {hasValue} from '../../../../empty.util';
-import {FormFieldMetadataValueObject} from '../../models/form-field-metadata-value.model';
-import {RelationshipOptions} from '../../models/relationship-options.model';
+import { LanguageCode } from '../../models/form-field-language-value.model';
+import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { hasValue } from '../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   vocabularyOptions?: VocabularyOptions;
@@ -29,6 +29,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
   securityLevel?: number;
+  securityConfigLevel?: number[];
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -48,6 +49,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
   @serializable() securityLevel?: number;
+  @serializable() securityConfigLevel?: number[];
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -63,6 +65,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.metadataValue = config.metadataValue;
     this.place = config.place;
     this.securityLevel = config.securityLevel;
+    this.securityConfigLevel = config.securityConfigLevel;
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
 
     this.language = config.language;

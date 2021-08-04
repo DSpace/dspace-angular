@@ -1,8 +1,8 @@
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
-import {Observable, Subscription} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -10,14 +10,14 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {findIndex} from 'lodash';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { findIndex } from 'lodash';
 
-import {FormBuilderService} from './builder/form-builder.service';
-import {hasValue, isNotEmpty, isNotNull, isNull} from '../empty.util';
-import {FormService} from './form.service';
-import {FormEntry, FormError} from './form.reducer';
-import {FormFieldMetadataValueObject} from './builder/models/form-field-metadata-value.model';
+import { FormBuilderService } from './builder/form-builder.service';
+import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
+import { FormService } from './form.service';
+import { FormEntry, FormError } from './form.reducer';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 
 /**
  * The default form component.
@@ -270,20 +270,25 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onCustomEvent(event: any) {
-     this.customEvent.emit(event);
+    this.customEvent.emit(event);
   }
 
   onFocus(event: DynamicFormControlEvent): void {
-     this.formService.setTouched(this.formId, this.formModel, event);
+    this.formService.setTouched(this.formId, this.formModel, event);
     this.focus.emit(event);
   }
 
   onChange(event: DynamicFormControlEvent): void {
-     this.formService.changeForm(this.formId, this.formModel);
+    this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
     }
+    // emit an event for dx-dynamic-form-control-container in order to preselect the security level
+    if (event.type === 'change') {
+      this.formService.dynamicBoxChangeEmitter.next(event);
+    }
+
   }
 
   /**

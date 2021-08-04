@@ -53,7 +53,8 @@ import { FormComponent } from './form/form.component';
 import { DsDynamicOneboxComponent } from './form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
-  DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn,
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn,
 } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DragClickDirective } from './utils/drag-click.directive';
@@ -274,7 +275,6 @@ import { SearchSectionComponent } from './explore/section-component/search-secti
 import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
 import { CountersSectionComponent } from './explore/section-component/counters-section/counters-section.component';
 import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
-import { EditItemPageModule } from '../item-page/edit-item-page/edit-item-page.module';
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 
 /**

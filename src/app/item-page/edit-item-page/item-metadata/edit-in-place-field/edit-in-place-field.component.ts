@@ -1,28 +1,26 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges,
-  EventEmitter, Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
-import {
-  metadataFieldsToString,
-  getFirstSucceededRemoteData
-} from '../../../../core/shared/operators';
-import {hasValue, isNotEmpty} from '../../../../shared/empty.util';
-import {RegistryService} from '../../../../core/registry/registry.service';
-import {cloneDeep} from 'lodash';
-import {BehaviorSubject, Observable, of as observableOf} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {FieldChangeType} from '../../../../core/data/object-updates/object-updates.actions';
-import {FieldUpdate} from '../../../../core/data/object-updates/object-updates.reducer';
-import {ObjectUpdatesService} from '../../../../core/data/object-updates/object-updates.service';
-import {NgModel} from '@angular/forms';
-import {MetadatumViewModel} from '../../../../core/shared/metadata.models';
-import {InputSuggestion} from '../../../../shared/input-suggestions/input-suggestions.model';
-import {followLink} from '../../../../shared/utils/follow-link-config.model';
+import { getFirstSucceededRemoteData, metadataFieldsToString } from '../../../../core/shared/operators';
+import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
+import { RegistryService } from '../../../../core/registry/registry.service';
+import { cloneDeep } from 'lodash';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { NgModel } from '@angular/forms';
+import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
+import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import 'src/assets/images/keySecurity.png';
 
 
@@ -37,8 +35,6 @@ import 'src/assets/images/keySecurity.png';
  * Component that displays a single metadatum of an item on the edit page
  */
 export class EditInPlaceFieldComponent implements OnInit, OnChanges {
-  @Input() securityLevelConfig: number = 0;
-  data: any
   /**
    * The current field, value and state of the metadatum
    */
@@ -53,6 +49,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The metadatum of this field
    */
   @Input() metadata: MetadatumViewModel;
+  /**
+   * Emits a new selection
+   */
   @Output() selectNewMetadata = new EventEmitter();
 
   /**
@@ -70,7 +69,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
-  levelSecurityConfig = 3;
 
   constructor(private ref: ChangeDetectorRef,
               private registryService: RegistryService,
@@ -82,10 +80,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets up an observable that keeps track of the current editable and valid state of this field
    */
   ngOnInit(): void {
-    this.data = this.fieldUpdate
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
-    this.ref.detectChanges()
+    this.ref.detectChanges();
 
 
   }
@@ -140,11 +137,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets the current metadatafield based on the fieldUpdate input field
    */
   ngOnChanges(changes: SimpleChanges): void {
-
     this.metadata = cloneDeep(this.fieldUpdate.field) as MetadatumViewModel;
-    this.fieldUpdate.field = changes['fieldUpdate'].currentValue.field
-    this.data = changes['fieldUpdate'].currentValue;
-
   }
 
   /**
@@ -228,16 +221,16 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   }
 
   changeSelectedSecurity(securityLevel) {
-    this.metadata.securityLevel = securityLevel
+    this.metadata.securityLevel = securityLevel;
     this.update();
 
   }
 
   ngAfterViewInit() {
-    this.ref.markForCheck()
+    this.ref.markForCheck();
   }
 
   selectSuggestionMetadata(suggestionControl) {
-     this.selectNewMetadata.next(suggestionControl)
+     this.selectNewMetadata.next(suggestionControl);
   }
 }

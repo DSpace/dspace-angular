@@ -1,27 +1,27 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import {distinctUntilChanged, filter, map, take} from 'rxjs/operators';
-import {Observable, of as observableOf} from 'rxjs';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {VocabularyService} from '../../../../../core/submission/vocabularies/vocabulary.service';
-import {hasValue, isNotEmpty} from '../../../../empty.util';
-import {FormFieldMetadataValueObject} from '../../models/form-field-metadata-value.model';
-import {VocabularyEntry} from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import {DsDynamicInputModel} from './ds-dynamic-input.model';
-import {PageInfo} from '../../../../../core/shared/page-info.model';
-import {FormBuilderService} from '../../form-builder.service';
-import {Vocabulary} from '../../../../../core/submission/vocabularies/models/vocabulary.model';
-import {getFirstSucceededRemoteDataPayload} from '../../../../../core/shared/operators';
-import {VocabularyExternalSourceComponent} from '../../../../vocabulary-external-source/vocabulary-external-source.component';
-import {SubmissionScopeType} from '../../../../../core/submission/submission-scope-type';
-import {SubmissionService} from '../../../../../submission/submission.service';
+import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { hasValue, isNotEmpty } from '../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { FormBuilderService } from '../../form-builder.service';
+import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
+import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 /**
  * An abstract class to be extended by form components that handle vocabulary
@@ -200,11 +200,10 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       || this.model.value instanceof VocabularyEntry) ? this.model.value.value : this.model.value;
     let security = null;
     if ( this.model.value instanceof VocabularyEntry) {
-       security  = this.model.value.securityLevel
-    }
-    else {
+       security  = this.model.value.securityLevel;
+    } else {
       if (this.model.metadataValue) {
-        security  = this.model.metadataValue.securityLevel
+        security  = this.model.metadataValue.securityLevel;
       }
     }
     const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, security, authority);

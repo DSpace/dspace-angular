@@ -1,23 +1,24 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Item} from '../../../core/shared/item.model';
-import {ItemDataService} from '../../../core/data/item-data.service';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {cloneDeep} from 'lodash';
-import {first, switchMap} from 'rxjs/operators';
-import {getFirstCompletedRemoteData} from '../../../core/shared/operators';
-import {RemoteData} from '../../../core/data/remote-data';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
-import {MetadataValue, MetadatumViewModel} from '../../../core/shared/metadata.models';
-import {AbstractItemUpdateComponent} from '../abstract-item-update/abstract-item-update.component';
-import {UpdateDataService} from '../../../core/data/update-data.service';
-import {hasNoValue, hasValue} from '../../../shared/empty.util';
-import {AlertType} from '../../../shared/alert/aletr-type';
-import {Operation} from 'fast-json-patch';
-import {MetadataPatchOperationService} from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
-import {ConfigurationDataService} from "../../../core/data/configuration-data.service";
-import {Collection} from "../../../core/shared/collection.model";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Item } from '../../../core/shared/item.model';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { cloneDeep } from 'lodash';
+import { first, switchMap } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { MetadataValue, MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { UpdateDataService } from '../../../core/data/update-data.service';
+import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { AlertType } from '../../../shared/alert/aletr-type';
+import { Operation } from 'fast-json-patch';
+import { MetadataPatchOperationService } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
+import { MetadataSecurityConfigurationService } from '../../../core/submission/metadatasecurityconfig-data.service';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -29,9 +30,14 @@ import {Collection} from "../../../core/shared/collection.model";
  * Component for displaying an item's metadata edit page
  */
 export class ItemMetadataComponent extends AbstractItemUpdateComponent {
+  /**
+   * Entity Type of collection
+   */
   entityType: string;
-  securityConfigState: any = {}
-  securityLevelConfig: number = 0;
+  /**
+   * Configuration levels of security to be sent to child component
+   */
+  securityConfigLevels: any = {};
   /**
    * The AlertType enumeration
    * @type {AlertType}
@@ -42,6 +48,10 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * This will default to the ItemDataService
    */
   @Input() updateService: UpdateDataService<Item>;
+  /**
+   * The metadata security configuration for the entity.
+   */
+  public metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
   constructor(
     public itemService: ItemDataService,
@@ -50,7 +60,8 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
-    private configurationDataService: ConfigurationDataService
+    private configurationDataService: ConfigurationDataService,
+    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
@@ -63,35 +74,33 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     if (hasNoValue(this.updateService)) {
       this.updateService = this.itemService;
     }
-    this.findFallbackValuesOfSecurity().then(done => {
+    // get security configuration based on entity type
+    this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe(res => {
+      this.metadataSecurityConfiguration = res.payload;
       this.item.metadataAsList.map(el => {
-        this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + "." + el.key + ".settings").pipe(
-          getFirstCompletedRemoteData(),
-        ).subscribe(res1 => {
-          if (res1.state == "Error") {
-            el.securityConfigurationLevelLimit = this.securityLevelConfig;
-            this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
-            this.securityConfigState[el.key] = this.securityLevelConfig
-          } else {
-            if (res1.state == "Success") {
-              el.securityConfigurationLevelLimit = parseInt(res1.payload.values[0])
-              this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
-            }
-            this.securityConfigState[el.key] = parseInt(res1.payload.values[0])
-          }
-        })
-      })
-    })
+        if (res.payload.metadataCustomSecurity[el.key]) {
+          el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];
+          this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
+          this.securityConfigLevels[el.key] = res.payload.metadataCustomSecurity[el.key];
+        } else {
+          el.securityConfigurationLevelLimit = res.payload.metadataSecurityDefault;
+          this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
+          this.securityConfigLevels[el.key] = res.payload.metadataSecurityDefault;
+        }
+      });
+    });
   }
 
   /**
    * Initialize the values and updates of the current item's metadata fields
    */
   public initializeUpdates(): void {
-    let securityLevels = this.item.metadataAsList.map(el => {
-      el.securityConfigurationLevelLimit = this.securityConfigState[el.key];
-      return el
-    })
+    const securityLevels = this.item.metadataAsList.map(el => {
+      el.securityConfigurationLevelLimit = this.securityConfigLevels[el.key];
+      return el;
+    });
     this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevels);
   }
 
@@ -139,10 +148,10 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
               this.item = rd.payload;
               this.checkAndFixMetadataUUIDs();
               this.initializeOriginalFields();
-              let securityLevels = this.item.metadataAsList.map(el => {
-                el.securityConfigurationLevelLimit = this.securityConfigState[el.key];
-                return el
-              })
+              const securityLevels = this.item.metadataAsList.map(el => {
+                el.securityConfigurationLevelLimit = this.securityConfigLevels[el.key];
+                return el;
+              });
               this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevels);
               this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
             }
@@ -164,79 +173,33 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     });
     this.item.metadata = metadata;
   }
-
-  findFallbackValuesOfSecurity = () => new Promise(resolve => {
-    this.item.owningCollection.pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((data: RemoteData<Collection>) => {
-      if (data.payload.firstMetadata("dspace.entity.type"))
-        this.entityType = data.payload.firstMetadata("dspace.entity.type").value
-      this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + ".settings").pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe(res1 => {
-        if (res1.state == "Error") {
-          //default fallback lookup
-          this.configurationDataService.findByPropertyName("metadatavalue.visibility.settings").pipe(
-            getFirstCompletedRemoteData(),
-          ).subscribe(res => {
-            this.securityLevelConfig = parseInt(res.payload.values[0]);
-            resolve()
-          })
-        } else {
-          if (res1.state == "Success") {
-            this.securityLevelConfig = parseInt(res1.payload.values[0]);
-            resolve()
-          }
-        }
-      })
-    })
-  });
-
+  /**
+   * Checks in metadata security configuration object for new metadata security configuration value
+   */
   addMetadata(suggestionControl) {
-    this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + "." + suggestionControl.viewModel + ".settings").pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe(res1 => {
-      if (res1.state == "Error") {
-        let found = false
-        this.item.metadataAsList.forEach(el => {
-          if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
-            found = true
-            el.securityConfigurationLevelLimit = this.securityLevelConfig;
-            el.key = suggestionControl.viewModel;
-            // if new metadata value set the most restricted option of security
-            this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
-          }
-        })
-        if (!found) {
-          suggestionControl.valueAccessor.metadata['securityConfigurationLevelLimit'] = this.securityLevelConfig;
-          if (this.securityLevelConfig - 1 > 0) {
-            suggestionControl.valueAccessor.metadata['securityLevel'] = this.securityLevelConfig - 1
-          }
-          this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
-        }
-        this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = this.securityLevelConfig;
-      } else {
-        if (res1.state == "Success") {
-          let found = false
-          this.item.metadataAsList.forEach(el => {
-            if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
-              found = true
-              el.securityConfigurationLevelLimit = parseInt(res1.payload.values[0]);
-              el.key = suggestionControl.viewModel;
-              this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
-            }
-          })
-          const security = parseInt(res1.payload.values[0])
-          if (!found) {
-            suggestionControl.valueAccessor.metadata['securityConfigurationLevelLimit'] = security;
-            if (security - 1 > 0) {
-              suggestionControl.valueAccessor.metadata['securityLevel'] = security - 1;
-            }
-            this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
-          }
-          this.securityConfigState[suggestionControl.valueAccessor.metadata.key] = security;
-        }
+    let security = null;
+    if (this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel]) {
+      security = this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel];
+    } else {
+      security = this.metadataSecurityConfiguration.metadataSecurityDefault;
+    }
+    let found = false;
+    this.item.metadataAsList.forEach(el => {
+      if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
+        found = true;
+        el.securityConfigurationLevelLimit = security;
+        el.key = suggestionControl.viewModel;
+        // if new metadata value set the most restricted option of security
+        this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
       }
-    })
+    });
+    if (!found) {
+      suggestionControl.valueAccessor.metadata.securityConfigurationLevelLimit = security;
+      if (security && security.length > 0) {
+        suggestionControl.valueAccessor.metadata.securityLevel = security[security.length - 1];
+      }
+      this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
+    }
+    this.securityConfigLevels[suggestionControl.valueAccessor.metadata.key] = security;
   }
 }

@@ -24,6 +24,7 @@ export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>(
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
 export const INIT_FORM_VALUES: InjectionToken<any> = new InjectionToken<any>('initFormValues');
 export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
+export const SECURITY_CONFIG: InjectionToken<any> = new InjectionToken<any>('securityConfig');
 
 export abstract class FieldParser {
 
@@ -33,14 +34,15 @@ export abstract class FieldParser {
     @Inject(SUBMISSION_ID) protected submissionId: string,
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
-    @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
+    @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
+    @Inject(SECURITY_CONFIG) protected securityConfig: any = null
   ) {
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
   public parse() {
-    if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
+     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List)
       && (this.configData.input.type !== ParserType.Tag)
       && (this.configData.input.type !== ParserType.RelationGroup)
@@ -142,6 +144,7 @@ export abstract class FieldParser {
         modelConfig.value = fieldValue;
       } else if (typeof fieldValue === 'object') {
         modelConfig.metadataValue = fieldValue;
+        modelConfig.securityLevel = fieldValue.securityLevel;
         modelConfig.language = fieldValue.language;
         modelConfig.place = fieldValue.place;
         if (forceValueAsObj) {
@@ -304,7 +307,7 @@ export abstract class FieldParser {
     if (isNotEmpty(this.configData.typeBind)) {
       (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind);
     }
-
+     controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.fieldId);
     return controlModel;
   }
 
@@ -372,5 +375,23 @@ export abstract class FieldParser {
       });
     }
   }
-
+  mapBetweenMetadataRowAndSecurityMetadataLevels( metadata: string): any {
+    // look to find security for metadata
+    if (this.securityConfig && metadata) {
+      if (this.securityConfig.metadataCustomSecurity) {
+        const metadataConfig = (this.securityConfig.metadataCustomSecurity as any)[metadata];
+        if (metadataConfig) {
+          return metadataConfig;
+        } else {
+          // if not found look at fallback level config
+          if (this.securityConfig.metadataSecurityDefault !== undefined) {
+            return this.securityConfig.metadataSecurityDefault;
+          } else {
+            // else undefined in order to manage differently from null value
+            return undefined;
+          }
+        }
+      }
+    }
+  }
 }

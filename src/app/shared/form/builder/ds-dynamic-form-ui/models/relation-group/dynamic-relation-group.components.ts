@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -34,6 +26,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
+import { SubmissionObjectEntry } from '../../../../../../submission/objects/submission-objects.reducer';
 
 /**
  * Component representing a group input field
@@ -100,7 +93,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     const modalRef = this.modalService.open(DsDynamicRelationGroupModalComponent, {
       size: 'lg',
     });
-
+    this.getSecurityConfigurationLevelsFromStore().then(metadataSecurityConfig => {
+      modalRef.componentInstance.metadataSecurityConfiguration = metadataSecurityConfig;
+    });
     modalRef.componentInstance.group = this.group;
     modalRef.componentInstance.model = this.model;
 
@@ -108,10 +103,8 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     modalRef.componentInstance.itemIndex = this.selectedChipItemIndex;
     modalRef.componentInstance.item = this.selectedChipItem?.item;
     modalRef.componentInstance.changedSecurity = false;
-
     modalRef.componentInstance.edit.pipe(take(1)).subscribe((item) => {
-       console.log(this.model)
-      this.chips.triggerUpdate = modalRef.componentInstance.changedSecurity
+      this.chips.triggerUpdate = modalRef.componentInstance.changedSecurity;
       this.chips.update(this.selectedChipItem.id, item);
     });
     modalRef.componentInstance.add.pipe(take(1)).subscribe((item) => {
@@ -132,7 +125,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   private initChipsFromModelValue() {
-     let initChipsValue$: Observable<any[]>;
+    let initChipsValue$: Observable<any[]>;
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
@@ -149,7 +142,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               } else {
                 return$ = observableOf(valueObj[fieldName]);
               }
-              return return$.pipe(map((entry) => ({ [fieldName]: entry })));
+              return return$.pipe(map((entry) => ({[fieldName]: entry})));
             });
 
             returnList.push(combineLatest(returnObj));
@@ -160,7 +153,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           return valueListObj.pipe(
             map((valueObj: any) => ({
                 index: index, value: valueObj.reduce(
-                (acc: any, value: any) => Object.assign({}, acc, value)
+                  (acc: any, value: any) => Object.assign({}, acc, value)
                 )
               })
             )
@@ -192,15 +185,14 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     this.subs.push(
       this.chips.chipsItems
         .subscribe(() => {
-            const items = this.chips.getChipsItems();
+          const items = this.chips.getChipsItems();
           // Does not emit change if model value is equal to the current value
           if (!isEqual(items, this.model.value)) {
             if (!(isEmpty(items) && this.model.isEmpty())) {
               this.model.value = items;
               this.change.emit();
             }
-          }
-          else {
+          } else {
             if (this.chips.triggerUpdate) {
               this.change.emit();
               this.chips.triggerUpdate = false;
@@ -211,7 +203,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   private getVocabulary(valueObj, fieldName): Observable<any> {
-    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
+    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     const formModel = this.formBuilderService.modelFromConfiguration(
       this.model.submissionId,
       config,
@@ -241,4 +233,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
   }
 
+  getSecurityConfigurationLevelsFromStore = () => new Promise(resolve => {
+    this.submissionService.getSubmissionObject(this.model.submissionId).pipe(
+      filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
+      take(1)).subscribe((res: SubmissionObjectEntry) => {
+      resolve(res.metadataSecurityConfiguration);
+    });
+  })
 }

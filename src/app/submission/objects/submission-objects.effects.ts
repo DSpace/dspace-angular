@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual, union } from 'lodash';
-
 import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { catchError, concatMap, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
@@ -122,7 +120,8 @@ export class SubmissionObjectEffects {
         action.payload.submissionDefinition,
         action.payload.sections,
         action.payload.item,
-        null
+        null,
+        action.payload.metadataSecurityConfiguration
       )));
 
   /**

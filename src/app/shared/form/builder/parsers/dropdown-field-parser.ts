@@ -1,12 +1,6 @@
 import { Inject } from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
-import {
-  CONFIG_DATA,
-  FieldParser,
-  INIT_FORM_VALUES,
-  PARSER_OPTIONS,
-  SUBMISSION_ID
-} from './field-parser';
+import { CONFIG_DATA, FieldParser, INIT_FORM_VALUES, PARSER_OPTIONS, SUBMISSION_ID } from './field-parser';
 import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
 import {
   DynamicScrollableDropdownModel,
@@ -24,7 +18,7 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions
   ) {
-    super(submissionId, configData, initFormValues, parserOptions);
+    super(submissionId, configData, initFormValues, parserOptions, null);
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {

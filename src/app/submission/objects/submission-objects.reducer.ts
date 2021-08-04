@@ -44,6 +44,7 @@ import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/w
 import { SectionsType } from '../sections/sections-type';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * An interface to represent section object state
@@ -207,6 +208,10 @@ export interface SubmissionObjectEntry {
    * A boolean representing if a submission deposit operation is pending
    */
   depositPending?: boolean;
+  /**
+   * Configurations of security levels for metadatas of an entity type
+   */
+  metadataSecurityConfiguration?: MetadataSecurityConfiguration;
 }
 
 /**
@@ -468,6 +473,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     savePending: false,
     saveDecisionPending: false,
     depositPending: false,
+    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration
   };
   return newState;
 }

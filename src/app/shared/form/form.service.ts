@@ -1,7 +1,7 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
@@ -24,9 +24,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
-  entityTypeAndSecurityfallBack  = new BehaviorSubject(null);
-  entityTypeAndSecurityfallBack$ = this.entityTypeAndSecurityfallBack.asObservable();
-
+  dynamicBoxChangeEmitter: Subject<DynamicFormControlEvent> = new Subject();
   constructor(
     private formBuilderService: FormBuilderService,
     private store: Store<AppState>) {
@@ -226,6 +224,7 @@ export class FormService {
     const normalizedFieldId = fieldId.replace(/\./g, '_');
     this.store.dispatch(new FormAddError(formId, normalizedFieldId, fieldIndex, message));
   }
+
   public removeError(formId: string, fieldId: string, fieldIndex: number) {
     const normalizedFieldId = fieldId.replace(/\./g, '_');
     this.store.dispatch(new FormRemoveErrorAction(formId, normalizedFieldId, fieldIndex));

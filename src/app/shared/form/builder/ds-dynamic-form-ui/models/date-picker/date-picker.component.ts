@@ -8,6 +8,7 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 
+
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
 @Component({
@@ -48,9 +49,10 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   disabledMonth = true;
   disabledDay = true;
-
+  securityLevelConfig: number;
+  securityLevel: number;
   constructor(protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
@@ -78,9 +80,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
         this.day = this.initialDay;
       }
     }
-
     this.maxYear = this.initialYear + 100;
-
   }
 
   onBlur(event) {
@@ -174,5 +174,22 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     date.setMonth(date.getMonth() + 1, 0);
     return date.getDate();
   }
-
+  addSecurityLevelToMetadata($event) {
+    if (!this.model.value) {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+    } else {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: null,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevel',
+        } as any
+      );
+    }
+  }
 }
