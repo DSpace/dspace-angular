@@ -34,7 +34,7 @@ import {VocabularyEntryDetail} from '../../../../../../core/submission/vocabular
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {SubmissionService} from '../../../../../../submission/submission.service';
 import {DsDynamicRelationGroupModalComponent} from './modal/dynamic-relation-group-modal.components';
-import {SubmissionObjectEntry} from '../../../../../../submission/objects/submission-objects.reducer';
+import {MetadataSecurityConfiguration} from '../../../../../../core/submission/models/metadata-security-configuration';
 
 /**
  * Component representing a group input field
@@ -242,10 +242,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   getSecurityConfigurationLevelsFromStore = () => new Promise(resolve => {
-    this.submissionService.getSubmissionObject(this.model.submissionId).pipe(
-      filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
-      take(1)).subscribe((res: SubmissionObjectEntry) => {
-      resolve(res.metadataSecurityConfiguration);
+     this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
+       take(1)).subscribe((res: MetadataSecurityConfiguration) => {
+      resolve(res);
     });
   })
 }

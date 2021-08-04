@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import {Component, EventEmitter, Input, OnInit, Output, QueryList} from '@angular/core';
+import {Component, EventEmitter, Input, Output, QueryList} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,

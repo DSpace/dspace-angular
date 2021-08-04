@@ -23,8 +23,7 @@ import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
-  dynamicBoxChangeEmitter: Subject<DynamicFormControlEvent> = new Subject();
-  constructor(
+   constructor(
     private formBuilderService: FormBuilderService,
     private store: Store<AppState>) {
   }

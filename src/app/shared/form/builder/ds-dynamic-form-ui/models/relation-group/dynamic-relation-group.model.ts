@@ -30,6 +30,8 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() submissionScope: string;
   @serializable() securityLevels: any;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP;
+  // will be shown only for parts of group
+  @serializable() toggleSecurityVisibility = false;
 
   constructor(config: DynamicRelationGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);

@@ -6,6 +6,7 @@ import {
   Output, SimpleChanges
 } from '@angular/core';
 import {environment} from '../../../../environments/environment';
+import {LevelSecurityConfig} from '../../../../config/metadata-security-config';
 
 @Component({
   selector: 'ds-edit-metadata-security',
@@ -18,7 +19,7 @@ export class EditMetadataSecurityComponent implements OnInit, OnChanges {
   @Input() securityLevel: number;
   @Input() securityConfigLevel: number[];
   @Output() changeSecurityLevel = new EventEmitter<number>();
-  public securityLevelsMap: Record<number, string>[] = environment.security.levels;
+  public securityLevelsMap: LevelSecurityConfig[] = environment.security.levels;
 
   ngOnInit(): void {
     this.filterSecurityLevelsMap();

@@ -18,6 +18,7 @@ import {hasValue, isNotEmpty, isNotNull, isNull} from '../empty.util';
 import {FormService} from './form.service';
 import {FormEntry, FormError} from './form.reducer';
 import {FormFieldMetadataValueObject} from './builder/models/form-field-metadata-value.model';
+import {FormFieldPreviousValueObject} from './builder/models/form-field-previous-value-object';
 
 /**
  * The default form component.
@@ -67,6 +68,10 @@ export class FormComponent implements OnDestroy, OnInit {
    * i18n key for the cancel button
    */
   @Input() cancelLabel = 'form.cancel';
+  /**
+   * previous value
+   */
+  @Input() previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
 
   /**
    * An array of DynamicFormControlModel type
@@ -279,17 +284,12 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event: DynamicFormControlEvent): void {
+    this.preselectMostRestrictedOption(event);
     this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
-    }
-    // emit an event for dx-dynamic-form-control-container in order to preselect the security level
-    if (event.type === 'change') {
-      this.formService.dynamicBoxChangeEmitter.next(event);
-    }
-
-  }
+    }}
 
   /**
    * Method called on submit.
@@ -360,6 +360,14 @@ export class FormComponent implements OnDestroy, OnInit {
     const model = context.group[0] as DynamicFormControlModel;
     const control = group.controls[index] as FormControl;
     return {$event, context, control, group, model, type};
+  }
+  preselectMostRestrictedOption(event) {
+    if (event.model.securityLevel === undefined && this.previousValue.value !== '' ) {
+      // preselect the most restricted option
+      if (event.model.securityConfigLevel &&  event.model.securityConfigLevel.length > 0) {
+        event.model.securityLevel = event.model.securityConfigLevel[event.model.securityConfigLevel.length - 1];
+      }
+    }
   }
 
 }

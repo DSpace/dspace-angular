@@ -110,7 +110,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    * The [FormFieldPreviousValueObject] object
    * @type {FormFieldPreviousValueObject}
    */
-  protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
+  previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
 
   /**
    * The list of Subscription
@@ -178,12 +178,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload())
+            getRemoteDataPayload()),
+             this.getSecurityConfigurationLevelsFromStore()
         ])),
       take(1))
-      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
-        this.getSecurityConfigurationLevelsFromStore().then(() => {
+      .subscribe(([sectionData, workspaceItem, metadataSecurity]: [WorkspaceitemSectionFormObject, WorkspaceItem, MetadataSecurityConfiguration]) => {
           if (isUndefined(this.formModel)) {
+            this.metadataSecurityConfiguration = metadataSecurity;
             // this.sectionData.errorsToShow = [];
             this.workspaceItem = workspaceItem;
             // Is the first loading so init form
@@ -364,7 +365,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
+      this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
@@ -483,14 +484,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
     this.formBuilderService.removeFormModel(this.sectionData.id);
   }
   getSecurityConfigurationLevelsFromStore() {
-     return new Promise((resolve) => {
-      this.submissionService.getSubmissionObject(this.submissionId).pipe(
-        filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
-        take(1)).subscribe((res: SubmissionObjectEntry) => {
-        this.metadataSecurityConfiguration = res.metadataSecurityConfiguration;
-         resolve(res.metadataSecurityConfiguration);
-      });
-    });
+    return  this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(
+      take(1));
   }
-
 }

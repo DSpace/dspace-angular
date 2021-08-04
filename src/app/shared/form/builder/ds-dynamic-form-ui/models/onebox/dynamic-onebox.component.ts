@@ -60,6 +60,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
   currentValue: any;
+  previousValue: any;
   inputValue: any;
   preloadLevel: number;
 
@@ -197,7 +198,12 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event The change event.
    */
   onChange(event: Event) {
-      event.stopPropagation();
+    if (!this.previousValue && !isEmpty(this.currentValue)) {
+      if (this.model.securityConfigLevel &&  this.model.securityConfigLevel.length > 0) {
+        this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
+      }
+    }
+    event.stopPropagation();
     if (isEmpty(this.currentValue)) {
       this.dispatchUpdate(null);
     }
@@ -234,6 +240,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       modalRef.result.then((result: FormFieldMetadataValueObject) => {
         if (result) {
           this.currentValue = result;
+          this.previousValue = result;
           this.dispatchUpdate(result);
         }
       }, () => {
@@ -262,6 +269,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       this.getInitValueFromModel()
         .subscribe((formValue: FormFieldMetadataValueObject) => {
           this.currentValue = formValue;
+          this.previousValue = formValue;
           this.cdr.detectChanges();
         });
     } else {
@@ -272,6 +280,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       }
 
       this.currentValue = result;
+      this.previousValue = result;
       this.cdr.detectChanges();
     }
 

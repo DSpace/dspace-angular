@@ -1,6 +1,6 @@
-import { DynamicSelectModel, DynamicSelectModelConfig } from '@ng-dynamic-forms/core';
+import {DynamicSelectModel, DynamicSelectModelConfig} from '@ng-dynamic-forms/core';
 
-import { FieldParser } from './field-parser';
+import {FieldParser} from './field-parser';
 import {
   DsDynamicQualdropModelConfig,
   DynamicQualdropModel,
@@ -71,7 +71,8 @@ export class OneboxFieldParser extends FieldParser {
       inputModelConfig.hint = null;
       this.setValues(inputModelConfig, fieldValue);
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
-
+      // in case of qualdrop do not show toggle of security
+      inputModelConfig.toggleSecurityVisibility = false;
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
       return new DynamicQualdropModel(inputSelectGroup, clsGroup);

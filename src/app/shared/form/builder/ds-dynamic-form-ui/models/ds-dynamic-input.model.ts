@@ -30,6 +30,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   isModelOfInnerForm?: boolean;
   securityLevel?: number;
   securityConfigLevel?: number[];
+  toggleSecurityVisibility?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -50,6 +51,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() isModelOfInnerForm: boolean;
   @serializable() securityLevel?: number;
   @serializable() securityConfigLevel?: number[];
+  @serializable() toggleSecurityVisibility = true;
+
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -66,6 +69,9 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.place = config.place;
     this.securityLevel = config.securityLevel;
     this.securityConfigLevel = config.securityConfigLevel;
+    if (config.toggleSecurityVisibility !== undefined) {
+      this.toggleSecurityVisibility = config.toggleSecurityVisibility;
+    }
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
 
     this.language = config.language;

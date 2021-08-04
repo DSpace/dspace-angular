@@ -71,7 +71,8 @@ describe('submissionReducer test suite', () => {
         isLoading: true,
         savePending: false,
         saveDecisionPending: false,
-        depositPending: false
+        depositPending: false,
+        metadataSecurityConfiguration: Object.create(null),
       }
     };
 
@@ -105,6 +106,7 @@ describe('submissionReducer test suite', () => {
         isLoading: true,
         savePending: false,
         depositPending: false,
+        metadataSecurityConfiguration: Object.create(null),
       }
     };
 

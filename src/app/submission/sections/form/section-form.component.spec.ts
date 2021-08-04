@@ -185,6 +185,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: 'entityType', useValue: 'Publication' },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionformComponent

@@ -101,6 +101,11 @@ export class ConcatFieldParser extends FieldParser {
 
     const model1 = new DynamicInputModel(input1ModelConfig, clsInput1);
     const model2 = new DynamicInputModel(input2ModelConfig, clsInput2);
+    // only for the first input add security visibility
+    (model1 as any).toggleSecurityVisibility = true;
+    // attach the security config for children
+    (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
