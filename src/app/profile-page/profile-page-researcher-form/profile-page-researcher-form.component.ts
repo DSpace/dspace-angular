@@ -129,8 +129,10 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * @param researcherProfile the profile to update
    */
   toggleProfileVisibility(researcherProfile: ResearcherProfile): void {
+    /* tslint:disable:no-empty */
     this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible)
-      .subscribe((updatedProfile) => this.researcherProfile$.next(updatedProfile));
+      .subscribe((updatedProfile) => {}); // this.researcherProfile$.next(updatedProfile);
+    /* tslint:enable:no-empty */
   }
 
   /**

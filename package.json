@@ -79,6 +79,7 @@
     "@angular/platform-server": "~10.2.3",
     "@angular/router": "~10.2.3",
     "@angularclass/bootloader": "1.0.1",
+    "@kolkov/ngx-gallery": "^1.2.3",
     "@ng-bootstrap/ng-bootstrap": "7.0.0",
     "@ng-dynamic-forms/core": "^12.0.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "^12.0.0",
@@ -123,6 +124,7 @@
     "ngx-moment": "^5.0.0",
     "ngx-pagination": "5.0.0",
     "ngx-sortablejs": "^10.0.0",
+    "ngx-ui-switch": "^12.0.1",
     "nouislider": "^14.6.3",
     "pem": "1.14.4",
     "postcss-cli": "^8.3.0",
@@ -133,8 +135,7 @@
     "sortablejs": "1.13.0",
     "tslib": "^2.0.0",
     "webfontloader": "1.6.28",
-    "zone.js": "^0.10.3",
-    "@kolkov/ngx-gallery": "^1.2.3"
+    "zone.js": "^0.10.3"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "10.0.1",

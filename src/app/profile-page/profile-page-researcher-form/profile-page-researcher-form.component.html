@@ -1,11 +1,9 @@
 <div *ngVar="(researcherProfile$ | async) as researcherProfile">
   <div *ngIf="researcherProfile">
     <p>{{'researcher.profile.associated' | translate}}</p>
-    <p>{{'researcher.profile.status' | translate}}
-      <span
-        [ngClass]="{'font-weight-bold' : true, 'text-success' : researcherProfile.visible, 'text-warning' : !researcherProfile.visible}">
-                {{ (researcherProfile.visible ? 'researcher.profile.public.visibility' : 'researcher.profile.private.visibility') | translate }}
-            </span>
+    <p class="align-items-center" >
+      <span class="mr-3">{{'researcher.profile.status' | translate}}</span>
+      <ui-switch [checkedLabel]="'researcher.profile.public.visibility' | translate" [uncheckedLabel]="'researcher.profile.private.visibility' | translate" (change)="toggleProfileVisibility(researcherProfile)" [checked]="researcherProfile.visible"></ui-switch>
     </p>
   </div>
   <div *ngIf="!researcherProfile">
@@ -25,7 +23,7 @@
     <button class="btn btn-primary" [disabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
-    <button class="btn btn-secondary" [disabled]="!researcherProfile"
+<!--     <button class="btn btn-secondary" [disabled]="!researcherProfile"
             (click)="toggleProfileVisibility(researcherProfile)">
             <span *ngIf="researcherProfile.visible">
                 <i class="fas fa-eye-slash"></i> {{'researcher.profile.hide' | translate}}
@@ -33,14 +31,14 @@
       <span *ngIf="!researcherProfile.visible">
                 <i class="fas fa-eye"></i> {{'researcher.profile.expose' | translate}}
             </span>
-    </button>
+    </button> -->
     <button class="btn btn-danger" [disabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
-            <span *ngIf="(isProcessingDelete() | async)">
-                <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
-            </span>
-      <span *ngIf="!(isProcessingDelete() | async)">
-                <i class="fas fa-trash-alt"></i> &nbsp;{{'researcher.profile.delete' | translate}}
-            </span>
+        <span *ngIf="(isProcessingDelete() | async)">
+            <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
+        </span>
+        <span *ngIf="!(isProcessingDelete() | async)">
+            <i class="fas fa-trash-alt"></i> &nbsp;{{'researcher.profile.delete' | translate}}
+        </span>
     </button>
   </ng-container>
 </div>

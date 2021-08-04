@@ -7,12 +7,14 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/p
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
   imports: [
     ProfilePageRoutingModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    UiSwitchModule
   ],
   exports: [
     ProfilePageSecurityFormComponent

@@ -63,3 +63,15 @@ ds-admin-sidebar {
     display: none;
   }
 }
+
+button.switch{
+  outline:none;
+}
+
+.switch-label-checked{
+  color: #fff;
+  font-weight: 600;
+}
+.switch-label-unchecked{
+  font-weight: 500;
+}
