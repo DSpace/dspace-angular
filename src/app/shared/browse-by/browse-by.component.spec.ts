@@ -22,6 +22,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { MetricService } from '../../core/data/metric.service';
 import { LinkService } from '../../core/cache/builders/link.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -81,7 +83,8 @@ describe('BrowseByComponent', () => {
       providers: [
         {provide: PaginationService, useValue: paginationService},
         {provide: MetricService, useValue: {}},
-        {provide: LinkService, useValue: linkService}
+        {provide: LinkService, useValue: linkService},
+        { provide: DSONameService, useClass: DSONameServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
