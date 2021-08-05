@@ -1240,7 +1240,7 @@
 
   "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
 
-  "context-menu.actions.edit-item-relationships.btn.fundings": "Manage Fundints",
+  "context-menu.actions.edit-item-relationships.btn.fundings": "Manage Fundings",
 
   "context-menu.actions.edit-item-relationships.btn.researchoutputs": "Manage Research Outputs",
 
@@ -2844,6 +2844,7 @@
 
   "statistics": "Statistics",
 
+  "manage.relations": "Manage Relations",
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
 
