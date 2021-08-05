@@ -27,6 +27,7 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   @serializable() metadataValue: MetadataValue;
   @serializable() securityConfigLevel: number[];
+  @serializable() toggleSecurityVisibility = true;
   malformedDate: boolean;
   hasLanguages = false;
   repeatable = false;

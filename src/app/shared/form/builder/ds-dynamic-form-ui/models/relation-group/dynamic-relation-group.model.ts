@@ -55,7 +55,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
   }
 
   getGroupValue(): any[] {
-    if (isEmpty(this.value)) {
+     if (isEmpty(this.value)) {
       // If items is empty, last element has been removed
       // so emit an empty value that allows to dispatch
       // a remove JSON PATCH operation

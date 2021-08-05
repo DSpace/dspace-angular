@@ -98,7 +98,6 @@ export class ConcatFieldParser extends FieldParser {
       input1ModelConfig.placeholder = placeholder[0];
       input2ModelConfig.placeholder = placeholder[1];
     }
-
     const model1 = new DynamicInputModel(input1ModelConfig, clsInput1);
     const model2 = new DynamicInputModel(input2ModelConfig, clsInput2);
     // only for the first input add security visibility

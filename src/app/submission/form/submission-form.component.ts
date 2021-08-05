@@ -77,7 +77,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * The metadata security config based on the entity type
    * @type {MetadataSecurityConfiguration}
    */
-  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
+  @Input() metadataSecurityConfiguration: any;
   /**
    * The entity type input used to create a new submission
    * @type {string}
@@ -230,7 +230,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *    new submission object
    */
   onCollectionChange(submissionObject: SubmissionObject) {
-    const metadata = (submissionObject.collection as Collection).metadata['dspace.entity.type'];
+    const metadata = (submissionObject.collection as Collection).metadata ? (submissionObject.collection as Collection).metadata['dspace.entity.type'] : null;
     if (metadata && metadata[0]) {
       this.entityType = metadata[0].value;
     }

@@ -27,6 +27,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.ut
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import {MetadataSecurityConfigurationService} from '../../../../../../core/submission/metadatasecurityconfig-data.service';
+import {of as observableOf} from 'rxjs';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -142,7 +144,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let debugElement: DebugElement;
   let modelValue: any;
   let html;
-
+  let submissionServiceStub: SubmissionServiceStub;
   const vocabularyService: any = new VocabularyServiceStub();
 
   // waitForAsync beforeEach
@@ -172,6 +174,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
+        MetadataSecurityConfigurationService,
         NgbModal,
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: Store, useClass: StoreMock },
@@ -214,6 +217,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     });
 
     describe('when init model value is empty', () => {
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
       beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
 
         groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
@@ -237,6 +241,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should save a new chips item', () => {
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(null));
         modelValue = [{
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
           'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')

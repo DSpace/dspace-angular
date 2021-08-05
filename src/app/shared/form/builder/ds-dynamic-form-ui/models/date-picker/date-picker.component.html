@@ -47,15 +47,5 @@
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
-
 </div>
-<div style="margin-top: 4px">
-  <ds-edit-metadata-security   [securityConfigLevel]="model.securityConfigLevel"
-                               [securityLevel]=" $any(model).securityLevel != undefined && $any(model).securityLevel!=null ? $any(model).securityLevel  :
-                                             ($any(model).metadataValue ? $any(model).metadataValue.securityLevel  :
-                                              securityLevel != null && securityLevel != undefined  ? securityLevel : null)"
-                               (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
-  </ds-edit-metadata-security>
-</div>
-
 <div class="clearfix"></div>

@@ -132,31 +132,39 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD))
       ).subscribe((submissionObjectRD: RemoteData<SubmissionObject>) => {
         if (submissionObjectRD.hasSucceeded) {
-          const metadata = (submissionObjectRD.payload.collection as Collection).metadata['dspace.entity.type'];
-          if (metadata && metadata[0]) {
-            this.entityType = metadata[0].value;
-          }
-          // get security configuration based on entity type
-          this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
-            getFirstCompletedRemoteData(),
-          ).subscribe(res => {
-            this.metadataSecurityConfiguration = res.payload;
-            if (isEmpty(submissionObjectRD.payload)) {
-              this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
-              this.router.navigate(['/mydspace']);
-            } else {
-              const {errors} = submissionObjectRD.payload;
-              this.submissionErrors = parseSectionErrors(errors);
-              this.submissionId = submissionObjectRD.payload.id.toString();
-              this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
-
-              this.selfUrl = submissionObjectRD.payload._links.self.href;
-              this.sections = submissionObjectRD.payload.sections;
-              this.itemLink$.next(submissionObjectRD.payload._links.item.href);
-              this.item = submissionObjectRD.payload.item;
-              this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
+          try {
+            const metadata = (submissionObjectRD.payload.collection as Collection).metadata['dspace.entity.type'];
+            if (metadata && metadata[0]) {
+              this.entityType = metadata[0].value;
             }
-          });
+            // get security configuration based on entity type
+            this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
+              getFirstCompletedRemoteData(),
+            ).subscribe(res => {
+              if (res.hasSucceeded) {
+                this.metadataSecurityConfiguration = res.payload;
+                if (isEmpty(submissionObjectRD.payload)) {
+                  this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
+                  this.router.navigate(['/mydspace']);
+                } else {
+                  const {errors} = submissionObjectRD.payload;
+                  this.submissionErrors = parseSectionErrors(errors);
+                  this.submissionId = submissionObjectRD.payload.id.toString();
+                  this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
+
+                  this.selfUrl = submissionObjectRD.payload._links.self.href;
+                  this.sections = submissionObjectRD.payload.sections;
+                  this.itemLink$.next(submissionObjectRD.payload._links.item.href);
+                  this.item = submissionObjectRD.payload.item;
+                  this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
+                }
+              } else {
+                this.router.navigate(['/mydspace']);
+              }
+            });
+            // tslint:disable-next-line:no-empty
+          } catch (Exception) {
+          }
         } else {
           if (submissionObjectRD.statusCode === 404) {
             // redirect to not found page

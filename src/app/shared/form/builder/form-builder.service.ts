@@ -213,16 +213,18 @@ export class FormBuilderService extends DynamicFormService {
               }
 
             } else {
-              (controlModel as any).value = new FormFieldMetadataValueObject(
-                (controlModel as any).value.value,
-                (controlModel as any).value.language,
-                (controlModel as any).securityLevel,
-                (controlModel as any).value.authority,
-                (controlModel as any).value.display,
-                (controlModel as any).value.place,
-                (controlModel as any).value.confidence,
-                (controlModel as any).value.otherInformation,
-                (controlModel as any).value.metadata);
+              if (((controlModel as any).value) instanceof FormFieldMetadataValueObject) {
+                (controlModel as any).value = new FormFieldMetadataValueObject(
+                  (controlModel as any).value.value,
+                  (controlModel as any).value.language,
+                  (controlModel as any).securityLevel,
+                  (controlModel as any).value.authority,
+                  (controlModel as any).value.display,
+                  (controlModel as any).value.place,
+                  (controlModel as any).value.confidence,
+                  (controlModel as any).value.otherInformation,
+                  (controlModel as any).value.metadata);
+              }
             }
           }
         }
@@ -301,9 +303,8 @@ export class FormBuilderService extends DynamicFormService {
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
                          submissionScope?: string, readOnly = false, typeBindModel = null,
                          isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
-    let rows: DynamicFormControlModel[] = [];
-
-    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
+     let rows: DynamicFormControlModel[] = [];
+     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm, securityConfig);

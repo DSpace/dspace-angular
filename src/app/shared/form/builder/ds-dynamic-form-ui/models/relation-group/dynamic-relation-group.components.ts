@@ -101,8 +101,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     const modalRef = this.modalService.open(DsDynamicRelationGroupModalComponent, {
       size: 'lg',
     });
-    this.getSecurityConfigurationLevelsFromStore().then(metadataSecurityConfig => {
-      modalRef.componentInstance.metadataSecurityConfiguration = metadataSecurityConfig;
+    this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
+      take(1)).subscribe((res: MetadataSecurityConfiguration) => {
+      modalRef.componentInstance.metadataSecurityConfiguration = res;
     });
     modalRef.componentInstance.group = this.group;
     modalRef.componentInstance.model = this.model;
@@ -240,11 +241,4 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   private hasValidAuthority(value: FormFieldMetadataValueObject) {
     return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
   }
-
-  getSecurityConfigurationLevelsFromStore = () => new Promise(resolve => {
-     this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
-       take(1)).subscribe((res: MetadataSecurityConfiguration) => {
-      resolve(res);
-    });
-  })
 }

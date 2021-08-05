@@ -264,22 +264,26 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
    *    the section data retrieved from the server
    */
   initForm(sectionData: WorkspaceitemSectionFormObject): void {
-    this.formModel = this.formBuilderService.modelFromConfiguration(
-      this.submissionId,
-      this.formConfig,
-      this.collectionId,
-      sectionData,
-      this.submissionService.getSubmissionScope(),
-      SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope(),
-      ),
-      null,
-      false,
-      this.metadataSecurityConfiguration
-    );
-     const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
-    this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
-    // Add created model to formBulderService
-    this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
+    try {
+      this.formModel = this.formBuilderService.modelFromConfiguration(
+        this.submissionId,
+        this.formConfig,
+        this.collectionId,
+        sectionData,
+        this.submissionService.getSubmissionScope(),
+        SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope(),
+        ),
+        null,
+        false,
+        this.metadataSecurityConfiguration
+      );
+      const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
+      // Add created model to formBulderService
+      this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
+      // tslint:disable-next-line:no-empty
+     } catch (Exception) {
+    }
   }
 
   /**
