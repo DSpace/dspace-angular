@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { fadeInOut } from '../../../animations/fade';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchResult } from '../../../search/search-result.model';
@@ -9,7 +9,7 @@ import { SearchResult } from '../../../search/search-result.model';
   styleUrls: ['./relationships-items-list-preview.component.scss'],
   animations: [fadeInOut]
 })
-export class RelationshipsItemsListPreviewComponent {
+export class RelationshipsItemsListPreviewComponent implements OnInit {
 
   /**
    * The item to display
@@ -49,5 +49,8 @@ export class RelationshipsItemsListPreviewComponent {
   dispatchDelete(): void {
     this.processing = true;
     this.deleteRelationship.emit({ action: 'delete', item: this.object, relationship: this.customData.relationship });
+  }
+
+  ngOnInit(){
   }
 }
