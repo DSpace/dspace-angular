@@ -147,6 +147,21 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let submissionServiceStub: SubmissionServiceStub;
   const vocabularyService: any = new VocabularyServiceStub();
 
+  const metadataSecurityConfiguration = {
+    'uuid': 'test',
+    'metadataSecurityDefault': [
+      0,
+      1
+    ],
+    'metadataCustomSecurity': {},
+    'type': 'securitysetting',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/server/api/core/securitysettings/test'
+      }
+    }
+  };
+
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     init();
@@ -217,13 +232,13 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     });
 
     describe('when init model value is empty', () => {
-      submissionServiceStub = TestBed.inject(SubmissionService as any);
+
       beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
 
         groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
         debugElement = groupFixture.debugElement;
         groupComp = groupFixture.componentInstance; // FormComponent test instance
-
+        submissionServiceStub = TestBed.inject(SubmissionService as any);
         groupComp.group = FORM_GROUP_TEST_GROUP;
         groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         groupFixture.detectChanges();
@@ -241,7 +256,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should save a new chips item', () => {
-        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(null));
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurityConfiguration));
         modelValue = [{
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
           'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
@@ -263,7 +278,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
         debugElement = groupFixture.debugElement;
         groupComp = groupFixture.componentInstance; // FormComponent test instance
-
+        submissionServiceStub = TestBed.inject(SubmissionService as any);
         groupComp.group = FORM_GROUP_TEST_GROUP;
         groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         modelValue = [{
@@ -286,7 +301,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should modify existing chips item', inject([FormBuilderService], (service: FormBuilderService) => {
-
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurityConfiguration));
         const modalRef = groupComp.onChipSelected(0);
         groupFixture.detectChanges();
 
