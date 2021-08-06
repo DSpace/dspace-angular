@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject, Injector, OnInit } from '@angular/core';
 import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/initial-menus-state';
@@ -8,7 +8,8 @@ import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator'
  * Represents a non-expandable section in the navbar
  */
 @Component({
-  selector: 'ds-navbar-section',
+  /* tslint:disable:component-selector */
+  selector: 'li[ds-navbar-section]',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss']
 })

@@ -14,7 +14,8 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorat
  * Represents a expandable section in the sidebar
  */
 @Component({
-  selector: 'ds-expandable-admin-sidebar-section',
+  /* tslint:disable:component-selector */
+  selector: 'li[ds-expandable-admin-sidebar-section]',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor]

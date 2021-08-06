@@ -1,4 +1,4 @@
-<li class="nav-item dropdown"
+<div class="nav-item dropdown expandable-navbar-section"
     (keyup.enter)="activateSection($event)"
     (mouseenter)="activateSection($event)"
     (mouseleave)="deactivateSection($event)">
@@ -15,4 +15,4 @@
                     *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
         </ng-container>
     </ul>
-</li>
+</div>

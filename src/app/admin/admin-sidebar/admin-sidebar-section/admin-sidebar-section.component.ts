@@ -10,7 +10,8 @@ import { MenuSection } from '../../../shared/menu/menu.reducer';
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-  selector: 'ds-admin-sidebar-section',
+  /* tslint:disable:component-selector */
+  selector: 'li[ds-admin-sidebar-section]',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
 
