@@ -1,6 +1,8 @@
 <div class="sidebar-section">
     <a class="nav-item nav-link d-flex flex-row flex-nowrap"
-       attr.aria-labelledby="sidebarName-{{section.id}}"
+       [ngClass]="{ disabled: !hasLink }"
+       [attr.aria-disabled]="!hasLink"
+       [attr.aria-labelledby]="'sidebarName-' + section.id"
        [title]="('menu.section.icon.' + section.id) | translate"
        [routerLink]="itemModel.link"
        href="javascript:void(0);"

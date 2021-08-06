@@ -1,1 +1,6 @@
-<a href="javascript:void(0);" class="nav-item nav-link"  [ngClass]="{'disabled': !hasLink}" [routerLink]="getRouterLink()">{{item.text | translate}}</a>
+<a class="nav-item nav-link"
+   [ngClass]="{ 'disabled': !hasLink }"
+   [attr.aria-disabled]="!hasLink"
+   [routerLink]="getRouterLink()"
+   href="javascript:void(0);"
+>{{item.text | translate}}</a>
