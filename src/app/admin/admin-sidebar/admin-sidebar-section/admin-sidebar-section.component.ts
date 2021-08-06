@@ -32,7 +32,7 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
   }
 
   ngOnInit(): void {
-    this.hasLink = isNotEmpty(this.itemModel.link);
+    this.hasLink = isNotEmpty(this.itemModel?.link);
     super.ngOnInit();
   }
 }

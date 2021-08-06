@@ -46,29 +46,14 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   });
 
   it('should set the right icon', () => {
-    const icon = fixture.debugElement.query(By.css('.icon-wrapper')).query(By.css('i.fas'));
+    const icon = fixture.debugElement.query(By.css('.shortcut-icon > i.fas'));
     expect(icon.nativeElement.getAttribute('class')).toContain('fa-' + iconString);
-  });
-
-  describe('when the icon is clicked', () => {
-    beforeEach(() => {
-      spyOn(menuService, 'toggleActiveSection');
-      const sidebarToggler = fixture.debugElement.query(By.css('a.shortcut-icon'));
-      sidebarToggler.triggerEventHandler('click', {
-        preventDefault: () => {/**/
-        }
-      });
-    });
-
-    it('should call toggleActiveSection on the menuService', () => {
-      expect(menuService.toggleActiveSection).toHaveBeenCalled();
-    });
   });
 
   describe('when the header text is clicked', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleActiveSection');
-      const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-collapsible')).query(By.css('a'));
+      const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-section > a'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }

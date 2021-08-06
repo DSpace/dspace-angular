@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { debounceTime, first, map, take } from 'rxjs/operators';
