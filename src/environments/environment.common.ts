@@ -380,7 +380,7 @@ export const environment: GlobalConfig = {
       {
         value: 1,
         icon: 'fa fa-key',
-        color: 'yellow'
+        color: 'orange'
       },
       {
         value: 2,

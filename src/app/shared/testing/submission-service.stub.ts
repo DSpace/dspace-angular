@@ -17,6 +17,7 @@ export class SubmissionServiceStub {
   getDisabledSectionsList = jasmine.createSpy('getDisabledSectionsList');
   getSubmissionObjectLinkName = jasmine.createSpy('getSubmissionObjectLinkName');
   getSubmissionScope = jasmine.createSpy('getSubmissionScope');
+  getSubmissionSecurityConfiguration = jasmine.createSpy('getSubmissionSecurityConfiguration');
   getSubmissionStatus = jasmine.createSpy('getSubmissionStatus');
   getSubmissionSaveProcessingStatus = jasmine.createSpy('getSubmissionSaveProcessingStatus');
   getSubmissionDepositProcessingStatus = jasmine.createSpy('getSubmissionDepositProcessingStatus');

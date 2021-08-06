@@ -3,13 +3,14 @@ import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
 import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import { SubmissionObjectEntry, SubmissionSectionObject } from './objects/submission-objects.reducer';
+import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
 
 /**
  * Export a function to return a subset of the state by key
  */
 export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {
   return createSelector(parentSelector, (state: T) => {
-    if (hasValue(state) && hasValue(state[subState])) {
+     if (hasValue(state) && hasValue(state[subState])) {
       return state[subState][key];
     } else {
       return undefined;
@@ -68,4 +69,9 @@ export function submissionSectionErrorsFromIdSelector(submissionId: string, sect
 export function submissionSectionServerErrorsFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const submissionIdSelector  = submissionSectionFromIdSelector(submissionId, sectionId);
   return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'serverValidationErrors');
+}
+
+export function securityConfigurationObjectFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, MetadataSecurityConfiguration> {
+  const submissionIdSelector  = submissionObjectFromIdSelector(submissionId);
+  return subStateSelector<SubmissionState, MetadataSecurityConfiguration>(submissionIdSelector, 'metadataSecurityConfiguration');
 }

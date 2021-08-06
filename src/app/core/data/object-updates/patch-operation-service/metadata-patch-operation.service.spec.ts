@@ -23,7 +23,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Deleted title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           }
@@ -46,13 +47,14 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Added title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.ADD
           }
         });
         expected = [
-          { op: 'add', path: '/metadata/dc.title/-', value: [{ value: 'Added title', language: undefined }] }
+          { op: 'add', path: '/metadata/dc.title/-', value: [{ value: 'Added title', language: undefined, securityLevel: 1}] }
         ] as any[];
         result = service.fieldUpdatesToPatchOperations(fieldUpdates);
       });
@@ -69,13 +71,14 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Changed title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.UPDATE
           }
         });
         expected = [
-          { op: 'replace', path: '/metadata/dc.title/0', value: { value: 'Changed title', language: undefined } }
+          { op: 'replace', path: '/metadata/dc.title/0', value: { value: 'Changed title', language: undefined, securityLevel: 1 } }
         ] as any[];
         result = service.fieldUpdatesToPatchOperations(fieldUpdates);
       });
@@ -92,7 +95,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'First deleted title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -100,7 +104,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Second deleted title',
-              place: 1
+              place: 1,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -108,7 +113,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Third deleted title',
-              place: 2
+              place: 2,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           }
@@ -133,7 +139,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Third deleted title',
-              place: 2
+              place: 2,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -141,7 +148,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Second deleted title',
-              place: 1
+              place: 1,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -149,7 +157,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'First deleted title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           }
@@ -174,7 +183,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Second deleted title',
-              place: 1
+              place: 1,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -182,7 +192,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Third deleted title',
-              place: 2
+              place: 2,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -190,7 +201,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'First deleted title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           }
@@ -215,7 +227,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Second deleted title',
-              place: 1
+              place: 1,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           },
@@ -223,7 +236,8 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'Third changed title',
-              place: 2
+              place: 2,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.UPDATE
           },
@@ -231,14 +245,15 @@ describe('MetadataPatchOperationService', () => {
             field: Object.assign(new MetadatumViewModel(), {
               key: 'dc.title',
               value: 'First deleted title',
-              place: 0
+              place: 0,
+              securityLevel: 1
             }),
             changeType: FieldChangeType.REMOVE
           }
         });
         expected = [
           { op: 'remove', path: '/metadata/dc.title/1' },
-          { op: 'replace', path: '/metadata/dc.title/1', value: { value: 'Third changed title', language: undefined } },
+          { op: 'replace', path: '/metadata/dc.title/1', value: { value: 'Third changed title', language: undefined ,securityLevel: 1} },
           { op: 'remove', path: '/metadata/dc.title/0' }
         ] as any[];
         result = service.fieldUpdatesToPatchOperations(fieldUpdates);

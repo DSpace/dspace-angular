@@ -30,6 +30,8 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() submissionScope: string;
   @serializable() securityLevels: any;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP;
+  // will be shown only for parts of group
+  @serializable() toggleSecurityVisibility = false;
 
   constructor(config: DynamicRelationGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -53,7 +55,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
   }
 
   getGroupValue(): any[] {
-    if (isEmpty(this.value)) {
+     if (isEmpty(this.value)) {
       // If items is empty, last element has been removed
       // so emit an empty value that allows to dispatch
       // a remove JSON PATCH operation

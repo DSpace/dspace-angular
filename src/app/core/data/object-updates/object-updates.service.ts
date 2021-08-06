@@ -194,7 +194,7 @@ export class ObjectUpdatesService {
    * @param field An updated field for the page's object
    */
   saveAddFieldUpdate(url: string, field: Identifiable) {
-    field['new'] = true;
+    (field as any).new = true;
     this.saveFieldUpdate(url, field, FieldChangeType.ADD);
   }
 

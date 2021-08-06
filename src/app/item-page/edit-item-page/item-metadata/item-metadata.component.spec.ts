@@ -24,6 +24,7 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOSuccessResponse } from '../../../core/cache/response.models';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { MetadataSecurityConfigurationService } from '../../../core/submission/metadatasecurityconfig-data.service';
 
 let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -37,16 +38,30 @@ const date = new Date();
 const router = new RouterStub();
 let metadataFieldService;
 let paginatedMetadataFields;
+const metadataSecurity = {
+  'uuid': null,
+  'metadataSecurityDefault': [
+    0,
+    1
+  ],
+  'metadataCustomSecurity': {},
+  'type': 'securitysetting',
+  '_links': {
+    'self': {
+      'href': 'http://localhost:8080/server/api/core/securitysettings'
+    }
+  }
+};
 let routeStub;
 let objectCacheService;
-
-const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' });
+let submissionServiceStub;
+const mdSchema = Object.assign(new MetadataSchema(), {prefix: 'dc'});
 const mdField1 = Object.assign(new MetadataField(), {
   schema: mdSchema,
   element: 'contributor',
   qualifier: 'author'
 });
-const mdField2 = Object.assign(new MetadataField(), { schema: mdSchema, element: 'title' });
+const mdField2 = Object.assign(new MetadataField(), {schema: mdSchema, element: 'title'});
 const mdField3 = Object.assign(new MetadataField(), {
   schema: mdSchema,
   element: 'description',
@@ -64,18 +79,24 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
 const metadatum1 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.description.abstract',
   value: 'Example abstract',
-  language: 'en'
+  language: 'en',
+  securityLevel: 0,
+  securityConfigurationLevelLimit: undefined
 });
 
 const metadatum2 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.title',
   value: 'Title test',
-  language: 'de'
+  language: 'de',
+  securityLevel: 0,
+  securityConfigurationLevelLimit: undefined,
 });
 
 const metadatum3 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.contributor.author',
   value: 'Shakespeare, William',
+  securityLevel: 0,
+  securityConfigurationLevelLimit: undefined,
 });
 
 const url = 'http://test-url.com/test-url';
@@ -97,7 +118,7 @@ const fieldUpdate3 = {
   changeType: undefined
 };
 
-const operation1 = { op: 'remove', path: '/metadata/dc.title/1' };
+const operation1 = {op: 'remove', path: '/metadata/dc.title/1'};
 
 let scheduler: TestScheduler;
 let item;
@@ -137,6 +158,11 @@ describe('ItemMetadataComponent', () => {
       metadataFieldService = jasmine.createSpyObj({
         getAllMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields)
       });
+
+      submissionServiceStub = jasmine.createSpyObj({
+        findById: createSuccessfulRemoteDataObject$(metadataSecurity)
+      });
+
       scheduler = getTestScheduler();
       objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
         {
@@ -148,6 +174,7 @@ describe('ItemMetadataComponent', () => {
           saveAddFieldUpdate: {},
           discardFieldUpdates: {},
           reinstateFieldUpdates: observableOf(true),
+          saveChangeFieldUpdate:{},
           initialize: {},
           getUpdatedFields: observableOf([metadatum1, metadatum2, metadatum3]),
           getLastModified: observableOf(date),
@@ -165,13 +192,14 @@ describe('ItemMetadataComponent', () => {
         imports: [SharedModule, TranslateModule.forRoot()],
         declarations: [ItemMetadataComponent],
         providers: [
-          { provide: ItemDataService, useValue: itemService },
-          { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-          { provide: Router, useValue: router },
-          { provide: ActivatedRoute, useValue: routeStub },
-          { provide: NotificationsService, useValue: notificationsService },
-          { provide: RegistryService, useValue: metadataFieldService },
-          { provide: ObjectCacheService, useValue: objectCacheService },
+          {provide: ItemDataService, useValue: itemService},
+          {provide: ObjectUpdatesService, useValue: objectUpdatesService},
+          {provide: Router, useValue: router},
+          {provide: ActivatedRoute, useValue: routeStub},
+          {provide: NotificationsService, useValue: notificationsService},
+          {provide: RegistryService, useValue: metadataFieldService},
+          {provide: ObjectCacheService, useValue: objectCacheService},
+          {provide: MetadataSecurityConfigurationService, useValue: submissionServiceStub},
         ], schemas: [
           NO_ERRORS_SCHEMA
         ]
@@ -188,16 +216,6 @@ describe('ItemMetadataComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('add', () => {
-    const md = new MetadatumViewModel();
-    beforeEach(() => {
-      comp.add(md);
-    });
-
-    it('it should call saveAddFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
-      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(url, md);
-    });
-  });
 
   describe('discard', () => {
     beforeEach(() => {

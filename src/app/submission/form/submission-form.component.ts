@@ -19,7 +19,6 @@ import { MetadataSecurityConfiguration } from '../../core/submission/models/meta
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 
-
 /**
  * This component represents the submission form.
  */
@@ -223,7 +222,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *    new submission object
    */
   onCollectionChange(submissionObject: SubmissionObject) {
-    const metadata = (submissionObject.collection as Collection).metadata['dspace.entity.type'];
+    const metadata = (submissionObject.collection as Collection).metadata ? (submissionObject.collection as Collection).metadata['dspace.entity.type'] : null;
     if (metadata && metadata[0]) {
       this.entityType = metadata[0].value;
     }
@@ -265,7 +264,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     return this.submissionService.getSubmissionSections(this.submissionId).pipe(
       filter((sections: SectionDataObject[]) => isNotEmpty(sections)),
       map((sections: SectionDataObject[]) => sections));
-
   }
 
 }

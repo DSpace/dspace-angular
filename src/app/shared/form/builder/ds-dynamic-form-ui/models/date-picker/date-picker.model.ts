@@ -9,13 +9,16 @@ import {
 
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { isEmpty, isNotUndefined } from '../../../../../empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined } from '../../../../../empty.util';
 import { MetadataValue } from '../../../../../../core/shared/metadata.models';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
 export interface DynamicDsDatePickerModelConfig extends DynamicDatePickerModelConfig {
   typeBindRelations?: DynamicFormControlRelation[];
+  securityLevel?: number;
+  securityConfigLevel?: number[];
+  toggleSecurityVisibility?: boolean;
 }
 
 /**
@@ -26,20 +29,22 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   @serializable() metadataValue: MetadataValue;
-  @serializable() securityConfigLevel: number[];
+  @serializable() securityLevel?: number;
+  @serializable() securityConfigLevel?: number[];
+  @serializable() toggleSecurityVisibility = true;
   malformedDate: boolean;
   hasLanguages = false;
   repeatable = false;
-  securityLevel: number;
 
   constructor(config: DynamicDsDatePickerModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.malformedDate = false;
     this.metadataValue = (config as any).metadataValue;
-    if ((config as any).securityLevel !== undefined) {
-      this.securityLevel = (config as any).securityLevel;
+    this.securityLevel = config.securityLevel;
+    this.securityConfigLevel = config.securityConfigLevel;
+    if (isNotUndefined(config.toggleSecurityVisibility)) {
+      this.toggleSecurityVisibility = config.toggleSecurityVisibility;
     }
-    this.securityConfigLevel = (config as any).securityConfigLevel;
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
     this.hiddenUpdates.subscribe((hidden: boolean) => {
@@ -57,5 +62,13 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     } else {
       return this.getRootParent(model.parent);
     }
+  }
+
+  get hasSecurityLevel(): boolean {
+    return isNotEmpty(this.securityLevel);
+  }
+
+  get hasSecurityToggle(): boolean {
+    return isNotEmpty(this.securityConfigLevel) && this.securityConfigLevel.length > 1 && this.toggleSecurityVisibility;
   }
 }

@@ -12,6 +12,8 @@ export class DynamicTagModel extends DsDynamicInputModel {
 
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
+  // toggle of security must not be shown for tag model
+  @serializable() toggleSecurityVisibility = false;
 
   constructor(config: DynamicTagModelConfig, layout?: DynamicFormControlLayout) {
 

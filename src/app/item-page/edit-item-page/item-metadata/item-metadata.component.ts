@@ -16,7 +16,6 @@ import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { Operation } from 'fast-json-patch';
 import { MetadataPatchOperationService } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { MetadataSecurityConfigurationService } from '../../../core/submission/metadatasecurityconfig-data.service';
 
@@ -60,7 +59,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
-    private configurationDataService: ConfigurationDataService,
     private metadataSecurityConfigDataService: MetadataSecurityConfigurationService
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);

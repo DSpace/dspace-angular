@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
@@ -14,11 +14,7 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import {
-  SubmissionObjectEntry,
-  SubmissionSectionError,
-  SubmissionSectionObject
-} from '../../objects/submission-objects.reducer';
+import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -50,7 +46,7 @@ import { MetadataSecurityConfiguration } from '../../../core/submission/models/m
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class SubmissionSectionformComponent extends SectionModelComponent {
+export class SubmissionSectionformComponent extends SectionModelComponent implements OnDestroy {
 
   /**
    * The form id
@@ -110,7 +106,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    * The [FormFieldPreviousValueObject] object
    * @type {FormFieldPreviousValueObject}
    */
-  protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
+  previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
 
   /**
    * The list of Subscription
@@ -140,7 +136,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    * @param {ObjectCacheService} objectCache
    * @param {RequestService} requestService
    * @param {string} injectedCollectionId
-   * @param entityType injectedEntityType
+   * @param {string} entityType
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
    */
@@ -178,12 +174,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload())
+            getRemoteDataPayload()),
+          this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1))
         ])),
       take(1))
-      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
-        this.getSecurityConfigurationLevelsFromStore().then(() => {
+      .subscribe(([sectionData, workspaceItem, metadataSecurity]: [WorkspaceitemSectionFormObject, WorkspaceItem, MetadataSecurityConfiguration]) => {
           if (isUndefined(this.formModel)) {
+            this.metadataSecurityConfiguration = metadataSecurity;
             // this.sectionData.errorsToShow = [];
             this.workspaceItem = workspaceItem;
             // Is the first loading so init form
@@ -194,7 +191,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
             this.cdr.detectChanges();
           }
         });
-      });
   }
 
   /**
@@ -263,22 +259,31 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the section data retrieved from the server
    */
   initForm(sectionData: WorkspaceitemSectionFormObject): void {
-    this.formModel = this.formBuilderService.modelFromConfiguration(
-      this.submissionId,
-      this.formConfig,
-      this.collectionId,
-      sectionData,
-      this.submissionService.getSubmissionScope(),
-      SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope(),
-      ),
-      null,
-      false,
-      this.metadataSecurityConfiguration
-    );
-     const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
-    this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
-    // Add created model to formBulderService
-    this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
+    try {
+      this.formModel = this.formBuilderService.modelFromConfiguration(
+        this.submissionId,
+        this.formConfig,
+        this.collectionId,
+        sectionData,
+        this.submissionService.getSubmissionScope(),
+        SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope()),
+        null,
+        false,
+        this.metadataSecurityConfiguration
+      );
+      const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
+      // Add created model to formBulderService
+      this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
+    } catch (e) {
+      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
+      const sectionError: SubmissionSectionError = {
+        message: msg,
+        path: '/sections/' + this.sectionData.id
+      };
+      console.error(e.stack);
+      this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
+    }
   }
 
   /**
@@ -364,7 +369,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
+      this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
@@ -482,16 +487,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     super.ngOnDestroy();
     // Remove this model from formBulderService
     this.formBuilderService.removeFormModel(this.sectionData.id);
-  }
-  getSecurityConfigurationLevelsFromStore() {
-     return new Promise((resolve) => {
-      this.submissionService.getSubmissionObject(this.submissionId).pipe(
-        filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
-        take(1)).subscribe((res: SubmissionObjectEntry) => {
-        this.metadataSecurityConfiguration = res.metadataSecurityConfiguration;
-         resolve(res.metadataSecurityConfiguration);
-      });
-    });
   }
 
 }

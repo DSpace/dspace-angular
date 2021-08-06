@@ -28,7 +28,7 @@
             <th><span id="fieldName">{{'item.edit.metadata.headers.field' | translate}}</span></th>
             <th><span id="fieldValue">{{'item.edit.metadata.headers.value' | translate}}</span></th>
             <th class="text-center"><span id="fieldLang">{{'item.edit.metadata.headers.language' | translate}}</span></th>
-            <th class="text-center">{{'Security Level'| translate}}</th>
+            <th class="text-center">{{'item.edit.metadata.headers.security'| translate}}</th>
             <th class="text-center">{{'item.edit.metadata.headers.edit' | translate}}</th>
         </tr>
         <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate; let i = index"

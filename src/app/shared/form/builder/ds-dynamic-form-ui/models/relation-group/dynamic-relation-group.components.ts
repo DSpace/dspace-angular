@@ -26,7 +26,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
-import { SubmissionObjectEntry } from '../../../../../../submission/objects/submission-objects.reducer';
+import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
 
 /**
  * Component representing a group input field
@@ -93,8 +93,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     const modalRef = this.modalService.open(DsDynamicRelationGroupModalComponent, {
       size: 'lg',
     });
-    this.getSecurityConfigurationLevelsFromStore().then(metadataSecurityConfig => {
-      modalRef.componentInstance.metadataSecurityConfiguration = metadataSecurityConfig;
+    this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
+      take(1)).subscribe((res: MetadataSecurityConfiguration) => {
+      modalRef.componentInstance.metadataSecurityConfiguration = res;
     });
     modalRef.componentInstance.group = this.group;
     modalRef.componentInstance.model = this.model;
@@ -232,12 +233,4 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   private hasValidAuthority(value: FormFieldMetadataValueObject) {
     return value.hasAuthority() && isNotEmpty(value.authority) && !value.authority.startsWith('will be');
   }
-
-  getSecurityConfigurationLevelsFromStore = () => new Promise(resolve => {
-    this.submissionService.getSubmissionObject(this.model.submissionId).pipe(
-      filter((state: SubmissionObjectEntry) => !state.savePending && !state.isLoading),
-      take(1)).subscribe((res: SubmissionObjectEntry) => {
-      resolve(res.metadataSecurityConfiguration);
-    });
-  })
 }

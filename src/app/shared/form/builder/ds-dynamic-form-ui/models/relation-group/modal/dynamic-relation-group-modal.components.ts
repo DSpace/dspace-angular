@@ -108,7 +108,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
             value.value : value;
           model.value = nextValue;
           // as the value doesn't support the security level, add into the big model
-          if (typeof value !== 'string') {
+          if (value && typeof value !== 'string') {
             (model as any).securityLevel = value.securityLevel;
           }
         });

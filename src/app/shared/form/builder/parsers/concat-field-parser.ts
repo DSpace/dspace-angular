@@ -95,9 +95,14 @@ export class ConcatFieldParser extends FieldParser {
       input1ModelConfig.placeholder = placeholder[0];
       input2ModelConfig.placeholder = placeholder[1];
     }
-
     const model1 = new DynamicInputModel(input1ModelConfig, clsInput1);
     const model2 = new DynamicInputModel(input2ModelConfig, clsInput2);
+    // only for the first input add security visibility
+    (model1 as any).toggleSecurityVisibility = false;
+    (model2 as any).toggleSecurityVisibility = false;
+    // attach the security config for children
+    (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
@@ -106,6 +111,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'form-row',
       }
     };
+    this.initSecurityValue(concatGroup);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

@@ -2036,6 +2036,8 @@
 
   "item.edit.metadata.headers.language": "Lang",
 
+  "item.edit.metadata.headers.security": "Security level",
+
   "item.edit.metadata.headers.value": "Value",
 
   "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",

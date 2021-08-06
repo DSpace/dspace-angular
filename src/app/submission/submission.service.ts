@@ -27,7 +27,7 @@ import {
   SubmissionSectionEntry,
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
-import { submissionObjectFromIdSelector } from './selectors';
+import { securityConfigurationObjectFromIdSelector, submissionObjectFromIdSelector } from './selectors';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
@@ -340,6 +340,19 @@ export class SubmissionService {
   getSubmissionObject(submissionId: string): Observable<SubmissionObjectEntry> {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submission: SubmissionObjectEntry) => isNotUndefined(submission)));
+  }
+
+  /**
+   * Return the [MetadataSecurityConfiguration] for the specified submission
+   *
+   * @param submissionId
+   *    The submission id
+   * @return Observable<MetadataSecurityConfiguration>
+   *    observable of MetadataSecurityConfiguration
+   */
+  getSubmissionSecurityConfiguration(submissionId: string): Observable<MetadataSecurityConfiguration> {
+    return this.store.select(securityConfigurationObjectFromIdSelector(submissionId)).pipe(
+      filter((securityConfiguration: MetadataSecurityConfiguration) => isNotUndefined(securityConfiguration)));
   }
 
   /**

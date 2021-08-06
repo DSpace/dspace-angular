@@ -57,7 +57,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX, DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
@@ -93,7 +93,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-di
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import {
   getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
@@ -120,9 +119,7 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
-import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -211,8 +208,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-  entityType: string;
-  securityLevelConfig: number;
   securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
@@ -223,10 +218,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   listId: string;
   searchConfig: string;
   value: MetadataValue;
-  // will hold previous value of the model and may be string or object
-  previousValue: any;
-  // will show if the securityLevel has changed
-  securityChanged: boolean;
   /**
    * List of subscriptions to unsubscribe from
    */
@@ -266,9 +257,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private ref: ChangeDetectorRef,
     private formService: FormService,
     private formBuilderService: FormBuilderService,
-    private submissionService: SubmissionService,
-    private configurationDataService: ConfigurationDataService
-  ) {
+    private submissionService: SubmissionService) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
   }
 
@@ -349,36 +338,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.model && this.model.value && this.model.value.securityLevel !== undefined) {
       this.securityLevel = this.model.value.securityLevel;
     }
-    // save the previous value
-    this.model && this.model.value ? this.previousValue = this.model.value : this.model.metadataValue ? this.previousValue = this.model.metadataValue : this.previousValue = null;
-    this.formService.dynamicBoxChangeEmitter.subscribe((change: DynamicFormControlEvent) => {
-      console.log(change);
-      if (this.model) {
-        console.log(change);
-        if (change.model.id === this.model.id) {
-          if (change.model instanceof DynamicOneboxModel) {
-            // is the model of the component
-            if (!this.previousValue && !this.securityChanged) {
-              // is the first time that edit a metadata
-              // in this case must be applied the logic of security preset
-              if ((change.model as any).value || (change.model as any).metadataValue) {
-                // it has added a value into metadata so preset maximum value of security
-                if (this.model.securityConfigLevel && this.model.securityConfigLevel.length > 0) {
-                  this.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
-                  this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
-                }
-              }
-            }
-            this.previousValue = (change.model as any).value;
-          }
-        }
-      }
-    });
-    if (this.model && this.model.parent && this.model.parent instanceof DynamicConcatModel) {
-      this.model.securityConfigLevel = this.model.parent.securityConfigLevel;
-      // this.model.securityLevel = this.model.parent.securityLevel;
-    }
-  }
+ }
 
   get isCheckbox(): boolean {
     return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX || this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH;
@@ -549,11 +509,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.securityLevel = $event;
     if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
       this.model.parent.securityLevel = $event;
-      // this.model.parent.group.forEach(el => {
-      //   if (el instanceof DynamicInputModel) {
-      //     (el as any).securityLevel = $event;
-      //   }
-      // });
     }
     if (this.model.value) {
       this.model.securityLevel = $event;
@@ -580,60 +535,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         } as DynamicFormControlEvent);
       }
     }
-    this.securityChanged = true;
+   }
 
-  }
-
-  findSecurityLevelConfig(levelFallbackSecurity) {
-    // it finds the level of security fir each metadata corresponding to the item
-    this.configurationDataService.findByPropertyName('metadatavalue.visibility.' + this.entityType + '.' + this.model.name + '.settings').pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe(res1 => {
-      if (res1.state === 'Error') {
-        this.securityLevelConfig = levelFallbackSecurity;
-        this.changeDetectorRef.markForCheck();
-      } else {
-        if (res1.state === 'Success') {
-          this.securityLevelConfig = +res1.payload.values[0];
-          this.changeDetectorRef.markForCheck();
-        }
-      }
-    });
-  }
-
-  // this method is needed if is needed to change the design
-  positionToggle() {
-    if (this.model.parent && this.model.parent.group && this.model.parent.group.length === 2) {
-      return '80%';
-    }
-    if (this.model.parent && this.model.parent.group && this.model.parent.group.length === 3) {
-      return '70%';
-    }
-    return null;
-  }
-
-  showToggleFirstLimit() {
-    let concatCheck = true;
-    if (this.model.parent instanceof DynamicConcatModel) {
-      concatCheck = this.model.parent.group && this.model.parent.group.indexOf(this.model) < 1;
-    }
-    return this.model.parent !== undefined && !(this.model.parent instanceof DynamicQualdropModel) && concatCheck;
-  }
-
-  preselectMostRestrictedOption($event) {
-    if (this.model.securityConfigLevel && this.model.securityConfigLevel.length > 0 && this.model.type !== 'GROUP') {
-      // ask if user is typing for the first time in the input
-      if ((!this.previousValue || !((this.previousValue && this.previousValue.value && this.previousValue.value.length > 0))) && !this.securityChanged) {
-        if ($event.target.value && $event.target.value !== '') {
-          // preselect
-          this.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
-          this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
-        } else {
-          // do not preselect because the metadata has not value
-          this.securityLevel = null;
-          this.model.securityLevel = undefined;
-        }
-      }
-    }
-  }
 }

@@ -1,7 +1,7 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
@@ -24,8 +24,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
-  dynamicBoxChangeEmitter: Subject<DynamicFormControlEvent> = new Subject();
-  constructor(
+   constructor(
     private formBuilderService: FormBuilderService,
     private store: Store<AppState>) {
   }

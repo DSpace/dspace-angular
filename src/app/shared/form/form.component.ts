@@ -131,8 +131,8 @@ export class FormComponent implements OnDestroy, OnInit {
   private getFormGroup(): FormGroup {
     if (!!this.parentFormModel) {
       return this.formGroup.parent as FormGroup;
-
     }
+
     return this.formGroup;
   }
 
@@ -283,13 +283,7 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
-    }
-    // emit an event for dx-dynamic-form-control-container in order to preselect the security level
-    if (event.type === 'change') {
-      this.formService.dynamicBoxChangeEmitter.next(event);
-    }
-
-  }
+    }}
 
   /**
    * Method called on submit.
@@ -361,5 +355,4 @@ export class FormComponent implements OnDestroy, OnInit {
     const control = group.controls[index] as FormControl;
     return {$event, context, control, group, model, type};
   }
-
 }

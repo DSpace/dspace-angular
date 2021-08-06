@@ -23,6 +23,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
   @serializable() _value: VocabularyEntry[];
+  @serializable() toggleSecurityVisibility = false;
   isListGroup = true;
   valueChanges: Subject<any>;
 

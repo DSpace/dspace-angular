@@ -188,7 +188,7 @@ export class JsonPatchOperationsBuilder {
     if (isNotEmpty(value.authority)) {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.securityLevel, value.authority);
     } else {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language);
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.securityLevel,);
     }
     return operationValue;
   }
