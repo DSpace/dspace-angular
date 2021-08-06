@@ -1,7 +1,7 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { first, map, take } from 'rxjs/operators';
+import { combineLatest, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
+import { debounceTime, first, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
@@ -60,6 +60,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   sidebarExpanded: Observable<boolean>;
 
+  focusInOut$: Subject<FocusEvent>;
+
   constructor(protected menuService: MenuService,
               protected injector: Injector,
               private variableService: CSSVariableService,
@@ -69,6 +71,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               private scriptDataService: ScriptDataService,
   ) {
     super(menuService, injector);
+    this.focusInOut$ = new Subject();
   }
 
   /**
@@ -89,10 +92,25 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         this.sidebarOpen = !collapsed;
         this.sidebarClosed = collapsed;
       });
-    this.sidebarExpanded = observableCombineLatest(this.menuCollapsed, this.menuPreviewCollapsed)
+    this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
         map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
       );
+    combineLatest([
+      this.focusInOut$.pipe(debounceTime(50)),  // disregard focusout in situations like --(focusout)-(focusin)--
+      this.menuCollapsed,
+      this.menuPreviewCollapsed,
+    ]).subscribe(([event, collapsed, previewCollapsed]) => {
+      if (event && collapsed) {
+        if (event.type === 'focusin' && previewCollapsed) {
+          this.expandPreview(event);
+          this.focusInOut$.next(null);  // make sure this event is not the latest one anymore
+        } else if (event.type === 'focusout' && !previewCollapsed) {
+          this.collapsePreview(event);
+          this.focusInOut$.next(null);  // make sure this event is not the latest one anymore
+        }
+      }
+    });
   }
 
   /**
@@ -588,6 +606,16 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         shouldPersistOnRouteChange: true,
       })));
     });
+  }
+
+  @HostListener('focusin', ['$event'])
+  public handleFocusIn(event: FocusEvent) {
+    this.focusInOut$.next(event);
+  }
+
+  @HostListener('focusout', ['$event'])
+  public handleFocusOut(event: FocusEvent) {
+    this.focusInOut$.next(event);
   }
 
   /**
