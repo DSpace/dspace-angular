@@ -1,10 +1,19 @@
 <div class="sidebar-section">
-    <a href="javascript:void(0);" class="nav-item nav-link shortcut-icon" attr.aria-labelledby="sidebarName-{{section.id}}" [title]="('menu.section.icon.' + section.id) | translate" [routerLink]="itemModel.link">
+    <a class="nav-item nav-link d-flex flex-row flex-nowrap"
+       attr.aria-labelledby="sidebarName-{{section.id}}"
+       [title]="('menu.section.icon.' + section.id) | translate"
+       [routerLink]="itemModel.link"
+       href="javascript:void(0);"
+    >
+      <div class="shortcut-icon">
         <i class="fas fa-{{section.icon}} fa-fw"></i>
+      </div>
+      <div class="sidebar-collapsible">
+        <div class="toggle">
+          <span id="sidebarName-{{section.id}}" class="section-header-text">
+            {{itemModel.text | translate}}
+          </span>
+        </div>
+      </div>
     </a>
-    <div class="sidebar-collapsible">
-        <span id="sidebarName-{{section.id}}" class="section-header-text">
-        <a class="nav-item nav-link"  tabindex="-1" [routerLink]="itemModel.link">{{itemModel.text | translate}}</a>
-        </span>
-    </div>
 </div>
