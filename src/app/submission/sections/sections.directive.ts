@@ -27,6 +27,12 @@ export class SectionsDirective implements OnDestroy, OnInit {
   @Input() mandatory = true;
 
   /**
+   * A boolean representing if section is opened by default
+   * @type {boolean}
+   */
+  @Input() opened = true;
+
+  /**
    * The section id
    * @type {string}
    */
@@ -68,7 +74,6 @@ export class SectionsDirective implements OnDestroy, OnInit {
    */
   private enabled: Observable<boolean>;
 
-
   /**
    * A boolean representing if section has read-only visibility
    * @type {boolean}
@@ -79,7 +84,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * A boolean representing the panel collapsible state: opened (true) or closed (false)
    * @type {boolean}
    */
-  private sectionState = this.mandatory;
+  private sectionState: boolean;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -101,14 +106,15 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * @param {SectionsService} sectionService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private submissionService: SubmissionService,
-              private sectionService: SectionsService) {
+    private submissionService: SubmissionService,
+    private sectionService: SectionsService) {
   }
 
   /**
    * Initialize instance variables
    */
   ngOnInit() {
+    this.sectionState = this.isOpened();
     this.valid = this.sectionService.isSectionValid(this.submissionId, this.sectionId).pipe(
       map((valid: boolean) => {
         if (valid) {
@@ -195,6 +201,16 @@ export class SectionsDirective implements OnDestroy, OnInit {
    */
   public isMandatory(): boolean {
     return this.mandatory;
+  }
+
+  /**
+   * Check if section is mandatory
+   *
+   * @returns {boolean}
+   *    Returns true when section is mandatory
+   */
+  public isOpened(): boolean {
+    return this.opened;
   }
 
   /**

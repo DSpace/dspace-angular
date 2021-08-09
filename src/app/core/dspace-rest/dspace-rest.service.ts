@@ -49,6 +49,7 @@ export class DspaceRestService {
         statusText: res.statusText
       })),
       catchError((err) => {
+        console.log('Error: ', err);
         return observableThrowError({
           statusCode: err.status,
           statusText: err.statusText,
@@ -111,11 +112,15 @@ export class DspaceRestService {
         statusText: res.statusText
       })),
       catchError((err) => {
-        return observableThrowError({
-          statusCode: err.status,
-          statusText: err.statusText,
-          message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
-        });
+        if (hasValue(err.status)) {
+          return observableThrowError({
+            statusCode: err.status,
+            statusText: err.statusText,
+            message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
+          });
+        } else {
+          return observableThrowError(err);
+        }
       }));
   }
 

@@ -1,7 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import {
+  asyncScheduler,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  queueScheduler,
+  timer
+} from 'rxjs';
+import { catchError, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -40,10 +47,22 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  RetrieveTokenAction
+  RetrieveTokenAction,
+  SetUserAsIdleAction
 } from './auth.actions';
 import { hasValue } from '../../shared/empty.util';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { RequestActionTypes } from '../data/request.actions';
+import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
+import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
+import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+
+// Action Types that do not break/prevent the user from an idle state
+const IDLE_TIMER_IGNORE_TYPES: string[]
+  = [...Object.values(AuthActionTypes).filter((t: string) => t !== AuthActionTypes.UNSET_USER_AS_IDLE),
+  ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
 
 @Injectable()
 export class AuthEffects {
@@ -149,7 +168,7 @@ export class AuthEffects {
           if (response.authenticated) {
             return new RetrieveTokenAction();
           } else {
-            return this.authService.getRetrieveAuthMethodsAction(response);
+            return new RetrieveAuthMethodsAction(response);
           }
         }),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
@@ -204,6 +223,16 @@ export class AuthEffects {
       );
     }));
 
+  /**
+   * When the store is rehydrated in the browser, invalidate all cache hits regarding the
+   * authorizations endpoint, to be sure to have consistent responses after a login with external idp
+   *
+   */
+  @Effect({ dispatch: false }) invalidateAuthorizationsRequestCache$ = this.actions$
+    .pipe(ofType(StoreActionTypes.REHYDRATE),
+      tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
+    );
+
   @Effect()
   public logOut$: Observable<Action> = this.actions$
     .pipe(
@@ -238,10 +267,10 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
       switchMap((action: RetrieveAuthMethodsAction) => {
-        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload.status)
+        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
           .pipe(
-            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels, action.payload.blocking)),
-            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction(action.payload.blocking)))
+            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
+            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
           );
       })
     );
@@ -269,13 +298,37 @@ export class AuthEffects {
     );
 
   /**
+   * For any action that is not in {@link IDLE_TIMER_IGNORE_TYPES} that comes in => Start the idleness timer
+   * If the idleness timer runs out (so no un-ignored action come through for that amount of time)
+   * => Return the action to set the user as idle ({@link SetUserAsIdleAction})
+   * @method trackIdleness
+   */
+  @Effect()
+  public trackIdleness$: Observable<Action> = this.actions$.pipe(
+    filter((action: Action) => !IDLE_TIMER_IGNORE_TYPES.includes(action.type)),
+    // Using switchMap the effect will stop subscribing to the previous timer if a new action comes
+    // in, and start a new timer
+    switchMap(() =>
+      // Start a timer outside of Angular's zone
+      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler))
+    ),
+    // Re-enter the zone to dispatch the action
+    observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),
+    map(() => new SetUserAsIdleAction()),
+  );
+
+  /**
    * @constructor
    * @param {Actions} actions$
+   * @param {NgZone} zone
+   * @param {AuthorizationDataService} authorizationsService
    * @param {AuthService} authService
    * @param {Store} store
    * @param {Router} router
    */
   constructor(private actions$: Actions,
+              private zone: NgZone,
+              private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
               private store: Store<AppState>,
               private router: Router) {

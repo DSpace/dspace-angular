@@ -294,14 +294,13 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
           this.pathCombiner.subRootElement);
       })
     ).subscribe((result: SubmissionObject[]) => {
-      if (result[0].sections.upload) {
-        Object.keys((result[0].sections.upload as WorkspaceitemSectionUploadObject).files)
-          .filter((key) => (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key].uuid === this.fileId)
+      if (result[0].sections[this.sectionId]) {
+        const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
+        Object.keys(uploadSection.files)
+          .filter((key) => uploadSection.files[key].uuid === this.fileId)
           .forEach((key) => this.uploadService.updateFileData(
-            this.submissionId,
-            this.sectionId,
-            this.fileId,
-            (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key]));
+            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
+          );
       }
       this.switchMode();
     }));

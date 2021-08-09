@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { of as observableOf } from 'rxjs';
@@ -71,6 +71,8 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     const config = {
       id: this.model.id + '_array',
       initialCount: isNotEmpty(this.model.value) ? (this.model.value as any[]).length : 1,
+      isDraggable: true,
+      isInlineGroupArray: true,
       groupFactory: () => {
         let model;
         const fieldValue = isEmpty(this.model.value) || (arrayCounter === 0) ? {} : this.model.value[arrayCounter - 1];
@@ -156,13 +158,17 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     const normValue = Object.create({});
     if (isNotEmpty(valueObj)) {
       Object.keys(valueObj).forEach((metadata) => {
-        if (!(valueObj[metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
+        if (!this.hasPlaceholder(valueObj[metadata])) {
           normValue[metadata] = [valueObj[metadata]];
         }
       });
     }
 
     return normValue;
+  }
+
+  private hasPlaceholder(value: string|FormFieldMetadataValueObject): boolean {
+    return (value instanceof FormFieldMetadataValueObject) ? value.hasPlaceholder() : (isNotEmpty(value) && value === PLACEHOLDER_PARENT_METADATA)
   }
 
   private removeItemFromModelValue(removeIndex) {
@@ -196,7 +202,42 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     this.change.emit();
   }
 
+  onCustomEvent(event) {
+    if (event.type === 'move') {
+      this.moveArrayItem(event);
+    } else if (event.type === 'copy') {
+      this.copyArrayItem(event);
+    }
+  }
+
   ngOnDestroy(): void {
     this.formBuilderService.removeFormModel(this.formId);
+  }
+
+  private moveArrayItem(event) {
+    const index = event.$event.index;
+    const previousIndex = event.$event.previousIndex;
+    let arrayOfValue: any = this.model.value;
+
+    if (arrayOfValue[index] === undefined || arrayOfValue[previousIndex] === undefined) {
+      return;
+    } else if ( arrayOfValue.length > 0 ) {
+      arrayOfValue = arrayOfValue.filter((el) => el !== undefined);
+    } else {
+      return;
+    }
+
+    const temp = this.model.value[index];
+    this.model.value[index] = this.model.value[previousIndex];
+    this.model.value[previousIndex] = temp;
+
+    this.change.emit();
+  }
+
+  private copyArrayItem(event) {
+    const index = event.model.parent.index;
+    const groupValue = this.getRowValue(event.model as DynamicFormGroupModel);
+    this.updateArrayModelValue(groupValue, index);
+    this.change.emit();
   }
 }

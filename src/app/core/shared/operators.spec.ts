@@ -15,7 +15,12 @@ import {
   redirectOn4xx
 } from './operators';
 import { of as observableOf } from 'rxjs';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject
+} from '../../shared/remote-data.utils';
+
+// tslint:disable:no-shadowed-variable
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
@@ -172,8 +177,12 @@ describe('Core Module - RxJS Operators', () => {
   describe('redirectOn4xx', () => {
     let router;
     let authService;
+    let testScheduler;
 
     beforeEach(() => {
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
       router = jasmine.createSpyObj('router', ['navigateByUrl']);
       authService = jasmine.createSpyObj('authService', {
         isAuthenticated: observableOf(true),
@@ -181,32 +190,69 @@ describe('Core Module - RxJS Operators', () => {
       });
     });
 
-    it('should call navigateByUrl to a 404 page, when the remote data contains a 404 error', () => {
-      const testRD = createFailedRemoteDataObject('Object was not found', 404);
+    it('should call navigateByUrl to a 404 page, when the remote data contains a 404 error, and not emit anything', () => {
+      testScheduler.run(({ cold, expectObservable, flush }) => {
+        const testRD = createFailedRemoteDataObject('Object was not found', 404);
+        const source = cold('a', { a: testRD });
+        const expected = '-';
+        const values = {};
 
-      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/404', { skipLocationChange: true });
+        expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+        flush();
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/404', { skipLocationChange: true });
+      });
     });
 
-    it('should call navigateByUrl to a 401 page, when the remote data contains a 403 error', () => {
-      const testRD = createFailedRemoteDataObject('Forbidden', 403);
+    it('should call navigateByUrl to a 404 page, when the remote data contains a 422 error, and not emit anything', () => {
+      testScheduler.run(({ cold, expectObservable, flush }) => {
+        const testRD = createFailedRemoteDataObject('Unprocessable Entity', 422);
+        const source = cold('a', { a: testRD });
+        const expected = '-';
+        const values = {};
 
-      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/403', { skipLocationChange: true });
+        expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+        flush();
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/404', { skipLocationChange: true });
+      });
     });
 
-    it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains another error than a 404, 403 or 401', () => {
-      const testRD = createFailedRemoteDataObject('Something went wrong', 500);
+    it('should call navigateByUrl to a 401 page, when the remote data contains a 403 error, and not emit anything', () => {
+      testScheduler.run(({ cold, expectObservable, flush }) => {
+        const testRD = createFailedRemoteDataObject('Forbidden', 403);
+        const source = cold('a', { a: testRD });
+        const expected = '-';
+        const values = {};
 
-      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-      expect(router.navigateByUrl).not.toHaveBeenCalled();
+        expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+        flush();
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/403', { skipLocationChange: true });
+      });
     });
 
-    it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains no error', () => {
-      const testRD = createSuccessfulRemoteDataObject(undefined);
+    it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains another error than a 404, 422, 403 or 401, and emit the source rd', () => {
+      testScheduler.run(({ cold, expectObservable, flush }) => {
+        const testRD = createFailedRemoteDataObject('Something went wrong', 500);
+        const source = cold('a', { a: testRD });
+        const expected = 'a';
+        const values = { a: testRD };
 
-      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-      expect(router.navigateByUrl).not.toHaveBeenCalled();
+        expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+        flush();
+        expect(router.navigateByUrl).not.toHaveBeenCalled();
+      });
+    });
+
+    it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains no error, and emit the source rd', () => {
+      testScheduler.run(({ cold, expectObservable, flush }) => {
+        const testRD = createSuccessfulRemoteDataObject(undefined);
+        const source = cold('a', { a: testRD });
+        const expected = 'a';
+        const values = { a: testRD };
+
+        expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+        flush();
+        expect(router.navigateByUrl).not.toHaveBeenCalled();
+      });
     });
 
     describe('when the user is not authenticated', () => {
@@ -214,20 +260,32 @@ describe('Core Module - RxJS Operators', () => {
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
       });
 
-      it('should set the redirect url and navigate to login when the remote data contains a 401 error', () => {
-        const testRD = createFailedRemoteDataObject('The current user is unauthorized', 401);
+      it('should set the redirect url and navigate to login when the remote data contains a 401 error, and not emit anything', () => {
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const testRD = createFailedRemoteDataObject('The current user is unauthorized', 401);
+          const source = cold('a', { a: testRD });
+          const expected = '-';
+          const values = {};
 
-        observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-        expect(authService.setRedirectUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+          expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+          flush();
+          expect(authService.setRedirectUrl).toHaveBeenCalled();
+          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+        });
       });
 
-      it('should set the redirect url and navigate to login when the remote data contains a 403 error', () => {
-        const testRD = createFailedRemoteDataObject('Forbidden', 403);
+      it('should set the redirect url and navigate to login when the remote data contains a 403 error, and not emit anything', () => {
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          const testRD = createFailedRemoteDataObject('Forbidden', 403);
+          const source = cold('a', { a: testRD });
+          const expected = '-';
+          const values = {};
 
-        observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-        expect(authService.setRedirectUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+          expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
+          flush();
+          expect(authService.setRedirectUrl).toHaveBeenCalled();
+          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+        });
       });
     });
   });

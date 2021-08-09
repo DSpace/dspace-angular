@@ -28,16 +28,20 @@ export class BrowserHardRedirectService extends HardRedirectService {
   }
 
   /**
-   * Get the origin of a request
+   * Get the current route, with query params included
+   * e.g. /search?page=1&query=open%20access&f.dateIssued.min=1980&f.dateIssued.max=2020
    */
-  getCurrentRoute() {
+  getCurrentRoute(): string {
     return this.location.pathname + this.location.search;
   }
 
   /**
-   * Get the hostname of the request
+   * Get the origin of the current URL
+   * i.e. <scheme> "://" <hostname> [ ":" <port> ]
+   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
+   * the origin would be https://demo7.dspace.org
    */
-  getRequestOrigin() {
+  getCurrentOrigin(): string {
     return this.location.origin;
   }
 }

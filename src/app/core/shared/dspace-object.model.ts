@@ -163,8 +163,8 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * Find metadata on a specific field and order all of them using their "place" property.
    * @param key
    */
-  findMetadataSortedByPlace(key: string): MetadataValue[] {
-    return this.allMetadata([key]).sort((a: MetadataValue, b: MetadataValue) => {
+  findMetadataSortedByPlace(keyOrKeys: string | string[]): MetadataValue[] {
+    return this.allMetadata(keyOrKeys).sort((a: MetadataValue, b: MetadataValue) => {
       if (hasNoValue(a.place) && hasNoValue(b.place)) {
         return 0;
       }

@@ -30,7 +30,7 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),
-      followLink('version', undefined, true, true, true, followLink('versionhistory')),
+      followLink('version', {}, followLink('versionhistory')),
     ).pipe(getFirstCompletedRemoteData());
   }
 

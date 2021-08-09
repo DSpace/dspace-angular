@@ -18,13 +18,13 @@
          [uploader]="uploader"
          (fileOver)="fileOverBase($event)"
          class="well ds-base-drop-zone mt-1 mb-3 text-muted">
-      <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center" *ngIf="uploader?.queue?.length === 0">
-        <span><i class="fas fa-cloud-upload" aria-hidden="true"></i> {{dropMsg | translate}} {{'uploader.or' | translate}}</span>
-        <label class="btn btn-link m-0 p-0 ml-1">
-          <input class="d-none" type="file" ng2FileSelect [uploader]="uploader" multiple  />
+      <div class="text-center m-0 p-2 d-flex justify-content-center align-items-center" *ngIf="uploader?.queue?.length === 0">
+        <span><i class="fas fa-upload" aria-hidden="true"></i> {{dropMsg | translate}} {{'uploader.or' | translate}}</span>
+        <label for="inputFileUploader" class="btn btn-link m-0 p-0 ml-1" tabindex="0" (keyup.enter)="$event.stopImmediatePropagation(); fileInput.click()">
+          <input #fileInput id="inputFileUploader" class="d-none" type="file" role="button" ng2FileSelect [uploader]="uploader" multiple tabindex="0" />
           {{'uploader.browse' | translate}}
         </label>
-      </p>
+      </div>
       <div *ngIf="(isOverBaseDropZone | async) || uploader?.queue?.length !== 0">
         <div class="m-1">
           <div class="upload-item-top">
@@ -32,7 +32,7 @@
               <span *ngIf="!uploader.options.disableMultipart">{{'uploader.queue-length' | translate}}: {{ uploader?.queue?.length }} | </span>{{ uploader?.queue[0]?.file.name }}
             </span>
             <div class="btn-group btn-group-sm float-right" role="group">
-              <button type="button" class="btn btn-danger" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+              <button type="button" class="btn btn-danger" title="{{'uploader.delete.btn-title' | translate}}" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>

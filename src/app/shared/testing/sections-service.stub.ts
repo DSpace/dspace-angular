@@ -10,6 +10,8 @@ export class SectionsServiceStub {
   isSectionEnabled = jasmine.createSpy('isSectionEnabled');
   isSectionReadOnly = jasmine.createSpy('isSectionReadOnly');
   isSectionAvailable = jasmine.createSpy('isSectionAvailable');
+  isSectionTypeAvailable = jasmine.createSpy('isSectionTypeAvailable');
+  isSectionType = jasmine.createSpy('isSectionType');
   addSection = jasmine.createSpy('addSection');
   removeSection = jasmine.createSpy('removeSection');
   updateSectionData = jasmine.createSpy('updateSectionData');

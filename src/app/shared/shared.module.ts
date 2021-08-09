@@ -46,7 +46,6 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SearchResultGridElementComponent } from './object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
-import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
@@ -55,7 +54,7 @@ import { DsDynamicOneboxComponent } from './form/builder/ds-dynamic-form-ui/mode
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
   DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
+  dsDynamicFormControlMapFn,
 } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DragClickDirective } from './utils/drag-click.directive';
@@ -122,8 +121,8 @@ import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-it
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
-import { MetadataFieldWrapperComponent } from '../+item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
+import { MetadataFieldWrapperComponent } from '../item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataValuesComponent } from '../item-page/field-components/metadata-values/metadata-values.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
@@ -190,7 +189,7 @@ import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-ve
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
 import { ExistingRelationListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
-import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
@@ -226,12 +225,12 @@ import { SearchResult } from './search/search-result.model';
 import { FacetConfigResponse } from './search/facet-config-response.model';
 import { FacetValues } from './search/facet-values.model';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
-import { GenericItemPageFieldComponent } from '../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
-import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
-import { RelatedItemsComponent } from '../+item-page/simple/related-items/related-items-component';
-import { TabbedRelatedEntitiesSearchComponent } from '../+item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
-import { RelatedEntitiesSearchComponent } from '../+item-page/simple/related-entities/related-entities-search/related-entities-search.component';
-import { ConfigurationSearchPageComponent } from '../+search-page/configuration-search-page.component';
+import { GenericItemPageFieldComponent } from '../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { MetadataRepresentationListComponent } from '../item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
+import { TabbedRelatedEntitiesSearchComponent } from '../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { RelatedEntitiesSearchComponent } from '../item-page/simple/related-entities/related-entities-search/related-entities-search.component';
+import { ConfigurationSearchPageComponent } from '../search-page/configuration-search-page.component';
 import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
 import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
@@ -254,7 +253,7 @@ import { AdministeredCollectionSelectorComponent } from './dso-selector/dso-sele
 import { RelationshipsListComponent } from './object-list/relationships-list/relationships-list.component';
 import { RelationshipsItemsActionsComponent } from './object-list/relationships-list/relationships-items-actions/relationships-items-actions.component';
 import { RelationshipsItemsListPreviewComponent } from './object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
-import { ThemedConfigurationSearchPageComponent } from '../+search-page/themed-configuration-search-page.component';
+import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { DsDynamicRelationGroupModalComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
@@ -276,8 +275,7 @@ import { SearchSectionComponent } from './explore/section-component/search-secti
 import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
 import { CountersSectionComponent } from './explore/section-component/counters-section/counters-section.component';
 import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
-import {EditItemPageModule} from "../+item-page/edit-item-page/edit-item-page.module";
-import {EditMetadataSecurityComponent} from "../+item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component";
+import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -387,7 +385,6 @@ const COMPONENTS = [
   SidebarFilterComponent,
   SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
-  GridThumbnailComponent,
   UploaderComponent,
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,

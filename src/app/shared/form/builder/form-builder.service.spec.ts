@@ -806,6 +806,18 @@ describe('FormBuilderService test suite', () => {
     expect(formArray.length).toBe(model.initialCount + 1);
   });
 
+  it('should copy a form array group', () => {
+
+    const model = service.findById('testFormArray', testModel) as DynamicFormArrayModel;
+    const formArray = service.createFormArray(model);
+
+    console.log(formArray);
+
+    service.copyFormArrayGroup(0, formArray, model);
+
+    expect(formArray.length).toBe(model.initialCount + 1);
+  });
+
   it('should move up a form array group', () => {
 
     const model = service.findById('testFormArray', testModel) as DynamicFormArrayModel;

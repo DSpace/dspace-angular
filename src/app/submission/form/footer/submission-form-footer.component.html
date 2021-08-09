@@ -1,42 +1,51 @@
 <div class="row" *ngIf="!!submissionId">
   <div class="col">
-    <!-- a class="btn btn-outline-primary" role="button" href="#"><i class="fas fa-times"></i> {{'submission.general.cancel' |translate}}</a -->
-  </div>
-  <div *ngIf="(processingSaveStatus | async) || (processingDepositStatus | async)" class="col d-flex justify-content-end align-items-center">
-    <div class="progress w-75">
-      <div *ngIf="(processingSaveStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Saving...</div>
-      <div *ngIf="(processingDepositStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Depositing...</div>
-    </div>
-  </div>
-  <div *ngIf="!(processingSaveStatus | async) && !(processingDepositStatus | async)" class="col text-right">
-    <button type="button"
-            class="btn btn-secondary"
-            id="save"
-            [disabled]="(processingSaveStatus | async) || !(hasUnsavedModification | async)"
-            (click)="save($event)">
-      <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
-    </button>
-    <button type="button"
-            [class.btn-primary]="!(showDepositAndDiscard | async)"
-            [class.btn-secondary]="(showDepositAndDiscard | async)"
-            class="btn"
-            id="saveForLater"
-            [disabled]="(processingSaveStatus | async)"
-            (click)="saveLater($event)">
-      <span><i class="fas fa-save"></i> {{saveForLaterLabel() | translate}}</span>
-    </button>
-    <button *ngIf="(showDepositAndDiscard | async)"
-            type="button"
-            class="btn btn-primary"
-            [disabled]="(submissionIsInvalid | async)" (click)="deposit($event)">
-      <span><i class="fas fa-plus"></i> {{'submission.general.deposit' | translate}}</span>
-    </button>
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
             class="btn btn-danger"
+            [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
             (click)="$event.preventDefault();confirmDiscard(content)">
       <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
     </button>
+  </div>
+  <div class="col text-right d-flex justify-content-end align-items-center">
+    <span *ngIf="!(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+      <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
+    </span>
+    <span *ngIf="(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+      <i class="fas fa-exclamation-circle"></i> {{'submission.general.info.pending-changes' | translate}}
+    </span>
+    <div *ngIf="(processingSaveStatus | async) || (processingDepositStatus | async)" class="col d-flex justify-content-end align-items-center">
+      <div class="progress w-75">
+        <div *ngIf="(processingSaveStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Saving...</div>
+        <div *ngIf="(processingDepositStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Depositing...</div>
+      </div>
+    </div>
+    <div class="ml-2">
+      <button type="button"
+              class="btn btn-secondary"
+              id="save"
+              [disabled]="(processingSaveStatus | async) || !(hasUnsavedModification | async)"
+              (click)="save($event)">
+        <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
+      </button>
+      <button type="button"
+              [class.btn-primary]="!(showDepositAndDiscard | async)"
+              [class.btn-secondary]="(showDepositAndDiscard | async)"
+              class="btn"
+              id="saveForLater"
+              [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+              (click)="saveLater($event)">
+      <span><i class="fas fa-save"></i> {{saveForLaterLabel() | translate}}</span>
+      </button>
+      <button *ngIf="(showDepositAndDiscard | async)"
+              type="button"
+              class="btn btn-success"
+              [disabled]="(submissionIsInvalid | async) || (processingSaveStatus | async) || (processingDepositStatus | async)"
+              (click)="deposit($event)">
+        <span><i class="fas fa-plus"></i> {{'submission.general.deposit' | translate}}</span>
+      </button>
+    </div>
   </div>
 </div>
 

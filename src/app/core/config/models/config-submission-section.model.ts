@@ -38,6 +38,12 @@ export class SubmissionSectionModel extends ConfigObject {
   mandatory: boolean;
 
   /**
+   * A boolean representing if this submission section is opened or collapsed by default
+   */
+  @autoserialize
+  opened: boolean;
+
+  /**
    * A string representing the kind of section object
    */
   @autoserialize

@@ -1,8 +1,8 @@
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
-import {Observable, Subscription} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -10,14 +10,14 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {findIndex} from 'lodash';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { findIndex } from 'lodash';
 
-import {FormBuilderService} from './builder/form-builder.service';
-import {hasValue, isNotEmpty, isNotNull, isNull} from '../empty.util';
-import {FormService} from './form.service';
-import {FormEntry, FormError} from './form.reducer';
-import {FormFieldMetadataValueObject} from './builder/models/form-field-metadata-value.model';
+import { FormBuilderService } from './builder/form-builder.service';
+import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
+import { FormService } from './form.service';
+import { FormEntry, FormError } from './form.reducer';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 
 /**
  * The default form component.
@@ -76,6 +76,7 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() formGroup: FormGroup;
   @Input() formLayout = null as DynamicFormLayout;
   @Input() arrayButtonsStyle: string;
+  @Input() isInlineGroupForm: boolean;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -131,8 +132,8 @@ export class FormComponent implements OnDestroy, OnInit {
   private getFormGroup(): FormGroup {
     if (!!this.parentFormModel) {
       return this.formGroup.parent as FormGroup;
-
     }
+
     return this.formGroup;
   }
 
@@ -270,21 +271,20 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onCustomEvent(event: any) {
-     this.customEvent.emit(event);
+    this.customEvent.emit(event);
   }
 
   onFocus(event: DynamicFormControlEvent): void {
-     this.formService.setTouched(this.formId, this.formModel, event);
+    this.formService.setTouched(this.formId, this.formModel, event);
     this.focus.emit(event);
   }
 
   onChange(event: DynamicFormControlEvent): void {
-     this.formService.changeForm(this.formId, this.formModel);
+    this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
-    }
-  }
+    }}
 
   /**
    * Method called on submit.
@@ -315,14 +315,14 @@ export class FormComponent implements OnDestroy, OnInit {
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     const event = this.getEvent($event, arrayContext, index, 'remove');
-    if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
-      // In case of qualdrop value remove event must be dispatched before removing the control from array
+    if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel) || this.isInlineGroupForm) {
+      // In case of qualdrop value or inline-group remove event must be dispatched before removing the control from array
       this.removeArrayItem.emit(event);
     }
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     this.formService.changeForm(this.formId, this.formModel);
-    if (!this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
-      // dispatch remove event for any field type except for qualdrop value
+    if (!this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel) && !this.isInlineGroupForm) {
+      // dispatch remove event for any field type except for qualdrop value and inline-group
       this.removeArrayItem.emit(event);
     }
   }
@@ -334,16 +334,25 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formService.changeForm(this.formId, this.formModel);
   }
 
+  copyItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
+    const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
+    const newFormGroup = this.formBuilderService.copyFormArrayGroup(index, formArrayControl, arrayContext);
+    this.customEvent.emit(this.getEvent($event, arrayContext, index + 1, 'copy', newFormGroup));
+    this.formService.changeForm(this.formId, this.formModel);
+    this.formGroup.markAsPristine();
+  }
+
+
   isVirtual(arrayContext: DynamicFormArrayModel, index: number) {
     const context = arrayContext.groups[index];
     const value: FormFieldMetadataValueObject = (context.group[0] as any).metadataValue;
     return isNotEmpty(value) && value.isVirtual;
   }
 
-  protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
+  protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string, formGroup?: FormGroup): DynamicFormControlEvent {
     const context = arrayContext.groups[index];
     const itemGroupModel = context.context;
-    let group = this.formGroup.get(itemGroupModel.id) as FormGroup;
+    let group = (formGroup) ? formGroup : this.formGroup.get(itemGroupModel.id) as FormGroup;
     if (isNull(group)) {
       for (const key of Object.keys(this.formGroup.controls)) {
         group = this.formGroup.controls[key].get(itemGroupModel.id) as FormGroup;
@@ -356,5 +365,4 @@ export class FormComponent implements OnDestroy, OnInit {
     const control = group.controls[index] as FormControl;
     return {$event, context, control, group, model, type};
   }
-
 }

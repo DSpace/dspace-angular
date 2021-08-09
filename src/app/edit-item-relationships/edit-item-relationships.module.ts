@@ -4,7 +4,7 @@ import { EditItemRelationshipsComponent } from './edit-item-relationships.compon
 import { SharedModule } from '../shared/shared.module';
 import { EditItemRelationshipsRoutingModule } from './edit-item-relationships-routing.module';
 import { RelationshipsSortListComponent } from './relationships-sort-list/relationships-sort-list.component';
-import { MyDspaceSearchModule } from '../+my-dspace-page/my-dspace-search.module';
+import { MyDspaceSearchModule } from '../my-dspace-page/my-dspace-search.module';
 
 
 @NgModule({

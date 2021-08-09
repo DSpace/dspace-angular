@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { first, map } from 'rxjs/operators';
@@ -29,6 +29,12 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
    */
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
+  /**
+   * A boolean representing if a delete operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
+  public processing$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
     protected router: Router,
@@ -48,6 +54,7 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
    * Deletes an existing DSO and redirects to the home page afterwards, showing a notification that states whether or not the deletion was successful
    */
   onConfirm(dso: TDomain) {
+    this.processing$.next(true);
     this.dsoDataService.delete(dso.id)
       .pipe(getFirstCompletedRemoteData())
       .subscribe((response: RemoteData<NoContent>) => {

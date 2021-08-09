@@ -27,6 +27,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.ut
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { MetadataSecurityConfigurationService } from '../../../../../../core/submission/metadatasecurityconfig-data.service';
+import { of as observableOf } from 'rxjs';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -142,8 +144,23 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let debugElement: DebugElement;
   let modelValue: any;
   let html;
-
+  let submissionServiceStub: SubmissionServiceStub;
   const vocabularyService: any = new VocabularyServiceStub();
+
+  const metadataSecurityConfiguration = {
+    'uuid': 'test',
+    'metadataSecurityDefault': [
+      0,
+      1
+    ],
+    'metadataCustomSecurity': {},
+    'type': 'securitysetting',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/server/api/core/securitysettings/test'
+      }
+    }
+  };
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
@@ -172,6 +189,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
+        MetadataSecurityConfigurationService,
         NgbModal,
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: Store, useClass: StoreMock },
@@ -214,12 +232,13 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     });
 
     describe('when init model value is empty', () => {
+
       beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
 
         groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
         debugElement = groupFixture.debugElement;
         groupComp = groupFixture.componentInstance; // FormComponent test instance
-
+        submissionServiceStub = TestBed.inject(SubmissionService as any);
         groupComp.group = FORM_GROUP_TEST_GROUP;
         groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         groupFixture.detectChanges();
@@ -237,6 +256,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should save a new chips item', () => {
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurityConfiguration));
         modelValue = [{
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
           'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
@@ -258,7 +278,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
         debugElement = groupFixture.debugElement;
         groupComp = groupFixture.componentInstance; // FormComponent test instance
-
+        submissionServiceStub = TestBed.inject(SubmissionService as any);
         groupComp.group = FORM_GROUP_TEST_GROUP;
         groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         modelValue = [{
@@ -281,7 +301,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should modify existing chips item', inject([FormBuilderService], (service: FormBuilderService) => {
-
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurityConfiguration));
         const modalRef = groupComp.onChipSelected(0);
         groupFixture.detectChanges();
 

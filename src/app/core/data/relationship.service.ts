@@ -7,7 +7,7 @@ import {
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems
-} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+} from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';

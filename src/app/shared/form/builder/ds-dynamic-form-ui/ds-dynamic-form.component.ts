@@ -3,37 +3,34 @@ import {
   Component,
   ContentChildren,
   EventEmitter,
-  Input, OnInit,
+  Input,
   Output,
   QueryList,
   ViewChildren
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import {
   DynamicFormComponent,
+  DynamicFormComponentService,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormComponentService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import {DsDynamicFormControlContainerComponent} from './ds-dynamic-form-control-container.component';
-import {getFirstCompletedRemoteData} from "../../../../core/shared/operators";
-import {ConfigurationDataService} from "../../../../core/data/configuration-data.service";
-import {FormService} from "../../form.service";
+import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 
 @Component({
   selector: 'ds-dynamic-form',
   templateUrl: './ds-dynamic-form.component.html'
 })
-export class DsDynamicFormComponent extends DynamicFormComponent implements OnInit {
+export class DsDynamicFormComponent extends DynamicFormComponent {
 
   @Input() formId: string;
   @Input() formGroup: FormGroup;
   @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
-  @Input() entityType: String;
+  @Input() entityType: string;
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -47,40 +44,7 @@ export class DsDynamicFormComponent extends DynamicFormComponent implements OnIn
 
   @ViewChildren(DsDynamicFormControlContainerComponent) components: QueryList<DynamicFormControlContainerComponent>;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, componentService: DynamicFormComponentService,
-              private configurationDataService: ConfigurationDataService,
-              private formService: FormService) {
+  constructor(changeDetectorRef: ChangeDetectorRef, componentService: DynamicFormComponentService) {
     super(changeDetectorRef, componentService);
   }
-
-  ngOnInit() {
-    // for the metadata security we first check if we have group type to make requests
-    if (this.entityType) {
-      this.configurationDataService.findByPropertyName("metadatavalue.visibility." + this.entityType + ".settings").pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe(res1 => {
-        if (res1.state == "Error") {
-          //default fallback lookup
-          this.configurationDataService.findByPropertyName("metadatavalue.visibility.settings").pipe(
-            getFirstCompletedRemoteData(),
-          ).subscribe(res => {
-            const notifyForEntityAndSecurity ={
-              entityType: this.entityType,
-              securityConfig: parseInt(res.payload.values[0])
-            }
-            this.formService.entityTypeAndSecurityfallBack.next(notifyForEntityAndSecurity)
-          })
-        } else {
-          if (res1.state == "Success") {
-            const notifyForEntityAndSecurity ={
-              entityType: this.entityType,
-              securityConfig: parseInt(res1.payload.values[0])
-            }
-            this.formService.entityTypeAndSecurityfallBack.next(notifyForEntityAndSecurity)
-          }
-        }
-      })
-    }
-  }
-
 }

@@ -59,6 +59,7 @@ function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
 const sectionObject: SectionDataObject = {
   config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
   mandatory: true,
+  opened: true,
   data: {},
   errorsToShow: [],
   serverValidationErrors: [],
@@ -185,6 +186,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: 'entityType', useValue: 'Publication' },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionformComponent
@@ -250,6 +252,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       formService.isValid.and.returnValue(observableOf(true));
       formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
+      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(sectionData));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');

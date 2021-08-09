@@ -7,7 +7,7 @@ import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/emp
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
-import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -19,7 +19,7 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
-} from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
+} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';

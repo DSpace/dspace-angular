@@ -8,6 +8,7 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 
+
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
 @Component({
@@ -48,7 +49,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   disabledMonth = true;
   disabledDay = true;
-
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
   ) {
@@ -57,9 +57,9 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   ngOnInit() {
     const now = new Date();
-    this.initialYear = now.getFullYear();
-    this.initialMonth = now.getMonth() + 1;
-    this.initialDay = now.getDate();
+    this.initialYear = now.getUTCFullYear();
+    this.initialMonth = now.getUTCMonth() + 1;
+    this.initialDay = now.getUTCDate();
 
     if (this.model && this.model.value !== null) {
       const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
@@ -78,9 +78,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
         this.day = this.initialDay;
       }
     }
-
     this.maxYear = this.initialYear + 100;
-
   }
 
   onBlur(event) {
