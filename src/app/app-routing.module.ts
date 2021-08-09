@@ -16,10 +16,11 @@ import {
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH,
 } from './app-routing-paths';
-import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
-import { ITEM_MODULE_PATH } from './+item-page/item-page-routing-paths';
+import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
+import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
@@ -38,7 +39,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           { path: 'reload/:rnd', component: ThemedPageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
           {
             path: 'home',
-            loadChildren: () => import('./+home-page/home-page.module')
+            loadChildren: () => import('./home-page/home-page.module')
               .then((m) => m.HomePageModule),
             data: { showBreadcrumbs: false },
             canActivate: [EndUserAgreementCurrentUserGuard]
@@ -51,13 +52,13 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           },
           {
             path: 'id',
-            loadChildren: () => import('./+lookup-by-id/lookup-by-id.module')
+            loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
               .then((m) => m.LookupIdModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'handle',
-            loadChildren: () => import('./+lookup-by-id/lookup-by-id.module')
+            loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
               .then((m) => m.LookupIdModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
@@ -75,48 +76,54 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           },
           {
             path: COMMUNITY_MODULE_PATH,
-            loadChildren: () => import('./+community-page/community-page.module')
+            loadChildren: () => import('./community-page/community-page.module')
               .then((m) => m.CommunityPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: COLLECTION_MODULE_PATH,
-            loadChildren: () => import('./+collection-page/collection-page.module')
+            loadChildren: () => import('./collection-page/collection-page.module')
               .then((m) => m.CollectionPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: ITEM_MODULE_PATH,
-            loadChildren: () => import('./+item-page/item-page.module')
+            loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           { path: 'entities/:entity-type',
-            loadChildren: () => import('./+item-page/item-page.module')
+            loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
+            path: LEGACY_BITSTREAM_MODULE_PATH,
+            loadChildren: () => import('./bitstream-page/bitstream-page.module')
+              .then((m) => m.BitstreamPageModule),
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          {
             path: BITSTREAM_MODULE_PATH,
-            loadChildren: () => import('./+bitstream-page/bitstream-page.module')
+            loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'mydspace',
-            loadChildren: () => import('./+my-dspace-page/my-dspace-page.module')
+            loadChildren: () => import('./my-dspace-page/my-dspace-page.module')
               .then((m) => m.MyDSpacePageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'search',
-            loadChildren: () => import('./+search-page/search-page-routing.module')
+            loadChildren: () => import('./search-page/search-page-routing.module')
               .then((m) => m.SearchPageRoutingModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'browse',
-            loadChildren: () => import('./+browse-by/browse-by-page.module')
+            loadChildren: () => import('./browse-by/browse-by-page.module')
               .then((m) => m.BrowseByPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
@@ -127,41 +134,41 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           },
           {
             path: ADMIN_MODULE_PATH,
-            loadChildren: () => import('./+admin/admin.module')
+            loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
             canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
-            loadChildren: () => import('./+login-page/login-page.module')
+            loadChildren: () => import('./login-page/login-page.module')
               .then((m) => m.LoginPageModule),
           },
           {
             path: 'logout',
-            loadChildren: () => import('./+logout-page/logout-page.module')
+            loadChildren: () => import('./logout-page/logout-page.module')
               .then((m) => m.LogoutPageModule),
           },
           {
             path: 'submit',
-            loadChildren: () => import('./+submit-page/submit-page.module')
+            loadChildren: () => import('./submit-page/submit-page.module')
               .then((m) => m.SubmitPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'import-external',
-            loadChildren: () => import('./+import-external-page/import-external-page.module')
+            loadChildren: () => import('./import-external-page/import-external-page.module')
               .then((m) => m.ImportExternalPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'workspaceitems',
-            loadChildren: () => import('./+workspaceitems-edit-page/workspaceitems-edit-page.module')
+            loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page.module')
               .then((m) => m.WorkspaceitemsEditPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: WORKFLOW_ITEM_MODULE_PATH,
-            loadChildren: () => import('./+workflowitems-edit-page/workflowitems-edit-page.module')
+            loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page.module')
               .then((m) => m.WorkflowItemsEditPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },

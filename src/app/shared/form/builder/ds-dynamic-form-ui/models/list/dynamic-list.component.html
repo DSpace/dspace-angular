@@ -11,6 +11,7 @@
       <div  *ngFor="let item of columnItems" class="custom-control custom-checkbox">
 
           <input type="checkbox" class="custom-control-input"
+                 [attr.aria-labelledby]="'label_' + model.id"
                  [attr.tabindex]="item.index"
                  [checked]="item.value"
                  [id]="model.id + item.id"

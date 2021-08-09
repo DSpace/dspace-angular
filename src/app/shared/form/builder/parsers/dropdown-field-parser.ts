@@ -5,6 +5,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   SUBMISSION_ID
 } from './field-parser';
 import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
@@ -22,9 +23,10 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(SUBMISSION_ID) submissionId: string,
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
-    @Inject(PARSER_OPTIONS) parserOptions: ParserOptions
+    @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
+    @Inject(SECURITY_CONFIG)  securityConfig: any = null
   ) {
-    super(submissionId, configData, initFormValues, parserOptions);
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig);
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
@@ -33,9 +35,7 @@ export class DropdownFieldParser extends FieldParser {
 
     if (isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       this.setVocabularyOptions(dropdownModelConfig, this.parserOptions.collectionUUID);
-      if (isNotEmpty(fieldValue)) {
-        dropdownModelConfig.value = fieldValue;
-      }
+      this.setValues(dropdownModelConfig, fieldValue, true);
       layout = {
         element: {
           control: 'col'

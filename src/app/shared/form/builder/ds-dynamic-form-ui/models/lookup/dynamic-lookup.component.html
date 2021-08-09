@@ -11,6 +11,7 @@
          [authorityValue]="model.value"
          (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted(sdRef, $event)"></i>
       <input class="form-control"
+             [attr.aria-labelledby]="'label_' + model.id"
              [attr.autoComplete]="model.autoComplete"
              [class.is-invalid]="showErrorMessages"
              [id]="model.id"
@@ -30,6 +31,7 @@
     <div *ngIf="isLookupName()" class="col" >
       <input  class="form-control"
               [ngClass]="{}"
+              [attr.aria-labelledby]="'label_' + model.id"
               [attr.autoComplete]="model.autoComplete"
               [class.is-invalid]="showErrorMessages"
               [id]="id"
@@ -92,7 +94,7 @@
        class="dropdown-menu scrollable-dropdown-menu w-100"
        aria-haspopup="true"
        aria-expanded="false"
-       aria-labelledby="scrollableDropdownMenuButton">
+       [attr.aria-labelledby]="'label_' + model.id">
     <div class="scrollable-menu"
          aria-labelledby="scrollableDropdownMenuButton"
          infiniteScroll
@@ -120,7 +122,7 @@
 </div>
 
 <ng-template #hasInfo let-entry="entry">
-  <ul class="list-unstyled mb-0">
+  <ul class="list-unstyled mb-0" [attr.aria-labelledby]="'label_' + model.id">
     <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
     <ng-container *ngFor="let item of entry.otherInformation | dsObjNgFor">
       <li *ngIf="!item.key.startsWith('data-')" class="list-item text-truncate text-secondary"  >
@@ -131,7 +133,7 @@
 </ng-template>
 
 <ng-template #noInfo let-entry="entry">
-  <ul class="list-unstyled mb-0">
+  <ul class="list-unstyled mb-0" [attr.aria-labelledby]="'label_' + model.id">
     <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
   </ul>
 </ng-template>

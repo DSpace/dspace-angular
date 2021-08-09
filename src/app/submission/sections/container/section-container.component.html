@@ -1,34 +1,37 @@
 <div dsSection #sectionRef="sectionRef"
-     [attr.id]="sectionData.id"
+     [attr.id]="'section_' + sectionData.id"
      [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() && !(isRemoving | async) }"
      [mandatory]="sectionData.mandatory"
+     [opened]="sectionData.opened"
      [submissionId]="submissionId"
      [sectionType]="sectionData.sectionType"
      [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion"
                  *ngIf="(sectionRef.isEnabled() | async)"
                  (panelChange)="sectionRef.sectionChange($event)"
-                 activeIds="{{ sectionData.id }}"
+                 activeIds="{{ sectionRef.isOpened() ? [sectionRef.sectionId] : [] }}"
                  [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
-        <span class="float-left">{{ 'submission.sections.'+sectionData.header | translate }}</span>
+        <span class="float-left section-title" tabindex="0">{{ 'submission.sections.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
           <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-warning mr-3"
-             aria-hidden="true"></i>
+             aria-hidden="true" title="{{'submission.sections.status.warnings.title' | translate}}"></i>
           <i *ngIf="(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-danger mr-3"
-             aria-hidden="true"></i>
+             aria-hidden="true" title="{{'submission.sections.status.errors.title' | translate}}"></i>
           <i *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-check-circle text-success mr-3"
-             aria-hidden="true"></i>
-          <a class="close" aria-label="Close">
-            <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"
-                  aria-hidden="true"></span>
-            <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"
-                  aria-hidden="true"></span>
+             aria-hidden="true" title="{{'submission.sections.status.valid.title' | translate}}"></i>
+          <a class="close"
+             tabindex="0"
+             role="button"
+             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate"
+             [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
+            <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"></span>
+            <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
           </a>
           <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory() && !(sectionRef.isReadOnly() | async)"
              (click)="removeSection($event)">
-            <i *ngIf="!(isRemoving | async)" class="far fa-trash-alt" aria-hidden="true"></i>
+            <i *ngIf="!(isRemoving | async)" class="far fa-trash-alt" aria-hidden="true" tabindex="0"></i>
             <i *ngIf="(isRemoving | async)" class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
           </a>
         </div>

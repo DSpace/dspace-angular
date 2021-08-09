@@ -44,6 +44,7 @@ import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/w
 import { SectionsType } from '../sections/sections-type';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * An interface to represent section object state
@@ -63,6 +64,11 @@ export interface SubmissionSectionObject {
    * A boolean representing if this section is mandatory
    */
   mandatory: boolean;
+
+  /**
+   * A boolean representing if this section is opened or collapsed by default
+   */
+  opened: boolean;
 
   /**
    * The section type
@@ -95,12 +101,12 @@ export interface SubmissionSectionObject {
   data: WorkspaceitemSectionDataType;
 
   /**
-   * The list of the section's errors to show
+   * The list of the section's errors to show. It contains the error list to display when section is not pristine
    */
   errorsToShow: SubmissionSectionError[];
 
   /**
-   * The list of the section's errors detected by the server
+   * The list of the section's errors detected by the server. They may not be shown yet if section is pristine
    */
   serverValidationErrors: SubmissionSectionError[];
 
@@ -202,6 +208,10 @@ export interface SubmissionObjectEntry {
    * A boolean representing if a submission deposit operation is pending
    */
   depositPending?: boolean;
+  /**
+   * Configurations of security levels for metadatas of an entity type
+   */
+  metadataSecurityConfiguration?: MetadataSecurityConfiguration;
 }
 
 /**
@@ -463,6 +473,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     savePending: false,
     saveDecisionPending: false,
     depositPending: false,
+    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration
   };
   return newState;
 }
@@ -681,6 +692,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             header: action.payload.header,
             config: action.payload.config,
             mandatory: action.payload.mandatory,
+            opened: action.payload.opened,
             sectionType: action.payload.sectionType,
             visibility: action.payload.visibility,
             collapsed: false,

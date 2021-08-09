@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {isEqual, isObject} from 'lodash';
+import { isEqual, isObject } from 'lodash';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -10,21 +10,21 @@ import {
   isDynamicFormControlEvent
 } from '@ng-dynamic-forms/core';
 
-import {hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined} from '../../../shared/empty.util';
-import {JsonPatchOperationPathCombiner} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import {FormFieldPreviousValueObject} from '../../../shared/form/builder/models/form-field-previous-value-object';
-import {JsonPatchOperationsBuilder} from '../../../core/json-patch/builder/json-patch-operations-builder';
-import {FormFieldLanguageValueObject} from '../../../shared/form/builder/models/form-field-language-value.model';
-import {DsDynamicInputModel} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import {VocabularyEntry} from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import {FormBuilderService} from '../../../shared/form/builder/form-builder.service';
-import {FormFieldMetadataValueObject} from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import {DynamicQualdropModel} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import {DynamicRelationGroupModel} from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import {VocabularyEntryDetail} from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import {deepClone} from 'fast-json-patch';
-import {dateToString, isNgbDateStruct} from '../../../shared/date.util';
-import {DynamicRowArrayModel} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { deepClone } from 'fast-json-patch';
+import { dateToString, isNgbDateStruct } from '../../../shared/date.util';
+import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 /**
  * The service handling all form section operations
@@ -198,35 +198,6 @@ export class SectionFormOperationsService {
 
     return path;
   }
-
-  public getSecurityLevelsFromQualdropModel(event: DynamicFormControlEvent): number[] {
-    try {
-      let securities = [];
-      const context = this.formBuilder.isQualdropGroup(event.model)
-        ? (event.model.parent as DynamicFormArrayGroupModel).context
-        : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
-      context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
-        const groupModel = arrayModel.group[0] as DynamicQualdropModel;
-        groupModel.group.map((groupModel: any) => {
-          if (groupModel['securityLevel'] != undefined) {
-            let metadataToBeAdded
-            securities.push(groupModel['securityLevel'])
-          } else {
-            if (groupModel.metadataValue) {
-              if (groupModel.metadataValue.securityLevel !== undefined) {
-                securities.push(groupModel.metadataValue.securityLevel)
-              }
-            }
-          }
-        })
-      });
-      return securities;
-    } catch (error) {
-      return [];
-    }
-
-  }
-
   /**
    * Return the segmented path for the field interesting in the specified change operation
    *
@@ -276,7 +247,7 @@ export class SectionFormOperationsService {
         }
       } else {
         // Language without Authority (input, textArea)
-        if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
+        if ((event.model as any).hasSecurityLevel) {
           const securityLevel = (event.model as any).securityLevel;
           fieldValue = new FormFieldMetadataValueObject(value, language, securityLevel);
         } else {
@@ -285,7 +256,7 @@ export class SectionFormOperationsService {
 
       }
     } else if (isNgbDateStruct(value)) {
-      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
+      if ((event.model as any).hasSecurityLevel) {
         const securityLevel = (event.model as any).metadataValue.securityLevel;
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
       } else {
@@ -295,8 +266,8 @@ export class SectionFormOperationsService {
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
-      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel != undefined) {
-        const securityLevel = (event.model as any).securityLevel
+      if ((event.model as any).hasSecurityLevel) {
+        const securityLevel = (event.model as any).securityLevel;
         fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
       } else {
         fieldValue = new FormFieldMetadataValueObject(value);
@@ -414,10 +385,10 @@ export class SectionFormOperationsService {
     }
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
-    let value = this.getFieldValueFromChangeEvent(event);
-    if (event.model['securityLevel'] != null) {
-      if (typeof value != 'string') {
-        value.securityLevel = event.model['securityLevel']
+    const value = this.getFieldValueFromChangeEvent(event);
+    if ((event.model as any).securityLevel !== null && (event.model as any).securityLevel !== undefined) {
+      if (typeof value !== 'string') {
+        value.securityLevel = (event.model as any).securityLevel;
       }
     }
     // Detect which operation must be dispatched
@@ -503,27 +474,11 @@ export class SectionFormOperationsService {
       const path = this.getQualdropItemPathFromEvent(event);
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     } else {
-      let securities = null
-      if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
-        || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel))
-        securities = this.getSecurityLevelsFromQualdropModel(event)
       if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
         previousValue.value.forEach((entry, index) => {
-          let currentValue = currentValueMap.get(index);
+          const currentValue = currentValueMap.get(index);
           if (currentValue) {
             if (!isEqual(entry, currentValue)) {
-              if (Array.isArray(currentValue)) {
-                if (securities) {
-                  currentValue = currentValue.map((el, index) => {
-                    if (typeof el == 'string') {
-                      return {
-                        value: el,
-                        securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
-                      }
-                    } else return el
-                  })
-                }
-              }
               this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
             }
             currentValueMap.delete(index);
@@ -537,16 +492,6 @@ export class SectionFormOperationsService {
           // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
         } else {
-          entry = entry.map((el, index) => {
-            if (typeof el == 'string') {
-              return {
-                value: el,
-                securityLevel: securities ? securities[index] !== undefined ? securities[index] : null : null
-              }
-            } else return el
-          })
-          // add one by one to ensure
-
           this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
         }
       });
@@ -615,16 +560,16 @@ export class SectionFormOperationsService {
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else {
       const path = this.getFieldPathFromEvent(event);
-      let value = this.getFieldValueFromChangeEvent(event);
-      if (event.model['securityLevel'] != null && event.model['securityLevel'] != undefined) {
-        if (value && typeof value == 'string') {
+      const value = this.getFieldValueFromChangeEvent(event);
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel !== undefined) {
+        if (value && typeof value === 'string') {
           this.operationsBuilder.replace(
             pathCombiner.getPath(path),
-            value, false, event.model['securityLevel']);
+            value, false, (event.model as any).securityLevel);
         } else {
           this.operationsBuilder.replace(
             pathCombiner.getPath(path),
-            value, false, event.model['securityLevel']);
+            value, false, (event.model as any).securityLevel);
         }
         previousValue.delete();
       }

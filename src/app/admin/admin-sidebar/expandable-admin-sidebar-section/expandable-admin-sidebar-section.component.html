@@ -1,0 +1,27 @@
+<li class="sidebar-section" [ngClass]="{'expanded': (expanded | async)}"
+    [@bgColor]="{
+     value: ((expanded | async) ? 'endBackground' : 'startBackground'),
+     params: {endColor: (sidebarActiveBg | async)}}">
+    <div class="icon-wrapper">
+        <a class="nav-item nav-link shortcut-icon" attr.aria.labelledby="sidebarName-{{section.id}}" [title]="('menu.section.icon.' + section.id) | translate" (click)="toggleSection($event)" href="javascript:void(0);">
+            <i class="fas fa-{{section.icon}} fa-fw"></i>
+        </a>
+    </div>
+    <div class="sidebar-collapsible">
+        <a class="nav-item nav-link" href="javascript:void(0);" tabindex="-1"
+           (click)="toggleSection($event)">
+            <span id="sidebarName-{{section.id}}" class="section-header-text">
+                <ng-container
+                        *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+            </span>
+            <i class="fas fa-chevron-right fa-pull-right"
+               [@rotate]="(expanded | async) ? 'expanded' : 'collapsed'" [title]="('menu.section.toggle.' + section.id) | translate"></i>
+        </a>
+        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(expanded | async)">
+            <li *ngFor="let subSection of (subSections$ | async)">
+                <ng-container
+                        *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+            </li>
+        </ul>
+    </div>
+</li>

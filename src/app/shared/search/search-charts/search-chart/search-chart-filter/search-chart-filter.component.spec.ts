@@ -18,7 +18,7 @@ import { RouterStub } from '../../../../testing/router.stub';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SearchChartFilterComponent } from './search-chart-filter.component';
 import { createPaginatedList } from '../../../../testing/utils.test';

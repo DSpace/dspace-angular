@@ -17,6 +17,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { WORKFLOW_TASK_OPTION_RETURN_TO_POOL } from './return-to-pool/claimed-task-actions-return-to-pool.component';
+import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 /**
  * This component represents actions related to ClaimedTask object.
@@ -85,6 +86,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    */
   initObjects(object: ClaimedTask) {
     this.object = object;
+
     this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       filter((rd: RemoteData<WorkflowItem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
       map((rd: RemoteData<WorkflowItem>) => rd.payload),
@@ -98,6 +100,21 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    */
   initAction(object: ClaimedTask) {
     this.actionRD$ = object.action;
+  }
+
+  /**
+   * Check if claimed task actions should display a view item button.
+   * @param workflowAction
+   */
+  hasViewAction(workflowAction: WorkflowAction) {
+    return !workflowAction?.options.includes('submit_edit_metadata');
+  }
+
+  /**
+   * Get the workflowitem view route.
+   */
+  getWorkflowItemViewRoute(workflowitem: WorkflowItem): string {
+    return getWorkflowItemViewRoute(workflowitem?.id);
   }
 
 }

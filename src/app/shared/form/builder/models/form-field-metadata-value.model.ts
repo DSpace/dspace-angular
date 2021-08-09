@@ -1,7 +1,7 @@
-import {hasValue, isEmpty, isNotEmpty, isNotNull} from '../../../empty.util';
-import {ConfidenceType} from '../../../../core/shared/confidence-type';
-import {MetadataValueInterface, VIRTUAL_METADATA_PREFIX} from '../../../../core/shared/metadata.models';
-import {PLACEHOLDER_PARENT_METADATA} from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
+import { ConfidenceType } from '../../../../core/shared/confidence-type';
+import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
+import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {
   [name: string]: string;
@@ -35,7 +35,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     this.language = language;
     this.authority = authority;
     this.display = display || value;
-    this.securityLevel = securityLevel
+    this.securityLevel = securityLevel;
     this.confidence = confidence;
     if (authority != null && (isEmpty(confidence) || confidence === -1)) {
       this.confidence = ConfidenceType.CF_ACCEPTED;

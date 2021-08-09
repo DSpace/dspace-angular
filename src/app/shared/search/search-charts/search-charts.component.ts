@@ -3,7 +3,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';

@@ -4,8 +4,10 @@ import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { Context } from '../../../../../../core/shared/context.model';
+import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -21,6 +23,10 @@ import { Context } from '../../../../../../core/shared/context.model';
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 
   @Input() hideMetrics = false;
+
+  public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
+    super(truncatableService, dsoNameService);
+  }
 
   /**
    * Route to the item's page

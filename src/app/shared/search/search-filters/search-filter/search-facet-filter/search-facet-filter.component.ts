@@ -23,7 +23,7 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { SearchOptions } from '../../../search-options.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';

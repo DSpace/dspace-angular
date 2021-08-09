@@ -3,6 +3,8 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { isNotEmpty } from '../../../../../shared/empty.util';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -14,6 +16,10 @@ import { isNotEmpty } from '../../../../../shared/empty.util';
  * The component for displaying a list element for an item search result of the type Person
  */
 export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
+
+  public constructor(protected truncatableService: TruncatableService, protected dsoNameService: DSONameService) {
+    super(truncatableService, dsoNameService);
+  }
 
   getPersonName(): string {
     let personName = this.dso.name;

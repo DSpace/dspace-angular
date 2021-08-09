@@ -4,9 +4,9 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { hasValue } from '../../empty.util';
-import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { MyDSpaceConfigurationValueType } from '../../../+my-dspace-page/my-dspace-configuration-value-type';
+import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { currentPath } from '../../utils/route.utils';

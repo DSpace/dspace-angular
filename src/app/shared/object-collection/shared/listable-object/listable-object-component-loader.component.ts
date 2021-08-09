@@ -3,10 +3,14 @@ import {
   ComponentFactoryResolver,
   ElementRef,
   Input,
- OnDestroy, OnInit,
- Output, ViewChild
-,
-  EventEmitter
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  EventEmitter,
+  SimpleChanges,
+  OnChanges,
+  ComponentRef
 } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -15,7 +19,7 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue } from '../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
@@ -29,7 +33,7 @@ import { ThemeService } from '../../../theme-support/theme.service';
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
-export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy {
+export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The item or metadata to determine the component for
    */
@@ -118,6 +122,26 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    */
   protected subs: Subscription[] = [];
 
+  /**
+   * The reference to the dynamic component
+   */
+  protected compRef: ComponentRef<Component>;
+
+  /**
+   * The list of input and output names for the dynamic component
+   */
+  protected inAndOutputNames: string[] = [
+      'object',
+      'customData',
+      'index',
+      'linkType',
+      'listID',
+      'showLabel',
+      'context',
+      'viewMode',
+      'value',
+    ];
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private themeService: ThemeService
@@ -129,6 +153,15 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
    */
   ngOnInit(): void {
     this.instantiateComponent(this.object);
+  }
+
+  /**
+   * Whenever the inputs change, update the inputs of the dynamic component
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
+      this.connectInputsAndOutputs();
+    }
   }
 
   ngOnDestroy() {
@@ -148,37 +181,30 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(
+    this.compRef = viewContainerRef.createComponent(
       componentFactory,
       0,
       undefined,
       [
         [this.badges.nativeElement],
       ]);
-    (componentRef.instance as any).object = object;
-    (componentRef.instance as any).index = this.index;
-    (componentRef.instance as any).linkType = this.linkType;
-    (componentRef.instance as any).listID = this.listID;
-    (componentRef.instance as any).showLabel = this.showLabel;
-    (componentRef.instance as any).context = this.context;
-    (componentRef.instance as any).viewMode = this.viewMode;
-    (componentRef.instance as any).value = this.value;
-    (componentRef.instance as any).customData = this.customData;
 
-    if ((componentRef.instance as any).reloadedObject) {
-      (componentRef.instance as any).reloadedObject.pipe(take(1)).subscribe((reloadedObject: DSpaceObject) => {
+    this.connectInputsAndOutputs();
+
+    if ((this.compRef.instance as any).reloadedObject) {
+      (this.compRef.instance as any).reloadedObject.pipe(take(1)).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
-          componentRef.destroy();
+          this.compRef.destroy();
           this.object = reloadedObject;
-          this.instantiateComponent(reloadedObject);
+          this.connectInputsAndOutputs();
           this.contentChange.emit(reloadedObject);
         }
       });
     }
 
 
-    if ((componentRef.instance as any).customEvent) {
-      (componentRef.instance as any).customEvent.subscribe((event: any) => {
+    if ((this.compRef.instance as any).customEvent) {
+      (this.compRef.instance as any).customEvent.subscribe((event: any) => {
         if (event) {
           this.customEvent.emit(event);
         }
@@ -209,4 +235,17 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
                context: Context): GenericConstructor<Component> {
     return getListableObjectComponent(renderTypes, viewMode, context, this.themeService.getThemeName());
   }
+
+  /**
+   * Connect the in and outputs of this component to the dynamic component,
+   * to ensure they're in sync
+   */
+  protected connectInputsAndOutputs(): void {
+    if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
+      this.inAndOutputNames.forEach((name: any) => {
+        this.compRef.instance[name] = this[name];
+      });
+    }
+  }
+
 }

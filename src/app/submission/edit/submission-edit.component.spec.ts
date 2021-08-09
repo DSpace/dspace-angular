@@ -21,6 +21,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -28,6 +29,7 @@ describe('SubmissionEditComponent Component', () => {
   let fixture: ComponentFixture<SubmissionEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let itemDataService: ItemDataService;
+  let metadataSecurityConfigDataService: MetadataSecurityConfigurationService;
   let submissionJsonPatchOperationsServiceStub: SubmissionJsonPatchOperationsServiceStub;
   let router: RouterStub;
 
@@ -44,6 +46,9 @@ describe('SubmissionEditComponent Component', () => {
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
     });
+    metadataSecurityConfigDataService = jasmine.createSpyObj('metadataSecurityConfigDataService', {
+      findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
+    });
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -55,7 +60,9 @@ describe('SubmissionEditComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: ItemDataService, useValue: itemDataService },
+        { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
@@ -132,5 +139,8 @@ describe('SubmissionEditComponent Component', () => {
 
       expect(submissionJsonPatchOperationsServiceStub.deletePendingJsonPatchOperations).toHaveBeenCalled();
     }));
+
   });
+
+
 });

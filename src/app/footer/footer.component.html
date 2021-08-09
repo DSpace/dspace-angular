@@ -1,6 +1,7 @@
-<footer class="top-footer  text-lg-start">
+<footer class="text-lg-start">
+  <div *ngIf="showTopFooter" class="top-footer">
   <!-- Grid container -->
-  <div *ngIf="showTopFooter" class="container p-4">
+    <div class=" container p-4">
     <!--Grid row-->
     <div class="row">
 
@@ -42,10 +43,11 @@
     </div>
     <!--Grid row-->
   </div>
+  </div>
   <!-- Grid container -->
 
   <!-- Copyright -->
-  <div class="footer p-1 d-flex justify-content-center align-items-center text-white">
+  <div class="bottom-footer p-1 d-flex justify-content-center align-items-center text-white">
     <div class="content-container">
       <p class="m-0">
         {{ 'footer.built-with' | translate }}

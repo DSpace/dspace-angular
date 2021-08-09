@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/search-result.model';

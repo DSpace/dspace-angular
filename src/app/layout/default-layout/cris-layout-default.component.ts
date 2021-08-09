@@ -218,8 +218,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),
-      followLink('version', undefined, true, true, true,
-        followLink('versionhistory')),
+      followLink('version', {}, followLink('versionhistory')),
     ).pipe(getFirstSucceededRemoteDataPayload(), tap((item: Item) => (this.item = item)));
   }
 

@@ -132,8 +132,8 @@ export class FormComponent implements OnDestroy, OnInit {
   private getFormGroup(): FormGroup {
     if (!!this.parentFormModel) {
       return this.formGroup.parent as FormGroup;
-
     }
+
     return this.formGroup;
   }
 
@@ -271,21 +271,20 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onCustomEvent(event: any) {
-     this.customEvent.emit(event);
+    this.customEvent.emit(event);
   }
 
   onFocus(event: DynamicFormControlEvent): void {
-     this.formService.setTouched(this.formId, this.formModel, event);
+    this.formService.setTouched(this.formId, this.formModel, event);
     this.focus.emit(event);
   }
 
   onChange(event: DynamicFormControlEvent): void {
-     this.formService.changeForm(this.formId, this.formModel);
+    this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
     if (this.emitChange) {
       this.change.emit(event);
-    }
-  }
+    }}
 
   /**
    * Method called on submit.
@@ -366,5 +365,4 @@ export class FormComponent implements OnDestroy, OnInit {
     const control = group.controls[index] as FormControl;
     return {$event, context, control, group, model, type};
   }
-
 }

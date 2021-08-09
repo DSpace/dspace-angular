@@ -7,8 +7,8 @@ import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction
-} from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
-import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
+import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

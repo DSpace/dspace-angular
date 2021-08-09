@@ -16,9 +16,9 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
-import { hasValueOperator } from '../../empty.util';
+import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions',
@@ -110,41 +110,43 @@ export class ItemVersionsComponent implements OnInit {
    * Initialize all observables
    */
   ngOnInit(): void {
-    this.versionRD$ = this.item.version;
-    this.versionHistoryRD$ = this.versionRD$.pipe(
-      getAllSucceededRemoteData(),
-      getRemoteDataPayload(),
-      hasValueOperator(),
-      switchMap((version: Version) => version.versionhistory)
-    );
-    const versionHistory$ = this.versionHistoryRD$.pipe(
-      getAllSucceededRemoteData(),
-      getRemoteDataPayload(),
-      hasValueOperator(),
-    );
-    const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
-    this.versionsRD$ = observableCombineLatest(versionHistory$, currentPagination).pipe(
-      switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) =>
-        this.versionHistoryService.getVersions(versionHistory.id,
-          new PaginatedSearchOptions({pagination: Object.assign({}, options, { currentPage: options.currentPage })}),
-          true, true, followLink('item'), followLink('eperson')))
-    );
-    this.hasEpersons$ = this.versionsRD$.pipe(
-      getAllSucceededRemoteData(),
-      getRemoteDataPayload(),
-      hasValueOperator(),
-      map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
-      startWith(false)
-    );
-    this.itemPageRoutes$ = this.versionsRD$.pipe(
-      getAllSucceededRemoteDataPayload(),
-      switchMap((versions) => observableCombineLatest(...versions.page.map((version) => version.item.pipe(getAllSucceededRemoteDataPayload())))),
-      map((versions) => {
-        const itemPageRoutes = {};
-        versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
-        return itemPageRoutes;
-      })
-    );
+    if (hasValue(this.item.version)) {
+      this.versionRD$ = this.item.version;
+      this.versionHistoryRD$ = this.versionRD$.pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        hasValueOperator(),
+        switchMap((version: Version) => version.versionhistory)
+      );
+      const versionHistory$ = this.versionHistoryRD$.pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        hasValueOperator(),
+      );
+      const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
+      this.versionsRD$ = observableCombineLatest(versionHistory$, currentPagination).pipe(
+        switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) =>
+          this.versionHistoryService.getVersions(versionHistory.id,
+            new PaginatedSearchOptions({pagination: Object.assign({}, options, { currentPage: options.currentPage })}),
+            true, true, followLink('item'), followLink('eperson')))
+      );
+      this.hasEpersons$ = this.versionsRD$.pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        hasValueOperator(),
+        map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
+        startWith(false)
+      );
+      this.itemPageRoutes$ = this.versionsRD$.pipe(
+        getAllSucceededRemoteDataPayload(),
+        switchMap((versions) => observableCombineLatest(...versions.page.map((version) => version.item.pipe(getAllSucceededRemoteDataPayload())))),
+        map((versions) => {
+          const itemPageRoutes = {};
+          versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
+          return itemPageRoutes;
+        })
+      );
+    }
   }
 
   ngOnDestroy(): void {

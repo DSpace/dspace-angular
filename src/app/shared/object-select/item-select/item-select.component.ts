@@ -6,7 +6,8 @@ import { hasValueOperator, isNotEmpty } from '../../empty.util';
 import { Observable } from 'rxjs';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
   selector: 'ds-item-select',
@@ -33,8 +34,9 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
     [itemId: string]: string
   }>;
 
-  constructor(protected objectSelectService: ObjectSelectService) {
-    super(objectSelectService);
+  constructor(protected objectSelectService: ObjectSelectService,
+              protected authorizationService: AuthorizationDataService ) {
+    super(objectSelectService, authorizationService);
   }
 
   ngOnInit(): void {

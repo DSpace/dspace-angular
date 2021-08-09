@@ -7,7 +7,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
-import { getItemPageRoute } from '../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { Item } from '../shared/item.model';
 import { Community } from '../shared/community.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,9 +16,9 @@ import { CollectionDataService } from '../data/collection-data.service';
 import { Collection } from '../shared/collection.model';
 import { ItemDataService } from '../data/item-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../+item-page/item.resolver';
-import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../../+community-page/community-page-routing-paths';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
