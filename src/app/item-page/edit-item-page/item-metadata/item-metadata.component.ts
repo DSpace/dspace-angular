@@ -22,8 +22,7 @@ import { MetadataSecurityConfigurationService } from '../../../core/submission/m
 @Component({
   selector: 'ds-item-metadata',
   styleUrls: ['./item-metadata.component.scss'],
-  templateUrl: './item-metadata.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './item-metadata.component.html'
 })
 /**
  * Component for displaying an item's metadata edit page

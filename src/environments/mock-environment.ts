@@ -270,5 +270,23 @@ export const environment: Partial<GlobalConfig> = {
         icon: 'fa fa-university'
       }
     ]
+  },
+  security: {
+    levels: [
+      {
+        value: 0,
+        icon: 'fa fa-globe',
+        color: 'green'
+      },
+      {
+        value: 1,
+        icon: 'fa fa-key',
+        color: 'orange'
+      },
+      {
+        value: 2,
+        icon: 'fa fa-lock',
+        color: 'red'
+      }]
   }
 };
