@@ -29,7 +29,7 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Metadata value that we need to show in the template
    */
-  @Input() metadata: MetadataValue;
+  @Input() metadata;
 
   /**
    * Item of the metadata value
