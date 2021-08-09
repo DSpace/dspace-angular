@@ -23,15 +23,6 @@
     <button class="btn btn-primary" [disabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
-<!--     <button class="btn btn-secondary" [disabled]="!researcherProfile"
-            (click)="toggleProfileVisibility(researcherProfile)">
-            <span *ngIf="researcherProfile.visible">
-                <i class="fas fa-eye-slash"></i> {{'researcher.profile.hide' | translate}}
-            </span>
-      <span *ngIf="!researcherProfile.visible">
-                <i class="fas fa-eye"></i> {{'researcher.profile.expose' | translate}}
-            </span>
-    </button> -->
     <button class="btn btn-danger" [disabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
         <span *ngIf="(isProcessingDelete() | async)">
             <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}

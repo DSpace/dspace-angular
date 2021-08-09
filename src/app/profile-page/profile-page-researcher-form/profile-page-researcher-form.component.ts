@@ -28,8 +28,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
   /**
    * The user to display the form for.
    */
-  @Input()
-  user: EPerson;
+  @Input() user: EPerson;
 
   /**
    * The researcher profile to show.
