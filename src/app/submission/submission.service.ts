@@ -686,7 +686,7 @@ export class SubmissionService {
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),
       catchError((errorResponse: ErrorResponse) => {
-        return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
+        return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode || 404);
       })
     );
   }
