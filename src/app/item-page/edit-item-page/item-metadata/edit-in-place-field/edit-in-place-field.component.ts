@@ -21,8 +21,6 @@ import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import 'src/assets/images/keySecurity.png';
-
 
 @Component({
   // tslint:disable-next-line:component-selector
