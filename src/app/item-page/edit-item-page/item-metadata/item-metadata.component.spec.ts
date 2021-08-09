@@ -54,7 +54,7 @@ const metadataSecurity = {
 };
 let routeStub;
 let objectCacheService;
-let submissionServiceStub;
+let metadataSecurityService;
 const mdSchema = Object.assign(new MetadataSchema(), {prefix: 'dc'});
 const mdField1 = Object.assign(new MetadataField(), {
   schema: mdSchema,
@@ -155,11 +155,11 @@ describe('ItemMetadataComponent', () => {
       };
       paginatedMetadataFields = createPaginatedList([mdField1, mdField2, mdField3]);
 
-      metadataFieldService = jasmine.createSpyObj({
+      metadataFieldService = jasmine.createSpyObj('RegistryService',{
         getAllMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields)
       });
 
-      submissionServiceStub = jasmine.createSpyObj({
+      metadataSecurityService = jasmine.createSpyObj('MetadataSecurityConfigurationService',{
         findById: createSuccessfulRemoteDataObject$(metadataSecurity)
       });
 
@@ -199,7 +199,7 @@ describe('ItemMetadataComponent', () => {
           {provide: NotificationsService, useValue: notificationsService},
           {provide: RegistryService, useValue: metadataFieldService},
           {provide: ObjectCacheService, useValue: objectCacheService},
-          {provide: MetadataSecurityConfigurationService, useValue: submissionServiceStub},
+          {provide: MetadataSecurityConfigurationService, useValue: metadataSecurityService},
         ], schemas: [
           NO_ERRORS_SCHEMA
         ]

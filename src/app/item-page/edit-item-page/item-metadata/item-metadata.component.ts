@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -76,7 +76,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
       getFirstCompletedRemoteData()
     ).subscribe(res => {
       this.metadataSecurityConfiguration = res.payload;
-      let securityLevel = [];
+      const securityLevel = [];
       this.item.metadataAsList.forEach((el, index) => {
         if (res.payload.metadataCustomSecurity[el.key]) {
           el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];

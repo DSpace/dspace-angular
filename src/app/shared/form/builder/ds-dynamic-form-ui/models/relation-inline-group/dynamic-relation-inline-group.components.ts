@@ -24,9 +24,9 @@ import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-
 import { setLayout } from '../../../parsers/parser.utils';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
-import {MetadataSecurityConfiguration} from '../../../../../../core/submission/models/metadata-security-configuration';
-import {take} from 'rxjs/operators';
-import {SubmissionService} from '../../../../../../submission/submission.service';
+import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
+import { take } from 'rxjs/operators';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -193,7 +193,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   }
 
   private hasPlaceholder(value: string|FormFieldMetadataValueObject): boolean {
-    return (value instanceof FormFieldMetadataValueObject) ? value.hasPlaceholder() : (isNotEmpty(value) && value === PLACEHOLDER_PARENT_METADATA)
+    return (value instanceof FormFieldMetadataValueObject) ? value.hasPlaceholder() : (isNotEmpty(value) && value === PLACEHOLDER_PARENT_METADATA);
   }
 
   private removeItemFromModelValue(removeIndex) {
