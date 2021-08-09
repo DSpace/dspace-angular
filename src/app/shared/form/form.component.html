@@ -25,7 +25,7 @@
             </button>
             <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
         </div>
-        
+
         <div *ngIf="(!context.notRepeatable) && isInlineGroupForm" class="clearfix pl-4 w-100">
           <div class="btn-group" role="group" aria-label="remove button">
             <button type="button" class="ds-form-add-more btn btn-link"
@@ -37,10 +37,13 @@
           </div>
         </div>
 
-        <div *ngIf="(!context.notRepeatable) && (index === (group.context.groups.length - 1) )" class="clearfix pl-4 w-100 white-background">
+        <div *ngIf="(!context.notRepeatable) && (index === (group.context.groups.length - 1) )" class="clearfix w-100"
+             [class.pl-4]="!isInlineGroupForm"
+             [class.white-background]="isInlineGroupForm">
           <div class="btn-group" role="group" aria-label="remove button">
             <button type="button" class="ds-form-add-more btn btn-link"
                 title="{{'form.add' | translate}}"
+                [class.pl-0]="isInlineGroupForm"
                 [disabled]="isItemReadOnly(context, index)"
                 (click)="insertItem($event, group.context, group.context.groups.length)">
             <span attr.aria-label="{{'form.add' | translate}}"><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
