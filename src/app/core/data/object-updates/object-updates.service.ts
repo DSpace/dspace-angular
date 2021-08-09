@@ -211,9 +211,14 @@ export class ObjectUpdatesService {
    * Calls the saveFieldUpdate method with FieldChangeType.UPDATE
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
+   * @param updatedSecurityConfig
    */
-  saveChangeFieldUpdate(url: string, field: Identifiable) {
-    this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
+  saveChangeFieldUpdate(url: string, field: Identifiable, updatedSecurityConfig = false) {
+    if (!updatedSecurityConfig) {
+      this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
+    } else {
+      this.saveFieldUpdate(url, field, undefined);
+    }
   }
 
   /**
