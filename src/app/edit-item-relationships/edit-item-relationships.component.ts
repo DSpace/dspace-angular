@@ -131,7 +131,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
               protected entityTypeService: EntityTypeService,
               private windowService: HostWindowService,
               private translate: TranslateService,
-              private title : Title
+              private title: Title
   ) {
     this.relationshipType = this.route.snapshot.params.type;
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -167,12 +167,12 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
         const itemType = item.firstMetadataValue('dspace.entity.type');
         this.relationshipConfig = 'RELATION.' + itemType + '.' + this.relationshipType;
 
-        let relationshipTypeTranslated = this.translate.instant(this.relationshipConfig+'.search.results.head');
+        const relationshipTypeTranslated = this.translate.instant( this.relationshipConfig + '.search.results.head' );
 
         this.title.setTitle(relationshipTypeTranslated);
 
         this.searchFilter = `scope=${item.id}`;
-        this.isActive = true; 
+        this.isActive = true;
       })
     );
   }
