@@ -31,11 +31,11 @@ button.ds-form-add-more:focus {
 }
 
 /* align fa-spin */
-.left-addon .far, .left-addon .fas {
+.left-addon .far, .left-addon .fas, .left-addon i {
   left: 0;
 }
 
-.right-addon .far, .right-addon .fas {
+.right-addon .far, .right-addon .fas, .right-addon i {
   right: 0;
 }
 
@@ -46,4 +46,14 @@ button.ds-form-add-more:focus {
 
 .right-addon input {
   padding-right: calc(var(--bs-spacer) * 2.25);
+}
+
+.isInlineGroupForm-delete {
+  margin-bottom: -2.5rem;
+  z-index: var(--bs-zindex-dropdown);
+  padding-right: calc(0.5 * var(--bs-spacer));
+}
+
+.white-background{
+  background-color: #fff;
 }

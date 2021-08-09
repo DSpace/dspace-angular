@@ -35,6 +35,7 @@ import { getMockSectionUploadService } from '../../../../shared/mocks/section-up
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { dateToISOFormat } from '../../../../shared/date.util';
 
 describe('SubmissionSectionUploadFileComponent test suite', () => {
 
@@ -244,8 +245,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       const accessConditionsToSave = [
         { name: 'openaccess' },
-        { name: 'lease', endDate: '2019-01-16T00:00:00Z' },
-        { name: 'embargo', startDate: '2019-01-16T00:00:00Z' },
+        { name: 'lease', endDate: dateToISOFormat('2019-01-16T00:00:00Z') },
+        { name: 'embargo', startDate: dateToISOFormat('2019-01-16T00:00:00Z') },
       ];
       comp.saveBitstreamData(event);
       tick();

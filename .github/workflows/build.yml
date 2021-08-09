@@ -16,6 +16,9 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
+      # When Chrome version is specified, we pin to a specific version of Chrome & ChromeDriver
+      # Comment this out to use the latest release of both.
+      CHROME_VERSION: "90.0.4430.212-1"
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -34,10 +37,20 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install latest Chrome (for e2e tests)
+      # If CHROME_VERSION env variable specified above, then pin to that version.
+      # Otherwise, just install latest version of Chrome.
+      - name: Install Chrome (for e2e tests)
         run: |
-          sudo apt-get update
-          sudo apt-get --only-upgrade install google-chrome-stable -y
+          if [[ -z "${CHROME_VERSION}" ]]
+          then
+             echo "Installing latest stable version"
+             sudo apt-get update
+             sudo apt-get --only-upgrade install google-chrome-stable -y
+          else
+             echo "Installing version ${CHROME_VERSION}"
+             wget -q "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb"
+             sudo dpkg -i "google-chrome-stable_${CHROME_VERSION}_amd64.deb"
+          fi
           google-chrome --version
 
       # https://github.com/actions/cache/blob/main/examples.md#node---yarn
@@ -53,8 +66,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      - name: Install the latest chromedriver compatible with the installed chrome version
-        run: yarn global add chromedriver --detect_chromedriver_version
+      - name: Install latest ChromeDriver compatible with installed Chrome
+        # needs to be npm, the --detect_chromedriver_version flag doesn't work with yarn global
+        run: |
+          npm install -g chromedriver --detect_chromedriver_version
+          chromedriver -v
 
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
@@ -100,6 +116,29 @@ jobs:
         run: |
           chromedriver --url-base='/wd/hub' --port=4444 &
           yarn run e2e:ci
+
+      # Start up the app with SSR enabled (run in background)
+      - name: Start app in SSR (server-side rendering) mode
+        run: |
+          nohup yarn run serve:ssr &
+          printf 'Waiting for app to start'
+          until curl --output /dev/null --silent --head --fail http://localhost:4000/home; do
+            printf '.'
+            sleep 2
+          done
+          echo "App started successfully."
+
+      # Get homepage and verify that the <meta name="title"> tag includes "DSpace".
+      # If it does, then SSR is working, as this tag is created by our MetadataService.
+      # This step also prints entire HTML of homepage for easier debugging if grep fails.
+      - name: Verify SSR (server-side rendering)
+        run: |
+          result=$(wget -O- -q http://localhost:4000/home)
+          echo "$result"
+          echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
+
+      - name: Stop running app
+        run: kill -9 $(lsof -t -i:4000)
 
       - name: Shutdown Docker containers
         run: docker-compose -f ./docker/docker-compose-ci.yml down

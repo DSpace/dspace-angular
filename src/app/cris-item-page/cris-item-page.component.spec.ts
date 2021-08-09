@@ -2,15 +2,19 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrisItemPageComponent } from './cris-item-page.component';
 import { Item } from '../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$, createSuccessfulRemoteDataObject, createPendingRemoteDataObject$ } from '../shared/remote-data.utils';
-import { createRelationshipsObservable } from '../+item-page/simple/item-types/shared/item.component.spec';
+import {
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../shared/remote-data.utils';
+import { createRelationshipsObservable } from '../item-page/simple/item-types/shared/item.component.spec';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemDataService } from '../core/data/item-data.service';
 import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../shared/utils/var.directive';

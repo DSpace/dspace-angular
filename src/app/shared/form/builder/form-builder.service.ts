@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import { Injectable } from '@angular/core';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -17,21 +17,21 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import {isObject, isString, mergeWith} from 'lodash';
+import { isObject, isString, mergeWith } from 'lodash';
 
-import {hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull} from '../../empty.util';
-import {DynamicQualdropModel} from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import {SubmissionFormsModel} from '../../../core/config/models/config-submission-forms.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_TAG} from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import {RowParser} from './parsers/row-parser';
-import {DynamicRelationGroupModel} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import {DynamicRowArrayModel} from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import {DsDynamicInputModel} from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import {FormFieldMetadataValueObject} from './models/form-field-metadata-value.model';
-import {dateToString, isNgbDateStruct} from '../../date.util';
-import {DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP} from './ds-dynamic-form-ui/ds-dynamic-form-constants';
-import {CONCAT_GROUP_SUFFIX, DynamicConcatModel} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import {VIRTUAL_METADATA_PREFIX} from '../../../core/shared/metadata.models';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isObjectEmpty } from '../../empty.util';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { RowParser } from './parsers/row-parser';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { dateToString, isNgbDateStruct } from '../../date.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -137,28 +137,28 @@ export class FormBuilderService extends DynamicFormService {
     const normalizeValue = (controlModel, controlValue, controlModelIndex) => {
       let securityLevel = null;
       if (controlModel instanceof DynamicQualdropModel) {
-        //get the security value inside in the metadataValue of input
+        // get the security value inside in the metadataValue of input
         if (controlModel.group) {
-             controlModel.group.map((formModelDynamic: any) => {
-               if (formModelDynamic.metadataValue) {
-                 if (formModelDynamic.metadataValue.securityLevel !== undefined) {
-                   securityLevel = formModelDynamic.metadataValue.securityLevel
-                 }
-               }
-               else {
-                 if (formModelDynamic.value) {
-                   if (typeof  formModelDynamic.value != 'string') {
-                     if (formModelDynamic.value.securityLevel !== undefined) {
-                       securityLevel = formModelDynamic.value.securityLevel
-                     }
-                   }
-                 }
-               }
-            if (!formModelDynamic.metadataValue && formModelDynamic.value &&  typeof  formModelDynamic.value == 'string') {
-                if (formModelDynamic.securityLevel !== undefined) {
-                  securityLevel = formModelDynamic.securityLevel;
+          controlModel.group.map((formModelDynamic: any) => {
+            if (formModelDynamic.metadataValue) {
+              if (formModelDynamic.metadataValue.securityLevel !== undefined) {
+                securityLevel = formModelDynamic.metadataValue.securityLevel;
+              }
+            } else {
+              if (formModelDynamic.value) {
+                if (typeof formModelDynamic.value !== 'string') {
+                  if (formModelDynamic.value.securityLevel !== undefined) {
+                    securityLevel = formModelDynamic.value.securityLevel;
+                  }
                 }
-           }})
+              }
+            }
+            if (!formModelDynamic.metadataValue && formModelDynamic.value && typeof formModelDynamic.value === 'string') {
+              if (formModelDynamic.securityLevel !== undefined) {
+                securityLevel = formModelDynamic.securityLevel;
+              }
+            }
+          });
         }
       }
       if (controlModel && (controlModel as any).securityLevel !== undefined) {
@@ -193,37 +193,41 @@ export class FormBuilderService extends DynamicFormService {
     };
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): void => {
-      let iterateResult = Object.create({});
+       let iterateResult = Object.create({});
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
-          if (controlModel['securityLevel'] != undefined && controlModel['securityLevel'] != null) {
-            if ((controlModel as any).value)
-              if (typeof ((controlModel as any).value) == 'string') {
-                if ((controlModel as any).metadataValue)
-                  (controlModel as any).metadataValue= new FormFieldMetadataValueObject(
-                    (controlModel as any).metadataValue.value,
-                    (controlModel as any).metadataValue.language,
-                    controlModel['securityLevel'],
-                    (controlModel as any).metadataValue.authority,
-                    (controlModel as any).metadataValue.display,
-                    (controlModel as any).metadataValue.place,
-                    (controlModel as any).metadataValue.confidence,
-                    (controlModel as any).metadataValue.otherInformation,
-                    (controlModel as any).metadataValue.metadata);
-
-              } else {
-                  (controlModel as any).value = new FormFieldMetadataValueObject(
-                    (controlModel as any).value.value,
-                    (controlModel as any).value.language,
-                    controlModel['securityLevel'],
-                    (controlModel as any).value.authority,
-                    (controlModel as any).value.display,
-                    (controlModel as any).value.place,
-                    (controlModel as any).value.confidence,
-                    (controlModel as any).value.otherInformation,
-                    (controlModel as any).value.metadata);
+        if ((controlModel as any).securityLevel !== undefined && (controlModel as any).securityLevel != null) {
+          if ((controlModel as any).value) {
+            if (typeof ((controlModel as any).value) === 'string') {
+              if ((controlModel as any).metadataValue) {
+                (controlModel as any).metadataValue = new FormFieldMetadataValueObject(
+                  (controlModel as any).metadataValue.value,
+                  (controlModel as any).metadataValue.language,
+                  (controlModel as any).securityLevel,
+                  (controlModel as any).metadataValue.authority,
+                  (controlModel as any).metadataValue.display,
+                  (controlModel as any).metadataValue.place,
+                  (controlModel as any).metadataValue.confidence,
+                  (controlModel as any).metadataValue.otherInformation,
+                  (controlModel as any).metadataValue.metadata);
               }
+
+            } else {
+              if (((controlModel as any).value) instanceof FormFieldMetadataValueObject) {
+                (controlModel as any).value = new FormFieldMetadataValueObject(
+                  (controlModel as any).value.value,
+                  (controlModel as any).value.language,
+                  (controlModel as any).securityLevel,
+                  (controlModel as any).value.authority,
+                  (controlModel as any).value.display,
+                  (controlModel as any).value.place,
+                  (controlModel as any).value.confidence,
+                  (controlModel as any).value.otherInformation,
+                  (controlModel as any).value.metadata);
+              }
+            }
           }
+        }
 
 
         if (this.isRowGroup(controlModel) && !this.isCustomOrListGroup(controlModel)) {
@@ -277,18 +281,18 @@ export class FormBuilderService extends DynamicFormService {
               });
           });
         } else if (isNotUndefined((controlModel as any).value) && isNotEmpty((controlModel as any).value)) {
-            // Normalize control value as an array of FormFieldMetadataValueObject
-            const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
-            values.forEach((controlValue, pos) => {
-              controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex));
-            });
+          // Normalize control value as an array of FormFieldMetadataValueObject
+          const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
+          values.forEach((controlValue, pos) => {
+            controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex));
+          });
 
-            if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
-              iterateResult[controlId] = iterateResult[controlId].concat(controlArrayValue);
-            } else {
-              iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
-            }
+          if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
+            iterateResult[controlId] = iterateResult[controlId].concat(controlArrayValue);
+          } else {
+            iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
           }
+        }
       }
       return iterateResult;
     };
@@ -296,13 +300,14 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false, typeBindModel = null, isInnerForm = false): DynamicFormControlModel[] | never {
-    let rows: DynamicFormControlModel[] = [];
-    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
-
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
+                         submissionScope?: string, readOnly = false, typeBindModel = null,
+                         isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
+     let rows: DynamicFormControlModel[] = [];
+     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm);
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly, isInnerForm, securityConfig);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -448,7 +453,6 @@ export class FormBuilderService extends DynamicFormService {
    * @param event
    */
   getMetadataIdsFromEvent(event: DynamicFormControlEvent): string[] {
-
     let model = event.model;
     while (model.parent) {
       model = model.parent as any;
@@ -456,7 +460,6 @@ export class FormBuilderService extends DynamicFormService {
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): string[] => {
       let iterateResult = Object.create({});
-
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
 
@@ -514,5 +517,30 @@ export class FormBuilderService extends DynamicFormService {
 
     return Object.keys(result);
   }
+
+  /**
+   * Add new formbuilder in forma array by copying current formBuilder index
+   * @param index index of formBuilder selected to be copied
+   * @param formArray formArray of the inline group forms
+   * @param formArrayModel formArrayModel model of forms that will be created
+   */
+  copyFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel) {
+
+      const groupModel = formArrayModel.insertGroup(index);
+      const previousGroup = formArray.controls[index] as FormGroup;
+      const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
+      const previousKey = Object.keys(previousGroup.getRawValue())[0];
+      const newKey = Object.keys(newGroup.getRawValue())[0];
+
+      if (!isObjectEmpty(previousGroup.getRawValue()[previousKey])) {
+        newGroup.get(newKey).setValue(previousGroup.getRawValue()[previousKey]);
+      }
+
+      formArray.insert(index, newGroup);
+
+      return newGroup;
+  }
+
+
 
 }

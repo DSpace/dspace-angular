@@ -22,7 +22,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 @dataService(SUBMISSION_CC_LICENSE_URL)
 export class SubmissionCcLicenseUrlDataService extends DataService<SubmissionCcLicenceUrl> {
 
-  protected linkPath = 'submissioncclicenseUrl-search';
+  protected linkPath = 'submissioncclicenseUrls-search';
 
   constructor(
     protected comparator: DefaultChangeAnalyzer<SubmissionCcLicenceUrl>,

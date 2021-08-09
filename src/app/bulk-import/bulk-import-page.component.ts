@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { getCollectionPageRoute } from '../+collection-page/collection-page-routing-paths';
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { RemoteData } from '../core/data/remote-data';

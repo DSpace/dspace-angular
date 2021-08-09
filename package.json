@@ -124,6 +124,7 @@
     "ngx-moment": "^5.0.0",
     "ngx-pagination": "5.0.0",
     "ngx-sortablejs": "^10.0.0",
+    "ngx-ui-switch": "^12.0.1",
     "nouislider": "^14.6.3",
     "pem": "1.14.4",
     "postcss-cli": "^8.3.0",

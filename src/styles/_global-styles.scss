@@ -40,10 +40,6 @@ ds-admin-sidebar {
   z-index: var(--ds-sidebar-z-index);
 }
 
-.ds-full-screen-loader {
-  height: 100vh;
-}
-
 .sticky-top {
   z-index: 0;
 }
@@ -62,4 +58,16 @@ ds-admin-sidebar {
   button {
     display: none;
   }
+}
+
+button.switch{
+  outline:none;
+}
+
+.switch-label-checked{
+  color: #fff;
+  font-weight: 600;
+}
+.switch-label-unchecked{
+  font-weight: 500;
 }

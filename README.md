@@ -3,7 +3,7 @@
 dspace-angular
 ==============
 
-> The next UI for DSpace-CRIS 7, based on Angular Universal.
+> The DSpace-CRIS 7 User Interface built on [Angular](https://angular.io/), written in [TypeScript](https://www.typescriptlang.org/) and using [Angular Universal](https://angular.io/guide/universal).
 
 This project is an extension of the DSpace 7 UI. For more information on the DSpace 7 release see the [DSpace 7.0 Release Status wiki page](https://wiki.lyrasis.org/display/DSPACE/DSpace+Release+7.0+Status)
 
@@ -146,6 +146,9 @@ This will build the application and put the result in the `dist` folder.  You ca
 
 
 ### Running the application with Docker
+NOTE: At this time, we do not have production-ready Docker images for DSpace.
+That said, we do have quick-start Docker Compose scripts for development or testing purposes.
+
 See [Docker Runtime Options](docker/README.md)
 
 
@@ -403,8 +406,8 @@ Frequently asked questions
 	-	You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
 -	How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
 	-	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
--	What are the naming conventions for Angular 2?
-	-	See [the official angular 2 style guide](https://angular.io/styleguide)
+-	What are the naming conventions for Angular?
+	-	See [the official angular style guide](https://angular.io/styleguide)
 -	Why is the size of my app larger in development?
 	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
 -	node-pre-gyp ERR in yarn install (Windows)

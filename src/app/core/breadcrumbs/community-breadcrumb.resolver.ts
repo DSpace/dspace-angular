@@ -4,7 +4,7 @@ import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { CommunityDataService } from '../data/community-data.service';
 import { Community } from '../shared/community.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../+community-page/community-page.resolver';
+import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a Community

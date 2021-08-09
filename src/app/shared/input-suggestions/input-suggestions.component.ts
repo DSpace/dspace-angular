@@ -54,6 +54,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   @Input() valid = true;
 
   /**
+   * Label for the input field. Used for screen readers.
+   */
+  @Input() label? = '';
+
+  /**
    * Output for when the form is submitted
    */
   @Output() submitSuggestion = new EventEmitter();

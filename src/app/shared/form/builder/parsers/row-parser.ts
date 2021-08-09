@@ -6,7 +6,14 @@ import { uniqueId } from 'lodash';
 import { isEmpty } from '../../../empty.util';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
-import { CONFIG_DATA, FieldParser, INIT_FORM_VALUES, PARSER_OPTIONS, SUBMISSION_ID } from './field-parser';
+import {
+  CONFIG_DATA,
+  FieldParser,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SECURITY_CONFIG,
+  SUBMISSION_ID
+} from './field-parser';
 import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
@@ -34,7 +41,8 @@ export class RowParser {
                initFormValues: any,
                submissionScope,
                readOnly: boolean,
-               isInnerForm: boolean = false): DynamicRowGroupModel {
+               isInnerForm: boolean = false,
+               securityConfig: any = null): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -66,7 +74,8 @@ export class RowParser {
             { provide: SUBMISSION_ID, useValue: submissionId },
             { provide: CONFIG_DATA, useValue: fieldData },
             { provide: INIT_FORM_VALUES, useValue: initFormValues },
-            { provide: PARSER_OPTIONS, useValue: parserOptions }
+            { provide: PARSER_OPTIONS, useValue: parserOptions },
+            { provide: SECURITY_CONFIG, useValue: securityConfig }
           ],
           parent: this.parentInjector
         });

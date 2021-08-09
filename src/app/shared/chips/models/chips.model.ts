@@ -1,18 +1,18 @@
-import {findIndex, isEqual, isObject} from 'lodash';
-import {BehaviorSubject} from 'rxjs';
-import {ChipsItem, ChipsItemIcon} from './chips-item.model';
-import {hasValue, isNotEmpty} from '../../empty.util';
-import {MetadataIconConfig} from '../../../../config/submission-config.interface';
-import {FormFieldMetadataValueObject} from '../../form/builder/models/form-field-metadata-value.model';
-import {VocabularyEntry} from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import {PLACEHOLDER_PARENT_METADATA} from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { findIndex, isEqual, isObject } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
+import { ChipsItem, ChipsItemIcon } from './chips-item.model';
+import { hasValue, isNotEmpty } from '../../empty.util';
+import { MetadataIconConfig } from '../../../../config/submission-config.interface';
+import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
   displayField: string;
   displayObj: string;
   iconsConfig: MetadataIconConfig[];
-  triggerUpdate: boolean = false;
+  triggerUpdate = false;
 
   private _items: ChipsItem[];
 

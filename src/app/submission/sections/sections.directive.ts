@@ -24,13 +24,13 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * A boolean representing if section is mandatory
    * @type {boolean}
    */
-  @Input() mandatory: boolean = true;
+  @Input() mandatory = true;
 
   /**
    * A boolean representing if section is opened by default
    * @type {boolean}
    */
-  @Input() opened: boolean = true;
+  @Input() opened = true;
 
   /**
    * The section id
@@ -66,7 +66,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    * A boolean representing if section is active
    * @type {boolean}
    */
-  private active: boolean = true;
+  private active = true;
 
   /**
    * A boolean representing if section is enabled

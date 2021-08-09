@@ -1,8 +1,13 @@
-import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicFormGroupModel,
+  DynamicFormGroupModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
 
 import { Subject } from 'rxjs';
 
-import { hasNoValue, isNotEmpty } from '../../../../empty.util';
+import { hasNoValue, isNotEmpty, isNotUndefined } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
@@ -23,6 +28,9 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   submissionId: string;
   hasSelectableMetadata: boolean;
   metadataValue?: MetadataValue;
+  securityLevel?: number;
+  securityConfigLevel?: number[];
+  toggleSecurityVisibility?: boolean;
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
@@ -37,7 +45,9 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: MetadataValue;
-
+  @serializable() securityLevel?: number;
+  @serializable() securityConfigLevel?: number[];
+  @serializable() toggleSecurityVisibility = true;
   isCustomGroup = true;
   valueChanges: Subject<string>;
 
@@ -54,6 +64,11 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
     this.valueChanges = new Subject<string>();
+    this.securityLevel = config.securityLevel;
+    this.securityConfigLevel = config.securityConfigLevel;
+    if (isNotUndefined(config.toggleSecurityVisibility)) {
+      this.toggleSecurityVisibility = config.toggleSecurityVisibility;
+    }
     this.valueChanges.subscribe((value: string) => this.value = value);
   }
 
@@ -100,4 +115,11 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     }
   }
 
+  get hasSecurityLevel(): boolean {
+    return isNotEmpty(this.securityLevel);
+  }
+
+  get hasSecurityToggle(): boolean {
+    return isNotEmpty(this.securityConfigLevel) && this.securityConfigLevel.length > 1 && this.toggleSecurityVisibility;
+  }
 }

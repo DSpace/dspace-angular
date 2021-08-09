@@ -12,7 +12,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing-paths';
+import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({

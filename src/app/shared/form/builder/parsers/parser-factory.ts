@@ -5,6 +5,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   SUBMISSION_ID
 } from './field-parser';
 import { DateFieldParser } from './date-field-parser';
@@ -27,6 +28,7 @@ const fieldParserDeps = [
   CONFIG_DATA,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG
 ];
 
 /**

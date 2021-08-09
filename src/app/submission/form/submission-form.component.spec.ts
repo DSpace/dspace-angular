@@ -11,6 +11,7 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionDefinition,
   mockSubmissionId,
+  mockSubmissionObject,
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
   mockSubmissionState
@@ -25,6 +26,8 @@ import { createTestComponent } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -33,7 +36,9 @@ describe('SubmissionFormComponent Component', () => {
   let fixture: ComponentFixture<SubmissionFormComponent>;
   let authServiceStub: AuthServiceStub;
   let scheduler: TestScheduler;
+  let metadataSecurityConfigDataService: MetadataSecurityConfigurationService;
 
+  const submissionObject: any = mockSubmissionObject;
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
@@ -45,6 +50,9 @@ describe('SubmissionFormComponent Component', () => {
   const sectionsData: any = mockSectionsData;
 
   beforeEach(waitForAsync(() => {
+    metadataSecurityConfigDataService = jasmine.createSpyObj('metadataSecurityConfigDataService', {
+      findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
+    });
     TestBed.configureTestingModule({
       imports: [],
       declarations: [
@@ -55,6 +63,7 @@ describe('SubmissionFormComponent Component', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
         { provide: SectionsService, useValue:
           {
             isSectionTypeAvailable: () => observableOf(true),
@@ -134,7 +143,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.sections = sectionsData;
       comp.submissionErrors = null;
       comp.item = new Item();
-
+      comp.entityType = 'publication';
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
       submissionServiceStub.getSubmissionSections.and.returnValue(observableOf(sectionsList));
       spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
@@ -157,7 +166,8 @@ describe('SubmissionFormComponent Component', () => {
         submissionDefinition,
         sectionsData,
         comp.item,
-        null);
+        null,
+        undefined);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
       done();
     });
@@ -169,6 +179,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
       comp.item = new Item();
+      comp.entityType = 'publication';
 
       scheduler.schedule(() => {
         comp.onCollectionChange(submissionObjectNew);
@@ -188,6 +199,7 @@ describe('SubmissionFormComponent Component', () => {
         submissionObjectNew.submissionDefinition,
         submissionObjectNew.sections,
         comp.item,
+        submissionObject.metadataSecurityConfiguration
       );
       done();
     });
@@ -200,6 +212,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
       comp.item = new Item();
+      comp.entityType = 'publication';
 
       scheduler.schedule(() => {
         comp.onCollectionChange({

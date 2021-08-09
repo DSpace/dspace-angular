@@ -14,7 +14,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { LayoutConfig } from './layout-config.interfaces';
-import {MetadataSecurityConfig} from "./metadata-security-config";
+import { MetadataSecurityConfig } from './metadata-security-config';
 
 export interface GlobalConfig extends Config {
   ui: UIServerConfig;
@@ -26,7 +26,6 @@ export interface GlobalConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   universal: UniversalConfig;
-  logDirectory: string;
   debug: boolean;
   defaultLanguage: string;
   languages: LangConfig[];
@@ -34,8 +33,7 @@ export interface GlobalConfig extends Config {
   item: ItemPageConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
-  rewriteDownloadUrls: boolean;
   mediaViewer: MediaViewerConfig;
   layout: LayoutConfig;
-  security: MetadataSecurityConfig
+  security: MetadataSecurityConfig;
 }

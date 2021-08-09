@@ -39,13 +39,13 @@ describe('CalendarFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null);
 
     expect(parser instanceof CalendarFieldParser).toBe(true);
   });
 
   it('should return a DynamicDatePickerModel object when repeatable option is false', () => {
-    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null);
 
     const fieldModel = parser.parse();
 
@@ -58,7 +58,7 @@ describe('CalendarFieldParser test suite', () => {
     };
     const expectedValue = new NgbDate(1983, 11, 18);
 
-    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null);
 
     const fieldModel = parser.parse();
 

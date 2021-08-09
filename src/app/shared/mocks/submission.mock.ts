@@ -588,6 +588,20 @@ export const mockSubmissionObject = {
       ]
     }
   ],
+  metadataSecurityConfiguration: {
+    'uuid': null,
+    'metadataSecurityDefault': [
+      0,
+      1
+    ],
+    'metadataCustomSecurity': {},
+    'type': 'securitysetting',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/server/api/core/securitysettings'
+      }
+    }
+  },
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },

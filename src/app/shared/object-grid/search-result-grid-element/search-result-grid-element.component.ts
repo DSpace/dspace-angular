@@ -3,13 +3,11 @@ import { Observable } from 'rxjs';
 
 import { SearchResult } from '../../search/search-result.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -65,12 +63,5 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
 
   private isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
-  }
-
-  // TODO refactor to return RemoteData, and thumbnail template to deal with loading
-  getThumbnail(): Observable<Bitstream> {
-    return this.bitstreamDataService.getThumbnailFor(this.dso as any).pipe(
-      getFirstSucceededRemoteDataPayload()
-    );
   }
 }

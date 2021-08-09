@@ -7,7 +7,7 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 import {
     getCollectionCreateRoute,
     COLLECTION_PARENT_PARAMETER
-} from '../../../../+collection-page/collection-page-routing-paths';
+} from '../../../../collection-page/collection-page-routing-paths';
 
 /**
  * Component to wrap a list of existing communities inside a modal

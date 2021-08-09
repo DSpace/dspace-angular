@@ -1,5 +1,4 @@
 import { autoserialize } from 'cerialize';
-
 import { LanguageCode } from './form-field-language-value.model';
 import { RelationshipOptions } from './relationship-options.model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
@@ -128,4 +127,8 @@ export class FormFieldModel {
    */
   @autoserialize
   visibility: SubmissionVisibilityType;
+  /**
+   * The security config values
+   */
+  securityConfigLevel?: number[];
 }

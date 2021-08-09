@@ -7,12 +7,12 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSOSelectorModalWrapperComponent } from '../dso-selector-modal-wrapper.component';
-import { getItemPageRoute } from './../../../../+item-page/item-page-routing-paths';
-import { EPerson } from './../../../../core/eperson/models/eperson.model';
-import { DSpaceObject } from './../../../../core/shared/dspace-object.model';
-import { ViewMode } from './../../../../core/shared/view-mode.model';
-import { ProfileClaimService } from './../../../../profile-page/profile-claim/profile-claim.service';
-import { CollectionElementLinkType } from './../../../../shared/object-collection/collection-element-link.type';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
+import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 
 
 

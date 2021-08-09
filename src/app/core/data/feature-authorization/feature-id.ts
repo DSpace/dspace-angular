@@ -10,6 +10,7 @@ export enum FeatureID {
   ReinstateItem = 'reinstateItem',
   EPersonRegistration = 'epersonRegistration',
   CanManageGroups = 'canManageGroups',
+  CanManageGroup = 'canManageGroup',
   IsCollectionAdmin = 'isCollectionAdmin',
   IsCommunityAdmin = 'isCommunityAdmin',
   CanDownload = 'canDownload',

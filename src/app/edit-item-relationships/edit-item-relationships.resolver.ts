@@ -5,7 +5,6 @@ import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
-import { FindListOptions } from '../core/data/request.models';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Store } from '@ngrx/store';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
@@ -15,13 +14,13 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
  * Requesting them as embeds will limit the number of requests
  */
 export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
-  followLink('owningCollection', undefined, true, true, true,
-    followLink('parentCommunity', undefined, true, true, true,
+  followLink('owningCollection', {},
+    followLink('parentCommunity', {},
       followLink('parentCommunity'))
   ),
-  followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams')),
+  followLink('bundles', {}, followLink('bitstreams')),
   followLink('relationships'),
-  followLink('version', undefined, true, true, true, followLink('versionhistory')),
+  followLink('version', {}, followLink('versionhistory')),
   followLink('metrics')
 ];
 

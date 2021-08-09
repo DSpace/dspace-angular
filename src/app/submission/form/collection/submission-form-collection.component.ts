@@ -28,6 +28,7 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { SectionsType } from '../../sections/sections-type';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -158,7 +159,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.available$ = this.sectionsService.isSectionAvailable(this.submissionId, 'collection');
+    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
     if (this.entityType) {
       this.metadata = 'dspace.entity.type';
     }

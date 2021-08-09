@@ -5,8 +5,10 @@
              [displayCancel]="false"
              [displaySubmit]="false"
              [arrayButtonsStyle]="'inline-btn-group'"
+             [isInlineGroupForm]="true"
              (dfBlur)="onBlur($event)"
              (dfChange)="onChange($event)"
              (dfFocus)="onFocus($event)"
+             (ngbEvent)="onCustomEvent($event)"
              (removeArrayItem)="remove($event)"></ds-form>
 </div>

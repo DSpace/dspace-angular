@@ -29,6 +29,7 @@ export class DynamicQualdropModel extends DynamicFormGroupModel {
   @serializable() readOnly: boolean;
   @serializable() hint: string;
   @serializable() required: boolean;
+  @serializable() toggleSecurityVisibility?: boolean;
   isCustomGroup = true;
 
   constructor(config: DsDynamicQualdropModelConfig, layout?: DynamicFormControlLayout) {
@@ -45,6 +46,7 @@ export class DynamicQualdropModel extends DynamicFormGroupModel {
     });
 
     this.hint = config.hint;
+    this.toggleSecurityVisibility = false;
   }
 
   get value() {

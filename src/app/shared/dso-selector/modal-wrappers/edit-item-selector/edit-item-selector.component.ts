@@ -4,7 +4,7 @@ import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.mod
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
-import { getItemEditRoute } from '../../../../+item-page/item-page-routing-paths';
+import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
 import { Item } from '../../../../core/shared/item.model';
 
 /**
