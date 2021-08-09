@@ -22,8 +22,7 @@ import { MetadataSecurityConfigurationService } from '../../../core/submission/m
 @Component({
   selector: 'ds-item-metadata',
   styleUrls: ['./item-metadata.component.scss'],
-  templateUrl: './item-metadata.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './item-metadata.component.html'
 })
 /**
  * Component for displaying an item's metadata edit page
@@ -74,20 +73,23 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     }
     // get security configuration based on entity type
     this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
-      getFirstCompletedRemoteData(),
+      getFirstCompletedRemoteData()
     ).subscribe(res => {
       this.metadataSecurityConfiguration = res.payload;
-      this.item.metadataAsList.map(el => {
+      let securityLevel = [];
+      this.item.metadataAsList.forEach((el, index) => {
         if (res.payload.metadataCustomSecurity[el.key]) {
           el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];
-          this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
           this.securityConfigLevels[el.key] = res.payload.metadataCustomSecurity[el.key];
+          securityLevel.push(el);
         } else {
           el.securityConfigurationLevelLimit = res.payload.metadataSecurityDefault;
-          this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(el));
           this.securityConfigLevels[el.key] = res.payload.metadataSecurityDefault;
+          securityLevel.push(el);
         }
       });
+      this.objectUpdatesService.initialize(this.url, securityLevel, this.item.lastModified, MetadataPatchOperationService);
+      this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevel);
     });
   }
 
