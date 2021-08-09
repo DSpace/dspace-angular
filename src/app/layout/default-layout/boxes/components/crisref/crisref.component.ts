@@ -25,8 +25,6 @@ import { TranslateService } from '@ngx-translate/core';
 @MetadataBoxFieldRendering(FieldRenderingType.CRISREF)
 export class CrisrefComponent extends RenderingTypeModelComponent implements OnInit {
 
-  private entity2icon: Map<string, string>;
-
   /**
    * List of item metadatas to show
    */

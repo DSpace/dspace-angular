@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { SharedModule } from '../../../../../shared/shared.module';
 
 describe('CrisrefComponent', () => {
   let component: CrisrefComponent;
@@ -98,7 +99,8 @@ describe('CrisrefComponent', () => {
           }
         }),
         BrowserAnimationsModule,
-        RouterTestingModule
+        RouterTestingModule,
+        SharedModule
       ],
       declarations: [ CrisrefComponent ],
       providers: [
@@ -122,6 +124,8 @@ describe('CrisrefComponent', () => {
     });
 
     it('should has orgunit icon', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
       const icon = fixture.debugElement.query(By.css('.fa-university'));
 
       expect(icon).toBeTruthy();

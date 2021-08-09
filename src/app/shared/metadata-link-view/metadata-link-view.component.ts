@@ -26,14 +26,30 @@ interface MetadataOrcid {
 })
 export class MetadataLinkViewComponent implements OnInit {
 
-  @Input('metadata') metadata;
-  @Input('item') item : Item;
+  /**
+   * Metadata value that we need to show in the template
+   */
+  @Input() metadata: MetadataValue;
 
+  /**
+   * Item of the metadata value
+   */
+  @Input() item: Item;
+
+  /**
+   * Map icons of the respective entity types
+   */
   private entity2icon: Map<string, string>;
 
-  metadata$ : Observable<MetadataOrcid>;
+  /**
+   * Processed metadata to create MetadataOrcid with the informations needed to show
+   */
+  metadata$: Observable<MetadataOrcid>;
 
-  constructor(private itemService: ItemDataService,) { 
+  /**
+   * Map all entities with the icons specified in the envoirment configuration file
+   */
+  constructor(private itemService: ItemDataService) {
     this.entity2icon = new Map();
     const confValue = environment.layout.crisRef;
     confValue.forEach( (config) => {
@@ -41,6 +57,9 @@ export class MetadataLinkViewComponent implements OnInit {
     });
   }
 
+  /**
+   * On init process metadata to get the informations and form MetadataOrcid model
+   */
   ngOnInit(): void {
     this.metadata$ = observableOf(this.metadata).pipe(
         concatMap((metadataValue: MetadataValue) => {
@@ -64,7 +83,7 @@ export class MetadataLinkViewComponent implements OnInit {
                   };
                 }
               }),
-              // tap(res => console.log(res))
+              tap(res => console.log(res))
             );
           } else {
             return observableOf({
@@ -89,6 +108,11 @@ export class MetadataLinkViewComponent implements OnInit {
       this.entity2icon.get('DEFAULT');
   }
 
+  /**
+   * Returns the orcid for given item, or
+   * null if there is no metadata authenticated for persion
+   * @param referencedItem Item of the metadata being shown
+   */
   getOrcid(referencedItem: Item): string {
     if (referencedItem.hasMetadata('cris.orcid.authenticated')) {
       return referencedItem.firstMetadataValue('person.identifier.orcid');
