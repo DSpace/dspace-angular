@@ -68,7 +68,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
       this.updateService = this.itemService;
     }
     // ensure that entity type is not null|undefined and not empty
-    if (!this.item.entityType && this.item.entityType !== '') {
+    if (this.item.entityType && this.item.entityType !== '') {
       // get security configuration based on entity type
       this.metadataSecurityConfigDataService.findById(this.item.entityType).pipe(
         getFirstCompletedRemoteData()
