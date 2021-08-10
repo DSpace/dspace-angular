@@ -29,10 +29,6 @@ import { MetadataSecurityConfigurationService } from '../../../core/submission/m
  */
 export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   /**
-   * Entity Type of collection
-   */
-  entityType: string;
-  /**
    * Configuration levels of security to be sent to child component
    */
   securityConfigLevels: any = {};
@@ -66,31 +62,34 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   /**
    * Set up and initialize all fields
    */
-  async ngOnInit() {
+   ngOnInit() {
     super.ngOnInit();
     if (hasNoValue(this.updateService)) {
       this.updateService = this.itemService;
     }
-    // get security configuration based on entity type
-    this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
-      getFirstCompletedRemoteData()
-    ).subscribe(res => {
-      this.metadataSecurityConfiguration = res.payload;
-      const securityLevel = [];
-      this.item.metadataAsList.forEach((el, index) => {
-        if (res.payload.metadataCustomSecurity[el.key]) {
-          el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];
-          this.securityConfigLevels[el.key] = res.payload.metadataCustomSecurity[el.key];
-          securityLevel.push(el);
-        } else {
-          el.securityConfigurationLevelLimit = res.payload.metadataSecurityDefault;
-          this.securityConfigLevels[el.key] = res.payload.metadataSecurityDefault;
-          securityLevel.push(el);
-        }
+    // ensure that entity type is not null|undefined and not empty
+    if (!this.item.entityType && this.item.entityType !== '') {
+      // get security configuration based on entity type
+      this.metadataSecurityConfigDataService.findById(this.item.entityType).pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe(res => {
+        this.metadataSecurityConfiguration = res.payload;
+        const securityLevel = [];
+        this.item.metadataAsList.forEach((el, index) => {
+          if (res.payload.metadataCustomSecurity[el.key]) {
+            el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];
+            this.securityConfigLevels[el.key] = res.payload.metadataCustomSecurity[el.key];
+            securityLevel.push(el);
+          } else {
+            el.securityConfigurationLevelLimit = res.payload.metadataSecurityDefault;
+            this.securityConfigLevels[el.key] = res.payload.metadataSecurityDefault;
+            securityLevel.push(el);
+          }
+        });
+        this.objectUpdatesService.initialize(this.url, securityLevel, this.item.lastModified, MetadataPatchOperationService);
+        this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevel);
       });
-      this.objectUpdatesService.initialize(this.url, securityLevel, this.item.lastModified, MetadataPatchOperationService);
-      this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevel);
-    });
+    }
   }
 
   /**
@@ -177,29 +176,32 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Checks in metadata security configuration object for new metadata security configuration value
    */
   addMetadata(suggestionControl) {
-    let security = null;
-    if (this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel]) {
-      security = this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel];
-    } else {
-      security = this.metadataSecurityConfiguration.metadataSecurityDefault;
-    }
-    let found = false;
-    this.item.metadataAsList.forEach(el => {
-      if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
-        found = true;
-        el.securityConfigurationLevelLimit = security;
-        el.key = suggestionControl.viewModel;
-        // if new metadata value set the most restricted option of security
-        this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
+    if (this.metadataSecurityConfiguration) {
+      let security = null;
+      if (this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel]) {
+        security = this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel];
+      } else {
+        security = this.metadataSecurityConfiguration.metadataSecurityDefault;
       }
-    });
-    if (!found) {
-      suggestionControl.valueAccessor.metadata.securityConfigurationLevelLimit = security;
-      if (security && security.length > 0) {
-        suggestionControl.valueAccessor.metadata.securityLevel = security[security.length - 1];
+      let found = false;
+      this.item.metadataAsList.forEach(el => {
+        if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
+          found = true;
+          el.securityConfigurationLevelLimit = security;
+          el.key = suggestionControl.viewModel;
+          // if new metadata value set the most restricted option of security
+          this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
+        }
+      });
+      if (!found) {
+        suggestionControl.valueAccessor.metadata.securityConfigurationLevelLimit = security;
+        if (security && security.length > 0) {
+          suggestionControl.valueAccessor.metadata.securityLevel = security[security.length - 1];
+        }
+        this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
       }
-      this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
+      this.securityConfigLevels[suggestionControl.valueAccessor.metadata.key] = security;
     }
-    this.securityConfigLevels[suggestionControl.valueAccessor.metadata.key] = security;
+
   }
 }
