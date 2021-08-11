@@ -32,6 +32,7 @@ import { TableComponent } from './default-layout/boxes/components/table/table.co
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
 import { OrcidComponent } from './default-layout/boxes/components/orcid/orcid.component';
 import { CrisLayoutSidebarItemComponent } from './default-layout/sidebar/sidebar-item/cris-layout-sidebar-item.component';
+import { TagComponent } from './default-layout/boxes/components/tag/tag.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -52,7 +53,8 @@ const ENTRY_COMPONENTS = [
   AttachmentComponent,
   OrcidSyncSettingsComponent,
   OrcidSyncQueueComponent,
-  OrcidAuthorizationsComponent
+  OrcidAuthorizationsComponent,
+  TagComponent
 ];
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ const ENTRY_COMPONENTS = [
     MetricRowComponent,
     TableComponent,
     InlineComponent,
-    CrisLayoutSidebarItemComponent
+    CrisLayoutSidebarItemComponent,
+    TagComponent
   ],
   imports: [
     CommonModule,
