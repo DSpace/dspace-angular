@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BulkImportSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
@@ -48,8 +47,7 @@ export class MyDSpaceNewBulkImportComponent {
    */
   public subs: Subscription[] = [];
 
-  constructor(private modalService: NgbModal,private entityTypeService: EntityTypeService,
-              private router: Router) { }
+  constructor(private modalService: NgbModal,private entityTypeService: EntityTypeService) { }
 
 
   /**

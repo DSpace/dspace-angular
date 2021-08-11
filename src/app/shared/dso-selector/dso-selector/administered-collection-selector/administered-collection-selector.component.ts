@@ -58,7 +58,7 @@ export class AdministeredCollectionSelectorComponent extends DSOSelectorComponen
       elementsPerPage: this.defaultPagination.pageSize
     };
 
-    if( this.entityType && !query ) {
+    if ( this.entityType && !query ) {
       query = this.entityType;
     }
 

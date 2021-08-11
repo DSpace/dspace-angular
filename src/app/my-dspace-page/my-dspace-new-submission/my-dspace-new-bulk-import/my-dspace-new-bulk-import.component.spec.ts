@@ -97,7 +97,7 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
-      const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
+      const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -148,7 +148,7 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
-      const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
+      const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
