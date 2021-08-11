@@ -99,7 +99,7 @@ export class RowComponent implements OnInit {
   computeRendering(field: LayoutField): string | FieldRenderingType {
     let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
 
-    if(field.metadata == 'dc.subject'){
+    if (field.metadata === 'dc.subject') {
       return 'tag';
     }
 
