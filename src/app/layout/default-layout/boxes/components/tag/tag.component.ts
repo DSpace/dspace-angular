@@ -23,10 +23,15 @@ export class TagComponent extends RenderingTypeModelComponent implements OnInit 
     super(translateService);
   }
 
+ /**
+  * This is the chips component which will be rendered in the template
+  */
   public chips: Chips;
 
-  private subs: Subscription[] = [];
-
+ /**
+  * Initializes chips only for the rendered index value if indexToBeRendered is set or
+  * it initializes chips for all values.
+  */
   ngOnInit() {
     if ( this.indexToBeRendered > 0 ) {
       this.initChips([this.metadataValues[this.indexToBeRendered]]);
@@ -35,7 +40,11 @@ export class TagComponent extends RenderingTypeModelComponent implements OnInit 
     }
   }
 
-  private initChips(initChipsValue) {
-    this.chips = new Chips(initChipsValue,'value');
+ /**
+  * Creates the chips component with the required values
+  * @params initChipsValues values to be rendered in chip items
+  */
+  private initChips(initChipsValues: string[]): void {
+    this.chips = new Chips(initChipsValues,'value');
   }
 }

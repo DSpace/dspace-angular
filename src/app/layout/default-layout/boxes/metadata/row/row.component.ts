@@ -100,6 +100,7 @@ export class RowComponent implements OnInit {
     let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
 
     if (field.metadata === 'dc.subject') {
+      console.log(field);
       return 'tag';
     }
 
