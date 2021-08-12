@@ -19,14 +19,14 @@ import { TranslateService } from '@ngx-translate/core';
 @MetadataBoxFieldRendering(FieldRenderingType.TAG)
 export class TagComponent extends RenderingTypeModelComponent implements OnInit {
 
-  constructor (translateService: TranslateService) {
-    super(translateService);
-  }
-
  /**
   * This is the chips component which will be rendered in the template
   */
   public chips: Chips;
+
+  constructor (translateService: TranslateService) {
+    super(translateService);
+  }
 
  /**
   * Initializes chips only for the rendered index value if indexToBeRendered is set or
