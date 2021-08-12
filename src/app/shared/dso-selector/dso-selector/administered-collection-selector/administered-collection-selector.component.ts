@@ -58,11 +58,7 @@ export class AdministeredCollectionSelectorComponent extends DSOSelectorComponen
       elementsPerPage: this.defaultPagination.pageSize
     };
 
-    if ( this.entityType && !query ) {
-      query = this.entityType;
-    }
-
-    return this.collectionDataService.getAdministeredCollection(query, findOptions).pipe(
+    return this.collectionDataService.getAdministeredCollectionByEntityType(query,this.entityType, findOptions).pipe(
       getFirstCompletedRemoteData(),
       map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
         payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
