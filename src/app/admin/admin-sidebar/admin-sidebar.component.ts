@@ -1,7 +1,7 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
-import { debounceTime, first, map, take } from 'rxjs/operators';
+import { combineLatest, combineLatest as observableCombineLatest, Observable, BehaviorSubject } from 'rxjs';
+import { debounceTime, first, map, take, distinctUntilChanged, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
@@ -60,7 +60,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   sidebarExpanded: Observable<boolean>;
 
-  focusInOut$: Subject<FocusEvent>;
+  inFocus$: BehaviorSubject<boolean>;
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
@@ -71,7 +71,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               private scriptDataService: ScriptDataService,
   ) {
     super(menuService, injector);
-    this.focusInOut$ = new Subject();
+    this.inFocus$ = new BehaviorSubject(false);
   }
 
   /**
@@ -96,18 +96,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       .pipe(
         map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
       );
-    combineLatest([
-      this.focusInOut$.pipe(debounceTime(50)),  // disregard focusout in situations like --(focusout)-(focusin)--
-      this.menuCollapsed,
-      this.menuPreviewCollapsed,
-    ]).subscribe(([event, collapsed, previewCollapsed]) => {
-      if (event && collapsed) {
-        if (event.type === 'focusin' && previewCollapsed) {
-          this.expandPreview(event);
-          this.focusInOut$.next(null);  // make sure this event is not the latest one anymore
-        } else if (event.type === 'focusout' && !previewCollapsed) {
-          this.collapsePreview(event);
-          this.focusInOut$.next(null);  // make sure this event is not the latest one anymore
+    this.inFocus$.pipe(
+      debounceTime(50),
+      distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
+      withLatestFrom(
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+      ),
+    ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
+      if (collapsed) {
+        if (inFocus && previewCollapsed) {
+          this.expandPreview(new Event('focusin → expand'));
+        } else if (!inFocus && !previewCollapsed) {
+          this.collapsePreview(new Event('focusout → collapse'));
         }
       }
     });
@@ -608,14 +608,30 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     });
   }
 
-  @HostListener('focusin', ['$event'])
-  public handleFocusIn(event: FocusEvent) {
-    this.focusInOut$.next(event);
+  @HostListener('focusin')
+  public handleFocusIn() {
+    this.inFocus$.next(true);
   }
 
-  @HostListener('focusout', ['$event'])
-  public handleFocusOut(event: FocusEvent) {
-    this.focusInOut$.next(event);
+  @HostListener('focusout')
+  public handleFocusOut() {
+    this.inFocus$.next(false);
+  }
+
+  public handleMouseEnter(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.expandPreview(event);
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  public handleMouseLeave(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.collapsePreview(event);
+    } else {
+      event.preventDefault();
+    }
   }
 
   /**

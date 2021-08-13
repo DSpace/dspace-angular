@@ -4,8 +4,9 @@
       value: (!(sidebarExpanded | async) ? 'collapsed' : 'expanded'),
       params: {sidebarWidth: (sidebarWidth | async)}
      }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)"
-     *ngIf="menuVisible | async" (mouseenter)="expandPreview($event)"
-     (mouseleave)="collapsePreview($event)"
+     *ngIf="menuVisible | async"
+     (mouseenter)="handleMouseEnter($event)"
+     (mouseleave)="handleMouseLeave($event)"
      role="navigation" [attr.aria-label]="'menu.header.admin.description' |translate">
     <div class="sidebar-top-level-items">
         <ul class="navbar-nav">
