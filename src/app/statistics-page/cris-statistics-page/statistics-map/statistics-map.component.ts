@@ -47,8 +47,9 @@ export class StatisticsMapComponent implements OnInit {
     this.chartColumns = [keyColumn, valueColumn];
 
     this.report.points.forEach( (point) => {
+      const idAndLabel = {v: point.id, f: point.label};
       this.data.push([
-        point.label, point.values[valueColumn]
+        idAndLabel, point.values[valueColumn]
       ]);
     });
 
