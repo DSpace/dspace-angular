@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, Injector, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/initial-menus-state';
