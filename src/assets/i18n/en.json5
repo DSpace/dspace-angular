@@ -398,6 +398,8 @@
 
   "admin.access-control.groups.form.members-list.table.name": "Name",
 
+  "admin.access-control.groups.form.members-list.table.email": "Email",
+
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
 
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
