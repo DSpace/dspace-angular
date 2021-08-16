@@ -1272,6 +1272,28 @@
 
   "context-menu.actions.statistics.btn": "Statistics",
 
+  "context-menu.actions.subscription.title": "Subscription",
+
+  "context-menu.actions.subscription.type": "Subscription Type",
+
+  "context-menu.actions.subscription.daily": "Daily",
+
+  "context-menu.actions.subscription.weekly": "Weekly",
+
+  "context-menu.actions.subscription.monthly": "Monthly",
+
+  "context-menu.actions.subscription.content": "Content",
+
+  "context-menu.actions.subscription.statistics": "Statistics",
+
+  "context-menu.actions.subscription.content+statistics": "Content & Statistics",
+
+  "context-menu.actions.subscription.confirm.submit": "Save",
+
+  "context-menu.actions.subscribe.btn": "Subscribe",
+
+  "context-menu.actions.edit-subscriptions.btn": "Edit subscriptions",
+
   "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
 
   "RELATION.Person.projects.search.results.head" : "Projects",
