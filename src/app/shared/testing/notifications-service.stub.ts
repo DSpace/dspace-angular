@@ -9,6 +9,9 @@ export class NotificationsServiceStub {
   remove = jasmine.createSpy('remove');
   removeAll = jasmine.createSpy('removeAll');
 
+  notificationWithAnchor() {
+  }
+
   private getDefaultOptions(): NotificationOptions {
     return new NotificationOptions();
   }

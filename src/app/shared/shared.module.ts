@@ -315,6 +315,7 @@ import { MenuModule } from './menu/menu.module';
 import {
   ListableNotificationObjectComponent
 } from './object-list/listable-notification-object/listable-notification-object.component';
+import { DsoPageSubscriptionButtonComponent } from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 
 const MODULES = [
   CommonModule,
@@ -510,8 +511,8 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
   RelatedItemsComponent,
-  DsoPageOrcidButtonComponent
-
+  DsoPageOrcidButtonComponent,
+  DsoPageSubscriptionButtonComponent,
 ];
 
 const PROVIDERS = [
