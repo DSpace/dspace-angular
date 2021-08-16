@@ -2,13 +2,13 @@
     [@bgColor]="{
      value: ((expanded | async) ? 'endBackground' : 'startBackground'),
      params: {endColor: (sidebarActiveBg | async)}}">
-  <a class="nav-item nav-link d-flex flex-row flex-nowrap"
+  <div class="nav-item nav-link d-flex flex-row flex-nowrap"
+     role="button" tabindex="0"
      [attr.aria-labelledby]="'sidebarName-' + section.id"
      [attr.aria-expanded]="expanded | async"
      [title]="('menu.section.icon.' + section.id) | translate"
      (click)="toggleSection($event)"
      (keyup.space)="$event.stopPropagation(); toggleSection($event)"
-     href="javascript:void(0);"
   >
     <div class="shortcut-icon h-100">
       <i class="fas fa-{{section.icon}} fa-fw"></i>
@@ -31,5 +31,5 @@
         </li>
       </ul>
     </div>
-  </a>
+  </div>
 </div>

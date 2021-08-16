@@ -10,6 +10,8 @@ import { Component } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { RouterStub } from '../../../shared/testing/router.stub';
 
 describe('ExpandableAdminSidebarSectionComponent', () => {
   let component: ExpandableAdminSidebarSectionComponent;
@@ -53,7 +55,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   describe('when the header text is clicked', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleActiveSection');
-      const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-section > a'));
+      const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-section > div.nav-item'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }
