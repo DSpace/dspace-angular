@@ -105,9 +105,6 @@
                         ul {
                           padding-top: var(--bs-spacer);
 
-                          // move nested elements over to the left and pad so their :focus-visible outline
-                          // doesn't get cut off by the parent section's icon
-                          margin-left: calc(-1 * var(--bs-spacer));
                           li a {
                             padding-left: var(--bs-spacer);
                           }
