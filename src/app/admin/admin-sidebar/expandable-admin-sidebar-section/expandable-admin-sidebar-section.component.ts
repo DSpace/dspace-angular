@@ -9,6 +9,7 @@ import { MenuService } from '../../../shared/menu/menu.service';
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
+import { Router } from '@angular/router';
 
 /**
  * Represents a expandable section in the sidebar
@@ -49,9 +50,14 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
    */
   expanded: Observable<boolean>;
 
-  constructor(@Inject('sectionDataProvider') menuSection, protected menuService: MenuService,
-              private variableService: CSSVariableService, protected injector: Injector) {
-    super(menuSection, menuService, injector);
+  constructor(
+    @Inject('sectionDataProvider') menuSection,
+    protected menuService: MenuService,
+    private variableService: CSSVariableService,
+    protected injector: Injector,
+    protected router: Router,
+  ) {
+    super(menuSection, menuService, injector, router);
   }
 
   /**

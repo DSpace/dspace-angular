@@ -6,6 +6,7 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorat
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../../shared/menu/menu.reducer';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { Router } from '@angular/router';
 
 /**
  * Represents a non-expandable section in the admin sidebar
@@ -26,7 +27,12 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
   menuID: MenuID = MenuID.ADMIN;
   itemModel;
   hasLink: boolean;
-  constructor(@Inject('sectionDataProvider') menuSection: MenuSection, protected menuService: MenuService, protected injector: Injector,) {
+  constructor(
+    @Inject('sectionDataProvider') menuSection: MenuSection,
+    protected menuService: MenuService,
+    protected injector: Injector,
+    protected router: Router,
+  ) {
     super(menuSection, menuService, injector);
     this.itemModel = menuSection.model as LinkMenuItemModel;
   }
@@ -34,5 +40,12 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
   ngOnInit(): void {
     this.hasLink = isNotEmpty(this.itemModel?.link);
     super.ngOnInit();
+  }
+
+  navigate(event: any): void {
+    event.stopPropagation();
+    if (this.hasLink) {
+      this.router.navigate(this.itemModel.link);
+    }
   }
 }

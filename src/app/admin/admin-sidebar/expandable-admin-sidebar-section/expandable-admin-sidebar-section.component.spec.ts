@@ -26,6 +26,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
         { provide: 'sectionDataProvider', useValue: { icon: iconString } },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: Router, useValue: new RouterStub() },
       ]
     }).overrideComponent(ExpandableAdminSidebarSectionComponent, {
       set: {
