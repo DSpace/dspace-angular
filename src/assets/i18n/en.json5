@@ -350,6 +350,8 @@
 
   "admin.access-control.groups.form.groupName": "Group name",
 
+  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
+ 
   "admin.access-control.groups.form.groupDescription": "Description",
 
   "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",

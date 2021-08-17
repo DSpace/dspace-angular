@@ -65,6 +65,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * Dynamic models for the inputs of form
    */
   groupName: DynamicInputModel;
+  groupCommunity: DynamicInputModel;
   groupDescription: DynamicTextAreaModel;
 
   /**
@@ -160,8 +161,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     );
     observableCombineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
+      this.translateService.get(`${this.messagePrefix}.groupCommunity`),
       this.translateService.get(`${this.messagePrefix}.groupDescription`)
-    ).subscribe(([groupName, groupDescription]) => {
+    ).subscribe(([groupName, groupCommunity, groupDescription]) => {
       this.groupName = new DynamicInputModel({
         id: 'groupName',
         label: groupName,
@@ -171,6 +173,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         },
         required: true,
       });
+      this.groupCommunity = new DynamicInputModel({
+        id: 'groupCommunity',
+        label: groupCommunity,
+        name: 'groupCommunity',
+        required: false,
+        readOnly: true,
+      });
       this.groupDescription = new DynamicTextAreaModel({
         id: 'groupDescription',
         label: groupDescription,
@@ -179,6 +188,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       });
       this.formModel = [
         this.groupName,
+        this.groupCommunity,
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
@@ -189,13 +199,27 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         ).subscribe(([activeGroup, canEdit]) => {
           if (activeGroup != null) {
             this.groupBeingEdited = activeGroup;
-            this.formGroup.patchValue({
-              groupName: activeGroup != null ? activeGroup.name : '',
-              groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+            this.getLinkedDSO(activeGroup).subscribe((res) => {
+              if (res?.payload?.name) {
+                this.formGroup.patchValue({
+                  groupName: activeGroup != null ? activeGroup.name : '',
+                  groupCommunity: res?.payload?.name ?? '',
+                  groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+                });
+              } else {
+                this.formModel = [
+                  this.groupName,
+                  this.groupDescription,
+                ];
+                this.formGroup.patchValue({
+                  groupName: activeGroup != null ? activeGroup.name : '',
+                  groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+                });
+              }
+              if (!canEdit || activeGroup.permanent) {
+                this.formGroup.disable();
+              }
             });
-            if (!canEdit || activeGroup.permanent) {
-              this.formGroup.disable();
-            }
           }
         })
       );
