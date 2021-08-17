@@ -6,7 +6,7 @@ import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resou
 
 import { GoogleChartInterface } from 'ng2-google-charts';
 
-describe('StatisticsMapComponent', () => {
+fdescribe('StatisticsMapComponent', () => {
   let component: StatisticsMapComponent;
   let fixture: ComponentFixture<StatisticsMapComponent>;
   const report: UsageReport = {
@@ -43,8 +43,8 @@ describe('StatisticsMapComponent', () => {
     chartType: 'GeoChart',
     dataTable: [
       ['country','views'],
-      ['United States',2],
-      ['China',1]
+      [{ v:'US', f: 'United States' }, 2],
+      [{ v:'CN', f: 'China' }, 1]
     ],
     options: { 'title': 'TopCountries' },
   };
