@@ -400,7 +400,11 @@
 
   "admin.access-control.groups.form.members-list.table.name": "Name",
 
+  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+
   "admin.access-control.groups.form.members-list.table.email": "Email",
+
+  "admin.access-control.groups.form.members-list.table.netid": "NetID",
 
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
 

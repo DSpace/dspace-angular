@@ -93,7 +93,7 @@
         <tr>
           <th scope="col">{{messagePrefix + '.table.id' | translate}}</th>
           <th scope="col">{{messagePrefix + '.table.name' | translate}}</th>
-          <th scope="col">{{messagePrefix + '.table.email' | translate}}</th>
+          <th scope="col">{{messagePrefix + '.table.identity' | translate}}</th>
           <th>{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
@@ -102,7 +102,10 @@
           <td>{{ePerson.eperson.id}}</td>
           <td><a (click)="ePersonDataService.startEditingNewEPerson(ePerson.eperson)"
                  [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.eperson.name}}</a></td>
-          <td>{{ ePerson.eperson.email ? ePerson.eperson.email : ePerson.eperson.netid }}</td>
+          <td>
+            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
+            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
+          </td>
           <td>
             <div class="btn-group edit-field">
               <button (click)="deleteMemberFromGroup(ePerson)"

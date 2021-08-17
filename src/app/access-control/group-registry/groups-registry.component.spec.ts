@@ -213,7 +213,7 @@ describe('GroupRegistryComponent', () => {
       }));
 
       it('should be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
@@ -247,7 +247,7 @@ describe('GroupRegistryComponent', () => {
       }));
 
       it('should be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
@@ -266,7 +266,7 @@ describe('GroupRegistryComponent', () => {
       }));
 
       it('should not be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeTrue();
