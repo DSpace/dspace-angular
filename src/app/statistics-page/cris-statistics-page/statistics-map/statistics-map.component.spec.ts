@@ -6,7 +6,7 @@ import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resou
 
 import { GoogleChartInterface } from 'ng2-google-charts';
 
-fdescribe('StatisticsMapComponent', () => {
+describe('StatisticsMapComponent', () => {
   let component: StatisticsMapComponent;
   let fixture: ComponentFixture<StatisticsMapComponent>;
   const report: UsageReport = {
