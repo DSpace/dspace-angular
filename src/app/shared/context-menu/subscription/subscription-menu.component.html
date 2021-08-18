@@ -21,7 +21,7 @@
             <div class="col-md-12">
               <div class="form-group" >
                   <label for="type">{{ 'context-menu.actions.subscription.type' | translate }}</label>
-                  <select (change)="changed($event)" id="type" formControlName="type" class="custom-select">
+                  <select (change)="changed($event)" id="type" formControlName="subscriptionType" class="custom-select">
                       <option *ngFor="let type of types" [value]="type.value">
                           {{ 'context-menu.actions.subscription.'+type.value | translate}}
                       </option>

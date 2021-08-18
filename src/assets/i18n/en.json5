@@ -1294,6 +1294,10 @@
 
   "context-menu.actions.edit-subscriptions.btn": "Edit subscriptions",
 
+  "context-menu.actions.subscription.notification.here-text": "Subscription Summary",
+
+  "context-menu.actions.subscription.notification.content": "Subscription Updated Successfully, click {{here}} to see subscrition summary.",
+
   "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
 
   "RELATION.Person.projects.search.results.head" : "Projects",

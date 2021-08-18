@@ -10,7 +10,13 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { FormGroup, FormControl,FormArray, FormBuilder } from '@angular/forms'
+import { FormGroup, FormControl,FormArray, FormBuilder } from '@angular/forms';
+
+import { SubscriptionService } from '../../subscriptions/subscription.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationType } from '../../notifications/models/notification-type';
+import { NotificationOptions } from '../../notifications/models/notification-options.model';
+
 
 @Component({
   selector: 'ds-subscription-menu',
@@ -42,10 +48,12 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   public modalRef: NgbModalRef;
 
   types = [
-    {name: "Content" ,value: "content"},
-    {name: "Statistics" ,value: "statistics"},
-    {name: "Content & Statistics" ,value: "content+statistics"},
+    {name: 'Content' ,value: 'content'},
+    {name: 'Statistics' ,value: 'statistics'},
+    {name: 'Content & Statistics' ,value: 'content+statistics'},
   ];
+
+  eperson = '123123123123';
 
   subscriptionForm: FormGroup;
 
@@ -61,14 +69,16 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
-    private formGroup: FormBuilder
+    private formGroup: FormBuilder,
+    private notificationsService: NotificationsService,
+    private subscriptionService: SubscriptionService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);
   }
 
   ngOnInit() {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
-    this.initSubscription(this.injectedContextMenuObject);
+    this.initSubscription();
   }
 
   /**
@@ -81,7 +91,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   }
 
   /**
-   * Return the prefix of the route to the edit page (before the object's UUID, e.g. "items")
+   * Return the prefix of the route to the edit page (before the object's UUID, e.g. 'items')
    */
   getPageRoutePrefix(): string {
     let routePrefix;
@@ -99,142 +109,180 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     return routePrefix;
   }
 
-  initSubscription(dso){
+  initSubscription() {
     this.processing$.next(true);
-    this.getSubscription(dso.type,dso.uuid).subscribe((res)=>{
+    this.getSubscription(this.eperson, this.injectedContextMenuObject.uuid).subscribe( (res) => {
         this.subscriptionForm = this.formGroup.group({
-          type: res.type,
+          id: res.id,
+          subscriptionType: res.subscriptionType,
           subscriptionParameterList: this.formGroup.array([])
         });
 
-        res.subscriptionParameterList.forEach((parameter)=>{
-          this.subscriptionParameterList.push(this.addFrequency(parameter)); 
-        })
+        res.subscriptionParameterList.forEach( (parameter) => {
+          this.subscriptionParameterList.push( this.addFrequency(parameter) );
+        });
+
         this.processing$.next(false);
     }, err => {
         this.processing$.next(false);
-    })
+    });
   }
+  getSubscription(type, uuid): Observable<any> {
 
-  getSubscription(type,uuid): Observable{
+    this.subscriptionService.getSubscription(type,uuid).subscribe( (res) => {
+      console.log(res);
+    });
     return observableOf({
-        "id": 60,
-        "type": "content+statistics",
-        "subscriptionParameterList": [
+        'id': 60,
+        'type': 'content+statistics',
+        'subscriptionParameterList': [
             {
-                "id": 12,
-                "name": "frequency_c",
-                "value": "D"
+                'id': 12,
+                'name': 'frequency_c',
+                'value': 'D'
             },
             {
-                "id": 13,
-                "name": "frequency_s",
-                "value": "M"
+                'id': 13,
+                'name': 'frequency_s',
+                'value': 'M'
             }
         ],
-        "subscriptionType": "subscription",
-        "_links": {
-            "dSpaceObject": {
-                "href": "http://localhost:8080/server/api/core/subscriptions/60/dSpaceObject"
+        'subscriptionType': 'content+statistics',
+        '_links': {
+            'dSpaceObject': {
+                'href': 'http://localhost:8080/server/api/core/subscriptions/60/dSpaceObject'
             },
-            "ePerson": {
-                "href": "http://localhost:8080/server/api/core/subscriptions/60/ePerson"
+            'ePerson': {
+                'href': 'http://localhost:8080/server/api/core/subscriptions/60/ePerson'
             },
-            "self": {
-                "href": "http://localhost:8080/server/api/core/subscriptions/60"
+            'self': {
+                'href': 'http://localhost:8080/server/api/core/subscriptions/60'
             }
         }
     });
   }
 
-  addFrequencies(){
+  addFrequencies() {
     this.processing$.next(true);
-    let type = this.subscriptionForm.get('type').value;
-    if( type == 'content'){
+    const type = this.subscriptionForm.get('subscriptionType').value;
+    if ( type === 'content' ) {
 
-      let index = this.subscriptionParameterList.controls.findIndex((control) => {
-        return control.value.name == 'frequency_s';
+      let index = this.subscriptionParameterList.controls.findIndex( (control) => {
+        return control.value.name === 'frequency_s';
       });
-      
-      if(index != -1){
+
+      if ( index !== -1 ) {
         this.subscriptionParameterList.removeAt(index);
       }
 
-      index = this.subscriptionParameterList.controls.findIndex((control) => {
-        return control.value.name == 'frequency_c';
+      index = this.subscriptionParameterList.controls.findIndex( (control) => {
+        return control.value.name === 'frequency_c';
       });
 
-      if(index == -1){
+      if ( index === -1 ) {
         this.subscriptionParameterList.push(this.newFrequency('frequency_c'));
       }
-      
 
-    }else if(type == 'statistics'){
+    } else if ( type === 'statistics' ) {
 
-      let index = this.subscriptionParameterList.controls.findIndex((control) => {
-        return control.value.name == 'frequency_c';
+      let index = this.subscriptionParameterList.controls.findIndex( (control) => {
+        return control.value.name === 'frequency_c';
       });
 
-      if(index != -1){
+      if ( index !== -1 ) {
         this.subscriptionParameterList.removeAt(index);
       }
 
-      index = this.subscriptionParameterList.controls.findIndex((control) => {
-        return control.value.name == 'frequency_s';
+      index = this.subscriptionParameterList.controls.findIndex( (control) => {
+        return control.value.name === 'frequency_s';
       });
 
-      if(index == -1){
+      if ( index === -1 ) {
         this.subscriptionParameterList.push(this.newFrequency('frequency_s'));
       }
-      
-    }else{
 
-      let index = this.subscriptionParameterList.controls.findIndex((control) => {
-        return control.value.name == 'frequency_c';
+    } else {
+
+      const index = this.subscriptionParameterList.controls.findIndex( (control) => {
+        return control.value.name === 'frequency_c';
       });
 
-      if(index == -1){
+      if ( index === -1 ) {
         this.subscriptionParameterList.insert(0,this.newFrequency('frequency_c'));
       }
 
-      let indexS = this.subscriptionParameterList.controls.findIndex((control) => {
-        return control.value.name == 'frequency_s';
+      const indexS = this.subscriptionParameterList.controls.findIndex( (control) => {
+        return control.value.name === 'frequency_s';
       });
 
-      if(indexS == -1){
-        this.subscriptionParameterList.push(
-          this.subscriptionParameterList.insert(1,this.newFrequency('frequency_s'))
-        );
+      if ( indexS === -1 ) {
+        this.subscriptionParameterList.insert(1,this.newFrequency('frequency_s'));
       }
     }
     this.processing$.next(false);
   }
 
-  newFrequency(name){
-    return  this.formGroup.group({
+  newFrequency(name): FormGroup {
+    return this.formGroup.group({
               id: null,
               name: name,
               value: null
             });
   }
 
-  addFrequency(obj){
-    return  this.formGroup.group({
+  addFrequency(obj): FormGroup {
+    return this.formGroup.group({
               id: obj.id,
               name: obj.name,
               value: obj.value
             });
   }
 
-  get subscriptionParameterList() : FormArray{
+  get subscriptionParameterList(): FormArray {
     return this.subscriptionForm.get('subscriptionParameterList') as FormArray;
   }
 
-  changed(event){
+  changed(event) {
     this.addFrequencies();
   }
 
-  submit(){
-    console.log(this.subscriptionForm.value);
+  submit() {
+    if (this.subscriptionForm.valid) {
+      if (this.subscriptionForm.value.id) {
+        this.updateForm(this.subscriptionForm.value);
+      } else {
+        this.createForm(this.subscriptionForm.value);
+      }
+    }
   }
+
+  updateForm(body) {
+
+    // this.notificationsService.notificationWithAnchor(NotificationType.Success,null,'/subscription','subscription','Go to Subscription statistics',null);
+    this.subscriptionService.updateSubscription(body,this.eperson,this.injectedContextMenuObject.uuid).subscribe( (res) => {
+      console.log(res);
+      this.notify();
+    });
+  }
+
+  createForm(body) {
+    this.subscriptionService.createSubscription(body,this.eperson,this.injectedContextMenuObject.uuid).subscribe( (res) => {
+      console.log(res);
+      this.notify();
+    });
+  }
+
+  notify() {
+    const options = new NotificationOptions();
+    options.timeOut = 0;
+    const link = '/subscriptions';
+    this.notificationsService.notificationWithAnchor(
+      NotificationType.Success,
+      options,
+      link,
+      'context-menu.actions.subscription.notification.here-text',
+      'context-menu.actions.subscription.notification.content',
+      'here');
+  }
+
 }
