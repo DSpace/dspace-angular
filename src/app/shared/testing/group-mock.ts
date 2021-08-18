@@ -9,11 +9,11 @@ export const GroupMock2: Group = Object.assign(new Group(), {
     selfRegistered: false,
     _links: {
         self: {
-            href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2',
+            href: 'https://rest.api/server/api/eperson/groups/testgroupid2',
         },
-        subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/subgroups' },
-        object: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/object' },
-        epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons' }
+        subgroups: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/subgroups' },
+        object: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/object' },
+        epersons: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/epersons' }
     },
     _name: 'testgroupname2',
     id: 'testgroupid2',
@@ -29,14 +29,34 @@ export const GroupMock: Group = Object.assign(new Group(), {
     permanent: false,
     _links: {
         self: {
-            href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid',
+            href: 'https://rest.api/server/api/eperson/groups/testgroupid',
         },
-        subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/subgroups' },
-        object: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/object' },
-        epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons' }
+        subgroups: { href: 'https://rest.api/server/api/eperson/groups/testgroupid/subgroups' },
+        object: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/object' },
+        epersons: { href: 'https://rest.api/server/api/eperson/groups/testgroupid/epersons' }
     },
     _name: 'testgroupname',
     id: 'testgroupid',
     uuid: 'testgroupid',
+    type: 'group',
+});
+
+export const GroupMockNoLinkedDSO: Group = Object.assign(new Group(), {
+    handle: null,
+    subgroups: [],
+    epersons: [],
+    permanent: true,
+    selfRegistered: false,
+    _links: {
+        self: {
+            href: 'https://rest.api/server/api/eperson/groups/testgroupid3',
+        },
+        subgroups: { href: 'https://rest.api/server/api/eperson/groups/testgroupid3/subgroups' },
+        object: { href: 'https://rest.api/server/api/eperson/groups/testgroupid3/object' }, // should be empty
+        epersons: { href: 'https://rest.api/server/api/eperson/groups/testgroupid3/epersons' }
+    },
+    _name: 'testgroupname3',
+    id: 'testgroupid3',
+    uuid: 'testgroupid3',
     type: 'group',
 });
