@@ -47,7 +47,9 @@ export class SearchSectionComponent implements OnInit {
     this.filters = this.searchService.getSearchConfigurationFor(null, this.searchSection.discoveryConfigurationName).pipe(
       getFirstSucceededRemoteDataPayload(),
       map((searchFilterConfig: SearchConfig) => {
-        return [this.allFilter].concat(searchFilterConfig.filters.map((filterConfig) => filterConfig.filter));
+        return [this.allFilter].concat(searchFilterConfig.filters
+          .filter((filterConfig) => !filterConfig.filter.startsWith('graph'))
+          .map((filterConfig) => filterConfig.filter));
       })
     );
 
