@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
 import { environment } from '../../../../environments/environment';
@@ -10,7 +10,8 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { hasValue } from '../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
-import {isPlatformBrowser} from '@angular/common';
+import { of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -75,22 +76,38 @@ export class MiradorViewerComponent implements OnInit {
       if (window.innerWidth > 768) {
         this.notMobile = true;
       }
-      this.iframeViewerUrl = this.bitstreamDataService
-        .findAllByItemAndBundleName(this.item, 'IIIF', {})
-        .pipe(
-          getFirstCompletedRemoteData(),
-          map((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
-            if (hasValue(bitstreamsRD.payload)) {
-              if (bitstreamsRD.payload.totalElements > 2) {
-                /* IIIF bundle contains multiple images and optionally a
-                 * a single json file, thus multi is true only when the count is 3 or more .
-                 * multi=true enables the side navigation panel in Mirador. */
-                this.multi = true;
-              }
-            }
+
+      // We need to set the multi property to true if the
+      // item is searchable or the IIIF bundle contains more
+      // than 3 bitstreams. The multi property controls the
+      // Mirador side navigation panel.
+      if (this.searchable) {
+        // If it's searchable set multi to true.
+        const observable = of({multi: true});
+        this.iframeViewerUrl = observable.pipe(
+          map((val) => {
+            this.multi = val.multi;
             return this.setURL();
           })
         );
+      } else {
+        this.iframeViewerUrl = this.bitstreamDataService
+          .findAllByItemAndBundleName(this.item, 'IIIF', {})
+          .pipe(
+            getFirstCompletedRemoteData(),
+            map((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
+              if (hasValue(bitstreamsRD.payload)) {
+                if (bitstreamsRD.payload.totalElements > 2) {
+                  /* IIIF bundle contains multiple images and optionally a
+                   * a single json file, so multi is true only when the count
+                   * is 3 or more. */
+                  this.multi = true;
+                }
+              }
+              return this.setURL();
+            })
+          );
+      }
     }
   }
 }
