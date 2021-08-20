@@ -18,6 +18,7 @@ import { ClaimItemMenuComponent } from './claim-item/claim-item-menu.component';
 import { StatisticsMenuComponent } from './statistics/statistics-menu.component';
 import { SubscriptionMenuComponent } from './subscription/subscription-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared.module';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -52,7 +53,8 @@ const MODULE = [
   NgbDropdownModule,
   RouterModule,
   TranslateModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  SharedModule
 ];
 @NgModule({
   imports: [

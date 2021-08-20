@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-6">
+		{{dso.name}}
+	</div>
+	<div class="col-4">
+		<div *ngFor="let parameterList of subscription.subscriptionParameterList">
+			{{parameterList.name}} : {{parameterList.value}}
+		</div>
+	</div>
+	<div class="col-2">
+		<button (click)="$event.preventDefault();openSubscription(subscriptionModal);" class="btn btn-primary">Edit</button>
+	</div>
+</div>
+
+<ng-template #subscriptionModal let-c="close" let-d="dismiss">
+  <ds-subscription-modal (close)="c('cancel')" [subscription]="subscription" [dso]="dso" [eperson]="eperson"></ds-subscription-modal>
+</ng-template>

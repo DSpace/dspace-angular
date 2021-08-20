@@ -3059,7 +3059,7 @@
 
   "nav.user.description" : "User profile bar",
 
-
+  "nav.subscriptions" : "Subscriptions",
 
   "openaire.broker.title": "OpenAIRE Broker",
 
@@ -5060,6 +5060,14 @@
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
 
+
+  "subscriptions.title": "Subscriptions",
+
+  "subscriptions.item": "Subscriptions for items",
+
+  "subscriptions.collection": "Subscriptions for collections",
+
+  "subscriptions.community": "Subscriptions for communities",
 
 
   "thumbnail.default.alt": "Thumbnail Image",
