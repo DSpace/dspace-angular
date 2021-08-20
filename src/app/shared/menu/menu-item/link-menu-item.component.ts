@@ -36,10 +36,11 @@ export class LinkMenuItemComponent implements OnInit {
   }
 
   navigate(event: any) {
-    event.stopPropagation();
+    event.preventDefault();
     if (this.getRouterLink()) {
       this.router.navigate([this.getRouterLink()]);
     }
+    event.stopPropagation();
   }
 
 }

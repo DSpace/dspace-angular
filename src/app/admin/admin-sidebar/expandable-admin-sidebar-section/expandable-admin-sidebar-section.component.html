@@ -8,7 +8,8 @@
      [attr.aria-expanded]="expanded | async"
      [title]="('menu.section.icon.' + section.id) | translate"
      (click)="toggleSection($event)"
-     (keyup.space)="$event.stopPropagation(); toggleSection($event)"
+     (keyup.space)="toggleSection($event)"
+     (keyup.enter)="toggleSection($event)"
   >
     <div class="shortcut-icon h-100">
       <i class="fas fa-{{section.icon}} fa-fw"></i>

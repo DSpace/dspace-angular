@@ -2,6 +2,7 @@
    class="nav-item nav-link"
    role="button"
    [title]="item.text"
-   (click)="item.function()"
-   (keyup.space)="$event.stopPropagation(); item.function()"
+   (click)="activate($event)"
+   (keyup.space)="activate($event)"
+   (keyup.enter)="activate($event)"
 >{{item.text | translate}}</a>

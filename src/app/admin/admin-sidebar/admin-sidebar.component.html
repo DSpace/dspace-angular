@@ -37,7 +37,7 @@
             <a class="nav-item nav-link sidebar-section d-flex flex-row flex-nowrap"
                href="javascript:void(0);"
                (click)="toggle($event)"
-               (keyup.space)="$event.stopPropagation(); toggle($event)"
+               (keyup.space)="toggle($event)"
             >
               <div class="shortcut-icon">
                 <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
