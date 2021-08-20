@@ -14,6 +14,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
+import { DataService } from '../../core/data/data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Group } from '../../core/eperson/models/group.model';
 import { RouteService } from '../../core/services/route.service';
@@ -38,6 +39,7 @@ describe('GroupRegistryComponent', () => {
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
   let dsoDataServiceStub: any;
+  let dataServiceStub: any;
   let authorizationService: AuthorizationDataService;
 
   let mockGroups;
@@ -147,7 +149,7 @@ describe('GroupRegistryComponent', () => {
         }), [result]));
       }
     };
-    dsoDataServiceStub = {
+    dsoDataServiceStub = { // EDIT ripristinare
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         console.warn(href);
         return createSuccessfulRemoteDataObject$(Object.assign(new DSpaceObject(), {
@@ -156,6 +158,26 @@ describe('GroupRegistryComponent', () => {
           name: 'x',
         }));
       }
+    };
+    dataServiceStub = { // EDIT eliminare
+      findAllByHref(href: string): Observable<RemoteData<PaginatedList<any>>> {
+        switch (href) {
+          case 'https://rest.api/server/api/eperson/groups/testgroupid2/object':
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
+              elementsPerPage: 1,
+              totalElements: 1,
+              totalPages: 1,
+              currentPage: 1
+            }), [{ name: 'xxx' }]));
+          default:
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
+              elementsPerPage: 1,
+              totalElements: 0,
+              totalPages: 0,
+              currentPage: 1
+            }), []));
+        }
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     setIsAuthorized(true, true);
@@ -174,6 +196,7 @@ describe('GroupRegistryComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
+        { provide: DataService, useValue: dataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
@@ -205,7 +228,7 @@ describe('GroupRegistryComponent', () => {
     });
   });
 
-  it('should XXXXXX', () => { // WIP
+  fit('should XXXXXX', () => { // WIP
     const collectionNamesFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(3)'));
     expect(collectionNamesFound.length).toEqual(3);
     expect(collectionNamesFound[0].nativeElement.textContent).toEqual('z');
