@@ -49,7 +49,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse enters the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'activateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('li.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
           }
@@ -64,7 +64,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse leaves the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'deactivateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('li.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
           }
@@ -79,7 +79,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when a click occurs on the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'toggleActiveSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('li.nav-item.dropdown')).query(By.css('a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
           }
@@ -122,7 +122,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse enters the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'activateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('li.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
           }
@@ -137,7 +137,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse leaves the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'deactivateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('li.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
           }
@@ -152,7 +152,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when a click occurs on the section header link', () => {
       beforeEach(() => {
         spyOn(menuService, 'toggleActiveSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('li.nav-item.dropdown')).query(By.css('a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
           }

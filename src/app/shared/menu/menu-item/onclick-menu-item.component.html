@@ -1,1 +1,8 @@
-<a href="javascript:void(0);" class="nav-item nav-link" role="button" (click)="item.function()">{{item.text | translate}}</a>
+<a href="javascript:void(0);"
+   class="nav-item nav-link"
+   role="button"
+   [title]="item.text | translate"
+   (click)="activate($event)"
+   (keyup.space)="activate($event)"
+   (keyup.enter)="activate($event)"
+>{{item.text | translate}}</a>
