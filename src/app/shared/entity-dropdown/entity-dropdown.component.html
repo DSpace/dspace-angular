@@ -17,7 +17,7 @@
             title="{{ listItem.label }}"
             (click)="onSelect(listItem)">
       <ul class="list-unstyled mb-0">
-        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.label }}</li>
+        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</li>
       </ul>
     </button>
     <button class="dropdown-item disabled" *ngIf="(isLoadingList | async)" >
