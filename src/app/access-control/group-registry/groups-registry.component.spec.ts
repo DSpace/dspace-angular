@@ -21,7 +21,7 @@ import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2, GroupMockNoLinkedDSO } from '../../shared/testing/group-mock';
+import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
 import { GroupsRegistryComponent } from './groups-registry.component';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -67,7 +67,7 @@ describe('GroupRegistryComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    mockGroups = [GroupMock, GroupMock2, GroupMockNoLinkedDSO];
+    mockGroups = [GroupMock, GroupMock2];
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
@@ -149,36 +149,13 @@ describe('GroupRegistryComponent', () => {
         }), [result]));
       }
     };
-    dsoDataServiceStub = { // EDIT ripristinare
+    dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         console.warn(href);
-        return createSuccessfulRemoteDataObject$(Object.assign(new DSpaceObject(), {
-          id: "282164f5-d325-4740-8dd1-fa4d6d3e7200",
-          uuid: "282164f5-d325-4740-8dd1-fa4d6d3e7200",
-          name: 'x',
-        }));
+        return createSuccessfulRemoteDataObject$(undefined);
       }
     };
-    dataServiceStub = { // EDIT eliminare
-      findAllByHref(href: string): Observable<RemoteData<PaginatedList<any>>> {
-        switch (href) {
-          case 'https://rest.api/server/api/eperson/groups/testgroupid2/object':
-            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
-              elementsPerPage: 1,
-              totalElements: 1,
-              totalPages: 1,
-              currentPage: 1
-            }), [{ name: 'xxx' }]));
-          default:
-            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
-              elementsPerPage: 1,
-              totalElements: 0,
-              totalPages: 0,
-              currentPage: 1
-            }), []));
-        }
-      },
-    };
+
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     setIsAuthorized(true, true);
     paginationService = new PaginationServiceStub();
@@ -220,7 +197,7 @@ describe('GroupRegistryComponent', () => {
 
   it('should display list of groups', () => {
     const groupIdsFound = fixture.debugElement.queryAll(By.css('#groups tr td:first-child'));
-    expect(groupIdsFound.length).toEqual(3);
+    expect(groupIdsFound.length).toEqual(2);
     mockGroups.map((group: Group) => {
       expect(groupIdsFound.find((foundEl) => {
         return (foundEl.nativeElement.textContent.trim() === group.uuid);
@@ -228,25 +205,11 @@ describe('GroupRegistryComponent', () => {
     });
   });
 
-  fit('should XXXXXX', () => { // WIP
+  it('should display community/collection name if present', () => {
     const collectionNamesFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(3)'));
-    expect(collectionNamesFound.length).toEqual(3);
-    expect(collectionNamesFound[0].nativeElement.textContent).toEqual('z');
-    expect(collectionNamesFound[1].nativeElement.textContent).toEqual('z');
-    expect(collectionNamesFound[2].nativeElement.textContent).toEqual('z');
-
-    // mockGroups.map((group: Group) => {
-    // expect(collectionNamesFound.find((foundEl) => {
-    //   return (group.uuid === 'testgroupid3') ? (foundEl.nativeElement.textContent.length == 0) : (foundEl.nativeElement.textContent.length > 0);
-    // })).toBeTruthy();
-    // expect(collectionNamesFound.find((foundEl) => group.uuid.length > 0 )).toBeTruthy();
-    // collectionNamesFound.forEach((name) => {
-    //   const nameExpected = !(group.uuid === 'testgroupid3');
-    //   // expect(nameExpected ? name.nativeElement.textContent.length > 0 : name.nativeElement.textContent.length == 0).toBeTrue();
-    //   expect(name.nativeElement.textContent).toBe('x');
-    // });
-    // expect(collectionNamesFound.find((foundEl) => foundEl.nativeElement.textContent.length == group.)).toBeTruthy();
-    // });
+    expect(collectionNamesFound.length).toEqual(2);
+    expect(collectionNamesFound[0].nativeElement.textContent).toEqual('');
+    expect(collectionNamesFound[1].nativeElement.textContent).toEqual('testgroupid2objectName');
   });
 
   describe('edit buttons', () => {
@@ -263,7 +226,7 @@ describe('GroupRegistryComponent', () => {
 
       it('should be active', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
-        expect(editButtonsFound.length).toEqual(3);
+        expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
         });
@@ -297,7 +260,7 @@ describe('GroupRegistryComponent', () => {
 
       it('should be active', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
-        expect(editButtonsFound.length).toEqual(3);
+        expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
         });
@@ -316,7 +279,7 @@ describe('GroupRegistryComponent', () => {
 
       it('should not be active', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
-        expect(editButtonsFound.length).toEqual(3);
+        expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeTrue();
         });

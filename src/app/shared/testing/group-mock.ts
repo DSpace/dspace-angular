@@ -1,5 +1,7 @@
 import { Group } from '../../core/eperson/models/group.model';
 import { EPersonMock } from './eperson.mock';
+import { of } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export const GroupMock2: Group = Object.assign(new Group(), {
     handle: null,
@@ -19,6 +21,7 @@ export const GroupMock2: Group = Object.assign(new Group(), {
     id: 'testgroupid2',
     uuid: 'testgroupid2',
     type: 'group',
+    object: createSuccessfulRemoteDataObject$({ name: 'testgroupid2objectName'})
 });
 
 export const GroupMock: Group = Object.assign(new Group(), {
@@ -38,25 +41,5 @@ export const GroupMock: Group = Object.assign(new Group(), {
     _name: 'testgroupname',
     id: 'testgroupid',
     uuid: 'testgroupid',
-    type: 'group',
-});
-
-export const GroupMockNoLinkedDSO: Group = Object.assign(new Group(), {
-    handle: null,
-    subgroups: [],
-    epersons: [],
-    permanent: true,
-    selfRegistered: false,
-    _links: {
-        self: {
-            href: 'https://rest.api/server/api/eperson/groups/testgroupid3',
-        },
-        subgroups: { href: 'https://rest.api/server/api/eperson/groups/testgroupid3/subgroups' },
-        object: { href: 'https://rest.api/server/api/eperson/groups/testgroupid3/object' }, // should be empty
-        epersons: { href: 'https://rest.api/server/api/eperson/groups/testgroupid3/epersons' }
-    },
-    _name: 'testgroupname3',
-    id: 'testgroupid3',
-    uuid: 'testgroupid3',
     type: 'group',
 });
