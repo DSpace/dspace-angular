@@ -1,7 +1,7 @@
 <a class="nav-item nav-link"
    [ngClass]="{ 'disabled': !hasLink }"
    [attr.aria-disabled]="!hasLink"
-   [title]="item.text"
+   [title]="item.text | translate"
    [routerLink]="getRouterLink()"
    (click)="$event.stopPropagation()"
    (keyup.space)="navigate($event)"
