@@ -14,7 +14,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
-import { DataService } from '../../core/data/data.service';
+// import { DataService } from '../../core/data/data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Group } from '../../core/eperson/models/group.model';
 import { RouteService } from '../../core/services/route.service';
@@ -33,13 +33,13 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
-describe('GroupRegistryComponent', () => {
+fdescribe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
   let fixture: ComponentFixture<GroupsRegistryComponent>;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
   let dsoDataServiceStub: any;
-  let dataServiceStub: any;
+  // let dataServiceStub: any;
   let authorizationService: AuthorizationDataService;
 
   let mockGroups;
@@ -173,7 +173,7 @@ describe('GroupRegistryComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
-        { provide: DataService, useValue: dataServiceStub },
+        // { provide: DataService, useValue: dataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
