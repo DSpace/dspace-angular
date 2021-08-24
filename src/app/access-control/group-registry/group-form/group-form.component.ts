@@ -14,9 +14,9 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take, filter } from 'rxjs/operators';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
@@ -34,7 +34,8 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
@@ -126,16 +127,16 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   public AlertTypeEnum = AlertType;
 
   constructor(public groupDataService: GroupDataService,
-              private ePersonDataService: EPersonDataService,
-              private dSpaceObjectDataService: DSpaceObjectDataService,
-              private formBuilderService: FormBuilderService,
-              private translateService: TranslateService,
-              private notificationsService: NotificationsService,
-              private route: ActivatedRoute,
-              protected router: Router,
-              private authorizationService: AuthorizationDataService,
-              private modalService: NgbModal,
-              public requestService: RequestService) {
+    private ePersonDataService: EPersonDataService,
+    private dSpaceObjectDataService: DSpaceObjectDataService,
+    private formBuilderService: FormBuilderService,
+    private translateService: TranslateService,
+    private notificationsService: NotificationsService,
+    private route: ActivatedRoute,
+    protected router: Router,
+    private authorizationService: AuthorizationDataService,
+    private modalService: NgbModal,
+    public requestService: RequestService) {
   }
 
   ngOnInit() {
@@ -188,38 +189,49 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       });
       this.formModel = [
         this.groupName,
-        this.groupCommunity,
+        // this.groupCommunity,
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+      debugger;
       this.subs.push(
         observableCombineLatest(
           this.groupDataService.getActiveGroup(),
-          this.canEdit$
-        ).subscribe(([activeGroup, canEdit]) => {
+          this.canEdit$,
+          this.groupDataService.getActiveGroup()
+            .pipe(filter((activeGroup) => hasValue(activeGroup)),switchMap((activeGroup) => this.getLinkedDSO(activeGroup).pipe(getFirstSucceededRemoteDataPayload())))
+        ).subscribe(([activeGroup, canEdit, linkedObject]) => {
+
           if (activeGroup != null) {
             this.groupBeingEdited = activeGroup;
-            this.getLinkedDSO(activeGroup).subscribe((res) => {
-              if (res?.payload?.name) {
-                this.formGroup.patchValue({
-                  groupName: activeGroup != null ? activeGroup.name : '',
-                  groupCommunity: res?.payload?.name ?? '',
-                  groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
-                });
-              } else {
-                this.formModel = [
-                  this.groupName,
-                  this.groupDescription,
-                ];
-                this.formGroup.patchValue({
-                  groupName: activeGroup != null ? activeGroup.name : '',
-                  groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
-                });
-              }
+
+            if (linkedObject?.name) {
+              // this.formModel = [
+              //   this.groupName,
+              //   this.groupCommunity,
+              //   this.groupDescription,
+              // ];
+              this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
+              this.formGroup.patchValue({
+                groupName: activeGroup != null ? activeGroup.name : '',
+                groupCommunity: linkedObject?.name ?? '',
+                groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+              });
+            } else {
+              this.formModel = [
+                this.groupName,
+                this.groupDescription,
+              ];
+              this.formGroup.patchValue({
+                groupName: activeGroup != null ? activeGroup.name : '',
+                groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+              });
+            }
+            setTimeout(() => {
               if (!canEdit || activeGroup.permanent) {
                 this.formGroup.disable();
               }
-            });
+            }, 200);
           }
         })
       );
