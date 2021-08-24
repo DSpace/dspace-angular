@@ -193,7 +193,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      debugger;
       this.subs.push(
         observableCombineLatest(
           this.groupDataService.getActiveGroup(),
