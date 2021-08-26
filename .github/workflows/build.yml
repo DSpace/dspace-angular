@@ -66,11 +66,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      - name: Install latest ChromeDriver compatible with installed Chrome
+      #- name: Install latest ChromeDriver compatible with installed Chrome
         # needs to be npm, the --detect_chromedriver_version flag doesn't work with yarn global
-        run: |
-          npm install -g chromedriver --detect_chromedriver_version
-          chromedriver -v
+      # run: |
+      #    npm install -g chromedriver --detect_chromedriver_version
+      #    chromedriver -v
 
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
@@ -112,10 +112,12 @@ jobs:
       - name: Get DSpace REST Backend info/properties
         run: curl http://localhost:8080/server/api
 
+      # Run integration tests via Cypress.io
       - name: Run e2e tests (integration tests)
-        run: |
-          chromedriver --url-base='/wd/hub' --port=4444 &
-          yarn run e2e:ci
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          headless: true
 
       # Start up the app with SSR enabled (run in background)
       - name: Start app in SSR (server-side rendering) mode

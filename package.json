@@ -15,7 +15,6 @@
     "pretest:headless": "yarn run config:test",
     "prebuild:prod": "yarn run config:prod",
     "pree2e": "yarn run config:prod",
-    "pree2e:ci": "yarn run config:prod",
     "start": "yarn run start:prod",
     "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
@@ -32,7 +31,6 @@
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
     "e2e": "ng e2e",
-    "e2e:ci": "ng e2e --webdriver-update=false --protractor-config=./e2e/protractor-ci.conf.js",
     "compile:server": "webpack --config webpack.server.config.js --progress --color",
     "serve:ssr": "node dist/server",
     "clean:coverage": "rimraf coverage",
@@ -46,7 +44,9 @@
     "clean": "yarn run clean:prod && yarn run clean:env && yarn run clean:node",
     "clean:env": "rimraf src/environments/environment.ts",
     "sync-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "browser": {
     "fs": false,
@@ -72,6 +72,7 @@
     "@angular/platform-server": "~10.2.3",
     "@angular/router": "~10.2.3",
     "@angularclass/bootloader": "1.0.1",
+    "@kolkov/ngx-gallery": "^1.2.3",
     "@ng-bootstrap/ng-bootstrap": "7.0.0",
     "@ng-dynamic-forms/core": "^12.0.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "^12.0.0",
@@ -123,8 +124,7 @@
     "sortablejs": "1.13.0",
     "tslib": "^2.0.0",
     "webfontloader": "1.6.28",
-    "zone.js": "^0.10.3",
-    "@kolkov/ngx-gallery": "^1.2.3"
+    "zone.js": "^0.10.3"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "10.0.1",
@@ -132,6 +132,7 @@
     "@angular/cli": "~10.2.0",
     "@angular/compiler-cli": "~10.2.3",
     "@angular/language-service": "~10.2.3",
+    "@cypress/schematic": "^1.5.0",
     "@fortawesome/fontawesome-free": "^5.5.0",
     "@ngrx/store-devtools": "^10.0.1",
     "@ngtools/webpack": "10.2.0",
@@ -144,11 +145,14 @@
     "@types/js-cookie": "2.2.6",
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.9",
+    "axe-core": "^4.3.3",
     "codelyzer": "^6.0.1",
     "compression-webpack-plugin": "^3.0.1",
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "3.4.0",
     "cssnano": "^4.1.10",
+    "cypress": "^8.3.0",
+    "cypress-axe": "^0.13.0",
     "deep-freeze": "0.0.1",
     "dotenv": "^8.2.0",
     "fork-ts-checker-webpack-plugin": "^6.0.3",
