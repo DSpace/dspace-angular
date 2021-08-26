@@ -5,6 +5,7 @@ import { Subscription } from '../shared/subscriptions/models/subscription.model'
 import { RemoteData } from '../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
 import { Community } from '../core/shared/community.model';
+import { SubscriptionService } from '../shared/subscriptions/subscription.service';
 
 @Component({
   selector: 'ds-subscriptions-page',
@@ -474,9 +475,16 @@ export class SubscriptionsPageComponent implements OnInit {
 };
 
 
-  constructor() { }
+  constructor(private subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
+
+    // this.subscriptionService.findAllByResourceType("item",null,true,true).pipe(
+    //   // map((remoteData) => {
+    //   //   // return remoteData._embedded.subscriptions
+    //   //   return remoteData
+    //   // })
+    // ) as Observable<Subscription[]>;
 
     this.itemSubscriptions$ = this.getSubscriptions('item').pipe(
       map((remoteData) => {

@@ -1,10 +1,14 @@
 <div class="row">
 	<div class="col-6">
-		{{dso.name}}
+		<ds-item-detail-preview [item]="dso">
+			</ds-item-detail-preview>
 	</div>
 	<div class="col-4">
+		<div >
+			<b>{{ 'subscriptions.subscription_type' | translate}} :</b> {{subscription.subscriptionType}}
+		</div>
 		<div *ngFor="let parameterList of subscription.subscriptionParameterList">
-			{{parameterList.name}} : {{parameterList.value}}
+			<b> {{ 'subscriptions.'+parameterList.name | translate}} :</b> {{ 'subscriptions.frequency.'+ parameterList.value  | translate}}
 		</div>
 	</div>
 	<div class="col-2">
@@ -13,5 +17,5 @@
 </div>
 
 <ng-template #subscriptionModal let-c="close" let-d="dismiss">
-  <ds-subscription-modal (close)="c('cancel')" [subscription]="subscription" [dso]="dso" [eperson]="eperson"></ds-subscription-modal>
+  <ds-subscription-modal (close)="c('cancel')" [subscriptions]="subscription" [dso]="dso" [eperson]="eperson"></ds-subscription-modal>
 </ng-template>

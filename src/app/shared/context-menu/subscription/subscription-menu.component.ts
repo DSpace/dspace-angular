@@ -6,10 +6,14 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
+import { AuthService } from '../../../core/auth/auth.service';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 
 
 @Component({
@@ -42,7 +46,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     {name: 'Content & Statistics' ,value: 'content+statistics'},
   ];
 
-  eperson = '123123123123';
+  eperson: string;
 
   dso : DSpaceObject;
 
@@ -58,12 +62,17 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
+    private authService: AuthService,
+    private ePersonDataService: EPersonDataService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);
   }
 
   ngOnInit() {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
+    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe((eperson : EPerson)=>{
+      this.eperson = eperson.id;
+    });
   }
 
   /**

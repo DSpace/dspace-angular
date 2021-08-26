@@ -28,6 +28,7 @@ import { Community } from '../../core/shared/community.model';
 import { Collection } from '../../core/shared/collection.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
 
 import {
   getAllSucceededRemoteData,
@@ -46,7 +47,8 @@ import {
 })
 @dataService(SUBSCRIPTION)
 export class SubscriptionService extends DataService<Subscription> {
-  protected linkPath = 'categories';
+  protected linkPath = 'subscriptions';
+
   protected browseEndpoint = '';
 
   constructor(
@@ -63,16 +65,20 @@ export class SubscriptionService extends DataService<Subscription> {
     super();
   }
 
-  getSubscription(eperson: string, uuid: string): Observable<RemoteData<Subscription>> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      take(1),
-      map((endpointUrl: string) => `${endpointUrl}?dspace_object_id=${uuid}&eperson_id=${eperson}`),
-      map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
-      sendRequest(this.requestService),
-      switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
+  getSubscriptionByPersonDSO(eperson: string, uuid: string): Observable<PaginatedList<Subscription>> {
+
+    const optionsWithObject = Object.assign(new FindListOptions(), {
+      searchParams: [
+        new RequestParam('dspace_object_id', uuid),
+        new RequestParam('eperson_id', eperson)
+      ]
+    });
+
+    return this.searchBy("findByEPersonAndDso", optionsWithObject, false, true).pipe(
       getFirstCompletedRemoteData(),
-    ) as Observable<RemoteData<Subscription>>;
+      getRemoteDataPayload(),
+    );
+
   }
 
   /**
@@ -104,12 +110,56 @@ export class SubscriptionService extends DataService<Subscription> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       take(1),
-      map((endpointUrl: string) => `${endpointUrl}?dspace_object_id=${uuid}&eperson_id=${eperson}`),
+      map((endpointUrl: string) => `${endpointUrl}/${subscription.id}?dspace_object_id=${uuid}&eperson_id=${eperson}`),
       map((endpointURL: string) => new PutRequest(this.requestService.generateRequestId(), endpointURL, JSON.stringify(subscription))),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
     ) as Observable<RemoteData<Subscription>>;
   }
+
+
+  /**
+   * Retrieves the {@link Bitstream}s in a given bundle
+   *
+   * @param bundle                      the bundle to retrieve bitstreams from
+   * @param options                     options for the find all request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findAllByResourceType( resourceType: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Subscription>[]): Observable<RemoteData<PaginatedList<Subscription>>> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      switchMap((endpointUrl) => this.findAllByHref(endpointUrl+"?resourceType="+resourceType, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+    );
+  }
+
+
+
+  /**
+   * Retrieves the {@link Bitstream}s in a given bundle
+   *
+   * @param bundle                      the bundle to retrieve bitstreams from
+   * @param options                     options for the find all request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  deleteSubscription( id: string ): Observable<RemoteData<NoContent>> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      switchMap((endpointUrl) => this.delete(id))
+    );
+  }
+
 
 }

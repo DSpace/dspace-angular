@@ -14,13 +14,19 @@ export class Subscription extends DSpaceObject {
   static type = SUBSCRIPTION;
 
   /**
-   * A string representing the unique handle of this Collection
+   * A string representing subscription type
+   */
+  @autoserialize
+  public id: string;
+
+  /**
+   * A string representing subscription type
    */
   @autoserialize
   public subscriptionType: string;
 
   /**
-   * A string representing the netid of this EPerson
+   * An array of parameters for the subscription 
    */
   @autoserialize
   public subscriptionParameterList: SubscriptionParameterList[];

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { FormGroup, FormControl,FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from '../../models/subscription.model';
 
@@ -14,6 +14,9 @@ import { NotificationOptions } from '../../../notifications/models/notification-
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+
 @Component({
   selector: 'ds-subscription-modal',
   templateUrl: './subscription-modal.component.html',
@@ -21,10 +24,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SubscriptionModalComponent implements OnInit {
 
-
   @Input("dso") dso : DSpaceObject;
   @Input("eperson") eperson : string;
-  @Input("subscription") subscription! : Subscription;
+  @Input("subscriptions") subscriptions! : Subscription[];
 
   @Output('close') close : EventEmitter<string> = new EventEmitter<string>();
 
@@ -34,8 +36,9 @@ export class SubscriptionModalComponent implements OnInit {
    */
   public processing$ = new BehaviorSubject<boolean>(false);
 
-  subscriptionForm: FormGroup;
+  subscriptionForm: FormArray = this.formGroup.array([]);
 
+  submitted = false;
 
   /**
    * Reference to NgbModal
@@ -48,13 +51,24 @@ export class SubscriptionModalComponent implements OnInit {
     {name: 'Content & Statistics' ,value: 'content+statistics'},
   ];
 
+  selectedType;
+
+  frequencies = [
+    {name: 'daily' ,value: 'D'},
+    {name: 'monthly' ,value: 'M'},
+    {name: 'weekly' ,value: 'W'},
+  ];
+
   constructor(private formGroup: FormBuilder,
     private notificationsService: NotificationsService,
-    private subscriptionService: SubscriptionService) { }
+    private subscriptionService: SubscriptionService
+    ) { }
 
   ngOnInit(): void {
-    if(!!this.subscription){
-      this.buildFormBuilder(this.subscription);
+    if(!!this.subscriptions){
+      this.subscriptions.forEach((subscription)=>{
+        this.buildFormBuilder(subscription);
+      });
     }else{
       this.initSubscription();
     }
@@ -63,168 +77,170 @@ export class SubscriptionModalComponent implements OnInit {
 
   initSubscription() {
     this.processing$.next(true);
-    this.getSubscription(this.eperson, this.dso.uuid).subscribe( (res) => {
-      this.buildFormBuilder(res);
+    this.getSubscription(this.eperson, this.dso.uuid).subscribe( (subscriptions: PaginatedList<Subscription>) => {
+      console.log(subscriptions);
+      if(subscriptions.pageInfo.totalElements > 0){
+        this.subscriptions = subscriptions.page;
+
+        if(this.subscriptions.length >= 2){
+          this.selectedType = 'content+statistics';
+        }else{
+          this.selectedType = this.subscriptions[0].subscriptionType;
+        }
+
+        subscriptions.page.forEach((subscription)=>{
+          this.buildFormBuilder(subscription);
+        });
+      }else{
+        this.initEmptyForm("content");
+      }
+
       this.processing$.next(false);
     }, err => {
         this.processing$.next(false);
     });
   }
 
+  initEmptyForm(subscriptionType){
+    this.subscriptionForm.push(
+      this.formGroup.group({
+        // id:null,
+        type: subscriptionType,
+        // subscriptionType: subscriptionType,
+        subscriptionParameterList: this.formGroup.array([], Validators.required)
+      })
+    );
+  }
+
+
+  selectCheckbox(event,i,frequency){
+    if(event.target.checked){
+      this.addFrequency(i,frequency)
+    }else{
+      this.removeFrequency(i,frequency)
+    }
+  }
+
   buildFormBuilder(subscription){
-    this.subscriptionForm = this.formGroup.group({
-      id: subscription.id,
-      subscriptionType: subscription.subscriptionType,
-      subscriptionParameterList: this.formGroup.array([])
-    });
+    const index = this.subscriptionForm.controls.length;
+
+    this.subscriptionForm.push(
+      this.formGroup.group({
+        id: subscription.id,
+        type: subscription.subscriptionType,
+        subscriptionParameterList: this.formGroup.array([], Validators.required)
+      })
+    );
 
     subscription.subscriptionParameterList.forEach( (parameter) => {
-      this.subscriptionParameterList.push( this.addFrequency(parameter) );
+      this.addFrequency(index,parameter.value,parameter.id);
     });
   }
 
-  getSubscription(type, uuid): Observable<any> {
+  getSubscription(epersonId, uuid): Observable<any> {
 
-    this.subscriptionService.getSubscription(type,uuid).subscribe( (res) => {
-      console.log(res);
-    });
-    return observableOf({
-        'id': 60,
-        'type': 'content+statistics',
-        'subscriptionParameterList': [
-            {
-                'id': 12,
-                'name': 'frequency_c',
-                'value': 'D'
-            },
-            {
-                'id': 13,
-                'name': 'frequency_s',
-                'value': 'M'
-            }
-        ],
-        'subscriptionType': 'content+statistics',
-        '_links': {
-            'dSpaceObject': {
-                'href': 'http://localhost:8080/server/api/core/subscriptions/60/dSpaceObject'
-            },
-            'ePerson': {
-                'href': 'http://localhost:8080/server/api/core/subscriptions/60/ePerson'
-            },
-            'self': {
-                'href': 'http://localhost:8080/server/api/core/subscriptions/60'
-            }
-        }
-    });
-  }
-
-  addFrequencies() {
-    this.processing$.next(true);
-    const type = this.subscriptionForm.get('subscriptionType').value;
-    if ( type === 'content' ) {
-
-      let index = this.subscriptionParameterList.controls.findIndex( (control) => {
-        return control.value.name === 'frequency_s';
-      });
-
-      if ( index !== -1 ) {
-        this.subscriptionParameterList.removeAt(index);
-      }
-
-      index = this.subscriptionParameterList.controls.findIndex( (control) => {
-        return control.value.name === 'frequency_c';
-      });
-
-      if ( index === -1 ) {
-        this.subscriptionParameterList.push(this.newFrequency('frequency_c'));
-      }
-
-    } else if ( type === 'statistics' ) {
-
-      let index = this.subscriptionParameterList.controls.findIndex( (control) => {
-        return control.value.name === 'frequency_c';
-      });
-
-      if ( index !== -1 ) {
-        this.subscriptionParameterList.removeAt(index);
-      }
-
-      index = this.subscriptionParameterList.controls.findIndex( (control) => {
-        return control.value.name === 'frequency_s';
-      });
-
-      if ( index === -1 ) {
-        this.subscriptionParameterList.push(this.newFrequency('frequency_s'));
-      }
-
-    } else {
-
-      const index = this.subscriptionParameterList.controls.findIndex( (control) => {
-        return control.value.name === 'frequency_c';
-      });
-
-      if ( index === -1 ) {
-        this.subscriptionParameterList.insert(0,this.newFrequency('frequency_c'));
-      }
-
-      const indexS = this.subscriptionParameterList.controls.findIndex( (control) => {
-        return control.value.name === 'frequency_s';
-      });
-
-      if ( indexS === -1 ) {
-        this.subscriptionParameterList.insert(1,this.newFrequency('frequency_s'));
-      }
-    }
-    this.processing$.next(false);
+    return this.subscriptionService.getSubscriptionByPersonDSO(epersonId,uuid);
   }
 
   newFrequency(name): FormGroup {
     return this.formGroup.group({
-              id: null,
+              // id: null,
               name: name,
-              value: null
+              value: this.formGroup.array([])
             });
   }
 
-  addFrequency(obj): FormGroup {
-    return this.formGroup.group({
-              id: obj.id,
-              name: obj.name,
-              value: obj.value
-            });
+  addFrequency(i,frequency,id?) {
+    let subscriptionParameterList = this.subscriptionForm.controls[i].get('subscriptionParameterList') as FormArray;
+
+    subscriptionParameterList.push( 
+      this.formGroup.group({
+          // id: id,
+          name: "frequency",
+          value: frequency
+        })
+      );
   }
 
-  get subscriptionParameterList(): FormArray {
-    return this.subscriptionForm.get('subscriptionParameterList') as FormArray;
+  removeFrequency(i,frequency) {
+    let subscriptionParameterList = this.subscriptionForm.controls[i].get('subscriptionParameterList') as FormArray;
+    let index = subscriptionParameterList.controls.findIndex(el => el.value.value == frequency);
+    
+    subscriptionParameterList.removeAt(index);
   }
 
-  changed(event) {
-    this.addFrequencies();
+  typeChanged(event) {
+    if(event.target.value == 'content' || event.target.value == 'statistics'){
+
+      if(this.subscriptionForm.controls.length >= 2){
+
+        // Remove the other type
+        let otherType = 'content';
+
+        if(event.target.value == 'content'){
+          otherType = 'statistics';
+        }
+        const index = this.subscriptionForm.controls.findIndex((control) => {
+          return control.get("type").value == otherType;
+        });
+
+        if(!!this.subscriptionForm.controls[index].get("id") && !!this.subscriptionForm.controls[index].get("id").value){
+          this.deleteSubscription(this.subscriptionForm.controls[index].get("id").value);
+        }
+
+        this.subscriptionForm.removeAt(index);
+
+      }else{
+        // Just change the type value
+        this.subscriptionForm.controls[0].patchValue({'type': event.target.value});
+      }
+
+    }else{
+      //There should be one subscription, we need to add another of the different type
+      const index = this.subscriptionForm.controls.findIndex((control) => {
+        return control.get("type").value == "content";
+      });
+
+      if(index === -1){
+        this.initEmptyForm("content");
+      }else{
+        this.initEmptyForm("statistics");
+      }
+
+    }
+
+    this.selectedType = event.target.value;
   }
+
 
   submit() {
+    this.submitted = true;
     if (this.subscriptionForm.valid) {
-      if (this.subscriptionForm.value.id) {
-        this.updateForm(this.subscriptionForm.value);
-      } else {
-        this.createForm(this.subscriptionForm.value);
-      }
+      this.subscriptionForm.controls.forEach((subscription) => {
+        if (subscription.value.id) {
+          this.updateForm(subscription.value);
+        } else {
+          this.createForm(subscription.value);
+        }
+      });
     }
   }
 
   updateForm(body) {
-
-    // this.notificationsService.notificationWithAnchor(NotificationType.Success,null,'/subscription','subscription','Go to Subscription statistics',null);
     this.subscriptionService.updateSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
-      console.log(res);
       this.notify();
     });
   }
 
   createForm(body) {
     this.subscriptionService.createSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
-      console.log(res);
       this.notify();
+    });
+  }
+
+
+  deleteSubscription(id){
+    this.subscriptionService.deleteSubscription(id).subscribe((res)=>{
     });
   }
 
@@ -245,4 +261,8 @@ export class SubscriptionModalComponent implements OnInit {
     this.close.emit(text);
   }
 
+
+  getIsChecked(control,frequency){
+    return !!control.get('subscriptionParameterList').value.find(el => el.value == frequency.value);
+  }
 }

@@ -6,54 +6,48 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="subscriptionForm" >
-    <div class="row">
-      <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group" >
                   <label for="type">{{ 'context-menu.actions.subscription.type' | translate }}</label>
-                  <select (change)="changed($event)" id="type" formControlName="subscriptionType" class="custom-select">
-                      <option *ngFor="let type of types" [value]="type.value">
+                  <select (change)="typeChanged($event)" ([ngModel])="selectedType" id="type" class="custom-select">
+                      <option [selected]="type.value == selectedType" *ngFor="let type of types" [value]="type.value">
                           {{ 'context-menu.actions.subscription.'+type.value | translate}}
                       </option>
                   </select>
               </div>
             </div>
-        </div>
-        <div class="row" formArrayName="subscriptionParameterList">
-          <div class="col-md-6" *ngFor="let subscriptionParameter of subscriptionParameterList.controls; let i=index">
-              <div class="row" [formGroupName]="i">
-                  <div class="col-md-12">
-                       <div class="custom-control custom-checkbox">
-                        <label class="checkbox-label">
-                          {{ subscriptionParameter.value.name == 'frequency_c' ? 'Content:' : 'Statistics:' }}
-                        </label>
-                      </div>
-                  </div>
-                  <div class="col-md-12">
-                    <select (change)="changed($event)" formControlName="value" class="custom-select">
-                        <option value="D">
-                            {{ 'context-menu.actions.subscription.daily' | translate }}
-                        </option>
-                        <option value="W">
-                            {{ 'context-menu.actions.subscription.weekly' | translate }}
-                        </option>
-                        <option value="M">
-                            {{ 'context-menu.actions.subscription.monthly' | translate }}
-                        </option>
-                    </select>
+          </div>
+          <div class="row">
+            <div class="col-md-6" *ngFor="let control of subscriptionForm.controls; index as i">
+              <div *ngIf="!!control" class="col-md-12">
+                   <div class="custom-control custom-checkbox">
+                    <label class="checkbox-label">
+                      {{ control.get('type').value == 'content' ? 'Content:' : 'Statistics:' }}
+                    </label>
                   </div>
               </div>
+              <div class="col-md-12" *ngFor="let frequency of frequencies; let j=index">
+                  <input [id]="'checkbox-'+i+j" (change)="selectCheckbox($event,i,frequency.value)" [checked]="getIsChecked(control,frequency)" value="{{frequency.value}}" type="checkbox" /> 
+                  <label [for]="'checkbox-'+i+j">{{ 'context-menu.actions.subscription.'+frequency.name | translate }}</label>
+              </div>
+              <div *ngIf="!!submitted" class="alert">
+                <div *ngIf="control.get('subscriptionParameterList').errors?.required">
+                  {{ 'context-menu.actions.subscription.frequency.required' | translate }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'context-menu.actions.request-correction.confirm.cancel' | translate}}</button>
     <button type="button" (click)="submit()" class="btn btn-success" [disabled]="(processing$ | async)">
       <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
       <span *ngIf="!(processing$ | async)">{{'context-menu.actions.subscription.confirm.submit' | translate}}</span>
-      </button>
+    </button>
   </div>
