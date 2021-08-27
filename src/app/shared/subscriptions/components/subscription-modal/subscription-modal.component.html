@@ -5,12 +5,12 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="subscriptionForm" >
+    <form [formGroup]="subscriptionForm">
       <div class="row">
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group" >
+              <div class="form-group">
                   <label for="type">{{ 'context-menu.actions.subscription.type' | translate }}</label>
                   <select (change)="typeChanged($event)" ([ngModel])="selectedType" id="type" class="custom-select">
                       <option [selected]="type.value == selectedType" *ngFor="let type of types" [value]="type.value">
@@ -46,6 +46,10 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'context-menu.actions.request-correction.confirm.cancel' | translate}}</button>
+    <button *ngIf="!!subscriptions && subscriptions.length > 0" type="button" (click)="delete()" class="btn btn-danger" [disabled]="(processing$ | async)">
+      <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+      <span *ngIf="!(processing$ | async)">{{'context-menu.actions.subscription.delete' | translate}}</span>
+    </button>
     <button type="button" (click)="submit()" class="btn btn-success" [disabled]="(processing$ | async)">
       <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
       <span *ngIf="!(processing$ | async)">{{'context-menu.actions.subscription.confirm.submit' | translate}}</span>

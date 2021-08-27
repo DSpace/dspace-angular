@@ -4,67 +4,30 @@
       <h2>{{'subscriptions.title' | translate}}</h2>
       <div class="row">
         <div class="col-md-12 m-40">
-          <ngb-tabset>
-            <ngb-tab title="{{'subscriptions.item' | translate}}" [id]="'item'">
-              <ng-template ngbTabContent>
-              	<ng-container *ngVar="(itemSubscriptions$ | async) as itemSubscriptions">
-			        		<h3 class="mb-4 mt-4">{{'subscriptions.item' | translate}}</h3>
-			        		<ng-container *ngIf="!itemSubscriptions">
-								    <div class="container">
-								      <div class="row">
-								        <div class="col-md-12 mb-40">
-								          <ds-loading></ds-loading>
-								        </div>
-								      </div>
-								    </div>
-								  </ng-container>
-			            <div *ngFor="let subscription of itemSubscriptions">
-			            	<ds-subscription-view [dso]="subscription._embedded.dSpaceObject | async" [type]="'item'" [subscription]="subscription" ></ds-subscription-view>
-			            </div>
-							  </ng-container>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="{{'subscriptions.community' | translate}}" [id]="'community'">
-              <ng-template ngbTabContent>
-			        	<ng-container *ngVar="(communitySubscriptions$ | async) as communitySubscriptions">
-			        		<h3 class="mb-4 mt-4">{{'subscriptions.community' | translate}}</h3>
-			        		<ng-container *ngIf="!communitySubscriptions">
-								    <div class="container">
-								      <div class="row">
-								        <div class="col-md-12 mb-40">
-								          <ds-loading></ds-loading>
-								        </div>
-								      </div>
-								    </div>
-								  </ng-container>
-			            <div *ngFor="let subscription of communitySubscriptions">
-			            	<ds-subscription-view [dso]="subscription._embedded.dSpaceObject | async" [type]="'community'" [subscription]="subscription" ></ds-subscription-view>
-			            </div>
-							  </ng-container>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="{{'subscriptions.collection' | translate}}" [id]="'collection'">
-              <ng-template ngbTabContent>
-			        	<h3 class="mb-4 mt-4">{{'subscriptions.collection' | translate}}</h3>
-			        	<ng-container *ngVar="(collectionSubscriptions$ | async) as collectionSubscriptions">
-			        		<ng-container *ngIf="!collectionSubscriptions">
-							    <div class="container">
-							      <div class="row">
-							        <div class="col-md-12 mb-40">
-							          <ds-loading></ds-loading>
-							        </div>
-							      </div>
-							    </div>
-							  </ng-container>
-			            <div *ngFor="let subscription of collectionSubscriptions">
-			            	<ds-subscription-view [dso]="subscription._embedded.dSpaceObject | async" [type]="'collection'" [subscription]="subscription" ></ds-subscription-view>
-			            </div>
-							  </ng-container>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
-    	</div>
+          <ds-pagination
+            *ngIf="(subscriptions$ | async)?.pageInfo?.totalElements > 0"
+            [paginationOptions]="pageConfig"
+            [pageInfoState]="(subscriptions$ | async)?.pageInfo"
+            [collectionSize]="(subscriptions$ | async)?.pageInfo?.totalElements"
+            [hideGear]="true" 
+            [hidePagerWhenSinglePage]="true">
+            <div class="table-responsive">
+              <table id="formats" class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">{{'subscriptions.table.dso' | translate}}</th>
+                    <th scope="col">{{'subscriptions.table.subscription' | translate}}</th>
+                    <th scope="col">{{'subscriptions.table.action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ds-subscription-view *ngFor="let subscriptions of ((subscriptions$ | async)?.page | dsParseSubscriptions)" [eperson]="subscriptions[0]?._embedded?.ePerson" [dso]="subscriptions[0]?._embedded?.dSpaceObject" [subscriptions]="subscriptions">
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ds-pagination>
+      </div>
     </div>
   </div>
 </div>
-

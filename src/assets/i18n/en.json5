@@ -1290,6 +1290,8 @@
 
   "context-menu.actions.subscription.confirm.submit": "Save",
 
+  "context-menu.actions.subscription.delete": "Delete",
+
   "context-menu.actions.subscription.frequency.required": "Frequency is required.",
 
   "context-menu.actions.subscribe.btn": "Subscribe",
@@ -5073,9 +5075,7 @@
 
   "subscriptions.subscription_type": "Subscription type",
 
-  "subscriptions.frequency_s": "Subscription frequency statistics",
-
-  "subscriptions.frequency_c": "Subscription frequency content",
+  "subscriptions.frequency": "Subscription frequency",
 
   "subscriptions.frequency.D": "Daily",
 
@@ -5083,6 +5083,11 @@
   
   "subscriptions.frequency.W": "Weekly",
 
+  "subscriptions.table.dso": "Subject",
+
+  "subscriptions.table.subscription": "Subscription",
+
+  "subscriptions.table.action": "Action",
 
 
   "thumbnail.default.alt": "Thumbnail Image",

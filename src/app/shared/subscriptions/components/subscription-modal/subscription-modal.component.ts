@@ -244,6 +244,12 @@ export class SubscriptionModalComponent implements OnInit {
     });
   }
 
+  delete(){
+    this.subscriptions.forEach((subscription: Subscription) => {
+      this.deleteSubscription(subscription.id);
+    });
+  }
+
   notify() {
     const options = new NotificationOptions();
     options.timeOut = 0;
