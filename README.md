@@ -252,7 +252,7 @@ All E2E tests must be created under the `./cypress/integration/` folder, and mus
     * Cypress can then do actions like [click()](https://docs.cypress.io/api/commands/click) an element, or [type()](https://docs.cypress.io/api/commands/type) text in an input field, etc.
 	* Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
 * Any time you save your test file, the Cypress Test Runner will reload & rerun it. This allows you can see your results quickly as you write the tests & correct any broken tests rapidly.
-
+* Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve Javascript files (.js), the same examples will work in our Typescript (.ts) e2e tests.
 
 _Hint: Creating e2e tests is easiest in an IDE (like Visual Studio), as it can help prompt/autocomplete your Cypress commands._
 
