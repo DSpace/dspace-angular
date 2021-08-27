@@ -1,5 +1,6 @@
 describe('Item Statistics Page', () => {
-    const ITEMSTATISTICSPAGE = '/statistics/items/e98b0f27-5c19-49a0-960d-eb6ad5287067';
+    const ITEMUUID = 'e98b0f27-5c19-49a0-960d-eb6ad5287067';
+    const ITEMSTATISTICSPAGE = '/statistics/items/' + ITEMUUID;
 
     it('should contain element ds-item-statistics-page when navigating to an item statistics page', () => {
         cy.visit(ITEMSTATISTICSPAGE);
@@ -14,11 +15,11 @@ describe('Item Statistics Page', () => {
 
     it('should contain a "Total visits" section', () => {
         cy.visit(ITEMSTATISTICSPAGE);
-        cy.get('ds-statistics-table h3').contains('Total visits');
+        cy.get('.' + ITEMUUID + '_TotalVisits').should('exist');
     });
 
     it('should contain a "Total visits per month" section', () => {
         cy.visit(ITEMSTATISTICSPAGE);
-        cy.get('ds-statistics-table h3').contains('Total visits per month');
+        cy.get('.' + ITEMUUID + '_TotalVisitsPerMonth').should('exist');
     });
 });

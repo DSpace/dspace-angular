@@ -2,7 +2,7 @@ const page = {
     fillOutQueryInNavBar(query) {
         // Click the magnifying glass
         cy.get('.navbar-container #search-navbar-container form a').click();
-        // Fill out a query and click Enter
+        // Fill out a query in input that appears
         cy.get('.navbar-container #search-navbar-container form input[name = "query"]').type(query);
     },
     submitQueryByPressingEnter() {

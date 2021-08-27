@@ -99,21 +99,8 @@ jobs:
           docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
           docker container ls
 
-      # Wait until the REST API returns a 200 response (or for a max of 30 seconds)
-      # https://github.com/nev7n/wait_for_response
-      #- name: Wait for DSpace REST Backend to be ready (for e2e tests)
-      #  uses: nev7n/wait_for_response@v1
-      #  with:
-            # We use the 'sites' endpoint to also ensure the database is ready
-      #      url: 'http://localhost:8080/server/api/core/sites'
-      #      responseCode: 200
-      #      timeout: 30000
-
-      #- name: Get DSpace REST Backend info/properties
-      #  run: curl http://localhost:8080/server/api
-
       # Run integration tests via Cypress.io
-      # NOTE: to run these e2e tests locally, just use 'ng e2e'
+      # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
         uses: cypress-io/github-action@v2
         with:
@@ -127,6 +114,24 @@ jobs:
           wait-on: http://localhost:8080/server/api/core/sites, http://localhost:4000
           # Wait for 2 mins max for everything to respond
           wait-on-timeout: 120
+
+      # Cypress always creates a video of all e2e tests (whether they succeeded or failed)
+      # Save those in an Artifact
+      - name: Upload e2e test videos to Artifacts
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: e2e-test-videos
+          path: cypress/videos
+
+      # If e2e tests fail, Cypress creates a screenshot of what happened
+      # Save those in an Artifact
+      - name: Upload e2e test failure screenshots to Artifacts
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: e2e-test-screenshots
+          path: cypress/screenshots
 
       # Start up the app with SSR enabled (run in background)
       - name: Start app in SSR (server-side rendering) mode
