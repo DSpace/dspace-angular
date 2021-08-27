@@ -11,6 +11,7 @@ export enum FieldRenderingType {
   TABLE = 'TABLE',
   INLINE = 'INLINE',
   ORCID = 'ORCID',
+  VALUEPAIR = 'VALUEPAIR',
 }
 
 const fieldType = new Map();
