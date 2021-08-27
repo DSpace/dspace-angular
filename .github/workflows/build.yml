@@ -16,9 +16,9 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
-      # When Chrome version is specified, we pin to a specific version of Chrome & ChromeDriver
-      # Comment this out to use the latest release of both.
-      CHROME_VERSION: "90.0.4430.212-1"
+      # When Chrome version is specified, we pin to a specific version of Chrome
+      # Comment this out to use the latest release
+      #CHROME_VERSION: "90.0.4430.212-1"
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -66,12 +66,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      #- name: Install latest ChromeDriver compatible with installed Chrome
-        # needs to be npm, the --detect_chromedriver_version flag doesn't work with yarn global
-      # run: |
-      #    npm install -g chromedriver --detect_chromedriver_version
-      #    chromedriver -v
-
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
 
@@ -100,6 +94,7 @@ jobs:
           docker container ls
 
       # Run integration tests via Cypress.io
+      # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
         uses: cypress-io/github-action@v2
@@ -118,7 +113,7 @@ jobs:
       # Cypress always creates a video of all e2e tests (whether they succeeded or failed)
       # Save those in an Artifact
       - name: Upload e2e test videos to Artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: e2e-test-videos
@@ -127,7 +122,7 @@ jobs:
       # If e2e tests fail, Cypress creates a screenshot of what happened
       # Save those in an Artifact
       - name: Upload e2e test failure screenshots to Artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: e2e-test-screenshots
