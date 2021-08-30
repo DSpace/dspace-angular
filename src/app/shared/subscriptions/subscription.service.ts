@@ -136,7 +136,8 @@ export class SubscriptionService extends DataService<Subscription> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
-      switchMap((endpointUrl) => this.delete(id))
+      switchMap((endpointUrl) => this.delete(id)),
+      getFirstCompletedRemoteData(),
     );
   }
 

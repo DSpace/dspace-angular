@@ -19,11 +19,11 @@ import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginat
 import { RemoteData } from '../../../../core/data/remote-data';
 
 @Component({
-  selector: 'ds-subscription-modal',
-  templateUrl: './subscription-modal.component.html',
-  styleUrls: ['./subscription-modal.component.scss']
+  selector: 'ds-subscription-edit-modal',
+  templateUrl: './subscription-edit-modal.component.html',
+  styleUrls: ['./subscription-edit-modal.component.scss']
 })
-export class SubscriptionModalComponent implements OnInit {
+export class SubscriptionEditModalComponent implements OnInit {
 
   @Input("dso") dso : DSpaceObject;
   @Input("eperson") eperson : string;
@@ -49,7 +49,7 @@ export class SubscriptionModalComponent implements OnInit {
   types = [
     {name: 'Content' ,value: 'content'},
     {name: 'Statistics' ,value: 'statistics'},
-    // {name: 'Content & Statistics' ,value: 'content+statistics'},
+    {name: 'Content & Statistics' ,value: 'content+statistics'},
   ];
 
   selectedType;
@@ -220,8 +220,6 @@ export class SubscriptionModalComponent implements OnInit {
       this.subscriptionForm.controls.forEach((subscription) => {
         if (subscription.value.id) {
           this.updateForm(subscription.value);
-        } else {
-          this.createForm(subscription.value);
         }
       });
     }
@@ -229,15 +227,11 @@ export class SubscriptionModalComponent implements OnInit {
 
   updateForm(body) {
     this.subscriptionService.updateSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
-      this.notify();
+      
     });
   }
 
-  createForm(body) {
-    this.subscriptionService.createSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
-      this.notify();
-    });
-  }
+
 
 
   deleteSubscription(id){
@@ -249,19 +243,6 @@ export class SubscriptionModalComponent implements OnInit {
     this.subscriptions.forEach((subscription: Subscription) => {
       this.deleteSubscription(subscription.id);
     });
-  }
-
-  notify() {
-    const options = new NotificationOptions();
-    options.timeOut = 0;
-    const link = '/subscriptions';
-    this.notificationsService.notificationWithAnchor(
-      NotificationType.Success,
-      options,
-      link,
-      'context-menu.actions.subscription.notification.here-text',
-      'context-menu.actions.subscription.notification.content',
-      'here');
   }
 
   c(text){

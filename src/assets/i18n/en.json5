@@ -1481,6 +1481,16 @@
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
 
+
+  "confirmation-modal.delete-subscription.header": "Delete Subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.cancel": "Cancel",
+
+  "confirmation-modal.delete-subscription.confirm": "Delete",
+
+
   "equipment.listelement.badge": "Equipment",
 
   "error.bitstream": "Error fetching bitstream",
@@ -5085,7 +5095,9 @@
 
   "subscriptions.table.dso": "Subject",
 
-  "subscriptions.table.subscription": "Subscription",
+  "subscriptions.table.subscription_type": "Subscription Type",
+
+  "subscriptions.table.subscription_frequency": "Subscription Frequency",
 
   "subscriptions.table.action": "Action",
 

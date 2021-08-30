@@ -8,7 +8,7 @@
             *ngIf="(subscriptions$ | async)?.pageInfo?.totalElements > 0"
             [paginationOptions]="pageConfig"
             [pageInfoState]="(subscriptions$ | async)?.pageInfo"
-            [collectionSize]="(subscriptions$ | async)?.pageInfo?.totalElements"
+            [collectionSize]="(subscriptions$ | async)?.pageInfo?.totalPages"
             [hideGear]="true" 
             [hidePagerWhenSinglePage]="true">
             <div class="table-responsive">
@@ -16,12 +16,13 @@
                 <thead>
                   <tr>
                     <th scope="col">{{'subscriptions.table.dso' | translate}}</th>
-                    <th scope="col">{{'subscriptions.table.subscription' | translate}}</th>
+                    <th scope="col">{{'subscriptions.table.subscription_type' | translate}}</th>
+                    <th scope="col">{{'subscriptions.table.subscription_frequency' | translate}}</th>
                     <th scope="col">{{'subscriptions.table.action' | translate}}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ds-subscription-view *ngFor="let subscriptions of ((subscriptions$ | async)?.page | dsParseSubscriptions)" [eperson]="subscriptions[0]?._embedded?.ePerson" [dso]="subscriptions[0]?._embedded?.dSpaceObject" [subscriptions]="subscriptions">
+                  <tr ds-subscription-view *ngFor="let subscription of (subscriptions$ | async)?.page" [eperson]="subscription?._embedded?.ePerson.id" [dso]="subscription?._embedded?.dSpaceObject" [subscription]="subscription" (reload)="refresh()">
                   </tr>
                 </tbody>
               </table>

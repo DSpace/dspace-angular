@@ -40,7 +40,8 @@ export class SubscriptionsPageComponent implements OnInit {
   });
 
 
-  constructor(private subscriptionService: SubscriptionService) { }
+  constructor(
+    private subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
 
@@ -54,11 +55,8 @@ export class SubscriptionsPageComponent implements OnInit {
     );
   }
 
-  getLinksToFollow(): FollowLinkConfig<Subscription>[]{
-    return [
-      followLink('dSpaceObject'),
-      followLink('ePerson')
-    ];
+  refresh(){
+    
   }
 
 }

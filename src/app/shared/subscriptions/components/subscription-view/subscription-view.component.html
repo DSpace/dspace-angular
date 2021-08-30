@@ -1,25 +1,27 @@
 	<td>
 		<span class="badge badge-info">{{dso.type}}</span>
-		<p><b>{{dso.name}}</b></p>
+		<p><a [routerLink]="[getPageRoutePrefix(), dso.id]">{{dso.name}}</a></p>
 	</td>
 	<td>
-		<div *ngFor="let subscription of subscriptions">
-			<div>
-				<b>{{ 'subscription.subscription_type' | translate}} :</b> {{subscription.subscriptionType}}
-			</div>
-			<div>
-				<b> {{ 'subscription.frequency' | translate}} :</b>
-				<span *ngFor="let parameterList of subscription.subscriptionParameterList">
-					{{ 'subscription.frequency.'+ parameterList.value  | translate}},
-				</span>
-			</div>
-		</div>	
+		{{subscription.subscriptionType}}
 	</td>
 	<td>
-		<button (click)="$event.preventDefault();openSubscription(subscriptionModal);" class="btn btn-primary">Edit</button>
+		<span *ngFor="let parameterList of subscription.subscriptionParameterList; let i = index">
+			{{ 'subscriptions.frequency.'+ parameterList.value  | translate}}<span *ngIf="i < subscription.subscriptionParameterList.length-1 ">,</span>
+		</span>
+	</td>
+	<td>
+		<div class="btn-group edit-field">
+		  <button (click)="$event.preventDefault();openSubscription(subscriptionModal);"class="btn btn-outline-primary btn-sm access-control-editEPersonButton" title="Edit">
+		    <i class="fas fa-edit fa-fw"></i>
+		  </button>
+		  <button (click)="deleteSubscriptionPopup(subscription)" class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton" title="Delete">
+		    <i class="fas fa-trash-alt fa-fw"></i>
+		  </button>
+		</div>
 	</td>
 
 	<ng-template #subscriptionModal let-c="close" let-d="dismiss">
-	  <ds-subscription-modal (close)="c('cancel')" [subscriptions]="subscriptions" [dso]="dso" [eperson]="eperson"></ds-subscription-modal>
+	  <ds-subscription-edit-modal (close)="c('cancel')" [subscriptions]="[subscription]" [dso]="dso" [eperson]="eperson"></ds-subscription-edit-modal>
 	</ng-template>
 

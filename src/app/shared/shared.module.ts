@@ -278,6 +278,7 @@ import { MultiColumnTopSectionComponent } from './explore/section-component/mult
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { SubscriptionViewComponent } from './subscriptions/components/subscription-view/subscription-view.component';
 import { SubscriptionModalComponent } from './subscriptions/components/subscription-modal/subscription-modal.component';
+import { SubscriptionEditModalComponent } from './subscriptions/components/subscription-edit-modal/subscription-edit-modal.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -549,6 +550,7 @@ const COMPONENTS = [
   EditMetadataSecurityComponent,
   SubscriptionViewComponent,
   SubscriptionModalComponent,
+  SubscriptionEditModalComponent,
 ];
 
 const ENTRY_COMPONENTS = [
