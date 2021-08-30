@@ -1,55 +1,127 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { ValuepairComponent } from './valuepair.component';
 import { Item } from '../../../../../core/shared/item.model';
-import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { DsDatePipe } from '../../../../pipes/ds-date.pipe';
+import { of } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
+import { TranslateModule } from '@ngx-translate/core';
 
-class TestItem {
-  allMetadataValues(key: string): string[] {
-    return ['Danilo Di Nuzzo', 'John Doe'];
-  }
-}
-
-describe('TextComponent', () => {
+describe('LinkComponent', () => {
   let component: ValuepairComponent;
   let fixture: ComponentFixture<ValuepairComponent>;
 
+  const testItem = Object.assign(new Item(), {
+    bundles: of({}),
+    metadata: {
+      'dc.link': [
+        {
+          value: 'http://rest.api/item/link/id'
+        }
+      ]
+    }
+  });
+
+  const testField = Object.assign({
+    id: 1,
+    label: 'Field Label',
+    style: 'col-md-6',
+    metadata: 'dc.link'
+  }) as LayoutField;
+
+  const testLabelField = Object.assign({
+    id: 1,
+    label: 'dspace.default.label',
+    style: 'col-md-6',
+    metadata: 'dc.link'
+  }) as LayoutField;
+
+  const i18nKey = 'dspace.default.label';
+  const i18nLabel = 'Default Label';
+
+  const translateServiceInstace = Object.assign({
+    get: (key: string) => {
+      let label = key;
+      if (key === i18nKey) {
+        label = i18nLabel;
+      }
+      return of(label);
+    }
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
-      declarations: [ ValuepairComponent, DsDatePipe ]
+      imports: [TranslateModule.forRoot()],
+      declarations: [ ValuepairComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ValuepairComponent);
-    component = fixture.componentInstance;
-    component.item = new TestItem() as Item;
-    component.field = medataComponent.rows[0].fields[0];
-    fixture.detectChanges();
+  describe('Test component link without subtype', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ValuepairComponent);
+      component = fixture.componentInstance;
+      component.item = testItem;
+      component.field = testField;
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should be added href and text to the anchor', () => {
+      const valueContainer = fixture.debugElement.query(By.css('a'));
+      const metadataValue = testItem.firstMetadataValue( testField.metadata );
+      expect(valueContainer.nativeElement.textContent.trim()).toContain(
+        metadataValue
+      );
+      expect(valueContainer.nativeElement.href).toContain(
+        metadataValue
+      );
+    });
   });
 
-  it('check metadata rendering', (done) => {
-    const spanValueFound = fixture.debugElement.queryAll(By.css('span.txt-value'));
-    expect(spanValueFound.length).toBe(2);
-    expect(spanValueFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
-    expect(spanValueFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
+  describe('Test component link with label subtype', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ValuepairComponent);
+      component = fixture.componentInstance;
+      component.item = testItem;
+      component.subtype = 'label';
+    });
 
-    const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataComponent.rows[0].fields[0].style));
-    const label: HTMLElement = spanLabelFound.nativeElement;
-    expect(label.textContent).toContain(medataComponent.rows[0].fields[0].label);
-    done();
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should be added href and i18n key to the anchor', fakeAsync(() => {
+      component.field = testField;
+      fixture.detectChanges();
+      tick();
+
+      const valueContainer = fixture.debugElement.query(By.css('a'));
+      const metadataValue = testItem.firstMetadataValue( testField.metadata );
+      expect(valueContainer.nativeElement.textContent.trim()).toContain(
+        testField.label
+      );
+      expect(valueContainer.nativeElement.href).toContain(
+        metadataValue
+      );
+    }));
+
+    it('should be added href and i18n lablel to the anchor', fakeAsync(() => {
+      component.field = testLabelField;
+      fixture.detectChanges();
+      tick();
+
+      const valueContainer = fixture.debugElement.query(By.css('a'));
+      const metadataValue = testItem.firstMetadataValue( testLabelField.metadata );
+      expect(valueContainer.nativeElement.textContent.trim()).toBeTruthy();
+      expect(valueContainer.nativeElement.href).toContain(
+        metadataValue
+      );
+    }));
   });
 });
