@@ -93,7 +93,7 @@ function mergeFileWithSource(pathToSourceFile, pathToOutputFile) {
     parsed_output[key] = parsed_source[key];
   }
   progressBar.update(80);
-  fs.writeFileSync(pathToOutputFile,JSON5.stringify(parsed_output,{space:'\n  '}), {encoding:'utf8'})
+  fs.writeFileSync(pathToOutputFile,JSON5.stringify(parsed_output,{ space:'\n  ', quote: '"' }), { encoding:'utf8' })
 
   progressBar.update(100);
   progressBar.stop();
