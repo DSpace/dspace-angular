@@ -6,6 +6,10 @@ import {FieldRenderingType, MetadataBoxFieldRendering} from '../metadata-box.dec
 import {RenderingTypeModelComponent} from '../rendering-type.model';
 import {VocabularyService} from '../../../../../core/submission/vocabularies/vocabulary.service';
 import {VocabularyOptions} from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import {getFirstSucceededRemoteDataPayload} from '../../../../../core/shared/operators';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {hasNoValue} from '../../../../../shared/empty.util';
 
 /**
  * This component renders the links metadata fields.
@@ -38,47 +42,38 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
       itemsToBeRendered = [...this.metadataValues];
     }
 
-    console.log('=== Retrieve vocabulary name ===');
-
-    let vocabularyName; // TODO sistemare
     let vocabularyOptions;
 
-    this.item.owningCollection.subscribe((collection) => {
-      console.log('Collection UUID = ' + collection.payload.uuid);
-      // TODO vocabulary name = ?
-      vocabularyOptions = new VocabularyOptions('name', this.field.metadata, collection.payload.uuid);
-      this.vocabularyService.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe((vocabulary) => {
-        console.log('VOCABULARY: ' + JSON.stringify(vocabulary));
-        vocabularyName = vocabulary.payload?.name;
-        console.log('Vocabulary name = ' + vocabularyName);
+    this.item.owningCollection.pipe(
+      getFirstSucceededRemoteDataPayload(),
+    ).subscribe((collection) => {
 
+      vocabularyOptions = new VocabularyOptions(null, this.field.metadata, collection.uuid);
+      this.vocabularyService.searchVocabularyByMetadataAndCollection(vocabularyOptions).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        catchError(() => of(null))
+      ).subscribe((vocabulary) => {
 
-        console.log('=== Retrieve values ===');
+        // TODO: fix catch error
+
+        console.log('Vocabulary = ' + JSON.stringify(vocabulary));
+
+        if (hasNoValue(vocabulary)) {
+          console.log('Items: ' + JSON.stringify(itemsToBeRendered));
+          this.values = itemsToBeRendered;
+          return;
+        }
+
+        vocabularyOptions.name = vocabulary.name;
 
         itemsToBeRendered.forEach((metadataValue) => {
-          console.log('Metadata value = ' + JSON.stringify(metadataValue));
-
-          /*this.vocabularyService.findEntryDetailByHref('/server/api/submission/vocabularies/common_iso_languages/entries?metadata=person.knowsLanguage&collection=5a429e5f-d626-4a22-b852-5d833c27ee28&filter=it&exact=true').subscribe((entry) => {
-            console.log('byHref = ' + JSON.stringify(entry));
-            //values.push();
-          });*/
-
-          /*this.vocabularyService.findEntryDetailById(metadataValue, vocabularyName).subscribe((entry) => {
-            console.log('byId = ' + JSON.stringify(entry));
-            //values.push();
-          });*/
-
-          debugger;
-          this.vocabularyService.getVocabularyEntryByValue(
-            'it',
-            vocabularyOptions
-          ).subscribe(
-            (res) => {
-              console.log('by value: ' + JSON.stringify(res));
+          this.vocabularyService.getVocabularyEntryByValue(metadataValue, vocabularyOptions).subscribe(
+            (entry) => {
+              this.values.push(entry.display);
             }
           );
-
         });
+
         this.values = values;
 
       });
