@@ -40,7 +40,7 @@ import {
 } from '../../core/shared/operators';
 
 /**
- * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
+ * Provides methods to retrieve subscription resources from the REST API related CRUD actions.
  */
 @Injectable({
   providedIn: 'root'
@@ -79,11 +79,10 @@ export class SubscriptionService extends DataService<Subscription> {
       ]
     });
 
-    return this.searchBy("findByEPersonAndDso", optionsWithObject, false, true).pipe(
+    return this.searchBy('findByEPersonAndDso', optionsWithObject, false, true).pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
     );
-
   }
 
   /**
@@ -128,9 +127,9 @@ export class SubscriptionService extends DataService<Subscription> {
 
 
   /**
-   * Retrieves the {@link Subscription}s in a given bundle
+   * Deletes the subscription with a give id
    *
-   * @param id  the id of Subscription to delete 
+   * @param id  the id of Subscription to delete
    */
   deleteSubscription( id: string ): Observable<RemoteData<NoContent>> {
     return this.halService.getEndpoint(this.linkPath).pipe(
@@ -142,19 +141,12 @@ export class SubscriptionService extends DataService<Subscription> {
   }
 
   /**
-   * Retrieves the {@link Subscription}s in a given bundle
+   * Retrieves the list of subscription with {@link dSpaceObject} and {@link ePerson}
    *
-   * @param bundle                      the bundle to retrieve Subscriptions from
    * @param options                     options for the find all request
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllSubscriptions(): Observable<PaginatedList<Subscription>> {
-     const optionsWithObject = Object.assign(new FindListOptions(), {
+  findAllSubscriptions(options?): Observable<PaginatedList<Subscription>> {
+     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('embed', 'dSpaceObject'),new RequestParam('embed', 'ePerson')]
     });
 

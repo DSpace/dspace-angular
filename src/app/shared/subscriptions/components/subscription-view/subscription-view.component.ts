@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation ,Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from '../../models/subscription.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
@@ -12,18 +12,33 @@ import { SubscriptionService } from '../../../subscriptions/subscription.service
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 
 @Component({
-  encapsulation: ViewEncapsulation.Emulated,
+  // tslint:disable-next-line: component-selector
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss']
 })
-export class SubscriptionViewComponent implements OnInit {
+export class SubscriptionViewComponent {
 
-  @Input('subscription') subscription : Subscription;
-  @Input('dso') dso: DSpaceObject;
-  @Input('eperson') eperson: EPerson;
+  /**
+   * Subscription to be rendered
+   */
+  @Input() subscription: Subscription;
 
-  @Output('reload') reload = new EventEmitter();
+  /**
+   * DSpaceObject of the subscription
+   */
+  @Input() dso: DSpaceObject;
+
+  /**
+   * EPerson of the subscription
+   */
+  @Input() eperson: string;
+
+  /**
+   * When an action is made emit a reload event
+   */
+  @Output() reload = new EventEmitter();
+
   /**
    * Reference to NgbModal
    */
@@ -34,9 +49,6 @@ export class SubscriptionViewComponent implements OnInit {
     private subscriptionService: SubscriptionService,
   ) { }
 
-  ngOnInit(): void {
-    console.log(this.dso);
-  }
 
   /**
    * Open modal
@@ -48,18 +60,18 @@ export class SubscriptionViewComponent implements OnInit {
   }
 
   /**
-   * Return the prefix of the route to the edit page (before the object's UUID, e.g. "items")
+   * Return the prefix of the route to the dso object page ( e.g. "items")
    */
   getPageRoutePrefix(): string {
     let routePrefix;
     switch (this.dso.type.toString()) {
-      case "community":
+      case 'community':
         routePrefix = '/communities';
         break;
-      case "collection":
+      case 'collection':
         routePrefix = '/collections';
         break;
-      case "item":
+      case 'item':
         routePrefix = '/items';
         break;
     }
@@ -68,6 +80,7 @@ export class SubscriptionViewComponent implements OnInit {
 
   /**
    * Deletes Subscription, show notification on success/failure & updates list
+   * @param subscription Subscription to be deleted
    */
   deleteSubscriptionPopup(subscription: Subscription) {
     if (hasValue(subscription.id)) {
@@ -81,7 +94,7 @@ export class SubscriptionViewComponent implements OnInit {
       modalRef.componentInstance.confirmIcon = 'fas fa-trash';
       modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
         if (confirm) {
-          this.subscriptionService.deleteSubscription(subscription.id).subscribe((res)=>{
+          this.subscriptionService.deleteSubscription(subscription.id).subscribe( (res) => {
             this.reload.emit();
           });
         }

@@ -16,7 +16,13 @@ import { NotificationOptions } from '../../../notifications/models/notification-
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
+
+import { hasValue } from '../../../../shared/empty.util';
+import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+
+import { take } from 'rxjs/operators';
+import { NoContent } from '../../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-subscription-modal',
@@ -25,11 +31,26 @@ import { RemoteData } from '../../../../core/data/remote-data';
 })
 export class SubscriptionModalComponent implements OnInit {
 
-  @Input("dso") dso : DSpaceObject;
-  @Input("eperson") eperson : string;
-  @Input("subscriptions") subscriptions! : Subscription[];
+  /**
+   * DSpaceObject of which to get the subscriptions
+   */
+  @Input() dso: DSpaceObject;
 
-  @Output('close') close : EventEmitter<string> = new EventEmitter<string>();
+  /**
+   * EPerson of which to get the subscriptions
+   */
+  @Input() eperson: string;
+
+
+  /**
+   * Close event emit to close modal
+   */
+  @Output() close: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * List of subscription for the dso object and eperson relation
+   */
+  subscriptions: Subscription[];
 
   /**
    * A boolean representing if a request operation is pending
@@ -37,8 +58,14 @@ export class SubscriptionModalComponent implements OnInit {
    */
   public processing$ = new BehaviorSubject<boolean>(false);
 
-  subscriptionForm: FormArray = this.formGroup.array([]);
+  /**
+   * Reactive form group that will be used to add subscriptions
+   */
+  subscriptionForm: FormGroup;
 
+  /**
+   * Used to show validation errors when user submits
+   */
   submitted = false;
 
   /**
@@ -46,14 +73,17 @@ export class SubscriptionModalComponent implements OnInit {
    */
   public modalRef: NgbModalRef;
 
+  /**
+   * Types of subscription to be shown on select
+   */
   types = [
     {name: 'Content' ,value: 'content'},
     {name: 'Statistics' ,value: 'statistics'},
-    // {name: 'Content & Statistics' ,value: 'content+statistics'},
   ];
 
-  selectedType;
-
+  /**
+   * Frequencies to be shown as checkboxes
+   */
   frequencies = [
     {name: 'daily' ,value: 'D'},
     {name: 'monthly' ,value: 'M'},
@@ -61,39 +91,30 @@ export class SubscriptionModalComponent implements OnInit {
   ];
 
   constructor(private formGroup: FormBuilder,
+    private modalService: NgbModal,
     private notificationsService: NotificationsService,
     private subscriptionService: SubscriptionService
-    ) { }
+  ) { }
 
+  /**
+   * When component starts initialize starting functionality
+   */
   ngOnInit(): void {
-    if(!!this.subscriptions){
-      this.subscriptions.forEach((subscription)=>{
-        this.buildFormBuilder(subscription);
-      });
-    }else{
       this.initSubscription();
-    }
   }
 
-
-  initSubscription() {
+  /**
+   * Get subscription for the eperson & dso object relation
+   * If no subscription start with an empty form
+   */
+  initSubscription(): void {
     this.processing$.next(true);
     this.getSubscription(this.eperson, this.dso.uuid).subscribe( (subscriptions: PaginatedList<Subscription>) => {
-      console.log(subscriptions);
-      if(subscriptions.pageInfo.totalElements > 0){
+
+      if (subscriptions.pageInfo.totalElements > 0) {
         this.subscriptions = subscriptions.page;
-
-        if(this.subscriptions.length >= 2){
-          this.selectedType = 'content+statistics';
-        }else{
-          this.selectedType = this.subscriptions[0].subscriptionType;
-        }
-
-        subscriptions.page.forEach((subscription)=>{
-          this.buildFormBuilder(subscription);
-        });
-      }else{
-        this.initEmptyForm("content");
+      } else {
+        this.initEmptyForm('content');
       }
 
       this.processing$.next(false);
@@ -102,156 +123,122 @@ export class SubscriptionModalComponent implements OnInit {
     });
   }
 
-  initEmptyForm(subscriptionType){
-    this.subscriptionForm.push(
-      this.formGroup.group({
-        // id:null,
-        type: subscriptionType,
-        // subscriptionType: subscriptionType,
-        subscriptionParameterList: this.formGroup.array([], Validators.required)
-      })
-    );
-  }
-
-
-  selectCheckbox(event,i,frequency){
-    if(event.target.checked){
-      this.addFrequency(i,frequency)
-    }else{
-      this.removeFrequency(i,frequency)
-    }
-  }
-
-  buildFormBuilder(subscription){
-    const index = this.subscriptionForm.controls.length;
-
-    this.subscriptionForm.push(
-      this.formGroup.group({
-        id: subscription.id,
-        type: subscription.subscriptionType,
-        subscriptionParameterList: this.formGroup.array([], Validators.required)
-      })
-    );
-
-    subscription.subscriptionParameterList.forEach( (parameter) => {
-      this.addFrequency(index,parameter.value,parameter.id);
-    });
-  }
-
-  getSubscription(epersonId, uuid): Observable<any> {
-
+  /**
+   * Function to get subscriptions based on the eperson & dso
+   *
+   * @param epersonId Eperson that is logged in
+   * @param uuid DSpaceObject id that subscriptions are related to
+   */
+  getSubscription(epersonId: string, uuid: string): Observable<PaginatedList<Subscription>> {
     return this.subscriptionService.getSubscriptionByPersonDSO(epersonId,uuid);
   }
 
-  newFrequency(name): FormGroup {
-    return this.formGroup.group({
-              // id: null,
-              name: name,
-              value: this.formGroup.array([])
-            });
+  /**
+   * Starts a new empty form
+   *
+   * @param subscriptionType type of subscription to start the form
+   */
+  initEmptyForm(subscriptionType): void {
+    this.subscriptionForm = this.formGroup.group({
+        type: subscriptionType,
+        subscriptionParameterList: this.formGroup.array([], Validators.required)
+    });
   }
 
-  addFrequency(i,frequency,id?) {
-    let subscriptionParameterList = this.subscriptionForm.controls[i].get('subscriptionParameterList') as FormArray;
-
-    subscriptionParameterList.push( 
-      this.formGroup.group({
-          // id: id,
-          name: "frequency",
-          value: frequency
-        })
-      );
+  /**
+   * Function to get subscriptionParameterList form array cleaner
+   */
+  get subscriptionParameterList(): FormArray {
+    return this.subscriptionForm.get('subscriptionParameterList') as FormArray;
   }
 
-  removeFrequency(i,frequency) {
-    let subscriptionParameterList = this.subscriptionForm.controls[i].get('subscriptionParameterList') as FormArray;
-    let index = subscriptionParameterList.controls.findIndex(el => el.value.value == frequency);
-    
-    subscriptionParameterList.removeAt(index);
-  }
 
-  typeChanged(event) {
-    if(event.target.value == 'content' || event.target.value == 'statistics'){
-
-      if(this.subscriptionForm.controls.length >= 2){
-
-        // Remove the other type
-        let otherType = 'content';
-
-        if(event.target.value == 'content'){
-          otherType = 'statistics';
-        }
-        const index = this.subscriptionForm.controls.findIndex((control) => {
-          return control.get("type").value == otherType;
-        });
-
-        if(!!this.subscriptionForm.controls[index].get("id") && !!this.subscriptionForm.controls[index].get("id").value){
-          this.deleteSubscription(this.subscriptionForm.controls[index].get("id").value);
-        }
-
-        this.subscriptionForm.removeAt(index);
-
-      }else{
-        // Just change the type value
-        this.subscriptionForm.controls[0].patchValue({'type': event.target.value});
-      }
-
-    }else{
-      //There should be one subscription, we need to add another of the different type
-      const index = this.subscriptionForm.controls.findIndex((control) => {
-        return control.get("type").value == "content";
-      });
-
-      if(index === -1){
-        this.initEmptyForm("content");
-      }else{
-        this.initEmptyForm("statistics");
-      }
-
+  /**
+   * When add button is clicked, if there is no subscription being added it will add a new form
+   */
+  addNewSubscription(): void {
+    if (!this.subscriptionForm) {
+      this.initEmptyForm('content');
     }
-
-    this.selectedType = event.target.value;
   }
 
+  /**
+   * When frequency checkboxes are being changed we add/remove frequencies from subscriptionParameterList
+   */
+  selectCheckbox(event,frequency): void {
+    if (event.target.checked) {
+      this.addFrequency(frequency);
+    } else {
+      this.removeFrequency(frequency);
+    }
+  }
 
-  submit() {
+  /**
+   * When subscription type select box is changed set new value of type
+   *
+   * @param event Event of changing selectbox
+   */
+  changed(event): void {
+    this.subscriptionForm.patchValue( { 'type': event.target.value } );
+  }
+
+  /**
+   * Add a new frequency to the subscriptionParameterList form array
+   */
+  addFrequency(frequency): void {
+    this.subscriptionParameterList.push(
+      this.formGroup.group({
+          name: 'frequency',
+          value: frequency
+      })
+    );
+  }
+
+  /**
+   * Remove frequency from subscriptionParameterList form array
+   */
+  removeFrequency(frequency): void {
+    const index = this.subscriptionParameterList.controls.findIndex(el => el.value.value === frequency);
+    this.subscriptionParameterList.removeAt(index);
+  }
+
+  /**
+   * When user saves it will check if form is valid and send request to create subscription
+   */
+  submit(): void {
+    this.processing$.next(true);
     this.submitted = true;
     if (this.subscriptionForm.valid) {
-      this.subscriptionForm.controls.forEach((subscription) => {
-        if (subscription.value.id) {
-          this.updateForm(subscription.value);
-        } else {
-          this.createForm(subscription.value);
-        }
-      });
+      this.createForm(this.subscriptionForm.value);
     }
   }
 
-  updateForm(body) {
-    this.subscriptionService.updateSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
-      this.notify();
-    });
-  }
-
-  createForm(body) {
+  /**
+   * Sends request to create a new subscription, refreshes the table of subscriptions and notifies about summary page
+   */
+  createForm(body): void {
     this.subscriptionService.createSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
-      this.notify();
-    });
+        this.refresh();
+        this.notify();
+        this.processing$.next(false);
+      },
+      err => {
+        this.processing$.next(false);
+      }
+    );
   }
 
-
-  deleteSubscription(id){
-    this.subscriptionService.deleteSubscription(id).subscribe((res)=>{
-    });
+  /**
+   * Sends the request to delete the subscription with a specific id
+   */
+  deleteSubscription(id): Observable<NoContent> {
+    return this.subscriptionService.deleteSubscription(id);
   }
 
-  delete(){
-    this.subscriptions.forEach((subscription: Subscription) => {
-      this.deleteSubscription(subscription.id);
-    });
-  }
-
-  notify() {
+  /**
+   * Creates a notification with the link to the subscription summary page
+   */
+  notify(): void {
     const options = new NotificationOptions();
     options.timeOut = 0;
     const link = '/subscriptions';
@@ -261,16 +248,55 @@ export class SubscriptionModalComponent implements OnInit {
       link,
       'context-menu.actions.subscription.notification.here-text',
       'context-menu.actions.subscription.notification.content',
-      'here');
+      'here'
+    );
   }
 
-  c(text){
+  /**
+   * When an action is done it will reinitialize the table and remove subscription form
+   */
+  refresh(): void {
+    this.initSubscription();
+    this.subscriptionForm = null;
+    this.submitted = false;
+  }
+
+  /**
+   * When close button is pressed emit function to close modal
+   */
+  c(text): void {
     this.close.emit(text);
   }
 
-
-  getIsChecked(control,frequency){
-    return !!control.get('subscriptionParameterList').value.find(el => el.value == frequency.value);
+  /**
+   * Returns if a specific frequency exists in the subscriptionParameterList
+   */
+  getIsChecked(frequency): boolean {
+    return !!this.subscriptionForm.get('subscriptionParameterList').value.find(el => el.value === frequency.value);
   }
 
+  /**
+   * Deletes Subscription, show notification on success/failure & updates list
+   *
+   * @param subscription Subscription to be deleted
+   */
+  deleteSubscriptionPopup(subscription: Subscription): void {
+    if (hasValue(subscription.id)) {
+      const modalRef = this.modalService.open(ConfirmationModalComponent);
+      modalRef.componentInstance.dso = this.dso;
+      modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-subscription.header';
+      modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-subscription.info';
+      modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-subscription.cancel';
+      modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-subscription.confirm';
+      modalRef.componentInstance.brandColor = 'danger';
+      modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+      modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.deleteSubscription(subscription.id).subscribe( (res: NoContent) => {
+            this.refresh();
+          });
+        }
+      });
+    }
+  }
 }

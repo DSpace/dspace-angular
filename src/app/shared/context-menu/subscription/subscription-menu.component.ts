@@ -46,9 +46,15 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     {name: 'Content & Statistics' ,value: 'content+statistics'},
   ];
 
+  /**
+   * EPerson id of the logged user
+   */
   eperson: string;
 
-  dso : DSpaceObject;
+  /**
+   * DSpaceObject that is being viewed
+   */
+  dso: DSpaceObject;
 
   /**
    * Initialize instance variables
@@ -70,7 +76,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
 
   ngOnInit() {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
-    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe((eperson : EPerson)=>{
+    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
       this.eperson = eperson.id;
     });
   }
@@ -82,25 +88,6 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
    */
   public openSubscription(content: any) {
     this.modalRef = this.modalService.open(content);
-  }
-
-  /**
-   * Return the prefix of the route to the edit page (before the object's UUID, e.g. 'items')
-   */
-  getPageRoutePrefix(): string {
-    let routePrefix;
-    switch (this.contextMenuObjectType) {
-      case DSpaceObjectType.COMMUNITY:
-        routePrefix = 'communities';
-        break;
-      case DSpaceObjectType.COLLECTION:
-        routePrefix = 'collections';
-        break;
-      case DSpaceObjectType.ITEM:
-        routePrefix = 'items';
-        break;
-    }
-    return routePrefix;
   }
 
 }

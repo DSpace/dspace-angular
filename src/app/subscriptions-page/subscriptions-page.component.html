@@ -4,9 +4,10 @@
       <h2>{{'subscriptions.title' | translate}}</h2>
       <div class="row">
         <div class="col-md-12 m-40">
+          <ds-loading *ngIf="loading$ | async"></ds-loading>
           <ds-pagination
-            *ngIf="(subscriptions$ | async)?.pageInfo?.totalElements > 0"
-            [paginationOptions]="pageConfig"
+            *ngIf="(subscriptions$ | async)?.pageInfo?.totalElements > 0 && !(loading$ | async)"
+            [paginationOptions]="config"
             [pageInfoState]="(subscriptions$ | async)?.pageInfo"
             [collectionSize]="(subscriptions$ | async)?.pageInfo?.totalPages"
             [hideGear]="true" 

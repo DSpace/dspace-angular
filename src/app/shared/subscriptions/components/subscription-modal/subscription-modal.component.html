@@ -6,13 +6,13 @@
   </div>
   <div class="modal-body">
     <div class="row">
-      <div class="col-md-12">
-        <button class="btn btn-success">
+      <div class="col-md-12 add-button">
+        <button (click)="addNewSubscription()" class="btn btn-success">
           <i class="fas fa-plus"></i>
         </button> 
       </div>
     </div>
-    <div class="row">
+    <div *ngIf="!!subscriptions && subscriptions.length > 0" class="row">
       <div class="col-md-12">
         <div class="table-responsive">
           <table id="formats" class="table table-striped table-hover">
@@ -32,7 +32,7 @@
                   </span>
                 </td>
                 <td>
-                  <button class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton" title="Delete">
+                  <button (click)="deleteSubscriptionPopup(subscription)" class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton" title="Delete">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
                 </td>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div *ngIf="!!subscriptionForm" class="row">
       <div class="col-md-12">
         <form [formGroup]="subscriptionForm">
           <div class="row">
@@ -50,30 +50,30 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                      <label for="type">{{ 'context-menu.actions.subscription.type' | translate }}</label>
-                      <select (change)="typeChanged($event)" ([ngModel])="selectedType" id="type" class="custom-select">
-                          <option [selected]="type.value == selectedType" *ngFor="let type of types" [value]="type.value">
-                              {{ 'context-menu.actions.subscription.'+type.value | translate}}
-                          </option>
-                      </select>
+                    <label for="type">{{ 'context-menu.actions.subscription.type' | translate }}</label>
+                    <select (change)="changed($event)" fromControlName="type" id="type" class="custom-select">
+                      <option [selected]="type.value == subscriptionForm.get('type').value" *ngFor="let type of types" [value]="type.value">
+                          {{ 'context-menu.actions.subscription.'+type.value | translate}}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6" *ngFor="let control of subscriptionForm.controls; index as i">
-                  <div *ngIf="!!control" class="col-md-12">
+              <div class="row" formArrayName="subscriptionParameterList">
+                <div class="col-md-6">
+                  <div class="col-md-12">
                        <div class="custom-control custom-checkbox">
                         <label class="checkbox-label">
-                          {{ control.get('type').value == 'content' ? 'Content:' : 'Statistics:' }}
+                          {{ subscriptionForm.get('type').value == 'content' ? 'Content:' : 'Statistics:' }}
                         </label>
                       </div>
                   </div>
                   <div class="col-md-12" *ngFor="let frequency of frequencies; let j=index">
-                      <input [id]="'checkbox-'+i+j" (change)="selectCheckbox($event,i,frequency.value)" [checked]="getIsChecked(control,frequency)" value="{{frequency.value}}" type="checkbox" /> 
-                      <label [for]="'checkbox-'+i+j">{{ 'context-menu.actions.subscription.'+frequency.name | translate }}</label>
+                    <input [id]="'checkbox-'+j" (change)="selectCheckbox($event,frequency.value)" [checked]="getIsChecked(frequency)" value="{{frequency.value}}" type="checkbox" />
+                    <label [for]="'checkbox-'+j">{{ 'context-menu.actions.subscription.'+frequency.name | translate }}</label>
                   </div>
                   <div *ngIf="!!submitted" class="alert">
-                    <div *ngIf="control.get('subscriptionParameterList').errors?.required">
+                    <div *ngIf="subscriptionParameterList.errors?.required">
                       {{ 'context-menu.actions.subscription.frequency.required' | translate }}
                     </div>
                   </div>

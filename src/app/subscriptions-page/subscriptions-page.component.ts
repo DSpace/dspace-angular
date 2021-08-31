@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, of as observableOf, BehaviorSubject, Subscription as rxSubscription } from 'rxjs';
 import { switchMap, map, take, tap } from 'rxjs/operators';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { RemoteData } from '../core/data/remote-data';
@@ -9,54 +9,99 @@ import { SubscriptionService } from '../shared/subscriptions/subscription.servic
 import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../core/data/request.models';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { PageInfo } from '../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss']
 })
-export class SubscriptionsPageComponent implements OnInit {
+export class SubscriptionsPageComponent implements OnInit, OnDestroy {
 
   /**
    * The subscriptions to show on this page, as an Observable list.
    */
-  subscriptions$: Observable<PaginatedList<Subscription>>;
+  subscriptions$: BehaviorSubject<PaginatedList<Subscription>> = new BehaviorSubject(buildPaginatedList<Subscription>(new PageInfo(), []));
 
   /**
    * The current pagination configuration for the page used by the FindAll method
-   * Currently simply renders all bitstream formats
+   * Currently simply renders subscriptions
    */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 2
+  config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'elp',
+    pageSize: 10,
+    currentPage: 1
   });
 
   /**
-   * The current pagination configuration for the page
-   * Currently simply renders all bitstream formats
+   * Subscription to be unsubscribed
    */
-  pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'rbp',
-    pageSize: 2
-  });
+  sub: rxSubscription;
 
+  /**
+   * A boolean representing if is loading
+   */
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private subscriptionService: SubscriptionService) { }
+    private paginationService: PaginationService,
+    private subscriptionService: SubscriptionService
+  ) { }
 
+  /**
+   * Subscribe the pagination service to send a request with specific pagination
+   * When page is changed it will request the new subscriptions for the new page config
+   */
   ngOnInit(): void {
-
-    this.subscriptions$ = this.getSubscriptions() as Observable<PaginatedList<Subscription>>;
-
-  }
-
-  getSubscriptions(): Observable<PaginatedList<Subscription>> {
-    return this.subscriptionService.findAllSubscriptions().pipe(
-      tap((res) => {console.log(res)})
+    this.sub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      switchMap((findListOptions) => {
+          this.loading$.next(true);
+          return this.subscriptionService.findAllSubscriptions({
+            currentPage: findListOptions.currentPage,
+            elementsPerPage: findListOptions.pageSize
+          });
+        }
+      )
+    ).subscribe((res) => {
+        this.subscriptions$.next(res);
+        this.loading$.next(false);
+      },
+      (err) => {
+        this.loading$.next(false);
+      }
     );
   }
 
-  refresh(){
-    
+  /**
+   * When an action is made and the information is changed refresh the information
+   */
+  refresh(): void {
+    this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+      take(1),
+      switchMap((findListOptions) => {
+          this.loading$.next(true);
+          return this.subscriptionService.findAllSubscriptions({
+            currentPage: findListOptions.currentPage,
+            elementsPerPage: findListOptions.pageSize
+          });
+        }
+      )
+    ).subscribe((res) => {
+        this.subscriptions$.next(res);
+        this.loading$.next(false);
+      },
+      (err) => {
+        this.loading$.next(false);
+      }
+    );
+  }
+
+  /**
+   * Unsubscribe from pagination subscription
+   */
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }

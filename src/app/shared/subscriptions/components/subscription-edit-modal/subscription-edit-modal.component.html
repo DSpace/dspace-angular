@@ -4,25 +4,25 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div *ngIf="!!subscriptionForm" class="modal-body">
     <form [formGroup]="subscriptionForm">
       <div class="row">
         <div class="col-md-12">
           <div class="row">
-            <div class="col-md-6" *ngFor="let control of subscriptionForm.controls; index as i">
-              <div *ngIf="!!control" class="col-md-12">
+            <div class="col-md-6">
+              <div class="col-md-12">
                    <div class="custom-control custom-checkbox">
                     <label class="checkbox-label">
-                      {{ control.get('type').value == 'content' ? 'Content:' : 'Statistics:' }}
+                      {{ subscriptionForm.get('type').value == 'content' ? 'Content:' : 'Statistics:' }}
                     </label>
                   </div>
               </div>
               <div class="col-md-12" *ngFor="let frequency of frequencies; let j=index">
-                  <input [id]="'checkbox-'+i+j" (change)="selectCheckbox($event,i,frequency.value)" [checked]="getIsChecked(control,frequency)" value="{{frequency.value}}" type="checkbox" /> 
-                  <label [for]="'checkbox-'+i+j">{{ 'context-menu.actions.subscription.'+frequency.name | translate }}</label>
+                  <input [id]="'checkbox-'+j" (change)="selectCheckbox($event,frequency.value)" [checked]="getIsChecked(frequency)" value="{{frequency.value}}" type="checkbox" /> 
+                  <label [for]="'checkbox-'+j">{{ 'context-menu.actions.subscription.'+frequency.name | translate }}</label>
               </div>
               <div *ngIf="!!submitted" class="alert">
-                <div *ngIf="control.get('subscriptionParameterList').errors?.required">
+                <div *ngIf="subscriptionForm.get('subscriptionParameterList').errors?.required">
                   {{ 'context-menu.actions.subscription.frequency.required' | translate }}
                 </div>
               </div>
