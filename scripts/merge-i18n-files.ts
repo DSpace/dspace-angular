@@ -54,10 +54,9 @@ function parseCliInput() {
       process.exit(1);
     }
     fs.readdirSync(projectRoot(program.sourceDir)).forEach(file => {
-      if (fs.existsSync(program.outputDir + '/' + file) )
-      {
-        console.log("Merging: "+ program.outputDir + '/' + file + ' with '+ program.sourceDir + '/' + file)
-        mergeFileWithSource(program.sourceDir + '/' + file, program.outputDir + '/' + file)
+      if (fs.existsSync(program.outputDir + '/' + file) ) {
+        console.log('Merging: ' + program.outputDir + '/' + file + ' with ' + program.sourceDir + '/' + file);
+        mergeFileWithSource(program.sourceDir + '/' + file, program.outputDir + '/' + file);
       }
     });
   } else {
@@ -79,21 +78,21 @@ function mergeFileWithSource(pathToSourceFile, pathToOutputFile) {
   const progressBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
   progressBar.start(100, 0);
 
-  const source_file = fs.readFileSync(pathToSourceFile, 'utf8')
+  const sourceFile = fs.readFileSync(pathToSourceFile, 'utf8');
   progressBar.update(10);
-  const output_file = fs.readFileSync(pathToOutputFile, 'utf8')
+  const outputFile = fs.readFileSync(pathToOutputFile, 'utf8');
   progressBar.update(20);
 
-  let parsed_source = JSON5.parse(source_file)
+  const parsedSource = JSON5.parse(sourceFile);
   progressBar.update(30);
-  let parsed_output = JSON5.parse(output_file)
+  const parsedOutput = JSON5.parse(outputFile);
   progressBar.update(40);
 
-  for (let key of Object.keys(parsed_source)) {
-    parsed_output[key] = parsed_source[key];
+  for (const key of Object.keys(parsedSource)) {
+    parsedOutput[key] = parsedSource[key];
   }
   progressBar.update(80);
-  fs.writeFileSync(pathToOutputFile,JSON5.stringify(parsed_output,{ space:'\n  ', quote: '"' }), { encoding:'utf8' })
+  fs.writeFileSync(pathToOutputFile,JSON5.stringify(parsedOutput,{ space:'\n  ', quote: '"' }), { encoding:'utf8' });
 
   progressBar.update(100);
   progressBar.stop();
