@@ -7,10 +7,8 @@ import {RenderingTypeModelComponent} from '../rendering-type.model';
 import {VocabularyService} from '../../../../../core/submission/vocabularies/vocabulary.service';
 import {VocabularyOptions} from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import {getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload} from '../../../../../core/shared/operators';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {hasNoValue} from '../../../../../shared/empty.util';
-import {HttpErrorResponse} from '@angular/common/http';
+import {AuthService} from '../../../../../core/auth/auth.service';
+import {take} from 'rxjs/operators';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.
@@ -29,7 +27,10 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
    */
   values: string[] = [];
 
-  constructor(protected translateService: TranslateService, protected vocabularyService: VocabularyService) {
+  constructor(
+    protected translateService: TranslateService,
+    protected vocabularyService: VocabularyService,
+    protected authService: AuthService,) {
     super(translateService);
   }
 
@@ -42,36 +43,46 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
       itemsToBeRendered = [...this.metadataValues];
     }
 
-    // let vocabularyOptions;
+    this.authService.isAuthenticated().pipe(take(1)).subscribe((isAuth) => {
+        if (isAuth) {
+          this.item.owningCollection.pipe(
+            getFirstSucceededRemoteDataPayload(),
+          ).subscribe((collection) => {
 
-    this.item.owningCollection.pipe(
-      getFirstSucceededRemoteDataPayload(),
-    ).subscribe((collection) => {
+            const vocabularyOptions = new VocabularyOptions(null, this.field.metadata, collection.uuid);
+            this.vocabularyService.searchVocabularyByMetadataAndCollection(vocabularyOptions).pipe(
+              getFirstCompletedRemoteData(),
+            ).subscribe((vocabulary) => {
 
-      const vocabularyOptions = new VocabularyOptions(null, this.field.metadata, collection.uuid);
-      this.vocabularyService.searchVocabularyByMetadataAndCollection(vocabularyOptions).pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe((vocabulary) => {
+              if (vocabulary.hasFailed) {
+                // In case of error, show fallback values
+                console.warn('Retrieving vocabulary has failed');
+                this.values = itemsToBeRendered;
+                return;
+              }
 
-        if (vocabulary.hasFailed) {
+              vocabularyOptions.name = vocabulary.payload.name;
+
+              itemsToBeRendered.forEach((metadataValue) => {
+                this.vocabularyService.getVocabularyEntryByValue(metadataValue, vocabularyOptions).subscribe(
+                  (entry) => {
+                    this.values.push(entry.display);
+                  }
+                );
+              });
+
+              this.values = values;
+
+            });
+          });
+        } else {
+          // If user is not authenticated, show fallback values
+          console.warn('User not authorized');
           this.values = itemsToBeRendered;
-          return;
         }
+      }
+    );
 
-        vocabularyOptions.name = vocabulary.payload.name;
-
-        itemsToBeRendered.forEach((metadataValue) => {
-          this.vocabularyService.getVocabularyEntryByValue(metadataValue, vocabularyOptions).subscribe(
-            (entry) => {
-              this.values.push(entry.display);
-            }
-          );
-        });
-
-        this.values = values;
-
-      });
-    });
   }
 
 }
