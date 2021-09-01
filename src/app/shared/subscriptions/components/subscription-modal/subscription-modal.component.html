@@ -32,6 +32,9 @@
                   </span>
                 </td>
                 <td>
+                  <button (click)="editSubscription(subscription)" class="btn btn-outline-primary btn-sm access-control-editEPersonButton" title="Edit">
+                    <i class="fas fa-edit fa-fw"></i>
+                  </button>
                   <button (click)="deleteSubscriptionPopup(subscription)" class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton" title="Delete">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
@@ -79,6 +82,10 @@
                   </div>
                 </div>
               </div>
+              <button type="button" (click)="submit()" class="btn btn-success" [disabled]="(processing$ | async)">
+                <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+                <span *ngIf="!(processing$ | async)">{{'context-menu.actions.subscription.confirm.submit' | translate}}</span>
+              </button>
             </div>
           </div>
         </form>
@@ -88,10 +95,5 @@
   <div class="modal-footer">
 
     <button type="button" class="btn btn-outline-secondary" (click)="c('cancel')">{{'context-menu.actions.request-correction.confirm.cancel' | translate}}</button>
-
-    <button type="button" (click)="submit()" class="btn btn-success" [disabled]="(processing$ | async)">
-      <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-      <span *ngIf="!(processing$ | async)">{{'context-menu.actions.subscription.confirm.submit' | translate}}</span>
-    </button>
 
   </div>

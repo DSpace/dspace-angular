@@ -65,12 +65,14 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
       )
     ).subscribe((res) => {
         this.subscriptions$.next(res);
+        console.log(res);
         this.loading$.next(false);
       },
       (err) => {
         this.loading$.next(false);
       }
     );
+
   }
 
   /**

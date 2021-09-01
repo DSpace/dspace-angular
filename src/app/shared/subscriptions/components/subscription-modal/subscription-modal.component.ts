@@ -163,6 +163,33 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
   /**
+   * Starts a form with information filled by the subscription
+   *
+   * @param subscription subscription to start the form
+   */
+  editForm(subscription): void {
+    this.subscriptionForm = this.formGroup.group({
+        id: subscription.id,
+        type: subscription.subscriptionType,
+        subscriptionParameterList: this.formGroup.array([], Validators.required)
+    });
+
+    subscription.subscriptionParameterList.forEach((parameter)=> {
+      this.addFrequency(parameter.value);
+    });
+  }
+
+
+  /**
+   * When add button is clicked, if there is no subscription being added it will add a new form
+   */
+  editSubscription(subscription: Subscription): void {
+    if (!this.subscriptionForm) {
+      this.editForm(subscription);
+    }
+  }
+
+  /**
    * When frequency checkboxes are being changed we add/remove frequencies from subscriptionParameterList
    */
   selectCheckbox(event,frequency): void {
@@ -203,13 +230,17 @@ export class SubscriptionModalComponent implements OnInit {
   }
 
   /**
-   * When user saves it will check if form is valid and send request to create subscription
+   * When user saves it will check if form is valid and send request to create or update a subscription
    */
   submit(): void {
     this.processing$.next(true);
     this.submitted = true;
     if (this.subscriptionForm.valid) {
-      this.createForm(this.subscriptionForm.value);
+      if (this.subscriptionForm.value.id) {
+        this.updateForm(this.subscriptionForm.value);
+      } else {
+        this.createForm(this.subscriptionForm.value);
+      }
     }
   }
 
@@ -227,6 +258,22 @@ export class SubscriptionModalComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * Sends request to update a subscription, refreshes the table of subscriptions and notifies about summary page
+   */
+  updateForm(body) {
+    this.subscriptionService.updateSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
+        this.refresh();
+        this.notify();
+        this.processing$.next(false);
+      },
+      err => {
+        this.processing$.next(false);
+      }
+    );
+  }
+
 
   /**
    * Sends the request to delete the subscription with a specific id

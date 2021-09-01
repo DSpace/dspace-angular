@@ -5,30 +5,39 @@
       <div class="row">
         <div class="col-md-12 m-40">
           <ds-loading *ngIf="loading$ | async"></ds-loading>
-          <ds-pagination
-            *ngIf="(subscriptions$ | async)?.pageInfo?.totalElements > 0 && !(loading$ | async)"
-            [paginationOptions]="config"
-            [pageInfoState]="(subscriptions$ | async)?.pageInfo"
-            [collectionSize]="(subscriptions$ | async)?.pageInfo?.totalPages"
-            [hideGear]="true" 
-            [hidePagerWhenSinglePage]="true">
-            <div class="table-responsive">
-              <table id="formats" class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">{{'subscriptions.table.dso' | translate}}</th>
-                    <th scope="col">{{'subscriptions.table.subscription_type' | translate}}</th>
-                    <th scope="col">{{'subscriptions.table.subscription_frequency' | translate}}</th>
-                    <th scope="col">{{'subscriptions.table.action' | translate}}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ds-subscription-view *ngFor="let subscription of (subscriptions$ | async)?.page" [eperson]="subscription?._embedded?.ePerson.id" [dso]="subscription?._embedded?.dSpaceObject" [subscription]="subscription" (reload)="refresh()">
-                  </tr>
-                </tbody>
-              </table>
+          <ng-container *ngVar="(subscriptions$ | async) as subscriptions">
+             
+            <ds-pagination
+              *ngIf="subscriptions?.pageInfo?.totalElements > 0 && !(loading$ | async)"
+              [paginationOptions]="config"
+              [pageInfoState]="subscriptions?.pageInfo"
+              [collectionSize]="subscriptions?.pageInfo?.totalPages"
+              [hideGear]="true" 
+              [hidePagerWhenSinglePage]="true">
+              <div class="table-responsive">
+                <table id="formats" class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{'subscriptions.table.dso' | translate}}</th>
+                      <th scope="col">{{'subscriptions.table.subscription_type' | translate}}</th>
+                      <th scope="col">{{'subscriptions.table.subscription_frequency' | translate}}</th>
+                      <th scope="col">{{'subscriptions.table.action' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ds-subscription-view *ngFor="let subscription of subscriptions?.page" [eperson]="subscription?._embedded?.ePerson.id" [dso]="subscription?._embedded?.dSpaceObject" [subscription]="subscription" (reload)="refresh()">
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ds-pagination>
+
+            <div *ngIf="subscriptions?.pageInfo?.totalElements == 0 && !(loading$ | async)">
+              {{ 'subscriptions.table.empty.message' | translate }}
             </div>
-          </ds-pagination>
+
+          </ng-container> 
+
       </div>
     </div>
   </div>

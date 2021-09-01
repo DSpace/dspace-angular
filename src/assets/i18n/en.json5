@@ -5101,6 +5101,9 @@
 
   "subscriptions.table.action": "Action",
 
+  "subscriptions.table.empty.message": "You have not subscribed any notification yet. To subscribe notification about an object please use the contextual menu in the object detail view",
+
+
 
   "thumbnail.default.alt": "Thumbnail Image",
 
