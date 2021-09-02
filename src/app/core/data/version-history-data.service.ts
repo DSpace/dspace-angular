@@ -8,19 +8,21 @@ import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
+import { FindListOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getFirstCompletedRemoteData, sendRequest } from '../shared/operators';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -78,5 +80,21 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
 
     return this.versionDataService.findAllByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  createVersion(itemHref: string, summary: string): Observable<RemoteData<Version>> {
+    const requestOptions: HttpOptions = Object.create({});
+    let requestHeaders = new HttpHeaders();
+    requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
+    requestOptions.headers = requestHeaders;
+
+    return this.halService.getEndpoint(this.versionsEndpoint).pipe(
+      take(1),
+      map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
+      sendRequest(this.requestService),
+      switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
+      getFirstCompletedRemoteData()
+    ) as Observable<RemoteData<Version>>;
   }
 }

@@ -31,6 +31,18 @@ export class VersionHistory extends DSpaceObject {
   id: string;
 
   /**
+   * The summary of this Version History
+   */
+  @autoserialize
+  summary: string;
+
+  /**
+   * The name of the submitter of this Version History
+   */
+  @autoserialize
+  submitterName: string;
+
+  /**
    * The list of versions within this history
    */
   @excludeFromEquals

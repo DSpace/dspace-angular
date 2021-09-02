@@ -1250,7 +1250,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-  
+
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
@@ -1910,6 +1910,8 @@
 
   "item.page.return": "Back",
 
+  "item.page.version": "Create new version",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -1965,6 +1967,8 @@
 
   "item.version.history.selected": "Selected version",
 
+  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+
   "item.version.history.table.version": "Version",
 
   "item.version.history.table.item": "Item",
@@ -1975,9 +1979,66 @@
 
   "item.version.history.table.summary": "Summary",
 
+  "item.version.history.table.actions": "Action",
+
+
+  "item.version.history.table.action.editSummary": "Edit summary",
+
+  "item.version.history.table.action.saveSummary": "Save summary edits",
+
+  "item.version.history.table.action.discardSummary": "Discard summary edits",
+
+  "item.version.history.table.action.newVersion": "Create new version from this one",
+
+  "item.version.history.table.action.deleteVersion": "Delete version",
 
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+
+
+  "item.version.create.modal.header": "New version",
+
+  "item.version.create.modal.text": "Create a new version for this item",
+
+  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
+
+  "item.version.create.modal.button.confirm": "Create",
+
+  "item.version.create.modal.button.confirm.tooltip": "Create new version",
+
+  "item.version.create.modal.button.cancel": "Cancel",
+
+  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
+
+  "item.version.create.modal.form.summary.label": "Summary",
+
+  "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
+
+  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+
+  "item.version.create.notification.failure" : "New version has not been created",
+
+
+  "item.version.delete.modal.header": "Delete version",
+
+  "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
+
+  "item.version.delete.modal.button.confirm": "Delete",
+
+  "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
+
+  "item.version.delete.modal.button.cancel": "Cancel",
+
+  "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+
+  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+
+  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+
+
+  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+
+  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
 
 
 
