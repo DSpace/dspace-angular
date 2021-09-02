@@ -189,7 +189,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       });
       this.formModel = [
         this.groupName,
-        // this.groupCommunity,
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
@@ -205,11 +204,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             this.groupBeingEdited = activeGroup;
 
             if (linkedObject?.name) {
-              // this.formModel = [
-              //   this.groupName,
-              //   this.groupCommunity,
-              //   this.groupDescription,
-              // ];
               this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
               this.formGroup.patchValue({
                 groupName: activeGroup != null ? activeGroup.name : '',

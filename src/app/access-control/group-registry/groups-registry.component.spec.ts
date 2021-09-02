@@ -149,7 +149,6 @@ describe('GroupRegistryComponent', () => {
     };
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
-        console.warn(href);
         return createSuccessfulRemoteDataObject$(undefined);
       }
     };
