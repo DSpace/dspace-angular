@@ -13,7 +13,6 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper/item-col
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -44,6 +43,7 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
  */
 @NgModule({
   imports: [
+    // items/<id>/edit/''/public
     RouterModule.forChild([
       {
         path: '',
@@ -99,7 +99,8 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
               }, */
               {
                 path: 'versionhistory',
-                component: ItemVersionHistoryComponent,
+                loadChildren: () => import('./version-history/version-history.module')
+                  .then((m) => m.VersionHistoryModule),
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
                 canActivate: [ItemPageVersionHistoryGuard]
               },

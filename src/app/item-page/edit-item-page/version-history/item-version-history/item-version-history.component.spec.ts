@@ -1,13 +1,13 @@
 import { ItemVersionHistoryComponent } from './item-version-history.component';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
+import { Item } from '../../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 
 describe('ItemVersionHistoryComponent', () => {
   let component: ItemVersionHistoryComponent;
