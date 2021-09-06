@@ -1250,7 +1250,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-  
+
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
@@ -1910,6 +1910,8 @@
 
   "item.page.return": "Back",
 
+  "item.page.version": "Create new version",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -1975,6 +1977,14 @@
 
   "item.version.history.table.summary": "Summary",
 
+  "item.version.history.table.actions": "Action",
+
+
+  "item.version.history.table.action.editSummary": "Edit summary",
+
+  "item.version.history.table.action.newVersion": "Create new version from this one",
+
+  "item.version.history.table.action.deleteVersion": "Delete version",
 
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",

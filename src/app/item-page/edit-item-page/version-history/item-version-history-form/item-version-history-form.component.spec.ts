@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemVersionHistoryEditComponent } from './item-version-history-edit.component';
+import { ItemVersionHistoryFormComponent } from './item-version-history-form.component';
 
 describe('ItemVersionHistoryCreateComponent', () => {
-  let component: ItemVersionHistoryEditComponent;
-  let fixture: ComponentFixture<ItemVersionHistoryEditComponent>;
+  let component: ItemVersionHistoryFormComponent;
+  let fixture: ComponentFixture<ItemVersionHistoryFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemVersionHistoryEditComponent ]
+      declarations: [ ItemVersionHistoryFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemVersionHistoryEditComponent);
+    fixture = TestBed.createComponent(ItemVersionHistoryFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

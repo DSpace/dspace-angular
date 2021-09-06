@@ -19,6 +19,8 @@ import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemVersionSummaryModalComponent } from '../../../item-page/edit-item-page/version-history/item-version-summary-modal/item-version-summary-modal.component';
 
 @Component({
   selector: 'ds-item-versions',
@@ -44,6 +46,11 @@ export class ItemVersionsComponent implements OnInit {
    * Whether or not to display the title
    */
   @Input() displayTitle = true;
+
+  /**
+   * Whether or not to display the action buttons
+   */
+  @Input() displayActions: boolean;
 
   /**
    * The AlertType enumeration
@@ -102,8 +109,13 @@ export class ItemVersionsComponent implements OnInit {
   }>;
 
   constructor(private versionHistoryService: VersionHistoryDataService,
-              private paginationService: PaginationService
+              private paginationService: PaginationService,
+              private modalService: NgbModal,
               ) {
+  }
+
+  openEditDialog() {
+    this.modalService.open(ItemVersionSummaryModalComponent);
   }
 
   /**

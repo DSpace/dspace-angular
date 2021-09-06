@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
-import { ItemVersionHistoryEditComponent } from './item-version-history-edit/item-version-history-edit.component';
+import { ItemVersionHistoryFormComponent } from './item-version-history-form/item-version-history-form.component';
 
 
 /**
@@ -24,11 +24,11 @@ import { ItemVersionHistoryEditComponent } from './item-version-history-edit/ite
       },
       {
         path: 'create',
-        component: ItemVersionHistoryEditComponent,
+        component: ItemVersionHistoryFormComponent,
       },
       {
         path: ':versionId/edit',
-        component: ItemVersionHistoryEditComponent,
+        component: ItemVersionHistoryFormComponent,
       }
     ])
   ],
