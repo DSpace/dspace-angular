@@ -19,10 +19,12 @@ import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'ds-item-versions',
-  templateUrl: './item-versions.component.html'
+  templateUrl: './item-versions.component.html',
+  styleUrls: ['./item-versions.component.scss']
 })
 /**
  * Component listing all available versions of the history the provided item is a part of
@@ -108,11 +110,37 @@ export class ItemVersionsComponent implements OnInit {
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private paginationService: PaginationService,
+              private formBuilder: FormBuilder,
               ) {
   }
 
-  openEditDialog() {
-    // TODO REMOVE
+  versionBeingEdited: number;
+
+  summary = 'test'; // TODO delete
+
+  summaryForm = this.formBuilder.group({summary: 's'});
+
+  onSummarySubmit() { // TODO submit
+    console.log('SUBMITTING ' + this.summary);
+    this.versionBeingEdited = undefined;
+  }
+
+
+  isAnyBeingEdited(): boolean {
+    return this.versionBeingEdited != null;
+  }
+
+  isThisBeingEdited(version): boolean {
+    return Number(version?.version) === this.versionBeingEdited;
+  }
+
+  editVersionSummary(version): void {
+    this.summary = version?.summary;
+    this.versionBeingEdited = Number(version?.version);
+  }
+
+  discardSummaryEdits(): void {
+    this.versionBeingEdited = undefined;
   }
 
   /**

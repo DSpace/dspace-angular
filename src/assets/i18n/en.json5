@@ -1967,6 +1967,8 @@
 
   "item.version.history.selected": "Selected version",
 
+  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+
   "item.version.history.table.version": "Version",
 
   "item.version.history.table.item": "Item",
@@ -1981,6 +1983,10 @@
 
 
   "item.version.history.table.action.editSummary": "Edit summary",
+
+  "item.version.history.table.action.saveSummary": "Save summary edits",
+
+  "item.version.history.table.action.discardSummary": "Discard summary edits",
 
   "item.version.history.table.action.newVersion": "Create new version from this one",
 

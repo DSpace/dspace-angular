@@ -2,7 +2,9 @@
   <div *ngVar="(versionRD$ | async)?.payload as itemVersion">
     <div class="mb-2" *ngIf="versions?.page?.length > 0 || displayWhenEmpty">
       <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
-      <!-- <p>TMP CURRENT VERSION = {{itemVersion.version}} {{item.uuid}} {{item.handle}}</p>check async -->
+      <ds-alert [type]="AlertTypeEnum.Info">
+        {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
+      </ds-alert>
       <ds-pagination *ngIf="versions?.page?.length > 0"
                      [hideGear]="true"
                      [hidePagerWhenSinglePage]="true"
@@ -10,11 +12,11 @@
                      [pageInfoState]="versions"
                      [collectionSize]="versions?.totalElements"
                      [retainScrollPosition]="true">
-        <table class="table table-striped my-2">
+        <table class="table table-striped table-bordered my-2">
           <thead>
           <tr>
             <th scope="col">{{"item.version.history.table.version" | translate}}</th>
-            <th scope="col">{{"item.version.history.table.item" | translate}}</th>
+            <!--            <th scope="col">{{"item.version.history.table.item" | translate}}</th>-->
             <th scope="col" *ngIf="(hasEpersons$ | async)">{{"item.version.history.table.editor" | translate}}</th>
             <th scope="col">{{"item.version.history.table.date" | translate}}</th>
             <th scope="col">{{"item.version.history.table.summary" | translate}}</th>
@@ -24,33 +26,76 @@
           <tbody>
           <tr *ngFor="let version of versions?.page" [id]="'version-row-' + version.id">
             <td class="version-row-element-version">{{version?.version}}</td>
-            <td class="version-row-element-item">
+            <!--<td class="version-row-element-item">
                 <span *ngVar="(version?.item | async)?.payload as item">
                   <a *ngIf="item" [routerLink]="[(itemPageRoutes$ | async)[item?.id]]">{{item?.handle}}</a>
                   <span *ngIf="version?.id === itemVersion?.id">*</span>
                 </span>
-            </td>
+            </td>-->
             <td *ngIf="(hasEpersons$ | async)" class="version-row-element-editor">
                 <span *ngVar="(version?.eperson | async)?.payload as eperson">
                   <a *ngIf="eperson" [href]="'mailto:' + eperson?.email">{{eperson?.name}}</a>
                 </span>
             </td>
-            <td class="version-row-element-date">{{version?.created}}</td>
-            <td class="version-row-element-summary">{{version?.summary}}</td>
+            <td class="version-row-element-date">{{version?.created | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td class="version-row-element-summary">
+              <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
+              <ng-template #showSummary>
+                <span class="left-column">{{version?.summary}}</span>
+                <span class="right-column" *ngIf="displayActions">
+                  <button class="btn btn-outline-primary btn-sm"
+                          (click)="editVersionSummary(version)"
+                          title="{{'item.version.history.table.action.editSummary' | translate}}"
+                          [disabled]="isAnyBeingEdited()">
+                    <i class="fas fa-edit fa-fw"></i>
+                  </button>
+                </span>
+              </ng-template>
+              <ng-template #editSummary>
+                <!--<form [formGroup]="summaryForm" (ngSubmit)="onSummarySubmit()">-->
+                  <span class="left-column">
+                    <!--<input class="form-control" type="text" formControlName="summary"/>-->
+                    <input class="form-control" type="text" [(ngModel)]="summary"/>
+                  </span>
+                  <span class="right-column">
+                    <div class="btn-group edit-field">
+                      <button class="btn btn-outline-success btn-sm"
+                              (click)="onSummarySubmit()"
+                              title="{{'item.version.history.table.action.saveSummary' | translate}}">
+                        <i class="fas fa-save fa-fw"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm"
+                              (click)="discardSummaryEdits()"
+                              title="{{'item.version.history.table.action.discardSummary' | translate}}">
+                        <i class="fas fa-times fa-fw"></i>
+                      </button>
+                    </div>
+                  </span>
+                <!--</form>-->
+              </ng-template>
+            </td>
             <td class="version-row-element-actions" *ngIf="displayActions">
               <div class="btn-group edit-field">
+                <!--                <ng-container *ngIf="versionBeingEdited==version?.version; then saveSummaryBtn else editSummaryBtn"></ng-container>
+                                <ng-template #editSummaryBtn>
+                                  <button class="btn btn-outline-primary btn-sm"
+                                          title="{{'item.version.history.table.action.editSummary' | translate}}">
+                                    <i class="fas fa-edit fa-fw"></i>
+                                  </button>
+                                </ng-template>
+                                <ng-template #saveSummaryBtn>
+                                  <button class="btn btn-outline-success btn-sm"
+                                          title="{{'item.version.history.table.action.editSummary' | translate}}">
+                                    <i class="fas fa-save fa-fw"></i>
+                                  </button>
+                                </ng-template>-->
                 <!--[disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
                         (click)="setEditable(true)" -->
-                <button class="btn btn-outline-primary btn-sm"
-                        (click)="openEditDialog()"
-                        title="{{'item.version.history.table.action.editSummary' | translate}}">
-                  <i class="fas fa-edit fa-fw"></i>
-                </button>
                 <button class="btn btn-outline-primary btn-sm"
                         title="{{'item.version.history.table.action.newVersion' | translate}}">
                   <i class="fas fa-code-branch fa-fw"></i>
                 </button>
-                <button class="btn btn-outline-primary btn-sm"
+                <button class="btn btn-outline-danger btn-sm"
                         title="{{'item.version.history.table.action.deleteVersion' | translate}}">
                   <i class="fas fa-trash fa-fw"></i>
                 </button>
