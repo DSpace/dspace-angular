@@ -19,12 +19,12 @@ import { SubscriptionEditModalComponent } from './subscription-edit-modal.compon
 // Import mocks
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { subscription } from '../../../testing/subscriptions-data.mock';
-import { MockActivatedRoute } from '../../../mocks/active-router.mock'
+import { MockActivatedRoute } from '../../../mocks/active-router.mock';
 import { ItemInfo } from '../../../testing/relationships-mocks';
 
 // Import utils
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub'
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SubscriptionService } from '../../subscription.service';
 import { Subscription } from '../../models/subscription.model';
 
@@ -43,12 +43,7 @@ describe('SubscriptionEditModalComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        // NgbModule,
-        // FormsModule,
         ReactiveFormsModule,
-        // BrowserModule,
-        // SharedModule,
-        // RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -69,7 +64,7 @@ describe('SubscriptionEditModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubscriptionEditModalComponent);
     component = fixture.componentInstance;
-    component.eperson = "testid123";
+    component.eperson = 'testid123';
     component.dso = ItemInfo.payload;
 
     de = fixture.debugElement;
@@ -86,14 +81,14 @@ describe('SubscriptionEditModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('No Subscription inserted',()=>{
+  describe('No Subscription inserted', () => {
     it('should not show form', () => {
       expect(de.query(By.css('form'))).toBeNull();
     });
   });
 
 
-  describe('Subscription inserted',()=>{
+  describe('Subscription inserted', () => {
 
     beforeEach(fakeAsync(() => {
       component.subscription = Object.assign(new Subscription(), subscription);
@@ -112,7 +107,7 @@ describe('SubscriptionEditModalComponent', () => {
     });
 
     it('on checkbox clicked should change form values', () => {
-      let checkbox = de.query(By.css('#checkbox-2')).nativeElement;
+      const checkbox = de.query(By.css('#checkbox-2')).nativeElement;
       checkbox.click();
 
       expect(de.query(By.css('#checkbox-2'))?.nativeElement?.checked).toEqual(true);
@@ -120,7 +115,7 @@ describe('SubscriptionEditModalComponent', () => {
     });
 
     it('on submit clicked update should have been called', () => {
-      let button = de.query(By.css('.btn-success')).nativeElement;
+      const button = de.query(By.css('.btn-success')).nativeElement;
       button.click();
       expect(subscriptionServiceStub.updateSubscription).toHaveBeenCalled();
     });

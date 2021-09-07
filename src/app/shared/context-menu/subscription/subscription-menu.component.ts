@@ -69,7 +69,6 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     protected authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
     private authService: AuthService,
-    private ePersonDataService: EPersonDataService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);
   }

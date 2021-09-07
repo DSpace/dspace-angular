@@ -49,7 +49,7 @@ describe('SubscriptionsPageComponent', () => {
   let de: DebugElement;
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
-    findAllSubscriptions: jasmine.createSpy('findAllSubscriptions')
+    findAllSubscriptions: observableOf(findAllSubscriptionRes)
   });
   const paginationService = new PaginationServiceStub();
 
@@ -87,12 +87,7 @@ describe('SubscriptionsPageComponent', () => {
     fixture = TestBed.createComponent(SubscriptionsPageComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    subscriptionServiceStub.findAllSubscriptions.and.returnValue(cold('a|', {
-      a: findAllSubscriptionRes
-    }));
-
     fixture.detectChanges();
-
   });
 
   it('should create', () => {
@@ -101,22 +96,37 @@ describe('SubscriptionsPageComponent', () => {
   });
 
   describe('when table', () => {
-      // beforeEach(fakeAsync(async () => {
-      //   tick();
-      //   await fixture.whenStable();
-      //   fixture.detectChanges();
-      //   fixture.detectChanges();
-      //   const table = de.query(By.css('table'));
-      //     console.log(table);
-      // }));
 
-      it('should display search result', () => {
-        fixture.detectChanges();
-        expect(component).toBeTruthy();
-      });
+    it('should show table', async() => {
+      await fixture.whenStable();
+      fixture.detectChanges();
+      const table = de.query(By.css('table'));
+      expect(table).toBeTruthy();
     });
 
-  it('should show table', () => {
-    expect(component).toBeTruthy();
   });
+
+  it('should show all the results', () => {
+    expect(de.queryAll(By.css('tbody > tr')).length).toEqual(10);
+  });
+
+  it('should have dso object info', () => {
+    expect(de.query(By.css('.dso-info > span'))).toBeTruthy();
+    expect(de.query(By.css('.dso-info > p > a'))).toBeTruthy();
+  });
+
+  it('should have subscription type info', () => {
+    expect(de.query(By.css('.subscription-type'))).toBeTruthy();
+  });
+
+  it('should have subscription paramenter info', () => {
+    expect(de.query(By.css('.subscription-parmenters > span'))).toBeTruthy();
+  });
+
+  it('should have subscription action info', () => {
+    expect(de.query(By.css('.btn-outline-primary'))).toBeTruthy();
+    expect(de.query(By.css('.btn-outline-danger'))).toBeTruthy();
+  });
+
+
 });

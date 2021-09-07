@@ -4331,108 +4331,108 @@ export const findAllSubscriptionRes = {
 };
 
 export const findByEPersonAndDsoRes = {
-    "type": {
-        "value": "paginated-list"
+    'type': {
+        'value': 'paginated-list'
     },
-    "pageInfo": {
-        "elementsPerPage": 20,
-        "totalElements": 2,
-        "totalPages": 1,
-        "currentPage": 1
+    'pageInfo': {
+        'elementsPerPage': 20,
+        'totalElements': 2,
+        'totalPages': 1,
+        'currentPage': 1
     },
-    "_links": {
-        "self": {
-            "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/search/findByEPersonAndDso?dspace_object_id=092b59e8-8159-4e70-98b5-93ec60bd3431&eperson_id=335647b6-8a52-4ecb-a8c1-7ebabb199bda"
+    '_links': {
+        'self': {
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/search/findByEPersonAndDso?dspace_object_id=092b59e8-8159-4e70-98b5-93ec60bd3431&eperson_id=335647b6-8a52-4ecb-a8c1-7ebabb199bda'
         },
-        "page": [
+        'page': [
             {
-                "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/22"
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/22'
             },
             {
-                "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/48"
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/48'
             }
         ]
     },
-    "page": [
+    'page': [
         {
-            "id": 22,
-            "subscriptionType": "content",
-            "subscriptionParameterList": [
+            'id': 22,
+            'subscriptionType': 'content',
+            'subscriptionParameterList': [
                 {
-                    "id": 161,
-                    "name": "frequency",
-                    "value": "M"
+                    'id': 161,
+                    'name': 'frequency',
+                    'value': 'M'
                 }
             ],
-            "_links": {
-                "dSpaceObject": {
-                    "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/22/dSpaceObject"
+            '_links': {
+                'dSpaceObject': {
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/22/dSpaceObject'
                 },
-                "ePerson": {
-                    "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/22/ePerson"
+                'ePerson': {
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/22/ePerson'
                 },
-                "self": {
-                    "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/22"
+                'self': {
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/22'
                 }
             },
-            "type": "subscription"
+            'type': 'subscription'
         },
         {
-            "id": 48,
-            "subscriptionType": "statistics",
-            "subscriptionParameterList": [
+            'id': 48,
+            'subscriptionType': 'statistics',
+            'subscriptionParameterList': [
                 {
-                    "id": 159,
-                    "name": "frequency",
-                    "value": "D"
+                    'id': 159,
+                    'name': 'frequency',
+                    'value': 'D'
                 },
                 {
-                    "id": 160,
-                    "name": "frequency",
-                    "value": "M"
+                    'id': 160,
+                    'name': 'frequency',
+                    'value': 'M'
                 }
             ],
-            "_links": {
-                "dSpaceObject": {
-                    "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/48/dSpaceObject"
+            '_links': {
+                'dSpaceObject': {
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/48/dSpaceObject'
                 },
-                "ePerson": {
-                    "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/48/ePerson"
+                'ePerson': {
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/48/ePerson'
                 },
-                "self": {
-                    "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/48"
+                'self': {
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/48'
                 }
             },
-            "type": "subscription"
+            'type': 'subscription'
         }
     ]
 };
 
 
 export const findByEPersonAndDsoResEmpty = {
-    "type": {
-        "value": "paginated-list"
+    'type': {
+        'value': 'paginated-list'
     },
-    "pageInfo": {
-        "elementsPerPage": 0,
-        "totalElements": 0,
-        "totalPages": 1,
-        "currentPage": 1
+    'pageInfo': {
+        'elementsPerPage': 0,
+        'totalElements': 0,
+        'totalPages': 1,
+        'currentPage': 1
     },
-    "_links": {
-        "self": {
-            "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/search/findByEPersonAndDso?dspace_object_id=092b59e8-8159-4e70-98b5-93ec60bd3431&eperson_id=335647b6-8a52-4ecb-a8c1-7ebabb199bda"
+    '_links': {
+        'self': {
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/search/findByEPersonAndDso?dspace_object_id=092b59e8-8159-4e70-98b5-93ec60bd3431&eperson_id=335647b6-8a52-4ecb-a8c1-7ebabb199bda'
         },
-        "page": [
+        'page': [
             {
-                "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/22"
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/22'
             },
             {
-                "href": "https://dspacecris7.4science.cloud/server/api/core/subscriptions/48"
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/subscriptions/48'
             }
         ]
     },
-    "page": []
+    'page': []
 };
 
 export const subscription = {

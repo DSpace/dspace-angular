@@ -143,7 +143,6 @@ export class SubscriptionModalComponent implements OnInit {
         type: subscriptionType,
         subscriptionParameterList: this.formGroup.array([], Validators.required)
     });
-    console.log("finished initEmptyForm");
   }
 
   /**
@@ -234,7 +233,6 @@ export class SubscriptionModalComponent implements OnInit {
    * When user saves it will check if form is valid and send request to create or update a subscription
    */
   submit(): void {
-    console.log("submit");
     this.processing$.next(true);
     this.submitted = true;
     if (this.subscriptionForm.valid) {
@@ -250,7 +248,6 @@ export class SubscriptionModalComponent implements OnInit {
    * Sends request to create a new subscription, refreshes the table of subscriptions and notifies about summary page
    */
   createForm(body): void {
-    console.log("createForm",body);
     this.subscriptionService.createSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
         this.refresh();
         this.notify();
@@ -266,7 +263,6 @@ export class SubscriptionModalComponent implements OnInit {
    * Sends request to update a subscription, refreshes the table of subscriptions and notifies about summary page
    */
   updateForm(body) {
-    console.log("updateForm",body);
     this.subscriptionService.updateSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
         this.refresh();
         this.notify();

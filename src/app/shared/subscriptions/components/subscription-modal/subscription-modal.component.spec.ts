@@ -21,12 +21,12 @@ import { SubscriptionModalComponent } from './subscription-modal.component';
 // Import mocks
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { findByEPersonAndDsoRes, findByEPersonAndDsoResEmpty } from '../../../testing/subscriptions-data.mock';
-import { MockActivatedRoute } from '../../../mocks/active-router.mock'
+import { MockActivatedRoute } from '../../../mocks/active-router.mock';
 import { ItemInfo } from '../../../testing/relationships-mocks';
 
 // Import utils
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub'
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SubscriptionService } from '../../subscription.service';
 import { Subscription } from '../../models/subscription.model';
 
@@ -45,9 +45,9 @@ describe('SubscriptionModalComponent', () => {
   let subscriptionServiceStub;
 
 
-  describe("when empty subscriptions", () => {
+  describe('when empty subscriptions', () => {
 
-    beforeEach(async ()=>{
+    beforeEach(async () => {
 
       subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
         getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
@@ -78,7 +78,7 @@ describe('SubscriptionModalComponent', () => {
 
       fixture = TestBed.createComponent(SubscriptionModalComponent);
       component = fixture.componentInstance;
-      component.eperson = "testid123";
+      component.eperson = 'testid123';
       component.dso = ItemInfo.payload;
       de = fixture.debugElement;
 
@@ -107,9 +107,9 @@ describe('SubscriptionModalComponent', () => {
   });
 
 
-  describe("when we have subscriptions", () => {
+  describe('when we have subscriptions', () => {
 
-    beforeEach(async ()=>{
+    beforeEach( async () => {
 
       subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
         getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoRes),
@@ -140,7 +140,7 @@ describe('SubscriptionModalComponent', () => {
 
       fixture = TestBed.createComponent(SubscriptionModalComponent);
       component = fixture.componentInstance;
-      component.eperson = "testid123";
+      component.eperson = 'testid123';
       component.dso = ItemInfo.payload;
       de = fixture.debugElement;
 
@@ -168,14 +168,13 @@ describe('SubscriptionModalComponent', () => {
     });
 
     it('should have 2 delete buttons', () => {
-      console.log(component,de.queryAll(By.css('.btn-outline-danger')))
       expect(de.queryAll(By.css('.btn-outline-danger')).length).toEqual(2);
     });
 
-    describe("When creating new subscription", ()=>{
+    describe('When creating new subscription', () => {
 
-      beforeEach(()=>{
-        //add button click
+      beforeEach( () => {
+        // add button click
         const button = de.query(By.css('.btn-success')).nativeElement;
         button.click();
       });
@@ -203,10 +202,10 @@ describe('SubscriptionModalComponent', () => {
     });
 
 
-    describe("When updating subscription", ()=>{
+    describe('When updating subscription', () => {
 
-      beforeEach(()=>{
-        //edit button click
+      beforeEach( () => {
+        // edit button click
         const button = de.query(By.css('.btn-outline-primary')).nativeElement;
         button.click();
       });

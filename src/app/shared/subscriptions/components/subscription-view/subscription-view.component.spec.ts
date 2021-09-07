@@ -18,13 +18,13 @@ import { SubscriptionViewComponent } from './subscription-view.component';
 
 // Import mocks
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { MockActivatedRoute } from '../../../mocks/active-router.mock'
+import { MockActivatedRoute } from '../../../mocks/active-router.mock';
 import { ItemInfo } from '../../../testing/relationships-mocks';
 import { findByEPersonAndDsoRes, findByEPersonAndDsoResEmpty, subscription } from '../../../testing/subscriptions-data.mock';
 
 // Import utils
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub'
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SubscriptionService } from '../../subscription.service';
 import { Subscription } from '../../models/subscription.model';
 
@@ -79,7 +79,7 @@ describe('SubscriptionViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubscriptionViewComponent);
     component = fixture.componentInstance;
-    component.eperson = "testid123";
+    component.eperson = 'testid123';
     component.dso = ItemInfo.payload;
     component.subscription = Object.assign(new Subscription(), subscription);
     de = fixture.debugElement;
@@ -109,22 +109,22 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should open modal when clicked edit button', () => {
+    modalService = (component as any).modalService;
+    const modalSpy = spyOn(modalService, 'open');
+
     const editBtn = de.query(By.css('.btn-outline-primary')).nativeElement;
     editBtn.click();
-    modalService = (component as any).modalService;
-    const modalSpy = spyOn(component, 'openSubscription');
 
-    expect(modalSpy).toHaveBeenCalled();
+    expect(modalService.open).toHaveBeenCalled();
   });
 
-  it('should send delete requesnt when clicked delete button', () => {
+  it('should call delete function when clicked delete button', () => {
+    const deleteSpy = spyOn(component, 'deleteSubscriptionPopup');
+
     const deleteBtn = de.query(By.css('.btn-outline-danger')).nativeElement;
     deleteBtn.click();
 
-    const deleteConfirmBtn = de.query(By.css('.btn-danger.confirm')).nativeElement;
-    deleteConfirmBtn.click();
-
-    expect(subscriptionServiceStub.deleteSubscription).toHaveBeenCalled();
+    expect(deleteSpy).toHaveBeenCalled();
   });
 
 });

@@ -9,4 +9,10 @@ export class RouterStub {
   navigateByUrl(url): void {
     this.url = url;
   }
+  createUrlTree(commands, navigationExtras = {}) {
+    return '/testing-url';
+  }
+  serializeUrl(commands, navExtras = {}) {
+    return '/testing-url';
+  }
 }

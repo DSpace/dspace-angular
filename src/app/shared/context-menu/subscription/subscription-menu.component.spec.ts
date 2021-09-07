@@ -4,18 +4,32 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
+import { AuthService } from '../../../core/auth/auth.service';
+import { EPersonMock } from '../../testing/eperson.mock';
+import { DebugElement } from '@angular/core';
+
+
+
+
 describe('SubscriptionMenuComponent', () => {
   let component: SubscriptionMenuComponent;
   let fixture: ComponentFixture<SubscriptionMenuComponent>;
+  let de: DebugElement;
 
   let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
+
+  let modalService;
+  let authServiceStub: any;
 
   beforeEach(async(() => {
     dso = Object.assign(new Item(), {
@@ -27,10 +41,16 @@ describe('SubscriptionMenuComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });
+
+    authServiceStub  = jasmine.createSpyObj('authorizationService', {
+      getAuthenticatedUserFromStore: observableOf(EPersonMock)
+    });
+
     TestBed.configureTestingModule({
       declarations: [ SubscriptionMenuComponent ],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
+        { provide: AuthService, useValue: authServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
@@ -41,6 +61,7 @@ describe('SubscriptionMenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubscriptionMenuComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     component.contextMenuObject = dso;
     fixture.detectChanges();
   });
@@ -57,8 +78,19 @@ describe('SubscriptionMenuComponent', () => {
     });
 
     it('should render a button', () => {
-      const link = fixture.debugElement.query(By.css('button'));
-      expect(link).not.toBeNull();
+      const button = fixture.debugElement.query(By.css('button'));
+      expect(button).not.toBeNull();
+    });
+
+    it('when button is clicked open modal content', () => {
+      modalService = (component as any).modalService;
+      const modalSpy = spyOn(modalService, 'open');
+
+      const button = fixture.debugElement.query(By.css('button'));
+      button.nativeElement.click();
+
+      expect(modalService.open).toHaveBeenCalled();
+
     });
   });
 
@@ -70,8 +102,8 @@ describe('SubscriptionMenuComponent', () => {
     });
 
     it('should not render a button', () => {
-      const link = fixture.debugElement.query(By.css('button'));
-      expect(link).toBeNull();
+      const button = fixture.debugElement.query(By.css('button'));
+      expect(button).toBeNull();
     });
   });
 });
