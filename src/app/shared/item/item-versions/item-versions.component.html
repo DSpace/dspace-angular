@@ -2,6 +2,7 @@
   <div *ngVar="(versionRD$ | async)?.payload as itemVersion">
     <div class="mb-2" *ngIf="versions?.page?.length > 0 || displayWhenEmpty">
       <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
+      <!-- <p>TMP CURRENT VERSION = {{itemVersion.version}} {{item.uuid}} {{item.handle}}</p>check async -->
       <ds-pagination *ngIf="versions?.page?.length > 0"
                      [hideGear]="true"
                      [hidePagerWhenSinglePage]="true"
