@@ -20,6 +20,8 @@ import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 
 @Component({
   selector: 'ds-item-versions',
@@ -111,6 +113,7 @@ export class ItemVersionsComponent implements OnInit {
   constructor(private versionHistoryService: VersionHistoryDataService,
               private paginationService: PaginationService,
               private formBuilder: FormBuilder,
+              private modalService: NgbModal,
               ) {
   }
 
@@ -124,7 +127,6 @@ export class ItemVersionsComponent implements OnInit {
     console.log('SUBMITTING ' + this.summary);
     this.versionBeingEdited = undefined;
   }
-
 
   isAnyBeingEdited(): boolean {
     return this.versionBeingEdited != null;
@@ -142,6 +144,11 @@ export class ItemVersionsComponent implements OnInit {
   discardSummaryEdits(): void {
     this.versionBeingEdited = undefined;
   }
+
+  createNewVersion(version) {
+    this.modalService.open(ItemVersionsSummaryModalComponent);
+  }
+
 
   /**
    * Initialize all observables
