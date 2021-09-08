@@ -25,14 +25,14 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 /**
- * Display a button linking to the edit page of a DSpaceObject
+ * Display a button linking to the subscription of a DSpaceObject
  */
 export class SubscriptionMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
   /**
    * Whether or not the current user is authorized to edit the DSpaceObject
    */
-  isAuthorized$: Observable<boolean>;
+  isAuthorized$: Observable<boolean> = observableOf(true);
 
 
   /**
@@ -74,7 +74,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   }
 
   ngOnInit() {
-    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
+    // this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
     this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
       this.eperson = eperson.id;
     });

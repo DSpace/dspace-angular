@@ -43,6 +43,11 @@ describe('SubscriptionModalComponent', () => {
   let de: DebugElement;
 
   let subscriptionServiceStub;
+  const notificationServiceStub = {
+    notificationWithAnchor() {
+      return true;
+    }
+  };
 
 
   describe('when empty subscriptions', () => {
@@ -70,7 +75,7 @@ describe('SubscriptionModalComponent', () => {
         declarations: [ SubscriptionModalComponent ],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
-          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: NotificationsService, useValue: notificationServiceStub },
           { provide: SubscriptionService, useValue: subscriptionServiceStub },
         ]
       })
@@ -94,7 +99,6 @@ describe('SubscriptionModalComponent', () => {
     });
 
     it('should show empty form', () => {
-      console.log(component,de.query(By.css('form')));
       expect(de.query(By.css('form'))).toBeTruthy();
     });
 
@@ -132,7 +136,7 @@ describe('SubscriptionModalComponent', () => {
         declarations: [ SubscriptionModalComponent ],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
-          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: NotificationsService, useValue: notificationServiceStub },
           { provide: SubscriptionService, useValue: subscriptionServiceStub },
         ]
       })
@@ -143,7 +147,6 @@ describe('SubscriptionModalComponent', () => {
       component.eperson = 'testid123';
       component.dso = ItemInfo.payload;
       de = fixture.debugElement;
-
       await fixture.whenStable();
       await fixture.whenRenderingDone();
 
