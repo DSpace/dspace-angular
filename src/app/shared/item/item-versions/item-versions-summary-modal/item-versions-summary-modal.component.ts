@@ -8,13 +8,24 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ItemVersionsSummaryModalComponent implements OnInit {
 
-  constructor(
-    protected activeModal: NgbActiveModal,) { }
+  versionNumber: number;
+  newVersionSummary: string;
 
-  closeModal() {
-    this.activeModal.close();
+  constructor(
+    protected activeModal: NgbActiveModal,
+  ) {
   }
+
+  onModalClose() {
+    this.activeModal.dismiss('item.version.create.message.failure');
+  }
+
+  onModalSubmit() {
+    this.activeModal.close(this.newVersionSummary);
+  }
+
   ngOnInit(): void {
+    // TODO delete if unused
   }
 
 }

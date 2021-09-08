@@ -8,19 +8,22 @@ import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
-import { Observable } from 'rxjs';
+import { FindListOptions, PostRequest } from './request.models';
+import { Observable, of } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
+import { MetadataMap } from '../shared/metadata.models';
+import { Bundle } from '../shared/bundle.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -78,5 +81,19 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
 
     return this.versionDataService.findAllByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  public createVersion(itemHref: string, summary: string): Observable<RemoteData<Version>> {
+      const requestId = this.requestService.generateRequestId();
+      const requestOptions: HttpOptions = Object.create({});
+      let requestHeaders = new HttpHeaders();
+      requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
+      requestOptions.headers = requestHeaders;
+      const href = 'BASE' + 'api/versioning/versions?summary=' + summary; // TODO
+      console.error("MISSING BASE URL");
+      const body = itemHref;
+      const request = new PostRequest(this.requestService.generateRequestId(), href, itemHref, requestOptions);
+      this.requestService.send(request);
+      return this.rdbService.buildFromRequestUUID(requestId);
   }
 }

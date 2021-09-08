@@ -1995,7 +1995,26 @@
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
-  "item.version.modal.create.header": "Create new version",
+
+  "item.version.create.modal.header": "Create new version",
+
+  "item.version.create.modal.text": "Create a new version for this item starting from version {{version}}",
+
+  "item.version.create.modal.button.create": "Create",
+
+  "item.version.create.modal.button.create.tooltip": "Create new version",
+
+  "item.version.create.modal.button.discard": "Discard",
+
+  "item.version.create.modal.button.discard.tooltip": "Do not create new version",
+
+  "item.version.create.modal.form.summary.label": "Summary",
+
+  "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
+
+  "item.version.create.message.success" : "New version has been created with version number {{version}}",
+
+  "item.version.create.message.failure" : "New version has not been created",
 
 
   "journal.listelement.badge": "Journal",

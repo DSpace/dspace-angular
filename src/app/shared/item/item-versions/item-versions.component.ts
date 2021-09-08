@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
-  getAllSucceededRemoteDataPayload,
+  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
@@ -22,6 +23,8 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-item-versions',
@@ -90,7 +93,7 @@ export class ItemVersionsComponent implements OnInit {
    * The page options to use for fetching the versions
    * Start at page 1 and always use the set page size
    */
-  options = Object.assign(new PaginationComponentOptions(),{
+  options = Object.assign(new PaginationComponentOptions(), {
     id: 'ivo',
     currentPage: 1,
     pageSize: this.pageSize
@@ -114,14 +117,13 @@ export class ItemVersionsComponent implements OnInit {
               private paginationService: PaginationService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
-              ) {
+              private notificationsService: NotificationsService,
+              private translateService: TranslateService,
+  ) {
   }
 
-  versionBeingEdited: number;
 
-  summary = 'test'; // TODO delete
-
-  summaryForm = this.formBuilder.group({summary: 's'});
+  // summaryForm = this.formBuilder.group({summary: 's'});
 
   onSummarySubmit() { // TODO submit
     console.log('SUBMITTING ' + this.summary);
@@ -146,7 +148,38 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   createNewVersion(version) {
-    this.modalService.open(ItemVersionsSummaryModalComponent);
+    const successMessageKey = 'item.version.create.message.success';
+    const failureMessageKey = 'item.version.create.message.failure';
+    const activeModal = this.modalService.open(ItemVersionsSummaryModalComponent);
+    activeModal.componentInstance.versionNumber = version.version;
+
+    activeModal.result.then((modalResult) => {
+      const summary = modalResult;
+      version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((item) => {
+
+        const itemHref = item._links.self.href;
+
+        // TODO crea versione
+
+        this.versionHistoryService.createVersion(itemHref, summary).pipe(getFirstCompletedRemoteData()).subscribe((postResult) => {
+          const newVersion = postResult.payload;
+          const newVersionNumber = newVersion.version;
+          console.log("SUCCESS " + newVersionNumber);
+          console.log('RESPONSE = ' + JSON.stringify(postResult));
+          this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
+          this.refreshSubject.next();
+        });
+
+        // TODO success
+
+        // error
+        this.notificationsService.error(null, this.translateService.get(failureMessageKey));
+      });
+    }).catch((msg) => {
+        this.notificationsService.warning(null, this.translateService.get(failureMessageKey));
+      }
+    );
+
   }
 
 
@@ -171,9 +204,14 @@ export class ItemVersionsComponent implements OnInit {
       this.versionsRD$ = observableCombineLatest(versionHistory$, currentPagination).pipe(
         switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) =>
           this.versionHistoryService.getVersions(versionHistory.id,
-            new PaginatedSearchOptions({pagination: Object.assign({}, options, { currentPage: options.currentPage })}),
+            new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
             true, true, followLink('item'), followLink('eperson')))
       );
+      /* TODO fix error and restore refresh
+      The response for 'http://localhost:8080/server/api/versioning/versionhistories/1/versions?page=0&size=1'
+      has the self link 'http://localhost:8080/server/api/versioning/versionhistories/1/versions?page=0&embed=item&size=1'.
+      These don't match. This could mean there's an issue with the REST endpoint
+       */
       this.hasEpersons$ = this.versionsRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
