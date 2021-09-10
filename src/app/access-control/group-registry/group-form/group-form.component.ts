@@ -208,7 +208,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               this.formGroup.patchValue({
                 groupName: activeGroup.name,
                 groupCommunity: linkedObject?.name ?? '',
-                groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+                groupDescription: activeGroup.firstMetadataValue('dc.description'),
               });
             } else {
               this.formModel = [
@@ -217,7 +217,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
               ];
               this.formGroup.patchValue({
                 groupName: activeGroup.name,
-                groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+                groupDescription: activeGroup.firstMetadataValue('dc.description'),
               });
             }
             setTimeout(() => {
@@ -446,11 +446,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     if (hasValue(group) && hasValue(group._links.object.href)) {
       return this.getLinkedDSO(group).pipe(
         map((rd: RemoteData<DSpaceObject>) => {
-          if (hasValue(rd) && hasValue(rd.payload)) {
-            return true;
-          } else {
-            return false;
-          }
+          return hasValue(rd) && hasValue(rd.payload);
         }),
         catchError(() => observableOf(false)),
       );
