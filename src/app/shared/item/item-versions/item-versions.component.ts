@@ -40,6 +40,8 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
  * Component listing all available versions of the history the provided item is a part of
  */
 export class ItemVersionsComponent implements OnInit {
+
+
   /**
    * The item to display a version history for
    */
@@ -61,6 +63,8 @@ export class ItemVersionsComponent implements OnInit {
    * Whether or not to display the action buttons
    */
   @Input() displayActions: boolean;
+
+  subs: Subscription[] = [];
 
   /**
    * The AlertType enumeration
@@ -117,6 +121,38 @@ export class ItemVersionsComponent implements OnInit {
   itemPageRoutes$: Observable<{
     [itemId: string]: string
   }>;
+
+  /**
+   * Emits when the versionsRD$ must be refreshed.
+   */
+  refreshSubject = new BehaviorSubject<any>(null);
+
+  /**
+   * The number of the version whose summary is currently being edited
+   */
+  versionBeingEditedNumber: string;
+
+  /**
+   * The id of the version whose summary is currently being edited
+   */
+  versionBeingEditedId: string;
+
+//  itemLink: string; TODO delete
+
+  /**
+   * The summary currently being edited
+   */
+  versionBeingEditedSummary: string;
+
+
+  /**
+   * Cancel the current edit when component is destroyed & unsub all subscriptions
+   */
+  // @HostListener('document:keydown:enter')
+  // onSummarySubmitKeydownEvent(event: KeyboardEvent): void {
+  //   event.preventDefault();
+  // }
+
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private versionService: VersionDataService,
