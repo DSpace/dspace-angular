@@ -206,7 +206,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             if (linkedObject?.name) {
               this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
               this.formGroup.patchValue({
-                groupName: activeGroup != null ? activeGroup.name : '',
+                groupName: activeGroup.name,
                 groupCommunity: linkedObject?.name ?? '',
                 groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
               });
@@ -216,7 +216,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                 this.groupDescription,
               ];
               this.formGroup.patchValue({
-                groupName: activeGroup != null ? activeGroup.name : '',
+                groupName: activeGroup.name,
                 groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
               });
             }
