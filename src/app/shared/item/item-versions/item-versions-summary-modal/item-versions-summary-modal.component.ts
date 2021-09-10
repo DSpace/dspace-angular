@@ -17,7 +17,7 @@ export class ItemVersionsSummaryModalComponent implements OnInit {
   }
 
   onModalClose() {
-    this.activeModal.dismiss('item.version.create.message.failure');
+    this.activeModal.dismiss();
   }
 
   onModalSubmit() {

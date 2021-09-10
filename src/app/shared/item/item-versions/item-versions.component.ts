@@ -2,15 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
-  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData,
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../../../core/shared/operators';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
@@ -25,6 +26,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
+import { VersionDataService } from '../../../core/data/version-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -114,68 +119,132 @@ export class ItemVersionsComponent implements OnInit {
   }>;
 
   constructor(private versionHistoryService: VersionHistoryDataService,
+              private versionService: VersionDataService,
+              private itemService: ItemDataService,
               private paginationService: PaginationService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
+              private cacheService: ObjectCacheService,
   ) {
   }
 
 
-  // summaryForm = this.formBuilder.group({summary: 's'});
-
-  onSummarySubmit() { // TODO submit
-    console.log('SUBMITTING ' + this.summary);
-    this.versionBeingEdited = undefined;
-  }
-
   isAnyBeingEdited(): boolean {
-    return this.versionBeingEdited != null;
+    return this.versionBeingEditedNumber != null;
   }
 
   isThisBeingEdited(version): boolean {
-    return Number(version?.version) === this.versionBeingEdited;
+    return version?.version === this.versionBeingEditedNumber;
   }
 
   editVersionSummary(version): void {
-    this.summary = version?.summary;
-    this.versionBeingEdited = Number(version?.version);
+    this.versionBeingEditedSummary = version?.summary;
+    this.versionBeingEditedNumber = version?.version;
+    this.versionBeingEditedId = version?.id;
   }
 
   discardSummaryEdits(): void {
-    this.versionBeingEdited = undefined;
+    this.versionBeingEditedSummary = undefined;
+    this.versionBeingEditedNumber = undefined;
+    this.versionBeingEditedId = undefined;
   }
 
-  createNewVersion(version) {
-    const successMessageKey = 'item.version.create.message.success';
-    const failureMessageKey = 'item.version.create.message.failure';
-    const activeModal = this.modalService.open(ItemVersionsSummaryModalComponent);
+  onSummarySubmit() {
+
+    const successMessageKey = 'item.version.edit.notification.success';
+    const failureMessageKey = 'item.version.edit.notification.failure';
+
+    const newSummary = this.versionBeingEditedSummary ?? '';
+
+    // TODO submit
+
+    this.versionService.findById(this.versionBeingEditedId).pipe(getFirstSucceededRemoteData()).subscribe(
+      (findRes) => {
+        const updatedVersion =
+          Object.assign({}, findRes.payload, {
+            summary: this.versionBeingEditedSummary,
+          });
+        this.versionService.update(updatedVersion).pipe(take(1)).subscribe(
+          (updateRes) => {
+            // TODO check
+            if (updateRes.hasSucceeded) {
+              this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
+            } else {
+              this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
+            }
+          }
+        );
+      }
+    );
+
+    console.log('SUBMITTING ' + this.versionBeingEditedSummary);
+    this.versionBeingEditedNumber = undefined;
+  }
+
+
+  deleteVersion(version) {
+    const successMessageKey = 'item.version.delete.notification.success';
+    const failureMessageKey = 'item.version.delete.notification.failure';
+    const versionNumber = version.version;
+
+    // Open modal
+    const activeModal = this.modalService.open(ItemVersionsDeleteModalComponent);
     activeModal.componentInstance.versionNumber = version.version;
 
+    // On modal submit/dismiss
+    activeModal.result.then((modalResult) => {
+      // TODO delete version
+      // TODO non usare due subscriptions innestate ma uno switchmap
+      version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((getItemRes) => {
+        this.itemService.delete(getItemRes.id).pipe(take(1)).subscribe( // TODO provare con getfirstcompletedremotedata
+          (deleteItemRes) => {
+            console.log(JSON.stringify(deleteItemRes));
+            if (deleteItemRes.hasSucceeded) {
+              this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
+            } else {
+              this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+            }
+          }
+        );
+      });
+    }).catch(() => {
+        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+      }
+    );
+  }
+
+
+  // TODO aggiungere anche alla pagina dell'item (spostare in file esterno?)
+
+  createNewVersion(version) {
+    const successMessageKey = 'item.version.create.notification.success';
+    const failureMessageKey = 'item.version.create.notification.failure';
+    const versionNumber = version.version;
+
+    // Open modal
+    const activeModal = this.modalService.open(ItemVersionsSummaryModalComponent);
+    activeModal.componentInstance.versionNumber = versionNumber;
+
+    // On modal submit/dismiss
     activeModal.result.then((modalResult) => {
       const summary = modalResult;
       version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((item) => {
 
         const itemHref = item._links.self.href;
 
-        // TODO crea versione
-
-        this.versionHistoryService.createVersion(itemHref, summary).pipe(getFirstCompletedRemoteData()).subscribe((postResult) => {
-          const newVersion = postResult.payload;
-          const newVersionNumber = newVersion.version;
-          console.log("SUCCESS " + newVersionNumber);
-          console.log('RESPONSE = ' + JSON.stringify(postResult));
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
-          this.refreshSubject.next();
+        this.versionHistoryService.createVersion(itemHref, summary).pipe(take(1)).subscribe((postResult) => {
+          if (postResult.hasSucceeded) {
+            const newVersionNumber = postResult.payload.version;
+            this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
+            this.refreshSubject.next(null);
+          } else {
+            this.notificationsService.error(null, this.translateService.get(failureMessageKey));
+          }
         });
-
-        // TODO success
-
-        // error
-        this.notificationsService.error(null, this.translateService.get(failureMessageKey));
       });
-    }).catch((msg) => {
+    }).catch(() => {
         this.notificationsService.warning(null, this.translateService.get(failureMessageKey));
       }
     );
@@ -201,12 +270,26 @@ export class ItemVersionsComponent implements OnInit {
         hasValueOperator(),
       );
       const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
-      this.versionsRD$ = observableCombineLatest(versionHistory$, currentPagination).pipe(
-        switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) =>
-          this.versionHistoryService.getVersions(versionHistory.id,
+      this.versionsRD$ = observableCombineLatest([versionHistory$, currentPagination]).pipe(
+        switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
+          return this.versionHistoryService.getVersions(versionHistory.id,
             new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
-            true, true, followLink('item'), followLink('eperson')))
+            true, true, followLink('item'), followLink('eperson'));
+        })
       );
+      // TODO comment refresh
+      this.subs.push(this.refreshSubject.pipe(switchMap(() => {
+        return observableCombineLatest([versionHistory$, currentPagination]).pipe(
+          take(1),
+          switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
+            return this.versionHistoryService.getVersions(versionHistory.id,
+              new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
+              false, true, followLink('item'), followLink('eperson'));
+          })
+        );
+      })).subscribe());
+
+
       /* TODO fix error and restore refresh
       The response for 'http://localhost:8080/server/api/versioning/versionhistories/1/versions?page=0&size=1'
       has the self link 'http://localhost:8080/server/api/versioning/versionhistories/1/versions?page=0&embed=item&size=1'.
@@ -232,8 +315,15 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.cleanupSubscribes();
     this.paginationService.clearPagination(this.options.id);
   }
 
+  /**
+   * Unsub all subscriptions
+   */
+  cleanupSubscribes() {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
 
 }

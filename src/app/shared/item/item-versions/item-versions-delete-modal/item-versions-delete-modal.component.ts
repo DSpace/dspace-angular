@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-item-versions-delete-modal',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemVersionsDeleteModalComponent implements OnInit {
 
-  constructor() { }
+  versionNumber: number;
+
+  constructor(
+    protected activeModal: NgbActiveModal,) { }
+
+  onModalClose() {
+    this.activeModal.dismiss();
+  }
+
+  onModalSubmit() {
+    this.activeModal.close();
+  }
 
   ngOnInit(): void {
   }

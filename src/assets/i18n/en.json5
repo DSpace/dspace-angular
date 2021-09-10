@@ -2000,21 +2000,44 @@
 
   "item.version.create.modal.text": "Create a new version for this item starting from version {{version}}",
 
-  "item.version.create.modal.button.create": "Create",
+  "item.version.create.modal.button.confirm": "Create",
 
-  "item.version.create.modal.button.create.tooltip": "Create new version",
+  "item.version.create.modal.button.confirm.tooltip": "Create new version",
 
-  "item.version.create.modal.button.discard": "Discard",
+  "item.version.create.modal.button.cancel": "Cancel",
 
-  "item.version.create.modal.button.discard.tooltip": "Do not create new version",
+  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
 
   "item.version.create.modal.form.summary.label": "Summary",
 
   "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
 
-  "item.version.create.message.success" : "New version has been created with version number {{version}}",
+  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
 
-  "item.version.create.message.failure" : "New version has not been created",
+  "item.version.create.notification.failure" : "New version has not been created",
+
+
+  "item.version.delete.modal.header": "Delete version version",
+
+  "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
+
+  "item.version.delete.modal.button.confirm": "Delete",
+
+  "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
+
+  "item.version.delete.modal.button.cancel": "Cancel",
+
+  "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+
+  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+
+  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+
+
+  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+
+  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+
 
 
   "journal.listelement.badge": "Journal",

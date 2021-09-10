@@ -2,7 +2,7 @@
   <div *ngVar="(versionRD$ | async)?.payload as itemVersion">
     <div class="mb-2" *ngIf="versions?.page?.length > 0 || displayWhenEmpty">
       <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
-      <ds-alert [type]="AlertTypeEnum.Info">
+      <ds-alert [type]="AlertTypeEnum.Info" *ngIf="itemVersion">
         {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
       </ds-alert>
       <ds-pagination *ngIf="versions?.page?.length > 0"
@@ -35,14 +35,12 @@
               <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
               <ng-template #showSummary>{{version?.summary}}</ng-template>
               <ng-template #editSummary>
-                <!--<form [formGroup]="summaryForm" (ngSubmit)="onSummarySubmit()">-->
-                <!--<input class="form-control" type="text" formControlName="summary"/>-->
-                <input class="form-control" type="text" [(ngModel)]="summary"/>
-                <!--</form>-->
+                <input class="form-control" type="text" [(ngModel)]="versionBeingEditedSummary"/>
               </ng-template>
             </td>
             <td class="version-row-element-actions" *ngIf="displayActions">
               <div class="btn-group edit-field">
+                <!--EDIT / SAVE-->
                 <button class="btn btn-outline-primary btn-sm"
                         *ngIf="!isThisBeingEdited(version)"
                         [disabled]="isAnyBeingEdited()"
@@ -56,16 +54,18 @@
                         title="{{'item.version.history.table.action.saveSummary' | translate}}">
                   <i class="fas fa-check fa-fw"></i>
                 </button>
-
+                <!--CREATE-->
                 <button class="btn btn-outline-primary btn-sm"
                         [disabled]="isAnyBeingEdited()"
                         (click)="createNewVersion(version)"
                         title="{{'item.version.history.table.action.newVersion' | translate}}">
                   <i class="fas fa-code-branch fa-fw"></i>
                 </button>
+                <!--DELETE-->
                 <button class="btn btn-sm"
                         [ngClass]="isAnyBeingEdited() ? 'btn-outline-primary' : 'btn-outline-danger'"
                         [disabled]="isAnyBeingEdited()"
+                        (click)="deleteVersion(version)"
                         title="{{'item.version.history.table.action.deleteVersion' | translate}}">
                   <i class="fas fa-trash fa-fw"></i>
                 </button>

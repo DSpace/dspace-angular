@@ -10,8 +10,8 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions, PostRequest } from './request.models';
-import { Observable, of } from 'rxjs';
+import { FindListOptions, PostRequest, RestRequest } from './request.models';
+import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
@@ -21,9 +21,8 @@ import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
-import { MetadataMap } from '../shared/metadata.models';
-import { Bundle } from '../shared/bundle.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getFirstCompletedRemoteData, sendRequest } from '../shared/operators';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -84,16 +83,30 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
   }
 
   public createVersion(itemHref: string, summary: string): Observable<RemoteData<Version>> {
-      const requestId = this.requestService.generateRequestId();
-      const requestOptions: HttpOptions = Object.create({});
-      let requestHeaders = new HttpHeaders();
-      requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
-      requestOptions.headers = requestHeaders;
-      const href = 'BASE' + 'api/versioning/versions?summary=' + summary; // TODO
-      console.error("MISSING BASE URL");
-      const body = itemHref;
-      const request = new PostRequest(this.requestService.generateRequestId(), href, itemHref, requestOptions);
-      this.requestService.send(request);
-      return this.rdbService.buildFromRequestUUID(requestId);
+    const requestOptions: HttpOptions = Object.create({});
+    let requestHeaders = new HttpHeaders();
+    requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
+    requestOptions.headers = requestHeaders;
+
+    // TODO fix switchmap
+
+    return this.halService.getEndpoint(this.versionsEndpoint).pipe(
+      take(1),
+      map((endpointUrl: string) => {
+        return (summary?.length > 0 ) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`;
+      }),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
+      sendRequest(this.requestService),
+      /*switchMap((res: string) => {
+        const requestId = this.requestService.generateRequestId();
+        const href = res + ( (summary?.length > 0 ) ? ('?summary=' + summary) : '');
+        const body = itemHref;
+        const request = new PostRequest(requestId, href, body, requestOptions);
+        this.requestService.send(request);
+        return this.rdbService.buildFromRequestUUID<Version>(requestId);
+      }),*/
+      switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
+      getFirstCompletedRemoteData()
+    ) as Observable<RemoteData<Version>>;
   }
 }
