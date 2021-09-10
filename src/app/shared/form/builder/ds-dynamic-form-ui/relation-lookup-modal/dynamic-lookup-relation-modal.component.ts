@@ -114,6 +114,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   totalExternal$: Observable<number[]>;
 
+  relationshipType;
+
+  currentItemIsLeftItem$ : Observable<boolean>;
 
   constructor(
     public modal: NgbActiveModal,
@@ -132,6 +135,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnInit(): void {
+
+    // this.currentItemIsLeftItem$.subscribe((isLeft) => {
+    //   if(isLeft){
+    //     console.log(this.relationshipType.leftwardType);
+    //   }else{
+    //     console.log(this.relationshipType.rightwardType);
+    //   }
+    // });
+
+
     this.selection$ = this.selectableListService
       .getSelectableList(this.listId)
       .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));

@@ -20,6 +20,9 @@ import { CollectionElementLinkType } from '../../../../../object-collection/coll
 import { Context } from '../../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { RelationshipService } from '../../../../../../core/data/relationship.service';
+import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
+import { RelationshipTypeService } from '../../../../../../core/data/relationship-type.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -62,6 +65,16 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * The context to display lists
    */
   @Input() context: Context;
+
+  /**
+   * The type of relationship
+   */
+  @Input() relationshipType: RelationshipType;
+
+  /**
+   * The item being viewed
+   */
+  @Input() item: Item;
 
   /**
    * Send an event to deselect an object from the list
@@ -119,6 +132,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     public searchConfigService: SearchConfigurationService,
     private routeService: RouteService,
     public lookupRelationService: LookupRelationService,
+    private relationshipService: RelationshipService,
+    private relationshipTypeService: RelationshipTypeService,
     private paginationService: PaginationService
   ) {
   }
@@ -127,11 +142,23 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Sets up the pagination and fixed query parameters
    */
   ngOnInit(): void {
+    console.log(this.item);
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(startWith(undefined)))
+      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(
+        startWith(undefined),
+        tap(res=> {
+          if(!!res && res.state == 'Success'){
+            const idOfItems = res.payload.page.map(itemSearchResult => {
+              return itemSearchResult.indexableObject.uuid;
+            });
+            this.setSelectedIds(idOfItems);
+          }
+
+        })
+      ))
     );
   }
 
@@ -197,6 +224,13 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         this.selectableListService.select(this.listId, results);
       }
     );
+  }
+
+  setSelectedIds(idOfItems){
+    console.log(this.relationshipType)
+    this.relationshipService.searchByItemsAndType(this.relationshipType.id, this.item.uuid, this.relationship.relationshipType ,idOfItems).subscribe((res)=>{
+      console.log(res);
+    });
   }
 
   /**

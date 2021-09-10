@@ -4,7 +4,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { Observable } from 'rxjs';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import {
   PaginatedList,
@@ -115,7 +115,8 @@ export class DsDynamicLookupRelationSelectionTabComponent {
                   totalPages: Math.ceil(selected.length / pagination.pageSize)
                 });
               return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, selection));
-            })
+            }),
+            tap((res)=> console.log(res))
           );
         })
       );

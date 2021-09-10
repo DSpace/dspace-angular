@@ -469,4 +469,48 @@ export class RelationshipService extends DataService<Relationship> {
   update(object: Relationship): Observable<RemoteData<Relationship>> {
     return this.put(object);
   }
+
+  searchByItemsAndType(typeId: string,itemUuid: string,focusSide: string, arrayOfItemIds: string[] ): Observable<Relationship> {
+
+    let searchParams = [
+          {
+            fieldName: 'typeId',
+            fieldValue: typeId
+          },
+          {
+            fieldName: 'focusItem',
+            fieldValue: itemUuid
+          },
+          {
+            fieldName: 'relationshipLabel',
+            fieldValue: 'isPublicationOfAuthor'
+          },
+          // {
+          //   fieldName: 'page',
+          //   fieldValue: 1
+          // },
+        ];
+
+    arrayOfItemIds.forEach((itemId)=>{
+      searchParams.push(
+        {
+          fieldName: 'relatedItem',
+          fieldValue: itemId
+        },
+      )
+    })
+
+
+
+
+    return this.getSearchByHref(
+      'byItemsAndType',
+      {
+        searchParams : searchParams
+      }).pipe(
+      switchMap((href) => this.findByHref(href)),
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+  }
 }

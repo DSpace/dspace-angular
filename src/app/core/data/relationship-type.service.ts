@@ -15,7 +15,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
@@ -120,4 +120,33 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
       })
     );
   }
+
+  /**
+   * Check if the given RelationshipType has the given itemTypes on its left and right sides.
+   * Returns an observable of the given RelationshipType if it matches, null if it doesn't
+   *
+   * @param type            The RelationshipType to check
+   * @param leftItemType    The item type that should be on the left side
+   * @param rightItemType   The item type that should be on the right side
+   * @private
+   */
+  searchByEntityType(type: string): Observable<RelationshipType[]> {
+
+
+    return this.searchBy(
+      'byEntityType',
+      {
+        searchParams: [
+          {
+            fieldName: 'type',
+            fieldValue: type
+          }
+        ]
+      }).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ) as Observable<RelationshipType[]>;
+  }
+
+
 }

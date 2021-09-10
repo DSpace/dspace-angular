@@ -7,7 +7,7 @@ import {
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
   combineLatest as observableCombineLatest,
   of as observableOf,
@@ -32,6 +32,8 @@ import { FieldChangeType } from '../../../core/data/object-updates/object-update
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { hasValue } from '../../../shared/empty.util';
+import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -65,6 +67,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
     public entityTypeService: EntityTypeService,
+    protected relationshipTypeService: RelationshipTypeService,
     public cdr: ChangeDetectorRef,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
@@ -77,6 +80,12 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
+
+      // this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label)
+      // .pipe(
+      //   map((relationship:any) => relationship.page),
+      //   tap(res => console.log(res))
+      // );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
@@ -95,6 +104,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
               map((relationshipTypes) => relationshipTypes.page),
+              tap((res)=> console.log(res))
             )
         ),
       );

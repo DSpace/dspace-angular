@@ -49,6 +49,8 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -142,6 +144,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
     protected relationshipService: RelationshipService,
+    protected relationshipTypeService: RelationshipTypeService,
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,
@@ -209,6 +212,9 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.repeatable = true;
     modalComp.listId = this.listId;
     modalComp.item = this.item;
+    modalComp.relationshipType = this.relationshipType;
+    modalComp.currentItemIsLeftItem$ = this.currentItemIsLeftItem$;
+
     this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((collection: Collection) => {
@@ -297,6 +303,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     ).subscribe((items) => {
       this.selectableListService.select(this.listId, items);
     });
+
+    console.log(modalComp);
   }
 
   /**
@@ -337,6 +345,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     // store the left and right type of the relationship in a single observable
     this.relationshipLeftAndRightType$ = observableCombineLatest([
       this.relationshipType.leftType,
