@@ -216,7 +216,7 @@ export class ItemVersionsComponent implements OnInit {
   }
 
 
-  // TODO aggiungere anche alla pagina dell'item (spostare in file esterno?)
+  // TODO aggiungere create anche alla pagina dell'item (spostare in file esterno?)
 
   createNewVersion(version) {
     const successMessageKey = 'item.version.create.notification.success';
