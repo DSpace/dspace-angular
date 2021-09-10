@@ -5,8 +5,10 @@
     </button>
   </div>
   <div class="modal-body">
-    <!--<h5 *ngIf="header" class="px-2">{{header | translate}}</h5>-->
-    <p class="pb-2">{{ "item.version.create.modal.text" | translate : {version: versionNumber} }}</p>
+    <p class="pb-2">
+      {{ "item.version.create.modal.text" | translate }}
+      <span *ngIf="!firstVersion">{{ "item.version.create.modal.text.startingFrom" | translate : {version: versionNumber} }}</span>
+    </p>
     <div class="form-group">
       <label for="summary">{{'item.version.create.modal.form.summary.label' | translate }}:</label>
       <input type="text" id="summary" required class="form-control" [(ngModel)]="newVersionSummary"
@@ -14,8 +16,7 @@
     </div>
   </div>
   <div class="modal-footer">
-<!--    <div class="btn-group">-->
-      <button class="btn btn-danger btn-sm"
+      <button class="btn btn-outline-secondary btn-sm"
               (click)="onModalClose()"
               title="{{'item.version.create.modal.button.cancel.tooltip' | translate}}">
         <i class="fas fa-times fa-fw"></i> {{'item.version.create.modal.button.cancel' | translate}}
@@ -25,6 +26,5 @@
               title="{{'item.version.create.modal.button.confirm.tooltip' | translate}}">
         <i class="fas fa-check fa-fw"></i> {{'item.version.create.modal.button.confirm' | translate}}
       </button>
-<!--    </div>-->
   </div>
 </div>

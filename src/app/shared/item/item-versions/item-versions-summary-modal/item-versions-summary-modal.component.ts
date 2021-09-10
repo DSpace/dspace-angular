@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -6,10 +6,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './item-versions-summary-modal.component.html',
   styleUrls: ['./item-versions-summary-modal.component.scss']
 })
-export class ItemVersionsSummaryModalComponent implements OnInit {
+export class ItemVersionsSummaryModalComponent {
 
   versionNumber: number;
   newVersionSummary: string;
+  firstVersion: boolean;
 
   constructor(
     protected activeModal: NgbActiveModal,
@@ -22,10 +23,6 @@ export class ItemVersionsSummaryModalComponent implements OnInit {
 
   onModalSubmit() {
     this.activeModal.close(this.newVersionSummary);
-  }
-
-  ngOnInit(): void {
-    // TODO delete if unused
   }
 
 }

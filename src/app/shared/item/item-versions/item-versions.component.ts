@@ -7,6 +7,7 @@ import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
@@ -29,18 +30,17 @@ import { TranslateService } from '@ngx-translate/core';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss']
 })
+
 /**
  * Component listing all available versions of the history the provided item is a part of
  */
 export class ItemVersionsComponent implements OnInit {
-
 
   /**
    * The item to display a version history for
@@ -60,10 +60,13 @@ export class ItemVersionsComponent implements OnInit {
   @Input() displayTitle = true;
 
   /**
-   * Whether or not to display the action buttons
+   * Whether or not to display the action buttons (delete/create/edit version)
    */
   @Input() displayActions: boolean;
 
+  /**
+   * Array of active subscriptions
+   */
   subs: Subscription[] = [];
 
   /**
@@ -123,7 +126,8 @@ export class ItemVersionsComponent implements OnInit {
   }>;
 
   /**
-   * Emits when the versionsRD$ must be refreshed.
+   * Emits when the versionsRD$ must be refreshed
+   * (should be used when a new version has been created)
    */
   refreshSubject = new BehaviorSubject<any>(null);
 
@@ -137,22 +141,10 @@ export class ItemVersionsComponent implements OnInit {
    */
   versionBeingEditedId: string;
 
-//  itemLink: string; TODO delete
-
   /**
    * The summary currently being edited
    */
   versionBeingEditedSummary: string;
-
-
-  /**
-   * Cancel the current edit when component is destroyed & unsub all subscriptions
-   */
-  // @HostListener('document:keydown:enter')
-  // onSummarySubmitKeydownEvent(event: KeyboardEvent): void {
-  //   event.preventDefault();
-  // }
-
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private versionService: VersionDataService,
@@ -162,39 +154,51 @@ export class ItemVersionsComponent implements OnInit {
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
-              private cacheService: ObjectCacheService,
+              // private cacheService: ObjectCacheService,
   ) {
   }
 
-
+  /**
+   * True when a version is being edited
+   * (used to disable buttons for other versions)
+   */
   isAnyBeingEdited(): boolean {
     return this.versionBeingEditedNumber != null;
   }
 
+  /**
+   * True if the specified version is being edited
+   * (used to show input field and to change buttons for specified version)
+   */
   isThisBeingEdited(version): boolean {
     return version?.version === this.versionBeingEditedNumber;
   }
 
-  editVersionSummary(version): void {
+  /**
+   * Enables editing for the specified version
+   */
+  enableVersionEditing(version): void {
     this.versionBeingEditedSummary = version?.summary;
     this.versionBeingEditedNumber = version?.version;
     this.versionBeingEditedId = version?.id;
   }
 
-  discardSummaryEdits(): void {
+  /**
+   * Disables editing for the specified version and discards all pending changes
+   */
+  disableSummaryEditing(): void {
     this.versionBeingEditedSummary = undefined;
     this.versionBeingEditedNumber = undefined;
     this.versionBeingEditedId = undefined;
   }
 
+  /**
+   * Applies changes to version currently being edited
+   */
   onSummarySubmit() {
 
     const successMessageKey = 'item.version.edit.notification.success';
     const failureMessageKey = 'item.version.edit.notification.failure';
-
-    const newSummary = this.versionBeingEditedSummary ?? '';
-
-    // TODO submit
 
     this.versionService.findById(this.versionBeingEditedId).pipe(getFirstSucceededRemoteData()).subscribe(
       (findRes) => {
@@ -210,16 +214,17 @@ export class ItemVersionsComponent implements OnInit {
             } else {
               this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
             }
+            this.disableSummaryEditing();
           }
         );
       }
     );
-
-    console.log('SUBMITTING ' + this.versionBeingEditedSummary);
-    this.versionBeingEditedNumber = undefined;
   }
 
-
+  /**
+   * Deletes the specified version
+   * @param version the version to be deleted
+   */
   deleteVersion(version) {
     const successMessageKey = 'item.version.delete.notification.success';
     const failureMessageKey = 'item.version.delete.notification.failure';
@@ -228,14 +233,29 @@ export class ItemVersionsComponent implements OnInit {
     // Open modal
     const activeModal = this.modalService.open(ItemVersionsDeleteModalComponent);
     activeModal.componentInstance.versionNumber = version.version;
+    activeModal.componentInstance.firstVersion = false;
 
     // On modal submit/dismiss
-    activeModal.result.then((modalResult) => {
-      // TODO delete version
-      // TODO non usare due subscriptions innestate ma uno switchmap
+    activeModal.result.then(() => {
       version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((getItemRes) => {
-        this.itemService.delete(getItemRes.id).pipe(take(1)).subscribe( // TODO provare con getfirstcompletedremotedata
+        this.itemService.delete(getItemRes.id).pipe(getFirstCompletedRemoteData()).subscribe(
           (deleteItemRes) => {
+            console.log(JSON.stringify(deleteItemRes));
+            if (deleteItemRes.hasSucceeded) {
+              this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
+              this.refreshSubject.next(null);
+            } else {
+              this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+            }
+          }
+        );
+      });
+      /*version.item.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        switchMap((getItemRes) => this.itemService.delete(getItemRes.id))
+      ).subscribe(
+        getFirstCompletedRemoteData(),
+        map((deleteItemRes) => {
             console.log(JSON.stringify(deleteItemRes));
             if (deleteItemRes.hasSucceeded) {
               this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
@@ -243,17 +263,15 @@ export class ItemVersionsComponent implements OnInit {
               this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
             }
           }
-        );
-      });
-    }).catch(() => {
-        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
-      }
-    );
+        )
+      );*/
+    });
   }
 
-
-  // TODO aggiungere create anche alla pagina dell'item (spostare in file esterno?)
-
+  /**
+   * Creates a new version starting from the specified one
+   * @param version the version from which a new one will be created
+   */
   createNewVersion(version) {
     const successMessageKey = 'item.version.create.notification.success';
     const failureMessageKey = 'item.version.create.notification.failure';
@@ -280,13 +298,8 @@ export class ItemVersionsComponent implements OnInit {
           }
         });
       });
-    }).catch(() => {
-        this.notificationsService.warning(null, this.translateService.get(failureMessageKey));
-      }
-    );
-
+    });
   }
-
 
   /**
    * Initialize all observables
@@ -313,7 +326,7 @@ export class ItemVersionsComponent implements OnInit {
             true, true, followLink('item'), followLink('eperson'));
         })
       );
-      // TODO comment refresh
+      // Refresh the table when refreshSubject emits
       this.subs.push(this.refreshSubject.pipe(switchMap(() => {
         return observableCombineLatest([versionHistory$, currentPagination]).pipe(
           take(1),
@@ -324,13 +337,6 @@ export class ItemVersionsComponent implements OnInit {
           })
         );
       })).subscribe());
-
-
-      /* TODO fix error and restore refresh
-      The response for 'http://localhost:8080/server/api/versioning/versionhistories/1/versions?page=0&size=1'
-      has the self link 'http://localhost:8080/server/api/versioning/versionhistories/1/versions?page=0&embed=item&size=1'.
-      These don't match. This could mean there's an issue with the REST endpoint
-       */
       this.hasEpersons$ = this.versionsRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),

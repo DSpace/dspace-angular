@@ -44,7 +44,7 @@
                 <button class="btn btn-outline-primary btn-sm"
                         *ngIf="!isThisBeingEdited(version)"
                         [disabled]="isAnyBeingEdited()"
-                        (click)="editVersionSummary(version)"
+                        (click)="enableVersionEditing(version)"
                         title="{{'item.version.history.table.action.editSummary' | translate}}">
                   <i class="fas fa-edit fa-fw"></i>
                 </button>
@@ -72,7 +72,7 @@
                 <button class="btn btn-sm"
                         [ngClass]="isThisBeingEdited(version) ? 'btn-outline-warning' : 'btn-outline-primary'"
                         [disabled]="!isAnyBeingEdited() || !isThisBeingEdited(version)"
-                        (click)="discardSummaryEdits()"
+                        (click)="disableSummaryEditing()"
                         title="{{'item.version.history.table.action.discardSummary' | translate}}">
                   <i class="fas fa-undo-alt fa-fw"></i>
                 </button>

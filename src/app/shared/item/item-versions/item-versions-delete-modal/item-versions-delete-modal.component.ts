@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -6,12 +6,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './item-versions-delete-modal.component.html',
   styleUrls: ['./item-versions-delete-modal.component.scss']
 })
-export class ItemVersionsDeleteModalComponent implements OnInit {
+export class ItemVersionsDeleteModalComponent {
 
   versionNumber: number;
 
   constructor(
-    protected activeModal: NgbActiveModal,) { }
+    protected activeModal: NgbActiveModal,) {
+  }
 
   onModalClose() {
     this.activeModal.dismiss();
@@ -19,9 +20,6 @@ export class ItemVersionsDeleteModalComponent implements OnInit {
 
   onModalSubmit() {
     this.activeModal.close();
-  }
-
-  ngOnInit(): void {
   }
 
 }

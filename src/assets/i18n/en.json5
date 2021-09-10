@@ -1996,9 +1996,11 @@
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
 
-  "item.version.create.modal.header": "Create new version",
+  "item.version.create.modal.header": "New version",
 
-  "item.version.create.modal.text": "Create a new version for this item starting from version {{version}}",
+  "item.version.create.modal.text": "Create a new version for this item",
+
+  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
 
   "item.version.create.modal.button.confirm": "Create",
 
@@ -2017,7 +2019,7 @@
   "item.version.create.notification.failure" : "New version has not been created",
 
 
-  "item.version.delete.modal.header": "Delete version version",
+  "item.version.delete.modal.header": "Delete version",
 
   "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
 
