@@ -233,7 +233,7 @@ export class ItemVersionsComponent implements OnInit {
    * Deletes the specified version
    * @param version the version to be deleted
    */
-  deleteVersion(version) {
+  deleteVersion(version: Version) {
     const successMessageKey = 'item.version.delete.notification.success';
     const failureMessageKey = 'item.version.delete.notification.failure';
     const versionNumber = version.version;
@@ -245,8 +245,49 @@ export class ItemVersionsComponent implements OnInit {
 
     // On modal submit/dismiss
     activeModal.result.then(() => {
-      version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((getItemRes) => {
-        this.itemService.delete(getItemRes.id).pipe(getFirstCompletedRemoteData()).subscribe(
+      console.log('Deleting item...');
+
+      version.item.pipe(
+        getFirstSucceededRemoteDataPayload<Item>(),
+        map((item) => item.id),
+        switchMap((itemId) => this.itemService.delete(itemId)),
+        getFirstCompletedRemoteData()
+      ).subscribe(
+        (deleteItemRes) => {
+          console.log('DELETE: ' + JSON.stringify(deleteItemRes));
+          if (deleteItemRes.hasSucceeded) {
+            this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
+            this.refreshSubject.next(null);
+          } else {
+            this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+          }
+        }
+      );
+
+
+      /*
+          const itemVersion$ = item.version;
+          const isLatest$ = item.version.pipe(
+            getFirstSucceededRemoteDataPayload(),
+            map( (itemVersion) => this.versionHistoryService.isLatest$(itemVersion))
+          );
+
+       */
+
+
+      // FUNZIONANTE:
+
+      /*version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((getItemRes) => {
+        const itemId = getItemRes.id;
+
+        const isLatest$ = this.itemService.findById(itemId, true,true, followLink('version')).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          switchMap( (item) => item.version ),
+          getFirstSucceededRemoteDataPayload(),
+          map( (itemVersion) => this.versionHistoryService.isLatest$(itemVersion))
+        );
+
+        this.itemService.delete(itemId).pipe(getFirstCompletedRemoteData()).subscribe(
           (deleteItemRes) => {
             console.log(JSON.stringify(deleteItemRes));
             if (deleteItemRes.hasSucceeded) {
@@ -257,23 +298,8 @@ export class ItemVersionsComponent implements OnInit {
             }
           }
         );
-      });
-      // TODO non usare subscribe annidate
-      /*version.item.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((getItemRes) => this.itemService.delete(getItemRes.id))
-      ).subscribe(
-        getFirstCompletedRemoteData(),
-        map((deleteItemRes) => {
-            console.log(JSON.stringify(deleteItemRes));
-            if (deleteItemRes.hasSucceeded) {
-              this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
-            } else {
-              this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
-            }
-          }
-        )
-      );*/
+      });*/
+
     });
   }
 

@@ -11,18 +11,26 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions, PostRequest, RestRequest } from './request.models';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getFirstCompletedRemoteData, sendRequest } from '../shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  sendRequest
+} from '../shared/operators';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { hasValueOperator } from '../../shared/empty.util';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -97,4 +105,42 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
       getFirstCompletedRemoteData()
     ) as Observable<RemoteData<Version>>;
   }
+
+  getLatestVersionFromHistory$(versionHistory: VersionHistory): Observable<Version> {
+
+    // Pagination options to fetch a single version on the first page (this is the latest version in the history)
+    const latestVersionOptions = Object.assign(new PaginationComponentOptions(), {
+      id: 'item-newest-version-options',
+      currentPage: 1,
+      pageSize: 1
+    });
+
+    const latestVersionSearch = new PaginatedSearchOptions({pagination: latestVersionOptions});
+
+    return this.getVersions(versionHistory.id, latestVersionSearch, true, true, followLink('item')).pipe(
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      hasValueOperator(),
+      filter((versions) => versions.page.length > 0),
+      map((versions) => versions.page[0])
+    );
+
+  }
+
+  getLatestVersion$(version: Version): Observable<Version> {
+    return version.versionhistory.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((versionHistoryRD) =>
+        this.getLatestVersionFromHistory$(versionHistoryRD)
+      ),
+    );
+  }
+
+  isLatest$(version: Version): Observable<boolean> {
+    return this.getLatestVersion$(version).pipe(
+      take(1),
+      switchMap((latestVersion) => of(version.version === latestVersion.version))
+    );
+  }
+
 }
