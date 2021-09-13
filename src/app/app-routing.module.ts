@@ -230,6 +230,12 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             loadChildren: () => import('./edit-item-relationships/edit-item-relationships.module')
               .then((m) => m.EditItemRelationshipsModule),
           },
+          {
+            path: 'subscriptions',
+            loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
+              .then((m) => m.SubscriptionsPageRoutingModule),
+            canActivate: [AuthenticatedGuard]
+          },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{

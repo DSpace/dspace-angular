@@ -1,0 +1,29 @@
+<td class="dso-info">
+	<span *ngIf="!!dso" class="badge badge-info">{{dso.type}}</span>
+	<p><a *ngIf="!!dso" [routerLink]="[getPageRoutePrefix(), dso.id]">{{dso.name}}</a></p>
+</td>
+<td>
+	<span *ngIf="!!subscription" class="subscription-type">{{subscription.subscriptionType}}</span>
+</td>
+<td class="subscription-parmenters">
+	<ng-container *ngIf="!!subscription">
+		<span *ngFor="let parameterList of subscription.subscriptionParameterList; let i = index">
+			{{ 'subscriptions.frequency.'+ parameterList.value  | translate}}<span *ngIf="i < subscription.subscriptionParameterList.length-1 ">,</span>
+		</span>
+	</ng-container>
+</td>
+<td class="subscription-actions">
+	<div class="btn-group edit-field">
+	  <button (click)="$event.preventDefault();openSubscription(subscriptionModal);" class="btn btn-outline-primary btn-sm access-control-editEPersonButton" title="Edit">
+	    <i class="fas fa-edit fa-fw"></i>
+	  </button>
+	  <button (click)="deleteSubscriptionPopup(subscription)" class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton" title="Delete">
+	    <i class="fas fa-trash-alt fa-fw"></i>
+	  </button>
+	</div>
+</td>
+
+<ng-template #subscriptionModal let-c="close" let-d="dismiss">
+  <ds-subscription-edit-modal (reload)="reload.emit({})" (close)="c('cancel')" [subscription]="subscription" [dso]="dso" [eperson]="eperson"></ds-subscription-edit-modal>
+</ng-template>
+

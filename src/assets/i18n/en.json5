@@ -1272,6 +1272,36 @@
 
   "context-menu.actions.statistics.btn": "Statistics",
 
+  "context-menu.actions.subscription.title": "Subscription",
+
+  "context-menu.actions.subscription.type": "Subscription Type",
+
+  "context-menu.actions.subscription.daily": "Daily",
+
+  "context-menu.actions.subscription.weekly": "Weekly",
+
+  "context-menu.actions.subscription.monthly": "Monthly",
+
+  "context-menu.actions.subscription.content": "Content",
+
+  "context-menu.actions.subscription.statistics": "Statistics",
+
+  "context-menu.actions.subscription.content+statistics": "Content & Statistics",
+
+  "context-menu.actions.subscription.confirm.submit": "Save",
+
+  "context-menu.actions.subscription.delete": "Delete",
+
+  "context-menu.actions.subscription.frequency.required": "Frequency is required.",
+
+  "context-menu.actions.subscribe.btn": "Subscribe",
+
+  "context-menu.actions.edit-subscriptions.btn": "Edit subscriptions",
+
+  "context-menu.actions.subscription.notification.here-text": "Subscription Summary",
+
+  "context-menu.actions.subscription.notification.content": "Subscription Updated Successfully, click {{here}} to see subscrition summary.",
+
   "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
 
   "RELATION.Person.projects.search.results.head" : "Projects",
@@ -1450,6 +1480,16 @@
   "confirmation-modal.delete-eperson.cancel": "Cancel",
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
+
+
+  "confirmation-modal.delete-subscription.header": "Delete Subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-subscription.cancel": "Cancel",
+
+  "confirmation-modal.delete-subscription.confirm": "Delete",
+
 
   "equipment.listelement.badge": "Equipment",
 
@@ -3033,7 +3073,7 @@
 
   "nav.user.description" : "User profile bar",
 
-
+  "nav.subscriptions" : "Subscriptions",
 
   "openaire.broker.title": "OpenAIRE Broker",
 
@@ -5033,6 +5073,35 @@
   "submission.workflow.tasks.pool.hide-detail": "Hide detail",
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
+
+
+  "subscriptions.title": "Subscriptions",
+
+  "subscriptions.item": "Subscriptions for items",
+
+  "subscriptions.collection": "Subscriptions for collections",
+
+  "subscriptions.community": "Subscriptions for communities",
+
+  "subscriptions.subscription_type": "Subscription type",
+
+  "subscriptions.frequency": "Subscription frequency",
+
+  "subscriptions.frequency.D": "Daily",
+
+  "subscriptions.frequency.M": "Monthly",
+  
+  "subscriptions.frequency.W": "Weekly",
+
+  "subscriptions.table.dso": "Subject",
+
+  "subscriptions.table.subscription_type": "Subscription Type",
+
+  "subscriptions.table.subscription_frequency": "Subscription Frequency",
+
+  "subscriptions.table.action": "Action",
+
+  "subscriptions.table.empty.message": "You have not subscribed any notification yet. To subscribe notification about an object please use the contextual menu in the object detail view",
 
 
 

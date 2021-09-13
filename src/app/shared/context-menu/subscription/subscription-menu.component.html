@@ -1,0 +1,7 @@
+<button *ngIf="isAuthorized$ | async" class="dropdown-item" (click)="$event.preventDefault();openSubscription(subscriptionModal);">
+  {{'context-menu.actions.subscribe.btn' | translate}}
+</button>
+
+<ng-template #subscriptionModal let-c="close" let-d="dismiss">
+  <ds-subscription-modal (close)="c('cancel')" [dso]="injectedContextMenuObject" [eperson]="eperson"></ds-subscription-modal>
+</ng-template>
