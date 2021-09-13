@@ -1,4 +1,5 @@
-import { TEST_ENTITY_PUBLICATION } from "cypress/support";
+import { TEST_ENTITY_PUBLICATION } from 'cypress/support';
+import { testA11y } from 'cypress/support/utils';
 
 describe('Item Statistics Page', () => {
     const ITEMSTATISTICSPAGE = '/statistics/items/' + TEST_ENTITY_PUBLICATION;
@@ -27,12 +28,11 @@ describe('Item Statistics Page', () => {
 
     it('should pass accessibility tests', () => {
         cy.visit(ITEMSTATISTICSPAGE);
-        cy.injectAxe();
 
         // <ds-item-statistics-page> tag must be loaded
         cy.get('ds-item-statistics-page').should('exist');
 
         // Analyze <ds-item-statistics-page> for accessibility issues
-        cy.checkA11y('ds-item-statistics-page');
+        testA11y('ds-item-statistics-page');
     });
 });

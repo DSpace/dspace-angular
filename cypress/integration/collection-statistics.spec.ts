@@ -1,4 +1,5 @@
-import { TEST_COLLECTION } from "cypress/support";
+import { TEST_COLLECTION } from 'cypress/support';
+import { testA11y } from 'cypress/support/utils';
 
 describe('Collection Statistics Page', () => {
     const COLLECTIONSTATISTICSPAGE = '/statistics/collections/' + TEST_COLLECTION;
@@ -21,12 +22,11 @@ describe('Collection Statistics Page', () => {
 
     it('should pass accessibility tests', () => {
         cy.visit(COLLECTIONSTATISTICSPAGE);
-        cy.injectAxe();
 
         // <ds-collection-statistics-page> tag must be loaded
         cy.get('ds-collection-statistics-page').should('exist');
 
         // Analyze <ds-collection-statistics-page> for accessibility issues
-        cy.checkA11y('ds-collection-statistics-page');
+        testA11y('ds-collection-statistics-page');
     });
 });

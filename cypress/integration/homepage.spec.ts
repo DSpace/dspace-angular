@@ -1,3 +1,5 @@
+import { testA11y } from 'cypress/support/utils';
+
 describe('Homepage', () => {
   beforeEach(() => {
     // All tests start with visiting homepage
@@ -21,12 +23,10 @@ describe('Homepage', () => {
   });
 
   it('should pass accessibility tests', () => {
-    cy.injectAxe();
-
     // Wait for homepage tag to appear
     cy.get('ds-home-page').should('be.visible');
 
     // Analyze <ds-home-page> for accessibility issues
-    cy.checkA11y('ds-home-page');
+    testA11y('ds-home-page');
   });
 });

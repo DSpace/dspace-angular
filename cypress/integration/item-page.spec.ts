@@ -1,5 +1,6 @@
-import { Options } from "cypress-axe";
-import { TEST_ENTITY_PUBLICATION } from "cypress/support";
+import { Options } from 'cypress-axe';
+import { TEST_ENTITY_PUBLICATION } from 'cypress/support';
+import { testA11y } from 'cypress/support/utils';
 
 describe('Item  Page', () => {
     const ITEMPAGE = '/items/' + TEST_ENTITY_PUBLICATION;
@@ -13,14 +14,13 @@ describe('Item  Page', () => {
 
     it('should pass accessibility tests', () => {
         cy.visit(ENTITYPAGE);
-        cy.injectAxe();
 
         // <ds-item-page> tag must be loaded
         cy.get('ds-item-page').should('exist');
 
         // Analyze <ds-item-page> for accessibility issues
         // Disable heading-order checks until it is fixed
-        cy.checkA11y('ds-item-page',
+        testA11y('ds-item-page',
             {
                 rules: {
                     'heading-order': { enabled: false }

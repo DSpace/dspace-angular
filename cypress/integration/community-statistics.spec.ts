@@ -1,4 +1,5 @@
-import { TEST_COMMUNITY } from "cypress/support";
+import { TEST_COMMUNITY } from 'cypress/support';
+import { testA11y } from 'cypress/support/utils';
 
 describe('Community Statistics Page', () => {
     const COMMUNITYSTATISTICSPAGE = '/statistics/communities/' + TEST_COMMUNITY;
@@ -21,12 +22,11 @@ describe('Community Statistics Page', () => {
 
     it('should pass accessibility tests', () => {
         cy.visit(COMMUNITYSTATISTICSPAGE);
-        cy.injectAxe();
 
         // <ds-community-statistics-page> tag must be loaded
         cy.get('ds-community-statistics-page').should('exist');
 
         // Analyze <ds-community-statistics-page> for accessibility issues
-        cy.checkA11y('ds-community-statistics-page');
+        testA11y('ds-community-statistics-page');
     });
 });
