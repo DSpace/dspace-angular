@@ -21,7 +21,7 @@ import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { getItemPageRoute, getItemVersionRoute } from '../../../item-page/item-page-routing-paths';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
@@ -193,6 +193,14 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   /**
+   * Get the route to the specified version
+   * @param versionId the ID of the version for which the route will be retrieved
+   */
+  getVersionRoute(versionId: string) {
+    return getItemVersionRoute(versionId);
+  }
+
+  /**
    * Applies changes to version currently being edited
    */
   onSummarySubmit() {
@@ -250,6 +258,7 @@ export class ItemVersionsComponent implements OnInit {
           }
         );
       });
+      // TODO non usare subscribe annidate
       /*version.item.pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((getItemRes) => this.itemService.delete(getItemRes.id))

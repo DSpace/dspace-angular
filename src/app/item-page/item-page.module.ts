@@ -31,6 +31,7 @@ import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { VersionPageComponent } from './version-page/version-page/version-page.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -60,7 +61,8 @@ const DECLARATIONS = [
   AbstractIncrementalListComponent,
   MediaViewerComponent,
   MediaViewerVideoComponent,
-  MediaViewerImageComponent
+  MediaViewerImageComponent,
+  VersionPageComponent,
 ];
 
 @NgModule({
@@ -72,7 +74,7 @@ const DECLARATIONS = [
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
-     NgxGalleryModule,
+    NgxGalleryModule,
   ],
   declarations: [
     ...DECLARATIONS

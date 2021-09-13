@@ -34,5 +34,14 @@ export function getEntityEditRoute(entityType: string, itemId: string) {
   return new URLCombiner(getEntityPageRoute(entityType, itemId), ITEM_EDIT_PATH).toString();
 }
 
+/**
+ * Get the route to an item's version
+ * @param versionId the ID of the version for which the route will be retrieved
+ */
+export function getItemVersionRoute(versionId: string) {
+  return new URLCombiner(getItemModuleRoute(), ITEM_VERSION_PATH, versionId).toString();
+}
+
 export const ITEM_EDIT_PATH = 'edit';
+export const ITEM_VERSION_PATH = 'version';
 export const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
