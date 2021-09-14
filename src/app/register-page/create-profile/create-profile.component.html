@@ -77,6 +77,31 @@
         </div>
     </div>
 
+  <div class="card mb-4">
+    <div class="card-header">{{'info.end-user-agreement.title' | translate}}</div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-12">
+          <form [class]="'ng-invalid'" [formGroup]="userInfoForm">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" id="userAgreementAccept" class="custom-control-input" formControlName="userAgreementAccept">
+              <label class="custom-control-label" for="userAgreementAccept">
+                {{ 'register-page.create-profile.end-user-agreement.accept.text' | translate }}
+                <a href="/info/end-user-agreement" target="_blank">{{ 'register-page.create-profile.end-user-agreement.accept.link' | translate }}</a>
+              </label>
+              <div *ngIf="userAgreementAccept.invalid && (userAgreementAccept.dirty || userAgreementAccept.touched)"
+                   class="invalid-feedback show-feedback">
+                    <span *ngIf="userAgreementAccept.errors && userAgreementAccept.errors.requiredTrue">
+                        {{ 'register-page.create-profile.end-user-agreement.error' | translate }}
+                    </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <div class="row">
         <div class="col-12">

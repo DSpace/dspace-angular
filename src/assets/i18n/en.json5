@@ -3775,6 +3775,12 @@
 
   "register-page.create-profile.identification.language": "Language",
 
+  "register-page.create-profile.end-user-agreement.accept.text": "I have read and I agree to the ",
+
+  "register-page.create-profile.end-user-agreement.accept.link": "End User Agreement",
+
+  "register-page.create-profile.end-user-agreement.error": "Accept end user agreement is required",
+
   "register-page.create-profile.security.header": "Security",
 
   "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
