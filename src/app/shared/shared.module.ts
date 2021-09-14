@@ -279,6 +279,7 @@ import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-
 import { SubscriptionViewComponent } from './subscriptions/components/subscription-view/subscription-view.component';
 import { SubscriptionModalComponent } from './subscriptions/components/subscription-modal/subscription-modal.component';
 import { SubscriptionEditModalComponent } from './subscriptions/components/subscription-edit-modal/subscription-edit-modal.component';
+import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -551,6 +552,7 @@ const COMPONENTS = [
   SubscriptionViewComponent,
   SubscriptionModalComponent,
   SubscriptionEditModalComponent,
+  MetadataLinkViewComponent
 ];
 
 const ENTRY_COMPONENTS = [

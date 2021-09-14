@@ -21,9 +21,13 @@
           <span class="item-list-date" [innerHTML]="item.firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
           <span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
                 class="item-list-authors">
-              <span *ngIf="item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
-              <span *ngFor="let author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
-                <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+              <span *ngIf="item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
+              <span style="display:flex;position:absolute;width:100%;">
+                <span class="metadata-content" *ngFor="let author of item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+                    <ds-metadata-link-view [item]="item" [metadata]="author"></ds-metadata-link-view>
+                  <!-- <span [innerHTML]="author"><span [innerHTML]="author"></span></span> -->
+                </span>
+                
               </span>
           </span>
 
