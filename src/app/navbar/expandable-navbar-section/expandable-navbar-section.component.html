@@ -1,18 +1,20 @@
-<div class="nav-item dropdown expandable-navbar-section"
-    (keyup.enter)="activateSection($event)"
-    (mouseenter)="activateSection($event)"
-    (mouseleave)="deactivateSection($event)">
-    <a href="#" class="nav-link dropdown-toggle" routerLinkActive="active"
-       id="browseDropdown" (click)="toggleSection($event)"
-       data-toggle="dropdown">
-        <ng-container
-                *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
-    </a>
-    <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
-        class="m-0 shadow-none border-top-0 dropdown-menu show">
-        <ng-container *ngFor="let subSection of (subSections$ | async)">
+<ng-container *ngVar="(active | async) as isActive">
+    <div class="nav-item dropdown expandable-navbar-section"
+        (keyup.enter)="isActive ? deactivateSection($event) : activateSection($event)"
+        (mouseenter)="activateSection($event)"
+        (mouseleave)="deactivateSection($event)">
+        <a href="#" class="nav-link dropdown-toggle" routerLinkActive="active"
+        id="browseDropdown" (click)="toggleSection($event)"
+        data-toggle="dropdown">
             <ng-container
-                    *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
-        </ng-container>
-    </ul>
-</div>
+                    *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+        </a>
+        <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
+            class="m-0 shadow-none border-top-0 dropdown-menu show">
+            <ng-container *ngFor="let subSection of (subSections$ | async)">
+                <ng-container
+                        *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+            </ng-container>
+        </ul>
+    </div>
+</ng-container>
