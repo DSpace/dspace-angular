@@ -118,6 +118,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   currentItemIsLeftItem$ : Observable<boolean>;
 
+  isLeft: boolean = false;
+
+  isEditRelationship: boolean = false;
+
+
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
@@ -136,13 +141,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
 
-    // this.currentItemIsLeftItem$.subscribe((isLeft) => {
-    //   if(isLeft){
-    //     console.log(this.relationshipType.leftwardType);
-    //   }else{
-    //     console.log(this.relationshipType.rightwardType);
-    //   }
-    // });
+    this.currentItemIsLeftItem$.subscribe((isLeft) => {
+      this.isLeft = isLeft;
+    });
 
 
     this.selection$ = this.selectableListService

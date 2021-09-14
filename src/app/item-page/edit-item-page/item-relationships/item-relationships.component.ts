@@ -81,33 +81,16 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
 
-      // this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label)
-      // .pipe(
-      //   map((relationship:any) => relationship.page),
-      //   tap(res => console.log(res))
-      // );
+      this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label)
+      .pipe(
+        map((relationshipTypes:any) => relationshipTypes.page)
+      );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
       );
 
-      this.relationshipTypes$ = this.entityType$.pipe(
-        switchMap((entityType) =>
-          this.entityTypeService.getEntityTypeRelationships(
-            entityType.id,
-            true,
-            true,
-            followLink('leftType'),
-            followLink('rightType'))
-            .pipe(
-              getFirstSucceededRemoteData(),
-              getRemoteDataPayload(),
-              map((relationshipTypes) => relationshipTypes.page),
-              tap((res)=> console.log(res))
-            )
-        ),
-      );
     } else {
       this.entityType$ = observableOf(undefined);
     }

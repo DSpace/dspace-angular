@@ -132,7 +132,6 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
    */
   searchByEntityType(type: string): Observable<RelationshipType[]> {
 
-
     return this.searchBy(
       'byEntityType',
       {
@@ -142,7 +141,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
             fieldValue: type
           }
         ]
-      }).pipe(
+      }, true,true,followLink('leftType'),followLink('rightType')).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     ) as Observable<RelationshipType[]>;

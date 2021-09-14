@@ -470,7 +470,7 @@ export class RelationshipService extends DataService<Relationship> {
     return this.put(object);
   }
 
-  searchByItemsAndType(typeId: string,itemUuid: string,focusSide: string, arrayOfItemIds: string[] ): Observable<Relationship> {
+  searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<Relationship[]> {
 
     let searchParams = [
           {
@@ -483,7 +483,7 @@ export class RelationshipService extends DataService<Relationship> {
           },
           {
             fieldName: 'relationshipLabel',
-            fieldValue: 'isPublicationOfAuthor'
+            fieldValue: relationshipLabel
           },
           // {
           //   fieldName: 'page',
@@ -500,17 +500,14 @@ export class RelationshipService extends DataService<Relationship> {
       )
     })
 
-
-
-
-    return this.getSearchByHref(
+    return this.searchBy(
       'byItemsAndType',
       {
-        searchParams : searchParams
+        searchParams: searchParams
       }).pipe(
-      switchMap((href) => this.findByHref(href)),
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    );
+    ) as Observable<Relationship[]>;
+
   }
 }

@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue } from '../../../../../empty.util';
 import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { getFirstSucceededRemoteData } from '../../../../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
@@ -23,6 +23,16 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../../core/data/relationship-type.service';
+
+import { ItemSearchResult } from '../../../../../../shared/object-collection/shared/item-search-result.model';
+
+import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
+import {
+  FieldUpdate,
+  FieldUpdates,
+  RelationshipIdentifiable
+} from '../../../../../../core/data/object-updates/object-updates.reducer';
+
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -75,6 +85,16 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * The item being viewed
    */
   @Input() item: Item;
+
+  /**
+   * Check if is left type or right type
+   */
+  @Input() isLeft: boolean;
+
+  /**
+   * Check if is being utilized by edit relationship component
+   */
+  @Input() isEditRelationship: boolean;
 
   /**
    * Send an event to deselect an object from the list
@@ -142,7 +162,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Sets up the pagination and fixed query parameters
    */
   ngOnInit(): void {
-    console.log(this.item);
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
@@ -150,13 +169,12 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(
         startWith(undefined),
         tap(res=> {
-          if(!!res && res.state == 'Success'){
+          if(!!res && res.state == 'Success' && this.isEditRelationship){
             const idOfItems = res.payload.page.map(itemSearchResult => {
               return itemSearchResult.indexableObject.uuid;
             });
-            this.setSelectedIds(idOfItems);
+            this.setSelectedIds(idOfItems,res.payload.page);
           }
-
         })
       ))
     );
@@ -226,10 +244,30 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     );
   }
 
-  setSelectedIds(idOfItems){
-    console.log(this.relationshipType)
-    this.relationshipService.searchByItemsAndType(this.relationshipType.id, this.item.uuid, this.relationship.relationshipType ,idOfItems).subscribe((res)=>{
-      console.log(res);
+  setSelectedIds(idOfItems, resultListOfItems) {
+    let relationType = this.relationshipType.rightwardType;
+    if(this.isLeft){
+      relationType = this.relationshipType.leftwardType;
+    }
+    this.relationshipService.searchByItemsAndType(this.relationshipType.id, this.item.uuid, relationType ,idOfItems).subscribe((res: any)=>{
+
+      const selectableObject = res.page.map((relationship: Relationship) => {
+
+        let arrUrl = [];
+        if(this.isLeft){
+          arrUrl = relationship._links.rightItem.href.split('/');
+        }else{
+          arrUrl = relationship._links.leftItem.href.split('/');
+        }
+        let uuid = arrUrl[arrUrl.length-1];
+
+        return this.getRelatedItem(uuid,resultListOfItems);
+
+      });
+      // console.log(selectableObject);
+      if(selectableObject.length > 0){
+        this.selectableListService.select(this.listId, selectableObject);
+      }
     });
   }
 
@@ -242,6 +280,12 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => this.deselectObject.emit(...selection));
     this.selectableListService.deselectAll(this.listId);
+  }
+
+  getRelatedItem(uuid,resultList){
+    return resultList.find((resultItem) => {
+      return resultItem.indexableObject.uuid == uuid;
+    });
   }
 
   ngOnDestroy(): void {

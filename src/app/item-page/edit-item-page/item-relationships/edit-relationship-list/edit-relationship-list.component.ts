@@ -140,6 +140,10 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   modalRef: NgbModalRef;
 
+  listOfRelatedItems = [];
+
+  relationshipTypeInfo: string;
+
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
@@ -210,6 +214,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     });
     const modalComp: DsDynamicLookupRelationModalComponent = this.modalRef.componentInstance;
     modalComp.repeatable = true;
+    modalComp.isEditRelationship = true;
     modalComp.listId = this.listId;
     modalComp.item = this.item;
     modalComp.relationshipType = this.relationshipType;
@@ -223,12 +228,14 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
-        this.getFieldUpdatesForRelatedItem(relatedItem)
-          .subscribe((identifiables) => {
-            identifiables.forEach((identifiable) =>
-              this.objectUpdatesService.removeSingleFieldUpdate(this.url, identifiable.uuid)
-            );
-            if (identifiables.length === 0) {
+        this.getFieldUpdatesForRelatedItemNew(relatedItem)
+          .subscribe((isRelated: boolean) => {
+
+
+            // identifiables.forEach((identifiable) =>
+            //   this.objectUpdatesService.removeSingleFieldUpdate(this.url, identifiable.uuid)
+            // );
+            if (!isRelated) {
               this.relationshipService.getNameVariant(this.listId, relatedItem.uuid)
                 .subscribe((nameVariant) => {
                   const update = {
@@ -301,7 +308,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         return searchResult;
       })),
     ).subscribe((items) => {
-      this.selectableListService.select(this.listId, items);
+          // console.log(items);
+      // this.selectableListService.select(this.listId, items);
     });
 
     console.log(modalComp);
@@ -312,7 +320,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * @param relatedItem The item for which to get the existing field updates
    */
   private getFieldUpdatesForRelatedItem(relatedItem: Item): Observable<RelationshipIdentifiable[]> {
-
+    console.log("getFieldUpdatesForRelatedItem",relatedItem);
     return this.updates$.pipe(
       take(1),
       map((updates) => Object.values(updates)
@@ -324,12 +332,41 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           identifiables.map((identifiable) => this.getRelatedItem(identifiable.relationship))
         ).pipe(
           defaultIfEmpty([]),
-          map((relatedItems) =>
-            identifiables.filter((identifiable, index) => relatedItems[index].uuid === relatedItem.uuid)
+          map((relatedItems) => {
+            console.log("identifiables",identifiables,relatedItems);
+            return identifiables.filter((identifiable, index) => 
+              {
+                console.log(relatedItems[index].uuid,relatedItems,relatedItem.uuid);
+                return relatedItems[index].uuid === relatedItem.uuid
+              })
+          }
           ),
+          tap(res=> console.log("getFieldUpdatesForRelatedItem -> res",res))
         )
-      ),
+      )
     );
+  }
+
+
+  private getFieldUpdatesForRelatedItemNew(relatedItem: Item): Observable<boolean> {
+
+    return this.currentItemIsLeftItem$.pipe(
+      take(1),
+      map(isLeft => {
+        if(isLeft){
+          this.relationshipType.leftwardType;
+          let listOfRelatedItems = this.item.allMetadataValues('relation.'+this.relationshipType.leftwardType);
+          return !!listOfRelatedItems.find((uuid) => uuid == relatedItem.uuid);
+        }else{
+          this.relationshipType.rightwardType;
+          let listOfRelatedItems = this.item.allMetadataValues('relation.'+this.relationshipType.rightwardType);
+          return !!listOfRelatedItems.find((uuid) => uuid == relatedItem.uuid);
+        }
+      })
+    );
+
+    // return this.relationshipService.searchByItemsAndType(this.relationshipType.id, this.item.uuid, this.relationshipTypeInfo ,[relatedItem.uuid])
+    //                                .pipe(map((res:any)=> res.page));
   }
 
   /**
@@ -381,6 +418,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         return undefined;
       })
     );
+
 
     // initialize the pagination options
     this.paginationConfig = new PaginationComponentOptions();
@@ -459,10 +497,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           defaultIfEmpty([])
       )),
       switchMap((nextFields: RelationshipIdentifiable[]) => {
+        console.log("nextFields",nextFields);
         // Get a list that contains the unsaved changes for the page, as well as the page of
         // RelationshipIdentifiables, as a single list of FieldUpdates
         return this.objectUpdatesService.getFieldUpdates(this.url, nextFields).pipe(
           map((fieldUpdates: FieldUpdates) => {
+            console.log("fieldUpdates",fieldUpdates);
             const fieldUpdatesFiltered: FieldUpdates = {};
             this.nbAddedFields$.next(0);
             // iterate over the fieldupdates and filter out the ones that pertain to this
@@ -495,6 +535,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       startWith({}),
     ).subscribe((updates: FieldUpdates) => {
       this.loading$.next(false);
+      console.log(updates);
       this.updates$.next(updates);
     }));
   }

@@ -18,7 +18,9 @@
                         [context]="context"
                         [query]="query"
                         [relationshipType]="relationshipType"
+                        [isLeft]="isLeft"
                         [item]="item"
+                        [isEditRelationship]="isEditRelationship"
                         (selectObject)="select($event)"
                         (deselectObject)="deselect($event)"
                         class="d-block pt-3">
@@ -42,7 +44,7 @@
                 </ds-dynamic-lookup-relation-external-source-tab>
             </ng-template>
         </ngb-tab>
-        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
+        <ngb-tab [disabled]="isEditRelationship" [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-selection-tab
                         [selection$]="selection$"
