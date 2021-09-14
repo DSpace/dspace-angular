@@ -117,7 +117,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
 
     const latestVersionSearch = new PaginatedSearchOptions({pagination: latestVersionOptions});
 
-    return this.getVersions(versionHistory.id, latestVersionSearch, true, true, followLink('item')).pipe(
+    return this.getVersions(versionHistory.id, latestVersionSearch, false, true, followLink('item')).pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       hasValueOperator(),
@@ -128,10 +128,14 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
   }
 
   getLatestVersion$(version: Version): Observable<Version> {
-    return version.versionhistory.pipe(
+    // retrieve again version, including with versionHistory
+    return this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((versionHistoryRD) =>
-        this.getLatestVersionFromHistory$(versionHistoryRD)
+      switchMap((res) => res.versionhistory),
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((versionHistoryRD) => {
+          return this.getLatestVersionFromHistory$(versionHistoryRD);
+        }
       ),
     );
   }

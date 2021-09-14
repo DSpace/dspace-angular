@@ -21,7 +21,11 @@ import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getItemPageRoute, getItemVersionRoute } from '../../../item-page/item-page-routing-paths';
+import {
+  getItemEditVersionhistoryRoute,
+  getItemPageRoute,
+  getItemVersionRoute
+} from '../../../item-page/item-page-routing-paths';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
@@ -30,6 +34,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item-versions',
@@ -154,7 +159,7 @@ export class ItemVersionsComponent implements OnInit {
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
-              // private cacheService: ObjectCacheService,
+              private router: Router,
   ) {
   }
 
@@ -232,11 +237,13 @@ export class ItemVersionsComponent implements OnInit {
   /**
    * Deletes the specified version
    * @param version the version to be deleted
+   * @param redirectToLatest force the redirect to the latest version in the history
    */
-  deleteVersion(version: Version) {
+  deleteVersion(version: Version, redirectToLatest: boolean) {
     const successMessageKey = 'item.version.delete.notification.success';
     const failureMessageKey = 'item.version.delete.notification.failure';
     const versionNumber = version.version;
+    const versionItem$ = version.item;
 
     // Open modal
     const activeModal = this.modalService.open(ItemVersionsDeleteModalComponent);
@@ -247,22 +254,30 @@ export class ItemVersionsComponent implements OnInit {
     activeModal.result.then(() => {
       console.log('Deleting item...');
 
-      version.item.pipe(
+      versionItem$.pipe(
         getFirstSucceededRemoteDataPayload<Item>(),
         map((item) => item.id),
         switchMap((itemId) => this.itemService.delete(itemId)),
-        getFirstCompletedRemoteData()
-      ).subscribe(
-        (deleteItemRes) => {
-          console.log('DELETE: ' + JSON.stringify(deleteItemRes));
-          if (deleteItemRes.hasSucceeded) {
+        getFirstCompletedRemoteData(),
+        map((deleteItemRes) => deleteItemRes.hasSucceeded),
+        switchMap((deleteHasSucceeded) => {
+          if (deleteHasSucceeded) {
             this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
-            this.refreshSubject.next(null);
           } else {
             this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
           }
+          return this.versionHistoryService.getLatestVersion$(version);
+        }),
+        switchMap((latestVersion) => latestVersion.item),
+        getFirstSucceededRemoteDataPayload(),
+      ).subscribe((latestVersionItem) => {
+        console.log('LATEST VERSION = ' + latestVersionItem.uuid);
+        if (redirectToLatest) {
+          const tmpPath = getItemEditVersionhistoryRoute(latestVersionItem);
+          console.log('PATH = ' + tmpPath);
+          this.router.navigateByUrl(tmpPath);
         }
-      );
+      });
 
 
       /*
@@ -273,6 +288,27 @@ export class ItemVersionsComponent implements OnInit {
           );
 
        */
+
+      /*map((item) => {
+        item.version.pipe(
+          getFirstSucceededRemoteDataPayload(),
+          switchMap( (itemVersion) => this.versionHistoryService.isLatest$(itemVersion)),
+        ).subscribe((isLatestVersion) =>  {
+            isDeletingLatestVersion = isLatestVersion;
+          }
+        );
+        return item;
+      }),*/
+      /*mergeMap((versionItem) => combineLatest([
+        of(versionItem).pipe(
+          map((item) => item.id),
+          switchMap((itemId) => this.itemService.delete(itemId)),
+          getFirstCompletedRemoteData()
+        ),
+        versionHistory$.pipe(
+          getFirstSucceededRemoteDataPayload(),
+        )
+      ])),*/
 
 
       // FUNZIONANTE:
