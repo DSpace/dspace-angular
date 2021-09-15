@@ -7,7 +7,7 @@
          [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()">
     <div *ngIf="src === null" class="thumbnail-content outer">
       <div class="inner">
-        <div class="thumbnail-placeholder w-100 h-100 p-3 lead">{{ placeholder | translate }}</div>
+        <div class="thumbnail-placeholder w-100 h-100 p-5">{{ placeholder | translate }}</div>
       </div>
     </div>
   </ng-template>

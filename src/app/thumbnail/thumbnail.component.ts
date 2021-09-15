@@ -53,6 +53,7 @@ export class ThumbnailComponent implements OnChanges {
    */
   ngOnChanges(): void {
     if (this.thumbnail === undefined || this.thumbnail === null) {
+      this.resolveThumbnail(null);
       return;
     }
     if (this.thumbnail instanceof Bitstream) {
