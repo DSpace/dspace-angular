@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../models/cris-layout-box.model';
 import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
 import { LayoutTab } from '../../../enums/layout-tab.enum';
@@ -59,9 +59,10 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
     public cd: ChangeDetectorRef,
     protected metricscomponentsService: MetricsComponentsDataService,
     protected itemService: ItemDataService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    protected viewRef: ElementRef
   ) {
-    super(translateService);
+    super(translateService, viewRef);
   }
 
   ngOnInit() {

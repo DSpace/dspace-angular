@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
 import { LayoutPage } from '../../../enums/layout-page.enum';
 import { LayoutTab } from '../../../enums/layout-tab.enum';
@@ -38,8 +38,8 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
    */
   subs: Subscription[] = [];
 
-  constructor(public cd: ChangeDetectorRef, protected translateService: TranslateService) {
-    super(translateService);
+  constructor(public cd: ChangeDetectorRef, protected translateService: TranslateService, protected viewRef: ElementRef) {
+    super(translateService, viewRef);
   }
 
   ngOnInit(): void {

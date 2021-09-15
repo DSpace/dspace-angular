@@ -1,4 +1,4 @@
-import { Component, HostBinding, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,21 +22,6 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
 
   missingAuthorizations$ = new BehaviorSubject<string[]>([]);
 
-  /**
-   * Variable to understand if the next box clear value
-   */
-  nextBoxClear = true;
-
-  /**
-   * Dynamic styling of the component host selector
-   */
-  @HostBinding('style.flex') flex = '0 0 100%';
-
-  /**
-   * Dynamic styling of the component host selector
-   */
-  @HostBinding('style.marginRight') margin = '0px';
-
   unlinkProcessing = false;
 
   constructor(
@@ -44,8 +29,9 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     private researcherProfileService: ResearcherProfileService,
     protected translateService: TranslateService,
     private notificationsService: NotificationsService,
+    protected viewRef: ElementRef,
     @Inject(NativeWindowService) private _window: NativeWindowRef) {
-    super(translateService);
+    super(translateService, viewRef);
   }
 
   ngOnInit() {

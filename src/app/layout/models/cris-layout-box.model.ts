@@ -1,5 +1,5 @@
 import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { Box } from '../../core/layout/models/box.model';
 import { hasValue } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
@@ -53,9 +53,9 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
   /**
    * Dynamic styling of the component host selector
    */
-  @HostBinding('style.marginRight') margin = '0px';
+  @HostBinding('style.marginRight') marginRight = '0px';
 
-  protected constructor(protected translateService: TranslateService) {
+  protected constructor(protected translateService: TranslateService, protected viewRef: ElementRef) {
     super();
   }
 
@@ -64,16 +64,21 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
    */
   ngOnInit(): void {
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
+
+    console.log(this.box.shortname, this.viewRef.nativeElement);
     if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }
 
-    if (this.box.clear) {
-      this.flex = '0 0 100%';
+    if ((this.box.clear && !this.nextBoxClear) || (!this.box.clear && !this.nextBoxClear)) {
+      this.marginRight = '1rem';
     }
+  }
 
-    if (!this.box.clear && !this.nextBoxClear) {
-      this.margin = '10px';
+  ngAfterViewInit() {
+    // If clear box is true means that box should be renderend in a new line, so adding a breaking flex line div
+    if (this.box.clear) {
+      this.viewRef.nativeElement.insertAdjacentHTML('beforebegin', '<div style="flex-basis: 100%;"></div>');
     }
   }
 

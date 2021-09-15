@@ -1,5 +1,4 @@
-<ngb-accordion [activeIds]="activeIds"
-               [class.mr-2]="!box.clear && !nextBoxClear">
+<ngb-accordion [activeIds]="activeIds">
   <ngb-panel id="{{box.shortname}}">
     <ng-template ngbPanelTitle>
       <span [innerHTML]="getBoxHeader()"></span>

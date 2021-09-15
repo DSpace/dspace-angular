@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -52,29 +52,14 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
    */
   private subs: Subscription[] = [];
 
-  /**
-   * Variable to understand if the next box clear value
-   */
-  nextBoxClear = true;
-
-  /**
-   * Dynamic styling of the component host selector
-   */
-  @HostBinding('style.flex') flex = '0 0 100%';
-
-  /**
-   * Dynamic styling of the component host selector
-   */
-  @HostBinding('style.marginRight') margin = '0px';
-
-
   constructor(private orcidQueueService: OrcidQueueService,
               protected translateService: TranslateService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryService,
               private paginationService: PaginationService,
-              private researcherProfileService: ResearcherProfileService) {
-    super(translateService);
+              private researcherProfileService: ResearcherProfileService,
+              protected viewRef: ElementRef) {
+    super(translateService, viewRef);
   }
 
   ngOnInit() {
