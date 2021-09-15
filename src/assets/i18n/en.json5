@@ -1490,6 +1490,7 @@
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
 
+  "dataset.listelement.badge" : "Dataset",
 
   "equipment.listelement.badge": "Equipment",
 
@@ -1533,6 +1534,7 @@
 
   "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
 
+  "event.listelement.badge" : "Event",
 
   "explore.browse-section.title" : "Browse",
 
@@ -4508,8 +4510,6 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals ISSN",
-
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.orcidWorks": "ORCID",
@@ -5096,7 +5096,7 @@
   "subscriptions.frequency.D": "Daily",
 
   "subscriptions.frequency.M": "Monthly",
-  
+
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.table.dso": "Subject",
