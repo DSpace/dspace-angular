@@ -1490,6 +1490,7 @@
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
 
+  "dataset.listelement.badge" : "Dataset",
 
   "equipment.listelement.badge": "Equipment",
 
@@ -1533,6 +1534,7 @@
 
   "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
 
+  "event.listelement.badge" : "Event",
 
   "explore.browse-section.title" : "Browse",
 
@@ -3775,6 +3777,12 @@
 
   "register-page.create-profile.identification.language": "Language",
 
+  "register-page.create-profile.end-user-agreement.accept.text": "I have read and I agree to the ",
+
+  "register-page.create-profile.end-user-agreement.accept.link": "End User Agreement",
+
+  "register-page.create-profile.end-user-agreement.error": "Accept end user agreement is required",
+
   "register-page.create-profile.security.header": "Security",
 
   "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
@@ -4502,8 +4510,6 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals ISSN",
-
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.orcidWorks": "ORCID",
@@ -5090,7 +5096,7 @@
   "subscriptions.frequency.D": "Daily",
 
   "subscriptions.frequency.M": "Monthly",
-  
+
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.table.dso": "Subject",

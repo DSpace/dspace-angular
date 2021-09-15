@@ -121,7 +121,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Observable whether or not the admin is allowed to reset the EPerson's password
    * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
    */
-  canReset$: Observable<boolean> = observableOf(false);
+  canReset$: Observable<boolean>;
 
   /**
    * Observable whether or not the admin is allowed to delete the EPerson
@@ -286,6 +286,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       );
       this.canDelete$ = activeEPerson$.pipe(
         switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined))
+      );
+      this.canReset$ = activeEPerson$.pipe(
+        switchMap((eperson) => {
+          return observableOf(true);
+        })
       );
     });
   }

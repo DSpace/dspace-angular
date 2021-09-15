@@ -99,10 +99,6 @@ export class RowComponent implements OnInit {
   computeRendering(field: LayoutField): string | FieldRenderingType {
     let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
 
-    if (field.metadata === 'dc.subject') {
-      console.log(field);
-      return 'tag';
-    }
 
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');
