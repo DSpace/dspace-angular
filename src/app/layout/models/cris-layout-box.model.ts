@@ -65,7 +65,6 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
   ngOnInit(): void {
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
 
-    console.log(this.box.shortname, this.viewRef.nativeElement);
     if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }
