@@ -46,7 +46,7 @@
         <span *ngIf="!unlinkProcessing"><i class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
         <span *ngIf="unlinkProcessing"><i class='fas fa-circle-notch fa-spin'></i> {{'person.page.orcid.unlink.processing' | translate}}</span>
       </button>
-      <button *ngIf="( missingAuthorizations$ | async ).length > 0" type="submit" class="btn btn-primary float-right m-2" (click)="linkOrcid()"> 
+      <button *ngIf="( missingAuthorizations$ | async ).length > 0" type="submit" class="btn btn-primary float-right m-2" (click)="linkOrcid()">
         <span><i class="fas fa-check"></i> {{ 'person.page.orcid.grant-authorizations' | translate }}</span>
       </button>
     </div>

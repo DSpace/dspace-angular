@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
@@ -36,27 +36,12 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
   syncProfileOptions: { value: string, label: string, checked: boolean }[];
 
-  /**
-   * Variable to understand if the next box clear value
-   */
-  nextBoxClear = true;
-
-  /**
-   * Dynamic styling of the component host selector
-   */
-  @HostBinding('style.flex') flex = '0 0 100%';
-
-  /**
-   * Dynamic styling of the component host selector
-   */
-  @HostBinding('style.marginRight') margin = '0px';
-
-
   constructor(private researcherProfileService: ResearcherProfileService,
               protected translateService: TranslateService,
               private notificationsService: NotificationsService,
-              public authService: AuthService) {
-    super(translateService);
+              public authService: AuthService,
+              protected viewRef: ElementRef) {
+    super(translateService, viewRef);
   }
 
   ngOnInit() {

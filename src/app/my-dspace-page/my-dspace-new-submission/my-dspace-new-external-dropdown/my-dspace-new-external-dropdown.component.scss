@@ -11,8 +11,6 @@
 }
 
 #entityControlsDropdownMenu {
-  width: calc(100% - 0.5rem);
-  outline: 0;
-  left: 0 !important;
+  min-width: 18rem;
   box-shadow: $btn-focus-box-shadow;
 }

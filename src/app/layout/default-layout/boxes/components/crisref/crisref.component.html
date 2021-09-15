@@ -3,28 +3,11 @@
     {{label}}
   </span>
   <div [class]="'d-flex flex-column ' + valueStyle">
-    <span *ngFor="let ref of (references| async)" class="txt-value">
+
+    <span *ngFor="let metadata of metadatas" class="txt-value">
       <span class="d-inline-flex align-items-center">
-        <ng-container [ngTemplateOutlet]="ref.id ? withAuthority : withoutAuthority"
-                      [ngTemplateOutletContext]="{ref:ref}"></ng-container>
+          <ds-metadata-link-view [item]="item" [metadata]="metadata"></ds-metadata-link-view>
       </span>
     </span>
   </div>
 </div>
-
-
-<ng-template #withAuthority let-ref="ref">
-  <a rel="noopener noreferrer"
-     [routerLink]="['/items/' + ref.id]">
-    {{ref.value}} <i class="{{ref.icon}}"></i>
-  </a>
-  <img *ngIf="ref.orcidAuthenticated"
-       placement="top"
-       ngbTooltip="{{ ref.orcidAuthenticated }}"
-       class="orcid-icon"
-       src="assets/images/orcid.logo.icon.svg"/>
-</ng-template>
-
-<ng-template #withoutAuthority let-ref="ref">
-  {{normalizeValue(ref.value)}}
-</ng-template>

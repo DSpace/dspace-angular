@@ -28,7 +28,7 @@
                 <div class="m-3">
                   <div class="form-group" >
                     <div *ngFor="let option of syncPublicationOptions" class="row form-check">
-                      <input type="radio" [(ngModel)]="currentSyncPublications" 
+                      <input type="radio" [(ngModel)]="currentSyncPublications"
                         name="syncPublications" id="publicationOption_{{option.value}}" [value]="option.value" required >
                       <label for="publicationOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
                     </div>
@@ -42,7 +42,7 @@
                 <div class="m-3">
                   <div class="form-group" >
                     <div *ngFor="let option of syncFundingOptions" class="row form-check">
-                      <input type="radio" [(ngModel)]="currentSyncFundings" 
+                      <input type="radio" [(ngModel)]="currentSyncFundings"
                         name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value" required >
                       <label for="fundingOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
                     </div>
@@ -74,7 +74,7 @@
             </div>
           </div>
         </form>
-      </div>  
+      </div>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>

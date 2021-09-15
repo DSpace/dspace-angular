@@ -73,6 +73,9 @@ export class CreateProfileComponent implements OnInit {
       }),
       contactPhone: new FormControl(''),
       language: new FormControl(''),
+      userAgreementAccept: new FormControl(false, {
+        validators: [Validators.requiredTrue],
+      })
     });
 
   }
@@ -110,6 +113,10 @@ export class CreateProfileComponent implements OnInit {
     return this.userInfoForm.get('language');
   }
 
+  get userAgreementAccept() {
+    return this.userInfoForm.get('userAgreementAccept');
+  }
+
   /**
    * Submits the eperson to the service to be created.
    * The submission will not be made when the form or the password is not valid.
@@ -145,8 +152,8 @@ export class CreateProfileComponent implements OnInit {
         requireCertificate: false
       };
 
-      // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
-      if (this.endUserAgreementService.isCookieAccepted()) {
+      // If the End User Agreement is accepted, add end-user agreement metadata to the user
+      if (this.userAgreementAccept) {
         values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
           {
             value: String(true)

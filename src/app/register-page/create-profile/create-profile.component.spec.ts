@@ -171,11 +171,12 @@ describe('CreateProfileComponent', () => {
       comp.contactPhone.patchValue('Phone');
       comp.language.patchValue('en');
       comp.password = 'password';
+      comp.userAgreementAccept.patchValue(true);
       comp.isInValidPassword = false;
 
       comp.submitEperson();
 
-      expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(eperson, 'test-token');
+      expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(epersonWithAgreement, 'test-token');
       expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
       expect(notificationsService.success).toHaveBeenCalled();
@@ -192,6 +193,7 @@ describe('CreateProfileComponent', () => {
         comp.contactPhone.patchValue('Phone');
         comp.language.patchValue('en');
         comp.password = 'password';
+        comp.userAgreementAccept.patchValue(true);
         comp.isInValidPassword = false;
 
         comp.submitEperson();
@@ -208,6 +210,7 @@ describe('CreateProfileComponent', () => {
         comp.contactPhone.patchValue('Phone');
         comp.language.patchValue('en');
         comp.password = 'password';
+        comp.userAgreementAccept.patchValue(true);
         comp.isInValidPassword = false;
 
         comp.submitEperson();
@@ -225,11 +228,12 @@ describe('CreateProfileComponent', () => {
       comp.contactPhone.patchValue('Phone');
       comp.language.patchValue('en');
       comp.password = 'password';
+      comp.userAgreementAccept.patchValue(true);
       comp.isInValidPassword = false;
 
       comp.submitEperson();
 
-      expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(eperson, 'test-token');
+      expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(epersonWithAgreement, 'test-token');
       expect(store.dispatch).not.toHaveBeenCalled();
       expect(router.navigate).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
@@ -243,6 +247,7 @@ describe('CreateProfileComponent', () => {
       comp.contactPhone.patchValue('Phone');
       comp.language.patchValue('en');
       comp.password = 'password';
+      comp.userAgreementAccept.patchValue(true);
       comp.isInValidPassword = false;
 
       comp.submitEperson();
@@ -258,6 +263,7 @@ describe('CreateProfileComponent', () => {
       comp.contactPhone.patchValue('Phone');
       comp.language.patchValue('en');
       comp.password = 'password';
+      comp.userAgreementAccept.patchValue(true);
       comp.isInValidPassword = true;
 
       comp.submitEperson();

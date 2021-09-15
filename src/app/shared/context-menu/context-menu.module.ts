@@ -16,6 +16,8 @@ import { BulkImportMenuComponent } from './bulk-import/bulk-import-menu.componen
 import { EditItemRelationshipsMenuComponent } from './edit-item-relationships/edit-item-relationships-menu.component';
 import { ClaimItemMenuComponent } from './claim-item/claim-item-menu.component';
 import { StatisticsMenuComponent } from './statistics/statistics-menu.component';
+import { SubscriptionMenuComponent } from './subscription/subscription-menu.component';
+import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 
 const COMPONENTS = [
   BulkImportMenuComponent,
@@ -28,7 +30,8 @@ const COMPONENTS = [
   EditItemRelationshipsMenuComponent,
   RequestCorrectionMenuComponent,
   ClaimItemMenuComponent,
-  StatisticsMenuComponent
+  StatisticsMenuComponent,
+  SubscriptionMenuComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -40,18 +43,20 @@ const ENTRY_COMPONENTS = [
   ExportCollectionMenuComponent,
   EditItemRelationshipsMenuComponent,
   ClaimItemMenuComponent,
-  StatisticsMenuComponent
+  StatisticsMenuComponent,
+  SubscriptionMenuComponent
 ];
 
 const MODULE = [
   CommonModule,
   NgbDropdownModule,
   RouterModule,
-  TranslateModule
+  TranslateModule,
+  SubscriptionsModule
 ];
 @NgModule({
   imports: [
-    MODULE
+    MODULE,
   ],
   declarations: [
     COMPONENTS

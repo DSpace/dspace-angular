@@ -33,8 +33,8 @@
                     <i [ngClass]="getOperationClass(entry)"></i>
                   </span>
                 </td>
-                <td style="width: 3%" class="text-center align-middle" > 
-                  <i [ngbTooltip] = "getIconTooltip(entry) | translate" [ngClass]="getIconClass(entry)" aria-hidden="true"></i> 
+                <td style="width: 3%" class="text-center align-middle" >
+                  <i [ngbTooltip] = "getIconTooltip(entry) | translate" [ngClass]="getIconClass(entry)" aria-hidden="true"></i>
                 </td>
                 <td class="text-center align-middle">
                   {{ entry.description }}
@@ -42,10 +42,10 @@
                 <td style="width: 15%">
                   <div class="container">
                     <div class="row">
-                      <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" class="btn btn-success m-1 col-md" (click)="send(entry)"> 
+                      <button [ngbTooltip]="'person.page.orcid.sync-queue.send' | translate" class="btn btn-success m-1 col-md" (click)="send(entry)">
                         <i class="fas fa-cogs"></i>
                       </button>
-                      <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" class="btn btn-danger m-1 col-md" (click)="discardEntry(entry)"> 
+                      <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" class="btn btn-danger m-1 col-md" (click)="discardEntry(entry)">
                         <i class="fas fa-times"></i>
                       </button>
                     </div>
