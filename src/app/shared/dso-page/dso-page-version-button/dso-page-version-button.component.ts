@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { switchMap } from 'rxjs/operators';
+import { VersionDataService } from '../../../core/data/version-data.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'ds-dso-page-version-button',
@@ -14,15 +18,21 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
  */
 export class DsoPageVersionButtonComponent implements OnInit {
   /**
-   * The DSpaceObject to display a button to the edit page for
+   * The item for which display a button to create a new version
    */
-  @Input() dso: DSpaceObject;
+  @Input() dso: Item;
 
   /**
    * A message for the tooltip on the button
    * Supports i18n keys
    */
-  @Input() tooltipMsg: string;
+  @Input() tooltipMsgCreate: string;
+
+  /**
+   * A message for the tooltip on the button (when is disabled)
+   * Supports i18n keys
+   */
+  @Input() tooltipMsgHasDraft: string;
 
   /**
    * Emits an event that triggers the creation of the new version
@@ -34,7 +44,14 @@ export class DsoPageVersionButtonComponent implements OnInit {
    */
   isAuthorized$: Observable<boolean>;
 
-  constructor(protected authorizationService: AuthorizationDataService) {
+  hasDraftVersion$: Observable<boolean>;
+
+  tooltipMsg$: Observable<string>;
+
+  constructor(
+    protected authorizationService: AuthorizationDataService,
+    protected versionHistoryService: VersionHistoryDataService,
+  ) {
   }
 
   /**
@@ -45,8 +62,11 @@ export class DsoPageVersionButtonComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO show if user can view history
-    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.dso.self);
+    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.dso.self);
+    this.hasDraftVersion$ = this.versionHistoryService.hasDraftVersion$(this.dso._links.version.href);
+    this.tooltipMsg$ = this.hasDraftVersion$.pipe(
+      switchMap((hasDraftVersion) => of(hasDraftVersion ? this.tooltipMsgHasDraft : this.tooltipMsgCreate)),
+    );
   }
 
 }

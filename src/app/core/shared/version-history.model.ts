@@ -9,6 +9,7 @@ import { link, typedObject } from '../cache/builders/build-decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { VERSION } from './version.resource-type';
+import { ResourceType } from './resource-type';
 
 /**
  * Class representing a DSpace Version History
@@ -22,6 +23,7 @@ export class VersionHistory extends DSpaceObject {
   _links: {
     self: HALLink;
     versions: HALLink;
+    draftVersion: HALLink;
   };
 
   /**
@@ -41,6 +43,12 @@ export class VersionHistory extends DSpaceObject {
    */
   @autoserialize
   submitterName: string;
+
+  /**
+   * Whether exist a workspace item
+   */
+  @autoserialize
+  draftVersion: boolean;
 
   /**
    * The list of versions within this history

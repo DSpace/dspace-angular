@@ -16,7 +16,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -127,16 +127,30 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
 
   }
 
+  // TODO move to versionDataService
+  getHistoryIdFromVersion$(version: Version): Observable<string> {
+    return this.getHistoryFromVersion$(version).pipe(
+      map((versionHistory) => versionHistory.id),
+    );
+  }
+
+  // TODO move to versionDataService
+  getHistoryFromVersion$(version: Version): Observable<VersionHistory> {
+    return this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((res) => res.versionhistory),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
+// TODO move to versionDataService
   getLatestVersion$(version: Version): Observable<Version> {
     // retrieve again version, including with versionHistory
     return this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((res) => res.versionhistory),
       getFirstSucceededRemoteDataPayload(),
-      switchMap((versionHistoryRD) => {
-          return this.getLatestVersionFromHistory$(versionHistoryRD);
-        }
-      ),
+      switchMap((versionHistoryRD) => this.getLatestVersionFromHistory$(versionHistoryRD)),
     );
   }
 
@@ -147,4 +161,16 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
   }
 
+  /**
+   * Check if a worskpace item exists in the version history
+   * @param versionHref the href of the version
+   */
+  hasDraftVersion$(versionHref: string): Observable<boolean> {
+    return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((version) => this.getHistoryFromVersion$(version)),
+      map((versionHistory) => versionHistory.draftVersion),
+      startWith(false),
+    );
+  }
 }

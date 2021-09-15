@@ -21,4 +21,7 @@ export enum FeatureID {
   CanManagePolicies = 'canManagePolicies',
   CanMakePrivate = 'canMakePrivate',
   CanMove = 'canMove',
+  CanEditVersion = 'canEditVersion',
+  CanDeleteVersion = 'canDeleteVersion',
+  CanCreateVersion = 'canCreateVersion',
 }
