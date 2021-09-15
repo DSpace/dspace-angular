@@ -68,14 +68,6 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
   ngOnInit() {
     super.ngOnInit();
 
-    if (this.box.clear) {
-      this.flex = '0 0 100%';
-    }
-
-    if (!this.box.clear && !this.nextBoxClear) {
-      this.margin = '10px';
-    }
-
     this.subs.push(this.metadatacomponentsService.findById(this.box.id)
       .pipe(getAllSucceededRemoteDataPayload())
       .subscribe(

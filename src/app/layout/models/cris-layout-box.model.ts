@@ -1,5 +1,5 @@
 import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { Box } from '../../core/layout/models/box.model';
 import { hasValue } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,6 +41,20 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
 
   random = Math.floor(Math.random() * 10000000);
 
+  /**
+   * Variable to understand if the next box clear value
+   */
+  nextBoxClear = true;
+
+  /**
+   * Dynamic styling of the component host selector
+   */
+  @HostBinding('style.flex') flex = '1';
+  /**
+   * Dynamic styling of the component host selector
+   */
+  @HostBinding('style.marginRight') margin = '0px';
+
   protected constructor(protected translateService: TranslateService) {
     super();
   }
@@ -52,6 +66,14 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
     if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
+    }
+
+    if (this.box.clear) {
+      this.flex = '0 0 100%';
+    }
+
+    if (!this.box.clear && !this.nextBoxClear) {
+      this.margin = '10px';
     }
   }
 
