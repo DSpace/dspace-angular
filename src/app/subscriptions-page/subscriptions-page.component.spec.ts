@@ -1,6 +1,5 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { DebugElement,ChangeDetectionStrategy } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 // Import modules
@@ -8,9 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -25,11 +23,6 @@ import { PaginationServiceStub } from '../shared/testing/pagination-service.stub
 import { RouterStub } from '../shared/testing/router.stub';
 
 // Import utils
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { PageInfo } from '../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { createPaginatedList } from '../shared/testing/utils.test';
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 
@@ -38,9 +31,8 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service.stu
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { findAllSubscriptionRes } from '../shared/testing/subscriptions-data.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-
-import { switchMap, map, take, tap } from 'rxjs/operators';
-import { Observable, of as observableOf, BehaviorSubject, Subscription as rxSubscription } from 'rxjs';
+import { of as observableOf } from 'rxjs';
+import { SubscriptionsModule } from '../shared/subscriptions/subscriptions.module';
 
 
 describe('SubscriptionsPageComponent', () => {
@@ -62,6 +54,7 @@ describe('SubscriptionsPageComponent', () => {
         ReactiveFormsModule,
         BrowserModule,
         SharedModule,
+        SubscriptionsModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {

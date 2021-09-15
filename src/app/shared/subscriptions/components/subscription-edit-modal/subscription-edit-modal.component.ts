@@ -1,22 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subscription } from '../../models/subscription.model';
 
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
-import { SubscriptionService } from '../../../subscriptions/subscription.service';
+import { SubscriptionService } from '../../subscription.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationType } from '../../../notifications/models/notification-type';
-import { NotificationOptions } from '../../../notifications/models/notification-options.model';
 
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-subscription-edit-modal',

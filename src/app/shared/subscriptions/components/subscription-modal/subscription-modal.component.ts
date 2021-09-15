@@ -1,25 +1,24 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subscription } from '../../models/subscription.model';
 
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
-import { SubscriptionService } from '../../../subscriptions/subscription.service';
+import { SubscriptionService } from '../../subscription.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationType } from '../../../notifications/models/notification-type';
 import { NotificationOptions } from '../../../notifications/models/notification-options.model';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 
-import { hasValue } from '../../../../shared/empty.util';
-import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { hasValue } from '../../../empty.util';
+import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 
 import { take } from 'rxjs/operators';
 import { NoContent } from '../../../../core/shared/NoContent.model';

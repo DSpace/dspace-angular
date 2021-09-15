@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
@@ -6,8 +6,8 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { RemoteData } from '../../core/data/remote-data';
 
-import { from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
-import { concatMap, map, reduce, tap } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { concatMap, map } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
@@ -82,8 +82,7 @@ export class MetadataLinkViewComponent implements OnInit {
                     orcidAuthenticated: null
                   };
                 }
-              }),
-              tap(res => console.log(res))
+              })
             );
           } else {
             return observableOf({

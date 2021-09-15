@@ -1,15 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from '../../models/subscription.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 import { take } from 'rxjs/operators';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { hasValue } from '../../../../shared/empty.util';
-import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
-import { SubscriptionService } from '../../../subscriptions/subscription.service';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { hasValue } from '../../../empty.util';
+import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import { SubscriptionService } from '../../subscription.service';
 
 @Component({
   // tslint:disable-next-line: component-selector

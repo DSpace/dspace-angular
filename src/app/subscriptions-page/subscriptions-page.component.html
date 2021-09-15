@@ -6,13 +6,13 @@
         <div class="col-md-12 m-40">
           <ds-loading *ngIf="loading$ | async"></ds-loading>
           <ng-container *ngVar="(subscriptions$ | async) as subscriptions">
-             
+
             <ds-pagination
               *ngIf="subscriptions?.pageInfo?.totalElements > 0 && !(loading$ | async)"
               [paginationOptions]="config"
               [pageInfoState]="subscriptions?.pageInfo"
               [collectionSize]="subscriptions?.pageInfo?.totalPages"
-              [hideGear]="true" 
+              [hideGear]="true"
               [hidePagerWhenSinglePage]="true">
               <div class="table-responsive">
                 <table id="formats" class="table table-striped table-hover">
@@ -36,7 +36,8 @@
               {{ 'subscriptions.table.empty.message' | translate }}
             </div>
 
-          </ng-container> 
+          </ng-container>
+        </div>
 
       </div>
     </div>
