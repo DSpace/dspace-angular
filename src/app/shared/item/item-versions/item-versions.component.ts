@@ -132,11 +132,6 @@ export class ItemVersionsComponent implements OnInit {
   });
 
   /**
-   * The current page being displayed
-   */
-  currentPage$ = new BehaviorSubject<number>(1);
-
-  /**
    * The routes to the versions their item pages
    * Key: Item ID
    * Value: Route to item page
@@ -253,6 +248,29 @@ export class ItemVersionsComponent implements OnInit {
     );
   }
 
+  getVersionHistory$(version: Version): Observable<VersionHistory> {
+    return this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
+      take(1),
+      switchMap((res) => this.versionHistoryService.findById(res)),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
+  deleteItemAndGetResult$(item: Item): Observable<boolean> {
+    return this.itemService.delete(item.id).pipe(
+      getFirstCompletedRemoteData(),
+      map((deleteItemRes) => deleteItemRes.hasSucceeded),
+      take(1),
+    );
+  }
+
+  getLatestVersionItem$(versionHistory: VersionHistory): Observable<Item> {
+    return this.versionHistoryService.getLatestVersionFromHistory$(versionHistory).pipe(
+      switchMap((newLatestVersion) => newLatestVersion.item),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
   /**
    * Deletes the specified version
    * @param version the version to be deleted
@@ -269,8 +287,6 @@ export class ItemVersionsComponent implements OnInit {
     activeModal.componentInstance.versionNumber = version.version;
     activeModal.componentInstance.firstVersion = false;
 
-
-    // OLD
     const versionHistory$ = this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
       take(1),
       switchMap((res) => this.versionHistoryService.findById(res)),
@@ -280,118 +296,27 @@ export class ItemVersionsComponent implements OnInit {
     // On modal submit/dismiss
     activeModal.result.then(() => {
 
-      /*const versionHistory$ = this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
-        take(1),
-        map((versionHistoryId) => {
-          console.log('Version history ID = ' + versionHistoryId);
-          return versionHistoryId;
-        }),
-        switchMap((res) => this.versionHistoryService.findById(res)),
-        getFirstSucceededRemoteDataPayload(),
-      );*/
-
-      /*const deleteResultWithVersionHistory$ = versionHistory$.pipe(
-        switchMap((versionHisory) => combineLatest([
-            versionItem$.pipe(
-              getFirstSucceededRemoteDataPayload<Item>(),
-              switchMap((itemBeingDeleted) => this.itemService.delete(itemBeingDeleted.id)),
-              getFirstCompletedRemoteData(),
-              map((deleteItemRes) => deleteItemRes.hasSucceeded),
-            ),
-            of(versionHisory)
-          ])
-        )
-      );*/
-
-      /*const deleteResultWithNewLatestVersion = deleteResultWithVersionHistory$.pipe(
-        switchMap( ([deleteHasSucceeded, versionHisory]) => [
-          of(deleteHasSucceeded),
-          of(versionHisory).pipe(
-            switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
-            switchMap((newLatestVersion) => newLatestVersion.item),
-            getFirstSucceededRemoteDataPayload(),
-          )
-        ]),
-      ).subscribe(([deleteHasSucceeded, newLatestVersionItem] ) => {
-        if (deleteHasSucceeded) {
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
-        } else {
-          this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
-        }
-        console.log('LATEST VERSION = ' + newLatestVersionItem.uuid);
-        if (redirectToLatest) {
-          const tmpPath = getItemEditVersionhistoryRoute(newLatestVersionItem);
-          console.log('PATH = ' + tmpPath);
-          this.router.navigateByUrl(tmpPath);
-        }
-        return this.versionHistoryService.getLatestVersion$(version);
-      });*/
-
-      /*
-      * 1. recuperare version history
-      * 2. successivamente eliminare l'item
-      * 3. dopo aver eliminato l'item, recuperare la nuova versione
-      * 4. fare il redirect
-      */
-
-      /*versionItem$.pipe(
-        getFirstSucceededRemoteDataPayload<Item>(),
-        map((item) => item.id),
-        mergeMap((itemId) => combineLatest([
-            of(itemId).pipe(
-              // BEGIN DELETE
-              switchMap((id) => this.itemService.delete(id)),
-              getFirstCompletedRemoteData(),
-              map((deleteItemRes) => deleteItemRes.hasSucceeded),
-              // END DELETE
-            ),
-
-            this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
-              take(1),
-              map((versionHistoryId) => {
-                console.log('Version history ID = ' + versionHistoryId);
-                return versionHistoryId;
-              }),
-              switchMap((res) => this.versionHistoryService.findById(res)),
-              getFirstSucceededRemoteDataPayload(),
-              switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
-              switchMap((newLatestVersion) => newLatestVersion.item),
-              getFirstSucceededRemoteDataPayload(),
-              mergeMap((deleteHasSucceeded) => combineLatest([]))
-            )
-
-          ])
-        ),
-      ).subscribe(([deleteHasSucceeded, newLatestVersionItem]) => {
-        if (deleteHasSucceeded) {
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
-        } else {
-          this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
-        }
-        console.log('LATEST VERSION = ' + newLatestVersionItem.uuid);
-        if (redirectToLatest) {
-          const tmpPath = getItemEditVersionhistoryRoute(newLatestVersionItem);
-          console.log('PATH = ' + tmpPath);
-          this.router.navigateByUrl(tmpPath);
-        }
-        return this.versionHistoryService.getLatestVersion$(version);
-      });*/
-
       versionItem$.pipe(
         getFirstSucceededRemoteDataPayload<Item>(),
-        map((item) => item.id),
-        switchMap((itemId) => this.itemService.delete(itemId)),
-        getFirstCompletedRemoteData(),
-        map((deleteItemRes) => deleteItemRes.hasSucceeded),
-        mergeMap((deleteHasSucceeded) => combineLatest([
-            of(deleteHasSucceeded),
-            versionHistory$.pipe(
-              switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
-              switchMap((newLatestVersion) => newLatestVersion.item),
-              getFirstSucceededRemoteDataPayload()
-            )
-          ])
-        ),
+        mergeMap((item) => combineLatest([
+          // passa item, recupera vh
+          of(item),
+          versionHistory$.pipe(
+            switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
+            switchMap((newLatestVersion) => newLatestVersion.item),
+            getFirstSucceededRemoteDataPayload()
+          )
+        ])),
+        mergeMap(([item, versionHistory]) => combineLatest([
+          // cancella item, passa vh
+          of(item).pipe(
+            map((itemBeingDeleted) => itemBeingDeleted.id),
+            switchMap((itemId) => this.itemService.delete(itemId)),
+            getFirstCompletedRemoteData(),
+            map((deleteItemRes) => deleteItemRes.hasSucceeded)
+          ),
+          of(versionHistory)
+        ])),
       ).subscribe(([deleteHasSucceeded, newLatestVersionItem]) => {
         if (deleteHasSucceeded) {
           this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
@@ -452,11 +377,11 @@ export class ItemVersionsComponent implements OnInit {
     );
   }*/
 
-  canEditVersion$(versionItem: Version) {
+  canEditVersion$(versionItem: Version): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.CanEditVersion, versionItem.self);
   }
 
-  canDeleteVersion$(versionItem: Version) {
+  canDeleteVersion$(versionItem: Version): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.CanDeleteVersion, versionItem.self);
   }
 

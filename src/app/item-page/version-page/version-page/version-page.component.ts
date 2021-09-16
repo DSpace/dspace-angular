@@ -47,7 +47,6 @@ export class VersionPageComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
       getFirstCompletedRemoteData(),
     ).subscribe((itemRD) => {
-      console.log(JSON.stringify(itemRD));
       if (itemRD.hasNoContent) {
         this.router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true });
       } else {

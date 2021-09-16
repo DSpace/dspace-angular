@@ -75,7 +75,7 @@
                   <button class="btn btn-sm"
                           [ngClass]="isAnyBeingEdited() ? 'btn-outline-primary' : 'btn-outline-danger'"
                           [disabled]="isAnyBeingEdited()"
-                          (click)="deleteVersion(version, itemVersion)"
+                          (click)="deleteVersion(version, version.id==itemVersion.id)"
                           title="{{'item.version.history.table.action.deleteVersion' | translate}}">
                     <i class="fas fa-trash fa-fw"></i>
                   </button>
