@@ -19,7 +19,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../../../core/shared/operators';
-import { map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
+import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
@@ -44,6 +44,8 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { Router } from '@angular/router';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { createPaginatedList } from '../../testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 
 @Component({
   selector: 'ds-item-versions',
@@ -102,7 +104,7 @@ export class ItemVersionsComponent implements OnInit {
   /**
    * The version history's list of versions
    */
-  versionsRD$: Observable<RemoteData<PaginatedList<Version>>>;
+  versionsRD$: BehaviorSubject<RemoteData<PaginatedList<Version>>> = new BehaviorSubject<RemoteData<PaginatedList<Version>>>(createSuccessfulRemoteDataObject(createPaginatedList()));
 
   /**
    * Verify if the list of versions has at least one e-person to display
@@ -139,12 +141,6 @@ export class ItemVersionsComponent implements OnInit {
   itemPageRoutes$: Observable<{
     [itemId: string]: string
   }>;
-
-  /**
-   * Emits when the versionsRD$ must be refreshed
-   * (should be used when a new version has been created)
-   */
-  refreshSubject = new BehaviorSubject<any>(null);
 
   /**
    * The number of the version whose summary is currently being edited
@@ -276,7 +272,7 @@ export class ItemVersionsComponent implements OnInit {
    * @param version the version to be deleted
    * @param redirectToLatest force the redirect to the latest version in the history
    */
-  deleteVersion(version: Version, redirectToLatest: boolean) {
+  deleteVersion(version: Version, redirectToLatest: boolean): void {
     const successMessageKey = 'item.version.delete.notification.success';
     const failureMessageKey = 'item.version.delete.notification.failure';
     const versionNumber = version.version;
@@ -287,35 +283,39 @@ export class ItemVersionsComponent implements OnInit {
     activeModal.componentInstance.versionNumber = version.version;
     activeModal.componentInstance.firstVersion = false;
 
-    const versionHistory$ = this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
-      take(1),
-      switchMap((res) => this.versionHistoryService.findById(res)),
-      getFirstSucceededRemoteDataPayload(),
-    );
-
     // On modal submit/dismiss
     activeModal.result.then(() => {
 
+      // let versionHistoryOuter: VersionHistory;
+
       versionItem$.pipe(
         getFirstSucceededRemoteDataPayload<Item>(),
-        mergeMap((item) => combineLatest([
-          // passa item, recupera vh
+        mergeMap((item: Item) => combineLatest([
+          // pass item
           of(item),
-          versionHistory$.pipe(
-            switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
-            switchMap((newLatestVersion) => newLatestVersion.item),
-            getFirstSucceededRemoteDataPayload()
+          // get and return version history
+          this.getVersionHistory$(version).pipe(
+            // invalidate cache
+            tap((versionHistory) => {
+              this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
+            })
           )
         ])),
-        mergeMap(([item, versionHistory]) => combineLatest([
-          // cancella item, passa vh
-          of(item).pipe(
-            map((itemBeingDeleted) => itemBeingDeleted.id),
-            switchMap((itemId) => this.itemService.delete(itemId)),
-            getFirstCompletedRemoteData(),
-            map((deleteItemRes) => deleteItemRes.hasSucceeded)
-          ),
+        mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
+          // delete item and return result
+          this.deleteItemAndGetResult$(item),
+          // pass version history
           of(versionHistory)
+        ])),
+        mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
+          // pass result
+          of(deleteItemResult),
+          // get and return new latest version
+          this.getLatestVersionItem$(versionHistory).pipe(
+            tap(() => {
+              this.getVersionHistory(of(versionHistory));
+            }),
+          )
         ])),
       ).subscribe(([deleteHasSucceeded, newLatestVersionItem]) => {
         if (deleteHasSucceeded) {
@@ -325,13 +325,10 @@ export class ItemVersionsComponent implements OnInit {
         }
         console.log('LATEST VERSION = ' + newLatestVersionItem.uuid);
         if (redirectToLatest) {
-          const tmpPath = getItemEditVersionhistoryRoute(newLatestVersionItem);
-          console.log('PATH = ' + tmpPath);
-          this.router.navigateByUrl(tmpPath);
+          const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
+          this.router.navigateByUrl(path);
         }
-        return this.versionHistoryService.getLatestVersion$(version);
       });
-
     });
   }
 
@@ -350,6 +347,9 @@ export class ItemVersionsComponent implements OnInit {
 
     // On modal submit/dismiss
     activeModal.result.then((modalResult) => {
+      // TODO spostare in metodo
+      // TODO recuperare version history e invalidare cache
+      // this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
       const summary = modalResult;
       version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((item) => {
 
@@ -359,7 +359,7 @@ export class ItemVersionsComponent implements OnInit {
           if (postResult.hasSucceeded) {
             const newVersionNumber = postResult.payload.version;
             this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
-            this.refreshSubject.next(null);
+            this.getVersionHistory$(version);
           } else {
             this.notificationsService.error(null, this.translateService.get(failureMessageKey));
           }
@@ -395,6 +395,22 @@ export class ItemVersionsComponent implements OnInit {
     );
   }*/
 
+  getVersionHistory(versionHistory$: Observable<VersionHistory>): void {
+    const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
+    observableCombineLatest([versionHistory$, currentPagination]).pipe(
+      switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
+        return this.versionHistoryService.getVersions(versionHistory.id,
+          new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
+          true, true, followLink('item'), followLink('eperson'));
+      }),
+      getFirstCompletedRemoteData(),
+    ).subscribe((res) => {
+      this.versionsRD$.next(res);
+      console.log(res.payload);
+    });
+  }
+
+
   /**
    * Initialize all observables
    */
@@ -421,25 +437,7 @@ export class ItemVersionsComponent implements OnInit {
         getRemoteDataPayload(),
         hasValueOperator(),
       );
-      const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
-      this.versionsRD$ = observableCombineLatest([versionHistory$, currentPagination]).pipe(
-        switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
-          return this.versionHistoryService.getVersions(versionHistory.id,
-            new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
-            true, true, followLink('item'), followLink('eperson'));
-        })
-      );
-      // Refresh the table when refreshSubject emits
-      this.subs.push(this.refreshSubject.pipe(switchMap(() => {
-        return observableCombineLatest([versionHistory$, currentPagination]).pipe(
-          take(1),
-          switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
-            return this.versionHistoryService.getVersions(versionHistory.id,
-              new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
-              false, true, followLink('item'), followLink('eperson'));
-          })
-        );
-      })).subscribe());
+      this.getVersionHistory(versionHistory$);
       this.hasEpersons$ = this.versionsRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),

@@ -173,4 +173,8 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
       startWith(false),
     );
   }
+
+  invalidateVersionHistoryCache(versionHistoryID: string) {
+    this.requestService.setStaleByHrefSubstring('versioning/versionhistories/' + versionHistoryID);
+  }
 }
