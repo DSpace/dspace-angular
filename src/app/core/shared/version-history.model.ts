@@ -9,7 +9,6 @@ import { link, typedObject } from '../cache/builders/build-decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { VERSION } from './version.resource-type';
-import { ResourceType } from './resource-type';
 
 /**
  * Class representing a DSpace Version History

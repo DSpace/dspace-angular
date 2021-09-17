@@ -5,7 +5,6 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { switchMap } from 'rxjs/operators';
-import { VersionDataService } from '../../../core/data/version-data.service';
 import { of } from 'rxjs';
 
 @Component({
