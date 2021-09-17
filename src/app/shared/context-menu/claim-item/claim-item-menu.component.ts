@@ -55,9 +55,10 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
     this.authorizationService.isAuthorized(FeatureID.CanClaimItem, this.contextMenuObject.self).pipe(
       take(1)
     ).subscribe((isAuthorized: boolean) => {
-      if (!isAuthorized) {
+      if (isAuthorized) {
         this.notificationsService.warning(this.translate.get('researcherprofile.claim.not-authorized'));
         this.isProcessing$.next(false);
+        this.notificationsService.claimedProfile.next(true);
       } else {
         this.createFromExternalSource();
       }
