@@ -3,6 +3,7 @@ import { hasNoValue, hasValue } from '../empty.util';
 import { Context } from '../../core/shared/context.model';
 import { InjectionToken } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { resolveTheme } from '../object-collection/shared/listable-object/listable-object.decorator';
 
 export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
   providedIn: 'root',
@@ -57,8 +58,9 @@ export function getMetadataRepresentationComponent(entityType: string, mdReprese
     if (hasValue(entityAndMDRepMap)) {
       const contextMap = entityAndMDRepMap.get(context);
       if (hasValue(contextMap)) {
-        if (hasValue(contextMap.get(theme))) {
-          return contextMap.get(theme);
+        const match = resolveTheme(contextMap, theme);
+        if (hasValue(match)) {
+          return match;
         }
         if (hasValue(contextMap.get(DEFAULT_THEME))) {
           return contextMap.get(DEFAULT_THEME);

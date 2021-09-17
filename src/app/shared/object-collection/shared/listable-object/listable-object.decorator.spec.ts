@@ -2,11 +2,16 @@ import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
 import { Context } from '../../../../core/shared/context.model';
+import { environment } from '../../../../../environments/environment';
+
+let ogEnvironmentThemes;
 
 describe('ListableObject decorator function', () => {
   const type1 = 'TestType';
   const type2 = 'TestType2';
   const type3 = 'TestType3';
+  const typeHier1 = 'TestTypeHier1';
+  const typeHier2 = 'TestTypeHier2';
 
   /* tslint:disable:max-classes-per-file */
   class Test1List {
@@ -27,6 +32,12 @@ describe('ListableObject decorator function', () => {
   class Test3DetailedSubmission {
   }
 
+  class TestHier1Ancestor {
+  }
+
+  class TestHier2Unthemed {
+  }
+
   /* tslint:enable:max-classes-per-file */
 
   beforeEach(() => {
@@ -38,6 +49,15 @@ describe('ListableObject decorator function', () => {
 
     listableObjectComponent(type3, ViewMode.ListElement)(Test3List);
     listableObjectComponent(type3, ViewMode.DetailedListElement, Context.Workspace)(Test3DetailedSubmission);
+
+    listableObjectComponent(typeHier1, ViewMode.ListElement, Context.Any, 'ancestor')(TestHier1Ancestor);
+    listableObjectComponent(typeHier2, ViewMode.ListElement, Context.Any)(TestHier2Unthemed);
+
+    ogEnvironmentThemes = environment.themes;
+  });
+
+  afterEach(() => {
+    environment.themes = ogEnvironmentThemes;
   });
 
   const gridDecorator = listableObjectComponent('Item', ViewMode.GridElement);
@@ -77,6 +97,46 @@ describe('ListableObject decorator function', () => {
 
         const component2 = getListableObjectComponent([type2, type1], ViewMode.DetailedListElement);
         expect(component2).toEqual(Test2List);
+      });
+    });
+  });
+
+  describe('With theme extensions', () => {
+    describe('If requested theme has no match', () => {
+      beforeEach(() => {
+        environment.themes = [
+          { name: 'requested', extends: 'intermediate' },
+          { name: 'intermediate', extends: 'ancestor' },
+        ];
+      });
+
+      it('should return component from ancestor theme if it has a match', () => {
+        const component = getListableObjectComponent([typeHier1], ViewMode.ListElement, Context.Any, 'requested');
+        expect(component).toEqual(TestHier1Ancestor);
+      });
+
+      it('should return default component if ancestor theme has no match', () => {
+        const component = getListableObjectComponent([typeHier2], ViewMode.ListElement, Context.Any, 'requested');
+        expect(component).toEqual(TestHier2Unthemed);
+      });
+    });
+
+    describe('If there is a theme extension cycle', () => {
+      beforeEach(() => {
+        environment.themes = [
+          { name: 'extension-cycle', extends: 'broken1' },
+          { name: 'broken1', extends: 'broken2' },
+          { name: 'broken2', extends: 'broken3' },
+          { name: 'broken3', extends: 'broken1' },
+        ];
+      });
+
+      it('should throw an error', () => {
+        expect(() => {
+          getListableObjectComponent([typeHier1], ViewMode.ListElement, Context.Any, 'extension-cycle');
+        }).toThrowError(
+          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
+        );
       });
     });
   });

@@ -7,12 +7,17 @@ import {
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { Context } from '../../core/shared/context.model';
 import * as uuidv4 from 'uuid/v4';
+import { environment } from '../../../environments/environment';
+
+let ogEnvironmentThemes;
 
 describe('MetadataRepresentation decorator function', () => {
   const type1 = 'TestType';
   const type2 = 'TestType2';
   const type3 = 'TestType3';
   const type4 = 'RandomType';
+  const typeHier1 = 'TestTypeHier1';
+  const typeHier2 = 'TestTypeHier2';
   let prefix;
 
   /* tslint:disable:max-classes-per-file */
@@ -31,6 +36,12 @@ describe('MetadataRepresentation decorator function', () => {
   class Test3ItemSubmission {
   }
 
+  class TestHier1Ancestor {
+  }
+
+  class TestHier2Unthemed {
+  }
+
   /* tslint:enable:max-classes-per-file */
 
   beforeEach(() => {
@@ -46,7 +57,16 @@ describe('MetadataRepresentation decorator function', () => {
     metadataRepresentationComponent(key + type2, MetadataRepresentationType.Item, Context.Workspace)(Test2ItemSubmission);
 
     metadataRepresentationComponent(key + type3, MetadataRepresentationType.Item, Context.Workspace)(Test3ItemSubmission);
+
+    metadataRepresentationComponent(key + typeHier1, MetadataRepresentationType.Item, Context.Any, 'ancestor')(TestHier1Ancestor);
+    metadataRepresentationComponent(key + typeHier2, MetadataRepresentationType.Item, Context.Any)(TestHier2Unthemed);
+
+    ogEnvironmentThemes = environment.themes;
   }
+
+  afterEach(() => {
+    environment.themes = ogEnvironmentThemes;
+  });
 
   describe('If there\'s an exact match', () => {
     it('should return the matching class', () => {
@@ -73,6 +93,46 @@ describe('MetadataRepresentation decorator function', () => {
           const component = getMetadataRepresentationComponent(prefix + type4, MetadataRepresentationType.AuthorityControlled);
           expect(component).toEqual(defaultComponent);
         });
+      });
+    });
+  });
+
+  describe('With theme extensions', () => {
+    describe('If requested theme has no match', () => {
+      beforeEach(() => {
+        environment.themes = [
+          { name: 'requested', extends: 'intermediate' },
+          { name: 'intermediate', extends: 'ancestor' },
+        ];
+      });
+
+      it('should return component from ancestor theme if it has a match', () => {
+        const component = getMetadataRepresentationComponent(prefix + typeHier1, MetadataRepresentationType.Item, Context.Any, 'requested');
+        expect(component).toEqual(TestHier1Ancestor);
+      });
+
+      it('should return default component if ancestor theme has no match', () => {
+        const component = getMetadataRepresentationComponent(prefix + typeHier2, MetadataRepresentationType.Item, Context.Any, 'requested');
+        expect(component).toEqual(TestHier2Unthemed);
+      });
+    });
+
+    describe('If there is a theme extension cycle', () => {
+      beforeEach(() => {
+        environment.themes = [
+          { name: 'extension-cycle', extends: 'broken1' },
+          { name: 'broken1', extends: 'broken2' },
+          { name: 'broken2', extends: 'broken3' },
+          { name: 'broken3', extends: 'broken1' },
+        ];
+      });
+
+      it('should throw an error', () => {
+        expect(() => {
+          getMetadataRepresentationComponent(prefix + typeHier1, MetadataRepresentationType.Item, Context.Any, 'extension-cycle');
+        }).toThrowError(
+          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
+        );
       });
     });
   });

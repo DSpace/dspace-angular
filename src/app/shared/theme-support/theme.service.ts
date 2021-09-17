@@ -1,10 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction } from './theme.actions';
 import { take } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
+import { ThemeConfig } from '../../../config/theme.model';
+import { environment } from '../../../environments/environment';
+import {
+  GET_THEME_CONFIG_FOR_FACTORY,
+  getThemeConfigFor
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 
 export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 
@@ -19,6 +25,7 @@ export const currentThemeSelector = createSelector(
 export class ThemeService {
   constructor(
     private store: Store<ThemeState>,
+    @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig
   ) {
   }
 
@@ -43,4 +50,10 @@ export class ThemeService {
     );
   }
 
+  /**
+   * Searches for a ThemeConfig by its name;
+   */
+  getThemeConfigFor(themeName: string): ThemeConfig {
+    return this.gtcf(themeName);
+  }
 }
