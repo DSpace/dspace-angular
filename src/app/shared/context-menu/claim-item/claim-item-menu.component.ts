@@ -8,7 +8,7 @@ import { DSpaceObject } from '../../../../app/core/shared/dspace-object.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { getFirstSucceededRemoteData } from '../../../../app/core/shared/operators';
-import {mergeMap, take} from 'rxjs/operators';
+import {mergeMap, take, tap} from 'rxjs/operators';
 import { RemoteData } from '../../../../app/core/data/remote-data';
 import { ResearcherProfile } from '../../../../app/core/profile/model/researcher-profile.model';
 import { isNotUndefined } from '../../empty.util';
@@ -68,6 +68,11 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
 
   createFromExternalSource() {
     this.researcherProfileService.createFromExternalSource(this.injectedContextMenuObject.self).pipe(
+      tap((rd: any) => {
+        if (!rd.hasSucceeded) {
+          this.isProcessing$.next(false);
+        }
+      }),
       getFirstSucceededRemoteData(),
       mergeMap((rd: RemoteData<ResearcherProfile>) => {
         return this.researcherProfileService.findRelatedItemId(rd.payload);
