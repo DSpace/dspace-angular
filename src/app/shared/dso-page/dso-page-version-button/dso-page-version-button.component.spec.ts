@@ -15,7 +15,7 @@ describe('DsoPageEditButtonComponent', () => {
   let fixture: ComponentFixture<DsoPageVersionButtonComponent>;
 
   let authorizationService: AuthorizationDataService;
-  let dso: DSpaceObject;
+  let dso: Item;
 
   beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
@@ -40,7 +40,6 @@ describe('DsoPageEditButtonComponent', () => {
     fixture = TestBed.createComponent(DsoPageVersionButtonComponent);
     component = fixture.componentInstance;
     component.dso = dso;
-    component.pageRoute = 'test';
     fixture.detectChanges();
   });
 

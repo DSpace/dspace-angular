@@ -44,8 +44,6 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { Router } from '@angular/router';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { createPaginatedList } from '../../testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 
 @Component({
   selector: 'ds-item-versions',
@@ -104,7 +102,7 @@ export class ItemVersionsComponent implements OnInit {
   /**
    * The version history's list of versions
    */
-  versionsRD$: BehaviorSubject<RemoteData<PaginatedList<Version>>> = new BehaviorSubject<RemoteData<PaginatedList<Version>>>(createSuccessfulRemoteDataObject(createPaginatedList()));
+  versionsRD$: BehaviorSubject<RemoteData<PaginatedList<Version>>> = new BehaviorSubject<RemoteData<PaginatedList<Version>>>(null);
 
   /**
    * Verify if the list of versions has at least one e-person to display
@@ -244,7 +242,7 @@ export class ItemVersionsComponent implements OnInit {
     );
   }
 
-  getVersionHistory$(version: Version): Observable<VersionHistory> {
+  getVersionHistoryFromVersion$(version: Version): Observable<VersionHistory> {
     return this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
       take(1),
       switchMap((res) => this.versionHistoryService.findById(res)),
@@ -294,7 +292,7 @@ export class ItemVersionsComponent implements OnInit {
           // pass item
           of(item),
           // get and return version history
-          this.getVersionHistory$(version).pipe(
+          this.getVersionHistoryFromVersion$(version).pipe(
             // invalidate cache
             tap((versionHistory) => {
               this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
@@ -336,7 +334,7 @@ export class ItemVersionsComponent implements OnInit {
    * Creates a new version starting from the specified one
    * @param version the version from which a new one will be created
    */
-  createNewVersion(version) {
+  createNewVersion(version: Version) {
     const successMessageKey = 'item.version.create.notification.success';
     const failureMessageKey = 'item.version.create.notification.failure';
     const versionNumber = version.version;
@@ -359,7 +357,13 @@ export class ItemVersionsComponent implements OnInit {
           if (postResult.hasSucceeded) {
             const newVersionNumber = postResult.payload.version;
             this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
-            this.getVersionHistory$(version);
+            console.log(version);
+            const versionHistory$ = this.versionHistoryService.getHistoryFromVersion$(version).pipe(
+              tap((res) => {
+                this.versionHistoryService.invalidateVersionHistoryCache(res.id);
+              }),
+            );
+            this.getVersionHistory(versionHistory$);
           } else {
             this.notificationsService.error(null, this.translateService.get(failureMessageKey));
           }
@@ -401,7 +405,7 @@ export class ItemVersionsComponent implements OnInit {
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
         return this.versionHistoryService.getVersions(versionHistory.id,
           new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
-          true, true, followLink('item'), followLink('eperson'));
+          false, true, followLink('item'), followLink('eperson'));
       }),
       getFirstCompletedRemoteData(),
     ).subscribe((res) => {
