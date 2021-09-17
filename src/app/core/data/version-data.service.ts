@@ -14,6 +14,10 @@ import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION } from '../shared/version.resource-type';
+import { VersionHistory } from '../shared/version-history.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 /**
  * Service responsible for handling requests related to the Version object
@@ -41,4 +45,27 @@ export class VersionDataService extends DataService<Version> {
   getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
+
+  /**
+   * Get the version history for the given version
+   * @param version
+   */
+  getHistoryFromVersion$(version: Version): Observable<VersionHistory> {
+    return this.findById(version.id, false, true, followLink('versionhistory')).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((res) => res.versionhistory),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
+  /**
+   * Get the ID of the version history for the given version
+   * @param version
+   */
+  getHistoryIdFromVersion$(version: Version): Observable<string> {
+    return this.getHistoryFromVersion$(version).pipe(
+      map((versionHistory) => versionHistory.id),
+    );
+  }
+
 }

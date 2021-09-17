@@ -242,26 +242,15 @@ export class ItemVersionsComponent implements OnInit {
     );
   }
 
-  getVersionHistoryFromVersion$(version: Version): Observable<VersionHistory> {
-    return this.versionHistoryService.getHistoryIdFromVersion$(version).pipe(
-      take(1),
-      switchMap((res) => this.versionHistoryService.findById(res)),
-      getFirstSucceededRemoteDataPayload(),
-    );
-  }
-
+  /**
+   * Delete the item and get the result of the operation
+   * @param item
+   */
   deleteItemAndGetResult$(item: Item): Observable<boolean> {
     return this.itemService.delete(item.id).pipe(
       getFirstCompletedRemoteData(),
       map((deleteItemRes) => deleteItemRes.hasSucceeded),
       take(1),
-    );
-  }
-
-  getLatestVersionItem$(versionHistory: VersionHistory): Observable<Item> {
-    return this.versionHistoryService.getLatestVersionFromHistory$(versionHistory).pipe(
-      switchMap((newLatestVersion) => newLatestVersion.item),
-      getFirstSucceededRemoteDataPayload(),
     );
   }
 
@@ -292,7 +281,7 @@ export class ItemVersionsComponent implements OnInit {
           // pass item
           of(item),
           // get and return version history
-          this.getVersionHistoryFromVersion$(version).pipe(
+          this.versionHistoryService.getVersionHistoryFromVersion$(version).pipe(
             // invalidate cache
             tap((versionHistory) => {
               this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
@@ -309,9 +298,9 @@ export class ItemVersionsComponent implements OnInit {
           // pass result
           of(deleteItemResult),
           // get and return new latest version
-          this.getLatestVersionItem$(versionHistory).pipe(
+          this.versionHistoryService.getLatestVersionItemFromHistory$(versionHistory).pipe(
             tap(() => {
-              this.getVersionHistory(of(versionHistory));
+              this.getAllVersions(of(versionHistory));
             }),
           )
         ])),
@@ -358,12 +347,12 @@ export class ItemVersionsComponent implements OnInit {
             const newVersionNumber = postResult.payload.version;
             this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
             console.log(version);
-            const versionHistory$ = this.versionHistoryService.getHistoryFromVersion$(version).pipe(
+            const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
               tap((res) => {
                 this.versionHistoryService.invalidateVersionHistoryCache(res.id);
               }),
             );
-            this.getVersionHistory(versionHistory$);
+            this.getAllVersions(versionHistory$);
           } else {
             this.notificationsService.error(null, this.translateService.get(failureMessageKey));
           }
@@ -372,34 +361,27 @@ export class ItemVersionsComponent implements OnInit {
     });
   }
 
-  // TODO eliminare
-  /*hasDraftVersion$(versionItem: Observable<RemoteData<Item>>): Observable<boolean> {
-    return versionItem.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((res) => res._links.version.href ),
-      switchMap( (res) => this.versionHistoryService.hasDraftVersion$(res))
-    );
-  }*/
-
-  canEditVersion$(versionItem: Version): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanEditVersion, versionItem.self);
+  /**
+   * Check is the current user can edit the version summary
+   * @param version
+   */
+  canEditVersion$(version: Version): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.CanEditVersion, version.self);
   }
 
-  canDeleteVersion$(versionItem: Version): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanDeleteVersion, versionItem.self);
+  /**
+   * Check if the current user can delete the version
+   * @param version
+   */
+  canDeleteVersion$(version: Version): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.CanDeleteVersion, version.self);
   }
 
-  // TODO eliminare (usa item anziché vrsion)
-  /*canDeleteVersion$(version: Version) {
-    return version.item.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((item) => item.self),
-      switchMap((url) => this.authorizationService.isAuthorized(FeatureID.CanDeleteVersion, url)),
-      take(1),
-    );
-  }*/
-
-  getVersionHistory(versionHistory$: Observable<VersionHistory>): void {
+  /**
+   * Get all versions for the given version history and store them in versionRD$
+   * @param versionHistory$
+   */
+  getAllVersions(versionHistory$: Observable<VersionHistory>): void {
     const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
     observableCombineLatest([versionHistory$, currentPagination]).pipe(
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
@@ -414,7 +396,6 @@ export class ItemVersionsComponent implements OnInit {
     });
   }
 
-
   /**
    * Initialize all observables
    */
@@ -427,21 +408,25 @@ export class ItemVersionsComponent implements OnInit {
         hasValueOperator(),
         switchMap((version: Version) => version.versionhistory)
       );
+
+      this.canCreateVersion$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.item.self);
+
+      // If there is a draft item in the version history the 'Create version' button is disabled and a different tooltip message is shown
       this.hasDraftVersion$ = this.versionHistoryRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
         map((res) => res.draftVersion)
       );
-      this.canCreateVersion$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.item.self);
       this.createVersionTitle$ = this.hasDraftVersion$.pipe(
         take(1),
         switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion'))
       );
+
       const versionHistory$ = this.versionHistoryRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),
       );
-      this.getVersionHistory(versionHistory$);
+      this.getAllVersions(versionHistory$);
       this.hasEpersons$ = this.versionsRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),

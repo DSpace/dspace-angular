@@ -31,6 +31,7 @@ import {
 } from '../shared/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { hasValueOperator } from '../../shared/empty.util';
+import { Item } from '../shared/item.model';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -90,6 +91,11 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     return this.versionDataService.findAllByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+  /**
+   * Create a new version for an item
+   * @param itemHref the item for which create a new version
+   * @param summary the summary of the new version
+   */
   createVersion(itemHref: string, summary: string): Observable<RemoteData<Version>> {
     const requestOptions: HttpOptions = Object.create({});
     let requestHeaders = new HttpHeaders();
@@ -106,6 +112,10 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     ) as Observable<RemoteData<Version>>;
   }
 
+  /**
+   * Get the latest version in a version history
+   * @param versionHistory
+   */
   getLatestVersionFromHistory$(versionHistory: VersionHistory): Observable<Version> {
 
     // Pagination options to fetch a single version on the first page (this is the latest version in the history)
@@ -127,23 +137,10 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
 
   }
 
-  // TODO move to versionDataService
-  getHistoryIdFromVersion$(version: Version): Observable<string> {
-    return this.getHistoryFromVersion$(version).pipe(
-      map((versionHistory) => versionHistory.id),
-    );
-  }
-
-  // TODO move to versionDataService
-  getHistoryFromVersion$(version: Version): Observable<VersionHistory> {
-    return this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((res) => res.versionhistory),
-      getFirstSucceededRemoteDataPayload(),
-    );
-  }
-
-// TODO move to versionDataService
+  /**
+   * Get the latest version
+   * @param version
+   */
   getLatestVersion$(version: Version): Observable<Version> {
     // retrieve again version, including with versionHistory
     return this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
@@ -154,6 +151,10 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
   }
 
+  /**
+   * Check if the given version is the latest
+   * @param version
+   */
   isLatest$(version: Version): Observable<boolean> {
     return this.getLatestVersion$(version).pipe(
       take(1),
@@ -168,9 +169,28 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
   hasDraftVersion$(versionHref: string): Observable<boolean> {
     return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((version) => this.getHistoryFromVersion$(version)),
+      switchMap((version) => this.versionDataService.getHistoryFromVersion$(version)),
       map((versionHistory) => versionHistory.draftVersion),
       startWith(false),
+    );
+  }
+
+  /**
+   * Get the item of the latest version in a version history
+   * @param versionHistory
+   */
+  getLatestVersionItemFromHistory$(versionHistory: VersionHistory): Observable<Item> {
+    return this.getLatestVersionFromHistory$(versionHistory).pipe(
+      switchMap((newLatestVersion) => newLatestVersion.item),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
+  getVersionHistoryFromVersion$(version: Version): Observable<VersionHistory> {
+    return this.versionDataService.getHistoryIdFromVersion$(version).pipe(
+      take(1),
+      switchMap((res) => this.findById(res)),
+      getFirstSucceededRemoteDataPayload(),
     );
   }
 
