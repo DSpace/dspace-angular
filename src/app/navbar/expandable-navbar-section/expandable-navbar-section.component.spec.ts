@@ -9,6 +9,7 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('ExpandableNavbarSectionComponent', () => {
   let component: ExpandableNavbarSectionComponent;
@@ -19,7 +20,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent],
+        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
@@ -76,6 +77,42 @@ describe('ExpandableNavbarSectionComponent', () => {
       });
     });
 
+    describe('when Enter key is pressed on section header (while inactive)', () => {
+      beforeEach(() => {
+        spyOn(menuService, 'activateSection');
+        // Make sure section is 'inactive'. Requires calling ngOnInit() to update component 'active' property.
+        spyOn(menuService, 'isSectionActive').and.returnValue(observableOf(false));
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        // dispatch the (keyup.enter) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+      });
+
+      it('should call activateSection on the menuService', () => {
+        expect(menuService.activateSection).toHaveBeenCalled();
+      });
+    });
+
+    describe('when Enter key is pressed on section header (while active)', () => {
+      beforeEach(() => {
+        spyOn(menuService, 'deactivateSection');
+        // Make sure section is 'active'. Requires calling ngOnInit() to update component 'active' property.
+        spyOn(menuService, 'isSectionActive').and.returnValue(observableOf(true));
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        // dispatch the (keyup.enter) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+      });
+
+      it('should call deactivateSection on the menuService', () => {
+        expect(menuService.deactivateSection).toHaveBeenCalled();
+      });
+    });
+
     describe('when a click occurs on the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'toggleActiveSection');
@@ -96,7 +133,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent],
+        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
