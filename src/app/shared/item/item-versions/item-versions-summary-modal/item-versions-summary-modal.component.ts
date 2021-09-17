@@ -10,7 +10,7 @@ export class ItemVersionsSummaryModalComponent {
 
   versionNumber: number;
   newVersionSummary: string;
-  firstVersion: boolean;
+  firstVersion = true;
 
   constructor(
     protected activeModal: NgbActiveModal,
