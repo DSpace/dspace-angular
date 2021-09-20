@@ -238,6 +238,8 @@
 
   "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
 
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+
   "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
 
   "admin.access-control.epeople.no-items": "No EPeople to show.",
@@ -524,11 +526,19 @@
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
 
+  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+
 
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
 
+
+  "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+
+  "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+
+  "bitstream.edit.return": "Back",
 
   "bitstream.edit.bitstream": "Bitstream: ",
 
@@ -661,6 +671,8 @@
 
   "collection.delete.confirm": "Confirm",
 
+  "collection.delete.processing": "Deleting",
+
   "collection.delete.head": "Delete Collection",
 
   "collection.delete.notification.fail": "Collection could not be deleted",
@@ -718,7 +730,6 @@
   "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
 
   "collection.edit.item-mapper.tabs.map": "Map new items",
-
 
 
   "collection.edit.logo.delete.title": "Delete logo",
@@ -898,6 +909,8 @@
   "community.delete.cancel": "Cancel",
 
   "community.delete.confirm": "Confirm",
+
+  "community.delete.processing": "Deleting...",
 
   "community.delete.head": "Delete Community",
 
@@ -1237,7 +1250,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-
+  
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
@@ -1320,6 +1333,8 @@
   "form.clear-help": "Click here to remove the selected value",
 
   "form.discard": "Discard",
+
+  "form.drag": "Drag",
 
   "form.edit": "Edit",
 
@@ -1623,7 +1638,11 @@
 
 
 
-  "item.edit.move.cancel": "Cancel",
+  "item.edit.move.cancel": "Back",
+
+  "item.edit.move.save-button": "Save",
+
+  "item.edit.move.discard-button": "Discard",
 
   "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
 
@@ -1817,8 +1836,6 @@
 
   "item.page.description": "Description",
 
-  "item.page.edit": "Edit this item",
-
   "item.page.journal-issn": "Journal ISSN",
 
   "item.page.journal-title": "Journal Title",
@@ -1891,6 +1908,8 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.page.return": "Back",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -1912,6 +1931,19 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.project.funder.name": "Funder:",
+
+  "item.preview.project.funder.identifier": "Funder Identifier:",
+
+  "item.preview.oaire.awardNumber": "Funding ID:",
+
+  "item.preview.dc.title.alternative": "Acronym:",
+
+  "item.preview.dc.coverage.spatial": "Jurisdiction:",
+
+  "item.preview.oaire.fundingStream": "Funding Stream:",
+
 
 
   "item.select.confirm": "Confirm selected",
@@ -2353,6 +2385,8 @@
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
 
+  "nav.toggle" : "Toggle navigation",
+
   "nav.user.description" : "User profile bar",
 
 
@@ -2723,10 +2757,18 @@
 
   "relationships.isContributorOf": "Contributors",
 
+  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+
+  "relationships.isContributorOf.Person": "Contributor",
+
+  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+
 
   "repository.image.logo": "Repository logo",
 
   "repository.title.prefix": "DSpace Angular :: ",
+
+  "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   "resource-policies.add.button": "Add",
@@ -2878,9 +2920,13 @@
 
   "search.filters.filter.author.placeholder": "Author name",
 
+  "search.filters.filter.author.label": "Search author name",
+
   "search.filters.filter.birthDate.head": "Birth Date",
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
+
+  "search.filters.filter.birthDate.label": "Search birth date",
 
   "search.filters.filter.collapse": "Collapse filter",
 
@@ -2888,27 +2934,41 @@
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
 
+  "search.filters.filter.creativeDatePublished.label": "Search date published",
+
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
   "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
+
+  "search.filters.filter.creativeWorkEditor.label": "Search editor",
 
   "search.filters.filter.creativeWorkKeywords.head": "Subject",
 
   "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
 
+  "search.filters.filter.creativeWorkKeywords.label": "Search subject",
+
   "search.filters.filter.creativeWorkPublisher.head": "Publisher",
 
   "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
 
+  "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
+
   "search.filters.filter.dateIssued.head": "Date",
 
-  "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
+  "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
 
-  "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
+  "search.filters.filter.dateIssued.max.label": "End",
+
+  "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
+
+  "search.filters.filter.dateIssued.min.label": "Start",
 
   "search.filters.filter.dateSubmitted.head": "Date submitted",
 
   "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
+
+  "search.filters.filter.dateSubmitted.label": "Search date submitted",
 
   "search.filters.filter.discoverable.head": "Private",
 
@@ -2918,6 +2978,8 @@
 
   "search.filters.filter.entityType.placeholder": "Item Type",
 
+  "search.filters.filter.entityType.label": "Search item type",
+
   "search.filters.filter.expand": "Expand filter",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
@@ -2926,37 +2988,55 @@
 
   "search.filters.filter.itemtype.placeholder": "Type",
 
+  "search.filters.filter.itemtype.label": "Search type",
+
   "search.filters.filter.jobTitle.head": "Job Title",
 
   "search.filters.filter.jobTitle.placeholder": "Job Title",
+
+  "search.filters.filter.jobTitle.label": "Search job title",
 
   "search.filters.filter.knowsLanguage.head": "Known language",
 
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
 
+  "search.filters.filter.knowsLanguage.label": "Search known language",
+
   "search.filters.filter.namedresourcetype.head": "Status",
 
   "search.filters.filter.namedresourcetype.placeholder": "Status",
+
+  "search.filters.filter.namedresourcetype.label": "Search status",
 
   "search.filters.filter.objectpeople.head": "People",
 
   "search.filters.filter.objectpeople.placeholder": "People",
 
+  "search.filters.filter.objectpeople.label": "Search people",
+
   "search.filters.filter.organizationAddressCountry.head": "Country",
 
   "search.filters.filter.organizationAddressCountry.placeholder": "Country",
+
+  "search.filters.filter.organizationAddressCountry.label": "Search country",
 
   "search.filters.filter.organizationAddressLocality.head": "City",
 
   "search.filters.filter.organizationAddressLocality.placeholder": "City",
 
+  "search.filters.filter.organizationAddressLocality.label": "Search city",
+
   "search.filters.filter.organizationFoundingDate.head": "Date Founded",
 
   "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
 
+  "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+
   "search.filters.filter.scope.head": "Scope",
 
   "search.filters.filter.scope.placeholder": "Scope filter",
+
+  "search.filters.filter.scope.label": "Search scope filter",
 
   "search.filters.filter.show-less": "Collapse",
 
@@ -2966,9 +3046,13 @@
 
   "search.filters.filter.subject.placeholder": "Subject",
 
+  "search.filters.filter.subject.label": "Search subject",
+
   "search.filters.filter.submitter.head": "Submitter",
 
   "search.filters.filter.submitter.placeholder": "Submitter",
+
+  "search.filters.filter.submitter.label": "Search submitter",
 
 
 
@@ -2994,6 +3078,8 @@
   "search.filters.head": "Filters",
 
   "search.filters.reset": "Reset filters",
+
+  "search.filters.search.submit": "Submit",
 
 
 
@@ -3108,6 +3194,10 @@
 
   "submission.general.discard.submit": "Discard",
 
+  "submission.general.info.saved": "Saved",
+
+  "submission.general.info.pending-changes": "Unsaved changes",
+
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
@@ -3135,7 +3225,11 @@
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
 
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+
+  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.import-external.source.orcid": "ORCID",
 
@@ -3164,6 +3258,14 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
@@ -3275,6 +3377,23 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+
+
+
 
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
@@ -3426,6 +3545,16 @@
 
 
 
+  "submission.sections.status.errors.title": "Errors",
+
+  "submission.sections.status.valid.title": "Valid",
+
+  "submission.sections.status.warnings.title": "Warnings",
+
+  "submission.sections.toggle.open": "Open section",
+
+  "submission.sections.toggle.close": "Close section",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
@@ -3436,7 +3565,11 @@
 
   "submission.sections.upload.delete.submit": "Delete",
 
+  "submission.sections.upload.download.title": "Download bitstream",
+
   "submission.sections.upload.drop-message": "Drop files to attach them to the item",
+
+  "submission.sections.upload.edit.title": "Edit bitstream",
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
@@ -3540,6 +3673,24 @@
 
 
 
+  "thumbnail.default.alt": "Thumbnail Image",
+
+  "thumbnail.default.placeholder": "No Thumbnail Available",
+
+  "thumbnail.project.alt": "Project Logo",
+
+  "thumbnail.project.placeholder": "Project Placeholder Image",
+
+  "thumbnail.orgunit.alt": "OrgUnit Logo",
+
+  "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
+
+  "thumbnail.person.alt": "Profile Picture",
+
+  "thumbnail.person.placeholder": "No Profile Picture Available",
+
+
+
   "title": "DSpace",
 
 
@@ -3563,6 +3714,8 @@
   "uploader.browse": "browse",
 
   "uploader.drag-message": "Drag & Drop your files here",
+
+  "uploader.delete.btn-title": "Delete",
 
   "uploader.or": ", or ",
 
@@ -3617,5 +3770,16 @@
 
   "workflow-item.send-back.button.cancel": "Cancel",
 
-  "workflow-item.send-back.button.confirm": "Send back"
+  "workflow-item.send-back.button.confirm": "Send back",
+
+  "workflow-item.view.breadcrumbs": "Workflow View",
+
+
+  "idle-modal.header": "Session will expire soon",
+
+  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+
+  "idle-modal.log-out": "Log out",
+
+  "idle-modal.extend-session": "Extend session"
 }

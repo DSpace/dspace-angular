@@ -11,7 +11,8 @@ import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator'
  * Represents an expandable section in the navbar
  */
 @Component({
-  selector: 'ds-expandable-navbar-section',
+  /* tslint:disable:component-selector */
+  selector: 'li[ds-expandable-navbar-section]',
   templateUrl: './expandable-navbar-section.component.html',
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide]

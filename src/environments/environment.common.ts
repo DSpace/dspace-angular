@@ -1,8 +1,7 @@
 import { GlobalConfig } from '../config/global-config.interface';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { BrowseByType } from '../app/+browse-by/+browse-by-switcher/browse-by-decorator';
+import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
-import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
 
 export const environment: GlobalConfig = {
   production: true,
@@ -42,6 +41,22 @@ export const environment: GlobalConfig = {
       maxBufferSize: 100,
       timePerMethod: {[RestRequestMethod.PATCH]: 3} as any // time in seconds
     }
+  },
+  // Authentication settings
+  auth: {
+    // Authentication UI settings
+    ui: {
+      // the amount of time before the idle warning is shown
+      timeUntilIdle: 15 * 60 * 1000, // 15 minutes
+      // the amount of time the user has to react after the idle warning is shown before they are logged out.
+      idleGracePeriod: 5 * 60 * 1000, // 5 minutes
+    },
+    // Authentication REST settings
+    rest: {
+      // If the rest token expires in less than this amount of time, it will be refreshed automatically.
+      // This is independent from the idle warning.
+      timeLeftBeforeTokenRefresh: 2 * 60 * 1000, // 2 minutes
+    },
   },
   // Form settings
   form: {
@@ -133,8 +148,6 @@ export const environment: GlobalConfig = {
     async: true,
     time: false
   },
-  // Log directory
-  logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
   debug: false,
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
@@ -265,10 +278,8 @@ export const environment: GlobalConfig = {
       name: 'dspace'
     },
   ],
-  // Whether the UI should rewrite file download URLs to match its domain. Only necessary to enable when running UI and REST API on separate domains
-  rewriteDownloadUrls: false,
-  // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").  
-  // For images, this enables a gallery viewer where you can zoom or page through images. 
+  // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
+  // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
   mediaViewer: {
     image: false,

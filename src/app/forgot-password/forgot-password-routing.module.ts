@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ItemPageResolver } from '../+item-page/item-page.resolver';
+import { ItemPageResolver } from '../item-page/item-page.resolver';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { ThemedForgotPasswordFormComponent } from './forgot-password-form/themed-forgot-password-form.component';
 import { ThemedForgotEmailComponent } from './forgot-password-email/themed-forgot-email.component';

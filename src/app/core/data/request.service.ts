@@ -265,11 +265,13 @@ export class RequestService {
     if (isNotEmpty(body) && typeof body === 'object') {
       Object.keys(body)
         .forEach((param) => {
-          const paramValue = `${param}=${body[param]}`;
+          const encodedParam = encodeURIComponent(param);
+          const encodedBody = encodeURIComponent(body[param]);
+          const paramValue = `${encodedParam}=${encodedBody}`;
           queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
         });
     }
-    return encodeURI(queryParams);
+    return queryParams;
   }
 
   /**

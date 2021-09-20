@@ -11,7 +11,7 @@ import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../..
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
@@ -56,7 +56,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Fallback maximum for the range
    */
-  max = new Date().getFullYear();
+  max = new Date().getUTCFullYear();
 
   /**
    * The current range of the filter
@@ -67,6 +67,12 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
    * Subscription to unsubscribe from
    */
   sub: Subscription;
+
+  /**
+   * Whether the sider is being controlled by the keyboard.
+   * Supresses any changes until the key is released.
+   */
+  keyboardControl: boolean;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -104,6 +110,10 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
    * Submits new custom range values to the range filter from the widget
    */
   onSubmit() {
+    if (this.keyboardControl) {
+      return;  // don't submit if a key is being held down
+    }
+
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
     this.router.navigate(this.getSearchLinkParts(), {
@@ -115,6 +125,14 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       queryParamsHandling: 'merge'
     });
     this.filter = '';
+  }
+
+  startKeyboardControl(): void {
+    this.keyboardControl = true;
+  }
+
+  stopKeyboardControl(): void {
+    this.keyboardControl = false;
   }
 
   /**

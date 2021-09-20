@@ -233,7 +233,7 @@ describe('DataService', () => {
       const config: FindListOptions = Object.assign(new FindListOptions(), {
         elementsPerPage: 5
       });
-      (service as any).getFindAllHref({}, null, followLink('bundles', config,  true, true, true)).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('bundles', { findListOptions: config })).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -253,7 +253,7 @@ describe('DataService', () => {
         elementsPerPage: 2
       });
 
-      (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection', config, true, true, true), followLink('templateItemOf')).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection', { findListOptions: config }), followLink('templateItemOf')).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -261,7 +261,13 @@ describe('DataService', () => {
     it('should not include linksToFollow with shouldEmbed = false', () => {
       const expected = `${endpoint}?embed=templateItemOf`;
 
-      (service as any).getFindAllHref({}, null, followLink('bundles', undefined, false), followLink('owningCollection', undefined, false), followLink('templateItemOf')).subscribe((value) => {
+      (service as any).getFindAllHref(
+        {},
+        null,
+        followLink('bundles', { shouldEmbed: false }),
+        followLink('owningCollection', { shouldEmbed: false }),
+        followLink('templateItemOf')
+      ).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -269,7 +275,7 @@ describe('DataService', () => {
     it('should include nested linksToFollow 3lvl', () => {
       const expected = `${endpoint}?embed=owningCollection/itemtemplate/relationships`;
 
-      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', undefined, true, true, true, followLink('relationships')))).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('owningCollection', {}, followLink('itemtemplate', {}, followLink('relationships')))).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -279,7 +285,7 @@ describe('DataService', () => {
       const config: FindListOptions = Object.assign(new FindListOptions(), {
         elementsPerPage: 4
       });
-      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, true, true, followLink('itemtemplate', config, true, true, true))).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('owningCollection', {}, followLink('itemtemplate', { findListOptions: config }))).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -308,13 +314,19 @@ describe('DataService', () => {
 
     it('should not include linksToFollow with shouldEmbed = false', () => {
       const expected = `${endpointMock}/${resourceIdMock}?embed=templateItemOf`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('bundles', undefined, false), followLink('owningCollection', undefined, false), followLink('templateItemOf'));
+      const result = (service as any).getIDHref(
+        endpointMock,
+        resourceIdMock,
+        followLink('bundles', { shouldEmbed: false }),
+        followLink('owningCollection', { shouldEmbed: false }),
+        followLink('templateItemOf')
+      );
       expect(result).toEqual(expected);
     });
 
     it('should include nested linksToFollow 3lvl', () => {
       const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection/itemtemplate/relationships`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', undefined, true,  true, true,followLink('itemtemplate', undefined, true, true, true, followLink('relationships'))));
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', {}, followLink('itemtemplate', {}, followLink('relationships'))));
       expect(result).toEqual(expected);
     });
   });

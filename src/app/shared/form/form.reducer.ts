@@ -2,10 +2,13 @@ import {
   FormAction,
   FormActionTypes,
   FormAddError,
-  FormChangeAction, FormClearErrorsAction,
+  FormAddTouchedAction,
+  FormChangeAction,
+  FormClearErrorsAction,
   FormInitAction,
-  FormRemoveAction, FormRemoveErrorAction,
-  FormStatusChangeAction, FormAddTouchedAction
+  FormRemoveAction,
+  FormRemoveErrorAction,
+  FormStatusChangeAction
 } from './form.actions';
 import { hasValue } from '../empty.util';
 import { isEqual, uniqWith } from 'lodash';
@@ -82,12 +85,16 @@ function addFormErrors(state: FormState, action: FormAddError) {
       fieldIndex: action.payload.fieldIndex,
       message: action.payload.errorMessage
     };
-
+    const metadata = action.payload.fieldId.replace(/\_/g, '.');
+    const touched = Object.assign({}, state[formId].touched, {
+      [metadata]: true
+    });
     return Object.assign({}, state, {
       [formId]: {
         data: state[formId].data,
         valid: state[formId].valid,
         errors: state[formId].errors ? uniqWith(state[formId].errors.concat(error), isEqual) : [].concat(error),
+        touched
       }
     });
   } else {

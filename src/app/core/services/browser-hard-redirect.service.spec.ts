@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { BrowserHardRedirectService } from './browser-hard-redirect.service';
 
 describe('BrowserHardRedirectService', () => {
-  const origin = 'test origin';
+  const origin = 'https://test-host.com:4000';
   const mockLocation = {
     href: undefined,
     pathname: '/pathname',
@@ -43,7 +43,7 @@ describe('BrowserHardRedirectService', () => {
   describe('when requesting the origin', () => {
 
     it('should return the location origin', () => {
-      expect(service.getRequestOrigin()).toEqual(origin);
+      expect(service.getCurrentOrigin()).toEqual(origin);
     });
   });
 

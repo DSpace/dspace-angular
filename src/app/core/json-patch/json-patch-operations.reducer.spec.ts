@@ -1,7 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
 import {
-  CommitPatchOperationsAction,
+  CommitPatchOperationsAction, DeletePendingJsonPatchOperationsAction,
   FlushPatchOperationsAction,
   NewPatchAddOperationAction,
   NewPatchRemoveOperationAction,
@@ -321,6 +321,21 @@ describe('jsonPatchOperationsReducer test suite', () => {
       expect(newState[testJsonPatchResourceType].children[testJsonPatchResourceAnotherId].body).toEqual([]);
     });
 
+  });
+
+  describe('When DeletePendingJsonPatchOperationsAction has been dispatched', () => {
+    it('should set set the JsonPatchOperationsState to null ', () => {
+      const action = new DeletePendingJsonPatchOperationsAction();
+      initState = Object.assign({}, testState, {
+        [testJsonPatchResourceType]: Object.assign({}, testState[testJsonPatchResourceType], {
+          transactionStartTime: startTimestamp,
+          commitPending: true
+        })
+      });
+      const newState = jsonPatchOperationsReducer(initState, action);
+
+      expect(newState).toBeNull();
+    });
   });
 
 });

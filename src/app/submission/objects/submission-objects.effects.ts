@@ -5,16 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { isEqual, union } from 'lodash';
 
 import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
-import {
-  catchError,
-  filter,
-  map,
-  mergeMap,
-  switchMap,
-  take,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -52,13 +43,13 @@ import {
   UpdateSectionDataAction,
   UpdateSectionDataSuccessAction
 } from './submission-objects.actions';
-import {SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject} from './submission-objects.reducer';
+import { SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import parseSectionErrorPaths, {SectionErrorPath} from '../utils/parseSectionErrorPaths';
+import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormState } from '../../shared/form/form.reducer';
 
 @Injectable()
@@ -83,7 +74,7 @@ export class SubmissionObjectEffects {
         } else {
           sectionData = action.payload.item.metadata;
         }
-        const sectionErrors = null;
+        const sectionErrors = isNotEmpty(action.payload.errors) ? (action.payload.errors[sectionId] || null) : null;
         mappedActions.push(
           new InitSectionAction(
             action.payload.submissionId,
@@ -232,10 +223,7 @@ export class SubmissionObjectEffects {
     switchMap(([action, state]: [DepositSubmissionAction, any]) => {
       return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl).pipe(
         map(() => new DepositSubmissionSuccessAction(action.payload.submissionId)),
-        catchError((error) => {
-          console.log('submission error', error);
-          return observableOf(new DepositSubmissionErrorAction(action.payload.submissionId));
-        }));
+        catchError((error) => observableOf(new DepositSubmissionErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -297,7 +285,7 @@ export class SubmissionObjectEffects {
         return item$.pipe(
           map((item: Item) => item.metadata),
           filter((metadata) => !isEqual(action.payload.data, metadata)),
-          map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errors, action.payload.metadata))
+          map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errorsToShow, action.payload.serverValidationErrors, action.payload.metadata))
         );
       } else {
         return observableOf(new UpdateSectionDataSuccessAction());
@@ -413,7 +401,7 @@ export class SubmissionObjectEffects {
 
           const sectionForm = getForm(forms, currentState, sectionId);
           const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
-          mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors));
+          mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
         }
       });
     }

@@ -22,11 +22,12 @@ const sectionState = {
   header: 'submit.progressbar.describe.stepone',
     config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
     mandatory: true,
-    sectionType: 'submission-form',
+    sectionType: SectionsType.SubmissionForm,
     collapsed: false,
     enabled: true,
     data: {},
-    errors: [],
+    errorsToShow:	[],
+    serverValidationErrors:	[],
     isLoading: false,
     isValid: false
 } as any;
@@ -35,7 +36,8 @@ const sectionObject: SectionDataObject = {
   config:	'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
   mandatory:	true,
   data:		{},
-  errors:		[],
+  errorsToShow:		[],
+  serverValidationErrors:		[],
   header:	'submit.progressbar.describe.stepone',
   id:	'traditionalpageone',
   sectionType:	SectionsType.SubmissionForm
@@ -56,6 +58,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   function init() {
     sectionsServiceStub.isSectionValid.and.returnValue(observableOf(true));
     sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
+    sectionsServiceStub.getShownSectionErrors.and.returnValue(observableOf([]));
     submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('traditionalpageone'));
   }
 

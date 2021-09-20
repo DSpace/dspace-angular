@@ -23,6 +23,7 @@ import { WorkflowActionDataService } from '../../../core/data/workflow-action-da
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { VarDirective } from '../../utils/var.directive';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { By } from '@angular/platform-browser';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -81,7 +82,7 @@ function init() {
     }
   });
   rdItem = createSuccessfulRemoteDataObject(item);
-  workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+  workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem), id: '333' });
   rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
   mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
   workflowAction = Object.assign(new WorkflowAction(), { id: 'action-1', options: ['option-1', 'option-2'] });
@@ -159,4 +160,26 @@ describe('ClaimedTaskActionsComponent', () => {
       expect(notificationsServiceStub.error).toHaveBeenCalled();
     });
   }));
+
+  describe('when edit options is not available', () => {
+    it('should display a view button', waitForAsync(() => {
+      component.object = null;
+      component.initObjects(mockObject);
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        const debugElement = fixture.debugElement.query(By.css('.workflow-view'));
+        expect(debugElement).toBeTruthy();
+        expect(debugElement.nativeElement.innerText).toBe('submission.workflow.generic.view');
+      });
+
+    }));
+
+    it('getWorkflowItemViewRoute should return the combined uri to show a workspaceitem', waitForAsync(() => {
+      const href = component.getWorkflowItemViewRoute(workflowitem);
+      expect(href).toEqual('/workflowitems/333/view');
+    }));
+  });
+
+
 });

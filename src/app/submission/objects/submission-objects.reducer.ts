@@ -1,4 +1,4 @@
-import { hasValue, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
 import { differenceWith, findKey, isEqual, uniqWith } from 'lodash';
 
 import {
@@ -97,9 +97,14 @@ export interface SubmissionSectionObject {
   data: WorkspaceitemSectionDataType;
 
   /**
-   * The list of the section errors
+   * The list of the section's errors to show. It contains the error list to display when section is not pristine
    */
-  errors: SubmissionSectionError[];
+  errorsToShow: SubmissionSectionError[];
+
+  /**
+   * The list of the section's errors detected by the server. They may not be shown yet if section is pristine
+   */
+  serverValidationErrors: SubmissionSectionError[];
 
   /**
    * A boolean representing if this section is loading
@@ -115,6 +120,13 @@ export interface SubmissionSectionObject {
    * The formId related to this section
    */
   formId: string;
+}
+
+/**
+ * An interface to represent section error
+ */
+export interface SubmissionError {
+  [submissionId: string]: SubmissionSectionError[];
 }
 
 /**
@@ -332,7 +344,7 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAc
     if (Array.isArray(errors)) {
       filteredErrors = differenceWith(errors, errors, isEqual);
     } else {
-      filteredErrors = state[ submissionId ].sections[ sectionId ].errors
+      filteredErrors = state[ submissionId ].sections[ sectionId ].errorsToShow
         .filter((currentError) => currentError.path !== errors.path || !isEqual(currentError, errors));
     }
 
@@ -340,7 +352,7 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAc
       [ submissionId ]: Object.assign({}, state[ submissionId ], {
         sections: Object.assign({}, state[ submissionId ].sections, {
           [ sectionId ]: Object.assign({}, state[ submissionId ].sections [ sectionId ], {
-            errors: filteredErrors
+            errorsToShow: filteredErrors
           })
         })
       })
@@ -354,13 +366,13 @@ const addError = (state: SubmissionObjectState, action: InertSectionErrorsAction
   const { submissionId, sectionId, error } = action.payload;
 
   if (hasValue(state[ submissionId ].sections[ sectionId ])) {
-    const errors = uniqWith(state[ submissionId ].sections[ sectionId ].errors.concat(error), isEqual);
+    const errorsToShow = uniqWith(state[ submissionId ].sections[ sectionId ].errorsToShow.concat(error), isEqual);
 
     return Object.assign({}, state, {
       [ submissionId ]: Object.assign({}, state[ submissionId ], {
         activeSection: state[ action.payload.submissionId ].activeSection,        sections: Object.assign({}, state[ submissionId ].sections, {
           [ sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
-            errors
+            errorsToShow
           })
         }),
       })
@@ -378,7 +390,7 @@ const addError = (state: SubmissionObjectState, action: InertSectionErrorsAction
  * @param action
  *    a RemoveSectionErrorsAction
  * @return SubmissionObjectState
- *    the new state, with the section's errors updated.
+ *    the new state, with the section's errorsToShow updated.
  */
 function removeSectionErrors(state: SubmissionObjectState, action: RemoveSectionErrorsAction): SubmissionObjectState {
   if (isNotEmpty(state[ action.payload.submissionId ])
@@ -387,7 +399,7 @@ function removeSectionErrors(state: SubmissionObjectState, action: RemoveSection
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
-            errors: []
+            errorsToShow: []
           })
         })
       })
@@ -644,9 +656,10 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             collapsed: false,
             enabled: action.payload.enabled,
             data: action.payload.data,
-            errors: action.payload.errors || [],
+            errorsToShow: [],
+            serverValidationErrors: action.payload.errors || [],
             isLoading: false,
-            isValid: false
+            isValid: isEmpty(action.payload.errors)
           }
         })
       })
@@ -702,7 +715,8 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
             enabled: true,
             data: action.payload.data,
-            errors: action.payload.errors,
+            errorsToShow: action.payload.errorsToShow,
+            serverValidationErrors: action.payload.serverValidationErrors,
             metadata: reduceSectionMetadata(action.payload.metadata, state[ action.payload.submissionId ].sections [ action.payload.sectionId ].metadata)
           })
         })

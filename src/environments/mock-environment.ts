@@ -1,5 +1,5 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.prod.ts
-import { BrowseByType } from '../app/+browse-by/+browse-by-switcher/browse-by-decorator';
+import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { GlobalConfig } from '../config/global-config.interface';
@@ -34,6 +34,22 @@ export const environment: Partial<GlobalConfig> = {
       maxBufferSize: 100,
       timePerMethod: {[RestRequestMethod.PATCH]: 3} as any // time in seconds
     }
+  },
+  // Authentication settings
+  auth: {
+    // Authentication UI settings
+    ui: {
+      // the amount of time before the idle warning is shown
+      timeUntilIdle: 20000, // 20 sec
+      // the amount of time the user has to react after the idle warning is shown before they are logged out.
+      idleGracePeriod: 20000, // 20 sec
+    },
+    // Authentication REST settings
+    rest: {
+      // If the rest token expires in less than this amount of time, it will be refreshed automatically.
+      // This is independent from the idle warning.
+      timeLeftBeforeTokenRefresh: 20000, // 20 sec
+    },
   },
   // Form settings
   form: {
@@ -110,8 +126,6 @@ export const environment: Partial<GlobalConfig> = {
     async: true,
     time: false
   },
-  // Log directory
-  logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
   debug: false,
   // Default Language in which the UI will be rendered if the user's browser language is not an active language

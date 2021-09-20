@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouteService } from '../../../../../core/services/route.service';

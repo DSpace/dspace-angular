@@ -61,5 +61,11 @@ export function submissionSectionDataFromIdSelector(submissionId: string, sectio
 
 export function submissionSectionErrorsFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const submissionIdSelector  = submissionSectionFromIdSelector(submissionId, sectionId);
-  return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'errors');
+  return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'errorsToShow');
+}
+
+
+export function submissionSectionServerErrorsFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
+  const submissionIdSelector  = submissionSectionFromIdSelector(submissionId, sectionId);
+  return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'serverValidationErrors');
 }
