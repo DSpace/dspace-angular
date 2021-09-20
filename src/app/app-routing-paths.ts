@@ -22,6 +22,9 @@ export function getBitstreamModuleRoute() {
 export function getBitstreamDownloadRoute(bitstream): string {
   return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
 }
+export function getBitstreamRequestACopyRoute(bitstream): string {
+  return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'request-a-copy').toString();
+}
 
 export const ADMIN_MODULE_PATH = 'admin';
 

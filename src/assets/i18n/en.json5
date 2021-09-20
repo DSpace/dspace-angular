@@ -588,6 +588,40 @@
 
   "bitstream.edit.title": "Edit bitstream",
 
+  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+
+  "bitstream-request-a-copy.alert.canDownload2": "here",
+
+  "bitstream-request-a-copy.header": "Request a copy of the file",
+
+  "bitstream-request-a-copy.intro": "Enter the following information to request a copy",
+
+  "bitstream-request-a-copy.name.label": "Name *",
+
+  "bitstream-request-a-copy.name.error": "The name is required",
+
+  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+
+  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+
+  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+
+  "bitstream-request-a-copy.allfiles.label": "Files",
+
+  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+
+  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+
+  "bitstream-request-a-copy.message.label": "Message",
+
+  "bitstream-request-a-copy.return": "Back",
+
+  "bitstream-request-a-copy.submit": "Request copy",
+
+  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+
+  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+
 
 
   "browse.comcol.by.author": "By Author",

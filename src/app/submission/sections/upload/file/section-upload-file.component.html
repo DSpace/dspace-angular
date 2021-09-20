@@ -10,7 +10,7 @@
       </div>
       <div class="float-right w-15" [class.sticky-buttons]="!readMode">
         <ng-container *ngIf="readMode">
-          <ds-file-download-link [cssClasses]="'btn btn-link'" [isBlank]="true" [bitstream]="getBitstream()">
+          <ds-file-download-link [cssClasses]="'btn btn-link'" [isBlank]="true" [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
           </ds-file-download-link>
           <button class="btn btn-link"
