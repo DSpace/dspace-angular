@@ -122,15 +122,12 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   }
 
   /**
-   * Check if the given RelationshipType has the given itemTypes on its left and right sides.
+   * Search of the given RelationshipType if has the given itemTypes on its left and right sides.
    * Returns an observable of the given RelationshipType if it matches, null if it doesn't
    *
    * @param type            The RelationshipType to check
-   * @param leftItemType    The item type that should be on the left side
-   * @param rightItemType   The item type that should be on the right side
-   * @private
    */
-  searchByEntityType(type: string): Observable<RelationshipType[]> {
+  searchByEntityType(type: string): Observable<PaginatedList<RelationshipType>> {
 
     return this.searchBy(
       'byEntityType',
@@ -139,12 +136,16 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
           {
             fieldName: 'type',
             fieldValue: type
-          }
+          },
+          {
+            fieldName: 'size',
+            fieldValue: 100
+          },
         ]
       }, true,true,followLink('leftType'),followLink('rightType')).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    ) as Observable<RelationshipType[]>;
+    ) as Observable<PaginatedList<RelationshipType>>;
   }
 
 

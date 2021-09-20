@@ -470,9 +470,17 @@ export class RelationshipService extends DataService<Relationship> {
     return this.put(object);
   }
 
+  /**
+   * Patch isn't supported on the relationship endpoint, so use put instead.
+   *
+   * @param typeId the relationship type id to apply as a filter to the returned relationships
+   * @param itemUuid The uuid of the item to be checked on the side defined by relationshipLabel
+   * @param relationshipLabel the name of the relation as defined from the side of the itemUuid
+   * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
+   */
   searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<Relationship[]> {
 
-    let searchParams = [
+    const searchParams = [
           {
             fieldName: 'typeId',
             fieldValue: typeId
@@ -485,20 +493,20 @@ export class RelationshipService extends DataService<Relationship> {
             fieldName: 'relationshipLabel',
             fieldValue: relationshipLabel
           },
-          // {
-          //   fieldName: 'page',
-          //   fieldValue: 1
-          // },
+          {
+            fieldName: 'size',
+            fieldValue: arrayOfItemIds.length
+          },
         ];
 
-    arrayOfItemIds.forEach((itemId)=>{
+    arrayOfItemIds.forEach( (itemId) => {
       searchParams.push(
         {
           fieldName: 'relatedItem',
           fieldValue: itemId
         },
-      )
-    })
+      );
+    });
 
     return this.searchBy(
       'byItemsAndType',

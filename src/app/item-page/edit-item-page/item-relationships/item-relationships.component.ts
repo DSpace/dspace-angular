@@ -83,7 +83,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
       this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label)
       .pipe(
-        map((relationshipTypes:any) => relationshipTypes.page)
+        map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
       );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(

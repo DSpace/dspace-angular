@@ -168,9 +168,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(
         startWith(undefined),
-        tap(res=> {
-          if(!!res && res.state == 'Success' && this.isEditRelationship){
-            const idOfItems = res.payload.page.map(itemSearchResult => {
+        tap( res => {
+          if ( !!res && res.state === 'Success' && this.isEditRelationship ) {
+            const idOfItems = res.payload.page.map( itemSearchResult => {
               return itemSearchResult.indexableObject.uuid;
             });
             this.setSelectedIds(idOfItems,res.payload.page);
@@ -246,26 +246,26 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
 
   setSelectedIds(idOfItems, resultListOfItems) {
     let relationType = this.relationshipType.rightwardType;
-    if(this.isLeft){
+    if ( this.isLeft ) {
       relationType = this.relationshipType.leftwardType;
     }
-    this.relationshipService.searchByItemsAndType(this.relationshipType.id, this.item.uuid, relationType ,idOfItems).subscribe((res: any)=>{
+    this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).subscribe( (res: any) => {
 
-      const selectableObject = res.page.map((relationship: Relationship) => {
+      const selectableObject = res.page.map( (relationship: Relationship) => {
 
         let arrUrl = [];
-        if(this.isLeft){
+        if ( this.isLeft ) {
           arrUrl = relationship._links.rightItem.href.split('/');
-        }else{
+        } else {
           arrUrl = relationship._links.leftItem.href.split('/');
         }
-        let uuid = arrUrl[arrUrl.length-1];
+        const uuid = arrUrl[ arrUrl.length - 1 ];
 
         return this.getRelatedItem(uuid,resultListOfItems);
 
       });
-      // console.log(selectableObject);
-      if(selectableObject.length > 0){
+
+      if ( selectableObject.length > 0 ) {
         this.selectableListService.select(this.listId, selectableObject);
       }
     });
@@ -282,9 +282,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selectableListService.deselectAll(this.listId);
   }
 
-  getRelatedItem(uuid,resultList){
-    return resultList.find((resultItem) => {
-      return resultItem.indexableObject.uuid == uuid;
+  getRelatedItem(uuid: string, resultList: SearchResult<Item>[]) {
+    return resultList.find( (resultItem) => {
+      return resultItem.indexableObject.uuid === uuid;
     });
   }
 

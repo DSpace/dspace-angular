@@ -116,11 +116,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   relationshipType;
 
-  currentItemIsLeftItem$ : Observable<boolean>;
+  currentItemIsLeftItem$: Observable<boolean>;
 
-  isLeft: boolean = false;
+  isLeft = false;
 
-  isEditRelationship: boolean = false;
+  isEditRelationship = false;
 
 
   constructor(

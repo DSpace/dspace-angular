@@ -115,8 +115,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
                   totalPages: Math.ceil(selected.length / pagination.pageSize)
                 });
               return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, selection));
-            }),
-            tap((res)=> console.log(res))
+            })
           );
         })
       );
