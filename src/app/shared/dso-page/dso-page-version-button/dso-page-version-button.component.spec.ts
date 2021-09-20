@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DsoPageVersionButtonComponent } from './dso-page-version-button.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { of as observableOf } from 'rxjs';
@@ -10,7 +9,7 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-describe('DsoPageEditButtonComponent', () => {
+describe('DsoPageVersionButtonComponent', () => {
   let component: DsoPageVersionButtonComponent;
   let fixture: ComponentFixture<DsoPageVersionButtonComponent>;
 

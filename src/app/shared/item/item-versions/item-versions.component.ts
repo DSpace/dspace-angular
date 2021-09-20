@@ -392,7 +392,6 @@ export class ItemVersionsComponent implements OnInit {
       getFirstCompletedRemoteData(),
     ).subscribe((res) => {
       this.versionsRD$.next(res);
-      console.log(res.payload);
     });
   }
 
