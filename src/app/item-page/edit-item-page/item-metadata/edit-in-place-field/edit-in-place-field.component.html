@@ -1,7 +1,7 @@
 <td>
     <div class="metadata-field">
         <div *ngIf="!(editable | async)">
-            <span disabled="true">{{metadata?.key?.split('.').join('.&#8203;')}}</span>
+            <span >{{metadata?.key?.split('.').join('.&#8203;')}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
             <ds-validation-suggestions [disable]="fieldUpdate.changeType != 1" [suggestions]="(metadataFieldSuggestions | async)"
