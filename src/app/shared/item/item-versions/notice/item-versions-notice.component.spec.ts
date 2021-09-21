@@ -52,19 +52,11 @@ describe('ItemVersionsNoticeComponent', () => {
   firstVersion.item = createSuccessfulRemoteDataObject$(firstItem);
   latestVersion.item = createSuccessfulRemoteDataObject$(latestItem);
 
-  // versionHistoryService.getLatestVersionFromHistory$.createSpy('getLatestVersionFromHistory$').and.callFake((id) => {
-  //   return of(latestVersion);
-  // });
-  // versionHistoryService.isLatest$.createSpy('isLatest$').and.callFake((id) => {
-  //   return of(true);
-  // });
-
+  const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService',
+    ['getVersions', 'getLatestVersionFromHistory$', 'isLatest$', ]
+  );
 
   beforeEach(waitForAsync(() => {
-
-    const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService',
-      ['getVersions', 'getLatestVersionFromHistory$', 'isLatest$', ]
-    );
 
     TestBed.configureTestingModule({
       declarations: [ItemVersionsNoticeComponent],
