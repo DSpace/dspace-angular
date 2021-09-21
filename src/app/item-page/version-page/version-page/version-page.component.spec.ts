@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VersionPageComponent } from './version-page.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -9,6 +9,8 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
+import { Version } from '../../../core/shared/version.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -16,10 +18,20 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 
+const mockVersion: Version = Object.assign(new Version(), {
+  item: createSuccessfulRemoteDataObject$(mockItem),
+  version: 1,
+});
+
+
 describe('VersionPageComponent', () => {
   let component: VersionPageComponent;
   let fixture: ComponentFixture<VersionPageComponent>;
   let authService: AuthService;
+
+  const mockRoute = Object.assign(new ActivatedRouteStub(), {
+    data: observableOf({dso: createSuccessfulRemoteDataObject(mockVersion)})
+  });
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
@@ -28,19 +40,17 @@ describe('VersionPageComponent', () => {
     });
     TestBed.configureTestingModule({
       declarations: [VersionPageComponent],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: ActivatedRoute, useValue: mockRoute},
-        {provide: Router, useValue: {}},
-        {provide: VersionDataService, useValue: {}},
-        {provide: AuthService, useValue: authService},
+        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: VersionDataService, useValue: {} },
+        { provide: AuthService, useValue: authService },
       ],
     })
       .compileComponents();
   }));
 
-  const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({dso: createSuccessfulRemoteDataObject(mockItem)})
-  });
+
 
   beforeEach(() => {
     fixture = TestBed.createComponent(VersionPageComponent);

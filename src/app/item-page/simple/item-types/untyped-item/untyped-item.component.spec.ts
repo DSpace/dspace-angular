@@ -29,6 +29,8 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -68,9 +70,10 @@ describe('UntypedItemComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
       ],
-
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
