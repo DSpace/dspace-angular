@@ -7,11 +7,10 @@ import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { AuthService } from '../../../core/auth/auth.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
@@ -32,7 +31,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   /**
    * Whether or not the current user is authorized to edit the DSpaceObject
    */
-  isAuthorized$: Observable<boolean> = observableOf(true);
+  isAuthorized$: Observable<boolean> = observableOf(false);
 
 
   /**
@@ -74,7 +73,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   }
 
   ngOnInit() {
-    // this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
+    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanSubscribe, this.contextMenuObject.self);
     this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
       this.eperson = eperson.id;
     });
