@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../../../core/shared/operators';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { Version } from '../../../core/shared/version.model';
@@ -32,7 +32,6 @@ export class VersionPageComponent implements OnInit {
   ngOnInit(): void {
     /* Retrieve version from resolver or redirect on 4xx */
     this.versionRD$ = this.route.data.pipe(
-      tap( (data) => { console.log(JSON.stringify(data)); }  ),
       map((data) => data.dso as RemoteData<Version>),
       redirectOn4xx(this.router, this.authService),
     );

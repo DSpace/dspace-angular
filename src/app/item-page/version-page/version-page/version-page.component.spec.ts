@@ -15,7 +15,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
+  uuid: 'item-uuid',
 });
 
 const mockVersion: Version = Object.assign(new Version(), {
@@ -40,7 +41,7 @@ describe('VersionPageComponent', () => {
     });
     TestBed.configureTestingModule({
       declarations: [VersionPageComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: VersionDataService, useValue: {} },
