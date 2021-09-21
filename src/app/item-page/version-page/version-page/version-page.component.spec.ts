@@ -11,6 +11,7 @@ import { VersionDataService } from '../../../core/data/version-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Version } from '../../../core/shared/version.model';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Component } from '@angular/core';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -24,6 +25,9 @@ const mockVersion: Version = Object.assign(new Version(), {
   version: 1,
 });
 
+@Component({ template: '' })
+class DummyComponent {
+}
 
 describe('VersionPageComponent', () => {
   let component: VersionPageComponent;
@@ -40,8 +44,8 @@ describe('VersionPageComponent', () => {
       setRedirectUrl: {}
     });
     TestBed.configureTestingModule({
-      declarations: [VersionPageComponent],
-      imports: [RouterTestingModule.withRoutes([])],
+      declarations: [VersionPageComponent, DummyComponent],
+      imports: [RouterTestingModule.withRoutes([{ path: 'items/item-uuid', component: DummyComponent, pathMatch: 'full' }])],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: VersionDataService, useValue: {} },
