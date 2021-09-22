@@ -276,32 +276,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       });
 
     this.selectableListService.deselectAll(this.listId);
-    this.updates$.pipe(
-      switchMap((updates) =>
-        Object.values(updates).length > 0 ?
-          observableCombineLatest(
-            Object.values(updates)
-              .filter((update) => update.changeType !== FieldChangeType.REMOVE)
-              .map((update) => {
-                const field = update.field as RelationshipIdentifiable;
-                if (field.relationship) {
-                  return this.getRelatedItem(field.relationship);
-                } else {
-                  return observableOf(field.relatedItem);
-                }
-              })
-          ) : observableOf([])
-      ),
-      take(1),
-      map((items) => items.map((item) => {
-        const searchResult = new ItemSearchResult();
-        searchResult.indexableObject = item;
-        searchResult.hitHighlights = {};
-        return searchResult;
-      })),
-    ).subscribe((items) => {
-      // this.selectableListService.select(this.listId, items);
-    });
   }
 
   /**

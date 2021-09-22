@@ -44,7 +44,7 @@
                 </ds-dynamic-lookup-relation-external-source-tab>
             </ng-template>
         </ngb-tab>
-        <ngb-tab [disabled]="isEditRelationship" [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
+        <ngb-tab *ngIf="!isEditRelationship" [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-selection-tab
                         [selection$]="selection$"

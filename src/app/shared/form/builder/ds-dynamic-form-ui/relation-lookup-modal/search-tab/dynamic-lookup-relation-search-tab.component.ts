@@ -167,7 +167,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(
         startWith(undefined),
         tap( res => {
-          if ( !!res && res.state === 'Success' && this.isEditRelationship ) {
+          if ( !!res && res.hasSucceeded && this.isEditRelationship ) {
             const idOfItems = res.payload.page.map( itemSearchResult => {
               return itemSearchResult.indexableObject.uuid;
             });
