@@ -284,6 +284,8 @@
 
   "admin.access-control.epeople.form.table.name": "Name",
 
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
@@ -353,7 +355,7 @@
   "admin.access-control.groups.form.groupName": "Group name",
 
   "admin.access-control.groups.form.groupCommunity": "Community or Collection",
- 
+
   "admin.access-control.groups.form.groupDescription": "Description",
 
   "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
@@ -443,6 +445,8 @@
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
 
   "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
 
   "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
 
@@ -1260,7 +1264,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-  
+
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
