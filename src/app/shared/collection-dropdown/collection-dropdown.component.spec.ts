@@ -5,21 +5,16 @@ import { By } from '@angular/platform-browser';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
 
 import { CollectionDropdownComponent } from './collection-dropdown.component';
-import { RemoteData } from '../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Community } from '../../core/shared/community.model';
 import { MockElementRef } from '../testing/element-ref.mock';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
-import { FindListOptions } from '../../core/data/request.models';
-import { Observable } from 'rxjs/internal/Observable';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
@@ -99,17 +94,6 @@ const listElementMock = {
   }
 };
 
-// tslint:disable-next-line: max-classes-per-file
-class CollectionDataServiceMock {
-  getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
-    return observableOf(
-      createSuccessfulRemoteDataObject(
-        buildPaginatedList(new PageInfo(), collections)
-      )
-    );
-  }
-}
-
 describe('CollectionDropdownComponent', () => {
   let component: CollectionDropdownComponent;
   let componentAsAny: any;
@@ -117,11 +101,18 @@ describe('CollectionDropdownComponent', () => {
   let scheduler: TestScheduler;
 
   const collectionDataServiceMock: any = jasmine.createSpyObj('CollectionDataService', {
-    getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection')
+    getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection'),
+    getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType')
   });
 
   const paginatedCollection = buildPaginatedList(new PageInfo(), collections);
   const paginatedCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedCollection);
+
+  const paginatedEmptyCollection = buildPaginatedList(new PageInfo(), []);
+  const paginatedEmptyCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedEmptyCollection);
+
+  const paginatedOneElementCollection = buildPaginatedList(new PageInfo(), [collections[0]]);
+  const paginatedOneElementCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedOneElementCollection);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -150,6 +141,7 @@ describe('CollectionDropdownComponent', () => {
     component = fixture.componentInstance;
     componentAsAny = component;
     componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedCollectionRD$);
+    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedCollectionRD$);
   });
 
   it('should init component with collection list', () => {
@@ -224,5 +216,49 @@ describe('CollectionDropdownComponent', () => {
     expect(component.currentQuery).toEqual('');
     expect(component.hasNextPage).toEqual(true);
     expect(component.searchListCollection).toEqual([]);
+  });
+
+  it('should invoke the method getAuthorizedCollectionByEntityType of CollectionDataService when entityType is set',() => {
+    component.entityType = 'rel';
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    expect((component as any).collectionDataService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
+  });
+
+  it('should emit hasChoice true when totalElements is greater then one', () => {
+    spyOn(component.hasChoice, 'emit').and.callThrough();
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(component.hasChoice.emit).toHaveBeenCalledWith(true);
+  });
+
+  it('should emit hasChoice false when totalElements is not greater then one', () => {
+
+    componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedEmptyCollectionRD$);
+    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedEmptyCollectionRD$);
+
+    spyOn(component.hasChoice, 'emit').and.callThrough();
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(component.hasChoice.emit).toHaveBeenCalledWith(false);
+  });
+
+  it('should emit theOnlySelectable when totalElements is equal to one', () => {
+
+    componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedOneElementCollectionRD$);
+    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedOneElementCollectionRD$);
+
+    spyOn(component.theOnlySelectable, 'emit').and.callThrough();
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const expectedTheOnlySelectable = {
+      communities: [ { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Community 1', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88' } ],
+      collection: { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Collection 1' }
+    };
+
+    expect(component.theOnlySelectable.emit).toHaveBeenCalledWith(expectedTheOnlySelectable);
   });
 });

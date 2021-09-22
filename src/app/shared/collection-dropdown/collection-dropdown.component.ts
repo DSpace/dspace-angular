@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  Input,
   OnDestroy,
   OnInit,
   Output
@@ -11,7 +12,7 @@ import {
 import { FormControl } from '@angular/forms';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
 
 import { hasValue } from '../empty.util';
 import { RemoteData } from '../../core/data/remote-data';
@@ -106,6 +107,21 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    */
   currentQuery: string;
 
+  /**
+   * If present this value is used to filter collection list by entity type
+   */
+  @Input() entityType: string;
+
+  /**
+   * Emit to notify whether collections to choice from are more than one
+   */
+  @Output() hasChoice = new EventEmitter<boolean>();
+
+  /**
+   * Emit to notify the only selectable collection.
+   */
+  @Output() theOnlySelectable = new EventEmitter<CollectionListEntry>();
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private collectionDataService: CollectionDataService,
@@ -190,14 +206,26 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       elementsPerPage: 10,
       currentPage: page
     };
-    this.searchListCollection$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'))
-      .pipe(
+    let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
+    if (this.entityType) {
+      searchListService$ = this.collectionDataService
+      .getAuthorizedCollectionByEntityType(
+        query,
+        this.entityType,
+        findOptions,
+        false,
+        followLink('parentCommunity'));
+    } else {
+      searchListService$ = this.collectionDataService
+      .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'));
+    }
+    this.searchListCollection$ = searchListService$.pipe(
         getFirstSucceededRemoteWithNotEmptyData(),
         switchMap((collections: RemoteData<PaginatedList<Collection>>) => {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;
           }
+          this.emitSelectionEvents(collections);
           return collections.payload.page;
         }),
         mergeMap((collection: Collection) => collection.parentCommunity.pipe(
@@ -247,4 +275,28 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   hideShowLoader(hideShow: boolean) {
     this.isLoadingList.next(hideShow);
   }
+
+  /**
+   * Emit events related to the number of selectable collections.
+   * hasChoice containing whether there are more then one selectable collections.
+   * theOnlySelectable containing the only collection available.
+   * @param collections
+   * @private
+   */
+  private emitSelectionEvents(collections: RemoteData<PaginatedList<Collection>>) {
+    this.hasChoice.emit(collections.payload.totalElements > 1);
+    if (collections.payload.totalElements === 1) {
+      const collection = collections.payload.page[0];
+      collections.payload.page[0].parentCommunity.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        take(1)
+      ).subscribe((community: Community) => {
+        this.theOnlySelectable.emit({
+          communities: [{ id: community.id, name: community.name, uuid: community.id }],
+          collection: { id: collection.id, uuid: collection.id, name: collection.name }
+        });
+      });
+    }
+  }
+
 }
