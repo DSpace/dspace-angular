@@ -13,8 +13,8 @@ import { SearchService } from '../../../../../../core/shared/search/search.servi
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue } from '../../../../../empty.util';
-import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { map, mapTo, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { getFirstSucceededRemoteData } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
@@ -23,14 +23,8 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 
-import { ItemSearchResult } from '../../../../../../shared/object-collection/shared/item-search-result.model';
-
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import {
-  FieldUpdate,
-  FieldUpdates,
-  RelationshipIdentifiable
-} from '../../../../../../core/data/object-updates/object-updates.reducer';
+import { result } from 'lodash';
 
 
 @Component({
@@ -165,7 +159,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(
-        startWith(undefined),
         tap( res => {
           if ( !!res && res.hasSucceeded && this.isEditRelationship ) {
             const idOfItems = res.payload.page.map( itemSearchResult => {
@@ -173,7 +166,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
             });
             this.setSelectedIds(idOfItems,res.payload.page);
           }
-        })
+        }),
+        startWith(undefined),
       ))
     );
   }
@@ -230,16 +224,17 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       getFirstSucceededRemoteData(),
       map((resultsRD) => resultsRD.payload.page),
       tap(() => this.selectAllLoading = false),
+      switchMap((results) => this.selection$.pipe(
+        take(1),
+        tap((selection: SearchResult<Item>[]) => {
+          const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
+          this.selectObject.emit(...filteredResults);
+        }),
+        mapTo(results)
+      ))
     ).subscribe((results) => {
-        this.selection$
-          .pipe(take(1))
-          .subscribe((selection: SearchResult<Item>[]) => {
-            const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
-            this.selectObject.emit(...filteredResults);
-          });
         this.selectableListService.select(this.listId, results);
-      }
-    );
+    });
   }
 
   /**
