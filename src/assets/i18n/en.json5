@@ -1254,7 +1254,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-  
+
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
@@ -3211,7 +3211,23 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
+  "submission.import-external.title.Journal": "Import a journal from an external source",
+
+  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+
+  "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+
+  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+
+  "submission.import-external.title.Person": "Import a person from an external source",
+
+  "submission.import-external.title.Project": "Import a project from an external source",
+
+  "submission.import-external.title.Publication": "Import a publication from an external source",
+
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+
+  "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
 
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
 
