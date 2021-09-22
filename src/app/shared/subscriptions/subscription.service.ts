@@ -134,7 +134,7 @@ export class SubscriptionService extends DataService<Subscription> {
    * @param options                     options for the find all request
    */
   findAllSubscriptions(options?): Observable<PaginatedList<Subscription>> {
-     const optionsWithObject = Object.assign(new FindListOptions(), options, {
+    const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('embed', 'dSpaceObject'),new RequestParam('embed', 'ePerson')]
     });
 
@@ -148,5 +148,30 @@ export class SubscriptionService extends DataService<Subscription> {
 
   }
 
+
+  /**
+   * Retrieves the list of subscription with {@link dSpaceObject} and {@link ePerson}
+   *
+   * @param options                     options for the find all request
+   */
+  findByEPerson(eperson,options?): Observable<PaginatedList<Subscription>> {
+     const optionsWithObject = Object.assign(new FindListOptions(), options, {
+      searchParams: [
+      new RequestParam('id', eperson),
+      new RequestParam('embed', 'dSpaceObject'),
+      new RequestParam('embed', 'ePerson')
+      ]
+    });
+
+    const endpoint = this.getSearchEndpoint('findByEPerson');
+
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      switchMap((endpointUrl) => this.findAllByHref(endpoint, optionsWithObject, false, true)),
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload()
+    );
+  }
 
 }
