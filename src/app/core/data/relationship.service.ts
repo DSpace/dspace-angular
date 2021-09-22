@@ -478,7 +478,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param relationshipLabel the name of the relation as defined from the side of the itemUuid
    * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
    */
-  searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<Relationship[]> {
+  searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<PaginatedList<Relationship[]>> {
 
     const searchParams = [
           {
@@ -515,7 +515,7 @@ export class RelationshipService extends DataService<Relationship> {
       }).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    ) as Observable<Relationship[]>;
+    ) as Observable<PaginatedList<Relationship[]>>;
 
   }
 }

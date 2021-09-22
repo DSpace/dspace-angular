@@ -25,6 +25,7 @@ import { ExternalSourceService } from '../../../../../core/data/external-source.
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -114,12 +115,24 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   totalExternal$: Observable<number[]>;
 
-  relationshipType;
+  /**
+   * The type of relationship
+   */
+  relationshipType: RelationshipType;
 
+  /**
+   * Checks if relationship is left
+   */
   currentItemIsLeftItem$: Observable<boolean>;
 
+  /**
+   * Relationship is left
+   */
   isLeft = false;
 
+  /**
+   * Checks if modal is being used by edit relationship page
+   */
   isEditRelationship = false;
 
 

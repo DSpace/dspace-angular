@@ -142,6 +142,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     component.item = item;
     component.metadataFields = metadataField;
     component.submissionId = submissionId;
+    component.currentItemIsLeftItem$ = observableOf(true);
     fixture.detectChanges();
   });
 
@@ -191,4 +192,5 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
     });
   });
+
 });

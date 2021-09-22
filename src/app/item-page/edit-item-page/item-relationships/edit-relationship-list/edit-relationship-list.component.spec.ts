@@ -22,6 +22,7 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -33,6 +34,7 @@ let relationshipService;
 let selectableListService;
 let paginationService;
 let hostWindowService;
+const relationshipTypeService = {};
 
 const url = 'http://test-url.com/test-url';
 
@@ -181,6 +183,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: LinkService, useValue: linkService },
         { provide: PaginationService, useValue: paginationService },
         { provide: HostWindowService, useValue: hostWindowService },
+        { provide: RelationshipTypeService, useValue: relationshipTypeService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

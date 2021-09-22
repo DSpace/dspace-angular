@@ -80,7 +80,6 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
-
       this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label)
       .pipe(
         map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)

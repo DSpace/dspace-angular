@@ -140,8 +140,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   modalRef: NgbModalRef;
 
-  listOfRelatedItems = [];
-
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
@@ -229,10 +227,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         this.getIsRelatedItem(relatedItem)
           .subscribe((isRelated: boolean) => {
 
-
-            // identifiables.forEach((identifiable) =>
-            //   this.objectUpdatesService.removeSingleFieldUpdate(this.url, identifiable.uuid)
-            // );
             if (!isRelated) {
               this.relationshipService.getNameVariant(this.listId, relatedItem.uuid)
                 .subscribe((nameVariant) => {
@@ -306,7 +300,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         return searchResult;
       })),
     ).subscribe((items) => {
-          // console.log(items);
       // this.selectableListService.select(this.listId, items);
     });
   }

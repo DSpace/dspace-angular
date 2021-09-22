@@ -22,7 +22,6 @@ import { LookupRelationService } from '../../../../../../core/data/lookup-relati
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-import { RelationshipTypeService } from '../../../../../../core/data/relationship-type.service';
 
 import { ItemSearchResult } from '../../../../../../shared/object-collection/shared/item-search-result.model';
 
@@ -153,7 +152,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     private routeService: RouteService,
     public lookupRelationService: LookupRelationService,
     private relationshipService: RelationshipService,
-    private relationshipTypeService: RelationshipTypeService,
     private paginationService: PaginationService
   ) {
   }
@@ -244,30 +242,35 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     );
   }
 
+  /**
+   * setSelectedIds select all the items from the results that have relationship
+   * @param idOfItems the uuid of items that are being checked
+   * @param resultListOfItems the list of results of the items
+   */
   setSelectedIds(idOfItems, resultListOfItems) {
     let relationType = this.relationshipType.rightwardType;
     if ( this.isLeft ) {
       relationType = this.relationshipType.leftwardType;
     }
-    this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).subscribe( (res: any) => {
+    this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).subscribe( (res: PaginatedList<Relationship[]>) => {
 
-      const selectableObject = res.page.map( (relationship: Relationship) => {
+        const selectableObject = res.page.map( (relationship: any) => {
 
-        let arrUrl = [];
-        if ( this.isLeft ) {
-          arrUrl = relationship._links.rightItem.href.split('/');
-        } else {
-          arrUrl = relationship._links.leftItem.href.split('/');
+          let arrUrl = [];
+          if ( this.isLeft ) {
+            arrUrl = relationship._links.rightItem.href.split('/');
+          } else {
+            arrUrl = relationship._links.leftItem.href.split('/');
+          }
+          const uuid = arrUrl[ arrUrl.length - 1 ];
+
+          return this.getRelatedItem(uuid,resultListOfItems);
+
+        });
+
+        if ( selectableObject.length > 0 ) {
+          this.selectableListService.select(this.listId, selectableObject);
         }
-        const uuid = arrUrl[ arrUrl.length - 1 ];
-
-        return this.getRelatedItem(uuid,resultListOfItems);
-
-      });
-
-      if ( selectableObject.length > 0 ) {
-        this.selectableListService.select(this.listId, selectableObject);
-      }
     });
   }
 
