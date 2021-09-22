@@ -1,4 +1,4 @@
-import { delay, distinctUntilChanged, filter, take, withLatestFrom } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,7 +9,14 @@ import {
   Optional,
   PLATFORM_ID,
 } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RoutesRecognized
+} from '@angular/router';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -71,6 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   isThemeLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  isThemeCSSLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Whether or not the idle modal is is currently open
@@ -106,6 +114,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (isPlatformBrowser(this.platformId)) {
         // the theme css will never download server side, so this should only happen on the browser
         this.isThemeLoading$.next(true);
+        this.isThemeCSSLoading$.next(true);
       }
       if (hasValue(themeName)) {
         this.setThemeCss(themeName);
@@ -184,6 +193,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     ).subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.isRouteLoading$.next(true);
+      } else  if (event instanceof RoutesRecognized) {
+        const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
+        this.themeService.updateThemeOnRouteChange$(event.urlAfterRedirects, activatedRouteSnapShot).pipe(
+          switchMap((changed) => {
+            if (changed) {
+              return this.isThemeCSSLoading$;
+            } else {
+              return [false];
+            }
+          })
+        ).subscribe((changed) => {
+          this.isThemeLoading$.next(changed);
+        });
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
@@ -237,7 +259,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       }
       // the fact that this callback is used, proves we're on the browser.
-      this.isThemeLoading$.next(false);
+      this.isThemeCSSLoading$.next(false);
     };
     head.appendChild(link);
   }
