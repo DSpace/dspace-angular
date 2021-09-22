@@ -53,7 +53,8 @@ import { FormComponent } from './form/form.component';
 import { DsDynamicOneboxComponent } from './form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
-  DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn,
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn,
 } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DragClickDirective } from './utils/drag-click.directive';
@@ -202,6 +203,7 @@ import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-grou
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
+import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
@@ -432,6 +434,7 @@ const COMPONENTS = [
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
   CollectionDropdownComponent,
+  EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
