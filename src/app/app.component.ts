@@ -1,4 +1,4 @@
-import { delay, distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -13,9 +13,8 @@ import {
   ActivatedRouteSnapshot,
   NavigationCancel,
   NavigationEnd,
-  NavigationStart,
+  NavigationStart, ResolveEnd,
   Router,
-  RoutesRecognized
 } from '@angular/router';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -113,7 +112,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.themeService.getThemeName$().subscribe((themeName: string) => {
       if (isPlatformBrowser(this.platformId)) {
         // the theme css will never download server side, so this should only happen on the browser
-        this.isThemeLoading$.next(true);
         this.isThemeCSSLoading$.next(true);
       }
       if (hasValue(themeName)) {
@@ -186,14 +184,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.router.events.pipe(
-      // This fixes an ExpressionChangedAfterItHasBeenCheckedError from being thrown while loading the component
-      // More information on this bug-fix: https://blog.angular-university.io/angular-debugging/
-      delay(0)
-    ).subscribe((event) => {
+    let resolveEndFound = false;
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
+        resolveEndFound = false;
         this.isRouteLoading$.next(true);
-      } else  if (event instanceof RoutesRecognized) {
+        this.isThemeLoading$.next(true);
+      } else  if (event instanceof ResolveEnd) {
+        resolveEndFound = true;
         const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
         this.themeService.updateThemeOnRouteChange$(event.urlAfterRedirects, activatedRouteSnapShot).pipe(
           switchMap((changed) => {
@@ -210,6 +208,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
       ) {
+        if (!resolveEndFound) {
+          this.isThemeLoading$.next(false);
+        }
         this.isRouteLoading$.next(false);
       }
     });

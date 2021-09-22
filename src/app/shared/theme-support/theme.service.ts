@@ -3,9 +3,9 @@ import { Store, createFeatureSelector, createSelector, select, Action } from '@n
 import { Observable } from 'rxjs/internal/Observable';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
-import { expand, filter, map, startWith, switchMap, take, toArray } from 'rxjs/operators';
+import { expand, filter, map, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { Actions, ofType } from '@ngrx/effects';
+import { act, Actions, ofType } from '@ngrx/effects';
 import { ResolvedAction, ResolverActionTypes } from '../../core/resolving/resolver.actions';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -86,9 +86,10 @@ export class ThemeService {
 
     const action$ = currentTheme$.pipe(
       switchMap((currentTheme: string) => {
+        const snapshotWithData = this.findRouteData(activatedRouteSnapshot);
         if (this.hasDynamicTheme === true && isNotEmpty(this.themes)) {
-          if (hasValue(activatedRouteSnapshot) && hasValue(activatedRouteSnapshot.data) && hasValue(activatedRouteSnapshot.data.dso)) {
-            const dsoRD: RemoteData<DSpaceObject> = activatedRouteSnapshot.data.dso;
+          if (hasValue(snapshotWithData) && hasValue(snapshotWithData.data) && hasValue(snapshotWithData.data.dso)) {
+            const dsoRD: RemoteData<DSpaceObject> = snapshotWithData.data.dso;
             if (dsoRD.hasSucceeded) {
               // Start with the resolved dso and go recursively through its parents until you reach the top-level community
               return observableOf(dsoRD.payload).pipe(
@@ -123,10 +124,10 @@ export class ThemeService {
         // If there are no themes configured, do nothing
         return [new NoOpAction()];
       }),
+      take(1),
     );
 
     action$.pipe(
-      take(1),
       filter((action) => action.type !== NO_OP_ACTION_TYPE),
     ).subscribe((action) => {
       this.store.dispatch(action);
@@ -135,6 +136,22 @@ export class ThemeService {
     return action$.pipe(
       map((action) => action.type === ThemeActionTypes.SET),
     );
+  }
+
+  findRouteData(...routes: ActivatedRouteSnapshot[]) {
+    const result = routes.find((route) => hasValue(route.data.dso));
+    if (hasValue(result)) {
+      return result;
+    } else {
+      const nextLevelRoutes = routes
+        .map((route: ActivatedRouteSnapshot) => route.children)
+        .reduce((combined: ActivatedRouteSnapshot[], current: ActivatedRouteSnapshot[]) => [...combined, ...current]);
+      if (isNotEmpty(nextLevelRoutes)) {
+        return this.findRouteData(...nextLevelRoutes);
+      } else {
+        return undefined;
+      }
+    }
   }
 
   /**
