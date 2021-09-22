@@ -284,6 +284,8 @@
 
   "admin.access-control.epeople.form.table.name": "Name",
 
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
@@ -322,6 +324,8 @@
 
   "admin.access-control.groups.table.name": "Name",
 
+  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+
   "admin.access-control.groups.table.members": "Members",
 
   "admin.access-control.groups.table.edit": "Edit",
@@ -349,6 +353,8 @@
   "admin.access-control.groups.form.head.edit": "Edit group",
 
   "admin.access-control.groups.form.groupName": "Group name",
+
+  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
 
   "admin.access-control.groups.form.groupDescription": "Description",
 
@@ -398,6 +404,12 @@
 
   "admin.access-control.groups.form.members-list.table.name": "Name",
 
+  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+
+  "admin.access-control.groups.form.members-list.table.email": "Email",
+
+  "admin.access-control.groups.form.members-list.table.netid": "NetID",
+
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
 
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
@@ -433,6 +445,8 @@
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
 
   "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
 
   "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
 
@@ -1250,7 +1264,7 @@
 
   "file-section.error.header": "Error obtaining files for this item",
 
-  
+
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
