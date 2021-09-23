@@ -1,0 +1,35 @@
+<div *ngVar="(contentSource$ |async) as contentSource">
+    <div class="container-fluid" *ngIf="shouldShow">
+        <h4>{{ 'collection.source.controls.head' | translate }}</h4>
+        <div>
+            <span class="font-weight-bold">{{'collection.source.controls.harvest.status' | translate}}</span>
+            <span>{{contentSource?.harvestStatus}}</span>
+        </div>
+        <div>
+            <span class="font-weight-bold">{{'collection.source.controls.harvest.start' | translate}}</span>
+            <span>{{contentSource?.harvestStartTime ? contentSource?.harvestStartTime : 'collection.source.controls.harvest.no-information'|translate }}</span>
+        </div>
+        <div>
+            <span class="font-weight-bold">{{'collection.source.controls.harvest.last' | translate}}</span>
+            <span>{{contentSource?.lastHarvested ? contentSource?.lastHarvested : 'collection.source.controls.harvest.no-information'|translate }}</span>
+        </div>
+
+        <button class=" btn btn-secondary"
+                [disabled]="!(isEnabled)"
+                (click)="testConfiguration(contentSource)">
+            <span class="d-none d-sm-inline">{{'collection.source.controls.test.submit' | translate}}</span>
+        </button>
+        <button class="btn btn-primary"
+                [disabled]="!(isEnabled)"
+                (click)="importNow()">
+            <span class="d-none d-sm-inline">{{'collection.source.controls.import.submit' | translate}}</span>
+        </button>
+        <button class="btn btn-primary"
+                [disabled]="!(isEnabled)"
+                (click)="resetAndReimport()">
+            <span class="d-none d-sm-inline">&nbsp;{{'collection.source.controls.reset.submit' | translate}}</span>
+        </button>
+
+
+    </div>
+</div>

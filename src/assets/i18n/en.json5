@@ -881,6 +881,22 @@
   "collection.select.table.title": "Title",
 
 
+  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.no-information": "N/A",
+
 
   "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
 

@@ -70,6 +70,15 @@ export class ContentSource extends CacheableObject {
    */
   metadataConfigs: MetadataConfig[];
 
+  @autoserializeAs('harvest_status')
+  harvestStatus: string;
+
+  @autoserializeAs('harvest_start_time')
+  harvestStartTime: string;
+
+  @autoserializeAs('last_harvested')
+  lastHarvested: string;
+
   /**
    * The {@link HALLink}s for this ContentSource
    */
