@@ -80,6 +80,16 @@ export class ThemeService {
     );
   }
 
+  /**
+   * Determine whether or not the theme needs to change depending on the current route's URL and snapshot data
+   * If the snapshot contains a dso, this will be used to match a theme
+   * If the snapshot contains a scope parameters, this will be used to match a theme
+   * Otherwise the URL is matched against
+   * If none of the above find a match, the theme doesn't change
+   * @param currentRouteUrl
+   * @param activatedRouteSnapshot
+   * @return Observable boolean emitting whether or not the theme has been changed
+   */
   updateThemeOnRouteChange$(currentRouteUrl: string, activatedRouteSnapshot: ActivatedRouteSnapshot): Observable<boolean> {
     // and the current theme from the store
     const currentTheme$: Observable<string> = this.store.pipe(select(currentThemeSelector));
@@ -138,8 +148,13 @@ export class ThemeService {
     );
   }
 
+  /**
+   * Find a DSpaceObject in one of the provided route snapshots their data
+   * Recursively looks for the dso in the routes their child routes until it reaches a dead end or finds one
+   * @param routes
+   */
   findRouteData(...routes: ActivatedRouteSnapshot[]) {
-    const result = routes.find((route) => hasValue(route.data.dso));
+    const result = routes.find((route) => hasValue(route.data) && hasValue(route.data.dso));
     if (hasValue(result)) {
       return result;
     } else {
