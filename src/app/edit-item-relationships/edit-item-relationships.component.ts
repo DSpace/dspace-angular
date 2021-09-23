@@ -172,20 +172,22 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * Get all relationships of the relation to manage
    */
   retrieveRelationships(): void {
-    this.subs.push(
+    console.log("retrieveRelationships");
+    // this.subs.push(
       this.itemRD$.pipe(
         getRemoteDataPayload(),
         switchMap((item: Item) => this.relationshipService.getItemRelationshipsAsArrayAll(item,
           followLink('leftItem'),
-          followLink('relationshipType'),
-        ))
+          // followLink('relationshipType'),
+        )),
+        take(1)
       ).subscribe((relationships: Relationship[]) => {
-        console.log('retrieveRelationships', relationships);
         const relations = relationships
-          .filter((relation) => relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
+          .filter((relation) => !!relation.leftwardValue && relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
         this.relationshipResults$.next(relations);
         this.isInit = true;
-      }));
+      })
+      // );
   }
 
   /**
@@ -257,7 +259,6 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   updateRelationship(relationship: Relationship): void {
     this.relationshipService.updateRightPlace(relationship).pipe(take(1))
       .subscribe((res) => {
-        console.log(res);
       }, (err) => {
         this.retrieveRelationships();
       });
