@@ -76,7 +76,7 @@ export class Relationship implements CacheableObject {
     relationshipType: HALLink;
   };
 
-  relationType:any;
+  relationType: any;
 
   /**
    * The item on the left side of this relationship
