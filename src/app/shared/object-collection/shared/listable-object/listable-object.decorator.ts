@@ -1,10 +1,6 @@
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
-import {
-  DEFAULT_CONTEXT,
-  DEFAULT_THEME
-} from '../../../metadata-representation/metadata-representation.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObject } from '../listable-object.model';
 import { environment } from '../../../../../environments/environment';
@@ -12,6 +8,8 @@ import { ThemeConfig } from '../../../../../config/theme.model';
 import { InjectionToken } from '@angular/core';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
+export const DEFAULT_CONTEXT = Context.Any;
+export const DEFAULT_THEME = '*';
 
 /**
  * Factory to allow us to inject getThemeConfigFor so we can mock it in tests

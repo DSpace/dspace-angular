@@ -3,7 +3,10 @@ import { hasNoValue, hasValue } from '../empty.util';
 import { Context } from '../../core/shared/context.model';
 import { InjectionToken } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { resolveTheme } from '../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  resolveTheme,
+  DEFAULT_THEME, DEFAULT_CONTEXT
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 
 export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
   providedIn: 'root',
@@ -14,8 +17,6 @@ export const map = new Map();
 
 export const DEFAULT_ENTITY_TYPE = 'Publication';
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
-export const DEFAULT_CONTEXT = Context.Any;
-export const DEFAULT_THEME = '*';
 
 /**
  * Decorator function to store metadata representation mapping
