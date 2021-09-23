@@ -6,6 +6,9 @@ import { map, take } from 'rxjs/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import {
+  getFirstSucceededRemoteDataPayload,
+} from '../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-relationships-items-actions',
@@ -105,8 +108,7 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
     const relationshipType = this.customData.entityType;
     relationships.forEach( relation => {
       relation.leftItem.pipe(
-        map((itemRd: RemoteData<Item>) => itemRd.payload),
-        take(1)
+        getFirstSucceededRemoteDataPayload(),
       ).subscribe( (item: Item) => {
         if (relation.leftwardValue.toLowerCase().includes('select') && relation.leftwardValue.toLowerCase().includes('is' + relationshipType) && this.object.uuid === item.uuid) {
           this.isSelected = relation;
@@ -127,8 +129,7 @@ export class RelationshipsItemsActionsComponent implements OnInit,OnDestroy {
 
     relationships.forEach( relation => {
       relation.leftItem.pipe(
-        map((itemRd: RemoteData<Item>) => itemRd.payload),
-        take(1)
+        getFirstSucceededRemoteDataPayload(),
       ).subscribe( (item: Item) => {
         if (relation.leftwardValue.toLowerCase().includes('hidden') && relation.leftwardValue.toLowerCase().includes('is' + relationshipType) && this.object.uuid === item.uuid) {
           this.isHidden = relation;

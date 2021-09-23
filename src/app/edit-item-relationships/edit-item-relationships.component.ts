@@ -176,7 +176,8 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
       this.itemRD$.pipe(
         getRemoteDataPayload(),
         switchMap((item: Item) => this.relationshipService.getItemRelationshipsAsArrayAll(item,
-          followLink('leftItem')
+          followLink('leftItem'),
+          followLink('relationshipType'),
         ))
       ).subscribe((relationships: Relationship[]) => {
         console.log('retrieveRelationships', relationships);
