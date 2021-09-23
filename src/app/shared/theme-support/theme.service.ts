@@ -1,12 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Store, createFeatureSelector, createSelector, select, Action } from '@ngrx/store';
+import { Injectable, Inject } from '@angular/core';
+import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
-import { expand, filter, map, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
+import { expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { act, Actions, ofType } from '@ngrx/effects';
-import { ResolvedAction, ResolverActionTypes } from '../../core/resolving/resolver.actions';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
@@ -14,7 +12,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload
 } from '../../core/shared/operators';
-import { combineLatest as observableCombineLatest, EMPTY, of as observableOf } from 'rxjs';
+import { EMPTY, of as observableOf } from 'rxjs';
 import { Theme, ThemeConfig, themeFactory } from '../../../config/theme.model';
 import { NO_OP_ACTION_TYPE, NoOpAction } from '../ngrx/no-op.action';
 import { followLink } from '../utils/follow-link-config.model';
@@ -22,6 +20,7 @@ import { LinkService } from '../../core/cache/builders/link.service';
 import { environment } from '../../../environments/environment';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ActivatedRouteSnapshot } from '@angular/router';
+import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 
 export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 
@@ -46,9 +45,9 @@ export class ThemeService {
 
   constructor(
     private store: Store<ThemeState>,
-    private actions$: Actions,
     private linkService: LinkService,
     private dSpaceObjectDataService: DSpaceObjectDataService,
+    @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig));
@@ -244,4 +243,10 @@ export class ThemeService {
     });
   }
 
+  /**
+   * Searches for a ThemeConfig by its name;
+   */
+  getThemeConfigFor(themeName: string): ThemeConfig {
+    return this.gtcf(themeName);
+  }
 }
