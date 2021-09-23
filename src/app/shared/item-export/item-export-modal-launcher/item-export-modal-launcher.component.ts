@@ -31,7 +31,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
     return this.item ? 'Export' : 'Bulk Export';
   }
 
-  open() {
+  open(event) {
 
     if (this.item) {
 
