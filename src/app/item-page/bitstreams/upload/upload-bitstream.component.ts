@@ -108,9 +108,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     this.itemId = this.route.snapshot.params.id;
     this.entityType = this.route.snapshot.params['entity-type'];
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
-    this.bundlesRD$ = this.itemRD$.pipe(
-      switchMap((itemRD: RemoteData<Item>) => itemRD.payload.bundles)
-    );
+    this.bundlesRD$ = this.itemService.getBundles(this.itemId);
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;
     if (isNotEmpty(this.selectedBundleId)) {
       this.bundleService.findById(this.selectedBundleId).pipe(
