@@ -1193,6 +1193,8 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.select.collection.head": "Select a collection",
+
 
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
@@ -3730,6 +3732,7 @@
   "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
 
 
+  "unset.listelement.badge": "Untyped",
 
   "uploader.browse": "browse",
 

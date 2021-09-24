@@ -11,6 +11,9 @@ export const externalSourceOrcid: ExternalSource = {
     entries: {
       href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/orcid/entries'
     },
+    entityTypes: {
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes'
+    },
     self: {
       href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/orcid'
     }
@@ -26,6 +29,9 @@ export const externalSourceCiencia: ExternalSource = {
     entries: {
       href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/ciencia/entries'
     },
+    entityTypes: {
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes'
+    },
     self: {
       href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/ciencia'
     }
@@ -40,6 +46,9 @@ export const externalSourceMyStaffDb: ExternalSource = {
   _links: {
     entries: {
       href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entries'
+    },
+    entityTypes: {
+      href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db/entityTypes'
     },
     self: {
       href: 'https://dspace7.4science.cloud/server/api/integration/externalsources/my_staff_db'
