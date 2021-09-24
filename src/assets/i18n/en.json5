@@ -3227,6 +3227,8 @@
 
   "submission.import-external.title.Publication": "Import a publication from an external source",
 
+  "submission.import-external.title.unset": "Import metadata from an external source",
+
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
   "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
