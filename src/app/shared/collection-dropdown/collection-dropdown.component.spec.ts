@@ -226,23 +226,11 @@ describe('CollectionDropdownComponent', () => {
   });
 
   it('should emit hasChoice true when totalElements is greater then one', () => {
-    spyOn(component.hasChoice, 'emit').and.callThrough();
+    spyOn(component.searchComplete, 'emit').and.callThrough();
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.hasChoice.emit).toHaveBeenCalledWith(true);
-  });
-
-  it('should emit hasChoice false when totalElements is not greater then one', () => {
-
-    componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedEmptyCollectionRD$);
-    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedEmptyCollectionRD$);
-
-    spyOn(component.hasChoice, 'emit').and.callThrough();
-    component.ngOnInit();
-    fixture.detectChanges();
-
-    expect(component.hasChoice.emit).toHaveBeenCalledWith(false);
+    expect(component.searchComplete.emit).toHaveBeenCalledWith();
   });
 
   it('should emit theOnlySelectable when totalElements is equal to one', () => {

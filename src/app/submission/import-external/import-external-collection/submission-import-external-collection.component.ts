@@ -22,9 +22,9 @@ export class SubmissionImportExternalCollectionComponent {
   public entityType: string;
 
   /**
-   * If a collection choice is available
+   * If collection searching is pending or not
    */
-  public hasChoice: boolean = null;
+  public loading = true;
 
   /**
    * Initialize the component variables.
@@ -60,14 +60,15 @@ export class SubmissionImportExternalCollectionComponent {
    * Set the hasChoice state
    * @param hasChoice
    */
-  public onHasChoice(hasChoice: boolean) {
-    this.hasChoice = hasChoice;
+  public searchComplete() {
+    this.loading = false;
   }
 
   /**
    * If the component is in loading state.
    */
   public isLoading(): boolean {
-    return this.hasChoice !== true;
+    return !!this.loading;
   }
+
 }
