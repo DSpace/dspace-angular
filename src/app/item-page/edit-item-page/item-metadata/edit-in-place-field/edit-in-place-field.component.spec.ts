@@ -472,7 +472,8 @@ describe('EditInPlaceFieldComponent', () => {
         fixture.detectChanges();
       });
       it('can edit metadata field', () => {
-        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions')).componentInstance.disable
+        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions'))
+          .componentInstance.disable;
        expect(disabledMetadataField).toBe(false);
       });
     });
@@ -483,7 +484,8 @@ describe('EditInPlaceFieldComponent', () => {
         fixture.detectChanges();
       });
       it('can edit metadata field', () => {
-        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions')).componentInstance.disable
+        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions'))
+          .componentInstance.disable;
         expect(disabledMetadataField).toBe(true);
       });
     });
@@ -494,7 +496,8 @@ describe('EditInPlaceFieldComponent', () => {
         fixture.detectChanges();
       });
       it('can edit metadata field', () => {
-        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions')).componentInstance.disable
+        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions'))
+          .componentInstance.disable;
         expect(disabledMetadataField).toBe(true);
       });
     });

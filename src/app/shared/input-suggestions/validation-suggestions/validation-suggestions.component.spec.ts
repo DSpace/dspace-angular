@@ -68,11 +68,11 @@ describe('ValidationSuggestionsComponent', () => {
       });
       it('it should be true', () => {
         fixture.detectChanges();
-        let input = fixture.debugElement.query(By.css('input'));
-        let el = input.nativeElement;
-        expect(el.readOnly).toBe(true)
+        const input = fixture.debugElement.query(By.css('input'));
+        const element = input.nativeElement;
+        expect(element.readOnly).toBe(true);
       });
-    })
+    });
     describe('test input field readonly property when input disable is false', () => {
       beforeEach(() => {
         comp.disable = false;
@@ -80,10 +80,10 @@ describe('ValidationSuggestionsComponent', () => {
       });
       it('it should be true', () => {
         fixture.detectChanges();
-        let input = fixture.debugElement.query(By.css('input'));
-        let el = input.nativeElement;
-        expect(el.readOnly).toBe(false)
+        const input = fixture.debugElement.query(By.css('input'));
+        const element = input.nativeElement;
+        expect(element.readOnly).toBe(false);
       });
-    })
-  })
+    });
+  });
 });
