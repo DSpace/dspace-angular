@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,
@@ -33,6 +33,7 @@ import { RequestService } from '../../../core/data/request.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -187,6 +188,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * This method will initialise the page
    */
   initialisePage() {
+
     observableCombineLatest(
       this.translateService.get(`${this.messagePrefix}.firstName`),
       this.translateService.get(`${this.messagePrefix}.lastName`),
@@ -219,9 +221,13 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         name: 'email',
         validators: {
           required: null,
-          pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+          pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
         },
         required: true,
+        errorMessages: {
+            emailTaken: 'error.validation.emailTaken',
+            pattern: 'error.validation.NotValidEmail'
+        },
         hint: emailHint
       });
       this.canLogIn = new DynamicCheckboxModel(
@@ -261,6 +267,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           requireCertificate: eperson != null ? eperson.requireCertificate : false
         });
       }));
+
+      if (!!this.formGroup.controls.email) {
+        this.formGroup.controls.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.epersonService));
+      }
 
       const activeEPerson$ = this.epersonService.getActiveEPerson();
 
