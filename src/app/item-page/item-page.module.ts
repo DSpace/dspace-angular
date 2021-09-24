@@ -32,6 +32,7 @@ import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/med
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -77,7 +78,8 @@ const DECLARATIONS = [
     NgxGalleryModule,
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
+    VersionedItemComponent
   ],
   exports: [
     ...DECLARATIONS

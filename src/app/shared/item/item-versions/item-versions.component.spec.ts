@@ -11,7 +11,7 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -21,12 +21,14 @@ import { FormBuilder } from '@angular/forms';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 
-describe('ItemVersionsComponent', () => {
+fdescribe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
   let fixture: ComponentFixture<ItemVersionsComponent>;
   let authenticationService: AuthService;
   let authorizationService: AuthorizationDataService;
+  let versionHistoryService: VersionHistoryDataService;
 
   const versionHistory = Object.assign(new VersionHistory(), {
     id: '1'
@@ -37,16 +39,25 @@ describe('ItemVersionsComponent', () => {
     version: 1,
     created: new Date(2020, 1, 1),
     summary: 'first version',
-    versionhistory: createSuccessfulRemoteDataObject$(versionHistory)
+    versionhistory: createSuccessfulRemoteDataObject$(versionHistory),
+    _links: {
+      self: {
+        href: 'version2-url',
+      },
+    },
   });
   const version2 = Object.assign(new Version(), {
     id: '2',
     version: 2,
     summary: 'second version',
     created: new Date(2020, 1, 2),
-    versionhistory: createSuccessfulRemoteDataObject$(versionHistory)
+    versionhistory: createSuccessfulRemoteDataObject$(versionHistory),
+    _links: {
+      self: {
+        href: 'version2-url',
+      },
+    },
   });
-
   const versions = [version1, version2];
   versionHistory.versions = createSuccessfulRemoteDataObject$(createPaginatedList(versions));
 
@@ -74,42 +85,46 @@ describe('ItemVersionsComponent', () => {
   version1.item = createSuccessfulRemoteDataObject$(item1);
   version2.item = createSuccessfulRemoteDataObject$(item2);
 
-  const versionHistoryService = jasmine.createSpyObj('versionHistoryService', {
+  const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService', {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions))
   });
+  const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    }
+  );
+  const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+
 
   beforeEach(waitForAsync(() => {
-    authenticationService = jasmine.createSpyObj('authenticationService', {
-        isAuthenticated: observableOf(true),
-        setRedirectUrl: {}
-      }
-    );
-    authorizationService = jasmine.createSpyObj('authorizationService', {
-        isAuthorized: observableOf(true),
-      }
-    );
 
     TestBed.configureTestingModule({
       declarations: [ItemVersionsComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: PaginationService, useValue: new PaginationServiceStub() },
-        { provide: FormBuilder, useValue: new FormBuilder() },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: AuthService, useValue: authenticationService },
-        { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: VersionHistoryDataService, useValue: versionHistoryService },
-        { provide: ItemDataService, useValue: {} },
-        { provide: VersionDataService, useValue: {} },
+        {provide: PaginationService, useValue: new PaginationServiceStub()},
+        {provide: FormBuilder, useValue: new FormBuilder()},
+        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
+        {provide: AuthService, useValue: authenticationServiceSpy},
+        {provide: AuthorizationDataService, useValue: authorizationServiceSpy},
+        {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
+        {provide: ItemDataService, useValue: {}},
+        {provide: VersionDataService, useValue: {}},
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
+
+    versionHistoryService = TestBed.inject(VersionHistoryDataService);
+    authenticationService = TestBed.inject(AuthService);
+    authorizationService = TestBed.inject(AuthorizationDataService);
+
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemVersionsComponent);
     component = fixture.componentInstance;
     component.item = item1;
+    // component.displayActions = true;
     fixture.detectChanges();
   });
 
@@ -153,4 +168,27 @@ describe('ItemVersionsComponent', () => {
       expect(summary.nativeElement.textContent).toEqual(version.summary);
     });
   });
+
+  describe('when the user can only delete a version', () => {
+    beforeAll(waitForAsync(() => {
+      const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
+      authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
+    }));
+    beforeEach(() => {
+      component.displayActions = true;
+    });
+    it('should not disable the delete button', () => {
+      const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+      expect(rows.length).toBe(versions.length);
+      console.log(rows);
+      const btn = fixture.debugElement.query(By.css(`.version-row-element-delete`));
+
+      console.log(btn);
+    });
+    it('should disable other buttons', () => {
+      // expect
+    });
+  });
+
+
 });

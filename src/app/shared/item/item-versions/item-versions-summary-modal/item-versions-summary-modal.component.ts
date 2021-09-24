@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -12,17 +12,22 @@ export class ItemVersionsSummaryModalComponent {
   newVersionSummary: string;
   firstVersion = true;
 
+  @Output() createVersionEvent: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(
     protected activeModal: NgbActiveModal,
   ) {
   }
 
   onModalClose() {
+    console.log('onModalClose() dismiss modal');
     this.activeModal.dismiss();
   }
 
   onModalSubmit() {
-    this.activeModal.close(this.newVersionSummary);
+    console.log('onModalSubmit() emits \'' + this.newVersionSummary + '\'');
+    this.createVersionEvent.emit(this.newVersionSummary);
+    this.activeModal.close();
   }
 
 }

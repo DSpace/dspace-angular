@@ -44,6 +44,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { Router } from '@angular/router';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { ItemVersionsSharedService } from './item-versions-shared.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -167,7 +168,8 @@ export class ItemVersionsComponent implements OnInit {
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private router: Router,
-              protected authorizationService: AuthorizationDataService,
+              private itemVersionShared: ItemVersionsSharedService,
+              private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -324,41 +326,31 @@ export class ItemVersionsComponent implements OnInit {
    * @param version the version from which a new one will be created
    */
   createNewVersion(version: Version) {
-    const successMessageKey = 'item.version.create.notification.success';
-    const failureMessageKey = 'item.version.create.notification.failure';
     const versionNumber = version.version;
 
-    // Open modal
+    // Open modal and set current version number
     const activeModal = this.modalService.open(ItemVersionsSummaryModalComponent);
     activeModal.componentInstance.versionNumber = versionNumber;
 
-    // On modal submit/dismiss
-    activeModal.result.then((modalResult) => {
-      // TODO spostare in metodo
-      // TODO recuperare version history e invalidare cache
-      // this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
-      const summary = modalResult;
-      version.item.pipe(getFirstSucceededRemoteDataPayload()).subscribe((item) => {
-
-        const itemHref = item._links.self.href;
-
-        this.versionHistoryService.createVersion(itemHref, summary).pipe(take(1)).subscribe((postResult) => {
-          if (postResult.hasSucceeded) {
-            const newVersionNumber = postResult.payload.version;
-            this.notificationsService.success(null, this.translateService.get(successMessageKey, {version: newVersionNumber}));
-            console.log(version);
-            const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
-              tap((res) => {
-                this.versionHistoryService.invalidateVersionHistoryCache(res.id);
-              }),
-            );
-            this.getAllVersions(versionHistory$);
-          } else {
-            this.notificationsService.error(null, this.translateService.get(failureMessageKey));
-          }
-        });
-      });
-    });
+    // On createVersionEvent emitted create new version and notify
+    activeModal.componentInstance.createVersionEvent.pipe(
+      mergeMap((summary: string) => combineLatest([
+        of(summary),
+        version.item.pipe(getFirstSucceededRemoteDataPayload())
+      ])),
+      mergeMap(([summary, item]: [string, Item]) => this.itemVersionShared.createNewVersionAndNotify(item, summary)),
+      map((hasSucceeded: boolean) => {
+        if (hasSucceeded) {
+          const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
+            tap((res) => {
+              this.versionHistoryService.invalidateVersionHistoryCache(res.id);
+            }),
+          );
+          this.getAllVersions(versionHistory$);
+        }
+      }),
+      take(1),
+    ).subscribe();
   }
 
   /**
