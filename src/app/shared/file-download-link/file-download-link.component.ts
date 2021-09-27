@@ -3,9 +3,10 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { map } from 'rxjs/operators';
 import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-file-download-link',
@@ -23,6 +24,8 @@ export class FileDownloadLinkComponent implements OnInit {
    * Optional bitstream instead of href and file name
    */
   @Input() bitstream: Bitstream;
+
+  @Input() item: Item;
 
   /**
    * Additional css classes to apply to link
@@ -59,8 +62,8 @@ export class FileDownloadLinkComponent implements OnInit {
   }
 
   getBitstreamPath(canDownload: boolean, canRequestACopy: boolean) {
-    if (!canDownload && canRequestACopy) {
-      return getBitstreamRequestACopyRoute(this.bitstream);
+    if (!canDownload && canRequestACopy && hasValue(this.item)) {
+      return getBitstreamRequestACopyRoute(this.item, this.bitstream);
     }
     return getBitstreamDownloadRoute(this.bitstream);
   }

@@ -594,7 +594,10 @@
 
   "bitstream-request-a-copy.header": "Request a copy of the file",
 
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy",
+  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+
+  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
 
   "bitstream-request-a-copy.name.label": "Name *",
 

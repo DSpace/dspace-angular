@@ -7,6 +7,8 @@ import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Item } from '../../core/shared/item.model';
+import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -16,6 +18,7 @@ describe('FileDownloadLinkComponent', () => {
   let authorizationService: AuthorizationDataService;
 
   let bitstream: Bitstream;
+  let item: Item;
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -23,6 +26,12 @@ describe('FileDownloadLinkComponent', () => {
     });
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
+      _links: {
+        self: {href: 'obj-selflink'}
+      }
+    });
+    item = Object.assign(new Item(), {
+      uuid: 'itemUuid',
       _links: {
         self: {href: 'obj-selflink'}
       }
@@ -52,6 +61,7 @@ describe('FileDownloadLinkComponent', () => {
           fixture = TestBed.createComponent(FileDownloadLinkComponent);
           component = fixture.componentInstance;
           component.bitstream = bitstream;
+          component.item = item;
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
@@ -83,11 +93,12 @@ describe('FileDownloadLinkComponent', () => {
         beforeEach(() => {
           fixture = TestBed.createComponent(FileDownloadLinkComponent);
           component = fixture.componentInstance;
+          component.item = item;
           component.bitstream = bitstream;
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'request-a-copy').toString()}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: `${new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString()}?bitstream=${bitstream.uuid}`}));
           expect(component.canDownload$).toBeObservable(cold('--a', {a: false}));
 
         });
@@ -95,7 +106,7 @@ describe('FileDownloadLinkComponent', () => {
           scheduler.flush();
           fixture.detectChanges();
           const link = fixture.debugElement.query(By.css('a')).nativeElement;
-          expect(link.href).toContain(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'request-a-copy').toString());
+          expect(link.href).toContain(`${new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString()}?bitstream=${bitstream.uuid}`);
           const lock = fixture.debugElement.query(By.css('.fa-lock')).nativeElement;
           expect(lock).toBeTruthy();
         });
@@ -111,6 +122,7 @@ describe('FileDownloadLinkComponent', () => {
           fixture = TestBed.createComponent(FileDownloadLinkComponent);
           component = fixture.componentInstance;
           component.bitstream = bitstream;
+          component.item = item;
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {

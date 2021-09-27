@@ -4,7 +4,7 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
-import { getItemPageRoute } from './item-page/item-page-routing-paths';
+import { getItemModuleRoute, getItemPageRoute } from './item-page/item-page-routing-paths';
 import { hasValue } from './shared/empty.util';
 import { URLCombiner } from './core/url-combiner/url-combiner';
 
@@ -22,8 +22,9 @@ export function getBitstreamModuleRoute() {
 export function getBitstreamDownloadRoute(bitstream): string {
   return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
 }
-export function getBitstreamRequestACopyRoute(bitstream): string {
-  return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'request-a-copy').toString();
+export function getBitstreamRequestACopyRoute(item, bitstream): string {
+  const url = new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString();
+  return `${url}?bitstream=${bitstream.uuid}`;
 }
 
 export const ADMIN_MODULE_PATH = 'admin';

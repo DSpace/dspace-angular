@@ -21,10 +21,10 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { Item } from '../../core/shared/item.model';
-import { Bundle } from '../../core/shared/bundle.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Location } from '@angular/common';
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 
 
 describe('BitstreamRequestACopyPageComponent', () => {
@@ -38,6 +38,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
   let itemRequestDataService;
   let notificationsService;
   let location;
+  let bitstreamDataService;
 
   let item: Item;
   let bitstream: Bitstream;
@@ -71,14 +72,8 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
     item = Object.assign(new Item(), {uuid: 'item-uuid'});
 
-    const bundle = Object.assign(new Bundle(), {
-      uuid: 'bundle-uuid',
-      item: createSuccessfulRemoteDataObject$(item)
-    });
-
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
-      bundle: createSuccessfulRemoteDataObject$(bundle),
       _links: {
         content: {href: 'bitstream-content-link'},
         self: {href: 'bitstream-self-link'},
@@ -87,11 +82,18 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
     activatedRoute = {
       data: observableOf({
-        bitstream: createSuccessfulRemoteDataObject(
-          bitstream
+        dso: createSuccessfulRemoteDataObject(
+          item
         )
+      }),
+      queryParams: observableOf({
+        bitstream : bitstream.uuid
       })
     };
+
+    bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
+      findById: createSuccessfulRemoteDataObject$(bitstream)
+    });
 
     router = new RouterStub();
   }
@@ -109,6 +111,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         {provide: ItemRequestDataService, useValue: itemRequestDataService},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: DSONameService, useValue: new DSONameServiceMock()},
+        {provide: BitstreamDataService, useValue: bitstreamDataService},
       ]
     })
       .compileComponents();
@@ -143,7 +146,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
       it('show the form with no values filled in based on the user', () => {
         expect(component.name.value).toEqual('');
         expect(component.email.value).toEqual('');
-        expect(component.allfiles.value).toEqual('true');
+        expect(component.allfiles.value).toEqual('false');
         expect(component.message.value).toEqual('');
       });
     });
@@ -163,8 +166,38 @@ describe('BitstreamRequestACopyPageComponent', () => {
         fixture.detectChanges();
         expect(component.name.value).toEqual(eperson.name);
         expect(component.email.value).toEqual(eperson.email);
+        expect(component.allfiles.value).toEqual('false');
+        expect(component.message.value).toEqual('');
+      });
+    });
+    describe('when no bitstream was provided', () => {
+      beforeEach(waitForAsync(() => {
+        init();
+        activatedRoute = {
+          data: observableOf({
+            dso: createSuccessfulRemoteDataObject(
+              item
+            )
+          }),
+          queryParams: observableOf({
+          })
+        };
+        initTestbed();
+      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(BitstreamRequestACopyPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+      it('should set the all files value to true and disable the false value', () => {
+        expect(component.name.value).toEqual('');
+        expect(component.email.value).toEqual('');
         expect(component.allfiles.value).toEqual('true');
         expect(component.message.value).toEqual('');
+
+        const allFilesFalse = fixture.debugElement.query(By.css('#allfiles-false')).nativeElement;
+        expect(allFilesFalse.getAttribute('disabled')).toBeTruthy();
+
       });
     });
     describe('when the user has authorization to download the file', () => {

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
@@ -17,9 +17,10 @@ import { ItemRequestDataService } from '../../core/data/item-request-data.servic
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Item } from '../../core/shared/item.model';
 import { NotificationsService } from '../notifications/notifications.service';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Location } from '@angular/common';
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
@@ -30,14 +31,18 @@ import { Location } from '@angular/common';
  */
 export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
-  bitstream$: Observable<Bitstream>;
+  item$: Observable<Item>;
 
   canDownload$: Observable<boolean>;
   private subs: Subscription[] = [];
   requestCopyForm: FormGroup;
-  bitstream: Bitstream;
+
   item: Item;
   itemName: string;
+
+  bitstream$: Observable<Bitstream>;
+  bitstream: Bitstream;
+  bitstreamName: string;
 
   constructor(private location: Location,
               private translateService: TranslateService,
@@ -49,6 +54,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               private itemRequestDataService: ItemRequestDataService,
               private notificationsService: NotificationsService,
               private dsoNameService: DSONameService,
+              private bitstreamService: BitstreamDataService,
   ) {
   }
 
@@ -66,23 +72,25 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     });
 
 
-    this.bitstream$ = this.route.data.pipe(
-      map((data) => data.bitstream),
+    this.item$ = this.route.data.pipe(
+      map((data) => data.dso),
+      getFirstSucceededRemoteDataPayload()
+    );
+
+    this.subs.push(this.item$.subscribe((item) => {
+      this.item = item;
+      this.itemName = this.dsoNameService.getName(item);
+    }));
+
+    this.bitstream$ = this.route.queryParams.pipe(
+      filter((params) => hasValue(params) && hasValue(params.bitstream)),
+      switchMap((params) => this.bitstreamService.findById(params.bitstream)),
       getFirstSucceededRemoteDataPayload()
     );
 
     this.subs.push(this.bitstream$.subscribe((bitstream) => {
       this.bitstream = bitstream;
-    }));
-
-    this.subs.push(this.bitstream$.pipe(
-      switchMap((bitstream) => bitstream.bundle),
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((bundle) => bundle.item),
-      getFirstSucceededRemoteDataPayload(),
-    ).subscribe((item) => {
-      this.item = item;
-      this.itemName = this.dsoNameService.getName(item);
+      this.bitstreamName = this.dsoNameService.getName(bitstream);
     }));
 
     this.canDownload$ = this.bitstream$.pipe(
@@ -124,8 +132,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       this.requestCopyForm.patchValue({allfiles: 'true'});
       if (hasValue(user)) {
         this.requestCopyForm.patchValue({name: user.name, email: user.email});
-        console.log('ping');
       }
+    });
+    this.bitstream$.pipe(take(1)).subscribe((bitstream) => {
+      this.requestCopyForm.patchValue({allfiles: 'false'});
     });
   }
 
@@ -152,10 +162,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     const itemRequest = new ItemRequest();
-    if (hasValue(this.item)) {
-      itemRequest.itemId = this.item.uuid;
+    if (hasValue(this.bitstream)) {
+      itemRequest.bitstreamId = this.bitstream.uuid;
     }
-    itemRequest.bitstreamId = this.bitstream.uuid;
+    itemRequest.itemId = this.item.uuid;
     itemRequest.allfiles = this.allfiles.value;
     itemRequest.requestEmail = this.email.value;
     itemRequest.requestName = this.name.value;
@@ -188,6 +198,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    */
   navigateBack() {
     this.location.back();
+  }
+
+  getItemPath() {
+    return [getItemPageRoute(this.item)];
   }
 
   /**

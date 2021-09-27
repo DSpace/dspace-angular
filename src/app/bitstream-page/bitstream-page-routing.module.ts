@@ -46,14 +46,6 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         },
       },
       {
-        // Resolve angular bitstream download URLs
-        path: ':id/request-a-copy',
-        component: BitstreamRequestACopyPageComponent,
-        resolve: {
-          bitstream: BitstreamPageResolver
-        },
-      },
-      {
         path: EDIT_BITSTREAM_PATH,
         component: EditBitstreamPageComponent,
         resolve: {

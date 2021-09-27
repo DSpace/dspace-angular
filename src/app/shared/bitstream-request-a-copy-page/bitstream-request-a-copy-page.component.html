@@ -5,8 +5,9 @@
         <a [routerLink]="getBitstreamLink()">{{'bitstream-request-a-copy.alert.canDownload2'| translate}}</a>
     </div>
     <div>
-        <p>{{'bitstream-request-a-copy.intro' | translate}}</p>
-        <p>{{itemName}}</p>
+        <p>{{'bitstream-request-a-copy.intro' | translate}} <a [routerLink]="getItemPath()">{{itemName}}</a></p>
+        <p *ngIf="bitstream != undefined && allfiles.value === 'false'">{{'bitstream-request-a-copy.intro.bitstream.one' | translate}} {{bitstreamName}}</p>
+        <p *ngIf="allfiles.value === 'true'">{{'bitstream-request-a-copy.intro.bitstream.all' | translate}}</p>
     </div>
     <form [class]="'ng-invalid'" [formGroup]="requestCopyForm" (ngSubmit)="onSubmit()">
 
@@ -45,13 +46,13 @@
                     <div>{{'bitstream-request-a-copy.allfiles.label' |translate}}</div>
                     <div class="ml-4">
                         <input [className]="'form-check-input'" type="radio"
-                               id="allfiles-true" formControlName="allfiles" value="true" [checked]="true">
+                               id="allfiles-true" formControlName="allfiles" value="true">
                         <label class="form-check-label"
                                for="allfiles-true">{{'bitstream-request-a-copy.files-all-true.label' | translate}}</label>
                     </div>
                     <div class="ml-4">
                         <input [className]="'form-check-input'" type="radio"
-                               id="allfiles-false" formControlName="allfiles" value="false">
+                               id="allfiles-false" formControlName="allfiles" value="false" [attr.disabled]="bitstream === undefined ? true : null ">
                         <label class="form-check-label"
                                for="allfiles-false">{{'bitstream-request-a-copy.files-all-false.label' | translate}}</label>
                     </div>
