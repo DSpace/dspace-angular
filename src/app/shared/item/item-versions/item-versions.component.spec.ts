@@ -23,7 +23,7 @@ import { NotificationsServiceStub } from '../../testing/notifications-service.st
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 
-fdescribe('ItemVersionsComponent', () => {
+describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
   let fixture: ComponentFixture<ItemVersionsComponent>;
   let authenticationService: AuthService;
@@ -124,7 +124,7 @@ fdescribe('ItemVersionsComponent', () => {
     fixture = TestBed.createComponent(ItemVersionsComponent);
     component = fixture.componentInstance;
     component.item = item1;
-    // component.displayActions = true;
+    component.displayActions = true;
     fixture.detectChanges();
   });
 
@@ -174,21 +174,22 @@ fdescribe('ItemVersionsComponent', () => {
       const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
       authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
     }));
-    beforeEach(() => {
-      component.displayActions = true;
-    });
     it('should not disable the delete button', () => {
-      const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
-      expect(rows.length).toBe(versions.length);
-      console.log(rows);
-      const btn = fixture.debugElement.query(By.css(`.version-row-element-delete`));
-
-      console.log(btn);
+      const deleteButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-delete`));
+      deleteButtons.forEach((btn) => {
+        expect(btn.nativeElement.disabled).toBe(false);
+      });
     });
     it('should disable other buttons', () => {
-      // expect
+      const createButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
+      createButtons.forEach((btn) => {
+        expect(btn.nativeElement.disabled).toBe(true);
+      });
+      const editButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
+      editButtons.forEach((btn) => {
+        expect(btn.nativeElement.disabled).toBe(true);
+      });
     });
   });
-
 
 });

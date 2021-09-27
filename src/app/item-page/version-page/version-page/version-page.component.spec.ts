@@ -51,8 +51,7 @@ describe('VersionPageComponent', () => {
         { provide: VersionDataService, useValue: {} },
         { provide: AuthService, useValue: authService },
       ],
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
 
