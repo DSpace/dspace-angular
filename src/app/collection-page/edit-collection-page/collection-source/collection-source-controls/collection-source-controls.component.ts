@@ -22,14 +22,28 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
+/**
+ * Component that contains the controls to run, reset and test the harvest
+ */
 @Component({
   selector: 'ds-collection-source-controls',
   templateUrl: './collection-source-controls.component.html',
 })
 export class CollectionSourceControlsComponent implements OnDestroy {
 
+  /**
+   * Should the controls be enabled.
+   */
   @Input() isEnabled: boolean;
+
+  /**
+   * The current collection
+   */
   @Input() collection: Collection;
+
+  /**
+   * Should the control section be shown
+   */
   @Input() shouldShow: boolean;
 
   contentSource$: Observable<ContentSource>;
@@ -47,6 +61,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    // ensure the contentSource gets updated after being set to stale
     this.contentSource$ = this.collectionService.findByHref(this.collection._links.self.href, false).pipe(
       getAllSucceededRemoteDataPayload(),
       switchMap((collection) => this.collectionService.getContentSource(collection.uuid, false)),
@@ -54,6 +69,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
     );
   }
 
+  /**
+   * Tests the provided content source's configuration.
+   * @param contentSource - The content source to be tested
+   */
   testConfiguration(contentSource) {
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-g', value: null},
@@ -63,9 +82,11 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       getFirstCompletedRemoteData(),
       tap((rd) => {
         if (rd.hasFailed) {
+          // show a notification when the script invocation fails
           this.notificationsService.error(this.translateService.get('collection.source.controls.test.submit.error'));
         }
       }),
+      // filter out responses that aren't successful since the pinging of the process only needs to happen when the invocation was successful.
       filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
       switchMap((rd) => this.processDataService.findById(rd.payload.processId, false)),
       getAllCompletedRemoteData(),
@@ -75,6 +96,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
     ).subscribe((process: Process) => {
         if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
           process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
+          // Ping the current process state every 5s
           setTimeout(() => {
             this.requestService.setStaleByHrefSubstring(process._links.self.href);
           }, 5000);
@@ -83,12 +105,12 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.notificationsService.error(this.translateService.get('collection.source.controls.test.failed'));
         }
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
-          this.bitstreamService.findByHref(process._links.output.href, false).pipe(getFirstSucceededRemoteDataPayload()).subscribe((bitstream) => {
+          this.bitstreamService.findByHref(process._links.output.href).pipe(getFirstSucceededRemoteDataPayload()).subscribe((bitstream) => {
             this.httpClient.get(bitstream._links.content.href, {responseType: 'text'}).subscribe((data: any) => {
               const output = data.replaceAll(new RegExp('.*\\@(.*)', 'g'), '$1')
                 .replaceAll('The script has started', '')
                 .replaceAll('The script has completed', '');
-              this.notificationsService.success(this.translateService.get('collection.source.controls.test.completed'), output);
+              this.notificationsService.info(this.translateService.get('collection.source.controls.test.completed'), output);
             });
           });
         }
@@ -96,6 +118,9 @@ export class CollectionSourceControlsComponent implements OnDestroy {
     ));
   }
 
+  /**
+   * Start the harvest for the current collection
+   */
   importNow() {
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-r', value: null},
@@ -118,6 +143,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       ).subscribe((process) => {
           if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
             process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
+            // Ping the current process state every 5s
             setTimeout(() => {
               this.requestService.setStaleByHrefSubstring(process._links.self.href);
               this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
@@ -128,14 +154,15 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
           if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
             this.notificationsService.success(this.translateService.get('collection.source.controls.import.completed'));
-            setTimeout(() => {
               this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-            }, 5000);
           }
         }
       ));
   }
 
+  /**
+   * Reset and reimport the current collection
+   */
   resetAndReimport() {
     // TODO implement when a single option is present
   }
