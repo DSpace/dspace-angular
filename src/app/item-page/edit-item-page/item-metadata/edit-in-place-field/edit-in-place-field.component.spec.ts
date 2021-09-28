@@ -463,4 +463,43 @@ describe('EditInPlaceFieldComponent', () => {
     });
 
   });
+
+  describe('canEditMetadataField', () => {
+    describe('when the fieldUpdate\'s changeType is currently ADD', () => {
+      beforeEach(() => {
+        objectUpdatesService.isEditable.and.returnValue(observableOf(true));
+        comp.fieldUpdate.changeType = FieldChangeType.ADD;
+        fixture.detectChanges();
+      });
+      it('can edit metadata field', () => {
+        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions'))
+          .componentInstance.disable;
+       expect(disabledMetadataField).toBe(false);
+      });
+    });
+    describe('when the fieldUpdate\'s changeType is currently REMOVE', () => {
+      beforeEach(() => {
+        objectUpdatesService.isEditable.and.returnValue(observableOf(true));
+        comp.fieldUpdate.changeType = FieldChangeType.REMOVE;
+        fixture.detectChanges();
+      });
+      it('can edit metadata field', () => {
+        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions'))
+          .componentInstance.disable;
+        expect(disabledMetadataField).toBe(true);
+      });
+    });
+    describe('when the fieldUpdate\'s changeType is currently UPDATE', () => {
+      beforeEach(() => {
+        objectUpdatesService.isEditable.and.returnValue(observableOf(true));
+        comp.fieldUpdate.changeType = FieldChangeType.UPDATE;
+        fixture.detectChanges();
+      });
+      it('can edit metadata field', () => {
+        const disabledMetadataField = fixture.debugElement.query(By.css('ds-validation-suggestions'))
+          .componentInstance.disable;
+        expect(disabledMetadataField).toBe(true);
+      });
+    });
+  });
 });

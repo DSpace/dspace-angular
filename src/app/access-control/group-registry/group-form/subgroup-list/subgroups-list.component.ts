@@ -17,6 +17,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -117,7 +118,10 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         switchMap((config) => this.groupDataService.findAllByHref(this.groupBeingEdited._links.subgroups.href, {
             currentPage: config.currentPage,
             elementsPerPage: config.pageSize
-          }
+          },
+          true,
+          true,
+          followLink('object')
         ))
       ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
         this.subGroups$.next(rd);
@@ -217,7 +221,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       switchMap((config) => this.groupDataService.searchGroups(this.currentSearchQuery, {
         currentPage: config.currentPage,
         elementsPerPage: config.pageSize
-      }))
+      }, true, true, followLink('object')
+      ))
     ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
       this.searchResults$.next(rd);
     }));
