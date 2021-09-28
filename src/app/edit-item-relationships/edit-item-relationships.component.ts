@@ -172,7 +172,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * Get all relationships of the relation to manage
    */
   retrieveRelationships(): void {
-    console.log("retrieveRelationships");
+    console.log('retrieveRelationships');
     // this.subs.push(
       this.itemRD$.pipe(
         getRemoteDataPayload(),
@@ -186,7 +186,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           .filter((relation) => !!relation.leftwardValue && relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
         this.relationshipResults$.next(relations);
         this.isInit = true;
-      })
+      });
       // );
   }
 
@@ -258,6 +258,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   updateRelationship(relationship: Relationship): void {
     this.relationshipService.updateRightPlace(relationship).pipe(take(1))
+      // tslint:disable-next-line:no-empty
       .subscribe((res) => {
       }, (err) => {
         this.retrieveRelationships();
