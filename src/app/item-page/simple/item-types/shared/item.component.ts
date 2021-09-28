@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
+import {RouteService} from '../../../../core/services/route.service';
+import {Observable} from 'rxjs';
+import {getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled} from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',
@@ -18,9 +21,24 @@ export class ItemComponent implements OnInit {
    */
   itemPageRoute: string;
 
+  iiifEnabled: boolean;
+
+  iiifSearchEnabled: boolean;
+
+  iiifQuery$: Observable<string>;
+
   mediaViewer = environment.mediaViewer;
+
+  constructor(protected routeService: RouteService) {
+  }
 
   ngOnInit(): void {
     this.itemPageRoute = getItemPageRoute(this.object);
+    // Should iiif metadata be evaluated in the base component?
+    this.iiifEnabled = isIiifEnabled(this.object);
+    this.iiifSearchEnabled = isIiifSearchEnabled(this.object);
+    if (this.iiifSearchEnabled) {
+      this.iiifQuery$ = getDSpaceQuery(this.object, this.routeService);
+    }
   }
 }

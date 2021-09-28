@@ -13,6 +13,13 @@
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
+    <ng-container *ngIf="iiifEnabled">
+      <ds-mirador-viewer id="iiif-viewer"
+                         [item]="object"
+                         [searchable]="iiifSearchEnabled"
+                         [query]="iiifQuery$ | async">
+      </ds-mirador-viewer>
+    </ng-container>
     <ng-container *ngIf="mediaViewer.image">
       <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>

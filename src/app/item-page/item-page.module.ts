@@ -26,11 +26,11 @@ import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
-import { IIIFEntitiesModule } from '../entity-groups/iiif-entities/iiif-entities.module';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -59,7 +59,8 @@ const DECLARATIONS = [
   AbstractIncrementalListComponent,
   MediaViewerComponent,
   MediaViewerVideoComponent,
-  MediaViewerImageComponent
+  MediaViewerImageComponent,
+  MiradorViewerComponent
 ];
 
 @NgModule({
@@ -71,7 +72,6 @@ const DECLARATIONS = [
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
-    IIIFEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
   ],
   declarations: [
