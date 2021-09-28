@@ -1,26 +1,32 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
 import { AuditItemMenuComponent } from './audit-item-menu.component';
+import { AuthService } from '../../../core/auth/auth.service';
 
 describe('AuditItemMenuComponent', () => {
   let component: AuditItemMenuComponent;
   let componentAsAny: any;
   let fixture: ComponentFixture<AuditItemMenuComponent>;
   let scheduler: TestScheduler;
-
   let dso: DSpaceObject;
 
-  beforeEach(async(() => {
+  const authServiceStub = jasmine.createSpyObj('authorizationService', {
+    getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
+    isAuthenticated: jasmine.createSpy('isAuthenticated')
+  });
+
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
@@ -42,6 +48,7 @@ describe('AuditItemMenuComponent', () => {
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
+        { provide: AuthService, useValue: authServiceStub },
       ]
     }).compileComponents();
   }));
@@ -58,9 +65,27 @@ describe('AuditItemMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render a button', () => {
-    const link = fixture.debugElement.query(By.css('button'));
-    expect(link).not.toBeNull();
+  describe('when the user is authenticated', () => {
+    beforeEach(() => {
+      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+      fixture.detectChanges();
+    });
+    it('should render a button', () => {
+      const link = fixture.debugElement.query(By.css('button'));
+      expect(link).not.toBeNull();
+    });
+
   });
 
+  describe('when the user is not authenticated', () => {
+    beforeEach(() => {
+      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+    it('should render a button', () => {
+      const link = fixture.debugElement.query(By.css('button'));
+      expect(link).toBeNull();
+    });
+
+  });
 });
