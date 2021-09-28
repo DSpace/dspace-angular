@@ -107,6 +107,7 @@ export class SubscriptionModalComponent implements OnInit {
    * If no subscription start with an empty form
    */
   initSubscription(): void {
+    this.subscriptions = [];
     this.processing$.next(true);
     this.getSubscription(this.eperson, this.dso?.uuid).subscribe( (subscriptionsRes: PaginatedList<Subscription>) => {
 
