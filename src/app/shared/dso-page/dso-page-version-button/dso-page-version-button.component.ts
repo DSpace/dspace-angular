@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { Item } from '../../../core/shared/item.model';
-import { switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
@@ -43,7 +43,7 @@ export class DsoPageVersionButtonComponent implements OnInit {
    */
   isAuthorized$: Observable<boolean>;
 
-  hasDraftVersion$: Observable<boolean>;
+  disableNewVersionButton$: Observable<boolean>;
 
   tooltipMsg$: Observable<string>;
 
@@ -62,8 +62,16 @@ export class DsoPageVersionButtonComponent implements OnInit {
 
   ngOnInit() {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.dso.self);
-    this.hasDraftVersion$ = this.versionHistoryService.hasDraftVersion$(this.dso._links.version.href);
-    this.tooltipMsg$ = this.hasDraftVersion$.pipe(
+    console.log('href = ' + this.dso._links.version.href);
+
+    this.disableNewVersionButton$ = this.versionHistoryService.hasDraftVersion$(this.dso._links.version.href).pipe(
+      // button is disabled if hasDraftVersion = true, and enabled if hasDraftVersion = false or null
+      // (hasDraftVersion is null when a version history does not exist)
+      map((res) => Boolean(res)),
+      startWith(true),
+    );
+
+    this.tooltipMsg$ = this.disableNewVersionButton$.pipe(
       switchMap((hasDraftVersion) => of(hasDraftVersion ? this.tooltipMsgHasDraft : this.tooltipMsgCreate)),
     );
   }

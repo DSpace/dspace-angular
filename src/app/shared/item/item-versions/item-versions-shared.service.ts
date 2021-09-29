@@ -31,20 +31,20 @@ export class ItemVersionsSharedService {
    * @param item the item from which a new version will be created
    * @param summary the optional summary for the new version
    */
-  createNewVersionAndNotify(item: Item, summary: string): Observable<boolean> {
+  createNewVersionAndNotify(item: Item, summary: string): Observable<RemoteData<Version>> {
     return this.versionHistoryService.createVersion(item._links.self.href, summary).pipe(
       switchMap((postResult: RemoteData<Version>) => {
-        const newVersionNumber = postResult?.payload.version;
-        this.createNewVersionNotify(postResult.hasSucceeded, newVersionNumber);
-        return of(postResult.hasSucceeded);
+        const newVersionNumber = postResult?.payload?.version;
+        this.notifyCreateNewVersion(postResult.hasSucceeded, postResult.statusCode, newVersionNumber);
+        return of(postResult);
       })
     );
   }
 
-  private createNewVersionNotify(success: boolean, newVersionNumber: number) {
+  private notifyCreateNewVersion(success: boolean, statusCode: number, newVersionNumber: number) {
     success ?
       this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), {version: newVersionNumber})) :
-      this.notificationsService.error(null, this.translateService.get(ItemVersionsSharedService.msg('failure')));
+      this.notificationsService.error(null, this.translateService.get(ItemVersionsSharedService.msg(statusCode === 422 ? 'inProgress' : 'failure')));
   }
 
 }

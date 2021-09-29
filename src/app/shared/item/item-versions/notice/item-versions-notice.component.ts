@@ -10,7 +10,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../../../../core/shared/operators';
-import { startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { AlertType } from '../../../alert/aletr-type';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
@@ -48,7 +48,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
    * Is the item's version equal to the latest version from the version history?
    * This will determine whether or not to display a notice linking to the latest version
    */
-  isLatestVersion$: Observable<boolean>;
+  showLatestVersionNotice$: Observable<boolean>;
 
   /**
    * Pagination options to fetch a single version on the first page (this is the latest version in the history)
@@ -81,10 +81,11 @@ export class ItemVersionsNoticeComponent implements OnInit {
         switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh))
       );
 
-      this.isLatestVersion$ = this.versionRD$.pipe(
+      this.showLatestVersionNotice$ = this.versionRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((version) => this.versionHistoryService.isLatest$(version)),
-        startWith(true),
+        map((isLatest) => isLatest != null && !isLatest),
+        startWith(false),
       );
     }
   }

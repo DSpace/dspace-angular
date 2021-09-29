@@ -20,12 +20,10 @@ export class ItemVersionsSummaryModalComponent {
   }
 
   onModalClose() {
-    console.log('onModalClose() dismiss modal');
     this.activeModal.dismiss();
   }
 
   onModalSubmit() {
-    console.log('onModalSubmit() emits \'' + this.newVersionSummary + '\'');
     this.createVersionEvent.emit(this.newVersionSummary);
     this.activeModal.close();
   }

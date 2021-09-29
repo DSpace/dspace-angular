@@ -223,7 +223,9 @@ export class ItemVersionsComponent implements OnInit {
     const successMessageKey = 'item.version.edit.notification.success';
     const failureMessageKey = 'item.version.edit.notification.failure';
 
-    this.versionService.findById(this.versionBeingEditedId).pipe(getFirstSucceededRemoteData()).subscribe(
+    this.versionService.findById(this.versionBeingEditedId).pipe(
+      getFirstSucceededRemoteData(),
+    ).subscribe(
       (findRes) => {
         const updatedVersion =
           Object.assign({}, findRes.payload, {
@@ -231,9 +233,16 @@ export class ItemVersionsComponent implements OnInit {
           });
         this.versionService.update(updatedVersion).pipe(take(1)).subscribe(
           (updateRes) => {
-            // TODO check
             if (updateRes.hasSucceeded) {
               this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
+
+              // const versionHistory$ = this.versionHistoryRD$.pipe(
+              //   getAllSucceededRemoteData(),
+              //   getRemoteDataPayload(),
+              //   hasValueOperator(),
+              // );
+              // this.getAllVersions(versionHistory$);
+
             } else {
               this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
             }
@@ -257,7 +266,7 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   /**
-   * Deletes the specified version
+   * Deletes the specified version, notify the success/failure and redirect to latest version
    * @param version the version to be deleted
    * @param redirectToLatest force the redirect to the latest version in the history
    */
@@ -274,32 +283,25 @@ export class ItemVersionsComponent implements OnInit {
 
     // On modal submit/dismiss
     activeModal.result.then(() => {
-
-      // let versionHistoryOuter: VersionHistory;
-
       versionItem$.pipe(
         getFirstSucceededRemoteDataPayload<Item>(),
+        // Retrieve version history and invalidate cache
         mergeMap((item: Item) => combineLatest([
-          // pass item
           of(item),
-          // get and return version history
           this.versionHistoryService.getVersionHistoryFromVersion$(version).pipe(
-            // invalidate cache
             tap((versionHistory) => {
               this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
             })
           )
         ])),
+        // Delete item
         mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
-          // delete item and return result
           this.deleteItemAndGetResult$(item),
-          // pass version history
           of(versionHistory)
         ])),
+        // Retrieve new latest version
         mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
-          // pass result
           of(deleteItemResult),
-          // get and return new latest version
           this.versionHistoryService.getLatestVersionItemFromHistory$(versionHistory).pipe(
             tap(() => {
               this.getAllVersions(of(versionHistory));
@@ -307,12 +309,12 @@ export class ItemVersionsComponent implements OnInit {
           )
         ])),
       ).subscribe(([deleteHasSucceeded, newLatestVersionItem]) => {
+        // Notify operation result and redirect to latest item
         if (deleteHasSucceeded) {
           this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
         } else {
           this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
         }
-        console.log('LATEST VERSION = ' + newLatestVersionItem.uuid);
         if (redirectToLatest) {
           const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
           this.router.navigateByUrl(path);
@@ -339,8 +341,8 @@ export class ItemVersionsComponent implements OnInit {
         version.item.pipe(getFirstSucceededRemoteDataPayload())
       ])),
       mergeMap(([summary, item]: [string, Item]) => this.itemVersionShared.createNewVersionAndNotify(item, summary)),
-      map((hasSucceeded: boolean) => {
-        if (hasSucceeded) {
+      map((newVersionRD: RemoteData<Version>) => {
+        if (newVersionRD.hasSucceeded) {
           const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
             tap((res) => {
               this.versionHistoryService.invalidateVersionHistoryCache(res.id);
@@ -394,10 +396,18 @@ export class ItemVersionsComponent implements OnInit {
     if (hasValue(this.item.version)) {
       this.versionRD$ = this.item.version;
       this.versionHistoryRD$ = this.versionRD$.pipe(
+        // switchMap( (res) => {
+        //   if (res.hasFailed) {
+        //     return of(createFailedRemoteDataObject<VersionHistory>());
+        //   } else {
+        //     return of(res).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),
-        switchMap((version: Version) => version.versionhistory)
+        switchMap((version: Version) => version.versionhistory),
+        //     );
+        //  }
+        // }),
       );
 
       this.canCreateVersion$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.item.self);
@@ -405,7 +415,7 @@ export class ItemVersionsComponent implements OnInit {
       // If there is a draft item in the version history the 'Create version' button is disabled and a different tooltip message is shown
       this.hasDraftVersion$ = this.versionHistoryRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
-        map((res) => res.draftVersion)
+        map((res) => Boolean(res?.draftVersion)),
       );
       this.createVersionTitle$ = this.hasDraftVersion$.pipe(
         take(1),

@@ -16,7 +16,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -138,40 +138,50 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
   }
 
   /**
-   * Get the latest version
+   * Get the latest version (return null if the specified version is null)
    * @param version
    */
   getLatestVersion$(version: Version): Observable<Version> {
     // retrieve again version, including with versionHistory
-    return this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
+    return version.id ? this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((res) => res.versionhistory),
       getFirstSucceededRemoteDataPayload(),
       switchMap((versionHistoryRD) => this.getLatestVersionFromHistory$(versionHistoryRD)),
-    );
+    ) : of(null);
   }
 
   /**
-   * Check if the given version is the latest
+   * Check if the given version is the latest (return null if `version` is null)
    * @param version
+   * @returns `true` if the specified version is the latest one, `false` otherwise, or `null` if the specified version is null
    */
   isLatest$(version: Version): Observable<boolean> {
-    return this.getLatestVersion$(version).pipe(
+    return version ? this.getLatestVersion$(version).pipe(
       take(1),
       switchMap((latestVersion) => of(version.version === latestVersion.version))
-    );
+    ) : of(null);
   }
 
   /**
-   * Check if a worskpace item exists in the version history
+   * Check if a worskpace item exists in the version history (return null if there is no version history)
    * @param versionHref the href of the version
+   * @returns `true` if a workspace item exists, `false` otherwise, or `null` if a version history does not exist
    */
   hasDraftVersion$(versionHref: string): Observable<boolean> {
     return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((version) => this.versionDataService.getHistoryFromVersion$(version)),
-      map((versionHistory) => versionHistory.draftVersion),
-      startWith(false),
+      take(1),
+      switchMap((res) => {
+        if (res.hasSucceeded && !res.hasNoContent) {
+          return of(res).pipe(
+            getFirstSucceededRemoteDataPayload(),
+            switchMap((version) => this.versionDataService.getHistoryFromVersion$(version)),
+            map((versionHistory) => versionHistory ? versionHistory.draftVersion : false),
+          );
+        } else {
+          return of(false);
+        }
+      }),
     );
   }
 

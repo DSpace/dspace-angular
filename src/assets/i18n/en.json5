@@ -2022,6 +2022,8 @@
 
   "item.version.create.notification.failure" : "New version has not been created",
 
+  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+
 
   "item.version.delete.modal.header": "Delete version",
 

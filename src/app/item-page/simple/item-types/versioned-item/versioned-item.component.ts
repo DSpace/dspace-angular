@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
 import { ItemComponent } from '../shared/item.component';
 import { ItemVersionsSummaryModalComponent } from '../../../../shared/item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Version } from '../../../../core/shared/version.model';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
+import { Router } from '@angular/router';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { Item } from '../../../../core/shared/item.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 @Component({
   selector: 'ds-versioned-item',
@@ -24,6 +30,10 @@ export class VersionedItemComponent extends ItemComponent {
     private translateService: TranslateService,
     private versionService: VersionDataService,
     private itemVersionShared: ItemVersionsSharedService,
+    private router: Router,
+    private workspaceitemDataService: WorkspaceitemDataService,
+    private searchService: SearchService,
+    private itemService: ItemDataService,
   ) {
     super();
   }
@@ -49,7 +59,17 @@ export class VersionedItemComponent extends ItemComponent {
     // On createVersionEvent emitted create new version and notify
     activeModal.componentInstance.createVersionEvent.pipe(
       switchMap((summary: string) => this.itemVersionShared.createNewVersionAndNotify(item, summary)),
-      take(1)
-    ).subscribe();
+      getFirstSucceededRemoteDataPayload<Version>(),
+      switchMap((newVersion: Version) => this.itemService.findByHref(newVersion._links.item.href)),
+      getFirstSucceededRemoteDataPayload<Item>(),
+      switchMap((newVersionItem: Item) => this.workspaceitemDataService.findByItem(newVersionItem.uuid)),
+      getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
+    ).subscribe((wsItem) => {
+      const wsiId = wsItem.id;
+      console.log(wsiId);
+      const route = 'workspaceitems/' + wsiId + '/edit';
+      this.router.navigateByUrl(route);
+    });
+
   }
 }
