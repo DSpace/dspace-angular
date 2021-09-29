@@ -12,6 +12,11 @@ import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Component } from '@angular/core';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -19,22 +24,31 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 
+
+@Component({template: ''})
+class DummyComponent {
+}
+
 describe('VersionedItemComponent', () => {
   let component: VersionedItemComponent;
   let fixture: ComponentFixture<VersionedItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VersionedItemComponent ],
+      declarations: [VersionedItemComponent, DummyComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: VersionHistoryDataService, useValue: {} },
         { provide: TranslateService, useValue: {} },
         { provide: VersionDataService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

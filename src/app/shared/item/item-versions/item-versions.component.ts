@@ -225,30 +225,20 @@ export class ItemVersionsComponent implements OnInit {
 
     this.versionService.findById(this.versionBeingEditedId).pipe(
       getFirstSucceededRemoteData(),
-    ).subscribe(
-      (findRes) => {
-        const updatedVersion =
-          Object.assign({}, findRes.payload, {
-            summary: this.versionBeingEditedSummary,
-          });
-        this.versionService.update(updatedVersion).pipe(take(1)).subscribe(
-          (updateRes) => {
-            if (updateRes.hasSucceeded) {
-              this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
-
-              // const versionHistory$ = this.versionHistoryRD$.pipe(
-              //   getAllSucceededRemoteData(),
-              //   getRemoteDataPayload(),
-              //   hasValueOperator(),
-              // );
-              // this.getAllVersions(versionHistory$);
-
-            } else {
-              this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
-            }
-            this.disableSummaryEditing();
-          }
-        );
+      switchMap((findRes: RemoteData<Version>) => {
+        const payload = findRes.payload;
+        const summary = {summary: this.versionBeingEditedSummary,};
+        const updatedVersion = Object.assign({}, payload, summary);
+        return this.versionService.update(updatedVersion).pipe(getFirstCompletedRemoteData<Version>());
+      }),
+    ).subscribe((updatedVersionRD: RemoteData<Version>) => {
+        if (updatedVersionRD.hasSucceeded) {
+          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
+          this.getAllVersions(this.versionHistoryRD$.pipe(getFirstSucceededRemoteDataPayload()));
+        } else {
+          this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
+        }
+        this.disableSummaryEditing();
       }
     );
   }

@@ -31,6 +31,10 @@ import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { VersionDataService } from '../../../../core/data/version-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -49,13 +53,16 @@ describe('UntypedItemComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [UntypedItemComponent, GenericItemPageFieldComponent, TruncatePipe],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        RouterTestingModule,
+      ],
+      declarations: [UntypedItemComponent, GenericItemPageFieldComponent, TruncatePipe ],
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
@@ -73,6 +80,10 @@ describe('UntypedItemComponent', () => {
         { provide: VersionHistoryDataService, useValue: {} },
         { provide: VersionDataService, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
+        { provide: ItemVersionsSharedService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {

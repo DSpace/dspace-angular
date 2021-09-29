@@ -66,7 +66,6 @@ export class VersionedItemComponent extends ItemComponent {
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
     ).subscribe((wsItem) => {
       const wsiId = wsItem.id;
-      console.log(wsiId);
       const route = 'workspaceitems/' + wsiId + '/edit';
       this.router.navigateByUrl(route);
     });
