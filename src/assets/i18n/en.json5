@@ -1874,6 +1874,10 @@
 
   "item.page.collections": "Collections",
 
+  "item.page.collections.loading": "Loading...",
+
+  "item.page.collections.load-more": "Load more",
+
   "item.page.date": "Date",
 
   "item.page.edit": "Edit this item",
