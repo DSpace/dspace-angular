@@ -13,6 +13,13 @@ export const isIiifSearchEnabled = (item: Item) => {
 
 };
 
+/**
+ * Checks to see if previous route was a dspace search. If
+ * it was, the search term is extracted and subsequently passed
+ * to the mirador viewer component.
+ * @param item the dspace object
+ * @param routeService
+ */
 export const getDSpaceQuery = (item: Item, routeService: RouteService): Observable<string> => {
   return routeService.getHistory().pipe(
     take(1),
