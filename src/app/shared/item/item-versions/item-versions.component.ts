@@ -279,7 +279,7 @@ export class ItemVersionsComponent implements OnInit {
         mergeMap((item: Item) => combineLatest([
           of(item),
           this.versionHistoryService.getVersionHistoryFromVersion$(version).pipe(
-            tap((versionHistory) => {
+            tap((versionHistory: VersionHistory) => {
               this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
             })
           )
@@ -298,7 +298,7 @@ export class ItemVersionsComponent implements OnInit {
             }),
           )
         ])),
-      ).subscribe(([deleteHasSucceeded, newLatestVersionItem]) => {
+      ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
         // Notify operation result and redirect to latest item
         if (deleteHasSucceeded) {
           this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
@@ -334,7 +334,7 @@ export class ItemVersionsComponent implements OnInit {
       map((newVersionRD: RemoteData<Version>) => {
         if (newVersionRD.hasSucceeded) {
           const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
-            tap((res) => {
+            tap((res: VersionHistory) => {
               this.versionHistoryService.invalidateVersionHistoryCache(res.id);
             }),
           );
@@ -374,7 +374,7 @@ export class ItemVersionsComponent implements OnInit {
           false, true, followLink('item'), followLink('eperson'));
       }),
       getFirstCompletedRemoteData(),
-    ).subscribe((res) => {
+    ).subscribe((res: RemoteData<PaginatedList<Version>>) => {
       this.versionsRD$.next(res);
     });
   }
@@ -386,18 +386,10 @@ export class ItemVersionsComponent implements OnInit {
     if (hasValue(this.item.version)) {
       this.versionRD$ = this.item.version;
       this.versionHistoryRD$ = this.versionRD$.pipe(
-        // switchMap( (res) => {
-        //   if (res.hasFailed) {
-        //     return of(createFailedRemoteDataObject<VersionHistory>());
-        //   } else {
-        //     return of(res).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),
         switchMap((version: Version) => version.versionhistory),
-        //     );
-        //  }
-        // }),
       );
 
       this.canCreateVersion$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.item.self);

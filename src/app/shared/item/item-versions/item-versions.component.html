@@ -40,7 +40,7 @@
               <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
               <ng-template #showSummary>{{version?.summary}}</ng-template>
               <ng-template #editSummary>
-                <input class="form-control" type="text" [(ngModel)]="versionBeingEditedSummary"/>
+                <input class="form-control" type="text" [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"/>
               </ng-template>
             </td>
             <td class="version-row-element-actions" *ngIf="displayActions">
