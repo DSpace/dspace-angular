@@ -3,15 +3,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
+import { filter, map, switchMap, take, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -32,6 +38,10 @@ export class MiradorViewerComponent implements OnInit {
   multi = false;
 
   notMobile = false;
+
+  LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
+    followLink('format'),
+  ];
 
   constructor(private sanitizer: DomSanitizer,
               private bitstreamDataService: BitstreamDataService,
@@ -68,6 +78,9 @@ export class MiradorViewerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+
     /**
      * Initializes the iframe url observable.
      */
@@ -78,8 +91,8 @@ export class MiradorViewerComponent implements OnInit {
       }
 
       // We need to set the multi property to true if the
-      // item is searchable or the IIIF bundle contains more
-      // than 3 bitstreams. The multi property controls the
+      // item is searchable or the bundle contains more
+      // than 1 image bitstream. The multi property controls the
       // Mirador side navigation panel.
       if (this.searchable) {
         // If it's searchable set multi to true.
@@ -91,19 +104,30 @@ export class MiradorViewerComponent implements OnInit {
           })
         );
       } else {
-        this.iframeViewerUrl = this.bitstreamDataService
-          .findAllByItemAndBundleName(this.item, 'IIIF', {})
+        let count = 0;
+        this.iframeViewerUrl = this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
+          currentPage: 1,
+          elementsPerPage: 10
+        }, true, true, ...this.LINKS_TO_FOLLOW)
           .pipe(
             getFirstCompletedRemoteData(),
-            map((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
-              if (hasValue(bitstreamsRD.payload)) {
-                if (bitstreamsRD.payload.totalElements > 2) {
-                  /* IIIF bundle contains multiple images and optionally a
-                   * a single json file, so multi is true only when the count
-                   * is 3 or more. */
-                  this.multi = true;
-                }
+            map((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => bitstreamsRD.payload),
+            map((paginatedList: PaginatedList<Bitstream>) => paginatedList.page),
+            switchMap((bitstreams: Bitstream[]) => bitstreams),
+            switchMap((bitstream: Bitstream) => bitstream.format.pipe(
+              getFirstSucceededRemoteDataPayload(),
+              map((format: BitstreamFormat) => format)
+            )),
+            map((format) => {
+              if (format.mimetype.includes('image')) {
+                count++;
               }
+              return count;
+            }),
+            filter(currentCount => currentCount > 1),
+            take(1),
+            map(() => {
+              this.multi = true;
               return this.setURL();
             })
           );
