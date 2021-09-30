@@ -1,4 +1,4 @@
-<a [href]="(bitstreamPath$| async)" [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses">
+<a [routerLink]="(bitstreamPath$| async)" [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses">
   <span *ngIf="!(canDownload$ |async)"><i class="fas fa-lock"></i></span>
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
