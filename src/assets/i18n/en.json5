@@ -891,10 +891,15 @@
   "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.failed": "An error occurred during the import",
   "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.completed": "The reset and reimport completed",
   "collection.source.controls.reset.submit": "Reset and reimport",
   "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.start": "Harvest start time:",
   "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.message": "Harvest info:",
   "collection.source.controls.harvest.no-information": "N/A",
 
 

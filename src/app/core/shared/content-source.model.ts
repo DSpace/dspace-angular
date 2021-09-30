@@ -1,4 +1,4 @@
-import { autoserializeAs, deserializeAs, deserialize } from 'cerialize';
+import { autoserializeAs, deserializeAs, deserialize, serializeAs } from 'cerialize';
 import { HALLink } from './hal-link.model';
 import { MetadataConfig } from './metadata-config.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -6,6 +6,8 @@ import { typedObject } from '../cache/builders/build-decorators';
 import { CONTENT_SOURCE } from './content-source.resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
+import { IDToUUIDSerializer } from '../cache/id-to-uuid-serializer';
+import { ContentSourceSetSerializer } from './content-source-set-serializer';
 
 /**
  * The type of content harvesting used
@@ -49,7 +51,8 @@ export class ContentSource extends CacheableObject {
   /**
    * OAI Specific set ID
    */
-  @autoserializeAs('oai_set_id')
+  @deserializeAs(new ContentSourceSetSerializer(), 'oai_set_id')
+  @serializeAs(new ContentSourceSetSerializer(), 'oai_set_id')
   oaiSetId: string;
 
   /**
@@ -70,14 +73,29 @@ export class ContentSource extends CacheableObject {
    */
   metadataConfigs: MetadataConfig[];
 
+  /**
+   * The current harvest status
+   */
   @autoserializeAs('harvest_status')
   harvestStatus: string;
 
+  /**
+   * The last's harvest start time
+   */
   @autoserializeAs('harvest_start_time')
   harvestStartTime: string;
 
+  /**
+   * When the collection was last harvested
+   */
   @autoserializeAs('last_harvested')
   lastHarvested: string;
+
+  /**
+   * The current harvest message
+   */
+  @autoserializeAs('harvest_message')
+  message: string;
 
   /**
    * The {@link HALLink}s for this ContentSource

@@ -21,6 +21,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
 
 describe('CollectionSourceControlsComponent', () => {
   let comp: CollectionSourceControlsComponent;
@@ -133,7 +134,7 @@ describe('CollectionSourceControlsComponent', () => {
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
         {name: '-g', value: null},
         {name: '-a', value: contentSource.oaiSource},
-        {name: '-i', value: contentSource.oaiSetId},
+        {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
       ], []);
 
       expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
@@ -148,7 +149,19 @@ describe('CollectionSourceControlsComponent', () => {
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
         {name: '-r', value: null},
-        {name: '-e', value: 'dspacedemo+admin@gmail.com'},
+        {name: '-c', value: collection.uuid},
+      ], []);
+      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(notificationsService.success).toHaveBeenCalled();
+    });
+  });
+  describe('resetAndReimport', () => {
+    it('should invoke a script that will start the harvest', () => {
+      comp.resetAndReimport();
+      scheduler.flush();
+
+      expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
+        {name: '-o', value: null},
         {name: '-c', value: collection.uuid},
       ], []);
       expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);

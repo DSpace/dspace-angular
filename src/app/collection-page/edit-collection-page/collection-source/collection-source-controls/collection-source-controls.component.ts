@@ -21,6 +21,7 @@ import { Process } from '../../../../process-page/processes/process.model';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
@@ -77,7 +78,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-g', value: null},
       {name: '-a', value: contentSource.oaiSource},
-      {name: '-i', value: contentSource.oaiSetId},
+      {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
     ], []).pipe(
       getFirstCompletedRemoteData(),
       tap((rd) => {
@@ -124,14 +125,15 @@ export class CollectionSourceControlsComponent implements OnDestroy {
   importNow() {
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-r', value: null},
-      {name: '-e', value: 'dspacedemo+admin@gmail.com'},
       {name: '-c', value: this.collection.uuid},
     ], [])
       .pipe(
         getFirstCompletedRemoteData(),
         tap((rd) => {
           if (rd.hasFailed) {
-            this.notificationsService.error(this.translateService.get('collection.source.controls.test.submit.error'));
+            this.notificationsService.error(this.translateService.get('collection.source.controls.import.submit.error'));
+          } else {
+            this.notificationsService.success(this.translateService.get('collection.source.controls.import.submit.success'));
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
@@ -164,7 +166,43 @@ export class CollectionSourceControlsComponent implements OnDestroy {
    * Reset and reimport the current collection
    */
   resetAndReimport() {
-    // TODO implement when a single option is present
+    this.subs.push(this.scriptDataService.invoke('harvest', [
+      {name: '-o', value: null},
+      {name: '-c', value: this.collection.uuid},
+    ], [])
+      .pipe(
+        getFirstCompletedRemoteData(),
+        tap((rd) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get('collection.source.controls.reset.submit.error'));
+          } else {
+            this.notificationsService.success(this.translateService.get('collection.source.controls.reset.submit.success'));
+          }
+        }),
+        filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
+        switchMap((rd) => this.processDataService.findById(rd.payload.processId, false)),
+        getAllCompletedRemoteData(),
+        filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
+        map((rd) => rd.payload),
+        hasValueOperator(),
+      ).subscribe((process) => {
+          if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
+            process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
+            // Ping the current process state every 5s
+            setTimeout(() => {
+              this.requestService.setStaleByHrefSubstring(process._links.self.href);
+              this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
+            }, 5000);
+          }
+          if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
+            this.notificationsService.error(this.translateService.get('collection.source.controls.reset.failed'));
+          }
+          if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
+            this.notificationsService.success(this.translateService.get('collection.source.controls.reset.completed'));
+            this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
+          }
+        }
+      ));
   }
 
   ngOnDestroy(): void {

@@ -11,6 +11,10 @@
         </div>
         <div>
             <span class="font-weight-bold">{{'collection.source.controls.harvest.last' | translate}}</span>
+            <span>{{contentSource?.message ? contentSource?.message : 'collection.source.controls.harvest.no-information'|translate }}</span>
+        </div>
+        <div>
+            <span class="font-weight-bold">{{'collection.source.controls.harvest.message' | translate}}</span>
             <span>{{contentSource?.lastHarvested ? contentSource?.lastHarvested : 'collection.source.controls.harvest.no-information'|translate }}</span>
         </div>
 
