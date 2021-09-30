@@ -42,6 +42,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    * @param {Event} event The user event that triggered this function
    */
   activateSection(event): void {
+    event.preventDefault();
     this.windowService.isXsOrSm().pipe(
       first()
     ).subscribe((isMobile) => {
@@ -57,6 +58,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    * @param {Event} event The user event that triggered this function
    */
   deactivateSection(event): void {
+    event.preventDefault();
     this.windowService.isXsOrSm().pipe(
       first()
     ).subscribe((isMobile) => {
