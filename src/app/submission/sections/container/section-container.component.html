@@ -23,7 +23,7 @@
           <a class="close"
              tabindex="0"
              role="button"
-             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate"
+             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.aria.close' : 'submission.sections.toggle.aria.open') | translate: {sectionHeader: ('submission.sections.'+sectionData.header | translate)}"
              [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
             <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"></span>
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>

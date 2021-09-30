@@ -3569,6 +3569,10 @@
 
   "submission.sections.toggle.close": "Close section",
 
+  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
