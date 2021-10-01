@@ -265,6 +265,19 @@ export const environment: GlobalConfig = {
     //   uuid: '0958c910-2037-42a9-81c7-dca80e3892b4'
     // },
     // {
+    //   // The extends property specifies an ancestor theme (by name). Whenever a themed component is not found
+    //   // in the current theme, its ancestor theme(s) will be checked recursively before falling back to default.
+    //   name: 'custom-A',
+    //   extends: 'custom-B',
+    //   // Any of the matching properties above can be used
+    //   handle: '10673/34',
+    // },
+    // {
+    //   name: 'custom-B',
+    //   extends: 'custom',
+    //   handle: '10673/12',
+    // },
+    // {
     //   // A theme with only a name will match every route
     //   name: 'custom'
     // },

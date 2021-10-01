@@ -10,8 +10,8 @@ describe('ListableObject decorator function', () => {
   const type1 = 'TestType';
   const type2 = 'TestType2';
   const type3 = 'TestType3';
-  const typeHier1 = 'TestTypeHier1';
-  const typeHier2 = 'TestTypeHier2';
+  const typeAncestor = 'TestTypeAncestor';
+  const typeUnthemed = 'TestTypeUnthemed';
 
   /* tslint:disable:max-classes-per-file */
   class Test1List {
@@ -32,10 +32,10 @@ describe('ListableObject decorator function', () => {
   class Test3DetailedSubmission {
   }
 
-  class TestHier1Ancestor {
+  class TestAncestorComponent {
   }
 
-  class TestHier2Unthemed {
+  class TestUnthemedComponent {
   }
 
   /* tslint:enable:max-classes-per-file */
@@ -50,8 +50,9 @@ describe('ListableObject decorator function', () => {
     listableObjectComponent(type3, ViewMode.ListElement)(Test3List);
     listableObjectComponent(type3, ViewMode.DetailedListElement, Context.Workspace)(Test3DetailedSubmission);
 
-    listableObjectComponent(typeHier1, ViewMode.ListElement, Context.Any, 'ancestor')(TestHier1Ancestor);
-    listableObjectComponent(typeHier2, ViewMode.ListElement, Context.Any)(TestHier2Unthemed);
+    // Register a metadata representation in the 'ancestor' theme
+    listableObjectComponent(typeAncestor, ViewMode.ListElement, Context.Any, 'ancestor')(TestAncestorComponent);
+    listableObjectComponent(typeUnthemed, ViewMode.ListElement, Context.Any)(TestUnthemedComponent);
 
     ogEnvironmentThemes = environment.themes;
   });
@@ -102,22 +103,33 @@ describe('ListableObject decorator function', () => {
   });
 
   describe('With theme extensions', () => {
+    // We're only interested in the cases that the requested theme doesn't match the requested objectType,
+    // as the cases where it does are already covered by the tests above
     describe('If requested theme has no match', () => {
       beforeEach(() => {
         environment.themes = [
-          { name: 'requested', extends: 'intermediate' },
-          { name: 'intermediate', extends: 'ancestor' },
+          {
+            name: 'requested',        // Doesn't match any objectType
+            extends: 'intermediate',
+          },
+          {
+            name: 'intermediate',     // Doesn't match any objectType
+            extends: 'ancestor',
+          },
+          {
+            name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
+          }
         ];
       });
 
-      it('should return component from ancestor theme if it has a match', () => {
-        const component = getListableObjectComponent([typeHier1], ViewMode.ListElement, Context.Any, 'requested');
-        expect(component).toEqual(TestHier1Ancestor);
+      it('should return component from the first ancestor theme that matches its objectType', () => {
+        const component = getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'requested');
+        expect(component).toEqual(TestAncestorComponent);
       });
 
-      it('should return default component if ancestor theme has no match', () => {
-        const component = getListableObjectComponent([typeHier2], ViewMode.ListElement, Context.Any, 'requested');
-        expect(component).toEqual(TestHier2Unthemed);
+      it('should return default component if none of the ancestor themes match its objectType', () => {
+        const component = getListableObjectComponent([typeUnthemed], ViewMode.ListElement, Context.Any, 'requested');
+        expect(component).toEqual(TestUnthemedComponent);
       });
     });
 
@@ -133,7 +145,7 @@ describe('ListableObject decorator function', () => {
 
       it('should throw an error', () => {
         expect(() => {
-          getListableObjectComponent([typeHier1], ViewMode.ListElement, Context.Any, 'extension-cycle');
+          getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'extension-cycle');
         }).toThrowError(
           'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
         );

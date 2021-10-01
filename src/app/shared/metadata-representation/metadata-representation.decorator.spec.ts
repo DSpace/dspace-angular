@@ -16,8 +16,8 @@ describe('MetadataRepresentation decorator function', () => {
   const type2 = 'TestType2';
   const type3 = 'TestType3';
   const type4 = 'RandomType';
-  const typeHier1 = 'TestTypeHier1';
-  const typeHier2 = 'TestTypeHier2';
+  const typeAncestor = 'TestTypeAncestor';
+  const typeUnthemed = 'TestTypeUnthemed';
   let prefix;
 
   /* tslint:disable:max-classes-per-file */
@@ -36,10 +36,10 @@ describe('MetadataRepresentation decorator function', () => {
   class Test3ItemSubmission {
   }
 
-  class TestHier1Ancestor {
+  class TestAncestorComponent {
   }
 
-  class TestHier2Unthemed {
+  class TestUnthemedComponent {
   }
 
   /* tslint:enable:max-classes-per-file */
@@ -58,8 +58,9 @@ describe('MetadataRepresentation decorator function', () => {
 
     metadataRepresentationComponent(key + type3, MetadataRepresentationType.Item, Context.Workspace)(Test3ItemSubmission);
 
-    metadataRepresentationComponent(key + typeHier1, MetadataRepresentationType.Item, Context.Any, 'ancestor')(TestHier1Ancestor);
-    metadataRepresentationComponent(key + typeHier2, MetadataRepresentationType.Item, Context.Any)(TestHier2Unthemed);
+    // Register a metadata representation in the 'ancestor' theme
+    metadataRepresentationComponent(key + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'ancestor')(TestAncestorComponent);
+    metadataRepresentationComponent(key + typeUnthemed, MetadataRepresentationType.Item, Context.Any)(TestUnthemedComponent);
 
     ogEnvironmentThemes = environment.themes;
   }
@@ -98,22 +99,33 @@ describe('MetadataRepresentation decorator function', () => {
   });
 
   describe('With theme extensions', () => {
+    // We're only interested in the cases that the requested theme doesn't match the requested entityType,
+    // as the cases where it does are already covered by the tests above
     describe('If requested theme has no match', () => {
       beforeEach(() => {
         environment.themes = [
-          { name: 'requested', extends: 'intermediate' },
-          { name: 'intermediate', extends: 'ancestor' },
+          {
+            name: 'requested',        // Doesn't match any entityType
+            extends: 'intermediate',
+          },
+          {
+            name: 'intermediate',     // Doesn't match any entityType
+            extends: 'ancestor',
+          },
+          {
+            name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
+          }
         ];
       });
 
-      it('should return component from ancestor theme if it has a match', () => {
-        const component = getMetadataRepresentationComponent(prefix + typeHier1, MetadataRepresentationType.Item, Context.Any, 'requested');
-        expect(component).toEqual(TestHier1Ancestor);
+      it('should return component from the first ancestor theme that matches its entityType', () => {
+        const component = getMetadataRepresentationComponent(prefix + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'requested');
+        expect(component).toEqual(TestAncestorComponent);
       });
 
-      it('should return default component if ancestor theme has no match', () => {
-        const component = getMetadataRepresentationComponent(prefix + typeHier2, MetadataRepresentationType.Item, Context.Any, 'requested');
-        expect(component).toEqual(TestHier2Unthemed);
+      it('should return default component if none of the ancestor themes match its entityType', () => {
+        const component = getMetadataRepresentationComponent(prefix + typeUnthemed, MetadataRepresentationType.Item, Context.Any, 'requested');
+        expect(component).toEqual(TestUnthemedComponent);
       });
     });
 
@@ -129,7 +141,7 @@ describe('MetadataRepresentation decorator function', () => {
 
       it('should throw an error', () => {
         expect(() => {
-          getMetadataRepresentationComponent(prefix + typeHier1, MetadataRepresentationType.Item, Context.Any, 'extension-cycle');
+          getMetadataRepresentationComponent(prefix + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'extension-cycle');
         }).toThrowError(
           'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
         );
