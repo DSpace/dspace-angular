@@ -135,6 +135,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isEditRelationship = false;
 
+  hasChanges;
+
+  isReinstatable;
+
+  submit;
+
+  reinstate;
+
+  discard;
+
 
   constructor(
     public modal: NgbActiveModal,
@@ -154,12 +164,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
 
-    if(!!this.currentItemIsLeftItem$){
+    if ( !!this.currentItemIsLeftItem$ ) {
       this.currentItemIsLeftItem$.subscribe((isLeft) => {
         this.isLeft = isLeft;
       });
     }
-
 
     this.selection$ = this.selectableListService
       .getSelectableList(this.listId)
@@ -276,4 +285,26 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
+
+  /**
+   * Called when discard button is clicked, emit discard event to parent to conclude functionality
+   */
+  discardEv(): void {
+    this.discard.emit();
+  }
+
+  /**
+   * Called when submit button is clicked, emit submit event to parent to conclude functionality
+   */
+  submitEv(): void {
+    this.submit.emit();
+  }
+
+  /**
+   * Called when reinstate button is clicked, emit reinstate event to parent to conclude functionality
+   */
+  reinstateEv(): void {
+    this.reinstate.emit();
+  }
+
 }

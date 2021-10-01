@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
@@ -81,6 +81,33 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   @Input() relationshipType: RelationshipType;
 
+
+  /**
+   * If updated information has changed
+   */
+  @Input() hasChanges!: Observable<boolean>;
+
+  /**
+   * If changes have been discarded and need reinstated
+   */
+  @Input() isReinstatable!: Observable<boolean>;
+
+  /**
+   * The event emmiter to submit the new information
+   */
+  @Output() submit: EventEmitter<any> = new EventEmitter();
+
+  /**
+   * The event emmiter to reinstate the discarded information
+   */
+  @Output() reinstate: EventEmitter<any> = new EventEmitter();
+
+  /**
+   * The event emmiter to discard the new information
+   */
+  @Output() discard: EventEmitter<any> = new EventEmitter();
+
+
   /**
    * Observable that emits the left and right item type of {@link relationshipType} simultaneously.
    */
@@ -139,6 +166,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * A reference to the lookup window
    */
   modalRef: NgbModalRef;
+
+
 
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
@@ -215,6 +244,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.item = this.item;
     modalComp.relationshipType = this.relationshipType;
     modalComp.currentItemIsLeftItem$ = this.currentItemIsLeftItem$;
+    modalComp.hasChanges = this.hasChanges;
+    modalComp.isReinstatable = this.isReinstatable;
+    modalComp.submit = this.submit;
+    modalComp.reinstate = this.reinstate;
+    modalComp.discard = this.discard;
+
 
     this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload()
