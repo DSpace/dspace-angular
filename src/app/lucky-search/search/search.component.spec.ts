@@ -1,18 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SearchComponent} from './search.component';
-import {LuckySearchService} from "../lucky-search.service";
-import {SearchConfigurationService} from "../../core/shared/search/search-configuration.service";
-import {Router, UrlTree} from "@angular/router";
-import {createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$} from "../../shared/remote-data.utils";
-import {createPaginatedList} from "../../shared/testing/utils.test";
-import {Item} from "../../core/shared/item.model";
-import {of as observableOf} from "rxjs/internal/observable/of";
-import {PaginatedSearchOptions} from "../../shared/search/paginated-search-options.model";
-import {PaginationComponentOptions} from "../../shared/pagination/pagination-component-options.model";
-import {SortDirection, SortOptions} from "../../core/cache/models/sort-options.model";
-import {TranslateModule} from "@ngx-translate/core";
-import {By} from "@angular/platform-browser";
+import {LuckySearchService} from '../lucky-search.service';
+import {SearchConfigurationService} from '../../core/shared/search/search-configuration.service';
+import {Router, UrlTree} from '@angular/router';
+import {createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
+import {createPaginatedList} from '../../shared/testing/utils.test';
+import {Item} from '../../core/shared/item.model';
+import {of as observableOf} from 'rxjs/internal/observable/of';
+import {PaginatedSearchOptions} from '../../shared/search/paginated-search-options.model';
+import {PaginationComponentOptions} from '../../shared/pagination/pagination-component-options.model';
+import {SortDirection, SortOptions} from '../../core/cache/models/sort-options.model';
+import {TranslateModule} from '@ngx-translate/core';
+import {By} from '@angular/platform-browser';
+import {SearchResult} from '../../shared/search/search-result.model';
+import {DSpaceObject} from '../../core/shared/dspace-object.model';
 
 describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
@@ -51,7 +53,7 @@ describe('SearchComponent', () => {
   let component: SearchComponent;
 
   const itemPageUrl = '/lucky-search?index=xxx&value=yyyy';
-  let urlTree = new UrlTree();
+  const urlTree = new UrlTree();
   urlTree.queryParams = {
     index: 'test',
     'value': 'test'
@@ -59,7 +61,9 @@ describe('SearchComponent', () => {
   const routerStub = jasmine.createSpyObj('router', {
     parseUrl: urlTree,
     createUrlTree: new UrlTree(),
-    url: itemPageUrl
+    url: itemPageUrl,
+    // tslint:disable-next-line:no-unused-expression
+    navigateByUrl: void {}
   });
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -89,7 +93,7 @@ describe('SearchComponent', () => {
     expect(component.showMultipleSearchSection).toEqual(true);
   });
 
-  it('should display basic search form', () => {
+  it('should display basic search form results', () => {
     expect(fixture.debugElement.query(By.css('ds-search-results')))
       .toBeTruthy();
   });
@@ -97,13 +101,40 @@ describe('SearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
-    let data = createSuccessfulRemoteDataObject(createPaginatedList([
-    ]))
-    component.resultsRD$.next(data as any)
+    const firstSearchResult = Object.assign(new SearchResult(), {
+      indexableObject: Object.assign(new DSpaceObject(), {
+        id: 'd317835d-7b06-4219-91e2-1191900cb897',
+        uuid: 'd317835d-7b06-4219-91e2-1191900cb897',
+        name: 'My first publication',
+        metadata: {
+          'dspace.entity.type': [
+            {value: 'Publication'}
+          ]
+        }
+      })
+    });
+
+    const data = createSuccessfulRemoteDataObject(createPaginatedList([
+      firstSearchResult
+    ]));
+    component.resultsRD$.next(data as any);
     fixture.detectChanges();
   });
 
-  it('should show multiple results', () => {
+  it('should call navigate or router', () => {
+    expect(routerStub.navigateByUrl).toHaveBeenCalled();
+  });
+
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SearchComponent);
+    component = fixture.componentInstance;
+    const data = createSuccessfulRemoteDataObject(createPaginatedList([]));
+    component.resultsRD$.next(data as any);
+    fixture.detectChanges();
+  });
+
+  it('should not have results', () => {
     expect(component.showEmptySearchSection).toEqual(true);
   });
 
@@ -111,19 +142,4 @@ describe('SearchComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-search-form')))
       .toBeTruthy();
   });
-  beforeEach(() => {
-    debugger
-    fixture = TestBed.createComponent(SearchComponent);
-    component = fixture.componentInstance;
-    let data = createSuccessfulRemoteDataObject(createPaginatedList([
-      collection1
-    ]))
-    component.resultsRD$.next(data as any)
-    fixture.detectChanges();
-  });
-
-  it('should show multiple results', () => {
-    spyOn(component, 'redirectToItemsDetailPage');
-  });
-
 });

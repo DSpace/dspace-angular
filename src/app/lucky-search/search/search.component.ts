@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {RemoteData} from "../../core/data/remote-data";
-import {PaginatedList} from "../../core/data/paginated-list.model";
-import {SearchResult} from "../../shared/search/search-result.model";
-import {DSpaceObject} from "../../core/shared/dspace-object.model";
-import {PaginatedSearchOptions} from "../../shared/search/paginated-search-options.model";
-import {getFirstSucceededRemoteData} from "../../core/shared/operators";
-import {SearchFilter} from "../../shared/search/search-filter.model";
-import {LuckySearchService} from "../lucky-search.service";
-import {Router} from "@angular/router";
-import {switchMap, tap} from "rxjs/operators";
-import {Context} from "../../core/shared/context.model";
-import {SearchConfigurationService} from "../../core/shared/search/search-configuration.service";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {RemoteData} from '../../core/data/remote-data';
+import {PaginatedList} from '../../core/data/paginated-list.model';
+import {SearchResult} from '../../shared/search/search-result.model';
+import {DSpaceObject} from '../../core/shared/dspace-object.model';
+import {PaginatedSearchOptions} from '../../shared/search/paginated-search-options.model';
+import {getFirstSucceededRemoteData} from '../../core/shared/operators';
+import {SearchFilter} from '../../shared/search/search-filter.model';
+import {LuckySearchService} from '../lucky-search.service';
+import {Router} from '@angular/router';
+import {switchMap, tap} from 'rxjs/operators';
+import {Context} from '../../core/shared/context.model';
+import {SearchConfigurationService} from '../../core/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-search',
@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit {
   /**
    * Search options to use for options of the search
    */
-  searchOptions$: Observable<PaginatedSearchOptions>
+  searchOptions$: Observable<PaginatedSearchOptions>;
   /**
    * Current filter taken from url
    */
@@ -65,37 +65,33 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.context = Context.ItemPage
+    this.context = Context.ItemPage;
     this.searchOptions$ = this.getSearchOptions();
-    this.searchOptions$.subscribe(res => {
-      debugger
-      console.log(res)
-    })
     this.readResult();
-    debugger
     const urlTree = this.router.parseUrl(this.router.url);
-    for (let key in urlTree.queryParams) {
-      if (key == 'index') {
-        this.currentFilter.identifier = urlTree.queryParams[key]
+    // tslint:disable-next-line:forin
+    for (const key in urlTree.queryParams) {
+      if (key === 'index') {
+        this.currentFilter.identifier = urlTree.queryParams[key];
       }
-      if (key == 'value') {
-        this.currentFilter.value = urlTree.queryParams[key]
+      if (key === 'value') {
+        this.currentFilter.value = urlTree.queryParams[key];
       }
     }
-    if (!(this.currentFilter.value != '' && this.currentFilter.identifier != '')) {
+    if (!(this.currentFilter.value !== '' && this.currentFilter.identifier !== '')) {
       this.showEmptySearchSection = true;
       return;
     }
     this.searchOptions$.pipe(
       switchMap((options: PaginatedSearchOptions) => {
-        options.filters = [new SearchFilter("f." + this.currentFilter.identifier, [this.currentFilter.value], "equals")];
+        options.filters = [new SearchFilter('f.' + this.currentFilter.identifier, [this.currentFilter.value], 'equals')];
         return this.luckySearchService.sendRequest(options).pipe(
           tap((rd: any) => {
-            if (rd.state && rd.state == "Error") {
+            if (rd.state && rd.state === 'Error') {
               this.showEmptySearchSection = true;
             }
           }),
-          getFirstSucceededRemoteData())
+          getFirstSucceededRemoteData());
       }))
       .subscribe((results) => {
         return this.resultsRD$.next(results as any);
@@ -106,31 +102,32 @@ export class SearchComponent implements OnInit {
 
   private readResult() {
     this.resultsRD$.subscribe((res: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-      if (!res)
+      if (!res) {
         return;
-      const total = res.payload.totalElements
-      if (total == 0) {
+      }
+      const total = res.payload.totalElements;
+      if (total === 0) {
         // show message
         this.showEmptySearchSection = true;
       } else {
-        if (total == 1) {
+        if (total === 1) {
           // redirect to items detail page
-          this.redirectToItemsDetailPage(res.payload.page[0].indexableObject.id)
+          console.log(res.payload.page[0]);
+          this.redirectToItemsDetailPage(res.payload.page[0].indexableObject.id);
         } else {
           // show message and all list of results
           this.showMultipleSearchSection = true;
         }
       }
-    })
+    });
   }
 
   private getSearchOptions(): Observable<PaginatedSearchOptions> {
-    debugger
     return this.searchConfigService.paginatedSearchOptions;
   }
 
   public redirectToItemsDetailPage(itemUuid: string): void {
-    this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true}).then();
+    this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true});
   }
 
 }

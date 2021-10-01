@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import {RouterModule} from "@angular/router";
-import {SearchComponent} from "./search/search.component";
-import {LuckySearchModule} from "./lucky-search.module";
+import {RouterModule} from '@angular/router';
+import {SearchComponent} from './search/search.component';
+import {LuckySearchModule} from './lucky-search.module';
 
 
 
