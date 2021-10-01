@@ -3565,6 +3565,12 @@
 
   "submission.sections.status.warnings.title": "Warnings",
 
+  "submission.sections.status.errors.aria": "has errors",
+
+  "submission.sections.status.valid.aria": "is valid",
+
+  "submission.sections.status.warnings.aria": "has warnings",
+
   "submission.sections.toggle.open": "Open section",
 
   "submission.sections.toggle.close": "Close section",
