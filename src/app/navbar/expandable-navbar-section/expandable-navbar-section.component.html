@@ -1,7 +1,7 @@
 <div class="nav-item dropdown expandable-navbar-section"
     *ngVar="(active | async) as isActive"
-    (keyup.enter)="isActive ? deactivateSection($event) : activateSection($event)"
-    (keyup.space)="$event.stopPropagation(); isActive ? deactivateSection($event) : activateSection($event)"
+    (keydown.enter)="isActive ? deactivateSection($event) : activateSection($event)"
+    (keydown.space)="isActive ? deactivateSection($event) : activateSection($event)"
     (mouseenter)="activateSection($event)"
     (mouseleave)="deactivateSection($event)">
     <a href="#" class="nav-link dropdown-toggle" routerLinkActive="active"

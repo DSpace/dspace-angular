@@ -86,8 +86,8 @@ describe('ExpandableNavbarSectionComponent', () => {
         fixture.detectChanges();
 
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
-        // dispatch the (keyup.enter) action used in our component HTML
-        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+        // dispatch the (keydown.enter) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       });
 
       it('should call activateSection on the menuService', () => {
@@ -104,8 +104,8 @@ describe('ExpandableNavbarSectionComponent', () => {
         fixture.detectChanges();
 
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
-        // dispatch the (keyup.enter) action used in our component HTML
-        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+        // dispatch the (keydown.enter) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       });
 
       it('should call deactivateSection on the menuService', () => {
@@ -122,8 +122,8 @@ describe('ExpandableNavbarSectionComponent', () => {
         fixture.detectChanges();
 
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
-        // dispatch the (keyup.space) action used in our component HTML
-        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: ' ' }));
+        // dispatch the (keydown.space) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
       });
 
       it('should call activateSection on the menuService', () => {
@@ -140,8 +140,8 @@ describe('ExpandableNavbarSectionComponent', () => {
         fixture.detectChanges();
 
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
-        // dispatch the (keyup.space) action used in our component HTML
-        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: ' ' }));
+        // dispatch the (keydown.space) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
       });
 
       it('should call deactivateSection on the menuService', () => {
