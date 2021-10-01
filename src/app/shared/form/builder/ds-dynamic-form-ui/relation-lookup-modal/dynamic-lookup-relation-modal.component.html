@@ -62,7 +62,8 @@
 </div>
 <div class="modal-footer">
     <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate: {size: (selection$ | async)?.length || 0}) }}</small>
-    <div>
+    <div class="buttons-container">
+    <div class="close-button">
         <button type="button" class="btn btn-danger" (click)="close()">{{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
      <div *ngIf="isEditRelationship" class="button-row bottom">
@@ -85,4 +86,5 @@
           </button>
         </div>
       </div>
+    </div>
 </div>

@@ -135,15 +135,31 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isEditRelationship = false;
 
-  hasChanges;
 
-  isReinstatable;
+  /**
+   * Observable to check if any change has been made
+   */
+  hasChanges: Observable<boolean>;
 
-  submit;
+  /**
+   * Observable to check if any discard has been made
+   */
+  isReinstatable: Observable<boolean>;
 
-  reinstate;
+  /**
+   * Submit event emiter to emit to parent
+   */
+  submit: EventEmitter<any>;
 
-  discard;
+  /**
+   * Reinstate event emiter to emit to parent
+   */
+  reinstate: EventEmitter<any>;
+
+  /**
+   * Discard event emiter to emit to parent
+   */
+  discard: EventEmitter<any>;
 
 
   constructor(

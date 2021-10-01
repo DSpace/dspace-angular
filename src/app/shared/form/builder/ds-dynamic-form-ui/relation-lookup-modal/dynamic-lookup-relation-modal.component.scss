@@ -9,3 +9,10 @@
     margin: 5%;
   }
 }
+
+.buttons-container{
+  display: flex;
+  .close-button{
+    margin-right: 5px;
+  }
+}
