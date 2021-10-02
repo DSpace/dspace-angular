@@ -12,6 +12,9 @@ import {Router} from '@angular/router';
 import {switchMap, tap} from 'rxjs/operators';
 import {Context} from '../../core/shared/context.model';
 import {SearchConfigurationService} from '../../core/shared/search/search-configuration.service';
+import { Location } from '@angular/common';
+import {getItemPageRoute} from '../../item-page/item-page-routing-paths';
+import {Item} from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-search',
@@ -24,10 +27,6 @@ export class SearchComponent implements OnInit {
    */
   resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
   /**
-   * The current search filers
-   */
-  filters: SearchFilter[];
-  /**
    * boolean to show the result in case of no results from search
    */
   showEmptySearchSection = false;
@@ -35,18 +34,6 @@ export class SearchComponent implements OnInit {
    * boolean to show the result in case of no results from multiple search
    */
   showMultipleSearchSection = false;
-  /**
-   * sectionId
-   */
-  sectionId = 'site';
-  /**
-   * Current context
-   */
-  context: Context;
-  /**
-   * Search options to use for options of the search
-   */
-  searchOptions: PaginatedSearchOptions;
   /**
    * Search options to use for options of the search
    */
@@ -58,6 +45,7 @@ export class SearchComponent implements OnInit {
     identifier: '',
     value: ''
   };
+  context: Context = Context.ItemPage;
 
   constructor(private luckySearchService: LuckySearchService,
               private router: Router,
@@ -65,7 +53,6 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.context = Context.ItemPage;
     this.searchOptions$ = this.getSearchOptions();
     this.readResult();
     const urlTree = this.router.parseUrl(this.router.url);
@@ -111,9 +98,9 @@ export class SearchComponent implements OnInit {
         this.showEmptySearchSection = true;
       } else {
         if (total === 1) {
+          const url = getItemPageRoute(res.payload.page[0].indexableObject as Item) ;
           // redirect to items detail page
-          console.log(res.payload.page[0]);
-          this.redirectToItemsDetailPage(res.payload.page[0].indexableObject.id);
+          this.redirectToItemsDetailPage(url);
         } else {
           // show message and all list of results
           this.showMultipleSearchSection = true;
@@ -126,8 +113,8 @@ export class SearchComponent implements OnInit {
     return this.searchConfigService.paginatedSearchOptions;
   }
 
-  public redirectToItemsDetailPage(itemUuid: string): void {
-    this.router.navigateByUrl('/items/' + itemUuid, {replaceUrl: true});
+  public redirectToItemsDetailPage(url): void {
+    this.router.navigateByUrl(url, {replaceUrl: true});
   }
 
 }

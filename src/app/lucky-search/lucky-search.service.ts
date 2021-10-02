@@ -23,7 +23,9 @@ export class LuckySearchService {
   }
 
   sendRequest(paginatedSearchOptions: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    paginatedSearchOptions.configuration = this.getSearchLink();
-    return this.searchService.search(paginatedSearchOptions);
+    const paginatedSearchOptionsNew = Object.assign(new PaginatedSearchOptions({}), paginatedSearchOptions, {
+      configuration: this.getSearchLink()
+    });
+    return this.searchService.search(paginatedSearchOptionsNew);
   }
 }
