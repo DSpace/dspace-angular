@@ -64,10 +64,11 @@ export class AuthorizationDataService extends DataService<Authorization> {
    *                      If not provided, the repository's {@link Site} will be used.
    * @param ePersonUuid   UUID of the {@link EPerson} to search {@link Authorization}s for.
    *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
-   * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
+   * @param featureId     ID of the @link Feature} to check {@link Authorization} for
+   * {@param useCachedVersion default true, it can be disabled if do not want to search on cache
    */
-  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
-    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, true, true, followLink('feature')).pipe(
+  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, useCachedVersion: boolean = true): Observable<boolean> {
+    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, useCachedVersion, true, followLink('feature')).pipe(
       getFirstCompletedRemoteData(),
       map((authorizationRD) => {
         if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {

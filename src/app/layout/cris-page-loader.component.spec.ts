@@ -22,6 +22,8 @@ import { AuthService } from '../core/auth/auth.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { tabs } from '../shared/testing/tab.mock';
 import { ItemDataService } from '../core/data/item-data.service';
+import {NotificationsServiceStub} from '../shared/testing/notifications-service.stub';
+import {NotificationsService} from '../shared/notifications/notifications.service';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -68,7 +70,8 @@ const authServiceMock: any = jasmine.createSpyObj('AuthService', {
 const itemDataServiceMock: any = jasmine.createSpyObj('ItemDataService', {
   findById: jasmine.createSpy('findById')
 });
-
+// tslint:disable-next-line:prefer-const
+let notificationService = new NotificationsServiceStub();
 describe('CrisPageLoaderComponent', () => {
   let component: CrisPageLoaderComponent;
   let fixture: ComponentFixture<CrisPageLoaderComponent>;
@@ -90,7 +93,8 @@ describe('CrisPageLoaderComponent', () => {
         { provide: ItemDataService, useValue: itemDataServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
-        { provide: ChangeDetectorRef, useValue: {} }
+        { provide: ChangeDetectorRef, useValue: {} },
+        { provide: NotificationsService, useValue: notificationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CrisPageLoaderComponent, {

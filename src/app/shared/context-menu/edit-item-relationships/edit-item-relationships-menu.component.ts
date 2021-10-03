@@ -17,6 +17,7 @@ import { TabDataService } from '../../../core/layout/tab-data.service';
 import { Tab } from '../../../core/layout/models/tab.model';
 import { BoxDataService } from '../../../core/layout/box-data.service';
 import { Box } from '../../../core/layout/models/box.model';
+import {NotificationsService} from '../../notifications/notifications.service';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
@@ -68,6 +69,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * @param {EditItemDataService} editItemService
    * @param {TabDataService} tabService
    * @param {BoxDataService} boxService
+   * @param notificationService
    */
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
@@ -75,6 +77,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
     private editItemService: EditItemDataService,
     protected tabService: TabDataService,
     protected boxService: BoxDataService,
+    private notificationService: NotificationsService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);
   }
@@ -83,25 +86,10 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * Get tabs from the context id and get boxes of tabs
    */
   ngOnInit(): void {
-    // Retrieve edit modes
-    this.subs.push(this.editItemService.findById(this.contextMenuObject.id + ':none', true, true, followLink('modes')).pipe(
-      getAllSucceededRemoteDataPayload(),
-      mergeMap((editItem: EditItem) => editItem.modes.pipe(
-        getFirstSucceededRemoteListPayload())
-      ),
-      startWith([])
-    ).subscribe((editModes: EditItemMode[]) => {
-      this.editModes$.next(editModes);
-    }));
-
-    // Retrieve tabs by UUID of item
-    this.subs.push(this.tabService.findByItem(this.contextMenuObject.id, true).pipe(
-      getFirstSucceededRemoteListPayload()
-    ).subscribe( (tabs) => {
-      this.tabs = tabs;
-      this.initBoxes();
-    }));
-
+    this.notificationService.claimedProfile.subscribe(res => {
+      this.relationships = [];
+      this.initialize();
+    });
   }
 
   /**
@@ -117,7 +105,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * If boxes type is equal Relation add them to the list of relations to be managed
    */
   getBox(tab): void {
-    this.subs.push(this.boxService.findByItem(this.contextMenuObject.id, tab.id, true)
+    this.subs.push(this.boxService.findByItem(this.contextMenuObject.id, tab.id, false)
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe( (boxes: Box[]) => {
         const relationshipsBoxes = boxes.filter( (box) => box.boxType === 'RELATION');
@@ -146,5 +134,25 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach( (sub) => sub.unsubscribe());
+  }
+  initialize(): void {
+    // Retrieve edit modes
+    this.subs.push(this.editItemService.findById(this.contextMenuObject.id + ':none', false, true, followLink('modes')).pipe(
+      getAllSucceededRemoteDataPayload(),
+      mergeMap((editItem: EditItem) => editItem.modes.pipe(
+        getFirstSucceededRemoteListPayload())
+      ),
+      startWith([])
+    ).subscribe((editModes: EditItemMode[]) => {
+      this.editModes$.next(editModes);
+    }));
+
+    // Retrieve tabs by UUID of item
+    this.subs.push(this.tabService.findByItem(this.contextMenuObject.id, false).pipe(
+      getFirstSucceededRemoteListPayload()
+    ).subscribe( (tabs) => {
+      this.tabs = tabs;
+      this.initBoxes();
+    }));
   }
 }

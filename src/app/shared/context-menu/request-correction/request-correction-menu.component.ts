@@ -101,13 +101,16 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
         this.router.navigate(['workspaceitems', response.id, 'edit']);
       }
     });
+    this.notificationService.claimedProfile.subscribe(res => {
+      this.canCreateCorrection(false);
+    });
   }
 
   /**
    * Return a boolean representing if user can create a correction
    */
-  public canCreateCorrection(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanCorrectItem, this.contextMenuObject.self);
+  public canCreateCorrection(useCacheVersion = true): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.CanCorrectItem, this.contextMenuObject.self, null,  useCacheVersion);
   }
 
   /**

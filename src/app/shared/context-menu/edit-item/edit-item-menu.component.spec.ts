@@ -13,6 +13,8 @@ import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
+import {NotificationsService} from '../../notifications/notifications.service';
+import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
 
 describe('EditItemMenuComponent', () => {
   let component: EditItemMenuComponent;
@@ -21,7 +23,8 @@ describe('EditItemMenuComponent', () => {
 
   let editItemDataService: any;
   let dso: DSpaceObject;
-
+  // tslint:disable-next-line:prefer-const
+  let notificationService = new NotificationsServiceStub();
   const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
     name: 'test',
     label: 'test'
@@ -60,6 +63,8 @@ describe('EditItemMenuComponent', () => {
         { provide: EditItemDataService, useValue: editItemDataService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
+        { provide: NotificationsService, useValue: notificationService }
+
       ]
     }).compileComponents();
   }));
@@ -102,6 +107,7 @@ describe('EditItemMenuComponent', () => {
       const link = fixture.debugElement.query(By.css('button'));
       expect(link).toBeNull();
     });
+
   });
 
 });

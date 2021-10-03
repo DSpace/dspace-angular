@@ -38,7 +38,7 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
     protected authorizationService: AuthorizationDataService,
     private researcherProfileService: ResearcherProfileService,
     private notificationsService: NotificationsService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);
   }
@@ -58,7 +58,6 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
       if (isAuthorized) {
         this.notificationsService.warning(this.translate.get('researcherprofile.claim.not-authorized'));
         this.isProcessing$.next(false);
-        this.notificationsService.claimedProfile.next(true);
       } else {
         this.createFromExternalSource();
       }
@@ -83,6 +82,8 @@ export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements
           this.translate.get('researcherprofile.success.claim.body'));
         this.claimable$.next(false);
         this.isProcessing$.next(false);
+        this.notificationsService.claimedProfile.next(true);
+        this.notifyChangesInContextMenu.next(true);
       } else {
         this.notificationsService.error(
           this.translate.get('researcherprofile.error.claim.title'),
