@@ -405,8 +405,7 @@ export class ItemVersionsComponent implements OnInit {
       );
 
       const versionHistory$ = this.versionHistoryRD$.pipe(
-        getAllSucceededRemoteData(),
-        getRemoteDataPayload(),
+        getFirstSucceededRemoteDataPayload(),
         hasValueOperator(),
       );
       this.getAllVersions(versionHistory$);

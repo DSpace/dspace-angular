@@ -62,7 +62,6 @@ export class DsoPageVersionButtonComponent implements OnInit {
 
   ngOnInit() {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.dso.self);
-    console.log('href = ' + this.dso._links.version.href);
 
     this.disableNewVersionButton$ = this.versionHistoryService.hasDraftVersion$(this.dso._links.version.href).pipe(
       // button is disabled if hasDraftVersion = true, and enabled if hasDraftVersion = false or null
