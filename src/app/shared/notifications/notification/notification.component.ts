@@ -1,4 +1,4 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -23,6 +23,7 @@ import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../anim
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { isNotEmpty } from '../../empty.util';
 import { INotification } from '../models/notification.model';
+import { filter, first } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-notification',
@@ -65,6 +66,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private count = 0;
   private start: any;
   private diff: any;
+  public isPaused$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public animate: string;
 
   constructor(private notificationService: NotificationsService,
@@ -99,17 +101,22 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private instance = () => {
     this.diff = (new Date().getTime() - this.start) - (this.count * this.speed);
 
-    if (this.count++ === this.steps) {
-      this.remove();
-      // this.item.timeoutEnd!.emit();
-    } else if (!this.stopTime) {
-      if (this.showProgressBar) {
-        this.progressWidth += 100 / this.steps;
-      }
+    this.isPaused$.pipe(
+      filter(paused => !paused),
+      first(),
+    ).subscribe(() => {
+      if (this.count++ === this.steps) {
+        this.remove();
+        // this.item.timeoutEnd!.emit();
+      } else if (!this.stopTime) {
+        if (this.showProgressBar) {
+          this.progressWidth += 100 / this.steps;
+        }
 
-      this.timer = setTimeout(this.instance, (this.speed - this.diff));
-    }
-    this.zone.run(() => this.cdr.detectChanges());
+        this.timer = setTimeout(this.instance, (this.speed - this.diff));
+      }
+      this.zone.run(() => this.cdr.detectChanges());
+    });
   }
 
   public remove() {
