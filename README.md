@@ -212,13 +212,17 @@ Once you have tested the Pull Request, please add a comment and/or approval to t
 
 ### Unit Tests
 
-Unit tests use Karma. You can find the configuration file at the same level of this README file:`./karma.conf.js` If you are going to use a remote test environment you need to edit the `./karma.conf.js`. Follow the instructions you will find inside it. To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'. A coverage report is also available at: http://localhost:9876/ after you run: `yarn run coverage`.
+Unit tests use the [Jasmine test framework](https://jasmine.github.io/), and are run via [Karma](https://karma-runner.github.io/).
+
+You can find the Karma configuration file at the same level of this README file:`./karma.conf.js` If you are going to use a remote test environment you need to edit the `./karma.conf.js`. Follow the instructions you will find inside it. To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'. A coverage report is also available at: http://localhost:9876/ after you run: `yarn run coverage`.
 
 The default browser is Google Chrome.
 
-Place your tests in the same location of the application source code files that they test.
+Place your tests in the same location of the application source code files that they test, e.g. ending with `*.component.spec.ts`
 
-and run: `yarn run test`
+and run: `yarn test`
+
+If you run into odd test errors, see the Angular guide to debugging tests: https://angular.io/guide/test-debugging
 
 ### E2E Tests
 
@@ -257,6 +261,10 @@ All E2E tests must be created under the `./cypress/integration/` folder, and mus
 _Hint: Creating e2e tests is easiest in an IDE (like Visual Studio), as it can help prompt/autocomplete your Cypress commands._
 
 More Information: [docs.cypress.io](https://docs.cypress.io/) has great guides & documentation helping you learn more about writing/debugging e2e tests in Cypress.
+
+### Learning how to build tests
+
+See our [DSpace Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide) for more hints/tips.
 
 Documentation
 --------------
