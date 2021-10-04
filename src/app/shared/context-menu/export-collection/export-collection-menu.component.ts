@@ -73,13 +73,16 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
           this.notificationService.error(this.translationService.get('collection-export.error'));
         }
       });
+    this.notificationService.claimedProfile.subscribe(res => {
+      this.isCollectionAdmin(false);
+    });
   }
 
   /**
    * Check if user is administrator for this collection
    */
-  isCollectionAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, this.contextMenuObject.self, undefined);
+  isCollectionAdmin(useCachedVersion = true): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, this.contextMenuObject.self, undefined, useCachedVersion);
   }
 
   /**

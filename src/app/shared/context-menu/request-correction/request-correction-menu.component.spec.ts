@@ -32,7 +32,6 @@ describe('RequestCorrectionMenuComponent', () => {
   let router: any;
   let submissionService: any;
   let authorizationService;
-
   const ngbModal = jasmine.createSpyObj('modal', ['open']);
   const mockItem: Item = Object.assign(new Item(), {
     id: 'mockitem',

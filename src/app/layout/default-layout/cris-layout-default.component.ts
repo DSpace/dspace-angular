@@ -29,6 +29,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -81,13 +82,18 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected authService: AuthService,
     protected itemService: ItemDataService,
-    protected changeDetector: ChangeDetectorRef
-  ) {
+    protected changeDetector: ChangeDetectorRef,
+    private notificationsService: NotificationsService) {
     super();
   }
 
   ngOnInit() {
     this.initializeComponent();
+    this.notificationsService.claimedProfile.subscribe(res => {
+        this.tabs$ = this.tabService.findByItem(this.item.id, false).pipe(
+          getFirstSucceededRemoteListPayload()
+        );
+    });
   }
 
   ngOnDestroy(): void {

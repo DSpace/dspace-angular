@@ -13,13 +13,16 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { BulkImportMenuComponent } from './bulk-import-menu.component';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Collection } from '../../../core/shared/collection.model';
+import {NotificationsService} from '../../notifications/notifications.service';
+import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
 
 describe('BulkImportMenuComponent', () => {
   let component: BulkImportMenuComponent;
   let componentAsAny: any;
   let fixture: ComponentFixture<BulkImportMenuComponent>;
   let scheduler: TestScheduler;
-
+  // tslint:disable-next-line:prefer-const
+  let notificationService = new NotificationsServiceStub();
   let dso: DSpaceObject;
   let authorizationService: any;
 
@@ -49,6 +52,7 @@ describe('BulkImportMenuComponent', () => {
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.COLLECTION },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: NotificationsService, useValue: notificationService }
       ]
     }).compileComponents();
   }));

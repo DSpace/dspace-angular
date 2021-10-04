@@ -17,6 +17,8 @@ import { TabDataService } from '../../../core/layout/tab-data.service';
 import { cold } from 'jasmine-marbles';
 import { BoxDataService } from '../../../core/layout/box-data.service';
 import { Box } from '../../../core/layout/models/box.model';
+import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
+import {NotificationsService} from '../../notifications/notifications.service';
 
 
 describe('EditItemRelationshipsMenuComponent', () => {
@@ -26,7 +28,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
 
   let editItemDataService: any;
   let dso: DSpaceObject;
-
+  // tslint:disable-next-line:prefer-const
+  let notificationService = new NotificationsServiceStub();
   const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
     name: 'test',
     label: 'test'
@@ -157,6 +160,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
         { provide: TabDataService, useValue: tabDataServiceMock },
         { provide: BoxDataService, useValue: boxDataServiceMock },
         { provide: ComponentFixtureAutoDetect, useValue: true },
+        { provide: NotificationsService, useValue: notificationService },
       ]
     }).compileComponents();
   }));
