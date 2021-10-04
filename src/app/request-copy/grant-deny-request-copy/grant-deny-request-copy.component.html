@@ -1,20 +1,22 @@
-<div class="container">
-    <h3 class="mb-4">{{'grant-deny-request-copy.header' | translate}}</h3>
-    <p>{{'grant-deny-request-copy.intro' | translate}}</p>
-
+<div class="container" *ngVar="(itemRequestRD$ | async) as itemRequestRD">
+  <h3 class="mb-4">{{'grant-deny-request-copy.header' | translate}}</h3>
+  <div *ngIf="itemRequestRD && itemRequestRD.hasSucceeded">
+    <p>{{'grant-deny-request-copy.intro1' | translate:{ name: (itemName$ | async) } }}</p>
+    <p>{{'grant-deny-request-copy.intro2' | translate}}</p>
 
     <div class="btn-group ">
-        <a [routerLink]="'/grant'"
-                class="btn btn-outline-danger"
-                title="{{'grant-deny-request-copy.grant' | translate }}">
-            {{'grant-deny-request-copy.grant' | translate }}
-        </a>
+      <a [routerLink]="grantRoute$ | async"
+         class="btn btn-outline-primary"
+         title="{{'grant-deny-request-copy.grant' | translate }}">
+        {{'grant-deny-request-copy.grant' | translate }}
+      </a>
 
-        <a [routerLink]="'/deny'"
-                class="btn btn-outline-primary"
-                title="{{'grant-deny-request-copy.deny' | translate }}">
-            {{'grant-deny-request-copy.deny' | translate }}
-        </a>
+      <a [routerLink]="denyRoute$ | async"
+         class="btn btn-outline-danger"
+         title="{{'grant-deny-request-copy.deny' | translate }}">
+        {{'grant-deny-request-copy.deny' | translate }}
+      </a>
     </div>
-
+  </div>
+  <ds-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-loading>
 </div>

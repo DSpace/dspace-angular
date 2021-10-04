@@ -9,6 +9,13 @@ import { PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ItemRequest } from '../shared/item-request.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { DataService } from './data.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
@@ -18,14 +25,21 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
     providedIn: 'root',
   }
 )
-export class ItemRequestDataService {
+export class ItemRequestDataService extends DataService<ItemRequest> {
 
   protected linkPath = 'itemrequests';
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected halService: HALEndpointService) {
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DefaultChangeAnalyzer<ItemRequest>,
+  ) {
+    super();
   }
 
   getItemRequestEndpoint(): Observable<string> {

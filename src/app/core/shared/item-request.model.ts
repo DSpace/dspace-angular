@@ -1,14 +1,16 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
 import { ITEM_REQUEST } from './item-request.resource-type';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { HALLink } from './hal-link.model';
 
 /**
  * Model class for a Configuration Property
  */
 @typedObject
-export class ItemRequest {
+export class ItemRequest implements CacheableObject {
   static type = ITEM_REQUEST;
 
   /**
@@ -75,5 +77,14 @@ export class ItemRequest {
   @autoserialize
   bitstreamId: string;
 
+  /**
+   * The {@link HALLink}s for this ItemRequest
+   */
+  @deserialize
+  _links: {
+    self: HALLink;
+    item: HALLink;
+    bitstream: HALLink;
+  };
 
 }

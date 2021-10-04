@@ -1,0 +1,29 @@
+<form>
+  <div class="form-group">
+    <label for="subject">{{ 'grant-deny-request-copy.email.subject' | translate }}</label>
+    <input type="text" class="form-control" id="subject" [ngClass]="{'is-invalid': !subject || subject.length === 0}" [(ngModel)]="subject" name="subject">
+    <div *ngIf="!subject || subject.length === 0" class="invalid-feedback">
+      {{ 'grant-deny-request-copy.email.subject.empty' | translate }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="message">{{ 'grant-deny-request-copy.email.message' | translate }}</label>
+    <textarea class="form-control" id="message" rows="3" [ngClass]="{'is-invalid': !message || message.length === 0}" [(ngModel)]="message" name="message"></textarea>
+    <div *ngIf="!message || message.length === 0" class="invalid-feedback">
+      {{ 'grant-deny-request-copy.email.message.empty' | translate }}
+    </div>
+  </div>
+  <div class="d-flex">
+    <button (click)="submit()"
+            [disabled]="!message || message.length === 0 || !subject || subject.length === 0"
+            class="btn btn-primary mr-auto"
+            title="{{'grant-deny-request-copy.email.send' | translate }}">
+      {{'grant-deny-request-copy.email.send' | translate }}
+    </button>
+    <button (click)="return()"
+            class="btn btn-outline-secondary"
+            title="{{'grant-deny-request-copy.email.back' | translate }}">
+      {{'grant-deny-request-copy.email.back' | translate }}
+    </button>
+  </div>
+</form>

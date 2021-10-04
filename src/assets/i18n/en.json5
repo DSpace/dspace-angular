@@ -1206,6 +1206,12 @@
 
 
 
+  "deny-request-copy.header": "Deny document copy request",
+
+  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+
+
+
   "dso.name.untitled": "Untitled",
 
 
@@ -1428,6 +1434,31 @@
   "form.submit": "Save",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
+
+
+
+  "grant-deny-request-copy.deny": "Don't send copy",
+
+  "grant-deny-request-copy.email.back": "Back",
+
+  "grant-deny-request-copy.email.message": "Message",
+
+  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+
+  "grant-deny-request-copy.email.send": "Send",
+
+  "grant-deny-request-copy.email.subject": "Subject",
+
+  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+
+  "grant-deny-request-copy.grant": "Send copy",
+
+  "grant-deny-request-copy.header": "Document copy request",
+
+  "grant-deny-request-copy.intro1": "IF YOU ARE THE AUTHOR (OR AN AUTHOR) OF DOCUMENT \"{{ name }}\" use the buttons to answer the user's request.",
+
+  "grant-deny-request-copy.intro2": "This repository will propose an appropriate model reply, which you may edit.",
+
 
 
   "home.description": "",
