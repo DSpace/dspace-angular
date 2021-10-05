@@ -15,14 +15,11 @@ import { RequestService } from '../../../../core/data/request.service';
 
 /**
  * Component to wrap a list of existing collections inside a modal
- * Used to choose a collection from to create a new item in
+ * Used to choose a collection from to export collection
  */
-
 @Component({
   selector: 'ds-export-excel-selector',
-  // styleUrls: ['./export-excel-selector.component.scss'],
   templateUrl: './export-excel-selector.component.html',
-  // templateUrl: './export-excel-selector.component.html'
 })
 export class ExportExcelSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
@@ -41,7 +38,7 @@ export class ExportExcelSelectorComponent extends DSOSelectorModalWrapperCompone
   }
 
   /**
-   * Navigate to the item create page
+   * Navigate to the export process list after initializing export for collection
    */
   navigate(dso: DSpaceObject) {
     const stringParameters: ProcessParameter[] = [

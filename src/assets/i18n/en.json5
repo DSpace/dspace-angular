@@ -1463,7 +1463,9 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.export-item.item.head": "Export",
 
+  "dso-selector.export-item.sub-level": "Export to excel items in",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
