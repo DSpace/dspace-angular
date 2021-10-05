@@ -15,6 +15,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ProcessStatus } from '../processes/process-status.model';
 
 @Component({
   selector: 'ds-process-overview',
@@ -82,7 +83,6 @@ export class ProcessOverviewComponent implements OnInit {
       getFirstCompletedRemoteData(),
       take(1),
     ).subscribe(remoteData => {
-      console.log(remoteData);
       this.processesRD$.next(remoteData);
     });
   }
@@ -94,6 +94,10 @@ export class ProcessOverviewComponent implements OnInit {
 
   isCurrentUserAdmin(): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
+  }
+
+  isProcessCompleted(process: Process): boolean {
+    return process.processStatus.toString() === 'COMPLETED' || process.processStatus.toString() === 'FAILED';
   }
 
   /**

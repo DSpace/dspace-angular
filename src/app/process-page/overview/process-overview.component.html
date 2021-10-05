@@ -31,7 +31,11 @@
                     <td>{{process.startTime | date:dateFormat}}</td>
                     <td>{{process.endTime | date:dateFormat}}</td>
                     <td>{{process.processStatus}}</td>
-                    <td><button class="btn btn-danger" (click)="delete(process)" > <i class="fas fa-trash"></i> </button></td>
+                    <td>
+                      <button class="btn btn-danger" (click)="delete(process)" *ngIf="isProcessCompleted(process)"> 
+                        <i class="fas fa-trash"></i> 
+                      </button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
