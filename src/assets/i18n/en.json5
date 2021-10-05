@@ -3577,7 +3577,9 @@
 
   "process.detail.create" : "Create similar process",
 
+  "process.overview.delete.failed" : "An error occurs deleting the process.",
 
+  "process.overview.delete.success" : "Process deleted with success",
 
   "process.overview.table.finish" : "Finish time",
 
