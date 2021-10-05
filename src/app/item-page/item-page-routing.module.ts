@@ -13,7 +13,6 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
-import { BitstreamPageResolver } from '../bitstream-page/bitstream-page.resolver';
 
 @NgModule({
   imports: [

@@ -1453,7 +1453,7 @@
 
   "grant-deny-request-copy.email.message.empty": "Please enter a message",
 
-  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If there is no reason to keep it restricted, please check the box below.",
+  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
 
   "grant-deny-request-copy.email.permissions.label": "Change to open access",
 

@@ -10,7 +10,6 @@ import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/re
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
-import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
