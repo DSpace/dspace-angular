@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -48,6 +48,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   @Input() public notification = null as INotification;
 
+  /**
+   * Whether this notification's countdown should be paused
+   */
+  @Input() public isPaused$: Observable<boolean>;
+
   // Progress bar variables
   public title: Observable<string>;
   public content: Observable<string>;
@@ -66,7 +71,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private count = 0;
   private start: any;
   private diff: any;
-  public isPaused$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public animate: string;
 
   constructor(private notificationService: NotificationsService,
