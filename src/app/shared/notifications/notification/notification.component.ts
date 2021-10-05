@@ -51,7 +51,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   /**
    * Whether this notification's countdown should be paused
    */
-  @Input() public isPaused$: Observable<boolean>;
+  @Input() public isPaused$: Observable<boolean> = observableOf(false);
 
   // Progress bar variables
   public title: Observable<string>;
