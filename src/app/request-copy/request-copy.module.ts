@@ -5,6 +5,7 @@ import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy/grant-d
 import { RequestCopyRoutingModule } from './request-copy-routing.module';
 import { DenyRequestCopyComponent } from './deny-request-copy/deny-request-copy.component';
 import { EmailRequestCopyComponent } from './email-request-copy/email-request-copy.component';
+import { GrantRequestCopyComponent } from './grant-request-copy/grant-request-copy.component';
 
 @NgModule({
   imports: [
@@ -16,12 +17,13 @@ import { EmailRequestCopyComponent } from './email-request-copy/email-request-co
     GrantDenyRequestCopyComponent,
     DenyRequestCopyComponent,
     EmailRequestCopyComponent,
+    GrantRequestCopyComponent,
   ],
   providers: []
 })
 
 /**
- * Module related to components used to register a new user
+ * Module related to components used to grant or deny an item request
  */
 export class RequestCopyModule {
 

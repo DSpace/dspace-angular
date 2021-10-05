@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs/internal/Observable';
@@ -27,12 +20,33 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
   styleUrls: ['./grant-deny-request-copy.component.scss'],
   templateUrl: './grant-deny-request-copy.component.html'
 })
+/**
+ * Component for an author to decide to grant or deny an item request
+ */
 export class GrantDenyRequestCopyComponent implements OnInit {
+  /**
+   * The item request to grant or deny
+   */
   itemRequestRD$: Observable<RemoteData<ItemRequest>>;
+
+  /**
+   * The item the request is requesting access to
+   */
   itemRD$: Observable<RemoteData<Item>>;
+
+  /**
+   * The name of the item
+   */
   itemName$: Observable<string>;
 
+  /**
+   * The route to the page for denying access to the item
+   */
   denyRoute$: Observable<string>;
+
+  /**
+   * The route to the page for granting access to the item
+   */
   grantRoute$: Observable<string>;
 
   constructor(

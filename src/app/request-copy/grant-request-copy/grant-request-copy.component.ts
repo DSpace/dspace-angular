@@ -21,16 +21,16 @@ import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
-  selector: 'ds-deny-request-copy',
-  styleUrls: ['./deny-request-copy.component.scss'],
-  templateUrl: './deny-request-copy.component.html'
+  selector: 'ds-grant-request-copy',
+  styleUrls: ['./grant-request-copy.component.scss'],
+  templateUrl: './grant-request-copy.component.html'
 })
 /**
- * Component for denying an item request
+ * Component for granting an item request
  */
-export class DenyRequestCopyComponent implements OnInit {
+export class GrantRequestCopyComponent implements OnInit {
   /**
-   * The item request to deny
+   * The item request to accept
    */
   itemRequestRD$: Observable<RemoteData<ItemRequest>>;
 
@@ -42,6 +42,12 @@ export class DenyRequestCopyComponent implements OnInit {
    * The default contents of the message to send to the user requesting the item
    */
   message$: Observable<string>;
+
+  /**
+   * Whether or not the item should be open access, to avoid future requests
+   * Defaults to false
+   */
+  suggestOpenAccess = false;
 
   constructor(
     private router: Router,
@@ -84,27 +90,27 @@ export class DenyRequestCopyComponent implements OnInit {
       }),
     );
 
-    this.subject$ = this.translateService.get('deny-request-copy.email.subject');
+    this.subject$ = this.translateService.get('grant-request-copy.email.subject');
     this.message$ = msgParams$.pipe(
-      switchMap((params) => this.translateService.get('deny-request-copy.email.message', params)),
+      switchMap((params) => this.translateService.get('grant-request-copy.email.message', params)),
     );
   }
 
   /**
-   * Deny the item request
+   * Grant the item request
    * @param email Subject and contents of the message to send back to the user requesting the item
    */
-  deny(email: RequestCopyEmail) {
+  grant(email: RequestCopyEmail) {
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((itemRequest: ItemRequest) => this.itemRequestService.deny(itemRequest.token, email)),
+      switchMap((itemRequest: ItemRequest) => this.itemRequestService.grant(itemRequest.token, email, this.suggestOpenAccess)),
       getFirstCompletedRemoteData()
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get('deny-request-copy.success'));
+        this.notificationsService.success(this.translateService.get('grant-request-copy.success'));
         this.router.navigateByUrl('/');
       } else {
-        this.notificationsService.error(this.translateService.get('deny-request-copy.error'), rd.errorMessage);
+        this.notificationsService.error(this.translateService.get('grant-request-copy.error'), rd.errorMessage);
       }
     });
   }

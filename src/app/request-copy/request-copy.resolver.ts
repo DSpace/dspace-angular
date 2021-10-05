@@ -6,6 +6,9 @@ import { ItemRequestDataService } from '../core/data/item-request-data.service';
 import { Injectable } from '@angular/core';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
+/**
+ * Resolves an {@link ItemRequest} from the token found in the route's parameters
+ */
 @Injectable()
 export class RequestCopyResolver implements Resolve<RemoteData<ItemRequest>> {
 

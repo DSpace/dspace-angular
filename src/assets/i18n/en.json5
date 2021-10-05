@@ -1206,9 +1206,17 @@
 
 
 
+  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am author (or co-author).\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "deny-request-copy.email.subject": "Request copy of document",
+
+  "deny-request-copy.error": "An error occurred",
+
   "deny-request-copy.header": "Deny document copy request",
 
   "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+
+  "deny-request-copy.success": "Successfully denied item request",
 
 
 
@@ -1445,6 +1453,10 @@
 
   "grant-deny-request-copy.email.message.empty": "Please enter a message",
 
+  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If there is no reason to keep it restricted, please check the box below.",
+
+  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+
   "grant-deny-request-copy.email.send": "Send",
 
   "grant-deny-request-copy.email.subject": "Subject",
@@ -1458,6 +1470,20 @@
   "grant-deny-request-copy.intro1": "IF YOU ARE THE AUTHOR (OR AN AUTHOR) OF DOCUMENT \"{{ name }}\" use the buttons to answer the user's request.",
 
   "grant-deny-request-copy.intro2": "This repository will propose an appropriate model reply, which you may edit.",
+
+
+
+  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am author (or co-author).\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "grant-request-copy.email.subject": "Request copy of document",
+
+  "grant-request-copy.error": "An error occurred",
+
+  "grant-request-copy.header": "Grant document copy request",
+
+  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.success": "Successfully granted item request",
 
 
 
