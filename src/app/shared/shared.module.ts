@@ -277,6 +277,7 @@ import { CountersSectionComponent } from './explore/section-component/counters-s
 import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
+import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -546,7 +547,8 @@ const COMPONENTS = [
   CountersSectionComponent,
   MultiColumnTopSectionComponent,
   EditMetadataSecurityComponent,
-  MetadataLinkViewComponent
+  MetadataLinkViewComponent,
+  ExportExcelSelectorComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -620,7 +622,8 @@ const ENTRY_COMPONENTS = [
   SearchSectionComponent,
   TextSectionComponent,
   CountersSectionComponent,
-  MultiColumnTopSectionComponent
+  MultiColumnTopSectionComponent,
+  ExportExcelSelectorComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [

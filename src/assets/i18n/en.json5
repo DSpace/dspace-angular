@@ -2832,7 +2832,9 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.import_from_excel": "Import from excel",
 
+  "menu.section.export_to_excel": "Export to excel",
 
   "menu.section.icon.access_control": "Access Control menu section",
 

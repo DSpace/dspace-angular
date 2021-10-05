@@ -10,7 +10,8 @@ export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
   EXPORT_METADATA = 'export-metadata',
-  IMPORT_ITEM = 'import-item'
+  IMPORT_ITEM = 'import-item',
+  EXPORT_ITEM = 'export-item',
 }
 
 /**
