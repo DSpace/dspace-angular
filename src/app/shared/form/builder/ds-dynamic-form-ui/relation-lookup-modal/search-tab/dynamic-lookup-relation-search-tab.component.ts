@@ -247,7 +247,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     if ( this.isLeft ) {
       relationType = this.relationshipType.leftwardType;
     }
-    this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).subscribe( (res: PaginatedList<Relationship[]>) => {
+    this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).pipe(
+
+
+      ).subscribe( (res: PaginatedList<Relationship[]>) => {
 
         const selectableObject = res.page.map( (relationship: any) => {
 
@@ -260,6 +263,14 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           const uuid = arrUrl[ arrUrl.length - 1 ];
 
           return this.getRelatedItem(uuid,resultListOfItems);
+
+          // return {
+          //     uuid: relationship.id,
+          //     type: this.relationshipType,
+          //     relationship,
+          //     nameVariant,
+          //   } as RelationshipIdentifiable;
+
 
         });
 

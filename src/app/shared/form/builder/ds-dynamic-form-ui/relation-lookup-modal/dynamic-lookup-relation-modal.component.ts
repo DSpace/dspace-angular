@@ -27,6 +27,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 
+
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
   styleUrls: ['./dynamic-lookup-relation-modal.component.scss'],
@@ -161,6 +162,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   discard: EventEmitter<any>;
 
+  toAdd = [];
+  toRemove = [];
 
   constructor(
     public modal: NgbActiveModal,
@@ -313,7 +316,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Called when submit button is clicked, emit submit event to parent to conclude functionality
    */
   submitEv(): void {
-    this.submit.emit();
+    console.log(this.toAdd, this.toRemove);
+    // this.submit.emit();
   }
 
   /**

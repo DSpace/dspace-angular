@@ -79,7 +79,8 @@
             class="fas fa-undo-alt"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
           </button>
-          <button class="btn btn-primary submit" [disabled]="!(hasChanges | async)"
+          <!-- [disabled]="!(hasChanges | async)" -->
+          <button class="btn btn-primary submit" 
                   (click)="submitEv()"><i
             class="fas fa-save"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>

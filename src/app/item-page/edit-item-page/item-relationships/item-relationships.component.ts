@@ -108,6 +108,10 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    */
   public submit(): void {
 
+    this.relationshipService.getItemRelationshipsArray(this.item).pipe(
+     take(1)
+    ).subscribe(res=>console.log(res));
+
     // Get all the relationships that should be removed
     const removedRelationshipIDs$: Observable<DeleteRelationship[]> = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
       startWith([]),
@@ -115,12 +119,14 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         Object.assign(new Relationship(), relationship, { uuid: relationship.id })
       )),
       switchMap((relationships: Relationship[]) => {
-        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>;
+        return this.objectUpdatesService.getFieldUpdatesAll(this.url, relationships) as Observable<FieldUpdates>;
       }),
-      map((fieldUpdates: FieldUpdates) =>
-        Object.values(fieldUpdates)
+      map((fieldUpdates: FieldUpdates) =>{
+        console.log(fieldUpdates);
+        return Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)
           .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship)
+      }
       ),
     );
 
@@ -156,6 +162,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
   deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RemoteData<NoContent>[]> {
+    console.log(deleteRelationshipIDs);
     return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
         let copyVirtualMetadata: string;
         if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {

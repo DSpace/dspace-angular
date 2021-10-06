@@ -249,7 +249,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.submit = this.submit;
     modalComp.reinstate = this.reinstate;
     modalComp.discard = this.discard;
-
+    modalComp.toAdd = [];
+    modalComp.toRemove = [];
 
     this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload()
@@ -259,44 +260,115 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
+        
+
+        let foundIndex = modalComp.toRemove.findIndex( el => el.uuid == relatedItem.uuid);
+        console.log("select",foundIndex);
+        if(foundIndex !== -1) {
+          modalComp.toRemove.splice(foundIndex,1);
+        } else {
+
         this.getIsRelatedItem(relatedItem)
           .subscribe((isRelated: boolean) => {
 
+
             if (!isRelated) {
-              this.relationshipService.getNameVariant(this.listId, relatedItem.uuid)
-                .subscribe((nameVariant) => {
-                  const update = {
-                    uuid: this.relationshipType.id + '-' + relatedItem.uuid,
-                    nameVariant,
-                    type: this.relationshipType,
-                    relatedItem,
-                  } as RelationshipIdentifiable;
-                  this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-                });
+
+              
+              modalComp.toAdd.push(relatedItem);
+
+              // this.relationshipService.getNameVariant(this.listId, relatedItem.uuid)
+              //   .subscribe((nameVariant) => {
+              //     const update = {
+              //       uuid: this.relationshipType.id + '-' + relatedItem.uuid,
+              //       nameVariant,
+              //       type: this.relationshipType,
+              //       relatedItem,
+              //     } as RelationshipIdentifiable;
+              //     this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
+              //   });
             }
 
             this.loading$.next(true);
             // emit the last page again to trigger a fieldupdates refresh
             this.relationshipsRd$.next(this.relationshipsRd$.getValue());
           });
+          
+        }
       });
     };
     modalComp.deselect = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
-        this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.relationshipType.id + '-' + relatedItem.uuid);
-        this.getFieldUpdatesForRelatedItem(relatedItem)
-          .subscribe((identifiables) =>
-            identifiables.forEach((identifiable) =>
-              this.objectUpdatesService.saveRemoveFieldUpdate(this.url, identifiable)
-            )
-          );
+
+        let foundIndex = modalComp.toAdd.findIndex( el => el.uuid == relatedItem.uuid);
+        console.log("deselect",foundIndex);
+
+        if(foundIndex !== -1) {
+          modalComp.toAdd.splice(foundIndex,1);
+        } else {
+          modalComp.toRemove.push(relatedItem);
+        }
+        
+
+        // this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.relationshipType.id + '-' + relatedItem.uuid);
+        // this.getFieldUpdatesForRelatedItem(relatedItem)
+        //   .subscribe((identifiables) =>
+        //     identifiables.forEach((identifiable) =>
+        //       this.objectUpdatesService.saveRemoveFieldUpdate(this.url, identifiable)
+        //     )
+        //   );
       });
 
-      this.loading$.next(true);
+      // this.loading$.next(true);
       // emit the last page again to trigger a fieldupdates refresh
-      this.relationshipsRd$.next(this.relationshipsRd$.getValue());
+      // this.relationshipsRd$.next(this.relationshipsRd$.getValue());
     };
+
+    // TODO: JOIN SUBSCRIPTION BEFORE SUBMIT
+    modalComp.submitEv = () => {
+      modalComp.toAdd.forEach((relatedItem)=>{
+        this.relationshipService.getNameVariant(this.listId, relatedItem.uuid)
+        .subscribe((nameVariant) => {
+          const update = {
+            uuid: this.relationshipType.id + '-' + relatedItem.uuid,
+            nameVariant,
+            type: this.relationshipType,
+            relatedItem,
+          } as RelationshipIdentifiable;
+          this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
+        });
+      });
+
+      modalComp.toRemove.forEach((relatedItem)=>{
+        this.relationshipService.getNameVariant(this.listId, relatedItem.uuid)
+        .subscribe((nameVariant) => {
+           const update = {
+              uuid: this.relationshipType.id + '-' + relatedItem.uuid,
+              nameVariant,
+              type: this.relationshipType,
+              relatedItem,
+            } as RelationshipIdentifiable;
+            this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
+
+        });
+
+        // this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.relationshipType.id + '-' + relatedItem.uuid);
+        // this.getFieldUpdatesForRelatedItem(relatedItem)
+        //   .subscribe((identifiables) =>
+        //     identifiables.forEach((identifiable) =>
+        //       this.objectUpdatesService.saveRemoveFieldUpdate(this.url, identifiable)
+        //     )
+        //   );
+      });
+
+      setTimeout(()=>{
+        this.submit.emit();
+        this.modalRef.close();
+      },3000);
+
+    }
+
     this.relatedEntityType$
       .pipe(take(1))
       .subscribe((relatedEntityType) => {
