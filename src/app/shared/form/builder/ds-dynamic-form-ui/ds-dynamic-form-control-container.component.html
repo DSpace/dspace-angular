@@ -11,7 +11,7 @@
   <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,
                       'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
-      <div [attr.aria-labelledby]="id + '_errors'">
+      <div>
         <ng-container #componentViewContainer></ng-container>
       </div>
       <small *ngIf="hasHint && ((model.repeatable === false && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
