@@ -12,12 +12,13 @@
 
               <div class="form-group" *ngIf="molteplicity === 'MULTIPLE'">
                   <label for="entityType">{{ 'item-export.form.entityType' | translate }}</label>
-                  <select id="entityType" class="custom-select" formControlName="entityType">
+                  <!-- <select id="entityType" class="custom-select" formControlName="entityType">
                       <option [ngValue]="null" disabled>{{ 'item-export.form.entityType.tip' | translate }}</option>
                       <option *ngFor="let entityType of configuration.entityTypes" [ngValue]="entityType">
                           {{ entityType }}
                       </option>
-                  </select>
+                  </select> -->
+                  <input id="entityType" class="form-control" type="text" name="entityType" formControlName="entityType">
               </div>
 
 

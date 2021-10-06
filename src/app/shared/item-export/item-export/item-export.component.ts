@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { SearchOptions } from '../../search/search-options.model';
 import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
@@ -19,6 +20,7 @@ export class ItemExportComponent implements OnInit {
   @Input() molteplicity: ItemExportFormatMolteplicity;
   @Input() item: Item;
   @Input() searchOptions: SearchOptions;
+  @Input() itemType: ItemType;
 
   public configuration: ItemExportFormConfiguration;
   public exportForm: FormGroup;
@@ -35,11 +37,13 @@ export class ItemExportComponent implements OnInit {
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;
         this.exportForm = this.initForm(configuration);
-
+        this.onEntityTypeChange(this.itemType.label);
+        console.log(this.exportForm);
         // listen for entityType selections in order to update the available formats
-        this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
-          this.onEntityTypeChange(entityType);
-        });
+        // this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
+        //   console.log(entityType);
+        //   this.onEntityTypeChange(entityType);
+        // });
       });
   }
 
@@ -49,11 +53,11 @@ export class ItemExportComponent implements OnInit {
       this.exportForm.controls.format.patchValue(this.configuration.format);
     });
   }
-
+// {value: this.itemType.label, disabled: true}
   initForm(configuration: ItemExportFormConfiguration): FormGroup {
     return new FormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
-      entityType: new FormControl(configuration.entityType, [Validators.required]),
+      entityType: new FormControl({value: this.itemType.label, disabled: true}, [Validators.required] ),
     });
   }
 
@@ -63,7 +67,7 @@ export class ItemExportComponent implements OnInit {
         this.molteplicity,
         this.item,
         this.searchOptions,
-        this.exportForm.value.entityType,
+        this.exportForm.controls.entityType.value,
         this.exportForm.value.format).pipe(take(1)).subscribe((processId) => {
 
         const title = this.translate.get('item-export.process.title');
