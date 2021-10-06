@@ -248,9 +248,6 @@ describe('EPersonFormComponent', () => {
         requireCertificate: requireCertificate,
       });
       spyOn(component.submitForm, 'emit');
-      // component.firstName.value = firstName;
-      // component.lastName.value = lastName;
-      // component.email.value = email;
       component.canLogIn.value = canLogIn;
       component.requireCertificate.value = requireCertificate;
 
