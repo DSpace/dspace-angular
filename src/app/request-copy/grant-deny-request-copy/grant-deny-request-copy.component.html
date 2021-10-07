@@ -1,7 +1,7 @@
 <div class="container" *ngVar="(itemRequestRD$ | async) as itemRequestRD">
   <h3 class="mb-4">{{'grant-deny-request-copy.header' | translate}}</h3>
   <div *ngIf="itemRequestRD && itemRequestRD.hasSucceeded">
-    <p>{{'grant-deny-request-copy.intro1' | translate:{ name: (itemName$ | async) } }}</p>
+    <p [innerHTML]="'grant-deny-request-copy.intro1' | translate:{ url: (itemUrl$ | async), name: (itemName$ | async) }"></p>
     <p>{{'grant-deny-request-copy.intro2' | translate}}</p>
 
     <div class="btn-group ">

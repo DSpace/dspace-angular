@@ -7,7 +7,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { HALLink } from './hal-link.model';
 
 /**
- * Model class for a Configuration Property
+ * Model class for an ItemRequest
  */
 @typedObject
 export class ItemRequest implements CacheableObject {

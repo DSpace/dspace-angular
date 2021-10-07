@@ -14,6 +14,7 @@ import { getRequestCopyDenyRoute, getRequestCopyGrantRoute } from '../request-co
 import { Item } from '../../core/shared/item.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-grant-deny-request-copy',
@@ -38,6 +39,11 @@ export class GrantDenyRequestCopyComponent implements OnInit {
    * The name of the item
    */
   itemName$: Observable<string>;
+
+  /**
+   * The url of the item
+   */
+  itemUrl$: Observable<string>;
 
   /**
    * The route to the page for denying access to the item
@@ -72,6 +78,10 @@ export class GrantDenyRequestCopyComponent implements OnInit {
     this.itemName$ = this.itemRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       map((item) => this.nameService.getName(item)),
+    );
+    this.itemUrl$ = this.itemRD$.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((item) => getItemPageRoute(item)),
     );
 
     this.denyRoute$ = this.itemRequestRD$.pipe(
