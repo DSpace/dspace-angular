@@ -111,7 +111,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
     ).subscribe(() => {
       if (this.count++ === this.steps) {
         this.remove();
-        // this.item.timeoutEnd!.emit();
       } else if (!this.stopTime) {
         if (this.showProgressBar) {
           this.progressWidth += 100 / this.steps;
