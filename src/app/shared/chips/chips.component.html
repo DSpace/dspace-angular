@@ -17,7 +17,8 @@
           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
            href="#"
-           [ngClass]="{'chip-selected disabled': (c.editMode) || dragged == i}"
+           [class.disabled]="(c.editMode) || dragged == i || !clickable"
+           [class.chip-selected]="(c.editMode) || dragged == i"
            (click)="chipsSelected($event, i);">
           <span>
             <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>
