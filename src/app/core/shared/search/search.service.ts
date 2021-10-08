@@ -1,8 +1,8 @@
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, switchMap, take } from 'rxjs/operators';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../cache/builders/link.service';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
@@ -13,7 +13,7 @@ import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
-import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../../../shared/empty.util';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
@@ -21,16 +21,11 @@ import { SearchObjects } from '../../../shared/search/search-objects.model';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
 import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { Community } from '../community.model';
 import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import {
-  getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload
-} from '../operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../operators';
 import { RouteService } from '../../services/route.service';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
