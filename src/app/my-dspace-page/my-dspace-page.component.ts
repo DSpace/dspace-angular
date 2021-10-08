@@ -1,29 +1,29 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, Input, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, InjectionToken, Input, OnInit} from '@angular/core';
 
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
+import {map, switchMap, tap} from 'rxjs/operators';
 
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { hasValue } from '../shared/empty.util';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
-import { RoleType } from '../core/roles/role-types';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { ViewMode } from '../core/shared/view-mode.model';
-import { MyDSpaceRequest } from '../core/data/request.models';
-import { SearchResult } from '../shared/search/search-result.model';
-import { Context } from '../core/shared/context.model';
-import { SortOptions } from '../core/cache/models/sort-options.model';
-import { SearchObjects } from '../shared/search/search-objects.model';
+import {PaginatedList} from '../core/data/paginated-list.model';
+import {RemoteData} from '../core/data/remote-data';
+import {DSpaceObject} from '../core/shared/dspace-object.model';
+import {pushInOut} from '../shared/animations/push';
+import {HostWindowService} from '../shared/host-window.service';
+import {PaginatedSearchOptions} from '../shared/search/paginated-search-options.model';
+import {SearchService} from '../core/shared/search/search.service';
+import {SidebarService} from '../shared/sidebar/sidebar.service';
+import {hasValue} from '../shared/empty.util';
+import {getFirstCompletedRemoteData} from '../core/shared/operators';
+import {MyDSpaceResponseParsingService} from '../core/data/mydspace-response-parsing.service';
+import {SearchConfigurationOption} from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import {RoleType} from '../core/roles/role-types';
+import {SearchConfigurationService} from '../core/shared/search/search-configuration.service';
+import {MyDSpaceConfigurationService} from './my-dspace-configuration.service';
+import {ViewMode} from '../core/shared/view-mode.model';
+import {MyDSpaceRequest} from '../core/data/request.models';
+import {SearchResult} from '../shared/search/search-result.model';
+import {Context} from '../core/shared/context.model';
+import {SortOptions} from '../core/cache/models/sort-options.model';
+import {SearchObjects} from '../shared/search/search-objects.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -131,7 +131,10 @@ export class MyDSpacePageComponent implements OnInit {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getFirstCompletedRemoteData())))
+      switchMap((options: PaginatedSearchOptions) => {
+        options.projection = 'preventMetadataSecurity';
+        return this.service.search(options).pipe(getFirstCompletedRemoteData());
+      }))
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         this.resultsRD$.next(results);
       });
