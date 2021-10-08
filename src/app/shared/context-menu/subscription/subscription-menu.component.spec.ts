@@ -16,6 +16,7 @@ import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { DebugElement } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 
 
@@ -30,6 +31,7 @@ describe('SubscriptionMenuComponent', () => {
 
   let modalService;
   let authServiceStub: any;
+  let store: any;
 
   beforeEach(async(() => {
     dso = Object.assign(new Item(), {
@@ -46,12 +48,17 @@ describe('SubscriptionMenuComponent', () => {
       getAuthenticatedUserFromStore: observableOf(EPersonMock)
     });
 
+    store = jasmine.createSpyObj('store', {
+      pipe: observableOf(true)
+    });
+
     TestBed.configureTestingModule({
       declarations: [ SubscriptionMenuComponent ],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: AuthService, useValue: authServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Store, useValue: store },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
       ]

@@ -1,4 +1,4 @@
-<button *ngIf="isAuthorized$ | async" class="dropdown-item" (click)="$event.preventDefault();openSubscription(subscriptionModal);">
+<button *ngIf="isAuthenticated | async" class="dropdown-item" (click)="$event.preventDefault();openSubscription(subscriptionModal);">
   {{'context-menu.actions.subscribe.btn' | translate}}
 </button>
 

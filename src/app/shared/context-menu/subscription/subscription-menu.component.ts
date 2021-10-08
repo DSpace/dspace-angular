@@ -1,20 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
-
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { isAuthenticated } from '../../../core/auth/selectors';
+import { CoreState } from '../../../core/core.reducers';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
+import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 
 @Component({
   selector: 'ds-subscription-menu',
@@ -29,11 +26,7 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
  */
 export class SubscriptionMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
-  /**
-   * Whether or not the current user is authorized to edit the DSpaceObject
-   */
-  isAuthorized$: Observable<boolean> = observableOf(true);
-
+  public isAuthenticated: Observable<boolean>;
 
   /**
    * Reference to NgbModal
@@ -61,12 +54,11 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
    *
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
-   * @param {AuthorizationDataService} authorizationService
    */
   constructor(
     @Inject('contextMenuObjectProvider') public injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    protected authorizationService: AuthorizationDataService,
+    protected store: Store<CoreState>,
     private modalService: NgbModal,
     private authService: AuthService,
   ) {
@@ -74,7 +66,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   }
 
   ngOnInit() {
-    // this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
+    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
     this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
       this.eperson = eperson.id;
     });
