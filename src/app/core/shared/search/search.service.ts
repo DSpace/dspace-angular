@@ -396,48 +396,6 @@ export class SearchService implements OnDestroy {
   }
 
   /**
-   * Request a list of DSpaceObjects that can be used as a scope, based on the current scope
-   * @param {string} scopeId UUID of the current scope, if the scope is empty, the repository wide scopes will be returned
-   * @returns {Observable<DSpaceObject[]>} Emits a list of DSpaceObjects which represent possible scopes
-   */
-  getScopes(scopeId?: string): Observable<DSpaceObject[]> {
-
-    if (isEmpty(scopeId)) {
-      const top: Observable<Community[]> = this.communityService.findTop({ elementsPerPage: 9999 }).pipe(
-        getFirstSucceededRemoteData(),
-        map(
-          (communities: RemoteData<PaginatedList<Community>>) => communities.payload.page
-        )
-      );
-      return top;
-    }
-
-    const scopeObject: Observable<RemoteData<DSpaceObject>> = this.dspaceObjectService.findById(scopeId).pipe(getFirstSucceededRemoteData());
-    const scopeList: Observable<DSpaceObject[]> = scopeObject.pipe(
-      switchMap((dsoRD: RemoteData<DSpaceObject>) => {
-          if ((dsoRD.payload as any).type === Community.type.value) {
-            const community: Community = dsoRD.payload as Community;
-            this.linkService.resolveLinks(community, followLink('subcommunities'), followLink('collections'));
-            return observableCombineLatest([
-              community.subcommunities.pipe(getFirstCompletedRemoteData()),
-              community.collections.pipe(getFirstCompletedRemoteData())
-            ]).pipe(
-              map(([subCommunities, collections]) => {
-                /*if this is a community, we also need to show the direct children*/
-                return [community, ...subCommunities.payload.page, ...collections.payload.page];
-              })
-            );
-          } else {
-            return observableOf([dsoRD.payload]);
-          }
-        }
-      ));
-
-    return scopeList;
-
-  }
-
-  /**
    * Requests the current view mode based on the current URL
    * @returns {Observable<ViewMode>} The current view mode
    */
