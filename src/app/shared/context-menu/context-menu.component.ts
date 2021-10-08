@@ -71,4 +71,8 @@ export class ContextMenuComponent implements OnInit {
   getContextMenuEntries(): any[] {
     return this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
   }
+
+  isItem(): boolean {
+    return this.contextMenuObjectType === DSpaceObjectType.ITEM;
+  }
 }
