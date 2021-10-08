@@ -13,7 +13,7 @@ import { ProcessDataService } from '../../core/data/processes/process-data.servi
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ProcessStatus } from '../processes/process-status.model';
 
