@@ -4,16 +4,14 @@ import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import {
-  getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, switchMap, take, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import { filter, last, map, switchMap} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -78,9 +76,6 @@ export class MiradorViewerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
     /**
      * Initializes the iframe url observable.
      */
@@ -91,7 +86,7 @@ export class MiradorViewerComponent implements OnInit {
       }
 
       // We need to set the multi property to true if the
-      // item is searchable or the bundle contains more
+      // item is searchable or the ORIGINAL bundle contains more
       // than 1 image bitstream. The multi property controls the
       // Mirador side navigation panel.
       if (this.searchable) {
@@ -104,8 +99,9 @@ export class MiradorViewerComponent implements OnInit {
           })
         );
       } else {
+        // Gets the first 10 items in the bundle and counts the number of images. Emits the final count.
         let count = 0;
-        this.iframeViewerUrl = this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
+        const imageCount$ = this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
           currentPage: 1,
           elementsPerPage: 10
         }, true, true, ...this.LINKS_TO_FOLLOW)
@@ -118,19 +114,24 @@ export class MiradorViewerComponent implements OnInit {
               getFirstSucceededRemoteDataPayload(),
               map((format: BitstreamFormat) => format)
             )),
-            map((format) => {
+            map((format: BitstreamFormat) => {
               if (format.mimetype.includes('image')) {
                 count++;
               }
               return count;
-            }),
-            filter(currentCount => currentCount > 1),
-            take(1),
-            map(() => {
-              this.multi = true;
-              return this.setURL();
-            })
+             }),
+            last()
           );
+
+        // Sets the multi value based on the image count and then sets the iframe url.
+        this.iframeViewerUrl = imageCount$.pipe(
+          map(c => {
+            if (count > 1) {
+              this.multi = true;
+            }
+            return this.setURL();
+          })
+        );
       }
     }
   }
