@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EditBitstreamPageComponent } from './edit-bitstream-page/edit-bitstream-page.component';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { BitstreamPageResolver } from './bitstream-page.resolver';
 import { BitstreamDownloadPageComponent } from '../shared/bitstream-download-page/bitstream-download-page.component';
 import { ResourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
@@ -49,8 +48,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         component: EditBitstreamPageComponent,
         resolve: {
           bitstream: BitstreamPageResolver
-        },
-        canActivate: [AuthenticatedGuard]
+        }
       },
       {
         path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,
