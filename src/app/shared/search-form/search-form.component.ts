@@ -74,7 +74,8 @@ export class SearchFormComponent implements OnInit {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
-  constructor(private router: Router, private searchService: SearchService,
+  constructor(private router: Router,
+              private searchService: SearchService,
               private paginationService: PaginationService,
               private searchConfig: SearchConfigurationService,
               private modalService: NgbModal,
@@ -82,6 +83,9 @@ export class SearchFormComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Retrieve the scope object from the URL so we can show its name
+   */
   ngOnInit(): void {
     if (isNotEmpty(this.scope)) {
       this.dsoService.findById(this.scope).pipe(getFirstSucceededRemoteDataPayload())
@@ -149,6 +153,9 @@ export class SearchFormComponent implements OnInit {
     return this.getSearchLink().split('/');
   }
 
+  /**
+   * Open the scope modal so the user can select DSO as scope
+   */
   openScopeModal() {
     const ref = this.modalService.open(ScopeSelectorModalComponent);
     ref.componentInstance.scopeChange.pipe(take(1)).subscribe((scope: DSpaceObject) => {

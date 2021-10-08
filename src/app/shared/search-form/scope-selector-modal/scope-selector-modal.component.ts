@@ -6,12 +6,11 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../../dso-
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 /**
- * Component to wrap a button - for top communities -
- * and a list of parent communities - for sub communities
+ * Component to wrap a button - to select the entire repository -
+ * and a list of parent communities - for scope selection
  * inside a modal
- * Used to create a new community
+ * Used to select a scope
  */
-
 @Component({
   selector: 'ds-scope-selector-modal',
   styleUrls: ['./scope-selector-modal.component.scss'],
@@ -19,8 +18,19 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;
+  /**
+   * The types of DSO that can be selected from this list
+   */
   selectorTypes = [DSpaceObjectType.COMMUNITY, DSpaceObjectType.COLLECTION];
+
+  /**
+   * The type of action to perform
+   */
   action = SelectorActionType.SET_SCOPE;
+
+  /**
+   * Emits the selected scope as a DSpaceObject when a user clicks one
+   */
   scopeChange = new EventEmitter<DSpaceObject>();
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute) {
@@ -28,7 +38,7 @@ export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponen
   }
 
   navigate(dso: DSpaceObject) {
-    /* Handle search navigation in underlying component */
+    /* Handle complex search navigation in underlying component */
     this.scopeChange.emit(dso);
   }
 }
