@@ -11,7 +11,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, last, map, switchMap} from 'rxjs/operators';
+import { last, map, switchMap} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
