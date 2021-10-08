@@ -65,7 +65,7 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
    * @param data
    */
   select(data) {
-    let decoded =  decodeURI(data.extra._links.search.href)
+    const decoded =  decodeURI(data.extra._links.search.href);
     const links = decoded.split('?');
     if (links && links.length > 1) {
       const queryParam: any = {};
