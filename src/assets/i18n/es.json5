@@ -274,6 +274,8 @@
 
 	"admin.access-control.epeople.form.table.name": "Nombre",
 
+	"admin.access-control.epeople.form.table.collectionOrCommunity": "Colección/Comunidad",
+
 	"admin.access-control.epeople.form.memberOfNoGroups": "Esta EPerson no es miembro de ningún grupo",
 
 	"admin.access-control.epeople.form.goToGroups": "Agregar a grupos",
@@ -310,6 +312,8 @@
 
 	"admin.access-control.groups.table.name": "Nombre",
 
+	"admin.access-control.groups.table.collectionOrCommunity": "Colección/Comunidad",
+
 	"admin.access-control.groups.table.members": "Miembros",
 
 	"admin.access-control.groups.table.edit": "Editar",
@@ -335,6 +339,8 @@
 	"admin.access-control.groups.form.head.edit": "Editar grupo",
 
 	"admin.access-control.groups.form.groupName": "Nombre del grupo",
+
+	"admin.access-control.groups.form.groupCommunity": "Comunidad o Colección",
 
 	"admin.access-control.groups.form.groupDescription": "Descripción",
 
@@ -384,6 +390,12 @@
 
 	"admin.access-control.groups.form.members-list.table.name": "Nombre",
 
+	"admin.access-control.groups.form.members-list.table.identity": "Identidad",
+
+	"admin.access-control.groups.form.members-list.table.email": "Correo electrónico",
+
+	"admin.access-control.groups.form.members-list.table.netid": "NetID",
+
 	"admin.access-control.groups.form.members-list.table.edit": "Eliminar / Agregar",
 
 	"admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Eliminar miembro con nombre \"{{ name }} \"",
@@ -419,6 +431,8 @@
 	"admin.access-control.groups.form.subgroups-list.table.id": "IDENTIFICACIÓN",
 
 	"admin.access-control.groups.form.subgroups-list.table.name": "Nombre",
+
+	"admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Colección/Comunidad",
 
 	"admin.access-control.groups.form.subgroups-list.table.edit": "Eliminar / Agregar",
 
@@ -1713,6 +1727,10 @@
 	"item.page.citation": "Citación",
 
 	"item.page.collections": "Colecciones",
+
+	"item.page.collections.loading": "Cargando...",
+
+	"item.page.collections.load-more": "Cargar más",
 
 	"item.page.date": "Fecha",
 
