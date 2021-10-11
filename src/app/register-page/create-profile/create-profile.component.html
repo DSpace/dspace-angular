@@ -1,6 +1,7 @@
 <div class="container">
     <h3 class="mb-4">{{'register-page.create-profile.header' | translate}}</h3>
-    <div class="card mb-4">
+  <div *ngIf="hasGroups" class="mb-4"> <a href="javascript:void(0);" (click)="acceptInvitation()">{{'existing.user.login' | translate}}</a></div>
+  <div class="card mb-4">
         <div class="card-header">{{'register-page.create-profile.identification.header' | translate}}</div>
         <div class="card-body">
             <div class="row">

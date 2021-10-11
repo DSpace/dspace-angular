@@ -1,0 +1,20 @@
+<div class="container" style="border: 1px solid #e1e1e1;border-radius: 5px; max-width: 50%; min-width: fit-content; height: fit-content">
+  <p class="font-weight-bold" style="margin-top:2rem">{{'group.invitation' | translate}}
+  </p>
+  <hr class="mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ul>
+          <li *ngFor="let group of registrationData.groupNames">
+            {{group}}
+          </li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <button type="button" (click)="ignore()" class="btn btn-warning">{{'ignore.invitation' | translate}}</button>
+        <button class="btn btn-primary save float-right" (click)="accept()">{{'accept.invitation'| translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

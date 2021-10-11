@@ -1,5 +1,5 @@
 import { CreateProfileComponent } from './create-profile.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
 import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs';
+import {of as observableOf} from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -22,11 +22,17 @@ import {
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {AuthService} from '../../core/auth/auth.service';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
   let fixture: ComponentFixture<CreateProfileComponent>;
-
+  let authService: any;
+  const  ePerson = Object.assign(new EPerson(), {
+    id: 'test-eperson',
+    uuid: 'test-eperson',
+    email: 'albamail@atis.al'
+  });
   let router;
   let route;
   let ePersonDataService: EPersonDataService;
@@ -35,13 +41,17 @@ describe('CreateProfileComponent', () => {
   let endUserAgreementService: EndUserAgreementService;
 
   const registration = Object.assign(new Registration(), {email: 'test@email.org', token: 'test-token'});
-
   let values;
   let eperson: EPerson;
   let valuesWithAgreement;
   let epersonWithAgreement: EPerson;
 
   beforeEach(waitForAsync(() => {
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {},
+      getAuthenticatedUserFromStore: observableOf(ePerson)
+    });
     values = {
       metadata: {
         'eperson.firstname': [
@@ -134,10 +144,12 @@ describe('CreateProfileComponent', () => {
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: EndUserAgreementService, useValue: endUserAgreementService},
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
+
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateProfileComponent);
     comp = fixture.componentInstance;
@@ -272,4 +284,25 @@ describe('CreateProfileComponent', () => {
     });
 
   });
+  beforeEach(fakeAsync(() => {
+    comp.hasGroups = true;
+    fixture.detectChanges();
+  }));
+  describe('when the user clicks "login with existing user" option', () => {
+    it('navigate to invitation should have been called', () => {
+      const invitationButton = fixture.debugElement.queryAll(By.css('a'))[0];
+      invitationButton.triggerEventHandler('click', null);
+      expect(authService.isAuthenticated).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['invitation'], {queryParams: {token: 'test-token'}});
+    });
+    it('navigate to login should have been called', () => {
+      spyOn(router, 'navigateByUrl');
+      authService.isAuthenticated.and.returnValue(observableOf(false));
+      const invitationButton = fixture.debugElement.queryAll(By.css('a'))[0];
+      invitationButton.triggerEventHandler('click', null);
+      expect(authService.setRedirectUrl).toHaveBeenCalled();
+      expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+    });
+  });
+
 });

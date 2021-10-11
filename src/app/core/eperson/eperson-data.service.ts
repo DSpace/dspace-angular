@@ -299,7 +299,24 @@ export class EPersonDataService extends DataService<EPerson> {
     return this.rdbService.buildFromRequestUUID(requestId);
 
   }
+  /**
+   * Create a new EPerson using a token
+   * @param epersonId
+   * @param token
+   */
+  public acceptInvitationToJoinGroups(epersonId: string, token: string): Observable<RemoteData<EPerson>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBrowseEndpoint().pipe(
+      map((href: string) => `${href}/${epersonId}/groups?token=${token}`));
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href);
+      this.requestService.send(request);
+    });
+    return this.rdbService.buildFromRequestUUID(requestId);
 
+  }
   /**
    * Sends a patch request to update an epersons password based on a forgot password token
    * @param uuid      Uuid of the eperson

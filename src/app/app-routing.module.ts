@@ -29,6 +29,7 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import {ValidTokenGuard} from './invitation/valid-token.guard';
 
 @NgModule({
   imports: [
@@ -236,6 +237,11 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
           },
+          {
+            path: 'invitation',
+            loadChildren: () => import('./invitation/invitation-routing/invitation-routing.module')
+              .then((m) => m.InvitationRoutingModule),
+            canActivate: [AuthenticatedGuard, ValidTokenGuard]},
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{

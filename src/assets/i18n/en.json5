@@ -5281,5 +5281,14 @@
 
   "layout.i18n.link.default": "link",
 
-  "orcid.badge.tooltip": "Connected to ORCID"
+  "orcid.badge.tooltip": "Connected to ORCID",
+
+  "group.invitation": "You have been invited to following groups",
+
+  "accept.invitation": "Accept",
+
+  "ignore.invitation": "Ignore",
+
+  "existing.user.login": "Log in with an existing user"
+
 }
