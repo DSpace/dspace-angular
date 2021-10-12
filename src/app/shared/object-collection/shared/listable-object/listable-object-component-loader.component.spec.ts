@@ -1,5 +1,5 @@
-import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ChangeDetectionStrategy, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 import { ListableObject } from '../listable-object.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
@@ -117,17 +117,33 @@ describe('ListableObjectComponentLoaderComponent', () => {
   });
 
   describe('When a reloadedObject is emitted', () => {
+    let listableComponent;
+    let reloadedObject: any;
 
-    it('should re-instantiate the listable component ', fakeAsync(() => {
+    beforeEach(() => {
+      spyOn((comp as any), 'connectInputsAndOutputs').and.returnValue(null);
+      spyOn((comp as any).contentChange, 'emit').and.returnValue(null);
 
-      spyOn((comp as any), 'instantiateComponent').and.returnValue(null);
+      listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
+      reloadedObject = 'object';
+    });
 
-      const listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
-      const reloadedObject: any = 'object';
+    it('should pass it on connectInputsAndOutputs', fakeAsync(() => {
+      expect((comp as any).connectInputsAndOutputs).not.toHaveBeenCalled();
+
       (listableComponent as any).reloadedObject.emit(reloadedObject);
       tick();
 
-      expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject);
+      expect((comp as any).connectInputsAndOutputs).toHaveBeenCalled();
+    }));
+
+    it('should re-emit it as a contentChange', fakeAsync(() => {
+      expect((comp as any).contentChange.emit).not.toHaveBeenCalled();
+
+      (listableComponent as any).reloadedObject.emit(reloadedObject);
+      tick();
+
+      expect((comp as any).contentChange.emit).toHaveBeenCalledWith(reloadedObject);
     }));
 
   });

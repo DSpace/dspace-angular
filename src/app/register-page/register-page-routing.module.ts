@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RegisterEmailComponent } from './register-email/register-email.component';
-import { ItemPageResolver } from '../+item-page/item-page.resolver';
+import { ItemPageResolver } from '../item-page/item-page.resolver';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { EndUserAgreementCookieGuard } from '../core/end-user-agreement/end-user-agreement-cookie.guard';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';

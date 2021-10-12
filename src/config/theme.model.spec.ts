@@ -1,13 +1,13 @@
 import { HandleTheme, RegExTheme, Theme, UUIDTheme } from './theme.model';
-import { getCommunityModuleRoute } from '../app/+community-page/community-page-routing-paths';
+import { getCommunityModuleRoute } from '../app/community-page/community-page-routing-paths';
 import { Community } from '../app/core/shared/community.model';
 import { COMMUNITY } from '../app/core/shared/community.resource-type';
-import { getCollectionModuleRoute } from '../app/+collection-page/collection-page-routing-paths';
+import { getCollectionModuleRoute } from '../app/collection-page/collection-page-routing-paths';
 import { COLLECTION } from '../app/core/shared/collection.resource-type';
 import { Collection } from '../app/core/shared/collection.model';
 import { Item } from '../app/core/shared/item.model';
 import { ITEM } from '../app/core/shared/item.resource-type';
-import { getItemModuleRoute } from '../app/+item-page/item-page-routing-paths';
+import { getItemModuleRoute } from '../app/item-page/item-page-routing-paths';
 
 describe('Theme Models', () => {
   let theme: Theme;

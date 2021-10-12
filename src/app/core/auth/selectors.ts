@@ -116,6 +116,14 @@ const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
 const _getAuthenticationMethods = (state: AuthState) => state.authMethods;
 
 /**
+ * Returns true if the user is idle.
+ * @function _isIdle
+ * @param {State} state
+ * @returns {boolean}
+ */
+const _isIdle = (state: AuthState) => state.idle;
+
+/**
  * Returns the authentication methods enabled at the backend
  * @function getAuthenticationMethods
  * @param {AuthState} state
@@ -231,3 +239,12 @@ export const getRegistrationError = createSelector(getAuthState, _getRegistratio
  * @return {string}
  */
 export const getRedirectUrl = createSelector(getAuthState, _getRedirectUrl);
+
+/**
+ * Returns true if the user is idle
+ * @function isIdle
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {boolean}
+ */
+export const isIdle = createSelector(getAuthState, _isIdle);

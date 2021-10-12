@@ -51,12 +51,14 @@ describe('ExportMetadataSelectorComponent', () => {
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
+    uuid: 'fake-id',
     handle: 'fake/handle',
     lastModified: '2018'
   });
 
   const mockCollection: Collection = Object.assign(new Collection(), {
     id: 'test-collection-1-1',
+    uuid: 'test-collection-1-1',
     name: 'test-collection-1',
     metadata: {
       'dc.identifier.uri': [
@@ -70,6 +72,7 @@ describe('ExportMetadataSelectorComponent', () => {
 
   const mockCommunity = Object.assign(new Community(), {
     id: 'test-uuid',
+    uuid: 'test-uuid',
     metadata: {
       'dc.identifier.uri': [
         {
@@ -157,10 +160,9 @@ describe('ExportMetadataSelectorComponent', () => {
         done();
       });
     });
-    it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
+    it('should invoke the metadata-export script with option -i uuid', () => {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.handle }),
-        Object.assign(new ProcessParameter(), { name: '-f', value: mockCollection.uuid + '.csv' }),
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.uuid }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
@@ -182,10 +184,9 @@ describe('ExportMetadataSelectorComponent', () => {
         done();
       });
     });
-    it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
+    it('should invoke the metadata-export script with option -i uuid', () => {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.handle }),
-        Object.assign(new ProcessParameter(), { name: '-f', value: mockCommunity.uuid + '.csv' }),
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.uuid }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
     });

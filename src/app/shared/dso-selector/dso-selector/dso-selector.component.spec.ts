@@ -6,10 +6,11 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { hasValue } from '../../empty.util';
 import { createPaginatedList } from '../../testing/utils.test';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -59,12 +60,17 @@ describe('DSOSelectorComponent', () => {
     });
   }
 
+  let notificationsService: NotificationsService;
+
   beforeEach(waitForAsync(() => {
+    notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [DSOSelectorComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
+        { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -86,12 +92,18 @@ describe('DSOSelectorComponent', () => {
   });
 
   describe('populating listEntries', () => {
-    it('should not be empty', () => {
-      expect(component.listEntries.length).toBeGreaterThan(0);
+    it('should not be empty', (done) => {
+      component.listEntries$.subscribe((listEntries) => {
+        expect(listEntries.length).toBeGreaterThan(0);
+        done();
+      });
     });
 
-    it('should contain a combination of the current DSO and first page results', () => {
-      expect(component.listEntries).toEqual([searchResult, ...firstPageResults]);
+    it('should contain a combination of the current DSO and first page results', (done) => {
+      component.listEntries$.subscribe((listEntries) => {
+        expect(listEntries).toEqual([searchResult, ...firstPageResults]);
+        done();
+      });
     });
 
     describe('when current page increases', () => {
@@ -99,9 +111,23 @@ describe('DSOSelectorComponent', () => {
         component.currentPage$.next(2);
       });
 
-      it('should contain a combination of the current DSO, as well as first and second page results', () => {
-        expect(component.listEntries).toEqual([searchResult, ...firstPageResults, ...nextPageResults]);
+      it('should contain a combination of the current DSO, as well as first and second page results', (done) => {
+        component.listEntries$.subscribe((listEntries) => {
+          expect(listEntries).toEqual([searchResult, ...firstPageResults, ...nextPageResults]);
+          done();
+        });
       });
+    });
+  });
+
+  describe('when search returns an error', () => {
+    beforeEach(() => {
+      spyOn(searchService, 'search').and.returnValue(createFailedRemoteDataObject$());
+      component.ngOnInit();
+    });
+
+    it('should display an error notification', () => {
+      expect(notificationsService.error).toHaveBeenCalled();
     });
   });
 });

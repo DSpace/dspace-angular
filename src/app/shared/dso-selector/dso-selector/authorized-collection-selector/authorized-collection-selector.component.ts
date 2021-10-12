@@ -3,13 +3,17 @@ import { DSOSelectorComponent } from '../dso-selector.component';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { hasValue } from '../../../empty.util';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
@@ -21,8 +25,10 @@ import { followLink } from '../../../utils/follow-link-config.model';
  */
 export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent {
   constructor(protected searchService: SearchService,
-              protected collectionDataService: CollectionDataService) {
-    super(searchService);
+              protected collectionDataService: CollectionDataService,
+              protected notifcationsService: NotificationsService,
+              protected translate: TranslateService) {
+    super(searchService, notifcationsService, translate);
   }
 
   /**
@@ -37,13 +43,15 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    * @param query Query to search objects for
    * @param page  Page to retrieve
    */
-  search(query: string, page: number): Observable<PaginatedList<SearchResult<DSpaceObject>>> {
+  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     return this.collectionDataService.getAuthorizedCollection(query, Object.assign({
       currentPage: page,
       elementsPerPage: this.defaultPagination.pageSize
     }),true, false, followLink('parentCommunity')).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((list) => buildPaginatedList(list.pageInfo, list.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))))
+      getFirstCompletedRemoteData(),
+      map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
+        payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
+      }))
     );
   }
 }

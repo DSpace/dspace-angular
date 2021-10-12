@@ -11,14 +11,14 @@ export class ThemedRootComponent extends ThemedComponent<RootComponent> {
   /**
    * Whether or not the authentication is currently blocking the UI
    */
-  @Input() isNotAuthBlocking: boolean;
+  @Input() shouldShowFullscreenLoader: boolean;
 
   /**
    * Whether or not the the application is loading;
    */
-  @Input() isLoading: boolean;
+  @Input() shouldShowRouteLoader: boolean;
 
-  protected inAndOutputNames: (keyof RootComponent & keyof this)[] = ['isLoading', 'isNotAuthBlocking'];
+  protected inAndOutputNames: (keyof RootComponent & keyof this)[] = ['shouldShowRouteLoader', 'shouldShowFullscreenLoader'];
 
   protected getComponentName(): string {
     return 'RootComponent';

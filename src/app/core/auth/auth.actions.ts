@@ -34,7 +34,9 @@ export const AuthActionTypes = {
   RETRIEVE_AUTHENTICATED_EPERSON: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON'),
   RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
-  REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS')
+  REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS'),
+  SET_USER_AS_IDLE: type('dspace/auth/SET_USER_AS_IDLE'),
+  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -391,6 +393,24 @@ export class RetrieveAuthenticatedEpersonErrorAction implements Action {
     this.payload = payload ;
   }
 }
+
+/**
+ * Set the current user as being idle.
+ * @class SetUserAsIdleAction
+ * @implements {Action}
+ */
+export class SetUserAsIdleAction implements Action {
+  public type: string = AuthActionTypes.SET_USER_AS_IDLE;
+}
+
+/**
+ * Unset the current user as being idle.
+ * @class UnsetUserAsIdleAction
+ * @implements {Action}
+ */
+export class UnsetUserAsIdleAction implements Action {
+  public type: string = AuthActionTypes.UNSET_USER_AS_IDLE;
+}
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -421,4 +441,7 @@ export type AuthActions
   | RetrieveAuthenticatedEpersonErrorAction
   | RetrieveAuthenticatedEpersonSuccessAction
   | SetRedirectUrlAction
-  | RedirectAfterLoginSuccessAction;
+  | RedirectAfterLoginSuccessAction
+  | SetUserAsIdleAction
+  | UnsetUserAsIdleAction;
+

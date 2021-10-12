@@ -18,6 +18,8 @@ import {
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
+  BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
+  BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG,
@@ -43,6 +45,7 @@ import { FormComponent } from '../../../../../shared/form/form.component';
  */
 @Component({
   selector: 'ds-submission-section-upload-file-edit',
+  styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
 })
 export class SubmissionSectionUploadFileEditComponent implements OnChanges {
@@ -209,8 +212,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
 
         const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
         const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
-
-        return [type, startDate, endDate];
+        const accessConditionGroupConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG);
+        accessConditionGroupConfig.group = [type, startDate, endDate];
+        return [new DynamicFormGroupModel(accessConditionGroupConfig, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT)];
       };
 
       // Number of access conditions blocks in form
@@ -233,16 +237,16 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
   public initModelData(formModel: DynamicFormControlModel[]) {
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
-        .filter((key) => accessCondition.hasOwnProperty(key))
+        .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
         .forEach((key) => {
           const metadataModel: any = this.formBuilderService.findById(key, formModel, index);
           if (metadataModel) {
             if (metadataModel.type === DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER) {
               const date = new Date(accessCondition[key]);
               metadataModel.value = {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate()
+                year: date.getUTCFullYear(),
+                month: date.getUTCMonth() + 1,
+                day: date.getUTCDate()
               };
             } else {
               metadataModel.value = accessCondition[key];
@@ -298,9 +302,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
 
           const min = new Date(accessCondition.maxStartDate);
           startDateModel.max = {
-            year: min.getFullYear(),
-            month: min.getMonth() + 1,
-            day: min.getDate()
+            year: min.getUTCFullYear(),
+            month: min.getUTCMonth() + 1,
+            day: min.getUTCDate()
           };
         }
         if (accessCondition.hasEndDate) {
@@ -310,9 +314,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
 
           const max = new Date(accessCondition.maxEndDate);
           endDateModel.max = {
-            year: max.getFullYear(),
-            month: max.getMonth() + 1,
-            day: max.getDate()
+            year: max.getUTCFullYear(),
+            month: max.getUTCMonth() + 1,
+            day: max.getUTCDate()
           };
         }
       }

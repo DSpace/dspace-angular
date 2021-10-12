@@ -5,6 +5,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
+import { Bundle } from '../../core/shared/bundle.model';
 
 export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new BitstreamFormat(), {
   shortDescription: 'Microsoft Word XML',
@@ -34,11 +35,25 @@ export const MockBitstreamFormat2: BitstreamFormat = Object.assign(new Bitstream
     }
 });
 
+export const MockBitstreamFormat3: BitstreamFormat = Object.assign(new BitstreamFormat(), {
+  shortDescription: 'Binary',
+  description: 'Some scary unknown binary file',
+  mimetype: 'application/octet-stream',
+  supportLevel: 0,
+  internal: false,
+  extensions: null,
+  _links:{
+    self: {
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/17'
+    }
+  }
+});
+
 export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
   {
     sizeBytes: 10201,
     content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-    format: observableOf(MockBitstreamFormat1),
+    format: createSuccessfulRemoteDataObject$(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
     _links:{
       self: {
@@ -61,7 +76,7 @@ export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
 export const MockBitstream2: Bitstream = Object.assign(new Bitstream(), {
   sizeBytes: 31302,
   content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
-  format: observableOf(MockBitstreamFormat2),
+  format: createSuccessfulRemoteDataObject$(MockBitstreamFormat2),
   bundleName: 'ORIGINAL',
   id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
   uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
@@ -82,6 +97,68 @@ export const MockBitstream2: Bitstream = Object.assign(new Bitstream(), {
   }
 });
 
+export const MockBitstream3: Bitstream = Object.assign(new Bitstream(), {
+  sizeBytes: 4975123,
+  content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/content',
+  format: createSuccessfulRemoteDataObject$(MockBitstreamFormat3),
+  bundleName: 'ORIGINAL',
+  id: '4db100c1-e1f5-4055-9404-9bc3e2d15f29',
+  uuid: '4db100c1-e1f5-4055-9404-9bc3e2d15f29',
+  type: 'bitstream',
+  _links: {
+    self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29' },
+    content: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/content' },
+    format: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/17' },
+    bundle: { href: '' }
+  },
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'scary'
+      }
+    ]
+  }
+});
+
+export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
+  name: 'ORIGINAL',
+  primaryBitstream: createSuccessfulRemoteDataObject$(MockBitstream2),
+  bitstreams: observableOf(Object.assign({
+    _links: {
+      self: {
+        href: 'dspace-angular://aggregated/object/1507836003548',
+      }
+    },
+    requestPending: false,
+    responsePending: false,
+    isSuccessful: true,
+    errorMessage: '',
+    state: '',
+    error: undefined,
+    isRequestPending: false,
+    isResponsePending: false,
+    isLoading: false,
+    hasFailed: false,
+    hasSucceeded: true,
+    statusCode: '202',
+    pageInfo: {},
+    payload: {
+      pageInfo: {
+        elementsPerPage: 20,
+        totalElements: 3,
+        totalPages: 1,
+        currentPage: 2
+      },
+      page: [
+        MockBitstream1,
+        MockBitstream2
+      ]
+    }
+  }))
+});
+
+
 /* tslint:disable:no-shadowed-variable */
 export const ItemMock: Item = Object.assign(new Item(), {
   handle: '10673/6',
@@ -90,41 +167,7 @@ export const ItemMock: Item = Object.assign(new Item(), {
   isDiscoverable: true,
   isWithdrawn: false,
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([
-    {
-      name: 'ORIGINAL',
-      bitstreams: observableOf(Object.assign({
-        _links: {
-          self: {
-            href: 'dspace-angular://aggregated/object/1507836003548',
-          }
-        },
-        requestPending: false,
-        responsePending: false,
-        isSuccessful: true,
-        errorMessage: '',
-        state: '',
-        error: undefined,
-        isRequestPending: false,
-        isResponsePending: false,
-        isLoading: false,
-        hasFailed: false,
-        hasSucceeded: true,
-        statusCode: '202',
-        pageInfo: {},
-        payload: {
-          pageInfo: {
-            elementsPerPage: 20,
-            totalElements: 3,
-            totalPages: 1,
-            currentPage: 2
-          },
-          page: [
-            MockBitstream1,
-            MockBitstream2
-          ]
-        }
-      }))
-    }
+    MockOriginalBundle,
   ])),
   _links:{
     self: {

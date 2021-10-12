@@ -23,7 +23,9 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  SetRedirectUrlAction
+  SetRedirectUrlAction,
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPersonMock } from '../../shared/testing/eperson.mock';
@@ -44,6 +46,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: false,
+      idle: false
     };
     const action = new AuthenticateAction('user', 'password');
     const newState = authReducer(initialState, action);
@@ -53,7 +56,8 @@ describe('authReducer', () => {
       blocking: true,
       error: undefined,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
 
     expect(newState).toEqual(state);
@@ -66,7 +70,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new AuthenticationSuccessAction(mockTokenInfo);
     const newState = authReducer(initialState, action);
@@ -81,7 +86,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new AuthenticationErrorAction(mockError);
     const newState = authReducer(initialState, action);
@@ -92,7 +98,8 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       authToken: undefined,
-      error: 'Test error message'
+      error: 'Test error message',
+      idle: false
     };
 
     expect(newState).toEqual(state);
@@ -105,7 +112,8 @@ describe('authReducer', () => {
       loaded: false,
       error: undefined,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new AuthenticatedAction(mockTokenInfo);
     const newState = authReducer(initialState, action);
@@ -115,7 +123,8 @@ describe('authReducer', () => {
       loaded: false,
       error: undefined,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -127,7 +136,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new AuthenticatedSuccessAction(true, mockTokenInfo, EPersonMock._links.self.href);
     const newState = authReducer(initialState, action);
@@ -138,7 +148,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -150,7 +161,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new AuthenticatedErrorAction(mockError);
     const newState = authReducer(initialState, action);
@@ -161,7 +173,8 @@ describe('authReducer', () => {
       loaded: true,
       blocking: false,
       loading: false,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -172,6 +185,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
+      idle: false
     };
     const action = new CheckAuthenticationTokenAction();
     const newState = authReducer(initialState, action);
@@ -180,6 +194,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -190,6 +205,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: true,
+      idle: false
     };
     const action = new CheckAuthenticationTokenCookieAction();
     const newState = authReducer(initialState, action);
@@ -198,6 +214,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -211,7 +228,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
 
     const action = new LogOutAction();
@@ -229,7 +247,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
 
     const action = new LogOutSuccessAction();
@@ -243,7 +262,8 @@ describe('authReducer', () => {
       loading: true,
       info: undefined,
       refreshing: false,
-      userId: undefined
+      userId: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -257,7 +277,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
 
     const action = new LogOutErrorAction(mockError);
@@ -270,7 +291,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -283,7 +305,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock.id);
     const newState = authReducer(initialState, action);
@@ -295,7 +318,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -307,7 +331,8 @@ describe('authReducer', () => {
       error: undefined,
       blocking: true,
       loading: true,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     const action = new RetrieveAuthenticatedEpersonErrorAction(mockError);
     const newState = authReducer(initialState, action);
@@ -318,7 +343,8 @@ describe('authReducer', () => {
       loaded: true,
       blocking: false,
       loading: false,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -332,7 +358,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
     const action = new RefreshTokenAction(newTokenInfo);
@@ -346,7 +373,8 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       userId: EPersonMock.id,
-      refreshing: true
+      refreshing: true,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -361,7 +389,8 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       userId: EPersonMock.id,
-      refreshing: true
+      refreshing: true,
+      idle: false
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
     const action = new RefreshTokenSuccessAction(newTokenInfo);
@@ -375,7 +404,8 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       userId: EPersonMock.id,
-      refreshing: false
+      refreshing: false,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -390,7 +420,8 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       userId: EPersonMock.id,
-      refreshing: true
+      refreshing: true,
+      idle: false
     };
     const action = new RefreshTokenErrorAction();
     const newState = authReducer(initialState, action);
@@ -403,7 +434,8 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       refreshing: false,
-      userId: undefined
+      userId: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -417,7 +449,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       info: undefined,
-      userId: EPersonMock.id
+      userId: EPersonMock.id,
+      idle: false
     };
 
     state = {
@@ -428,7 +461,8 @@ describe('authReducer', () => {
       loading: false,
       error: undefined,
       info: 'Message',
-      userId: undefined
+      userId: undefined,
+      idle: false
     };
   });
 
@@ -450,6 +484,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
+      idle: false
     };
     const action = new AddAuthenticationMessageAction('Message');
     const newState = authReducer(initialState, action);
@@ -458,7 +493,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      info: 'Message'
+      info: 'Message',
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -470,7 +506,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       error: 'Error',
-      info: 'Message'
+      info: 'Message',
+      idle: false
     };
     const action = new ResetAuthenticationMessagesAction();
     const newState = authReducer(initialState, action);
@@ -480,7 +517,8 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       error: undefined,
-      info: undefined
+      info: undefined,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -490,7 +528,8 @@ describe('authReducer', () => {
       authenticated: false,
       loaded: false,
       blocking: false,
-      loading: false
+      loading: false,
+      idle: false
     };
     const action = new SetRedirectUrlAction('redirect.url');
     const newState = authReducer(initialState, action);
@@ -499,7 +538,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      redirectUrl: 'redirect.url'
+      redirectUrl: 'redirect.url',
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -510,7 +550,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      authMethods: []
+      authMethods: [],
+      idle: false
     };
     const action = new RetrieveAuthMethodsAction(new AuthStatus());
     const newState = authReducer(initialState, action);
@@ -519,7 +560,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
-      authMethods: []
+      authMethods: [],
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -530,7 +572,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
-      authMethods: []
+      authMethods: [],
+      idle: false
     };
     const authMethods = [
       new AuthMethod(AuthMethodType.Password),
@@ -543,7 +586,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      authMethods: authMethods
+      authMethods: authMethods,
+      idle: false
     };
     expect(newState).toEqual(state);
   });
@@ -554,7 +598,8 @@ describe('authReducer', () => {
       loaded: false,
       blocking: true,
       loading: true,
-      authMethods: []
+      authMethods: [],
+      idle: false
     };
 
     const action = new RetrieveAuthMethodsErrorAction();
@@ -564,7 +609,50 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      authMethods: [new AuthMethod(AuthMethodType.Password)]
+      authMethods: [new AuthMethod(AuthMethodType.Password)],
+      idle: false
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a SET_USER_AS_IDLE action', () => {
+    initialState = {
+      authenticated: true,
+      loaded: true,
+      blocking: false,
+      loading: false,
+      idle: false
+    };
+
+    const action = new SetUserAsIdleAction();
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: true,
+      loaded: true,
+      blocking: false,
+      loading: false,
+      idle: true
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a UNSET_USER_AS_IDLE action', () => {
+    initialState = {
+      authenticated: true,
+      loaded: true,
+      blocking: false,
+      loading: false,
+      idle: true
+    };
+
+    const action = new UnsetUserAsIdleAction();
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: true,
+      loaded: true,
+      blocking: false,
+      loading: false,
+      idle: false
     };
     expect(newState).toEqual(state);
   });

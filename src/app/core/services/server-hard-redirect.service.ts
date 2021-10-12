@@ -55,16 +55,19 @@ export class ServerHardRedirectService extends HardRedirectService {
   }
 
   /**
-   * Get the origin of a request
+   * Get the URL of the current route
    */
-  getCurrentRoute() {
+  getCurrentRoute(): string {
     return this.req.originalUrl;
   }
 
   /**
-   * Get the hostname of the request
+   * Get the origin of the current URL
+   * i.e. <scheme> "://" <hostname> [ ":" <port> ]
+   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
+   * the origin would be https://demo7.dspace.org
    */
-  getRequestOrigin() {
-    return this.req.headers.host;
+  getCurrentOrigin(): string {
+    return this.req.protocol + '://' + this.req.headers.host;
   }
 }

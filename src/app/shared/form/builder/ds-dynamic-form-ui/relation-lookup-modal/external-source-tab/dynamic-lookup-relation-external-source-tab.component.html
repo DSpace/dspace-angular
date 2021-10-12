@@ -14,14 +14,14 @@
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !entriesRD?.isLoading && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                                [config]="initialPagination"
+                                [config]="(currentPagination$ |async)"
                                 [hideGear]="true"
                                 [context]="context"
                                 [importable]="true"
                                 [importConfig]="importConfig"
                                 (importObject)="import($event)">
         </ds-viewable-collection>
-        <ds-loading *ngIf="!entriesRD || !entriesRD?.payload || entriesRD?.isLoading"
+        <ds-loading *ngIf="!entriesRD || entriesRD?.isLoading"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
         <ds-error   *ngIf="entriesRD?.hasFailed && (!entriesRD?.errorMessage || entriesRD?.statusCode != 400)"
                     message="{{'error.search-results' | translate}}"></ds-error>

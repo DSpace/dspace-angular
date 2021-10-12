@@ -254,6 +254,13 @@ export class FormComponent implements OnDestroy, OnInit {
 
   onBlur(event: DynamicFormControlEvent): void {
     this.blur.emit(event);
+    const control: FormControl = event.control;
+    const fieldIndex: number = (event.context && event.context.index) ? event.context.index : 0;
+    if (control.valid) {
+      this.formService.removeError(this.formId, event.model.name, fieldIndex);
+    } else {
+      this.formService.addControlErrors(control, this.formId, event.model.name, fieldIndex);
+    }
   }
 
   onCustomEvent(event: any) {
@@ -309,9 +316,16 @@ export class FormComponent implements OnDestroy, OnInit {
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     const event = this.getEvent($event, arrayContext, index, 'remove');
+    if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      // In case of qualdrop value remove event must be dispatched before removing the control from array
+      this.removeArrayItem.emit(event);
+    }
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     this.formService.changeForm(this.formId, this.formModel);
-    this.removeArrayItem.emit(event);
+    if (!this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      // dispatch remove event for any field type except for qualdrop value
+      this.removeArrayItem.emit(event);
+    }
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {

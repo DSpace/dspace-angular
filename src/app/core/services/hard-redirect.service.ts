@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * Service to take care of hard redirects
@@ -20,21 +18,13 @@ export abstract class HardRedirectService {
    * Get the current route, with query params included
    * e.g. /search?page=1&query=open%20access&f.dateIssued.min=1980&f.dateIssued.max=2020
    */
-  abstract getCurrentRoute();
+  abstract getCurrentRoute(): string;
 
   /**
-   * Get the hostname of the request
+   * Get the origin of the current URL
+   * i.e. <scheme> "://" <hostname> [ ":" <port> ]
+   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
+   * the origin would be https://demo7.dspace.org
    */
-  abstract getRequestOrigin();
-
-  public rewriteDownloadURL(originalUrl: string): string {
-    if (environment.rewriteDownloadUrls) {
-      const hostName = this.getRequestOrigin();
-      const namespace = environment.rest.nameSpace;
-      const rewrittenUrl = new URLCombiner(hostName, namespace).toString();
-      return originalUrl.replace(environment.rest.baseUrl, rewrittenUrl);
-    } else {
-      return originalUrl;
-    }
-  }
+  abstract getCurrentOrigin(): string;
 }

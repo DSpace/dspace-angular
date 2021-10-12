@@ -19,7 +19,7 @@ import { RequestService } from './request.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getItemPageRoute } from '../../+item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 
 @Injectable()
 export class DsoRedirectDataService extends DataService<any> {

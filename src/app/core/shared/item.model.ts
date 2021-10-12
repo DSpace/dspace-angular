@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
@@ -19,6 +19,8 @@ import { ITEM } from './item.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
+import { BITSTREAM } from './bitstream.resource-type';
+import { Bitstream } from './bitstream.model';
 
 /**
  * Class representing a DSpace Item
@@ -37,7 +39,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
   /**
    * The Date of the last modification of this Item
    */
-  @deserialize
+  @deserializeAs(Date)
   lastModified: Date;
 
   /**
@@ -69,6 +71,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
     owningCollection: HALLink;
     templateItemOf: HALLink;
     version: HALLink;
+    thumbnail: HALLink;
     self: HALLink;
   };
 
@@ -99,6 +102,13 @@ export class Item extends DSpaceObject implements ChildHALResource {
    */
   @link(RELATIONSHIP, true)
   relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
+
+  /**
+   * The thumbnail for this Item
+   * Will be undefined unless the thumbnail {@link HALLink} has been resolved.
+   */
+  @link(BITSTREAM, false, 'thumbnail')
+  thumbnail?: Observable<RemoteData<Bitstream>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

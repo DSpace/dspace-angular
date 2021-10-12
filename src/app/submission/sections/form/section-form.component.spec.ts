@@ -44,6 +44,7 @@ import { SubmissionObjectDataService } from '../../../core/submission/submission
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { cold } from 'jasmine-marbles';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -59,7 +60,8 @@ const sectionObject: SectionDataObject = {
   config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
   mandatory: true,
   data: {},
-  errors: [],
+  errorsToShow: [],
+  serverValidationErrors: [],
   header: 'submit.progressbar.describe.stepone',
   id: 'traditionalpageone',
   sectionType: SectionsType.SubmissionForm
@@ -200,6 +202,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       formService.isValid.and.returnValue(observableOf(true));
       formConfigService.findByHref.and.returnValue(observableOf(testFormConfiguration));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
 
       const html = `
         <ds-submission-section-form></ds-submission-section-form>`;
@@ -246,6 +249,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       formService.isValid.and.returnValue(observableOf(true));
       formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
 
@@ -253,7 +257,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       fixture.detectChanges();
 
       expect(compAsAny.formConfig).toEqual(testFormConfiguration);
-      expect(comp.sectionData.errors).toEqual([]);
+      expect(comp.sectionData.errorsToShow).toEqual([]);
       expect(comp.sectionData.data).toEqual(sectionData);
       expect(comp.isLoading).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalledWith(sectionData);
@@ -322,7 +326,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       };
       const sectionError = [];
       comp.sectionData.data = {};
-      comp.sectionData.errors = [];
+      comp.sectionData.errorsToShow = [];
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
 
@@ -342,7 +346,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       comp.sectionData.data = {};
-      comp.sectionData.errors = [];
+      comp.sectionData.errorsToShow = [];
       compAsAny.formData = sectionData;
       compAsAny.sectionMetadata = ['dc.title'];
 
@@ -368,7 +372,8 @@ describe('SubmissionSectionformComponent test suite', () => {
     it('should check for error', () => {
       comp.isUpdating = false;
       comp.formId = 'test';
-      comp.sectionData.errors = [];
+      comp.sectionData.errorsToShow = [];
+      comp.sectionData.serverValidationErrors = [];
 
       comp.checksForErrors(parsedSectionErrors);
 
@@ -379,7 +384,37 @@ describe('SubmissionSectionformComponent test suite', () => {
         parsedSectionErrors,
         []
       );
-      expect(comp.sectionData.errors).toEqual(parsedSectionErrors);
+      expect(comp.sectionData.errorsToShow).toEqual(parsedSectionErrors);
+    });
+
+    it('should return a valid status when form is valid and there are no server validation errors', () => {
+      formService.isValid.and.returnValue(observableOf(true));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      const expected = cold('(b|)', {
+        b: true
+      });
+
+      expect(compAsAny.getSectionStatus()).toBeObservable(expected);
+    });
+
+    it('should return an invalid status when form is valid and there are server validation errors', () => {
+      formService.isValid.and.returnValue(observableOf(true));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf(parsedSectionErrors));
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(compAsAny.getSectionStatus()).toBeObservable(expected);
+    });
+
+    it('should return an invalid status when form is not valid and there are no server validation errors', () => {
+      formService.isValid.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(compAsAny.getSectionStatus()).toBeObservable(expected);
     });
 
     it('should subscribe to state properly', () => {
@@ -392,7 +427,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       };
       const sectionState = {
         data: sectionData,
-        errors: parsedSectionErrors
+        errorsToShow: parsedSectionErrors
       };
 
       formService.getFormData.and.returnValue(observableOf(formData));
@@ -402,7 +437,7 @@ describe('SubmissionSectionformComponent test suite', () => {
 
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.formData).toEqual(formData);
-      expect(comp.updateForm).toHaveBeenCalledWith(sectionState.data, sectionState.errors);
+      expect(comp.updateForm).toHaveBeenCalledWith(sectionState.data, sectionState.errorsToShow);
 
     });
 
