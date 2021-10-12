@@ -1,4 +1,4 @@
-import { autoserializeAs, deserializeAs, deserialize, serializeAs } from 'cerialize';
+import { autoserializeAs, deserialize, deserializeAs, serializeAs } from 'cerialize';
 import { HALLink } from './hal-link.model';
 import { MetadataConfig } from './metadata-config.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -6,7 +6,6 @@ import { typedObject } from '../cache/builders/build-decorators';
 import { CONTENT_SOURCE } from './content-source.resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
-import { IDToUUIDSerializer } from '../cache/id-to-uuid-serializer';
 import { ContentSourceSetSerializer } from './content-source-set-serializer';
 
 /**

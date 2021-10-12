@@ -22,12 +22,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
  */
 @Component({
   selector: 'ds-collection-source-controls',
+  styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
 })
 export class CollectionSourceControlsComponent implements OnDestroy {
@@ -49,6 +51,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
 
   contentSource$: Observable<ContentSource>;
   private subs: Subscription[] = [];
+
+  testConfigRunning$ = new BehaviorSubject(false);
+  importRunning$ = new BehaviorSubject(false);
+  reImportRunning$ = new BehaviorSubject(false);
 
   constructor(private scriptDataService: ScriptDataService,
               private processDataService: ProcessDataService,
@@ -75,6 +81,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
    * @param contentSource - The content source to be tested
    */
   testConfiguration(contentSource) {
+    this.testConfigRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-g', value: null},
       {name: '-a', value: contentSource.oaiSource},
@@ -85,6 +92,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         if (rd.hasFailed) {
           // show a notification when the script invocation fails
           this.notificationsService.error(this.translateService.get('collection.source.controls.test.submit.error'));
+          this.testConfigRunning$.next(false);
         }
       }),
       // filter out responses that aren't successful since the pinging of the process only needs to happen when the invocation was successful.
@@ -104,6 +112,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         }
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.test.failed'));
+          this.testConfigRunning$.next(false);
         }
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
           this.bitstreamService.findByHref(process._links.output.href).pipe(getFirstSucceededRemoteDataPayload()).subscribe((bitstream) => {
@@ -114,6 +123,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
               this.notificationsService.info(this.translateService.get('collection.source.controls.test.completed'), output);
             });
           });
+          this.testConfigRunning$.next(false);
         }
       }
     ));
@@ -123,6 +133,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
    * Start the harvest for the current collection
    */
   importNow() {
+    this.importRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-r', value: null},
       {name: '-c', value: this.collection.uuid},
@@ -132,6 +143,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         tap((rd) => {
           if (rd.hasFailed) {
             this.notificationsService.error(this.translateService.get('collection.source.controls.import.submit.error'));
+            this.importRunning$.next(false);
           } else {
             this.notificationsService.success(this.translateService.get('collection.source.controls.import.submit.success'));
           }
@@ -153,10 +165,12 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
           if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
             this.notificationsService.error(this.translateService.get('collection.source.controls.import.failed'));
+            this.importRunning$.next(false);
           }
           if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
             this.notificationsService.success(this.translateService.get('collection.source.controls.import.completed'));
-              this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
+            this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
+            this.importRunning$.next(false);
           }
         }
       ));
@@ -166,6 +180,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
    * Reset and reimport the current collection
    */
   resetAndReimport() {
+    this.reImportRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
       {name: '-o', value: null},
       {name: '-c', value: this.collection.uuid},
@@ -175,6 +190,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         tap((rd) => {
           if (rd.hasFailed) {
             this.notificationsService.error(this.translateService.get('collection.source.controls.reset.submit.error'));
+            this.reImportRunning$.next(false);
           } else {
             this.notificationsService.success(this.translateService.get('collection.source.controls.reset.submit.success'));
           }
@@ -196,10 +212,12 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
           if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
             this.notificationsService.error(this.translateService.get('collection.source.controls.reset.failed'));
+            this.reImportRunning$.next(false);
           }
           if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
             this.notificationsService.success(this.translateService.get('collection.source.controls.reset.completed'));
             this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
+            this.reImportRunning$.next(false);
           }
         }
       ));
