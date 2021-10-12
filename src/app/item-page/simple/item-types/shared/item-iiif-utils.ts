@@ -21,9 +21,7 @@ export const isIiifSearchEnabled = (item: Item) => {
  * @param routeService
  */
 export const getDSpaceQuery = (item: Item, routeService: RouteService): Observable<string> => {
-  return routeService.getHistory().pipe(
-    take(1),
-    map(routes => routes[routes.length - 2 ]),
+  return routeService.getPreviousUrl().pipe(
     filter(r => {
       return r.includes('/search');
     }),

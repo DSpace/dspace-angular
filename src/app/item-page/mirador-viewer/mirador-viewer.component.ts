@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { HostWindowService } from '../../shared/host-window.service';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -27,14 +28,29 @@ export class MiradorViewerComponent implements OnInit {
 
   @Input() item: Item;
 
+  /**
+   * A previous dspace search query.
+   */
   @Input() query: string;
 
+  /**
+   * True if searchable.
+   */
   @Input() searchable: boolean;
 
+  /**
+   * The url for the iframe.
+   */
   iframeViewerUrl: Observable<SafeResourceUrl>;
 
+  /**
+   * Sets the viewer to show or hide thumbnail side navigation menu.
+   */
   multi = false;
 
+  /**
+   * Hides the thumbnail navigation menu on smaller viewports.
+   */
   notMobile = false;
 
   LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
@@ -43,6 +59,7 @@ export class MiradorViewerComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer,
               private bitstreamDataService: BitstreamDataService,
+              private windowService: HostWindowService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -80,15 +97,14 @@ export class MiradorViewerComponent implements OnInit {
      * Initializes the iframe url observable.
      */
     if (isPlatformBrowser(this.platformId)) {
-      // This will not be responsive to resizing.
-      if (window.innerWidth > 768) {
-        this.notMobile = true;
-      }
-
+      // The notMobile property affects only the thumbnail navigation
+      // menu by hiding it for smaller viewports. This will not be
+      // responsive to resizing.
+      this.windowService.isMd().subscribe((s) => this.notMobile = s);
       // We need to set the multi property to true if the
       // item is searchable or the ORIGINAL bundle contains more
-      // than 1 image bitstream. The multi property controls the
-      // Mirador side navigation panel.
+      // than 1 image bitstream. The multi property determine whether the
+      // Mirador side navigation panel is shown.
       if (this.searchable) {
         // If it's searchable set multi to true.
         const observable = of({multi: true});

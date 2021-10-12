@@ -21,10 +21,19 @@ export class ItemComponent implements OnInit {
    */
   itemPageRoute: string;
 
+  /**
+   * Enables the mirador component.
+   */
   iiifEnabled: boolean;
 
+  /**
+   * Used to configure search in mirador.
+   */
   iiifSearchEnabled: boolean;
 
+  /**
+   * The query term from the previous dspace search.
+   */
   iiifQuery$: Observable<string>;
 
   mediaViewer = environment.mediaViewer;
