@@ -138,7 +138,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get the collection's content harvester
    * @param collectionId
    */
-  getContentSource(collectionId: string): Observable<RemoteData<ContentSource>> {
+  getContentSource(collectionId: string, useCachedVersionIfAvailable = true): Observable<RemoteData<ContentSource>> {
     const href$ = this.getHarvesterEndpoint(collectionId).pipe(
       isNotEmptyOperator(),
       take(1)
@@ -146,7 +146,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
 
     href$.subscribe((href: string) => {
       const request = new ContentSourceRequest(this.requestService.generateRequestId(), href);
-      this.requestService.send(request, true);
+      this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
     return this.rdbService.buildSingle<ContentSource>(href$);
