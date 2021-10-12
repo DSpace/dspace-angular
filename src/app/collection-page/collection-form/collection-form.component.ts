@@ -23,6 +23,7 @@ import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 
 /**
  * Form used for creating and editing collections
@@ -80,7 +81,9 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     // retrieve all entity types to populate the dropdowns selection
     entities$.subscribe((entityTypes: ItemType[]) => {
 
-        entityTypes.forEach((type: ItemType, index: number) => {
+        entityTypes
+          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
+          .forEach((type: ItemType, index: number) => {
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
