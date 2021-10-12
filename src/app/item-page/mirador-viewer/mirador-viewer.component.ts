@@ -16,7 +16,6 @@ import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { HostWindowService } from '../../shared/host-window.service';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -59,7 +58,6 @@ export class MiradorViewerComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer,
               private bitstreamDataService: BitstreamDataService,
-              private windowService: HostWindowService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -100,7 +98,9 @@ export class MiradorViewerComponent implements OnInit {
       // The notMobile property affects only the thumbnail navigation
       // menu by hiding it for smaller viewports. This will not be
       // responsive to resizing.
-      this.windowService.isMd().subscribe((s) => this.notMobile = s);
+      if (window.innerWidth > 768) {
+        this.notMobile = true;
+      }
       // We need to set the multi property to true if the
       // item is searchable or the ORIGINAL bundle contains more
       // than 1 image bitstream. The multi property determine whether the
