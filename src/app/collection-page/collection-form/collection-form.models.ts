@@ -4,14 +4,7 @@ import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/selec
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
   name: 'dspace.entity.type',
-  required: true,
-  disabled: false,
-  validators: {
-    required: null
-  },
-  errorMessages: {
-    required: 'collection.form.errors.entityType.required'
-  },
+  disabled: false
 };
 
 /**
