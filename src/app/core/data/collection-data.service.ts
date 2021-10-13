@@ -196,7 +196,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get the collection's content harvester
    * @param collectionId
    */
-  getContentSource(collectionId: string): Observable<RemoteData<ContentSource>> {
+  getContentSource(collectionId: string, useCachedVersionIfAvailable = true): Observable<RemoteData<ContentSource>> {
     const href$ = this.getHarvesterEndpoint(collectionId).pipe(
       isNotEmptyOperator(),
       take(1)
@@ -204,7 +204,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
 
     href$.subscribe((href: string) => {
       const request = new ContentSourceRequest(this.requestService.generateRequestId(), href);
-      this.requestService.send(request, true);
+      this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
     return this.rdbService.buildSingle<ContentSource>(href$);
@@ -266,11 +266,20 @@ export class CollectionDataService extends ComColDataService<Collection> {
   }
 
   /**
-   * Returns {@link RemoteData} of {@link Collection} that is the owing collection of the given item
+   * Returns {@link RemoteData} of {@link Collection} that is the owning collection of the given item
    * @param item  Item we want the owning collection of
    */
   findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
     return this.findByHref(item._links.owningCollection.href);
+  }
+
+  /**
+   * Get a list of mapped collections for the given item.
+   * @param item  Item for which the mapped collections should be retrieved.
+   * @param findListOptions Pagination and search options.
+   */
+  findMappedCollectionsFor(item: Item, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<Collection>>> {
+    return this.findAllByHref(item._links.mappedCollections.href, findListOptions);
   }
 
 }
