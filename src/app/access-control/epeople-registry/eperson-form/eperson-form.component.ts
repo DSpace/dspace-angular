@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,
@@ -8,7 +8,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { debounceTime, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -37,7 +37,7 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
 @Component({
   selector: 'ds-eperson-form',
-  templateUrl: './eperson-form.component.html'
+  templateUrl: './eperson-form.component.html',
 })
 /**
  * A form used for creating and editing EPeople
@@ -162,7 +162,13 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   isImpersonated = false;
 
-  constructor(public epersonService: EPersonDataService,
+  /**
+   * Subscription to email field value change
+   */
+  emailValueChangeSubscribe: Subscription;
+
+  constructor(protected changeDetectorRef: ChangeDetectorRef,
+              public epersonService: EPersonDataService,
               public groupsDataService: GroupDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
@@ -225,8 +231,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         },
         required: true,
         errorMessages: {
-            emailTaken: 'error.validation.emailTaken',
-            pattern: 'error.validation.NotValidEmail'
+          emailTaken: 'error.validation.emailTaken',
+          pattern: 'error.validation.NotValidEmail'
         },
         hint: emailHint
       });
@@ -266,15 +272,18 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           canLogIn: eperson != null ? eperson.canLogIn : true,
           requireCertificate: eperson != null ? eperson.requireCertificate : false
         });
-      }));
 
-      if (!!this.formGroup.controls.email) {
-        this.formGroup.controls.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.epersonService));
-      }
+        if (eperson === null && !!this.formGroup.controls.email) {
+          this.formGroup.controls.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(this.epersonService));
+          this.emailValueChangeSubscribe = this.email.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+            this.changeDetectorRef.detectChanges();
+          });
+        }
+      }));
 
       const activeEPerson$ = this.epersonService.getActiveEPerson();
 
-      this.groups  = activeEPerson$.pipe(
+      this.groups = activeEPerson$.pipe(
         switchMap((eperson) => {
           return observableCombineLatest([observableOf(eperson), this.paginationService.getFindListOptions(this.config.id, {
             currentPage: 1,
@@ -353,10 +362,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', {name: ePersonToCreate.name}));
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: ePersonToCreate.name }));
         this.submitForm.emit(ePersonToCreate);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', {name: ePersonToCreate.name}));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: ePersonToCreate.name }));
         this.cancelForm.emit();
       }
     });
@@ -392,10 +401,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     const response = this.epersonService.updateEPerson(editedEperson);
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<EPerson>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', {name: editedEperson.name}));
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
         this.submitForm.emit(editedEperson);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', {name: editedEperson.name}));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: editedEperson.name }));
         this.cancelForm.emit();
       }
     });
@@ -403,6 +412,87 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     if (values.email != null && values.email !== ePerson.email) {
       this.showNotificationIfEmailInUse(editedEperson, 'edited');
     }
+  }
+
+  /**
+   * Event triggered when the user changes page
+   * @param event
+   */
+  onPageChange(event) {
+    this.updateGroups({
+      currentPage: event,
+      elementsPerPage: this.config.pageSize
+    });
+  }
+
+  /**
+   * Start impersonating the EPerson
+   */
+  impersonate() {
+    this.authService.impersonate(this.epersonInitial.id);
+    this.isImpersonated = true;
+  }
+
+  /**
+   * Deletes the EPerson from the Repository. The EPerson will be the only that this form is showing.
+   * It'll either show a success or error message depending on whether the delete was successful or not.
+   */
+  delete() {
+    this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((eperson: EPerson) => {
+      const modalRef = this.modalService.open(ConfirmationModalComponent);
+      modalRef.componentInstance.dso = eperson;
+      modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-eperson.header';
+      modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
+      modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
+      modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-eperson.confirm';
+      modalRef.componentInstance.brandColor = 'danger';
+      modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+      modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
+        if (confirm) {
+          if (hasValue(eperson.id)) {
+            this.epersonService.deleteEPerson(eperson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
+              if (restResponse.hasSucceeded) {
+                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
+                this.submitForm.emit();
+              } else {
+                this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
+              }
+              this.cancelForm.emit();
+            });
+          }
+        }
+      });
+    });
+  }
+
+  /**
+   * Stop impersonating the EPerson
+   */
+  stopImpersonating() {
+    this.authService.stopImpersonatingAndRefresh();
+    this.isImpersonated = false;
+  }
+
+  /**
+   * Cancel the current edit when component is destroyed & unsub all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.onCancel();
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    this.paginationService.clearPagination(this.config.id);
+    if (hasValue(this.emailValueChangeSubscribe)) {
+      this.emailValueChangeSubscribe.unsubscribe();
+    }
+  }
+
+  /**
+   * This method will ensure that the page gets reset and that the cache is cleared
+   */
+  reset() {
+    this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((eperson: EPerson) => {
+      this.requestService.removeByHrefSubstring(eperson.self);
+    });
+    this.initialisePage();
   }
 
   /**
@@ -428,89 +518,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Event triggered when the user changes page
-   * @param event
-   */
-  onPageChange(event) {
-    this.updateGroups({
-      currentPage: event,
-      elementsPerPage: this.config.pageSize
-    });
-  }
-
-  /**
    * Update the list of groups by fetching it from the rest api or cache
    */
   private updateGroups(options) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, options);
     }));
-  }
-
-  /**
-   * Start impersonating the EPerson
-   */
-  impersonate() {
-    this.authService.impersonate(this.epersonInitial.id);
-    this.isImpersonated = true;
-  }
-
-  /**
-   * Deletes the EPerson from the Repository. The EPerson will be the only that this form is showing.
-   * It'll either show a success or error message depending on whether the delete was successful or not.
-   */
-  delete() {
-      this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((eperson: EPerson) => {
-        const modalRef = this.modalService.open(ConfirmationModalComponent);
-        modalRef.componentInstance.dso = eperson;
-        modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-eperson.header';
-        modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
-        modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
-        modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-eperson.confirm';
-        modalRef.componentInstance.brandColor = 'danger';
-        modalRef.componentInstance.confirmIcon = 'fas fa-trash';
-        modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
-          if (confirm) {
-            if (hasValue(eperson.id)) {
-              this.epersonService.deleteEPerson(eperson).pipe(getFirstCompletedRemoteData()).subscribe((restResponse: RemoteData<NoContent>) => {
-                if (restResponse.hasSucceeded) {
-                  this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
-                  this.submitForm.emit();
-                } else {
-                  this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
-                }
-                this.cancelForm.emit();
-              });
-            }}
-        });
-    });
-  }
-
-  /**
-   * Stop impersonating the EPerson
-   */
-  stopImpersonating() {
-    this.authService.stopImpersonatingAndRefresh();
-    this.isImpersonated = false;
-  }
-
-  /**
-   * Cancel the current edit when component is destroyed & unsub all subscriptions
-   */
-  ngOnDestroy(): void {
-    this.onCancel();
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-    this.paginationService.clearPagination(this.config.id);
-  }
-
-
-  /**
-   * This method will ensure that the page gets reset and that the cache is cleared
-   */
-  reset() {
-    this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((eperson: EPerson) => {
-      this.requestService.removeByHrefSubstring(eperson.self);
-    });
-    this.initialisePage();
   }
 }
