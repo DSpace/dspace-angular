@@ -3,7 +3,6 @@
     <div class="col-md-12">
       <h2 id="header" class="pb-2">{{'submission.import-external.title' + ((label) ? '.' + label : '') | translate}}</h2>
       <ds-submission-import-external-searchbar
-        *ngIf="reload$.value.entity"
         [initExternalSourceData]="reload$.value"
         (externalSourceData) = "getExternalSourceData($event)">
       </ds-submission-import-external-searchbar>
@@ -36,13 +35,7 @@
       </ds-alert>
     </div>
   </div>
-  <div class="row" *ngIf="!reload$.value.entity">
-    <div class="col-md-12">
-      <ds-alert [type]="'alert-warning'">
-        <p class="lead mb-0">{{'submission.import-external.page.noentity' | translate}}</p>
-      </ds-alert>
-    </div>
-  </div>
+
   <div class="row">
     <div class="col-md-12">
       <hr>

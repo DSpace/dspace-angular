@@ -3246,8 +3246,6 @@
 
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
-  "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
-
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
 
   "submission.import-external.search.placeholder": "Search the external source",

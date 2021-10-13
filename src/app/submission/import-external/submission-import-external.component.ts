@@ -20,6 +20,7 @@ import { fadeIn } from '../../shared/animations/fade';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../../core/shared/operators';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -127,7 +128,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       ]).pipe(
       take(1)
     ).subscribe(([entity, sourceId, query]: [string, string, string]) => {
-      this.reload$.next({entity: entity, query: query, sourceId: sourceId});
+      this.reload$.next({entity: entity || NONE_ENTITY_TYPE, query: query, sourceId: sourceId});
       this.selectLabel(entity);
       this.retrieveExternalSources();
     }));
