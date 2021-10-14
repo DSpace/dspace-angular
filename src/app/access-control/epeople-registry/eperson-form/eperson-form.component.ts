@@ -299,7 +299,13 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       );
 
       this.canImpersonate$ = activeEPerson$.pipe(
-        switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.LoginOnBehalfOf, hasValue(eperson) ? eperson.self : undefined))
+        switchMap((eperson) => {
+          if (hasValue(eperson)) {
+            return this.authorizationService.isAuthorized(FeatureID.LoginOnBehalfOf, eperson.self);
+          } else {
+            return observableOf(false);
+          }
+        })
       );
       this.canDelete$ = activeEPerson$.pipe(
         switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined))
