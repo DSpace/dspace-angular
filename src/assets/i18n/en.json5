@@ -870,8 +870,6 @@
 
   "collection.form.entityType": "Entity Type",
 
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-
 
 
   "collection.listelement.badge": "Collection",
