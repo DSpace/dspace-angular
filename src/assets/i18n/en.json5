@@ -1467,9 +1467,13 @@
 
   "grant-deny-request-copy.header": "Document copy request",
 
+  "grant-deny-request-copy.home-page": "Take me to the home page",
+
   "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
 
   "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+
+  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
 
 

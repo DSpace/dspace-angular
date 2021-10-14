@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
@@ -17,8 +17,10 @@ import { Item } from '../../core/shared/item.model';
 import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy.component';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { getRequestCopyDenyRoute, getRequestCopyGrantRoute } from '../request-copy-routing-paths';
+import { By } from '@angular/platform-browser';
+import { RemoteData } from '../../core/data/remote-data';
 
-describe('GrantDenyRequestCopyComponent', () => {
+fdescribe('GrantDenyRequestCopyComponent', () => {
   let component: GrantDenyRequestCopyComponent;
   let fixture: ComponentFixture<GrantDenyRequestCopyComponent>;
 
@@ -118,6 +120,23 @@ describe('GrantDenyRequestCopyComponent', () => {
     component.grantRoute$.subscribe((result) => {
       expect(result).toEqual(getRequestCopyGrantRoute(itemRequest.token));
       done();
+    });
+  });
+
+  describe('processed message', () => {
+    it('should not be displayed when decisionDate is undefined', () => {
+      const message = fixture.debugElement.query(By.css('.processed-message'));
+      expect(message).toBeNull();
+    });
+
+    it('should be displayed when decisionDate is defined', () => {
+      component.itemRequestRD$ = createSuccessfulRemoteDataObject$(Object.assign(new ItemRequest(), itemRequest, {
+        decisionDate: 'defined-date'
+      }));
+      fixture.detectChanges();
+
+      const message = fixture.debugElement.query(By.css('.processed-message'));
+      expect(message).not.toBeNull();
     });
   });
 });
