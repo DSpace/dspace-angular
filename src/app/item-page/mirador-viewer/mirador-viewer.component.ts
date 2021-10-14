@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, isDevMode, OnInit, PLATFORM_ID } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
@@ -37,6 +37,8 @@ export class MiradorViewerComponent implements OnInit {
    */
   @Input() searchable: boolean;
 
+  isViewerAvailable = true;
+
   /**
    * The url for the iframe.
    */
@@ -51,6 +53,8 @@ export class MiradorViewerComponent implements OnInit {
    * Hides the thumbnail navigation menu on smaller viewports.
    */
   notMobile = false;
+
+  viewerMessage = 'Sorry, the Mirador viewer is not currently available in development mode.';
 
   LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
     followLink('format'),
@@ -86,15 +90,20 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
-    // TODO: review whether the item.id should be sanitized. The query term probably should be.
+    // TODO: Should the query term be trusted?
     return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
   }
 
   ngOnInit(): void {
+
     /**
      * Initializes the iframe url observable.
      */
     if (isPlatformBrowser(this.platformId)) {
+      if (isDevMode()) {
+        this.isViewerAvailable = false;
+      }
+
       // The notMobile property affects only the thumbnail navigation
       // menu by hiding it for smaller viewports. This will not be
       // responsive to resizing.
