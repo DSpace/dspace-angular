@@ -1,6 +1,6 @@
 import { Item } from '../../../../core/shared/item.model';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { RouteService } from '../../../../core/services/route.service';
 
 export const isIiifEnabled = (item: Item) => {
