@@ -161,7 +161,7 @@ describe('UntypedItemComponent', () => {
   describe('with IIIF viewer and search', () => {
 
     beforeEach(waitForAsync(() => {
-      mockRouteService.getHistory.and.returnValue(of(['/search?q=bird&motivation=painting','/item']));
+      mockRouteService.getPreviousUrl.and.returnValue(of(['/search?q=bird&motivation=painting','/item']));
       fixture = TestBed.createComponent(UntypedItemComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(iiifEnabledWithSearchMap);
@@ -174,7 +174,7 @@ describe('UntypedItemComponent', () => {
     });
 
     it('should call the RouteService getHistory method', () => {
-      expect(mockRouteService.getHistory).toHaveBeenCalled();
+      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
     });
 
   });

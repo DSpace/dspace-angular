@@ -49,7 +49,7 @@ export const iiifSearchEnabled = Object.assign(new MetadataValue(), {
   'place': 0
 });
 
-export const mockRouteService = jasmine.createSpyObj('RouteService', ['getHistory']);
+export const mockRouteService = jasmine.createSpyObj('RouteService', ['getPreviousUrl']);
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
