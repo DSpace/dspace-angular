@@ -31,6 +31,8 @@ import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/med
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
+import { ThemedFileSectionComponent} from './simple/field-components/file-section/themed-file-section.component';
+
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -39,6 +41,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DECLARATIONS = [
+  ThemedFileSectionComponent,
   ItemPageComponent,
   ThemedItemPageComponent,
   FullItemPageComponent,
