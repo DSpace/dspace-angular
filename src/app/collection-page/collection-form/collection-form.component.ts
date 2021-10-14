@@ -6,9 +6,7 @@ import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
-  DynamicInputModel,
-  DynamicSelectModel,
-  DynamicTextAreaModel
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 
 import { Collection } from '../../core/shared/collection.model';
@@ -52,7 +50,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
 
   /**
    * The dynamic form fields used for creating/editing a collection
-   * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
+   * @type {DynamicFormControlModel[]}
    */
   formModel: DynamicFormControlModel[];
 
