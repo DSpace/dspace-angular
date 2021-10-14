@@ -11,7 +11,7 @@ import { Item } from '../../core/shared/item.model';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 
-describe('FileDownloadLinkComponent', () => {
+fdescribe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
   let fixture: ComponentFixture<FileDownloadLinkComponent>;
 
@@ -66,7 +66,7 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString()}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} }}));
           expect(component.canDownload$).toBeObservable(cold('--a', {a: true}));
 
         });
@@ -99,7 +99,7 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: `${new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString()}?bitstream=${bitstream.uuid}`}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: { routerLink: new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString(), queryParams: { bitstream: bitstream.uuid } }}));
           expect(component.canDownload$).toBeObservable(cold('--a', {a: false}));
 
         });
@@ -107,7 +107,7 @@ describe('FileDownloadLinkComponent', () => {
           scheduler.flush();
           fixture.detectChanges();
           const link = fixture.debugElement.query(By.css('a'));
-          expect(link.injector.get(RouterLinkDirectiveStub).routerLink).toContain(`${new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString()}?bitstream=${bitstream.uuid}`);
+          expect(link.injector.get(RouterLinkDirectiveStub).routerLink).toContain(new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString());
           const lock = fixture.debugElement.query(By.css('.fa-lock')).nativeElement;
           expect(lock).toBeTruthy();
         });
@@ -127,7 +127,7 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString()}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} }}));
           expect(component.canDownload$).toBeObservable(cold('--a', {a: false}));
 
         });

@@ -22,9 +22,14 @@ export function getBitstreamModuleRoute() {
 export function getBitstreamDownloadRoute(bitstream): string {
   return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
 }
-export function getBitstreamRequestACopyRoute(item, bitstream): string {
+export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: string, queryParams: any } {
   const url = new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString();
-  return `${url}?bitstream=${bitstream.uuid}`;
+  return {
+    routerLink: url,
+    queryParams: {
+      bitstream: bitstream.uuid
+    }
+  };
 }
 
 export const ADMIN_MODULE_PATH = 'admin';

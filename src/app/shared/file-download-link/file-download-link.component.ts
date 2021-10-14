@@ -39,7 +39,10 @@ export class FileDownloadLinkComponent implements OnInit {
 
   @Input() enableRequestACopy = true;
 
-  bitstreamPath$: Observable<string>;
+  bitstreamPath$: Observable<{
+    routerLink: string,
+    queryParams: any,
+  }>;
 
   canDownload$: Observable<boolean>;
 
@@ -56,7 +59,7 @@ export class FileDownloadLinkComponent implements OnInit {
         map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy))
       );
     } else {
-      this.bitstreamPath$ = observableOf(getBitstreamDownloadRoute(this.bitstream));
+      this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
       this.canDownload$ = observableOf(true);
     }
   }
@@ -65,6 +68,13 @@ export class FileDownloadLinkComponent implements OnInit {
     if (!canDownload && canRequestACopy && hasValue(this.item)) {
       return getBitstreamRequestACopyRoute(this.item, this.bitstream);
     }
-    return getBitstreamDownloadRoute(this.bitstream);
+    return this.getBitstreamDownloadPath();
+  }
+
+  getBitstreamDownloadPath() {
+    return {
+      routerLink: getBitstreamDownloadRoute(this.bitstream),
+      queryParams: {}
+    };
   }
 }
