@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EditHomepageMetadataComponent } from './edit-homepage-metadata.component';
+import { EditCmsMetadataComponent } from './edit-cms-metadata.component';
 import {getMockTranslateService} from '../../shared/mocks/translate.service.mock';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {NotificationsServiceStub} from '../../shared/testing/notifications-service.stub';
@@ -10,8 +10,8 @@ import {SiteDataService} from '../../core/data/site-data.service';
 import {TranslateLoaderMock} from '../../shared/mocks/translate-loader.mock';
 
 describe('EditHomepageMetadataComponent', () => {
-  let component: EditHomepageMetadataComponent;
-  let fixture: ComponentFixture<EditHomepageMetadataComponent>;
+  let component: EditCmsMetadataComponent;
+  let fixture: ComponentFixture<EditCmsMetadataComponent>;
   const translate = getMockTranslateService();
   let siteServiceStub;
   const site = new Site();
@@ -33,7 +33,7 @@ describe('EditHomepageMetadataComponent', () => {
           }
         }),
       ],
-      declarations: [ EditHomepageMetadataComponent ],
+      declarations: [ EditCmsMetadataComponent ],
       providers: [
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SiteDataService, useValue: siteServiceStub }
@@ -44,7 +44,7 @@ describe('EditHomepageMetadataComponent', () => {
 
   beforeEach(() => {
 
-    fixture = TestBed.createComponent(EditHomepageMetadataComponent);
+    fixture = TestBed.createComponent(EditCmsMetadataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

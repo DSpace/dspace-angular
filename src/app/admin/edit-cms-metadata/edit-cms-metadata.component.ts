@@ -13,10 +13,10 @@ interface HomePageMetadata {
 
 @Component({
   selector: 'ds-edit-homepage-metadata',
-  templateUrl: './edit-homepage-metadata.component.html',
-  styleUrls: ['./edit-homepage-metadata.component.scss']
+  templateUrl: './edit-cms-metadata.component.html',
+  styleUrls: ['./edit-cms-metadata.component.scss']
 })
-export class EditHomepageMetadataComponent implements OnInit {
+export class EditCmsMetadataComponent implements OnInit {
   metadataSelectedTobeEdited = '0';
   selectMode = true;
   languages: object[] = [];
@@ -54,10 +54,10 @@ export class EditHomepageMetadataComponent implements OnInit {
     this.siteService.patch(this.site, operations).subscribe((restResponse) => {
       if (restResponse.isSuccess) {
         this.site = restResponse.payload;
-        this.notificationsService.success(this.translateService.get('admin.edit-homepage-metadata.success'));
+        this.notificationsService.success(this.translateService.get('admin.edit-cms-metadata.success'));
       } else {
         if (restResponse.isError) {
-          this.notificationsService.error(this.translateService.get('admin.edit-homepage-metadata.error'));
+          this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
         }
       }
     });

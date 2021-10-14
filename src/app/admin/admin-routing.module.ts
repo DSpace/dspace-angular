@@ -8,7 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { NOTIFICATIONS_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
-import {EditHomepageMetadataComponent} from './edit-homepage-metadata/edit-homepage-metadata.component';
+import {EditCmsMetadataComponent} from './edit-cms-metadata/edit-cms-metadata.component';
 
 @NgModule({
   imports: [
@@ -54,10 +54,10 @@ import {EditHomepageMetadataComponent} from './edit-homepage-metadata/edit-homep
         data: { title: 'admin.edit-user-agreement.title', breadcrumbKey: 'admin.edit-user-agreement' }
       },
       {
-        path: 'edit-homepage-metadata',
+        path: 'edit-cms-metadata',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        component: EditHomepageMetadataComponent,
-        data: { title: 'admin.edit-homepage-metadata.title', breadcrumbKey: 'admin.edit-homepage-metadata' }
+        component: EditCmsMetadataComponent,
+        data: { title: 'admin.edit-cms-metadata.title', breadcrumbKey: 'admin.edit-cms-metadata' }
       },
     ])
   ],
