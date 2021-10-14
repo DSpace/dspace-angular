@@ -82,7 +82,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
-      this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label)
+      this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks())
       .pipe(
         map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
       );
@@ -229,4 +229,13 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       this.objectUpdatesService.initialize(this.url, items, this.item.lastModified);
     });
   }
+
+
+  getRelationshipTypeFollowLinks() {
+    return [
+      followLink('leftType'),
+      followLink('rightType')
+    ];
+  }
+
 }

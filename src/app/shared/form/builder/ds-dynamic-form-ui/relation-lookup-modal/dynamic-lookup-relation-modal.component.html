@@ -65,8 +65,6 @@
     <div class="buttons-container">
     <div class="close-button">
         <button type="button" [disabled]="isPending" class="btn btn-outline-secondary" (click)="close()">
-            <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
-                                  aria-hidden="true"></span>
             {{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
      <div *ngIf="isEditRelationship" class="button-row bottom">
@@ -74,8 +72,6 @@
           <button class="btn btn-danger discard"
                   [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
                   (click)="discardEv()">
-                  <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
-                                  aria-hidden="true"></span>
                   <i class="fas fa-times"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
           </button>

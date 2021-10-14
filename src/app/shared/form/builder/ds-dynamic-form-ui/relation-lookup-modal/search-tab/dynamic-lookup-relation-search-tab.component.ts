@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue } from '../../../../../empty.util';
 import { map, mapTo, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { getFirstSucceededRemoteData } from '../../../../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
@@ -254,9 +254,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       relationType = this.relationshipType.leftwardType;
     }
     this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationType ,idOfItems ).pipe(
-
-
-      ).subscribe( (res: PaginatedList<Relationship[]>) => {
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+      ).subscribe( (res: PaginatedList<Relationship>) => {
 
         const selectableObject = res.page.map( (relationship: any) => {
 

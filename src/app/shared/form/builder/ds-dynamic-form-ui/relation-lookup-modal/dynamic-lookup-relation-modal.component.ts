@@ -136,9 +136,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isEditRelationship = false;
 
+  /**
+   * Maintain the list of the related items to be added
+   */
   toAdd = [];
+
+  /**
+   * Maintain the list of the related items to be removed
+   */
   toRemove = [];
 
+  /**
+   * Disable buttons while the submit button is pressed
+   */
   isPending = false;
 
   constructor(

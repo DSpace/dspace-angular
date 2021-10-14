@@ -244,8 +244,11 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       fixture.detectChanges();
     });
 
-    it('there should show 3 spinner for the 3 buttons', () => {
-      expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(3);
+    it('there should show 1 spinner and disable all 3 buttons', () => {
+      expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(1);
+      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.close')).nativeElement?.disabled).toBeTrue();
     });
 
   });

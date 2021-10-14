@@ -22,6 +22,7 @@ import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Check if one side of a RelationshipType is the ItemType with the given label
@@ -127,7 +128,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
    *
    * @param type            The RelationshipType to check
    */
-  searchByEntityType(type: string): Observable<PaginatedList<RelationshipType>> {
+  searchByEntityType(type: string,useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<PaginatedList<RelationshipType>> {
 
     return this.searchBy(
       'byEntityType',
@@ -142,7 +143,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
             fieldValue: 100
           },
         ]
-      }, true,true,followLink('leftType'),followLink('rightType')).pipe(
+      }, useCachedVersionIfAvailable,reRequestOnStale,...linksToFollow).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     ) as Observable<PaginatedList<RelationshipType>>;

@@ -354,13 +354,19 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       switchMap( isLeft => {
         let apiCall;
         if (isLeft) {
-          apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.leftwardType ,[relatedItem.id] );
+          apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.leftwardType ,[relatedItem.id] ).pipe(
+                      getFirstSucceededRemoteData(),
+                      getRemoteDataPayload(),
+                    );
         } else {
-          apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.rightwardType ,[relatedItem.id] );
+          apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.rightwardType ,[relatedItem.id] ).pipe(
+                      getFirstSucceededRemoteData(),
+                      getRemoteDataPayload(),
+                    );
         }
 
         return apiCall.pipe(
-          map( (res: PaginatedList<Relationship[]>) => res.page[0])
+          map( (res: PaginatedList<Relationship>) => res.page[0])
         );
       }
     ));
