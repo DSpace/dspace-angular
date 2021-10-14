@@ -591,6 +591,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           } as LinkMenuItemModel,
           icon: 'list-alt',
             index: 13
+        },
+        /* User agreement edit*/
+        {
+          id: 'homepage_metadata_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.homepage_metadata_edit',
+            link: '/admin/edit-homepage-metadata'
+          } as LinkMenuItemModel,
+          icon: 'edit',
+          index: 14
         }
       ];
 
