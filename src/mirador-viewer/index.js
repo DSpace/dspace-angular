@@ -57,7 +57,7 @@ windowSettings.manifestId = manifest;
           palette: {
             type: 'light',
             primary: {
-              main: '#b03727',
+              main: '#266883',
             },
             secondary: {
               main: '#b03727',
