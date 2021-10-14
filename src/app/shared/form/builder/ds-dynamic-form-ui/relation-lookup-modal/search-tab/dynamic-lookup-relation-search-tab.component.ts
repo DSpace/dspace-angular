@@ -26,6 +26,12 @@ import { RelationshipType } from '../../../../../../core/shared/item-relationshi
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { result } from 'lodash';
 
+import {
+  FieldUpdate,
+  FieldUpdates,
+  RelationshipIdentifiable
+} from '../../../../../../core/data/object-updates/object-updates.reducer';
+
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -263,15 +269,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           const uuid = arrUrl[ arrUrl.length - 1 ];
 
           return this.getRelatedItem(uuid,resultListOfItems);
-
-          // return {
-          //     uuid: relationship.id,
-          //     type: this.relationshipType,
-          //     relationship,
-          //     nameVariant,
-          //   } as RelationshipIdentifiable;
-
-
         });
 
         if ( selectableObject.length > 0 ) {

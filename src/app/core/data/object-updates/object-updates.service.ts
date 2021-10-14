@@ -141,7 +141,6 @@ export class ObjectUpdatesService {
       map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
       for (const object of initialFields) {
-        console.log(object.uuid,objectEntry.fieldUpdates);
         let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
         if (isEmpty(fieldUpdate)) {
           fieldUpdate = { field: object, changeType: undefined };

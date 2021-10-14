@@ -136,34 +136,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isEditRelationship = false;
 
-
-  /**
-   * Observable to check if any change has been made
-   */
-  hasChanges: Observable<boolean>;
-
-  /**
-   * Observable to check if any discard has been made
-   */
-  isReinstatable: Observable<boolean>;
-
-  /**
-   * Submit event emiter to emit to parent
-   */
-  submit: EventEmitter<any>;
-
-  /**
-   * Reinstate event emiter to emit to parent
-   */
-  reinstate: EventEmitter<any>;
-
-  /**
-   * Discard event emiter to emit to parent
-   */
-  discard: EventEmitter<any>;
-
   toAdd = [];
   toRemove = [];
+
+  isPending = false;
 
   constructor(
     public modal: NgbActiveModal,
@@ -213,6 +189,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   close() {
+    this.toAdd = [];
+    this.toRemove = [];
     this.modal.close();
   }
 
@@ -305,26 +283,18 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 
+  /* tslint:disable:no-empty */
   /**
    * Called when discard button is clicked, emit discard event to parent to conclude functionality
    */
   discardEv(): void {
-    this.discard.emit();
   }
 
   /**
    * Called when submit button is clicked, emit submit event to parent to conclude functionality
    */
   submitEv(): void {
-    console.log(this.toAdd, this.toRemove);
-    // this.submit.emit();
   }
-
-  /**
-   * Called when reinstate button is clicked, emit reinstate event to parent to conclude functionality
-   */
-  reinstateEv(): void {
-    this.reinstate.emit();
-  }
+  /* tslint:enable:no-empty */
 
 }

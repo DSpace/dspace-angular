@@ -497,6 +497,14 @@ export class RelationshipService extends DataService<Relationship> {
             fieldName: 'size',
             fieldValue: arrayOfItemIds.length
           },
+          {
+            fieldName: 'embed',
+            fieldValue: 'leftItem'
+          },
+          {
+            fieldName: 'embed',
+            fieldValue: 'rightItem'
+          },
         ];
 
     arrayOfItemIds.forEach( (itemId) => {

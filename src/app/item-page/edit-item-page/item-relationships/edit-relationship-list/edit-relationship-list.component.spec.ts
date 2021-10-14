@@ -59,6 +59,7 @@ describe('EditRelationshipListComponent', () => {
     comp.itemType = entityType;
     comp.url = url;
     comp.relationshipType = relationshipType;
+    comp.hasChanges = observableOf(false);
     fixture.detectChanges();
   };
 
@@ -278,6 +279,24 @@ describe('EditRelationshipListComponent', () => {
         expect(label).toEqual('isAuthorOfPublication');
       });
     });
+
+
+
+    describe('changes managment for add buttons', () => {
+
+      it('should show enabled add buttons', () => {
+        const element = de.query(By.css('.btn-success'));
+        expect(element.nativeElement?.disabled).toBeFalse();
+      });
+
+      it('after hash changes changed', () => {
+        comp.hasChanges = observableOf(true);
+        fixture.detectChanges();
+        const element = de.query(By.css('.btn-success'));
+        expect(element.nativeElement?.disabled).toBeTrue();
+      });
+    });
+
   });
 
 });

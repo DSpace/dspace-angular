@@ -147,11 +147,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     component.submissionId = submissionId;
     component.isEditRelationship = true;
     component.currentItemIsLeftItem$ = observableOf(true);
-    component.hasChanges = observableOf(false);
-    component.isReinstatable = observableOf(false);
-    component.submit = new EventEmitter();
-    component.reinstate = new EventEmitter();
-    component.discard = new EventEmitter();
+    component.toAdd = [];
+    component.toRemove = [];
     fixture.detectChanges();
   });
 
@@ -213,14 +210,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     it('discard button should be disabled', () => {
       expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
     });
-    it('should not show reinstate button', () => {
-      expect(debugElement.query(By.css('.reinstate'))).toBeNull();
-    });
   });
 
   describe('when changes happen', () => {
     beforeEach(() => {
-      component.hasChanges = observableOf(true);
+      component.toAdd.push(searchResult1);
+      component.toRemove.push(searchResult2);
       fixture.detectChanges();
     });
     it('submit button should be enabled', () => {
@@ -241,25 +236,18 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     });
   });
 
-  describe('when changes happen & isReinstatable', () => {
+
+  describe('when request starts and isPending changes', () => {
+
     beforeEach(() => {
-      component.hasChanges = observableOf(true);
-      component.isReinstatable = observableOf(true);
+      component.isPending = true;
       fixture.detectChanges();
     });
-    it('should show reinstate button', () => {
-      expect(debugElement.query(By.css('.reinstate'))).toBeTruthy();
+
+    it('there should show 3 spinner for the 3 buttons', () => {
+      expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(3);
     });
-    it('should not show discard button', () => {
-      expect(debugElement.query(By.css('.discard'))).toBeNull();
-    });
-    it('reinstate button should be enabled', () => {
-      expect(debugElement.query(By.css('.reinstate')).nativeElement.disabled).toBeFalse();
-    });
-    it('should call reinstateEv when reinstate clicked', () => {
-      const reinstateFunct = spyOn((component as any), 'reinstateEv');
-      debugElement.query(By.css('.reinstate')).nativeElement.click();
-      expect(reinstateFunct).toHaveBeenCalled();
-    });
+
   });
+
 });

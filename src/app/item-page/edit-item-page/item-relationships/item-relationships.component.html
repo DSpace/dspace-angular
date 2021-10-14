@@ -28,9 +28,6 @@
               [itemType]="entityType$ | async"
               [relationshipType]="relationshipType"
               [hasChanges] = hasChanges()
-              [isReinstatable] = isReinstatable()
-              (discard) = discard()
-              (reinstate) = reinstate()
               (submit) = submit()
             ></ds-edit-relationship-list>
           </div>

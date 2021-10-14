@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-title" id="modal-title">{{ ('submission.sections.describe.relationship-lookup.title.' + relationshipOptions.relationshipType) | translate }}</h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
-            (click)="modal.dismiss()">
+    <button type="button" [disabled]="isPending" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="close()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -64,25 +64,27 @@
     <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate: {size: (selection$ | async)?.length || 0}) }}</small>
     <div class="buttons-container">
     <div class="close-button">
-        <button type="button" class="btn btn-danger" (click)="close()">{{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
+        <button type="button" [disabled]="isPending" class="btn btn-outline-secondary" (click)="close()">
+            <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
+                                  aria-hidden="true"></span>
+            {{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
      <div *ngIf="isEditRelationship" class="button-row bottom">
         <div class="float-right">
-          <button class="btn btn-danger discard" *ngIf="!(isReinstatable | async)"
-                  [disabled]="!(hasChanges | async)"
-                  (click)="discardEv()"><i
-            class="fas fa-times"></i>
+          <button class="btn btn-danger discard"
+                  [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+                  (click)="discardEv()">
+                  <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
+                                  aria-hidden="true"></span>
+                  <i class="fas fa-times"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
           </button>
-          <button class="btn btn-warning reinstate" *ngIf="isReinstatable | async"
-                  (click)="reinstateEv()"><i
-            class="fas fa-undo-alt"></i>
-            <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
-          </button>
-          <!-- [disabled]="!(hasChanges | async)" -->
           <button class="btn btn-primary submit" 
-                  (click)="submitEv()"><i
-            class="fas fa-save"></i>
+                [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+                  (click)="submitEv()">
+                  <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
+                                  aria-hidden="true"></span>
+                  <i class="fas fa-save"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
           </button>
         </div>
