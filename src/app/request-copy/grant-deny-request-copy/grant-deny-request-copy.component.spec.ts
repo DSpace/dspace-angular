@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
@@ -18,9 +18,8 @@ import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy.compone
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { getRequestCopyDenyRoute, getRequestCopyGrantRoute } from '../request-copy-routing-paths';
 import { By } from '@angular/platform-browser';
-import { RemoteData } from '../../core/data/remote-data';
 
-fdescribe('GrantDenyRequestCopyComponent', () => {
+describe('GrantDenyRequestCopyComponent', () => {
   let component: GrantDenyRequestCopyComponent;
   let fixture: ComponentFixture<GrantDenyRequestCopyComponent>;
 
