@@ -18,7 +18,7 @@ import { ListableObject } from '../../../../../../object-collection/shared/lista
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../../core/shared/operators';
-import { mergeMap, take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -219,7 +219,7 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
     this.modalRef.componentInstance.entityType = this.relatedEntityType.label;
 
     this.modalRef.componentInstance.selectedEvent.pipe(
-      mergeMap((collectionListEntry: CollectionListEntry) => {
+      switchMap((collectionListEntry: CollectionListEntry) => {
         return this.itemService.importExternalSourceEntry(this.externalSourceEntry, collectionListEntry.collection.id).pipe(
           getFirstSucceededRemoteData(),
           getRemoteDataPayload(),

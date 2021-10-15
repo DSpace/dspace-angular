@@ -108,9 +108,6 @@ describe('CollectionDropdownComponent', () => {
   const paginatedCollection = buildPaginatedList(new PageInfo(), collections);
   const paginatedCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedCollection);
 
-  const paginatedEmptyCollection = buildPaginatedList(new PageInfo(), []);
-  const paginatedEmptyCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedEmptyCollection);
-
   const paginatedOneElementCollection = buildPaginatedList(new PageInfo(), [collections[0]]);
   const paginatedOneElementCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedOneElementCollection);
 
@@ -203,10 +200,10 @@ describe('CollectionDropdownComponent', () => {
   });
 
   it('should change loader status', () => {
-    spyOn(component.isLoadingList, 'next').and.callThrough();
+    spyOn(component.isLoading, 'next').and.callThrough();
     component.hideShowLoader(true);
 
-    expect(component.isLoadingList.next).toHaveBeenCalledWith(true);
+    expect(component.isLoading.next).toHaveBeenCalledWith(true);
   });
 
   it('reset pagination fields', () => {

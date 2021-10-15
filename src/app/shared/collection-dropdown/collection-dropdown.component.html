@@ -18,21 +18,23 @@
      [scrollWindow]="false"
      (scrolled)="onScrollDown()">
 
-  <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoadingList | async)">
+  <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoading | async)">
     {{'submission.sections.general.no-collection' | translate}}
   </button>
-  <button *ngFor="let listItem of searchListCollection"
-          class="dropdown-item collection-item"
-          title="{{ listItem.collection.name }}"
-          (click)="onSelect(listItem)">
-    <ul class="list-unstyled mb-0">
-      <li class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities">
-        {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
-      </li>
-      <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>
-    </ul>
-  </button>
-  <button class="dropdown-item disabled" *ngIf="(isLoadingList | async)">
+  <ng-container *ngIf="searchListCollection?.length > 0 && !(isLoading | async)">
+    <button *ngFor="let listItem of searchListCollection"
+            class="dropdown-item collection-item"
+            title="{{ listItem.collection.name }}"
+            (click)="onSelect(listItem)">
+      <ul class="list-unstyled mb-0">
+        <li class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities">
+          {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
+        </li>
+        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>
+      </ul>
+    </button>
+  </ng-container>
+  <button class="dropdown-item disabled" *ngIf="(isLoading | async)">
     <ds-loading message="{{'loading.default' | translate}}">
     </ds-loading>
   </button>

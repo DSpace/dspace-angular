@@ -87,10 +87,10 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   /**
    * A boolean representing if the loader is visible or not
    */
-  isLoadingList: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
-   * A numeric representig current page
+   * A numeric representing current page
    */
   currentPage: number;
 
@@ -100,7 +100,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   hasNextPage: boolean;
 
   /**
-   * Current seach query used to filter collection list
+   * Current search query used to filter collection list
    */
   currentQuery: string;
 
@@ -145,6 +145,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * Initialize collection list
    */
   ngOnInit() {
+    this.isLoading.next(false);
     this.subs.push(this.searchField.valueChanges.pipe(
         debounceTime(500),
         distinctUntilChanged(),
@@ -173,7 +174,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method used from infitity scroll for retrive more data on scroll down
+   * Method used from infinity scroll for retrieve more data on scroll down
    */
   onScrollDown() {
     if ( this.hasNextPage ) {
@@ -188,6 +189,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    *    the selected [CollectionListEntry]
    */
   onSelect(event: CollectionListEntry) {
+    this.isLoading.next(true);
     this.selectionChange.emit(event);
   }
 
@@ -197,13 +199,13 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * @param page page number
    */
   populateCollectionList(query: string, page: number) {
-    this.isLoadingList.next(true);
+    this.isLoading.next(true);
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
       currentPage: page
     };
-    let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
+    let searchListService$: Observable<RemoteData<PaginatedList<Collection>>>;
     if (this.entityType) {
       searchListService$ = this.collectionDataService
       .getAuthorizedCollectionByEntityType(
@@ -279,7 +281,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * @param hideShow true for show, false otherwise
    */
   hideShowLoader(hideShow: boolean) {
-    this.isLoadingList.next(hideShow);
+    this.isLoading.next(hideShow);
   }
 
   /**
