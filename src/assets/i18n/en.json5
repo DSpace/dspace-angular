@@ -1290,6 +1290,11 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.required": "This field is required",
+
+  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+
+  "error.validation.emailTaken": "This E-mail is already taken",
 
 
   "file-section.error.header": "Error obtaining files for this item",
