@@ -177,6 +177,16 @@ import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 
+/**
+ * Declaration needed to make sure all decorator functions are called in time
+ */
+export const MODELS = [
+  SearchObjects,
+  FacetConfigResponse,
+  FacetValues,
+  SearchResult
+];
+
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
@@ -307,6 +317,8 @@ const COMPONENTS = [
   ImportableListItemControlComponent,
 
   LogInShibbolethComponent,
+  LogInOrcidComponent,
+  LogInOidcComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -378,6 +390,8 @@ const ENTRY_COMPONENTS = [
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent,
+  LogInOrcidComponent,
+  LogInOidcComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
