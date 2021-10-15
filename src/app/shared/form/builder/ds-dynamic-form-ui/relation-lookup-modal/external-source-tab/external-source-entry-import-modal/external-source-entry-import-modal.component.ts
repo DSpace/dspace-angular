@@ -232,6 +232,7 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
         indexableObject: item
       });
       this.notificationsService.success(this.translateService.get(this.labelPrefix + this.label + '.added.new-entity'));
+      this.modalRef.close();
       this.importedObject.emit(searchResult);
     });
   }
