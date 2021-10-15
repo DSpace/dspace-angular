@@ -47,7 +47,7 @@
                     [query]="(searchOptions$ | async)?.query"
                     [scope]="(searchOptions$ | async)?.scope"
                     [currentUrl]="searchLink"
-                    [scopes]="(scopeListRD$ | async)"
+                    [showScopeSelector]="true"
                     [inPlaceSearch]="inPlaceSearch"
                     [searchPlaceholder]="'search.search-form.placeholder' | translate">
     </ds-search-form>
