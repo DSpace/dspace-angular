@@ -2716,6 +2716,8 @@
 
   "login.form.orcid": "Log in with ORCID",
 
+  "login.form.oidc": "Log in with OIDC",
+
   "login.form.password": "Password",
 
   "login.form.shibboleth": "Log in with Shibboleth",
