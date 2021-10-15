@@ -152,6 +152,7 @@ describe('GroupRegistryComponent', () => {
         return createSuccessfulRemoteDataObject$(undefined);
       }
     };
+
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     setIsAuthorized(true, true);
     paginationService = new PaginationServiceStub();
@@ -200,6 +201,13 @@ describe('GroupRegistryComponent', () => {
     });
   });
 
+  it('should display community/collection name if present', () => {
+    const collectionNamesFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(3)'));
+    expect(collectionNamesFound.length).toEqual(2);
+    expect(collectionNamesFound[0].nativeElement.textContent).toEqual('');
+    expect(collectionNamesFound[1].nativeElement.textContent).toEqual('testgroupid2objectName');
+  });
+
   describe('edit buttons', () => {
     describe('when the user is a general admin', () => {
       beforeEach(fakeAsync(() => {
@@ -213,7 +221,7 @@ describe('GroupRegistryComponent', () => {
       }));
 
       it('should be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
@@ -247,7 +255,7 @@ describe('GroupRegistryComponent', () => {
       }));
 
       it('should be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
@@ -266,7 +274,7 @@ describe('GroupRegistryComponent', () => {
       }));
 
       it('should not be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeTrue();

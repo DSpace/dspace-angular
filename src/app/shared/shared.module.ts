@@ -236,6 +236,7 @@ import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-co
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ItemVersionsSummaryModalComponent } from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
 import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
+import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -461,7 +462,8 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  SearchNavbarComponent
+  SearchNavbarComponent,
+  ScopeSelectorModalComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -525,7 +527,8 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   LinkMenuItemComponent,
   OnClickMenuItemComponent,
-  TextMenuItemComponent
+  TextMenuItemComponent,
+  ScopeSelectorModalComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
@@ -590,7 +593,7 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...SHARED_SEARCH_PAGE_COMPONENTS,
     ItemVersionsSummaryModalComponent,
-    ItemVersionsDeleteModalComponent
+    ItemVersionsDeleteModalComponent,
   ],
   providers: [
     ...PROVIDERS

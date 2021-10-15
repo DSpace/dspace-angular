@@ -33,6 +33,7 @@ import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/med
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
+import { ThemedFileSectionComponent} from './simple/field-components/file-section/themed-file-section.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -41,6 +42,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DECLARATIONS = [
+  ThemedFileSectionComponent,
   ItemPageComponent,
   ThemedItemPageComponent,
   FullItemPageComponent,
