@@ -45,6 +45,8 @@ import { Router } from '@angular/router';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -170,6 +172,7 @@ export class ItemVersionsComponent implements OnInit {
               private router: Router,
               private itemVersionShared: ItemVersionsSharedService,
               private authorizationService: AuthorizationDataService,
+              private workspaceItemDataService: WorkspaceitemDataService,
   ) {
   }
 
@@ -380,6 +383,30 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   /**
+   * Get the ID of the workspace item, if present, otherwise return undefined
+   * @param versionItem the item for which retrieve the workspace item id
+   */
+  getDraftId(versionItem): Observable<string> {
+    return versionItem.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((item: Item) => item.uuid),
+      switchMap((itemUuid: string) => this.workspaceItemDataService.findByItem(itemUuid, true)),
+      getFirstCompletedRemoteData<WorkspaceItem>(),
+      map((res: RemoteData<WorkspaceItem>) => res?.payload?.id ),
+    );
+  }
+
+  /**
+   * redirect to the edit page of the workspace item
+   * @param id$ the id of the workspace item
+   */
+  editWorkspaceItem(id$: Observable<string>) {
+    id$.subscribe((id) => {
+      this.router.navigateByUrl('workspaceitems/' + id + '/edit');
+    });
+  }
+
+  /**
    * Initialize all observables
    */
   ngOnInit(): void {
@@ -399,6 +426,7 @@ export class ItemVersionsComponent implements OnInit {
         getFirstSucceededRemoteDataPayload(),
         map((res) => Boolean(res?.draftVersion)),
       );
+
       this.createVersionTitle$ = this.hasDraftVersion$.pipe(
         take(1),
         switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion'))

@@ -43,14 +43,18 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
    * Return the WorkspaceItem object found through the UUID of an item
    *
    * @param uuid           The uuid of the item
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
    * @param options        The {@link FindListOptions} object
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public findByItem(uuid: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
+  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
     const href$ = this.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
-    return this.findByHref(href$, false, true, ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
 }

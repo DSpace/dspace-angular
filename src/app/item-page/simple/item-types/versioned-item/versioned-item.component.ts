@@ -4,7 +4,7 @@ import { ItemVersionsSummaryModalComponent } from '../../../../shared/item/item-
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Version } from '../../../../core/shared/version.model';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -58,11 +58,15 @@ export class VersionedItemComponent extends ItemComponent {
 
     // On createVersionEvent emitted create new version and notify
     activeModal.componentInstance.createVersionEvent.pipe(
-      switchMap((summary: string) => this.itemVersionShared.createNewVersionAndNotify(item, summary)),
+      switchMap((summary: string) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
+      getFirstCompletedRemoteData(),
+      // show success/failure notification
+      tap((res: RemoteData<Version>) => { this.itemVersionShared.notifyCreateNewVersion(res); }),
       getFirstSucceededRemoteDataPayload<Version>(),
+      // get workspace item
       switchMap((newVersion: Version) => this.itemService.findByHref(newVersion._links.item.href)),
       getFirstSucceededRemoteDataPayload<Item>(),
-      switchMap((newVersionItem: Item) => this.workspaceitemDataService.findByItem(newVersionItem.uuid)),
+      switchMap((newVersionItem: Item) => this.workspaceitemDataService.findByItem(newVersionItem.uuid, true, false)),
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
     ).subscribe((wsItem) => {
       const wsiId = wsItem.id;

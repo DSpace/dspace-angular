@@ -35,13 +35,20 @@ export class ItemVersionsSharedService {
     return this.versionHistoryService.createVersion(item._links.self.href, summary).pipe(
       switchMap((postResult: RemoteData<Version>) => {
         const newVersionNumber = postResult?.payload?.version;
-        this.notifyCreateNewVersion(postResult.hasSucceeded, postResult.statusCode, newVersionNumber);
+        this.notifyCreateNewVersionBak(postResult.hasSucceeded, postResult.statusCode, newVersionNumber);
         return of(postResult);
       })
     );
   }
 
-  private notifyCreateNewVersion(success: boolean, statusCode: number, newVersionNumber: number) {
+  public notifyCreateNewVersion(newVersionRD: RemoteData<Version>) {
+    const newVersionNumber = newVersionRD?.payload?.version;
+    newVersionRD.hasSucceeded ?
+      this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), {version: newVersionNumber})) :
+      this.notificationsService.error(null, this.translateService.get(ItemVersionsSharedService.msg(newVersionRD?.statusCode === 422 ? 'inProgress' : 'failure')));
+  }
+
+  private notifyCreateNewVersionBak(success: boolean, statusCode: number, newVersionNumber: number) { // TODO delete this
     success ?
       this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), {version: newVersionNumber})) :
       this.notificationsService.error(null, this.translateService.get(ItemVersionsSharedService.msg(statusCode === 422 ? 'inProgress' : 'failure')));

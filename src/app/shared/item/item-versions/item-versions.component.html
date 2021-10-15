@@ -25,8 +25,20 @@
           <tbody>
           <tr *ngFor="let version of versions?.page" [id]="'version-row-' + version.id">
             <td class="version-row-element-version">
-              <a [routerLink]="getVersionRoute(version.id)">{{version.version}}</a>
-              <span *ngIf="version?.id === itemVersion?.id">*</span>
+              <div>
+                <div class="left-column">
+                  <a [routerLink]="getVersionRoute(version.id)">{{version.version}}</a>
+                  <span *ngIf="version?.id === itemVersion?.id">*</span>
+                </div>
+                <div class="right-column">
+                  <ng-container *ngVar="getDraftId(version?.item) as draftId$">
+                    <button class="btn btn-outline-primary btn-sm version-row-element-edit" *ngIf="draftId$ | async"
+                            (click)="editWorkspaceItem(draftId$)">
+                      <i class="fas fa-pencil-alt fa-fw"></i> {{ "item.version.history.table.workspaceItem" | translate }}
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
             </td>
             <td *ngIf="(hasEpersons$ | async)" class="version-row-element-editor">
                 <span *ngVar="(version?.eperson | async)?.payload as eperson">

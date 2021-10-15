@@ -170,7 +170,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    */
   hasDraftVersion$(versionHref: string): Observable<boolean> {
     return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
-      take(1),
+      getFirstCompletedRemoteData(),
       switchMap((res) => {
         if (res.hasSucceeded && !res.hasNoContent) {
           return of(res).pipe(
