@@ -7,12 +7,8 @@ import {
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
-  zip as observableZip
-} from 'rxjs';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -34,7 +30,7 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { hasValue } from '../../../shared/empty.util';
 import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-item-relationships',

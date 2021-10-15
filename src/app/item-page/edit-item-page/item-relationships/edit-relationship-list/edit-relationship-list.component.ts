@@ -1,14 +1,9 @@
-import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  from as observableFrom
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, from as observableFrom, Observable } from 'rxjs';
 import {
   FieldUpdate,
   FieldUpdates,
@@ -16,29 +11,19 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  defaultIfEmpty,
-  map,
-  mergeMap,
-  switchMap,
-  take,
-  startWith,
-  toArray,
-  tap
-} from 'rxjs/operators';
-import { hasValue, hasValueOperator, hasNoValue } from '../../../../shared/empty.util';
+import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
+import { hasNoValue, hasValue, hasValueOperator } from '../../../../shared/empty.util';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
-  getRemoteDataPayload,
+  getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getAllSucceededRemoteData,
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/search-result.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
@@ -50,7 +35,6 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
-
 
 @Component({
   selector: 'ds-edit-relationship-list',

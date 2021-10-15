@@ -24,13 +24,6 @@ import { RelationshipService } from '../../../../../../core/data/relationship.se
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { result } from 'lodash';
-
-import {
-  FieldUpdate,
-  FieldUpdates,
-  RelationshipIdentifiable
-} from '../../../../../../core/data/object-updates/object-updates.reducer';
 
 
 @Component({
