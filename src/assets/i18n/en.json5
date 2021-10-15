@@ -1231,6 +1231,12 @@
 
   "dso-selector.select.collection.head": "Select a collection",
 
+  "dso-selector.set-scope.community.head": "Select a search scope",
+
+  "dso-selector.set-scope.community.button": "Search all of DSpace",
+
+  "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+
 
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
@@ -3133,6 +3139,8 @@
   "search.form.search": "Search",
 
   "search.form.search_dspace": "All repository",
+
+  "search.form.scope.all": "All of DSpace",
 
 
 

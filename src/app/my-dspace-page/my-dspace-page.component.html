@@ -15,7 +15,7 @@
                           [query]="(searchOptions$ | async)?.query"
                           [scope]="(searchOptions$ | async)?.scope"
                           [currentUrl]="getSearchLink()"
-                          [scopes]="(scopeListRD$ | async)"
+                          [showScopeSelector]="true"
                           [inPlaceSearch]="inPlaceSearch"
                           [searchPlaceholder]="'mydspace.search-form.placeholder' | translate">
           </ds-search-form>
