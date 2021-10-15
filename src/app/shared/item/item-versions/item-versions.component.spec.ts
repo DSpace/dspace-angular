@@ -22,6 +22,8 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -29,9 +31,12 @@ describe('ItemVersionsComponent', () => {
   let authenticationService: AuthService;
   let authorizationService: AuthorizationDataService;
   let versionHistoryService: VersionHistoryDataService;
+  let workspaceItemDataService: WorkspaceitemDataService;
+  let workflowItemDataService: WorkflowItemDataService;
 
   const versionHistory = Object.assign(new VersionHistory(), {
-    id: '1'
+    id: '1',
+    draftVersion: false,
   });
 
   const version1 = Object.assign(new Version(), {
@@ -86,7 +91,7 @@ describe('ItemVersionsComponent', () => {
   version2.item = createSuccessfulRemoteDataObject$(item2);
 
   const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService', {
-    getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions))
+    getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions)),
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
       isAuthenticated: observableOf(true),
@@ -94,6 +99,12 @@ describe('ItemVersionsComponent', () => {
     }
   );
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+  const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
+    findByItem: of(undefined),
+  });
+  const workflowItemDataServiceSpy = jasmine.createSpyObj('workflowItemDataService', {
+    findByItem: of(undefined),
+  });
 
 
   beforeEach(waitForAsync(() => {
@@ -110,6 +121,8 @@ describe('ItemVersionsComponent', () => {
         {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
         {provide: ItemDataService, useValue: {}},
         {provide: VersionDataService, useValue: {}},
+        {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
+        {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -117,6 +130,8 @@ describe('ItemVersionsComponent', () => {
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
     authenticationService = TestBed.inject(AuthService);
     authorizationService = TestBed.inject(AuthorizationDataService);
+    workspaceItemDataService = TestBed.inject(WorkspaceitemDataService);
+    workflowItemDataService = TestBed.inject(WorkflowItemDataService);
 
   }));
 

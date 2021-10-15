@@ -8,7 +8,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   of,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import {
@@ -47,6 +47,7 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -173,6 +174,7 @@ export class ItemVersionsComponent implements OnInit {
               private itemVersionShared: ItemVersionsSharedService,
               private authorizationService: AuthorizationDataService,
               private workspaceItemDataService: WorkspaceitemDataService,
+              private workflowItemDataService: WorkflowItemDataService,
   ) {
   }
 
@@ -333,19 +335,31 @@ export class ItemVersionsComponent implements OnInit {
         of(summary),
         version.item.pipe(getFirstSucceededRemoteDataPayload())
       ])),
-      mergeMap(([summary, item]: [string, Item]) => this.itemVersionShared.createNewVersionAndNotify(item, summary)),
-      map((newVersionRD: RemoteData<Version>) => {
+      mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
+      // show success/failure notification
+      tap((newVersionRD: RemoteData<Version>) => {
+        this.itemVersionShared.notifyCreateNewVersion(newVersionRD);
         if (newVersionRD.hasSucceeded) {
           const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
-            tap((res: VersionHistory) => {
-              this.versionHistoryService.invalidateVersionHistoryCache(res.id);
+            tap((versionHistory: VersionHistory) => {
+              this.itemService.invalidateItemCache(this.item.uuid);
+              this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
             }),
           );
           this.getAllVersions(versionHistory$);
         }
       }),
-      take(1),
-    ).subscribe();
+      // get workspace item
+      getFirstSucceededRemoteDataPayload<Version>(),
+      switchMap((newVersion: Version) => this.itemService.findByHref(newVersion._links.item.href)),
+      getFirstSucceededRemoteDataPayload<Item>(),
+      switchMap((newVersionItem: Item) => this.workspaceItemDataService.findByItem(newVersionItem.uuid, true, false)),
+      getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
+    ).subscribe((wsItem) => {
+      const wsiId = wsItem.id;
+      const route = 'workspaceitems/' + wsiId + '/edit';
+      this.router.navigateByUrl(route);
+    });
   }
 
   /**
@@ -386,11 +400,25 @@ export class ItemVersionsComponent implements OnInit {
    * Get the ID of the workspace item, if present, otherwise return undefined
    * @param versionItem the item for which retrieve the workspace item id
    */
-  getDraftId(versionItem): Observable<string> {
+  getWorkspaceId(versionItem): Observable<string> {
     return versionItem.pipe(
       getFirstSucceededRemoteDataPayload(),
       map((item: Item) => item.uuid),
       switchMap((itemUuid: string) => this.workspaceItemDataService.findByItem(itemUuid, true)),
+      getFirstCompletedRemoteData<WorkspaceItem>(),
+      map((res: RemoteData<WorkspaceItem>) => res?.payload?.id ),
+    );
+  }
+
+  /**
+   * Get the ID of the workflow item, if present, otherwise return undefined
+   * @param versionItem the item for which retrieve the workspace item id
+   */
+  getWorkflowId(versionItem): Observable<string> {
+    return versionItem.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((item: Item) => item.uuid),
+      switchMap((itemUuid: string) => this.workflowItemDataService.findByItem(itemUuid, true)),
       getFirstCompletedRemoteData<WorkspaceItem>(),
       map((res: RemoteData<WorkspaceItem>) => res?.payload?.id ),
     );

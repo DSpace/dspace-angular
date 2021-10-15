@@ -19,26 +19,72 @@
             <th scope="col" *ngIf="(hasEpersons$ | async)">{{"item.version.history.table.editor" | translate}}</th>
             <th scope="col">{{"item.version.history.table.date" | translate}}</th>
             <th scope="col">{{"item.version.history.table.summary" | translate}}</th>
-            <th scope="col" *ngIf="displayActions">{{"item.version.history.table.actions" | translate}}</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let version of versions?.page" [id]="'version-row-' + version.id">
             <td class="version-row-element-version">
-              <div>
-                <div class="left-column">
-                  <a [routerLink]="getVersionRoute(version.id)">{{version.version}}</a>
-                  <span *ngIf="version?.id === itemVersion?.id">*</span>
-                </div>
-                <div class="right-column">
-                  <ng-container *ngVar="getDraftId(version?.item) as draftId$">
-                    <button class="btn btn-outline-primary btn-sm version-row-element-edit" *ngIf="draftId$ | async"
-                            (click)="editWorkspaceItem(draftId$)">
-                      <i class="fas fa-pencil-alt fa-fw"></i> {{ "item.version.history.table.workspaceItem" | translate }}
-                    </button>
-                  </ng-container>
-                </div>
-              </div>
+              <!-- Get the ID of the workspace/workflow item (`undefined` if they don't exist).
+              Conditionals inside *ngVar are needed in order to avoid useless calls. -->
+              <ng-container *ngVar="((hasDraftVersion$ | async) ? getWorkspaceId(version?.item) : undefined) as workspaceId$">
+                <ng-container *ngVar=" ((workspaceId$ | async) ? undefined : getWorkflowId(version?.item)) as workflowId$">
+
+                  <div class="left-column">
+
+                    <span *ngIf="(workspaceId$ | async) || (workflowId$ | async); then versionNumberWithoutLink else versionNumberWithLink"></span>
+                    <ng-template #versionNumberWithLink>
+                      <a [routerLink]="getVersionRoute(version.id)">{{version.version}}</a>
+                    </ng-template>
+                    <ng-template #versionNumberWithoutLink>
+                      {{version.version}}
+                    </ng-template>
+                    <span *ngIf="version?.id === itemVersion?.id">*</span>
+
+                    <span *ngIf="workspaceId$ | async" class="text-light badge badge-primary ml-3">
+                      {{ "item.version.history.table.workspaceItem" | translate }}
+                    </span>
+
+                    <span *ngIf="workflowId$ | async" class="text-light badge badge-info ml-3">
+                      {{ "item.version.history.table.workflowItem" | translate }}
+                    </span>
+
+                  </div>
+
+                  <div class="right-column">
+
+                    <div class="btn-group edit-field" *ngIf="displayActions">
+                      <!--EDIT WORKSPACE ITEM-->
+                      <button class="btn btn-outline-primary btn-sm version-row-element-edit"
+                              *ngIf="workspaceId$ | async"
+                              (click)="editWorkspaceItem(workspaceId$)"
+                              title="{{'item.version.history.table.action.editWorkspaceItem' | translate }}">
+                        <i class="fas fa-pencil-alt fa-fw"></i>
+                      </button>
+                      <!--CREATE-->
+                      <ng-container *ngIf="canCreateVersion$ | async">
+                        <button class="btn btn-outline-primary btn-sm version-row-element-create"
+                                [disabled]="isAnyBeingEdited() || (hasDraftVersion$ | async)"
+                                (click)="createNewVersion(version)"
+                                title="{{createVersionTitle$ | async | translate }}">
+                          <i class="fas fa-code-branch fa-fw"></i>
+                        </button>
+                      </ng-container>
+                      <!--DELETE-->
+                      <ng-container *ngIf="canDeleteVersion$(version) | async">
+                        <button class="btn btn-sm version-row-element-delete"
+                                [ngClass]="isAnyBeingEdited() ? 'btn-outline-primary' : 'btn-outline-danger'"
+                                [disabled]="isAnyBeingEdited()"
+                                (click)="deleteVersion(version, version.id==itemVersion.id)"
+                                title="{{'item.version.history.table.action.deleteVersion' | translate}}">
+                          <i class="fas fa-trash fa-fw"></i>
+                        </button>
+                      </ng-container>
+                    </div>
+
+                  </div>
+
+                </ng-container>
+              </ng-container>
             </td>
             <td *ngIf="(hasEpersons$ | async)" class="version-row-element-editor">
                 <span *ngVar="(version?.eperson | async)?.payload as eperson">
@@ -49,14 +95,25 @@
               {{version?.created | date : 'yyyy-MM-dd HH:mm:ss'}}
             </td>
             <td class="version-row-element-summary">
-              <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
-              <ng-template #showSummary>{{version?.summary}}</ng-template>
-              <ng-template #editSummary>
-                <input class="form-control" type="text" [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"/>
-              </ng-template>
-            </td>
-            <td class="version-row-element-actions" *ngIf="displayActions">
-              <div class="btn-group edit-field">
+              <div class="float-left">
+                <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
+                <ng-template #showSummary>{{version?.summary}}</ng-template>
+                <ng-template #editSummary>
+                  <input class="form-control" type="text" [(ngModel)]="versionBeingEditedSummary"
+                         (keyup.enter)="onSummarySubmit()"/>
+                </ng-template>
+              </div>
+
+              <div class="float-right btn-group edit-field" *ngIf="displayActions">
+                <!--DISCARD EDIT -->
+                <ng-container *ngIf="(canEditVersion$(version) | async) && isThisBeingEdited(version)">
+                  <button class="btn btn-sm"
+                          [ngClass]="isThisBeingEdited(version) ? 'btn-outline-warning' : 'btn-outline-primary'"
+                          (click)="disableSummaryEditing()"
+                          title="{{'item.version.history.table.action.discardSummary' | translate}}">
+                    <i class="fas fa-undo-alt fa-fw"></i>
+                  </button>
+                </ng-container>
                 <!--EDIT / SAVE-->
                 <ng-container *ngIf="canEditVersion$(version) | async">
                   <button class="btn btn-outline-primary btn-sm version-row-element-edit"
@@ -73,36 +130,9 @@
                     <i class="fas fa-check fa-fw"></i>
                   </button>
                 </ng-container>
-                <!--CREATE-->
-                <ng-container *ngIf="canCreateVersion$ | async">
-                  <button class="btn btn-outline-primary btn-sm version-row-element-create"
-                          [disabled]="isAnyBeingEdited() || (hasDraftVersion$ | async)"
-                          (click)="createNewVersion(version)"
-                          title="{{createVersionTitle$ | async | translate }}">
-                    <i class="fas fa-code-branch fa-fw"></i>
-                  </button>
-                </ng-container>
-                <!--DELETE-->
-                <ng-container *ngIf="canDeleteVersion$(version) | async">
-                  <button class="btn btn-sm version-row-element-delete"
-                          [ngClass]="isAnyBeingEdited() ? 'btn-outline-primary' : 'btn-outline-danger'"
-                          [disabled]="isAnyBeingEdited()"
-                          (click)="deleteVersion(version, version.id==itemVersion.id)"
-                          title="{{'item.version.history.table.action.deleteVersion' | translate}}">
-                    <i class="fas fa-trash fa-fw"></i>
-                  </button>
-                </ng-container>
-                <!--DISCARD EDIT -->
-                <ng-container *ngIf="canEditVersion$(version) | async">
-                  <button class="btn btn-sm"
-                          [ngClass]="isThisBeingEdited(version) ? 'btn-outline-warning' : 'btn-outline-primary'"
-                          [disabled]="!isAnyBeingEdited()"
-                          (click)="disableSummaryEditing()"
-                          title="{{'item.version.history.table.action.discardSummary' | translate}}">
-                    <i class="fas fa-undo-alt fa-fw"></i>
-                  </button>
-                </ng-container>
               </div>
+
+
             </td>
           </tr>
           </tbody>

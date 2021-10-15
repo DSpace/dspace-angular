@@ -7,6 +7,8 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 
 describe('ItemVersionsSharedService', () => {
   let service: ItemVersionsSharedService;
@@ -20,6 +22,8 @@ describe('ItemVersionsSharedService', () => {
         { provide: AuthService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: TranslateService, useValue: {} },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: WorkflowItemDataService, useValue: {} },
       ],
     });
     service = TestBed.inject(ItemVersionsSharedService);

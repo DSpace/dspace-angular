@@ -11,7 +11,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions } from './request.models';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION } from '../shared/version.resource-type';
 import { VersionHistory } from '../shared/version-history.model';
@@ -55,7 +55,7 @@ export class VersionDataService extends DataService<Version> {
       getFirstSucceededRemoteDataPayload(),
       switchMap((res) => res.versionhistory),
       getFirstSucceededRemoteDataPayload(),
-    ) : of(null);
+    ) : EMPTY;
   }
 
   /**

@@ -196,6 +196,10 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
   }
 
+  /**
+   * Get the item of the latest version from any version in the version history
+   * @param version
+   */
   getVersionHistoryFromVersion$(version: Version): Observable<VersionHistory> {
     return this.versionDataService.getHistoryIdFromVersion$(version).pipe(
       take(1),
@@ -204,6 +208,10 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
   }
 
+  /**
+   * Invalidate the cache of the version history
+   * @param versionHistoryID
+   */
   invalidateVersionHistoryCache(versionHistoryID: string) {
     this.requestService.setStaleByHrefSubstring('versioning/versionhistories/' + versionHistoryID);
   }

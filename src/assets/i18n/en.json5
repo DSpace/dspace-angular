@@ -1983,8 +1983,11 @@
 
   "item.version.history.table.workspaceItem": "Workspace item",
 
+  "item.version.history.table.workflowItem": "Workflow item",
+
   "item.version.history.table.actions": "Action",
 
+  "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
 
   "item.version.history.table.action.editSummary": "Edit summary",
 

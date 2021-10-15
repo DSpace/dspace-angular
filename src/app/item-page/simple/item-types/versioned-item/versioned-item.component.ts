@@ -31,7 +31,7 @@ export class VersionedItemComponent extends ItemComponent {
     private versionService: VersionDataService,
     private itemVersionShared: ItemVersionsSharedService,
     private router: Router,
-    private workspaceitemDataService: WorkspaceitemDataService,
+    private workspaceItemDataService: WorkspaceitemDataService,
     private searchService: SearchService,
     private itemService: ItemDataService,
   ) {
@@ -62,11 +62,11 @@ export class VersionedItemComponent extends ItemComponent {
       getFirstCompletedRemoteData(),
       // show success/failure notification
       tap((res: RemoteData<Version>) => { this.itemVersionShared.notifyCreateNewVersion(res); }),
-      getFirstSucceededRemoteDataPayload<Version>(),
       // get workspace item
+      getFirstSucceededRemoteDataPayload<Version>(),
       switchMap((newVersion: Version) => this.itemService.findByHref(newVersion._links.item.href)),
       getFirstSucceededRemoteDataPayload<Item>(),
-      switchMap((newVersionItem: Item) => this.workspaceitemDataService.findByItem(newVersionItem.uuid, true, false)),
+      switchMap((newVersionItem: Item) => this.workspaceItemDataService.findByItem(newVersionItem.uuid, true, false)),
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
     ).subscribe((wsItem) => {
       const wsiId = wsItem.id;
