@@ -38,12 +38,6 @@ export class ItemExportComponent implements OnInit {
         this.configuration = configuration;
         this.exportForm = this.initForm(configuration);
         this.onEntityTypeChange(this.itemType.label);
-        console.log(this.exportForm);
-        // listen for entityType selections in order to update the available formats
-        // this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
-        //   console.log(entityType);
-        //   this.onEntityTypeChange(entityType);
-        // });
       });
   }
 
@@ -53,7 +47,6 @@ export class ItemExportComponent implements OnInit {
       this.exportForm.controls.format.patchValue(this.configuration.format);
     });
   }
-// {value: this.itemType.label, disabled: true}
   initForm(configuration: ItemExportFormConfiguration): FormGroup {
     return new FormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
