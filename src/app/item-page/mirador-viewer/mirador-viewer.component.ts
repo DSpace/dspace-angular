@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID, SecurityContext } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
