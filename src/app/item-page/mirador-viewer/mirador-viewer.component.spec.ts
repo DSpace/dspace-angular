@@ -25,11 +25,8 @@ function getItem(metadata: MetadataMap) {
 const noMetadata = new MetadataMap();
 
 const mockHostWindowService = {
+  // This isn't really testing mobile status, the return observable just allows the test to run.
   widthCategory: observableOf(true),
-};
-
-const mockHostWindowServiceMobile = {
-  widthCategory: observableOf(false),
 };
 
 describe('MiradorViewerComponent with search', () => {
@@ -152,7 +149,7 @@ describe('MiradorViewerComponent with multiple images', () => {
 });
 
 
-describe('MiradorViewerComponent with a single image in mobile configuration', () => {
+describe('MiradorViewerComponent with a single image', () => {
   let comp: MiradorViewerComponent;
   let fixture: ComponentFixture<MiradorViewerComponent>;
   const viewerService = jasmine.createSpyObj('MiradorViewerService', ['showEmbeddedViewer', 'getImageCount']);
@@ -170,7 +167,7 @@ describe('MiradorViewerComponent with a single image in mobile configuration', (
       declarations: [MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowServiceMobile  }
+        { provide: HostWindowService, useValue: mockHostWindowService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MiradorViewerComponent, {
@@ -198,10 +195,6 @@ describe('MiradorViewerComponent with a single image in mobile configuration', (
 
     it('should call mirador service image count', () => {
       expect(viewerService.getImageCount).toHaveBeenCalled();
-    });
-
-    it('should be in mobile configuration', () => {
-      expect(comp.notMobile).toBeFalse();
     });
 
   });
