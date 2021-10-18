@@ -99,9 +99,14 @@ export class ItemVersionsComponent implements OnInit {
   versionRD$: Observable<RemoteData<Version>>;
 
   /**
-   * The item's full version history
+   * The item's full version history (remote data)
    */
   versionHistoryRD$: Observable<RemoteData<VersionHistory>>;
+
+  /**
+   * The item's full version history
+   */
+  versionHistory$: Observable<VersionHistory>;
 
   /**
    * The version history's list of versions
@@ -239,7 +244,7 @@ export class ItemVersionsComponent implements OnInit {
     ).subscribe((updatedVersionRD: RemoteData<Version>) => {
         if (updatedVersionRD.hasSucceeded) {
           this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
-          this.getAllVersions(this.versionHistoryRD$.pipe(getFirstSucceededRemoteDataPayload()));
+          this.getAllVersions(this.versionHistory$);
         } else {
           this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
         }
@@ -397,6 +402,13 @@ export class ItemVersionsComponent implements OnInit {
   }
 
   /**
+   * Updates the page
+   */
+  onPageChange() {
+    this.getAllVersions(this.versionHistory$);
+  }
+
+  /**
    * Get the ID of the workspace item, if present, otherwise return undefined
    * @param versionItem the item for which retrieve the workspace item id
    */
@@ -446,6 +458,10 @@ export class ItemVersionsComponent implements OnInit {
         hasValueOperator(),
         switchMap((version: Version) => version.versionhistory),
       );
+      this.versionHistory$ = this.versionHistoryRD$.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        hasValueOperator(),
+      );
 
       this.canCreateVersion$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.item.self);
 
@@ -460,11 +476,7 @@ export class ItemVersionsComponent implements OnInit {
         switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion'))
       );
 
-      const versionHistory$ = this.versionHistoryRD$.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        hasValueOperator(),
-      );
-      this.getAllVersions(versionHistory$);
+      this.getAllVersions(this.versionHistory$);
       this.hasEpersons$ = this.versionsRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),

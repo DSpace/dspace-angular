@@ -6,6 +6,7 @@
         {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
       </ds-alert>
       <ds-pagination *ngIf="versions?.page?.length > 0"
+                     (paginationChange)="onPageChange()"
                      [hideGear]="true"
                      [hidePagerWhenSinglePage]="true"
                      [paginationOptions]="options"
