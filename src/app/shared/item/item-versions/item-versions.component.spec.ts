@@ -36,7 +36,7 @@ describe('ItemVersionsComponent', () => {
 
   const versionHistory = Object.assign(new VersionHistory(), {
     id: '1',
-    draftVersion: false,
+    draftVersion: true,
   });
 
   const version1 = Object.assign(new Version(), {
@@ -66,7 +66,7 @@ describe('ItemVersionsComponent', () => {
   const versions = [version1, version2];
   versionHistory.versions = createSuccessfulRemoteDataObject$(createPaginatedList(versions));
 
-  const item1 = Object.assign(new Item(), {
+  const item1 = Object.assign(new Item(), { // is a workspace item
     uuid: 'item-identifier-1',
     handle: '123456789/1',
     version: createSuccessfulRemoteDataObject$(version1),
@@ -105,7 +105,6 @@ describe('ItemVersionsComponent', () => {
   const workflowItemDataServiceSpy = jasmine.createSpyObj('workflowItemDataService', {
     findByItem: of(undefined),
   });
-
 
   beforeEach(waitForAsync(() => {
 
@@ -204,6 +203,14 @@ describe('ItemVersionsComponent', () => {
       editButtons.forEach((btn) => {
         expect(btn.nativeElement.disabled).toBe(true);
       });
+    });
+  });
+
+  describe('when page is changed', () => {
+    it('should call getAllVersions', () => {
+      spyOn(component, 'getAllVersions');
+      component.onPageChange();
+      expect(component.getAllVersions).toHaveBeenCalled();
     });
   });
 
