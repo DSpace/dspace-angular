@@ -345,7 +345,7 @@ export class ItemVersionsComponent implements OnInit {
       tap((newVersionRD: RemoteData<Version>) => {
         this.itemVersionShared.notifyCreateNewVersion(newVersionRD);
         if (newVersionRD.hasSucceeded) {
-          const versionHistory$ = this.versionService.getHistoryFromVersion$(version).pipe(
+          const versionHistory$ = this.versionService.getHistoryFromVersion(version).pipe(
             tap((versionHistory: VersionHistory) => {
               this.itemService.invalidateItemCache(this.item.uuid);
               this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);

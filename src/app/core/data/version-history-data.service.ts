@@ -175,7 +175,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
         if (res.hasSucceeded && !res.hasNoContent) {
           return of(res).pipe(
             getFirstSucceededRemoteDataPayload(),
-            switchMap((version) => this.versionDataService.getHistoryFromVersion$(version)),
+            switchMap((version) => this.versionDataService.getHistoryFromVersion(version)),
             map((versionHistory) => versionHistory ? versionHistory.draftVersion : false),
           );
         } else {
@@ -201,7 +201,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    * @param version
    */
   getVersionHistoryFromVersion$(version: Version): Observable<VersionHistory> {
-    return this.versionDataService.getHistoryIdFromVersion$(version).pipe(
+    return this.versionDataService.getHistoryIdFromVersion(version).pipe(
       take(1),
       switchMap((res) => this.findById(res)),
       getFirstSucceededRemoteDataPayload(),
