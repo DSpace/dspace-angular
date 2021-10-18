@@ -233,6 +233,7 @@ import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.com
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 
 /**
@@ -460,7 +461,8 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  SearchNavbarComponent
+  SearchNavbarComponent,
+  ScopeSelectorModalComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -525,7 +527,8 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   LinkMenuItemComponent,
   OnClickMenuItemComponent,
-  TextMenuItemComponent
+  TextMenuItemComponent,
+  ScopeSelectorModalComponent
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [

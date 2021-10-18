@@ -1,3 +1,5 @@
+import { testA11y } from 'cypress/support/utils';
+
 describe('Homepage', () => {
   beforeEach(() => {
     // All tests start with visiting homepage
@@ -20,18 +22,11 @@ describe('Homepage', () => {
     cy.url().should('include', 'query=' + encodeURI(queryString));
   });
 
-  // it('should pass accessibility tests', () => {
-  //   // first must inject Axe into current page
-  //   cy.injectAxe();
+  it('should pass accessibility tests', () => {
+    // Wait for homepage tag to appear
+    cy.get('ds-home-page').should('be.visible');
 
-  //   // Analyze entire page for accessibility issues
-  //   // NOTE: this test checks accessibility of header/footer as well
-  //   cy.checkA11y({
-  //     exclude: [
-  //       ['#klaro'],                   // Klaro plugin (privacy policy popup) has color contrast issues
-  //       ['#search-navbar-container'], // search in navbar has duplicative ID. Will be fixed in #1174
-  //       ['.dropdownLogin']            // "Log in" link in header has color contrast issues
-  //     ],
-  //   });
-  // });
+    // Analyze <ds-home-page> for accessibility issues
+    testA11y('ds-home-page');
+  });
 });

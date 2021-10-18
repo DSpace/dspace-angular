@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { Notification } from '../models/notification.model';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { storeModuleConfig } from '../../../app.reducer';
+import { BehaviorSubject } from 'rxjs';
 
 describe('NotificationComponent', () => {
 
@@ -83,6 +84,8 @@ describe('NotificationComponent', () => {
     deContent = fixture.debugElement.query(By.css('.notification-content'));
     elContent = deContent.nativeElement;
     elType = fixture.debugElement.query(By.css('.notification-icon')).nativeElement;
+
+    spyOn(comp, 'remove');
   });
 
   it('should create component', () => {
@@ -122,6 +125,53 @@ describe('NotificationComponent', () => {
     deContent = fixture.debugElement.query(By.css('.notification-html'));
     elContent = deContent.nativeElement;
     expect(elContent.innerHTML).toEqual(htmlContent);
+  });
+
+  describe('dismiss countdown', () => {
+    const TIMEOUT = 5000;
+    let isPaused$: BehaviorSubject<boolean>;
+
+    beforeEach(() => {
+      isPaused$ = new BehaviorSubject<boolean>(false);
+      comp.isPaused$ = isPaused$;
+      comp.notification = {
+        id: '1',
+        type: NotificationType.Info,
+        title: 'Notif. title',
+        content: 'test',
+        options: Object.assign(
+          new NotificationOptions(),
+          { timeout: TIMEOUT }
+        ),
+        html: true
+      };
+    });
+
+    it('should remove notification after timeout', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(TIMEOUT);
+      expect(comp.remove).toHaveBeenCalled();
+    }));
+
+    describe('isPaused$', () => {
+      it('should pause countdown on true', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(TIMEOUT / 2);
+        isPaused$.next(true);
+        tick(TIMEOUT);
+        expect(comp.remove).not.toHaveBeenCalled();
+      }));
+
+      it('should resume paused countdown on false', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(TIMEOUT / 4);
+        isPaused$.next(true);
+        tick(TIMEOUT / 4);
+        isPaused$.next(false);
+        tick(TIMEOUT);
+        expect(comp.remove).toHaveBeenCalled();
+      }));
+    });
   });
 
 });

@@ -932,6 +932,30 @@
   "collection.select.table.title": "Title",
 
 
+  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.no-information": "N/A",
+
 
   "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
 
@@ -1254,6 +1278,12 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.set-scope.community.head": "Select a search scope",
+
+  "dso-selector.set-scope.community.button": "Search all of DSpace",
+
+  "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+
 
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
@@ -1311,6 +1341,11 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.required": "This field is required",
+
+  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+
+  "error.validation.emailTaken": "This E-mail is already taken",
 
 
   "file-section.error.header": "Error obtaining files for this item",
@@ -1971,6 +2006,10 @@
   "item.page.citation": "Citation",
 
   "item.page.collections": "Collections",
+
+  "item.page.collections.loading": "Loading...",
+
+  "item.page.collections.load-more": "Load more",
 
   "item.page.date": "Date",
 
@@ -3198,6 +3237,8 @@
   "search.form.search": "Search",
 
   "search.form.search_dspace": "All repository",
+
+  "search.form.scope.all": "All of DSpace",
 
 
 
