@@ -11,7 +11,7 @@ import { Item } from '../../core/shared/item.model';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 
-fdescribe('FileDownloadLinkComponent', () => {
+describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
   let fixture: ComponentFixture<FileDownloadLinkComponent>;
 
