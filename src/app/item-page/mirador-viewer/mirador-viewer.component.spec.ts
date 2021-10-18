@@ -11,6 +11,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { of as observableOf } from 'rxjs';
 import { MiradorViewerService } from './mirador-viewer.service';
+import { HostWindowService } from '../../shared/host-window.service';
 
 
 function getItem(metadata: MetadataMap) {
@@ -22,6 +23,14 @@ function getItem(metadata: MetadataMap) {
 }
 
 const noMetadata = new MetadataMap();
+
+const mockHostWindowService = {
+  widthCategory: observableOf(true),
+};
+
+const mockHostWindowServiceMobile = {
+  widthCategory: observableOf(false),
+};
 
 describe('MiradorViewerComponent with search', () => {
   let comp: MiradorViewerComponent;
@@ -39,7 +48,8 @@ describe('MiradorViewerComponent with search', () => {
       })],
       declarations: [MiradorViewerComponent],
       providers: [
-        { provide: BitstreamDataService, useValue: {} }
+        { provide: BitstreamDataService, useValue: {} },
+        { provide: HostWindowService, useValue: mockHostWindowService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MiradorViewerComponent, {
@@ -100,7 +110,8 @@ describe('MiradorViewerComponent with multiple images', () => {
       })],
       declarations: [MiradorViewerComponent],
       providers: [
-        { provide: BitstreamDataService, useValue: {} }
+        { provide: BitstreamDataService, useValue: {} },
+        { provide: HostWindowService, useValue: mockHostWindowService  }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MiradorViewerComponent, {
@@ -141,7 +152,7 @@ describe('MiradorViewerComponent with multiple images', () => {
 });
 
 
-describe('MiradorViewerComponent with with a single image', () => {
+describe('MiradorViewerComponent with a single image in mobile configuration', () => {
   let comp: MiradorViewerComponent;
   let fixture: ComponentFixture<MiradorViewerComponent>;
   const viewerService = jasmine.createSpyObj('MiradorViewerService', ['showEmbeddedViewer', 'getImageCount']);
@@ -158,7 +169,8 @@ describe('MiradorViewerComponent with with a single image', () => {
       })],
       declarations: [MiradorViewerComponent],
       providers: [
-        { provide: BitstreamDataService, useValue: {} }
+        { provide: BitstreamDataService, useValue: {} },
+        { provide: HostWindowService, useValue: mockHostWindowServiceMobile  }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MiradorViewerComponent, {
@@ -188,6 +200,10 @@ describe('MiradorViewerComponent with with a single image', () => {
       expect(viewerService.getImageCount).toHaveBeenCalled();
     });
 
+    it('should be in mobile configuration', () => {
+      expect(comp.notMobile).toBeFalse();
+    });
+
   });
 
 });
@@ -215,7 +231,8 @@ describe('MiradorViewerComponent in development mode', () => {
     }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
+          { provide: MiradorViewerService, useValue: viewerService },
+          { provide: HostWindowService, useValue: mockHostWindowService  }
         ]
       }
     }).compileComponents();

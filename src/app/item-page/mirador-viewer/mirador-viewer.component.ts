@@ -4,10 +4,11 @@ import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { MiradorViewerService } from './mirador-viewer.service';
+import { HostWindowService, WidthCategory } from '../../shared/host-window.service';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -55,6 +56,7 @@ export class MiradorViewerComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer,
               private viewerService: MiradorViewerService,
               private bitstreamDataService: BitstreamDataService,
+              private hostWindowService: HostWindowService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -100,9 +102,11 @@ export class MiradorViewerComponent implements OnInit {
       // The notMobile property affects the thumbnail navigation
       // menu by hiding it for smaller viewports. This will not be
       // responsive to resizing.
-      if (window.innerWidth > 768) {
-        this.notMobile = true;
-      }
+      this.hostWindowService.widthCategory
+          .pipe(take(1))
+          .subscribe((category: WidthCategory) => {
+            this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
+          });
 
       // We need to set the multi property to true if the
       // item is searchable or when the ORIGINAL bundle contains more
