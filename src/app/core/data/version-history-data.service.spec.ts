@@ -6,10 +6,11 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { VersionDataService } from './version-data.service';
+import { waitForAsync } from '@angular/core/testing';
 
 const url = 'fake-url';
 
-describe('VersionHistoryDataService', () => {
+fdescribe('VersionHistoryDataService', () => {
   let service: VersionHistoryDataService;
 
   let requestService: RequestService;
@@ -18,6 +19,8 @@ describe('VersionHistoryDataService', () => {
   let objectCache: ObjectCacheService;
   let versionService: VersionDataService;
   let halService: any;
+
+  const versionHistoryId = 'version-history-id';
 
   beforeEach(() => {
     createService();
@@ -55,4 +58,37 @@ describe('VersionHistoryDataService', () => {
 
     service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, versionService, null, null);
   }
+
+  describe('when getVersions is called', () => {
+    beforeEach(waitForAsync(() => {
+      service.getVersions(versionHistoryId);
+    }));
+    it('findAllByHref should have been called', () => {
+      expect(versionService.findAllByHref).toHaveBeenCalled();
+    });
+  });
+
+  describe('when getBrowseEndpoint is called', () => {
+    it('should return the correct value', () => {
+      service.getBrowseEndpoint().subscribe((res) => {
+        expect(res).toBe(url + '/versionhistories');
+      });
+    });
+  });
+
+  describe('when getVersionsEndpoint is called', () => {
+    it('should return the correct value', () => {
+      service.getVersionsEndpoint(versionHistoryId).subscribe((res) => {
+        expect(res).toBe(url + '/versions');
+      });
+    });
+  });
+
+  describe('when cache is invalidated', () => {
+    it('should call setStaleByHrefSubstring', () => {
+      service.invalidateVersionHistoryCache(versionHistoryId);
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('versioning/versionhistories/' + versionHistoryId);
+    });
+  });
+
 });
