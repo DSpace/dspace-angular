@@ -14,6 +14,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,10 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
             path: UPLOAD_BITSTREAM_PATH,
             component: UploadBitstreamComponent,
             canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: ':request-a-copy',
+            component: BitstreamRequestACopyPageComponent,
           }
         ],
         data: {
