@@ -84,6 +84,12 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() isLeft: boolean;
 
   /**
+   * Check if is left type or right type
+   */
+  @Input() toRemove: SearchResult<Item>[];
+
+
+  /**
    * Check if is being utilized by edit relationship component
    */
   @Input() isEditRelationship: boolean;
@@ -251,7 +257,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         getRemoteDataPayload(),
       ).subscribe( (res: PaginatedList<Relationship>) => {
 
-        const selectableObject = res.page.map( (relationship: any) => {
+        let selectableObject = res.page.map( (relationship: any) => {
 
           let arrUrl = [];
           if ( this.isLeft ) {
@@ -263,6 +269,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
 
           return this.getRelatedItem(uuid,resultListOfItems);
         });
+
+        selectableObject = selectableObject.filter((selObject)=>{
+          return !this.getIfInRemove(selObject.indexableObject.uuid);
+        })
 
         if ( selectableObject.length > 0 ) {
           this.selectableListService.select(this.listId, selectableObject);
@@ -285,6 +295,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     return resultList.find( (resultItem) => {
       return resultItem.indexableObject.uuid === uuid;
     });
+  }
+
+  getIfInRemove(uuid: string) {
+    return !!this.toRemove.find((searchResult)=> searchResult.indexableObject.uuid == uuid);
   }
 
   ngOnDestroy(): void {

@@ -75,7 +75,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   @Output() submit: EventEmitter<any> = new EventEmitter();
 
-
   /**
    * Observable that emits the left and right item type of {@link relationshipType} simultaneously.
    */
@@ -233,9 +232,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
           this.getIsRelatedItem(relatedItem)
             .subscribe((isRelated: boolean) => {
-
-              if (!isRelated) {
-                modalComp.toAdd.push(relatedItem);
+              if (!isRelated ) {
+                modalComp.toAdd.push(searchResult);
               }
 
               this.loading$.next(true);
@@ -249,12 +247,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
 
-        const foundIndex = modalComp.toAdd.findIndex( el => el.uuid === relatedItem.uuid);
+        const foundIndex = modalComp.toAdd.findIndex( el => el.indexableObject.uuid === relatedItem.uuid);
 
         if (foundIndex !== -1) {
           modalComp.toAdd.splice(foundIndex,1);
         } else {
-          modalComp.toRemove.push(relatedItem);
+          modalComp.toRemove.push(searchResult);
         }
       });
     };
@@ -265,11 +263,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
       const subscriptions = [];
 
-      modalComp.toAdd.forEach((relatedItem) => {
+      modalComp.toAdd.forEach((searchResult: SearchResult<Item>) => {
+        const relatedItem = searchResult.indexableObject;
         subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
           map((nameVariant) => {
           const update = {
-            uuid: this.relationshipType.id + '-' + relatedItem.uuid,
+            uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
             nameVariant,
             type: this.relationshipType,
             relatedItem,
@@ -280,10 +279,10 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         ));
       });
 
-      modalComp.toRemove.forEach( (relatedItem) => {
-        subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+      modalComp.toRemove.forEach( (searchResult) => {
+        subscriptions.push(this.relationshipService.getNameVariant(this.listId, searchResult.indexableObjectuuid).pipe(
           switchMap((nameVariant) => {
-            return this.getRelationFromId(relatedItem).pipe(
+            return this.getRelationFromId(searchResult.indexableObject).pipe(
               map( (relationship: Relationship) => {
                 const update = {
                   uuid: relationship.id,
@@ -297,7 +296,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             );
           })
         ));
-
       });
 
       observableCombineLatest(subscriptions).subscribe( (res) => {
@@ -312,6 +310,14 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
 
     modalComp.discardEv = () => {
+      modalComp.toAdd.forEach((searchResult)=>{
+        this.selectableListService.deselectSingle(this.listId,searchResult);
+      })
+
+      modalComp.toRemove.forEach((searchResult)=>{
+        this.selectableListService.selectSingle(this.listId,searchResult);
+      })
+
       modalComp.toAdd = [];
       modalComp.toRemove = [];
     };

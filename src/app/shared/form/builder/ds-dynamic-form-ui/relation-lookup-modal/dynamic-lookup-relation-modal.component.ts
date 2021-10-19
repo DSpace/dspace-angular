@@ -168,7 +168,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnInit(): void {
-
+    console.log(this.toRemove);
     if (!!this.currentItemIsLeftItem$) {
       this.currentItemIsLeftItem$.subscribe((isLeft) => {
         this.isLeft = isLeft;
