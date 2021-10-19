@@ -270,9 +270,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           return this.getRelatedItem(uuid,resultListOfItems);
         });
 
-        selectableObject = selectableObject.filter((selObject)=>{
+        selectableObject = selectableObject.filter( (selObject) => {
           return !this.getIfInRemove(selObject.indexableObject.uuid);
-        })
+        });
 
         if ( selectableObject.length > 0 ) {
           this.selectableListService.select(this.listId, selectableObject);
@@ -298,7 +298,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   getIfInRemove(uuid: string) {
-    return !!this.toRemove.find((searchResult)=> searchResult.indexableObject.uuid == uuid);
+    return !!this.toRemove.find( (searchResult) => searchResult.indexableObject.uuid === uuid);
   }
 
   ngOnDestroy(): void {

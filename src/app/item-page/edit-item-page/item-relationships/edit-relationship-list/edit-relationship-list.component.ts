@@ -310,13 +310,13 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
 
     modalComp.discardEv = () => {
-      modalComp.toAdd.forEach((searchResult)=>{
+      modalComp.toAdd.forEach( (searchResult) => {
         this.selectableListService.deselectSingle(this.listId,searchResult);
-      })
+      });
 
-      modalComp.toRemove.forEach((searchResult)=>{
+      modalComp.toRemove.forEach( (searchResult) => {
         this.selectableListService.selectSingle(this.listId,searchResult);
-      })
+      });
 
       modalComp.toAdd = [];
       modalComp.toRemove = [];
