@@ -159,24 +159,16 @@ export const environment: GlobalConfig = {
     label: 'English',
     active: true,
   }, {
-    code: 'de',
-    label: 'Deutsch',
-    active: true,
-  }, {
     code: 'cs',
     label: 'Čeština',
     active: true,
   }, {
-    code: 'nl',
-    label: 'Nederlands',
+    code: 'de',
+    label: 'Deutsch',
     active: true,
-  },{
-    code: 'pt-BR',
-    label: 'Português do Brasil',
-    active: true,
-  },{
-    code: 'pt-PT',
-    label: 'Português',
+  }, {
+    code: 'es',
+    label: 'Español',
     active: true,
   }, {
     code: 'fr',
@@ -186,13 +178,25 @@ export const environment: GlobalConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  }, {
+    code: 'hu',
+    label: 'Magyar',
+    active: true,
+  }, {
+    code: 'nl',
+    label: 'Nederlands',
+    active: true,
+  }, {
+    code: 'pt-PT',
+    label: 'Português',
+    active: true,
+  },{
+    code: 'pt-BR',
+    label: 'Português do Brasil',
+    active: true,
   },{
     code: 'fi',
     label: 'Suomi',
-    active: true,
-  },{
-    code: 'hu',
-    label: 'magyar',
     active: true,
   }],
   // Browse-By Pages
