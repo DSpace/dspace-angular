@@ -163,15 +163,6 @@ describe('VersionHistoryDataService', () => {
     });
   });
 
-  // TODO complete test
-  xdescribe('when a new version is created', () => {
-    it('it should ...', fakeAsync(() => {
-      spyOn(halService, 'getEndpoint');
-      service.createVersion('item-href', 'version-summary');
-      expect(halService.getEndpoint).toHaveBeenCalled();
-    }));
-  });
-
   describe('isLatest$', () => {
     beforeEach(waitForAsync(() => {
       spyOn(service, 'getLatestVersion$').and.returnValue(of(version2));

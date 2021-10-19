@@ -17,11 +17,20 @@ import { Component } from '@angular/core';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { Version } from '../../../../core/shared/version.model';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: new MetadataMap(),
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
+  _links: {
+    self: {
+      href: 'item-href'
+    },
+    version: {
+      href: 'version-href'
+    }
+  }
 });
 
 
@@ -33,22 +42,34 @@ describe('VersionedItemComponent', () => {
   let component: VersionedItemComponent;
   let fixture: ComponentFixture<VersionedItemComponent>;
 
+  let versionService: VersionDataService;
+  let versionHistoryService: VersionHistoryDataService;
+
+  const versionServiceSpy = jasmine.createSpyObj('versionService', {
+    findByHref: createSuccessfulRemoteDataObject$<Version>(new Version()),
+  });
+
+  const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService', {
+    createVersion: createSuccessfulRemoteDataObject$<Version>(new Version()),
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VersionedItemComponent, DummyComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
         { provide: TranslateService, useValue: {} },
-        { provide: VersionDataService, useValue: {} },
+        { provide: VersionDataService, useValue: versionServiceSpy },
         { provide: NotificationsService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
+    versionService = TestBed.inject(VersionDataService);
+    versionHistoryService = TestBed.inject(VersionHistoryDataService);
   });
 
   beforeEach(() => {
@@ -61,4 +82,12 @@ describe('VersionedItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('when onCreateNewVersion() is called', () => {
+    it('should call versionService.findByHref', () => {
+      component.onCreateNewVersion();
+      expect(versionService.findByHref).toHaveBeenCalledWith('version-href');
+    });
+  });
+
 });
