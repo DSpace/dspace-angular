@@ -594,7 +594,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         },
         /* User agreement edit*/
         {
-          id: 'homepage_cms_edit',
+          id: 'metadata_cms_edit',
           active: false,
           visible: authorized,
           model: {

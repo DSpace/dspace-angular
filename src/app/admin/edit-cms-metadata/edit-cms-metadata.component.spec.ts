@@ -75,7 +75,7 @@ describe('EditCmsMetadataComponent', () => {
       component.selectMode = false;
       fixture.detectChanges();
     });
-    it('should call selectMetadataToEdit', () => {
+    it('should render textareas of the languages', () => {
       const languagesLength = environment.languages.length;
       const textareas = fixture.debugElement.queryAll(By.css('textarea'));
       expect(textareas).toHaveSize(languagesLength);
