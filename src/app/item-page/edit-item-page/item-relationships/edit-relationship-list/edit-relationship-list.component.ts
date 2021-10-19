@@ -328,9 +328,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         modalComp.relationshipOptions = Object.assign(
           new RelationshipOptions(), {
             relationshipType: relatedEntityType.label,
-            // filter: this.getRelationshipMessageKey(),
             searchConfiguration: relatedEntityType.label.toLowerCase(),
-            nameVariants: true,
+            nameVariants: 'true',
           }
         );
       });
