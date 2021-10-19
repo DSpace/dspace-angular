@@ -5,5 +5,5 @@
 }
 
 .scope-button {
-  max-width: $search-form-scope-max-width;
+  max-width: var(--ds-search-form-scope-max-width);
 }
