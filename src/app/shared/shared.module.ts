@@ -234,6 +234,7 @@ import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
+import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -432,6 +433,7 @@ const COMPONENTS = [
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
@@ -514,6 +516,7 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,

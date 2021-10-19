@@ -12,6 +12,7 @@ import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
+import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,10 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
             path: UPLOAD_BITSTREAM_PATH,
             component: UploadBitstreamComponent,
             canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: ':request-a-copy',
+            component: BitstreamRequestACopyPageComponent,
           }
         ],
         data: {
