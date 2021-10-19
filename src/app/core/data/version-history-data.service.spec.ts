@@ -6,11 +6,11 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { VersionDataService } from './version-data.service';
-import { waitForAsync } from '@angular/core/testing';
+import { fakeAsync, waitForAsync } from '@angular/core/testing';
 
 const url = 'fake-url';
 
-fdescribe('VersionHistoryDataService', () => {
+describe('VersionHistoryDataService', () => {
   let service: VersionHistoryDataService;
 
   let requestService: RequestService;
@@ -45,7 +45,8 @@ fdescribe('VersionHistoryDataService', () => {
   function createService(requestEntry$?) {
     requestService = getMockRequestService(requestEntry$);
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildList: jasmine.createSpy('buildList')
+      buildList: jasmine.createSpy('buildList'),
+      buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
     });
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
@@ -89,6 +90,15 @@ fdescribe('VersionHistoryDataService', () => {
       service.invalidateVersionHistoryCache(versionHistoryId);
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('versioning/versionhistories/' + versionHistoryId);
     });
+  });
+
+  // TODO complete test
+  xdescribe('when a new version is created', () => {
+    it('it should ...', fakeAsync(() => {
+      spyOn(halService, 'getEndpoint');
+      service.createVersion('item-href', 'version-summary');
+      expect(halService.getEndpoint).toHaveBeenCalled();
+    }));
   });
 
 });
