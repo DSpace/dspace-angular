@@ -3678,9 +3678,19 @@
 
   "submission.sections.status.warnings.title": "Warnings",
 
+  "submission.sections.status.errors.aria": "has errors",
+
+  "submission.sections.status.valid.aria": "is valid",
+
+  "submission.sections.status.warnings.aria": "has warnings",
+
   "submission.sections.toggle.open": "Open section",
 
   "submission.sections.toggle.close": "Close section",
+
+  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
@@ -3701,6 +3711,10 @@
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
   "submission.sections.upload.form.date-required": "Date is required.",
+
+  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
 
   "submission.sections.upload.form.from-label": "Grant access from",
 
