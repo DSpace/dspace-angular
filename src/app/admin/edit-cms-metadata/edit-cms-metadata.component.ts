@@ -10,18 +10,38 @@ interface HomePageMetadata {
   languageLabel: string;
   text: string;
 }
-
+/**
+ * Component representing the page to edit cms metadata for site.
+ */
 @Component({
   selector: 'ds-edit-homepage-metadata',
   templateUrl: './edit-cms-metadata.component.html',
   styleUrls: ['./edit-cms-metadata.component.scss']
 })
 export class EditCmsMetadataComponent implements OnInit {
+  /**
+   * default value of the select options
+   */
   metadataSelectedTobeEdited = '0';
+  /**
+   * default true to show the select options
+   */
   selectMode = true;
+  /**
+   * languages available
+   */
   languages: object[] = [];
+  /**
+   * key value pair map with language and value of metadata
+   */
   metadataValueHomePage: Map<string, HomePageMetadata> = new Map();
+  /**
+   * the owner object of the metadataList
+   */
   site: Site;
+  /**
+   * list of the metadata to be edited by the user
+   */
   metadataList: string[] = [];
   // tslint:disable-next-line:no-empty
   constructor(private siteService: SiteDataService,

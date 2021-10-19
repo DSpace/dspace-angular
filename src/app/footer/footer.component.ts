@@ -1,21 +1,42 @@
-import { Component, Optional } from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
 import { hasValue } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
+import { take} from 'rxjs/operators';
+import {Site} from '../core/shared/site.model';
+import {SiteDataService} from '../core/data/site-data.service';
+import {TextRowSection} from '../core/layout/models/section.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'ds-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html'
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
   dateObj: number = Date.now();
-
   /**
    * A boolean representing if to show or not the top footer container
    */
   showTopFooter = true;
-
-  constructor(@Optional() private cookies: KlaroService) {
+  /**
+   * Represents the site to show the footer metadata
+   */
+  site: Observable<Site>;
+  /**
+   * The section data to be rendered as footer
+   */
+  section: TextRowSection;
+  constructor(@Optional() private cookies: KlaroService,
+              private siteService: SiteDataService) {
+  }
+  ngOnInit() {
+    this.section = {
+      content: 'cms.homepage.footer',
+      contentType: 'text-metadata',
+      componentType: 'text-row',
+      style: ''
+    };
+    this.site = this.siteService.find().pipe(take(1));
   }
 
   showCookieSettings() {
