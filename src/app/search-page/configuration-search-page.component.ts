@@ -47,6 +47,12 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
    */
   @Input() fixedFilterQuery: string;
 
+
+  /**
+   * Whether to show the scope selection dropdown
+   */
+  @Input() scopeSelectable = true;
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,

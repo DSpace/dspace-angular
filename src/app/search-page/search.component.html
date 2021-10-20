@@ -45,6 +45,7 @@
 <ng-template #searchForm>
     <ds-search-form *ngIf="searchEnabled" id="search-form"
                     [query]="(searchOptions$ | async)?.query"
+                    [scopeSelectable]="scopeSelectable"
                     [scope]="(searchOptions$ | async)?.scope"
                     [currentUrl]="searchLink"
                     [scopes]="(scopeListRD$ | async)"

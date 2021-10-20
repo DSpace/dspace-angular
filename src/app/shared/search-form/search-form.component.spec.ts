@@ -72,6 +72,16 @@ describe('SearchFormComponent', () => {
     expect(select).toBeNull();
   });
 
+  it('should not display scopes when scopeSelectable is false', () => {
+    comp.scopeSelectable = false;
+    comp.scopes = objects;
+    comp.scope = objects[1].id;
+
+    fixture.detectChanges();
+    const select = de.query(By.css('select'));
+    expect(select).toBeNull();
+  });
+
   it('should display set query value in input field', fakeAsync(() => {
     const testString = 'This is a test query';
     comp.query = testString;

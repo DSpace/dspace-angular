@@ -100,6 +100,11 @@ export class SearchComponent implements OnInit {
   context: Context;
 
   /**
+   * Whether to show the scope selection dropdown
+   */
+  @Input() scopeSelectable = true;
+
+  /**
    * Link to the search page
    */
   searchLink: string;

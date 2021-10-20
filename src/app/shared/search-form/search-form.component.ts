@@ -66,6 +66,11 @@ export class SearchFormComponent {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
+  /**
+   * Whether to show the scope selection dropdown
+   */
+  @Input() scopeSelectable = true;
+
   constructor(private router: Router, private searchService: SearchService,
               private paginationService: PaginationService,
               private searchConfig: SearchConfigurationService
