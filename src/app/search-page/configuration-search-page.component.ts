@@ -6,7 +6,6 @@ import {
   Component,
   Inject,
   Input,
-  OnDestroy,
   OnInit
 } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
@@ -34,7 +33,7 @@ import { Router } from '@angular/router';
   ]
 })
 
-export class ConfigurationSearchPageComponent extends SearchComponent implements OnInit, OnDestroy {
+export class ConfigurationSearchPageComponent extends SearchComponent implements OnInit {
   /**
    * The configuration to use for the search options
    * If empty, the configuration will be determined by the route parameter called 'configuration'
@@ -70,19 +69,6 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
     }
     if (hasValue(this.fixedFilterQuery)) {
       this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
-    }
-  }
-
-  /**
-   * Reset the updated query/configuration set in ngOnInit()
-   */
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-    if (hasValue(this.configuration)) {
-      this.routeService.setParameter('configuration', undefined);
-    }
-    if (hasValue(this.fixedFilterQuery)) {
-      this.routeService.setParameter('fixedFilterQuery', undefined);
     }
   }
 }
