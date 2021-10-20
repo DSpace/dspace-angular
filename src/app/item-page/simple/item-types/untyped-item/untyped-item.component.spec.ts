@@ -103,6 +103,7 @@ describe('UntypedItemComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },
+        { provide: RouteService, useValue: mockRouteService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {
