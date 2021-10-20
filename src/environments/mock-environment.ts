@@ -293,8 +293,7 @@ export const environment: Partial<GlobalConfig> = {
     metadataList: [
       'cms.homepage.header',
       'cms.homepage.footer',
-      'cms.homepage.sidebar',
-      'cms.homepage.test'
+      'cms.homepage.sidebar'
     ]
   }
 };

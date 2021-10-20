@@ -393,7 +393,7 @@ export const environment: GlobalConfig = {
     metadataList: [
       'cms.homepage.header',
       'cms.homepage.footer',
-      'cms.homepage.sideba '
+      'cms.homepage.sidebar'
     ]
   }
 };
