@@ -110,7 +110,7 @@
                 <ng-container *ngIf="(canEditVersion$(version) | async) && isThisBeingEdited(version)">
                   <button class="btn btn-sm"
                           [ngClass]="isThisBeingEdited(version) ? 'btn-outline-warning' : 'btn-outline-primary'"
-                          (click)="disableSummaryEditing()"
+                          (click)="disableVersionEditing()"
                           title="{{'item.version.history.table.action.discardSummary' | translate}}">
                     <i class="fas fa-undo-alt fa-fw"></i>
                   </button>

@@ -11,7 +11,7 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
-import { of, of as observableOf } from 'rxjs';
+import { EMPTY, of, of as observableOf } from 'rxjs';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -25,7 +25,7 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 
-describe('ItemVersionsComponent', () => {
+fdescribe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
   let fixture: ComponentFixture<ItemVersionsComponent>;
   let authenticationService: AuthService;
@@ -33,6 +33,7 @@ describe('ItemVersionsComponent', () => {
   let versionHistoryService: VersionHistoryDataService;
   let workspaceItemDataService: WorkspaceitemDataService;
   let workflowItemDataService: WorkflowItemDataService;
+  let versionService: VersionDataService;
 
   const versionHistory = Object.assign(new VersionHistory(), {
     id: '1',
@@ -94,16 +95,18 @@ describe('ItemVersionsComponent', () => {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions)),
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
-    }
-  );
+    isAuthenticated: observableOf(true),
+    setRedirectUrl: {}
+  });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
-    findByItem: of(undefined),
+    findByItem: EMPTY,
   });
   const workflowItemDataServiceSpy = jasmine.createSpyObj('workflowItemDataService', {
-    findByItem: of(undefined),
+    findByItem: EMPTY,
+  });
+  const versionServiceSpy = jasmine.createSpyObj('versionService', {
+    findById: EMPTY,
   });
 
   beforeEach(waitForAsync(() => {
@@ -119,7 +122,7 @@ describe('ItemVersionsComponent', () => {
         {provide: AuthorizationDataService, useValue: authorizationServiceSpy},
         {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
         {provide: ItemDataService, useValue: {}},
-        {provide: VersionDataService, useValue: {}},
+        {provide: VersionDataService, useValue: versionServiceSpy},
         {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
       ],
@@ -131,6 +134,7 @@ describe('ItemVersionsComponent', () => {
     authorizationService = TestBed.inject(AuthorizationDataService);
     workspaceItemDataService = TestBed.inject(WorkspaceitemDataService);
     workflowItemDataService = TestBed.inject(WorkflowItemDataService);
+    versionService = TestBed.inject(VersionDataService);
 
   }));
 
@@ -211,6 +215,55 @@ describe('ItemVersionsComponent', () => {
       spyOn(component, 'getAllVersions');
       component.onPageChange();
       expect(component.getAllVersions).toHaveBeenCalled();
+    });
+  });
+
+  describe('when onSummarySubmit() is called', () => {
+    const id = 'version-being-edited-id';
+    beforeEach(() => {
+      component.versionBeingEditedId = id;
+    });
+    it('should call versionService.findById', () => {
+      component.onSummarySubmit();
+      expect(versionService.findById).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('when editing is enabled for an item', () => {
+    beforeEach(() => {
+      component.enableVersionEditing(version1);
+    });
+    it('should set all variables', () => {
+      expect(component.versionBeingEditedSummary).toEqual('first version');
+      expect(component.versionBeingEditedNumber).toEqual(1);
+      expect(component.versionBeingEditedId).toEqual('1');
+    });
+    it('isAnyBeingEdited should be true', () => {
+      expect(component.isAnyBeingEdited()).toBeTrue();
+    });
+    it('isThisBeingEdited should be true for version1', () => {
+      expect(component.isThisBeingEdited(version1)).toBeTrue();
+    });
+    it('isThisBeingEdited should be false for version2', () => {
+      expect(component.isThisBeingEdited(version2)).toBeFalse();
+    });
+  });
+
+  describe('when editing is disabled', () => {
+    beforeEach(() => {
+      component.disableVersionEditing();
+    });
+    it('should unset all variables', () => {
+      expect(component.versionBeingEditedSummary).toBeUndefined();
+      expect(component.versionBeingEditedNumber).toBeUndefined();
+      expect(component.versionBeingEditedId).toBeUndefined();
+    });
+    it('isAnyBeingEdited should be false', () => {
+      expect(component.isAnyBeingEdited()).toBeFalse();
+    });
+    it('isThisBeingEdited should be false for all versions', () => {
+      expect(component.isThisBeingEdited(version1)).toBeFalse();
+      expect(component.isThisBeingEdited(version2)).toBeFalse();
     });
   });
 

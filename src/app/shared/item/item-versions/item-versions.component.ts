@@ -152,7 +152,7 @@ export class ItemVersionsComponent implements OnInit {
   /**
    * The number of the version whose summary is currently being edited
    */
-  versionBeingEditedNumber: string;
+  versionBeingEditedNumber: number;
 
   /**
    * The id of the version whose summary is currently being edited
@@ -195,14 +195,14 @@ export class ItemVersionsComponent implements OnInit {
    * True if the specified version is being edited
    * (used to show input field and to change buttons for specified version)
    */
-  isThisBeingEdited(version): boolean {
+  isThisBeingEdited(version: Version): boolean {
     return version?.version === this.versionBeingEditedNumber;
   }
 
   /**
    * Enables editing for the specified version
    */
-  enableVersionEditing(version): void {
+  enableVersionEditing(version: Version): void {
     this.versionBeingEditedSummary = version?.summary;
     this.versionBeingEditedNumber = version?.version;
     this.versionBeingEditedId = version?.id;
@@ -211,7 +211,7 @@ export class ItemVersionsComponent implements OnInit {
   /**
    * Disables editing for the specified version and discards all pending changes
    */
-  disableSummaryEditing(): void {
+  disableVersionEditing(): void {
     this.versionBeingEditedSummary = undefined;
     this.versionBeingEditedNumber = undefined;
     this.versionBeingEditedId = undefined;
@@ -248,7 +248,7 @@ export class ItemVersionsComponent implements OnInit {
         } else {
           this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
         }
-        this.disableSummaryEditing();
+        this.disableVersionEditing();
       }
     );
   }
