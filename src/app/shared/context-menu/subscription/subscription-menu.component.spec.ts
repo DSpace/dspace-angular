@@ -1,16 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SubscriptionMenuComponent } from './subscription-menu.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { SubscriptionMenuComponent } from './subscription-menu.component';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Item } from '../../../core/shared/item.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPersonMock } from '../../testing/eperson.mock';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 describe('SubscriptionMenuComponent', () => {
   let component: SubscriptionMenuComponent;
@@ -20,9 +22,12 @@ describe('SubscriptionMenuComponent', () => {
 
   let modalService;
   let authServiceStub: any;
-  let store: any;
 
-  beforeEach(async(() => {
+  const ngbModal = jasmine.createSpyObj('modal', {
+    open: jasmine.createSpy('open')
+  });
+
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
@@ -35,16 +40,12 @@ describe('SubscriptionMenuComponent', () => {
       isAuthenticated: jasmine.createSpy('isAuthenticated')
     });
 
-    store = jasmine.createSpyObj('store', {
-      pipe: observableOf(true)
-    });
-
     TestBed.configureTestingModule({
       declarations: [SubscriptionMenuComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: AuthService, useValue: authServiceStub },
-        { provide: Store, useValue: store },
+        { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
       ],
