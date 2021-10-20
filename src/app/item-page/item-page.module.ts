@@ -31,6 +31,8 @@ import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/med
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
+import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent} from './simple/field-components/file-section/themed-file-section.component';
 
 
@@ -63,7 +65,8 @@ const DECLARATIONS = [
   MediaViewerComponent,
   MediaViewerVideoComponent,
   MediaViewerImageComponent,
-  MiradorViewerComponent
+  MiradorViewerComponent,
+  VersionPageComponent,
 ];
 
 @NgModule({
@@ -78,7 +81,8 @@ const DECLARATIONS = [
     NgxGalleryModule,
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
+    VersionedItemComponent
   ],
   exports: [
     ...DECLARATIONS

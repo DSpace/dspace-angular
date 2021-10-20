@@ -588,6 +588,43 @@
 
   "bitstream.edit.title": "Edit bitstream",
 
+  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+
+  "bitstream-request-a-copy.alert.canDownload2": "here",
+
+  "bitstream-request-a-copy.header": "Request a copy of the file",
+
+  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+
+  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+
+  "bitstream-request-a-copy.name.label": "Name *",
+
+  "bitstream-request-a-copy.name.error": "The name is required",
+
+  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+
+  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+
+  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+
+  "bitstream-request-a-copy.allfiles.label": "Files",
+
+  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+
+  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+
+  "bitstream-request-a-copy.message.label": "Message",
+
+  "bitstream-request-a-copy.return": "Back",
+
+  "bitstream-request-a-copy.submit": "Request copy",
+
+  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+
+  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+
 
 
   "browse.comcol.by.author": "By Author",
@@ -1193,6 +1230,20 @@
 
 
 
+  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "deny-request-copy.email.subject": "Request copy of document",
+
+  "deny-request-copy.error": "An error occurred",
+
+  "deny-request-copy.header": "Deny document copy request",
+
+  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+
+  "deny-request-copy.success": "Successfully denied item request",
+
+
+
   "dso.name.untitled": "Untitled",
 
 
@@ -1226,6 +1277,12 @@
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
+
+  "dso-selector.set-scope.community.head": "Select a search scope",
+
+  "dso-selector.set-scope.community.button": "Search all of DSpace",
+
+  "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
 
 
@@ -1284,6 +1341,11 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.required": "This field is required",
+
+  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+
+  "error.validation.emailTaken": "This E-mail is already taken",
 
 
   "file-section.error.header": "Error obtaining files for this item",
@@ -1415,6 +1477,53 @@
   "form.submit": "Save",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
+
+
+
+  "grant-deny-request-copy.deny": "Don't send copy",
+
+  "grant-deny-request-copy.email.back": "Back",
+
+  "grant-deny-request-copy.email.message": "Message",
+
+  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+
+  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
+
+  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+
+  "grant-deny-request-copy.email.send": "Send",
+
+  "grant-deny-request-copy.email.subject": "Subject",
+
+  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+
+  "grant-deny-request-copy.grant": "Send copy",
+
+  "grant-deny-request-copy.header": "Document copy request",
+
+  "grant-deny-request-copy.home-page": "Take me to the home page",
+
+  "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+
+  "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+
+  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
+
+
+
+  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "grant-request-copy.email.subject": "Request copy of document",
+
+  "grant-request-copy.error": "An error occurred",
+
+  "grant-request-copy.header": "Grant document copy request",
+
+  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.success": "Successfully granted item request",
+
 
 
   "home.description": "",
@@ -1952,6 +2061,10 @@
 
   "item.page.return": "Back",
 
+  "item.page.version.create": "Create new version",
+
+  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -2007,6 +2120,8 @@
 
   "item.version.history.selected": "Selected version",
 
+  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+
   "item.version.history.table.version": "Version",
 
   "item.version.history.table.item": "Item",
@@ -2017,9 +2132,75 @@
 
   "item.version.history.table.summary": "Summary",
 
+  "item.version.history.table.workspaceItem": "Workspace item",
+
+  "item.version.history.table.workflowItem": "Workflow item",
+
+  "item.version.history.table.actions": "Action",
+
+  "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
+
+  "item.version.history.table.action.editSummary": "Edit summary",
+
+  "item.version.history.table.action.saveSummary": "Save summary edits",
+
+  "item.version.history.table.action.discardSummary": "Discard summary edits",
+
+  "item.version.history.table.action.newVersion": "Create new version from this one",
+
+  "item.version.history.table.action.deleteVersion": "Delete version",
+
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+
+
+  "item.version.create.modal.header": "New version",
+
+  "item.version.create.modal.text": "Create a new version for this item",
+
+  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
+
+  "item.version.create.modal.button.confirm": "Create",
+
+  "item.version.create.modal.button.confirm.tooltip": "Create new version",
+
+  "item.version.create.modal.button.cancel": "Cancel",
+
+  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
+
+  "item.version.create.modal.form.summary.label": "Summary",
+
+  "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
+
+  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+
+  "item.version.create.notification.failure" : "New version has not been created",
+
+  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+
+
+  "item.version.delete.modal.header": "Delete version",
+
+  "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
+
+  "item.version.delete.modal.button.confirm": "Delete",
+
+  "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
+
+  "item.version.delete.modal.button.cancel": "Cancel",
+
+  "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+
+  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+
+  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+
+
+  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+
+  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
 
 
 
@@ -3151,6 +3332,8 @@
 
   "search.form.search_dspace": "All repository",
 
+  "search.form.scope.all": "All of DSpace",
+
 
 
   "search.results.head": "Search Results",
@@ -3615,9 +3798,19 @@
 
   "submission.sections.status.warnings.title": "Warnings",
 
+  "submission.sections.status.errors.aria": "has errors",
+
+  "submission.sections.status.valid.aria": "is valid",
+
+  "submission.sections.status.warnings.aria": "has warnings",
+
   "submission.sections.toggle.open": "Open section",
 
   "submission.sections.toggle.close": "Close section",
+
+  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
@@ -3638,6 +3831,10 @@
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
   "submission.sections.upload.form.date-required": "Date is required.",
+
+  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
 
   "submission.sections.upload.form.from-label": "Grant access from",
 

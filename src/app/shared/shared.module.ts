@@ -212,6 +212,7 @@ import { CollectionSidebarSearchListElementComponent } from './object-list/sideb
 import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
+import { DsoPageVersionButtonComponent } from './dso-page/dso-page-version-button/dso-page-version-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
@@ -234,6 +235,10 @@ import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.com
 import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { ItemVersionsSummaryModalComponent } from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
+import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
+import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
+import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -433,6 +438,7 @@ const COMPONENTS = [
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
@@ -460,7 +466,8 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  SearchNavbarComponent
+  SearchNavbarComponent,
+  ScopeSelectorModalComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -514,6 +521,7 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
@@ -524,7 +532,8 @@ const ENTRY_COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
   LinkMenuItemComponent,
   OnClickMenuItemComponent,
-  TextMenuItemComponent
+  TextMenuItemComponent,
+  ScopeSelectorModalComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
@@ -536,6 +545,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
   DsoPageEditButtonComponent,
+  DsoPageVersionButtonComponent,
   ItemAlertsComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
@@ -586,7 +596,9 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    ...SHARED_SEARCH_PAGE_COMPONENTS
+    ...SHARED_SEARCH_PAGE_COMPONENTS,
+    ItemVersionsSummaryModalComponent,
+    ItemVersionsDeleteModalComponent,
   ],
   providers: [
     ...PROVIDERS

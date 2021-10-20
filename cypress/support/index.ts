@@ -19,3 +19,8 @@
 // Import Cypress Axe tools for all tests
 // https://github.com/component-driven/cypress-axe
 import 'cypress-axe';
+
+// Global constants used in tests
+export const TEST_COLLECTION = '282164f5-d325-4740-8dd1-fa4d6d3e7200';
+export const TEST_COMMUNITY = '0958c910-2037-42a9-81c7-dca80e3892b4';
+export const TEST_ENTITY_PUBLICATION = 'e98b0f27-5c19-49a0-960d-eb6ad5287067';
