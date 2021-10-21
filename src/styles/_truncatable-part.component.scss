@@ -19,7 +19,7 @@
       min-width: 75px;
       max-width: 150px;
       height: $height;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), $bg 70%);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba($bg, 1) 70%);
       pointer-events: none;
     }
   }
