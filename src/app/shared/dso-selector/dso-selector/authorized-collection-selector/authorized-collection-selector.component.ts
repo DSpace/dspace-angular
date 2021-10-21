@@ -14,6 +14,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { hasValue } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
@@ -24,11 +25,14 @@ import { TranslateService } from '@ngx-translate/core';
  * Component rendering a list of collections to select from
  */
 export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent {
-  constructor(protected searchService: SearchService,
-              protected collectionDataService: CollectionDataService,
-              protected notifcationsService: NotificationsService,
-              protected translate: TranslateService) {
-    super(searchService, notifcationsService, translate);
+  constructor(
+    protected searchService: SearchService,
+    protected collectionDataService: CollectionDataService,
+    protected notifcationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected dsoNameService: DSONameService,
+  ) {
+    super(searchService, notifcationsService, translate, dsoNameService);
   }
 
   /**
