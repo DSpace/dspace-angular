@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -20,7 +20,7 @@ import {
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {AuthService} from '../../core/auth/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -185,15 +185,14 @@ export class CreateProfileComponent implements OnInit {
   }
 
   acceptInvitation(): void {
-      this.registration$.subscribe((registration: Registration) => {
-        this.auth.isAuthenticated().pipe(take(1)).subscribe(res => {
-          if (res) {
-            this.router.navigate(['invitation'], {queryParams: {token: registration.token}});
-          } else {
-            this.auth.setRedirectUrl('/invitation?token=' + registration.token);
-            this.router.navigateByUrl('login');
-          }
-        });
+    combineLatest([this.registration$, this.auth.isAuthenticated().pipe(take(1))])
+      .subscribe(([registration, auth]: [Registration, boolean]) => {
+        if (auth) {
+          this.router.navigate(['invitation'], {queryParams: {registrationToken: registration.token}});
+        } else {
+          this.auth.setRedirectUrl('/invitation?registrationToken=' + registration.token);
+          this.router.navigateByUrl('login');
+        }
       });
   }
 }

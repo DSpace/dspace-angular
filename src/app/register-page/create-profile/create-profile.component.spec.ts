@@ -1,5 +1,5 @@
 import { CreateProfileComponent } from './create-profile.component';
-import {ComponentFixture, fakeAsync, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {of as observableOf} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -22,7 +22,7 @@ import {
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {AuthService} from '../../core/auth/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -293,7 +293,7 @@ describe('CreateProfileComponent', () => {
       const invitationButton = fixture.debugElement.queryAll(By.css('a'))[0];
       invitationButton.triggerEventHandler('click', null);
       expect(authService.isAuthenticated).toHaveBeenCalled();
-      expect(router.navigate).toHaveBeenCalledWith(['invitation'], {queryParams: {token: 'test-token'}});
+      expect(router.navigate).toHaveBeenCalledWith(['invitation'], {queryParams: {registrationToken: 'test-token'}});
     });
     it('navigate to login should have been called', () => {
       spyOn(router, 'navigateByUrl');
