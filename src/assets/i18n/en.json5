@@ -5284,5 +5284,11 @@
 
   "layout.i18n.link.default": "link",
 
-  "orcid.badge.tooltip": "Connected to ORCID"
+  "orcid.badge.tooltip": "Connected to ORCID",
+
+  "lucky.search.results.notfound": "We are not able to find the object that you are looking for with the provided",
+
+  "lucky.search.retry.search": "You can try to search for it in the system with a more general query.",
+
+  "lucky.search.multiple.records": "may refer to multiple records"
 }

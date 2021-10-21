@@ -1,0 +1,31 @@
+<div *ngIf="showMultipleSearchSection">
+  <ds-page-with-sidebar [id]="'search-page'">
+    <div class="row">
+      <div class="col-12">
+        <ng-template></ng-template>
+      </div>
+      <div id="search-content" class="col-12">
+        <h5> {{currentFilter.identifier}}: {{currentFilter.value}} {{'lucky.search.multiple.records' | translate}}</h5>
+        <ds-search-results [searchResults]="resultsRD$ | async"
+                           [searchConfig]="searchOptions$ |async"
+                           [configuration]="'lucky-search'"
+                           [disableHeader]="true"
+                           [context]="context"></ds-search-results>
+      </div>
+    </div>
+  </ds-page-with-sidebar>
+</div>
+
+<div *ngIf="showEmptySearchSection">
+  <h5 class="text-center">{{'lucky.search.results.notfound' | translate}} {{currentFilter.identifier}}
+    : {{currentFilter.value}}. {{'lucky.search.retry.search' | translate}}</h5>
+  <br/>
+  <div class="col-md-12 d-flex justify-content-center">
+    <div class="col-md-8">
+      <ds-search-form [inPlaceSearch]="false"
+                      [query]="currentFilter.value"
+                      [searchPlaceholder]="'search.search-form.placeholder' | translate"> >
+      </ds-search-form>
+    </div>
+  </div>
+</div>

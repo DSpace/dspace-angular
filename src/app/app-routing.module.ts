@@ -236,6 +236,11 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
           },
+          {
+            path: 'lucky-search',
+            loadChildren: () => import('./lucky-search/search-routing.module')
+              .then((m) => m.SearchRoutingModule)
+          },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{
