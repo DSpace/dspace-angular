@@ -61,6 +61,15 @@ $h4-factor: strip-unit($h4-font-size);
   .ds-hover .clamp-primary-#{$i} {
     @include clamp-with-titles($i, darken($primary, 10%));
   }
+
+  .clamp-light-#{$i} {
+    @include clamp-with-titles($i, $light);
+  }
+
+  :focus .clamp-light-#{$i},
+  .ds-hover .clamp-light-#{$i} {
+    @include clamp-with-titles($i, darken($light, 10%));
+  }
 }
 
 .clamp-none {
