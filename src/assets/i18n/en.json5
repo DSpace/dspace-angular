@@ -905,6 +905,8 @@
 
   "collection.form.title": "Name",
 
+  "collection.form.entityType": "Entity Type",
+
 
 
   "collection.listelement.badge": "Collection",
@@ -1277,6 +1279,8 @@
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
+
+  "dso-selector.select.collection.head": "Select a collection",
 
   "dso-selector.set-scope.community.head": "Select a search scope",
 
@@ -2612,6 +2616,7 @@
 
   "nav.user.description" : "User profile bar",
 
+  "none.listelement.badge": "Item",
 
 
   "orgunit.listelement.badge": "Organizational Unit",
@@ -3431,6 +3436,22 @@
   "submission.import-external.page.title": "Import metadata from an external source",
 
   "submission.import-external.title": "Import metadata from an external source",
+
+  "submission.import-external.title.Journal": "Import a journal from an external source",
+
+  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+
+  "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+
+  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+
+  "submission.import-external.title.Person": "Import a person from an external source",
+
+  "submission.import-external.title.Project": "Import a project from an external source",
+
+  "submission.import-external.title.Publication": "Import a publication from an external source",
+
+  "submission.import-external.title.none": "Import metadata from an external source",
 
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 

@@ -11,6 +11,8 @@ import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
 import { MyDspaceSearchModule } from './my-dspace-search.module';
+import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 
 const DECLARATIONS = [
@@ -18,7 +20,9 @@ const DECLARATIONS = [
   ThemedMyDSpacePageComponent,
   MyDSpaceResultsComponent,
   MyDSpaceNewSubmissionComponent,
-  CollectionSelectorComponent
+  CollectionSelectorComponent,
+  MyDSpaceNewSubmissionDropdownComponent,
+  MyDSpaceNewExternalDropdownComponent
 ];
 
 @NgModule({
