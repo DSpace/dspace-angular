@@ -6,7 +6,8 @@
   "compilerOptions": {
     "types": [
       "cypress",
-      "cypress-axe"
+      "cypress-axe",
+      "node"
     ]
   }
 }
