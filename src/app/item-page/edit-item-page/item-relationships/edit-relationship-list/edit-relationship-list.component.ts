@@ -230,17 +230,22 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           modalComp.toRemove.splice(foundIndex,1);
         } else {
 
-          this.getIsRelatedItem(relatedItem)
-            .subscribe((isRelated: boolean) => {
-              if (!isRelated ) {
+          this.getRelationFromId(relatedItem)
+            .subscribe((relationship: Relationship) => {
+              if (!relationship ) {
                 modalComp.toAdd.push(searchResult);
+              } else {
+                const foundIndexRemove = modalComp.toRemove.findIndex( el => el.indexableObject.uuid === relatedItem.uuid);
+                if (foundIndexRemove !== -1) {
+                  modalComp.toRemove.splice(foundIndexRemove,1);
+                }
               }
 
               this.loading$.next(true);
               // emit the last page again to trigger a fieldupdates refresh
               this.relationshipsRd$.next(this.relationshipsRd$.getValue());
             });
-          }
+        }
       });
     };
     modalComp.deselect = (...selectableObjects: SearchResult<Item>[]) => {
