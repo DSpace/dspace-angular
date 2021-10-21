@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { Observable, of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -24,7 +26,11 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
  */
 export class SubscriptionMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
-  public isAuthenticated: Observable<boolean>;
+  /**
+   * Whether or not the current user is authorized to subscribe the DSpaceObject
+   */
+  isAuthorized$: Observable<boolean> = observableOf(false);
+
 
   /**
    * Reference to NgbModal
@@ -59,6 +65,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   constructor(
     @Inject('contextMenuObjectProvider') public injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
+    protected authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
     private authService: AuthService
   ) {
@@ -66,9 +73,9 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   }
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated();
-    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe((eperson: EPerson) => {
-      this.eperson = eperson?.id;
+    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanSubscribe, this.contextMenuObject.self);
+    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
+      this.eperson = eperson.id;
     });
   }
 
