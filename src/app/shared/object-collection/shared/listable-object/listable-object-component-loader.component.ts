@@ -184,7 +184,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
         if (reloadedObject) {
           this.compRef.destroy();
           this.object = reloadedObject;
-          this.connectInputsAndOutputs();
+          this.instantiateComponent(reloadedObject);
           this.contentChange.emit(reloadedObject);
         }
       });

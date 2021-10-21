@@ -55,10 +55,4 @@ describe('ConfigurationSearchPageComponent', () => {
     expect(routeService.setParameter).toHaveBeenCalledWith('fixedFilterQuery', QUERY);
   });
 
-  it('should reset route parameters on destroy', () => {
-    fixture.destroy();
-
-    expect(routeService.setParameter).toHaveBeenCalledWith('configuration', undefined);
-    expect(routeService.setParameter).toHaveBeenCalledWith('fixedFilterQuery', undefined);
-  });
 });

@@ -12,7 +12,9 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipNameVariantAction,
+  AddRelationshipAction,
+  RemoveRelationshipAction,
+  UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -25,8 +27,8 @@ import { ExternalSourceService } from '../../../../../core/data/external-source.
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -188,7 +190,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
     if (isNotEmpty(this.relationshipOptions.externalSources)) {
       this.externalSourcesRD$ = this.rdbService.aggregate(
-        this.relationshipOptions.externalSources.map((source) => this.externalSourceService.findById(source))
+        this.relationshipOptions.externalSources.map((source) => {
+          return this.externalSourceService.findById(
+            source,
+            true,
+            true,
+            followLink('entityTypes')
+          );
+        })
       ).pipe(
         getAllSucceededRemoteDataPayload()
       );

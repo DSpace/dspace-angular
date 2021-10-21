@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
@@ -25,6 +24,8 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { CookieService } from '../../core/services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
+import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
+import { EntityTypeService } from '../../core/data/entity-type.service';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -62,6 +63,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: EntityTypeService, useValue: getMockEntityTypeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -102,20 +104,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       comp.uploadFilesOptions.url = 'https://fake.upload-api.url';
       comp.uploaderComponent = TestBed.createComponent(UploaderComponent).componentInstance;
       comp.uploaderComponent.uploader = uploader;
-    });
-
-    it('should call app.openDialog', (done) => {
-      spyOn(comp, 'openDialog');
-      const submissionButton = fixture.debugElement.query(By.css('button.btn-primary'));
-      submissionButton.triggerEventHandler('click', null);
-
-      fixture.detectChanges();
-
-      fixture.whenStable().then(() => {
-        expect(comp.openDialog).toHaveBeenCalled();
-        done();
-      });
-
     });
 
     it('should show a collection selector if only one file are uploaded', (done) => {

@@ -44,6 +44,7 @@
     "clean": "yarn run clean:prod && yarn run clean:env && yarn run clean:node",
     "clean:env": "rimraf src/environments/environment.ts",
     "sync-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts",
+    "merge-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
     "postinstall": "ngcc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
@@ -151,7 +152,7 @@
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "3.4.0",
     "cssnano": "^4.1.10",
-    "cypress": "8.3.1",
+    "cypress": "8.6.0",
     "cypress-axe": "^0.13.0",
     "deep-freeze": "0.0.1",
     "dotenv": "^8.2.0",
