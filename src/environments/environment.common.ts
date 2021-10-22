@@ -437,5 +437,8 @@ export const environment: GlobalConfig = {
       'cris.cms.home-news',
       'cris.cms.footer',
     ]
+  },
+  addThisPlugin: {
+    siteId: 'ra-616fbc11524bbb71',
   }
 };

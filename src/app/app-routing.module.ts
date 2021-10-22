@@ -42,13 +42,14 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'home',
             loadChildren: () => import('./home-page/home-page.module')
               .then((m) => m.HomePageModule),
-            data: { showBreadcrumbs: false },
+            data: { showBreadcrumbs: false, showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'community-list',
             loadChildren: () => import('./community-list-page/community-list-page.module')
               .then((m) => m.CommunityListPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
@@ -79,35 +80,41 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: COMMUNITY_MODULE_PATH,
             loadChildren: () => import('./community-page/community-page.module')
               .then((m) => m.CommunityPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: COLLECTION_MODULE_PATH,
             loadChildren: () => import('./collection-page/collection-page.module')
               .then((m) => m.CollectionPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: ITEM_MODULE_PATH,
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           { path: 'entities/:entity-type',
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: LEGACY_BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
@@ -120,18 +127,21 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'search',
             loadChildren: () => import('./search-page/search-page-routing.module')
               .then((m) => m.SearchPageRoutingModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'browse',
             loadChildren: () => import('./browse-by/browse-by-page.module')
               .then((m) => m.BrowseByPageModule),
+            data: {showSocialButtons: true},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'explore',
             loadChildren: () => import('./+explore/explore.module')
-              .then((m) => m.ExploreModule)
+              .then((m) => m.ExploreModule),
+            data: {showSocialButtons: true},
           },
           {
             path: ADMIN_MODULE_PATH,

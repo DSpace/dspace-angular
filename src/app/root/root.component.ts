@@ -1,6 +1,6 @@
-import { map } from 'rxjs/operators';
+import { filter, map, mergeMap } from 'rxjs/operators';
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -34,6 +34,10 @@ export class RootComponent implements OnInit {
   theme: Observable<ThemeConfig> = of({} as any);
   notificationOptions = environment.notifications;
   models;
+  /**
+   * Whether or not to show social buttons base on the route, default true
+   */
+  showSocialButtons = false;
 
   /**
    * Whether or not to show a full screen loader
@@ -56,20 +60,39 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
     this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
-
     this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
     this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
-
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile)
       );
+
+    this.router.events.pipe(
+      filter(events => events instanceof NavigationEnd),
+      map(evt => this.activatedRoute),
+      map(route => {
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
+        return route;
+      }))
+      .pipe(
+        filter(route => route.outlet === 'primary'),
+        mergeMap(route => route.data)
+      ).subscribe(route => {
+        if (route.showSocialButtons !== undefined) {
+          this.showSocialButtons = route.showSocialButtons;
+        } else {
+          this.showSocialButtons = false;
+        }
+    });
   }
 }
