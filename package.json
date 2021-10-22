@@ -29,6 +29,7 @@
     "test:watch": "npm-run-all --parallel config:test:watch test",
     "test": "ng test --sourceMap=true --watch=true",
     "test:headless": "ng test --watch=false --sourceMap=true --browsers=ChromeHeadless --code-coverage",
+    "test:rest-api": "yarn run config:prod && ts-node --project ./tsconfig.ts-node.json scripts/test-rest.ts",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
     "e2e": "ng e2e",
