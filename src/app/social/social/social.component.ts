@@ -16,7 +16,8 @@ import {DOCUMENT} from '@angular/common';
   styleUrls: ['./social.component.scss']
 })
 /**
- * Component to render dinamically the social buttons using addThis plugn
+ * Component to render dinamically the social buttons using addThis plugin
+ * @author Alba Aliu (at atis.al)
  */
 export class SocialComponent implements OnInit, OnChanges {
   /**
