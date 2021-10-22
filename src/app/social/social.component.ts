@@ -3,11 +3,10 @@ import {
   Inject,
   Input,
   OnChanges,
-  OnInit,
   Renderer2,
   SimpleChanges
 } from '@angular/core';
-import {environment} from '../../../environments/environment.common';
+import {environment} from '../../environments/environment.common';
 import {DOCUMENT} from '@angular/common';
 
 @Component({
@@ -16,10 +15,9 @@ import {DOCUMENT} from '@angular/common';
   styleUrls: ['./social.component.scss']
 })
 /**
- * Component to render dinamically the social buttons using addThis plugin
- * @author Alba Aliu (at atis.al)
+ * Component to render dinamically the social2 buttons using addThis plugin
  */
-export class SocialComponent implements OnInit, OnChanges {
+export class SocialComponent implements OnChanges {
   /**
    * The official site ID of addthis plugin
    */
@@ -29,29 +27,21 @@ export class SocialComponent implements OnInit, OnChanges {
    */
   script: HTMLScriptElement;
   /**
-   * Input to show or not the social buttons
+   * Input to show or not the social2 buttons
    */
   @Input() showSocialButtons: boolean;
   /**
-   * The social buttons shown in ui
+   * The social2 buttons shown in ui
    */
   socialButtons: HTMLElement;
   /**
    * Boolean that represents if the script is uploaded in dom
    */
   appended = false;
-
   constructor(private _renderer2: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
   ) {
   }
-
-  ngOnInit() {
-    if (!this.script) {
-      this.initializeScript();
-    }
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes.showSocialButtons) {
       if (!this.script) {
@@ -59,17 +49,18 @@ export class SocialComponent implements OnInit, OnChanges {
       }
       if (changes.showSocialButtons.currentValue) {
         if (this.appended) {
-          this._renderer2.appendChild(this._document.body, this.socialButtons);
-        }
-        if (!this.appended) {
+          this.socialButtons.style.display = 'block';
+        } else {
           this._document.body.appendChild(this.script);
           this.appended = true;
         }
       } else {
         if (this.script) {
-          this.socialButtons = this._document.querySelector('#at-expanding-share-button');
+          if (this.appended) {
+            this.socialButtons = this._document.querySelector('#at-expanding-share-button');
+          }
           if (this.socialButtons) {
-            this._document.querySelector('#at-expanding-share-button').remove();
+            this.socialButtons.style.display = 'none';
           }
         }
       }
