@@ -2261,6 +2261,28 @@
   "journalvolume.page.volume": "Volume",
 
 
+  "iiifsearchable.listelement.badge": "Document Media",
+
+  "iiifsearchable.page.titleprefix": "Document: ",
+
+  "iiifsearchable.page.doi": "Permanent Link: ",
+
+  "iiifsearchable.page.issue": "Issue: ",
+
+  "iiifsearchable.page.description": "Description: ",
+
+  "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
+
+  "iiif.listelement.badge": "Image Media",
+
+  "iiif.page.titleprefix": "Image: ",
+
+  "iiif.page.doi": "Permanent Link: ",
+
+  "iiif.page.issue": "Issue: ",
+
+  "iiif.page.description": "Description: ",
+
 
   "loading.bitstream": "Loading bitstream...",
 

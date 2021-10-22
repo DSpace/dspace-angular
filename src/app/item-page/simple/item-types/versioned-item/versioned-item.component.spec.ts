@@ -11,13 +11,14 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
-import { createRelationshipsObservable } from '../shared/item.component.spec';
+import { createRelationshipsObservable, mockRouteService } from '../shared/item.component.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Version } from '../../../../core/shared/version.model';
+import { RouteService } from '../../../../core/services/route.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -66,6 +67,7 @@ describe('VersionedItemComponent', () => {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
+        { provide: RouteService, useValue: mockRouteService }
       ]
     }).compileComponents();
     versionService = TestBed.inject(VersionDataService);
