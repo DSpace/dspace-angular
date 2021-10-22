@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
@@ -12,6 +12,7 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { isNotEmpty } from '../../empty.util';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
   /**
    * EPerson id of the logged user
    */
-  eperson: string;
+  epersonId: string;
 
   /**
    * DSpaceObject that is being viewed
@@ -76,8 +77,11 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
 
   ngOnInit() {
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanSubscribe, this.contextMenuObject.self);
-    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
-      this.eperson = eperson.id;
+    this.authService.getAuthenticatedUserFromStore().pipe(
+      take(1),
+      filter((eperson: EPerson) => isNotEmpty(eperson))
+    ).subscribe( (eperson: EPerson) => {
+      this.epersonId = eperson.id;
     });
   }
 

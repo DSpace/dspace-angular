@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -75,9 +75,11 @@ describe('SubscriptionMenuComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should check the authorization of the current user', () => {
+    it('should check the authorization of the current user', fakeAsync(() => {
+      flush();
       expect(authorizationServiceStub.isAuthorized).toHaveBeenCalled();
-    });
+      expect(component.epersonId).toBe(EPersonMock.id);
+    }));
 
     it('should render a button', () => {
       const button = fixture.debugElement.query(By.css('button'));
@@ -103,9 +105,10 @@ describe('SubscriptionMenuComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not render a button', () => {
+    it('should not render a button', fakeAsync(() => {
       const button = fixture.debugElement.query(By.css('button'));
+      flush();
       expect(button).toBeNull();
-    });
+    }));
   });
 });
