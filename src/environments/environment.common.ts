@@ -389,4 +389,7 @@ export const environment: GlobalConfig = {
       }
     ]
   },
+  addThisPlugin: {
+    siteId: 'ra-616fbc11524bbb71',
+  }
 };
