@@ -13,6 +13,7 @@ import { Item } from '../../../core/shared/item.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPersonMock } from '../../testing/eperson.mock';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('SubscriptionMenuComponent', () => {
   let component: SubscriptionMenuComponent;
@@ -22,6 +23,7 @@ describe('SubscriptionMenuComponent', () => {
 
   let modalService;
   let authServiceStub: any;
+  let authorizationServiceStub: any;
 
   const ngbModal = jasmine.createSpyObj('modal', {
     open: jasmine.createSpy('open')
@@ -40,6 +42,10 @@ describe('SubscriptionMenuComponent', () => {
       isAuthenticated: jasmine.createSpy('isAuthenticated')
     });
 
+    authorizationServiceStub = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: jasmine.createSpy('isAuthorized')
+    });
+
     TestBed.configureTestingModule({
       declarations: [SubscriptionMenuComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
@@ -48,6 +54,7 @@ describe('SubscriptionMenuComponent', () => {
         { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
+        { provide: AuthorizationDataService, useValue: authorizationServiceStub}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -64,11 +71,12 @@ describe('SubscriptionMenuComponent', () => {
     beforeEach(() => {
       authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(EPersonMock));
       (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+      authorizationServiceStub.isAuthorized.and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
 
     it('should check the authorization of the current user', () => {
-      expect(authServiceStub.isAuthenticated).toHaveBeenCalled();
+      expect(authorizationServiceStub.isAuthorized).toHaveBeenCalled();
     });
 
     it('should render a button', () => {
@@ -91,6 +99,7 @@ describe('SubscriptionMenuComponent', () => {
     beforeEach(() => {
       authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(null));
       (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+      authorizationServiceStub.isAuthorized.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
 

@@ -60,6 +60,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
    *
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
+   * @param {AuthorizationDataService} authorizationService
    * @param {NgbModal} modalService
    * @param {AuthService} authService
    */
