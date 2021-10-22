@@ -29,7 +29,6 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
-import { ValidTokenGuard } from './invitation/valid-token.guard';
 
 @NgModule({
   imports: [
@@ -240,8 +239,7 @@ import { ValidTokenGuard } from './invitation/valid-token.guard';
           {
             path: 'invitation',
             loadChildren: () => import('./invitation/invitation.module')
-              .then((m) => m.InvitationModule),
-            canActivate: [AuthenticatedGuard, ValidTokenGuard]
+              .then((m) => m.InvitationModule)
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}

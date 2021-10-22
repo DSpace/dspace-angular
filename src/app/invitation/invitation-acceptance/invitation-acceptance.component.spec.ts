@@ -15,7 +15,7 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { RemoteData } from '../../core/data/remote-data';
 
-fdescribe('InvitationAcceptanceComponent', () => {
+describe('InvitationAcceptanceComponent', () => {
   let component: InvitationAcceptanceComponent;
   let fixture: ComponentFixture<InvitationAcceptanceComponent>;
   const route = new RouterMock();
@@ -39,7 +39,7 @@ fdescribe('InvitationAcceptanceComponent', () => {
     uuid: 'test-eperson'
   });
   const paramObject: Params = {};
-  paramObject.token = '1234';
+  paramObject.registrationToken = '1234';
   const authService = {
     getAuthenticatedUserFromStore: () => observableOf(ePerson)
   } as AuthService;
@@ -58,7 +58,7 @@ fdescribe('InvitationAcceptanceComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParamMap: observableOf(convertToParamMap(paramObject))
+            paramMap: observableOf(convertToParamMap(paramObject))
           },
         },
         {provide: EpersonRegistrationService, useValue: epersonRegistrationService},

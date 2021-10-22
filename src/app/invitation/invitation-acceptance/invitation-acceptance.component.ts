@@ -25,9 +25,9 @@ export class InvitationAcceptanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.pipe(
-      switchMap((params: ParamMap) => {
-        const token = (params as any).params.registrationToken;
+    this.route.paramMap.pipe(
+      switchMap((paramMap: ParamMap) => {
+        const token = paramMap.get('registrationToken');
         return this.epersonRegistrationService.searchByToken(token);
       })
     ).subscribe((registrationData: Registration) => {

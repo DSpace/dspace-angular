@@ -3807,6 +3807,9 @@
 
   "register-page.create-profile.submit.success.head": "Registration completed",
 
+  "register-page.registration.existing.user.login-msg": "If you already have an account you can yo can ",
+
+  "register-page.registration.existing.user.login-link": "Log in here",
 
   "register-page.registration.header": "New user registration",
 
@@ -5283,12 +5286,9 @@
 
   "orcid.badge.tooltip": "Connected to ORCID",
 
-  "group.invitation": "You have been invited to following groups",
+  "invitation.group.msg": "You have been invited to join the following groups",
 
-  "accept.invitation": "Accept",
+  "invitation.accept-btn": "Accept",
 
-  "ignore.invitation": "Ignore",
-
-  "existing.user.login": "Log in with an existing user"
-
+  "invitation.ignore-btn": "Ignore",
 }

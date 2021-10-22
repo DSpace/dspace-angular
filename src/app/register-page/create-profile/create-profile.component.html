@@ -1,6 +1,14 @@
 <div class="container">
     <h3 class="mb-4">{{'register-page.create-profile.header' | translate}}</h3>
-  <div *ngIf="hasGroups" class="mb-4"> <a href="javascript:void(0);" (click)="acceptInvitation()">{{'existing.user.login' | translate}}</a></div>
+  <div *ngIf="hasGroups" class="mb-4">
+    <ds-alert [type]="'alert-warning'">
+      <span>{{'register-page.registration.existing.user.login-msg' | translate}}
+        <button class="btn btn-link font-weight-bold" (click)="redirectToInvitationPage()">
+          {{'register-page.registration.existing.user.login-link' | translate}}
+        </button>
+      </span>
+    </ds-alert>
+  </div>
   <div class="card mb-4">
         <div class="card-header">{{'register-page.create-profile.identification.header' | translate}}</div>
         <div class="card-body">

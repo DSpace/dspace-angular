@@ -1,13 +1,13 @@
-import {TestBed} from '@angular/core/testing';
-import {ValidTokenGuard} from './valid-token.guard';
-import {ActivatedRoute, convertToParamMap, Params, Router} from '@angular/router';
-import {of as observableOf} from 'rxjs';
-import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
-import {AuthService} from '../core/auth/auth.service';
-import {RouterMock} from '../shared/mocks/router.mock';
-import {Registration} from '../core/shared/registration.model';
-import {EPerson} from '../core/eperson/models/eperson.model';
-import {createSuccessfulRemoteDataObject$} from '../shared/remote-data.utils';
+import { TestBed } from '@angular/core/testing';
+import { ValidTokenGuard } from './valid-token.guard';
+import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
+import { AuthService } from '../core/auth/auth.service';
+import { RouterMock } from '../shared/mocks/router.mock';
+import { Registration } from '../core/shared/registration.model';
+import { EPerson } from '../core/eperson/models/eperson.model';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 describe('DirectAccessGuard', () => {
   let guard: ValidTokenGuard;
@@ -55,7 +55,7 @@ describe('DirectAccessGuard', () => {
   });
   describe('based on the response of "searchByToken have', () => {
     it('can activate must return true when registration data includes groups', () => {
-      (guard.canActivate(undefined, {root: {queryParams: {token: '123456789'}}} as any) as any)
+      (guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any) as any)
         .subscribe(
           (canActivate) => {
             expect(canActivate).toEqual(true);
@@ -71,7 +71,7 @@ describe('DirectAccessGuard', () => {
           groupNames: []
         });
       epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(observableOf(registrationWithDifferentUsedFromLoggedInt));
-      (guard.canActivate(undefined, {root: {queryParams: {token: '123456789'}}} as any) as any)
+      (guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any) as any)
         .subscribe(
           (canActivate) => {
             expect(canActivate).toEqual(false);

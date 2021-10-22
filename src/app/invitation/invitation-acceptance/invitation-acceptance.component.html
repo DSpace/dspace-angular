@@ -1,7 +1,7 @@
-<div class="container" style="border: 1px solid #e1e1e1;border-radius: 5px; max-width: 50%; min-width: fit-content; height: fit-content">
-  <p class="font-weight-bold" style="margin-top:2rem">{{'group.invitation' | translate}}
-  </p>
-  <hr class="mt-5">
+<div class="container border rounded" >
+  <h2 class="font-weight-bold py-3">{{'invitation.group.msg' | translate}}
+  </h2>
+  <hr>
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -12,8 +12,12 @@
         </ul>
       </div>
       <div class="col-12">
-        <button type="button" (click)="navigateToHome()" class="btn btn-warning">{{'ignore.invitation' | translate}}</button>
-        <button class="btn btn-primary save float-right" (click)="accept()">{{'accept.invitation'| translate}}</button>
+        <button type="button" (click)="navigateToHome()" class="btn btn-warning">
+          <i class="fas fa-times"></i> {{'invitation.ignore-btn' | translate}}
+        </button>
+        <button class="btn btn-primary save float-right" (click)="accept()">
+          <i class="fas fa-check"></i> {{'invitation.accept-btn'| translate}}
+        </button>
       </div>
     </div>
   </div>
