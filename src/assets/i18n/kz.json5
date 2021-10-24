@@ -3906,24 +3906,20 @@
   "menu.section.browse_global": "All of DSpace",
   
   // "menu.section.browse_global_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_author": "By Author",
+  "menu.section.browse_global_by_author": "Авторымен",
   
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
   // TODO New key - Add a translation
   "menu.section.browse_global_by_dateissued": "By Issue Date",
   
   // "menu.section.browse_global_by_subject": "By Subject",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_subject": "By Subject",
+  "menu.section.browse_global_by_subject": "Тақырыбымен",
   
   // "menu.section.browse_global_by_title": "By Title",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_title": "By Title",
+  "menu.section.browse_global_by_title": "Атауымен",
   
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+  "menu.section.browse_global_communities_and_collections": "Қауымдастықтар мен коллекциялар",
   
   
   
