@@ -42,7 +42,7 @@ import {
   UnsetUserAsIdleAction
 } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
+import { loginEncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { getAllSucceededRemoteDataPayload } from '../shared/operators';
@@ -103,7 +103,7 @@ export class AuthService {
    */
   public authenticate(user: string, password: string): Observable<AuthStatus> {
     // Attempt authenticating the user using the supplied credentials.
-    const body = (`password=${Base64EncodeUrl(password)}&user=${Base64EncodeUrl(user)}`);
+    const body = (`password=${loginEncodeUrl(password)}&user=${loginEncodeUrl(user)}`);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
