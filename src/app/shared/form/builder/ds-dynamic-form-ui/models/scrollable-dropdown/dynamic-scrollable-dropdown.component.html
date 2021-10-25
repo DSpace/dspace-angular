@@ -23,6 +23,13 @@
        aria-haspopup="true"
        aria-expanded="false"
        [attr.aria-label]="model.placeholder">
+
+    <div>
+      <input class="form-control scrollable-dropdown-search-input" type="text"
+                    [placeholder]="'form.scrollable-input.search' | translate"
+                    (input)="filter($event?.target?.value)">
+    </div>
+
     <div class="scrollable-menu"
          [attr.aria-label]="model.placeholder"
          infiniteScroll

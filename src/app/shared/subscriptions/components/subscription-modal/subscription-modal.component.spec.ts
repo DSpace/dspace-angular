@@ -1,40 +1,27 @@
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 // Import modules
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SharedModule } from '../../../shared.module';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement,ChangeDetectionStrategy } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { DebugElement } from '@angular/core';
 
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
 // Import mocks
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { findByEPersonAndDsoRes, findByEPersonAndDsoResEmpty } from '../../../testing/subscriptions-data.mock';
-import { MockActivatedRoute } from '../../../mocks/active-router.mock';
 import { ItemInfo } from '../../../testing/relationships-mocks';
 
 // Import utils
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SubscriptionService } from '../../subscription.service';
-import { Subscription } from '../../models/subscription.model';
 
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 
 describe('SubscriptionModalComponent', () => {
@@ -72,18 +59,18 @@ describe('SubscriptionModalComponent', () => {
             }
           }),
         ],
-        declarations: [ SubscriptionModalComponent ],
+        declarations: [SubscriptionModalComponent],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
           { provide: NotificationsService, useValue: notificationServiceStub },
           { provide: SubscriptionService, useValue: subscriptionServiceStub },
         ]
       })
-      .compileComponents();
+        .compileComponents();
 
       fixture = TestBed.createComponent(SubscriptionModalComponent);
       component = fixture.componentInstance;
-      component.eperson = 'testid123';
+      component.epersonId = 'testid123';
       component.dso = ItemInfo.payload;
       de = fixture.debugElement;
 
@@ -113,7 +100,7 @@ describe('SubscriptionModalComponent', () => {
 
   describe('when we have subscriptions', () => {
 
-    beforeEach( async () => {
+    beforeEach(async () => {
 
       subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
         getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoRes),
@@ -133,18 +120,18 @@ describe('SubscriptionModalComponent', () => {
             }
           }),
         ],
-        declarations: [ SubscriptionModalComponent ],
+        declarations: [SubscriptionModalComponent],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
           { provide: NotificationsService, useValue: notificationServiceStub },
           { provide: SubscriptionService, useValue: subscriptionServiceStub },
         ]
       })
-      .compileComponents();
+        .compileComponents();
 
       fixture = TestBed.createComponent(SubscriptionModalComponent);
       component = fixture.componentInstance;
-      component.eperson = 'testid123';
+      component.epersonId = 'testid123';
       component.dso = ItemInfo.payload;
       de = fixture.debugElement;
       await fixture.whenStable();
@@ -176,7 +163,7 @@ describe('SubscriptionModalComponent', () => {
 
     describe('When creating new subscription', () => {
 
-      beforeEach( () => {
+      beforeEach(() => {
         // add button click
         const button = de.query(By.css('.btn-success')).nativeElement;
         button.click();
@@ -207,7 +194,7 @@ describe('SubscriptionModalComponent', () => {
 
     describe('When updating subscription', () => {
 
-      beforeEach( () => {
+      beforeEach(() => {
         // edit button click
         const button = de.query(By.css('.btn-outline-primary')).nativeElement;
         button.click();

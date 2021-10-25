@@ -13,7 +13,8 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {NotificationsService} from '../../notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
@@ -24,6 +25,11 @@ import {NotificationsService} from '../../notifications/notifications.service';
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class EditItemMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {
+
+  /**
+   * The menu entry type
+   */
+  public static menuEntryType: ContextMenuEntryType = ContextMenuEntryType.EditSubmission;
 
   /**
    * A boolean representing if a request operation is pending
@@ -62,11 +68,11 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     private editItemService: EditItemDataService,
     public notificationService: NotificationsService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditSubmission);
   }
 
   ngOnInit(): void {
-    this.notificationService.claimedProfile.subscribe(res => {
+    this.notificationService.claimedProfile.subscribe(() => {
       this.getData();
     });
   }

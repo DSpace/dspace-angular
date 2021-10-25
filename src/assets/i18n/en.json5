@@ -1843,12 +1843,13 @@
 
   "form.search": "Search",
 
+  "form.scrollable-input.search": "Search",
+
   "form.search-help": "Click here to look for an existing correspondence",
 
   "form.submit": "Save",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
-
 
   "funding.listelement.badge" : "Funding",
 
@@ -1865,7 +1866,7 @@
 
   "home.top-level-communities.head": "Communities in DSpace Cris",
 
-  "home.top-level-communities.help": "Select a community to browse its collections.",
+  "home.top-level-communities.help": "Search for a collection",
 
 
 
@@ -5235,8 +5236,6 @@
 
   "workflow-item.edit.title": "Edit workflowitem",
 
-  "workflow-item.edit.title": "View workflowitem",
-
   "workflow-item.delete.notification.success.title": "Deleted",
 
   "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
@@ -5287,5 +5286,11 @@
 
   "layout.i18n.link.default": "link",
 
-  "orcid.badge.tooltip": "Connected to ORCID"
+  "orcid.badge.tooltip": "Connected to ORCID",
+
+  "lucky.search.results.notfound": "We are not able to find the object that you are looking for with the provided",
+
+  "lucky.search.retry.search": "You can try to search for it in the system with a more general query.",
+
+  "lucky.search.multiple.records": "may refer to multiple records"
 }

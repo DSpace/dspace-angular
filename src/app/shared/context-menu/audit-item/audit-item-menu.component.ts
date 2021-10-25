@@ -4,10 +4,9 @@ import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { Observable } from 'rxjs';
-import { CoreState } from '../../../core/core.reducers';
-import { select, Store } from '@ngrx/store';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { isAuthenticated } from '../../../core/auth/selectors';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { AuthService } from '../../../core/auth/auth.service';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -24,12 +23,12 @@ export class AuditItemMenuComponent extends ContextMenuEntryComponent {
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    protected store: Store<CoreState>
+    private authService: AuthService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.Audit);
   }
 
   ngOnInit(): void {
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 }
