@@ -56,7 +56,9 @@ function checkJSONResponse(responseData: any): any {
         console.log(`\t"dspaceUI" = ${parsedData.dspaceUI}`);
         console.log(`\t"dspaceServer" = ${parsedData.dspaceServer}`);
         console.log(`\t"dspaceServer" property matches UI's "rest" config? ${(parsedData.dspaceServer === environment.rest.baseUrl)}`);
-        console.log(`\tDoes "_links" section have values? ${!parsedData._links.length}`);
+        // Check for "authn" and "sites" in "_links" section as they should always exist (even if no data)!
+        const linksFound: string[] = Object.keys(parsedData._links);
+        console.log(`\tDoes "/api" endpoint have HAL links ("_links" section)? ${linksFound.includes('authn') && linksFound.includes('sites')}`);
     } catch (err) {
         console.error('ERROR: INVALID DSPACE REST API! Response is not valid JSON!');
         console.error(`Response returned:\n${responseData}`);
