@@ -54,7 +54,23 @@
 
   "admin.edit-user-agreement.title": "Edit User Agreement",
 
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
 
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  "menu.section.cms_metadata_edit": "Edit CMS Metadata",
+
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -2936,7 +2952,7 @@
 
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
-  "menu.section.edit_user_agreement":"Edit User Agreement",
+  "menu.section.edit_user_agreement": "Edit User Agreement",
 
   "menu.section.workflow": "Administer Workflow",
 

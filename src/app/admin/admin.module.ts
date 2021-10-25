@@ -10,6 +10,7 @@ import { AdminSearchModule } from './admin-search-page/admin-search.module';
 import { AdminSidebarSectionComponent } from './admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
+import {EditCmsMetadataComponent} from './edit-cms-metadata/edit-cms-metadata.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -30,7 +31,8 @@ const ENTRY_COMPONENTS = [
   declarations: [
     AdminCurationTasksComponent,
     MetadataImportPageComponent,
-    AdminEditUserAgreementComponent
+    AdminEditUserAgreementComponent,
+    EditCmsMetadataComponent
   ]
 })
 export class AdminModule {

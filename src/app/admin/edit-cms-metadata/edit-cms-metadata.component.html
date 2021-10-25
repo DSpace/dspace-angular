@@ -1,0 +1,38 @@
+<div *ngIf="selectMode;else edit_mode">
+  <div class="container">
+    <h3 class="mb-4">{{'menu.section.cms.edit.metadata.head' | translate}}</h3>
+    <div class="input-group">
+      <select class="form-control col-md-4 mr-3 mb-2" aria-label="Select metadata"
+              [(ngModel)]="metadataSelectedTobeEdited">
+        <option value="0">{{'admin.edit-cms-metadata.select-metadata' | translate}}</option>
+        <option *ngFor="let md of metadataList" [value]="md">{{md}}</option>
+      </select>
+      <span class="input-group-btn">
+     <button class="btn btn-primary" (click)="selectMetadataToEdit()">
+      <span>
+        {{'admin.edit-cms-metadata.edit-button' | translate}}
+      </span>
+     </button>
+    </span>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #edit_mode>
+  <div class="container">
+    <h2>{{'admin.edit-cms-metadata.title' | translate}}</h2>
+    <div *ngFor="let metadata of ($any(metadataValueHomePage) | keyvalue)" class="form-group">
+      <label>{{metadata.value.languageLabel}}</label>
+      <textarea class="col-md-12 m-2" [(ngModel)]="metadata.value.text" rows="10"></textarea>
+    </div>
+    <div class="col-md">
+      <button class="btn btn-primary float-right m-2" (click)="edit()">
+      <span>
+        <i class="fas fa-edit"></i>
+        &nbsp;{{ 'admin.edit-cms-metadata.save-button' | translate }}
+      </span>
+      </button>
+    </div>
+  </div>
+</ng-template>
