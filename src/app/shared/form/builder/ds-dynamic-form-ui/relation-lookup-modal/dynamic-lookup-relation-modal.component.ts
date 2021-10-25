@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
+import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -117,6 +118,40 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   totalExternal$: Observable<number[]>;
 
+  /**
+   * The type of relationship
+   */
+  relationshipType: RelationshipType;
+
+  /**
+   * Checks if relationship is left
+   */
+  currentItemIsLeftItem$: Observable<boolean>;
+
+  /**
+   * Relationship is left
+   */
+  isLeft = false;
+
+  /**
+   * Checks if modal is being used by edit relationship page
+   */
+  isEditRelationship = false;
+
+  /**
+   * Maintain the list of the related items to be added
+   */
+  toAdd = [];
+
+  /**
+   * Maintain the list of the related items to be removed
+   */
+  toRemove = [];
+
+  /**
+   * Disable buttons while the submit button is pressed
+   */
+  isPending = false;
 
   constructor(
     public modal: NgbActiveModal,
@@ -135,6 +170,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnInit(): void {
+    if (!!this.currentItemIsLeftItem$) {
+      this.currentItemIsLeftItem$.subscribe((isLeft) => {
+        this.isLeft = isLeft;
+      });
+    }
+
     this.selection$ = this.selectableListService
       .getSelectableList(this.listId)
       .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
@@ -166,6 +207,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   close() {
+    this.toAdd = [];
+    this.toRemove = [];
     this.modal.close();
   }
 
@@ -257,4 +300,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
+
+  /* tslint:disable:no-empty */
+  /**
+   * Called when discard button is clicked, emit discard event to parent to conclude functionality
+   */
+  discardEv(): void {
+  }
+
+  /**
+   * Called when submit button is clicked, emit submit event to parent to conclude functionality
+   */
+  submitEv(): void {
+  }
+  /* tslint:enable:no-empty */
+
 }

@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-title" id="modal-title">{{ ('submission.sections.describe.relationship-lookup.title.' + relationshipOptions.relationshipType) | translate }}</h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
-            (click)="modal.dismiss()">
+    <button type="button" [disabled]="isPending" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="close()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -17,6 +17,11 @@
                         [repeatable]="repeatable"
                         [context]="context"
                         [query]="query"
+                        [relationshipType]="relationshipType"
+                        [isLeft]="isLeft"
+                        [item]="item"
+                        [isEditRelationship]="isEditRelationship"
+                        [toRemove]="toRemove"
                         (selectObject)="select($event)"
                         (deselectObject)="deselect($event)"
                         class="d-block pt-3">
@@ -40,7 +45,7 @@
                 </ds-dynamic-lookup-relation-external-source-tab>
             </ng-template>
         </ngb-tab>
-        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
+        <ngb-tab *ngIf="!isEditRelationship" [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-selection-tab
                         [selection$]="selection$"
@@ -58,7 +63,28 @@
 </div>
 <div class="modal-footer">
     <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate: {size: (selection$ | async)?.length || 0}) }}</small>
-    <div>
-        <button type="button" class="btn btn-danger" (click)="close()">{{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
+    <div class="buttons-container">
+    <div class="close-button">
+        <button type="button" [disabled]="isPending" class="btn btn-outline-secondary" (click)="close()">
+            {{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
+    </div>
+     <div *ngIf="isEditRelationship" class="button-row bottom">
+        <div class="float-right">
+          <button class="btn btn-danger discard"
+                  [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+                  (click)="discardEv()">
+                  <i class="fas fa-times"></i>
+            <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
+          </button>
+          <button class="btn btn-primary submit" 
+                [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+                  (click)="submitEv()">
+                  <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
+                                  aria-hidden="true"></span>
+                  <i class="fas fa-save"></i>
+            <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
+          </button>
+        </div>
+      </div>
     </div>
 </div>
