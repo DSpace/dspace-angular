@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { getBulkImportRoute } from '../../../../app-routing-paths';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -16,6 +16,11 @@ export class BulkImportSelectorComponent extends DSOSelectorModalWrapperComponen
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.IMPORT_ITEM;
   header = 'dso-selector.import-item.sub-level';
+
+  /**
+   * If present this value is used to filter collection list by entity type
+   */
+  @Input() entityType: string;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
