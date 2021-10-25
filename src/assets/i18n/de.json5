@@ -2865,7 +2865,7 @@
   
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   // TODO New key - Add a translation
-  "item.version.notice": "Dies ist nicht die neueste Version dieses Artikels. Die neueste Version finden Sie unter <a href='{{destination}}'>here</a>.",
+  "item.version.notice": "Dies ist nicht die neueste Version dieses Artikels. Die neueste Version finden Sie <a href='{{destination}}'>hier</a>.",
   
   
   
@@ -3441,7 +3441,7 @@
   "nav.statistics.header": "Statistiken",
   
   // "nav.stop-impersonating": "Stop impersonating EPerson",
-  "nav.stop-impersonating": "Von Person ausloggen",
+  "nav.stop-impersonating": "Als Person ausloggen",
   
   
   
@@ -3938,10 +3938,10 @@
   "relationships.isAuthorOf": "AutorInnen",
   
   // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "AuthorInnen (Personen)",
+  "relationships.isAuthorOf.Person": "AutorInnen (Personen)",
   
   // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "AuthorInnen (Organisationseinheiten)",
+  "relationships.isAuthorOf.OrgUnit": "AutorInnen (Organisationseinheiten)",
   
   // "relationships.isIssueOf": "Journal Issues",
   "relationships.isIssueOf": "Zeitschriftenausgaben",
