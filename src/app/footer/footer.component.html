@@ -1,5 +1,5 @@
 <footer class="text-lg-start">
-  <div *ngIf="showTopFooter" class="top-footer">
+  <div *ngIf="showTopFooter && hasSiteFooterSections" class="top-footer">
     <!-- Grid container -->
     <ds-text-section [sectionId]="'site'"
                      [textRowSection]=section

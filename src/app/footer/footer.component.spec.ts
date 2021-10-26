@@ -13,9 +13,9 @@ import { StoreModule } from '@ngrx/store';
 import { FooterComponent } from './footer.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
-import {of as observableOf} from 'rxjs';
-import {Site} from '../core/shared/site.model';
-import {SiteDataService} from '../core/data/site-data.service';
+import { of as observableOf } from 'rxjs';
+import { Site } from '../core/shared/site.model';
+import { SiteDataService } from '../core/data/site-data.service';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;

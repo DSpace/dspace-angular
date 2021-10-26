@@ -1,11 +1,11 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { hasValue, isEmpty } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
-import { take} from 'rxjs/operators';
-import {Site} from '../core/shared/site.model';
-import {SiteDataService} from '../core/data/site-data.service';
-import {TextRowSection} from '../core/layout/models/section.model';
-import {Observable} from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Site } from '../core/shared/site.model';
+import { SiteDataService } from '../core/data/site-data.service';
+import { TextRowSection } from '../core/layout/models/section.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-footer',
@@ -14,6 +14,10 @@ import {Observable} from 'rxjs';
 })
 export class FooterComponent implements OnInit {
   dateObj: number = Date.now();
+  /**
+   * A boolean representing if there are site footer sections to show
+   */
+  hasSiteFooterSections: boolean;
   /**
    * A boolean representing if to show or not the top footer container
    */
@@ -38,10 +42,10 @@ export class FooterComponent implements OnInit {
     };
     this.site = this.siteService.find().pipe(take(1));
     this.siteService.find().pipe(take(1)).subscribe(
-      (site) => {
-        this.showTopFooter = !isEmpty(site.firstMetadataValue('cms.homepage.footer'))
+      (site: Site) => {
+        this.hasSiteFooterSections = !isEmpty(site.firstMetadataValue('cms.homepage.footer'));
       }
-    )
+    );
   }
 
   showCookieSettings() {
