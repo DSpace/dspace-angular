@@ -25,6 +25,13 @@ const site: Site = Object.assign(new Site(), {
   id: 'test-site',
   _links: {
     self: { href: 'test-site-href' }
+  },
+  metadata: {
+    'cms.homepage.footer': [
+      {
+        value: 'Test footer'
+      }
+    ],
   }
 });
 const siteService = jasmine.createSpyObj('siteService', {

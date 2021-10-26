@@ -26,7 +26,7 @@ describe('AdministeredCollectionSelectorComponent', () => {
       id: 'admin-collection'
     });
     collectionService = jasmine.createSpyObj('collectionService', {
-      getAdministeredCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
+      getAdministeredCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
@@ -49,9 +49,9 @@ describe('AdministeredCollectionSelectorComponent', () => {
   });
 
   describe('search', () => {
-      it('should call getAdministeredCollection and return the authorized collection in a SearchResult', (done) => {
+      it('should call getAdministeredCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
         component.search('', 1).subscribe((resultRD) => {
-          expect(collectionService.getAdministeredCollection).toHaveBeenCalled();
+          expect(collectionService.getAdministeredCollectionByEntityType).toHaveBeenCalled();
           expect(resultRD.payload.page.length).toEqual(1);
           expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
           done();
