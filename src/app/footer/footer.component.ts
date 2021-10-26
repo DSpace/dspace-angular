@@ -1,5 +1,5 @@
 import {Component, OnInit, Optional} from '@angular/core';
-import { hasValue } from '../shared/empty.util';
+import { hasValue, isEmpty } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { take} from 'rxjs/operators';
 import {Site} from '../core/shared/site.model';
@@ -37,6 +37,11 @@ export class FooterComponent implements OnInit {
       style: ''
     };
     this.site = this.siteService.find().pipe(take(1));
+    this.siteService.find().pipe(take(1)).subscribe(
+      (site) => {
+        this.showTopFooter = !isEmpty(site.firstMetadataValue('cms.homepage.footer'))
+      }
+    )
   }
 
   showCookieSettings() {
