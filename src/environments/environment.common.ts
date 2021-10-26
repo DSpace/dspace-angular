@@ -395,5 +395,8 @@ export const environment: GlobalConfig = {
       'cms.homepage.footer',
       'cms.homepage.sidebar'
     ]
+  },
+  addThisPlugin: {
+    siteId: 'ra-616fbc11524bbb71',
   }
 };

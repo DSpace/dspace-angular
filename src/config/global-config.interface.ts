@@ -16,6 +16,7 @@ import { MediaViewerConfig } from './media-viewer-config.interface';
 import { LayoutConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import {CmsMetadata} from './cms-metadata';
+import {AddThisPluginConfig} from './addThisPlugin-config';
 
 export interface GlobalConfig extends Config {
   ui: UIServerConfig;
@@ -38,4 +39,5 @@ export interface GlobalConfig extends Config {
   layout: LayoutConfig;
   security: MetadataSecurityConfig;
   cms: CmsMetadata;
+  addThisPlugin: AddThisPluginConfig;
 }
