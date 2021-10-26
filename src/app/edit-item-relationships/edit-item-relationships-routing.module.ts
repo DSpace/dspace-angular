@@ -4,6 +4,7 @@ import { EditItemRelationshipsComponent } from './edit-item-relationships.compon
 import { EditItemRelationshipsResolver } from './edit-item-relationships.resolver';
 import { EditItemRelationsGuard } from './guards/edit-item-relationships.guard';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -13,6 +14,10 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
           component: EditItemRelationshipsComponent,
           resolve: {
             info: EditItemRelationshipsResolver,
+            breadcrumb: DsoContextBreadcrumbResolver
+          },
+          data: {
+            breadcrumbKey: 'manage.relations',
           },
           canActivate: [AuthenticatedGuard, EditItemRelationsGuard],
         }
@@ -20,7 +25,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
     )
   ],
   providers: [
-    EditItemRelationshipsResolver
+    EditItemRelationshipsResolver,
   ]
 })
 export class EditItemRelationshipsRoutingModule {

@@ -32,6 +32,7 @@ describe('EditItemRelationshipsComponent', () => {
     })
   });
 
+
   const relationshipsTypes = RelationshipsTypesData;
   const relationships = RelationshipsData;
 
