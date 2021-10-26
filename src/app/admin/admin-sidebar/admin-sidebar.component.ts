@@ -592,11 +592,11 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           icon: 'list-alt',
             index: 13
         },
-        /* User agreement edit*/
+        /* CMS edit menu entry */
         {
           id: 'metadata_cms_edit',
           active: false,
-          visible: authorized,
+          visible: false,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.cms_metadata_edit',
