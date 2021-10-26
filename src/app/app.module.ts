@@ -53,7 +53,6 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
 import { UUIDService } from './core/shared/uuid.service';
 import { CookieService } from './core/services/cookie.service';
-import {SocialComponent} from './social/social.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -175,7 +174,6 @@ const DECLARATIONS = [
   ThemedForbiddenComponent,
   IdleModalComponent,
   ProcessNotificationComponent,
-  SocialComponent
 ];
 
 const EXPORTS = [

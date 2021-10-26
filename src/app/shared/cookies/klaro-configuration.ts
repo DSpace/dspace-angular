@@ -155,12 +155,5 @@ export const klaroConfiguration: any = {
       */
       onlyOnce: true,
     },
-    {
-      name: 'add-this',
-      purposes: ['sharing'],
-      required: false,
-      cookies: [/^.*$/, '/', '.addthis.com'],
-      onlyOnce: true
-    }
   ],
 };
