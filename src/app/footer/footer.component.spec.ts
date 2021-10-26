@@ -16,6 +16,7 @@ import { storeModuleConfig } from '../app.reducer';
 import { of as observableOf } from 'rxjs';
 import { Site } from '../core/shared/site.model';
 import { SiteDataService } from '../core/data/site-data.service';
+import { LocaleService } from '../core/locale/locale.service';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
@@ -29,7 +30,8 @@ const site: Site = Object.assign(new Site(), {
   metadata: {
     'cms.homepage.footer': [
       {
-        value: 'Test footer'
+        value: 'Test footer',
+        language: 'en'
       }
     ],
   }
@@ -37,6 +39,11 @@ const site: Site = Object.assign(new Site(), {
 const siteService = jasmine.createSpyObj('siteService', {
   find: observableOf(site)
 });
+const localeServiceStub = {
+  getCurrentLanguageCode(): string {
+    return 'en';
+  }
+};
 describe('Footer component', () => {
 
   // waitForAsync beforeEach
@@ -52,6 +59,7 @@ describe('Footer component', () => {
       providers: [
         FooterComponent,
         { provide: SiteDataService, useValue: siteService },
+        { provide: LocaleService, useValue: localeServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

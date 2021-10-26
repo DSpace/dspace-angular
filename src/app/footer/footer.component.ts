@@ -6,6 +6,7 @@ import { Site } from '../core/shared/site.model';
 import { SiteDataService } from '../core/data/site-data.service';
 import { TextRowSection } from '../core/layout/models/section.model';
 import { Observable } from 'rxjs';
+import { LocaleService } from '../core/locale/locale.service';
 
 @Component({
   selector: 'ds-footer',
@@ -30,9 +31,13 @@ export class FooterComponent implements OnInit {
    * The section data to be rendered as footer
    */
   section: TextRowSection;
+
   constructor(@Optional() private cookies: KlaroService,
-              private siteService: SiteDataService) {
+              private locale: LocaleService,
+              private siteService: SiteDataService
+  ) {
   }
+
   ngOnInit() {
     this.section = {
       content: 'cms.homepage.footer',
@@ -43,7 +48,8 @@ export class FooterComponent implements OnInit {
     this.site = this.siteService.find().pipe(take(1));
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
-        this.hasSiteFooterSections = !isEmpty(site.firstMetadataValue('cms.homepage.footer'));
+        this.hasSiteFooterSections = !isEmpty(site.firstMetadataValue('cms.homepage.footer',
+          { language: this.locale.getCurrentLanguageCode() }));
       }
     );
   }
