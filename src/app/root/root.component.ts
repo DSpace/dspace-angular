@@ -1,6 +1,6 @@
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { Component, Inject, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {Component, Inject, OnInit, Input, PLATFORM_ID} from '@angular/core';
+import {  Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,6 +19,7 @@ import { ThemeConfig } from '../../config/theme.model';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'ds-root',
@@ -35,11 +36,6 @@ export class RootComponent implements OnInit {
   notificationOptions = environment.notifications;
   models;
   /**
-   * Whether or not to show social buttons base on the route, default true
-   */
-  showSocialButtons = false;
-
-  /**
    * Whether or not to show a full screen loader
    */
   @Input() shouldShowFullscreenLoader: boolean;
@@ -48,7 +44,10 @@ export class RootComponent implements OnInit {
    * Whether or not to show a loader across the router outlet
    */
   @Input() shouldShowRouteLoader: boolean;
-
+  /**
+   * In order to show sharing component only in csr
+   */
+  browserPlatform = false;
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translate: TranslateService,
@@ -61,8 +60,11 @@ export class RootComponent implements OnInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    private activatedRoute: ActivatedRoute
+    @Inject(PLATFORM_ID) platformId: any
   ) {
+    if (isPlatformBrowser(platformId)) {
+      this.browserPlatform = true;
+    }
   }
 
   ngOnInit() {
@@ -74,25 +76,5 @@ export class RootComponent implements OnInit {
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile)
       );
-
-    this.router.events.pipe(
-      filter(events => events instanceof NavigationEnd),
-      map(evt => this.activatedRoute),
-      map(route => {
-        while (route.firstChild) {
-          route = route.firstChild;
-        }
-        return route;
-      }))
-      .pipe(
-        filter(route => route.outlet === 'primary'),
-        mergeMap(route => route.data)
-      ).subscribe(route => {
-        if (route.showSocialButtons !== undefined) {
-          this.showSocialButtons = route.showSocialButtons;
-        } else {
-          this.showSocialButtons = false;
-        }
-    });
   }
 }

@@ -439,6 +439,8 @@ export const environment: GlobalConfig = {
     ]
   },
   addThisPlugin: {
-    siteId: 'ra-616fbc11524bbb71',
+    siteId: '',
+    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
+    socialNetworksEnabled: false
   }
 };
