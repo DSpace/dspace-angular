@@ -4,7 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { of as observableOf, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlCustomEvent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
@@ -35,6 +39,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   public editMode = false;
   public firstInputValue = '';

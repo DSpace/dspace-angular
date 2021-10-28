@@ -4,7 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlCustomEvent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
@@ -35,6 +39,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   public currentValue: Observable<string>;
   public loading = false;

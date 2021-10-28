@@ -377,7 +377,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
+    const eventAutoSave = !event.$event.hasOwnProperty('autoSave') || event.$event.autoSave;
+    if (eventAutoSave && (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -50,6 +50,14 @@ export class FormBuilderService extends DynamicFormService {
   ) {
     super(componentService, validationService);
     this.formModels = new Map();
+  }
+
+  createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
+    const $event = {
+      value: (model as any).value,
+      autoSave: false
+    };
+    return {$event, context: null, control: control, group: group, model: model, type};
   }
 
   getTypeBindModel() {
@@ -394,6 +402,10 @@ export class FormBuilderService extends DynamicFormService {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
+  getFormControlByModel(formGroup: FormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
+    return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
+  }
+
   /**
    * Note (discovered while debugging) this is not the ID as used in the form,
    * but the first part of the path needed in a patch operation:
@@ -438,14 +450,19 @@ export class FormBuilderService extends DynamicFormService {
    * @param fieldId id of field to update
    * @param value new value to set
    */
-  updateValue(fieldId: string, value: any) {
+  updateValue(fieldId: string, value: any): DynamicFormControlModel {
+    let returnModel = null;
     this.formModels.forEach((model, formId) => {
       const fieldModel: any = this.findById(fieldId, model);
       if (hasValue(fieldModel)) {
-        fieldModel.value = value;
+        if (isNotEmpty(value)) {
+          fieldModel.value = value;
+          returnModel = fieldModel;
+        }
         return;
       }
     });
+    return returnModel;
   }
 
   /**

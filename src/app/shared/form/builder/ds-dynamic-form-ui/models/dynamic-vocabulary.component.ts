@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 
 import {
   DynamicFormControlComponent,
+  DynamicFormControlCustomEvent,
+  DynamicFormControlModel,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
@@ -38,6 +40,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   @Output() abstract blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() abstract change: EventEmitter<any> = new EventEmitter<any>();
   @Output() abstract focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   /**
    * The vocabulary entry
@@ -186,7 +189,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * @param updateValue
    */
   dispatchUpdate(updateValue: any) {
-      this.model.value = updateValue;
+    this.model.value = updateValue;
     this.change.emit(updateValue);
     this.updateOtherInformation(updateValue);
   }
@@ -240,14 +243,27 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       (value instanceof VocabularyEntry || value instanceof FormFieldMetadataValueObject)) {
       const otherInformation = value.otherInformation;
       if (hasValue(otherInformation)) {
+        const updatedModels = [];
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key)) {
             const fieldId = key.replace('data-', '');
             const newValue = this.getOtherInformationValue(otherInformation[key]);
-            this.formBuilderService.updateValue(fieldId, newValue);
+            if (isNotEmpty(newValue)) {
+              const updatedModel = this.formBuilderService.updateValue(fieldId, newValue);
+              if (isNotEmpty(updatedModel)) {
+                updatedModels.push(updatedModel);
+              }
+            }
           }
         }
+        this.createChangeEventOnUpdate(updatedModels);
       }
+    }
+  }
+
+  protected createChangeEventOnUpdate(models: DynamicFormControlModel[]) {
+    if (models.length > 0) {
+      this.onCustomEvent({ updatedModels: models }, 'authorityEnrichment');
     }
   }
 
