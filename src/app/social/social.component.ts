@@ -48,8 +48,8 @@ export class SocialComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
   ) {
-    const cookiesAccepted = this.cookie.getAll();
-    if (cookiesAccepted['klaro-anonymous'] && cookiesAccepted['klaro-anonymous']['add-this']) {
+    const klaroCookie = this.cookie.get('klaro-anonymous');
+    if (klaroCookie && klaroCookie['add-this']) {
       this.shareAccepted = true;
     }
     environment.addThisPlugin.socialNetworksEnabled = this.shareAccepted;
