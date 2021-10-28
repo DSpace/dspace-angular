@@ -1,13 +1,10 @@
 import {
   Component,
   Inject,
-  OnInit, Optional,
-  Renderer2,
-  SimpleChanges
+  OnInit,
 } from '@angular/core';
 import {environment} from '../../environments/environment.common';
-import {DOCUMENT, isPlatformBrowser} from '@angular/common';
-import {KlaroService} from '../shared/cookies/klaro.service';
+import {DOCUMENT} from '@angular/common';
 import {CookieService} from '../core/services/cookie.service';
 import {filter, map, mergeMap} from 'rxjs/operators';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
@@ -46,9 +43,7 @@ export class SocialComponent implements OnInit {
    */
   appended = false;
   shareAccepted = environment.addThisPlugin.socialNetworksEnabled;
-  constructor(private _renderer2: Renderer2,
-              @Inject(DOCUMENT) private _document: Document,
-              @Optional() private cookies: KlaroService,
+  constructor(@Inject(DOCUMENT) private _document: Document,
               protected cookie: CookieService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -83,16 +78,13 @@ export class SocialComponent implements OnInit {
       if (route.showSocialButtons !== undefined) {
         if (route.showSocialButtons) {
           if (this.appended) {
-            this.socialButtons.style.display = 'block';
+            this.showOrHideSocialButtons('block');
           } else {
             this._document.body.appendChild(this.script);
             this.appended = true;
           }
         } else {
-          this.socialButtons = this._document.querySelector('#at-expanding-share-button');
-          if (this.socialButtons) {
-            this.socialButtons.style.display = 'none';
-          }
+          this.showOrHideSocialButtons('none');
         }
       } else {
         this.socialButtons = this._document.querySelector('#at-expanding-share-button');
@@ -102,9 +94,15 @@ export class SocialComponent implements OnInit {
       }
     });
   }
-  private initializeScript() {
+  public initializeScript() {
     this.script = this._document.createElement('script');
     this.script.type = 'text/javascript';
     this.script.src = this.urlSocialScript + this.idSocial;
+  }
+  showOrHideSocialButtons(style) {
+    this.socialButtons = this._document.querySelector('#at-expanding-share-button');
+    if (this.socialButtons) {
+      this.socialButtons.style.display = style;
+    }
   }
 }
