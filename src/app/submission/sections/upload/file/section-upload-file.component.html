@@ -5,10 +5,28 @@
       <ds-thumbnail [thumbnail]="fileData?.thumbnail"></ds-thumbnail>
     </div>
     <div class="col-md-10">
-      <div class="float-left w-75">
+      <div class="float-left w-100">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>
-      <div class="float-right w-15" [class.sticky-buttons]="!readMode">
+      <div class="float-left w-100">
+        <ds-submission-section-upload-file-view *ngIf="readMode"
+                                              [fileData]="fileData"></ds-submission-section-upload-file-view>
+        <ds-submission-section-upload-file-edit *ngIf="!readMode"
+                                              [availableAccessConditionOptions]="availableAccessConditionOptions"
+                                              [collectionId]="collectionId"
+                                              [collectionPolicyType]="collectionPolicyType"
+                                              [configMetadataForm]="configMetadataForm"
+                                              [fileData]="fileData"
+                                              [fileId]="fileId"
+                                              [fileIndex]="fileIndex"
+                                              [formId]="formId"
+                                              [sectionId]="sectionId"></ds-submission-section-upload-file-edit>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="float-right" [class.sticky-buttons]="!readMode">
         <ng-container *ngIf="readMode">
           <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
@@ -49,20 +67,7 @@
           </button>
         </ng-container>
       </div>
-      <div class="clearfix"></div>
-      <ds-submission-section-upload-file-view *ngIf="readMode"
-                                              [fileData]="fileData"></ds-submission-section-upload-file-view>
-      <ds-submission-section-upload-file-edit *ngIf="!readMode"
-                                              [availableAccessConditionOptions]="availableAccessConditionOptions"
-                                              [collectionId]="collectionId"
-                                              [collectionPolicyType]="collectionPolicyType"
-                                              [configMetadataForm]="configMetadataForm"
-                                              [fileData]="fileData"
-                                              [fileId]="fileId"
-                                              [fileIndex]="fileIndex"
-                                              [formId]="formId"
-                                              [sectionId]="sectionId"></ds-submission-section-upload-file-edit>
-    </div>
+    </div>  
   </div>
 </ng-container>
 
