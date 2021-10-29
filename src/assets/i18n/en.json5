@@ -1351,6 +1351,8 @@
 
   "error.validation.emailTaken": "This E-mail is already taken",
 
+  "error.validation.groupExists": "This group already exists",
+
 
   "file-section.error.header": "Error obtaining files for this item",
 
