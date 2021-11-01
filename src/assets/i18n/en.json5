@@ -2431,6 +2431,8 @@
 
   "item.page.metric.label.wosPersonCitation": "Web of Science© citations",
 
+  "item.page.metric.label.plumX": "PlumX",
+
   "item.page.person.search.title": "Articles by this author",
 
   "item.page.related-items.view-more": "Show {{ amount }} more",

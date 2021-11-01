@@ -278,6 +278,7 @@ import { MultiColumnTopSectionComponent } from './explore/section-component/mult
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { MetricPlumxComponent } from './metric/metric-plumx/metric-plumx.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -687,6 +688,7 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...SHARED_SEARCH_PAGE_COMPONENTS,
     ItemExportAlertComponent,
+    MetricPlumxComponent,
   ],
   providers: [
     ...PROVIDERS
