@@ -201,7 +201,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
 
-      if (!!this.formGroup.controls.groupName && !this.formGroup.controls.groupName.value) {
+      if (!!this.formGroup.controls.groupName) {
         this.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(this.groupDataService));
         this.groupNameValueChangeSubscribe = this.groupName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
           this.changeDetectorRef.detectChanges();
@@ -217,6 +217,10 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         ).subscribe(([activeGroup, canEdit, linkedObject]) => {
 
           if (activeGroup != null) {
+
+            // Disable group name exists validator
+            this.formGroup.controls.groupName.clearAsyncValidators();
+
             this.groupBeingEdited = activeGroup;
 
             if (linkedObject?.name) {
@@ -452,6 +456,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.groupDataService.cancelEditGroup();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+
+    if ( hasValue(this.groupNameValueChangeSubscribe) ) {
+      this.groupNameValueChangeSubscribe.unsubscribe();
+    }
+
   }
 
   /**
