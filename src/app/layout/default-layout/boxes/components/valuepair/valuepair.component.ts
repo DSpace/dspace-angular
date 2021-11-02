@@ -2,16 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, from, interval, race } from 'rxjs';
-import { filter, map, mapTo, mergeMap, reduce, switchMap, take } from 'rxjs/operators';
+import { map, mapTo, mergeMap, reduce, take } from 'rxjs/operators';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../../../core/shared/operators';
 import { AuthService } from '../../../../../core/auth/auth.service';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.
@@ -45,36 +42,27 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
       itemsToBeRendered = [...this.metadataValues];
     }
 
-    const entries$ = this.authService.isAuthenticated().pipe(
-      take(1),
-      filter((isAuth) => isAuth),
-      switchMap(() => this.item.owningCollection.pipe(
-        getFirstSucceededRemoteDataPayload(),
-      )),
-      switchMap((collection: Collection) => {
-        const vocabularyOptions = new VocabularyOptions(null, this.field.metadata, collection.uuid);
-        return this.vocabularyService.searchVocabularyByMetadataAndCollection(vocabularyOptions).pipe(
+    const entries$ = from(itemsToBeRendered).pipe(
+      mergeMap((metadataValue) => {
+        return this.vocabularyService.getPublicVocabularyEntryByValue('common_iso_languages', metadataValue).pipe(
           getFirstSucceededRemoteDataPayload(),
-          mergeMap((vocabulary: Vocabulary) => {
-            vocabularyOptions.name = vocabulary.name;
-            return from(itemsToBeRendered).pipe(
-              mergeMap((metadataValue) => {
-                return this.vocabularyService.getVocabularyEntryByValue(metadataValue, vocabularyOptions).pipe(
-                  map((entry) => entry.display)
-                );
-              }),
-              reduce((acc: any, value: any) => [...acc, value], []),
-            );
-          })
+          getPaginatedListPayload(),
+          map((res) => res[0]?.display ?? metadataValue),
         );
-      })
+      }),
+      reduce((acc: any, value: any) => [...acc, value], []),
     );
+
+    this.vocabularyService.getPublicVocabularyEntryByValue('common_iso_languages', 'it').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      getPaginatedListPayload(),
+    );
+
     const initValues$ = interval(5000).pipe(mapTo(itemsToBeRendered));
 
-    race([entries$, initValues$]).pipe(take(1))
-      .subscribe((values: string[]) => {
-        this.values.next(values);
-      });
+    race([entries$, initValues$]).pipe(take(1)).subscribe((values: string[]) => {
+      this.values.next(values);
+    });
 
   }
 
