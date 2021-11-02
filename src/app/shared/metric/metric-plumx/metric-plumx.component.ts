@@ -23,7 +23,7 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
       const script = this.metric.remark.substring(this.metric.remark.indexOf('//cdn'), this.metric.remark.indexOf('.js') + 3);
       // script is dynamic base on entityTyp and is coming from backend
       this.metricLoaderService = this.injector.get(MetricLoaderService);
-      this.metricLoaderService.setScript('plumX',  script);
+      this.metricLoaderService.setScript('plumX', script);
       // show the html
       const stringToShow = this.metric.remark.substring(this.metric.remark.indexOf('<a'), this.metric.remark.indexOf('</a>') + 4);
       this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(stringToShow);

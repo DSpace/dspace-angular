@@ -50,13 +50,14 @@ describe('MetricPlumxComponent', () => {
     expect(component).toBeTruthy();
   });
   beforeEach(() => {
-    metricMock.remark = "\"<a href ='https://plu.mx/plum/a/?doi=10.1016/j.procs.2017.03.038' class = 'plumx-plum-print-popup'></a><script type = 'text/javascript' src= '//cdn.plu.mx/widget-popup.js'></script>";
+    metricMock.remark = "\"<a href ='https://plu.mx/plum/a/?doi=10.1016/j.procs.2017.03.038'" +
+      " class = 'plumx-plum-print-popup'></a><script type = 'text/javascript' src= '//cdn.plu.mx/widget-popup.js'></script>";
     fixture = TestBed.createComponent(MetricPlumxComponent);
     component = fixture.componentInstance;
     component.metric = metricMock;
     fixture.detectChanges();
   });
-  it('should create', () => {
+  it('should render plumx widget', () => {
     const innerHtmlMetric = fixture.debugElement.queryAll(By.css('div'))[1];
     expect(innerHtmlMetric.nativeElement.innerHTML).toBe( '<a href="https://plu.mx/plum/a/?doi=10.1016/j.procs.2017.03.038" class="plumx-plum-print-popup"></a>');
   });
