@@ -1,48 +1,52 @@
 <footer class="text-lg-start">
   <div *ngIf="showTopFooter" class="top-footer">
-  <!-- Grid container -->
-    <div class=" container p-4">
-    <!--Grid row-->
-    <div class="row">
+    <!-- Grid container -->
+    <ds-text-section *ngIf="hasSiteFooterSections"
+                     [sectionId]="'site'"
+                     [textRowSection]=section
+                     [site]="(site | async)"></ds-text-section>
+    <div *ngIf="!hasSiteFooterSections" class=" container p-4">
+      <!--Grid row-->
+      <div class="row">
 
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <h5 class="text-uppercase">Get Involved!</h5>
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="text-uppercase">Get Involved!</h5>
 
-        <ul class="list-unstyled mb-0">
-          <li>
-            <a href="https://github.com/4Science/DSpace/tree/dspace-cris-7"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
-          </li>
-          <li>
-            <a href="https://wiki.lyrasis.org/display/DSPACECRIS/"><i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
-          </li>
-          <li>
-            <a href="https://dspace-org.slack.com/messages/dspace-cris/"><i class="fab fa-slack" aria-hidden="true"></i> Slack Channel</a>
-          </li>
-        </ul>
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="https://github.com/4Science/DSpace/tree/dspace-cris-7"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
+            </li>
+            <li>
+              <a href="https://wiki.lyrasis.org/display/DSPACECRIS/"><i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
+            </li>
+            <li>
+              <a href="https://dspace-org.slack.com/messages/dspace-cris/"><i class="fab fa-slack" aria-hidden="true"></i> Slack Channel</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="text-uppercase">Make it your own</h5>
+          <p>
+            DSpace-CRIS can be extensively configured to meet your needs. Decide which information need to be collected and available
+            with fine-grained security. Start updating the theme to match your nstitution's web identity.
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Need professional help?</h5>
+          <p>The original creators of DSpace-CRIS at <a href="https://www.4science.it/en/">4Science</a> can take your project to
+            the next level, <a href="https://www.4science.it/en/contact-us/">get in touch!</a></p>
+        </div>
+        <!--Grid column-->
       </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <h5 class="text-uppercase">Make it your own</h5>
-        <p>
-          DSpace-CRIS can be extensively configured to meet your needs. Decide which information need to be collected and available
-          with fine-grained security. Start updating the theme to match your nstitution's web identity.
-        </p>
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Need professional help?</h5>
-        <p>The original creators of DSpace-CRIS at <a href="https://www.4science.it/en/">4Science</a> can take your project to
-          the next level, <a href="https://www.4science.it/en/contact-us/">get in touch!</a></p>
-      </div>
-      <!--Grid column-->
+      <!--Grid row-->
     </div>
-    <!--Grid row-->
-  </div>
   </div>
   <!-- Grid container -->
 

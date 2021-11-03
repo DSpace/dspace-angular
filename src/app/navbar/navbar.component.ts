@@ -61,11 +61,10 @@ export class NavbarComponent extends MenuComponent {
       shouldPersistOnRouteChange: true
     })));
 
-    this.sectionDataService.findAll()
+    this.sectionDataService.findVisibleSections()
       .pipe( getFirstSucceededRemoteListPayload())
       .subscribe( (sections: Section[]) => {
         sections
-          .filter((section) => section.id !== 'site')
           .forEach( (section) => {
           const menuSection = {
             id: `explore_${section.id}`,

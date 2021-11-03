@@ -74,4 +74,11 @@ export class ProcessDataService extends DataService<Process> {
     const href$ = this.getProcessEndpoint(processId);
     return this.findByHref(href$,false);
   }
+
+  /**
+   * Set the processes stale
+   */
+  setStale(): Observable<boolean> {
+    return this.requestService.setStaleByHrefSubstring(this.linkPath);
+  }
 }

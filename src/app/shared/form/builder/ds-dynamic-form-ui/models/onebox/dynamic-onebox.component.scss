@@ -31,3 +31,12 @@
 .tree-input[readonly]{
   background-color: #fff;
 }
+
+.tree-toggle {
+  padding:  0.70rem 0.70rem 0 0.70rem ;
+}
+
+.tree-input[readonly]{
+  background-color: #fff;
+  cursor: pointer;
+}

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
+import {BehaviorSubject, of as observableOf} from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,6 +15,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class NotificationsService {
+  claimedProfile = new BehaviorSubject(true);
 
   constructor(private store: Store<Notification>,
               private translate: TranslateService) {

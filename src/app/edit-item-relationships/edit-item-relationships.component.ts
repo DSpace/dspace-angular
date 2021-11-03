@@ -24,6 +24,8 @@ import { HostWindowService } from '../shared/host-window.service';
 import { BehaviorSubject, Observable, } from 'rxjs';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'ds-edit-item-relationships',
@@ -127,7 +129,9 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               protected entityTypeService: EntityTypeService,
-              private windowService: HostWindowService
+              private windowService: HostWindowService,
+              private translate: TranslateService,
+              private title: Title
   ) {
     this.relationshipType = this.route.snapshot.params.type;
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -162,6 +166,11 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
         this.item = item;
         const itemType = item.firstMetadataValue('dspace.entity.type');
         this.relationshipConfig = 'RELATION.' + itemType + '.' + this.relationshipType;
+
+        const relationshipTypeTranslated = this.translate.instant( this.relationshipConfig + '.search.results.head' );
+
+        this.title.setTitle(relationshipTypeTranslated);
+
         this.searchFilter = `scope=${item.id}`;
         this.isActive = true;
       })
@@ -172,19 +181,22 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    * Get all relationships of the relation to manage
    */
   retrieveRelationships(): void {
-    this.subs.push(
+    console.log('retrieveRelationships');
+    // this.subs.push(
       this.itemRD$.pipe(
         getRemoteDataPayload(),
         switchMap((item: Item) => this.relationshipService.getItemRelationshipsAsArrayAll(item,
-          followLink('leftItem')
-        ))
+          followLink('leftItem'),
+          // followLink('relationshipType'),
+        )),
+        take(1)
       ).subscribe((relationships: Relationship[]) => {
-        console.log('retrieveRelationships', relationships);
         const relations = relationships
-          .filter((relation) => relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
+          .filter((relation) => !!relation.leftwardValue && relation.leftwardValue.toLowerCase().includes('is' + this.relationshipType));
         this.relationshipResults$.next(relations);
         this.isInit = true;
-      }));
+      });
+      // );
   }
 
   /**
@@ -255,8 +267,8 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   updateRelationship(relationship: Relationship): void {
     this.relationshipService.updateRightPlace(relationship).pipe(take(1))
+      // tslint:disable-next-line:no-empty
       .subscribe((res) => {
-        console.log(res);
       }, (err) => {
         this.retrieveRelationships();
       });

@@ -34,6 +34,11 @@ export class AuthMethod {
         this.location = location;
         break;
       }
+      case 'oidc': {
+        this.authMethodType = AuthMethodType.Oidc;
+        this.location = location;
+        break;
+      }
 
       default: {
         break;

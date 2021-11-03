@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,6 +36,11 @@ export class AdministeredCollectionSelectorComponent extends DSOSelectorComponen
   }
 
   /**
+   * If present this value is used to filter collection list by entity type
+   */
+  @Input() entityType: string;
+
+  /**
    * Get a query to send for retrieving the current DSO
    */
   getCurrentDSOQuery(): string {
@@ -53,7 +58,7 @@ export class AdministeredCollectionSelectorComponent extends DSOSelectorComponen
       elementsPerPage: this.defaultPagination.pageSize
     };
 
-    return this.collectionDataService.getAdministeredCollection(query, findOptions).pipe(
+    return this.collectionDataService.getAdministeredCollectionByEntityType(query,this.entityType, findOptions).pipe(
       getFirstCompletedRemoteData(),
       map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
         payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,

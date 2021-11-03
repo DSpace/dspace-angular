@@ -3,14 +3,12 @@ import { Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { RequestEntry } from '../../../core/data/request.reducer';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -19,6 +17,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Process } from '../../../process-page/processes/process.model';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -52,7 +51,7 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
     private scriptService: ScriptDataService,
     private translationService: TranslateService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ExportCollection);
   }
 
   /**
@@ -73,13 +72,16 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
           this.notificationService.error(this.translationService.get('collection-export.error'));
         }
       });
+    this.notificationService.claimedProfile.subscribe(() => {
+      this.isCollectionAdmin(false);
+    });
   }
 
   /**
    * Check if user is administrator for this collection
    */
-  isCollectionAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, this.contextMenuObject.self, undefined);
+  isCollectionAdmin(useCachedVersion = true): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, this.contextMenuObject.self, undefined, useCachedVersion);
   }
 
   /**

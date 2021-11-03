@@ -288,5 +288,12 @@ export const environment: Partial<GlobalConfig> = {
         icon: 'fa fa-lock',
         color: 'red'
       }]
+  },
+  cms: {
+    metadataList: [
+      'cms.homepage.header',
+      'cms.homepage.footer',
+      'cms.homepage.sidebar'
+    ]
   }
 };

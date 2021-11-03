@@ -5856,10 +5856,10 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
-html-to-image@^1.3.21:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.6.0.tgz#fdf1ea5514af96b58cfc85a63eb97614097023ab"
-  integrity sha512-omzkdNnZOacH7udio09I3eGkOrE8VcpzabQbLYmjojpi+FmtofpNY9lHV2fn2DaDO9G9p10O3E8SF5HHgFhSWg==
+html-to-image@^1.6.2:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.9.0.tgz#cb49bf9f4b37376771c85cfdd65863ae9420b268"
+  integrity sha512-9gaDCIYg62Ek07F2pBk76AHgYZ2gxq2YALU7rK3gNCqXuhu6cWzsOQqM7qGbjZiOzxGzrU1deDqZpAod2NEwbA==
 
 html-webpack-plugin@^4.5.0:
   version "4.5.2"

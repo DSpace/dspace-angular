@@ -11,6 +11,8 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { FindListOptions } from '../core/data/request.models';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
+import { AuthService } from '../core/auth/auth.service';
+import { EPerson } from '../core/eperson/models/eperson.model';
 
 @Component({
   selector: 'ds-subscriptions-page',
@@ -44,8 +46,14 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    */
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  /**
+   * EPerson id of the logged in user
+   */
+  eperson: string;
+
   constructor(
     private paginationService: PaginationService,
+    private authService: AuthService,
     private subscriptionService: SubscriptionService
   ) { }
 
@@ -54,24 +62,27 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * When page is changed it will request the new subscriptions for the new page config
    */
   ngOnInit(): void {
-    this.sub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((findListOptions) => {
-          this.loading$.next(true);
-          return this.subscriptionService.findAllSubscriptions({
-            currentPage: findListOptions.currentPage,
-            elementsPerPage: findListOptions.pageSize
-          });
-        }
-      )
-    ).subscribe((res) => {
-        this.subscriptions$.next(res);
-        this.loading$.next(false);
-      },
-      (err) => {
-        this.loading$.next(false);
-      }
-    );
+    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe( (eperson: EPerson) => {
+      this.eperson = eperson.id;
 
+      this.sub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+        switchMap((findListOptions) => {
+            this.loading$.next(true);
+            return this.subscriptionService.findByEPerson(this.eperson,{
+              currentPage: findListOptions.currentPage,
+              elementsPerPage: findListOptions.pageSize
+            });
+          }
+        )
+      ).subscribe((res) => {
+          this.subscriptions$.next(res);
+          this.loading$.next(false);
+        },
+        (err) => {
+          this.loading$.next(false);
+        }
+      );
+    });
   }
 
   /**
@@ -82,7 +93,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
       take(1),
       switchMap((findListOptions) => {
           this.loading$.next(true);
-          return this.subscriptionService.findAllSubscriptions({
+          return this.subscriptionService.findByEPerson(this.eperson,{
             currentPage: findListOptions.currentPage,
             elementsPerPage: findListOptions.pageSize
           });

@@ -21,6 +21,7 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { SubscriptionService } from '../shared/subscriptions/subscription.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
+import { AuthService } from '../core/auth/auth.service';
 
 // Import utils
 import { HostWindowService } from '../shared/host-window.service';
@@ -33,6 +34,7 @@ import { findAllSubscriptionRes } from '../shared/testing/subscriptions-data.moc
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { of as observableOf } from 'rxjs';
 import { SubscriptionsModule } from '../shared/subscriptions/subscriptions.module';
+import { EPersonMock } from '../shared/testing/eperson.mock';
 
 
 describe('SubscriptionsPageComponent', () => {
@@ -40,8 +42,12 @@ describe('SubscriptionsPageComponent', () => {
   let fixture: ComponentFixture<SubscriptionsPageComponent>;
   let de: DebugElement;
 
+  const authServiceStub = jasmine.createSpyObj('authorizationService', {
+    getAuthenticatedUserFromStore: observableOf(EPersonMock)
+  });
+
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionService', {
-    findAllSubscriptions: observableOf(findAllSubscriptionRes)
+    findByEPerson: observableOf(findAllSubscriptionRes)
   });
   const paginationService = new PaginationServiceStub();
 
@@ -69,6 +75,7 @@ describe('SubscriptionsPageComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: AuthService, useValue: authServiceStub },
         { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]

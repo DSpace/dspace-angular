@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ProcessStatus } from '../processes/process-status.model';
 
 @Component({
   selector: 'ds-process-overview',
@@ -26,7 +29,7 @@ export class ProcessOverviewComponent implements OnInit {
   /**
    * List of all processes
    */
-  processesRD$: Observable<RemoteData<PaginatedList<Process>>>;
+  processesRD$: BehaviorSubject<RemoteData<PaginatedList<Process>>> = new BehaviorSubject(null);
 
   /**
    * The current pagination configuration for the page used by the FindAll method
@@ -51,7 +54,9 @@ export class ProcessOverviewComponent implements OnInit {
   constructor(protected processService: ProcessDataService,
               protected paginationService: PaginationService,
               protected ePersonService: EPersonDataService,
-              protected authorizationService: AuthorizationDataService) {
+              protected authorizationService: AuthorizationDataService,
+              protected notificationService: NotificationsService,
+              protected translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -64,7 +69,7 @@ export class ProcessOverviewComponent implements OnInit {
   setProcesses() {
     const pageConfig$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config);
     const isAdmin$ = this.isCurrentUserAdmin();
-    this.processesRD$ = combineLatest([
+    combineLatest([
       isAdmin$,
       pageConfig$
     ]).pipe(
@@ -74,12 +79,25 @@ export class ProcessOverviewComponent implements OnInit {
         } else {
           return this.processService.searchBy('own', config);
         }
-      })
-    );
+      }),
+      getFirstCompletedRemoteData(),
+      take(1),
+    ).subscribe(remoteData => {
+      this.processesRD$.next(remoteData);
+    });
+  }
+
+  onPaginationChange() {
+    this.processService.setStale();
+    this.setProcesses();
   }
 
   isCurrentUserAdmin(): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
+  }
+
+  isProcessCompleted(process: Process): boolean {
+    return process.processStatus.toString() === 'COMPLETED' || process.processStatus.toString() === 'FAILED';
   }
 
   /**
@@ -92,6 +110,21 @@ export class ProcessOverviewComponent implements OnInit {
       map((eperson: EPerson) => eperson.name)
     );
   }
+
+  delete(process: Process) {
+    this.processService.setStale();
+    this.processService.delete(process.processId).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((remoteData => {
+      if (remoteData.isSuccess) {
+        this.notificationService.success(this.translateService.get('process.overview.delete.success'));
+        this.setProcesses();
+      } else {
+        this.notificationService.error(this.translateService.get('process.overview.delete.failed'));
+      }
+    }));
+  }
+
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.pageConfig.id);
   }

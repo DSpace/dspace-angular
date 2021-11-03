@@ -26,6 +26,8 @@ import { BoxDataService } from '../../core/layout/box-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { boxMetadata } from '../../shared/testing/box.mock';
 import { tabPersonProfile } from '../../shared/testing/tab.mock';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {NotificationsServiceStub} from '../../shared/testing/notifications-service.stub';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -76,7 +78,8 @@ const authServiceMock: any = jasmine.createSpyObj('AuthService', {
 const itemDataServiceMock: any = jasmine.createSpyObj('ItemDataService', {
   findById: jasmine.createSpy('findById')
 });
-
+// tslint:disable-next-line:prefer-const
+let notificationService = new NotificationsServiceStub();
 describe('CrisLayoutDefaultComponent', () => {
   let component: CrisLayoutDefaultComponent;
   let fixture: ComponentFixture<CrisLayoutDefaultComponent>;
@@ -100,6 +103,7 @@ describe('CrisLayoutDefaultComponent', () => {
         { provide: AuthService, useValue: authServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
+        { provide: NotificationsService, useValue: notificationService },
         // { provide: ComponentFactoryResolver, useValue: mockComponentFactoryResolver },
         ChangeDetectorRef
       ],
