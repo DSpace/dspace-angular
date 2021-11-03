@@ -10,7 +10,7 @@ import {hasValue} from '../../empty.util';
   styleUrls: ['./metric-plumx.component.scss']
 })
 export class MetricPlumxComponent extends BaseMetricComponent implements OnInit {
-  sanitizedInnerHtml: SafeHtml;
+  remark: JSON;
   private metricLoaderService: MetricLoaderService;
 
   constructor(protected sr: DomSanitizer,
@@ -20,13 +20,11 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
 
   ngOnInit() {
     if (hasValue(this.metric.remark)) {
-      const script = this.metric.remark.substring(this.metric.remark.indexOf('//cdn'), this.metric.remark.indexOf('.js') + 3);
+      this.remark = JSON.parse(this.metric.remark);
+      const script = (this.remark as any).src;
       // script is dynamic base on entityTyp and is coming from backend
       this.metricLoaderService = this.injector.get(MetricLoaderService);
       this.metricLoaderService.setScript('plumX', script);
-      // show the html
-      const stringToShow = this.metric.remark.substring(this.metric.remark.indexOf('<a'), this.metric.remark.indexOf('</a>') + 4);
-      this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(stringToShow);
     }
   }
 }

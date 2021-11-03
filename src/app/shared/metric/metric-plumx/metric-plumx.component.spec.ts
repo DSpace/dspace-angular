@@ -18,7 +18,7 @@ describe('MetricPlumxComponent', () => {
     metricCount: 333,
     metricType: 'plumX',
     rank: null,
-    remark: null,
+    remark: '{"type":"Publication","src":"//cdn.plu.mx/widget-popup.js","href":"https://plu.mx/plum/a/?doi=10.1056/NEJMe2025111"}',
     startDate: null,
     type: null,
     _links: null
@@ -45,21 +45,14 @@ describe('MetricPlumxComponent', () => {
     component.metric = metricMock;
     fixture.detectChanges();
   });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  beforeEach(() => {
-    metricMock.remark = "\"<a href ='https://plu.mx/plum/a/?doi=10.1016/j.procs.2017.03.038'" +
-      " class = 'plumx-plum-print-popup'></a><script type = 'text/javascript' src= '//cdn.plu.mx/widget-popup.js'></script>";
-    fixture = TestBed.createComponent(MetricPlumxComponent);
-    component = fixture.componentInstance;
-    component.metric = metricMock;
-    fixture.detectChanges();
-  });
-  it('should render plumx widget', () => {
-    const innerHtmlMetric = fixture.debugElement.queryAll(By.css('div'))[1];
-    expect(innerHtmlMetric.nativeElement.innerHTML).toBe( '<a href="https://plu.mx/plum/a/?doi=10.1016/j.procs.2017.03.038" class="plumx-plum-print-popup"></a>');
+  it('should render plumx widget', (done) => {
+    const innerHtmlMetric = fixture.debugElement.query(By.css('a'));
+    expect(innerHtmlMetric.nativeElement.className).toEqual('plumx-plum-print-popup');
+    expect(innerHtmlMetric.nativeElement.href).toEqual('https://plu.mx/plum/a/?doi=10.1056/NEJMe2025111');
+    done();
   });
 });
 
