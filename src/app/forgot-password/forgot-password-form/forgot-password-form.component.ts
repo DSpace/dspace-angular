@@ -12,6 +12,7 @@ import { CoreState } from '../../core/core.reducers';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-forgot-password-form',
@@ -37,12 +38,14 @@ export class ForgotPasswordFormComponent {
    */
   NOTIFICATIONS_PREFIX = 'forgot-password.form.notification';
 
-  constructor(private ePersonDataService: EPersonDataService,
-              private translateService: TranslateService,
-              private notificationsService: NotificationsService,
-              private store: Store<CoreState>,
-              private router: Router,
-              private route: ActivatedRoute,
+  constructor(
+    private ePersonDataService: EPersonDataService,
+    private translateService: TranslateService,
+    private notificationsService: NotificationsService,
+    private store: Store<CoreState>,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService,
   ) {
   }
 
@@ -75,12 +78,12 @@ export class ForgotPasswordFormComponent {
         getFirstCompletedRemoteData()
       ).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
+          this.authService.setRedirectUrlIfNotSet('/home');
           this.notificationsService.success(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.title'),
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content')
           );
           this.store.dispatch(new AuthenticateAction(this.email, this.password));
-          this.router.navigate(['/home']);
         } else {
           this.notificationsService.error(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.error.title'), response.errorMessage
