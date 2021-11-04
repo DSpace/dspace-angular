@@ -53,6 +53,8 @@ import { ThemedFooterComponent } from './footer/themed-footer.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
 
 import { UUIDService } from './core/shared/uuid.service';
 import { CookieService } from './core/services/cookie.service';
@@ -187,7 +189,9 @@ const DECLARATIONS = [
   ThemedBreadcrumbsComponent,
   ForbiddenComponent,
   ThemedForbiddenComponent,
-  IdleModalComponent
+  IdleModalComponent,
+  ThemedPageInternalServerErrorComponent,
+  PageInternalServerErrorComponent
 ];
 
 const EXPORTS = [
