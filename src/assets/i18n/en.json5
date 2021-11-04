@@ -14,9 +14,9 @@
 
   "403.forbidden": "forbidden",
 
-  "500.page-internal-server-error": "Internal Server Error",
+  "500.page-internal-server-error": "Service Unavailable",
 
-  "500.help": "There was an error with the server.",
+  "500.help": "The server is temporarily unable to service yourrequest due to maintenance downtime or capacityproblems. Please try again later.",
 
   "500.link.home-page": "Take me to the home page",
 
