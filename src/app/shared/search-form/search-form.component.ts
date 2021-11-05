@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty } from '../empty.util';
@@ -6,6 +6,12 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
+import { take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 
 /**
  * This component renders a simple item page.
@@ -22,7 +28,7 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 /**
  * Component that represents the search form
  */
-export class SearchFormComponent {
+export class SearchFormComponent implements OnInit {
   /**
    * The search query
    */
@@ -39,12 +45,9 @@ export class SearchFormComponent {
   @Input()
   scope = '';
 
-  @Input() currentUrl: string;
+  selectedScope: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
-  /**
-   * The available scopes
-   */
-  @Input() scopes: DSpaceObject[];
+  @Input() currentUrl: string;
 
   /**
    * Whether or not the search button should be displayed large
@@ -62,14 +65,32 @@ export class SearchFormComponent {
   @Input() searchPlaceholder: string;
 
   /**
+   * Defines whether or not to show the scope selector
+   */
+  @Input() showScopeSelector = false;
+
+  /**
    * Output the search data on submit
    */
   @Output() submitSearch = new EventEmitter<any>();
 
-  constructor(private router: Router, private searchService: SearchService,
+  constructor(private router: Router,
+              private searchService: SearchService,
               private paginationService: PaginationService,
-              private searchConfig: SearchConfigurationService
-              ) {
+              private searchConfig: SearchConfigurationService,
+              private modalService: NgbModal,
+              private dsoService: DSpaceObjectDataService
+  ) {
+  }
+
+  /**
+   * Retrieve the scope object from the URL so we can show its name
+   */
+  ngOnInit(): void {
+    if (isNotEmpty(this.scope)) {
+      this.dsoService.findById(this.scope).pipe(getFirstSucceededRemoteDataPayload())
+        .subscribe((scope: DSpaceObject) => this.selectedScope.next(scope));
+    }
   }
 
   /**
@@ -85,8 +106,8 @@ export class SearchFormComponent {
    * Updates the search when the current scope has been changed
    * @param {string} scope The new scope
    */
-  onScopeChange(scope: string) {
-    this.updateSearch({ scope });
+  onScopeChange(scope: DSpaceObject) {
+    this.updateSearch({ scope: scope ? scope.uuid : undefined });
   }
 
   /**
@@ -94,11 +115,11 @@ export class SearchFormComponent {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-      const queryParams =  Object.assign({}, data);
-      const pageParam = this.paginationService.getPageParam(this.searchConfig.paginationID);
-      queryParams[pageParam] = 1;
+    const queryParams = Object.assign({}, data);
+    const pageParam = this.paginationService.getPageParam(this.searchConfig.paginationID);
+    queryParams[pageParam] = 1;
 
-      this.router.navigate(this.getSearchLinkParts(), {
+    this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
       queryParamsHandling: 'merge'
     });
@@ -130,5 +151,16 @@ export class SearchFormComponent {
       return [];
     }
     return this.getSearchLink().split('/');
+  }
+
+  /**
+   * Open the scope modal so the user can select DSO as scope
+   */
+  openScopeModal() {
+    const ref = this.modalService.open(ScopeSelectorModalComponent);
+    ref.componentInstance.scopeChange.pipe(take(1)).subscribe((scope: DSpaceObject) => {
+      this.selectedScope.next(scope);
+      this.onScopeChange(scope);
+    });
   }
 }

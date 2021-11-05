@@ -1,10 +1,15 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { typedObject } from '../cache/builders/build-decorators';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE } from './external-source.resource-type';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
+import { RemoteData } from '../data/remote-data';
+import { PaginatedList } from '../data/paginated-list.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { ITEM_TYPE } from './item-relationships/item-type.resource-type';
+import { ItemType } from './item-relationships/item-type.model';
 
 /**
  * Model class for an external source
@@ -39,11 +44,19 @@ export class ExternalSource extends CacheableObject {
   hierarchical: boolean;
 
   /**
+   * The list of entity types that are compatible with this external source
+   * Will be undefined unless the entityTypes {@link HALLink} has been resolved.
+   */
+  @link(ITEM_TYPE, true)
+  entityTypes?: Observable<RemoteData<PaginatedList<ItemType>>>;
+
+  /**
    * The {@link HALLink}s for this ExternalSource
    */
   @deserialize
   _links: {
     self: HALLink;
     entries: HALLink;
+    entityTypes: HALLink;
   };
 }

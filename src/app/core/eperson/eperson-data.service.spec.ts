@@ -56,11 +56,11 @@ describe('EPersonDataService', () => {
   }
 
   function init() {
-    restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
+    restEndpointURL = 'https://rest.api/dspace-spring-rest/api/eperson';
     epersonsEndpoint = `${restEndpointURL}/epersons`;
     epeople = [EPersonMock, EPersonMock2];
     epeople$ = createSuccessfulRemoteDataObject$(createPaginatedList([epeople]));
-    rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons': epeople$ });
+    rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://rest.api/dspace-spring-rest/api/eperson/epersons': epeople$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
 
     TestBed.configureTestingModule({

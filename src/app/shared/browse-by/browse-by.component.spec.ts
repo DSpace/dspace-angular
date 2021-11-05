@@ -21,10 +21,13 @@ import { storeModuleConfig } from '../../app.reducer';
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { ThemeService } from '../theme-support/theme.service';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
   let fixture: ComponentFixture<BrowseByComponent>;
+
+  let themeService: ThemeService;
 
   const mockItems = [
     Object.assign(new Item(), {
@@ -57,6 +60,9 @@ describe('BrowseByComponent', () => {
   const paginationService = new PaginationServiceStub(paginationConfig);
 
   beforeEach(waitForAsync(() => {
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: 'dspace',
+    });
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -75,7 +81,8 @@ describe('BrowseByComponent', () => {
       ],
       declarations: [],
       providers: [
-        {provide: PaginationService, useValue: paginationService}
+        {provide: PaginationService, useValue: paginationService},
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
