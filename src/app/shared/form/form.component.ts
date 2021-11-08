@@ -274,8 +274,10 @@ export class FormComponent implements OnDestroy, OnInit {
     if (event?.type === 'authorityEnrichment') {
       event.$event.updatedModels.forEach((model) => {
         const control: FormControl = this.formBuilderService.getFormControlByModel(this.formGroup, model) as FormControl;
-        const changeEvent = this.formBuilderService.createDynamicFormControlEvent(control , control.parent as FormGroup, model, 'change');
-        this.onChange(changeEvent);
+        if (control) {
+          const changeEvent = this.formBuilderService.createDynamicFormControlEvent(control, control.parent as FormGroup, model, 'change');
+          this.onChange(changeEvent);
+        }
       });
     } else {
       this.customEvent.emit(event);
