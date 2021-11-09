@@ -1,4 +1,4 @@
-import { delay, distinctUntilChanged, filter, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,7 +9,14 @@ import {
   Optional,
   PLATFORM_ID,
 } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationStart,
+  ResolveEnd,
+  Router,
+} from '@angular/router';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -71,6 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   isThemeLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  isThemeCSSLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Whether or not the idle modal is is currently open
@@ -105,7 +113,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.themeService.getThemeName$().subscribe((themeName: string) => {
       if (isPlatformBrowser(this.platformId)) {
         // the theme css will never download server side, so this should only happen on the browser
-        this.isThemeLoading$.next(true);
+        this.isThemeCSSLoading$.next(true);
       }
       if (hasValue(themeName)) {
         this.setThemeCss(themeName);
@@ -177,17 +185,33 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.router.events.pipe(
-      // This fixes an ExpressionChangedAfterItHasBeenCheckedError from being thrown while loading the component
-      // More information on this bug-fix: https://blog.angular-university.io/angular-debugging/
-      delay(0)
-    ).subscribe((event) => {
+    let resolveEndFound = false;
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
+        resolveEndFound = false;
         this.isRouteLoading$.next(true);
+        this.isThemeLoading$.next(true);
+      } else  if (event instanceof ResolveEnd) {
+        resolveEndFound = true;
+        const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
+        this.themeService.updateThemeOnRouteChange$(event.urlAfterRedirects, activatedRouteSnapShot).pipe(
+          switchMap((changed) => {
+            if (changed) {
+              return this.isThemeCSSLoading$;
+            } else {
+              return [false];
+            }
+          })
+        ).subscribe((changed) => {
+          this.isThemeLoading$.next(changed);
+        });
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
       ) {
+        if (!resolveEndFound) {
+          this.isThemeLoading$.next(false);
+        }
         this.isRouteLoading$.next(false);
       }
     });
@@ -237,7 +261,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       }
       // the fact that this callback is used, proves we're on the browser.
-      this.isThemeLoading$.next(false);
+      this.isThemeCSSLoading$.next(false);
     };
     head.appendChild(link);
   }

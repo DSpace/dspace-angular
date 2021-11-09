@@ -74,7 +74,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
     required: null
   },
   errorMessages: {
-    required: 'submission.sections.upload.form.date-required'
+    required: 'submission.sections.upload.form.date-required-from'
   }
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
@@ -104,7 +104,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
     required: null
   },
   errorMessages: {
-    required: 'submission.sections.upload.form.date-required'
+    required: 'submission.sections.upload.form.date-required-until'
   }
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {

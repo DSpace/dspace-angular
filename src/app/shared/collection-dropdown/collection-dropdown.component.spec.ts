@@ -203,10 +203,10 @@ describe('CollectionDropdownComponent', () => {
   });
 
   it('should change loader status', () => {
-    spyOn(component.isLoadingList, 'next').and.callThrough();
+    spyOn(component.isLoading, 'next').and.callThrough();
     component.hideShowLoader(true);
 
-    expect(component.isLoadingList.next).toHaveBeenCalledWith(true);
+    expect(component.isLoading.next).toHaveBeenCalledWith(true);
   });
 
   it('reset pagination fields', () => {
@@ -226,11 +226,11 @@ describe('CollectionDropdownComponent', () => {
   });
 
   it('should emit hasChoice true when totalElements is greater then one', () => {
-    spyOn(component.hasChoice, 'emit').and.callThrough();
+    spyOn(component.searchComplete, 'emit').and.callThrough();
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.hasChoice.emit).toHaveBeenCalledWith(true);
+    expect(component.searchComplete.emit).toHaveBeenCalledWith(true);
   });
 
   it('should emit hasChoice false when totalElements is not greater then one', () => {

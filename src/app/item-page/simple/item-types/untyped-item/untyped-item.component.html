@@ -1,8 +1,20 @@
+<div class="row" *ngIf="iiifEnabled">
+  <div class="col-12">
+    <ds-mirador-viewer id="iiif-viewer"
+                   [object]="object"
+                   [searchable]="iiifSearchEnabled"
+                   [query]="iiifQuery$ | async">
+    </ds-mirador-viewer>
+  </div>
+</div>
 <div class="d-flex flex-row">
   <h2 class="item-page-title-field mr-auto">
     <ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
   </h2>
   <div class="pl-2">
+    <ds-dso-page-version-button (newVersionEvent)="onCreateNewVersion()" [dso]="object"
+                                [tooltipMsgCreate]="'item.page.version.create'"
+                                [tooltipMsgHasDraft]="'item.page.version.hasDraft'"></ds-dso-page-version-button>
     <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
   </div>
 </div>
@@ -16,7 +28,7 @@
     <ng-container *ngIf="mediaViewer.image">
       <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>
-    <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
+    <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
