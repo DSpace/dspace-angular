@@ -1,5 +1,7 @@
 {
 
+  "Biography": "English Biography",
+
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -71,6 +73,41 @@
   "menu.section.cms_metadata_edit": "Edit CMS Metadata",
 
   "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  "admin.institution.new.breadcrumbs": "Create Institution",
+
+  "admin.institution.new.error": "An error occurred while creating the new institution. Check if the template institution is defined and if an institution with the same name already exists.",
+
+  "admin.institution.new.header": "Create Institution",
+
+  "admin.institution.new.name": "Name",
+
+  "admin.institution.new.processing": "Loading",
+
+  "admin.institution.new.submit": "Submit",
+
+  "admin.institution.new.success": "The new institution was successfully created",
+
+  "admin.institution.new.title": "Create Institution",
+
+
+  "admin.institution.explore.breadcrumbs": "Explore Institutions",
+
+  "admin.institution.explore.header": "Explore Institutions",
+
+  "admin.institution.explore.entities": "Entities",
+
+  "admin.institution.explore.name": "Institution name",
+
+  "admin.institution.explore.no-entities": "No available entities",
+
+  "admin.institution.explore.no-roles": "No available roles",
+
+  "admin.institution.explore.roles": "Institutional Scoped Roles",
+
+  "admin.institution.explore.title": "Explore Institutions",
+
+
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -324,6 +361,10 @@
 
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
+  "admin.access-control.epeople.form.roles": "Roles",
+
+  "admin.access-control.epeople.form.rolesNoAvailable": "No roles available",
+
   "admin.access-control.epeople.form.table.id": "ID",
 
   "admin.access-control.epeople.form.table.name": "Name",
@@ -337,6 +378,19 @@
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
 
 
+  "admin.access-control.groups.badge.disabled": "Disabled",
+
+  "admin.access-control.groups.badge.enabled": "Enabled",
+
+  "admin.access-control.groups.badge.permanent": "Permanent",
+
+  "admin.access-control.groups.badge.institutional": "Institutional Role",
+
+  "admin.access-control.groups.badge.normal": "Normal",
+
+  "admin.access-control.groups.badge.role": "Role",
+
+  "admin.access-control.groups.badge.scoped": "Institutional Scoped Role",
 
   "admin.access-control.groups.title": "Groups",
 
@@ -350,7 +404,7 @@
 
   "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
 
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Groups/Roles",
 
   "admin.access-control.groups.button.add": "Add group",
 
@@ -370,9 +424,13 @@
 
   "admin.access-control.groups.table.edit": "Edit",
 
+  "admin.access-control.groups.table.edit.buttons.disable": "Disable \"{{name}}\"",
+
   "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
 
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.type": "Type",
+
+  "admin.access-control.groups.table.status": "Status",
 
   "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
 
@@ -399,6 +457,22 @@
   "admin.access-control.groups.form.groupName": "Group name",
 
   "admin.access-control.groups.form.groupDescription": "Description",
+
+  "admin.access-control.groups.form.groupStatus": "Status",
+
+  "admin.access-control.groups.form.groupStatus.enabled": "Enabled",
+
+  "admin.access-control.groups.form.groupStatus.disabled": "Disabled",
+
+  "admin.access-control.groups.form.groupType": "Type",
+
+  "admin.access-control.groups.form.groupType.institutional": "Institutional Role type",
+
+  "admin.access-control.groups.form.groupType.normal": "Normal type",
+
+  "admin.access-control.groups.form.groupType.role": "Role type",
+
+  "admin.access-control.groups.form.groupType.scoped": "Institutional Scoped Role type",
 
   "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
 
@@ -3077,7 +3151,7 @@
 
   "mydspace.notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
 
-  "mydspace.notification.suggestion.page": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
+  "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
   "nav.browse.header": "All of DSpace",
 
@@ -3253,7 +3327,7 @@
 
   "reciter.suggestion.approveAndImport": "Approve & import",
 
-  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully",
+  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
 
   "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
 
@@ -3271,6 +3345,8 @@
 
   "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
 
+  "reciter.suggestion.empty": "All the <b>{{type}}</b> suggestions in the {{source}}<br> related to your profile have been either approved or rejected.",
+
   "reciter.suggestion.seeEvidence": "See evidence",
 
   "reciter.suggestion.hideEvidence": "Hide evidence",
@@ -3285,9 +3361,7 @@
 
   "reciter.suggestion.totalScore": "Total Score",
 
-
-
-
+  "reciter.suggestion.type.oaire": "Publications",
 
 
   "orgunit.listelement.badge": "Organizational Unit",

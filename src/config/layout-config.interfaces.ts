@@ -14,3 +14,8 @@ export interface LayoutConfig extends Config {
   urn: UrnConfig[];
   crisRef: CrisRefConfig[];
 }
+
+export interface SuggestionConfig extends Config {
+  source: string;
+  collectionId: string;
+}

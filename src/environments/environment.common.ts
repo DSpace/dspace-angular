@@ -23,8 +23,8 @@ export const environment: GlobalConfig = {
   // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
   rest: {
     ssl: true,
-    host: 'localhost',
-    port: 8080,
+    host: 'dspacecris7.4science.cloud',
+    port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server',
   },
@@ -389,6 +389,13 @@ export const environment: GlobalConfig = {
       }
     ]
   },
+  suggestion: [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+  ],
   cms: {
     metadataList: [
       'cms.homepage.header',
