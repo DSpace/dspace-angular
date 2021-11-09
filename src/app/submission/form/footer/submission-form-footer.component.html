@@ -34,7 +34,7 @@
               [class.btn-secondary]="(showDepositAndDiscard | async)"
               class="btn"
               id="saveForLater"
-              [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+              [disabled]="(submissionIsInvalid | async) || (processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="saveLater($event)">
       <span><i class="fas fa-save"></i> {{saveForLaterLabel() | translate}}</span>
       </button>
