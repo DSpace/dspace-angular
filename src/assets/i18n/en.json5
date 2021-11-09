@@ -1566,6 +1566,10 @@
 
   "explore.index.author" : "Author",
 
+  "explore.index.graphitemtype" : "Graph by type",
+
+  "explore.index.graphpubldate" : "Graph by date",
+
   "explore.index.birthDate" : "Birthday",
 
   "explore.index.metric.view" : "Most viewed",
