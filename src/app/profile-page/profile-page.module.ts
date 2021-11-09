@@ -17,8 +17,11 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     UiSwitchModule
   ],
   exports: [
+    ProfilePageComponent,
+    ThemedProfilePageComponent,
+    ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageMetadataFormComponent
+    ProfilePageResearcherFormComponent
   ],
   declarations: [
     ProfilePageComponent,
