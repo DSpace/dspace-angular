@@ -19,6 +19,7 @@ export function CrisLayoutPage(objectType: LayoutPage) {
 export function getCrisLayoutPage(item: Item): any {
   let componentLayout;
   const objectType = item.firstMetadataValue(ITEM_METADATA_TYPE);
+
   if (hasNoValue(objectType) || hasNoValue(layoutPageMap.get(objectType))) {
     componentLayout = layoutPageMap.get(DEFAULT_LAYOUT_PAGE);
   } else {

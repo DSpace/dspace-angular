@@ -1,0 +1,141 @@
+import { async as realAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { cold } from 'jasmine-marbles';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { SharedModule } from '../shared/shared.module';
+
+import { CrisLayoutComponent } from './cris-layout.component';
+import { Item } from '../core/shared/item.model';
+import { createPaginatedList } from '../shared/testing/utils.test';
+import { TabDataService } from '../core/layout/tab-data.service';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { leadingTabs, loaderTabs, bothTabs } from '../shared/testing/new-layout-tabs';
+import { By } from '@angular/platform-browser';
+import { tap } from 'rxjs/operators';
+
+const mockItem = Object.assign(new Item(), {
+  id: 'fake-id',
+  handle: 'fake/handle',
+  lastModified: '2018',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'test'
+      }
+    ],
+    'dspace.entity.type': [
+      {
+        language: null,
+        value: 'Person'
+      }
+    ]
+  }
+});
+
+const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
+  findByItem: jasmine.createSpy('findByItem')
+});
+
+// tslint:disable-next-line:prefer-const
+describe('CrisLayoutComponent', () => {
+  let component: CrisLayoutComponent;
+  let fixture: ComponentFixture<CrisLayoutComponent>;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), BrowserAnimationsModule, SharedModule],
+      declarations: [CrisLayoutComponent],
+      providers: [
+        { provide: TabDataService, useValue: tabDataServiceMock },
+        { provide: ChangeDetectorRef, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CrisLayoutComponent);
+    component = fixture.componentInstance;
+    component.item = mockItem;
+    tabDataServiceMock.findByItem.and.returnValue(observableOf(leadingTabs));
+    fixture.detectChanges();
+  });
+
+  describe('When the component is rendered', () => {
+
+    it('CrisLayoutComponent should initialize', () => {
+      expect(component).toBeDefined();
+    });
+
+    it('getTabsByItem to have been called', () => {
+
+      const spyOnGetTabsByItem = spyOn(component,'getTabsByItem');
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(spyOnGetTabsByItem).toHaveBeenCalled();
+    });
+
+    it('getLeadingTabs to have been called', () => {
+
+      const spyOnGetLeadingTabs = spyOn(component,'getLeadingTabs');
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(spyOnGetLeadingTabs).toHaveBeenCalled();
+    });
+
+    it('getLoaderTabs to have been called', () => {
+
+      const spyOnGetLoaderTabs = spyOn(component,'getLoaderTabs');
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(spyOnGetLoaderTabs).toHaveBeenCalled();
+    });
+
+
+    it('it should show only ds-cris-layout-leading when only leading tabs', () => {
+      tabDataServiceMock.findByItem.and.returnValue(observableOf(leadingTabs));
+      component.ngOnInit();
+      component.tabs$ = observableOf(leadingTabs);
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeNull();
+    });
+
+    it('it should show only ds-cris-layout-loader when only loader tabs', () => {
+      tabDataServiceMock.findByItem.and.returnValue(observableOf(loaderTabs));
+      component.ngOnInit();
+      component.tabs$ = observableOf(loaderTabs);
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeNull();
+    });
+
+
+    it('it should show both when both types of tabs', () => {
+      tabDataServiceMock.findByItem.and.returnValue(observableOf(bothTabs));
+      component.ngOnInit();
+      component.tabs$ = observableOf(bothTabs);
+      fixture.detectChanges();
+      expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
+    });
+
+  });
+
+});

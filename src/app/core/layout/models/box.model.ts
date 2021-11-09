@@ -9,7 +9,7 @@ import { HALLink } from '../../shared/hal-link.model';
 import { SEARCH_COMPONENT } from './search-component.resource-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
-import { SearchComponent } from './search-component.model';
+import { MetadataComponent } from './metadata-component.model';
 
 /**
  * Describes a type of Box
@@ -57,14 +57,20 @@ export class Box extends CacheableObject {
   @autoserialize
   style: string;
 
-  @autoserialize
-  priority: number;
+  // @autoserialize
+  // priority: number;
 
   @autoserialize
   clear: boolean;
 
+  // @autoserialize
+  // maxColumns: number;
+
   @autoserialize
-  maxColumns: number;
+  maxColumn: number;
+
+  @autoserialize
+  metadataSecurityFields: string[];
 
   @autoserialize
   security: number;
@@ -72,20 +78,33 @@ export class Box extends CacheableObject {
   @autoserialize
   boxType: string;
 
+  @autoserialize
+  configuration: Configuration;
+
   /**
    * The {@link HALLink}s for this Tab
    */
   @deserialize
   _links: {
     self: HALLink,
-    configuration: HALLink
   };
 
-  /**
-   * The configuration for this Box
-   * Will be undefined unless the configuration {@link HALLink} has been resolved.
-   */
-  @link(SEARCH_COMPONENT)
-  configuration?: Observable<RemoteData<SearchComponent>>;
+}
 
+
+export interface Configuration {
+  id: string;
+  rows: Row[];
+}
+
+
+export interface Row {
+  fields: LayoutField[];
+}
+
+export interface LayoutField {
+  metadata?: string;
+  label?: string;
+  fieldType: string;
+  labelAsHeading: string;
 }

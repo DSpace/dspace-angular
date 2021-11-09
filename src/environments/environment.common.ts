@@ -368,7 +368,15 @@ export const environment: GlobalConfig = {
         entityType: 'ORGUNIT',
         icon: 'fa fa-university'
       }
-    ]
+    ],
+    itemPage: {
+      Person: {
+          orientation: 'horizontal'
+      },
+      default: {
+          orientation: 'vertical'
+      },
+    },
   },
   security: {
     levels: [

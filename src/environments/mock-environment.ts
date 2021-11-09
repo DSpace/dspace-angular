@@ -269,7 +269,15 @@ export const environment: Partial<GlobalConfig> = {
         entityType: 'ORGUNIT',
         icon: 'fa fa-university'
       }
-    ]
+    ],
+    itemPage:{
+      Publication: {
+        orientation : 'horizontal'
+      },
+      default:{
+        orientation: 'vertical'
+      }
+    }
   },
   security: {
     levels: [

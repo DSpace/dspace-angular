@@ -10,7 +10,18 @@ export interface CrisRefConfig extends Config {
   icon: string;
 }
 
+export interface Layout {
+  orientation: string;
+}
+
+export interface ItemPageLayoutConfig extends Config {
+  [entity: string]: Layout;
+  default: Layout;
+}
+
+
 export interface LayoutConfig extends Config {
   urn: UrnConfig[];
   crisRef: CrisRefConfig[];
+  itemPage: ItemPageLayoutConfig;
 }

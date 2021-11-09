@@ -74,8 +74,8 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
         (next) => {
           this.metricscomponents = next;
           this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload()).subscribe((result) => {
-            this.metricRows = this.metricscomponentsService
-              .getMatchingMetrics(result.page, this.box.maxColumns, this.metricscomponents.metrics);
+            // this.metricRows = this.metricscomponentsService
+            //   .getMatchingMetrics(result.page, this.box.maxColumns, this.metricscomponents.metrics);
             this.cd.markForCheck();
           });
         }

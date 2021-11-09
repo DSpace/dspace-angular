@@ -1,0 +1,90 @@
+import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
+import { Item } from '../../core/shared/item.model';
+import { Tab } from '../../core/layout/models/tab.model';
+import { environment } from '../../../environments/environment';
+import { Layout } from '../../../config/layout-config.interfaces';
+import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { getCrisLayoutPage } from '../decorators/cris-layout-page.decorator';
+
+@Component({
+  selector: 'ds-cris-layout-loader',
+  templateUrl: './cris-layout-loader.component.html',
+  styleUrls: ['./cris-layout-loader.component.scss']
+})
+export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
+
+  /**
+   * DSpace Item to render
+   */
+  @Input() item: Item;
+
+  /**
+   * Tabs to render
+   */
+  @Input() tabs: Tab[];
+
+  /**
+   * Configuration layout form the environment
+   */
+  layoutConfiguration: Layout;
+
+
+  /**
+   * Directive hook used to place the dynamic child component
+   */
+  @ViewChild(CrisLayoutLoaderDirective, {static: true}) crisLayoutLoader: CrisLayoutLoaderDirective;
+
+  /**
+   * componentRef reference of the component that will be created
+   */
+  componentRef: ComponentRef<Component>;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  ngOnInit(): void {
+    this.getConfiguration();
+    this.initComponent();
+  }
+
+ /**
+  * Get tabs for the specific item and the configuration for the item
+  */
+  getConfiguration(): void {
+      const itemType = this.item?.firstMetadataValue('dspace.entity.type');
+      const def = 'default';
+
+      if ( !!environment.layout.itemPage && !!environment.layout.itemPage[itemType] ) {
+        this.layoutConfiguration = environment.layout.itemPage[itemType];
+      } else {
+        this.layoutConfiguration = environment.layout.itemPage[def];
+      }
+  }
+
+ /**
+  * Initialize the component depending the layout configuration
+  */
+  initComponent(): void {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
+    viewContainerRef.clear();
+
+    this.componentRef = viewContainerRef.createComponent(componentFactory);
+    (this.componentRef.instance as any).item = this.item;
+    (this.componentRef.instance as any).tabs = this.tabs;
+  }
+
+  /**
+   * Fetch the component depending on the item
+   * @returns {GenericConstructor<Component>}
+   */
+  private getComponent(): GenericConstructor<Component> {
+    return getCrisLayoutPage(this.layoutConfiguration.orientation);
+  }
+
+  ngOnDestroy(): void {
+    if (this.componentRef) {
+      this.componentRef.destroy();
+    }
+  }
+}

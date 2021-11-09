@@ -54,6 +54,12 @@ export class Tab extends CacheableObject {
   isActive?: boolean;
 
   /**
+   * This property is used from leading component
+   */
+  leading?: boolean;
+
+  rows?: Row[];
+  /**
    * The universally unique identifier of this Tab
    * This UUID is generated client-side and isn't used by the backend.
    * It is based on the ID, so it will be the same for each refresh.
@@ -82,4 +88,17 @@ export class Tab extends CacheableObject {
    * Contains nested tabs if exist
    */
   children?: Tab[];
+}
+
+
+export interface Row {
+  style: string;
+  cells: Cell[];
+}
+
+
+
+export interface Cell {
+  style: string;
+  boxes: Box[];
 }

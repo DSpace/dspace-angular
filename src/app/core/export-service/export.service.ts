@@ -4,7 +4,7 @@ import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 import * as htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
-import { Options } from 'html-to-image/es/options';
+// import { Options } from 'html-to-image/es/options';
 
 export enum ExportImageType {
   png = 'png',
@@ -51,7 +51,7 @@ export class ExportService {
    */
   exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>): void {
 
-    const options: Options = { backgroundColor: '#ffffff' };
+    const options = { backgroundColor: '#ffffff' };
 
     if (type === ExportImageType.png) {
       htmlToImage.toPng(domNode, options)
