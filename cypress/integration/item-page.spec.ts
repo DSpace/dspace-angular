@@ -12,7 +12,7 @@ describe('Item  Page', () => {
         cy.location('pathname').should('eq', ENTITYPAGE);
     });
 
-    xit('should pass accessibility tests', () => {
+    it('should pass accessibility tests', () => {
         cy.visit(ENTITYPAGE);
 
         // <ds-item-page> tag must be loaded
