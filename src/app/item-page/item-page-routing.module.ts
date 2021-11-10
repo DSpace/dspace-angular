@@ -16,6 +16,7 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { CrisItemPageTabResolver } from '../cris-item-page/cris-item-page-tab.resolver';
+import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 
 @NgModule({
   imports: [
@@ -51,7 +52,7 @@ import { CrisItemPageTabResolver } from '../cris-item-page/cris-item-page-tab.re
             canActivate: [AuthenticatedGuard]
           },
           {
-            path: ':request-a-copy',
+            path: REQUEST_COPY_MODULE_PATH,
             component: BitstreamRequestACopyPageComponent,
           }
         ],
