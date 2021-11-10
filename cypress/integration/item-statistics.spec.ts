@@ -1,7 +1,7 @@
 import { TEST_ENTITY_PUBLICATION } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
-describe('Item Statistics Page', () => {
+xdescribe('Item Statistics Page', () => {
     const ITEMSTATISTICSPAGE = '/statistics/items/' + TEST_ENTITY_PUBLICATION;
 
     it('should load if you click on "Statistics" from an Item/Entity page', () => {

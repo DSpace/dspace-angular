@@ -2,7 +2,7 @@ import { Options } from 'cypress-axe';
 import { TEST_ENTITY_PUBLICATION } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
-describe('Item  Page', () => {
+xdescribe('Item  Page', () => {
     const ITEMPAGE = '/items/' + TEST_ENTITY_PUBLICATION;
     const ENTITYPAGE = '/entities/publication/' + TEST_ENTITY_PUBLICATION;
 

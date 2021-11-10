@@ -1,4 +1,5 @@
 import { testA11y } from 'cypress/support/utils';
+import { Options } from 'cypress-axe';
 
 describe('Footer', () => {
     it('should pass accessibility tests', () => {
@@ -8,6 +9,12 @@ describe('Footer', () => {
         cy.get('ds-footer').should('be.visible');
 
         // Analyze <ds-footer> for accessibility
-        testA11y('ds-footer');
+        testA11y('ds-footer',
+          {
+            rules: {
+              'heading-order': { enabled: false }
+            }
+          } as Options
+        );
     });
 });

@@ -1,6 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
-describe('Site Statistics Page', () => {
+xdescribe('Site Statistics Page', () => {
     it('should load if you click on "Statistics" from homepage', () => {
         cy.visit('/');
         cy.get('ds-navbar ds-link-menu-item a[title="Statistics"]').click();

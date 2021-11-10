@@ -17,7 +17,8 @@ describe('Community List Page', () => {
         testA11y('ds-community-list-page',
             {
                 rules: {
-                    'heading-order': { enabled: false }
+                    'heading-order': { enabled: false },
+                    'button-name': { enabled: false },
                 }
             } as Options
         );
