@@ -101,7 +101,7 @@ describe('WorkspaceitemDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: jasmine.createSpy('getEndpoint')
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -117,7 +117,9 @@ describe('WorkspaceitemDataService test', () => {
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
           a: wsiRD
-        })
+        }),
+        buildFromRequestUUID : observableOf({}),
+        toRemoteDataObservable: observableOf({}),
       });
 
       service = initTestService();
@@ -131,6 +133,10 @@ describe('WorkspaceitemDataService test', () => {
     });
 
     describe('findByItem', () => {
+      beforeEach(() => {
+        (halService.getEndpoint as any).and.returnValue(cold('a', { a: endpointURL }));
+      });
+
       it('should proxy the call to DataService.findByHref', () => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
@@ -147,27 +153,30 @@ describe('WorkspaceitemDataService test', () => {
       });
 
     });
-  });
 
-  describe('importExternalSourceEntry', () => {
-    let result;
+    describe('importExternalSourceEntry', () => {
+      let result;
 
-    const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
-      display: 'John, Doe',
-      value: 'John, Doe',
-      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
-    });
+      const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
+        display: 'John, Doe',
+        value: 'John, Doe',
+        _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+      });
 
-    beforeEach(() => {
-      service = initTestService();
-      result = service.importExternalSourceEntry(externalSourceEntry._links.self.href, 'collection-id');
-    });
+      beforeEach(() => {
+        service = initTestService();
+        (halService.getEndpoint as any).and.returnValue(observableOf(endpointURL));
+        result = service.importExternalSourceEntry(externalSourceEntry._links.self.href, 'collection-id');
+      });
 
-    it('should configure a POST request', (done) => {
-      result.subscribe(() => {
-        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
-        done();
+      it('should configure a POST request', (done) => {
+        result.subscribe(() => {
+          expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
+          done();
+        });
       });
     });
   });
+
+
 });
