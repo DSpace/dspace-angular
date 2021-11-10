@@ -1,7 +1,7 @@
 import { TEST_COLLECTION } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
-describe('Collection Statistics Page', () => {
+xdescribe('Collection Statistics Page', () => {
     const COLLECTIONSTATISTICSPAGE = '/statistics/collections/' + TEST_COLLECTION;
 
     it('should load if you click on "Statistics" from a Collection page', () => {

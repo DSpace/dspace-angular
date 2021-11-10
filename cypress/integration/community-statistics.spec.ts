@@ -1,7 +1,7 @@
 import { TEST_COMMUNITY } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
-describe('Community Statistics Page', () => {
+xdescribe('Community Statistics Page', () => {
     const COMMUNITYSTATISTICSPAGE = '/statistics/communities/' + TEST_COMMUNITY;
 
     it('should load if you click on "Statistics" from a Community page', () => {
