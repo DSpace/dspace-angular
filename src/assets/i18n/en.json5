@@ -1497,7 +1497,6 @@
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
 
-
   "confirmation-modal.delete-subscription.header": "Delete Subscription for \"{{ dsoName }}\"",
 
   "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
@@ -1505,6 +1504,15 @@
   "confirmation-modal.delete-subscription.cancel": "Cancel",
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
+
+  "confirmation-modal.pending-changes.header": "TODO Pending changes header",
+
+  "confirmation-modal.pending-changes.info": "TODO Pending changes info",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
 
   "dataset.listelement.badge" : "Dataset",
 
