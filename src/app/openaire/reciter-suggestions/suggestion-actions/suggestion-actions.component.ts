@@ -18,9 +18,11 @@ export class SuggestionActionsComponent {
 
   @Input() isBulk = false;
 
-  @Input() public hasEvidence = false;
+  @Input() hasEvidence = false;
 
-  @Input() public seeEvidence = false;
+  @Input() seeEvidence = false;
+
+  @Input() isCollectionFixed = false;
 
   /**
    * The component is used to Delete suggestion
@@ -57,6 +59,14 @@ export class SuggestionActionsComponent {
         });
       });
   }
+
+  approveAndImportCollectionFixed() {
+    this.approveAndImport.emit({
+      suggestion: this.isBulk ? undefined : this.object,
+      collectionId: null
+    });
+  }
+
 
   /**
    * Delete the suggestion
