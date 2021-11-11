@@ -2430,7 +2430,7 @@
 
   "menu.section.icon.control_panel": "Control Panel menu section",
 
-  "menu.section.icon.curation_task": "Curation Task menu section",
+  "menu.section.icon.curation_tasks": "Curation Task menu section",
 
   "menu.section.icon.edit": "Edit menu section",
 
@@ -2449,6 +2449,8 @@
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
+
+  "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
