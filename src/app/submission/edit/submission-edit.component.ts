@@ -98,6 +98,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   public metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
+  private canDeactivate = false;
+
   /**
    * Initialize instance variables
    *
@@ -131,14 +133,16 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   // @HostListener allows to also guard against browser refresh, close, etc.
   @HostListener('window:beforeunload')
   preventRefresh(): boolean {
-    // this.canDeactivateService.canDeactivate();
-    return true;
+    return this.canDeactivate;
   }
 
   /**
    * Retrieve workspaceitem/workflowitem from server and initialize all instance variables
    */
   ngOnInit() {
+    this.canDeactivateService.canDeactivate().subscribe((res) => {
+      this.canDeactivate = res;
+    });
     this.subs.push(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id')).pipe(
