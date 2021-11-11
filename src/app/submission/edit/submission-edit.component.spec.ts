@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { SubmissionEditComponent } from './submission-edit.component';
@@ -22,14 +22,19 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
+import SpyObj = jasmine.SpyObj;
 
-describe('SubmissionEditComponent Component', () => {
+fdescribe('SubmissionEditComponent Component', () => {
 
   let comp: SubmissionEditComponent;
   let fixture: ComponentFixture<SubmissionEditComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
+
   let itemDataService: ItemDataService;
   let metadataSecurityConfigDataService: MetadataSecurityConfigurationService;
+  let canDeactivateService: SubmissionEditCanDeactivateService;
+
+  let submissionServiceStub: SubmissionServiceStub;
   let submissionJsonPatchOperationsServiceStub: SubmissionJsonPatchOperationsServiceStub;
   let router: RouterStub;
 
@@ -40,6 +45,9 @@ describe('SubmissionEditComponent Component', () => {
     findById: jasmine.createSpy('findById'),
     getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
     getAuthorizedCollectionByCommunityAndEntityType: jasmine.createSpy('getAuthorizedCollectionByCommunityAndEntityType')
+  });
+  const canDeactivateServiceSpy: SpyObj<SubmissionEditCanDeactivateService> = jasmine.createSpyObj('canDeactivateService', {
+    canDeactivate: of(true),
   });
 
   beforeEach(waitForAsync(() => {
@@ -68,7 +76,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },
-
+        { provide: SubmissionEditCanDeactivateService, useValue: canDeactivateServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -80,6 +88,7 @@ describe('SubmissionEditComponent Component', () => {
     submissionServiceStub = TestBed.inject(SubmissionService as any);
     submissionJsonPatchOperationsServiceStub = TestBed.inject(SubmissionJsonPatchOperationsService as any);
     router = TestBed.inject(Router as any);
+    canDeactivateService = TestBed.inject(SubmissionEditCanDeactivateService);
   });
 
   afterEach(() => {
