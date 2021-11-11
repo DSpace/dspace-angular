@@ -1,83 +1,182 @@
 import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { TestScheduler } from 'rxjs/testing';
+
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
-import { CoreState } from '../core.reducers';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RequestService } from '../data/request.service';
+import { PageInfo } from '../shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { RequestEntry } from '../data/request.reducer';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
 import { PostRequest } from '../data/request.models';
-import { RequestEntry } from '../data/request.reducer';
-import { RequestService } from '../data/request.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { RestResponse } from '../cache/response.models';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { Item } from '../shared/item.model';
+import { WorkspaceItem } from './models/workspaceitem.model';
 
-describe('WorkspaceitemDataService', () => {
+describe('WorkspaceitemDataService test', () => {
+  let scheduler: TestScheduler;
   let service: WorkspaceitemDataService;
-  const requestService = Object.assign(getMockRequestService(), {
-    generateRequestId(): string {
-      return scopeID;
-    },
-    getByHref(requestHref: string) {
-      const responseCacheEntry = new RequestEntry();
-      responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
-    },
-    removeByHrefSubstring(href: string) {
-      // Do nothing
+  let requestService: RequestService;
+  let rdbService: RemoteDataBuildService;
+  let objectCache: ObjectCacheService;
+  let halService: HALEndpointService;
+  let hrefOnlyDataService: HrefOnlyDataService;
+  let responseCacheEntry: RequestEntry;
+
+  const item = Object.assign(new Item(), {
+    id: '1234-1234',
+    uuid: '1234-1234',
+    bundles: observableOf({}),
+    metadata: {
+      'dc.title': [
+        {
+          language: 'en_US',
+          value: 'This is just another title'
+        }
+      ],
+      'dc.type': [
+        {
+          language: null,
+          value: 'Article'
+        }
+      ],
+      'dc.contributor.author': [
+        {
+          language: 'en_US',
+          value: 'Smith, Donald'
+        }
+      ],
+      'dc.date.issued': [
+        {
+          language: null,
+          value: '2015-06-26'
+        }
+      ]
     }
-  }) as RequestService;
-  const rdbService = jasmine.createSpyObj('rdbService', {
-    toRemoteDataObservable: observableOf({}),
-    buildFromRequestUUID : observableOf({})
   });
+  const itemRD = createSuccessfulRemoteDataObject(item);
+  const wsi = Object.assign(new WorkspaceItem(), { item: observableOf(itemRD), id: '1234', uuid: '1234' });
+  const wsiRD = createSuccessfulRemoteDataObject(wsi);
 
-  const store = {} as Store<CoreState>;
-  const objectCache = {} as ObjectCacheService;
+  const endpointURL = `https://rest.api/rest/api/submission/workspaceitems`;
+  const searchRequestURL = `https://rest.api/rest/api/submission/workspaceitems/search/item?uuid=1234-1234`;
+  const searchRequestURL$ = observableOf(searchRequestURL);
 
+  const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
 
-  const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
-
+  objectCache = {} as ObjectCacheService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const workspaceitemEndpoint = 'https://rest.api/submissions/workspaceitems';
-  const halEndpointService = jasmine.createSpyObj('halService', {
-    getEndpoint: observableOf(workspaceitemEndpoint)
-  });
+  const comparatorEntry = {} as any;
+  const store = {} as Store<CoreState>;
+  const pageInfo = new PageInfo();
 
   function initTestService() {
+    hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
-      comparator,
-      halEndpointService,
+      comparatorEntry,
+      halService,
       http,
       notificationsService,
       requestService,
       rdbService,
       objectCache,
-      store,
+      store
     );
   }
 
-  describe('importExternalSourceEntry', () => {
-    let result;
-
-    const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
-      display: 'John, Doe',
-      value: 'John, Doe',
-      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
-    });
-
+  describe('', () => {
     beforeEach(() => {
+
+      scheduler = getTestScheduler();
+
+      halService = jasmine.createSpyObj('halService', {
+        getEndpoint: jasmine.createSpy('getEndpoint')
+      });
+      responseCacheEntry = new RequestEntry();
+      responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+      responseCacheEntry.response = new RestResponse(true, 200, 'Success');
+
+      requestService = jasmine.createSpyObj('requestService', {
+        generateRequestId: requestUUID,
+        send: true,
+        removeByHrefSubstring: {},
+        getByHref: observableOf(responseCacheEntry),
+        getByUUID: observableOf(responseCacheEntry),
+      });
+      rdbService = jasmine.createSpyObj('rdbService', {
+        buildSingle: hot('a|', {
+          a: wsiRD
+        }),
+        buildFromRequestUUID : observableOf({}),
+        toRemoteDataObservable: observableOf({}),
+      });
+
       service = initTestService();
-      result = service.importExternalSourceEntry(externalSourceEntry._links.self.href, 'collection-id');
+
+      spyOn((service as any), 'findByHref').and.callThrough();
+      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
     });
 
-    it('should configure a POST request', (done) => {
-      result.subscribe(() => {
-        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
-        done();
+    afterEach(() => {
+      service = null;
+    });
+
+    describe('findByItem', () => {
+      beforeEach(() => {
+        (halService.getEndpoint as any).and.returnValue(cold('a', { a: endpointURL }));
+      });
+
+      it('should proxy the call to DataService.findByHref', () => {
+        scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
+        scheduler.flush();
+
+        expect((service as any).findByHref).toHaveBeenCalledWith(searchRequestURL$, true, true);
+      });
+
+      it('should return a RemoteData<WorkspaceItem> for the search', () => {
+        const result = service.findByItem('1234-1234', true, true, pageInfo);
+        const expected = cold('a|', {
+          a: wsiRD
+        });
+        expect(result).toBeObservable(expected);
+      });
+
+    });
+
+    describe('importExternalSourceEntry', () => {
+      let result;
+
+      const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
+        display: 'John, Doe',
+        value: 'John, Doe',
+        _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+      });
+
+      beforeEach(() => {
+        service = initTestService();
+        (halService.getEndpoint as any).and.returnValue(observableOf(endpointURL));
+        result = service.importExternalSourceEntry(externalSourceEntry._links.self.href, 'collection-id');
+      });
+
+      it('should configure a POST request', (done) => {
+        result.subscribe(() => {
+          expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
+          done();
+        });
       });
     });
   });
+
+
 });

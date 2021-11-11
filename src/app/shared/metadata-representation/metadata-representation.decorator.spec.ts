@@ -7,12 +7,17 @@ import {
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { Context } from '../../core/shared/context.model';
 import * as uuidv4 from 'uuid/v4';
+import { environment } from '../../../environments/environment';
+
+let ogEnvironmentThemes;
 
 describe('MetadataRepresentation decorator function', () => {
   const type1 = 'TestType';
   const type2 = 'TestType2';
   const type3 = 'TestType3';
   const type4 = 'RandomType';
+  const typeAncestor = 'TestTypeAncestor';
+  const typeUnthemed = 'TestTypeUnthemed';
   let prefix;
 
   /* tslint:disable:max-classes-per-file */
@@ -31,6 +36,12 @@ describe('MetadataRepresentation decorator function', () => {
   class Test3ItemSubmission {
   }
 
+  class TestAncestorComponent {
+  }
+
+  class TestUnthemedComponent {
+  }
+
   /* tslint:enable:max-classes-per-file */
 
   beforeEach(() => {
@@ -46,7 +57,17 @@ describe('MetadataRepresentation decorator function', () => {
     metadataRepresentationComponent(key + type2, MetadataRepresentationType.Item, Context.Workspace)(Test2ItemSubmission);
 
     metadataRepresentationComponent(key + type3, MetadataRepresentationType.Item, Context.Workspace)(Test3ItemSubmission);
+
+    // Register a metadata representation in the 'ancestor' theme
+    metadataRepresentationComponent(key + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'ancestor')(TestAncestorComponent);
+    metadataRepresentationComponent(key + typeUnthemed, MetadataRepresentationType.Item, Context.Any)(TestUnthemedComponent);
+
+    ogEnvironmentThemes = environment.themes;
   }
+
+  afterEach(() => {
+    environment.themes = ogEnvironmentThemes;
+  });
 
   describe('If there\'s an exact match', () => {
     it('should return the matching class', () => {
@@ -73,6 +94,57 @@ describe('MetadataRepresentation decorator function', () => {
           const component = getMetadataRepresentationComponent(prefix + type4, MetadataRepresentationType.AuthorityControlled);
           expect(component).toEqual(defaultComponent);
         });
+      });
+    });
+  });
+
+  describe('With theme extensions', () => {
+    // We're only interested in the cases that the requested theme doesn't match the requested entityType,
+    // as the cases where it does are already covered by the tests above
+    describe('If requested theme has no match', () => {
+      beforeEach(() => {
+        environment.themes = [
+          {
+            name: 'requested',        // Doesn't match any entityType
+            extends: 'intermediate',
+          },
+          {
+            name: 'intermediate',     // Doesn't match any entityType
+            extends: 'ancestor',
+          },
+          {
+            name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
+          }
+        ];
+      });
+
+      it('should return component from the first ancestor theme that matches its entityType', () => {
+        const component = getMetadataRepresentationComponent(prefix + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'requested');
+        expect(component).toEqual(TestAncestorComponent);
+      });
+
+      it('should return default component if none of the ancestor themes match its entityType', () => {
+        const component = getMetadataRepresentationComponent(prefix + typeUnthemed, MetadataRepresentationType.Item, Context.Any, 'requested');
+        expect(component).toEqual(TestUnthemedComponent);
+      });
+    });
+
+    describe('If there is a theme extension cycle', () => {
+      beforeEach(() => {
+        environment.themes = [
+          { name: 'extension-cycle', extends: 'broken1' },
+          { name: 'broken1', extends: 'broken2' },
+          { name: 'broken2', extends: 'broken3' },
+          { name: 'broken3', extends: 'broken1' },
+        ];
+      });
+
+      it('should throw an error', () => {
+        expect(() => {
+          getMetadataRepresentationComponent(prefix + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'extension-cycle');
+        }).toThrowError(
+          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
+        );
       });
     });
   });

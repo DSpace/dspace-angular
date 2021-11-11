@@ -14,12 +14,12 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
+import { FindListOptions, PostRequest } from '../data/request.models';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { find, map, switchMap } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { PostRequest } from '../data/request.models';
-import { RequestEntry } from '../data/request.reducer';
-import { getResponseFromEntry } from '../shared/operators';
+import { find, map } from 'rxjs/operators';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
@@ -28,6 +28,7 @@ import { getResponseFromEntry } from '../shared/operators';
 @dataService(WorkspaceItem.type)
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
+  protected searchByItemLinkPath = 'item';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
@@ -39,6 +40,24 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
     protected objectCache: ObjectCacheService,
     protected store: Store<CoreState>) {
     super();
+  }
+
+  /**
+   * Return the WorkspaceItem object found through the UUID of an item
+   *
+   * @param uuid           The uuid of the item
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param options        The {@link FindListOptions} object
+   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
+    const findListOptions = new FindListOptions();
+    findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
+    const href$ = this.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

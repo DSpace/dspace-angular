@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -25,6 +25,8 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -46,6 +48,7 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
   }
 );
 const router = new RouterStub();
+let relationshipTypeService;
 let routeStub;
 let itemService;
 
@@ -178,6 +181,13 @@ describe('ItemRelationshipsComponent', () => {
       }
     );
 
+
+    relationshipTypeService = jasmine.createSpyObj('searchByEntityType',
+      {
+        searchByEntityType: observableOf(relationshipTypes)
+      }
+    );
+
     requestService = jasmine.createSpyObj('requestService',
       {
         removeByHrefSubstring: {},
@@ -210,6 +220,7 @@ describe('ItemRelationshipsComponent', () => {
         { provide: EntityTypeService, useValue: entityTypeService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
+        { provide: RelationshipTypeService, useValue: relationshipTypeService },
         ChangeDetectorRef
       ], schemas: [
         NO_ERRORS_SCHEMA
@@ -255,4 +266,22 @@ describe('ItemRelationshipsComponent', () => {
       expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
     });
   });
+
+
+
+  describe('discard', () => {
+    beforeEach(() => {
+      comp.item.firstMetadataValue = (info) => {
+        return 'Publication';
+      };
+      fixture.detectChanges();
+      comp.initializeUpdates();
+      fixture.detectChanges();
+    });
+
+    it('it should call relationshipTypeService.searchByEntityType', () => {
+      expect(relationshipTypeService.searchByEntityType).toHaveBeenCalled();
+    });
+  });
+
 });

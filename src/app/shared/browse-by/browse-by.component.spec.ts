@@ -20,6 +20,7 @@ import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { ThemeService } from '../theme-support/theme.service';
 import { MetricService } from '../../core/data/metric.service';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -28,6 +29,8 @@ import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
   let fixture: ComponentFixture<BrowseByComponent>;
+
+  let themeService: ThemeService;
 
   const mockItems = [
     Object.assign(new Item(), {
@@ -63,6 +66,9 @@ describe('BrowseByComponent', () => {
     resolveLinks: () => null,
   };
   beforeEach(waitForAsync(() => {
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: 'dspace',
+    });
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -81,9 +87,10 @@ describe('BrowseByComponent', () => {
       ],
       declarations: [BrowseByComponent],
       providers: [
-        {provide: PaginationService, useValue: paginationService},
-        {provide: MetricService, useValue: {}},
-        {provide: LinkService, useValue: linkService},
+        { provide: PaginationService, useValue: paginationService },
+        { provide: ThemeService, useValue: themeService },
+        { provide: MetricService, useValue: {} },
+        { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -155,7 +162,7 @@ describe('BrowseByComponent', () => {
       });
 
       it('should call the updateRoute method from the paginationService', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {pageSize: paginationConfig.pageSizeOptions[0]});
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', { pageSize: paginationConfig.pageSizeOptions[0] });
       });
     });
 
@@ -167,7 +174,7 @@ describe('BrowseByComponent', () => {
       });
 
       it('should call the updateRoute method from the paginationService', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', {sortDirection: 'ASC'});
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('test-pagination', { sortDirection: 'ASC' });
       });
     });
   });

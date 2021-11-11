@@ -66,7 +66,7 @@ export class RowComponent implements OnInit {
       .filter(field => this.hasFieldMetadataComponent(field))
       .forEach((field) => {
         const rendering = this.computeRendering(field);
-        const subtype = this.computeSubType(rendering);
+        const subtype = this.computeSubType(field);
         const factory = this.computeComponentFactory(rendering);
         const metadataComponentRef = this.generateComponentRef(factory, field, rendering);
         this.populateComponent(metadataComponentRef, field, subtype);
@@ -87,9 +87,11 @@ export class RowComponent implements OnInit {
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
 
-  computeSubType(rendering: string | FieldRenderingType): string {
+  computeSubType(field: LayoutField): string | FieldRenderingType {
+    const rendering = field.rendering;
     let subtype: string;
-    if (rendering.indexOf('.') > -1) {
+
+    if (rendering?.indexOf('.') > -1) {
       const values = rendering.split('.');
       subtype = values[1];
     }
@@ -98,7 +100,6 @@ export class RowComponent implements OnInit {
 
   computeRendering(field: LayoutField): string | FieldRenderingType {
     let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
-
 
     if (rendering.indexOf('.') > -1) {
       const values = rendering.split('.');

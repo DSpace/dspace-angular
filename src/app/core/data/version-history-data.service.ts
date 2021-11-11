@@ -8,19 +8,30 @@ import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
-import { Observable } from 'rxjs';
+import { FindListOptions, PostRequest, RestRequest } from './request.models';
+import { Observable, of } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  sendRequest
+} from '../shared/operators';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { hasValueOperator } from '../../shared/empty.util';
+import { Item } from '../shared/item.model';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -78,5 +89,130 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
     );
 
     return this.versionDataService.findAllByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Create a new version for an item
+   * @param itemHref the item for which create a new version
+   * @param summary the summary of the new version
+   */
+  createVersion(itemHref: string, summary: string): Observable<RemoteData<Version>> {
+    const requestOptions: HttpOptions = Object.create({});
+    let requestHeaders = new HttpHeaders();
+    requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
+    requestOptions.headers = requestHeaders;
+
+    return this.halService.getEndpoint(this.versionsEndpoint).pipe(
+      take(1),
+      map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
+      sendRequest(this.requestService),
+      switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
+      getFirstCompletedRemoteData()
+    ) as Observable<RemoteData<Version>>;
+  }
+
+  /**
+   * Get the latest version in a version history
+   * @param versionHistory
+   */
+  getLatestVersionFromHistory$(versionHistory: VersionHistory): Observable<Version> {
+
+    // Pagination options to fetch a single version on the first page (this is the latest version in the history)
+    const latestVersionOptions = Object.assign(new PaginationComponentOptions(), {
+      id: 'item-newest-version-options',
+      currentPage: 1,
+      pageSize: 1
+    });
+
+    const latestVersionSearch = new PaginatedSearchOptions({pagination: latestVersionOptions});
+
+    return this.getVersions(versionHistory.id, latestVersionSearch, false, true, followLink('item')).pipe(
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      hasValueOperator(),
+      filter((versions) => versions.page.length > 0),
+      map((versions) => versions.page[0])
+    );
+
+  }
+
+  /**
+   * Get the latest version (return null if the specified version is null)
+   * @param version
+   */
+  getLatestVersion$(version: Version): Observable<Version> {
+    // retrieve again version, including with versionHistory
+    return version.id ? this.versionDataService.findById(version.id, false, true, followLink('versionhistory')).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((res) => res.versionhistory),
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((versionHistoryRD) => this.getLatestVersionFromHistory$(versionHistoryRD)),
+    ) : of(null);
+  }
+
+  /**
+   * Check if the given version is the latest (return null if `version` is null)
+   * @param version
+   * @returns `true` if the specified version is the latest one, `false` otherwise, or `null` if the specified version is null
+   */
+  isLatest$(version: Version): Observable<boolean> {
+    return version ? this.getLatestVersion$(version).pipe(
+      take(1),
+      switchMap((latestVersion) => of(version.version === latestVersion.version))
+    ) : of(null);
+  }
+
+  /**
+   * Check if a worskpace item exists in the version history (return null if there is no version history)
+   * @param versionHref the href of the version
+   * @returns `true` if a workspace item exists, `false` otherwise, or `null` if a version history does not exist
+   */
+  hasDraftVersion$(versionHref: string): Observable<boolean> {
+    return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((res) => {
+        if (res.hasSucceeded && !res.hasNoContent) {
+          return of(res).pipe(
+            getFirstSucceededRemoteDataPayload(),
+            switchMap((version) => this.versionDataService.getHistoryFromVersion(version)),
+            map((versionHistory) => versionHistory ? versionHistory.draftVersion : false),
+          );
+        } else {
+          return of(false);
+        }
+      }),
+    );
+  }
+
+  /**
+   * Get the item of the latest version in a version history
+   * @param versionHistory
+   */
+  getLatestVersionItemFromHistory$(versionHistory: VersionHistory): Observable<Item> {
+    return this.getLatestVersionFromHistory$(versionHistory).pipe(
+      switchMap((newLatestVersion) => newLatestVersion.item),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
+  /**
+   * Get the item of the latest version from any version in the version history
+   * @param version
+   */
+  getVersionHistoryFromVersion$(version: Version): Observable<VersionHistory> {
+    return this.versionDataService.getHistoryIdFromVersion(version).pipe(
+      take(1),
+      switchMap((res) => this.findById(res)),
+      getFirstSucceededRemoteDataPayload(),
+    );
+  }
+
+  /**
+   * Invalidate the cache of the version history
+   * @param versionHistoryID
+   */
+  invalidateVersionHistoryCache(versionHistoryID: string) {
+    this.requestService.setStaleByHrefSubstring('versioning/versionhistories/' + versionHistoryID);
   }
 }

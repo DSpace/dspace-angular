@@ -19,7 +19,11 @@ import { OpenaireModule } from '../openaire/openaire.module';
     OpenaireModule
   ],
   exports: [
-    ProfilePageSecurityFormComponent
+    ProfilePageComponent,
+    ThemedProfilePageComponent,
+    ProfilePageMetadataFormComponent,
+    ProfilePageSecurityFormComponent,
+    ProfilePageResearcherFormComponent
   ],
   declarations: [
     ProfilePageComponent,

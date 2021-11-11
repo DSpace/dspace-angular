@@ -568,7 +568,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       switchMap((uuid) => this.collectionService.getHarvesterEndpoint(uuid)),
       take(1)
     ).subscribe((endpoint) => this.requestService.removeByHrefSubstring(endpoint));
-
+    this.requestService.setStaleByHrefSubstring(this.contentSource._links.self.href);
     // Update harvester
     this.collectionRD$.pipe(
       getFirstSucceededRemoteData(),

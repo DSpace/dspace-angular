@@ -210,6 +210,24 @@ export class VocabularyService {
   }
 
   /**
+   * Get the display value for a vocabulary item, given the vocabulary name and the item value
+   * @param vocabularyName
+   * @param value
+   */
+  getPublicVocabularyEntryByValue(vocabularyName: string, value: string): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+    const params: RequestParam[] = [
+      new RequestParam('filter',value),
+      new RequestParam('exact','true')
+    ];
+    const options = Object.assign(new FindListOptions(), {
+      searchParams: params,
+      elementsPerPage: 1,
+    });
+    const href$ = this.vocabularyDataService.getFindAllHref(options, vocabularyName + '/entries');
+    return this.vocabularyEntryDetailDataService.findAllByHref(href$);
+  }
+
+  /**
    * Return the {@link VocabularyEntry} list for a given value
    *
    * @param value              The entry value to retrieve

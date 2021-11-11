@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
@@ -122,7 +122,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
     it('Should call \'getExternalSourceEntries\' properly', () => {
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
-        if (param === 'source') {
+        if (param === 'sourceId') {
           return observableOf('orcidV2');
         } else if (param === 'query') {
           return observableOf('test');

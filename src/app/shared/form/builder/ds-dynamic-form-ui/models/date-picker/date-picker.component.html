@@ -1,51 +1,56 @@
-<div class="d-flex justify-content-start">
-  <ds-number-picker
-    tabindex="1"
-    [disabled]="model.disabled"
-    [min]="minYear"
-    [max]="maxYear"
-    [name]="'year'"
-    [size]="4"
-    [(ngModel)]="initialYear"
-    [value]="year"
-    [class.is-invalid]="showErrorMessages"
-    [placeholder]='yearPlaceholder'
-    [widthClass]="'four-digits'"
-    (blur)="onBlur($event)"
-    (change)="onChange($event)"
-    (focus)="onFocus($event)"
-  ></ds-number-picker>
+<div>
+  <fieldset class="d-flex justify-content-start">
+    <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
+      {{model.placeholder}} <span *ngIf="model.required">*</span>
+    </legend>
+    <ds-number-picker
+      tabindex="1"
+      [disabled]="model.disabled"
+      [min]="minYear"
+      [max]="maxYear"
+      [name]="'year'"
+      [size]="4"
+      [(ngModel)]="initialYear"
+      [value]="year"
+      [class.is-invalid]="showErrorMessages"
+      [placeholder]='yearPlaceholder'
+      [widthClass]="'four-digits'"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)"
+    ></ds-number-picker>
 
   <ds-number-picker class="date-month"
-    tabindex="2"
-    [min]="minMonth"
-    [max]="maxMonth"
-    [name]="'month'"
-    [size]="2"
-    [(ngModel)]="initialMonth"
-    [value]="month"
-    [placeholder]="monthPlaceholder"
-    [disabled]="!year || model.disabled"
-    [widthClass]="'two-digits'"
-    (blur)="onBlur($event)"
-    (change)="onChange($event)"
-    (focus)="onFocus($event)"
-  ></ds-number-picker>
+      tabindex="2"
+      [min]="minMonth"
+      [max]="maxMonth"
+      [name]="'month'"
+      [size]="2"
+      [(ngModel)]="initialMonth"
+      [value]="month"
+      [placeholder]="monthPlaceholder"
+      [disabled]="!year || model.disabled"
+      [widthClass]="'two-digits'"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)"
+    ></ds-number-picker>
 
   <ds-number-picker class="date-day"
-    tabindex="3"
-    [min]="minDay"
-    [max]="maxDay"
-    [name]="'day'"
-    [size]="2"
-    [(ngModel)]="initialDay"
-    [value]="day"
-    [placeholder]="dayPlaceholder"
-    [disabled]="!month || model.disabled"
-    [widthClass]="'two-digits'"
-    (blur)="onBlur($event)"
-    (change)="onChange($event)"
-    (focus)="onFocus($event)"
-  ></ds-number-picker>
+      tabindex="3"
+      [min]="minDay"
+      [max]="maxDay"
+      [name]="'day'"
+      [size]="2"
+      [(ngModel)]="initialDay"
+      [value]="day"
+      [placeholder]="dayPlaceholder"
+      [disabled]="!month || model.disabled"
+      [widthClass]="'two-digits'"
+      (blur)="onBlur($event)"
+      (change)="onChange($event)"
+      (focus)="onFocus($event)"
+    ></ds-number-picker>
+  </fieldset>
 </div>
 <div class="clearfix"></div>

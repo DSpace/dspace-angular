@@ -79,7 +79,7 @@ export class EditRelationshipComponent implements OnChanges {
    * Sets the current relationship based on the fieldUpdate input field
    */
   ngOnChanges(): void {
-    if (this.relationship) {
+    if (this.relationship && (!!this.relationship.leftItem || !!this.relationship.rightItem)) {
       this.leftItem$ = this.relationship.leftItem.pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),

@@ -51,14 +51,14 @@
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
                         [currentUrl]="searchLink"
-                        [scopes]="(scopeListRD$ | async)"
+                    [showScopeSelector]="true"
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="'search.search-form.placeholder' | translate">
         </ds-search-form>
         <ds-item-export-modal-launcher [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
     </div>
     <div class="row mb-3 mb-md-1">
-        <div class="labels col-sm-9 offset-sm-3">
+        <div class="labels col-sm-9">
             <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
         </div>
     </div>
