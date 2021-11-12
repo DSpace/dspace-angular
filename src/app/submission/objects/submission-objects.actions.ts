@@ -506,6 +506,8 @@ export class SaveSubmissionFormErrorAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR;
   payload: {
     submissionId: string;
+    statusCode: number;
+    errorMessage: string;
   };
 
   /**
@@ -513,9 +515,13 @@ export class SaveSubmissionFormErrorAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param statusCode
+   *    the submission's response error code
+   * @param errorMessage
+   *    the submission's response error code
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string, statusCode: number, errorMessage: string) {
+    this.payload = { submissionId, statusCode, errorMessage };
   }
 }
 
@@ -564,6 +570,8 @@ export class SaveSubmissionSectionFormErrorAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR;
   payload: {
     submissionId: string;
+    statusCode: number;
+    errorMessage: string;
   };
 
   /**
@@ -571,9 +579,13 @@ export class SaveSubmissionSectionFormErrorAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param statusCode
+   *    the submission's response error code
+   * @param errorMessage
+   *    the submission's response error code
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string, statusCode: number, errorMessage: string) {
+    this.payload = { submissionId, statusCode, errorMessage };
   }
 }
 
