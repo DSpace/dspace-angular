@@ -8,36 +8,27 @@
   "401.link.home-page": "Басты бетке өту",
   
   // "401.unauthorized": "unauthorized",
-  // TODO New key - Add a translation
-  "401.unauthorized": "unauthorized",
+  "401.unauthorized": "Тіркелмеген",
   
   
   
-  // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
-  // TODO New key - Add a translation
-  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+  "403.help": "Сізде бұл параққа кіруге рұқсат жоқ. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады.",
   
   // "403.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "403.link.home-page": "Take me to the home page",
+  "403.link.home-page": "Басты бетке өту",
   
   // "403.forbidden": "forbidden",
-  // TODO New key - Add a translation
-  "403.forbidden": "forbidden",
-  
-  
+  "403.forbidden": "Тыйым салынған",
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "Сіз іздеген бет табылмады. Бұл бет алмастырылған немесе жойылған болуы мүмкін. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады. ",
   
   // "404.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
+  "404.link.home-page": "Басты бетке өту",
   
   // "404.page-not-found": "page not found",
-  // TODO New key - Add a translation
-  "404.page-not-found": "page not found",
+  "404.page-not-found": "Бұл бет табылмады",
   
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   // TODO New key - Add a translation
@@ -997,626 +988,456 @@
   
   
   // "bitstream.edit.bitstream": "Bitstream: ",
-  // TODO New key - Add a translation
-  "bitstream.edit.bitstream": "Bitstream: ",
+  "bitstream.edit.bitstream": "Битстрим: ",
   
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "Қажет болса, файлдың қысқаша сипаттамасын беріңіз, мысалы \"<i>Негізгі мақала</i>\" немесе \"<i>Тәжірибелік деректер көрсеткіштері</i>\".",
   
   // "bitstream.edit.form.description.label": "Description",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.label": "Description",
+  "bitstream.edit.form.description.label": "Сипаттамасы",
   
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  "bitstream.edit.form.embargo.hint": "Кіруге рұқсат етілген бірінші күн. <b>Бұл күнді осы формада өзгерту мүмкін емес.</b> Бит ағынына тыйым салу күнін белгілеу үшін, мына жерге өтіңіз <i>"элемент дәрежесі</i> қойындысын басыңыз <i>Тіркелу...</i>, бит ағынын жасау немесе өңдеу <i>ОҚУ</i> ереже және орнату <i>Басталу Күні</i> қалауы бойынша.",
   
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+  "bitstream.edit.form.embargo.label": "Белгілі бір күнге дейін тыйым салу(шектеу)",
   
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "Бит ағыны үшін файл атауын өзгертіңіз. Бұл көрсетілген бит ағынының URL мекенжайын өзгертетініне назар аударыңыз, бірақ бірізділік идентификаторы өзгергенге дейін ескі сілтемелер әлі де жарамды болады.",
   
   // "bitstream.edit.form.fileName.label": "Filename",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.label": "Filename",
+  "bitstream.edit.form.fileName.label": "Файл атауы",
   
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "Жаңа форматты сипаттаңыз",
   
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "Файлды жасау үшін пайдаланған бағдарлама, және нұсқа нөмірі (мысалы, \"<i>ACMESoft SuperApp version 1.5</i>\").",
   
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Негізгі бит ағыны",
   
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "Егер формат жоғарыда көрсетілген тізімде болмаса, <b>таңдау \"формат тізімде жоқ\" жоғары</b> және оны бөлімде сипаттаңыз \"Жаңа форматты сипаттаңыз\".",
   
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+  "bitstream.edit.form.selectedFormat.label": "Таңдалған Формат",
   
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+  "bitstream.edit.form.selectedFormat.unknown": "Формат тізімде жоқ",
   
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+  "bitstream.edit.notifications.error.format.title": "Бит ағынының форматын сақтау кезінде қате пайда болды",
   
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.content": "Осы бит ағынында сіз енгізген өзгерістер сақталды.",
   
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+  "bitstream.edit.notifications.saved.title": "Бит ағыны сақталды",
   
   // "bitstream.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.title": "Edit bitstream",
+  "bitstream.edit.title": "Бит ағынын өзгерту",
   
   
   
   // "browse.comcol.by.author": "By Author",
-  // TODO New key - Add a translation
-  "browse.comcol.by.author": "By Author",
+  "browse.comcol.by.author": "Авторы",
   
   // "browse.comcol.by.dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "browse.comcol.by.dateissued": "By Issue Date",
+  "browse.comcol.by.dateissued": "Шығарылған Күні Бойынша",
   
   // "browse.comcol.by.subject": "By Subject",
-  // TODO New key - Add a translation
-  "browse.comcol.by.subject": "By Subject",
+  "browse.comcol.by.subject": "Пәні Бойынша",
   
   // "browse.comcol.by.title": "By Title",
-  // TODO New key - Add a translation
-  "browse.comcol.by.title": "By Title",
+  "browse.comcol.by.title": "Тақырыбы Бойынша",
   
   // "browse.comcol.head": "Browse",
-  // TODO New key - Add a translation
-  "browse.comcol.head": "Browse",
+  "browse.comcol.head": "Көру",
   
   // "browse.empty": "No items to show.",
-  // TODO New key - Add a translation
-  "browse.empty": "No items to show.",
+  "browse.empty": "Көрсету үшін элементтер жоқ.",
   
   // "browse.metadata.author": "Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author": "Author",
+  "browse.metadata.author": "Автор",
   
   // "browse.metadata.dateissued": "Issue Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued": "Issue Date",
+  "browse.metadata.dateissued": "Шығарылған күні",
   
   // "browse.metadata.subject": "Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject": "Subject",
+  "browse.metadata.subject": "Пән",
   
   // "browse.metadata.title": "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title": "Title",
+  "browse.metadata.title": "Тақырып",
   
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author.breadcrumbs": "Browse by Author",
+  "browse.metadata.author.breadcrumbs": "Автор бойынша қарау",
   
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+  "browse.metadata.dateissued.breadcrumbs": "Күні бойынша қарау",
   
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+  "browse.metadata.subject.breadcrumbs": "Пәні бойынша қарау",
   
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title.breadcrumbs": "Browse by Title",
+  "browse.metadata.title.breadcrumbs": "Тақырыбы бойынша қарау",
   
   // "browse.startsWith.choose_start": "(Choose start)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_start": "(Choose start)",
+  "browse.startsWith.choose_start": "(басталуын таңдаңыз)",
   
   // "browse.startsWith.choose_year": "(Choose year)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year": "(Choose year)",
+  "browse.startsWith.choose_year": "(Жылды таңдаңыз)",
   
   // "browse.startsWith.jump": "Jump to a point in the index:",
-  // TODO New key - Add a translation
-  "browse.startsWith.jump": "Jump to a point in the index:",
+  "browse.startsWith.jump": "Индекстегі нүктеге өту:",
   
   // "browse.startsWith.months.april": "April",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.april": "April",
+  "browse.startsWith.months.april": "Сәуір",
   
   // "browse.startsWith.months.august": "August",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.august": "August",
+  "browse.startsWith.months.august": "Тамыз",
   
   // "browse.startsWith.months.december": "December",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.december": "December",
+  "browse.startsWith.months.december": "Желтоқсан",
   
   // "browse.startsWith.months.february": "February",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.february": "February",
+  "browse.startsWith.months.february": "Ақпан",
   
   // "browse.startsWith.months.january": "January",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.january": "January",
+  "browse.startsWith.months.january": "Қаңтар",
   
   // "browse.startsWith.months.july": "July",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.july": "July",
+  "browse.startsWith.months.july": "Шілде",
   
   // "browse.startsWith.months.june": "June",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.june": "June",
+  "browse.startsWith.months.june": "Маусым",
   
   // "browse.startsWith.months.march": "March",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.march": "March",
+  "browse.startsWith.months.march": "Наурыз",
   
   // "browse.startsWith.months.may": "May",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.may": "May",
+  "browse.startsWith.months.may": "Мамыр",
   
   // "browse.startsWith.months.none": "(Choose month)",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none": "(Choose month)",
+  "browse.startsWith.months.none": "(Айды таңдаңыз)",
   
   // "browse.startsWith.months.november": "November",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.november": "November",
+  "browse.startsWith.months.november": "Қараша",
   
   // "browse.startsWith.months.october": "October",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.october": "October",
+  "browse.startsWith.months.october": "Қазан",
   
   // "browse.startsWith.months.september": "September",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.september": "September",
+  "browse.startsWith.months.september": "Қыркүйек",
   
   // "browse.startsWith.submit": "Go",
-  // TODO New key - Add a translation
   "browse.startsWith.submit": "Go",
   
   // "browse.startsWith.type_date": "Or type in a date (year-month):",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_date": "Or type in a date (year-month):",
+  "browse.startsWith.type_date": "Немесе күнді енгізіңіз (жыл-ай):",
   
   // "browse.startsWith.type_text": "Or enter first few letters:",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_text": "Or enter first few letters:",
+  "browse.startsWith.type_text": "Немесе алғашқы бірнеше әріптерді енгізіңіз:",
   
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  // TODO New key - Add a translation
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title": "{{collection}} {{field}} {{value}} бойынша қараңыз",
   
   
   // "chips.remove": "Remove chip",
-  // TODO New key - Add a translation
-  "chips.remove": "Remove chip",
-  
-  
-  
+  "chips.remove": "Чипті жою",
+
   // "collection.create.head": "Create a Collection",
-  // TODO New key - Add a translation
-  "collection.create.head": "Create a Collection",
+  "collection.create.head": "Топтама Жасау",
   
   // "collection.create.notifications.success": "Successfully created the Collection",
-  // TODO New key - Add a translation
-  "collection.create.notifications.success": "Successfully created the Collection",
+  "collection.create.notifications.success": "Топтама сәтті жасалды",
   
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
+  "collection.create.sub-head": "Қауымдастық үшін Топтама жасау {{ parent }}",
   
   // "collection.curate.header": "Curate Collection: {{collection}}",
-  // TODO New key - Add a translation
-  "collection.curate.header": "Curate Collection: {{collection}}",
+  "collection.curate.header": "Кураторлық Топтама: {{collection}}",
   
   // "collection.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.delete.cancel": "Cancel",
+  "collection.delete.cancel": "Бас тарту",
   
   // "collection.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "collection.delete.confirm": "Confirm",
+  "collection.delete.confirm": "Растау",
   
   // "collection.delete.head": "Delete Collection",
-  // TODO New key - Add a translation
-  "collection.delete.head": "Delete Collection",
+  "collection.delete.head": "Топтаманы жою",
   
   // "collection.delete.notification.fail": "Collection could not be deleted",
-  // TODO New key - Add a translation
-  "collection.delete.notification.fail": "Collection could not be deleted",
+  "collection.delete.notification.fail": "Топтаманы жою мүмкін емес",
   
   // "collection.delete.notification.success": "Successfully deleted collection",
-  // TODO New key - Add a translation
-  "collection.delete.notification.success": "Successfully deleted collection",
+  "collection.delete.notification.success": "Топтама сәтті жойылды",
   
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  
-  
+  "collection.delete.text": "Сіз шынымен топтаманы жойғыңыз келеді ме\"{{ dso }}\"",
   
   // "collection.edit.delete": "Delete this collection",
-  // TODO New key - Add a translation
-  "collection.edit.delete": "Delete this collection",
+  "collection.edit.delete": "Осы топтаманы жою",
   
   // "collection.edit.head": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.head": "Edit Collection",
+  "collection.edit.head": "Топтаманы Өңдеу",
   
   // "collection.edit.breadcrumbs": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.breadcrumbs": "Edit Collection",
-  
-  
+  "collection.edit.breadcrumbs": "Топтаманы Өңдеу",
   
   // "collection.edit.tabs.mapper.head": "Item Mapper",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.mapper.head": "Item Mapper",
+  "collection.edit.tabs.mapper.head": "Элементті Түрлендіру",
   
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
+  "collection.edit.tabs.item-mapper.title": "Топтаманы Өңдеу - Элементті Түрлендіру",
   
   // "collection.edit.item-mapper.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.cancel": "Cancel",
+  "collection.edit.item-mapper.cancel": "Бас тарту",
   
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": "Топтама: \"<b>{{name}}</b>\"",
   
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.confirm": "Map selected items",
+  "collection.edit.item-mapper.confirm": "Таңдалған элементтерді көрсету",
   
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+  "collection.edit.item-mapper.description": "Бұл топтама әкімшілеріне басқа топтамалардан осы топтамаға элементтерді көрсетуге мүмкіндік беретін элементтерді көрсету құралы. Сіз басқа топтамалардандан заттарды іздей аласыз және оларды картаға түсіре аласыз немесе ағымдағы көрсетілген элементтердің тізімін көре аласыз.",
   
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
+  "collection.edit.item-mapper.head": "Элементті Түрлендіру - Басқа топтамалардан элементтерді көрсету",
   
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.no-search": "Please enter a query to search",
+  "collection.edit.item-mapper.no-search": "Іздеу үшін ақпаратты енгізіңіз",
   
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.error.content": "Элементтерді салыстыру кезінде қателер орын алды {{amount}}.",
   
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
+  "collection.edit.item-mapper.notifications.map.error.head": "Түрлендіру қателері",
   
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.success.content": "Элементтер сәтті салыстырылды {{amount}} .",
   
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
+  "collection.edit.item-mapper.notifications.map.success.head": "Салыстыру аяқталды",
   
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Элементтердің салыстыруларын жою кезінде қателер орын алды {{amount}} .",
   
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Салыстыру қателерін жою",
   
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "Элементтердің салыстырулары сәтті жойылды {{amount}} .",
   
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Салыстыруды жою аяқталды",
   
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
+  "collection.edit.item-mapper.remove": "Таңдалған элементтердің салыстыруларын жою",
   
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
+  "collection.edit.item-mapper.tabs.browse": "Салыстырылған элементтерді қарау",
   
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.map": "Map new items",
-  
-  
+  "collection.edit.item-mapper.tabs.map": "Жаңа элементтерді көрсету",
   
   // "collection.edit.logo.label": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.label": "Collection logo",
+  "collection.edit.logo.label": "Топтама логотипі",
   
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  "collection.edit.logo.notifications.add.error": "Топтама логотипін жүктеу мүмкін емес. Қайта қолданар алдында мазмұның тексеріңіз.",
   
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  "collection.edit.logo.notifications.add.success": "Топтама логотипін жүктеу сәтті өтті.",
   
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "collection.edit.logo.notifications.delete.success.title": "Логотип жойылды",
   
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
+  "collection.edit.logo.notifications.delete.success.content": "Топтама логотипі сәтті жойылды",
   
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "collection.edit.logo.notifications.delete.error.title": "Логотипті өшіру кезінде қате орын алды",
   
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  // TODO New key - Add a translation
-  "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  
-  
+  "collection.edit.logo.upload": "Жүктеу үшін топтама логотипін жойыңыз",
   
   // "collection.edit.notifications.success": "Successfully edited the Collection",
-  // TODO New key - Add a translation
-  "collection.edit.notifications.success": "Successfully edited the Collection",
+  "collection.edit.notifications.success": "Сәтті өзгертілген топтама",
   
   // "collection.edit.return": "Return",
-  // TODO New key - Add a translation
-  "collection.edit.return": "Return",
-  
-  
+  "collection.edit.return": "Қайтару",
   
   // "collection.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.head": "Curate",
+  "collection.edit.tabs.curate.head": "Куратор",
   
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.title": "Collection Edit - Curate",
+  "collection.edit.tabs.curate.title": "Топтаманы өзгерту-Куратор",
   
   // "collection.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.head": "Authorizations",
+  "collection.edit.tabs.authorizations.head": "Авторизациялар",
   
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+  "collection.edit.tabs.authorizations.title": "Топтаманы өзгерту - Авторизациялар",
   
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.head": "Edit Metadata",
+  "collection.edit.tabs.metadata.head": "Метадеректерді өңдеу",
   
-  // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
+  // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata", 
+  "collection.edit.tabs.metadata.title": "Топтаманы өзгерту - Метадеректер",
   
   // "collection.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.head": "Assign Roles",
+  "collection.edit.tabs.roles.head": "Рөлдерді тағайындау",
   
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.title": "Collection Edit - Roles",
+  "collection.edit.tabs.roles.title": "Топтаманы өзгерту - Рөлдер",
   
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
+  "collection.edit.tabs.source.external": "Топтама өзінің мазмұнын сыртқы дереккөзден жинайды",
   
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "Негізгі топтама жиынтығының идентификаторын көрсету керек.",
   
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.harvestType": "Content being harvested",
+  "collection.edit.tabs.source.form.harvestType": "Мазмұн жиналуда",
   
   // "collection.edit.tabs.source.form.head": "Configure an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.head": "Configure an external source",
+  "collection.edit.tabs.source.form.head": "Сыртқы дереккөзді баптау",
   
   // "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
+  "collection.edit.tabs.source.form.metadataConfigId": "Метадеректер форматы",
   
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
+  "collection.edit.tabs.source.form.oaiSetId": "OAI арнайы жиын идентификаторы",
   
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
+  "collection.edit.tabs.source.form.oaiSource": "OAI Провайдер (Жеткізуші)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Метадеректер мен бит ағындарын жинау (requires ORE support)(ORE қолдауын қажет етеді)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Метадеректер мен биттік ағындарға сілтемелерді жинау (requires ORE support)(ORE қолдауын қажет етеді)",
   
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Тек метадеректерді жинау",
   
   // "collection.edit.tabs.source.head": "Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.head": "Content Source",
+  "collection.edit.tabs.source.head": "Дереккөз мазмұны",
   
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "collection.edit.tabs.source.notifications.discarded.content": "Өзгерістеріңіз алынып тасталынды (жойылды). Өзгерістерді қалпына келтіру үшін «Болдырмау» түймесін басыңыз",
   
   // "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "Өзгерістер алынып тасталынды (жойылды)",
   
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "collection.edit.tabs.source.notifications.invalid.content": "Сіз енгізген өзгерістер сақталмады. Сақтау алдында барлық өзгерістердің жарамды екеніне көз жеткізіңіз.",
   
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
+  "collection.edit.tabs.source.notifications.invalid.title": "Метадеректер жарамсыз",
   
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
+  "collection.edit.tabs.source.notifications.saved.content": "Топтаманың мазмұн дереккөзіне енгізілген өзгертулеріңіз сақталды.",
   
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
+  "collection.edit.tabs.source.notifications.saved.title": "Мазмұн Дереккөзі сақталды",
   
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.title": "Collection Edit - Content Source",
-  
-  
+  "collection.edit.tabs.source.title": "Топтаманы Өзгерту - Мазмұн Дереккөзі",
   
   // "collection.edit.template.add-button": "Add",
-  // TODO New key - Add a translation
-  "collection.edit.template.add-button": "Add",
+  "collection.edit.template.add-button": "Қосу",
   
   // "collection.edit.template.breadcrumbs": "Item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.breadcrumbs": "Item template",
+  "collection.edit.template.breadcrumbs": "Элемент үлгісі",
   
   // "collection.edit.template.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.cancel": "Бас тарту",
   
   // "collection.edit.template.delete-button": "Delete",
-  // TODO New key - Add a translation
-  "collection.edit.template.delete-button": "Delete",
+  "collection.edit.template.delete-button": "Жою",
   
   // "collection.edit.template.edit-button": "Edit",
-  // TODO New key - Add a translation
-  "collection.edit.template.edit-button": "Edit",
+  "collection.edit.template.edit-button": "Өзгерту",
   
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "Топтамаға арналған үлгі элементін өзгерту \"{{ collection }}\"",
   
   // "collection.edit.template.label": "Template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "Үлгі элементі",
   
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "Элемент үлгісін жою мүмкін емес",
   
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "Элемент үлгісі сәтті жойылды",
   
   // "collection.edit.template.title": "Edit Template Item",
-  // TODO New key - Add a translation
-  "collection.edit.template.title": "Edit Template Item",
-  
-  
+  "collection.edit.template.title": "Үлгі элементін өзгерту",
   
   // "collection.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "collection.form.abstract": "Short Description",
+  "collection.form.abstract": "Қысқаша сипаттамасы",
   
   // "collection.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.description": "Introductory text (HTML)",
+  "collection.form.description": "Кіріспе мәтін (HTML)",
   
   // "collection.form.errors.title.required": "Please enter a collection name",
-  // TODO New key - Add a translation
-  "collection.form.errors.title.required": "Please enter a collection name",
+  "collection.form.errors.title.required": "Топтаманың атауын енгізіңіз",
   
   // "collection.form.license": "License",
-  // TODO New key - Add a translation
-  "collection.form.license": "License",
+  "collection.form.license": "Лицензия",
   
   // "collection.form.provenance": "Provenance",
-  // TODO New key - Add a translation
-  "collection.form.provenance": "Provenance",
+  "collection.form.provenance": "Шығу тегі",
   
   // "collection.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.rights": "Copyright text (HTML)",
+  "collection.form.rights": "Авторлық мәтін (HTML)",
   
   // "collection.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.tableofcontents": "News (HTML)",
+  "collection.form.tableofcontents": "Жаңалықтар (HTML)",
   
   // "collection.form.title": "Name",
-  // TODO New key - Add a translation
-  "collection.form.title": "Name",
-  
-  
+  "collection.form.title": "Атауы",
   
   // "collection.listelement.badge": "Collection",
-  // TODO New key - Add a translation
-  "collection.listelement.badge": "Collection",
-  
-  
+  "collection.listelement.badge": "Топтама",
   
   // "collection.page.browse.recent.head": "Recent Submissions",
-  // TODO New key - Add a translation
-  "collection.page.browse.recent.head": "Recent Submissions",
+  "collection.page.browse.recent.head": "Соңғы Материалдар",
   
   // "collection.page.browse.recent.empty": "No items to show",
-  // TODO New key - Add a translation
-  "collection.page.browse.recent.empty": "No items to show",
+  "collection.page.browse.recent.empty": "Көрсету үшін элементтер жоқ",
   
   // "collection.page.edit": "Edit this collection",
-  // TODO New key - Add a translation
-  "collection.page.edit": "Edit this collection",
+  "collection.page.edit": "Жинақты өңдеңіз",
   
   // "collection.page.handle": "Permanent URI for this collection",
   // TODO New key - Add a translation
-  "collection.page.handle": "Permanent URI for this collection",
+  "collection.page.handle": "Тұрақты URI коллекция үшін",
   
   // "collection.page.license": "License",
-  // TODO New key - Add a translation
-  "collection.page.license": "License",
+  "collection.page.license": "Лицензия",
   
   // "collection.page.news": "News",
   "collection.page.news": "Жаңалықтар",
   
-  
-  
   // "collection.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "collection.select.confirm": "Confirm selected",
+  "collection.select.confirm": "Таңдалғанды растау",
   
   // "collection.select.empty": "No collections to show",
-  // TODO New key - Add a translation
-  "collection.select.empty": "No collections to show",
+  "collection.select.empty": "Көрсету үшін топтамалар жоқ",
   
   // "collection.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "collection.select.table.title": "Title",
-  
-  
+  "collection.select.table.title": "Тақырыбы",
   
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+  "collection.source.update.notifications.error.content": "Берілген параметрлер тексерілді және жұмыс істемеді.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
   // TODO New key - Add a translation
-  "collection.source.update.notifications.error.title": "Server Error",
+  "collection.source.update.notifications.error.title": "Сервер қатесі",
   
   
   
@@ -1927,118 +1748,74 @@
   
   
   
-  // "cookies.consent.accept-all": "Accept all",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-all": "Accept all",
-  
-  // "cookies.consent.accept-selected": "Accept selected",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-selected": "Accept selected",
-  
-  // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-  // TODO New key - Add a translation
   "cookies.consent.app.opt-out.title": "(opt-out)",
   
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": Мақсаты",
   
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "Бұл бағдарлама әрқашан қажет",
   
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(әрқашан қажет)",
   
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-  // TODO New key - Add a translation
-  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+  "cookies.consent.update": "Сіздің соңғы рет болғаңыздан бері өзгерістер болды, келісіміңізді жаңартыңыз.",
   
   // "cookies.consent.close": "Close",
-  // TODO New key - Add a translation
-  "cookies.consent.close": "Close",
+  "cookies.consent.close": "Жабу",
   
   // "cookies.consent.decline": "Decline",
-  // TODO New key - Add a translation
-  "cookies.consent.decline": "Decline",
+  "cookies.consent.decline": "Қабылдамау",
   
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Біз сіздің жеке ақпаратыңызды келесі мақсаттарда жинаймыз және өңдейміз: <strong>Аутентификация, Параметрлері, Растау және Статистикалар</strong>. <br/> Көбірек білу үшін, біздің  {privacyPolicy} оқуыңызды өтінеміз.",
   
   // "cookies.consent.content-notice.learnMore": "Customize",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.learnMore": "Customize",
+  "cookies.consent.content-notice.learnMore": "Баптау",
   
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+  "cookies.consent.content-modal.description": "Мұнда сіз туралы жиналған ақпаратты көре және баптай аласыз",
   
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+  "cookies.consent.content-modal.privacy-policy.name": "Конфиденциальді ақпарат ережелері",
   
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-modal.privacy-policy.text": "Көбірек білу үшін, біздің  {privacyPolicy} оқуыңызды өтінеміз..",
   
   // "cookies.consent.content-modal.title": "Information that we collect",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.title": "Information that we collect",
-  
-  
+  "cookies.consent.content-modal.title": "Біз жинайтын ақпарат",
   
   // "cookies.consent.app.title.authentication": "Authentication",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.authentication": "Authentication",
+  "cookies.consent.app.title.authentication": "Аутентификация",
   
   // "cookies.consent.app.description.authentication": "Required for signing you in",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.authentication": "Required for signing you in",
-  
+  "cookies.consent.app.description.authentication": "Жүйеге кіру үшін қажет",
   
   // "cookies.consent.app.title.preferences": "Preferences",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.preferences": "Preferences",
+  "cookies.consent.app.title.preferences": "Параметрлері",
   
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.preferences": "Required for saving your preferences",
-  
-  
+  "cookies.consent.app.description.preferences": "Параметрлерді сақтау үшін қажет",
   
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
+  "cookies.consent.app.title.acknowledgement": "Растау",
   
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  
-  
+  "cookies.consent.app.description.acknowledgement": "Сіздің растауыңызбен келісімдеріңізді сақтау үшін қажет",
   
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.google-analytics": "Google Analytics",
+  "cookies.consent.app.title.google-analytics": "Google Аналитикасы",
   
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  
-  
+  "cookies.consent.app.description.google-analytics": "Бізге статистикалық мәліметтерді бақылауға мүмкіндік береді",
   
   // "cookies.consent.purpose.functional": "Functional",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.functional": "Functional",
+  "cookies.consent.purpose.functional": "Функционалды",
   
   // "cookies.consent.purpose.statistical": "Statistical",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.statistical": "Statistical",
+  "cookies.consent.purpose.statistical": "Статистикалық",
   
   
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
