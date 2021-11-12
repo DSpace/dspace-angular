@@ -1,5 +1,5 @@
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -22,6 +22,7 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -33,6 +34,7 @@ let relationshipService;
 let selectableListService;
 let paginationService;
 let hostWindowService;
+const relationshipTypeService = {};
 
 const url = 'http://test-url.com/test-url';
 
@@ -57,6 +59,7 @@ describe('EditRelationshipListComponent', () => {
     comp.itemType = entityType;
     comp.url = url;
     comp.relationshipType = relationshipType;
+    comp.hasChanges = observableOf(false);
     fixture.detectChanges();
   };
 
@@ -181,6 +184,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: LinkService, useValue: linkService },
         { provide: PaginationService, useValue: paginationService },
         { provide: HostWindowService, useValue: hostWindowService },
+        { provide: RelationshipTypeService, useValue: relationshipTypeService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -275,6 +279,24 @@ describe('EditRelationshipListComponent', () => {
         expect(label).toEqual('isAuthorOfPublication');
       });
     });
+
+
+
+    describe('changes managment for add buttons', () => {
+
+      it('should show enabled add buttons', () => {
+        const element = de.query(By.css('.btn-success'));
+        expect(element.nativeElement?.disabled).toBeFalse();
+      });
+
+      it('after hash changes changed', () => {
+        comp.hasChanges = observableOf(true);
+        fixture.detectChanges();
+        const element = de.query(By.css('.btn-success'));
+        expect(element.nativeElement?.disabled).toBeTrue();
+      });
+    });
+
   });
 
 });

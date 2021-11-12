@@ -1,5 +1,5 @@
 <div>
-  <div class="modal-header">{{'dso-selector.create.collection.head' | translate}}
+  <div class="modal-header">{{'dso-selector.select.collection.head' | translate}}
     <button type="button" class="close" (click)="closeCollectionModal()" aria-label="Close">
       <span aria-hidden="true">×</span>
     </button>
@@ -8,7 +8,7 @@
     <ds-loading *ngIf="isLoading()"></ds-loading>
     <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
                             (selectionChange)="selectObject($event)"
-                            (hasChoice)="onHasChoice($event)"
+                            (searchComplete)="searchComplete()"
                             (theOnlySelectable)="theOnlySelectable($event)"
                             [entityType]="entityType">
     </ds-collection-dropdown>

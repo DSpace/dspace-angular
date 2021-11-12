@@ -1,0 +1,10 @@
+<div class="font-weight-bold" *ngIf="!hideLabel">
+  {{metric.metricType | translate}}
+</div>
+<div *ngIf=" remark && $any(remark).type == 'Person'; else publication">
+  <a [href]="$any(remark).href" class="plumx-person" data-site="plum" data-num-artifacts="5"></a>
+</div>
+
+<ng-template #publication>
+  <a [href]='$any(remark).href' class="plumx-plum-print-popup"></a>
+</ng-template>

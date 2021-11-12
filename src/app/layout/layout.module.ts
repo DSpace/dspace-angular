@@ -31,6 +31,7 @@ import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { TableComponent } from './default-layout/boxes/components/table/table.component';
 import { InlineComponent } from './default-layout/boxes/components/inline/inline.component';
 import { OrcidComponent } from './default-layout/boxes/components/orcid/orcid.component';
+import { ValuepairComponent } from './default-layout/boxes/components/valuepair/valuepair.component';
 import { CrisLayoutSidebarItemComponent } from './default-layout/sidebar/sidebar-item/cris-layout-sidebar-item.component';
 import { TagComponent } from './default-layout/boxes/components/tag/tag.component';
 
@@ -54,7 +55,8 @@ const ENTRY_COMPONENTS = [
   OrcidSyncSettingsComponent,
   OrcidSyncQueueComponent,
   OrcidAuthorizationsComponent,
-  TagComponent
+  TagComponent,
+  ValuepairComponent,
 ];
 @NgModule({
   declarations: [
@@ -85,7 +87,8 @@ const ENTRY_COMPONENTS = [
     TableComponent,
     InlineComponent,
     CrisLayoutSidebarItemComponent,
-    TagComponent
+    TagComponent,
+    ValuepairComponent,
   ],
   imports: [
     CommonModule,
