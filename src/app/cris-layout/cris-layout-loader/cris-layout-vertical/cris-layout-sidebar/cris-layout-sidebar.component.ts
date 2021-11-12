@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Tab } from '../../../../core/layout/models/tab.model';
 
 @Component({
   selector: 'ds-cris-layout-sidebar',
@@ -7,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrisLayoutSidebarComponent implements OnInit {
 
+  /**
+   * Tabs to render
+   */
+  @Input() tabs: Tab[];
+
   /* tslint:disable:no-empty */
   constructor() { }
 
@@ -14,4 +20,7 @@ export class CrisLayoutSidebarComponent implements OnInit {
   }
   /* tslint:enable:no-empty */
 
+  getTabSelected(tab){
+    console.log(tab);
+  }
 }

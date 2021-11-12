@@ -1,1 +1,55 @@
-<p>cris-layout-sidebar works!</p>
+<div class="wrapper d-flex align-items-stretch">
+	<nav id="sidebar">
+		<div class="custom-menu">
+			<button type="button" id="sidebarCollapse" class="btn btn-arrow">
+		      	<i class="fas fa-chevron-left"></i>
+		      	<span class="sr-only">Toggle Menu</span>
+		    </button>
+		</div>
+		<div class="p-4 pt-5">
+		    <ul class="list-unstyled components mb-5">
+	    	    <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
+                             [tab]="tab"
+                              (tabSelectedChange)="getTabSelected($event)" 
+                             ></ds-cris-layout-sidebar-item>
+		      <li class="active">
+		        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+		        <ul class="collapse list-unstyled" id="homeSubmenu">
+			        <li>
+			            <a href="#">Home 1</a>
+			        </li>
+			        <li>
+			            <a href="#">Home 2</a>
+			        </li>
+			        <li>
+			            <a href="#">Home 3</a>
+			        </li>
+		        </ul>
+		      </li>
+		      <li>
+		          <a href="#">About</a>
+		      </li>
+		      <li>
+		      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+		      <ul class="collapse list-unstyled" id="pageSubmenu">
+		        <li>
+		            <a href="#">Page 1</a>
+		        </li>
+		        <li>
+		            <a href="#">Page 2</a>
+		        </li>
+		        <li>
+		            <a href="#">Page 3</a>
+		        </li>
+		      </ul>
+		      </li>
+		      <li>
+		      <a href="#">Portfolio</a>
+		      </li>
+		      <li>
+		      <a href="#">Contact</a>
+		      </li>
+		    </ul>
+		</div>
+	</nav>
+</div>

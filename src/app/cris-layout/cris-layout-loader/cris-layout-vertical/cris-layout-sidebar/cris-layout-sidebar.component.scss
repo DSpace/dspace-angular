@@ -1,0 +1,248 @@
+$font-primary: 'Poppins',Arial, sans-serif;
+$black: #000000;
+
+body{
+	font-family: $font-primary;
+	font-size: 14px;
+	line-height: 1.8;
+	font-weight: normal;
+	background: #fafafa;
+	color: lighten($black,50%);
+}
+a {
+	transition: .3s all ease;
+	color: var(--ds-cris-layout-sidebar-background-color);
+	&:hover, &:focus {
+		text-decoration: none !important;
+		outline: none !important;
+		box-shadow: none;
+	}
+}
+button {
+	transition: .3s all ease;
+	&:hover, &:focus {
+		text-decoration: none !important;
+		outline: none !important;
+		box-shadow: none !important;
+	}
+}
+h1, h2, h3, h4, h5,
+.h1, .h2, .h3, .h4, .h5 {
+	line-height: 1.5;
+	font-weight: 400;
+	font-family: $font-primary;
+	color: $black;
+}
+
+
+.ftco-section{
+	padding: 7em 0;
+}
+
+.ftco-no-pt{
+	padding-top: 0;
+}
+.ftco-no-pb{
+	padding-bottom: 0;
+}
+//HEADING SECTION
+.heading-section{
+	font-size: 28px;
+	color: $black;
+	small{
+		font-size: 18px;
+	}
+}
+
+//COVER BG
+.img{
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+//SIDEBAR
+.wrapper {
+  width: 100%;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: var(--ds-cris-layout-sidebar-background-color);
+  color: $black;
+  transition: all 0.3s;
+  position: relative;
+  .h6{
+  	color: $black;
+  }
+  &.active{
+  	margin-left: -250px;
+  	.custom-menu{
+			margin-right: -50px;
+	  }
+  }
+  h1{
+  	margin-bottom: 20px;
+  	font-weight: 700;
+  	.logo{
+  		color: $black;
+  	}
+  }
+  ul.components{
+  	padding: 0;
+  }
+  ul{
+    li{
+    	font-size: 16px;
+    	>ul{
+    		margin-left: 10px;
+    		li{
+    			font-size: 14px;
+    		}
+    	}
+    	a{
+    		padding: 10px 0;
+		    display: block;
+		    color: rgba(0,0,0,.8);
+		    border-bottom: 1px solid rgba(0,0,0,.1);
+		    &:hover{
+		    	color: $black;
+		    }
+    	}
+    	&.active{
+    		> a{
+    			background: transparent;
+    			color: $black;
+    		}
+    	}
+    }
+  }
+  @include media-breakpoint-down(md){
+    margin-left: -250px;
+    &.active {
+      margin-left: 0;
+    }
+    .custom-menu{
+    	margin-right: -50px !important;
+    	top: 10px !important;
+    }
+  }
+
+  .custom-menu{
+		display: inline-block;
+		position: absolute;
+		top: 20px;
+		right: 0;
+		margin-right: -20px;
+		@include transition(.3s);
+		.btn{
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			&.btn-primary{
+				background: var(--ds-cris-layout-sidebar-background-color);
+				border-color: var(--ds-cris-layout-sidebar-background-color);
+				&:hover, &:focus{
+					background: var(--ds-cris-layout-sidebar-background-color) !important;
+					border-color: var(--ds-cris-layout-sidebar-background-color) !important;
+				}
+			}
+		}
+  }
+}
+
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+#sidebarCollapse{
+	span{
+		@include media-breakpoint-down(md){
+	    display: none;
+		}
+	}
+}
+
+#content {
+  width: 100%;
+  padding: 0;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
+
+
+.btn{
+	&.btn-primary{
+		background: var(--ds-cris-layout-sidebar-background-color);
+		border-color: var(--ds-cris-layout-sidebar-background-color);
+		&:hover, &:focus{
+			background: var(--ds-cris-layout-sidebar-background-color) !important;
+			border-color: var(--ds-cris-layout-sidebar-background-color) !important;
+		}
+	}
+}
+
+.footer{
+	p{
+		color: rgba(255,255,255,.5);
+	}
+}
+
+
+
+.form-control {
+	height: 40px!important;
+	background: $black;
+	color: $black;
+	font-size: 13px;
+	border-radius: 4px;
+	box-shadow: none !important;
+	border: transparent;
+	&:focus, &:active {
+		border-color: $black;
+	}
+	&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: rgba(0,0,0,.3);
+	}
+	&::-moz-placeholder { /* Firefox 19+ */
+	  color: rgba(0,0,0,.3);
+	}
+	&:-ms-input-placeholder { /* IE 0+ */
+	  color: rgba(0,0,0,.3);
+	}
+	&:-moz-placeholder { /* Firefox 18- */
+	  color: rgba(0,0,0,.3);
+	}
+}
+
+.btn-arrow{
+	background: #207698;
+	color: #fff;
+}

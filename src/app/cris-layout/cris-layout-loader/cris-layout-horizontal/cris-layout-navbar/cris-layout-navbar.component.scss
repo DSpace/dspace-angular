@@ -1,0 +1,18 @@
+.navbar-nav{
+	justify-content: center;
+	background-color: #e9ecef;
+    height: 60px;
+    align-items: center;
+    border: 1px solid #d9dadb;
+}
+
+.nav-item{
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item.active{
+	border-bottom: 1px solid #207698;
+}
