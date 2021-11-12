@@ -140,10 +140,10 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * Retrieve workspaceitem/workflowitem from server and initialize all instance variables
    */
   ngOnInit() {
-    this.canDeactivateService.canDeactivate().subscribe((res) => {
-      this.canDeactivate = res;
-    });
     this.subs.push(
+      this.canDeactivateService.canDeactivate().subscribe((res) => {
+        this.canDeactivate = res;
+      }),
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id')).pipe(
           // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
@@ -218,5 +218,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+    this.submissionJsonPatchOperationsService.deletePendingJsonPatchOperations();
   }
 }

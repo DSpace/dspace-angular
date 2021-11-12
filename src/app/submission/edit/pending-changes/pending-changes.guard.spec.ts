@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
 import { EMPTY, of } from 'rxjs';
 import { cold } from 'jasmine-marbles';
+import { take } from 'rxjs/operators';
 
 describe('PendingChangesGuard', () => {
 
@@ -53,8 +54,10 @@ describe('PendingChangesGuard', () => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(false));
     });
     it('should open confirmation modal', () => {
-      guard.canDeactivate();
-      expect(modalService.open).toHaveBeenCalled();
+      guard.canDeactivate().pipe(take(1)).subscribe(() => {
+        expect(modalService.open).toHaveBeenCalled();
+      });
+
     });
   });
 

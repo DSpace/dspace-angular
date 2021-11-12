@@ -3,9 +3,8 @@ import { CanDeactivate } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 
 export interface PendingChangesGuardComponentInterface {
   canDeactivate: () => boolean | Observable<boolean>;
@@ -18,8 +17,7 @@ export class PendingChangesGuard implements CanDeactivate<PendingChangesGuardCom
 
   constructor(
     private modalService: NgbModal,
-    private canDeactivateService: SubmissionEditCanDeactivateService,
-    private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService,
+    private canDeactivateService: SubmissionEditCanDeactivateService
   ) {
   }
 
@@ -38,11 +36,6 @@ export class PendingChangesGuard implements CanDeactivate<PendingChangesGuardCom
           modalRef.componentInstance.brandColor = 'danger';
           modalRef.componentInstance.confirmIcon = 'fas fa-trash';
           return modalRef.componentInstance.response as Observable<boolean>;
-        }
-      }),
-      tap((canDeactivate) => {
-        if (canDeactivate) {
-          this.submissionJsonPatchOperationsService.deletePendingJsonPatchOperations();
         }
       })
     );
