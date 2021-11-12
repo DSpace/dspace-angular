@@ -114,6 +114,10 @@ export class SearchComponent implements OnInit {
    */
   @Input() customData: any;
 
+  /**
+   * A boolean representing if show search sidebar button
+   */
+  @Input() showSidebar = true;
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
