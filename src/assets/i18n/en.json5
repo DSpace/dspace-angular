@@ -1675,9 +1675,9 @@
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
 
-  "confirmation-modal.pending-changes.header": "TODO Pending changes header",
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
 
-  "confirmation-modal.pending-changes.info": "TODO Pending changes info",
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
 
   "confirmation-modal.pending-changes.cancel": "Cancel",
 
