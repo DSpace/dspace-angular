@@ -3,6 +3,7 @@ ul li.active > .nav-item {
   background: map-get($theme-colors, light);
 }
 :host ::ng-deep {
+    height: 100%;
     .fa-chevron-right {
         padding-left: calc(var(--bs-spacer) / 2);
         font-size: 0.5rem;
@@ -34,4 +35,41 @@ ul li.active > .nav-item {
         background: #eeeeee !important;
     }
 
+}
+.sidebar-section{
+    height: 100%;
+}
+.nav-item{
+    padding: 10px 0;
+    display: block;
+    color: var(--ds-cris-layout-navbar-link-color);
+}
+
+.vertical{
+    .icon-wrapper{
+        border-bottom: var(--ds-cris-layout-sidebar-link-border-bottom);   
+    }
+}
+
+.horizontal{
+    .icon-wrapper{
+        border-bottom: var(--ds-cris-layout-navbar-link-border-bottom);   
+    }
+    .nav-item{
+        padding: 10px;
+    }
+
+    .sidebar-sub-level-items{
+        background-color: var(--ds-cris-layout-navbar-sub-level-backround-color);  
+        a{
+            background-color: var(--ds-cris-layout-navbar-sub-level-backround-color);  
+        } 
+    }
+}
+
+.icon-wrapper{
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;  
 }

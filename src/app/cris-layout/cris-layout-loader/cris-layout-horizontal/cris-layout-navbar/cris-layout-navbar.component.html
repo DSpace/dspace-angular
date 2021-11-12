@@ -8,37 +8,11 @@
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">
                 <ul class="navbar-nav mr-auto shadow-none">
-
-	    	    <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
+	    	    	<ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
                              [tab]="tab"
+                             [layout]="'horizontal'"
                              (tabSelectedChange)="getTabSelected($event)"
                              ></ds-cris-layout-sidebar-item>
-                             
-                	<li class='nav-item active' dropdown>
-				      <a class='nav-link dropdown-toggle' role='button' dropdownToggle>Home<b class='caret'></b></a>
-				      <ul class='dropdown-menu'>
-				        <li><a class='dropdown-item'>Home 1</a></li>
-				        <li><a class='dropdown-item'>Home 2</a></li>
-				        <li><a class='dropdown-item'>Home 3</a></li>
-				      </ul>
-				    </li>
-				    <li class='nav-item'>
-				      <a class='nav-link'>About<b class='caret'></b></a>
-				    </li>
-				    <li class='nav-item' dropdown>
-				        <a class='nav-link dropdown-toggle' role='button' dropdownToggle>Pages<b class='caret'></b></a>
-				        <ul class='dropdown-menu'>
-				          <li><a class='dropdown-item'>Page 1</a></li>
-				          <li><a class='dropdown-item'>Page 2</a></li>
-				          <li><a class='dropdown-item'>Page 3</a></li>
-				        </ul>
-				    </li>
-				    <li class='nav-item'>
-				      <a class='nav-link'>Portfolio<b class='caret'></b></a>
-				    </li>
-				    <li class='nav-item'>
-				      <a class='nav-link'>Contact<b class='caret'></b></a>
-				    </li>
                 </ul>
             </div>
         </div>

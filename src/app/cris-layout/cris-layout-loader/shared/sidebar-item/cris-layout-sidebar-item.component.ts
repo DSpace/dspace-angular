@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Tab } from '../../../../../core/layout/models/tab.model';
-import { rotate } from '../../../../../shared/animations/rotate';
-import { slide } from '../../../../../shared/animations/slide';
+import { Tab } from '../../../../core/layout/models/tab.model';
+import { rotate } from '../../../../shared/animations/rotate';
+import { slide } from '../../../../shared/animations/slide';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
@@ -26,6 +26,11 @@ export class CrisLayoutSidebarItemComponent {
    * used for notify tab selection
    */
   @Input() selectedTab: Tab;
+
+  /**
+   * used for specifying type of layout
+   */
+  @Input() layout: string;
 
   /**
    * The prefix used for box header's i18n key
@@ -69,6 +74,7 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   toggleSection(event): void {
+    console.log(event);
     this.expanded = !this.expanded;
   }
 
