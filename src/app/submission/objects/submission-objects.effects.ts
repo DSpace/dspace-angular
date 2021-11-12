@@ -133,10 +133,15 @@ export class SubmissionObjectEffects {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
-        'sections').pipe(
+        'sections'
+      ).pipe(
         map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
-    }));
+        catchError((rd) => {
+          return observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId, rd.statusCode, rd.errorMessage));
+        })
+      );
+    })
+  );
 
   /**
    * Dispatch a [SaveForLaterSubmissionFormSuccessAction] or a [SaveSubmissionFormErrorAction] on error
@@ -147,10 +152,13 @@ export class SubmissionObjectEffects {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
-        'sections').pipe(
+        'sections'
+      ).pipe(
         map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
-    }));
+        catchError((rd) => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId, rd.statusCode, rd.errorMessage)))
+      );
+    })
+  );
 
   /**
    * Call parseSaveResponse and dispatch actions
@@ -187,10 +195,13 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections',
-        action.payload.sectionId).pipe(
+        action.payload.sectionId
+      ).pipe(
         map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
-    }));
+        catchError((rd) => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId, rd.statusCode, rd.errorMessage)))
+      );
+    })
+  );
 
   /**
    * Show a notification on error
@@ -198,7 +209,15 @@ export class SubmissionObjectEffects {
   @Effect({ dispatch: false }) saveError$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR),
     withLatestFrom(this.store$),
-    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice'))));
+    tap(([action, currentState]: [SaveSubmissionFormErrorAction|SaveSubmissionSectionFormErrorAction, any]) => {
+      if (action.payload.statusCode === 422) {
+        // this.notificationsService.warning(null, action.payload.errorMessage);
+        this.notificationsService.warning(null, 'Mandatory fields are missing');
+      } else {
+        this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice'));
+      }
+    })
+  );
 
   /**
    * Call parseSaveResponse and dispatch actions or dispatch [SaveSubmissionFormErrorAction] on error
@@ -210,7 +229,8 @@ export class SubmissionObjectEffects {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
-        'sections').pipe(
+        'sections'
+      ).pipe(
         map((response: SubmissionObject[]) => {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);
@@ -220,8 +240,10 @@ export class SubmissionObjectEffects {
               response, action.payload.submissionId, currentState.forms);
           }
         }),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
-    }));
+        catchError((rd) => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId, rd.statusCode, rd.errorMessage)))
+      );
+    })
+  );
 
   /*  @Effect() removeFormError$ = this.actions$.pipe(
       ofType(FormActionTypes.FORM_REMOVE_ERROR),

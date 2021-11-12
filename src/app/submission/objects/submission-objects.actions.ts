@@ -518,7 +518,7 @@ export class SaveSubmissionFormErrorAction implements Action {
    * @param statusCode
    *    the submission's response error code
    * @param errorMessage
-   *    the submission's response error code
+   *    the submission's response error message
    */
   constructor(submissionId: string, statusCode: number, errorMessage: string) {
     this.payload = { submissionId, statusCode, errorMessage };
@@ -582,7 +582,7 @@ export class SaveSubmissionSectionFormErrorAction implements Action {
    * @param statusCode
    *    the submission's response error code
    * @param errorMessage
-   *    the submission's response error code
+   *    the submission's response error message
    */
   constructor(submissionId: string, statusCode: number, errorMessage: string) {
     this.payload = { submissionId, statusCode, errorMessage };
