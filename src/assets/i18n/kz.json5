@@ -997,7 +997,7 @@
   "bitstream.edit.form.description.label": "Сипаттамасы",
   
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  "bitstream.edit.form.embargo.hint": "Кіруге рұқсат етілген бірінші күн. <b>Бұл күнді осы формада өзгерту мүмкін емес.</b> Бит ағынына тыйым салу күнін белгілеу үшін, мына жерге өтіңіз <i>"элемент дәрежесі</i> қойындысын басыңыз <i>Тіркелу...</i>, бит ағынын жасау немесе өңдеу <i>ОҚУ</i> ереже және орнату <i>Басталу Күні</i> қалауы бойынша.",
+  "bitstream.edit.form.embargo.hint": "Кіруге рұқсат етілген бірінші күн. <b>Бұл күнді осы формада өзгерту мүмкін емес.</b> Бит ағынына тыйым салу күнін белгілеу үшін, мына жерге өтіңіз <i>элемент дәрежесі</i> қойындысын басыңыз <i>Тіркелу...</i>, бит ағынын жасау немесе өңдеу <i>ОҚУ</i> ереже және орнату <i>Басталу Күні</i> қалауы бойынша.",
   
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
   "bitstream.edit.form.embargo.label": "Белгілі бір күнге дейін тыйым салу(шектеу)",
