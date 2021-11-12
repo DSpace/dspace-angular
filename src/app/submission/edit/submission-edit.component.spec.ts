@@ -24,8 +24,9 @@ import { SubmissionJsonPatchOperationsService } from '../../core/submission/subm
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
 import SpyObj = jasmine.SpyObj;
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
-fdescribe('SubmissionEditComponent Component', () => {
+describe('SubmissionEditComponent Component', () => {
 
   let comp: SubmissionEditComponent;
   let fixture: ComponentFixture<SubmissionEditComponent>;
@@ -33,15 +34,15 @@ fdescribe('SubmissionEditComponent Component', () => {
   let itemDataService: ItemDataService;
   let metadataSecurityConfigDataService: MetadataSecurityConfigurationService;
   let canDeactivateService: SubmissionEditCanDeactivateService;
+  let collectionDataService: CollectionDataService;
 
-  let submissionServiceStub: SubmissionServiceStub;
-  let submissionJsonPatchOperationsServiceStub: SubmissionJsonPatchOperationsServiceStub;
-  let router: RouterStub;
+  let router: Router;
 
   const submissionId = '826';
   const route: ActivatedRouteStub = new ActivatedRouteStub();
   const submissionObject: any = mockSubmissionObject;
-  const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
+
+  const collectionDataServiceSpy: SpyObj<CollectionDataService> = jasmine.createSpyObj('collectionDataService', {
     findById: jasmine.createSpy('findById'),
     getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
     getAuthorizedCollectionByCommunityAndEntityType: jasmine.createSpy('getAuthorizedCollectionByCommunityAndEntityType')
@@ -49,14 +50,18 @@ fdescribe('SubmissionEditComponent Component', () => {
   const canDeactivateServiceSpy: SpyObj<SubmissionEditCanDeactivateService> = jasmine.createSpyObj('canDeactivateService', {
     canDeactivate: of(true),
   });
+  const itemDataServiceSpy = jasmine.createSpyObj('itemDataService', {
+    findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
+  });
+  const metadataSecurityConfigDataServiceSpy = jasmine.createSpyObj('metadataSecurityConfigDataService', {
+    findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
+  });
+
+  const submissionServiceStub = new SubmissionServiceStub();
+  const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
 
   beforeEach(waitForAsync(() => {
-    itemDataService = jasmine.createSpyObj('itemDataService', {
-      findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
-    });
-    metadataSecurityConfigDataService = jasmine.createSpyObj('metadataSecurityConfigDataService', {
-      findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
-    });
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -67,12 +72,11 @@ fdescribe('SubmissionEditComponent Component', () => {
       declarations: [SubmissionEditComponent],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
-        { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
-        { provide: ItemDataService, useValue: itemDataService },
-        { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
-        { provide: CollectionDataService, useValue: collectionDataService },
-        { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
+        { provide: ItemDataService, useValue: itemDataServiceSpy },
+        { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataServiceSpy },
+        { provide: CollectionDataService, useValue: collectionDataServiceSpy },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },
@@ -85,10 +89,11 @@ fdescribe('SubmissionEditComponent Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmissionEditComponent);
     comp = fixture.componentInstance;
-    submissionServiceStub = TestBed.inject(SubmissionService as any);
-    submissionJsonPatchOperationsServiceStub = TestBed.inject(SubmissionJsonPatchOperationsService as any);
-    router = TestBed.inject(Router as any);
+    router = TestBed.inject(Router);
     canDeactivateService = TestBed.inject(SubmissionEditCanDeactivateService);
+    collectionDataService = TestBed.inject(CollectionDataService);
+    itemDataService = TestBed.inject(ItemDataService);
+    metadataSecurityConfigDataService = TestBed.inject(MetadataSecurityConfigurationService);
   });
 
   afterEach(() => {
@@ -117,7 +122,7 @@ fdescribe('SubmissionEditComponent Component', () => {
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({})
+    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$<SubmissionObject>({} as SubmissionObject)
     );
 
     fixture.detectChanges();
@@ -150,6 +155,5 @@ fdescribe('SubmissionEditComponent Component', () => {
     }));
 
   });
-
 
 });
