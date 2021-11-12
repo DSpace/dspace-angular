@@ -218,6 +218,5 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-    this.submissionJsonPatchOperationsService.deletePendingJsonPatchOperations();
   }
 }
