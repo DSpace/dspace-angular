@@ -175,7 +175,7 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveSubmissionFormErrorAction(submissionId);
+    action = new SaveSubmissionFormErrorAction(submissionId, undefined, undefined);
     newState = submissionObjectReducer(state, action);
 
     expect(newState[826].savePending).toBeFalsy();
@@ -185,7 +185,7 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveSubmissionSectionFormErrorAction(submissionId);
+    action = new SaveSubmissionSectionFormErrorAction(submissionId, undefined, undefined);
     newState = submissionObjectReducer(state, action);
 
     expect(newState[826].savePending).toBeFalsy();

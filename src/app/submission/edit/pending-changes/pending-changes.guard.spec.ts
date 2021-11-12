@@ -3,7 +3,8 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { PendingChangesGuard } from './pending-changes.guard';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
+import { cold } from 'jasmine-marbles';
 
 describe('PendingChangesGuard', () => {
 
@@ -11,14 +12,30 @@ describe('PendingChangesGuard', () => {
   let modalService: NgbModal;
   let canDeactivateService: SubmissionEditCanDeactivateService;
 
+  const modalStub = {
+    componentInstance: {
+      headerLabel: 'headerLabel',
+      infoLabel: 'infoLabel',
+      cancelLabel: 'cancelLabel',
+      confirmLabel: 'confirmLabel',
+      brandColor: 'brandColor',
+      confirmIcon: 'confirmIcon',
+      response: EMPTY,
+    }
+  };
+
   const canDeactivateServiceSpy = jasmine.createSpyObj('canDeactivateService', ['canDeactivate']);
+
+  const modalServiceSpy = jasmine.createSpyObj('modalService', {
+    open: jasmine.createSpy('open'),
+  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [],
       providers: [
-        { provide: NgbModal, useValue: {} },
+        { provide: NgbModal, useValue: modalServiceSpy },
         { provide: SubmissionEditCanDeactivateService, useValue: canDeactivateServiceSpy },
       ]
     });
@@ -35,10 +52,9 @@ describe('PendingChangesGuard', () => {
     beforeEach(() => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(false));
     });
-    it('should ...', () => {
-      // TODO
-      expect(false).toBeTrue();
-      // expect(guard.canDeactivate()).toBeObservable();
+    it('should open confirmation modal', () => {
+      guard.canDeactivate();
+      expect(modalService.open).toHaveBeenCalled();
     });
   });
 
@@ -46,10 +62,12 @@ describe('PendingChangesGuard', () => {
     beforeEach(() => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(true));
     });
-    it('should ...', () => {
-      // TODO
-      expect(false).toBeTrue();
-      // expect modal called
+    it('should allow navigation', () => {
+      const result = guard.canDeactivate();
+      const expected = cold('(a|)', {
+        a: true,
+      });
+      expect(result).toBeObservable(expected);
     });
   });
 });

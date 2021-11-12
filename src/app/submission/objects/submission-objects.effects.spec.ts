@@ -280,7 +280,7 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
       });
 
@@ -325,7 +325,7 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
       });
 
@@ -851,7 +851,7 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionSectionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
       });
 
@@ -952,7 +952,7 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
       });
 
