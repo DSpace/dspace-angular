@@ -3,6 +3,11 @@ import { hasNoValue, hasValue } from '../empty.util';
 import { Context } from '../../core/shared/context.model';
 import { InjectionToken } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  DEFAULT_CONTEXT,
+  DEFAULT_THEME,
+  resolveTheme
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 
 export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
   providedIn: 'root',
@@ -13,8 +18,6 @@ export const map = new Map();
 
 export const DEFAULT_ENTITY_TYPE = 'Publication';
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
-export const DEFAULT_CONTEXT = Context.Any;
-export const DEFAULT_THEME = '*';
 
 /**
  * Decorator function to store metadata representation mapping
@@ -57,8 +60,9 @@ export function getMetadataRepresentationComponent(entityType: string, mdReprese
     if (hasValue(entityAndMDRepMap)) {
       const contextMap = entityAndMDRepMap.get(context);
       if (hasValue(contextMap)) {
-        if (hasValue(contextMap.get(theme))) {
-          return contextMap.get(theme);
+        const match = resolveTheme(contextMap, theme);
+        if (hasValue(match)) {
+          return match;
         }
         if (hasValue(contextMap.get(DEFAULT_THEME))) {
           return contextMap.get(DEFAULT_THEME);

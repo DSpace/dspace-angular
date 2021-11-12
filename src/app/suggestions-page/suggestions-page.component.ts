@@ -20,6 +20,7 @@ import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/s
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { FindListOptions } from '../core/data/request.models';
+import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -59,10 +60,11 @@ export class SuggestionsPageComponent implements OnInit {
   targetRD$: Observable<RemoteData<OpenaireSuggestionTarget>>;
   targetId$: Observable<string>;
 
+  suggestionTarget: OpenaireSuggestionTarget;
   suggestionId: any;
+  suggestionSource: any;
   researcherName: any;
   researcherUuid: any;
-  suggestionSource: any;
 
   selectedSuggestions: { [id: string]: OpenaireSuggestion } = {};
   isBulkOperationPending = false;
@@ -93,6 +95,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
+      this.suggestionTarget = suggestionTarget;
       this.suggestionId = suggestionTarget.id;
       this.researcherName = suggestionTarget.display;
       this.suggestionSource = suggestionTarget.source;
@@ -136,6 +139,15 @@ export class SuggestionsPageComponent implements OnInit {
       this.processing$.next(false);
       this.suggestionsRD$.next(results);
       this.suggestionService.clearSuggestionRequests();
+      // navigate to the mydspace if no suggestions remains
+
+      // if (results.totalElements === 0) {
+      //     const content = this.translateService.instant('reciter.suggestion.empty',
+      //       this.suggestionService.getNotificationSuggestionInterpolation(this.suggestionTarget));
+      //     this.notificationService.success('', content, {timeOut:0}, true);
+      // TODO if the target is not the current use route to the suggestion target page
+      //     this.router.navigate(['/mydspace']);
+      // }
     });
   }
 
@@ -181,9 +193,10 @@ export class SuggestionsPageComponent implements OnInit {
    */
   approveAndImport(event: SuggestionApproveAndImport) {
     this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId)
-      .subscribe((response: any) => {
+      .subscribe((workspaceitem: WorkspaceItem) => {
+        const content = this.translateService.instant('reciter.suggestion.approveAndImport.success', { workspaceItemId: workspaceitem.id });
+        this.notificationService.success('', content, {timeOut:0}, true);
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-        this.notificationService.success(this.translateService.get('reciter.suggestion.approveAndImport.success'));
         this.updatePage();
       });
   }
@@ -248,8 +261,26 @@ export class SuggestionsPageComponent implements OnInit {
     return Object.keys(this.selectedSuggestions).length;
   }
 
-  getSuggestionSourceLabel(): string {
-    return 'reciter.suggestion.source.' + this.suggestionSource;
+  /**
+   * Return true if all the suggestion are configured with the same fixed collection in the configuration.
+   * @param suggestions
+   */
+  isCollectionFixed(suggestions: OpenaireSuggestion[]): boolean {
+    return this.suggestionService.isCollectionFixed(suggestions);
+  }
+
+  /**
+   * Label to be used to translate the suggestion source.
+   */
+  translateSuggestionSource() {
+    return this.suggestionService.translateSuggestionSource(this.suggestionSource);
+  }
+
+  /**
+   * Label to be used to translate the suggestion type.
+   */
+  translateSuggestionType() {
+    return this.suggestionService.translateSuggestionType(this.suggestionSource);
   }
 
 }

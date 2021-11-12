@@ -14,7 +14,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
 import { UploaderComponent } from '../../shared/uploader/uploader.component';
 import { UploaderError } from '../../shared/uploader/uploader-error.model';

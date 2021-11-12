@@ -8,14 +8,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./metric-googlescholar.component.scss']
 })
 export class MetricGooglescholarComponent extends BaseMetricComponent implements OnInit {
-
+  remark: JSON;
   sanitizedInnerHtml;
-
   constructor(protected sr: DomSanitizer) {
     super();
   }
 
   ngOnInit() {
+    this.remark = JSON.parse(this.metric.remark);
     this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
   }
 

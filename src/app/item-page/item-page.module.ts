@@ -12,7 +12,6 @@ import { ItemPageAbstractFieldComponent } from './simple/field-components/specif
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageTitleFieldComponent } from './simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageFieldComponent } from './simple/field-components/specific-field/item-page-field.component';
-import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
@@ -34,6 +33,11 @@ import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
+import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
+import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
+
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -42,6 +46,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DECLARATIONS = [
+  ThemedFileSectionComponent,
   ItemPageComponent,
   ThemedItemPageComponent,
   FullItemPageComponent,
@@ -53,7 +58,6 @@ const DECLARATIONS = [
   ItemPageUriFieldComponent,
   ItemPageTitleFieldComponent,
   ItemPageFieldComponent,
-  FileSectionComponent,
   CollectionsComponent,
   FullFileSectionComponent,
   PublicationComponent,
@@ -63,7 +67,9 @@ const DECLARATIONS = [
   AbstractIncrementalListComponent,
   MediaViewerComponent,
   MediaViewerVideoComponent,
-  MediaViewerImageComponent
+  MediaViewerImageComponent,
+  MiradorViewerComponent,
+  VersionPageComponent,
 ];
 
 @NgModule({
@@ -81,7 +87,8 @@ const DECLARATIONS = [
     ContextMenuModule
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
+    VersionedItemComponent
   ],
   exports: [
     ...DECLARATIONS

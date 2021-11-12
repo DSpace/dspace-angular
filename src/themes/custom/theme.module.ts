@@ -81,10 +81,12 @@ import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 
 const DECLARATIONS = [
+  FileSectionComponent,
   HomePageComponent,
   HomeNewsComponent,
   RootComponent,

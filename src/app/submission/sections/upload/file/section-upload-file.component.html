@@ -10,16 +10,16 @@
       </div>
       <div *ngIf="!readOnly" class="float-right w-15" [class.sticky-buttons]="!readMode">
         <ng-container *ngIf="readMode">
-          <ds-file-download-link [cssClasses]="'btn btn-link'" [isBlank]="true" [bitstream]="getBitstream()">
+          <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
           </ds-file-download-link>
-          <button class="btn btn-link"
+          <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
                   title="{{ 'submission.sections.upload.edit.title' | translate }}"
                   (click)="$event.preventDefault();switchMode();">
             <i class="fa fa-edit fa-2x text-normal"></i>
           </button>
-          <button class="btn btn-link"
+          <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
                   [disabled]="(processingDelete$ | async)"
@@ -29,17 +29,17 @@
           </button>
         </ng-container>
         <ng-container *ngIf="!readMode">
-          <button class="btn btn-link"
+          <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.save-metadata' | translate"
                   title="{{ 'submission.sections.upload.save-metadata' | translate }}"
                   (click)="saveBitstreamData($event);">
             <i class="fa fa-save fa-2x text-success"></i>
           </button>
-          <button class="btn btn-link"
+          <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.undo' | translate"
                   title="{{ 'submission.sections.upload.undo' | translate }}"
                   (click)="$event.preventDefault();switchMode();"><i class="fa fa-ban fa-2x text-warning"></i></button>
-          <button class="btn btn-link"
+          <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
                   [disabled]="(processingDelete$ | async)"

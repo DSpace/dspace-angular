@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -28,6 +28,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalComponent } from './journal.component';
+import { RouteService } from '../../../../core/services/route.service';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -86,6 +87,7 @@ describe('JournalComponent', () => {
         { provide: NotificationsService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: RouteService, useValue: {} }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

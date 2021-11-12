@@ -1,14 +1,23 @@
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
-import { hasNoValue, hasValue } from '../../../empty.util';
-import {
-  DEFAULT_CONTEXT,
-  DEFAULT_THEME
-} from '../../../metadata-representation/metadata-representation.decorator';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObject } from '../listable-object.model';
+import { environment } from '../../../../../environments/environment';
+import { ThemeConfig } from '../../../../../config/theme.model';
+import { InjectionToken } from '@angular/core';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
+export const DEFAULT_CONTEXT = Context.Any;
+export const DEFAULT_THEME = '*';
+
+/**
+ * Factory to allow us to inject getThemeConfigFor so we can mock it in tests
+ */
+export const GET_THEME_CONFIG_FOR_FACTORY = new InjectionToken<(str) => ThemeConfig>('getThemeConfigFor', {
+  providedIn: 'root',
+  factory: () => getThemeConfigFor
+});
 
 const map = new Map();
 
@@ -56,8 +65,9 @@ export function getListableObjectComponent(types: (string | GenericConstructor<L
       if (hasValue(typeModeMap)) {
         const contextMap = typeModeMap.get(context);
         if (hasValue(contextMap)) {
-          if (hasValue(contextMap.get(theme))) {
-            return contextMap.get(theme);
+          const match = resolveTheme(contextMap, theme);
+          if (hasValue(match)) {
+            return match;
           }
           if (bestMatchValue < 3 && hasValue(contextMap.get(DEFAULT_THEME))) {
             bestMatchValue = 3;
@@ -82,3 +92,35 @@ export function getListableObjectComponent(types: (string | GenericConstructor<L
   }
   return bestMatch;
 }
+
+/**
+ * Searches for a ThemeConfig by its name;
+ */
+export const getThemeConfigFor = (themeName: string): ThemeConfig => {
+  return environment.themes.find(theme => theme.name === themeName);
+};
+
+/**
+ * Find a match in the given map for the given theme name, taking theme extension into account
+ *
+ * @param contextMap A map of theme names to components
+ * @param themeName The name of the theme to check
+ * @param checkedThemeNames The list of theme names that are already checked
+ */
+export const resolveTheme = (contextMap: Map<any, any>, themeName: string, checkedThemeNames: string[] = []): any => {
+  const match = contextMap.get(themeName);
+  if (hasValue(match)) {
+    return match;
+  } else {
+    const cfg = getThemeConfigFor(themeName);
+    if (hasValue(cfg) && isNotEmpty(cfg.extends)) {
+      const nextTheme = cfg.extends;
+      const nextCheckedThemeNames = [...checkedThemeNames, themeName];
+      if (checkedThemeNames.includes(nextTheme)) {
+        throw new Error('Theme extension cycle detected: ' + [...nextCheckedThemeNames, nextTheme].join(' -> '));
+      } else {
+        return resolveTheme(contextMap, nextTheme, nextCheckedThemeNames);
+      }
+    }
+  }
+};

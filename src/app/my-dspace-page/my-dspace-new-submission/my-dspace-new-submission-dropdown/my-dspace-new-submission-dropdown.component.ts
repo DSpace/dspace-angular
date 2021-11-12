@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { hasValue } from '../../../shared/empty.util';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { map, mergeMap, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 
