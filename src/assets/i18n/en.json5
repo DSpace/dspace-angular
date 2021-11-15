@@ -4418,6 +4418,8 @@
 
   "search.filters.applied.f.itemtype": "Type",
 
+  "search.filters.applied.f.language": "Language",
+
   "search.filters.applied.f.namedresourcetype": "Status",
 
   "search.filters.applied.f.personorgunits": "Organisation",
@@ -4579,6 +4581,11 @@
 
   "search.filters.filter.knowsLanguage.label": "Search known language",
 
+  "search.filters.filter.language.head": "Language",
+
+  "search.filters.filter.language.label": "Language",
+
+  "search.filters.filter.language.placeholder": "Language",
 
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
 
