@@ -16,7 +16,7 @@
 
   "500.page-internal-server-error": "Service Unavailable",
 
-  "500.help": "The server is temporarily unable to service yourrequest due to maintenance downtime or capacityproblems. Please try again later.",
+  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
 
   "500.link.home-page": "Take me to the home page",
 
