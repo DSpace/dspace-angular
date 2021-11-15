@@ -23,11 +23,11 @@
     </div>
 
     <ds-process-detail-field *ngIf="process && process.startTime" id="process-start-time" [title]="'process.detail.start-time' | translate">
-        <div>{{ process.startTime }}</div>
+        <div>{{ process.startTime | date:dateFormat }}</div>
     </ds-process-detail-field>
 
     <ds-process-detail-field *ngIf="process && process.endTime" id="process-end-time" [title]="'process.detail.end-time' | translate">
-        <div>{{ process.endTime }}</div>
+        <div>{{ process.endTime | date:dateFormat }}</div>
     </ds-process-detail-field>
 
     <ds-process-detail-field *ngIf="process && process.processStatus" id="process-status" [title]="'process.detail.status' | translate">
