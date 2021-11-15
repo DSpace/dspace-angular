@@ -1,4 +1,4 @@
-<button class="dropdown-item"
+<button *ngIf="(isAuthenticated | async)" class="dropdown-item"
         [routerLink]="['/auditlogs/object/', contextMenuObject.id]">
   {{'context-menu.actions.audit-item.btn' | translate}}
 </button>

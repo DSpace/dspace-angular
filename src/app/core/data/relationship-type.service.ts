@@ -6,7 +6,7 @@ import { map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -15,7 +15,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
@@ -120,4 +120,33 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
       })
     );
   }
+
+  /**
+   * Search of the given RelationshipType if has the given itemTypes on its left and right sides.
+   * Returns an observable of the given RelationshipType if it matches, null if it doesn't
+   *
+   * @param type            The RelationshipType to check
+   */
+  searchByEntityType(type: string,useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<PaginatedList<RelationshipType>> {
+
+    return this.searchBy(
+      'byEntityType',
+      {
+        searchParams: [
+          {
+            fieldName: 'type',
+            fieldValue: type
+          },
+          {
+            fieldName: 'size',
+            fieldValue: 100
+          },
+        ]
+      }, useCachedVersionIfAvailable,reRequestOnStale,...linksToFollow).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ) as Observable<PaginatedList<RelationshipType>>;
+  }
+
+
 }

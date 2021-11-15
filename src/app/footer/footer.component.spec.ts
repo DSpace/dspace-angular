@@ -9,18 +9,41 @@ import { By } from '@angular/platform-browser';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
-
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
-
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
+import { of as observableOf } from 'rxjs';
+import { Site } from '../core/shared/site.model';
+import { SiteDataService } from '../core/data/site-data.service';
+import { LocaleService } from '../core/locale/locale.service';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
 let de: DebugElement;
 let el: HTMLElement;
-
+const site: Site = Object.assign(new Site(), {
+  id: 'test-site',
+  _links: {
+    self: { href: 'test-site-href' }
+  },
+  metadata: {
+    'cms.homepage.footer': [
+      {
+        value: 'Test footer',
+        language: 'en'
+      }
+    ],
+  }
+});
+const siteService = jasmine.createSpyObj('siteService', {
+  find: observableOf(site)
+});
+const localeServiceStub = {
+  getCurrentLanguageCode(): string {
+    return 'en';
+  }
+};
 describe('Footer component', () => {
 
   // waitForAsync beforeEach
@@ -34,7 +57,9 @@ describe('Footer component', () => {
       })],
       declarations: [FooterComponent], // declare the test component
       providers: [
-        FooterComponent
+        FooterComponent,
+        { provide: SiteDataService, useValue: siteService },
+        { provide: LocaleService, useValue: localeServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -55,5 +80,10 @@ describe('Footer component', () => {
     // Perform test using fixture and service
     expect(app).toBeTruthy();
   }));
-
+  it('should render TextSectionComponent', () => {
+    comp.showTopFooter = true;
+    fixture.detectChanges();
+    const textComponent = fixture.debugElement.queryAll(By.css('ds-text-section'));
+    expect(textComponent).toHaveSize(1);
+  });
 });

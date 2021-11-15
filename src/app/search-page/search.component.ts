@@ -56,11 +56,6 @@ export class SearchComponent implements OnInit {
   sortOptions$: Observable<SortOptions[]>;
 
   /**
-   * The current relevant scopes
-   */
-  scopeListRD$: Observable<DSpaceObject[]>;
-
-  /**
    * Emits true if were on a small screen
    */
   isXsOrSm$: Observable<boolean>;
@@ -151,9 +146,7 @@ export class SearchComponent implements OnInit {
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
-    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
-      switchMap((scopeId) => this.service.getScopes(scopeId))
-    );
+
     if (isEmpty(this.configuration$)) {
       this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
     }

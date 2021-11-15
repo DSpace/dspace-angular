@@ -72,11 +72,6 @@ export class MyDSpacePageComponent implements OnInit {
   sortOptions$: Observable<SortOptions[]>;
 
   /**
-   * The current relevant scopes
-   */
-  scopeListRD$: Observable<DSpaceObject[]>;
-
-  /**
    * Emits true if were on a small screen
    */
   isXsOrSm$: Observable<boolean>;
@@ -131,14 +126,13 @@ export class MyDSpacePageComponent implements OnInit {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getFirstCompletedRemoteData())))
+      switchMap((options: PaginatedSearchOptions) => {
+        options.projection = 'preventMetadataSecurity';
+        return this.service.search(options).pipe(getFirstCompletedRemoteData());
+      }))
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         this.resultsRD$.next(results);
       });
-
-    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
-      switchMap((scopeId) => this.service.getScopes(scopeId))
-    );
 
     this.context$ = this.searchConfigService.getCurrentConfiguration('workspace')
       .pipe(

@@ -1,6 +1,6 @@
 <li class="sidebar-section" [ngClass]="{ 'expanded': expanded, 'active' : tab.isActive }" >
     <div class="icon-wrapper" *ngIf="!tab.children || tab.children.length == 0 ">
-        <a class="nav-item nav-link shortcut-icon" routerLink="./"
+        <a class="nav-item nav-link shortcut-icon" [routerLink]="'../' + tab.shortname"
            attr.aria.labelledby="sidebarName-{{tab.id}}"
            [title]="getTabHeader(tab)"
            (click)="$event.preventDefault();selectTab(tab)">
@@ -18,7 +18,7 @@
         </a>
         <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="expanded">
             <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : subTab.isActive}">
-                <a class="nav-item nav-link shortcut-icon" routerLink="./"
+                <a class="nav-item nav-link shortcut-icon" [routerLink]="'../' + subTab.shortname"
                    (click)="$event.preventDefault();selectTab(subTab)">
 		            <span id="sidebarName-{{subTab.id}}" class="section-header-text">
 		                {{getTabHeader(subTab)}}

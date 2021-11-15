@@ -20,6 +20,7 @@ import 'reflect-metadata';
 import 'rxjs';
 
 import * as fs from 'fs';
+import { existsSync } from 'fs';
 import * as pem from 'pem';
 import * as https from 'https';
 import * as morgan from 'morgan';
@@ -29,11 +30,10 @@ import * as compression from 'compression';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
-import { existsSync } from 'fs';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+import { hasNoValue, hasValue } from './src/app/shared/empty.util';
 import { APP_BASE_HREF } from '@angular/common';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
@@ -41,6 +41,8 @@ import { UIServerConfig } from './src/config/ui-server-config.interface';
  * Set path for the browser application's dist folder
  */
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
+// Set path fir IIIF viewer.
+const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
 const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
 
@@ -134,6 +136,10 @@ export function app() {
    * Serve static resources (images, i18n messages, …)
    */
   server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  /*
+  * Fallthrough to the IIIF viewer (must be included in the build).
+  */
+  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
 
   // Register the ngApp callback function to handle incoming requests
   server.get('*', ngApp);

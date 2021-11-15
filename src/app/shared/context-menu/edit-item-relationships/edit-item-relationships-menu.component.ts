@@ -17,7 +17,8 @@ import { TabDataService } from '../../../core/layout/tab-data.service';
 import { Tab } from '../../../core/layout/models/tab.model';
 import { BoxDataService } from '../../../core/layout/box-data.service';
 import { Box } from '../../../core/layout/models/box.model';
-import {NotificationsService} from '../../notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
@@ -79,14 +80,14 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
     protected boxService: BoxDataService,
     private notificationService: NotificationsService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditRelationships);
   }
   /**
    * Get edit modes from context id
    * Get tabs from the context id and get boxes of tabs
    */
   ngOnInit(): void {
-    this.notificationService.claimedProfile.subscribe(res => {
+    this.notificationService.claimedProfile.subscribe(() => {
       this.relationships = [];
       this.initialize();
     });

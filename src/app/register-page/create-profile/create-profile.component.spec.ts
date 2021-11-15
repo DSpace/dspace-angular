@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -129,7 +129,8 @@ describe('CreateProfileComponent', () => {
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       isCookieAccepted: false,
-      removeCookieAccepted: {}
+      removeCookieAccepted: {},
+      isUserAgreementEnabled: of(true),
     });
 
     TestBed.configureTestingModule({

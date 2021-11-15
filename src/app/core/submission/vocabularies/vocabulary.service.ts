@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { first, map, switchMap, mergeMap } from 'rxjs/operators';
+import { first, map, mergeMap, switchMap } from 'rxjs/operators';
 
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { DataService } from '../../data/data.service';
 import { RequestService } from '../../data/request.service';
@@ -23,10 +23,7 @@ import { Vocabulary } from './models/vocabulary.model';
 import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
-} from '../../shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../shared/operators';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -210,6 +207,24 @@ export class VocabularyService {
       switchMap((vocabulary: Vocabulary) => vocabulary.entries),
     );
 
+  }
+
+  /**
+   * Get the display value for a vocabulary item, given the vocabulary name and the item value
+   * @param vocabularyName
+   * @param value
+   */
+  getPublicVocabularyEntryByValue(vocabularyName: string, value: string): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+    const params: RequestParam[] = [
+      new RequestParam('filter',value),
+      new RequestParam('exact','true')
+    ];
+    const options = Object.assign(new FindListOptions(), {
+      searchParams: params,
+      elementsPerPage: 1,
+    });
+    const href$ = this.vocabularyDataService.getFindAllHref(options, vocabularyName + '/entries');
+    return this.vocabularyEntryDetailDataService.findAllByHref(href$);
   }
 
   /**

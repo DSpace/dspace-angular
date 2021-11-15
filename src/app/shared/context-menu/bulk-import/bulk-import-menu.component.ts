@@ -10,7 +10,8 @@ import { Collection } from '../../../core/shared/collection.model';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import {NotificationsService} from '../../notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -36,10 +37,10 @@ export class BulkImportMenuComponent extends ContextMenuEntryComponent implement
     protected authorizationService: AuthorizationDataService,
     private notificationService: NotificationsService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.BulkImport);
   }
   ngOnInit() {
-    this.notificationService.claimedProfile.subscribe(res => {
+    this.notificationService.claimedProfile.subscribe(() => {
       this.isCollectionAdmin(false);
     });
   }

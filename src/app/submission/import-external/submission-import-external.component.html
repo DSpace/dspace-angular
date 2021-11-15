@@ -26,7 +26,7 @@
         <ds-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
         <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" id="empty-external-entry-list">
-          {{ 'search.results.empty' | translate }}
+          <ds-alert [type]="'alert-info'">{{ 'search.results.empty' | translate }}</ds-alert>
         </div>
       </ng-container>
     </div>
@@ -43,6 +43,7 @@
       </ds-alert>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-12">
       <hr>

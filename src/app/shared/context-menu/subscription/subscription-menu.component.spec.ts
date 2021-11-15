@@ -1,60 +1,62 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+import { of as observableOf } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { SubscriptionMenuComponent } from './subscription-menu.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { By } from '@angular/platform-browser';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
-import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPersonMock } from '../../testing/eperson.mock';
-import { DebugElement } from '@angular/core';
-
-
-
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('SubscriptionMenuComponent', () => {
   let component: SubscriptionMenuComponent;
   let fixture: ComponentFixture<SubscriptionMenuComponent>;
   let de: DebugElement;
-
-  let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
 
   let modalService;
   let authServiceStub: any;
+  let authorizationServiceStub: any;
 
-  beforeEach(async(() => {
+  const ngbModal = jasmine.createSpyObj('modal', {
+    open: jasmine.createSpy('open')
+  });
+
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
         self: { href: 'test-item-selflink' }
       }
     });
-    authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+
+    authServiceStub = jasmine.createSpyObj('authorizationService', {
+      getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
+      isAuthenticated: jasmine.createSpy('isAuthenticated')
     });
 
-    authServiceStub  = jasmine.createSpyObj('authorizationService', {
-      getAuthenticatedUserFromStore: observableOf(EPersonMock)
+    authorizationServiceStub = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: jasmine.createSpy('isAuthorized')
     });
 
     TestBed.configureTestingModule({
-      declarations: [ SubscriptionMenuComponent ],
+      declarations: [SubscriptionMenuComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: AuthService, useValue: authServiceStub },
-        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
-      ]
+        { provide: AuthorizationDataService, useValue: authorizationServiceStub}
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -63,19 +65,21 @@ describe('SubscriptionMenuComponent', () => {
     component = fixture.componentInstance;
     de = fixture.debugElement;
     component.contextMenuObject = dso;
-    fixture.detectChanges();
-  });
-
-  xit('should check the authorization of the current user', () => {
-    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanEditMetadata, dso.self);
   });
 
   describe('when the user is authorized', () => {
     beforeEach(() => {
-      (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(true));
-      component.ngOnInit();
+      authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(EPersonMock));
+      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+      authorizationServiceStub.isAuthorized.and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
+
+    it('should check the authorization of the current user', fakeAsync(() => {
+      flush();
+      expect(authorizationServiceStub.isAuthorized).toHaveBeenCalled();
+      expect(component.epersonId).toBe(EPersonMock.id);
+    }));
 
     it('should render a button', () => {
       const button = fixture.debugElement.query(By.css('button'));
@@ -84,7 +88,6 @@ describe('SubscriptionMenuComponent', () => {
 
     it('when button is clicked open modal content', () => {
       modalService = (component as any).modalService;
-      const modalSpy = spyOn(modalService, 'open');
 
       const button = fixture.debugElement.query(By.css('button'));
       button.nativeElement.click();
@@ -94,16 +97,18 @@ describe('SubscriptionMenuComponent', () => {
     });
   });
 
-  xdescribe('when the user is not authorized', () => {
+  describe('when the user is not authorized', () => {
     beforeEach(() => {
-      (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
-      component.ngOnInit();
+      authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(null));
+      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+      authorizationServiceStub.isAuthorized.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
 
-    it('should not render a button', () => {
+    it('should not render a button', fakeAsync(() => {
       const button = fixture.debugElement.query(By.css('button'));
+      flush();
       expect(button).toBeNull();
-    });
+    }));
   });
 });

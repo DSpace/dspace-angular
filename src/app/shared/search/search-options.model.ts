@@ -15,6 +15,7 @@ export class SearchOptions {
   dsoTypes?: DSpaceObjectType[];
   filters?: SearchFilter[];
   fixedFilter?: string;
+  projection?: string;
 
   constructor(
     options: {
@@ -62,9 +63,13 @@ export class SearchOptions {
         });
       });
     }
+    if (isNotEmpty(this.projection)) {
+      args.push(`projection=${this.projection}`);
+    }
     if (isNotEmpty(args)) {
       url = new URLCombiner(url, `?${args.join('&')}`).toString();
     }
+
     return url;
   }
 

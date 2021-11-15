@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../../../core/shared/metadata.utils';
@@ -15,14 +15,16 @@ import { CollectionElementLinkType } from '../../../../../../object-collection/c
 import { Context } from '../../../../../../../core/shared/context.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
-import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../../../../core/shared/operators';
-import { take } from 'rxjs/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../../core/shared/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
+import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
+import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 
 /**
  * The possible types of import for the external entry
@@ -66,16 +68,6 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * The item in submission
    */
   item: Item;
-
-  /**
-   * The collection the user is submitting in
-   */
-  collection: Collection;
-
-  /**
-   * The ID of the collection to import entries to
-   */
-  collectionId: string;
 
   /**
    * The current relationship-options used for filtering results
@@ -147,8 +139,19 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    */
   authorityEnabled = false;
 
+  /**
+   * The entity types compatible with the given external source
+   */
+  relatedEntityType: ItemType;
+
+  /**
+   * The modal for the collection selection
+   */
+  modalRef: NgbModalRef;
+
   constructor(public modal: NgbActiveModal,
               public lookupRelationService: LookupRelationService,
+              private modalService: NgbModal,
               private selectService: SelectableListService,
               private itemService: ItemDataService,
               private notificationsService: NotificationsService,
@@ -160,7 +163,6 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
     const pagination = Object.assign(new PaginationComponentOptions(), { id: 'external-entry-import', pageSize: 5 });
     this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: this.externalSourceEntry.value, pagination: pagination }));
     this.localEntitiesRD$ = this.lookupRelationService.getLocalResults(this.relationship, this.searchOptions);
-    this.collectionId = this.collection.id;
   }
 
   /**
@@ -211,16 +213,26 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * Create and import a new entity from the external entry
    */
   importNewEntity() {
-    this.itemService.importExternalSourceEntry(this.externalSourceEntry, this.collectionId).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      take(1)
+    this.modalRef = this.modalService.open(SubmissionImportExternalCollectionComponent, {
+      size: 'lg',
+    });
+    this.modalRef.componentInstance.entityType = this.relatedEntityType.label;
+
+    this.modalRef.componentInstance.selectedEvent.pipe(
+      switchMap((collectionListEntry: CollectionListEntry) => {
+        return this.itemService.importExternalSourceEntry(this.externalSourceEntry, collectionListEntry.collection.id).pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload(),
+          take(1)
+        );
+      })
     ).subscribe((item: Item) => {
       this.lookupRelationService.removeLocalResultsCache();
       const searchResult = Object.assign(new ItemSearchResult(), {
         indexableObject: item
       });
       this.notificationsService.success(this.translateService.get(this.labelPrefix + this.label + '.added.new-entity'));
+      this.modalRef.close();
       this.importedObject.emit(searchResult);
     });
   }

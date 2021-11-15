@@ -15,6 +15,7 @@ import { MetadataValue } from '../../../../../../core/shared/metadata.models';
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
 export interface DynamicDsDatePickerModelConfig extends DynamicDatePickerModelConfig {
+  legend?: string;
   typeBindRelations?: DynamicFormControlRelation[];
   securityLevel?: number;
   securityConfigLevel?: number[];
@@ -33,12 +34,14 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() securityConfigLevel?: number[];
   @serializable() toggleSecurityVisibility = true;
   malformedDate: boolean;
+  legend: string;
   hasLanguages = false;
   repeatable = false;
 
   constructor(config: DynamicDsDatePickerModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.malformedDate = false;
+    this.legend = config.legend;
     this.metadataValue = (config as any).metadataValue;
     this.securityLevel = config.securityLevel;
     this.securityConfigLevel = config.securityConfigLevel;

@@ -4,7 +4,7 @@ import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 import * as htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
-import { Options } from 'html-to-image';
+import { Options } from 'html-to-image/es/options';
 
 export enum ExportImageType {
   png = 'png',

@@ -156,15 +156,17 @@ export class CreateProfileComponent implements OnInit {
         requireCertificate: false
       };
 
-      // If the End User Agreement is accepted, add end-user agreement metadata to the user
-      if (this.userAgreementAccept) {
-        values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
-          {
-            value: String(true)
-          }
-        ];
-        this.endUserAgreementService.removeCookieAccepted();
-      }
+      // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
+      this.endUserAgreementService.isUserAgreementEnabled().subscribe((isUserAgreementEnabled) => {
+        if (isUserAgreementEnabled && this.userAgreementAccept) {
+          values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
+            {
+              value: String(true)
+            }
+          ];
+          this.endUserAgreementService.removeCookieAccepted();
+        }
+      });
 
       const eperson = Object.assign(new EPerson(), values);
       this.ePersonDataService.createEPersonForToken(eperson, this.token).pipe(

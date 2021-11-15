@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -25,15 +25,34 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
-import { createRelationshipsObservable } from '../shared/item.component.spec';
+import {
+  createRelationshipsObservable,
+  iiifEnabled,
+  iiifSearchEnabled,
+  mockRouteService
+} from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { RouteService } from '../../../../core/services/route.service';
 
-const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-  metadata: new MetadataMap(),
-  relationships: createRelationshipsObservable()
-});
+const iiifEnabledMap: MetadataMap = {
+  'dspace.iiif.enabled': [iiifEnabled],
+};
+
+const iiifEnabledWithSearchMap: MetadataMap = {
+  'dspace.iiif.enabled': [iiifEnabled],
+  'iiif.search.enabled': [iiifSearchEnabled],
+};
+
+const noMetadata = new MetadataMap();
+
+function getItem(metadata: MetadataMap) {
+  return Object.assign(new Item(), {
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    metadata: metadata,
+    relationships: createRelationshipsObservable()
+  });
+}
 
 describe('PublicationComponent', () => {
   let comp: PublicationComponent;
@@ -68,6 +87,7 @@ describe('PublicationComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: RouteService, useValue: mockRouteService }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -76,41 +96,81 @@ describe('PublicationComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(waitForAsync(() => {
-    fixture = TestBed.createComponent(PublicationComponent);
-    comp = fixture.componentInstance;
-    comp.object = mockItem;
-    fixture.detectChanges();
-  }));
+  describe('default view', () => {
+    beforeEach(waitForAsync(() => {
+      fixture = TestBed.createComponent(PublicationComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(noMetadata);
+      fixture.detectChanges();
+    }));
 
-  it('should contain a component to display the date', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-date-field'));
-    expect(fields.length).toBeGreaterThanOrEqual(1);
+    it('should contain a component to display the date', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-date-field'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should not contain a metadata only author field', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-author-field'));
+      expect(fields.length).toBe(0);
+    });
+
+    it('should contain a mixed metadata and relationship field for authors', () => {
+      const fields = fixture.debugElement.queryAll(By.css('.ds-item-page-mixed-author-field'));
+      expect(fields.length).toBe(1);
+    });
+
+    it('should contain a component to display the abstract', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-abstract-field'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should contain a component to display the uri', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-uri-field'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should contain a component to display the collections', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-collections'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
   });
 
-  it('should not contain a metadata only author field', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-author-field'));
-    expect(fields.length).toBe(0);
+  describe('with IIIF viewer', () => {
+
+    beforeEach(waitForAsync(() => {
+      fixture = TestBed.createComponent(PublicationComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(iiifEnabledMap);
+      fixture.detectChanges();
+    }));
+
+    it('should contain an iiif viewer component', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-mirador-viewer'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
+
   });
 
-  it('should contain a mixed metadata and relationship field for authors', () => {
-    const fields = fixture.debugElement.queryAll(By.css('.ds-item-page-mixed-author-field'));
-    expect(fields.length).toBe(1);
-  });
+  describe('with IIIF viewer and search', () => {
 
-  it('should contain a component to display the abstract', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-abstract-field'));
-    expect(fields.length).toBeGreaterThanOrEqual(1);
-  });
+    beforeEach(waitForAsync(() => {
+      mockRouteService.getPreviousUrl.and.returnValue(of(['/search?q=bird&motivation=painting','/item']));
+      fixture = TestBed.createComponent(PublicationComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(iiifEnabledWithSearchMap);
+      fixture.detectChanges();
+    }));
 
-  it('should contain a component to display the uri', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-uri-field'));
-    expect(fields.length).toBeGreaterThanOrEqual(1);
-  });
+    it('should contain an iiif viewer component', () => {
+      const fields = fixture.debugElement.queryAll(By.css('ds-mirador-viewer'));
+      expect(fields.length).toBeGreaterThanOrEqual(1);
+    });
 
-  it('should contain a component to display the collections', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-collections'));
-    expect(fields.length).toBeGreaterThanOrEqual(1);
+    it('should call the RouteService getHistory method', () => {
+      expect(mockRouteService.getPreviousUrl).toHaveBeenCalled();
+    });
+
   });
 
 });
+

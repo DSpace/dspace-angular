@@ -20,6 +20,7 @@ import { fadeIn } from '../../shared/animations/fade';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../../core/shared/operators';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -122,12 +123,12 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.subs.push(combineLatest(
       [
         this.routeService.getQueryParameterValue('entity'),
-        this.routeService.getQueryParameterValue('source'),
+        this.routeService.getQueryParameterValue('sourceId'),
         this.routeService.getQueryParameterValue('query')
       ]).pipe(
       take(1)
-    ).subscribe(([entity, source, query]: [string, string, string]) => {
-      this.reload$.next({entity: entity, query: query, sourceId: source});
+    ).subscribe(([entity, sourceId, query]: [string, string, string]) => {
+      this.reload$.next({entity: entity || NONE_ENTITY_TYPE, query: query, sourceId: sourceId});
       this.selectLabel(entity);
       this.retrieveExternalSources();
     }));
@@ -188,11 +189,11 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
           const query = sourceQueryObject.query;
           this.routeData = sourceQueryObject;
           return this.searchConfigService.paginatedSearchOptions.pipe(
-            tap((v) => this.isLoading$.next(true)),
+            tap(() => this.isLoading$.next(true)),
             filter((searchOptions) => searchOptions.query === query),
             mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
               getFinishedRemoteData(),
-            )),
+            ))
           );
         }
       ),

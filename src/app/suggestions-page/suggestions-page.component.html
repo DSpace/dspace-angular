@@ -5,9 +5,10 @@
           <div *ngIf="suggestionsRD?.pageInfo?.totalElements > 0">
 
             <h2>
+              {{ translateSuggestionType() | translate }}
               {{'reciter.suggestion.suggestionFor' | translate}}
               <a target="_blank" [routerLink]="['/items', researcherUuid]">{{researcherName}}</a>
-              {{'reciter.suggestion.from.source' | translate}} {{ getSuggestionSourceLabel() | translate}}
+              {{'reciter.suggestion.from.source' | translate}} {{ translateSuggestionSource() | translate }}
             </h2>
 
             <div class="mb-3 mt-3">
@@ -16,6 +17,7 @@
               <ds-suggestion-actions *ngIf="getSelectedSuggestionsCount() > 0"
                                       class="mt-2 ml-2"
                                      [isBulk]="true"
+                                     [isCollectionFixed]="isCollectionFixed(suggestionsRD.page)"
                                      (approveAndImport)="approveAndImportAllSelected($event)"
                                      (notMineClicked)="notMineAllSelected()"></ds-suggestion-actions>
               <i class='fas fa-circle-notch fa-spin' *ngIf="isBulkOperationPending"></i>
@@ -32,6 +34,7 @@
                   <ds-suggestion-list-item
                     [object]="object"
                     [isSelected]="selectedSuggestions[object.id]"
+                    [isCollectionFixed]="isCollectionFixed([object])"
                     (notMineClicked)="notMine($event)"
                     (selected)="onSelected(object, $event)"
                     (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>

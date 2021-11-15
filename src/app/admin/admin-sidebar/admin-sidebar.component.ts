@@ -1,7 +1,7 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { first, map, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, first, map, take, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
@@ -62,6 +62,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   sidebarExpanded: Observable<boolean>;
 
+  inFocus$: BehaviorSubject<boolean>;
+
   constructor(protected menuService: MenuService,
               protected injector: Injector,
               private variableService: CSSVariableService,
@@ -71,6 +73,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               private scriptDataService: ScriptDataService,
   ) {
     super(menuService, injector);
+    this.inFocus$ = new BehaviorSubject(false);
   }
 
   /**
@@ -95,10 +98,25 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         this.sidebarOpen = !collapsed;
         this.sidebarClosed = collapsed;
       });
-    this.sidebarExpanded = observableCombineLatest(this.menuCollapsed, this.menuPreviewCollapsed)
+    this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
         map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
       );
+    this.inFocus$.pipe(
+      debounceTime(50),
+      distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
+      withLatestFrom(
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+      ),
+    ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
+      if (collapsed) {
+        if (inFocus && previewCollapsed) {
+          this.expandPreview(new Event('focusin → expand'));
+        } else if (!inFocus && !previewCollapsed) {
+          this.collapsePreview(new Event('focusout → collapse'));
+        }
+      }
+    });
   }
 
   /**
@@ -591,6 +609,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           } as LinkMenuItemModel,
           icon: 'list-alt',
             index: 13
+        },
+        /* CMS edit menu entry */
+        {
+          id: 'metadata_cms_edit',
+          active: false,
+          visible: false,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.cms_metadata_edit',
+            link: '/admin/edit-cms-metadata'
+          } as LinkMenuItemModel,
+          icon: 'edit',
+          index: 14
         }
       ];
 
@@ -661,6 +692,32 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         shouldPersistOnRouteChange: true,
       })));
     });
+  }
+
+  @HostListener('focusin')
+  public handleFocusIn() {
+    this.inFocus$.next(true);
+  }
+
+  @HostListener('focusout')
+  public handleFocusOut() {
+    this.inFocus$.next(false);
+  }
+
+  public handleMouseEnter(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.expandPreview(event);
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  public handleMouseLeave(event: any) {
+    if (!this.inFocus$.getValue()) {
+      this.collapsePreview(event);
+    } else {
+      event.preventDefault();
+    }
   }
 
   /**

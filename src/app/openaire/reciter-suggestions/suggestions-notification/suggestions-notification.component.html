@@ -1,6 +1,6 @@
 <ng-container *ngIf="(suggestionsRD$ | async) as suggestions">
   <ng-container *ngFor="let suggestion of suggestions" class="alert alert-info">
-    <div class="alert alert-success" *ngIf="suggestion.total > 0">
+    <div class="alert alert-success d-block" *ngIf="suggestion.total > 0">
       <div [innerHTML]="'mydspace.notification.suggestion.page' | translate: getNotificationSuggestionInterpolation(suggestion)">
       </div>
     </div>

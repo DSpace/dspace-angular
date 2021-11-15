@@ -8,7 +8,8 @@
                    [pageInfoState]="(processesRD$ | async)?.payload"
                    [collectionSize]="(processesRD$ | async)?.payload?.totalElements"
                    [hideGear]="true"
-                   [hidePagerWhenSinglePage]="true">
+                   [hidePagerWhenSinglePage]="true"
+                   (paginationChange)="onPaginationChange()">
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -19,6 +20,7 @@
                     <th scope="col">{{'process.overview.table.start' | translate}}</th>
                     <th scope="col">{{'process.overview.table.finish' | translate}}</th>
                     <th scope="col">{{'process.overview.table.status' | translate}}</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,6 +31,11 @@
                     <td>{{process.startTime | date:dateFormat}}</td>
                     <td>{{process.endTime | date:dateFormat}}</td>
                     <td>{{process.processStatus}}</td>
+                    <td>
+                      <button class="btn btn-danger" (click)="delete(process)" *ngIf="isProcessCompleted(process)"> 
+                        <i class="fas fa-trash"></i> 
+                      </button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
