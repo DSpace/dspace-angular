@@ -6,14 +6,15 @@ import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deact
 import { EMPTY, of } from 'rxjs';
 import { cold } from 'jasmine-marbles';
 import { take } from 'rxjs/operators';
+import SpyObj = jasmine.SpyObj;
 
 describe('PendingChangesGuard', () => {
 
   let guard: PendingChangesGuard;
-  let modalService: NgbModal;
+  let modalService: SpyObj<NgbModal>;
   let canDeactivateService: SubmissionEditCanDeactivateService;
 
-  const modalStub = {
+  const modalStub: any = {
     componentInstance: {
       headerLabel: 'headerLabel',
       infoLabel: 'infoLabel',
@@ -41,8 +42,9 @@ describe('PendingChangesGuard', () => {
       ]
     });
     guard = TestBed.inject(PendingChangesGuard);
-    modalService = TestBed.inject(NgbModal);
+    modalService = TestBed.inject(NgbModal) as SpyObj<NgbModal>;
     canDeactivateService = TestBed.inject(SubmissionEditCanDeactivateService);
+    modalService.open.and.returnValue(modalStub);
   }));
 
   it('should be created', () => {
