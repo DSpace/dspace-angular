@@ -16,14 +16,12 @@ export class CrisLayoutVerticalComponent extends CrisLayoutTabsSidebarComponent 
 
   tabs: Tab[];
 
-  /* tslint:disable:no-empty */
-  constructor(public location: Location, public router: Router, public route: ActivatedRoute) { 
+  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
     super(location,router,route);
   }
 
   ngOnInit(): void {
     this.init();
   }
-  /* tslint:enable:no-empty */
 
 }

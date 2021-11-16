@@ -30,18 +30,17 @@ export class CrisLayoutTabsSidebarComponent {
   /**
    * tabs list
    */
-  tabs: Tab[];
+  tabs: Tab[] = [];
   /**
    * used for notify tab selection
    */
   @Output() selectedTab = new EventEmitter<Tab>();
 
-  constructor(public location: Location, public router: Router, public route: ActivatedRoute) { 
+  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
   }
 
   init(): void {
-
-    // if (changes.tabs && changes.tabs.currentValue) {
+    if ( this.tabs && this.tabs.length > 0 ) {
       this.parseTabs();
       // Check if the location contains a specific tab to show
       const tabName = this.getCurrentTabFromUrl();
@@ -54,8 +53,7 @@ export class CrisLayoutTabsSidebarComponent {
           this.selectTab(0,null);
         }
       }
-        console.log(this.tabs)
-    // }
+    }
   }
 
   selectFromTabName(tabName): void {
@@ -84,7 +82,6 @@ export class CrisLayoutTabsSidebarComponent {
         this.selectTab(0,null);
       }
     }
-
   }
 
   /**
@@ -146,6 +143,7 @@ export class CrisLayoutTabsSidebarComponent {
   }
 
   public parseTabs(): void {
+      console.log(this.tabs);
       const tabs = [];
       this.tabs.forEach((tab) => {
           // create children where tab has "::"

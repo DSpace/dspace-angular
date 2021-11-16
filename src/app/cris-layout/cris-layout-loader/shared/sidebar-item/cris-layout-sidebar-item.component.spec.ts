@@ -12,7 +12,7 @@ import { boxMetadata } from '../../../../shared/testing/box.mock';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
-import { CrisLayoutMetadataBoxComponent } from '../../boxes/metadata/cris-layout-metadata-box.component';
+// import { CrisLayoutMetadataBoxComponent } from '../../boxes/metadata/cris-layout-metadata-box.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { BoxDataService } from '../../../../core/layout/box-data.service';
@@ -22,13 +22,13 @@ import { MetadataComponent } from '../../../../core/layout/models/metadata-compo
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-const testType = LayoutPage.DEFAULT;
+// const testType = LayoutPage.DEFAULT;
 
-class TestItem {
-  firstMetadataValue(key: string): string {
-    return testType;
-  }
-}
+// class TestItem {
+//   firstMetadataValue(key: string): string {
+//     return testType;
+//   }
+// }
 
 // tslint:disable-next-line: max-classes-per-file
 class BoxDataServiceMock {
@@ -66,7 +66,7 @@ describe('CrisLayoutSidebarItemComponent', () => {
       declarations: [
         CrisLayoutSidebarItemComponent,
         CrisLayoutLoaderDirective,
-        CrisLayoutMetadataBoxComponent
+        // CrisLayoutMetadataBoxComponent
       ],
       providers: [
         { provide: BoxDataService, useClass: BoxDataServiceMock },
@@ -76,7 +76,7 @@ describe('CrisLayoutSidebarItemComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CrisLayoutSidebarItemComponent, {
       set: {
-        entryComponents: [CrisLayoutMetadataBoxComponent]
+        // entryComponents: [CrisLayoutMetadataBoxComponent]
       }
     }).compileComponents();
   }));

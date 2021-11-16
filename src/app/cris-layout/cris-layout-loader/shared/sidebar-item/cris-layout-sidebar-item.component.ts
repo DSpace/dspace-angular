@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Tab } from '../../../../core/layout/models/tab.model';
-import { rotate } from '../../../../shared/animations/rotate';
+import { rotate, rotateNavbar } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-cris-layout-sidebar-item',
   templateUrl: './cris-layout-sidebar-item.component.html',
   styleUrls: ['./cris-layout-sidebar-item.component.scss'],
-  animations: [rotate, slide]
+  animations: [rotate, slide, rotateNavbar]
 })
 export class CrisLayoutSidebarItemComponent {
   /**
@@ -52,7 +52,7 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   ngOnInit() {
-    if (!!this.tab.children && this.tab.children.length > 0) {
+    if (!!this.tab && !!this.tab.children && this.tab.children.length > 0) {
       this.tab.children.forEach((subtab) => {
         if (subtab.isActive) {
           this.expanded = true;
@@ -74,7 +74,6 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   toggleSection(event): void {
-    console.log(event);
     this.expanded = !this.expanded;
   }
 

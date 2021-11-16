@@ -16,3 +16,58 @@
 .nav-item.active{
 	border-bottom: 1px solid #207698;
 }
+
+nav.navbar {
+    // border-bottom: 1px var(--bs-gray-400) solid;
+    align-items: baseline;
+}
+
+/** Mobile menu styling **/
+@media screen and (max-width: map-get($grid-breakpoints, md)) {
+    .navbar {
+        width: 100vw;
+        background-color: var(--bs-white);
+        overflow: hidden;
+        height: 0;
+        &.open {
+            height: auto; //doesn't matter because wrapper is sticky
+        }
+    }
+    .navbar-nav{
+        height: auto;
+    }
+    .sidebar-section{
+        width: 100%;
+    }
+    :host{
+        width: 100%;
+    }
+    
+    nav.navbar {
+        border-bottom: 1px var(--bs-gray-400) solid;
+        align-items: baseline;
+    }
+}
+
+@media screen and (min-width: map-get($grid-breakpoints, md)) {
+    .reset-padding-md {
+        margin-left: calc(var(--bs-spacer) / -2);
+        margin-right: calc(var(--bs-spacer) / -2);
+    }
+}
+
+/* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
+.navbar-expand-md.navbar-container {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
+        padding: 0;
+    }
+}
+
+.navbar-nav {
+  ::ng-deep a.nav-link {
+    color: var(--ds-navbar-link-color);
+  }
+  ::ng-deep a.nav-link:hover {
+    color: var(--ds-navbar-link-color-hover);
+  }
+}

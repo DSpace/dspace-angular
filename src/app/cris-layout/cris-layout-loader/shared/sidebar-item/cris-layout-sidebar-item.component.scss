@@ -5,7 +5,7 @@ ul li.active > .nav-item {
 :host ::ng-deep {
     height: 100%;
     .fa-chevron-right {
-        padding-left: calc(var(--bs-spacer) / 2);
+        padding: calc(var(--bs-spacer) / 2);
         font-size: 0.5rem;
         line-height: 3;
     }
@@ -14,6 +14,7 @@ ul li.active > .nav-item {
         list-style: none;
         // color: var(--bs-navbar-dark-color);
         overflow: hidden;
+        z-index: 999999;
         li .nav-item{
             background: transparent;
         }
@@ -43,6 +44,11 @@ ul li.active > .nav-item {
     padding: 10px 0;
     display: block;
     color: var(--ds-cris-layout-navbar-link-color);
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;  
+    z-index: 99999;
 }
 
 .vertical{
@@ -65,11 +71,9 @@ ul li.active > .nav-item {
             background-color: var(--ds-cris-layout-navbar-sub-level-backround-color);  
         } 
     }
-}
-
-.icon-wrapper{
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;  
+    .sidebar-sub-level-items {
+        li .nav-item{
+            background: #ffffff;
+        }
+    }
 }

@@ -8,13 +8,17 @@
         </a>
     </div>
     <div *ngIf="!!tab.children && tab.children.length > 0 " class="sidebar-collapsible">
-        <a class="nav-item shortcut-icon" routerLink="./"
+        <a class="nav-item shortcut-icon" href="javascript:;"
            (click)="$event.preventDefault();toggleSection($event)">
             <span id="sidebarName-{{tab.id}}" class="section-header-text">
                 {{getTabHeader(tab)}}
             </span>
-            <i class="fas fa-chevron-right fa-pull-right"
+
+            <i *ngIf="layout == 'vertical'" class="fas fa-chevron-right fa-pull-right"
                [@rotate]="expanded ? 'expanded' : 'collapsed'" [title]="getTabHeader(tab)"></i>
+               
+            <i *ngIf="layout == 'horizontal'" class="fas fa-chevron-right fa-pull-right"
+               [@rotateNavbar]="expanded ? 'expanded' : 'collapsed'" [title]="getTabHeader(tab)"></i>
         </a>
         <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="expanded">
             <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : subTab.isActive}">
