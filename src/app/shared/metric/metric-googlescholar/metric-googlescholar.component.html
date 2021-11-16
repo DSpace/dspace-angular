@@ -2,5 +2,5 @@
   <div class="font-weight-bold">
     {{metric.metricType | translate}}
   </div>
-  <div [innerHtml]="sanitizedInnerHtml"></div>
+  <a target="_blank" title="" [href]="$any(remark).href">{{'item.page.metric.label.check' | translate}}</a>
 </div>

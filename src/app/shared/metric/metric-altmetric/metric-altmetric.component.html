@@ -1,5 +1,10 @@
 <div class="font-weight-bold" *ngIf="!hideLabel">
-    {{metric.metricType | translate}}
+  {{metric.metricType | translate}}
 </div>
-<div #metricChild [innerHtml]="sanitizedInnerHtml"></div>
-
+<div #metricChild *ngIf="remark !== undefined">
+  <div class='altmetric-embed' [attr.data-badge-type]="$any(remark).badgeType"
+       [attr.data-badge-popover]="$any(remark).popover"
+       [attr.data-doi]="$any(remark).doiAttr"
+       [attr.data-pmid]="$any(remark).pmidAttr">
+  </div>
+</div>

@@ -62,7 +62,8 @@ describe('CollectionSourceComponent', () => {
           label: 'DSpace Intermediate Metadata',
           nameSpace: 'http://www.dspace.org/xmlns/dspace/dim'
         }
-      ]
+      ],
+      _links: { self: { href: 'contentsource-selflink' } }
     });
     fieldUpdate = {
       field: contentSource,
@@ -118,7 +119,7 @@ describe('CollectionSourceComponent', () => {
         uuid: 'fake-collection-id'
       }))
     });
-    requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
+    requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],

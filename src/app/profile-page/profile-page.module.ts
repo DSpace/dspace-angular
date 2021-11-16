@@ -8,16 +8,22 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { OpenaireModule } from '../openaire/openaire.module';
 
 @NgModule({
   imports: [
     ProfilePageRoutingModule,
     CommonModule,
     SharedModule,
-    UiSwitchModule
+    UiSwitchModule,
+    OpenaireModule
   ],
   exports: [
-    ProfilePageSecurityFormComponent
+    ProfilePageComponent,
+    ThemedProfilePageComponent,
+    ProfilePageMetadataFormComponent,
+    ProfilePageSecurityFormComponent,
+    ProfilePageResearcherFormComponent
   ],
   declarations: [
     ProfilePageComponent,

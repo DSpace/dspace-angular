@@ -21,6 +21,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicDsDatePickerModel;
+  @Input() legend: string;
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();

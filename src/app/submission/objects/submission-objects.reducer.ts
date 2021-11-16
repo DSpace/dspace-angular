@@ -37,7 +37,8 @@ import {
   SetSectionFormId,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
+  UpdateSectionErrorsAction
 } from './submission-objects.actions';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -309,6 +310,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.UPDATE_SECTION_DATA: {
       return updateSectionData(state, action as UpdateSectionDataAction);
+    }
+
+    case SubmissionObjectActionTypes.UPDATE_SECTION_ERRORS: {
+      return updateSectionErrors(state, action as UpdateSectionErrorsAction);
     }
 
     case SubmissionObjectActionTypes.DISABLE_SECTION: {
@@ -763,6 +768,36 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
             metadata: reduceSectionMetadata(action.payload.metadata, state[ action.payload.submissionId ].sections [ action.payload.sectionId ].metadata)
           })
         })
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Update section's data.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an UpdateSectionDataAction
+ * @return SubmissionObjectState
+ *    the new state, with the section's data updated.
+ */
+function updateSectionErrors(state: SubmissionObjectState, action: UpdateSectionErrorsAction): SubmissionObjectState {
+  if (isNotEmpty(state[ action.payload.submissionId ])
+    && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
+            enabled: true,
+            errorsToShow: action.payload.errorsToShow,
+            serverValidationErrors: action.payload.errorsToShow,
+          })
+        }),
+        savePending: false,
       })
     });
   } else {

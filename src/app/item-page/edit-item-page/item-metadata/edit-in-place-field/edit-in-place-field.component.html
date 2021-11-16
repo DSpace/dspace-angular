@@ -5,7 +5,7 @@
       <span>{{metadata?.key?.split('.').join('.&#8203;')}}</span>
     </div>
     <div *ngIf="(editable | async)" class="field-container">
-      <ds-validation-suggestions [suggestions]="(metadataFieldSuggestions | async)"
+            <ds-validation-suggestions [disable]="fieldUpdate.changeType != 1" [suggestions]="(metadataFieldSuggestions | async)"
                                  [(ngModel)]="metadata.key"
                                  [url]="this.url"
                                  [metadata]="this.metadata"

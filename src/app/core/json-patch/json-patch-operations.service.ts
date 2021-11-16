@@ -93,7 +93,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
             map((rd: RemoteData<any>) => {
               if (rd.hasFailed) {
                 this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId));
-                throw new Error(rd.errorMessage);
+                throw rd;
               } else if (hasValue(rd.payload) && isNotEmpty(rd.payload.dataDefinition)) {
                 this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId));
                 return rd.payload.dataDefinition;

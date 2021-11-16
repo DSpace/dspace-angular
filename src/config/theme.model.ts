@@ -1,11 +1,17 @@
 import { Config } from './config.interface';
-import { hasValue, hasNoValue, isNotEmpty } from '../app/shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../app/shared/empty.util';
 import { DSpaceObject } from '../app/core/shared/dspace-object.model';
 import { getDSORoute } from '../app/app-routing-paths';
 
 // tslint:disable:max-classes-per-file
 export interface NamedThemeConfig extends Config {
   name: string;
+
+  /**
+   * Specify another theme to build upon: whenever a themed component is not found in the current theme,
+   * its ancestor theme(s) will be checked recursively before falling back to the default theme.
+   */
+  extends?: string;
 }
 
 export interface RegExThemeConfig extends NamedThemeConfig {

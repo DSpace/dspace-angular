@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
