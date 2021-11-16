@@ -46,10 +46,10 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
     super.ngOnInit();
 
     this.searchFilter = `scope=${this.item.id}`;
-    this.configuration$ = this.box.configuration.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((config) => config.configuration)
-    );
+    // this.configuration$ = this.box.configuration.pipe(
+    //   getFirstSucceededRemoteDataPayload(),
+    //   map((config) => config.configuration)
+    // );
     this.subs.push(this.configuration$.subscribe((next) => {
       this.configuration = next;
       this.configReady = true;

@@ -3,7 +3,6 @@ import { hasNoValue } from '../../shared/empty.util';
 import { DEFAULT_LAYOUT_PAGE, LayoutPage } from '../enums/layout-page.enum';
 
 const layoutPageMap = new Map();
-const ITEM_METADATA_TYPE = 'dspace.entity.type';
 
 export function CrisLayoutPage(objectType: LayoutPage) {
   return function decorator(component: any) {
@@ -16,14 +15,12 @@ export function CrisLayoutPage(objectType: LayoutPage) {
   };
 }
 
-export function getCrisLayoutPage(item: Item): any {
+export function getCrisLayoutPage(orientation: string): any {
   let componentLayout;
-  const objectType = item.firstMetadataValue(ITEM_METADATA_TYPE);
-
-  if (hasNoValue(objectType) || hasNoValue(layoutPageMap.get(objectType))) {
+  if (hasNoValue(orientation) || hasNoValue(layoutPageMap.get(orientation))) {
     componentLayout = layoutPageMap.get(DEFAULT_LAYOUT_PAGE);
   } else {
-    componentLayout = layoutPageMap.get(objectType);
+    componentLayout = layoutPageMap.get(orientation);
   }
   return componentLayout;
 }

@@ -36,17 +36,18 @@ describe('BoxDataService', () => {
     collapsed: false,
     minor: false,
     style: 'col-md-4',
-    priority: 0,
     clear: false,
-    maxColumns: null,
+    maxColumn: null,
     security: 0,
     boxType: 'metadata',
+    metadataSecurityFields:[],
+    configuration: {
+      id: '10',
+      rows: []
+    },
     _links: {
       self: {
         href: 'https://rest.api/rest/api/boxes/1'
-      },
-      configuration: {
-        href: 'https://rest.api/rest/api/boxes/1/configuration'
       }
     }
   };
@@ -61,18 +62,19 @@ describe('BoxDataService', () => {
     collapsed: false,
     minor: false,
     style: 'col-md-10',
-    priority: 0,
     clear: false,
-    maxColumns: null,
+    maxColumn: null,
     security: 0,
     boxType: 'search',
+    metadataSecurityFields:[],
+    configuration: {
+      id: '10',
+      rows: []
+    },
     _links: {
       self: {
         href: 'https://rest.api/rest/api/boxes/2'
       },
-      configuration: {
-        href: 'https://rest.api/rest/api/boxes/2/configuration'
-      }
     }
   };
 
@@ -86,18 +88,20 @@ describe('BoxDataService', () => {
     collapsed: false,
     minor: false,
     style: 'col-md-2',
-    priority: 0,
+    // priority: 0,
     clear: false,
-    maxColumns: null,
+    maxColumn: null,
     security: 0,
     boxType: 'metrics',
+    metadataSecurityFields:[],
+    configuration: {
+      id: '10',
+      rows: []
+    },
     _links: {
       self: {
         href: 'https://rest.api/rest/api/boxes/3'
       },
-      configuration: {
-        href: 'https://rest.api/rest/api/boxes/3/configuration'
-      }
     }
   };
 

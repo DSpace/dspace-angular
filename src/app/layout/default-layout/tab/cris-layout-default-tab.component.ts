@@ -151,7 +151,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
   }
 
   protected setBoxes(useCachedVersionIfAvailable: boolean): Observable<Box[]> {
-    return this.boxService.findByItem(this.item.id, this.tab.id, useCachedVersionIfAvailable, followLink('configuration'))
+    return this.boxService.findByItem(this.item.id, this.tab.id, useCachedVersionIfAvailable)
       .pipe(
         getFirstSucceededRemoteListPayload(),
         tap((boxes: Box[]) => {
