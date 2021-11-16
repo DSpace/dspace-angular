@@ -69,7 +69,7 @@ export class ProcessDetailComponent implements OnInit {
   /**
    * Date format to use for start and end time of processes
    */
-  dateFormat = 'yyyy-MM-dd HH:mm:ss';
+  dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZZ';
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,
