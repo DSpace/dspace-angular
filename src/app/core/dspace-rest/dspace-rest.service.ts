@@ -116,7 +116,8 @@ export class DspaceRestService {
           return observableThrowError({
             statusCode: err.status,
             statusText: err.statusText,
-            message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
+            message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message,
+            errors: err?.error || null
           });
         } else {
           return observableThrowError(err);

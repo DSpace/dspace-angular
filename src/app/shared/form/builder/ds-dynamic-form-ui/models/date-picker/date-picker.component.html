@@ -12,7 +12,7 @@
       [size]="4"
       [(ngModel)]="initialYear"
       [value]="year"
-      [class.is-invalid]="showErrorMessages"
+      [invalid]="showErrorMessages"
       [placeholder]='yearPlaceholder'
       [widthClass]="'four-digits'"
       (blur)="onBlur($event)"

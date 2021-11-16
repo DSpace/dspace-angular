@@ -3,6 +3,7 @@ import { type } from '../../shared/ngrx/type';
 import { RestRequest } from './request.models';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
+import { PathableObjectError } from './request.reducer';
 
 /**
  * The list of RequestAction type definitions
@@ -102,7 +103,8 @@ export class RequestErrorAction extends RequestUpdateAction {
     uuid: string,
     timeCompleted: number,
     statusCode: number,
-    errorMessage: string
+    errorMessage: string,
+    errors?: PathableObjectError[]
   };
 
   /**
@@ -114,14 +116,17 @@ export class RequestErrorAction extends RequestUpdateAction {
    *    the statusCode of the response
    * @param errorMessage
    *    the error message in the response
+   * @param errors
+   *    the list of pathable errors
    */
-  constructor(uuid: string, statusCode: number, errorMessage: string) {
+  constructor(uuid: string, statusCode: number, errorMessage: string, errors?: PathableObjectError[]) {
     super();
     this.payload = {
       uuid,
       timeCompleted: new Date().getTime(),
       statusCode,
-      errorMessage
+      errorMessage,
+      errors
     };
   }
 }

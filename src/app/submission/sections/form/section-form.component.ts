@@ -172,7 +172,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       mergeMap(() =>
         observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
+          this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
             getRemoteDataPayload()),
           this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1))

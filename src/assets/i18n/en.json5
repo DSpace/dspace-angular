@@ -1667,7 +1667,6 @@
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
 
-
   "confirmation-modal.delete-subscription.header": "Delete Subscription for \"{{ dsoName }}\"",
 
   "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
@@ -1675,6 +1674,15 @@
   "confirmation-modal.delete-subscription.cancel": "Cancel",
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
+
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
 
   "dataset.listelement.badge" : "Dataset",
 
@@ -4953,6 +4961,7 @@
   "submission.import-external.preview.error.import.title": "Submission error",
 
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+
   "submission.sections.detect-duplicate.clear-decision": "Undo",
 
   "submission.sections.detect-duplicate.clear-decision-help": "Click for clear the decision about this pontential duplicate",
@@ -5286,6 +5295,8 @@
   "submission.sections.general.collection": "Collection",
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
 
   "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
 

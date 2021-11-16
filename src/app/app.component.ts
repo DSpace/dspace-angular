@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -16,6 +16,7 @@ import {
   NavigationStart,
   ResolveEnd,
   Router,
+  RouterEvent,
 } from '@angular/router';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -47,6 +48,8 @@ import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RouteService } from './core/services/route.service';
+import { getWorkflowItemModuleRoute } from './app-routing-paths';
 
 @Component({
   selector: 'ds-app',
@@ -97,6 +100,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private angulartics2DSpace: Angulartics2DSpace,
     private authService: AuthService,
     private router: Router,
+    private routeService: RouteService,
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
@@ -186,11 +190,19 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let resolveEndFound = false;
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(
+      switchMap((event) => this.routeService.getCurrentUrl().pipe(
+        take(1),
+        map((currentUrl) => [currentUrl, event])
+      ))
+    ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
+        console.log(currentUrl);
         resolveEndFound = false;
-        this.isRouteLoading$.next(true);
-        this.isThemeLoading$.next(true);
+        if (!(currentUrl.startsWith('/edit-items') || currentUrl.startsWith('/workspaceitems') || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
+          this.isRouteLoading$.next(true);
+          this.isThemeLoading$.next(true);
+        }
       } else  if (event instanceof ResolveEnd) {
         resolveEndFound = true;
         const activatedRouteSnapShot: ActivatedRouteSnapshot = event.state.root;
