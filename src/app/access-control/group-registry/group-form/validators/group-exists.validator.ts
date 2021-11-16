@@ -1,10 +1,9 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { getFirstSucceededRemoteData,getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 import { Group } from '../../../../core/eperson/models/group.model';
 
 export class ValidateGroupExists {
