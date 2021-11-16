@@ -113,6 +113,36 @@ describe('requestReducer', () => {
     expect(newState[id1].response.errorMessage).toEqual('Not Found');
   });
 
+  it('should set state to Error for the given RestRequest in the state, in response to an ERROR action with pathable errors', () => {
+    const state = testInitState;
+    const pathableErrors = [
+      {
+        message: 'error.validation.required',
+        paths: [
+          '/sections/traditionalpageone/dc.contributor.author',
+          '/sections/traditionalpageone/dc.title',
+          '/sections/traditionalpageone/dc.date.issued'
+        ]
+      },
+      {
+        message: 'error.validation.license.notgranted',
+        paths: [
+          '/sections/license'
+        ]
+      }
+    ];
+
+    const action = new RequestErrorAction(id1, 404, 'Not Found', pathableErrors);
+    const newState = requestReducer(state, action);
+
+    expect(newState[id1].request.uuid).toEqual(id1);
+    expect(newState[id1].request.href).toEqual(link1);
+    expect(newState[id1].state).toEqual(RequestEntryState.Error);
+    expect(newState[id1].response.statusCode).toEqual(404);
+    expect(newState[id1].response.errorMessage).toEqual('Not Found');
+    expect(newState[id1].response.errors).toEqual(pathableErrors);
+  });
+
   it('should update the response\'s timeCompleted for the given RestRequest in the state, in response to a RESET_TIMESTAMPS action', () => {
     const update = Object.assign({}, testInitState[id1], {
       response: {

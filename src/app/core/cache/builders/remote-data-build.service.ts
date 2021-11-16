@@ -1,22 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  race as observableRace
-} from 'rxjs';
-import { map, switchMap, filter, distinctUntilKeyChanged } from 'rxjs/operators';
-import { hasValue, isEmpty, isNotEmpty, hasNoValue, isUndefined } from '../../../shared/empty.util';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
+import { distinctUntilKeyChanged, filter, map, switchMap } from 'rxjs/operators';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import {
-  RequestEntry,
-  ResponseState,
-  RequestEntryState,
-  hasSucceeded
-} from '../../data/request.reducer';
+import { hasSucceeded, RequestEntry, RequestEntryState, ResponseState } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
 import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/operators';
 import { ObjectCacheService } from '../object-cache.service';
@@ -255,7 +245,8 @@ export class RemoteDataBuildService {
           entry.state,
           response.errorMessage,
           payload,
-          response.statusCode
+          response.statusCode,
+          response.errors
         );
       })
     );
