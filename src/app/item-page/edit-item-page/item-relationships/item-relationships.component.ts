@@ -8,11 +8,7 @@ import {
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
-import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
-  zip as observableZip
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -32,6 +28,9 @@ import { FieldChangeType } from '../../../core/data/object-updates/object-update
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { hasValue } from '../../../shared/empty.util';
+import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -65,7 +64,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
     public entityTypeService: EntityTypeService,
+    protected relationshipTypeService: RelationshipTypeService,
     public cdr: ChangeDetectorRef,
+    protected modalService: NgbModal,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
@@ -77,27 +78,16 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
+      this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks())
+      .pipe(
+        map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
+      );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
       );
 
-      this.relationshipTypes$ = this.entityType$.pipe(
-        switchMap((entityType) =>
-          this.entityTypeService.getEntityTypeRelationships(
-            entityType.id,
-            true,
-            true,
-            followLink('leftType'),
-            followLink('rightType'))
-            .pipe(
-              getFirstSucceededRemoteData(),
-              getRemoteDataPayload(),
-              map((relationshipTypes) => relationshipTypes.page),
-            )
-        ),
-      );
     } else {
       this.entityType$ = observableOf(undefined);
     }
@@ -157,6 +147,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
             this.initializeOriginalFields();
             this.cdr.detectChanges();
             this.displayNotifications(response);
+            this.modalService.dismissAll();
           }
         })
       );
@@ -233,4 +224,13 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       this.objectUpdatesService.initialize(this.url, items, this.item.lastModified);
     });
   }
+
+
+  getRelationshipTypeFollowLinks() {
+    return [
+      followLink('leftType'),
+      followLink('rightType')
+    ];
+  }
+
 }

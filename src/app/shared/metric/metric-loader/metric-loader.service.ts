@@ -6,6 +6,7 @@ import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-goo
 import { MetricDspacecrisComponent } from '../metric-dspacecris/metric-dspacecris.component';
 import {MetricEmbeddedViewComponent} from '../metric-embedded-view/metric-embedded-view.component';
 import {MetricEmbeddedDownloadComponent} from '../metric-embedded-download/metric-embedded-download.component';
+import {MetricPlumxComponent} from '../metric-plumx/metric-plumx.component';
 
 declare var document: any;
 
@@ -45,7 +46,13 @@ export const MetricTypesConfig: MetricTypeConf[] = [
     id: 'embedded-download',
     component: MetricEmbeddedDownloadComponent,
     script: null
+  },
+  {
+    id: 'plumX',
+    component: MetricPlumxComponent,
+    script: ''
   }
+
 ];
 
 @Injectable({providedIn: 'root'})
@@ -91,6 +98,16 @@ export class MetricLoaderService {
       return config.script;
     }
     return null;
+  }
+
+  /**
+   * Set the Script to run for the metric type.
+   * @param metricType to which is attached the script
+   * @param script to be set in dom
+   */
+  public setScript(metricType: string, script: string): void {
+    this.loadScript(metricType, script);
+
   }
 
   protected loadScript(metricType: string, src: string): Promise<any> {

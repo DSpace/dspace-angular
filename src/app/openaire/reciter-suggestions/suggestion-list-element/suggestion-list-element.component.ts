@@ -24,6 +24,8 @@ export class SuggestionListElementComponent implements OnInit {
 
   @Input() isSelected = false;
 
+  @Input() isCollectionFixed = false;
+
   public listableObject: any;
 
   public seeEvidence = false;

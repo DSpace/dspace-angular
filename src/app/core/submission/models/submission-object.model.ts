@@ -14,10 +14,9 @@ import { HALLink } from '../../shared/hal-link.model';
 import { ITEM } from '../../shared/item.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
+import { PathableObjectError } from '../../data/request.reducer';
 
-export interface SubmissionObjectError {
-  message: string;
-  paths: string[];
+export interface SubmissionObjectError extends PathableObjectError {
 }
 
 /**

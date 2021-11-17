@@ -6,7 +6,11 @@ import {
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { of as observableOf } from 'rxjs';
 import { EPerson } from '../eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;
@@ -17,6 +21,7 @@ describe('EndUserAgreementService', () => {
   let cookie;
   let authService;
   let ePersonService;
+  let configurationDataService;
 
   beforeEach(() => {
     userWithMetadata = Object.assign(new EPerson(), {
@@ -29,6 +34,10 @@ describe('EndUserAgreementService', () => {
       }
     });
     userWithoutMetadata = Object.assign(new EPerson());
+    const configurationPropertyMock = Object.assign(new ConfigurationProperty(), {
+      values: ['false'],
+    });
+    const configurationPropertyMockRD$ = createNoContentRemoteDataObject<ConfigurationProperty>();
 
     cookie = new CookieServiceMock();
     authService = jasmine.createSpyObj('authService', {
@@ -39,8 +48,11 @@ describe('EndUserAgreementService', () => {
       update: createSuccessfulRemoteDataObject$(userWithMetadata),
       patch: createSuccessfulRemoteDataObject$({})
     });
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: configurationPropertyMockRD$,
+    });
 
-    service = new EndUserAgreementService(cookie, authService, ePersonService);
+    service = new EndUserAgreementService(cookie, authService, ePersonService, configurationDataService);
   });
 
   describe('when the cookie is set to true', () => {

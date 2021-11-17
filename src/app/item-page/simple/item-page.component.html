@@ -8,7 +8,7 @@
         <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
         <ds-view-tracker [object]="item"></ds-view-tracker>
         <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
-        <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
+        <ds-item-versions class="mt-2" [item]="item" [displayActions]="false"></ds-item-versions>
       </div>
     </div>
     <ds-cris-item-page *ngIf="itemRD?.hasSucceeded && tabsRD?.payload?.pageInfo?.totalElements > 0"></ds-cris-item-page>

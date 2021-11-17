@@ -11,7 +11,6 @@ export const boxMetadata: Box = {
   collapsed: false,
   minor: false,
   style: 'col-md-4',
-  // priority: 0,
   clear: false,
   maxColumn: null,
   security: 0,
@@ -25,9 +24,6 @@ export const boxMetadata: Box = {
     self: {
       href: 'https://rest.api/rest/api/boxes/1'
     },
-    // configuration: {
-    //   href: 'https://rest.api/rest/api/boxes/1'
-    // }
   }
 };
 
@@ -41,7 +37,6 @@ export const boxSearch: Box = {
   collapsed: false,
   minor: false,
   style: 'col-md-10',
-  // priority: 0,
   clear: false,
   maxColumn: null,
   security: 0,
@@ -55,9 +50,6 @@ export const boxSearch: Box = {
     self: {
       href: 'https://rest.api/rest/api/boxes/2'
     },
-    // configuration: {
-    //   href: 'https://rest.api/rest/api/boxes/1'
-    // }
   }
 };
 
@@ -71,7 +63,6 @@ export const boxMetrics: Box = {
   collapsed: false,
   minor: false,
   style: 'col-md-2',
-  // priority: 0,
   clear: false,
   maxColumn: null,
   security: 0,
@@ -85,9 +76,6 @@ export const boxMetrics: Box = {
     self: {
       href: 'https://rest.api/rest/api/boxes/3'
     },
-    // configuration: {
-    //   href: 'https://rest.api/rest/api/boxes/1'
-    // }
   }
 };
 

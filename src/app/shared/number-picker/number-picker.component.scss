@@ -36,3 +36,24 @@ input {
 .two-digits {
   width: 80px;
 }
+
+.btn-link-focus {
+  // behave as btn-link but does not override box-shadow of btn-link:focus
+  font-weight: $font-weight-normal;
+  color: $link-color;
+  text-decoration: $link-decoration;
+  @include hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+    pointer-events: none;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: $link-hover-decoration;
+  }
+}

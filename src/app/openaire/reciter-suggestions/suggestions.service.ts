@@ -12,7 +12,7 @@ import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestion
 import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
@@ -24,6 +24,9 @@ import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/mode
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { environment } from '../../../environments/environment';
+import { SuggestionConfig } from '../../../config/layout-config.interfaces';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -170,8 +173,10 @@ export class SuggestionsService {
    */
   public approveAndImport(workspaceitemService: WorkspaceitemDataService,
                           suggestion: OpenaireSuggestion,
-                          collectionId: string): Observable<string> {
-    return workspaceitemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
+                          collectionId: string): Observable<WorkspaceItem> {
+
+    const resolvedCollectionId = this.resolveCollectionId(suggestion, collectionId);
+    return workspaceitemService.importExternalSourceEntry(suggestion.externalSourceUri, resolvedCollectionId)
       .pipe(
         getFirstSucceededRemoteDataPayload(),
         catchError((error) => of(null))
@@ -200,7 +205,7 @@ export class SuggestionsService {
 
     return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) =>
       this.approveAndImport(workspaceitemService, suggestion, collectionId)))
-      .pipe(map((results: string[]) => {
+      .pipe(map((results: WorkspaceItem[]) => {
         return {
           success: results.filter((result) => result != null).length,
           fails: results.filter((result) => result == null).length
@@ -240,10 +245,52 @@ export class SuggestionsService {
   public getNotificationSuggestionInterpolation(suggestionTarget: OpenaireSuggestionTarget): any {
     return {
       count: suggestionTarget.total,
-      source: this.translateService.instant('reciter.suggestion.source.' + suggestionTarget.source),
+      source: this.translateService.instant(this.translateSuggestionSource(suggestionTarget.source)),
+      type:  this.translateService.instant(this.translateSuggestionType(suggestionTarget.source)),
       suggestionId: suggestionTarget.id,
       displayName: suggestionTarget.display
     };
   }
 
+  public translateSuggestionType(source: string): string {
+    return 'reciter.suggestion.type.' + source;
+  }
+
+  public translateSuggestionSource(source: string): string {
+    return 'reciter.suggestion.source.' + source;
+  }
+
+  /**
+   * If the provided collectionId ha no value, tries to resolve it by suggestion source.
+   * @param suggestion
+   * @param collectionId
+   */
+  public resolveCollectionId(suggestion: OpenaireSuggestion, collectionId): string {
+    if (hasValue(collectionId)) {
+      return collectionId;
+    }
+    return environment.suggestion
+      .find((suggestionConf: SuggestionConfig) => suggestionConf.source === suggestion.source)
+      .collectionId;
+  }
+
+  /**
+   * Return true if all the suggestion are configured with the same fixed collection
+   * in the configuration.
+   * @param suggestions
+   */
+  public isCollectionFixed(suggestions: OpenaireSuggestion[]): boolean {
+    return this.getFixedCollectionIds(suggestions).length === 1;
+  }
+
+  private getFixedCollectionIds(suggestions: OpenaireSuggestion[]): string[] {
+    const collectionIds = {};
+    suggestions.forEach((suggestion: OpenaireSuggestion) => {
+      const conf = environment.suggestion.find((suggestionConf: SuggestionConfig) => suggestionConf.source === suggestion.source);
+      if (hasValue(conf)) {
+        collectionIds[conf.collectionId] = true;
+      }
+    });
+    return Object.keys(collectionIds);
+  }
 }

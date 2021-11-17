@@ -7,7 +7,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MetaReducer, Store, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
+import {
+  DYNAMIC_ERROR_MESSAGES_MATCHER,
+  DYNAMIC_MATCHER_PROVIDERS,
+  DynamicErrorMessagesMatcher
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -53,6 +57,7 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
 import { UUIDService } from './core/shared/uuid.service';
 import { CookieService } from './core/services/cookie.service';
+import { AbstractControl } from '@angular/forms';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -61,6 +66,14 @@ export function getBase() {
 export function getMetaReducers(): MetaReducer<AppState>[] {
   return environment.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
+
+/**
+ * Condition for displaying error messages on email form field
+ */
+export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
+  (control: AbstractControl, model: any, hasFocus: boolean) => {
+    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
+  };
 
 const IMPORTS = [
   CommonModule,
@@ -147,6 +160,10 @@ const PROVIDERS = [
     },
    multi: true,
    deps: [ CookieService, UUIDService ]
+  },
+  {
+    provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+    useValue: ValidateEmailErrorStateMatcher
   },
   ...DYNAMIC_MATCHER_PROVIDERS,
 ];

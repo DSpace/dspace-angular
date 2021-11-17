@@ -506,4 +506,58 @@ export class RelationshipService extends DataService<Relationship> {
   update(object: Relationship): Observable<RemoteData<Relationship>> {
     return this.put(object);
   }
+
+  /**
+   * Patch isn't supported on the relationship endpoint, so use put instead.
+   *
+   * @param typeId the relationship type id to apply as a filter to the returned relationships
+   * @param itemUuid The uuid of the item to be checked on the side defined by relationshipLabel
+   * @param relationshipLabel the name of the relation as defined from the side of the itemUuid
+   * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
+   */
+  searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<RemoteData<PaginatedList<Relationship>>> {
+
+    const searchParams = [
+          {
+            fieldName: 'typeId',
+            fieldValue: typeId
+          },
+          {
+            fieldName: 'focusItem',
+            fieldValue: itemUuid
+          },
+          {
+            fieldName: 'relationshipLabel',
+            fieldValue: relationshipLabel
+          },
+          {
+            fieldName: 'size',
+            fieldValue: arrayOfItemIds.length
+          },
+          {
+            fieldName: 'embed',
+            fieldValue: 'leftItem'
+          },
+          {
+            fieldName: 'embed',
+            fieldValue: 'rightItem'
+          },
+        ];
+
+    arrayOfItemIds.forEach( (itemId) => {
+      searchParams.push(
+        {
+          fieldName: 'relatedItem',
+          fieldValue: itemId
+        },
+      );
+    });
+
+    return this.searchBy(
+      'byItemsAndType',
+      {
+        searchParams: searchParams
+      }) as Observable<RemoteData<PaginatedList<Relationship>>>;
+
+  }
 }

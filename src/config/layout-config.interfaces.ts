@@ -25,3 +25,8 @@ export interface LayoutConfig extends Config {
   crisRef: CrisRefConfig[];
   itemPage: ItemPageLayoutConfig;
 }
+
+export interface SuggestionConfig extends Config {
+  source: string;
+  collectionId: string;
+}

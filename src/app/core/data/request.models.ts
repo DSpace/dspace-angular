@@ -10,6 +10,7 @@ import { TaskResponseParsingService } from '../tasks/task-response-parsing.servi
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { environment } from '../../../environments/environment';
+import { PathableObjectError } from './request.reducer';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -278,5 +279,6 @@ export class MyDSpaceRequest extends GetRequest {
 export class RequestError extends Error {
   statusCode: number;
   statusText: string;
+  errors?: PathableObjectError[];
 }
 /* tslint:enable:max-classes-per-file */

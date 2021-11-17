@@ -33,7 +33,8 @@ import {
   SetDuplicateDecisionAction,
   SetDuplicateDecisionSuccessAction,
   SubmissionObjectAction,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
+  UpdateSectionErrorsAction
 } from './submission-objects.actions';
 import { SectionsType } from '../sections/sections-type';
 import {
@@ -175,7 +176,7 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveSubmissionFormErrorAction(submissionId);
+    action = new SaveSubmissionFormErrorAction(submissionId, undefined, undefined);
     newState = submissionObjectReducer(state, action);
 
     expect(newState[826].savePending).toBeFalsy();
@@ -185,7 +186,7 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveSubmissionSectionFormErrorAction(submissionId);
+    action = new SaveSubmissionSectionFormErrorAction(submissionId, undefined, undefined);
     newState = submissionObjectReducer(state, action);
 
     expect(newState[826].savePending).toBeFalsy();
@@ -389,6 +390,21 @@ describe('submissionReducer test suite', () => {
     const newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual(errors);
+  });
+
+  it('should add submission section errors properly', () => {
+    const errors = [
+      {
+        path: '/sections/traditionalpageone/dc.title/0',
+        message: 'error.validation.traditionalpageone.required'
+      }
+    ];
+
+    const action = new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errors, errors);
+    const newState = submissionObjectReducer(initState, action);
+
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual(errors);
+    expect(newState[826].savePending).toBeFalsy();
   });
 
   it('should remove all submission section errors properly', () => {

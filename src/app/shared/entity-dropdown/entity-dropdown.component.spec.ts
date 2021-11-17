@@ -3,7 +3,7 @@ import { EntityDropdownComponent } from './entity-dropdown.component';
 import { getTestScheduler } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { ChangeDetectorRef, Pipe, PipeTransform, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { EntityTypeService } from '../../core/data/entity-type.service';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
