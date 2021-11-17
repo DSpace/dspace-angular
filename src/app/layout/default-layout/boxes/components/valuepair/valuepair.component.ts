@@ -41,7 +41,6 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
     } else {
       metadataToBeRendered = [...this.metadata];
     }
-    console.log('MD = ' + JSON.stringify(metadataToBeRendered));
 
     const entries$ = from(metadataToBeRendered).pipe(
       mergeMap((metadatum: MetadataValue) => {
@@ -51,7 +50,6 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
         const isControlledVocabulary =  authority?.length > 1 && authority[0] === vocabularyName;
 
         const value = isControlledVocabulary ? authority[1] : metadatum.value;
-        console.log(`iscontrolledVocabulary = ${isControlledVocabulary}\nvocabularyName = ${vocabularyName}\nvalue = ${value}\nauthority = ${authority}`);
         return this.vocabularyService.getPublicVocabularyEntryByValue(vocabularyName, value).pipe(
           getFirstSucceededRemoteDataPayload(),
           getPaginatedListPayload(),
