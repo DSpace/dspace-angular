@@ -8,7 +8,6 @@ import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.d
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../../../core/shared/operators';
-import { AuthService } from '../../../../../core/auth/auth.service';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 /**
@@ -31,7 +30,7 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
   constructor(
     protected translateService: TranslateService,
     protected vocabularyService: VocabularyService,
-    protected authService: AuthService,) {
+  ) {
     super(translateService);
   }
 
