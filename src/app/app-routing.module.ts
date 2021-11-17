@@ -11,6 +11,7 @@ import {
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   INFO_MODULE_PATH,
+  INTERNAL_SERVER_ERROR,
   LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
@@ -33,7 +34,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: '500', component: ThemedPageInternalServerErrorComponent },
+      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
       {
         path: '', canActivate: [ServerCheckGuard, AuthBlockingGuard],
         children: [
@@ -144,14 +145,12 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
-              .then((m) => m.LoginPageModule),
-            canActivate: [ServerCheckGuard]
+              .then((m) => m.LoginPageModule)
           },
           {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
-              .then((m) => m.LogoutPageModule),
-            canActivate: [ServerCheckGuard]
+              .then((m) => m.LogoutPageModule)
           },
           {
             path: 'submit',
@@ -191,8 +190,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
           },
           {
             path: INFO_MODULE_PATH,
-            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule),
-            canActivate: [ServerCheckGuard]
+            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
@@ -206,15 +204,13 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
           {
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
-              .then((m) => m.StatisticsPageRoutingModule),
-            canActivate: [ServerCheckGuard]
+              .then((m) => m.StatisticsPageRoutingModule)
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
             canActivate: [GroupAdministratorGuard],
           },
-
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
         ]
       }

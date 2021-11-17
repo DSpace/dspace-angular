@@ -12,10 +12,17 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * A guard that checks if root api endpoint is reachable.
+ * If not redirect to 500 error page
+ */
 export class ServerCheckGuard implements CanActivate {
   constructor(private router: Router, private rootDataService: RootDataService) {
   }
 
+  /**
+   * True when root api endpoint is reachable.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
