@@ -24,12 +24,6 @@ export class CrisLayoutNavbarComponent implements OnInit {
   constructor(public windowService: HostWindowService) { }
 
   ngOnInit(): void {
-    this.windowService.isXsOrSm().pipe(
-      take(1),
-      tap( (val) => {
-        this.menuCollapsed = val;
-      })
-    );
   }
   /* tslint:enable:no-empty */
 

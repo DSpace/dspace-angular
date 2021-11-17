@@ -1,9 +1,8 @@
 .navbar-nav{
-	justify-content: center;
-	background-color: #e9ecef;
+	justify-content: flex-start;
     height: 60px;
     align-items: center;
-    border: 1px solid #d9dadb;
+    // border: 1px solid #d9dadb;
 }
 
 .nav-item{
@@ -20,6 +19,7 @@
 nav.navbar {
     // border-bottom: 1px var(--bs-gray-400) solid;
     align-items: baseline;
+    background-color: #e9ecef;
 }
 
 /** Mobile menu styling **/
@@ -30,7 +30,10 @@ nav.navbar {
         overflow: hidden;
         height: 0;
         &.open {
-            height: auto; //doesn't matter because wrapper is sticky
+            height: auto !important; 
+        }
+        &.ng-animating {
+            height: auto !important; 
         }
     }
     .navbar-nav{

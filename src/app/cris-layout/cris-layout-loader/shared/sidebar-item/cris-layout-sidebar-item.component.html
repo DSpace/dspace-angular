@@ -1,4 +1,4 @@
-<li class="sidebar-section" [ngClass]="{ 'expanded': expanded, 'active' : tab.isActive, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }" >
+<li class="sidebar-section" [ngClass]="{ 'active' : tab.isActive, 'expanded': expanded, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }" >
     <div class="icon-wrapper" *ngIf="!tab.children || tab.children.length == 0 ">
         <a class="nav-item shortcut-icon" [routerLink]="'../' + tab.shortname"
            attr.aria.labelledby="sidebarName-{{tab.id}}"

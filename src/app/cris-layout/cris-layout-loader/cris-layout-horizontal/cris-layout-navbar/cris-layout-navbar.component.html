@@ -4,8 +4,8 @@
     <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
 </button>
 
-<nav [ngClass]="{'open': true}"
-[@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : (menuCollapsed ? 'collapsed' : 'expanded')"
+<!-- [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : (menuCollapsed ? 'collapsed' : 'expanded')" -->
+<nav [ngClass]="{'open': !menuCollapsed}"
  class="navbar navbar-light navbar-expand-md p-md-0 navbar-container cris-layout-navbar {{menuCollapsed ? 'collapsed' : 'expanded'}}"
  role="navigation" [attr.aria-label]="'nav.main.description' | translate"> 
     <div class="container">

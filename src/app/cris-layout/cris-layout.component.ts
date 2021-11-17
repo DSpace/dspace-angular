@@ -370,8 +370,8 @@ export class CrisLayoutComponent implements OnInit {
       }),
         Object.assign(new Tab(),{
         'id': 2,
-        'shortname': 'Profile::informations',
-        'header': 'Profile::informations',
+        'shortname': 'informations',
+        'header': 'informations',
         'entityType': 'Person',
         'priority': 1,
         'security': 0,

@@ -55,7 +55,10 @@ export class CrisLayoutSidebarItemComponent {
     if (!!this.tab && !!this.tab.children && this.tab.children.length > 0) {
       this.tab.children.forEach((subtab) => {
         if (subtab.isActive) {
-          this.expanded = true;
+          if (this.layout !== 'horizontal') {
+            this.expanded = true;
+          }
+          this.tab.isActive = true;
           return;
         }
       });
