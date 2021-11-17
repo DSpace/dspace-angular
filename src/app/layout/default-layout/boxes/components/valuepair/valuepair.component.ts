@@ -44,18 +44,13 @@ export class ValuepairComponent extends RenderingTypeModelComponent implements O
 
     const entries$ = from(itemsToBeRendered).pipe(
       mergeMap((metadataValue) => {
-        return this.vocabularyService.getPublicVocabularyEntryByValue('common_iso_languages', metadataValue).pipe(
+        return this.vocabularyService.getPublicVocabularyEntryByValue(this.subtype, metadataValue).pipe(
           getFirstSucceededRemoteDataPayload(),
           getPaginatedListPayload(),
           map((res) => res[0]?.display ?? metadataValue),
         );
       }),
       reduce((acc: any, value: any) => [...acc, value], []),
-    );
-
-    this.vocabularyService.getPublicVocabularyEntryByValue('common_iso_languages', 'it').pipe(
-      getFirstSucceededRemoteDataPayload(),
-      getPaginatedListPayload(),
     );
 
     const initValues$ = interval(5000).pipe(mapTo(itemsToBeRendered));
