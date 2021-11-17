@@ -12,12 +12,12 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, switchMap, take, map } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { PaginatedList } from './paginated-list.model';
 import { ItemType } from '../shared/item-relationships/item-type.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { RelationshipTypeService } from './relationship-type.service';
 
 /**
@@ -57,7 +57,7 @@ export class EntityTypeService extends DataService<ItemType> {
   /**
    * Check whether a given entity type is the left type of a given relationship type, as an observable boolean
    * @param relationshipType  the relationship type for which to check whether the given entity type is the left type
-   * @param entityType  the entity type for which to check whether it is the left type of the given relationship type
+   * @param itemType  the entity type for which to check whether it is the left type of the given relationship type
    */
   isLeftType(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
 
@@ -69,7 +69,7 @@ export class EntityTypeService extends DataService<ItemType> {
   }
 
   /**
-   * Get the endpoint for the item type's allowed relationship types
+   * Returns a list of entity types for which there is at least one collection in which the user is authorized to submit
    *
    * @param {FindListOptions} options
    */
@@ -102,8 +102,10 @@ export class EntityTypeService extends DataService<ItemType> {
   }
 
   /**
-   * Get the endpoint for the item type's allowed relationship types. To use with external source import.
-   * @param entityTypeId
+   * It returns a list of entity types for which there is at least one collection
+   * in which the user is authorized to submit supported by at least one external data source provider
+   *
+   * @param {FindListOptions} options
    */
   getAllAuthorizedRelationshipTypeImport(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
     const searchHref = 'findAllByAuthorizedExternalSource';

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
         canActivate: [AuthenticatedGuard],
+        canDeactivate: [PendingChangesGuard],
         path: ':id/edit',
         component: ThemedSubmissionEditComponent,
         resolve: {

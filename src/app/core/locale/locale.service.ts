@@ -10,6 +10,7 @@ import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { RouteService } from '../services/route.service';
+import { DOCUMENT } from '@angular/common';
 
 export const LANG_COOKIE = 'dsLanguage';
 
@@ -38,7 +39,9 @@ export class LocaleService {
     protected cookie: CookieService,
     protected translate: TranslateService,
     protected authService: AuthService,
-    protected routeService: RouteService) {
+    protected routeService: RouteService,
+    @Inject(DOCUMENT) private document: any
+  ) {
   }
 
   /**
@@ -148,6 +151,7 @@ export class LocaleService {
     }
     this.translate.use(lang);
     this.saveLanguageCodeToCookie(lang);
+    this.document.documentElement.lang = lang;
   }
 
   /**

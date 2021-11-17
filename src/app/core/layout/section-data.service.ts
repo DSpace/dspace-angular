@@ -73,7 +73,7 @@ export class SectionDataService {
    * Find all the configured sections.
    */
    findVisibleSections(): Observable<RemoteData<PaginatedList<Section>>> {
-    return this.dataService.searchBy("visibleTopBarSections");
+    return this.dataService.searchBy('visibleTopBarSections');
   }
 
 }

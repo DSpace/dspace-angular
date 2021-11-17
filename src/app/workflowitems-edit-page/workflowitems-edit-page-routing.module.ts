@@ -15,6 +15,7 @@ import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/t
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
         children: [
           {
             canActivate: [AuthenticatedGuard],
+            canDeactivate: [PendingChangesGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: ThemedSubmissionEditComponent,
             resolve: {

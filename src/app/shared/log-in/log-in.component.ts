@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
@@ -24,7 +24,7 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
-export class LogInComponent implements OnInit {
+export class LogInComponent implements OnInit, OnDestroy {
 
   /**
    * A boolean representing if LogInComponent is in a standalone page
@@ -55,6 +55,12 @@ export class LogInComponent implements OnInit {
    */
   canRegister$: Observable<boolean>;
 
+  /**
+   * Track subscription to unsubscribe on destroy
+   * @private
+   */
+  private authErrorSubscription: Subscription;
+
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
               private authorizationService: AuthorizationDataService) {
@@ -73,7 +79,7 @@ export class LogInComponent implements OnInit {
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     // Clear the redirect URL if an authentication error occurs and this is not a standalone page
-    this.store.pipe(select(getAuthenticationError)).subscribe((error) => {
+    this.authErrorSubscription = this.store.pipe(select(getAuthenticationError)).subscribe((error) => {
       if (hasValue(error) && !this.isStandalonePage) {
         this.authService.clearRedirectUrl();
       }
@@ -88,5 +94,11 @@ export class LogInComponent implements OnInit {
 
   getForgotRoute() {
     return getForgotPasswordRoute();
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.authErrorSubscription)) {
+      this.authErrorSubscription.unsubscribe();
+    }
   }
 }

@@ -1,5 +1,7 @@
 {
 
+  "Biography": "English Biography",
+
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -71,6 +73,41 @@
   "menu.section.cms_metadata_edit": "Edit CMS Metadata",
 
   "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  "admin.institution.new.breadcrumbs": "Create Institution",
+
+  "admin.institution.new.error": "An error occurred while creating the new institution. Check if the template institution is defined and if an institution with the same name already exists.",
+
+  "admin.institution.new.header": "Create Institution",
+
+  "admin.institution.new.name": "Name",
+
+  "admin.institution.new.processing": "Loading",
+
+  "admin.institution.new.submit": "Submit",
+
+  "admin.institution.new.success": "The new institution was successfully created",
+
+  "admin.institution.new.title": "Create Institution",
+
+
+  "admin.institution.explore.breadcrumbs": "Explore Institutions",
+
+  "admin.institution.explore.header": "Explore Institutions",
+
+  "admin.institution.explore.entities": "Entities",
+
+  "admin.institution.explore.name": "Institution name",
+
+  "admin.institution.explore.no-entities": "No available entities",
+
+  "admin.institution.explore.no-roles": "No available roles",
+
+  "admin.institution.explore.roles": "Institutional Scoped Roles",
+
+  "admin.institution.explore.title": "Explore Institutions",
+
+
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -324,9 +361,15 @@
 
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
+  "admin.access-control.epeople.form.roles": "Roles",
+
+  "admin.access-control.epeople.form.rolesNoAvailable": "No roles available",
+
   "admin.access-control.epeople.form.table.id": "ID",
 
   "admin.access-control.epeople.form.table.name": "Name",
+
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
 
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
 
@@ -337,6 +380,19 @@
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
 
 
+  "admin.access-control.groups.badge.disabled": "Disabled",
+
+  "admin.access-control.groups.badge.enabled": "Enabled",
+
+  "admin.access-control.groups.badge.permanent": "Permanent",
+
+  "admin.access-control.groups.badge.institutional": "Institutional Role",
+
+  "admin.access-control.groups.badge.normal": "Normal",
+
+  "admin.access-control.groups.badge.role": "Role",
+
+  "admin.access-control.groups.badge.scoped": "Institutional Scoped Role",
 
   "admin.access-control.groups.title": "Groups",
 
@@ -350,7 +406,7 @@
 
   "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
 
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Groups/Roles",
 
   "admin.access-control.groups.button.add": "Add group",
 
@@ -366,13 +422,19 @@
 
   "admin.access-control.groups.table.name": "Name",
 
+  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+
   "admin.access-control.groups.table.members": "Members",
 
   "admin.access-control.groups.table.edit": "Edit",
 
+  "admin.access-control.groups.table.edit.buttons.disable": "Disable \"{{name}}\"",
+
   "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
 
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.type": "Type",
+
+  "admin.access-control.groups.table.status": "Status",
 
   "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
 
@@ -398,7 +460,25 @@
 
   "admin.access-control.groups.form.groupName": "Group name",
 
+  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
+
   "admin.access-control.groups.form.groupDescription": "Description",
+
+  "admin.access-control.groups.form.groupStatus": "Status",
+
+  "admin.access-control.groups.form.groupStatus.enabled": "Enabled",
+
+  "admin.access-control.groups.form.groupStatus.disabled": "Disabled",
+
+  "admin.access-control.groups.form.groupType": "Type",
+
+  "admin.access-control.groups.form.groupType.institutional": "Institutional Role type",
+
+  "admin.access-control.groups.form.groupType.normal": "Normal type",
+
+  "admin.access-control.groups.form.groupType.role": "Role type",
+
+  "admin.access-control.groups.form.groupType.scoped": "Institutional Scoped Role type",
 
   "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
 
@@ -446,6 +526,12 @@
 
   "admin.access-control.groups.form.members-list.table.name": "Name",
 
+  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+
+  "admin.access-control.groups.form.members-list.table.email": "Email",
+
+  "admin.access-control.groups.form.members-list.table.netid": "NetID",
+
   "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
 
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
@@ -481,6 +567,8 @@
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
 
   "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
 
   "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
 
@@ -641,6 +729,43 @@
   "bitstream.edit.notifications.saved.title": "Bitstream saved",
 
   "bitstream.edit.title": "Edit bitstream",
+
+  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+
+  "bitstream-request-a-copy.alert.canDownload2": "here",
+
+  "bitstream-request-a-copy.header": "Request a copy of the file",
+
+  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+
+  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+
+  "bitstream-request-a-copy.name.label": "Name *",
+
+  "bitstream-request-a-copy.name.error": "The name is required",
+
+  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+
+  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+
+  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+
+  "bitstream-request-a-copy.allfiles.label": "Files",
+
+  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+
+  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+
+  "bitstream-request-a-copy.message.label": "Message",
+
+  "bitstream-request-a-copy.return": "Back",
+
+  "bitstream-request-a-copy.submit": "Request copy",
+
+  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+
+  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
 
 
   "browse.comcol.by.author": "By Author",
@@ -874,7 +999,6 @@
   "collection.edit.item-mapper.tabs.map": "Map new items",
 
 
-
   "collection.edit.logo.delete.title": "Delete logo",
 
   "collection.edit.logo.delete-undo.title": "Undo delete",
@@ -1051,6 +1175,30 @@
 
   "collection.select.table.title": "Title",
 
+
+  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.no-information": "N/A",
 
 
   "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
@@ -1434,6 +1582,20 @@
 
 
 
+  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "deny-request-copy.email.subject": "Request copy of document",
+
+  "deny-request-copy.error": "An error occurred",
+
+  "deny-request-copy.header": "Deny document copy request",
+
+  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
+
+  "deny-request-copy.success": "Successfully denied item request",
+
+
+
   "dso.name.untitled": "Untitled",
 
 
@@ -1479,6 +1641,14 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.select.collection.head": "Select a collection",
+
+  "dso-selector.set-scope.community.head": "Select a search scope",
+
+  "dso-selector.set-scope.community.button": "Search all of DSpace",
+
+  "dso-selector.set-scope.community.input-header": "Search for a community or collection",
+
 
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
@@ -1497,7 +1667,6 @@
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
 
-
   "confirmation-modal.delete-subscription.header": "Delete Subscription for \"{{ dsoName }}\"",
 
   "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
@@ -1505,6 +1674,15 @@
   "confirmation-modal.delete-subscription.cancel": "Cancel",
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
+
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
 
   "dataset.listelement.badge" : "Dataset",
 
@@ -1548,6 +1726,12 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  "error.validation.required": "This field is required",
+
+  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+
+  "error.validation.emailTaken": "This E-mail is already taken",
+
   "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
 
   "event.listelement.badge" : "Event",
@@ -1565,6 +1749,10 @@
   "explore.index.all" : "All",
 
   "explore.index.author" : "Author",
+
+  "explore.index.graphitemtype" : "Graph by type",
+
+  "explore.index.graphpubldate" : "Graph by date",
 
   "explore.index.birthDate" : "Birthday",
 
@@ -1870,6 +2058,53 @@
   "funding.listelement.badge" : "Funding",
 
   "funding.page.titleprefix" : "Funding:",
+
+
+
+  "grant-deny-request-copy.deny": "Don't send copy",
+
+  "grant-deny-request-copy.email.back": "Back",
+
+  "grant-deny-request-copy.email.message": "Message",
+
+  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+
+  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
+
+  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+
+  "grant-deny-request-copy.email.send": "Send",
+
+  "grant-deny-request-copy.email.subject": "Subject",
+
+  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+
+  "grant-deny-request-copy.grant": "Send copy",
+
+  "grant-deny-request-copy.header": "Document copy request",
+
+  "grant-deny-request-copy.home-page": "Take me to the home page",
+
+  "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+
+  "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+
+  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
+
+
+
+  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
+
+  "grant-request-copy.email.subject": "Request copy of document",
+
+  "grant-request-copy.error": "An error occurred",
+
+  "grant-request-copy.header": "Grant document copy request",
+
+  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.success": "Successfully granted item request",
+
 
 
   "home.description": "",
@@ -2378,6 +2613,10 @@
 
   "item.page.collections": "Collections",
 
+  "item.page.collections.loading": "Loading...",
+
+  "item.page.collections.load-more": "Load more",
+
   "item.page.date": "Date",
 
   "item.page.edit": "Edit this item",
@@ -2408,6 +2647,8 @@
 
   "item.page.metric.label.altmetrics": "Altmetrics©",
 
+  "item.page.metric.label.check": "Check",
+
 
   "item.page.metric.label.download": "Downloads",
 
@@ -2430,6 +2671,8 @@
   "item.page.metric.label.wosCitation": "Web of Science© citations",
 
   "item.page.metric.label.wosPersonCitation": "Web of Science© citations",
+
+  "item.page.metric.label.plumX": "PlumX",
 
   "item.page.person.search.title": "Articles by this author",
 
@@ -2458,6 +2701,10 @@
   "item.page.filesection.license.bundle" : "License bundle",
 
   "item.page.return": "Back",
+
+  "item.page.version.create": "Create new version",
+
+  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
   "item.preview.dc.description" : "Summary",
 
@@ -2569,6 +2816,17 @@
 
   "item.preview.person.identifier.orcid": "ORCID:",
 
+  "item.preview.project.funder.name": "Funder:",
+
+  "item.preview.project.funder.identifier": "Funder Identifier:",
+
+  "item.preview.oaire.awardNumber": "Funding ID:",
+
+  "item.preview.dc.coverage.spatial": "Jurisdiction:",
+
+  "item.preview.oaire.fundingStream": "Funding Stream:",
+
+
   "item.preview.person.identifier.rid": "Researcher ID:",
 
   "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
@@ -2592,6 +2850,8 @@
 
   "item.version.history.selected": "Selected version",
 
+  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+
   "item.version.history.table.version": "Version",
 
   "item.version.history.table.item": "Item",
@@ -2602,10 +2862,75 @@
 
   "item.version.history.table.summary": "Summary",
 
+  "item.version.history.table.workspaceItem": "Workspace item",
+
+  "item.version.history.table.workflowItem": "Workflow item",
+
+  "item.version.history.table.actions": "Action",
+
+  "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
+
+  "item.version.history.table.action.editSummary": "Edit summary",
+
+  "item.version.history.table.action.saveSummary": "Save summary edits",
+
+  "item.version.history.table.action.discardSummary": "Discard summary edits",
+
+  "item.version.history.table.action.newVersion": "Create new version from this one",
+
+  "item.version.history.table.action.deleteVersion": "Delete version",
+
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
 
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
+
+  "item.version.create.modal.header": "New version",
+
+  "item.version.create.modal.text": "Create a new version for this item",
+
+  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
+
+  "item.version.create.modal.button.confirm": "Create",
+
+  "item.version.create.modal.button.confirm.tooltip": "Create new version",
+
+  "item.version.create.modal.button.cancel": "Cancel",
+
+  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
+
+  "item.version.create.modal.form.summary.label": "Summary",
+
+  "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
+
+  "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+
+  "item.version.create.notification.failure" : "New version has not been created",
+
+  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+
+
+  "item.version.delete.modal.header": "Delete version",
+
+  "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
+
+  "item.version.delete.modal.button.confirm": "Delete",
+
+  "item.version.delete.modal.button.confirm.tooltip": "Delete this version",
+
+  "item.version.delete.modal.button.cancel": "Cancel",
+
+  "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
+
+  "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+
+  "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+
+
+  "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+
+  "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
 
   "item-export.modal-launcher.single.btn": "Export",
 
@@ -2681,6 +3006,28 @@
 
   "journalvolume.page.volume": "Volume",
 
+
+  "iiifsearchable.listelement.badge": "Document Media",
+
+  "iiifsearchable.page.titleprefix": "Document: ",
+
+  "iiifsearchable.page.doi": "Permanent Link: ",
+
+  "iiifsearchable.page.issue": "Issue: ",
+
+  "iiifsearchable.page.description": "Description: ",
+
+  "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
+
+  "iiif.listelement.badge": "Image Media",
+
+  "iiif.page.titleprefix": "Image: ",
+
+  "iiif.page.doi": "Permanent Link: ",
+
+  "iiif.page.issue": "Issue: ",
+
+  "iiif.page.description": "Description: ",
 
 
   "loading.bitstream": "Loading bitstream...",
@@ -3069,7 +3416,7 @@
 
   "mydspace.notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
 
-  "mydspace.notification.suggestion.page": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
+  "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
   "nav.browse.header": "All of DSpace",
 
@@ -3098,6 +3445,8 @@
   "nav.user.description" : "User profile bar",
 
   "nav.subscriptions" : "Subscriptions",
+
+  "none.listelement.badge": "Item",
 
   "openaire.broker.title": "OpenAIRE Broker",
 
@@ -3245,7 +3594,7 @@
 
   "reciter.suggestion.approveAndImport": "Approve & import",
 
-  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully",
+  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
 
   "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
 
@@ -3263,6 +3612,8 @@
 
   "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
 
+  "reciter.suggestion.empty": "All the <b>{{type}}</b> suggestions in the {{source}}<br> related to your profile have been either approved or rejected.",
+
   "reciter.suggestion.seeEvidence": "See evidence",
 
   "reciter.suggestion.hideEvidence": "Hide evidence",
@@ -3277,9 +3628,7 @@
 
   "reciter.suggestion.totalScore": "Total Score",
 
-
-
-
+  "reciter.suggestion.type.oaire": "Publications",
 
 
   "orgunit.listelement.badge": "Organizational Unit",
@@ -3831,6 +4180,9 @@
 
   "register-page.create-profile.submit.success.head": "Registration completed",
 
+  "register-page.registration.existing.user.login-msg": "If you already have an account you can yo can ",
+
+  "register-page.registration.existing.user.login-link": "Log in here",
 
   "register-page.registration.header": "New user registration",
 
@@ -3892,6 +4244,12 @@
 
   "relationships.isContributorOf": "Contributors",
 
+  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+
+  "relationships.isContributorOf.Person": "Contributor",
+
+  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+
 
   "repository.image.logo": "Repository logo",
 
@@ -3934,6 +4292,8 @@
 
   "researcherprofile.success.claim.title" : "Success",
 
+
+  "repository.title.prefixDSpace": "DSpace Angular ::",
 
 
   "resource-policies.add.button": "Add",
@@ -4068,6 +4428,8 @@
   "search.filters.applied.f.investigators": "Investigator",
 
   "search.filters.applied.f.itemtype": "Type",
+
+  "search.filters.applied.f.language": "Language",
 
   "search.filters.applied.f.namedresourcetype": "Status",
 
@@ -4230,6 +4592,11 @@
 
   "search.filters.filter.knowsLanguage.label": "Search known language",
 
+  "search.filters.filter.language.head": "Language",
+
+  "search.filters.filter.language.label": "Language",
+
+  "search.filters.filter.language.placeholder": "Language",
 
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
 
@@ -4328,6 +4695,8 @@
   "search.form.search": "Search",
 
   "search.form.search_dspace": "All repository",
+
+  "search.form.scope.all": "All of DSpace",
 
 
 
@@ -4484,25 +4853,31 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
+  "submission.import-external.title.Journal": "Import a journal from an external source",
+
+  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+
+  "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+
+  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+
+  "submission.import-external.title.Person": "Import a person from an external source",
+
+  "submission.import-external.title.Project": "Import a project from an external source",
+
+  "submission.import-external.title.Publication": "Import a publication from an external source",
+
+  "submission.import-external.title.none": "Import metadata from an external source",
+
   "submission.import-external.title.Equipment": "Import an equipment from an external source",
 
   "submission.import-external.title.Event": "Import an event from an external source",
 
   "submission.import-external.title.Funding": "Import a funding from an external source",
 
-  "submission.import-external.title.Journal": "Import a journal from an external source",
-
-  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-
   "submission.import-external.title.Patent": "Import a patent from an external source",
 
-  "submission.import-external.title.Person": "Import a person from an external source",
-
   "submission.import-external.title.Product": "Import a product from an external source",
-
-  "submission.import-external.title.Project": "Import a project from an external source",
-
-  "submission.import-external.title.Publication": "Import a publication from an external source",
 
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
@@ -4533,6 +4908,8 @@
   "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+
+  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.import-external.source.orcid": "ORCID",
 
@@ -4587,6 +4964,7 @@
   "submission.import-external.preview.error.import.title": "Submission error",
 
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+
   "submission.sections.detect-duplicate.clear-decision": "Undo",
 
   "submission.sections.detect-duplicate.clear-decision-help": "Click for clear the decision about this pontential duplicate",
@@ -4638,6 +5016,14 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
@@ -4774,6 +5160,23 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+
+
+
+
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
@@ -4896,6 +5299,8 @@
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
 
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
 
   "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
@@ -4984,9 +5389,19 @@
 
   "submission.sections.status.warnings.title": "Warnings",
 
+  "submission.sections.status.errors.aria": "has errors",
+
+  "submission.sections.status.valid.aria": "is valid",
+
+  "submission.sections.status.warnings.aria": "has warnings",
+
   "submission.sections.toggle.open": "Open section",
 
   "submission.sections.toggle.close": "Close section",
+
+  "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
@@ -5007,6 +5422,10 @@
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
   "submission.sections.upload.form.date-required": "Date is required.",
+
+  "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
+
+  "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
 
   "submission.sections.upload.form.from-label": "Grant access from",
 
@@ -5309,5 +5728,11 @@
 
   "lucky.search.retry.search": "You can try to search for it in the system with a more general query.",
 
-  "lucky.search.multiple.records": "may refer to multiple records"
+  "lucky.search.multiple.records": "may refer to multiple records",
+
+  "invitation.group.msg": "You have been invited to join the following groups",
+
+  "invitation.accept-btn": "Accept",
+
+  "invitation.ignore-btn": "Ignore",
 }

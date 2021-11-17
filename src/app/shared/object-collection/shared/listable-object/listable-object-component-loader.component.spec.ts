@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../../core/shared/item.model';
 import { provideMockStore } from '@ngrx/store/testing';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -26,12 +27,20 @@ describe('ListableObjectComponentLoaderComponent', () => {
   let comp: ListableObjectComponentLoaderComponent;
   let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
 
+  let themeService: ThemeService;
+
   beforeEach(waitForAsync(() => {
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: 'dspace',
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [provideMockStore({})]
+      providers: [
+        provideMockStore({}),
+        { provide: ThemeService, useValue: themeService },
+      ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,

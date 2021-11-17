@@ -31,7 +31,7 @@ describe('ItemDataService', () => {
     },
     removeByHrefSubstring(href: string) {
       // Do nothing
-    }
+    },
   }) as RequestService;
   const rdbService = getMockRemoteDataBuildService();
 
@@ -181,6 +181,16 @@ describe('ItemDataService', () => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
         done();
       });
+    });
+  });
+
+  describe('when cache is invalidated', () => {
+    beforeEach(() => {
+      service = initTestService();
+    });
+    it('should call setStaleByHrefSubstring', () => {
+      service.invalidateItemCache('uuid');
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('item/uuid');
     });
   });
 

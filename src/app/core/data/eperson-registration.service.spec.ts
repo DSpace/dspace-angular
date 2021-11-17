@@ -92,6 +92,8 @@ describe('EpersonRegistrationService', () => {
       expect(expected).toBeObservable(cold('(a|)', {
         a: Object.assign(new Registration(), {
           email: registrationWithUser.email,
+          groupNames: [],
+          groups: [],
           token: 'test-token',
           user: registrationWithUser.user
         })

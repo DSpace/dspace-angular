@@ -1,3 +1,12 @@
+<div class="row" *ngIf="iiifEnabled">
+  <div class="col-12">
+    <ds-mirador-viewer  id="iiif-viewer"
+                        [object]="object"
+                        [searchable]="iiifSearchEnabled"
+                        [query]="iiifQuery$ | async">
+    </ds-mirador-viewer>
+  </div>
+</div>
 <div class="d-flex flex-row">
   <h2 class="item-page-title-field mr-auto">
     {{'publication.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
@@ -16,7 +25,7 @@
     <ng-container *ngIf="mediaViewer.image">
       <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>
-    <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
+    <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"

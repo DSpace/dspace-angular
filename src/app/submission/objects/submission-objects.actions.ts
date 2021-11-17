@@ -49,6 +49,7 @@ export const SubmissionObjectActionTypes = {
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPDATE_SECTION_DATA: type('dspace/submission/UPDATE_SECTION_DATA'),
   UPDATE_SECTION_DATA_SUCCESS: type('dspace/submission/UPDATE_SECTION_DATA_SUCCESS'),
+  UPDATE_SECTION_ERRORS: type('dspace/submission/UPDATE_SECTION_ERRORS'),
   SAVE_AND_DEPOSIT_SUBMISSION: type('dspace/submission/SAVE_AND_DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION: type('dspace/submission/DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION_SUCCESS: type('dspace/submission/DEPOSIT_SUBMISSION_SUCCESS'),
@@ -291,6 +292,35 @@ export class UpdateSectionDataAction implements Action {
   }
 }
 
+export class UpdateSectionErrorsAction implements Action {
+  type = SubmissionObjectActionTypes.UPDATE_SECTION_ERRORS;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    errorsToShow: SubmissionSectionError[];
+    serverValidationErrors: SubmissionSectionError[];
+  };
+
+  /**
+   * Create a new EnableSectionAction
+   *
+   * @param submissionId
+   *    the submission's ID to remove
+   * @param sectionId
+   *    the section's ID to add
+   * @param errorsToShow
+   *    the list of the section's errors to show
+   * @param serverValidationErrors
+   *    the list of the section errors detected by the server
+   */
+  constructor(submissionId: string,
+              sectionId: string,
+              errorsToShow: SubmissionSectionError[],
+              serverValidationErrors: SubmissionSectionError[]) {
+    this.payload = { submissionId, sectionId, errorsToShow, serverValidationErrors };
+  }
+}
+
 export class UpdateSectionDataSuccessAction implements Action {
   type = SubmissionObjectActionTypes.UPDATE_SECTION_DATA_SUCCESS;
 }
@@ -506,6 +536,8 @@ export class SaveSubmissionFormErrorAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR;
   payload: {
     submissionId: string;
+    statusCode: number;
+    errorMessage: string;
   };
 
   /**
@@ -513,9 +545,13 @@ export class SaveSubmissionFormErrorAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param statusCode
+   *    the submission's response error code
+   * @param errorMessage
+   *    the submission's response error message
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string, statusCode: number, errorMessage: string) {
+    this.payload = { submissionId, statusCode, errorMessage };
   }
 }
 
@@ -564,6 +600,8 @@ export class SaveSubmissionSectionFormErrorAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR;
   payload: {
     submissionId: string;
+    statusCode: number;
+    errorMessage: string;
   };
 
   /**
@@ -571,9 +609,13 @@ export class SaveSubmissionSectionFormErrorAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param statusCode
+   *    the submission's response error code
+   * @param errorMessage
+   *    the submission's response error message
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string, statusCode: number, errorMessage: string) {
+    this.payload = { submissionId, statusCode, errorMessage };
   }
 }
 
@@ -984,4 +1026,5 @@ export type SubmissionObjectAction = DisableSectionAction
   | SetActiveSectionAction
   | SetDuplicateDecisionAction
   | SetDuplicateDecisionSuccessAction
-  | SetDuplicateDecisionErrorAction;
+  | SetDuplicateDecisionErrorAction
+  | UpdateSectionErrorsAction;

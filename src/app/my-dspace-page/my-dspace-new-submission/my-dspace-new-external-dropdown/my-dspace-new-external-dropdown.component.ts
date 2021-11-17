@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+
+import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
+
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { hasValue } from '../../../shared/empty.util';
-import { flatMap, map, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 
@@ -62,7 +63,7 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
     this.initialized$ = observableOf(false);
     this.moreThanOne$ = this.entityTypeService.hasMoreThanOneAuthorizedImport();
     this.singleEntity$ = this.moreThanOne$.pipe(
-      flatMap((response: boolean) => {
+      mergeMap((response: boolean) => {
         if (!response) {
           const findListOptions: FindListOptions = {
             elementsPerPage: 1,
@@ -91,7 +92,11 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
    * Method called on clicking the button 'Import metadata from external source'. It opens the page of the external import.
    */
   openPage(entity: ItemType) {
-    this.router.navigate(['/import-external'], { queryParams: { entity: entity.label } });
+    const params = Object.create({});
+    if (entity) {
+      params.entity = entity.label;
+    }
+    this.router.navigate(['/import-external'], { queryParams: params });
   }
 
   /**

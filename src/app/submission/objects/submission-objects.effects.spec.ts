@@ -24,7 +24,8 @@ import {
   SetDuplicateDecisionErrorAction,
   SetDuplicateDecisionSuccessAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
+  UpdateSectionErrorsAction
 } from './submission-objects.actions';
 import {
   mockSectionsData,
@@ -58,6 +59,7 @@ import { WorkflowItemDataService } from '../../core/submission/workflowitem-data
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { createFailedRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -280,12 +282,35 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
       });
 
       expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
     });
+
+    it('should return a UPDATE_SECTION_ERRORS actions on pathable errors', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
+        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors))
+      );
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      const expected = cold('--(ab)-', {
+        a: new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errorsList.traditionalpageone, errorsList.traditionalpageone),
+        b: new UpdateSectionErrorsAction(submissionId, 'license', errorsList.license, errorsList.license)
+      });
+
+      expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
+    });
+
   });
 
   describe('saveForLaterSubmission$', () => {
@@ -325,8 +350,30 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
+      });
+
+      expect(submissionObjectEffects.saveForLaterSubmission$).toBeObservable(expected);
+    });
+
+    it('should return a UPDATE_SECTION_ERRORS actions on pathable errors', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
+        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors))
+      );
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      const expected = cold('--(ab)-', {
+        a: new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errorsList.traditionalpageone, errorsList.traditionalpageone),
+        b: new UpdateSectionErrorsAction(submissionId, 'license', errorsList.license, errorsList.license)
       });
 
       expect(submissionObjectEffects.saveForLaterSubmission$).toBeObservable(expected);
@@ -851,8 +898,31 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionSectionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
+      });
+
+      expect(submissionObjectEffects.saveSection$).toBeObservable(expected);
+    });
+
+    it('should return a UPDATE_SECTION_ERRORS actions on pathable errors', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM,
+          payload: {
+            submissionId: submissionId,
+            sectionId: 'traditionalpageone'
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
+        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors))
+      );
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      const expected = cold('--(ab)-', {
+        a: new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errorsList.traditionalpageone, errorsList.traditionalpageone),
+        b: new UpdateSectionErrorsAction(submissionId, 'license', errorsList.license, errorsList.license)
       });
 
       expect(submissionObjectEffects.saveSection$).toBeObservable(expected);
@@ -952,8 +1022,30 @@ describe('SubmissionObjectEffects test suite', () => {
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
+          submissionId, undefined, undefined
         )
+      });
+
+      expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
+    });
+
+    it('should return a UPDATE_SECTION_ERRORS actions on pathable errors', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
+        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors))
+      );
+      const errorsList = parseSectionErrors(mockSectionsErrors);
+      const expected = cold('--(ab)-', {
+        a: new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errorsList.traditionalpageone, errorsList.traditionalpageone),
+        b: new UpdateSectionErrorsAction(submissionId, 'license', errorsList.license, errorsList.license)
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
