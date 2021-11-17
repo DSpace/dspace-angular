@@ -4180,6 +4180,9 @@
 
   "register-page.create-profile.submit.success.head": "Registration completed",
 
+  "register-page.registration.existing.user.login-msg": "If you already have an account you can yo can ",
+
+  "register-page.registration.existing.user.login-link": "Log in here",
 
   "register-page.registration.header": "New user registration",
 
@@ -5725,5 +5728,11 @@
 
   "lucky.search.retry.search": "You can try to search for it in the system with a more general query.",
 
-  "lucky.search.multiple.records": "may refer to multiple records"
+  "lucky.search.multiple.records": "may refer to multiple records",
+
+  "invitation.group.msg": "You have been invited to join the following groups",
+
+  "invitation.accept-btn": "Accept",
+
+  "invitation.ignore-btn": "Ignore",
 }
