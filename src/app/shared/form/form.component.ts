@@ -151,6 +151,7 @@ export class FormComponent implements OnDestroy, OnInit {
   ngOnInit() {
     if (!this.formGroup) {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+      this.formBuilderService.addFormGroups(this.formId, this.formGroup);
 
     } else {
       this.formModel.forEach((model) => {
@@ -238,6 +239,7 @@ export class FormComponent implements OnDestroy, OnInit {
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
     this.formService.removeForm(this.formId);
+    this.formBuilderService.removeFormGroup(this.formId);
   }
 
   /**

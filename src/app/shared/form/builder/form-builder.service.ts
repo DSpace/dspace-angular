@@ -43,6 +43,11 @@ export class FormBuilderService extends DynamicFormService {
    */
   private formModels: Map<string, DynamicFormControlModel[]>;
 
+  /**
+   * This map contains the active forms control groups
+   */
+  private formGroups: Map<string, FormGroup>;
+
   constructor(
     componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
@@ -50,6 +55,7 @@ export class FormBuilderService extends DynamicFormService {
   ) {
     super(componentService, validationService);
     this.formModels = new Map();
+    this.formGroups = new Map();
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
@@ -441,6 +447,25 @@ export class FormBuilderService extends DynamicFormService {
   removeFormModel(id: string): void {
     if (this.formModels.has(id)) {
       this.formModels.delete(id);
+    }
+  }
+
+  /**
+   * Add new form model to formModels map
+   * @param id id of model
+   * @param formGroup FormGroup
+   */
+  addFormGroups(id: string, formGroup: FormGroup): void {
+    this.formGroups.set(id, formGroup);
+  }
+
+  /**
+   * If present, remove form model from formModels map
+   * @param id id of model
+   */
+  removeFormGroup(id: string): void {
+    if (this.formGroups.has(id)) {
+      this.formGroups.delete(id);
     }
   }
 
