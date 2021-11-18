@@ -274,7 +274,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
       // Add created model to formBulderService
-      this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
+      this.formBuilderService.addFormModel(this.formId, this.formModel);
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
@@ -377,7 +377,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
+    const eventAutoSave = !event.$event.hasOwnProperty('autoSave') || event.$event.autoSave;
+    if (eventAutoSave && (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
   }

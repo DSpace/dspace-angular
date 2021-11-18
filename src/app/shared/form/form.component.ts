@@ -151,6 +151,7 @@ export class FormComponent implements OnDestroy, OnInit {
   ngOnInit() {
     if (!this.formGroup) {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+      this.formBuilderService.addFormGroups(this.formId, this.formGroup);
 
     } else {
       this.formModel.forEach((model) => {
@@ -238,6 +239,7 @@ export class FormComponent implements OnDestroy, OnInit {
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
     this.formService.removeForm(this.formId);
+    this.formBuilderService.removeFormGroup(this.formId);
   }
 
   /**
@@ -271,7 +273,17 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onCustomEvent(event: any) {
-    this.customEvent.emit(event);
+    if (event?.type === 'authorityEnrichment') {
+      event.$event.updatedModels.forEach((model) => {
+        const control: FormControl = this.formBuilderService.getFormControlByModel(this.formGroup, model) as FormControl;
+        if (control) {
+          const changeEvent = this.formBuilderService.createDynamicFormControlEvent(control, control.parent as FormGroup, model, 'change');
+          this.onChange(changeEvent);
+        }
+      });
+    } else {
+      this.customEvent.emit(event);
+    }
   }
 
   onFocus(event: DynamicFormControlEvent): void {

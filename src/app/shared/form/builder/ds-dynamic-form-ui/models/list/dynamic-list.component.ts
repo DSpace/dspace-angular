@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -34,7 +36,7 @@ export interface ListItem {
   styleUrls: ['./dynamic-list.component.scss'],
   templateUrl: './dynamic-list.component.html'
 })
-export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
+export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 
   @Input() group: FormGroup;
   @Input() model: any;
@@ -45,6 +47,18 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
 
   public items: ListItem[][] = [];
   protected optionsList: VocabularyEntry[];
+
+  /**
+   * The selected option(s) in the list
+   * @protected
+   */
+  protected currentListValue: any;
+
+  /**
+   * Subscription to model value changes
+   * @protected
+   */
+  protected subscription: Subscription;
 
   constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
@@ -62,6 +76,12 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     if (this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name)) {
       this.setOptionsFromVocabulary();
     }
+    this.currentListValue = this.model.value;
+    this.subscription = this.model.valueChanges.pipe(
+      filter((value) => this.currentListValue !== value)
+    ).subscribe(() => {
+      this.setOptionsFromVocabulary();
+    });
   }
 
   /**
@@ -90,15 +110,18 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       // Target tabindex coincide with the array index of the value into the authority list
       const entry: VocabularyEntry = this.optionsList[target.tabIndex];
       if (target.checked) {
+        this.currentListValue = entry;
         this.model.valueChanges.next(entry);
       } else {
         const newValue = [];
         this.model.value
           .filter((item) => item.value !== entry.value)
           .forEach((item) => newValue.push(item));
+        this.currentListValue = newValue;
         this.model.valueChanges.next(newValue);
       }
     } else {
+      this.currentListValue = this.optionsList[target.value];
       (this.model as DynamicListRadioGroupModel).value = this.optionsList[target.value];
     }
     this.change.emit(event);
@@ -158,6 +181,12 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         this.cdr.markForCheck();
       });
 
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.subscription)) {
+      this.subscription.unsubscribe();
     }
   }
 
