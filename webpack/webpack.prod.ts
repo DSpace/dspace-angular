@@ -16,7 +16,7 @@ module.exports = Object.assign({}, commonExports, {
   ],
   mode: 'production',
   recordsOutputPath: projectRoot('webpack.records.json'),
-  entry: projectRoot('./src/main.server.ts'),
+  entry: projectRoot('./server.ts'),
   target: 'node',
   externals: [nodeExternals({
     whitelist: [
