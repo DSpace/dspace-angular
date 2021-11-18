@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { compare, Operation } from 'fast-json-patch';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
