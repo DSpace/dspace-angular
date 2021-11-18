@@ -9,6 +9,7 @@
     "config:test:watch": "nodemon --config mock-nodemon.json",
     "config:dev:watch": "nodemon",
     "config:check:rest": "yarn run config:prod && ts-node --project ./tsconfig.ts-node.json scripts/test-rest.ts",
+    "config:dev:check:rest": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/test-rest.ts",
     "prestart:dev": "yarn run config:dev",
     "prebuild": "yarn run config:dev",
     "pretest": "yarn run config:test",
