@@ -2,7 +2,6 @@ import { commonExports } from './webpack.common';
 import { projectRoot } from './helpers';
 
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = Object.assign({}, commonExports, {
   plugins: [
@@ -18,14 +17,4 @@ module.exports = Object.assign({}, commonExports, {
   recordsOutputPath: projectRoot('webpack.records.json'),
   entry: projectRoot('./server.ts'),
   target: 'node',
-  externals: [nodeExternals({
-    whitelist: [
-      /@angular/,
-      /@ng/,
-      /angular2-text-mask/,
-      /ng2-file-upload/,
-      /ngx-sortablejs/,
-      /sortablejs/,
-      /ngx/]
-  })],
 });

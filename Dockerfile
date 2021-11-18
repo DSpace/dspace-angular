@@ -53,10 +53,6 @@ WORKDIR /home/${APP_ID_NAME}
 
 USER ${APP_ID_NAME}
 
-COPY --chown=${APP_ID_NAME}:${GROUP_ID_NAME} package*.json /home/${APP_ID_NAME}/
-
-RUN yarn install --production --ignore-scripts
-
 COPY --from=build --chown=${APP_ID_NAME}:${GROUP_ID_NAME} /dspace-angular/dist /home/${APP_ID_NAME}/dist
 
 CMD [ "node", "dist/server/main" ]
