@@ -247,9 +247,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key)) {
             const fieldId = key.replace('data-', '');
-            const newValue = this.getOtherInformationValue(otherInformation[key]);
+            const newValue: string = this.getOtherInformationValue(otherInformation[key]) as string;
             if (isNotEmpty(newValue)) {
-              const updatedModel = this.formBuilderService.updateValue(fieldId, newValue);
+              const updatedModel = this.formBuilderService.updateModelValue(fieldId, newValue);
               if (isNotEmpty(updatedModel)) {
                 updatedModels.push(updatedModel);
               }
