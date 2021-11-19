@@ -262,17 +262,24 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
               .forEach((element) => accessConditionOpt = element);
 
             if (accessConditionOpt) {
-                accessConditionOpt = Object.assign({}, accessCondition);
-                accessConditionOpt.name = this.retrieveValueFromField(accessCondition.name);
-                if (accessCondition.startDate) {
-                  const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                  accessConditionOpt.startDate = dateToISOFormat(startDate);
-                }
-                if (accessCondition.endDate) {
-                  const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                  accessConditionOpt.endDate = dateToISOFormat(endDate);
-                }
-                accessConditionsToSave.push(accessConditionOpt);
+              const currentAccessCondition = Object.assign({}, accessCondition);
+              currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
+
+              /* When start and end date fields are deactivated, their values may be still present in formData,
+              therefore it is necessary to delete them if they're not allowed by the current access condition option. */
+              if (!accessConditionOpt.hasStartDate) {
+                delete currentAccessCondition.startDate;
+              } else if (accessCondition.startDate) {
+                const startDate = this.retrieveValueFromField(accessCondition.startDate);
+                currentAccessCondition.startDate = dateToISOFormat(startDate);
+              }
+              if (!accessConditionOpt.hasEndDate) {
+                delete currentAccessCondition.endDate;
+              } else if (accessCondition.endDate) {
+                const endDate = this.retrieveValueFromField(accessCondition.endDate);
+                currentAccessCondition.endDate = dateToISOFormat(endDate);
+              }
+              accessConditionsToSave.push(currentAccessCondition);
             }
           });
 
