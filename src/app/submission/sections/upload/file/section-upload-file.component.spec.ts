@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormService } from '../../../../shared/form/form.service';
@@ -36,8 +36,20 @@ import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/mo
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { dateToISOFormat } from '../../../../shared/date.util';
+import { SubmissionFormModel } from '../../../../core/config/models/config-submission-form.model';
 
-describe('SubmissionSectionUploadFileComponent test suite', () => {
+const configMetadataFormMock = {
+  rows: [{
+    fields: [{
+      selectableMetadata: [
+        {metadata: 'dc.title', label: null, closed: false},
+        {metadata: 'dc.description', label: null, closed: false}
+      ]
+    }]
+  }]
+};
+
+fdescribe('SubmissionSectionUploadFileComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
@@ -117,6 +129,9 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+
+      // testComp.configMetadataForm = configMetadataFormMock;
+      // testFixture.detectChanges();
     });
 
     afterEach(() => {
@@ -124,9 +139,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     });
 
     it('should create SubmissionSectionUploadFileComponent', inject([SubmissionSectionUploadFileComponent], (app: SubmissionSectionUploadFileComponent) => {
-
+      app.configMetadataForm = Object.assign(new SubmissionFormModel(), configMetadataFormMock);
       expect(app).toBeDefined();
-
     }));
   });
 
@@ -135,6 +149,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
+      compAsAny.configMetadataForm = configMetadataFormMock;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       uploadService = TestBed.inject(SectionUploadService);
       formService = TestBed.inject(FormService);
@@ -314,7 +329,7 @@ class TestComponent {
   availableAccessConditionOptions;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
-  configMetadataForm$;
+  configMetadataForm$ = of(configMetadataFormMock);
   fileIndexes = [];
   fileList = [];
   fileNames = [];
