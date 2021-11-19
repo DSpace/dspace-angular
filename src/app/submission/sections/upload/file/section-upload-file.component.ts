@@ -6,7 +6,7 @@ import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SectionUploadService } from '../section-upload.service';
-import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
+import { hasNoValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
 import { FormService } from '../../../../shared/form/form.service';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -130,6 +130,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   protected subscriptions: Subscription[] = [];
 
   /**
+   * Array containing all the form metadata defined in configMetadataForm
+   * @type {Array}
+   */
+  protected formMetadata: string[] = [];
+
+  /**
    * The [[SubmissionSectionUploadFileEditComponent]] reference
    * @type {SubmissionSectionUploadFileEditComponent}
    */
@@ -158,6 +164,17 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
     this.readMode = true;
   }
 
+  protected loadFormMetadata() {
+    this.configMetadataForm.rows.forEach((row) => {
+        row.fields.forEach((field) => {
+          field.selectableMetadata.forEach((metadatum) => {
+            this.formMetadata.push(metadatum.metadata);
+          });
+        });
+      }
+    );
+  }
+
   /**
    * Retrieve bitstream's metadata
    */
@@ -182,6 +199,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.formId = this.formService.getUniqueId(this.fileId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
+    this.loadFormMetadata();
   }
 
   /**
@@ -249,6 +267,15 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
             this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
+          });
+        Object.keys((this.fileData.metadata))
+          .filter((key) => isNotEmpty(this.fileData.metadata[key]))
+          .filter((key) => hasNoValue(formData.metadata[key]))
+          .filter((key) => this.formMetadata.includes(key))
+          .forEach((key) => {
+            const metadataKey = key.replace(/_/g, '.');
+            const path = `metadata/${metadataKey}`;
+            this.operationsBuilder.remove(this.pathCombiner.getPath(path));
           });
         const accessConditionsToSave = [];
         formData.accessConditions
