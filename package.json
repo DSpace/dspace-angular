@@ -115,7 +115,7 @@
     "mirador-share-plugin": "^0.10.0",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "ng-mocks": "10.5.4",
+    "ng-mocks": "11.11.2",
     "ng2-file-upload": "1.4.0",
     "ng2-nouislider": "^1.8.3",
     "ngx-infinite-scroll": "^10.0.1",
