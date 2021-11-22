@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthService } from '../../core/auth/auth.service';
 import { FileService } from '../../core/shared/file.service';
 import { of as observableOf } from 'rxjs';
@@ -77,7 +77,7 @@ describe('BitstreamDownloadPageComponent', () => {
   }
 
   describe('init', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       initTestbed();
     }));
@@ -93,7 +93,7 @@ describe('BitstreamDownloadPageComponent', () => {
 
   describe('bitstream retrieval', () => {
     describe('when the user is authorized and not logged in', () => {
-      beforeEach(async(() => {
+      beforeEach(waitForAsync(() => {
         init();
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
 
@@ -109,7 +109,7 @@ describe('BitstreamDownloadPageComponent', () => {
       });
     });
     describe('when the user is authorized and logged in', () => {
-      beforeEach(async(() => {
+      beforeEach(waitForAsync(() => {
         init();
         initTestbed();
       }));
@@ -123,7 +123,7 @@ describe('BitstreamDownloadPageComponent', () => {
       });
     });
     describe('when the user is not authorized and logged in', () => {
-      beforeEach(async(() => {
+      beforeEach(waitForAsync(() => {
         init();
         (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
         initTestbed();
@@ -138,7 +138,7 @@ describe('BitstreamDownloadPageComponent', () => {
       });
     });
     describe('when the user is not authorized and not logged in', () => {
-      beforeEach(async(() => {
+      beforeEach(waitForAsync(() => {
         init();
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
         (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));

@@ -54,12 +54,13 @@ export function getRequest(transferState: TransferState): any {
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
     RouterModule.forRoot([], {
-      // enableTracing: true,
-      useHash: false,
-      scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled',
-      preloadingStrategy: NoPreloading
-    }),
+    // enableTracing: true,
+    useHash: false,
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling: 'enabled',
+    preloadingStrategy: NoPreloading,
+    relativeLinkResolution: 'legacy'
+}),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
