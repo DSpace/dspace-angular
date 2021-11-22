@@ -1646,17 +1646,17 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ng-dynamic-forms/core@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-12.0.0.tgz#b3d528c2d36c8e5b1da9a77b909ef64513bfb202"
-  integrity sha512-c9ZPu0QTwtF/Ftgu3ndkpYWezNxTevlFkXjMBOppR9DY13+9vVSaZFs/poTVsxcLqWrgsVxDx4+J6ufkBrSwAA==
+"@ng-dynamic-forms/core@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-13.0.0.tgz#aee226839ffa1f648429cbdee56e4d8d9c56b76c"
+  integrity sha512-RBP7i+q9EUDlHcmqcd1e27zuJhk+8NOU9mC7xlHPcmhFzxV58Gzr/n0nb5IzF+FIQlcJqP/BspyksaCCbRStZw==
   dependencies:
     tslib "^2.0.0"
 
-"@ng-dynamic-forms/ui-ng-bootstrap@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-12.0.0.tgz#a41b3f35a500b9abcf1b0c0f031465bf82d4b3b5"
-  integrity sha512-MzUWwOg1Bxa4amHTPF7vzvbNI2bqzNzJEiFwINrZszNFrYJFkUA5Nw4BBSZ9X3sA2slojCcEeyL5+FSxWW7wqQ==
+"@ng-dynamic-forms/ui-ng-bootstrap@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-13.0.0.tgz#cef62c1dfbf6d7aa700eab04f8c337dd0e15250f"
+  integrity sha512-0l/hfuFXadp6/PKeGdrN0bFBM/xwBSvZX6HeT9Q/Sp19s99jdKphu6ZfG2SHWxY4tXC0nzB+Xcmqc38vi0iZAg==
   dependencies:
     tslib "^2.0.0"
 
