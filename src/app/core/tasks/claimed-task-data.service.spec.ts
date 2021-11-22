@@ -8,7 +8,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core.reducers';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { getTestScheduler } from 'jasmine-marbles';

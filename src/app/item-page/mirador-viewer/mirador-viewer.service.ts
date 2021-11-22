@@ -1,5 +1,5 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { last, map, switchMap } from 'rxjs/operators';
