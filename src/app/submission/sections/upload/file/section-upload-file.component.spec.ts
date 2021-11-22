@@ -36,7 +36,6 @@ import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/mo
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { dateToISOFormat } from '../../../../shared/date.util';
-import { SubmissionFormModel } from '../../../../core/config/models/config-submission-form.model';
 
 const configMetadataFormMock = {
   rows: [{
@@ -49,7 +48,7 @@ const configMetadataFormMock = {
   }]
 };
 
-fdescribe('SubmissionSectionUploadFileComponent test suite', () => {
+describe('SubmissionSectionUploadFileComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
@@ -130,8 +129,6 @@ fdescribe('SubmissionSectionUploadFileComponent test suite', () => {
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
 
-      // testComp.configMetadataForm = configMetadataFormMock;
-      // testFixture.detectChanges();
     });
 
     afterEach(() => {
@@ -139,7 +136,6 @@ fdescribe('SubmissionSectionUploadFileComponent test suite', () => {
     });
 
     it('should create SubmissionSectionUploadFileComponent', inject([SubmissionSectionUploadFileComponent], (app: SubmissionSectionUploadFileComponent) => {
-      app.configMetadataForm = Object.assign(new SubmissionFormModel(), configMetadataFormMock);
       expect(app).toBeDefined();
     }));
   });
@@ -228,6 +224,7 @@ fdescribe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
       compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
+      compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);
       spyOn(comp, 'switchMode');
