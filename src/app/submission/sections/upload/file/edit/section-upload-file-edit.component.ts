@@ -172,11 +172,6 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
 
   protected subscriptions: Subscription[] = [];
 
-  private static retrieveValueFromField(field: any) {
-    const temp = Array.isArray(field) ? field[0] : field;
-    return (temp) ? temp.value : undefined;
-  }
-
   /**
    * Initialize form model values
    *
@@ -293,6 +288,11 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.unsubscribeAll();
+  }
+
+  protected retrieveValueFromField(field: any) {
+    const temp = Array.isArray(field) ? field[0] : field;
+    return (temp) ? temp.value : undefined;
   }
 
   /**
@@ -418,20 +418,20 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
 
             if (accessConditionOpt) {
               const currentAccessCondition = Object.assign({}, accessCondition);
-              currentAccessCondition.name = SubmissionSectionUploadFileEditComponent.retrieveValueFromField(accessCondition.name);
+              currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
 
               /* When start and end date fields are deactivated, their values may be still present in formData,
               therefore it is necessary to delete them if they're not allowed by the current access condition option. */
               if (!accessConditionOpt.hasStartDate) {
                 delete currentAccessCondition.startDate;
               } else if (accessCondition.startDate) {
-                const startDate = SubmissionSectionUploadFileEditComponent.retrieveValueFromField(accessCondition.startDate);
+                const startDate = this.retrieveValueFromField(accessCondition.startDate);
                 currentAccessCondition.startDate = dateToISOFormat(startDate);
               }
               if (!accessConditionOpt.hasEndDate) {
                 delete currentAccessCondition.endDate;
               } else if (accessCondition.endDate) {
-                const endDate = SubmissionSectionUploadFileEditComponent.retrieveValueFromField(accessCondition.endDate);
+                const endDate = this.retrieveValueFromField(accessCondition.endDate);
                 currentAccessCondition.endDate = dateToISOFormat(endDate);
               }
               accessConditionsToSave.push(currentAccessCondition);

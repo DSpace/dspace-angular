@@ -30,15 +30,31 @@ import { FormService } from '../../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
 import { Group } from '../../../../../core/eperson/models/group.model';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { SectionUploadService } from '../../section-upload.service';
+import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 
-describe('SubmissionSectionUploadFileEditComponent test suite', () => {
+const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
+  add: jasmine.createSpy('add'),
+  replace: jasmine.createSpy('replace'),
+  remove: jasmine.createSpy('remove'),
+});
+
+fdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileEditComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let formbuilderService: any;
+  let operationsBuilder: any;
+  let operationsService: any;
 
+  const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
   const submissionId = mockSubmissionId;
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
@@ -66,9 +82,14 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       providers: [
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
+        { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
+        { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         FormBuilderService,
         ChangeDetectorRef,
-        SubmissionSectionUploadFileEditComponent
+        SubmissionSectionUploadFileEditComponent,
+        NgbModal,
+        NgbActiveModal,
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -114,6 +135,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       formbuilderService = TestBed.inject(FormBuilderService);
+      operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
+      operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);
 
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
@@ -135,7 +158,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
-      comp.ngOnChanges();
+      comp.ngOnInit();
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(2);
@@ -165,7 +188,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
-      comp.ngOnChanges();
+      comp.ngOnInit();
 
       const model: DynamicSelectModel<string> = formbuilderService.findById('name', comp.formModel, 0);
       const formGroup = formbuilderService.createFormGroup(comp.formModel);
@@ -186,6 +209,18 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.setOptions(model, control);
       expect(formbuilderService.findById).toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
     });
+
+    it('should retrieve Value From Field properly', () => {
+      let field;
+      expect(compAsAny.retrieveValueFromField(field)).toBeUndefined();
+
+      field = new FormFieldMetadataValueObject('test');
+      expect(compAsAny.retrieveValueFromField(field)).toBe('test');
+
+      field = [new FormFieldMetadataValueObject('test')];
+      expect(compAsAny.retrieveValueFromField(field)).toBe('test');
+    });
+
   });
 });
 
