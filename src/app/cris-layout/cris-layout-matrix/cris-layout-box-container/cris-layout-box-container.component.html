@@ -1,18 +1,19 @@
-<ngb-accordion *ngIf="box.container && (!!componentLoader && !componentLoader.hasOwnContainer)">
-  <ngb-panel id="{{box.shortname}}">
-    <ng-template ngbPanelTitle>
-      <span [innerHTML]="getBoxHeader()"></span>
-    </ng-template>
-    <ng-template ngbPanelContent>
-		  <ng-template dsCrisLayoutLoader></ng-template> 
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+<ng-container *ngIf="box.container && (!!componentLoader && !componentLoader.hasOwnContainer)">
+  <ngb-accordion [activeIds]="activeIds">
+    <ngb-panel id="{{box.shortname}}">
+      <ng-template ngbPanelTitle>
+        <span [innerHTML]="getBoxHeader()"></span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
+  		  <!-- <ng-template dsCrisLayoutLoader></ng-template>  -->
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</ng-container>
 
+<ng-container *ngIf="!box.container && !(!!componentLoader && !componentLoader.hasOwnContainer)">
+  <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
+</ng-container>
+<!-- <ng-template *ngIf="!box.container && !(!!componentLoader && !componentLoader.hasOwnContainer)" dsCrisLayoutLoader></ng-template>  -->
 
-
-
-<ng-template *ngIf="!box.container && !(!!componentLoader && !componentLoader.hasOwnContainer)" dsCrisLayoutLoader></ng-template> 
-
- <!-- [activeIds]="activeIds" 
-  -->

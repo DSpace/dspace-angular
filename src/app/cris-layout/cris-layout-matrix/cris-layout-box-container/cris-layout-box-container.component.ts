@@ -10,7 +10,8 @@ import {
   Input,
   ViewContainerRef,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  Injector
 } from '@angular/core';
 
 import { Box } from '../../../core/layout/models/box.model'
@@ -24,6 +25,7 @@ import { catchError, takeUntil, tap, take } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { LayoutBox } from '../../enums/layout-box.enum';
+import { hasValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-cris-layout-box-container',
@@ -51,35 +53,49 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    */
   boxHeaderI18nKey = '';
 
-  /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChildren(CrisLayoutLoaderDirective) crisLayoutLoader: QueryList<ViewContainerRef>;
+  activeIds: string[] = [];
 
   /**
    * componentRef reference of the component that will be created
    */
   componentRef: ComponentRef<Component>;
 
-  constructor(protected translateService: TranslateService,
+  /**
+   * Injector to inject a section component with the @Input parameters
+   * @type {Injector}
+   */
+  public objectInjector: Injector;
+
+  constructor(
+    private injector: Injector,
+    protected translateService: TranslateService,
     protected componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
+
+    this.objectInjector = Injector.create({
+      providers: [
+        {provide: 'boxProvider', useFactory: () => (this.box), deps: []},
+        {provide: 'itemProvider', useFactory: () => (this.item), deps: []},
+      ],
+      parent: this.injector
+    });
+
     this.componentLoader = this.getComponent();
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
-    // this.createBox();
+
+    if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
+      this.activeIds.push(this.box.shortname);
+    }
   }
 
-  ngAfterViewInit(){
-    this.crisLayoutLoader.changes.subscribe((res)=>{
-      if(!!res.first){
-        this.createBox(res.first.viewContainerRef);
-      }
-    })
-  }
 
   getComponent(): GenericConstructor<Component> {
     return getCrisLayoutBox(LayoutBox[this.box.boxType]);
+  }
+
+  getComponentRef(){
+    return getCrisLayoutBox(LayoutBox[this.box.boxType])?.componentRef;
   }
 
   getBoxHeader(): string {
@@ -92,34 +108,5 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     }
   }
 
-
-  protected createBox(viewContainerRef) {
-    if(!this.box.id){
-      return;
-    }
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.componentLoader.componentRef);
-    // const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
-    viewContainerRef.clear();
-
-    this.componentRef = viewContainerRef.createComponent(componentFactory);
-    (this.componentRef.instance as any).box = this.box;
-    (this.componentRef.instance as any).item = this.item;
-    console.log(this.box,this.componentRef.instance);
-    // (componentRef.instance as any).refreshTab.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-    //   this.refreshTab.emit();
-    // });
-    // (componentRef.instance as any).refreshBox.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-    //   this.onRefreshBox(viewContainerRef, componentRef, box, boxPosition);
-
-    // });
-
-  }
-
- 
-  ngOnDestroy(): void {
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
-  }
 
 }

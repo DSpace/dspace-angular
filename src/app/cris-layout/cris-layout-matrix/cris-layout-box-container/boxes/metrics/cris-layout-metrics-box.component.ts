@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Inject } from '@angular/core';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutTab } from '../../../../enums/layout-tab.enum';
@@ -15,6 +15,8 @@ import { MetricsComponentsDataService } from '../../../../../core/layout/metrics
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Box } from '../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../core/shared/item.model';
 
 export interface MetricRow {
   metrics: Metric[];
@@ -60,9 +62,11 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
     protected metricscomponentsService: MetricsComponentsDataService,
     protected itemService: ItemDataService,
     protected translateService: TranslateService,
-    protected viewRef: ElementRef
+    protected viewRef: ElementRef,
+    @Inject('boxProvider') public boxProvider: Box,
+    @Inject('itemProvider') public itemProvider: Item
   ) {
-    super(translateService, viewRef);
+    super(translateService, viewRef, boxProvider, itemProvider);
   }
 
   ngOnInit() {

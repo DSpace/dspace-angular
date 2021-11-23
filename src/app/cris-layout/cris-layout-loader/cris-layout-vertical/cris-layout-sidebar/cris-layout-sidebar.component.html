@@ -1,7 +1,7 @@
 <div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
 	<nav id="sidebar" *ngIf="!(isSideBarHidden() | async)" [ngClass]="{'active': !(isSideBarHidden() | async)}">
-		<div class="p-4 pt-5">
-		    <ul class="list-unstyled components mb-5">
+		<div class="pt-0 pl-4 pr-4 pb-4">
+		    <ul class="list-unstyled components">
 	    	    <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
                              [tab]="tab"
                              [layout]="'vertical'"
@@ -10,7 +10,7 @@
 		    </ul>
 		</div>
 	</nav>
-	<div id="content" class="position-relative w-100 pr-0 pt-3 pb-3"
+	<div id="content" class="position-relative w-100 pr-0 pb-3"
 	   [ngClass]="{
 	    'p-0': !(hasSidebar() | async),
 	    'pl-3': !(isSideBarHidden() | async),
@@ -23,7 +23,7 @@
 		    </button>
 		</div>
 
-	  <div class="p-4">
+	  <div class="ml-4 mr-4">
 	  	<ng-content></ng-content>
 	  </div>
 

@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../core/shared/item.model';
 import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
+import { HostWindowService } from '../../../shared/host-window.service';
 
 @Component({
   selector: 'ds-cris-layout-vertical',
@@ -21,7 +22,7 @@ export class CrisLayoutVerticalComponent implements OnInit {
 
   selectedTab$: BehaviorSubject<Tab> = new BehaviorSubject<Tab>(null);
 
-  constructor() {
+  constructor(public windowService: HostWindowService) {
   }
 
   ngOnInit(): void {

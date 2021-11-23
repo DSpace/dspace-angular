@@ -5,6 +5,7 @@ import { Tab } from '../../../core/layout/models/tab.model';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../core/shared/item.model';
+import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'ds-cris-layout-horizontal',
@@ -21,9 +22,16 @@ export class CrisLayoutHorizontalComponent implements OnInit {
   
   item: Item;
 
+  selectedTab$: BehaviorSubject<Tab> = new BehaviorSubject<Tab>(null);
+
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  selectedTabChanged(tab : Tab){
+    console.log(tab);
+    this.selectedTab$.next(tab);
   }
 }

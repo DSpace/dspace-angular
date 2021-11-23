@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Tab } from '../../../../core/layout/models/tab.model';
 import { Observable, of as observableOf } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -29,6 +29,11 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsSidebarComponent im
   
   menuCollapsed = true;
 
+  /**
+   * Item that is being viewed
+   */
+  @Output() selectedTabChange = new EventEmitter<Tab>();
+  
   constructor(
     public location: Location, 
     public router: Router, 
@@ -42,7 +47,7 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsSidebarComponent im
   }
 
   getTabSelected(tab) {
-    console.log(tab);
+    this.selectedTabChange.emit(tab);
   }
 
   toggleNavbar() {

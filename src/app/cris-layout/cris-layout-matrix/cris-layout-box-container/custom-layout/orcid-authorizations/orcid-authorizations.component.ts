@@ -12,6 +12,8 @@ import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { LayoutPage } from '../../../../enums/layout-page.enum';
 import { LayoutTab } from '../../../../enums/layout-tab.enum';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
+import { Box } from '../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-orcid-authorizations.component',
@@ -30,8 +32,10 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     protected translateService: TranslateService,
     private notificationsService: NotificationsService,
     protected viewRef: ElementRef,
-    @Inject(NativeWindowService) private _window: NativeWindowRef) {
-    super(translateService, viewRef);
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    @Inject('boxProvider') public boxProvider: Box,
+    @Inject('itemProvider') public itemProvider: Item) {
+    super(translateService, viewRef, boxProvider, itemProvider);
   }
 
   ngOnInit() {

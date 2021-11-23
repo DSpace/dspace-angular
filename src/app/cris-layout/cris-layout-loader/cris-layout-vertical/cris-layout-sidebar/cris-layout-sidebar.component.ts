@@ -55,7 +55,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsSidebarComponent i
   }
 
   getTabSelected(tab: Tab) {
-    this.selectedTabChange.emit(tab)
+    this.selectedTabChange.emit(tab);
   }
 
   /**
