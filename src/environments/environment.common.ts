@@ -292,7 +292,39 @@ export const environment: GlobalConfig = {
 
     {
       // The default dspace theme
-      name: 'dspace'
+      name: 'dspace',
+      headTags: [
+        {
+          tagName: 'link',
+          attributes: {
+            'rel': 'icon',
+            'href': 'assets/dspace/images/favicons/favicon.ico',
+            'sizes': 'any',
+          }
+        },
+        {
+          tagName: 'link',
+          attributes: {
+            'rel': 'icon',
+            'href': 'assets/dspace/images/favicons/favicon.svg',
+            'type': 'image/svg+xml',
+          }
+        },
+        {
+          tagName: 'link',
+          attributes: {
+            'rel': 'apple-touch-icon',
+            'href': 'assets/dspace/images/favicons/apple-touch-icon.png',
+          }
+        },
+        {
+          tagName: 'link',
+          attributes: {
+            'rel': 'manifest',
+            'href': 'assets/dspace/images/favicons/manifest.webmanifest',
+          }
+        },
+      ]
     },
   ],
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
