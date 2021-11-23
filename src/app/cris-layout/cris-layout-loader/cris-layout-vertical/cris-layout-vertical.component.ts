@@ -2,9 +2,10 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { CrisLayoutPage } from '../../decorators/cris-layout-page.decorator';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { Tab } from '../../../core/layout/models/tab.model';
-import { CrisLayoutTabsSidebarComponent } from '../shared/cris-layout-tabs/cris-layout-tabs.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../../core/shared/item.model';
+import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'ds-cris-layout-vertical',
@@ -12,16 +13,21 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./cris-layout-vertical.component.scss']
 })
 @CrisLayoutPage(LayoutPage.VERTICAL)
-export class CrisLayoutVerticalComponent extends CrisLayoutTabsSidebarComponent implements OnInit {
+export class CrisLayoutVerticalComponent implements OnInit {
 
   tabs: Tab[];
 
-  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
-    super(location,router,route);
+  item: Item;
+
+  selectedTab$: BehaviorSubject<Tab> = new BehaviorSubject<Tab>(null);
+
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.init();
   }
 
+  selectedTabChanged(tab : Tab){
+    this.selectedTab$.next(tab);
+  }
 }

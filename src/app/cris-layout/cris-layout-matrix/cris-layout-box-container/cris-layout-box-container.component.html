@@ -1,0 +1,18 @@
+<ngb-accordion *ngIf="box.container && (!!componentLoader && !componentLoader.hasOwnContainer)">
+  <ngb-panel id="{{box.shortname}}">
+    <ng-template ngbPanelTitle>
+      <span [innerHTML]="getBoxHeader()"></span>
+    </ng-template>
+    <ng-template ngbPanelContent>
+		  <ng-template dsCrisLayoutLoader></ng-template> 
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+
+
+
+
+<ng-template *ngIf="!box.container && !(!!componentLoader && !componentLoader.hasOwnContainer)" dsCrisLayoutLoader></ng-template> 
+
+ <!-- [activeIds]="activeIds" 
+  -->

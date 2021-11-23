@@ -105,6 +105,7 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-6',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'primary',
                     'header': 'Primary Information',
                     'entityType': 'Person',
@@ -140,6 +141,7 @@ export class CrisLayoutComponent implements OnInit {
                     }
                   },
                   {
+                    'id': 1726,
                     'shortname': 'other',
                     'header': 'Other Informations',
                     'entityType': 'Person',
@@ -150,6 +152,7 @@ export class CrisLayoutComponent implements OnInit {
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
+                    'container': true,
                     'type': 'box',
                     'metadataSecurityFields': [
                       'cris.policy.eperson'
@@ -176,6 +179,7 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-6',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'researchoutputs',
                     'header': 'Research outputs',
                     'entityType': 'Person',
@@ -188,6 +192,7 @@ export class CrisLayoutComponent implements OnInit {
                     'boxType': 'RELATION',
                     'type': 'box',
                     'metadataSecurityFields': [],
+                    'container': true,
                     'configuration': {
                       'id': 3,
                       'discovery-configuration': 'RELATION.Person.researchoutputs'
@@ -204,6 +209,7 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-12',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'metrics',
                     'header': 'Metrics',
                     'entityType': 'Person',
@@ -211,6 +217,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -245,6 +252,7 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-6',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'primary',
                     'header': 'Primary Information',
                     'entityType': 'Person',
@@ -287,6 +295,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -323,6 +332,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -351,6 +361,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -427,6 +438,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -463,6 +475,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -491,6 +504,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -567,6 +581,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -603,6 +618,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -631,6 +647,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -707,6 +724,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -743,6 +761,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -771,6 +790,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',

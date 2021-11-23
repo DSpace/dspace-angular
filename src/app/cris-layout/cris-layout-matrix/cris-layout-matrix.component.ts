@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Tab } from '../../core/layout/models/tab.model';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-cris-layout-matrix',
@@ -7,10 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrisLayoutMatrixComponent implements OnInit {
 
+  /**
+   * Tabs to render
+   */
+  @Input() tab: Tab;
+
+  /**
+   * Tabs to render
+   */
+  @Input() row;
+
+  /**
+   * Item that is being viewed
+   */
+  @Input() item: Item;
+
   /* tslint:disable:no-empty */
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.tab,this.item);
   }
   /* tslint:enable:no-empty */
 

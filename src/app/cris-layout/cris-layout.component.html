@@ -3,7 +3,7 @@
 <div>
 	<ng-container *ngIf="!!tabs$">
 		<ng-container *ngVar="(leadingTabs$ | async) as leadingTabs">
-			<ds-cris-layout-leading *ngIf="!!leadingTabs && leadingTabs.length > 0" [tabs]="leadingTabs"></ds-cris-layout-leading>
+			<ds-cris-layout-leading *ngIf="!!leadingTabs && leadingTabs.length > 0" [tabs]="leadingTabs" [item]="item"></ds-cris-layout-leading>
 		</ng-container>
 	</ng-container>
 

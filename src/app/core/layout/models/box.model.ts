@@ -64,6 +64,9 @@ export class Box extends CacheableObject {
   maxColumn: number;
 
   @autoserialize
+  container: boolean;
+
+  @autoserialize
   metadataSecurityFields: string[];
 
   @autoserialize

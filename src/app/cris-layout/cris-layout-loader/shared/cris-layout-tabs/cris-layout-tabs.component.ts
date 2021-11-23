@@ -143,7 +143,6 @@ export class CrisLayoutTabsSidebarComponent {
   }
 
   public parseTabs(): void {
-      console.log(this.tabs);
       const tabs = [];
       this.tabs.forEach((tab) => {
           // create children where tab has "::"

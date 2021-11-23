@@ -10,7 +10,7 @@
 		    </ul>
 		</div>
 	</nav>
-	<div id="content" class="position-relative pr-0 pt-3 pb-3"
+	<div id="content" class="position-relative w-100 pr-0 pt-3 pb-3"
 	   [ngClass]="{
 	    'p-0': !(hasSidebar() | async),
 	    'pl-3': !(isSideBarHidden() | async),
@@ -24,7 +24,7 @@
 		</div>
 
 	  <div class="p-4">
-	  	matrix
+	  	<ng-content></ng-content>
 	  </div>
 
 	</div>

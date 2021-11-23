@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CrisLayoutPage } from '../../decorators/cris-layout-page.decorator';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { Tab } from '../../../core/layout/models/tab.model';
-import { CrisLayoutTabsSidebarComponent } from '../shared/cris-layout-tabs/cris-layout-tabs.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-cris-layout-horizontal',
@@ -12,18 +12,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./cris-layout-horizontal.component.scss']
 })
 @CrisLayoutPage(LayoutPage.HORIZONTAL)
-export class CrisLayoutHorizontalComponent extends CrisLayoutTabsSidebarComponent implements OnInit {
+export class CrisLayoutHorizontalComponent implements OnInit {
 
   /**
    * Tabs to render
    */
   tabs: Tab[];
+  
+  item: Item;
 
-  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
-    super(location,router,route);
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.init();
   }
 }

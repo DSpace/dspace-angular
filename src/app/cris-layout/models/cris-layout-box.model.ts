@@ -49,11 +49,11 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
   /**
    * Dynamic styling of the component host selector
    */
-  @HostBinding('style.flex') flex = '1';
+  // @HostBinding('style.flex') flex = '1';
   /**
    * Dynamic styling of the component host selector
    */
-  @HostBinding('style.marginRight') marginRight = '0px';
+  // @HostBinding('style.marginRight') marginRight = '0px';
 
   protected constructor(protected translateService: TranslateService, protected viewRef: ElementRef) {
     super();
@@ -63,31 +63,31 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
    * Check if the current box is collapsed or not
    */
   ngOnInit(): void {
-    this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
+    // this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
 
-    if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
-      this.activeIds.push(this.box.shortname);
-    }
+    // if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
+    //   this.activeIds.push(this.box.shortname);
+    // }
 
-    if ((this.box.clear && !this.nextBoxClear) || (!this.box.clear && !this.nextBoxClear)) {
-      this.marginRight = '1rem';
-    }
+    // if ((this.box.clear && !this.nextBoxClear) || (!this.box.clear && !this.nextBoxClear)) {
+    //   this.marginRight = '1rem';
+    // }
   }
 
   ngAfterViewInit() {
     // If clear box is true means that box should be renderend in a new line, so adding a breaking flex line div
-    if (this.box.clear) {
-      this.viewRef.nativeElement.insertAdjacentHTML('beforebegin', '<div style="flex-basis: 100%;"></div>');
-    }
+    // if (this.box.clear) {
+    //   this.viewRef.nativeElement.insertAdjacentHTML('beforebegin', '<div style="flex-basis: 100%;"></div>');
+    // }
   }
 
-  getBoxHeader(): string {
-    const header: string = this.translateService.instant(this.boxHeaderI18nKey);
-    if (header === this.boxHeaderI18nKey ) {
-      // if translation does not exist return the value present in the header property
-      return this.translateService.instant(this.box.header);
-    } else {
-      return header;
-    }
-  }
+  // getBoxHeader(): string {
+  //   const header: string = this.translateService.instant(this.boxHeaderI18nKey);
+  //   if (header === this.boxHeaderI18nKey ) {
+  //     // if translation does not exist return the value present in the header property
+  //     return this.translateService.instant(this.box.header);
+  //   } else {
+  //     return header;
+  //   }
+  // }
 }

@@ -1,1 +1,13 @@
-<p>cris-layout-matrix works!</p>
+<ng-container *ngIf="!!tab">
+	<div class="row" *ngFor="let row of tab.rows">
+		<div *ngFor="let cell of row.cells" class="{{ !!cell.style ? cell.style : 'col' }}">
+			<div class="row">
+				<div *ngFor="let box of cell.boxes" class="{{ !!box.style ? box.style : 'col' }}">
+					<ds-cris-layout-box-container [box]="box" [item]="item"></ds-cris-layout-box-container>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-container>
+
+<!-- <div ds-cris-layout-row *ngFor="let row of tab.rows" [row]="row"></div> -->

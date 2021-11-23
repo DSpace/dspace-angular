@@ -1,0 +1,10 @@
+<ds-thumbnail 
+  *ngIf="bitstream$ | async"
+  [thumbnail]="bitstream$ | async" 
+  [defaultImage]="default">
+</ds-thumbnail>
+<ds-thumbnail 
+  *ngIf="!(bitstream$ | async)"
+  [thumbnail]="bitstream$ | async" 
+  [defaultImage]="default">
+</ds-thumbnail>

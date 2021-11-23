@@ -52,6 +52,9 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   ngOnInit() {
+    if(this.tab.isActive){
+      this.tabSelectedChange.emit(this.tab);
+    }
     if (!!this.tab && !!this.tab.children && this.tab.children.length > 0) {
       this.tab.children.forEach((subtab) => {
         if (subtab.isActive) {
@@ -59,6 +62,7 @@ export class CrisLayoutSidebarItemComponent {
             this.expanded = true;
           }
           this.tab.isActive = true;
+          this.tabSelectedChange.emit(subtab);
           return;
         }
       });
@@ -81,6 +85,7 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   selectTab(tab): void {
+    console.log(tab);
     this.tabSelectedChange.emit(tab);
   }
 

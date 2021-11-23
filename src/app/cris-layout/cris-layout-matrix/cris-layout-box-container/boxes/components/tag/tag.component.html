@@ -1,0 +1,19 @@
+<div class="{{containerStyle}}">
+  <span
+    *ngIf="hasLabel && !nested"
+    class="{{labelStyle}}">
+    {{label}}
+  </span>
+
+
+   <div [class]="'d-flex flex-column ' + valueStyle">
+      <ds-chips
+        *ngIf="chips && chips.hasItems()"
+        [clickable]="false"
+        [chips]="chips"
+        [showIcons]="false"
+        [readOnly]="true"></ds-chips>
+    </div>
+
+
+</div>

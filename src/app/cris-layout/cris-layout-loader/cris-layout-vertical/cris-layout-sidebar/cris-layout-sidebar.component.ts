@@ -1,19 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Tab } from '../../../../core/layout/models/tab.model';
 import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
 import { map, take, takeUntil, tap } from 'rxjs/operators';
+import { CrisLayoutTabsSidebarComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-cris-layout-sidebar',
   templateUrl: './cris-layout-sidebar.component.html',
   styleUrls: ['./cris-layout-sidebar.component.scss']
 })
-export class CrisLayoutSidebarComponent implements OnInit {
+export class CrisLayoutSidebarComponent extends CrisLayoutTabsSidebarComponent implements OnInit {
 
   /**
    * Tabs to render
    */
   @Input() tabs: Tab[];
+
+  /**
+   * Item that is being viewed
+   */
+  @Input() item: Item;
+
+  /**
+   * Item that is being viewed
+   */
+  @Output() selectedTabChange = new EventEmitter<Tab>();
 
   /**
    * A boolean representing if to render or not the sidebar menu
@@ -25,7 +39,12 @@ export class CrisLayoutSidebarComponent implements OnInit {
    */
   private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
+    super(location,router,route);
+  }
+
   ngOnInit(): void {
+    this.init();
     // Check if to show sidebar
     this.hasSidebar$ = observableOf(!!this.tabs && this.tabs.length > 0);
 
@@ -35,8 +54,8 @@ export class CrisLayoutSidebarComponent implements OnInit {
     });
   }
 
-  getTabSelected(tab) {
-    console.log(tab);
+  getTabSelected(tab: Tab) {
+    this.selectedTabChange.emit(tab)
   }
 
   /**

@@ -1,3 +1,6 @@
 <div id="cris-layout-loader" class="container vertical-layout">
-	<ds-cris-layout-sidebar [tabs]="tabs"></ds-cris-layout-sidebar>
+	<ds-cris-layout-sidebar (selectedTabChange)="selectedTabChanged($event)" [tabs]="tabs" [item]="item">
+		<ds-cris-layout-matrix [tab]="(selectedTab$ | async)" [item]="item"></ds-cris-layout-matrix>
+	</ds-cris-layout-sidebar>
 </div>
+		
