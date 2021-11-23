@@ -176,6 +176,7 @@ import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-vers
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -317,7 +318,6 @@ const COMPONENTS = [
   ImportableListItemControlComponent,
 
   LogInShibbolethComponent,
-  LogInOrcidComponent,
   LogInOidcComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
@@ -390,7 +390,6 @@ const ENTRY_COMPONENTS = [
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent,
-  LogInOrcidComponent,
   LogInOidcComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
