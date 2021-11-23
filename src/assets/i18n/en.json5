@@ -2777,13 +2777,13 @@
 
 
 
-  "process.overview.table.finish" : "Finish time",
+  "process.overview.table.finish" : "Finish time (UTC)",
 
   "process.overview.table.id" : "Process ID",
 
   "process.overview.table.name" : "Name",
 
-  "process.overview.table.start" : "Start time",
+  "process.overview.table.start" : "Start time (UTC)",
 
   "process.overview.table.status" : "Status",
 
