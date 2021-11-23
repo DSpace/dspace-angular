@@ -62,11 +62,11 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
-              private variableService: CSSVariableService,
-              private authService: AuthService,
-              private modalService: NgbModal,
-              private authorizationService: AuthorizationDataService,
-              private scriptDataService: ScriptDataService,
+              protected variableService: CSSVariableService,
+              protected authService: AuthService,
+              protected modalService: NgbModal,
+              protected authorizationService: AuthorizationDataService,
+              protected scriptDataService: ScriptDataService,
   ) {
     super(menuService, injector);
   }
