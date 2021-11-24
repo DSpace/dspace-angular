@@ -1,15 +1,11 @@
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { BOX } from './box.resource-type';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
-import { SEARCH_COMPONENT } from './search-component.resource-type';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { MetadataComponent } from './metadata-component.model';
 
 /**
  * Describes a type of Box
@@ -76,7 +72,7 @@ export class Box extends CacheableObject {
   boxType: string;
 
   @autoserialize
-  configuration: Configuration;
+  configuration: BoxConfiguration;
 
   /**
    * The {@link HALLink}s for this Tab
@@ -89,11 +85,18 @@ export class Box extends CacheableObject {
 }
 
 
-export interface Configuration {
+export interface MetadataBoxConfiguration extends BoxConfiguration {
   id: string;
   rows: Row[];
 }
 
+export interface BoxConfiguration {
+  type: string;
+}
+
+export interface RelationBoxConfiguration extends BoxConfiguration {
+  'discovery-configuration': string;
+}
 
 export interface Row {
   fields: LayoutField[];
