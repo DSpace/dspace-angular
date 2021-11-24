@@ -235,7 +235,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
   public setOptions(model: DynamicFormControlModel, control: FormControl) {
     let accessCondition: AccessConditionOption = null;
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
-      .forEach((element) => accessCondition = element);
+      .forEach((element) => accessCondition = element );
     if (isNotEmpty(accessCondition)) {
       const showGroups: boolean = accessCondition.hasStartDate === true || accessCondition.hasEndDate === true;
 
@@ -364,7 +364,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
         const startDate = new DynamicDatePickerModel(startDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT);
         const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
         const accessConditionGroupConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG);
-        accessConditionGroupConfig.group = [type, startDate, endDate];
+        accessConditionGroupConfig.group = [type];
+        if (hasStart.length > 0) { accessConditionGroupConfig.group.push(startDate); }
+        if (hasEnd.length > 0) { accessConditionGroupConfig.group.push(endDate); }
         return [new DynamicFormGroupModel(accessConditionGroupConfig, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT)];
       };
 

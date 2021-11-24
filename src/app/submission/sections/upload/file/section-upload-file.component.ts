@@ -247,10 +247,6 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
     activeModal.componentInstance.pathCombiner = this.pathCombiner;
     activeModal.componentInstance.submissionId = this.submissionId;
 
-    /*activeModal.componentInstance.saveBitstreamDataEvent.subscribe((res) => {
-      console.log(JSON.stringify(res));
-    });*/
-
   }
 
   ngOnDestroy(): void {
