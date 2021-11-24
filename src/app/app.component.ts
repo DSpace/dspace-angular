@@ -293,7 +293,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const headTagConfigs = themeConfig?.headTags;
 
     if (isEmpty(headTagConfigs)) {
-      const parentThemeName = themeConfig.extends;
+      const parentThemeName = themeConfig?.extends;
       if (isNotEmpty(parentThemeName)) {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
