@@ -38,7 +38,7 @@ const mockItem = Object.assign(new Item(), {
 });
 
 const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
-  findByItem: jasmine.createSpy('findByItem')
+  findByItem: observableOf(leadingTabs)
 });
 
 // tslint:disable-next-line:prefer-const
@@ -68,6 +68,7 @@ describe('CrisLayoutComponent', () => {
     component = fixture.componentInstance;
     component.item = mockItem;
     tabDataServiceMock.findByItem.and.returnValue(observableOf(leadingTabs));
+    component.tabs$ = observableOf(leadingTabs);
     fixture.detectChanges();
   });
 
@@ -80,6 +81,8 @@ describe('CrisLayoutComponent', () => {
     it('getTabsByItem to have been called', () => {
 
       const spyOnGetTabsByItem = spyOn(component,'getTabsByItem');
+
+      spyOnGetTabsByItem.and.returnValue(observableOf(leadingTabs));
 
       component.ngOnInit();
       fixture.detectChanges();
@@ -109,31 +112,40 @@ describe('CrisLayoutComponent', () => {
 
 
     it('it should show only ds-cris-layout-leading when only leading tabs', () => {
+
       tabDataServiceMock.findByItem.and.returnValue(observableOf(leadingTabs));
-      component.ngOnInit();
       component.tabs$ = observableOf(leadingTabs);
+      component.leadingTabs$ = observableOf(leadingTabs);
+      component.loaderTabs$ = observableOf([]);
       fixture.detectChanges();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeNull();
+
     });
 
     it('it should show only ds-cris-layout-loader when only loader tabs', () => {
+
       tabDataServiceMock.findByItem.and.returnValue(observableOf(loaderTabs));
-      component.ngOnInit();
       component.tabs$ = observableOf(loaderTabs);
+      component.leadingTabs$ = observableOf([]);
+      component.loaderTabs$ = observableOf(loaderTabs);
       fixture.detectChanges();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeNull();
+
     });
 
 
     it('it should show both when both types of tabs', () => {
+
       tabDataServiceMock.findByItem.and.returnValue(observableOf(bothTabs));
-      component.ngOnInit();
       component.tabs$ = observableOf(bothTabs);
+      component.leadingTabs$ = observableOf(leadingTabs);
+      component.loaderTabs$ = observableOf(loaderTabs);
       fixture.detectChanges();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
+
     });
 
   });

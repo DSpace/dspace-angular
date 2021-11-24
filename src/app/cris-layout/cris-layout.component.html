@@ -1,17 +1,15 @@
 
 <!-- <ds-loading *ngIf="tabs$?.isLoading" message="{{'loading.item' | translate}}"></ds-loading> -->
-<div>
-	
-<ng-container *ngIf="!!tabs$">
-	<ng-container *ngVar="(getLeadingTabs() | async) as leadingTabs">
-		<ds-cris-layout-leading *ngIf="!!leadingTabs && leadingTabs.length > 0" [tabs]="leadingTabs"></ds-cris-layout-leading>
+<div class="cris-layout">
+	<ng-container *ngIf="!!tabs$">
+		<ng-container *ngVar="(leadingTabs$ | async) as leadingTabs">
+			<ds-cris-layout-leading *ngIf="!!leadingTabs && leadingTabs.length > 0" [tab]="leadingTabs[0]"></ds-cris-layout-leading>
+		</ng-container>
 	</ng-container>
-</ng-container>
 
-<ng-container *ngIf="!!tabs$">
-	<ng-container *ngVar="(getLoaderTabs() | async) as loaderTabs">
-		<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0" [tabs]="loaderTabs" [item]="item"></ds-cris-layout-loader>
+	<ng-container *ngIf="!!tabs$">
+		<ng-container *ngVar="(loaderTabs$ | async) as loaderTabs">
+			<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0" [tabs]="loaderTabs" [item]="item"></ds-cris-layout-loader>
+		</ng-container>
 	</ng-container>
-</ng-container>
-
 </div>

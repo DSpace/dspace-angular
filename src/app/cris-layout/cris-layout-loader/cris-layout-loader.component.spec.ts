@@ -3,7 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CrisLayoutLoaderComponent } from './cris-layout-loader.component';
 import { Item } from '../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 
 describe('CrisLayoutLoaderComponent', () => {
   let component: CrisLayoutLoaderComponent;
@@ -35,7 +38,11 @@ describe('CrisLayoutLoaderComponent', () => {
     });
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutLoaderComponent, CrisLayoutLoaderDirective ]
+      declarations: [ CrisLayoutLoaderComponent, CrisLayoutLoaderDirective ],
+      providers: [
+        { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+      ]
     })
     .compileComponents();
   });

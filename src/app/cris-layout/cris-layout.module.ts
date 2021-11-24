@@ -11,11 +11,16 @@ import { CrisLayoutVerticalComponent } from './cris-layout-loader/cris-layout-ve
 import { CrisLayoutSidebarComponent } from './cris-layout-loader/cris-layout-vertical/cris-layout-sidebar/cris-layout-sidebar.component';
 import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
 import { CrisLayoutNavbarComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-navbar/cris-layout-navbar.component';
+import { CrisLayoutSidebarItemComponent } from './cris-layout-loader/shared/sidebar-item/cris-layout-sidebar-item.component';
+import { CrisLayoutTabsComponent } from './cris-layout-loader/shared/cris-layout-tabs/cris-layout-tabs.component';
 
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
-  CrisLayoutComponent,
+  CrisLayoutLoaderComponent,
+  CrisLayoutMatrixComponent,
+  CrisLayoutVerticalComponent,
+  CrisLayoutHorizontalComponent,
 ];
 @NgModule({
   declarations: [
@@ -28,6 +33,8 @@ const ENTRY_COMPONENTS = [
     CrisLayoutSidebarComponent,
     CrisLayoutHorizontalComponent,
     CrisLayoutNavbarComponent,
+    CrisLayoutSidebarItemComponent,
+    CrisLayoutTabsComponent
   ],
   imports: [
     CommonModule,
