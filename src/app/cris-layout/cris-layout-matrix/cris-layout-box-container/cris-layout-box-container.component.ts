@@ -1,28 +1,9 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
-  ComponentRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  Input,
-  ViewContainerRef,
-  QueryList,
-  ViewChildren,
-  Injector
-} from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Injector, Input, OnInit } from '@angular/core';
 
-import { Box } from '../../../core/layout/models/box.model'
-import { getCrisLayoutPage } from '../../decorators/cris-layout-page.decorator';
+import { Box } from '../../../core/layout/models/box.model';
 import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.directive';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { catchError, takeUntil, tap, take } from 'rxjs/operators';
-import { Observable, of, Subject } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { LayoutBox } from '../../enums/layout-box.enum';
 import { hasValue } from '../../../shared/empty.util';
@@ -94,7 +75,7 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     return getCrisLayoutBox(LayoutBox[this.box.boxType]);
   }
 
-  getComponentRef(){
+  getComponentRef() {
     return getCrisLayoutBox(LayoutBox[this.box.boxType])?.componentRef;
   }
 

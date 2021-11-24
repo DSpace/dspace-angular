@@ -1,7 +1,6 @@
 import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, Inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Box } from '../../core/layout/models/box.model';
-import { hasValue } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../core/shared/item.model';
 
@@ -57,7 +56,7 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
   // @HostBinding('style.marginRight') marginRight = '0px';
 
   protected constructor(
-    protected translateService: TranslateService, 
+    protected translateService: TranslateService,
     protected viewRef: ElementRef,
     @Inject('boxProvider') public boxProvider: Box,
     @Inject('itemProvider') public itemProvider: Item,

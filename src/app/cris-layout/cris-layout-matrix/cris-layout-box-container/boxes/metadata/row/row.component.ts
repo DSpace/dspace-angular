@@ -59,7 +59,7 @@ export class RowComponent implements OnInit {
 
   ngOnInit() {
     const fields = this.row.fields;
-    console.log(fields); 
+    console.log(fields);
 
     this.metadataContainerViewRef.clear();
     this.thumbnailContainerViewRef.clear();

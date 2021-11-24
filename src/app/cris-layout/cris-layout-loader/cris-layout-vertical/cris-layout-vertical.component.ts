@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CrisLayoutPage } from '../../decorators/cris-layout-page.decorator';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { Tab } from '../../../core/layout/models/tab.model';
-
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../core/shared/item.model';
-import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { HostWindowService } from '../../../shared/host-window.service';
 
 @Component({
@@ -15,7 +12,7 @@ import { HostWindowService } from '../../../shared/host-window.service';
   styleUrls: ['./cris-layout-vertical.component.scss']
 })
 @CrisLayoutPage(LayoutPage.VERTICAL)
-export class CrisLayoutVerticalComponent implements OnInit {
+export class CrisLayoutVerticalComponent {
 
   tabs: Tab[];
 
@@ -26,10 +23,7 @@ export class CrisLayoutVerticalComponent implements OnInit {
   constructor(public windowService: HostWindowService) {
   }
 
-  ngOnInit(): void {
-  }
-
-  selectedTabChanged(tab : Tab){
+  selectedTabChanged(tab: Tab) {
     this.selectedTab$.next(tab);
   }
 }

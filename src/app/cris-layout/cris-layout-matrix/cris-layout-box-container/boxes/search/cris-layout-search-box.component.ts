@@ -1,13 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutPage } from '../../../../enums/layout-page.enum';
-import { LayoutTab } from '../../../../enums/layout-tab.enum';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
 import { Observable, Subscription } from 'rxjs';
 import { hasValue } from '../../../../../shared/empty.util';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Box } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
@@ -40,8 +36,8 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
    */
   subs: Subscription[] = [];
 
-  constructor(public cd: ChangeDetectorRef, 
-              protected translateService: TranslateService, 
+  constructor(public cd: ChangeDetectorRef,
+              protected translateService: TranslateService,
               protected viewRef: ElementRef,
               @Inject('boxProvider') public boxProvider: Box,
               @Inject('itemProvider') public itemProvider: Item) {

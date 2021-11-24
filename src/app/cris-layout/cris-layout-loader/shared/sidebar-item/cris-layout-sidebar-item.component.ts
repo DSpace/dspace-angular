@@ -52,7 +52,7 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   ngOnInit() {
-    if(this.tab.isActive){
+    if (this.tab.isActive) {
       this.tabSelectedChange.emit(this.tab);
     }
     if (!!this.tab && !!this.tab.children && this.tab.children.length > 0) {
