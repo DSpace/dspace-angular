@@ -4,7 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { slideMobileNav } from '../../../../shared/animations/slide';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { CrisLayoutTabsSidebarComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
+import { CrisLayoutTabsComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
@@ -15,7 +15,7 @@ import { Item } from '../../../../core/shared/item.model';
   styleUrls: ['./cris-layout-navbar.component.scss'],
   animations: [slideMobileNav]
 })
-export class CrisLayoutNavbarComponent extends CrisLayoutTabsSidebarComponent implements OnInit {
+export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implements OnInit {
 
   /**
    * Tabs to render

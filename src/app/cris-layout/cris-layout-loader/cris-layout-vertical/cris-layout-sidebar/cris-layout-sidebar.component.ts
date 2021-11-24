@@ -2,17 +2,18 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Tab } from '../../../../core/layout/models/tab.model';
 import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
 import { map, take, takeUntil, tap } from 'rxjs/operators';
-import { CrisLayoutTabsSidebarComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
+
+import { CrisLayoutTabsComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
 
 @Component({
   selector: 'ds-cris-layout-sidebar',
   templateUrl: './cris-layout-sidebar.component.html',
   styleUrls: ['./cris-layout-sidebar.component.scss']
 })
-export class CrisLayoutSidebarComponent extends CrisLayoutTabsSidebarComponent implements OnInit {
+export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implements OnInit {
 
   /**
    * Tabs to render
@@ -32,7 +33,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsSidebarComponent i
   /**
    * A boolean representing if to render or not the sidebar menu
    */
-  private hasSidebar$: Observable<boolean>;
+  private hasSidebar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * This parameter define the status of sidebar (hide/show)
@@ -46,12 +47,10 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsSidebarComponent i
   ngOnInit(): void {
     this.init();
     // Check if to show sidebar
-    this.hasSidebar$ = observableOf(!!this.tabs && this.tabs.length > 0);
+    this.hasSidebar$.next(!!this.tabs && this.tabs.length > 0);
 
     // Init the sidebar status
-    this.hasSidebar$.pipe(take(1)).subscribe((status) => {
-      this.sidebarStatus$.next(status);
-    });
+    this.sidebarStatus$.next(this.hasSidebar$.value);
   }
 
   getTabSelected(tab: Tab) {
@@ -62,7 +61,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsSidebarComponent i
    * Check if sidebar is present
    */
   hasSidebar(): Observable<boolean> {
-    return this.hasSidebar$;
+    return this.hasSidebar$.asObservable();
   }
 
   /**

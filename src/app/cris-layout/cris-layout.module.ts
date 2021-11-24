@@ -12,10 +12,10 @@ import { CrisLayoutSidebarComponent } from './cris-layout-loader/cris-layout-ver
 import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
 import { CrisLayoutNavbarComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-navbar/cris-layout-navbar.component';
 import { CrisLayoutSidebarItemComponent } from './cris-layout-loader/shared/sidebar-item/cris-layout-sidebar-item.component';
-import { CrisLayoutTabsSidebarComponent } from './cris-layout-loader/shared/cris-layout-tabs/cris-layout-tabs.component';
 import { CrisLayoutRowComponent } from './cris-layout-matrix/cris-layout-row/cris-layout-row.component';
 import { CrisLayoutCellComponent } from './cris-layout-matrix/cris-layout-row/cris-layout-cell/cris-layout-cell.component';
 import { CrisLayoutBoxContainerComponent } from './cris-layout-matrix/cris-layout-box-container/cris-layout-box-container.component';
+import { CrisLayoutTabsComponent } from './cris-layout-loader/shared/cris-layout-tabs/cris-layout-tabs.component';
 
 import { RowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/row.component';
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/cris-layout-metadata-box.component';
@@ -85,7 +85,6 @@ const ENTRY_COMPONENTS = [
     CrisLayoutHorizontalComponent,
     CrisLayoutNavbarComponent,
     CrisLayoutSidebarItemComponent,
-    CrisLayoutTabsSidebarComponent,
     CrisLayoutRowComponent,
     CrisLayoutCellComponent,
     CrisLayoutBoxContainerComponent,
@@ -111,7 +110,8 @@ const ENTRY_COMPONENTS = [
     ValuepairComponent,
     TagComponent,
     DsDatePipe,
-    RowComponent
+    RowComponent,
+    CrisLayoutTabsComponent
   ],
   imports: [
     CommonModule,

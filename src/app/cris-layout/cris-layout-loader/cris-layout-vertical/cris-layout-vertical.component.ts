@@ -1,7 +1,8 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CrisLayoutPage } from '../../decorators/cris-layout-page.decorator';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { Tab } from '../../../core/layout/models/tab.model';
+
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../core/shared/item.model';

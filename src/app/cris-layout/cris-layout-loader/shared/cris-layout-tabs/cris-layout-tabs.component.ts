@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Tab } from '../../../../core/layout/models/tab.model';
@@ -13,7 +13,7 @@ import { Item } from '../../../../core/shared/item.model';
   selector: 'ds-cris-layout-tabs-sidebar',
   template: ''
 })
-export class CrisLayoutTabsSidebarComponent {
+export class CrisLayoutTabsComponent {
 
   /**
    * The item object related to the page
@@ -88,6 +88,7 @@ export class CrisLayoutTabsSidebarComponent {
    * This method selects new tab, change the location with its shortname and
    * notify the change at parent component
    * @param idx id of tab
+   * @param idy id of nested tab
    */
   selectTab(idx: number,idy?: number) {
     this.tabs.forEach((tabElm) => {

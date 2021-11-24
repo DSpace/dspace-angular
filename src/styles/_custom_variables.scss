@@ -95,6 +95,13 @@
   --ds-cris-layout-sidebar-menu-background: #207698;
   --ds-cris-layout-sidebar-menu-color: #fff;
   --ds-cris-layout-sidebar-link-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  --ds-cris-layout-sidebar-entry-height: 40px;
+  --ds-cris-layout-sidebar-entry-width: 40px;
+  --ds-cris-layout-sidebar-border-color: #207698;
+  --ds-cris-layout-sidebar-hover-focus-background-color: #207698;
+  --ds-cris-layout-sidebar-hover-focus-border-color: #207698;
+  --ds-cris-layout-sidebar-menu-active-color: #{$cyan};
+  --ds-cris-layout-sidebar-menu-active-background: #{theme-color('light')};
 
   --ds-cris-layout-navbar-background-color: #{$gray-200};
   --ds-cris-layout-navbar-border: 1px solid #d9dadb;
@@ -103,12 +110,8 @@
   --ds-cris-layout-navbar-menu-background: #207698;
   --ds-cris-layout-navbar-menu-color: #fff;
   --ds-cris-layout-navbar-link-border-bottom: none;
-  --ds-cris-layout-navbar-sub-level-backround-color: #e9ecef;
+  
+  --ds-cris-layout-navbar-sub-level-backround-color: #{$gray-200};
   --ds-cris-layout-navbar-tab-color-active: #006666;
 
-  --ds-cris-layout-sidebar-custom-menu-width-height: 40px;
-  --ds-cris-layout-sidebar-custom-menu-background-color: #207698;
-  --ds-cris-layout-sidebar-custom-menu-border-color: #207698;
-  --ds-cris-layout-sidebar-custom-menu-hover-focus-background-color: #207698;
-  --ds-cris-layout-sidebar-custom-menu-hover-focus-border-color: #207698;
 }

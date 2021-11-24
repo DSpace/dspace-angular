@@ -16,17 +16,18 @@
 	    'pl-3': !(isSideBarHidden() | async),
 	    'pl-0': (isSideBarHidden() | async)}">
 
-		<div *ngIf="(hasSidebar() | async)" class="custom-menu">
-			<button type="button" (click)="toggleSidebar()" id="sidebarCollapse" class="btn btn-arrow">
-		      	<i class="fas fa-chevron-{{(isSideBarHidden() | async) ? 'right' : 'left'}}"></i>
-		      	<span class="sr-only">Toggle Menu</span>
-		    </button>
-		</div>
+    <div *ngIf="(hasSidebar() | async)" class="sidebar-menu">
+      <button type="button" (click)="toggleSidebar()" id="sidebarCollapse" class="btn btn-arrow">
+        <i class="fas fa-chevron-{{(isSideBarHidden() | async) ? 'right' : 'left'}}"></i>
+        <span class="sr-only">Toggle Menu</span>
+      </button>
+    </div>
 
 	  <div class="ml-4 mr-4">
 	  	<ng-content></ng-content>
 	  </div>
 
-	</div>
-	
+
+  </div>
+
 </div>
