@@ -217,86 +217,20 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         pathCombiner.subRootElement);
     });
 
-    /*it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
-      compAsAny.fileEditComp.formRef = {formGroup: null};
-      compAsAny.fileData = fileData;
-      compAsAny.pathCombiner = pathCombiner;
-      const event = new Event('click', null);
-      spyOn(comp, 'switchMode');
-      formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockFileFormData));
+    it('should open edit modal when edit button is clicked', () => {
+      spyOn(compAsAny, 'editBitstreamData').and.callThrough();
+      comp.fileData = fileData;
 
-      const response = [
-        Object.assign(mockSubmissionObject, {
-          sections: {
-            upload: {
-              files: mockUploadFiles
-            }
-          }
-        })
-      ];
-      operationsService.jsonPatchByResourceID.and.returnValue(observableOf(response));
+      fixture.detectChanges();
 
-      const accessConditionsToSave = [
-        { name: 'openaccess' },
-        { name: 'lease', endDate: dateToISOFormat('2019-01-16T00:00:00Z') },
-        { name: 'embargo', startDate: dateToISOFormat('2019-01-16T00:00:00Z') },
-      ];
-      comp.saveBitstreamData(event);
-      tick();
+      const modalBtn = fixture.debugElement.query(By.css('.fa-edit '));
 
-      let path = 'metadata/dc.title';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
-        mockFileFormData.metadata['dc.title'],
-        true
-      );
+      modalBtn.nativeElement.click();
+      fixture.detectChanges();
 
-      path = 'metadata/dc.description';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
-        mockFileFormData.metadata['dc.description'],
-        true
-      );
-
-      path = 'accessConditions';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
-        accessConditionsToSave,
-        true
-      );
-
-      expect(comp.switchMode).toHaveBeenCalled();
-      expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
-
-    }));*/
-
-    /*it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
-      compAsAny.fileEditComp.formRef = {formGroup: null};
-      compAsAny.pathCombiner = pathCombiner;
-      const event = new Event('click', null);
-      spyOn(comp, 'switchMode');
-      formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(false));
-
-      expect(comp.switchMode).not.toHaveBeenCalled();
-      expect(uploadService.updateFileData).not.toHaveBeenCalled();
-
-    }));*/
-
-    it('should switch read mode', () => {
-      comp.readMode = false;
-
-      comp.switchMode();
-      expect(comp.readMode).toBeTruthy();
-
-      comp.switchMode();
-
-      expect(comp.readMode).toBeFalsy();
+      expect(compAsAny.editBitstreamData).toHaveBeenCalled();
     });
+
   });
 });
 

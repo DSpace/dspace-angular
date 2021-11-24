@@ -217,14 +217,6 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
     });
   }
 
-  /**
-   * Switch from edit form to metadata view
-   */
-  public switchMode() {
-    this.readMode = !this.readMode;
-    this.cdr.detectChanges();
-  }
-
   editBitstreamData() {
 
     const options: NgbModalOptions = {
