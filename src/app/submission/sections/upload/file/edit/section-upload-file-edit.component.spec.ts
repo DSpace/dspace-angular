@@ -49,7 +49,7 @@ const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
 
 const formMetadataMock = ['dc.title', 'dc.description'];
 
-fdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
+describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileEditComponent;
   let compAsAny: any;
@@ -98,6 +98,7 @@ fdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
         SubmissionSectionUploadFileEditComponent,
         NgbModal,
         NgbActiveModal,
+        FormComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -157,6 +158,8 @@ fdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileId = fileId;
       comp.configMetadataForm = configMetadataForm;
       comp.formMetadata = formMetadataMock;
+
+      formService.isValid.and.returnValue(of(true));
     });
 
     afterEach(() => {
@@ -233,12 +236,9 @@ fdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
     });
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
-      compAsAny.fileEditComp.formRef = {formGroup: null};
+      compAsAny.formRef = {formGroup: null};
       compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
-      // const event = new Event('click', null);
-      // spyOn(comp, 'switchMode');
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(true));
       formService.getFormData.and.returnValue(of(mockFileFormData));
@@ -283,21 +283,18 @@ fdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
         true
       );
 
-      // expect(comp.switchMode).toHaveBeenCalled();
       expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
 
     }));
 
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
-      compAsAny.fileEditComp.formRef = {formGroup: null};
+      compAsAny.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
-      // const event = new Event('click', null);
-      // spyOn(comp, 'switchMode');
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(false));
+      comp.saveBitstreamData();
+      tick();
 
-      // expect(comp.switchMode).not.toHaveBeenCalled();
       expect(uploadService.updateFileData).not.toHaveBeenCalled();
 
     }));

@@ -44,7 +44,7 @@ const configMetadataFormMock = {
   }]
 };
 
-fdescribe('SubmissionSectionUploadFileComponent test suite', () => {
+describe('SubmissionSectionUploadFileComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
