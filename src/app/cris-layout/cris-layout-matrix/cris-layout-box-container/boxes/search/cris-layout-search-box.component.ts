@@ -1,11 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
-import { Observable, Subscription } from 'rxjs';
-import { hasValue } from '../../../../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { Box } from '../../../../../core/layout/models/box.model';
+import { Box, RelationBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
@@ -14,7 +12,7 @@ import { Item } from '../../../../../core/shared/item.model';
   styleUrls: ['./cris-layout-search-box.component.scss']
 })
 @CrisLayoutBox(LayoutBox.RELATION)
-export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements OnInit, OnDestroy {
+export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements OnInit {
 
   /**
    * Filter used for set scope in discovery invocation
@@ -24,17 +22,14 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
    * Name of configuration for this box
    */
   configuration: string;
-  configuration$: Observable<string>;
   /**
    * flag for enable/disable search bar
    */
   searchEnabled = false;
-  sideBarWidth = 1;
-  configReady = false;
   /**
-   * List of subscriptions
+   * The width of the sidebar (bootstrap columns)
    */
-  subs: Subscription[] = [];
+  // sideBarWidth = 3;
 
   constructor(public cd: ChangeDetectorRef,
               protected translateService: TranslateService,
@@ -48,18 +43,8 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
     super.ngOnInit();
 
     this.searchFilter = `scope=${this.item.id}`;
-    // this.configuration$ = this.box.configuration.pipe(
-    //   getFirstSucceededRemoteDataPayload(),
-    //   map((config) => config.configuration)
-    // );
-    this.subs.push(this.configuration$.subscribe((next) => {
-      this.configuration = next;
-      this.configReady = true;
-      this.cd.markForCheck();
-    }));
+    console.log(this.box);
+    this.configuration = (this.box.configuration as RelationBoxConfiguration)['discovery-configuration'];
   }
 
-  ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-  }
 }
