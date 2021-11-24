@@ -27,8 +27,8 @@
   }
 
   ul li.active > .nav-item, .sidebar-section.active > div > .nav-item {
-    color: var(--ds-cris-layout-sidebar-active-menu-color);
-    background: var(--ds-cris-layout-sidebar-active-menu-background);
+    color: var(--ds-cris-layout-sidebar-menu-active-color);
+    background: var(--ds-cris-layout-sidebar-menu-active-background);
   }
 
   .sidebar-section.active > .sidebar-collapsible > .nav-item {
@@ -77,8 +77,8 @@
   }
 
   ul li.active > .nav-item, .sidebar-section.active > div > .nav-item {
-    color: var(--ds-cris-layout-sidebar-active-menu-color);
-    background: var(--ds-cris-layout-sidebar-active-menu-background);
+    color: var(--ds-cris-layout-sidebar-menu-active-color);
+    background: var(--ds-cris-layout-sidebar-menu-active-background);
   }
 
 }

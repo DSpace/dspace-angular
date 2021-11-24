@@ -23,7 +23,7 @@
   position: relative;
   &.active{
   	/*margin-left:  var(--ds-cris-layout-sidebar-width);*/
-  	.custom-menu{
+  	.sidebar-menu{
 			margin-right: -50px;
 	  }
   }
@@ -59,23 +59,23 @@
 }
 
 
-.custom-menu{
+.sidebar-menu{
 	display: inline-block;
 	position: absolute;
 	top: 20px;
-	left: calc(0px - var(--ds-cris-layout-sidebar-custom-menu-width-height)/2);
+	left: calc(0px - var(--ds-cris-layout-sidebar-entry-width)/2);
 	// margin-right: -50px;
 	@include transition(.3s);
 	.btn{
-		width: var(--ds-cris-layout-sidebar-custom-menu-width-height);
-		height: var(--ds-cris-layout-sidebar-custom-menu-width-height);
+		width: var(--ds-cris-layout-sidebar-entry-width);
+		height: var(--ds-cris-layout-sidebar-entry-height);
 		border-radius: 50%;
 		&.btn-primary{
-			background: var(--ds-cris-layout-sidebar-custom-menu-background-color);
-			border-color: var(--ds-cris-layout-sidebar-custom-menu-border-color);
+			background: var(--ds-cris-layout-sidebar-background-color);
+			border-color: var(--ds-cris-layout-sidebar-border-color);
 			&:hover, &:focus{
-				background: var(--ds-cris-layout-sidebar-custom-menu-hover-focus-background-color) !important;
-				border-color: var(--ds-cris-layout-sidebar-custom-menu-hover-focus-border-color) !important;
+				background: var(--ds-cris-layout-sidebar-hover-focus-background-color) !important;
+				border-color: var(--ds-cris-layout-sidebar-hover-focus-border-color) !important;
 			}
 		}
 	}

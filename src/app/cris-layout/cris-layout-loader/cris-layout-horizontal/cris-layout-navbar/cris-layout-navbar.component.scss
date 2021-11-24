@@ -2,7 +2,6 @@
 	justify-content: flex-start;
     height: 60px;
     align-items: center;
-    // border: 1px solid #d9dadb;
 }
 
 .nav-item{
@@ -12,14 +11,9 @@
     justify-content: center;
 }
 
-.nav-item.active{
-	border-bottom: 1px solid #207698;
-}
-
 nav.navbar {
-    // border-bottom: 1px var(--bs-gray-400) solid;
     align-items: baseline;
-    background-color: #e9ecef;
+    background-color: var(--ds-cris-layout-navbar-background-color);
 }
 
 /** Mobile menu styling **/
@@ -30,10 +24,10 @@ nav.navbar {
         overflow: hidden;
         height: 0;
         &.open {
-            height: auto !important; 
+            height: auto !important;
         }
         &.ng-animating {
-            height: auto !important; 
+            height: auto !important;
         }
     }
     .navbar-nav{
@@ -45,11 +39,17 @@ nav.navbar {
     :host{
         width: 100%;
     }
-    
+
     nav.navbar {
         border-bottom: 1px var(--bs-gray-400) solid;
         align-items: baseline;
     }
+
+  .navbar-toggler .navbar-toggler-icon {
+    background-image: none !important;
+    line-height: 1.5;
+    color: var(--bs-link-color);
+  }
 }
 
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
@@ -64,13 +64,4 @@ nav.navbar {
     @media screen and (max-width: map-get($grid-breakpoints, md)) {
         padding: 0;
     }
-}
-
-.navbar-nav {
-  ::ng-deep a.nav-link {
-    color: var(--ds-navbar-link-color);
-  }
-  ::ng-deep a.nav-link:hover {
-    color: var(--ds-navbar-link-color-hover);
-  }
 }

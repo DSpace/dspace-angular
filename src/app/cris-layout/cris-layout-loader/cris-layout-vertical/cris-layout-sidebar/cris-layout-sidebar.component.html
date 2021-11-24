@@ -16,7 +16,7 @@
 	    'pl-3': !(isSideBarHidden() | async),
 	    'pl-0': (isSideBarHidden() | async)}">
 
-    <div *ngIf="(hasSidebar() | async)" class="custom-menu">
+    <div *ngIf="(hasSidebar() | async)" class="sidebar-menu">
       <button type="button" (click)="toggleSidebar()" id="sidebarCollapse" class="btn btn-arrow">
         <i class="fas fa-chevron-{{(isSideBarHidden() | async) ? 'right' : 'left'}}"></i>
         <span class="sr-only">Toggle Menu</span>
