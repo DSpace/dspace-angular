@@ -31,7 +31,7 @@ import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { HostWindowService } from './shared/host-window.service';
-import {HeadTagConfig, ThemeConfig} from '../config/theme.model';
+import { HeadTagConfig, ThemeConfig } from '../config/theme.model';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
@@ -292,20 +292,44 @@ export class AppComponent implements OnInit, AfterViewInit {
     const themeConfig = this.themeService.getThemeConfigFor(themeName);
     const headTagConfigs = themeConfig?.headTags;
 
-    // if the current theme does not have head tags, we inherit the head tags of the parent
     if (isEmpty(headTagConfigs)) {
       const parentThemeName = themeConfig.extends;
-      return isNotEmpty(parentThemeName) ? this.createHeadTags(parentThemeName) : [];
+      if (isNotEmpty(parentThemeName)) {
+        // inherit the head tags of the parent theme
+        return this.createHeadTags(parentThemeName);
+      }
+
+      const defaultThemeName = DEFAULT_THEME_CONFIG.name;
+      if (
+        isEmpty(defaultThemeName) ||
+        themeName === defaultThemeName ||
+        themeName === BASE_THEME_NAME
+      ) {
+        // last resort, use fallback favicon.ico
+        return [
+          this.createHeadTag({
+            'tagName': 'link',
+            'attributes': {
+              'rel': 'icon',
+              'href': 'assets/images/favicon.ico',
+              'sizes': 'any',
+            }
+          })
+        ];
+      }
+
+      // inherit the head tags of the default theme
+      return this.createHeadTags(DEFAULT_THEME_CONFIG.name);
     }
 
     return headTagConfigs.map(this.createHeadTag.bind(this));
   }
 
-  private createHeadTag(themeHeadTag: HeadTagConfig): HTMLElement {
-    const tag = this.document.createElement(themeHeadTag.tagName);
+  private createHeadTag(headTagConfig: HeadTagConfig): HTMLElement {
+    const tag = this.document.createElement(headTagConfig.tagName);
 
-    if (isNotEmpty(themeHeadTag.attributes)) {
-      Object.entries(themeHeadTag.attributes)
+    if (isNotEmpty(headTagConfig.attributes)) {
+      Object.entries(headTagConfig.attributes)
         .forEach(([key, value]) => tag.setAttribute(key, value));
     }
 
