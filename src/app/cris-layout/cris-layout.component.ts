@@ -1,17 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../core/shared/item.model';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { Tab } from '../core/layout/models/tab.model';
 import { Observable, of as observableOf } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import {
-  getBrowseDefinitionLinks,
-  getFirstOccurrence,
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  getPaginatedListPayload
-} from '../core/shared/operators';
+import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -62,8 +56,7 @@ export class CrisLayoutComponent implements OnInit {
     return this.tabService.findByItem(this.item.uuid,true).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      getPaginatedListPayload(),
-      switchMap( (res) => this.mockData() )
+      getPaginatedListPayload()
     );
   }
 
