@@ -14,10 +14,12 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedSearchPageComponent } from './themed-search-page.component';
+import { ThemedSearchComponent } from './themed-search.component';
 
 const components = [
   SearchPageComponent,
   SearchComponent,
+  ThemedSearchComponent,
   SearchTrackerComponent,
   ThemedSearchPageComponent
 ];
