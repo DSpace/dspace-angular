@@ -1,32 +1,32 @@
 <div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
-	<nav id="sidebar" *ngIf="!(isSideBarHidden() | async)" [ngClass]="{'active': !(isSideBarHidden() | async)}">
-		<div class="p-4 pt-5">
-		    <ul class="list-unstyled components mb-5">
-	    	    <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
-                             [tab]="tab"
-                             [layout]="'vertical'"
-                              (tabSelectedChange)="getTabSelected($event)" 
-                             ></ds-cris-layout-sidebar-item>
-		    </ul>
-		</div>
-	</nav>
-	<div id="content" class="position-relative pr-0 pt-3 pb-3"
-	   [ngClass]="{
+  <nav id="sidebar" *ngIf="!(isSideBarHidden() | async)" [ngClass]="{'active': !(isSideBarHidden() | async)}">
+    <div>
+      <ul class="list-unstyled components mb-5">
+        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
+                                     [tab]="tab"
+                                     [layout]="'vertical'"
+                                     (tabSelectedChange)="getTabSelected($event)"
+        ></ds-cris-layout-sidebar-item>
+      </ul>
+    </div>
+  </nav>
+  <div id="content" class="position-relative pr-0 pt-3 pb-3"
+       [ngClass]="{
 	    'p-0': !(hasSidebar() | async),
 	    'pl-3': !(isSideBarHidden() | async),
 	    'pl-0': (isSideBarHidden() | async)}">
 
-		<div *ngIf="(hasSidebar() | async)" class="custom-menu">
-			<button type="button" (click)="toggleSidebar()" id="sidebarCollapse" class="btn btn-arrow">
-		      	<i class="fas fa-chevron-{{(isSideBarHidden() | async) ? 'right' : 'left'}}"></i>
-		      	<span class="sr-only">Toggle Menu</span>
-		    </button>
-		</div>
+    <div *ngIf="(hasSidebar() | async)" class="custom-menu">
+      <button type="button" (click)="toggleSidebar()" id="sidebarCollapse" class="btn btn-arrow">
+        <i class="fas fa-chevron-{{(isSideBarHidden() | async) ? 'right' : 'left'}}"></i>
+        <span class="sr-only">Toggle Menu</span>
+      </button>
+    </div>
 
-	  <div class="p-4">
-	  	matrix
-	  </div>
+    <div class="p-4">
+      matrix
+    </div>
 
-	</div>
-	
+  </div>
+
 </div>

@@ -12,7 +12,7 @@ import { CrisLayoutSidebarComponent } from './cris-layout-loader/cris-layout-ver
 import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
 import { CrisLayoutNavbarComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-navbar/cris-layout-navbar.component';
 import { CrisLayoutSidebarItemComponent } from './cris-layout-loader/shared/sidebar-item/cris-layout-sidebar-item.component';
-import { CrisLayoutTabsSidebarComponent } from './cris-layout-loader/shared/cris-layout-tabs/cris-layout-tabs.component';
+import { CrisLayoutTabsComponent } from './cris-layout-loader/shared/cris-layout-tabs/cris-layout-tabs.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -34,7 +34,7 @@ const ENTRY_COMPONENTS = [
     CrisLayoutHorizontalComponent,
     CrisLayoutNavbarComponent,
     CrisLayoutSidebarItemComponent,
-    CrisLayoutTabsSidebarComponent
+    CrisLayoutTabsComponent
   ],
   imports: [
     CommonModule,

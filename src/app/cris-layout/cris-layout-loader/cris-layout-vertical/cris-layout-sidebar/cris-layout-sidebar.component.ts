@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { Tab } from '../../../../core/layout/models/tab.model';
-import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
-import { map, take, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-cris-layout-sidebar',
@@ -18,7 +20,7 @@ export class CrisLayoutSidebarComponent implements OnInit {
   /**
    * A boolean representing if to render or not the sidebar menu
    */
-  private hasSidebar$: Observable<boolean>;
+  private hasSidebar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * This parameter define the status of sidebar (hide/show)
@@ -27,12 +29,10 @@ export class CrisLayoutSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     // Check if to show sidebar
-    this.hasSidebar$ = observableOf(!!this.tabs && this.tabs.length > 0);
+    this.hasSidebar$.next(!!this.tabs && this.tabs.length > 0);
 
     // Init the sidebar status
-    this.hasSidebar$.pipe(take(1)).subscribe((status) => {
-      this.sidebarStatus$.next(status);
-    });
+    this.sidebarStatus$.next(this.hasSidebar$.value);
   }
 
   getTabSelected(tab) {
@@ -43,7 +43,7 @@ export class CrisLayoutSidebarComponent implements OnInit {
    * Check if sidebar is present
    */
   hasSidebar(): Observable<boolean> {
-    return this.hasSidebar$;
+    return this.hasSidebar$.asObservable();
   }
 
   /**

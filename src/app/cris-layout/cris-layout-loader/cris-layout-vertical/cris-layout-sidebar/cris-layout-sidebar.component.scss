@@ -22,7 +22,7 @@
   transition: all 0.3s;
   position: relative;
   &.active{
-  	margin-left: -var(--ds-cris-layout-sidebar-width);
+  	/*margin-left:  var(--ds-cris-layout-sidebar-width);*/
   	.custom-menu{
 			margin-right: -50px;
 	  }

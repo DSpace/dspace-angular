@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Tab } from '../../core/layout/models/tab.model';
 
 @Component({
@@ -11,7 +11,7 @@ export class CrisLayoutLeadingComponent implements OnInit {
   /**
    * Tabs to render
    */
-  @Input() tabs: Tab[];
+  @Input() tab: Tab;
 
   /* tslint:disable:no-empty */
   constructor() { }
