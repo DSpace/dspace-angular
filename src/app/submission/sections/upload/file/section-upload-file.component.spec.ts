@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -17,10 +17,8 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import {
-  mockFileFormData,
   mockSubmissionCollectionId,
   mockSubmissionId,
-  mockSubmissionObject,
   mockUploadConfigResponse,
   mockUploadFiles
 } from '../../../../shared/mocks/submission.mock';
@@ -32,10 +30,8 @@ import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
-import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { dateToISOFormat } from '../../../../shared/date.util';
 
 const configMetadataFormMock = {
   rows: [{

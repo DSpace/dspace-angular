@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import {
@@ -61,6 +61,97 @@ import { Subscription } from 'rxjs';
 export class SubmissionSectionUploadFileEditComponent implements OnInit {
 
   /**
+   * The FormComponent reference
+   */
+  @ViewChild('formRef') public formRef: FormComponent;
+
+  /**
+   * The list of available access condition
+   * @type {Array}
+   */
+  public availableAccessConditionOptions: any[];
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  public collectionId: string;
+
+  /**
+   * Define if collection access conditions policy type :
+   * POLICY_DEFAULT_NO_LIST : is not possible to define additional access group/s for the single file
+   * POLICY_DEFAULT_WITH_LIST : is possible to define additional access group/s for the single file
+   * @type {number}
+   */
+  public collectionPolicyType: number;
+
+  /**
+   * The configuration for the bitstream's metadata form
+   * @type {SubmissionFormsModel}
+   */
+  public configMetadataForm: SubmissionFormsModel;
+
+  /**
+   * The bitstream's metadata data
+   * @type {WorkspaceitemSectionUploadFileObject}
+   */
+  public fileData: WorkspaceitemSectionUploadFileObject;
+
+  /**
+   * The bitstream id
+   * @type {string}
+   */
+  public fileId: string;
+
+  /**
+   * The bitstream array key
+   * @type {string}
+   */
+  public fileIndex: string;
+
+  /**
+   * The form id
+   * @type {string}
+   */
+  public formId: string;
+
+  /**
+   * The section id
+   * @type {string}
+   */
+  public sectionId: string;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  public submissionId: string;
+
+  /**
+   * The list of all available metadata
+   */
+  formMetadata: string[] = [];
+
+  /**
+   * The form model
+   * @type {DynamicFormControlModel[]}
+   */
+  formModel: DynamicFormControlModel[];
+
+  /**
+   * When `true` form controls are deactivated
+   */
+  isSaving = false;
+
+  /**
+   * The [JsonPatchOperationPathCombiner] object
+   * @type {JsonPatchOperationPathCombiner}
+   */
+  protected pathCombiner: JsonPatchOperationPathCombiner;
+
+  protected subscriptions: Subscription[] = [];
+
+  /**
    * Initialize instance variables
    *
    * @param activeModal
@@ -83,94 +174,6 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     private uploadService: SectionUploadService,
   ) {
   }
-
-  /**
-   * The list of available access condition
-   * @type {Array}
-   */
-  @Input() availableAccessConditionOptions: any[];
-
-  /**
-   * The submission id
-   * @type {string}
-   */
-  @Input() collectionId: string;
-
-  /**
-   * Define if collection access conditions policy type :
-   * POLICY_DEFAULT_NO_LIST : is not possible to define additional access group/s for the single file
-   * POLICY_DEFAULT_WITH_LIST : is possible to define additional access group/s for the single file
-   * @type {number}
-   */
-  @Input() collectionPolicyType: number;
-
-  /**
-   * The configuration for the bitstream's metadata form
-   * @type {SubmissionFormsModel}
-   */
-  @Input() configMetadataForm: SubmissionFormsModel;
-
-  /**
-   * The bitstream's metadata data
-   * @type {WorkspaceitemSectionUploadFileObject}
-   */
-  @Input() fileData: WorkspaceitemSectionUploadFileObject;
-
-  /**
-   * The bitstream id
-   * @type {string}
-   */
-  @Input() fileId: string;
-
-  /**
-   * The bitstream array key
-   * @type {string}
-   */
-  @Input() fileIndex: string;
-
-  /**
-   * The form id
-   * @type {string}
-   */
-  @Input() formId: string;
-
-  /**
-   * The section id
-   * @type {string}
-   */
-  @Input() sectionId: string;
-
-  /**
-   * The submission id
-   * @type {string}
-   */
-  @Input() submissionId: string;
-
-  /**
-   * The list of all available metadata
-   */
-  @Input() formMetadata: string[] = [];
-
-  /**
-   * The [JsonPatchOperationPathCombiner] object
-   * @type {JsonPatchOperationPathCombiner}
-   */
-  @Input() pathCombiner: JsonPatchOperationPathCombiner;
-
-  /**
-   * The FormComponent reference
-   */
-  @ViewChild('formRef') public formRef: FormComponent;
-
-  /**
-   * The form model
-   * @type {DynamicFormControlModel[]}
-   */
-  formModel: DynamicFormControlModel[];
-
-  isSaving = false;
-
-  protected subscriptions: Subscription[] = [];
 
   /**
    * Initialize form model values
@@ -379,7 +382,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
   /**
    * Save bitstream metadata
    */
-  protected saveBitstreamData() {
+  saveBitstreamData() {
     // validate form
     this.formService.validateAllFormFields(this.formRef.formGroup);
     const saveBitstreamDataSubscription = this.formService.isValid(this.formId).pipe(
