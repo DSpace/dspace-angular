@@ -246,6 +246,10 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   private setThemeCss(themeName: string): void {
     const head = this.document.getElementsByTagName('head')[0];
+    if (isEmpty(head)) {
+      return;
+    }
+
     // Array.from to ensure we end up with an array, not an HTMLCollection, which would be
     // automatically updated if we add nodes later
     const currentThemeLinks = Array.from(head.getElementsByClassName('theme-css'));
@@ -272,6 +276,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private setHeadTags(themeName: string): void {
     const head = this.document.getElementsByTagName('head')[0];
+    if (isEmpty(head)) {
+      return;
+    }
 
     // clear head tags
     const currentHeadTags = Array.from(head.getElementsByClassName('theme-head-tag'));
