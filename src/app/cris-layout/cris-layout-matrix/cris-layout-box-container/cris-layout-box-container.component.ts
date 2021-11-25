@@ -1,12 +1,12 @@
-import { Component, ComponentFactoryResolver, ComponentRef, Injector, Input, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, Injector, Input, OnInit } from '@angular/core';
 
 import { Box } from '../../../core/layout/models/box.model';
-import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { CrisLayoutBoxRenderOptions, getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../../core/shared/item.model';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { hasValue } from '../../../shared/empty.util';
+import { hasNoValue } from '../../../shared/empty.util';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
 
 @Component({
   selector: 'ds-cris-layout-box-container',
@@ -22,7 +22,10 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    */
   @Input() item: Item;
 
-  componentLoader;
+  /**
+   * CrisLayoutBoxRenderOptions reference of the box that will be created
+   */
+  componentLoader: CrisLayoutBoxRenderOptions;
 
   /**
    * The prefix used for box header's i18n key
@@ -35,11 +38,6 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
   boxHeaderI18nKey = '';
 
   activeIds: string[] = [];
-
-  /**
-   * componentRef reference of the component that will be created
-   */
-  componentRef: ComponentRef<Component>;
 
   /**
    * Injector to inject a section component with the @Input parameters
@@ -63,20 +61,20 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     });
 
     this.componentLoader = this.getComponent();
+    console.log(this.box.shortname, this.componentLoader);
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
 
-    if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
+    if (hasNoValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }
   }
 
-
-  getComponent(): GenericConstructor<Component> {
+  getComponent(): CrisLayoutBoxRenderOptions {
     return getCrisLayoutBox(LayoutBox[this.box.boxType]);
   }
 
-  getComponentRef() {
-    return getCrisLayoutBox(LayoutBox[this.box.boxType])?.componentRef;
+  getComponentRef(): GenericConstructor<Component> {
+    return this.componentLoader?.componentRef;
   }
 
   getBoxHeader(): string {

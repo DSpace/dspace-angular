@@ -1,13 +1,17 @@
-import { DEFAULT_LAYOUT_PAGE, LayoutPage } from '../enums/layout-page.enum';
-import { DEFAULT_LAYOUT_TAB, LayoutTab } from '../enums/layout-tab.enum';
+import { Component } from '@angular/core';
+
 import { LayoutBox } from '../enums/layout-box.enum';
 import { hasNoValue } from '../../shared/empty.util';
-import { Item } from '../../core/shared/item.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 
-const layoutBoxesMap = new Map();
-const ITEM_METADATA_TYPE = 'dspace.entity.type';
+const layoutBoxesMap = new Map<LayoutBox, CrisLayoutBoxRenderOptions>();
 
-export function CrisLayoutBox(boxType: LayoutBox,hasOwnLayout = false) {
+export interface CrisLayoutBoxRenderOptions {
+  componentRef: GenericConstructor<Component>;
+  hasOwnContainer: boolean;
+}
+
+export function CrisLayoutBox(boxType: LayoutBox, hasOwnContainer = false) {
   return function decorator(component: any) {
     if (hasNoValue(boxType)) {
       return;
@@ -15,12 +19,12 @@ export function CrisLayoutBox(boxType: LayoutBox,hasOwnLayout = false) {
     if (hasNoValue(layoutBoxesMap.get(boxType))) {
       layoutBoxesMap.set(boxType, {
         componentRef: component,
-        hasOwnLayout: hasOwnLayout
-      });
+        hasOwnContainer: hasOwnContainer
+      } as CrisLayoutBoxRenderOptions);
     }
   };
 }
 
-export function getCrisLayoutBox(boxType: LayoutBox) {
+export function getCrisLayoutBox(boxType: LayoutBox): CrisLayoutBoxRenderOptions {
   return layoutBoxesMap.get(boxType);
 }
