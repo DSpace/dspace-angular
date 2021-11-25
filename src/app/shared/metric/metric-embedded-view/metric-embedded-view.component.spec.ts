@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { metricEmbeddedView } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { metricEmbeddedView } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 
 import { MetricEmbeddedViewComponent } from './metric-embedded-view.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';

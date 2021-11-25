@@ -2,13 +2,13 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RowComponent } from './row.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
-import { TextComponent } from '../../components/text/text.component';
+import { CrisLayoutLoaderDirective } from '../../../../../directives/cris-layout-loader.directive';
+import { TextComponent } from '../components/text/text.component';
 import { ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../../../../core/shared/item.model';
-import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
+import { Item } from '../../../../../../core/shared/item.model';
+import { medataComponent } from '../../../../../../shared/testing/metadata-components.mock';
 
 class TestItem {
   firstMetadataValue(key: string): string {

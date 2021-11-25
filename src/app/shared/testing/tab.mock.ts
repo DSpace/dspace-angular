@@ -13,9 +13,6 @@ export const tabPersonProfile: Tab = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/tabs/1'
-    },
-    boxes: {
-      href: 'https://rest.api/rest/api/tabs/1/boxes'
     }
   }
 };
@@ -32,9 +29,6 @@ export const tabPersonBiography: Tab = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/tabs/2'
-    },
-    boxes: {
-      href: 'https://rest.api/rest/api/tabs/2/boxes'
     }
   }
 };
@@ -51,9 +45,6 @@ export const tabPersonBibliometrics: Tab = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/tabs/3'
-    },
-    boxes: {
-      href: 'https://rest.api/rest/api/tabs/3/boxes'
     }
   }
 };
@@ -70,9 +61,6 @@ export const tabPersonTest: Tab = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/tabs/3'
-    },
-    boxes: {
-      href: 'https://rest.api/rest/api/tabs/3/boxes'
     }
   }
 };

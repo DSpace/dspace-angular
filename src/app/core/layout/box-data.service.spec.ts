@@ -40,6 +40,7 @@ describe('BoxDataService', () => {
     maxColumn: null,
     security: 0,
     boxType: 'metadata',
+    container:true,
     metadataSecurityFields:[],
     configuration: {
       id: '10',
@@ -64,6 +65,7 @@ describe('BoxDataService', () => {
     style: 'col-md-10',
     clear: false,
     maxColumn: null,
+    container:true,
     security: 0,
     boxType: 'search',
     metadataSecurityFields:[],
@@ -91,6 +93,7 @@ describe('BoxDataService', () => {
     // priority: 0,
     clear: false,
     maxColumn: null,
+    container:true,
     security: 0,
     boxType: 'metrics',
     metadataSecurityFields:[],
