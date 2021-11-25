@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { MetadataComponentsDataService } from '../../../../../core/layout/metadata-components-data.service';
-import { Subscription } from 'rxjs';
 import { hasValue } from '../../../../../shared/empty.util';
-import { TranslateService } from '@ngx-translate/core';
 import { Box, MetadataBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
@@ -27,7 +28,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
   /**
    * Contains the fields configuration for current box
    */
-  metadatacomponents: MetadataComponent;
+  metadataBoxConfiguration: MetadataBoxConfiguration;
 
   /**
    * true if the item has a thumbanil, false otherwise
@@ -41,7 +42,6 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
 
   constructor(
     public cd: ChangeDetectorRef,
-    protected metadatacomponentsService: MetadataComponentsDataService,
     protected translateService: TranslateService,
     protected viewRef: ElementRef,
     @Inject('boxProvider') public boxProvider: Box,
@@ -52,24 +52,15 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
 
   ngOnInit() {
     super.ngOnInit();
-
-    this.subs.push(this.metadatacomponentsService.findById(this.box.id)
-      .pipe(getAllSucceededRemoteDataPayload())
-      .subscribe(
-        (next) => {
-          this.setMetadataComponents(next);
-          this.cd.markForCheck();
-        }
-      ));
-
+    this.setMetadataComponents(this.box.configuration as MetadataBoxConfiguration);
   }
 
   /**
-   * Set the metadatacomponents.
+   * Set the metadataBoxConfiguration.
    * @param metadatacomponents
    */
-  setMetadataComponents(metadatacomponents: MetadataComponent) {
-    this.metadatacomponents = metadatacomponents;
+  setMetadataComponents(metadatacomponents: MetadataBoxConfiguration) {
+    this.metadataBoxConfiguration = metadatacomponents;
   }
 
   /**
