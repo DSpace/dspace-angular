@@ -24,7 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './inline.component.html',
   styleUrls: ['./inline.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.INLINE)
+@MetadataBoxFieldRendering(FieldRenderingType.INLINE, true)
 export class InlineComponent extends RenderingTypeModelComponent implements OnInit {
   /**
    * This property is true if the current row containes a thumbnail, false otherwise
@@ -110,6 +110,6 @@ export class InlineComponent extends RenderingTypeModelComponent implements OnIn
     (metadataRef.instance as any).subtype = subtype;
   }
   getComponent(fieldRenderingType: string): GenericConstructor<Component> {
-    return getMetadataBoxFieldRendering(fieldRenderingType);
+    return getMetadataBoxFieldRendering(fieldRenderingType).componentRef;
   }
 }

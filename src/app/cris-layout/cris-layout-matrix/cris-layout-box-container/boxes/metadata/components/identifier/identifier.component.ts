@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-
-import { RenderingTypeModelComponent } from '../rendering-type.model';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
-import { TranslateService } from '@ngx-translate/core';
+import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 
 /**
  * This component renders the identifier metadata fields.
@@ -16,12 +16,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./identifier.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
-export class IdentifierComponent extends RenderingTypeModelComponent implements OnInit {
+export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**
-   * list of identifier values
+   * The identifier to render
    */
-  identifiers: MetadataLinkValue[];
+  identifier: MetadataLinkValue;
   /**
    * value of href anchor
    */
@@ -35,42 +35,38 @@ export class IdentifierComponent extends RenderingTypeModelComponent implements 
    */
   target = '_blank';
 
-  constructor(private resolver: ResolverStrategyService, protected translateService: TranslateService) {
-    super(translateService);
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    private resolver: ResolverStrategyService
+  ) {
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider);
   }
 
-  ngOnInit(): void {
-    const identifiers = [];
-    let itemsToBeRendered = [];
-    if (this.indexToBeRendered >= 0) {
-      itemsToBeRendered.push(this.metadataValues[this.indexToBeRendered]);
+  getIdentifierFromValue() {
+    let identifier: MetadataLinkValue;
+    if (hasValue(this.renderingSubType)) {
+      identifier = this.composeLink(this.metadataValue, this.renderingSubType);
     } else {
-      itemsToBeRendered = [...this.metadataValues];
-    }
-    itemsToBeRendered.forEach((metadataValue) => {
-      let identifier: MetadataLinkValue;
-      if (hasValue(this.subtype)) {
-        identifier = this.composeLink(metadataValue, this.subtype);
+      // Check if the value is a link (http, https, ftp or ftps)
+      // otherwise resolve link with managed urn
+      if (this.resolver.checkLink(this.metadataValue)) {
+        identifier = {
+          href: this.metadataValue,
+          text: this.metadataValue
+        };
       } else {
-        // Check if the value is a link (http, https, ftp or ftps)
-        // otherwise resolve link with managed urn
-        if (this.resolver.checkLink(metadataValue)) {
-          identifier = {
-            href: metadataValue,
-            text: metadataValue
-          };
-        } else {
-          for (const urn of this.resolver.managedUrn) {
-            if (hasValue(metadataValue) && metadataValue.toLowerCase().startsWith(urn)) {
-              identifier = this.composeLink(metadataValue, urn);
-              break;
-            }
+        for (const urn of this.resolver.managedUrn) {
+          if (hasValue(this.metadataValue) && this.metadataValue.toLowerCase().startsWith(urn)) {
+            identifier = this.composeLink(this.metadataValue, urn);
+            break;
           }
         }
       }
-      identifiers.push(identifier);
-    });
-    this.identifiers = identifiers;
+    }
+    return identifier;
   }
 
   /**
@@ -91,5 +87,9 @@ export class IdentifierComponent extends RenderingTypeModelComponent implements 
       href,
       text
     };
+  }
+
+  ngOnInit(): void {
+    this.identifier = this.getIdentifierFromValue();
   }
 }

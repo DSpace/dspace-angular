@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.TABLE)
+@MetadataBoxFieldRendering(FieldRenderingType.TABLE, true)
 export class TableComponent extends RenderingTypeModelComponent implements OnInit, AfterViewInit {
   /**
    * This property is used to hold nested Layout Field inside a metadata group field
@@ -134,7 +134,7 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
   }
 
   getComponent(fieldRenderingType: string): GenericConstructor<Component> {
-    return getMetadataBoxFieldRendering(fieldRenderingType);
+    return getMetadataBoxFieldRendering(fieldRenderingType).componentRef;
   }
 
   hasFieldMetadataComponent(field: LayoutField) {

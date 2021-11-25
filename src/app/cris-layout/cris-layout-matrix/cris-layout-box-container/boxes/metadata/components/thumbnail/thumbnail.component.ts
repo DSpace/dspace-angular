@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL)
+@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
 export class ThumbnailComponent extends BitstreamRenderingModel implements OnInit {
 
   bitstream$: Observable<Bitstream>;

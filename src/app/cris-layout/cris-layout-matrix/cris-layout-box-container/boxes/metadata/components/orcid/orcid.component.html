@@ -1,13 +1,5 @@
-<div class="{{containerStyle}}" *ngIf="hasOrcid()">
-  <span
-    *ngIf="hasLabel && !nested"
-    class="{{labelStyle}}">
-    {{label}}
-  </span>
-
-  <div>
-    <div  [class]="'d-flex flex-column ' + valueStyle">
-    <span *ngFor="let metadataValue of metadataValues" class="d-flex align-items-center txt-value">
+<div [class]="field.styleValue">
+    <span class="d-flex align-items-center txt-value">
       <ng-container *ngIf="hasOrcidBadge(); else noOrcidBadge">
 
         <a *ngIf="orcidUrl; else noOrcidUrl" href="{{orcidUrl}}/{{metadataValue}}" target="_blank">
@@ -28,7 +20,4 @@
       </ng-template>
 
     </span>
-    </div>
-  </div>
-
 </div>

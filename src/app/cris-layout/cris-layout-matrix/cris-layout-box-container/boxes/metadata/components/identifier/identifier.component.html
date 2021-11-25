@@ -1,8 +1,5 @@
-<div class="{{containerStyle}}">
-  <span *ngIf="!nested" class="{{labelStyle}}">{{label}}</span>
-  <div [class]="'d-flex flex-column ' + valueStyle">
-    <span *ngFor="let identifier of identifiers">
+<div [class]="field.styleValue">
+    <span class="text-value">
       <a [target]="target" href="{{identifier.href}}">{{ identifier.text }}</a>
     </span>
-  </div>
 </div>

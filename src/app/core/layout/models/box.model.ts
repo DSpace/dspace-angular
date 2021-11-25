@@ -6,6 +6,7 @@ import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
+import { LayoutField } from './metadata-component.model';
 
 /**
  * Describes a type of Box
@@ -105,16 +106,4 @@ export interface MetricsBoxConfiguration extends BoxConfiguration {
 
 export interface Row {
   fields: LayoutField[];
-}
-
-export interface LayoutField {
-  metadata: string;
-  label?: string;
-  rendering: string;
-  fieldType: string;
-  style?: string;
-  styleLabel?: string;
-  styleValue?: string;
-  labelAsHeading: boolean;
-  valuesInline: boolean;
 }

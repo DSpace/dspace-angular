@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { MetricRow } from '../../../metrics/cris-layout-metrics-box.component';
-import { Metric } from '../../../../../../../core/shared/metric.model';
+import { MetricRow } from '../cris-layout-metrics-box.component';
+import { Metric } from '../../../../../../core/shared/metric.model';
 
 /**
  * This component renders the rows of metadata boxes

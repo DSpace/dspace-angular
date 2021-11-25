@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
+import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 
 /**
  * Defines the list of subtypes for this rendering
@@ -25,36 +27,37 @@ enum TYPES {
   styleUrls: ['./link.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.LINK)
-export class LinkComponent extends RenderingTypeModelComponent implements OnInit {
+export class LinkComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**
-   * list of identifier values
+   * The link to render
    */
-  links: MetadataLinkValue[] = [];
-
-  constructor(protected translateService: TranslateService) {
-    super(translateService);
-  }
+  link: MetadataLinkValue;
 
   ngOnInit(): void {
-    const links = [];
-    let itemsToBeRendered = [];
-    if (this.indexToBeRendered >= 0) {
-      itemsToBeRendered.push(this.metadataValues[this.indexToBeRendered]);
-    } else {
-      itemsToBeRendered = [...this.metadataValues];
-    }
-    itemsToBeRendered.forEach((metadataValue) => {
-      // If the component has label subtype get the text from translate service
-      const linkText = (hasValue(this.subtype) &&
-        this.subtype.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.label) : metadataValue;
-      const link = {
-        href: metadataValue,
-        text: linkText
-      };
-      links.push(link);
-    });
-    this.links = links;
+    this.link = this.getLinkFromValue();
   }
 
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    protected translateService: TranslateService
+  ) {
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider);
+  }
+
+  /**
+   * Get the link value to render
+   */
+  getLinkFromValue(): MetadataLinkValue {
+    // If the component has label subtype get the text from translate service
+    const linkText = (hasValue(this.renderingSubType) &&
+      this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue;
+    return {
+      href: this.metadataValue,
+      text: linkText
+    };
+  }
 }

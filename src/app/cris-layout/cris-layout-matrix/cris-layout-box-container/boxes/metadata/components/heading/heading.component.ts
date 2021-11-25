@@ -10,7 +10,7 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
   templateUrl: './heading.component.html',
   styleUrls: ['./heading.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.HEADING)
+@MetadataBoxFieldRendering(FieldRenderingType.HEADING, true)
 export class HeadingComponent extends RenderingTypeModelComponent {
 
 }

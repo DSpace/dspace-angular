@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { RenderingTypeModelComponent } from '../rendering-type.model';
+import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
  * This component renders the date metadata fields
@@ -12,6 +12,6 @@ import { RenderingTypeModelComponent } from '../rendering-type.model';
   styleUrls: ['./date.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.DATE)
-export class DateComponent extends RenderingTypeModelComponent {
+export class DateComponent extends RenderingTypeValueModelComponent {
 
 }

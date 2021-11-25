@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
 import { ConfigurationProperty } from '../../../../../../../core/shared/configuration-property.model';
 import { TranslateService } from '@ngx-translate/core';
+import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 
 /**
  * This component renders the text metadata fields
@@ -17,20 +19,27 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./orcid.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.ORCID)
-export class OrcidComponent extends RenderingTypeModelComponent implements OnInit {
+export class OrcidComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   public orcidUrl: string;
 
-  constructor(private configurationService: ConfigurationDataService, protected translateService: TranslateService) {
-    super(translateService);
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    private configurationService: ConfigurationDataService,
+    protected translateService: TranslateService
+  ) {
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider);
   }
 
   ngOnInit() {
     this.configurationService.findByPropertyName('orcid.domain-url')
       .pipe(getFirstSucceededRemoteDataPayload()).subscribe(
-        (property: ConfigurationProperty) => {
-          this.orcidUrl = property?.values?.length > 0 ? property.values[0] : null;
-        });
+      (property: ConfigurationProperty) => {
+        this.orcidUrl = property?.values?.length > 0 ? property.values[0] : null;
+      });
   }
 
 

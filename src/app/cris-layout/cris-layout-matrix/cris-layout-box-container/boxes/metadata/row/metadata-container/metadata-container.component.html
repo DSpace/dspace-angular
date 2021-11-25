@@ -1,0 +1,20 @@
+<div *ngIf="!isStructured && metadataFieldRenderOptions" class="{{containerStyle}}">
+  <div class="d-flex" [class.flex-column]="field.labelAsHeading">
+  <span *ngIf="hasLabel && !nested"
+    class="col {{labelStyle}}">
+    {{label}}
+  </span>
+
+  <div class="d-flex col" [class.flex-column]="!field.valuesInline">
+    <ng-container *ngFor="let value of metadataValues; let last = last">
+      <ng-container *ngComponentOutlet="getComponentRef(); injector: getComponentInjector(value)"></ng-container>
+      <p *ngIf="!last"> ; </p>
+    </ng-container>
+  </div>
+  </div>
+</div>
+
+<ng-container *ngIf="isStructured && metadataFieldRenderOptions">
+  <ng-container *ngComponentOutlet="getComponentRef(); injector: getComponentInjector()"></ng-container>
+</ng-container>
+

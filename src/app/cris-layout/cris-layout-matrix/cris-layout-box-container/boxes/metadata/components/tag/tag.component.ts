@@ -4,7 +4,6 @@ import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.d
 import { RenderingTypeModelComponent } from '../rendering-type.model';
 
 import { Chips } from '../../../../../../../shared/chips/models/chips.model';
-import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
@@ -16,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.TAG)
+@MetadataBoxFieldRendering(FieldRenderingType.TAG, true)
 export class TagComponent extends RenderingTypeModelComponent implements OnInit {
 
  /**

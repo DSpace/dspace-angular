@@ -42,7 +42,7 @@ describe('TextComponent', () => {
   });
 
   it('check metadata rendering', (done) => {
-    const spanValueFound = fixture.debugElement.queryAll(By.css('span.txt-value'));
+    const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
     expect(spanValueFound.length).toBe(2);
     expect(spanValueFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
     expect(spanValueFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);

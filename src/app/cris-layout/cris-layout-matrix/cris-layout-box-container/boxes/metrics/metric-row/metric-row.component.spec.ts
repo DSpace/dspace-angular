@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MetricRowComponent } from './metric-row.component';
-import { metricRowsMock } from '../../../metrics/cris-layout-metrics-box.component.spec';
+import { metricRowsMock } from '../cris-layout-metrics-box.component.spec';
 import { By } from '@angular/platform-browser';
 
 describe('MetricRowComponent', () => {

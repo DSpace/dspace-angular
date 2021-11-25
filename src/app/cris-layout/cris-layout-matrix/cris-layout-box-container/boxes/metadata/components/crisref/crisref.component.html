@@ -1,13 +1,5 @@
-<div class="{{containerStyle}}">
-  <span  *ngIf="!nested" class="{{labelStyle}}">
-    {{label}}
-  </span>
-  <div [class]="'d-flex flex-column ' + valueStyle">
-
-    <span *ngFor="let metadata of metadatas" class="txt-value">
-      <span class="d-inline-flex align-items-center">
-          <ds-metadata-link-view [item]="item" [metadata]="metadata"></ds-metadata-link-view>
-      </span>
+<div [class]="field.styleValue">
+    <span class="d-inline-flex align-items-center text-value">
+      <ds-metadata-link-view [item]="item" [metadata]="metadataValue"></ds-metadata-link-view>
     </span>
-  </div>
 </div>

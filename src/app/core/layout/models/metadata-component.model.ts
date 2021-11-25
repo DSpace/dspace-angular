@@ -29,6 +29,8 @@ export interface LayoutField {
   styleLabel?: string;
   styleValue?: string;
   metadataGroup?: MetadataGroup;
+  labelAsHeading: boolean;
+  valuesInline: boolean;
 }
 
 /**

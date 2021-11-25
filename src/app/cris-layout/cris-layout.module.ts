@@ -34,13 +34,14 @@ import { OrcidSyncQueueComponent } from './cris-layout-matrix/cris-layout-box-co
 import { OrcidAuthorizationsComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-authorizations/orcid-authorizations.component';
 import { OrcidSyncSettingsComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/orcid-sync-settings/orcid-sync-settings.component';
 import { CrisLayoutMetricsBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component';
-import { MetricRowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/components/metric-row/metric-row.component';
+import { MetricRowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metrics/metric-row/metric-row.component';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { TableComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/components/table/table.component';
 import { InlineComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/components/inline/inline.component';
 import { OrcidComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/components/orcid/orcid.component';
 import { ValuepairComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/components/valuepair/valuepair.component';
 import { TagComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/components/tag/tag.component';
+import { MetadataContainerComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-container.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -107,7 +108,8 @@ const ENTRY_COMPONENTS = [
     TagComponent,
     DsDatePipe,
     RowComponent,
-    CrisLayoutTabsComponent
+    CrisLayoutTabsComponent,
+    MetadataContainerComponent
   ],
   imports: [
     CommonModule,
