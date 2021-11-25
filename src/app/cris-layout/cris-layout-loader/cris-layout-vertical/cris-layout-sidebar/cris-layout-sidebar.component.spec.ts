@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
 import { By } from '@angular/platform-browser';
-import { loaderTabs, loaderMultilevelTabs } from '../../../../shared/testing/new-layout-tabs';
+import { loaderMultilevelTabs } from '../../../../shared/testing/new-layout-tabs';
 
 describe('CrisLayoutSidebarComponent', () => {
   let component: CrisLayoutSidebarComponent;

@@ -1,6 +1,6 @@
 <div class="{{box.style}}">
 
-  <div class="container" *ngIf="metricRows">
+  <div class="container px-0" *ngIf="metricRows">
     <!-- PRINT ROWS -->
     <div ds-metric-row
          *ngFor="let metricRow of (metricRows | async)"

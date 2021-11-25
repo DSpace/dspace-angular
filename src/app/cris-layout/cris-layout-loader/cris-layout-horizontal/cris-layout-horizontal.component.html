@@ -1,6 +1,6 @@
 <div id="cris-layout-loader" class="horizontal-layout">
 	<ds-cris-layout-navbar (selectedTabChange)="selectedTabChanged($event)" [tabs]="tabs" [item]="item"></ds-cris-layout-navbar>
-	<div class="container pt-4">
+	<div class="pt-4">
 		<ds-cris-layout-matrix *ngIf="selectedTab$.value" [tab]="(selectedTab$ | async)" [item]="item"></ds-cris-layout-matrix>
 	</div>
 </div>
