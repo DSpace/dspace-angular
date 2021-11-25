@@ -5,7 +5,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Item } from '../../../../../core/shared/item.model';
-import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
+import { medataBoxConfigurationMock } from '../../../../../shared/testing/box-configurations.mock';
 import { By } from '@angular/platform-browser';
 
 class TestItem {
@@ -35,7 +35,7 @@ describe('HeadingComponent', () => {
     fixture = TestBed.createComponent(HeadingComponent);
     component = fixture.componentInstance;
     component.item = new TestItem() as Item;
-    component.field = medataComponent.rows[0].fields[0];
+    component.field = medataBoxConfigurationMock.rows[0].fields[0];
     fixture.detectChanges();
   });
 

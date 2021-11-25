@@ -72,7 +72,7 @@ export class Box extends CacheableObject {
   boxType: string;
 
   @autoserialize
-  configuration: BoxConfiguration;
+  configuration?: BoxConfiguration;
 
   /**
    * The {@link HALLink}s for this Tab
@@ -98,13 +98,23 @@ export interface RelationBoxConfiguration extends BoxConfiguration {
   'discovery-configuration': string;
 }
 
+export interface MetricsBoxConfiguration extends BoxConfiguration {
+  maxColumns: null;
+  metrics: string[];
+}
+
 export interface Row {
   fields: LayoutField[];
 }
 
 export interface LayoutField {
-  metadata?: string;
+  metadata: string;
   label?: string;
+  rendering: string;
   fieldType: string;
-  labelAsHeading: string;
+  style?: string;
+  styleLabel?: string;
+  styleValue?: string;
+  labelAsHeading: boolean;
+  valuesInline: boolean;
 }

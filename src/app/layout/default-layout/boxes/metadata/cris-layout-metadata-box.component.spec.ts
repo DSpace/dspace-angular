@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MetadataComponent } from '../../../../core/layout/models/metadata-component.model';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import { medataComponent } from '../../../../shared/testing/metadata-components.mock';
+import { medataBoxConfigurationMock } from '../../../../shared/testing/box-configurations.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -34,7 +34,7 @@ class TestItem {
 class MetadataComponentsDataServiceMock {
   findById(boxShortname: string): Observable<RemoteData<MetadataComponent>> {
     return of(
-      createSuccessfulRemoteDataObject(medataComponent)
+      createSuccessfulRemoteDataObject(medataBoxConfigurationMock)
     );
   }
 }
@@ -85,7 +85,7 @@ describe('CrisLayoutMetadataBoxComponent', () => {
     component = fixture.componentInstance;
     component.item = new TestItem() as Item;
     component.box = boxMetadata;
-    component.metadatacomponents = medataComponent;
+    component.metadatacomponents = medataBoxConfigurationMock;
     fixture.detectChanges();
   });
 

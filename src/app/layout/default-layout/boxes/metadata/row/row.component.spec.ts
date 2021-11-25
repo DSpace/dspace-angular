@@ -8,7 +8,7 @@ import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-lo
 import { TextComponent } from '../../components/text/text.component';
 import { ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
-import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
+import { medataBoxConfigurationMock } from '../../../../../shared/testing/box-configurations.mock';
 
 class TestItem {
   firstMetadataValue(key: string): string {
@@ -48,7 +48,7 @@ describe('RowComponent', () => {
     fixture = TestBed.createComponent(RowComponent);
     component = fixture.componentInstance;
     component.item = new TestItem() as Item;
-    component.row = medataComponent.rows[0];
+    component.row = medataBoxConfigurationMock.rows[0];
     fixture.detectChanges();
   });
 
