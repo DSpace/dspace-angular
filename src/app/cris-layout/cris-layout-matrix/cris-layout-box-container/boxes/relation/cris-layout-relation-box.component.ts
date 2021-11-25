@@ -43,7 +43,6 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
     super.ngOnInit();
 
     this.searchFilter = `scope=${this.item.id}`;
-    console.log(this.box);
     this.configuration = (this.box.configuration as RelationBoxConfiguration)['discovery-configuration'];
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Row } from '../../../core/layout/models/tab.model';
 
 @Component({
@@ -7,12 +7,8 @@ import { Row } from '../../../core/layout/models/tab.model';
   templateUrl: './cris-layout-row.component.html',
   styleUrls: ['./cris-layout-row.component.scss']
 })
-export class CrisLayoutRowComponent implements OnInit {
+export class CrisLayoutRowComponent  {
 
   @Input() row: Row;
-
-  ngOnInit(): void {
-    console.log(this.row);
-  }
 
 }

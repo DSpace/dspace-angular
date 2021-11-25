@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Tab } from '../../core/layout/models/tab.model';
 import { Item } from '../../core/shared/item.model';
 
@@ -7,21 +8,16 @@ import { Item } from '../../core/shared/item.model';
   templateUrl: './cris-layout-leading.component.html',
   styleUrls: ['./cris-layout-leading.component.scss']
 })
-export class CrisLayoutLeadingComponent implements OnInit {
+export class CrisLayoutLeadingComponent {
 
   /**
    * Tabs to render
    */
   @Input() tab: Tab;
 
+  /**
+   * The related item
+   */
   @Input() item: Item;
-
-  /* tslint:disable:no-empty */
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-  /* tslint:enable:no-empty */
-
 
 }

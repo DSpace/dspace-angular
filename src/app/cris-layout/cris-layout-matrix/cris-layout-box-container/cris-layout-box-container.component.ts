@@ -61,7 +61,6 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     });
 
     this.componentLoader = this.getComponent();
-    console.log(this.box.shortname, this.componentLoader);
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
 
     if (hasNoValue(this.box.collapsed) || !this.box.collapsed) {

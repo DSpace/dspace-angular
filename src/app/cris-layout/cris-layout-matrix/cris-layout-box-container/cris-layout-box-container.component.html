@@ -14,7 +14,6 @@
   </ng-container>
 
   <ng-container *ngIf="!box.container || componentLoader.hasOwnContainer">
-    <p>test with own container</p>
     <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
   </ng-container>
 </ng-container>
