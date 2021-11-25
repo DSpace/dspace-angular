@@ -6,7 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TextComponent } from './text.component';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { medataComponent } from '../../../../../../../shared/testing/metadata-components.mock';
+import { medataBoxConfigurationMock } from '../../../../../../../shared/testing/box-configurations.mock';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
 
@@ -37,7 +37,7 @@ describe('TextComponent', () => {
     fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;
     component.item = new TestItem() as Item;
-    component.field = medataComponent.rows[0].fields[0];
+    component.field = medataBoxConfigurationMock.rows[0].fields[0];
     fixture.detectChanges();
   });
 
@@ -47,9 +47,9 @@ describe('TextComponent', () => {
     expect(spanValueFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
     expect(spanValueFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
 
-    const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataComponent.rows[0].fields[0].style));
+    const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataBoxConfigurationMock.rows[0].fields[0].style));
     const label: HTMLElement = spanLabelFound.nativeElement;
-    expect(label.textContent).toContain(medataComponent.rows[0].fields[0].label);
+    expect(label.textContent).toContain(medataBoxConfigurationMock.rows[0].fields[0].label);
     done();
   });
 });

@@ -3,7 +3,7 @@
   <div class="container" *ngIf="metricRows">
     <!-- PRINT ROWS -->
     <div ds-metric-row
-         *ngFor="let metricRow of metricRows"
+         *ngFor="let metricRow of (metricRows | async)"
          [metricRow]="metricRow"
          class="row">
     </div>

@@ -85,7 +85,6 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   selectTab(tab): void {
-    console.log(tab);
     this.tabSelectedChange.emit(tab);
   }
 

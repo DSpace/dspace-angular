@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -16,9 +16,7 @@ import { NotificationsService } from '../../../../../shared/notifications/notifi
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { LayoutPage } from '../../../../enums/layout-page.enum';
-import { LayoutTab } from '../../../../enums/layout-tab.enum';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { Box } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
@@ -27,7 +25,7 @@ import { Item } from '../../../../../core/shared/item.model';
   templateUrl: './orcid-sync-queue.component.html'
 })
 @CrisLayoutBox(LayoutBox.ORCID_SYNC_QUEUE,true)
-export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit {
+export class OrcidSyncQueueComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   /**
    * Pagination config used to display the list

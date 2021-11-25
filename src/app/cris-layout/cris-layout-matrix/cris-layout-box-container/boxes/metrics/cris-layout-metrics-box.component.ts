@@ -1,21 +1,17 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Inject } from '@angular/core';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
+import { Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutTab } from '../../../../enums/layout-tab.enum';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { LayoutPage } from '../../../../enums/layout-page.enum';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload
-} from '../../../../../core/shared/operators';
-import { Subscription } from 'rxjs';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
-import { MetricsComponent } from '../../../../../core/layout/models/metrics-component.model';
 import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Box } from '../../../../../core/layout/models/box.model';
+import { Box, MetricsBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 export interface MetricRow {
@@ -34,18 +30,18 @@ export interface MetricRow {
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-@CrisLayoutBox(LayoutBox.METRICS)
-export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements OnInit, OnDestroy {
+@CrisLayoutBox(LayoutBox.METRICS, true)
+export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
 
   /**
-   * Contains the fields configuration for current box
+   * Contains the metrics configuration for current box
    */
-  metricscomponents: MetricsComponent;
+  metricsBoxConfiguration: MetricsBoxConfiguration;
 
   /**
    * Computed metric rows for the item and the current box
    */
-  metricRows: MetricRow[];
+  metricRows: BehaviorSubject<MetricRow[]> = new BehaviorSubject<MetricRow[]>([]);
 
   /**
    * true if the item has a thumbnail, false otherwise
@@ -58,8 +54,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
   subs: Subscription[] = [];
 
   constructor(
-    public cd: ChangeDetectorRef,
-    protected metricscomponentsService: MetricsComponentsDataService,
+    protected metricsComponentService: MetricsComponentsDataService,
     protected itemService: ItemDataService,
     protected translateService: TranslateService,
     protected viewRef: ElementRef,
@@ -72,18 +67,17 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
   ngOnInit() {
     super.ngOnInit();
 
-    this.subs.push(this.metricscomponentsService.findById(this.box.id)
-      .pipe(getAllSucceededRemoteDataPayload())
-      .subscribe(
-        (next) => {
-          this.metricscomponents = next;
-          this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload()).subscribe((result) => {
-            // this.metricRows = this.metricscomponentsService
-            //   .getMatchingMetrics(result.page, this.box.maxColumns, this.metricscomponents.metrics);
-            this.cd.markForCheck();
-          });
-        }
-      ));
+    this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
+    this.subs.push(
+      this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload())
+        .subscribe((result) => {
+          const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
+            result.page,
+            this.metricsBoxConfiguration.maxColumns,
+            this.metricsBoxConfiguration.metrics
+          );
+          this.metricRows.next(matchingMetrics);
+        }));
   }
 
   /**

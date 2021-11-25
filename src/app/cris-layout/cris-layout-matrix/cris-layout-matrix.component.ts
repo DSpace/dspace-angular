@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Tab } from '../../core/layout/models/tab.model';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 
 @Component({
@@ -9,7 +8,7 @@ import { Item } from '../../core/shared/item.model';
   templateUrl: './cris-layout-matrix.component.html',
   styleUrls: ['./cris-layout-matrix.component.scss']
 })
-export class CrisLayoutMatrixComponent implements OnInit {
+export class CrisLayoutMatrixComponent {
 
   /**
    * Tabs to render
@@ -25,13 +24,5 @@ export class CrisLayoutMatrixComponent implements OnInit {
    * Item that is being viewed
    */
   @Input() item: Item;
-
-  /* tslint:disable:no-empty */
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log(this.tab,this.item);
-  }
-  /* tslint:enable:no-empty */
 
 }

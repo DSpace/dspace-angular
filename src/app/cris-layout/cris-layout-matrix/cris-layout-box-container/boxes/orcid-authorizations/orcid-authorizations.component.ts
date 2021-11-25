@@ -9,9 +9,7 @@ import { NativeWindowRef, NativeWindowService } from '../../../../../core/servic
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { LayoutPage } from '../../../../enums/layout-page.enum';
-import { LayoutTab } from '../../../../enums/layout-tab.enum';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { Box } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
@@ -20,7 +18,7 @@ import { Item } from '../../../../../core/shared/item.model';
   templateUrl: './orcid-authorizations.component.html'
 })
 @CrisLayoutBox(LayoutBox.ORCID_AUTHORIZATIONS,true)
-export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements OnInit {
+export class OrcidAuthorizationsComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   missingAuthorizations$ = new BehaviorSubject<string[]>([]);
 

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { CrisLayoutSearchBoxComponent } from './cris-layout-search-box.component';
+import { CrisLayoutRelationBoxComponent } from './cris-layout-relation-box.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { Item } from '../../../../../core/shared/item.model';
@@ -10,9 +10,9 @@ import { of } from 'rxjs';
 import { Box } from '../../../../../core/layout/models/box.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
-describe('CrisLayoutSearchBoxComponent', () => {
-  let component: CrisLayoutSearchBoxComponent;
-  let fixture: ComponentFixture<CrisLayoutSearchBoxComponent>;
+describe('CrisLayoutRelationBoxComponent', () => {
+  let component: CrisLayoutRelationBoxComponent;
+  let fixture: ComponentFixture<CrisLayoutRelationBoxComponent>;
 
   const testItem = Object.assign(new Item(), {
     id: '1234-65487-12354-1235',
@@ -40,7 +40,7 @@ describe('CrisLayoutSearchBoxComponent', () => {
         CommonModule,
         SharedModule
       ],
-      declarations: [ CrisLayoutSearchBoxComponent ],
+      declarations: [ CrisLayoutRelationBoxComponent ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: 'boxProvider', useClass: testBox },
@@ -51,7 +51,7 @@ describe('CrisLayoutSearchBoxComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrisLayoutSearchBoxComponent);
+    fixture = TestBed.createComponent(CrisLayoutRelationBoxComponent);
     component = fixture.componentInstance;
     component.box = testBox;
     component.item = testItem;
