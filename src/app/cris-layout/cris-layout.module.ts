@@ -21,7 +21,7 @@ import { RowComponent } from './cris-layout-matrix/cris-layout-box-container/box
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/cris-layout-metadata-box.component';
 import { TextComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/components/text/text.component';
 import { HeadingComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/components/heading/heading.component';
-import { CrisLayoutSearchBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/search/cris-layout-search-box.component';
+import { CrisLayoutRelationBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/relation/cris-layout-relation-box.component';
 import { SearchPageModule } from '../search-page/search-page.module';
 import { MyDSpacePageModule } from '../my-dspace-page/my-dspace-page.module';
 import { LongtextComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/components/longtext/longtext.component';
@@ -53,7 +53,7 @@ const ENTRY_COMPONENTS = [
   CrisLayoutMetadataBoxComponent,
   TextComponent,
   HeadingComponent,
-  CrisLayoutSearchBoxComponent,
+  CrisLayoutRelationBoxComponent,
   LongtextComponent,
   DateComponent,
   LinkComponent,
@@ -91,7 +91,7 @@ const ENTRY_COMPONENTS = [
     CrisLayoutMetadataBoxComponent,
     TextComponent,
     HeadingComponent,
-    CrisLayoutSearchBoxComponent,
+    CrisLayoutRelationBoxComponent,
     LongtextComponent,
     DateComponent,
     LinkComponent,

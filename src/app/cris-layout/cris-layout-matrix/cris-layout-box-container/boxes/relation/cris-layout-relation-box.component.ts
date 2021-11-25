@@ -1,18 +1,18 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box-component.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Box, RelationBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-cris-layout-search-box',
-  templateUrl: './cris-layout-search-box.component.html',
-  styleUrls: ['./cris-layout-search-box.component.scss']
+  templateUrl: './cris-layout-relation-box.component.html',
+  styleUrls: ['./cris-layout-relation-box.component.scss']
 })
 @CrisLayoutBox(LayoutBox.RELATION)
-export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements OnInit {
+export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxObj implements OnInit {
 
   /**
    * Filter used for set scope in discovery invocation
