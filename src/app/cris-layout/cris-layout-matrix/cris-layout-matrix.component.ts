@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Tab } from '../../core/layout/models/tab.model';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 
 @Component({

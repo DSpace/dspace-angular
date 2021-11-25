@@ -1,9 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Inject } from '@angular/core';
-import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../../models/cris-layout-box.model';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutTab } from '../../../../enums/layout-tab.enum';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { LayoutPage } from '../../../../enums/layout-page.enum';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload
@@ -34,8 +32,8 @@ export interface MetricRow {
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-@CrisLayoutBox(LayoutBox.METRICS)
-export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements OnInit, OnDestroy {
+@CrisLayoutBox(LayoutBox.METRICS, true)
+export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
 
   /**
    * Contains the fields configuration for current box

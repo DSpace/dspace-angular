@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tab } from '../../core/layout/models/tab.model';
-import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
+import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
 
 /**
  * This class is a model to be extended for creating custom layouts for tabs

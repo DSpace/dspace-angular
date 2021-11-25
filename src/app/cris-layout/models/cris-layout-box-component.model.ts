@@ -1,4 +1,4 @@
-import { CrisLayoutPageModelComponent } from './cris-layout-page.model';
+import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Box } from '../../core/layout/models/box.model';
 import { TranslateService } from '@ngx-translate/core';
