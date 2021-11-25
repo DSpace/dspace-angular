@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Observable, of } from 'rxjs';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
+import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { boxMetadata } from '../../../../shared/testing/box.mock';
+import { boxMetadata } from '../../../../../shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
-import { SharedModule } from '../../../../shared/shared.module';
+import { SharedModule } from '../../../../../shared/shared.module';
 import { CrisLayoutMetricsBoxComponent, MetricRow } from './cris-layout-metrics-box.component';
-import { metricsComponent } from '../../../../shared/testing/metrics-components.mock';
-import { MetricsComponent } from '../../../../core/layout/models/metrics-component.model';
-import { MetricsComponentsDataService } from '../../../../core/layout/metrics-components-data.service';
-import { Metric } from '../../../../core/shared/metric.model';
-import { ItemDataService } from '../../../../core/data/item-data.service';
+import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
+import { MetricsComponent } from '../../../../../core/layout/models/metrics-component.model';
+import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
+import { Metric } from '../../../../../core/shared/metric.model';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
 
 export const metric1Mock = {
   acquisitionDate: new Date(),
