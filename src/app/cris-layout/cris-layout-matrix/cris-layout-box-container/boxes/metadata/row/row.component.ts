@@ -42,18 +42,17 @@ export class RowComponent implements OnInit {
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('thumbnailContainer', {static: true, read: ViewContainerRef}) thumbnailContainerViewRef: ViewContainerRef;
+  @ViewChild('thumbnailContainer', { static: true, read: ViewContainerRef }) thumbnailContainerViewRef: ViewContainerRef;
 
   /**
    * This property is true if the current row contains a thumbnail, false otherwise
    */
   hasThumbnail = false;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     const fields = this.row.fields;
-    console.log(fields);
 
     this.thumbnailContainerViewRef.clear();
 

@@ -33,7 +33,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild(CrisLayoutLoaderDirective, {static: true}) crisLayoutLoader: CrisLayoutLoaderDirective;
+  @ViewChild(CrisLayoutLoaderDirective, { static: true }) crisLayoutLoader: CrisLayoutLoaderDirective;
 
   /**
    * componentRef reference of the component that will be created
@@ -47,23 +47,23 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     this.initComponent();
   }
 
- /**
-  * Get tabs for the specific item and the configuration for the item
-  */
+  /**
+   * Get tabs for the specific item and the configuration for the item
+   */
   getConfiguration(): void {
-      const itemType = this.item?.firstMetadataValue('dspace.entity.type');
-      const def = 'default';
+    const itemType = this.item?.firstMetadataValue('dspace.entity.type');
+    const def = 'default';
 
-      if ( !!environment.layout.itemPage && !!environment.layout.itemPage[itemType] ) {
-        this.layoutConfiguration = environment.layout.itemPage[itemType];
-      } else {
-        this.layoutConfiguration = environment.layout.itemPage[def];
-      }
+    if (!!environment.layout.itemPage && !!environment.layout.itemPage[itemType]) {
+      this.layoutConfiguration = environment.layout.itemPage[itemType];
+    } else {
+      this.layoutConfiguration = environment.layout.itemPage[def];
+    }
   }
 
- /**
-  * Initialize the component depending the layout configuration
-  */
+  /**
+   * Initialize the component depending the layout configuration
+   */
   initComponent(): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
     const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
@@ -82,6 +82,9 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     return getCrisLayoutPage(this.layoutConfiguration.orientation);
   }
 
+  /**
+   * Destroy componentRef when this component is destroyed
+   */
   ngOnDestroy(): void {
     if (this.componentRef) {
       this.componentRef.destroy();

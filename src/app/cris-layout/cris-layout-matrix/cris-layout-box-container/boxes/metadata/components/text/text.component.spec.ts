@@ -28,9 +28,9 @@ describe('TextComponent', () => {
           useClass: TranslateLoaderMock
         }
       }), BrowserAnimationsModule],
-      declarations: [ TextComponent, DsDatePipe ]
+      declarations: [TextComponent, DsDatePipe]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

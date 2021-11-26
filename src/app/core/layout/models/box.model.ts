@@ -73,7 +73,7 @@ export class Box extends CacheableObject {
   boxType: string;
 
   @autoserialize
-  configuration?: BoxConfiguration;
+  configuration?: RelationBoxConfiguration | MetadataBoxConfiguration | MetricsBoxConfiguration;
 
   /**
    * The {@link HALLink}s for this Tab

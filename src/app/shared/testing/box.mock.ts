@@ -18,11 +18,10 @@ export const boxMetadata: Box = {
   style: 'col-md-4',
   clear: false,
   maxColumn: null,
-  container:true,
+  container: true,
   security: 0,
   boxType: 'metadata',
-  container: true,
-  metadataSecurityFields:[],
+  metadataSecurityFields: [],
   configuration: medataBoxConfigurationMock,
   _links: {
     self: {
@@ -43,11 +42,10 @@ export const boxSearch: Box = {
   style: 'col-md-10',
   clear: false,
   maxColumn: null,
-  container:true,
+  container: true,
   security: 0,
   boxType: 'relation',
-  container: true,
-  metadataSecurityFields:[],
+  metadataSecurityFields: [],
   configuration: relationBoxConfigurationMock,
   _links: {
     self: {
@@ -68,11 +66,10 @@ export const boxMetrics: Box = {
   style: 'col-md-2',
   clear: false,
   maxColumn: null,
-  container:true,
-  security: 0,
   container: true,
+  security: 0,
   boxType: 'metrics',
-  metadataSecurityFields:[],
+  metadataSecurityFields: [],
   configuration: metricsBoxConfigurationMock,
   _links: {
     self: {
