@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
 import { hasValue } from '../../../../../../../shared/empty.util';
@@ -38,7 +38,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     private resolver: ResolverStrategyService
   ) {

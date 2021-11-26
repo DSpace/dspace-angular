@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, Optional } from '@angular/core';
 
 import { isNotEmpty } from '../../../../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
@@ -36,7 +36,7 @@ export abstract class RenderingTypeValueModelComponent {
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
   ) {
     this.field = fieldProvider;

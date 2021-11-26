@@ -3,6 +3,7 @@ import {
   ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
+  Inject,
   OnInit,
   ViewChild,
   ViewContainerRef
@@ -14,6 +15,7 @@ import { hasValue } from '../../../../../../../shared/empty.util';
 import { LayoutBox } from '../../../../../../enums/layout-box.enum';
 import { GenericConstructor } from '../../../../../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
+import { Item } from 'src/app/core/shared/item.model';
 
 /**
  * This component renders the inline  metadata group fields
@@ -31,21 +33,27 @@ export class InlineComponent extends RenderingTypeModelComponent implements OnIn
    */
   hasThumbnail = false;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver, protected translateService: TranslateService) {
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    protected componentFactoryResolver: ComponentFactoryResolver, protected translateService: TranslateService) {
     super(translateService);
+    this.field = fieldProvider;
+    this.item = itemProvider;
   }
   /**
    * Directive hook used to place the dynamic child component
    */
 
-  @ViewChild('metadataContainer', {static: true, read: ViewContainerRef}) metadataContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataContainer', { static: true, read: ViewContainerRef }) metadataContainerViewRef: ViewContainerRef;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('thumbnailContainer', {static: true, read: ViewContainerRef}) thumbnailContainerViewRef: ViewContainerRef;
+  @ViewChild('thumbnailContainer', { static: true, read: ViewContainerRef }) thumbnailContainerViewRef: ViewContainerRef;
 
   ngOnInit(): void {
+    console.log(this.field);
     this.metadataContainerViewRef.clear();
     this.thumbnailContainerViewRef.clear();
     this.field.metadataGroup.elements

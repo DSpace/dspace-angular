@@ -45,16 +45,20 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
    * a boolean representing if metadata is nested in a structured rendering type
    */
   @Input() nested: boolean;
+  /**
+   * a boolean representing if metadata is with heading(used in tables) in a structured rendering type
+   */
+  @Input() withHeading = true;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('metadataValueContainer', {static: true, read: ViewContainerRef}) metadataValueContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataValueContainer', { static: true, read: ViewContainerRef }) metadataValueContainerViewRef: ViewContainerRef;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('metadataStructuredContainer', {static: true, read: ViewContainerRef}) metadataStructuredContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataStructuredContainer', { static: true, read: ViewContainerRef }) metadataStructuredContainerViewRef: ViewContainerRef;
 
   /**
    * A boolean representing if metadata rendering type is structured or not
@@ -75,7 +79,6 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
 
   ngOnInit() {
     console.log(this.field);
-
     // this.metadataValueContainerViewRef.clear();
     // this.metadataStructuredContainerViewRef.clear();
     if (this.hasFieldMetadataComponent(this.field)) {
@@ -98,7 +101,7 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
         }
       });
     }
-    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue ) ||
+    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue) ||
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
 
