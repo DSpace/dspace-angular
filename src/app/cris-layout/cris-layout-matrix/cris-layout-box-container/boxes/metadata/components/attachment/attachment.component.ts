@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { Observable } from 'rxjs';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { TranslateService } from '@ngx-translate/core';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 @Component({
   selector: 'ds-attachment',
@@ -16,8 +20,15 @@ export class AttachmentComponent extends BitstreamRenderingModel implements OnIn
 
   bitstreams$: Observable<Bitstream[]>;
 
-  constructor(protected bitstreamDataService: BitstreamDataService, protected translateService: TranslateService) {
-    super(bitstreamDataService, translateService);
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    protected bitstreamDataService: BitstreamDataService,
+    protected translateService: TranslateService
+  ) {
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
   ngOnInit() {

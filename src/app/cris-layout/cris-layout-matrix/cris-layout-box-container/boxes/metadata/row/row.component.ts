@@ -10,8 +10,7 @@ import {
 } from '@angular/core';
 import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../../core/shared/item.model';
-import { Box } from '../../../../../../core/layout/models/box.model';
-import { LayoutField, Row } from '../../../../../../core/layout/models/metadata-component.model';
+import { Box, LayoutField, MetadataBoxCell, MetadataBoxRow } from '../../../../../../core/layout/models/box.model';
 import { FieldRenderingType, getMetadataBoxFieldRendering } from '../components/metadata-box.decorator';
 import { isEmpty, isNotEmpty } from '../../../../../../shared/empty.util';
 
@@ -34,26 +33,27 @@ export class RowComponent implements OnInit {
    * Current layout box
    */
   @Input() box: Box;
+
+  // @TODO There is an issue with the Row model, there is no fields
   /**
    * Current row configuration
    */
-  @Input() row: Row;
+  @Input() row: any;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('thumbnailContainer', {static: true, read: ViewContainerRef}) thumbnailContainerViewRef: ViewContainerRef;
+  @ViewChild('thumbnailContainer', { static: true, read: ViewContainerRef }) thumbnailContainerViewRef: ViewContainerRef;
 
   /**
    * This property is true if the current row contains a thumbnail, false otherwise
    */
   hasThumbnail = false;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     const fields = this.row.fields;
-    console.log(fields);
 
     this.thumbnailContainerViewRef.clear();
 
@@ -63,11 +63,11 @@ export class RowComponent implements OnInit {
     this.hasThumbnail = allThumbnailFields.length > 0;
 
     allThumbnailFields.forEach((field) => {
-        const factory = this.computeThumbnailComponentFactory(FieldRenderingType.THUMBNAIL);
-        if (factory) {
-          const metadataComponentRef = this.generateThumbnailComponentRef(factory);
-          this.populateThumbnailComponent(metadataComponentRef, field);
-        }
+      const factory = this.computeThumbnailComponentFactory(FieldRenderingType.THUMBNAIL);
+      if (factory) {
+        const metadataComponentRef = this.generateThumbnailComponentRef(factory);
+        this.populateThumbnailComponent(metadataComponentRef, field);
+      }
     });
   }
 

@@ -6,8 +6,8 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/sh
 import { ConfigurationProperty } from '../../../../../../../core/shared/configuration-property.model';
 import { TranslateService } from '@ngx-translate/core';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 /**
  * This component renders the text metadata fields
@@ -31,7 +31,7 @@ export class OrcidComponent extends RenderingTypeValueModelComponent implements 
     private configurationService: ConfigurationDataService,
     protected translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider);
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
   }
 
   ngOnInit() {

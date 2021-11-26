@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 
 import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
 import { Item } from '../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../core/layout/models/metadata-component.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { TranslateService } from '@ngx-translate/core';
+import { LayoutField } from '../../../../../../core/layout/models/box.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -28,7 +28,7 @@ export abstract class RenderingTypeModelComponent {
    * ex. for type identifier.doi this property
    * contains the subtype doi
    */
-  @Input() subtype: string;
+  @Input() renderingSubType: string;
 
   /**
    * Returns the value of the metadata to show
@@ -45,6 +45,9 @@ export abstract class RenderingTypeModelComponent {
   constructor(protected translateService: TranslateService) {
   }
 
+  /**
+   * Returns all metadata values in the item
+   */
   get metadataValues(): string[] {
     return this.field.metadata ? this.item.allMetadataValues(this.field.metadata) : [];
   }

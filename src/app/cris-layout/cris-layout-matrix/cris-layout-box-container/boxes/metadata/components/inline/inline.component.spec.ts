@@ -7,9 +7,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { InlineComponent } from './inline.component';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../../../../../../directives/cris-layout-loader.directive';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 describe('InlineComponent', () => {
   let component: InlineComponent;

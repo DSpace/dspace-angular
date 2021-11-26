@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { map } from 'rxjs/operators';
 import { hasValue } from '../../../../../../../shared/empty.util';
-import { Observable } from 'rxjs';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
-import { TranslateService } from '@ngx-translate/core';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -14,15 +18,22 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
+@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL)
 export class ThumbnailComponent extends BitstreamRenderingModel implements OnInit {
 
   bitstream$: Observable<Bitstream>;
 
   default: string;
 
-  constructor(protected bitstreamDataService: BitstreamDataService, protected translateService: TranslateService) {
-    super(bitstreamDataService, translateService);
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    protected bitstreamDataService: BitstreamDataService,
+    protected translateService: TranslateService
+  ) {
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
   ngOnInit(): void {
@@ -30,7 +41,7 @@ export class ThumbnailComponent extends BitstreamRenderingModel implements OnIni
     this.bitstream$ = this.getBitstream().pipe(
       map((bitstreams) => {
         let rVal = null;
-        bitstreams.forEach( (bitstream) => {
+        bitstreams.forEach((bitstream) => {
           const metadataValue = bitstream.firstMetadataValue(this.field.bitstream.metadataField);
           if (hasValue(metadataValue) && metadataValue === this.field.bitstream.metadataValue) {
             rVal = bitstream;

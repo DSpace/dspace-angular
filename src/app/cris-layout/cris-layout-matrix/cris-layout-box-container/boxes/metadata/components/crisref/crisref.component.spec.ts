@@ -5,13 +5,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { of } from 'rxjs';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
 import { SharedModule } from '../../../../../../../shared/shared.module';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 describe('CrisrefComponent', () => {
   let component: CrisrefComponent;

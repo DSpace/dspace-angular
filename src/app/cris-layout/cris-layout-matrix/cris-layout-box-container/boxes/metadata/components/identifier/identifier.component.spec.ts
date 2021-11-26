@@ -4,11 +4,11 @@ import { IdentifierComponent } from './identifier.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { of } from 'rxjs';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 describe('IdentifierComponent', () => {
   let component: IdentifierComponent;

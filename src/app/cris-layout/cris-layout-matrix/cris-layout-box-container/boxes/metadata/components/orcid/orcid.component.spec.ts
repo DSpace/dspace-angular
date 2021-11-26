@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -8,10 +8,9 @@ import { OrcidComponent } from './orcid.component';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { MetadataComponent } from '../../../../../../../core/layout/models/metadata-component.model';
-import { METADATACOMPONENT } from '../../../../../../../core/layout/models/metadata-component.resource-type';
 import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import { MetadataBoxConfiguration } from '../../../../../../../core/layout/models/box.model';
 
 export const testItem: Item = Object.assign(new Item(), {
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
@@ -33,28 +32,25 @@ export const testItem: Item = Object.assign(new Item(), {
   }
 });
 
-export const medataComponent: MetadataComponent = {
-  id: '1',
-  type: METADATACOMPONENT,
-  rows: [
-    {
+export const medataComponent: MetadataBoxConfiguration = {
+  id: 'testTagBox',
+  type: 'boxmetadataconfiguration',
+  rows: [{
+    style: 'row-style',
+    cells: [{
+      style: 'cell-style',
       fields: [
         {
           metadata: 'person.identifier.orcid',
           label: 'ORCID',
           rendering: 'orcid',
           fieldType: 'metadata',
-          style: 'field-0-style'
+          labelAsHeading: true,
+          valuesInline: true
         }
       ]
-    }
-  ]
-  ,
-  _links: {
-    self: {
-      href: 'https://rest.api/rest/api/metadatacomponent/1'
-    }
-  }
+    }]
+  }]
 };
 
 describe('OrcidComponent', () => {

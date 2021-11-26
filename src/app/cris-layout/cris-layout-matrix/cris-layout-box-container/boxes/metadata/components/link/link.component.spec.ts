@@ -5,8 +5,8 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 describe('LinkComponent', () => {
   let component: LinkComponent;

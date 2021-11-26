@@ -4,8 +4,9 @@ import { ResolverStrategyService } from '../../../../../../services/resolver-str
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { TranslateService } from '@ngx-translate/core';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 /**
  * This component renders the identifier metadata fields.
@@ -40,9 +41,10 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
     @Inject('itemProvider') public itemProvider: Item,
     @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
-    private resolver: ResolverStrategyService
+    protected resolver: ResolverStrategyService,
+    protected translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider);
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
   }
 
   getIdentifierFromValue() {

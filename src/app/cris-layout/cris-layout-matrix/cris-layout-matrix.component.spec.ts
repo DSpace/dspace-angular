@@ -15,9 +15,9 @@ describe('CrisLayoutMatrixComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutMatrixComponent ]
+      declarations: [CrisLayoutMatrixComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -34,10 +34,24 @@ describe('CrisLayoutMatrixComponent', () => {
   it('should not show rows', () => {
     expect(de.queryAll(By.css('.row')).length).toEqual(0);
   });
+  describe('after inserting slected tab', () => {
 
-  it('after inserting slected tab should have 2 rows', () => {
-    component.tab = tab;
-    fixture.detectChanges();
-    expect(de.queryAll(By.css('.row')).length).toEqual(2);
+    beforeEach(() => {
+      component.tab = tab;
+      fixture.detectChanges();
+    });
+
+    it('should have 2 rows', () => {
+      expect(de.queryAll(By.css('.row')).length).toEqual(2);
+    });
+
+    it('should have 3 cells', () => {
+      expect(de.queryAll(By.css('.cell')).length).toEqual(3);
+    });
+
+    it('should have 4 boxes', () => {
+      expect(de.queryAll(By.css('ds-cris-layout-box-container')).length).toEqual(4);
+    });
+
   });
 });
