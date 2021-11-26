@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TableComponent } from './table.component';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../../../../../../directives/cris-layout-loader.directive';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 describe('TableComponent', () => {
   let component: TableComponent;

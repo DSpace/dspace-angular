@@ -12,8 +12,8 @@ import {
 } from '../../../../../../../core/shared/operators';
 import { AuthService } from '../../../../../../../core/auth/auth.service';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.

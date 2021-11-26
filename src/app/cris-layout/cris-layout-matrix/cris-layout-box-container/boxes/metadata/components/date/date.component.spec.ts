@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 describe('DateComponent', () => {
   let component: DateComponent;

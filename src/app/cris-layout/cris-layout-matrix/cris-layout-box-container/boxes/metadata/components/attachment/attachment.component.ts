@@ -7,8 +7,8 @@ import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.d
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 @Component({
   selector: 'ds-attachment',

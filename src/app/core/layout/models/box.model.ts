@@ -6,7 +6,59 @@ import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
-import { LayoutField } from './metadata-component.model';
+
+export interface MetadataGroup {
+  leading: string;
+  elements: LayoutField[];
+}
+
+export interface LayoutBitstream {
+  bundle: string;
+  metadataField: string;
+  metadataValue: string;
+}
+
+export interface LayoutField {
+  metadata?: string;
+  bitstream?: LayoutBitstream;
+  label?: string;
+  rendering: string;
+  fieldType: string;
+  style?: string;
+  styleLabel?: string;
+  styleValue?: string;
+  metadataGroup?: MetadataGroup;
+  labelAsHeading: boolean;
+  valuesInline: boolean;
+}
+
+export interface MetadataBoxConfiguration extends BoxConfiguration {
+  id: string;
+  rows: MetadataBoxRow[];
+}
+
+export interface BoxConfiguration {
+  type: string;
+}
+
+export interface RelationBoxConfiguration extends BoxConfiguration {
+  'discovery-configuration': string;
+}
+
+export interface MetricsBoxConfiguration extends BoxConfiguration {
+  maxColumns: null;
+  metrics: string[];
+}
+
+export interface MetadataBoxCell {
+  style: string;
+  fields: LayoutField[];
+}
+
+export interface MetadataBoxRow {
+  style: string;
+  cells: MetadataBoxCell[];
+}
 
 /**
  * Describes a type of Box
@@ -83,27 +135,4 @@ export class Box extends CacheableObject {
     self: HALLink,
   };
 
-}
-
-
-export interface MetadataBoxConfiguration extends BoxConfiguration {
-  id: string;
-  rows: Row[];
-}
-
-export interface BoxConfiguration {
-  type: string;
-}
-
-export interface RelationBoxConfiguration extends BoxConfiguration {
-  'discovery-configuration': string;
-}
-
-export interface MetricsBoxConfiguration extends BoxConfiguration {
-  maxColumns: null;
-  metrics: string[];
-}
-
-export interface Row {
-  fields: LayoutField[];
 }

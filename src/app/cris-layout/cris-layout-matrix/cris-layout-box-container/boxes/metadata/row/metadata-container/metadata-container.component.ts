@@ -10,8 +10,7 @@ import {
 } from '@angular/core';
 import { RenderingTypeModelComponent } from '../../components/rendering-type.model';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { Box } from '../../../../../../../core/layout/models/box.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
+import { Box, LayoutField } from '../../../../../../../core/layout/models/box.model';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,

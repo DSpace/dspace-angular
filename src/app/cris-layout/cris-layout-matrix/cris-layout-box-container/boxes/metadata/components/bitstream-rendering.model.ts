@@ -6,9 +6,9 @@ import { map } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../../../core/data/bitstream-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Inject } from '@angular/core';
-import { LayoutField } from '../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { RenderingTypeValueModelComponent } from './rendering-type-value.model';
+import { LayoutField } from '../../../../../../core/layout/models/box.model';
 
 /**
  * This class defines the basic model to extends for create a new

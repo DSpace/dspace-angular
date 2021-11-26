@@ -10,13 +10,13 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { FieldRenderingType, getMetadataBoxFieldRendering, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { LayoutBox } from '../../../../../../enums/layout-box.enum';
 import { GenericConstructor } from '../../../../../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 /**
  * This component renders the inline  metadata group fields

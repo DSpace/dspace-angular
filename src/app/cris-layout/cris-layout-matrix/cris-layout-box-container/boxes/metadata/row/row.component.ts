@@ -10,10 +10,9 @@ import {
 } from '@angular/core';
 import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../../core/shared/item.model';
-import { Box } from '../../../../../../core/layout/models/box.model';
-import { LayoutField, Row } from '../../../../../../core/layout/models/metadata-component.model';
+import { Box, LayoutField, MetadataBoxCell, MetadataBoxRow } from '../../../../../../core/layout/models/box.model';
 import { FieldRenderingType, getMetadataBoxFieldRendering } from '../components/metadata-box.decorator';
-import { isEmpty, isNotEmpty } from '../../../../../../shared/empty.util';
+import { isNotEmpty } from '../../../../../../shared/empty.util';
 
 /**
  * This component renders the rows of metadata boxes

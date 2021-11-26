@@ -4,7 +4,6 @@ import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { of } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
-import { LayoutField } from '../../core/layout/models/metadata-component.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '../../shared/shared.module';

@@ -9,8 +9,8 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
-import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
 @Component({
   // tslint:disable-next-line: component-selector

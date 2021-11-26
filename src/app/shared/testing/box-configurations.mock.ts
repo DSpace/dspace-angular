@@ -1,4 +1,3 @@
-import { METADATACOMPONENT } from '../../core/layout/models/metadata-component.resource-type';
 import {
   MetadataBoxConfiguration,
   MetricsBoxConfiguration,
@@ -7,31 +6,35 @@ import {
 
 export const medataBoxConfigurationMock: MetadataBoxConfiguration = {
   id: 'testBox',
-  type: METADATACOMPONENT.value,
-  rows: [
-  {
-    fields: [
+  type: 'boxmetadataconfiguration',
+  rows: [{
+    style: 'row-style',
+    cells: [{
+      style: 'cell-style',
+      fields: [
+        {
+          metadata: 'dc.title',
+          label: 'Title',
+          rendering: 'text',
+          fieldType: 'metadata',
+          labelAsHeading: true,
+          valuesInline: true
+        }
+      ]
+    },
       {
-        metadata: 'dc.contibutor.author',
-        label: 'Authors',
-        rendering: 'text',
-        fieldType: 'metadata',
-        labelAsHeading: true,
-        valuesInline: true
-      }
-    ]
-  },
-  {
-    fields: [
-      {
-        metadata: 'dc.contibutor.author',
-        label: 'Authors',
-        rendering: 'text',
-        fieldType: 'metadata',
-        labelAsHeading: true,
-        valuesInline: true
-      }
-    ]
+        style: 'cell-style',
+        fields: [
+          {
+            metadata: 'dc.contibutor.author',
+            label: 'Authors',
+            rendering: 'text',
+            fieldType: 'metadata',
+            labelAsHeading: true,
+            valuesInline: true
+          }
+        ]
+      }]
   }]
 };
 

@@ -2,11 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import {
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -146,8 +142,6 @@ import { TabDataService } from './layout/tab-data.service';
 import { Tab } from './layout/models/tab.model';
 import { BoxDataService } from './layout/box-data.service';
 import { Box } from './layout/models/box.model';
-import { MetadataComponentsDataService } from './layout/metadata-components-data.service';
-import { MetadataComponent } from './layout/models/metadata-component.model';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -326,7 +320,6 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
   BoxDataService,
-  MetadataComponentsDataService,
   MetricsComponentsDataService,
   MetricService,
   VocabularyService,
@@ -395,7 +388,6 @@ export const models =
     Registration,
     Tab,
     Box,
-    MetadataComponent,
     MetricsComponent,
     Metric,
     Vocabulary,
