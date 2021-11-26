@@ -10,7 +10,7 @@ import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-lo
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { boxMetadata } from '../../../../../shared/testing/box.mock';
-import { TextComponent } from '../components/text/text.component';
+import { TextComponent } from '../metadata/components/text/text.component';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { CrisLayoutMetricsBoxComponent, MetricRow } from './cris-layout-metrics-box.component';
 import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
@@ -45,14 +45,14 @@ const altMetricExample = '<div class=\'altmetric-embed\' data-badge-popover=\'bo
 
 const dimensionsExample = '<div class=\'__dimensions_badge_embed__\' data-doi="10.1038/nature.2012.9872"></div>';
 
-export const metricGoogleScholarMock = {...metric1Mock, metricType: 'googleScholar', remark: googleExample};
+export const metricGoogleScholarMock = { ...metric1Mock, metricType: 'googleScholar', remark: googleExample };
 
-export const metricAltmetricMock = {...metric1Mock, metricType: 'altmetric', remark: altMetricExample};
+export const metricAltmetricMock = { ...metric1Mock, metricType: 'altmetric', remark: altMetricExample };
 
-export const metricDimensionsMock = {...metric1Mock, metricType: 'dimensions', remark: dimensionsExample};
+export const metricDimensionsMock = { ...metric1Mock, metricType: 'dimensions', remark: dimensionsExample };
 
-export const metricEmbeddedView = {...metric1Mock, metricType: 'embedded-view', remark: ''};
-export const metricEmbeddedDownload = {...metric1Mock, metricType: 'embedded-download', remark: ''};
+export const metricEmbeddedView = { ...metric1Mock, metricType: 'embedded-view', remark: '' };
+export const metricEmbeddedDownload = { ...metric1Mock, metricType: 'embedded-download', remark: '' };
 
 export const metricRowsMock = [{
   metrics: [metric1Mock, metric2Mock]
@@ -87,8 +87,8 @@ describe('CrisLayoutMetricsBoxComponent', () => {
           useClass: TranslateLoaderMock
         }
       }),
-      BrowserAnimationsModule,
-      SharedModule],
+        BrowserAnimationsModule,
+        SharedModule],
       providers: [
         { provide: MetricsComponentsDataService, useClass: MetricsComponentsDataServiceMock },
         { provide: ItemDataService, useValue: itemDataService },
@@ -111,7 +111,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
   beforeEach(() => {
 
     spyOn(itemDataService, 'getMetrics').and.returnValue(of(
-      createSuccessfulRemoteDataObject({pageInfo: {}, page: ['views']} as any)
+      createSuccessfulRemoteDataObject({ pageInfo: {}, page: ['views'] } as any)
     ));
 
     fixture = TestBed.createComponent(CrisLayoutMetricsBoxComponent);

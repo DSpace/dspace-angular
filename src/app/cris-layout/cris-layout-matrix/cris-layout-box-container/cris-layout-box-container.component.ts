@@ -37,6 +37,9 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    */
   boxHeaderI18nKey = '';
 
+  /**
+   * Active tab utilized by accordion
+   */
   activeIds: string[] = [];
 
   /**
@@ -54,14 +57,13 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
 
     this.objectInjector = Injector.create({
       providers: [
-        {provide: 'boxProvider', useFactory: () => (this.box), deps: []},
-        {provide: 'itemProvider', useFactory: () => (this.item), deps: []},
+        { provide: 'boxProvider', useFactory: () => (this.box), deps: [] },
+        { provide: 'itemProvider', useFactory: () => (this.item), deps: [] },
       ],
       parent: this.injector
     });
 
     this.componentLoader = this.getComponent();
-    console.log(this.box.shortname, this.componentLoader);
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.shortname;
 
     if (hasNoValue(this.box.collapsed) || !this.box.collapsed) {
@@ -69,17 +71,25 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     }
   }
 
+  /**
+   * Active tab utilized by accordion
+   */
   getComponent(): CrisLayoutBoxRenderOptions {
     return getCrisLayoutBox(LayoutBox[this.box.boxType]);
   }
-
+  /**
+   * Get component reference to be inserted in the ngComponentOutlet
+   */
   getComponentRef(): GenericConstructor<Component> {
     return this.componentLoader?.componentRef;
   }
 
+  /**
+   * Get box header to be inserted inside the accordion
+   */
   getBoxHeader(): string {
     const header: string = this.translateService.instant(this.boxHeaderI18nKey);
-    if (header === this.boxHeaderI18nKey ) {
+    if (header === this.boxHeaderI18nKey) {
       // if translation does not exist return the value present in the header property
       return this.translateService.instant(this.box.header);
     } else {

@@ -43,23 +43,22 @@ export class RowComponent implements OnInit {
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('metadataContainer', {static: true, read: ViewContainerRef}) metadataContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataContainer', { static: true, read: ViewContainerRef }) metadataContainerViewRef: ViewContainerRef;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('thumbnailContainer', {static: true, read: ViewContainerRef}) thumbnailContainerViewRef: ViewContainerRef;
+  @ViewChild('thumbnailContainer', { static: true, read: ViewContainerRef }) thumbnailContainerViewRef: ViewContainerRef;
 
   /**
    * This property is true if the current row containes a thumbnail, false otherwise
    */
   hasThumbnail = false;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     const fields = this.row.fields;
-    console.log(fields);
 
     this.metadataContainerViewRef.clear();
     this.thumbnailContainerViewRef.clear();
@@ -71,7 +70,7 @@ export class RowComponent implements OnInit {
         const factory = this.computeComponentFactory(rendering);
         const metadataComponentRef = this.generateComponentRef(factory, field, rendering);
         this.populateComponent(metadataComponentRef, field, subtype);
-    });
+      });
   }
 
   hasFieldMetadataComponent(field: LayoutField) {
@@ -84,7 +83,7 @@ export class RowComponent implements OnInit {
         }
       });
     }
-    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue ) ||
+    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue) ||
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
 
