@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MetricDspacecrisComponent } from './metric-dspacecris.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { metric1Mock } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MetricDspacecrisComponent', () => {

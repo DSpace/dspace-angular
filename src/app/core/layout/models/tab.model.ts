@@ -1,16 +1,12 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { TAB } from './tab.resource-type';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { BOX } from './box.resource-type';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
 import { Box } from './box.model';
-import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * Describes a type of Tab
@@ -56,8 +52,10 @@ export class Tab extends CacheableObject {
   /**
    * This property is used from leading component
    */
+  @autoserialize
   leading?: boolean;
 
+  @autoserialize
   rows?: Row[];
   /**
    * The universally unique identifier of this Tab
@@ -73,16 +71,7 @@ export class Tab extends CacheableObject {
   @deserialize
   _links: {
     self: HALLink,
-    boxes: HALLink
   };
-
-  /**
-   * The type of Item found on the left side of this RelationshipType
-   * Will be undefined unless the leftType {@link HALLink} has been resolved.
-   */
-  @link(BOX)
-  boxes?: Observable<RemoteData<PaginatedList<Box>>>;
-
 
   /**
    * Contains nested tabs if exist

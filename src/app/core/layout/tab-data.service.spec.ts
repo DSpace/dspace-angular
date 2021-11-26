@@ -38,9 +38,6 @@ describe('TabDataService', () => {
     _links: {
       self: {
         href: 'https://rest.api/rest/api/tabs/1'
-      },
-      boxes: {
-        href: 'https://rest.api/rest/api/tabs/1/boxes'
       }
     }
   };
@@ -57,9 +54,6 @@ describe('TabDataService', () => {
     _links: {
       self: {
         href: 'https://rest.api/rest/api/tabs/2'
-      },
-      boxes: {
-        href: 'https://rest.api/rest/api/tabs/2/boxes'
       }
     }
   };
@@ -76,9 +70,6 @@ describe('TabDataService', () => {
     _links: {
       self: {
         href: 'https://rest.api/rest/api/tabs/3'
-      },
-      boxes: {
-        href: 'https://rest.api/rest/api/tabs/3/boxes'
       }
     }
   };

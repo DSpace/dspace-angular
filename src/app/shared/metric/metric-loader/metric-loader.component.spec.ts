@@ -3,7 +3,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { MetricLoaderComponent } from './metric-loader.component';
 import { MetricLoaderService } from './metric-loader.service';
 import { of } from 'rxjs';
-import { metric1Mock } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { Component } from '@angular/core';
 
 describe('MetricLoaderComponent', () => {

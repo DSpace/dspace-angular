@@ -1,0 +1,20 @@
+<ng-container *ngIf="componentLoader">
+
+  <ng-container *ngIf="box.container && !componentLoader.hasOwnContainer">
+    <ngb-accordion [activeIds]="activeIds">
+      <ngb-panel id="{{box.shortname}}">
+        <ng-template ngbPanelTitle>
+          <span [innerHTML]="getBoxHeader()"></span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </ng-container>
+
+  <ng-container *ngIf="!box.container || componentLoader.hasOwnContainer">
+    <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
+  </ng-container>
+</ng-container>
+<ds-loading *ngIf="!componentLoader"></ds-loading>

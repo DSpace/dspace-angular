@@ -1,17 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../core/shared/item.model';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { Tab } from '../core/layout/models/tab.model';
 import { Observable, of as observableOf } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import {
-  getBrowseDefinitionLinks,
-  getFirstOccurrence,
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  getPaginatedListPayload
-} from '../core/shared/operators';
+import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -62,8 +56,7 @@ export class CrisLayoutComponent implements OnInit {
     return this.tabService.findByItem(this.item.uuid,true).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      getPaginatedListPayload(),
-      switchMap( (res) => this.mockData() )
+      getPaginatedListPayload()
     );
   }
 
@@ -105,12 +98,13 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-6',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'primary',
                     'header': 'Primary Information',
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
                     'container': true,
                     'maxColumn': 2,
@@ -140,16 +134,18 @@ export class CrisLayoutComponent implements OnInit {
                     }
                   },
                   {
+                    'id': 1726,
                     'shortname': 'other',
                     'header': 'Other Informations',
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
+                    'container': true,
                     'type': 'box',
                     'metadataSecurityFields': [
                       'cris.policy.eperson'
@@ -176,18 +172,20 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-6',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'researchoutputs',
                     'header': 'Research outputs',
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
                     'type': 'box',
                     'metadataSecurityFields': [],
+                    'container': true,
                     'configuration': {
                       'id': 3,
                       'discovery-configuration': 'RELATION.Person.researchoutputs'
@@ -204,6 +202,7 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-12',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'metrics',
                     'header': 'Metrics',
                     'entityType': 'Person',
@@ -211,6 +210,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -245,12 +245,13 @@ export class CrisLayoutComponent implements OnInit {
                 'style': 'col-md-6',
                 'boxes': [
                   {
+                    'id': 1726,
                     'shortname': 'primary',
                     'header': 'Primary Information',
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
                     'container': true,
                     'maxColumn': 2,
@@ -285,8 +286,9 @@ export class CrisLayoutComponent implements OnInit {
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -321,8 +323,9 @@ export class CrisLayoutComponent implements OnInit {
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -351,6 +354,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -390,7 +394,7 @@ export class CrisLayoutComponent implements OnInit {
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
                     'container': true,
                     'maxColumn': 2,
@@ -425,8 +429,9 @@ export class CrisLayoutComponent implements OnInit {
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -461,8 +466,9 @@ export class CrisLayoutComponent implements OnInit {
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -491,6 +497,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -530,7 +537,7 @@ export class CrisLayoutComponent implements OnInit {
                     'entityType': 'Person',
                     'collapsed': false,
                     'minor': false,
-                    'style': 'col-md-6',
+                    'style': '',
                     'clear': true,
                     'container': true,
                     'maxColumn': 2,
@@ -567,6 +574,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -603,6 +611,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -631,6 +640,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',
@@ -707,6 +717,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METADATA',
@@ -743,6 +754,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': 'col-md-6',
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'RELATION',
@@ -771,6 +783,7 @@ export class CrisLayoutComponent implements OnInit {
                     'minor': false,
                     'style': null,
                     'clear': true,
+                    'container': true,
                     'maxColumn': 2,
                     'security': 0,
                     'boxType': 'METRICS',

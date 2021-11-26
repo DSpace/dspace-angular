@@ -5,7 +5,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from '../data/request.reducer';
-import { Box } from './models/box.model';
+import { Box, MetadataBoxConfiguration } from './models/box.model';
 import { BOX } from './models/box.resource-type';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
@@ -40,10 +40,12 @@ describe('BoxDataService', () => {
     maxColumn: null,
     security: 0,
     boxType: 'metadata',
-    metadataSecurityFields:[],
+    container: true,
+    metadataSecurityFields: [],
     configuration: {
       id: '10',
-      rows: []
+      rows: [],
+      type: 'test'
     },
     _links: {
       self: {
@@ -64,12 +66,14 @@ describe('BoxDataService', () => {
     style: 'col-md-10',
     clear: false,
     maxColumn: null,
+    container: true,
     security: 0,
     boxType: 'search',
-    metadataSecurityFields:[],
+    metadataSecurityFields: [],
     configuration: {
       id: '10',
-      rows: []
+      rows: [],
+      type: 'test'
     },
     _links: {
       self: {
@@ -91,12 +95,14 @@ describe('BoxDataService', () => {
     // priority: 0,
     clear: false,
     maxColumn: null,
+    container: true,
     security: 0,
     boxType: 'metrics',
-    metadataSecurityFields:[],
+    metadataSecurityFields: [],
     configuration: {
       id: '10',
-      rows: []
+      rows: [],
+      type: 'test'
     },
     _links: {
       self: {

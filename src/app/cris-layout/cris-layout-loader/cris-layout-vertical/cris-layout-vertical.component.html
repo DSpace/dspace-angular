@@ -1,3 +1,14 @@
-<div id="cris-layout-loader" class="container vertical-layout">
-	<ds-cris-layout-sidebar [tabs]="tabs"></ds-cris-layout-sidebar>
+<div id="cris-layout-loader">
+  <div *ngIf="!(windowService.isXsOrSm() | async)" class="vertical-layout">
+    <ds-cris-layout-sidebar (selectedTabChange)="selectedTabChanged($event)" [tabs]="tabs" [item]="item">
+      <ds-cris-layout-matrix [tab]="(selectedTab$ | async)" [item]="item"></ds-cris-layout-matrix>
+    </ds-cris-layout-sidebar>
+  </div>
+
+  <div *ngIf="(windowService.isXsOrSm() | async)" class="horizontal-layout">
+    <ds-cris-layout-navbar (selectedTabChange)="selectedTabChanged($event)" [tabs]="tabs" [item]="item"></ds-cris-layout-navbar>
+    <div class="container pt-4">
+      <ds-cris-layout-matrix [tab]="(selectedTab$ | async)" [item]="item"></ds-cris-layout-matrix>
+    </div>
+  </div>
 </div>

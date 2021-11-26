@@ -1,5 +1,10 @@
 import { Box } from '../../core/layout/models/box.model';
 import { BOX } from '../../core/layout/models/box.resource-type';
+import {
+  medataBoxConfigurationMock,
+  metricsBoxConfigurationMock,
+  relationBoxConfigurationMock
+} from './box-configurations.mock';
 
 export const boxMetadata: Box = {
   type: BOX,
@@ -13,13 +18,11 @@ export const boxMetadata: Box = {
   style: 'col-md-4',
   clear: false,
   maxColumn: null,
+  container: true,
   security: 0,
   boxType: 'metadata',
-  metadataSecurityFields:[],
-  configuration: {
-    id:'10',
-    rows:[]
-  },
+  metadataSecurityFields: [],
+  configuration: medataBoxConfigurationMock,
   _links: {
     self: {
       href: 'https://rest.api/rest/api/boxes/1'
@@ -39,13 +42,11 @@ export const boxSearch: Box = {
   style: 'col-md-10',
   clear: false,
   maxColumn: null,
+  container: true,
   security: 0,
-  boxType: 'search',
-  metadataSecurityFields:[],
-  configuration: {
-    id:'10',
-    rows:[]
-  },
+  boxType: 'relation',
+  metadataSecurityFields: [],
+  configuration: relationBoxConfigurationMock,
   _links: {
     self: {
       href: 'https://rest.api/rest/api/boxes/2'
@@ -65,13 +66,11 @@ export const boxMetrics: Box = {
   style: 'col-md-2',
   clear: false,
   maxColumn: null,
+  container: true,
   security: 0,
   boxType: 'metrics',
-  metadataSecurityFields:[],
-  configuration: {
-    id:'10',
-    rows:[]
-  },
+  metadataSecurityFields: [],
+  configuration: metricsBoxConfigurationMock,
   _links: {
     self: {
       href: 'https://rest.api/rest/api/boxes/3'
