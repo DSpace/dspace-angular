@@ -5,18 +5,20 @@ import {
   ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
+  Inject,
   OnInit,
   QueryList,
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
 import { FieldRenderingType, getMetadataBoxFieldRendering, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { LayoutField } from '../../../../../../../core/layout/models/metadata-component.model';
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { LayoutBox } from '../../../../../../enums/layout-box.enum';
 import { GenericConstructor } from '../../../../../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
+import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 
 /**
  * This component renders the table  metadata group fields
@@ -27,7 +29,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./table.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRenderingType.TABLE, true)
-export class TableComponent extends RenderingTypeModelComponent implements OnInit, AfterViewInit {
+export class TableComponent extends RenderingTypeStructuredModelComponent implements OnInit, AfterViewInit {
   /**
    * This property is used to hold nested Layout Field inside a metadata group field
    */
@@ -52,10 +54,16 @@ export class TableComponent extends RenderingTypeModelComponent implements OnIni
   @ViewChildren('nestedthumbnail', {read: ViewContainerRef}) public nestedthumbnail: QueryList<ViewContainerRef>;
   hasThumbnail = false;
 
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver,
-              private ref: ChangeDetectorRef,
-              protected translateService: TranslateService) {
-    super(translateService);
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    private ref: ChangeDetectorRef,
+    protected translateService: TranslateService
+  ) {
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
   }
 
   ngOnInit() {

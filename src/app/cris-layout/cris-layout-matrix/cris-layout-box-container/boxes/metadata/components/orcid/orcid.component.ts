@@ -31,7 +31,7 @@ export class OrcidComponent extends RenderingTypeValueModelComponent implements 
     private configurationService: ConfigurationDataService,
     protected translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider);
+    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
   }
 
   ngOnInit() {

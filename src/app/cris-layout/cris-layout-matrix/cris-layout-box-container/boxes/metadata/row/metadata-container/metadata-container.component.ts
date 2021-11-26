@@ -1,8 +1,7 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  ComponentFactory,
   ComponentFactoryResolver,
-  ComponentRef,
   Injector,
   Input,
   OnInit,
@@ -25,7 +24,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ds-metadata-container',
   templateUrl: './metadata-container.component.html',
-  styleUrls: ['./metadata-container.component.scss']
+  styleUrls: ['./metadata-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetadataContainerComponent extends RenderingTypeModelComponent implements OnInit {
 
@@ -49,12 +49,18 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('metadataValueContainer', {static: true, read: ViewContainerRef}) metadataValueContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataValueContainer', {
+    static: true,
+    read: ViewContainerRef
+  }) metadataValueContainerViewRef: ViewContainerRef;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('metadataStructuredContainer', {static: true, read: ViewContainerRef}) metadataStructuredContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataStructuredContainer', {
+    static: true,
+    read: ViewContainerRef
+  }) metadataStructuredContainerViewRef: ViewContainerRef;
 
   /**
    * A boolean representing if metadata rendering type is structured or not
@@ -76,15 +82,11 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
   ngOnInit() {
     console.log(this.field);
 
-    // this.metadataValueContainerViewRef.clear();
-    // this.metadataStructuredContainerViewRef.clear();
     if (this.hasFieldMetadataComponent(this.field)) {
       const rendering = this.computeRendering(this.field);
       this.renderingSubType = this.computeSubType(this.field);
       this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(rendering);
       this.isStructured = this.metadataFieldRenderOptions.structured;
-      // const metadataComponentRef = this.generateComponentRef(this.metadataFieldRenderOptions, this.field, rendering);
-      // this.populateComponent(metadataComponentRef, this.field, subtype);
     }
   }
 
@@ -98,7 +100,7 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
         }
       });
     }
-    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue ) ||
+    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue) ||
       (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
   }
 
@@ -121,29 +123,6 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
       rendering = values[0];
     }
     return rendering;
-  }
-
-  computeComponentFactory(componentRef: GenericConstructor<Component>): ComponentFactory<any> {
-    return this.componentFactoryResolver.resolveComponentFactory(componentRef);
-  }
-
-  generateComponentRef(renderOptions: MetadataBoxFieldRenderOptions, field: LayoutField, rendering: string | FieldRenderingType): ComponentRef<any> {
-    let metadataRef: ComponentRef<Component>;
-    const factory = this.computeComponentFactory(renderOptions.componentRef);
-    // Create rendering component instance
-    if (renderOptions.structured) {
-      this.isStructured = true;
-      metadataRef = this.metadataStructuredContainerViewRef.createComponent(factory);
-    } else {
-      metadataRef = this.metadataValueContainerViewRef.createComponent(factory);
-    }
-    return metadataRef;
-  }
-
-  populateComponent(metadataRef: ComponentRef<Component>, field, subtype) {
-    (metadataRef.instance as any).item = this.item;
-    (metadataRef.instance as any).field = field;
-    (metadataRef.instance as any).subtype = subtype;
   }
 
   getMetadataBoxFieldRenderOptions(fieldRenderingType: string): MetadataBoxFieldRenderOptions {

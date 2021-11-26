@@ -28,7 +28,7 @@ export abstract class RenderingTypeModelComponent {
    * ex. for type identifier.doi this property
    * contains the subtype doi
    */
-  @Input() subtype: string;
+  @Input() renderingSubType: string;
 
   /**
    * Returns the value of the metadata to show
@@ -45,6 +45,9 @@ export abstract class RenderingTypeModelComponent {
   constructor(protected translateService: TranslateService) {
   }
 
+  /**
+   * Returns all metadata values in the item
+   */
   get metadataValues(): string[] {
     return this.field.metadata ? this.item.allMetadataValues(this.field.metadata) : [];
   }
