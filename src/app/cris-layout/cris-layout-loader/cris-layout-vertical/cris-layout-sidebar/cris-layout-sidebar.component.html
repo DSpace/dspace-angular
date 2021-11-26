@@ -1,29 +1,27 @@
 <div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
-  <nav id="sidebar" *ngIf="!(isSideBarHidden() | async)" [ngClass]="{'active': !(isSideBarHidden() | async)}">
+  <nav id="sidebar" *ngIf="(hasSidebar() | async) && !(isSideBarHidden() | async)" [ngClass]="{'active': !(isSideBarHidden() | async)}">
     <div>
       <ul class="list-unstyled components mb-5">
         <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;"
                                      [tab]="tab"
                                      [layout]="'vertical'"
-                                     (tabSelectedChange)="getTabSelected($event)"
+                                     (tabSelectedChange)="emitSelectTab($event)"
         ></ds-cris-layout-sidebar-item>
       </ul>
     </div>
   </nav>
-  <div id="content" class="position-relative pr-0 pt-3 pb-3"
+  <div id="content" class="position-relative w-100 pr-0 pt-3 pb-3"
        [ngClass]="{
 	    'p-0': !(hasSidebar() | async),
 	    'pl-3': !(isSideBarHidden() | async),
 	    'pl-0': (isSideBarHidden() | async)}">
 
-    <div *ngIf="(hasSidebar() | async)" class="sidebar-menu">
-      <button type="button" (click)="toggleSidebar()" id="sidebarCollapse" class="btn btn-arrow">
-        <i class="fas fa-chevron-{{(isSideBarHidden() | async) ? 'right' : 'left'}}"></i>
-        <span class="sr-only">Toggle Menu</span>
+    <div *ngIf="(hasSidebar() | async)">
+      <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
+        <i class="fa fa-chevron-circle-{{(isSideBarHidden() | async) ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
       </button>
     </div>
-
-	  <div class="ml-4 mr-4">
+	  <div>
 	  	<ng-content></ng-content>
 	  </div>
 

@@ -47,13 +47,21 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   ngOnInit(): void {
     this.init();
     // Check if to show sidebar
-    this.hasSidebar$.next(!!this.tabs && this.tabs.length > 0);
+    this.hasSidebar$.next(!!this.tabs && this.tabs.length > 1);
+
+    if (!this.hasSidebar$.value && !!this.tabs && this.tabs.length === 1) {
+      this.emitSelectTab(this.tabs[0]);
+    }
 
     // Init the sidebar status
     this.sidebarStatus$.next(this.hasSidebar$.value);
   }
 
-  getTabSelected(tab: Tab) {
+  /**
+   * Emit a new selectedTabChange Event
+   * @param tab
+   */
+  emitSelectTab(tab: Tab) {
     this.selectedTabChange.emit(tab);
   }
 

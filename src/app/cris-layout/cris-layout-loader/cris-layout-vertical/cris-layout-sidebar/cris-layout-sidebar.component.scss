@@ -16,7 +16,7 @@
 
 #sidebar {
 	min-height: calc(100vh - 500px);
-	width: var(--ds-cris-layout-sidebar-width);
+	min-width: var(--ds-cris-layout-sidebar-width);
   color: var(--ds-cris-layout-sidebar-link-color-active);
   background: var(--ds-cris-layout-sidebar-background-color);
   transition: all 0.3s;
@@ -81,6 +81,20 @@
 	}
 }
 
+.menu-toggle {
+  position: absolute;
+  top: 0;
+  left: -30px;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+.menu-toggle:hover {
+  opacity: 1;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 a[data-toggle="collapse"] {
     position: relative;
 }
@@ -92,8 +106,6 @@ a[data-toggle="collapse"] {
   right: 0;
   transform: translateY(-50%);
 }
-
-
 
 .btn-arrow{
 	background: #207698;
