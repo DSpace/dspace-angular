@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,6 +23,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService

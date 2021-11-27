@@ -1,23 +1,20 @@
 <div class="{{containerStyle}}">
-  <span   class="{{labelStyle}}">
+  <!-- <span class="{{labelStyle}}">
     {{label}}
-  </span>
+  </span> -->
   <div [class]="'d-flex flex-column ' + valueStyle">
     <div>
       <table class='table borderless'>
         <tr>
           <td *ngFor="let mdg of metadataGroup">
             <span class="{{mdg.styleLabel}}">
-                  {{mdg.label | translate}}
+              {{mdg.label | translate}}
             </span>
           </td>
         </tr>
         <tr *ngFor="let mdv of metadataValues; let i = index">
           <td *ngFor="let mdg of metadataGroup">
-            <ng-template #nested dsCrisLayoutLoader>
-            </ng-template>
-            <ng-template #nestedthumbnail dsCrisLayoutLoader>
-            </ng-template>
+            <ds-metadata-container class="w-100" [withHeading]="false" [item]="item" [field]="mdg"></ds-metadata-container>
             <div></div>
           </td>
         </tr>
@@ -25,4 +22,3 @@
     </div>
   </div>
 </div>
-

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -28,6 +28,7 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService
@@ -41,7 +42,7 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
     this.bitstream$ = this.getBitstream().pipe(
       map((bitstreams) => {
         let rVal = null;
-        bitstreams.forEach( (bitstream) => {
+        bitstreams.forEach((bitstream) => {
           const metadataValue = bitstream.firstMetadataValue(this.field.bitstream.metadataField);
           if (hasValue(metadataValue) && metadataValue === this.field.bitstream.metadataValue) {
             rVal = bitstream;

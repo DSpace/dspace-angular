@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
@@ -26,7 +26,7 @@ export class OrcidComponent extends RenderingTypeValueModelComponent implements 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     private configurationService: ConfigurationDataService,
     protected translateService: TranslateService
@@ -37,9 +37,9 @@ export class OrcidComponent extends RenderingTypeValueModelComponent implements 
   ngOnInit() {
     this.configurationService.findByPropertyName('orcid.domain-url')
       .pipe(getFirstSucceededRemoteDataPayload()).subscribe(
-      (property: ConfigurationProperty) => {
-        this.orcidUrl = property?.values?.length > 0 ? property.values[0] : null;
-      });
+        (property: ConfigurationProperty) => {
+          this.orcidUrl = property?.values?.length > 0 ? property.values[0] : null;
+        });
   }
 
 

@@ -6,6 +6,7 @@ import {
   ComponentRef,
   Inject,
   OnInit,
+  Optional,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -38,17 +39,17 @@ export class InlineComponent extends RenderingTypeStructuredModelComponent imple
    * Directive hook used to place the dynamic child component
    */
 
-  @ViewChild('metadataContainer', {static: true, read: ViewContainerRef}) metadataContainerViewRef: ViewContainerRef;
+  @ViewChild('metadataContainer', { static: true, read: ViewContainerRef }) metadataContainerViewRef: ViewContainerRef;
 
   /**
    * Directive hook used to place the dynamic child component
    */
-  @ViewChild('thumbnailContainer', {static: true, read: ViewContainerRef}) thumbnailContainerViewRef: ViewContainerRef;
+  @ViewChild('thumbnailContainer', { static: true, read: ViewContainerRef }) thumbnailContainerViewRef: ViewContainerRef;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected componentFactoryResolver: ComponentFactoryResolver,
     private ref: ChangeDetectorRef,
@@ -58,6 +59,7 @@ export class InlineComponent extends RenderingTypeStructuredModelComponent imple
   }
 
   ngOnInit(): void {
+    console.log(this.field);
     this.metadataContainerViewRef.clear();
     this.thumbnailContainerViewRef.clear();
     this.field.metadataGroup.elements

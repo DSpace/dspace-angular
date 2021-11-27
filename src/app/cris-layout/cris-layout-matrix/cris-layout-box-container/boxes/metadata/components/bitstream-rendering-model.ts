@@ -26,6 +26,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
+    @Optional() @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService
@@ -39,12 +40,12 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
 
   getBitstream(): Observable<Bitstream[]> {
     return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
-    .pipe(
-      getAllSucceededRemoteDataPayload(),
-      map((response) => {
-        return response.page;
-      })
-    );
+      .pipe(
+        getAllSucceededRemoteDataPayload(),
+        map((response) => {
+          return response.page;
+        })
+      );
   }
 
   /**
