@@ -357,7 +357,7 @@ export const environment: GlobalConfig = {
     image: false,
     video: false,
   },
-  layout: {
+  crisLayout: {
     urn: [
       {
         name: 'doi',
@@ -394,6 +394,10 @@ export const environment: GlobalConfig = {
           orientation: 'vertical'
       },
     },
+    metadataBox: {
+      defaultMetadataLabelColStyle: 'col-3',
+      defaultMetadataValueColStyle: 'col-9'
+    }
   },
   security: {
     levels: [

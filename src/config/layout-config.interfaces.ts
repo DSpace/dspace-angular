@@ -10,20 +10,26 @@ export interface CrisRefConfig extends Config {
   icon: string;
 }
 
-export interface Layout {
+export interface CrisLayoutMetadataBoxConfig extends Config {
+  defaultMetadataLabelColStyle: string;
+  defaultMetadataValueColStyle: string;
+}
+
+export interface CrisLayoutTypeConfig {
   orientation: string;
 }
 
-export interface ItemPageLayoutConfig extends Config {
-  [entity: string]: Layout;
-  default: Layout;
+export interface CrisItemPageConfig extends Config {
+  [entity: string]: CrisLayoutTypeConfig;
+  default: CrisLayoutTypeConfig;
 }
 
 
-export interface LayoutConfig extends Config {
+export interface CrisLayoutConfig extends Config {
   urn: UrnConfig[];
   crisRef: CrisRefConfig[];
-  itemPage: ItemPageLayoutConfig;
+  itemPage: CrisItemPageConfig;
+  metadataBox: CrisLayoutMetadataBoxConfig;
 }
 
 export interface SuggestionConfig extends Config {

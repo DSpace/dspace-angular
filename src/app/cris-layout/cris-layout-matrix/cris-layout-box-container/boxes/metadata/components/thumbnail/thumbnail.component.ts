@@ -8,7 +8,7 @@ import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.d
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { BitstreamRenderingModel } from '../bitstream-rendering.model';
+import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 
@@ -18,8 +18,8 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss']
 })
-@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL)
-export class ThumbnailComponent extends BitstreamRenderingModel implements OnInit {
+@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
+export class ThumbnailComponent extends BitstreamRenderingModelComponent implements OnInit {
 
   bitstream$: Observable<Bitstream>;
 
@@ -28,15 +28,15 @@ export class ThumbnailComponent extends BitstreamRenderingModel implements OnIni
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
   }
 
   ngOnInit(): void {
+    console.log(this.field);
     this.setDefaultImage();
     this.bitstream$ = this.getBitstream().pipe(
       map((bitstreams) => {

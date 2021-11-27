@@ -1,22 +1,25 @@
-<div *ngIf="!isStructured && metadataFieldRenderOptions" class="{{containerStyle}}">
+<div *ngIf="metadataFieldRenderOptions" class="{{containerStyle}}">
   <div class="d-flex" [class.flex-column]="field.labelAsHeading">
   <span *ngIf="hasLabel && !nested"
-    class="col {{labelStyle}}">
+        class="{{labelStyle}}">
     {{label}}
   </span>
 
-  <div class="d-flex col" [class.flex-column]="!field.valuesInline">
-    <ng-container *ngFor="let value of metadataValues; let last = last">
-      <ng-container *ngComponentOutlet="getComponentRef(); injector: getComponentInjector(value)"></ng-container>
-      <p *ngIf="!last"> ; </p>
-    </ng-container>
-  </div>
+    <div *ngIf="!isStructured" class="d-flex col" [class.flex-column]="!field.valuesInline">
+      <ng-container *ngFor="let value of metadataValues ; trackBy: trackUpdate; let last">
+        <ds-metadata-render [field]="field"
+                            [item]="item"
+                            [box]="box"
+                            [metadataValue]="value"
+                            [renderingSubType]="renderingSubType"></ds-metadata-render>
+        <p *ngIf="field.valuesInline && !last">&nbsp;;&nbsp;</p>
+      </ng-container>
+    </div>
+    <div *ngIf="isStructured" class="d-flex col" [class.flex-column]="!field.valuesInline">
+      <ds-metadata-render [field]="field"
+                          [item]="item"
+                          [box]="box"
+                          [renderingSubType]="renderingSubType"></ds-metadata-render>
+    </div>
   </div>
 </div>
-
-<ng-container *ngIf="isStructured && metadataFieldRenderOptions">
-<!--  <ng-container *ngComponentOutlet="getComponentRef(); injector: getComponentInjector()"></ng-container>-->
-  <p>{{field.metadata}}</p>
-
-</ng-container>
-

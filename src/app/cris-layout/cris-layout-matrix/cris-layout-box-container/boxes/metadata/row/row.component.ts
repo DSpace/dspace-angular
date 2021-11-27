@@ -12,7 +12,6 @@ import { GenericConstructor } from '../../../../../../core/shared/generic-constr
 import { Item } from '../../../../../../core/shared/item.model';
 import { Box, LayoutField, MetadataBoxCell, MetadataBoxRow } from '../../../../../../core/layout/models/box.model';
 import { FieldRenderingType, getMetadataBoxFieldRendering } from '../components/metadata-box.decorator';
-import { isNotEmpty } from '../../../../../../shared/empty.util';
 
 /**
  * This component renders the rows of metadata boxes
@@ -36,7 +35,7 @@ export class RowComponent implements OnInit {
   /**
    * Current row configuration
    */
-  @Input() row: Row;
+  @Input() row: MetadataBoxRow;
 
   /**
    * Directive hook used to place the dynamic child component
@@ -51,7 +50,7 @@ export class RowComponent implements OnInit {
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    const fields = this.row.fields;
+/*    const fields = this.row.fields;
 
     this.thumbnailContainerViewRef.clear();
 
@@ -66,7 +65,11 @@ export class RowComponent implements OnInit {
           const metadataComponentRef = this.generateThumbnailComponentRef(factory);
           this.populateThumbnailComponent(metadataComponentRef, field);
         }
-    });
+    });*/
+  }
+
+  trackUpdate(index, field: LayoutField) {
+    return field && field.metadata;
   }
 
   /**
@@ -99,11 +102,10 @@ export class RowComponent implements OnInit {
   }
 
   /**
-   * Return the list of all metadata rendering
+   * Return the list of all cell
    * belonging to the current row
    */
-  getRowMetadataFields(): LayoutField[] {
-    return this.row.fields.filter((field: LayoutField) =>
-      isEmpty(field.rendering) || field.rendering.toUpperCase() !== FieldRenderingType.THUMBNAIL);
+  getRowMetadataCells(): MetadataBoxCell[] {
+    return this.row.cells;
   }
 }

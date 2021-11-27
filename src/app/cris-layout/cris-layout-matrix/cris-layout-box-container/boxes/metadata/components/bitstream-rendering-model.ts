@@ -5,16 +5,19 @@ import { getAllSucceededRemoteDataPayload } from '../../../../../../core/shared/
 import { map } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../../../core/data/bitstream-data.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Item } from '../../../../../../core/shared/item.model';
-import { RenderingTypeValueModelComponent } from './rendering-type-value.model';
 import { LayoutField } from '../../../../../../core/layout/models/box.model';
+import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
 
 /**
  * This class defines the basic model to extends for create a new
  * bitstream field render component
  */
-export class BitstreamRenderingModel extends RenderingTypeValueModelComponent {
+@Component({
+  template: ''
+})
+export abstract class BitstreamRenderingModelComponent extends RenderingTypeStructuredModelComponent {
 
   private TITLE_METADATA = 'dc.title';
   private SOURCE_METADATA = 'dc.source';
@@ -23,12 +26,11 @@ export class BitstreamRenderingModel extends RenderingTypeValueModelComponent {
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
   }
 
   ngOnInit() {

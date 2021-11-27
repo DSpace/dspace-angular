@@ -15,4 +15,9 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
 @MetadataBoxFieldRendering(FieldRenderingType.LONGTEXT)
 export class LongtextComponent extends RenderingTypeValueModelComponent {
 
+  truncableId: string;
+  ngOnInit(): void {
+    this.truncableId = `${this.item.id}_${this.field.metadata}`;
+    console.log(this.field, this.truncableId);
+  }
 }

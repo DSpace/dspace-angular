@@ -1,8 +1,8 @@
 <div class="mb-2">
    <span class="{{field.styleValue}}">
-    <ds-truncatable [id]="item.id + field.metadata">
-      <ds-truncatable-part [id]="item.id + field.metadata" [minLines]="3">
-        {{normalizeValue(metadataValue)}}
+    <ds-truncatable [id]="truncableId">
+      <ds-truncatable-part [id]="truncableId" [minLines]="3">
+        {{metadataValue}}
       </ds-truncatable-part>
     </ds-truncatable>
   </span>

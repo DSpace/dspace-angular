@@ -1,14 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ComponentFactory,
   ComponentFactoryResolver,
+  ComponentRef,
   Injector,
   Input,
-  OnInit,
-  ViewChild,
-  ViewContainerRef
+  OnInit
 } from '@angular/core';
-import { RenderingTypeModelComponent } from '../../components/rendering-type.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { Box, LayoutField } from '../../../../../../../core/layout/models/box.model';
 import {
@@ -19,6 +18,7 @@ import {
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
 import { GenericConstructor } from '../../../../../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../../../../../../environments/environment';
 
 @Component({
   selector: 'ds-metadata-container',
@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./metadata-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MetadataContainerComponent extends RenderingTypeModelComponent implements OnInit {
+export class MetadataContainerComponent implements OnInit {
 
   /**
    * Current DSpace Item
@@ -44,22 +44,12 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
    * a boolean representing if metadata is nested in a structured rendering type
    */
   @Input() nested: boolean;
+  injectorObj;
 
   /**
-   * Directive hook used to place the dynamic child component
+   * The prefix used for box field label's i18n key
    */
-  @ViewChild('metadataValueContainer', {
-    static: true,
-    read: ViewContainerRef
-  }) metadataValueContainerViewRef: ViewContainerRef;
-
-  /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChild('metadataStructuredContainer', {
-    static: true,
-    read: ViewContainerRef
-  }) metadataStructuredContainerViewRef: ViewContainerRef;
+  fieldI18nPrefix = 'layout.field.label.';
 
   /**
    * A boolean representing if metadata rendering type is structured or not
@@ -75,12 +65,62 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
     private injector: Injector,
     protected translateService: TranslateService
   ) {
-    super(translateService);
+  }
+
+  /**
+   * Returns all metadata values in the item
+   */
+  get metadataValues(): string[] {
+    return this.field.metadata ? this.item.allMetadataValues(this.field.metadata) : [];
+  }
+
+  /**
+   * Returns true if the field has label, false otherwise
+   */
+  get hasLabel(): boolean {
+    return hasValue(this.field.label);
+  }
+
+  /**
+   * Returns a string representing the label of field if exists
+   */
+  get label(): string {
+    const fieldLabelI18nKey = this.fieldI18nPrefix + this.field.label;
+    const header: string = this.translateService.instant(fieldLabelI18nKey);
+    if (header === fieldLabelI18nKey) {
+      // if translation does not exist return the value present in the header property
+      return this.translateService.instant(this.field.label);
+    } else {
+      return header;
+    }
+  }
+
+  /**
+   * Returns a string representing the style of field container if exists
+   */
+  get containerStyle(): string {
+    return this.field.style;
+  }
+
+  /**
+   * Returns a string representing the style of field label if exists, default value otherwise
+   */
+  get labelStyle(): string {
+    const defaultCol = environment.crisLayout.metadataBox.defaultMetadataLabelColStyle;
+    return (isNotEmpty(this.field.styleLabel) && this.field.styleLabel.includes('col'))
+      ? this.field.styleLabel : `${defaultCol} ${this.field.styleLabel}`;
+  }
+
+  /**
+   * Returns a string representing the style of field value if exists, default value otherwise
+   */
+  get valueStyle(): string {
+    const defaultCol = environment.crisLayout.metadataBox.defaultMetadataLabelColStyle;
+    return (isNotEmpty(this.field.styleValue) && this.field.styleValue.includes('col'))
+      ? this.field.styleValue : `${defaultCol} ${this.field.styleValue}`;
   }
 
   ngOnInit() {
-    console.log(this.field);
-
     if (this.hasFieldMetadataComponent(this.field)) {
       const rendering = this.computeRendering(this.field);
       this.renderingSubType = this.computeSubType(this.field);
@@ -133,6 +173,34 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
     return renderOptions;
   }
 
+  /**
+   * Generate ComponentFactory for Thumbnail rendering
+   * @param fieldRenderingType
+   */
+  computeThumbnailComponentFactory(fieldRenderingType: string | FieldRenderingType): ComponentFactory<any> {
+    const constructor: GenericConstructor<Component> = getMetadataBoxFieldRendering(fieldRenderingType)?.componentRef;
+    return constructor ? this.componentFactoryResolver.resolveComponentFactory(constructor) : null;
+  }
+
+  /**
+   * Generate ComponentRef for Thumbnail rendering
+   * @param factory
+   */
+  generateThumbnailComponentRef(factory: ComponentFactory<any>): ComponentRef<any> {
+    // let metadataRef: ComponentRef<Component>;
+    // metadataRef = this.metadataStructuredContainerViewRef.createComponent(factory, 0, this.getComponentInjector());
+    /*    (metadataRef.instance as any).item = this.item;
+        (metadataRef.instance as any).itemProvider = this.item;
+        (metadataRef.instance as any).field = this.field;
+        (metadataRef.instance as any).fieldProvider = this.field;
+        (metadataRef.instance as any).renderingSubTypeProvider = this.renderingSubType;*/
+    return null;
+  }
+
+  trackUpdate(index, value: string) {
+    return this.item?.id;
+  }
+
   getComponentInjector(metadataValue?: any) {
     const providers = [
       { provide: 'fieldProvider', useValue: this.field, deps: [] },
@@ -143,10 +211,12 @@ export class MetadataContainerComponent extends RenderingTypeModelComponent impl
       providers.push({ provide: 'metadataValueProvider', useValue: metadataValue, deps: [] });
     }
 
-    return Injector.create({
+    this.injectorObj = Injector.create({
       providers: providers,
       parent: this.injector
     });
+
+    return this.injectorObj;
   }
 
   getComponentRef(): GenericConstructor<Component> {

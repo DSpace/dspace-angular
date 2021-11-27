@@ -15,4 +15,8 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
 @MetadataBoxFieldRendering(FieldRenderingType.TEXT)
 export class TextComponent extends RenderingTypeValueModelComponent {
 
+  ngOnInit(): void {
+    console.log(this.field);
+  }
+
 }
