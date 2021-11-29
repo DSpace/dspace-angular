@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { async, ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -7,7 +7,7 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { EditItemDataService } from '../../../core/submission/edititem-data.service';
 import { EditItemRelationshipsMenuComponent } from './edit-item-relationships-menu.component';
 import { EditItem } from '../../../core/submission/models/edititem.model';
-import { createSuccessfulRemoteDataObject$, createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
@@ -15,10 +15,9 @@ import { By } from '@angular/platform-browser';
 import { tabs } from '../../testing/tab.mock';
 import { TabDataService } from '../../../core/layout/tab-data.service';
 import { cold } from 'jasmine-marbles';
-import { BoxDataService } from '../../../core/layout/box-data.service';
 import { Box } from '../../../core/layout/models/box.model';
-import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
-import {NotificationsService} from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 
 describe('EditItemRelationshipsMenuComponent', () => {
@@ -47,19 +46,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'security': 0,
       'boxType': 'METADATA',
       'clear': true,
-      'maxColumns': null,
-      'type': 'box',
-      '_links': {
-        'securitymetadata': {
-          'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/627/securitymetadata'
-        },
-        'configuration': {
-          'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/627/configuration'
-        },
-        'self': {
-          'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/627'
-        }
-      }
+      'maxColumns': null
     }),
     Object.assign(new Box(), {
       'id': 623,
@@ -72,48 +59,24 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'security': 0,
       'boxType': 'RELATION',
       'clear': true,
-      'maxColumns': null,
-      'type': 'box',
-      '_links': {
-        'securitymetadata': {
-          'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/623/securitymetadata'
-        },
-        'configuration': {
-          'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/623/configuration'
-        },
-        'self': {
-          'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/623'
-        }
-      }
+      'maxColumns': null
     })
   ];
 
   const relationships = [
     Object.assign(new Box(), {
-        'id': 623,
-        'shortname': 'researchoutputs',
-        'header': 'Publications',
-        'entityType': 'Person',
-        'collapsed': false,
-        'minor': false,
-        'style': null,
-        'security': 0,
-        'boxType': 'RELATION',
-        'clear': true,
-        'maxColumns': null,
-        'type': 'box',
-        '_links': {
-          'securitymetadata': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/623/securitymetadata'
-          },
-          'configuration': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/623/configuration'
-          },
-          'self': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/layout/boxes/623'
-          }
-        }
-      })
+      'id': 623,
+      'shortname': 'researchoutputs',
+      'header': 'Publications',
+      'entityType': 'Person',
+      'collapsed': false,
+      'minor': false,
+      'style': null,
+      'security': 0,
+      'boxType': 'RELATION',
+      'clear': true,
+      'maxColumns': null
+    })
   ];
 
   const editItem: EditItem = Object.assign(new EditItem(), {
@@ -144,7 +107,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ EditItemRelationshipsMenuComponent ],
+      declarations: [EditItemRelationshipsMenuComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -158,7 +121,6 @@ describe('EditItemRelationshipsMenuComponent', () => {
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: TabDataService, useValue: tabDataServiceMock },
-        { provide: BoxDataService, useValue: boxDataServiceMock },
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: notificationService },
       ]
@@ -189,10 +151,10 @@ describe('EditItemRelationshipsMenuComponent', () => {
     });
 
     it('should render an anchor', () => {
-        component.relationships = relationships;
-        fixture.detectChanges();
-        const link = fixture.debugElement.query(By.css('a'));
-        expect(link).not.toBeNull();
+      component.relationships = relationships;
+      fixture.detectChanges();
+      const link = fixture.debugElement.query(By.css('a'));
+      expect(link).not.toBeNull();
     });
   });
 

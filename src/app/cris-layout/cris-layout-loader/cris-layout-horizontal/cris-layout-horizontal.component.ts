@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CrisLayoutPage } from '../../decorators/cris-layout-page.decorator';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { Tab } from '../../../core/layout/models/tab.model';
@@ -14,11 +14,19 @@ import { BehaviorSubject } from 'rxjs';
 export class CrisLayoutHorizontalComponent {
 
   /**
+   * DSpace Item to render
+   */
+  @Input() item: Item;
+
+  /**
    * Tabs to render
    */
-  tabs: Tab[];
+  @Input() tabs: Tab[];
 
-  item: Item;
+  /**
+   * A boolean representing if to show context menu or not
+   */
+  @Input() showContextMenu: boolean;
 
   selectedTab$: BehaviorSubject<Tab> = new BehaviorSubject<Tab>(null);
 

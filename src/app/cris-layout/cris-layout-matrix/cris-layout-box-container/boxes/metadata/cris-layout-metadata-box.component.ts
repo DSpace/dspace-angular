@@ -9,7 +9,6 @@ import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { hasValue } from '../../../../../shared/empty.util';
 import { Box, MetadataBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { metadataBoxConfigurationMock } from './metadata-box-configuration.mock';
 
 /**
  * This component renders the metadata boxes of items
@@ -53,8 +52,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
 
   ngOnInit() {
     super.ngOnInit();
-    // this.setMetadataComponents(this.box.configuration as MetadataBoxConfiguration);
-    this.setMetadataComponents(metadataBoxConfigurationMock as MetadataBoxConfiguration);
+    this.setMetadataComponents(this.box.configuration as MetadataBoxConfiguration);
   }
 
   /**

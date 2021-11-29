@@ -25,6 +25,11 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
   @Input() tabs: Tab[];
 
   /**
+   * A boolean representing if to show context menu or not
+   */
+  @Input() showContextMenu: boolean;
+
+  /**
    * Configuration layout form the environment
    */
   layoutConfiguration: CrisLayoutTypeConfig;
@@ -72,6 +77,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     this.componentRef = viewContainerRef.createComponent(componentFactory);
     (this.componentRef.instance as any).item = this.item;
     (this.componentRef.instance as any).tabs = this.tabs;
+    (this.componentRef.instance as any).showContextMenu = this.showContextMenu;
   }
 
   /**

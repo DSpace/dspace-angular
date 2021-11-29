@@ -17,7 +17,7 @@ import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
   MetadataBoxFieldRenderOptions
-} from '../../../components/metadata-box.decorator';
+} from '../../../rendering-types/metadata-box.decorator';
 
 @Component({
   selector: 'ds-metadata-render',
@@ -38,12 +38,17 @@ export class MetadataRenderComponent {
    * The metadata field to render
    */
   @Input() field: LayoutField;
-
-  @Input() metadataValue: any;
-
-  @Input() renderingSubType: string;
   /**
-   * Directive hook used to place the dynamic child component
+   * The metadata value
+   */
+  @Input() metadataValue: any;
+  /**
+   * The rendering sub type, if exists
+   */
+  @Input() renderingSubType: string;
+
+  /**
+   * Directive hook used to place the dynamic render component
    */
   @ViewChild('metadataValue', {
     static: true,
@@ -59,7 +64,6 @@ export class MetadataRenderComponent {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.field.metadata);
     this.metadataValueViewRef.clear();
     this.generateComponentRef();
     this.cdr.detectChanges();

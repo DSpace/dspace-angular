@@ -390,6 +390,9 @@ export const environment: GlobalConfig = {
       Person: {
           orientation: 'horizontal'
       },
+      OrgUnit: {
+        orientation: 'horizontal'
+      },
       default: {
           orientation: 'vertical'
       },

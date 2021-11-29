@@ -14,7 +14,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { boxMetadata } from '../../../../../shared/testing/box.mock';
-import { TextComponent } from './components/text/text.component';
+import { TextComponent } from './rendering-types/text/text.component';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { RowComponent } from './row/row.component';
 

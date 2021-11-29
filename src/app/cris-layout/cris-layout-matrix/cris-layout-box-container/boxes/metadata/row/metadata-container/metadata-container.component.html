@@ -5,17 +5,17 @@
     {{label}}
   </span>
 
-    <div *ngIf="!isStructured" class="d-flex col" [class.flex-column]="!field.valuesInline">
-      <ng-container *ngFor="let value of metadataValues ; trackBy: trackUpdate; let last">
+    <div *ngIf="!isStructured" class="d-flex col flex-wrap" [class.flex-column]="!field.valuesInline">
+      <ng-container *ngFor="let metadataValue of metadataValues ; trackBy: trackUpdate; let last = last">
         <ds-metadata-render [field]="field"
                             [item]="item"
                             [box]="box"
-                            [metadataValue]="value"
+                            [metadataValue]="metadataValue"
                             [renderingSubType]="renderingSubType"></ds-metadata-render>
-        <p *ngIf="field.valuesInline && !last">&nbsp;;&nbsp;</p>
+        <p *ngIf="field.valuesInline && !last">;&nbsp;</p>
       </ng-container>
     </div>
-    <div *ngIf="isStructured" class="d-flex col" [class.flex-column]="!field.valuesInline">
+    <div *ngIf="isStructured" class="col w-100" [class.flex-column]="!field.valuesInline">
       <ds-metadata-render [field]="field"
                           [item]="item"
                           [box]="box"

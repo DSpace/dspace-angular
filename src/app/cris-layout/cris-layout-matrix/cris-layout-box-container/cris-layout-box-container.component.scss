@@ -4,3 +4,8 @@
   border-bottom-left-radius: var(--bs-card-border-radius) !important;
   border-bottom-right-radius: var(--bs-card-border-radius) !important;
 }
+
+:host ::ng-deep .card-header button {
+  box-shadow: none !important;
+  width: 100%;
+}

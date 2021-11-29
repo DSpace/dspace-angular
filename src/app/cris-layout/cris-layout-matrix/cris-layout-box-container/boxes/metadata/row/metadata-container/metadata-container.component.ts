@@ -14,11 +14,12 @@ import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
   MetadataBoxFieldRenderOptions
-} from '../../components/metadata-box.decorator';
+} from '../../rendering-types/metadata-box.decorator';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
 import { GenericConstructor } from '../../../../../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../../../../../environments/environment';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-metadata-container',
@@ -70,8 +71,8 @@ export class MetadataContainerComponent implements OnInit {
   /**
    * Returns all metadata values in the item
    */
-  get metadataValues(): string[] {
-    return this.field.metadata ? this.item.allMetadataValues(this.field.metadata) : [];
+  get metadataValues(): MetadataValue[] {
+    return this.field.metadata ? this.item.allMetadata(this.field.metadata) : [];
   }
 
   /**
@@ -198,7 +199,7 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   trackUpdate(index, value: string) {
-    return this.item?.id;
+    return value;
   }
 
   getComponentInjector(metadataValue?: any) {

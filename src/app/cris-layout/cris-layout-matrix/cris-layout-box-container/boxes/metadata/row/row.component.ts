@@ -11,7 +11,7 @@ import {
 import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../../core/shared/item.model';
 import { Box, LayoutField, MetadataBoxCell, MetadataBoxRow } from '../../../../../../core/layout/models/box.model';
-import { FieldRenderingType, getMetadataBoxFieldRendering } from '../components/metadata-box.decorator';
+import { FieldRenderingType, getMetadataBoxFieldRendering } from '../rendering-types/metadata-box.decorator';
 
 /**
  * This component renders the rows of metadata boxes

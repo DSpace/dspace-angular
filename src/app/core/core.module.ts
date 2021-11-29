@@ -140,7 +140,6 @@ import { MetadataFieldDataService } from './data/metadata-field-data.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TabDataService } from './layout/tab-data.service';
 import { Tab } from './layout/models/tab.model';
-import { BoxDataService } from './layout/box-data.service';
 import { Box } from './layout/models/box.model';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
@@ -161,8 +160,6 @@ import { EndUserAgreementService } from './end-user-agreement/end-user-agreement
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
-import { SearchcomponentService } from './layout/searchcomponent.service';
-import { SearchComponent } from './layout/models/search-component.model';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { SectionDataService } from './layout/section-data.service';
@@ -319,12 +316,10 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
-  BoxDataService,
   MetricsComponentsDataService,
   MetricService,
   VocabularyService,
   VocabularyTreeviewService,
-  SearchcomponentService,
   ProfileClaimService,
   ResearcherProfileService,
   ItemExportFormatService,
@@ -397,7 +392,6 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
-    SearchComponent,
     ResearcherProfile,
     ItemExportFormat,
     OrcidQueue,
