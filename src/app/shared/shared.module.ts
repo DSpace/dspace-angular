@@ -234,6 +234,7 @@ import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
 import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -343,6 +344,7 @@ const COMPONENTS = [
   UploaderComponent,
   FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
+  ThemedItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
