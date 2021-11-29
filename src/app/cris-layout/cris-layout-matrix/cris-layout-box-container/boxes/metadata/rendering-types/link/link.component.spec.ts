@@ -1,70 +1,108 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { LinkComponent } from './link.component';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { of } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 describe('LinkComponent', () => {
   let component: LinkComponent;
   let fixture: ComponentFixture<LinkComponent>;
+  let translateService;
 
-  const testItem = Object.assign(new Item(), {
-    bundles: of({}),
-    metadata: {
-      'dc.link': [
-        {
-          value: 'http://rest.api/item/link/id'
-        }
-      ]
-    }
+  const metadataValue = Object.assign(new MetadataValue(), {
+    'value': 'http://rest.api/item/link/id',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
   });
 
-  const testField = Object.assign({
-    id: 1,
-    label: 'Field Label',
-    style: 'col-md-6',
-    metadata: 'dc.link'
-  }) as LayoutField;
+  const testItem = Object.assign(new Item(),
+    {
+      type: 'item',
+      metadata: {
+        'dc.link': [metadataValue]
+      },
+      uuid: 'test-item-uuid',
+    }
+  );
 
-  const testLabelField = Object.assign({
-    id: 1,
-    label: 'dspace.default.label',
-    style: 'col-md-6',
-    metadata: 'dc.link'
-  }) as LayoutField;
+  const mockField: LayoutField = {
+    'metadata': 'dc.title',
+    'label': 'Title',
+    'rendering': null,
+    'fieldType': 'METADATA',
+    'style': null,
+    'styleLabel': 'test-style-label',
+    'styleValue': 'test-style-value',
+    'labelAsHeading': false,
+    'valuesInline': true
+  };
 
-  const i18nKey = 'dspace.default.label';
   const i18nLabel = 'Default Label';
 
-  const translateServiceInstace = Object.assign({
-    get: (key: string) => {
-      let label = key;
-      if (key === i18nKey) {
-        label = i18nLabel;
-      }
-      return of(label);
-    }
-  });
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ LinkComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), BrowserAnimationsModule],
+      providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'metadataValueProvider', useValue: metadataValue },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+      ],
+      declarations: [LinkComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
-  describe('Test component link without subtype', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(LinkComponent);
+    component = fixture.componentInstance;
+    translateService = TestBed.inject(TranslateService);
+  });
+
+  describe('without sub-type', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(LinkComponent);
-      component = fixture.componentInstance;
-      component.item = testItem;
-      component.field = testField;
+      fixture.detectChanges();
+    });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('check metadata rendering', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('span.link-value'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('a'));
+      expect(valueFound.length).toBe(1);
+
+      expect(valueFound[0].nativeElement.textContent).toContain(metadataValue.value);
+      expect(valueFound[0].nativeElement.href).toBe(metadataValue.value);
+      done();
+    });
+
+    it('check value style', (done) => {
+      const valueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+      expect(valueFound.length).toBe(1);
+      done();
+    });
+  });
+
+  describe('with sub-type', () => {
+    beforeEach(() => {
+      component.renderingSubType = 'LABEL';
+      spyOn(translateService, 'instant').and.returnValue(i18nLabel);
       fixture.detectChanges();
     });
 
@@ -72,56 +110,25 @@ describe('LinkComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should be added href and text to the anchor', () => {
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = testItem.firstMetadataValue( testField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toContain(
-        metadataValue
-      );
-      expect(valueContainer.nativeElement.href).toContain(
-        metadataValue
-      );
+    it('check metadata rendering', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('span.link-value'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('a'));
+      expect(valueFound.length).toBe(1);
+
+      expect(valueFound[0].nativeElement.textContent).toContain(i18nLabel);
+      expect(valueFound[0].nativeElement.href).toBe(metadataValue.value);
+      done();
+    });
+
+    it('check value style', (done) => {
+      const valueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+      expect(valueFound.length).toBe(1);
+      done();
     });
   });
 
-  describe('Test component link with label subtype', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(LinkComponent);
-      component = fixture.componentInstance;
-      component.item = testItem;
-      component.subtype = 'label';
-    });
 
-    it('should create', () => {
-      expect(component).toBeTruthy();
-    });
-
-    it('should be added href and i18n key to the anchor', fakeAsync(() => {
-      component.field = testField;
-      fixture.detectChanges();
-      tick();
-
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = testItem.firstMetadataValue( testField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toContain(
-        testField.label
-      );
-      expect(valueContainer.nativeElement.href).toContain(
-        metadataValue
-      );
-    }));
-
-    it('should be added href and i18n lablel to the anchor', fakeAsync(() => {
-      component.field = testLabelField;
-      fixture.detectChanges();
-      tick();
-
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = testItem.firstMetadataValue( testLabelField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toBeTruthy();
-      expect(valueContainer.nativeElement.href).toContain(
-        metadataValue
-      );
-    }));
-  });
 });
+

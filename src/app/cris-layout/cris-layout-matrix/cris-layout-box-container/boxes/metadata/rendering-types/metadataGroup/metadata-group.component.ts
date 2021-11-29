@@ -1,10 +1,11 @@
 import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 import { isNotEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 
 export interface NestedMetadataGroupEntry {
@@ -15,7 +16,7 @@ export interface NestedMetadataGroupEntry {
 @Component({
   template: ''
 })
-export abstract class MetadataGroupComponent extends RenderingTypeStructuredModelComponent implements OnInit {
+export abstract class MetadataGroupComponent extends RenderingTypeStructuredModelComponent implements OnInit, OnDestroy {
 
   /**
    * This property is used to hold nested Layout Field inside a metadata group field
@@ -32,6 +33,11 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
    * The prefix used for box field label's i18n key
    */
   fieldI18nPrefix = 'layout.field.label.';
+
+  /**
+   * A boolean representing if component is initialized
+   */
+  initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -55,12 +61,15 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
           value: this.getMetadataValue(mdg, index)
         } as NestedMetadataGroupEntry;
         if (this.componentsToBeRenderedMap.has(index)) {
-          this.componentsToBeRenderedMap.set(index, [...this.componentsToBeRenderedMap.get(index), entry]);
+          const newEntries = [...this.componentsToBeRenderedMap.get(index), entry];
+          this.componentsToBeRenderedMap.set(index, newEntries);
         } else {
           this.componentsToBeRenderedMap.set(index, [entry]);
         }
       });
     });
+
+    this.initialized.next(true);
   }
 
   getMetadataValue(field: LayoutField, index: number): MetadataValue {
@@ -80,5 +89,9 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
     } else {
       return header;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.componentsToBeRenderedMap = null;
   }
 }

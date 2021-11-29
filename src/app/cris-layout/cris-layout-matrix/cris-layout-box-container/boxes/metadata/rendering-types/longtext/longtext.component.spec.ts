@@ -1,80 +1,90 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { LongtextComponent } from './longtext.component';
-import { TruncatePipe } from '../../../../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../../../../shared/truncatable/truncatable.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 describe('LongtextComponent', () => {
   let component: LongtextComponent;
   let fixture: ComponentFixture<LongtextComponent>;
 
-  const testItem = Object.assign(new Item(), {
-    bundles: of({}),
-    metadata: {
-      'dc.title': [
-        {
-          language: 'en_US',
-          value: 'This is just another title'
-        }
-      ]
-    }
+  const metadataValue = Object.assign(new MetadataValue(), {
+    'value': 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
   });
 
-  const testField = Object.assign({
-    id: 1,
-    label: 'Field Label',
-    style: 'col-md-6',
-    metadata: 'dc.title'
-  }) as LayoutField;
+  const testItem = Object.assign(new Item(),
+    {
+      type: 'item',
+      metadata: {
+        'dc.abstract': [metadataValue]
+      },
+      uuid: 'test-item-uuid',
+    }
+  );
 
-  beforeEach(async(() => {
+
+  const mockField: LayoutField = {
+    'metadata': 'dc.abstract',
+    'label': 'Preferred name',
+    'rendering': 'LONGTEXT',
+    'fieldType': 'METADATA',
+    'style': null,
+    'styleLabel': 'test-style-label',
+    'styleValue': 'test-style-value',
+    'labelAsHeading': false,
+    'valuesInline': true
+  };
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock
         }
-      })],
-      declarations: [LongtextComponent, TruncatePipe],
+      }), BrowserAnimationsModule],
       providers: [
-        { provide: TruncatableService, useValue: {} }
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'metadataValueProvider', useValue: metadataValue },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [LongtextComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LongtextComponent);
     component = fixture.componentInstance;
-    component.item = testItem;
-    component.field = testField;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+ it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the label', () => {
-    const label = fixture.debugElement.query(By.css('span.lbl'));
-    expect(component.hasLabel).toBeTrue();
-    expect(label).not.toBeNull();
+  it('check metadata rendering', (done) => {
+    const spanValueFound = fixture.debugElement.queryAll(By.css('ds-truncatable-part'));
+    expect(spanValueFound.length).toBe(1);
+    expect(spanValueFound[0].nativeElement.textContent).toContain(metadataValue.value);
+    done();
   });
 
-  it('should has the style class', () => {
-    const container = fixture.debugElement.query(By.css('div.' + testField.style));
-    expect(container).not.toBeNull();
+  it('check value style', (done) => {
+    const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+    expect(spanValueFound.length).toBe(1);
+    done();
   });
 
-  it('should get the item metadata value', () => {
-    expect(component.metadataValues[0]).toEqual(testItem.metadata[testField.metadata][0].value);
-  });
 });

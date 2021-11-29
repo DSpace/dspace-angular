@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MetadataLinkViewComponent', () => {

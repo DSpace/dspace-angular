@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { hasValue } from '../../../../../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import { Item } from '../../../../../../../core/shared/item.model';
@@ -49,7 +49,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
 
   getIdentifierFromValue() {
     let identifier: MetadataLinkValue;
-    if (hasValue(this.renderingSubType)) {
+    if (isNotEmpty(this.renderingSubType)) {
       identifier = this.composeLink(this.metadataValue.value, this.renderingSubType);
     } else {
       // Check if the value is a link (http, https, ftp or ftps)
@@ -68,6 +68,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
         }
       }
     }
+
     return identifier;
   }
 
@@ -84,7 +85,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
       value = metadataValue.replace(rep, '');
     }
     const href = this.resolver.getBaseUrl(urn) + value;
-    const text = hasValue(value) && value !== '' ? value : href;
+    const text = isNotEmpty(value) && value !== '' ? value : href;
     return {
       href,
       text

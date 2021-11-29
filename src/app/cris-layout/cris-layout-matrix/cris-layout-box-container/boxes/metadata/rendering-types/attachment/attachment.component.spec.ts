@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 
 import { AttachmentComponent } from './attachment.component';
 import { SharedModule } from '../../../../../../../shared/shared.module';
@@ -15,6 +15,11 @@ import { PaginatedList } from '../../../../../../../core/data/paginated-list.mod
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
+import { By } from '@angular/platform-browser';
+import { AuthorizationDataService } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { FieldRenderingType } from '../metadata-box.decorator';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -31,18 +36,26 @@ describe('AttachmentComponent', () => {
     }
   });
 
-  const testField = Object.assign({
-    id: 1,
-    label: 'Field Label',
-    style: 'col-md-6',
-    metadata: 'dc.identifier.doi',
-    rendering: 'thumbnail',
+  const mockField: LayoutField = {
+    metadata: '',
+    label: 'Files',
+    rendering: FieldRenderingType.ATTACHMENT,
     fieldType: 'BITSTREAM',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
     bitstream: {
       bundle: 'ORIGINAL',
       metadataField: 'dc.type',
       metadataValue: 'attachment'
     }
+  };
+
+  const bitstream1 = Object.assign(new Bitstream(), {
+    id: 'bitstream4',
+    uuid: 'bitstream4'
   });
 
   const mockBitstreamDataService = {
@@ -50,38 +63,57 @@ describe('AttachmentComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
     findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-      return createSuccessfulRemoteDataObject$(createPaginatedList([]));
+      return createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1]));
     },
   };
 
+  const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
+    isAuthorized: jasmine.createSpy('isAuthorized')
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }),
+        RouterTestingModule,
         SharedModule
       ],
-      declarations: [ AttachmentComponent ],
+      declarations: [AttachmentComponent],
       providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: AuthorizationDataService, useValue: mockAuthorizedService },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
-    component.item = testItem;
-    component.field = testField;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('check metadata rendering', fakeAsync(() => {
+    flush();
+    const valueFound = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
+    expect(valueFound.length).toBe(1);
+  }));
+
+  it('check value style', (done) => {
+    const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+    expect(spanValueFound.length).toBe(1);
+    done();
   });
 });

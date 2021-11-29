@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 
 import { ThumbnailComponent } from './thumbnail.component';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
@@ -15,6 +15,9 @@ import { PaginatedList } from '../../../../../../../core/data/paginated-list.mod
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/testing/translate-loader.mock';
+import { FieldRenderingType } from '../metadata-box.decorator';
+import { AuthorizationDataService } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
+import { By } from '@angular/platform-browser';
 
 describe('ThumbnailComponent', () => {
   let component: ThumbnailComponent;
@@ -31,13 +34,15 @@ describe('ThumbnailComponent', () => {
     }
   });
 
-  const testField = Object.assign({
+  const mockField = Object.assign({
     id: 1,
     label: 'Field Label',
-    style: 'col-md-6',
     metadata: 'dc.identifier.doi',
-    rendering: 'thumbnail',
+    rendering: FieldRenderingType.THUMBNAIL,
     fieldType: 'BITSTREAM',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
     bitstream: {
       bundle: 'ORIGINAL',
       metadataField: 'dc.type',
@@ -45,14 +50,22 @@ describe('ThumbnailComponent', () => {
     }
   });
 
+  const bitstream1 = Object.assign(new Bitstream(), {
+    id: 'bitstream1',
+    uuid: 'bitstream1'
+  });
+
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
-      return createSuccessfulRemoteDataObject$(new Bitstream());
+      return createSuccessfulRemoteDataObject$(bitstream1);
     },
     findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
       return createSuccessfulRemoteDataObject$(createPaginatedList([]));
     },
   };
+  const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
+    isAuthorized: jasmine.createSpy('isAuthorized')
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -67,7 +80,11 @@ describe('ThumbnailComponent', () => {
       ],
       declarations: [ ThumbnailComponent ],
       providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: AuthorizationDataService, useValue: mockAuthorizedService }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
@@ -77,12 +94,17 @@ describe('ThumbnailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ThumbnailComponent);
     component = fixture.componentInstance;
-    component.item = testItem;
-    component.field = testField;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('check metadata rendering', fakeAsync(() => {
+    flush();
+    const valueFound = fixture.debugElement.queryAll(By.css('ds-thumbnail '));
+    expect(valueFound.length).toBe(1);
+  }));
+
 });

@@ -55,6 +55,7 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
     // If the component has label subtype get the text from translate service
     const linkText = (hasValue(this.renderingSubType) &&
       this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+
     return {
       href: this.metadataValue.value,
       text: linkText

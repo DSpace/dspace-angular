@@ -1,19 +1,6 @@
-<!--
-<div class="{{containerStyle}}">
-  <span *ngIf="hasLabel" class="{{labelStyle}}">
-    {{label}}
-  </span>
-  <div class="col d-flex">
-    <ng-template #metadataContainer dsCrisLayoutLoader></ng-template>
-    <ng-template #thumbnailContainer dsCrisLayoutLoader></ng-template>
-    &lt;!&ndash; <ds-metadata-container class="w-100" [withHeading]="false" [item]="item" [field]="field"></ds-metadata-container> &ndash;&gt;
-    <div></div>
-  </div>
-</div>-->
-
-<div class="col d-flex flex-column">
-  <div *ngFor="let index of componentsToBeRenderedMap.keys();" class="d-flex">
-    <span *ngFor="let mdg of componentsToBeRenderedMap.get(index)">
+<div *ngIf="(initialized | async)" class="col d-flex flex-column">
+  <div *ngFor="let index of componentsToBeRenderedMap.keys();" class="d-flex metadata-group-entry">
+    <span *ngFor="let mdg of componentsToBeRenderedMap.get(index)" class="metadata-group-entry-value">
       <ds-metadata-render class="w-100"
                           [item]="item"
                           [field]="mdg.field"

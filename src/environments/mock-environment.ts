@@ -241,7 +241,7 @@ export const environment: Partial<GlobalConfig> = {
     image: true,
     video: true
   },
-  layout: {
+  crisLayout: {
     urn: [
       {
         name: 'doi',
@@ -270,13 +270,20 @@ export const environment: Partial<GlobalConfig> = {
         icon: 'fa fa-university'
       }
     ],
-    itemPage:{
-      Publication: {
-        orientation : 'horizontal'
+    itemPage: {
+      Person: {
+        orientation: 'horizontal'
       },
-      default:{
+      OrgUnit: {
+        orientation: 'horizontal'
+      },
+      default: {
         orientation: 'vertical'
-      }
+      },
+    },
+    metadataBox: {
+      defaultMetadataLabelColStyle: 'col-3',
+      defaultMetadataValueColStyle: 'col-9'
     }
   },
   security: {

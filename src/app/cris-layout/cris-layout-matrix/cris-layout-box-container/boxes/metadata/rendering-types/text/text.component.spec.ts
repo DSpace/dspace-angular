@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -6,21 +6,47 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TextComponent } from './text.component';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { medataBoxConfigurationMock } from '../../../../../../../shared/testing/box-configurations.mock';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-
-class TestItem {
-  allMetadataValues(key: string): string[] {
-    return ['Danilo Di Nuzzo', 'John Doe'];
-  }
-}
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 describe('TextComponent', () => {
   let component: TextComponent;
   let fixture: ComponentFixture<TextComponent>;
 
-  beforeEach(async(() => {
+  const metadataValue = Object.assign(new MetadataValue(), {
+    'value': 'test item title',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+
+  const testItem = Object.assign(new Item(),
+    {
+      type: 'item',
+      metadata: {
+        'dc.title': [metadataValue]
+      },
+      uuid: 'test-item-uuid',
+    }
+  );
+
+
+  const mockField: LayoutField = {
+    'metadata': 'dc.title',
+    'label': 'Title',
+    'rendering': null,
+    'fieldType': 'METADATA',
+    'style': null,
+    'styleLabel': 'test-style-label',
+    'styleValue': 'test-style-value',
+    'labelAsHeading': false,
+    'valuesInline': true
+  };
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -28,6 +54,12 @@ describe('TextComponent', () => {
           useClass: TranslateLoaderMock
         }
       }), BrowserAnimationsModule],
+      providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'metadataValueProvider', useValue: metadataValue },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+      ],
       declarations: [TextComponent, DsDatePipe]
     })
       .compileComponents();
@@ -36,20 +68,24 @@ describe('TextComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TextComponent);
     component = fixture.componentInstance;
-    component.item = new TestItem() as Item;
-    component.field = medataBoxConfigurationMock.rows[0].fields[0];
     fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
   it('check metadata rendering', (done) => {
     const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
-    expect(spanValueFound.length).toBe(2);
-    expect(spanValueFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
-    expect(spanValueFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
-
-    const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataBoxConfigurationMock.rows[0].fields[0].style));
-    const label: HTMLElement = spanLabelFound.nativeElement;
-    expect(label.textContent).toContain(medataBoxConfigurationMock.rows[0].fields[0].label);
+    expect(spanValueFound.length).toBe(1);
+    expect(spanValueFound[0].nativeElement.textContent).toContain(metadataValue.value);
     done();
   });
+
+  it('check value style', (done) => {
+    const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+    expect(spanValueFound.length).toBe(1);
+    done();
+  });
+
 });

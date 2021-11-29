@@ -1,191 +1,225 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { IdentifierComponent } from './identifier.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { FieldRenderingType } from '../metadata-box.decorator';
+import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
 
 describe('IdentifierComponent', () => {
   let component: IdentifierComponent;
   let fixture: ComponentFixture<IdentifierComponent>;
   let service: ResolverStrategyService;
 
-  beforeEach(async(() => {
+  const doiMetadataValueWithoutSubType = Object.assign(new MetadataValue(), {
+    'value': 'doi:10.1392/dironix',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+  const doiMetadataValueWithSubType = Object.assign(new MetadataValue(), {
+    'value': '10.1392/dironix',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+  const hdlMetadataValue = Object.assign(new MetadataValue(), {
+    'value': 'hdl:2434/690937',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+  const emailMetadataValue = Object.assign(new MetadataValue(), {
+    'value': 'mailto:danilo.dinuzzo@4science.it',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+
+  const testItem = Object.assign(new Item(),
+    {
+      type: 'item',
+      metadata: {
+        'dc.identifier.doi': [doiMetadataValueWithoutSubType],
+        'dc.identifier.hdl': [hdlMetadataValue],
+        'person.email': [emailMetadataValue]
+      },
+      uuid: 'test-item-uuid',
+    }
+  );
+
+  const mockField: LayoutField = {
+    'metadata': 'dc.identifier',
+    'label': 'Identifier',
+    'rendering': FieldRenderingType.IDENTIFIER,
+    'fieldType': 'METADATA',
+    'style': null,
+    'styleLabel': 'test-style-label',
+    'styleValue': 'test-style-value',
+    'labelAsHeading': false,
+    'valuesInline': true
+  };
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock
         }
-      })],
-      declarations: [ IdentifierComponent ],
+      }), BrowserAnimationsModule],
       providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'metadataValueProvider', useValue: doiMetadataValueWithoutSubType },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: ResolverStrategyService, useClass: ResolverStrategyService }
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      declarations: [IdentifierComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IdentifierComponent);
     component = fixture.componentInstance;
-    service = TestBed.get(ResolverStrategyService);
+    service = TestBed.inject(ResolverStrategyService);
   });
 
-  describe('Test doi rendering without subtype', () => {
-    const doiTestItem = Object.assign(new Item(), {
-      bundles: of({}),
-      metadata: {
-        'dc.identifier.doi': [
-          {
-            value: 'doi:10.1392/dironix'
-          }
-        ]
-      }
+  describe('doi identifier rendering', () => {
+    describe('without sub-type', () => {
+      beforeEach(() => {
+        fixture.detectChanges();
+      });
+
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('check metadata rendering', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
+        expect(spanValueFound.length).toBe(1);
+
+        const valueFound = fixture.debugElement.queryAll(By.css('a'));
+        expect(valueFound.length).toBe(1);
+
+        const expectedContent = doiMetadataValueWithoutSubType.value.replace('doi:', '');
+        const expectedHref = service.getBaseUrl('doi') + expectedContent;
+        expect(valueFound[0].nativeElement.textContent).toBe(expectedContent);
+        expect(valueFound[0].nativeElement.href).toBe(expectedHref);
+        done();
+      });
+
+      it('check value style', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+        expect(spanValueFound.length).toBe(1);
+        done();
+      });
     });
 
-    const doiTestField = Object.assign({
-      id: 1,
-      label: 'Field Label',
-      style: 'col-md-6',
-      metadata: 'dc.identifier.doi'
-    }) as LayoutField;
+    describe('with sub-type', () => {
+      beforeEach(() => {
+        component.metadataValue = doiMetadataValueWithSubType;
+        component.renderingSubType = 'doi';
+        fixture.detectChanges();
+      });
 
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('check metadata rendering', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
+        expect(spanValueFound.length).toBe(1);
+
+        const valueFound = fixture.debugElement.queryAll(By.css('a'));
+        expect(valueFound.length).toBe(1);
+
+        const expectedContent = doiMetadataValueWithSubType.value.replace('doi:', '');
+        const expectedHref = service.getBaseUrl('doi') + expectedContent;
+        expect(valueFound[0].nativeElement.textContent).toBe(expectedContent);
+        expect(valueFound[0].nativeElement.href).toBe(expectedHref);
+        done();
+      });
+
+      it('check value style', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+        expect(spanValueFound.length).toBe(1);
+        done();
+      });
+    });
+  });
+
+  describe('hdl identifier rendering', () => {
     beforeEach(() => {
-      component.item = doiTestItem;
-      component.field = doiTestField;
+      component.metadataValue = hdlMetadataValue;
       fixture.detectChanges();
     });
 
-    it('Test href and text values', () => {
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = doiTestItem.firstMetadataValue( doiTestField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toEqual(
-        metadataValue.replace('doi:', '')
-      );
-      expect(valueContainer.nativeElement.href).toEqual(
-        service.getBaseUrl('doi') + metadataValue.replace('doi:', '')
-      );
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('check metadata rendering', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('a'));
+      expect(valueFound.length).toBe(1);
+
+      const expectedContent = hdlMetadataValue.value.replace('hdl:', '');
+      const expectedHref = service.getBaseUrl('hdl') + expectedContent;
+      expect(valueFound[0].nativeElement.textContent).toBe(expectedContent);
+      expect(valueFound[0].nativeElement.href).toBe(expectedHref);
+      done();
+    });
+
+    it('check value style', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+      expect(spanValueFound.length).toBe(1);
+      done();
     });
   });
 
-  describe('Test doi rendering with subtype', () => {
-    const doiWithoutUrnTestItem = Object.assign(new Item(), {
-      bundles: of({}),
-      metadata: {
-        'dc.identifier.doi': [
-          {
-            value: '10.1392/dironix'
-          }
-        ]
-      }
-    });
-
-    const doiTestField = Object.assign({
-      id: 1,
-      label: 'Field Label',
-      style: 'col-md-6',
-      metadata: 'dc.identifier.doi'
-    }) as LayoutField;
-
+  describe('email identifier rendering', () => {
     beforeEach(() => {
-      component.item = doiWithoutUrnTestItem;
-      component.field = doiTestField;
-      component.subtype = 'doi';
+      component.metadataValue = emailMetadataValue;
       fixture.detectChanges();
     });
 
-    it('Test href and text values', () => {
-      fixture.detectChanges();
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = doiWithoutUrnTestItem.firstMetadataValue( doiTestField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toEqual(
-        metadataValue
-      );
-      expect(valueContainer.nativeElement.href).toEqual(
-        service.getBaseUrl('doi') + metadataValue
-      );
+    it('check metadata rendering', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('span.text-value'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('a'));
+      expect(valueFound.length).toBe(1);
+
+      const expectedContent = emailMetadataValue.value.replace('mailto:', '');
+      const expectedHref = service.getBaseUrl('mailto') + expectedContent;
+      expect(valueFound[0].nativeElement.textContent).toBe(expectedContent);
+      expect(valueFound[0].nativeElement.href).toBe(expectedHref);
+      done();
+    });
+
+    it('check value style', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+      expect(spanValueFound.length).toBe(1);
+      done();
     });
   });
 
-  describe('Test email rendering', () => {
-    const mailTestItem = Object.assign(new Item(), {
-      bundles: of({}),
-      metadata: {
-        'person.email': [
-          {
-            value: 'mailto:danilo.dinuzzo@4science.it'
-          }
-        ]
-      }
-    });
-
-    const mailTestField = Object.assign({
-      id: 1,
-      label: 'Email',
-      style: 'col-md-6',
-      metadata: 'person.email'
-    }) as LayoutField;
-
-    beforeEach(() => {
-      component.item = mailTestItem;
-      component.field = mailTestField;
-      fixture.detectChanges();
-    });
-
-    it('Test href and text values', () => {
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = mailTestItem.firstMetadataValue( mailTestField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toEqual(
-        metadataValue.replace('mailto:', '')
-      );
-      expect(valueContainer.nativeElement.href).toEqual(
-        service.getBaseUrl('mailto') + metadataValue.replace('mailto:', '')
-      );
-    });
-  });
-
-  describe('Test hdl rendering', () => {
-    const hdlTestItem = Object.assign(new Item(), {
-      bundles: of({}),
-      metadata: {
-        'dc.identifier.hdl': [
-          {
-            value: 'hdl:2434/690937'
-          }
-        ]
-      }
-    });
-
-    const hdlTestField = Object.assign({
-      id: 1,
-      label: 'hdl',
-      style: 'col-md-6',
-      metadata: 'dc.identifier.hdl'
-    }) as LayoutField;
-
-    beforeEach(() => {
-      component.item = hdlTestItem;
-      component.field = hdlTestField;
-      fixture.detectChanges();
-    });
-
-    it('Test href and text values', () => {
-      const valueContainer = fixture.debugElement.query(By.css('a'));
-      const metadataValue = hdlTestItem.firstMetadataValue( hdlTestField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toEqual(
-        metadataValue.replace('hdl:', '')
-      );
-      expect(valueContainer.nativeElement.href).toEqual(
-        service.getBaseUrl('hdl') + metadataValue.replace('hdl:', '')
-      );
-    });
-  });
 });

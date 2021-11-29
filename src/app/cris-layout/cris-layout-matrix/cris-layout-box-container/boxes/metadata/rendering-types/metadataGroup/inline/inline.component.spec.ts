@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 import { of } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -8,8 +9,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { InlineComponent } from './inline.component';
 import { Item } from '../../../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
-import { CrisLayoutLoaderDirective } from '../../../../../../../directives/cris-layout-loader.directive';
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
+import { TextComponent } from '../../text/text.component';
+import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
+import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
 
 describe('InlineComponent', () => {
   let component: InlineComponent;
@@ -35,7 +38,7 @@ describe('InlineComponent', () => {
       ]
     }
   });
-  const testField = Object.assign({
+  const mockField = Object.assign({
     id: 1,
     fieldType: 'METADATAGROUP',
     metadata: 'dc.contributor.author',
@@ -44,7 +47,7 @@ describe('InlineComponent', () => {
     style: 'container row',
     styleLabel: 'font-weight-bold col-4',
     styleValue: 'col',
-    metadataGroup : {
+    metadataGroup: {
       leading: 'dc.contributor.author',
       elements: [
         {
@@ -63,9 +66,10 @@ describe('InlineComponent', () => {
           fieldType: 'METADATA',
           style: null,
           styleLabel: 'font-weight-bold col-0',
-          styleValue:  'col'
+          styleValue: 'col'
         }
-      ]}
+      ]
+    }
   }) as LayoutField;
 
   beforeEach(waitForAsync(() => {
@@ -76,23 +80,50 @@ describe('InlineComponent', () => {
           useClass: TranslateLoaderMock
         }
       }), BrowserAnimationsModule],
+      providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+      ],
       declarations: [
+        DsDatePipe,
+        MetadataRenderComponent,
         InlineComponent,
-        CrisLayoutLoaderDirective
+        TextComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(InlineComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.OnPush }
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(InlineComponent);
     component = fixture.componentInstance;
-    component.item = testItem;
-    component.field = testField;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('check metadata rendering', (done) => {
+    const rowsFound = fixture.debugElement.queryAll(By.css('div.metadata-group-entry'));
+    expect(rowsFound.length).toBe(2);
+
+    let divFound = fixture.debugElement.query(By.css('div.metadata-group-entry:nth-child(1)'));
+
+    let span = divFound.query(By.css('span.metadata-group-entry-value:nth-child(1)'));
+    expect(span.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[0].metadata][0].value);
+    span = divFound.query(By.css('span.metadata-group-entry-value:nth-child(2)'));
+    expect(span.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[1].metadata][0].value);
+
+    divFound = fixture.debugElement.query(By.css('div.metadata-group-entry:nth-child(2)'));
+    span = divFound.query(By.css('span.metadata-group-entry-value:nth-child(1)'));
+    expect(span.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[0].metadata][1].value);
+    span = divFound.query(By.css('span.metadata-group-entry-value:nth-child(2)'));
+    expect(span.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[1].metadata][1].value);
+    done();
+
   });
 });
