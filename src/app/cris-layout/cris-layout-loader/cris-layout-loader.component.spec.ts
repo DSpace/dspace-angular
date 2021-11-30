@@ -1,19 +1,19 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 import { CrisLayoutLoaderComponent } from './cris-layout-loader.component';
 import { Item } from '../../core/shared/item.model';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
-
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { CrisLayoutVerticalComponent } from './cris-layout-vertical/cris-layout-vertical.component';
+import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal/cris-layout-horizontal.component';
 
-// to FIX
 describe('CrisLayoutLoaderComponent', () => {
   let component: CrisLayoutLoaderComponent;
   let fixture: ComponentFixture<CrisLayoutLoaderComponent>;
@@ -39,19 +39,23 @@ describe('CrisLayoutLoaderComponent', () => {
     }
   });
 
-
-  const configurationSpy = jasmine.createSpyObj('component', {
-    getConfiguration: jasmine.createSpy('getConfiguration')
-  });
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CrisLayoutLoaderComponent, CrisLayoutLoaderDirective],
+      imports: [
+        CommonModule,
+        RouterTestingModule
+      ],
+      declarations: [
+        CrisLayoutLoaderComponent,
+        CrisLayoutLoaderDirective,
+        CrisLayoutVerticalComponent,
+        CrisLayoutHorizontalComponent
+      ],
       providers: [
-        { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: HostWindowService, useValue: windowServiceStub },
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   });

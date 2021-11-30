@@ -10,6 +10,10 @@ import { boxMetadata } from '../../../../../../../shared/testing/box.mock';
 import { By } from '@angular/platform-browser';
 import { FieldRenderingType } from '../../rendering-types/metadata-box.decorator';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 
 describe('MetadataContainerComponent', () => {
   let component: MetadataContainerComponent;
@@ -119,6 +123,31 @@ describe('MetadataContainerComponent', () => {
     }
   }) as LayoutField;
 
+  const bitstreamField = Object.assign({
+    id: 1,
+    label: 'Field Label',
+    metadata: 'dc.identifier.doi',
+    rendering: FieldRenderingType.THUMBNAIL,
+    fieldType: 'BITSTREAM',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    bitstream: {
+      bundle: 'ORIGINAL',
+      metadataField: 'dc.type',
+      metadataValue: 'thumbnail'
+    }
+  });
+
+  const bitstream1 = Object.assign(new Bitstream(), {
+    id: 'bitstream1',
+    uuid: 'bitstream1'
+  });
+
+  const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
+    findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -129,10 +158,13 @@ describe('MetadataContainerComponent', () => {
           }
         })
       ],
-      declarations: [ MetadataContainerComponent ],
+      providers: [
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+      ],
+      declarations: [MetadataContainerComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -140,6 +172,7 @@ describe('MetadataContainerComponent', () => {
     component = fixture.componentInstance;
     component.item = testItem;
     component.box = boxMetadata;
+    mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
   });
 
   describe('When field rendering type is not structured', () => {
@@ -222,4 +255,52 @@ describe('MetadataContainerComponent', () => {
       done();
     });
   });
-});
+
+  describe('When field type is bitstream', () => {
+    beforeEach(() => {
+      component.field = bitstreamField;
+    });
+
+    describe('and item has no bitstream', () => {
+
+      beforeEach(() => {
+        fixture.detectChanges();
+      });
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should not render metadata ', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+        expect(spanValueFound.length).toBe(0);
+
+        const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+        expect(valueFound.length).toBe(0);
+        done();
+      });
+    });
+
+    describe('and item has bitstream', () => {
+
+      beforeEach(() => {
+        mockBitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+        fixture.detectChanges();
+      });
+
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should not render metadata ', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+        expect(spanValueFound.length).toBe(1);
+
+        const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+        expect(valueFound.length).toBe(1);
+        done();
+      });
+    });
+
+  });
+})
+;
