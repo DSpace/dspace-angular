@@ -8,7 +8,7 @@ import { isAuthenticated } from '../../core/auth/selectors';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { getContextMenuEntriesForDSOType } from './context-menu.decorator';
-import { concatMap, filter, map, mapTo, reduce, take, tap } from 'rxjs/operators';
+import { concatMap, filter, map, mapTo, reduce, take } from 'rxjs/operators';
 import { ContextMenuEntryComponent } from './context-menu-entry.component';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
@@ -91,7 +91,6 @@ export class ContextMenuComponent implements OnInit {
         );
       }),
       reduce((acc: any, value: any) => [...acc, value], []),
-      tap((c) => console.log(c)),
       take(1)
     );
   }

@@ -811,8 +811,6 @@ describe('FormBuilderService test suite', () => {
     const model = service.findById('testFormArray', testModel) as DynamicFormArrayModel;
     const formArray = service.createFormArray(model);
 
-    console.log(formArray);
-
     service.copyFormArrayGroup(0, formArray, model);
 
     expect(formArray.length).toBe(model.initialCount + 1);

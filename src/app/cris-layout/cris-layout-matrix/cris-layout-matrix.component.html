@@ -1,0 +1,11 @@
+<ng-container *ngIf="!!tab">
+  <div class="container">
+    <div class="row mb-2" *ngFor="let row of tab.rows">
+      <div *ngFor="let cell of row.cells" class="{{ !!cell.style ? cell.style : 'col' }} cell mb-2">
+        <div *ngFor="let box of cell.boxes" class="flex-column mb-3">
+          <ds-cris-layout-box-container [box]="box" [item]="item"></ds-cris-layout-box-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

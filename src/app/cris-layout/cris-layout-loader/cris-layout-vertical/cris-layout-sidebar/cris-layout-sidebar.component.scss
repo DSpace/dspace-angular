@@ -1,0 +1,113 @@
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+#sidebar {
+	min-height: calc(100vh - 500px);
+	min-width: var(--ds-cris-layout-sidebar-width);
+  color: var(--ds-cris-layout-sidebar-link-color-active);
+  background: var(--ds-cris-layout-sidebar-background-color);
+  transition: all 0.3s;
+  position: relative;
+  &.active{
+  	/*margin-left:  var(--ds-cris-layout-sidebar-width);*/
+  	.sidebar-menu{
+			margin-right: -50px;
+	  }
+  }
+  ul.components{
+  	padding: 0;
+  }
+  ul{
+    li{
+    	font-size: 16px;
+    	>ul{
+    		margin-left: 10px;
+    		li{
+    			font-size: 14px;
+    		}
+    	}
+    	a{
+    		padding: 10px 0;
+		    display: block;
+		    color: var(--ds-cris-layout-sidebar-link-color);
+		    border-bottom: 1px solid rgba(0,0,0,.1);
+		    &:hover{
+		    	color: var(--ds-cris-layout-sidebar-link-color);
+		    }
+    	}
+    	&.active{
+    		> a{
+    			background: transparent;
+    			color: var(--ds-cris-layout-sidebar-link-color-active);
+    		}
+    	}
+    }
+  }
+}
+
+
+.sidebar-menu{
+	display: inline-block;
+	position: absolute;
+	top: 20px;
+	left: calc(0px - var(--ds-cris-layout-sidebar-entry-width)/2);
+	// margin-right: -50px;
+	@include transition(.3s);
+	.btn{
+		width: var(--ds-cris-layout-sidebar-entry-width);
+		height: var(--ds-cris-layout-sidebar-entry-height);
+		border-radius: 50%;
+		&.btn-primary{
+			background: var(--ds-cris-layout-sidebar-background-color);
+			border-color: var(--ds-cris-layout-sidebar-border-color);
+			&:hover, &:focus{
+				background: var(--ds-cris-layout-sidebar-hover-focus-background-color) !important;
+				border-color: var(--ds-cris-layout-sidebar-hover-focus-border-color) !important;
+			}
+		}
+	}
+}
+
+.menu-toggle {
+  position: absolute;
+  top: 0;
+  left: -30px;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+.menu-toggle:hover {
+  opacity: 1;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.btn-arrow{
+	background: #207698;
+	color: #fff;
+}

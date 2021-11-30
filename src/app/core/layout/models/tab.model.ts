@@ -1,22 +1,18 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { TAB } from './tab.resource-type';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { BOX } from './box.resource-type';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { Box } from './box.model';
-import { PaginatedList } from '../../data/paginated-list.model';
+import { CrisLayoutBox } from './box.model';
 
 /**
- * Describes a type of Tab
+ * Describes a type of CrisLayoutTab
  */
 @typedObject
-export class Tab extends CacheableObject {
+export class CrisLayoutTab extends CacheableObject {
   static type = TAB;
 
   /**
@@ -27,7 +23,7 @@ export class Tab extends CacheableObject {
   type: ResourceType;
 
   /**
-   * The identifier of this Tab
+   * The identifier of this CrisLayoutTab
    */
   @autoserialize
   id: number;
@@ -54,32 +50,44 @@ export class Tab extends CacheableObject {
   isActive?: boolean;
 
   /**
-   * The universally unique identifier of this Tab
+   * This property is used from leading component
+   */
+  @autoserialize
+  leading?: boolean;
+
+  @autoserialize
+  rows?: CrisLayoutRow[];
+  /**
+   * The universally unique identifier of this CrisLayoutTab
    * This UUID is generated client-side and isn't used by the backend.
    * It is based on the ID, so it will be the same for each refresh.
    */
-  @deserializeAs(new IDToUUIDSerializer(Tab.type.value), 'id')
+  @deserializeAs(new IDToUUIDSerializer(CrisLayoutTab.type.value), 'id')
   uuid: string;
 
   /**
-   * The {@link HALLink}s for this Tab
+   * The {@link HALLink}s for this CrisLayoutTab
    */
   @deserialize
   _links: {
     self: HALLink,
-    boxes: HALLink
   };
-
-  /**
-   * The type of Item found on the left side of this RelationshipType
-   * Will be undefined unless the leftType {@link HALLink} has been resolved.
-   */
-  @link(BOX)
-  boxes?: Observable<RemoteData<PaginatedList<Box>>>;
-
 
   /**
    * Contains nested tabs if exist
    */
-  children?: Tab[];
+  children?: CrisLayoutTab[];
+}
+
+
+export interface CrisLayoutRow {
+  style: string;
+  cells: CrisLayoutCell[];
+}
+
+
+
+export interface CrisLayoutCell {
+  style: string;
+  boxes: CrisLayoutBox[];
 }

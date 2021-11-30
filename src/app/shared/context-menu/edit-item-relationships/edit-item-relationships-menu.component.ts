@@ -14,9 +14,7 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { TabDataService } from '../../../core/layout/tab-data.service';
-import { Tab } from '../../../core/layout/models/tab.model';
-import { BoxDataService } from '../../../core/layout/box-data.service';
-import { Box } from '../../../core/layout/models/box.model';
+import { CrisLayoutCell, CrisLayoutRow, CrisLayoutTab } from '../../../core/layout/models/tab.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -40,27 +38,21 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * Reference to NgbModal
    */
   public modalRef: NgbModalRef;
-
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
+  relationshipTypes = [];
+  public relationships = [];
   /**
    * List of Edit Modes available on this item
    * for the current user
    */
   private editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
-
-  /**
-   * List of subscriptions
-   */
-  subs: Subscription[] = [];
-
   /**
    * Tabs
    */
-  private tabs: Tab[];
-
-
-  relationshipTypes = [];
-
-  public relationships = [];
+  private tabs: CrisLayoutTab[];
 
   /**
    * Initialize instance variables
@@ -69,7 +61,6 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {EditItemDataService} editItemService
    * @param {TabDataService} tabService
-   * @param {BoxDataService} boxService
    * @param notificationService
    */
   constructor(
@@ -77,11 +68,11 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private editItemService: EditItemDataService,
     protected tabService: TabDataService,
-    protected boxService: BoxDataService,
     private notificationService: NotificationsService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditRelationships);
   }
+
   /**
    * Get edit modes from context id
    * Get tabs from the context id and get boxes of tabs
@@ -97,21 +88,14 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * Get boxes from tabs
    */
   initBoxes(): void {
-    this.tabs.forEach( (tab) => {
-      this.getBox(tab);
+    this.tabs.forEach((tab: CrisLayoutTab) => {
+      tab.rows.forEach((row: CrisLayoutRow) => {
+        row.cells.forEach((cell: CrisLayoutCell) => {
+          const relationshipsBoxes = cell.boxes.filter((box) => box.boxType === 'RELATION');
+          this.relationships.push(...relationshipsBoxes);
+        });
+      });
     });
-  }
-
-  /**
-   * If boxes type is equal Relation add them to the list of relations to be managed
-   */
-  getBox(tab): void {
-    this.subs.push(this.boxService.findByItem(this.contextMenuObject.id, tab.id, false)
-      .pipe(getFirstSucceededRemoteListPayload())
-      .subscribe( (boxes: Box[]) => {
-        const relationshipsBoxes = boxes.filter( (box) => box.boxType === 'RELATION');
-        this.relationships.push(...relationshipsBoxes);
-      }));
   }
 
   /**
@@ -134,8 +118,9 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * Make sure the subscription is unsubscribed from when this component is destroyed
    */
   ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach( (sub) => sub.unsubscribe());
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
+
   initialize(): void {
     // Retrieve edit modes
     this.subs.push(this.editItemService.findById(this.contextMenuObject.id + ':none', false, true, followLink('modes')).pipe(
@@ -151,7 +136,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
     // Retrieve tabs by UUID of item
     this.subs.push(this.tabService.findByItem(this.contextMenuObject.id, false).pipe(
       getFirstSucceededRemoteListPayload()
-    ).subscribe( (tabs) => {
+    ).subscribe((tabs) => {
       this.tabs = tabs;
       this.initBoxes();
     }));

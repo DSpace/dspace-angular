@@ -1,0 +1,37 @@
+<li class="sidebar-section h-100" [ngClass]="{ 'active' : tab.isActive, 'expanded': expanded, 'vertical': layout == 'vertical', 'horizontal': layout == 'horizontal' }" >
+    <div class="icon-wrapper" *ngIf="!tab.children || tab.children.length == 0 ">
+        <a class="nav-item shortcut-icon" [routerLink]="'../' + tab.shortname"
+           attr.aria.labelledby="sidebarName-{{tab.id}}"
+           [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
+           [title]="getTabHeader(tab)"
+           (click)="$event.preventDefault();selectTab(tab)">
+        	{{getTabHeader(tab)}}
+        </a>
+    </div>
+    <div *ngIf="!!tab.children && tab.children.length > 0 " class="sidebar-collapsible h-100">
+        <a class="nav-item shortcut-icon" href="javascript:;"
+           [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
+           (click)="$event.preventDefault();toggleSection($event)">
+            <span id="sidebarName-{{tab.id}}" class="section-header-text">
+                {{getTabHeader(tab)}}
+            </span>
+
+            <i *ngIf="layout == 'vertical'" class="fas fa-chevron-right fa-pull-right"
+               [@rotate]="expanded ? 'expanded' : 'collapsed'" [title]="getTabHeader(tab)"></i>
+
+            <i *ngIf="layout == 'horizontal'" class="fas fa-chevron-right fa-pull-right"
+               [@rotateNavbar]="expanded ? 'expanded' : 'collapsed'" [title]="getTabHeader(tab)"></i>
+        </a>
+        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="expanded">
+            <li *ngFor="let subTab of tab.children" [ngClass]="{'active' : subTab.isActive}">
+                <a class="nav-item shortcut-icon" [routerLink]="'../' + subTab.shortname"
+                   [ngClass]="{ 'px-4 justify-content-between' : layout == 'vertical' }"
+                   (click)="$event.preventDefault();selectTab(subTab)">
+		            <span id="sidebarName-{{subTab.id}}" class="section-header-text">
+		                {{getTabHeader(subTab)}}
+		            </span>
+		        </a>
+            </li>
+        </ul>
+    </div>
+</li>

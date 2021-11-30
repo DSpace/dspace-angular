@@ -51,7 +51,7 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   constructor(private itemService: ItemDataService) {
     this.entity2icon = new Map();
-    const confValue = environment.layout.crisRef;
+    const confValue = environment.crisLayout.crisRef;
     confValue.forEach( (config) => {
       this.entity2icon.set(config.entityType.toUpperCase(), config.icon);
     });

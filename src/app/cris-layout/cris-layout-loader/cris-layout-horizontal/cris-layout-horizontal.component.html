@@ -1,0 +1,14 @@
+<div id="cris-layout-loader" class="horizontal-layout">
+  <ds-cris-layout-navbar [tabs]="tabs"
+                         [item]="item"
+                         (selectedTabChange)="selectedTabChanged($event)"></ds-cris-layout-navbar>
+  <div class="pt-4">
+    <div class="d-flex flex-column">
+      <div *ngIf="showContextMenu" class="container text-right mb-3">
+        <ds-context-menu [contextMenuObject]="item" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
+      </div>
+      <ds-cris-layout-matrix *ngIf="selectedTab$.value" [tab]="(selectedTab$ | async)"
+                             [item]="item"></ds-cris-layout-matrix>
+    </div>
+  </div>
+</div>

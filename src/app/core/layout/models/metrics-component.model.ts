@@ -21,7 +21,7 @@ export class MetricsComponent extends CacheableObject {
   type: ResourceType;
 
   /**
-   * The identifier of the related Box (shortname)
+   * The identifier of the related CrisLayoutBox (shortname)
    */
   @autoserialize
   id: string;

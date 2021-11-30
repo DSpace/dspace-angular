@@ -1,41 +1,38 @@
-<div class="row">
-    <div class="col-2 text-left">
-        <!--      <i class="fa fa-eye"></i>-->
-    </div>
-    <div class="col-8 font-weight-bold text-center">
-        {{'item.page.metric.label.' + metric.metricType | translate}}
-    </div>
-    <div class="col-2 text-right">
-  <span ngbTooltip="{{'metric.rank' | translate}}"
-        class="badge badge-light">{{ metric.rank }}</span>
-    </div>
+<div class="d-flex justify-content-between">
+  <div class="font-weight-bold text-center">
+    {{'item.page.metric.label.' + metric.metricType | translate}}
+  </div>
+  <div *ngIf="metric?.rank" class="text-right">
+    <span ngbTooltip="{{'metric.rank' | translate}}"
+          class="badge badge-light">{{ metric.rank }}</span>
+  </div>
 </div>
 <div class="row">
-    <div class="col text-center">
-        <strong>{{ metric.metricCount }}</strong>
-        <span *ngIf="getDetailUrl()"
-              ngbTooltip="{{'item.page.metric.details' | translate}}">
+  <div class="col text-center">
+    <strong>{{ metric.metricCount }}</strong>
+    <span *ngIf="getDetailUrl()"
+          ngbTooltip="{{'item.page.metric.details' | translate}}">
         <a href="{{getDetailUrl()}}"><i class="fas fa-info-circle"></i></a>
       </span>
-    </div>
+  </div>
 </div>
 <div class="row">
-    <div class="col">
-        <div class="text-left" *ngIf="metric.deltaPeriod1">
-            <small><span><em>{{'item.page.metric.deltaPeriod1' | translate}}</em></span><br>{{ metric.deltaPeriod1 }}</small>
-        </div>
+  <div class="col">
+    <div class="text-left" *ngIf="metric.deltaPeriod1">
+      <small><span><em>{{'item.page.metric.deltaPeriod1' | translate}}</em></span><br>{{ metric.deltaPeriod1 }}</small>
     </div>
-    <div class="col">
-        <div class="text-right" *ngIf="metric.deltaPeriod2">
-            <small><span><em>{{'item.page.metric.deltaPeriod2' | translate}}</em></span><br>{{ metric.deltaPeriod2 }}</small>
-        </div>
+  </div>
+  <div class="col">
+    <div class="text-right" *ngIf="metric.deltaPeriod2">
+      <small><span><em>{{'item.page.metric.deltaPeriod2' | translate}}</em></span><br>{{ metric.deltaPeriod2 }}</small>
     </div>
+  </div>
 </div>
 
 <div class="row">
-    <div class="col-12 text-center">
-        <small>Acquisition Date</small><br>
-        {{ metric.acquisitionDate | date }}
-    </div>
+  <div class="col-12 text-center">
+    <small>{{'item.page.metric.acquisition-date' | translate}}</small><br>
+    {{ metric.acquisitionDate | date }}
+  </div>
 </div>
 
