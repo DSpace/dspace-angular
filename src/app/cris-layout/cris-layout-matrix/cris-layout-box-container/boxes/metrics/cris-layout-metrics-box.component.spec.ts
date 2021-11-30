@@ -9,8 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { boxMetadata } from '../../../../../shared/testing/box.mock';
-import { TextComponent } from '../metadata/components/text/text.component';
+import { boxMetrics } from '../../../../../shared/testing/box.mock';
+import { TextComponent } from '../metadata/rendering-types/text/text.component';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { CrisLayoutMetricsBoxComponent, MetricRow } from './cris-layout-metrics-box.component';
 import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
@@ -92,7 +92,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
       providers: [
         { provide: MetricsComponentsDataService, useClass: MetricsComponentsDataServiceMock },
         { provide: ItemDataService, useValue: itemDataService },
-        { provide: 'boxProvider', useClass: boxMetadata },
+        { provide: 'boxProvider', useClass: boxMetrics },
         { provide: 'itemProvider', useClass: { metrics: [metric1Mock, metric2Mock] } },
       ],
       declarations: [
@@ -120,7 +120,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
       metrics: [metric1Mock, metric2Mock]
     } as any;
 
-    component.box = boxMetadata;
+    component.box = boxMetrics;
     fixture.detectChanges();
   });
 

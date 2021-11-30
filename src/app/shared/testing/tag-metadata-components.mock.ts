@@ -1,35 +1,22 @@
-import { MetadataComponent } from '../../core/layout/models/metadata-component.model';
-import { METADATACOMPONENT } from '../../core/layout/models/metadata-component.resource-type';
+import { MetadataBoxConfiguration } from '../../core/layout/models/box.model';
 
-export const tagMedataComponent: MetadataComponent = {
-  id: '1',
-  type: METADATACOMPONENT,
-  rows: [
-  {
-    fields: [
-      {
-        metadata: 'dc.subject',
-        label: 'Subjects',
-        rendering: 'tag',
-        fieldType: 'metadata',
-        style: 'field-0-style'
-      }
-    ]
-  },
-  {
-    fields: [
-      {
-        metadata: 'dc.subject',
-        label: 'Subjects',
-        rendering: 'tag',
-        fieldType: 'metadata',
-        style: null
-      }
-    ]
-  }],
-  _links: {
-    self: {
-      href: 'https://rest.api/rest/api/metadatacomponent/1'
-    }
-  }
+export const medataBoxConfigurationMock: MetadataBoxConfiguration = {
+  id: 'testTagBox',
+  type: 'boxmetadataconfiguration',
+  rows: [{
+    style: 'row-style',
+    cells: [{
+      style: 'cell-style',
+      fields: [
+        {
+          metadata: 'dc.subject',
+          label: 'Subjects',
+          rendering: 'tag',
+          fieldType: 'metadata',
+          labelAsHeading: true,
+          valuesInline: true
+        }
+      ]
+    }]
+  }]
 };

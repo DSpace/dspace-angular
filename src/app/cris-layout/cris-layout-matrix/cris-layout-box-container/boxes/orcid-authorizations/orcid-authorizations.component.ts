@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,17 +7,17 @@ import { ConfigurationDataService } from '../../../../../core/data/configuration
 import { ResearcherProfileService } from '../../../../../core/profile/researcher-profile.service';
 import { NativeWindowRef, NativeWindowService } from '../../../../../core/services/window.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
+import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { Box } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-orcid-authorizations.component',
   templateUrl: './orcid-authorizations.component.html'
 })
-@CrisLayoutBox(LayoutBox.ORCID_AUTHORIZATIONS,true)
+@RenderCrisLayoutBoxFor(LayoutBox.ORCID_AUTHORIZATIONS,true)
 export class OrcidAuthorizationsComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   missingAuthorizations$ = new BehaviorSubject<string[]>([]);
@@ -29,11 +29,10 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxModelComponent im
     private researcherProfileService: ResearcherProfileService,
     protected translateService: TranslateService,
     private notificationsService: NotificationsService,
-    protected viewRef: ElementRef,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
-    @Inject('boxProvider') public boxProvider: Box,
+    @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

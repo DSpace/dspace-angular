@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../core/shared/item.model';
 import { TabDataService } from '../core/layout/tab-data.service';
-import { Tab } from '../core/layout/models/tab.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CrisLayoutTab } from '../core/layout/models/tab.model';
+import { Observable } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 
 import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { isNotEmpty } from '../shared/empty.util';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -25,785 +27,76 @@ export class CrisLayoutComponent implements OnInit {
   /**
    * Get tabs for the specific item
    */
-   tabs$: Observable<Tab[]>;
+  tabs$: Observable<CrisLayoutTab[]>;
 
   /**
    * Get loader tabs for the specific item
    */
-   loaderTabs$: Observable<Tab[]>;
+  loaderTabs$: Observable<CrisLayoutTab[]>;
 
   /**
    * Get leading for the specific item
    */
-   leadingTabs$: Observable<Tab[]>;
+  leadingTabs$: Observable<CrisLayoutTab[]>;
 
-  constructor(private tabService: TabDataService) { }
+  hasLeadingTab$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
- /**
-  * Get tabs for the specific item
-  */
+  constructor(private tabService: TabDataService) {
+  }
+
+  /**
+   * Get tabs for the specific item
+   */
   ngOnInit(): void {
     this.tabs$ = this.getTabsByItem();
     this.leadingTabs$ = this.getLeadingTabs();
     this.loaderTabs$ = this.getLoaderTabs();
+
+    this.hasLeadingTab().pipe(
+      filter((result) => isNotEmpty(result)),
+      take(1),
+    ).subscribe((result) => {
+      this.hasLeadingTab$.next(result);
+    });
   }
 
- /**
-  * Get tabs for the specific item
-  */
-  getTabsByItem(): Observable<Tab[]> {
+  /**
+   * Get tabs for the specific item
+   */
+  getTabsByItem(): Observable<CrisLayoutTab[]> {
     // Since there is no API ready
-    return this.tabService.findByItem(this.item.uuid,true).pipe(
+    return this.tabService.findByItem(this.item.uuid, true).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload()
     );
   }
 
- /**
-  * Get tabs for the leading component where parameter leading is true b
-  */
-  getLeadingTabs(): Observable<Tab[]> {
+  /**
+   * Get tabs for the leading component where parameter leading is true b
+   */
+  getLeadingTabs(): Observable<CrisLayoutTab[]> {
     return this.tabs$.pipe(
-      map( (tabs: Tab[]) => tabs.filter(tab => tab.leading)),
+      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => tab.leading)),
     );
   }
 
- /**
-  * Get tabs for the loader component where parameter leading is false
-  */
-  getLoaderTabs(): Observable<Tab[]> {
+  /**
+   * Get tabs for the loader component where parameter leading is false
+   */
+  getLoaderTabs(): Observable<CrisLayoutTab[]> {
     return this.tabs$.pipe(
-      map( (tabs: Tab[]) => tabs.filter(tab => !tab.leading)),
+      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => !tab.leading)),
     );
   }
 
-
-  mockData(): Observable<Tab[]> {
-    return observableOf([
-        Object.assign(new Tab(),{
-        'id': 1,
-        'shortname': 'info',
-        'header': 'Profile',
-        'entityType': 'Person',
-        'priority': 1,
-        'security': 0,
-        'type': 'tab',
-        'leading': true,
-        'rows': [
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'id': 1726,
-                    'shortname': 'primary',
-                    'header': 'Primary Information',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 1,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'dc.title',
-                              'label': 'Name',
-                              'fieldType': 'metadata'
-                            },
-                            {
-                              'metadata': 'person.email',
-                              'label': 'Email',
-                              'fieldType': 'metadata',
-                              'valuesInline': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    'id': 1726,
-                    'shortname': 'other',
-                    'header': 'Other Informations',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'container': true,
-                    'type': 'box',
-                    'metadataSecurityFields': [
-                      'cris.policy.eperson'
-                    ],
-                    'configuration': {
-                      'id': 2,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'person.birthDate',
-                              'label': 'Birth date',
-                              'fieldType': 'metadata',
-                              'labelAsHeading': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'id': 1726,
-                    'shortname': 'researchoutputs',
-                    'header': 'Research outputs',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'RELATION',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'container': true,
-                    'configuration': {
-                      'id': 3,
-                      'discovery-configuration': 'RELATION.Person.researchoutputs'
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-12',
-                'boxes': [
-                  {
-                    'id': 1726,
-                    'shortname': 'metrics',
-                    'header': 'Metrics',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': null,
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METRICS',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 4,
-                      'numColumns': 2,
-                      'metrics': ['views', 'downloads']
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }),
-        Object.assign(new Tab(),{
-        'id': 2,
-        'shortname': 'Profile::details',
-        'header': 'Profile::details',
-        'entityType': 'Person',
-        'priority': 1,
-        'security': 0,
-        'type': 'tab',
-        'leading': false,
-        'rows': [
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'id': 1726,
-                    'shortname': 'primary',
-                    'header': 'Primary Information',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 1,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'dc.title',
-                              'label': 'Name',
-                              'fieldType': 'metadata'
-                            },
-                            {
-                              'metadata': 'person.email',
-                              'label': 'Email',
-                              'fieldType': 'metadata',
-                              'valuesInline': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    'shortname': 'other',
-                    'header': 'Other Informations',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [
-                      'cris.policy.eperson'
-                    ],
-                    'configuration': {
-                      'id': 2,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'person.birthDate',
-                              'label': 'Birth date',
-                              'fieldType': 'metadata',
-                              'labelAsHeading': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'researchoutputs',
-                    'header': 'Research outputs',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'RELATION',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 3,
-                      'discovery-configuration': 'RELATION.Person.researchoutputs'
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-12',
-                'boxes': [
-                  {
-                    'shortname': 'metrics',
-                    'header': 'Metrics',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': null,
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METRICS',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 4,
-                      'numColumns': 2,
-                      'metrics': ['views', 'downloads']
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }),
-        Object.assign(new Tab(),{
-        'id': 2,
-        'shortname': 'informations',
-        'header': 'informations',
-        'entityType': 'Person',
-        'priority': 1,
-        'security': 0,
-        'type': 'tab',
-        'leading': false,
-        'rows': [
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'primary',
-                    'header': 'Primary Information',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 1,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'dc.title',
-                              'label': 'Name',
-                              'fieldType': 'metadata'
-                            },
-                            {
-                              'metadata': 'person.email',
-                              'label': 'Email',
-                              'fieldType': 'metadata',
-                              'valuesInline': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    'shortname': 'other',
-                    'header': 'Other Informations',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [
-                      'cris.policy.eperson'
-                    ],
-                    'configuration': {
-                      'id': 2,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'person.birthDate',
-                              'label': 'Birth date',
-                              'fieldType': 'metadata',
-                              'labelAsHeading': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'researchoutputs',
-                    'header': 'Research outputs',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'RELATION',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 3,
-                      'discovery-configuration': 'RELATION.Person.researchoutputs'
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-12',
-                'boxes': [
-                  {
-                    'shortname': 'metrics',
-                    'header': 'Metrics',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': null,
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METRICS',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 4,
-                      'numColumns': 2,
-                      'metrics': ['views', 'downloads']
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }),
-        Object.assign(new Tab(),{
-        'id': 2,
-        'shortname': 'Projects::info',
-        'header': 'Projects::info',
-        'entityType': 'Project',
-        'priority': 1,
-        'security': 0,
-        'type': 'tab',
-        'leading': false,
-        'rows': [
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'primary',
-                    'header': 'Primary Information',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': '',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 1,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'dc.title',
-                              'label': 'Name',
-                              'fieldType': 'metadata'
-                            },
-                            {
-                              'metadata': 'person.email',
-                              'label': 'Email',
-                              'fieldType': 'metadata',
-                              'valuesInline': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    'shortname': 'other',
-                    'header': 'Other Informations',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': 'col-md-6',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [
-                      'cris.policy.eperson'
-                    ],
-                    'configuration': {
-                      'id': 2,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'person.birthDate',
-                              'label': 'Birth date',
-                              'fieldType': 'metadata',
-                              'labelAsHeading': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'researchoutputs',
-                    'header': 'Research outputs',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': 'col-md-6',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'RELATION',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 3,
-                      'discovery-configuration': 'RELATION.Person.researchoutputs'
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-12',
-                'boxes': [
-                  {
-                    'shortname': 'metrics',
-                    'header': 'Metrics',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': null,
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METRICS',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 4,
-                      'numColumns': 2,
-                      'metrics': ['views', 'downloads']
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }),
-        Object.assign(new Tab(),{
-        'id': 2,
-        'shortname': 'Projects::detail',
-        'header': 'Projects::detail',
-        'entityType': 'Project',
-        'priority': 1,
-        'security': 0,
-        'type': 'tab',
-        'leading': false,
-        'rows': [
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'primary',
-                    'header': 'Primary Information',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': 'col-md-6',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 1,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'dc.title',
-                              'label': 'Name',
-                              'fieldType': 'metadata'
-                            },
-                            {
-                              'metadata': 'person.email',
-                              'label': 'Email',
-                              'fieldType': 'metadata',
-                              'valuesInline': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    'shortname': 'other',
-                    'header': 'Other Informations',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': 'col-md-6',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METADATA',
-                    'type': 'box',
-                    'metadataSecurityFields': [
-                      'cris.policy.eperson'
-                    ],
-                    'configuration': {
-                      'id': 2,
-                      'rows': [
-                        {
-                          'fields': [
-                            {
-                              'metadata': 'person.birthDate',
-                              'label': 'Birth date',
-                              'fieldType': 'metadata',
-                              'labelAsHeading': 'true'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                'style': 'col-md-6',
-                'boxes': [
-                  {
-                    'shortname': 'researchoutputs',
-                    'header': 'Research outputs',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': 'col-md-6',
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'RELATION',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 3,
-                      'discovery-configuration': 'RELATION.Person.researchoutputs'
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            'style': 'col-md-12',
-            'cells': [
-              {
-                'style': 'col-md-12',
-                'boxes': [
-                  {
-                    'shortname': 'metrics',
-                    'header': 'Metrics',
-                    'entityType': 'Person',
-                    'collapsed': false,
-                    'minor': false,
-                    'style': null,
-                    'clear': true,
-                    'container': true,
-                    'maxColumn': 2,
-                    'security': 0,
-                    'boxType': 'METRICS',
-                    'type': 'box',
-                    'metadataSecurityFields': [],
-                    'configuration': {
-                      'id': 4,
-                      'numColumns': 2,
-                      'metrics': ['views', 'downloads']
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      })
-      ]
+  /**
+   * Return a boolean representing if there is a leading tab configured
+   */
+  hasLeadingTab(): Observable<boolean> {
+    return this.getLeadingTabs().pipe(
+      map((tabs: CrisLayoutTab[]) => tabs && tabs.length > 0)
     );
   }
-
 
 }

@@ -11,7 +11,7 @@ export interface CrisLayoutBoxRenderOptions {
   hasOwnContainer: boolean;
 }
 
-export function CrisLayoutBox(boxType: LayoutBox, hasOwnContainer = false) {
+export function RenderCrisLayoutBoxFor(boxType: LayoutBox, hasOwnContainer = false) {
   return function decorator(component: any) {
     if (hasNoValue(boxType)) {
       return;

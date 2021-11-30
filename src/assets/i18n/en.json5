@@ -1549,6 +1549,13 @@
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "cris-layout.toggle.open": "Open section",
+
+  "cris-layout.toggle.close": "Close section",
+
+  "cris-layout.toggle.aria.open": "Expand {{sectionHeader}} section",
+
+  "cris-layout.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
@@ -2639,6 +2646,7 @@
 
   "item.page.link.simple": "Simple item page",
 
+  "item.page.metric.acquisition-date": "Acquisition Date",
   "item.page.metric.deltaPeriod1": "Last Week",
 
   "item.page.metric.deltaPeriod2": "Last Month",

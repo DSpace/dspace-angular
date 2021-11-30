@@ -1,21 +1,16 @@
-import { async as realAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
 
 import { CrisLayoutComponent } from './cris-layout.component';
 import { Item } from '../core/shared/item.model';
-import { createPaginatedList } from '../shared/testing/utils.test';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { leadingTabs, loaderTabs, bothTabs } from '../shared/testing/new-layout-tabs';
 import { By } from '@angular/platform-browser';
-import { tap } from 'rxjs/operators';
+import { bothTabs, leadingTabs, loaderTabs } from '../shared/testing/layout-tab.mocks';
 
 const mockItem = Object.assign(new Item(), {
   id: 'fake-id',
@@ -41,6 +36,8 @@ const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
   findByItem: observableOf(leadingTabs)
 });
 
+
+// to FIX
 // tslint:disable-next-line:prefer-const
 describe('CrisLayoutComponent', () => {
   let component: CrisLayoutComponent;
@@ -68,7 +65,12 @@ describe('CrisLayoutComponent', () => {
     component = fixture.componentInstance;
     component.item = mockItem;
     tabDataServiceMock.findByItem.and.returnValue(observableOf(leadingTabs));
+
     component.tabs$ = observableOf(leadingTabs);
+    component.leadingTabs$ = observableOf(leadingTabs);
+    component.loaderTabs$ = observableOf([]);
+
+    component.hasLeadingTab$.next(true);
     fixture.detectChanges();
   });
 
@@ -80,10 +82,9 @@ describe('CrisLayoutComponent', () => {
 
     it('getTabsByItem to have been called', () => {
 
-      const spyOnGetTabsByItem = spyOn(component,'getTabsByItem');
+      const spyOnGetTabsByItem = spyOn(component, 'getTabsByItem');
 
       spyOnGetTabsByItem.and.returnValue(observableOf(leadingTabs));
-
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -92,8 +93,9 @@ describe('CrisLayoutComponent', () => {
 
     it('getLeadingTabs to have been called', () => {
 
-      const spyOnGetLeadingTabs = spyOn(component,'getLeadingTabs');
+      const spyOnGetLeadingTabs = spyOn(component, 'getLeadingTabs');
 
+      spyOnGetLeadingTabs.and.returnValue(observableOf(leadingTabs));
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -102,7 +104,9 @@ describe('CrisLayoutComponent', () => {
 
     it('getLoaderTabs to have been called', () => {
 
-      const spyOnGetLoaderTabs = spyOn(component,'getLoaderTabs');
+      const spyOnGetLoaderTabs = spyOn(component, 'getLoaderTabs');
+
+      spyOnGetLoaderTabs.and.returnValue(observableOf(loaderTabs));
 
       component.ngOnInit();
       fixture.detectChanges();
@@ -143,6 +147,7 @@ describe('CrisLayoutComponent', () => {
       component.leadingTabs$ = observableOf(leadingTabs);
       component.loaderTabs$ = observableOf(loaderTabs);
       fixture.detectChanges();
+
       expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
 

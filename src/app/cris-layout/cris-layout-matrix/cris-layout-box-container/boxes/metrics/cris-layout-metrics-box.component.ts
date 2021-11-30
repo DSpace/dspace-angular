@@ -1,17 +1,17 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
+import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
 import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { Box, MetricsBoxConfiguration } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox, MetricsBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 export interface MetricRow {
@@ -30,7 +30,7 @@ export interface MetricRow {
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-@CrisLayoutBox(LayoutBox.METRICS, true)
+@RenderCrisLayoutBoxFor(LayoutBox.METRICS, true)
 export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
 
   /**
@@ -57,11 +57,10 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
     protected metricsComponentService: MetricsComponentsDataService,
     protected itemService: ItemDataService,
     protected translateService: TranslateService,
-    protected viewRef: ElementRef,
-    @Inject('boxProvider') public boxProvider: Box,
+    @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item
   ) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

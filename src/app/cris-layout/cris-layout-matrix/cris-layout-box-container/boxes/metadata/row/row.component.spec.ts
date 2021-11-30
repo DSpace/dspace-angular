@@ -3,12 +3,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RowComponent } from './row.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from '../../../../../directives/cris-layout-loader.directive';
-import { TextComponent } from '../components/text/text.component';
-import { ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TextComponent } from '../rendering-types/text/text.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../../core/shared/item.model';
-import { medataBoxConfigurationMock } from 'src/app/shared/testing/box-configurations.mock';
+import { metadataBoxConfigurationMock } from 'src/app/shared/testing/box-configurations.mock';
+import { By } from '@angular/platform-browser';
 
 class TestItem {
   firstMetadataValue(key: string): string {
@@ -27,20 +26,12 @@ describe('RowComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock
         }
-      }), BrowserAnimationsModule],
+      })],
       declarations: [
         RowComponent,
-        CrisLayoutLoaderDirective,
         TextComponent
       ],
-      providers: [
-        ComponentFactoryResolver
-      ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(RowComponent, {
-      set: {
-        entryComponents: [TextComponent]
-      }
     }).compileComponents();
   }));
 
@@ -48,13 +39,24 @@ describe('RowComponent', () => {
     fixture = TestBed.createComponent(RowComponent);
     component = fixture.componentInstance;
     component.item = new TestItem() as Item;
-    component.row = medataBoxConfigurationMock.rows[0];
+    component.row = metadataBoxConfigurationMock.rows[0];
     fixture.detectChanges();
   });
 
-  describe('When the component is rendered', () => {
-    it('should call the getMetadataBoxFieldRendering function with the right types', () => {
-      expect(component).toBeDefined();
-    });
+
+  it('should render a div for each cell', () => {
+    const divValueFound = fixture.debugElement.queryAll(By.css('.metadata-cell'));
+    expect(divValueFound.length).toBe(2);
   });
+
+  it('should render a metdata container for each field', () => {
+    let divValueFound = fixture.debugElement.query(By.css('.metadata-cell:nth-child(1)'));
+    let metadataFound = divValueFound.queryAll(By.css('ds-metadata-container'));
+    expect(metadataFound.length).toBe(1);
+
+    divValueFound = fixture.debugElement.query(By.css('.metadata-cell:nth-child(2)'));
+    metadataFound = divValueFound.queryAll(By.css('ds-metadata-container'));
+    expect(metadataFound.length).toBe(5);
+  });
+
 });

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { Item } from '../../../../../core/shared/item.model';
 import { of } from 'rxjs';
-import { Box } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 describe('CrisLayoutRelationBoxComponent', () => {
@@ -20,10 +20,10 @@ describe('CrisLayoutRelationBoxComponent', () => {
     metadata: {}
   });
 
-  const testBox = Object.assign(new Box(), {
+  const testBox = Object.assign(new CrisLayoutBox(), {
     id: '1',
     collapsed: false,
-    header: 'Box Header',
+    header: 'CrisLayoutBox Header',
     shortname: 'test-box',
     configuration: of({ configuration: 'box-configuration-id' })
   });

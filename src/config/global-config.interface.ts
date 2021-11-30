@@ -13,9 +13,9 @@ import { ThemeConfig } from './theme.model';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
+import { CrisLayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
-import {CmsMetadata} from './cms-metadata';
+import { CmsMetadata } from './cms-metadata';
 
 export interface GlobalConfig extends Config {
   ui: UIServerConfig;
@@ -35,7 +35,7 @@ export interface GlobalConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
-  layout: LayoutConfig;
+  crisLayout: CrisLayoutConfig;
   security: MetadataSecurityConfig;
   cms: CmsMetadata;
   suggestion: SuggestionConfig[];

@@ -1,15 +1,12 @@
-import { Box } from '../../core/layout/models/box.model';
-import { BOX } from '../../core/layout/models/box.resource-type';
+import { CrisLayoutBox } from '../../core/layout/models/box.model';
 import {
-  medataBoxConfigurationMock,
+  metadataBoxConfigurationMock,
   metricsBoxConfigurationMock,
   relationBoxConfigurationMock
 } from './box-configurations.mock';
 
-export const boxMetadata: Box = {
-  type: BOX,
+export const boxMetadata: CrisLayoutBox = {
   id: 1,
-  uuid: 'shortname-box-1-1',
   shortname: 'shortname-box-1',
   header: 'header-box-1',
   entityType: 'Box',
@@ -22,18 +19,11 @@ export const boxMetadata: Box = {
   security: 0,
   boxType: 'metadata',
   metadataSecurityFields: [],
-  configuration: medataBoxConfigurationMock,
-  _links: {
-    self: {
-      href: 'https://rest.api/rest/api/boxes/1'
-    },
-  }
+  configuration: metadataBoxConfigurationMock,
 };
 
-export const boxSearch: Box = {
-  type: BOX,
+export const boxSearch: CrisLayoutBox = {
   id: 2,
-  uuid: 'shortname-box-2-2',
   shortname: 'shortname-box-2',
   header: 'header-box-2',
   entityType: 'Box',
@@ -47,17 +37,10 @@ export const boxSearch: Box = {
   boxType: 'relation',
   metadataSecurityFields: [],
   configuration: relationBoxConfigurationMock,
-  _links: {
-    self: {
-      href: 'https://rest.api/rest/api/boxes/2'
-    },
-  }
 };
 
-export const boxMetrics: Box = {
-  type: BOX,
+export const boxMetrics: CrisLayoutBox = {
   id: 3,
-  uuid: 'shortname-box-3-3',
   shortname: 'shortname-box-3',
   header: 'header-box-3',
   entityType: 'Box',
@@ -71,11 +54,6 @@ export const boxMetrics: Box = {
   boxType: 'metrics',
   metadataSecurityFields: [],
   configuration: metricsBoxConfigurationMock,
-  _links: {
-    self: {
-      href: 'https://rest.api/rest/api/boxes/3'
-    },
-  }
 };
 
 export const boxes = [boxMetadata, boxSearch, boxMetrics];

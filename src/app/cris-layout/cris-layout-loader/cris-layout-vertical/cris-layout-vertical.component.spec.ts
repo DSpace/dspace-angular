@@ -5,7 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
 import { By } from '@angular/platform-browser';
-import { loaderTabs } from '../../../shared/testing/new-layout-tabs';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { loaderTabs } from '../../../shared/testing/layout-tab.mocks';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('CrisLayoutVerticalComponent', () => {
   let component: CrisLayoutVerticalComponent;
@@ -13,13 +16,17 @@ describe('CrisLayoutVerticalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutVerticalComponent ],
+      declarations: [CrisLayoutVerticalComponent],
       providers: [
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(1200) },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+      ],
+      imports: [
+        SharedModule,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

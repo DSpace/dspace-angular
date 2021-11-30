@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
-import { Tab } from '../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { environment } from '../../../environments/environment';
-import { Layout } from '../../../config/layout-config.interfaces';
+import { CrisLayoutTypeConfig } from '../../../config/layout-config.interfaces';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCrisLayoutPage } from '../decorators/cris-layout-page.decorator';
@@ -22,12 +22,17 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
   /**
    * Tabs to render
    */
-  @Input() tabs: Tab[];
+  @Input() tabs: CrisLayoutTab[];
+
+  /**
+   * A boolean representing if to show context menu or not
+   */
+  @Input() showContextMenu: boolean;
 
   /**
    * Configuration layout form the environment
    */
-  layoutConfiguration: Layout;
+  layoutConfiguration: CrisLayoutTypeConfig;
 
 
   /**
@@ -54,10 +59,10 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     const itemType = this.item?.firstMetadataValue('dspace.entity.type');
     const def = 'default';
 
-    if (!!environment.layout.itemPage && !!environment.layout.itemPage[itemType]) {
-      this.layoutConfiguration = environment.layout.itemPage[itemType];
+    if (!!environment.crisLayout.itemPage && !!environment.crisLayout.itemPage[itemType]) {
+      this.layoutConfiguration = environment.crisLayout.itemPage[itemType];
     } else {
-      this.layoutConfiguration = environment.layout.itemPage[def];
+      this.layoutConfiguration = environment.crisLayout.itemPage[def];
     }
   }
 
@@ -72,6 +77,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     this.componentRef = viewContainerRef.createComponent(componentFactory);
     (this.componentRef.instance as any).item = this.item;
     (this.componentRef.instance as any).tabs = this.tabs;
+    (this.componentRef.instance as any).showContextMenu = this.showContextMenu;
   }
 
   /**

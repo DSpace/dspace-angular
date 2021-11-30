@@ -1,6 +1,6 @@
-<div [ngClass]="{'col-2 mb-2': hasThumbnail}">
-  <ng-template #thumbnailContainer dsCrisLayoutLoader></ng-template>
-</div>
-<div [ngClass]="{'col-10 mb-2': hasThumbnail, 'col p-0': !hasThumbnail}">
-  <ng-template #metadataContainer dsCrisLayoutLoader></ng-template>
+<div class="d-flex flex-column w-100 col metadata-cell" [class]="cell.style" *ngFor="let cell of row.cells">
+  <ds-metadata-container *ngFor="let field of cell.fields; trackBy: trackUpdate" class="w-100"
+                         [box]="box"
+                         [item]="item"
+                         [field]="field"></ds-metadata-container>
 </div>
