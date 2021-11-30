@@ -1,4 +1,4 @@
-import { async, ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, waitForAsync } from '@angular/core/testing';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -12,13 +12,13 @@ import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { tabs } from '../../testing/tab.mock';
 import { TabDataService } from '../../../core/layout/tab-data.service';
 import { cold } from 'jasmine-marbles';
 import { Box } from '../../../core/layout/models/box.model';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { NotificationsService } from '../../notifications/notifications.service';
-
+import { Tab } from '../../../core/layout/models/tab.model';
+import { TAB } from '../../../core/layout/models/tab.resource-type';
 
 describe('EditItemRelationshipsMenuComponent', () => {
   let component: EditItemRelationshipsMenuComponent;
@@ -34,7 +34,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
     label: 'test'
   });
 
-  const boxes: Box[] = [
+
+  const boxesWithRelations: Box[] = [
     Object.assign(new Box(), {
       'id': 627,
       'shortname': 'namecard',
@@ -62,6 +63,76 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'maxColumns': null
     })
   ];
+
+  const boxesWithoutRelations: Box[] = [
+    Object.assign(new Box(), {
+      'id': 627,
+      'shortname': 'namecard',
+      'header': 'Name Card',
+      'entityType': 'Person',
+      'collapsed': false,
+      'minor': true,
+      'style': null,
+      'security': 0,
+      'boxType': 'METADATA',
+      'clear': true,
+      'maxColumns': null
+    })
+  ];
+
+  const tabWithRelationBoxes: Tab = {
+    type: TAB,
+    id: 1,
+    shortname: 'person-profile',
+    header: 'person-profile-header',
+    entityType: 'Person',
+    priority: 0,
+    security: 0,
+    rows:[
+      {
+        cells:[
+          {
+            boxes: boxesWithRelations,
+            style: ''
+          }
+        ],
+        style: ''
+      }
+    ],
+    uuid: 'person-profile-1',
+    _links: {
+      self: {
+        href: 'https://rest.api/rest/api/tabs/1'
+      }
+    }
+  };
+
+  const tabWithoutRelationBoxes: Tab = {
+    type: TAB,
+    id: 1,
+    shortname: 'person-profile',
+    header: 'person-profile-header',
+    entityType: 'Person',
+    priority: 0,
+    security: 0,
+    rows:[
+      {
+        cells:[
+          {
+            boxes: boxesWithoutRelations,
+            style: ''
+          }
+        ],
+        style: ''
+      }
+    ],
+    uuid: 'person-profile-1',
+    _links: {
+      self: {
+        href: 'https://rest.api/rest/api/tabs/1'
+      }
+    }
+  };
 
   const relationships = [
     Object.assign(new Box(), {
@@ -91,11 +162,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     findByItem: jasmine.createSpy('findByItem')
   });
 
-  const boxDataServiceMock: any = jasmine.createSpyObj('BoxDataService', {
-    findByItem: jasmine.createSpy('findByItem')
-  });
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
@@ -131,12 +198,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     beforeEach(() => {
       editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(editItem));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([tabs[0]]))
-      }));
-      boxDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(
-          createPaginatedList(boxes)
-        )
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithRelationBoxes]))
       }));
 
       fixture = TestBed.createComponent(EditItemRelationshipsMenuComponent);
@@ -162,13 +224,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     beforeEach(() => {
       editItemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(noEditItem));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([tabs[0]]))
-      }));
-
-      boxDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(
-          createPaginatedList(boxes)
-        )
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithoutRelationBoxes]))
       }));
 
       fixture = TestBed.createComponent(EditItemRelationshipsMenuComponent);

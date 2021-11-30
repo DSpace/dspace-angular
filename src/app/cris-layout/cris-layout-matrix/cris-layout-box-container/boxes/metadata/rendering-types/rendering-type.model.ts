@@ -24,9 +24,9 @@ export abstract class RenderingTypeModelComponent {
    */
   @Input() field: LayoutField;
   /**
-   * Defines the subtype of a rendering.
-   * ex. for type identifier.doi this property
-   * contains the subtype doi
+   * The rendering sub-type, if exists
+   * e.g. for type identifier.doi this property
+   * contains the sub-type doi
    */
   @Input() renderingSubType: string;
 

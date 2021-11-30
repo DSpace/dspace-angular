@@ -1,7 +1,9 @@
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
+import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
+
+import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
 import { loaderMultilevelTabs } from '../../../../shared/testing/new-layout-tabs';
 
 describe('CrisLayoutSidebarComponent', () => {
@@ -12,7 +14,11 @@ describe('CrisLayoutSidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutSidebarComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [ CrisLayoutSidebarComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -37,7 +43,7 @@ describe('CrisLayoutSidebarComponent', () => {
     });
 
     it('should not show sidebar show/hide button', () => {
-      expect(de.query(By.css('.custom-menu'))).toBeNull();
+      expect(de.query(By.css('.menu-toggle'))).toBeNull();
     });
 
   });
@@ -53,7 +59,7 @@ describe('CrisLayoutSidebarComponent', () => {
     });
 
     it('should show sidebar show/hide button', () => {
-      expect(de.query(By.css('.custom-menu'))).toBeTruthy();
+      expect(de.query(By.css('.menu-toggle'))).toBeTruthy();
     });
 
     it('should show 3 sidebar items', () => {
@@ -61,7 +67,7 @@ describe('CrisLayoutSidebarComponent', () => {
     });
 
     it('when first click show/hide button should hide sidebar', () => {
-      const btn = de.query(By.css('.btn-arrow'));
+      const btn = de.query(By.css('.menu-toggle'));
       btn.nativeElement.click();
       fixture.detectChanges();
       expect(de.query(By.css('#sidebar'))).toBeNull();

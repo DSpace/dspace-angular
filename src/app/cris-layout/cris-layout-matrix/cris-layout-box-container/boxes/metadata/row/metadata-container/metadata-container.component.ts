@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
-  ComponentRef,
-  Injector,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { Box, LayoutField } from '../../../../../../../core/layout/models/box.model';
 import {
@@ -16,7 +7,6 @@ import {
   MetadataBoxFieldRenderOptions
 } from '../../rendering-types/metadata-box.decorator';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
-import { GenericConstructor } from '../../../../../../../core/shared/generic-constructor';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../../../../../environments/environment';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
@@ -41,11 +31,6 @@ export class MetadataContainerComponent implements OnInit {
    * The metadata field to render
    */
   @Input() field: LayoutField;
-  /**
-   * a boolean representing if metadata is nested in a structured rendering type
-   */
-  @Input() nested: boolean;
-  injectorObj;
 
   /**
    * The prefix used for box field label's i18n key
@@ -57,15 +42,19 @@ export class MetadataContainerComponent implements OnInit {
    */
   isStructured = false;
 
+  /**
+   * The configuration of the rendering component to render
+   */
   metadataFieldRenderOptions: MetadataBoxFieldRenderOptions;
 
+  /**
+   * The rendering sub-type, if exists
+   * e.g. for type identifier.doi this property
+   * contains the sub-type doi
+   */
   renderingSubType: string;
 
-  constructor(
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector,
-    protected translateService: TranslateService
-  ) {
+  constructor(protected translateService: TranslateService) {
   }
 
   /**
@@ -110,15 +99,6 @@ export class MetadataContainerComponent implements OnInit {
     const defaultCol = environment.crisLayout.metadataBox.defaultMetadataLabelColStyle;
     return (isNotEmpty(this.field.styleLabel) && this.field.styleLabel.includes('col'))
       ? this.field.styleLabel : `${defaultCol} ${this.field.styleLabel}`;
-  }
-
-  /**
-   * Returns a string representing the style of field value if exists, default value otherwise
-   */
-  get valueStyle(): string {
-    const defaultCol = environment.crisLayout.metadataBox.defaultMetadataLabelColStyle;
-    return (isNotEmpty(this.field.styleValue) && this.field.styleValue.includes('col'))
-      ? this.field.styleValue : `${defaultCol} ${this.field.styleValue}`;
   }
 
   ngOnInit() {
@@ -174,53 +154,8 @@ export class MetadataContainerComponent implements OnInit {
     return renderOptions;
   }
 
-  /**
-   * Generate ComponentFactory for Thumbnail rendering
-   * @param fieldRenderingType
-   */
-  computeThumbnailComponentFactory(fieldRenderingType: string | FieldRenderingType): ComponentFactory<any> {
-    const constructor: GenericConstructor<Component> = getMetadataBoxFieldRendering(fieldRenderingType)?.componentRef;
-    return constructor ? this.componentFactoryResolver.resolveComponentFactory(constructor) : null;
-  }
-
-  /**
-   * Generate ComponentRef for Thumbnail rendering
-   * @param factory
-   */
-  generateThumbnailComponentRef(factory: ComponentFactory<any>): ComponentRef<any> {
-    // let metadataRef: ComponentRef<Component>;
-    // metadataRef = this.metadataStructuredContainerViewRef.createComponent(factory, 0, this.getComponentInjector());
-    /*    (metadataRef.instance as any).item = this.item;
-        (metadataRef.instance as any).itemProvider = this.item;
-        (metadataRef.instance as any).field = this.field;
-        (metadataRef.instance as any).fieldProvider = this.field;
-        (metadataRef.instance as any).renderingSubTypeProvider = this.renderingSubType;*/
-    return null;
-  }
-
   trackUpdate(index, value: string) {
     return value;
   }
 
-  getComponentInjector(metadataValue?: any) {
-    const providers = [
-      { provide: 'fieldProvider', useValue: this.field, deps: [] },
-      { provide: 'itemProvider', useValue: this.item, deps: [] },
-      { provide: 'renderingSubTypeProvider', useValue: this.renderingSubType, deps: [] }
-    ];
-    if (isNotEmpty(metadataValue)) {
-      providers.push({ provide: 'metadataValueProvider', useValue: metadataValue, deps: [] });
-    }
-
-    this.injectorObj = Injector.create({
-      providers: providers,
-      parent: this.injector
-    });
-
-    return this.injectorObj;
-  }
-
-  getComponentRef(): GenericConstructor<Component> {
-    return this.metadataFieldRenderOptions.componentRef;
-  }
 }

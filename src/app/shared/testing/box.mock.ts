@@ -1,6 +1,6 @@
 import { Box } from '../../core/layout/models/box.model';
 import {
-  medataBoxConfigurationMock,
+  metadataBoxConfigurationMock,
   metricsBoxConfigurationMock,
   relationBoxConfigurationMock
 } from './box-configurations.mock';
@@ -19,7 +19,7 @@ export const boxMetadata: Box = {
   security: 0,
   boxType: 'metadata',
   metadataSecurityFields: [],
-  configuration: medataBoxConfigurationMock,
+  configuration: metadataBoxConfigurationMock,
 };
 
 export const boxSearch: Box = {

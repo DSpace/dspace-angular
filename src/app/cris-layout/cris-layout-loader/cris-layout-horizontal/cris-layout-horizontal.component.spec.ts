@@ -7,7 +7,6 @@ import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
 import { By } from '@angular/platform-browser';
 import { loaderTabs } from '../../../shared/testing/new-layout-tabs';
 
-
 describe('CrisLayoutHorizontalComponent', () => {
   let component: CrisLayoutHorizontalComponent;
   let fixture: ComponentFixture<CrisLayoutHorizontalComponent>;
@@ -33,7 +32,7 @@ describe('CrisLayoutHorizontalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('shouldshow navbar', () => {
+  it('should show navbar', () => {
     component.tabs = loaderTabs;
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('ds-cris-layout-navbar'))).toBeTruthy();

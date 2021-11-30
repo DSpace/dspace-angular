@@ -1,11 +1,11 @@
 import {
-  ChangeDetectorRef,
   Component,
   ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
   Injector,
   Input,
+  OnInit,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -24,7 +24,7 @@ import {
   templateUrl: './metadata-render.component.html',
   styleUrls: ['./metadata-render.component.scss']
 })
-export class MetadataRenderComponent {
+export class MetadataRenderComponent implements OnInit {
 
   /**
    * Current DSpace Item
@@ -57,16 +57,14 @@ export class MetadataRenderComponent {
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected cdr: ChangeDetectorRef,
     private injector: Injector,
   ) {
 
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.metadataValueViewRef.clear();
     this.generateComponentRef();
-    this.cdr.detectChanges();
   }
 
   /**
@@ -89,6 +87,9 @@ export class MetadataRenderComponent {
     return metadataRef;
   }
 
+  /**
+   * Generate Component Injector object
+   */
   getComponentInjector() {
     const providers = [
       { provide: 'fieldProvider', useValue: this.field, deps: [] },
@@ -105,6 +106,11 @@ export class MetadataRenderComponent {
     });
   }
 
+  /**
+   * Return the rendering type of the field to render
+   *
+   * @return the rendering type
+   */
   computeRendering(): string | FieldRenderingType {
     let rendering = hasValue(this.field.rendering) ? this.field.rendering : FieldRenderingType.TEXT;
 
@@ -115,6 +121,10 @@ export class MetadataRenderComponent {
     return rendering;
   }
 
+  /**
+   * Return the rendering option related to the given rendering type
+   * @param fieldRenderingType
+   */
   getMetadataBoxFieldRenderOptions(fieldRenderingType: string): MetadataBoxFieldRenderOptions {
     let renderOptions = getMetadataBoxFieldRendering(fieldRenderingType);
     // If the rendering type not exists will use TEXT type rendering

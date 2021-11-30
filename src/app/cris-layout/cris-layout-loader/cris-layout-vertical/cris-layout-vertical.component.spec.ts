@@ -6,6 +6,8 @@ import { RouterMock } from '../../../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
 import { By } from '@angular/platform-browser';
 import { loaderTabs } from '../../../shared/testing/new-layout-tabs';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 
 describe('CrisLayoutVerticalComponent', () => {
   let component: CrisLayoutVerticalComponent;
@@ -17,6 +19,7 @@ describe('CrisLayoutVerticalComponent', () => {
       providers: [
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(1200) },
       ]
     })
     .compileComponents();
