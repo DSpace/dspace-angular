@@ -879,59 +879,6 @@ describe('SubmissionObjectEffects test suite', () => {
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
     });
 
-    it('should not allow to deposit when there are errors', () => {
-      store.nextState({
-        submission: {
-          objects: submissionState
-        }
-      } as any);
-
-      actions = hot('--a-', {
-        a: {
-          type: SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION,
-          payload: {
-            submissionId: submissionId
-          }
-        }
-      });
-
-      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
-        sections: mockSectionsData,
-        errors: mockSectionsErrors
-      })];
-
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
-
-      const errorsList = parseSectionErrors(mockSectionsErrors);
-      const expected = cold('--b-', {
-        b: [
-          new UpdateSectionDataAction(
-            submissionId,
-            'traditionalpageone',
-            mockSectionsData.traditionalpageone as any,
-            errorsList.traditionalpageone || [],
-            errorsList.traditionalpageone || []
-          ),
-          new UpdateSectionDataAction(
-            submissionId,
-            'license',
-            mockSectionsData.license as any,
-            errorsList.license || [],
-            errorsList.license || []
-          ),
-          new UpdateSectionDataAction(
-            submissionId,
-            'upload',
-            mockSectionsData.upload as any,
-            errorsList.upload || [],
-            errorsList.upload || []
-          )
-        ]
-      });
-
-      expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
-    });
-
     it('should catch errors and return a SAVE_SUBMISSION_FORM_ERROR', () => {
       actions = hot('--a-', {
         a: {
