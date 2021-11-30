@@ -1,4 +1,5 @@
-<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
+<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async),
+                                                            'container': (hasSidebar() | async) }">
   <nav id="sidebar" *ngIf="(hasSidebar() | async) && !(isSideBarHidden() | async)" [ngClass]="{'active': !(isSideBarHidden() | async)}">
     <div>
       <ul class="list-unstyled components mb-5">

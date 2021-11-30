@@ -1,6 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -11,6 +9,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -21,9 +20,11 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 @MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
 export class ThumbnailComponent extends BitstreamRenderingModelComponent implements OnInit {
 
-  bitstream$: Observable<Bitstream>;
+  bitstream$: BehaviorSubject<Bitstream> = new BehaviorSubject<Bitstream>(null);
 
   default: string;
+
+  initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -37,7 +38,7 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
 
   ngOnInit(): void {
     this.setDefaultImage();
-    this.bitstream$ = this.getBitstream().pipe(
+    this.getBitstream().pipe(
       map((bitstreams) => {
         let rVal = null;
         bitstreams.forEach((bitstream) => {
@@ -48,7 +49,10 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
         });
         return rVal;
       })
-    );
+    ).subscribe((bitstream) => {
+      this.bitstream$.next(bitstream);
+      this.initialized.next(true);
+    });
   }
 
   setDefaultImage(): void {

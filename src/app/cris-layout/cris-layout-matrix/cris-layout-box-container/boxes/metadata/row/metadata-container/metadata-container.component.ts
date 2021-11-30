@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { CrisLayoutBox, LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { CrisLayoutBox, LayoutField, LayoutFieldType } from '../../../../../../../core/layout/models/box.model';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
@@ -10,6 +10,13 @@ import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../../../../../environments/environment';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
+import { map, take } from 'rxjs/operators';
+import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { RemoteData } from '../../../../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'ds-metadata-container',
@@ -54,7 +61,10 @@ export class MetadataContainerComponent implements OnInit {
    */
   renderingSubType: string;
 
-  constructor(protected translateService: TranslateService) {
+  constructor(
+    protected bitstreamDataService: BitstreamDataService,
+    protected translateService: TranslateService
+  ) {
   }
 
   /**
@@ -102,26 +112,47 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.hasFieldMetadataComponent(this.field)) {
-      const rendering = this.computeRendering(this.field);
-      this.renderingSubType = this.computeSubType(this.field);
-      this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(rendering);
-      this.isStructured = this.metadataFieldRenderOptions.structured;
+    console.log(this.field.metadata, this.field.rendering);
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM) {
+      this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
+        if (hasBitstream) {
+          this.initRenderOptions();
+        }
+      });
+    } else if (this.hasFieldMetadataComponent(this.field)) {
+      this.initRenderOptions();
     }
+  }
+
+  initRenderOptions(): void {
+    const rendering = this.computeRendering(this.field);
+    this.renderingSubType = this.computeSubType(this.field);
+    this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(rendering);
+    this.isStructured = this.metadataFieldRenderOptions.structured;
+  }
+
+  hasBitstream(): Observable<boolean> {
+    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          return response.hasSucceeded && response.payload.page.length > 0;
+        })
+      );
   }
 
   hasFieldMetadataComponent(field: LayoutField) {
     // if it is metadatagroup and none of the nested metadatas has values then dont generate the component
     let existOneMetadataWithValue = false;
-    if (field.fieldType === 'METADATAGROUP') {
+    if (field.fieldType === LayoutFieldType.METADATAGROUP) {
       field.metadataGroup.elements.forEach(el => {
         if (this.item.metadata[el.metadata]) {
           existOneMetadataWithValue = true;
         }
       });
     }
-    return field.fieldType === 'BITSTREAM' || (field.fieldType === 'METADATAGROUP' && existOneMetadataWithValue) ||
-      (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata));
+    return (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
+      (field.fieldType === LayoutFieldType.METADATA && this.item.firstMetadataValue(field.metadata));
   }
 
   computeSubType(field: LayoutField): string | FieldRenderingType {

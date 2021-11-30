@@ -9,12 +9,17 @@ export interface LayoutBitstream {
     metadataValue: string;
 }
 
+export enum LayoutFieldType {
+  METADATA = 'METADATA',
+  METADATAGROUP = 'METADATAGROUP',
+  BITSTREAM = 'BITSTREAM'
+}
 export interface LayoutField {
     metadata?: string;
     bitstream?: LayoutBitstream;
     label?: string;
     rendering: string;
-    fieldType: string;
+    fieldType: LayoutFieldType|string;
     style?: string;
     styleLabel?: string;
     styleValue?: string;

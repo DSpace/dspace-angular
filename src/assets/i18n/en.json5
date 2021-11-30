@@ -2646,6 +2646,7 @@
 
   "item.page.link.simple": "Simple item page",
 
+  "item.page.metric.acquisition-date": "Acquisition Date",
   "item.page.metric.deltaPeriod1": "Last Week",
 
   "item.page.metric.deltaPeriod2": "Last Month",

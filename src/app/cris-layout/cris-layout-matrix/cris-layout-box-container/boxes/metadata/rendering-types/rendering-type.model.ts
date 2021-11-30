@@ -91,7 +91,7 @@ export abstract class RenderingTypeModelComponent {
    * Returns a string representing the style of field value if exists
    */
   get valueStyle(): string {
-    return this.field.styleValue;
+    return this.field.styleValue || '';
   }
 
   /**

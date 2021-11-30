@@ -35,12 +35,8 @@ export class RowComponent {
     return field && field.metadata;
   }
 
-  /**
-   * Return the list of all cell
-   * belonging to the current row
-   */
-  getRowMetadataCells(): MetadataBoxCell[] {
-    console.log(this.row.cells);
-    return this.row.cells;
+  trackCellUpdate(index, cell: MetadataBoxCell) {
+    return cell && cell.fields;
   }
+
 }

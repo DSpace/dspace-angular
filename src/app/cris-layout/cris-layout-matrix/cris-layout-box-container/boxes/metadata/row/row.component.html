@@ -1,4 +1,4 @@
-<div class="d-flex flex-column w-100 col metadata-cell" [class]="cell.style" *ngFor="let cell of getRowMetadataCells()">
+<div class="d-flex flex-column w-100 col metadata-cell" [class]="cell.style" *ngFor="let cell of row.cells">
   <ds-metadata-container *ngFor="let field of cell.fields; trackBy: trackUpdate" class="w-100"
                          [box]="box"
                          [item]="item"
