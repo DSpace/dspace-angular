@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Tab } from '../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { Item } from '../../core/shared/item.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class CrisLayoutMatrixComponent {
   /**
    * Tabs to render
    */
-  @Input() tab: Tab;
+  @Input() tab: CrisLayoutTab;
 
   /**
    * Tabs to render

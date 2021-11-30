@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { Box, LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { CrisLayoutBox, LayoutField } from '../../../../../../../core/layout/models/box.model';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
@@ -26,7 +26,7 @@ export class MetadataContainerComponent implements OnInit {
   /**
    * Current layout box
    */
-  @Input() box: Box;
+  @Input() box: CrisLayoutBox;
   /**
    * The metadata field to render
    */

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Tab } from '../../../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { rotate, rotateNavbar } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,12 +20,12 @@ export class CrisLayoutSidebarItemComponent {
   /**
    * The tab that will be shown
    */
-  @Input() tab: Tab;
+  @Input() tab: CrisLayoutTab;
 
   /**
    * used for notify tab selection
    */
-  @Input() selectedTab: Tab;
+  @Input() selectedTab: CrisLayoutTab;
 
   /**
    * used for specifying type of layout
@@ -40,7 +40,7 @@ export class CrisLayoutSidebarItemComponent {
   /**
    * used for notify tab selection
    */
-  @Output() tabSelectedChange = new EventEmitter<Tab>();
+  @Output() tabSelectedChange = new EventEmitter<CrisLayoutTab>();
 
   /**
    * Emits true when the menu section is expanded, else emits false
@@ -69,7 +69,7 @@ export class CrisLayoutSidebarItemComponent {
     }
   }
 
-  getTabHeader(tab: Tab): string {
+  getTabHeader(tab: CrisLayoutTab): string {
     const tabHeaderI18nKey = this.tabI18nPrefix + tab.shortname;
     const header: string = this.translateService.instant(tabHeaderI18nKey);
     if (header === tabHeaderI18nKey ) {

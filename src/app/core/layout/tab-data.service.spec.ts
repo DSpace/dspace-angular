@@ -4,7 +4,7 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Tab } from './models/tab.model';
+import { CrisLayoutTab } from './models/tab.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +26,7 @@ describe('TabDataService', () => {
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
 
-  const tabPersonProfile: Tab = {
+  const tabPersonProfile: CrisLayoutTab = {
     type: TAB,
     id: 1,
     shortname: 'person-profile',
@@ -42,7 +42,7 @@ describe('TabDataService', () => {
     }
   };
 
-  const tabPersonBiography: Tab = {
+  const tabPersonBiography: CrisLayoutTab = {
     type: TAB,
     id: 2,
     shortname: 'person-biography',
@@ -58,7 +58,7 @@ describe('TabDataService', () => {
     }
   };
 
-  const tabPersonBibliometrics: Tab = {
+  const tabPersonBibliometrics: CrisLayoutTab = {
     type: TAB,
     id: 3,
     shortname: 'person-bibliometrics',
@@ -141,7 +141,7 @@ describe('TabDataService', () => {
       expect((service as any).dataService.findById).toHaveBeenCalledWith(tabId);
     });
 
-    it('should return a RemoteData<Tab> for the object with the given id', () => {
+    it('should return a RemoteData<CrisLayoutTab> for the object with the given id', () => {
       const result = service.findById(tabId);
       const expected = cold('a|', {
         a: tabRD
@@ -162,7 +162,7 @@ describe('TabDataService', () => {
       expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByItem, options, true);
     });
 
-    it('should return a RemoteData<PaginatedList<Tab>> for the search', () => {
+    it('should return a RemoteData<PaginatedList<CrisLayoutTab>> for the search', () => {
       const result = service.findByItem(itemUUID, true);
       const expected = cold('a|', {
         a: paginatedListRD
@@ -184,7 +184,7 @@ describe('TabDataService', () => {
       expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchFindByEntityType, options);
     });
 
-    it('should return a RemoteData<PaginatedList<Tab>> for the search', () => {
+    it('should return a RemoteData<PaginatedList<CrisLayoutTab>> for the search', () => {
       const result = service.findByEntityType(entityType);
       const expected = cold('a|', {
         a: paginatedListRD

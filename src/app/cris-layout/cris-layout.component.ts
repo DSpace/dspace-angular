@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../core/shared/item.model';
 import { TabDataService } from '../core/layout/tab-data.service';
-import { Tab } from '../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../core/layout/models/tab.model';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
@@ -27,17 +27,17 @@ export class CrisLayoutComponent implements OnInit {
   /**
    * Get tabs for the specific item
    */
-  tabs$: Observable<Tab[]>;
+  tabs$: Observable<CrisLayoutTab[]>;
 
   /**
    * Get loader tabs for the specific item
    */
-  loaderTabs$: Observable<Tab[]>;
+  loaderTabs$: Observable<CrisLayoutTab[]>;
 
   /**
    * Get leading for the specific item
    */
-  leadingTabs$: Observable<Tab[]>;
+  leadingTabs$: Observable<CrisLayoutTab[]>;
 
   hasLeadingTab$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -63,7 +63,7 @@ export class CrisLayoutComponent implements OnInit {
   /**
    * Get tabs for the specific item
    */
-  getTabsByItem(): Observable<Tab[]> {
+  getTabsByItem(): Observable<CrisLayoutTab[]> {
     // Since there is no API ready
     return this.tabService.findByItem(this.item.uuid, true).pipe(
       getFirstSucceededRemoteData(),
@@ -75,18 +75,18 @@ export class CrisLayoutComponent implements OnInit {
   /**
    * Get tabs for the leading component where parameter leading is true b
    */
-  getLeadingTabs(): Observable<Tab[]> {
+  getLeadingTabs(): Observable<CrisLayoutTab[]> {
     return this.tabs$.pipe(
-      map((tabs: Tab[]) => tabs.filter(tab => tab.leading)),
+      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => tab.leading)),
     );
   }
 
   /**
    * Get tabs for the loader component where parameter leading is false
    */
-  getLoaderTabs(): Observable<Tab[]> {
+  getLoaderTabs(): Observable<CrisLayoutTab[]> {
     return this.tabs$.pipe(
-      map((tabs: Tab[]) => tabs.filter(tab => !tab.leading)),
+      map((tabs: CrisLayoutTab[]) => tabs.filter(tab => !tab.leading)),
     );
   }
 
@@ -95,7 +95,7 @@ export class CrisLayoutComponent implements OnInit {
    */
   hasLeadingTab(): Observable<boolean> {
     return this.getLeadingTabs().pipe(
-      map((tabs: Tab[]) => tabs && tabs.length > 0)
+      map((tabs: CrisLayoutTab[]) => tabs && tabs.length > 0)
     );
   }
 

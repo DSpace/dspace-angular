@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
 import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
-import { loaderMultilevelTabs } from '../../../../shared/testing/new-layout-tabs';
+import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mocks';
 
 describe('CrisLayoutSidebarComponent', () => {
   let component: CrisLayoutSidebarComponent;

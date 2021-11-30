@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { CrisLayoutMatrixComponent } from './cris-layout-matrix.component';
 
-import { leadingTabs } from '../../shared/testing/new-layout-tabs';
+import { leadingTabs } from '../../shared/testing/layout-tab.mocks';
 
 describe('CrisLayoutMatrixComponent', () => {
   let component: CrisLayoutMatrixComponent;

@@ -139,8 +139,8 @@ import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { TabDataService } from './layout/tab-data.service';
-import { Tab } from './layout/models/tab.model';
-import { Box } from './layout/models/box.model';
+import { CrisLayoutTab } from './layout/models/tab.model';
+import { CrisLayoutBox } from './layout/models/box.model';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
@@ -381,8 +381,8 @@ export const models =
     Feature,
     Authorization,
     Registration,
-    Tab,
-    Box,
+    CrisLayoutTab,
+    CrisLayoutBox,
     MetricsComponent,
     Metric,
     Vocabulary,

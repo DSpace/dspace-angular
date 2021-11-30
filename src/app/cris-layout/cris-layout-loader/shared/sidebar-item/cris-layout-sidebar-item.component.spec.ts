@@ -4,28 +4,11 @@ import { CrisLayoutSidebarItemComponent } from './cris-layout-sidebar-item.compo
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
-// import { CrisLayoutMetadataBoxComponent } from '../../boxes/metadata/cris-layout-metadata-box.component';
+
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { tabPersonTest } from '../../../../shared/testing/tab.mock';
+import { tabPersonTest } from '../../../../shared/testing/layout-tab.mocks';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-// const testType = LayoutPage.DEFAULT;
-
-// class TestItem {
-//   firstMetadataValue(key: string): string {
-//     return testType;
-//   }
-// }
-
-// tslint:disable-next-line: max-classes-per-file
-/*class BoxDataServiceMock {
-  findByItem(itemUuid: string, tabId: number): Observable<RemoteData<PaginatedList<Box>>> {
-    return cold('a|', {
-      a: createSuccessfulRemoteDataObject(createPaginatedList([boxMetadata]))
-    });
-  }
-}*/
 
 describe('CrisLayoutSidebarItemComponent', () => {
   let component: CrisLayoutSidebarItemComponent;
@@ -48,22 +31,15 @@ describe('CrisLayoutSidebarItemComponent', () => {
         // CrisLayoutMetadataBoxComponent
       ],
       providers: [
-        // { provide: MetadataComponentsDataService, useClass: MetadataComponentsDataServiceMock },
         { provide: BitstreamDataService, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(CrisLayoutSidebarItemComponent, {
-      set: {
-        // entryComponents: [CrisLayoutMetadataBoxComponent]
-      }
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutSidebarItemComponent);
     component = fixture.componentInstance;
-    // component.item = new TestItem() as Item;
-    // component.boxes = [boxMetadata];
     component.tab = tabPersonTest;
     fixture.detectChanges();
   });

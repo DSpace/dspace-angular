@@ -1,21 +1,16 @@
-import { async as realAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
 
 import { CrisLayoutComponent } from './cris-layout.component';
 import { Item } from '../core/shared/item.model';
-import { createPaginatedList } from '../shared/testing/utils.test';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { leadingTabs, loaderTabs, bothTabs } from '../shared/testing/new-layout-tabs';
 import { By } from '@angular/platform-browser';
-import { tap } from 'rxjs/operators';
+import { bothTabs, leadingTabs, loaderTabs } from '../shared/testing/layout-tab.mocks';
 
 const mockItem = Object.assign(new Item(), {
   id: 'fake-id',

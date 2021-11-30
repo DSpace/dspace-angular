@@ -1,6 +1,6 @@
 import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { Box } from '../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../core/layout/models/box.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../core/shared/item.model';
 
@@ -13,17 +13,17 @@ import { Item } from '../../core/shared/item.model';
 export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelComponent implements OnInit {
 
   /**
-   * Box.
+   * CrisLayoutBox.
    */
-  @Input() box: Box;
+  @Input() box: CrisLayoutBox;
 
   /**
-   * Emit a refresh box request from within the Box.
+   * Emit a refresh box request from within the CrisLayoutBox.
    */
   @Output() refreshBox: EventEmitter<void> = new EventEmitter<void>();
 
   /**
-   * Emit a refresh tab request from within the Box.
+   * Emit a refresh tab request from within the CrisLayoutBox.
    */
   @Output() refreshTab: EventEmitter<void> = new EventEmitter<void>();
 
@@ -58,7 +58,7 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
   protected constructor(
     protected translateService: TranslateService,
     protected viewRef: ElementRef,
-    @Inject('boxProvider') public boxProvider: Box,
+    @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item,
     ) {
     super();

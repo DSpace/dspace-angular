@@ -13,7 +13,7 @@ import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shar
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { Tab } from '../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 
 /**
@@ -53,7 +53,7 @@ export class ItemPageComponent implements OnInit {
   /**
    * The configured tabs for layout of current item
    */
-  tabsRD$: Observable<RemoteData<PaginatedList<Tab>>>;
+  tabsRD$: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
 
   constructor(
     protected route: ActivatedRoute,
@@ -71,7 +71,7 @@ export class ItemPageComponent implements OnInit {
       redirectOn4xx(this.router, this.authService)
     );
     this.tabsRD$ = this.route.data.pipe(
-      map((data) => data.tabs as RemoteData<PaginatedList<Tab>>),
+      map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),
     );
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),

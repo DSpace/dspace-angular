@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
 import { By } from '@angular/platform-browser';
-import { loaderTabs } from '../../../shared/testing/new-layout-tabs';
+import { loaderTabs } from '../../../shared/testing/layout-tab.mocks';
 
 describe('CrisLayoutHorizontalComponent', () => {
   let component: CrisLayoutHorizontalComponent;

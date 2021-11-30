@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, Injector, Input, OnInit } from '@angular/core';
 
-import { Box } from '../../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../../core/layout/models/box.model';
 import { CrisLayoutBoxRenderOptions, getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../../core/shared/item.model';
@@ -15,7 +15,7 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
 })
 export class CrisLayoutBoxContainerComponent implements OnInit {
 
-  @Input() box: Box;
+  @Input() box: CrisLayoutBox;
 
   /**
    * Item that is being viewed

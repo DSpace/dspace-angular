@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { Tab } from '../../../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
@@ -30,11 +30,11 @@ export class CrisLayoutTabsComponent {
   /**
    * tabs list
    */
-  tabs: Tab[] = [];
+  tabs: CrisLayoutTab[] = [];
   /**
    * used for notify tab selection
    */
-  @Output() selectedTab = new EventEmitter<Tab>();
+  @Output() selectedTab = new EventEmitter<CrisLayoutTab>();
 
   constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
   }

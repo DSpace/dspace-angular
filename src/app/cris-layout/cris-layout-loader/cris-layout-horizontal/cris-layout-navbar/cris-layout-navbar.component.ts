@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Tab } from '../../../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { slideMobileNav } from '../../../../shared/animations/slide';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { CrisLayoutTabsComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
@@ -18,7 +18,7 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
   /**
    * Tabs to render
    */
-  @Input() tabs: Tab[];
+  @Input() tabs: CrisLayoutTab[];
 
   /**
    * Item that is being viewed
@@ -30,7 +30,7 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
   /**
    * Item that is being viewed
    */
-  @Output() selectedTabChange = new EventEmitter<Tab>();
+  @Output() selectedTabChange = new EventEmitter<CrisLayoutTab>();
 
   constructor(
     public location: Location,

@@ -10,7 +10,12 @@ import {
 } from '@angular/core';
 import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../../core/shared/item.model';
-import { Box, LayoutField, MetadataBoxCell, MetadataBoxRow } from '../../../../../../core/layout/models/box.model';
+import {
+  CrisLayoutBox,
+  LayoutField,
+  MetadataBoxCell,
+  MetadataBoxRow
+} from '../../../../../../core/layout/models/box.model';
 import { FieldRenderingType, getMetadataBoxFieldRendering } from '../rendering-types/metadata-box.decorator';
 
 /**
@@ -31,7 +36,7 @@ export class RowComponent implements OnInit {
   /**
    * Current layout box
    */
-  @Input() box: Box;
+  @Input() box: CrisLayoutBox;
   /**
    * Current row configuration
    */

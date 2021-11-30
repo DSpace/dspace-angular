@@ -14,7 +14,7 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { TabDataService } from '../../../core/layout/tab-data.service';
-import { Cell, Row, Tab } from '../../../core/layout/models/tab.model';
+import { CrisLayoutCell, CrisLayoutRow, CrisLayoutTab } from '../../../core/layout/models/tab.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -52,7 +52,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
   /**
    * Tabs
    */
-  private tabs: Tab[];
+  private tabs: CrisLayoutTab[];
 
   /**
    * Initialize instance variables
@@ -88,9 +88,9 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    * Get boxes from tabs
    */
   initBoxes(): void {
-    this.tabs.forEach((tab: Tab) => {
-      tab.rows.forEach((row: Row) => {
-        row.cells.forEach((cell: Cell) => {
+    this.tabs.forEach((tab: CrisLayoutTab) => {
+      tab.rows.forEach((row: CrisLayoutRow) => {
+        row.cells.forEach((cell: CrisLayoutCell) => {
           const relationshipsBoxes = cell.boxes.filter((box) => box.boxType === 'RELATION');
           this.relationships.push(...relationshipsBoxes);
         });

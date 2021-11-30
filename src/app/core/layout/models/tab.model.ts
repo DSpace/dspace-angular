@@ -6,13 +6,13 @@ import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { Box } from './box.model';
+import { CrisLayoutBox } from './box.model';
 
 /**
- * Describes a type of Tab
+ * Describes a type of CrisLayoutTab
  */
 @typedObject
-export class Tab extends CacheableObject {
+export class CrisLayoutTab extends CacheableObject {
   static type = TAB;
 
   /**
@@ -23,7 +23,7 @@ export class Tab extends CacheableObject {
   type: ResourceType;
 
   /**
-   * The identifier of this Tab
+   * The identifier of this CrisLayoutTab
    */
   @autoserialize
   id: number;
@@ -56,17 +56,17 @@ export class Tab extends CacheableObject {
   leading?: boolean;
 
   @autoserialize
-  rows?: Row[];
+  rows?: CrisLayoutRow[];
   /**
-   * The universally unique identifier of this Tab
+   * The universally unique identifier of this CrisLayoutTab
    * This UUID is generated client-side and isn't used by the backend.
    * It is based on the ID, so it will be the same for each refresh.
    */
-  @deserializeAs(new IDToUUIDSerializer(Tab.type.value), 'id')
+  @deserializeAs(new IDToUUIDSerializer(CrisLayoutTab.type.value), 'id')
   uuid: string;
 
   /**
-   * The {@link HALLink}s for this Tab
+   * The {@link HALLink}s for this CrisLayoutTab
    */
   @deserialize
   _links: {
@@ -76,18 +76,18 @@ export class Tab extends CacheableObject {
   /**
    * Contains nested tabs if exist
    */
-  children?: Tab[];
+  children?: CrisLayoutTab[];
 }
 
 
-export interface Row {
+export interface CrisLayoutRow {
   style: string;
-  cells: Cell[];
+  cells: CrisLayoutCell[];
 }
 
 
 
-export interface Cell {
+export interface CrisLayoutCell {
   style: string;
-  boxes: Box[];
+  boxes: CrisLayoutBox[];
 }

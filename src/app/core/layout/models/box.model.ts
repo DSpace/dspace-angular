@@ -52,12 +52,12 @@ export interface MetadataBoxRow {
 }
 
 /**
- * Describes the Box model
+ * Describes the CrisLayoutBox model
  */
-export class Box {
+export class CrisLayoutBox {
 
     /**
-     * The identifier of this Box
+     * The identifier of this CrisLayoutBox
      */
     id: number;
 

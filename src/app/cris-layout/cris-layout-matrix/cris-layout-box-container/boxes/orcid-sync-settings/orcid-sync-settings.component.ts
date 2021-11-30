@@ -7,17 +7,17 @@ import { ResearcherProfileService } from '../../../../../core/profile/researcher
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { getFinishedRemoteData } from '../../../../../core/shared/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
+import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { Box } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-orcid-sync-settings.component',
   templateUrl: './orcid-sync-settings.component.html'
 })
-@CrisLayoutBox(LayoutBox.ORCID_SYNC_SETTINGS,true)
+@RenderCrisLayoutBoxFor(LayoutBox.ORCID_SYNC_SETTINGS,true)
 export class OrcidSyncSettingsComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   messagePrefix = 'person.page.orcid';
@@ -41,7 +41,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxModelComponent impl
               private notificationsService: NotificationsService,
               public authService: AuthService,
               protected viewRef: ElementRef,
-              @Inject('boxProvider') public boxProvider: Box,
+              @Inject('boxProvider') public boxProvider: CrisLayoutBox,
               @Inject('itemProvider') public itemProvider: Item) {
     super(translateService, viewRef, boxProvider, itemProvider);
   }

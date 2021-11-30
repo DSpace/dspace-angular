@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
-import { Tab } from '../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { environment } from '../../../environments/environment';
 import { CrisLayoutTypeConfig } from '../../../config/layout-config.interfaces';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
@@ -22,7 +22,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
   /**
    * Tabs to render
    */
-  @Input() tabs: Tab[];
+  @Input() tabs: CrisLayoutTab[];
 
   /**
    * A boolean representing if to show context menu or not

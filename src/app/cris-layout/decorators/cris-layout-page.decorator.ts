@@ -1,10 +1,9 @@
-import { Item } from '../../core/shared/item.model';
 import { hasNoValue } from '../../shared/empty.util';
 import { DEFAULT_LAYOUT_PAGE, LayoutPage } from '../enums/layout-page.enum';
 
 const layoutPageMap = new Map();
 
-export function CrisLayoutPage(objectType: LayoutPage) {
+export function RenderCrisLayoutPageFor(objectType: LayoutPage) {
   return function decorator(component: any) {
     if (hasNoValue(objectType)) {
       return;

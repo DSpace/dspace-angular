@@ -8,6 +8,7 @@ import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.dire
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 
+// to FIX
 describe('CrisLayoutLoaderComponent', () => {
   let component: CrisLayoutLoaderComponent;
   let fixture: ComponentFixture<CrisLayoutLoaderComponent>;

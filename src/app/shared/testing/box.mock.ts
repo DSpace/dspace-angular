@@ -1,11 +1,11 @@
-import { Box } from '../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../core/layout/models/box.model';
 import {
   metadataBoxConfigurationMock,
   metricsBoxConfigurationMock,
   relationBoxConfigurationMock
 } from './box-configurations.mock';
 
-export const boxMetadata: Box = {
+export const boxMetadata: CrisLayoutBox = {
   id: 1,
   shortname: 'shortname-box-1',
   header: 'header-box-1',
@@ -22,7 +22,7 @@ export const boxMetadata: Box = {
   configuration: metadataBoxConfigurationMock,
 };
 
-export const boxSearch: Box = {
+export const boxSearch: CrisLayoutBox = {
   id: 2,
   shortname: 'shortname-box-2',
   header: 'header-box-2',
@@ -39,7 +39,7 @@ export const boxSearch: Box = {
   configuration: relationBoxConfigurationMock,
 };
 
-export const boxMetrics: Box = {
+export const boxMetrics: CrisLayoutBox = {
   id: 3,
   shortname: 'shortname-box-3',
   header: 'header-box-3',

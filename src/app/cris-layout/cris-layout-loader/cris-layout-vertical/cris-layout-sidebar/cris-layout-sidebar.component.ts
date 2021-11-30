@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Tab } from '../../../../core/layout/models/tab.model';
-import { BehaviorSubject, Observable, Subject, of as observableOf } from 'rxjs';
-import { map, take, takeUntil, tap } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
@@ -18,7 +18,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   /**
    * Tabs to render
    */
-  @Input() tabs: Tab[];
+  @Input() tabs: CrisLayoutTab[];
 
   /**
    * Item that is being viewed
@@ -28,7 +28,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   /**
    * Item that is being viewed
    */
-  @Output() selectedTabChange = new EventEmitter<Tab>();
+  @Output() selectedTabChange = new EventEmitter<CrisLayoutTab>();
 
   /**
    * A boolean representing if to render or not the sidebar menu
@@ -61,7 +61,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
    * Emit a new selectedTabChange Event
    * @param tab
    */
-  emitSelectTab(tab: Tab) {
+  emitSelectTab(tab: CrisLayoutTab) {
     this.selectedTabChange.emit(tab);
   }
 

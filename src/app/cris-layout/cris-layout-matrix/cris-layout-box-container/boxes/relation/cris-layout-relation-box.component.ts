@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit } from '@angular/core';
-import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
+import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { TranslateService } from '@ngx-translate/core';
-import { Box, RelationBoxConfiguration } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox, RelationBoxConfiguration } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
@@ -11,7 +11,7 @@ import { Item } from '../../../../../core/shared/item.model';
   templateUrl: './cris-layout-relation-box.component.html',
   styleUrls: ['./cris-layout-relation-box.component.scss']
 })
-@CrisLayoutBox(LayoutBox.RELATION)
+@RenderCrisLayoutBoxFor(LayoutBox.RELATION)
 export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   /**
@@ -34,7 +34,7 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
   constructor(public cd: ChangeDetectorRef,
               protected translateService: TranslateService,
               protected viewRef: ElementRef,
-              @Inject('boxProvider') public boxProvider: Box,
+              @Inject('boxProvider') public boxProvider: CrisLayoutBox,
               @Inject('itemProvider') public itemProvider: Item) {
     super(translateService, viewRef, boxProvider, itemProvider);
   }

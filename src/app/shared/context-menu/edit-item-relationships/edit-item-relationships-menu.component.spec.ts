@@ -14,10 +14,10 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { TabDataService } from '../../../core/layout/tab-data.service';
 import { cold } from 'jasmine-marbles';
-import { Box } from '../../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../../core/layout/models/box.model';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { Tab } from '../../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../../core/layout/models/tab.model';
 import { TAB } from '../../../core/layout/models/tab.resource-type';
 
 describe('EditItemRelationshipsMenuComponent', () => {
@@ -35,8 +35,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
   });
 
 
-  const boxesWithRelations: Box[] = [
-    Object.assign(new Box(), {
+  const boxesWithRelations: CrisLayoutBox[] = [
+    Object.assign(new CrisLayoutBox(), {
       'id': 627,
       'shortname': 'namecard',
       'header': 'Name Card',
@@ -49,7 +49,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'clear': true,
       'maxColumns': null
     }),
-    Object.assign(new Box(), {
+    Object.assign(new CrisLayoutBox(), {
       'id': 623,
       'shortname': 'researchoutputs',
       'header': 'Publications',
@@ -64,8 +64,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
     })
   ];
 
-  const boxesWithoutRelations: Box[] = [
-    Object.assign(new Box(), {
+  const boxesWithoutRelations: CrisLayoutBox[] = [
+    Object.assign(new CrisLayoutBox(), {
       'id': 627,
       'shortname': 'namecard',
       'header': 'Name Card',
@@ -80,7 +80,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     })
   ];
 
-  const tabWithRelationBoxes: Tab = {
+  const tabWithRelationBoxes: CrisLayoutTab = {
     type: TAB,
     id: 1,
     shortname: 'person-profile',
@@ -107,7 +107,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     }
   };
 
-  const tabWithoutRelationBoxes: Tab = {
+  const tabWithoutRelationBoxes: CrisLayoutTab = {
     type: TAB,
     id: 1,
     shortname: 'person-profile',
@@ -135,7 +135,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
   };
 
   const relationships = [
-    Object.assign(new Box(), {
+    Object.assign(new CrisLayoutBox(), {
       'id': 623,
       'shortname': 'researchoutputs',
       'header': 'Publications',

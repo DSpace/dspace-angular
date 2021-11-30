@@ -14,17 +14,17 @@ import { getFinishedRemoteData, getFirstCompletedRemoteData } from '../../../../
 import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
-import { CrisLayoutBox } from '../../../../decorators/cris-layout-box.decorator';
+import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { Box } from '../../../../../core/layout/models/box.model';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-orcid-sync-queue.component',
   templateUrl: './orcid-sync-queue.component.html'
 })
-@CrisLayoutBox(LayoutBox.ORCID_SYNC_QUEUE,true)
+@RenderCrisLayoutBoxFor(LayoutBox.ORCID_SYNC_QUEUE,true)
 export class OrcidSyncQueueComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   /**
@@ -58,7 +58,7 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxModelComponent impleme
               private paginationService: PaginationService,
               private researcherProfileService: ResearcherProfileService,
               protected viewRef: ElementRef,
-              @Inject('boxProvider') public boxProvider: Box,
+              @Inject('boxProvider') public boxProvider: CrisLayoutBox,
               @Inject('itemProvider') public itemProvider: Item) {
     super(translateService, viewRef, boxProvider, itemProvider);
   }

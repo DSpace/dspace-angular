@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Tab } from '../../core/layout/models/tab.model';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
 
 /**
@@ -10,12 +10,12 @@ import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model
 })
 export abstract class CrisLayoutTabModelComponent extends CrisLayoutPageModelComponent {
   /**
-   * Tab
+   * CrisLayoutTab
    */
-  @Input() tab: Tab;
+  @Input() tab: CrisLayoutTab;
 
   /**
-   * Emit a refresh tab request from within the Tab.
+   * Emit a refresh tab request from within the CrisLayoutTab.
    */
   @Output() refreshTab: EventEmitter<void> = new EventEmitter<void>();
 
