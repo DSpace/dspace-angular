@@ -8,10 +8,16 @@ import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.dire
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 
+import { HostWindowService } from '../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CommonModule } from '@angular/common';
+
 // to FIX
 describe('CrisLayoutLoaderComponent', () => {
   let component: CrisLayoutLoaderComponent;
   let fixture: ComponentFixture<CrisLayoutLoaderComponent>;
+  const windowServiceStub = new HostWindowServiceStub(1200);
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
@@ -35,17 +41,19 @@ describe('CrisLayoutLoaderComponent', () => {
 
 
   const configurationSpy = jasmine.createSpyObj('component', {
-      getConfiguration: jasmine.createSpy('getConfiguration')
-    });
+    getConfiguration: jasmine.createSpy('getConfiguration')
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutLoaderComponent, CrisLayoutLoaderDirective ],
+      declarations: [CrisLayoutLoaderComponent, CrisLayoutLoaderDirective],
       providers: [
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: HostWindowService, useValue: windowServiceStub },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -60,14 +68,14 @@ describe('CrisLayoutLoaderComponent', () => {
   });
 
   it('if config is vertical should show vertical component', () => {
-    component.layoutConfiguration = { orientation: 'vertical'};
+    component.layoutConfiguration = { orientation: 'vertical' };
     component.initComponent();
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.vertical-layout'))).toBeTruthy();
   });
 
   it('if config is horizontal should show horizontal component', () => {
-    component.layoutConfiguration = { orientation: 'horizontal'};
+    component.layoutConfiguration = { orientation: 'horizontal' };
     component.initComponent();
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.horizontal-layout'))).toBeTruthy();

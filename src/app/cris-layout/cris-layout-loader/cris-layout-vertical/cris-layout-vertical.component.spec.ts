@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { loaderTabs } from '../../../shared/testing/layout-tab.mocks';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('CrisLayoutVerticalComponent', () => {
   let component: CrisLayoutVerticalComponent;
@@ -15,14 +16,17 @@ describe('CrisLayoutVerticalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutVerticalComponent ],
+      declarations: [CrisLayoutVerticalComponent],
       providers: [
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(1200) },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(1200) },
+      ],
+      imports: [
+        SharedModule,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

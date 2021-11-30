@@ -35,6 +35,8 @@ const mockItem = Object.assign(new Item(), {
 const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
   findByItem: observableOf(leadingTabs)
 });
+
+
 // to FIX
 // tslint:disable-next-line:prefer-const
 describe('CrisLayoutComponent', () => {
@@ -63,7 +65,12 @@ describe('CrisLayoutComponent', () => {
     component = fixture.componentInstance;
     component.item = mockItem;
     tabDataServiceMock.findByItem.and.returnValue(observableOf(leadingTabs));
+
     component.tabs$ = observableOf(leadingTabs);
+    component.leadingTabs$ = observableOf(leadingTabs);
+    component.loaderTabs$ = observableOf([]);
+
+    component.hasLeadingTab$.next(true);
     fixture.detectChanges();
   });
 
@@ -75,10 +82,9 @@ describe('CrisLayoutComponent', () => {
 
     it('getTabsByItem to have been called', () => {
 
-      const spyOnGetTabsByItem = spyOn(component,'getTabsByItem');
+      const spyOnGetTabsByItem = spyOn(component, 'getTabsByItem');
 
       spyOnGetTabsByItem.and.returnValue(observableOf(leadingTabs));
-
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -87,8 +93,9 @@ describe('CrisLayoutComponent', () => {
 
     it('getLeadingTabs to have been called', () => {
 
-      const spyOnGetLeadingTabs = spyOn(component,'getLeadingTabs');
+      const spyOnGetLeadingTabs = spyOn(component, 'getLeadingTabs');
 
+      spyOnGetLeadingTabs.and.returnValue(observableOf(leadingTabs));
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -97,7 +104,9 @@ describe('CrisLayoutComponent', () => {
 
     it('getLoaderTabs to have been called', () => {
 
-      const spyOnGetLoaderTabs = spyOn(component,'getLoaderTabs');
+      const spyOnGetLoaderTabs = spyOn(component, 'getLoaderTabs');
+
+      spyOnGetLoaderTabs.and.returnValue(observableOf(loaderTabs));
 
       component.ngOnInit();
       fixture.detectChanges();
@@ -138,6 +147,7 @@ describe('CrisLayoutComponent', () => {
       component.leadingTabs$ = observableOf(leadingTabs);
       component.loaderTabs$ = observableOf(loaderTabs);
       fixture.detectChanges();
+
       expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
 
