@@ -8,7 +8,7 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { loaderTabs, loaderMultilevelTabs } from '../../../../shared/testing/new-layout-tabs';
+import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mocks';
 
 describe('CrisLayoutNavbarComponent', () => {
   let component: CrisLayoutNavbarComponent;

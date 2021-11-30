@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -29,11 +29,10 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxModelComponent im
     private researcherProfileService: ResearcherProfileService,
     protected translateService: TranslateService,
     private notificationsService: NotificationsService,
-    protected viewRef: ElementRef,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

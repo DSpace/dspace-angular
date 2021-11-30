@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -57,10 +57,9 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxModelComponent impleme
               private orcidHistoryService: OrcidHistoryService,
               private paginationService: PaginationService,
               private researcherProfileService: ResearcherProfileService,
-              protected viewRef: ElementRef,
               @Inject('boxProvider') public boxProvider: CrisLayoutBox,
               @Inject('itemProvider') public itemProvider: Item) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

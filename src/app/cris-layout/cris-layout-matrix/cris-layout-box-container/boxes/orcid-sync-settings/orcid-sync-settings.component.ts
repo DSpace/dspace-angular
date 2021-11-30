@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
@@ -40,10 +40,9 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxModelComponent impl
               protected translateService: TranslateService,
               private notificationsService: NotificationsService,
               public authService: AuthService,
-              protected viewRef: ElementRef,
               @Inject('boxProvider') public boxProvider: CrisLayoutBox,
               @Inject('itemProvider') public itemProvider: Item) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

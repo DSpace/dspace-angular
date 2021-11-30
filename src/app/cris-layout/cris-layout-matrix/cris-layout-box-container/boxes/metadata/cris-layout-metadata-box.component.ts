@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,11 +31,6 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
   metadataBoxConfiguration: MetadataBoxConfiguration;
 
   /**
-   * true if the item has a thumbanil, false otherwise
-   */
-  hasThumbnail = false;
-
-  /**
    * List of subscriptions
    */
   subs: Subscription[] = [];
@@ -43,11 +38,10 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent 
   constructor(
     public cd: ChangeDetectorRef,
     protected translateService: TranslateService,
-    protected viewRef: ElementRef,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item
   ) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
@@ -33,10 +33,9 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
 
   constructor(public cd: ChangeDetectorRef,
               protected translateService: TranslateService,
-              protected viewRef: ElementRef,
               @Inject('boxProvider') public boxProvider: CrisLayoutBox,
               @Inject('itemProvider') public itemProvider: Item) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit(): void {

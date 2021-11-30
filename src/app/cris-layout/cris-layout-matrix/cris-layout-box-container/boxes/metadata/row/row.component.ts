@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
-  ComponentRef,
-  Input,
-  OnInit,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
-import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
+import { Component, Input } from '@angular/core';
 import { Item } from '../../../../../../core/shared/item.model';
 import {
   CrisLayoutBox,
@@ -16,7 +6,6 @@ import {
   MetadataBoxCell,
   MetadataBoxRow
 } from '../../../../../../core/layout/models/box.model';
-import { FieldRenderingType, getMetadataBoxFieldRendering } from '../rendering-types/metadata-box.decorator';
 
 /**
  * This component renders the rows of metadata boxes
@@ -27,7 +16,7 @@ import { FieldRenderingType, getMetadataBoxFieldRendering } from '../rendering-t
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.scss']
 })
-export class RowComponent implements OnInit {
+export class RowComponent {
 
   /**
    * Current DSpace Item
@@ -42,68 +31,8 @@ export class RowComponent implements OnInit {
    */
   @Input() row: MetadataBoxRow;
 
-  /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChild('thumbnailContainer', { static: true, read: ViewContainerRef }) thumbnailContainerViewRef: ViewContainerRef;
-
-  /**
-   * This property is true if the current row contains a thumbnail, false otherwise
-   */
-  hasThumbnail = false;
-
-  constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
-
-  ngOnInit() {
-/*    const fields = this.row.fields;
-
-    this.thumbnailContainerViewRef.clear();
-
-    // Search for all Thumbnail Fields to render
-    const allThumbnailFields = this.row.fields
-      .filter(field => isNotEmpty(field.rendering) && field.rendering.toUpperCase() === FieldRenderingType.THUMBNAIL);
-    this.hasThumbnail = allThumbnailFields.length > 0;
-
-    allThumbnailFields.forEach((field) => {
-        const factory = this.computeThumbnailComponentFactory(FieldRenderingType.THUMBNAIL);
-        if (factory) {
-          const metadataComponentRef = this.generateThumbnailComponentRef(factory);
-          this.populateThumbnailComponent(metadataComponentRef, field);
-        }
-    });*/
-  }
-
   trackUpdate(index, field: LayoutField) {
     return field && field.metadata;
-  }
-
-  /**
-   * Generate ComponentFactory for Thumbnail rendering
-   * @param fieldRenderingType
-   */
-  computeThumbnailComponentFactory(fieldRenderingType: string | FieldRenderingType): ComponentFactory<any> {
-    const constructor: GenericConstructor<Component> = getMetadataBoxFieldRendering(fieldRenderingType)?.componentRef;
-    return constructor ? this.componentFactoryResolver.resolveComponentFactory(constructor) : null;
-  }
-
-  /**
-   * Generate ComponentRef for Thumbnail rendering
-   * @param factory
-   */
-  generateThumbnailComponentRef(factory: ComponentFactory<any>): ComponentRef<any> {
-    let metadataRef: ComponentRef<Component>;
-    metadataRef = this.thumbnailContainerViewRef.createComponent(factory);
-    return metadataRef;
-  }
-
-  /**
-   * Assign property to component instance
-   * @param metadataRef
-   * @param field
-   */
-  populateThumbnailComponent(metadataRef: ComponentRef<Component>, field: LayoutField): void {
-    (metadataRef.instance as any).item = this.item;
-    (metadataRef.instance as any).field = field;
   }
 
   /**
@@ -111,6 +40,7 @@ export class RowComponent implements OnInit {
    * belonging to the current row
    */
   getRowMetadataCells(): MetadataBoxCell[] {
+    console.log(this.row.cells);
     return this.row.cells;
   }
 }

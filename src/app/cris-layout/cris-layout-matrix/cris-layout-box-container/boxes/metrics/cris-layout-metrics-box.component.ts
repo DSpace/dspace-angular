@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -57,11 +57,10 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
     protected metricsComponentService: MetricsComponentsDataService,
     protected itemService: ItemDataService,
     protected translateService: TranslateService,
-    protected viewRef: ElementRef,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item
   ) {
-    super(translateService, viewRef, boxProvider, itemProvider);
+    super(translateService, boxProvider, itemProvider);
   }
 
   ngOnInit() {

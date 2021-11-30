@@ -5,7 +5,7 @@ import { CrisLayoutBoxRenderOptions, getCrisLayoutBox } from '../../decorators/c
 import { TranslateService } from '@ngx-translate/core';
 import { Item } from '../../../core/shared/item.model';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { hasNoValue } from '../../../shared/empty.util';
+import { hasNoValue, isEmpty } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 
 @Component({
@@ -88,8 +88,8 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    * Get box header to be inserted inside the accordion
    */
   getBoxHeader(): string {
-    const header: string = this.translateService.instant(this.boxHeaderI18nKey);
-    if (header === this.boxHeaderI18nKey) {
+    const header: string = isEmpty(this.boxHeaderI18nKey) ? null : this.translateService.instant(this.boxHeaderI18nKey);
+    if (isEmpty(header) || header === this.boxHeaderI18nKey) {
       // if translation does not exist return the value present in the header property
       return this.translateService.instant(this.box.header);
     } else {
