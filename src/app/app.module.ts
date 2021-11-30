@@ -205,7 +205,7 @@ const EXPORTS = [
     ...PROVIDERS
   ],
   declarations: [
-    ...DECLARATIONS,
+    ...DECLARATIONS
   ],
   exports: [
     ...EXPORTS,
