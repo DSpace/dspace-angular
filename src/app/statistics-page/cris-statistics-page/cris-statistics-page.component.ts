@@ -139,7 +139,6 @@ export class CrisStatisticsPageComponent implements OnInit {
    */
   changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
-    console.log(category);
     this.selectedCategory = category;
     this.getUserReports(category);
   }

@@ -112,22 +112,21 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.field.metadata, this.field.rendering);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM) {
+    const rendering = this.computeRendering(this.field);
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering === FieldRenderingType.ATTACHMENT) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
-          this.initRenderOptions();
+          this.initRenderOptions(rendering);
         }
       });
     } else if (this.hasFieldMetadataComponent(this.field)) {
-      this.initRenderOptions();
+      this.initRenderOptions(rendering);
     }
   }
 
-  initRenderOptions(): void {
-    const rendering = this.computeRendering(this.field);
+  initRenderOptions(renderingType: string|FieldRenderingType): void {
     this.renderingSubType = this.computeSubType(this.field);
-    this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(rendering);
+    this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
   }
 
@@ -151,7 +150,8 @@ export class MetadataContainerComponent implements OnInit {
         }
       });
     }
-    return (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
+    return (this.field.fieldType === LayoutFieldType.BITSTREAM) ||
+      (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
       (field.fieldType === LayoutFieldType.METADATA && this.item.firstMetadataValue(field.metadata));
   }
 

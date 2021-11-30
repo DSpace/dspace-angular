@@ -197,7 +197,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       ))
     ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
-        console.log(currentUrl);
         resolveEndFound = false;
         if (!(currentUrl.startsWith('/edit-items') || currentUrl.startsWith('/workspaceitems') || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
           this.isRouteLoading$.next(true);

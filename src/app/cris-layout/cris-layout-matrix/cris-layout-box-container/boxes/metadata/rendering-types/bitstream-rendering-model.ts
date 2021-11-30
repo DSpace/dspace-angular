@@ -6,11 +6,13 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
 import { hasValue } from '../../../../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { BitstreamDataService } from '../../../../../../core/data/bitstream-data.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../core/layout/models/box.model';
 import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -35,14 +37,13 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
   }
 
-  getBitstream(): Observable<Bitstream[]> {
-    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
-      .pipe(
-        getAllSucceededRemoteDataPayload(),
-        map((response) => {
-          return response.page;
-        })
-      );
+  getBitstreams(): Observable<Bitstream[]> {
+    return this.bitstreamDataService.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle).pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<PaginatedList<Bitstream>>) => {
+        return response.hasSucceeded ? response.payload.page : [];
+      })
+    );
   }
 
   /**

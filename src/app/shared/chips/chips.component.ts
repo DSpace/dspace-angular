@@ -82,7 +82,6 @@ export class ChipsComponent implements OnChanges {
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const chipsItem = this.chips.getChipByIndex(index);
-    console.log(chipsItem, field);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {

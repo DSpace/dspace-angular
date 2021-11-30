@@ -127,7 +127,7 @@ describe('MetadataContainerComponent', () => {
     id: 1,
     label: 'Field Label',
     metadata: 'dc.identifier.doi',
-    rendering: FieldRenderingType.THUMBNAIL,
+    rendering: FieldRenderingType.ATTACHMENT,
     fieldType: 'BITSTREAM',
     style: null,
     styleLabel: 'test-style-label',

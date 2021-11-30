@@ -142,7 +142,6 @@ describe('MetadataLinkViewComponent', () => {
     });
 
     it('should have link', () => {
-      console.log(component);
       const link = fixture.debugElement.query(By.css('a'));
 
       expect(link).toBeTruthy();

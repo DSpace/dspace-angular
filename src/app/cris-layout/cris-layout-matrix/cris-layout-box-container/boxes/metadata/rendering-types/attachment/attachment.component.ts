@@ -31,7 +31,7 @@ export class AttachmentComponent extends BitstreamRenderingModelComponent implem
   }
 
   ngOnInit() {
-    this.bitstreams$ = this.getBitstream();
+    this.bitstreams$ = this.getBitstreams();
   }
 
 }
