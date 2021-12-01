@@ -4,12 +4,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
 import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
-import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mocks';
+import {
+  tabPersonBibliometrics,
+  tabPersonBiography,
+  tabPersonProfile
+} from '../../../../shared/testing/layout-tab.mocks';
 
 describe('CrisLayoutSidebarComponent', () => {
   let component: CrisLayoutSidebarComponent;
   let fixture: ComponentFixture<CrisLayoutSidebarComponent>;
   let de: DebugElement;
+  const tabs = [tabPersonProfile, tabPersonBiography, tabPersonBibliometrics];
 
 
   beforeEach(async () => {
@@ -53,7 +58,7 @@ describe('CrisLayoutSidebarComponent', () => {
 
   describe('when there are tabs', () => {
     beforeEach(() => {
-      component.tabs = loaderMultilevelTabs;
+      component.tabs = tabs;
       fixture.detectChanges();
     });
 
