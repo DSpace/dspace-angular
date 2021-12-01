@@ -23,10 +23,12 @@ import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
-import { listableObjectComponent } from '../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  DEFAULT_CONTEXT,
+  listableObjectComponent,
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { ITEM } from '../../core/shared/item.resource-type';
-import { DEFAULT_CONTEXT } from '../metadata-representation/metadata-representation.decorator';
 import { ThemeService } from '../theme-support/theme.service';
 import SpyObj = jasmine.SpyObj;
 
@@ -40,8 +42,6 @@ class MockThemedBrowseEntryListElementComponent {}
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
   let fixture: ComponentFixture<BrowseByComponent>;
-
-  let themeService: ThemeService;
 
   const mockItems = [
     Object.assign(new Item(), {
