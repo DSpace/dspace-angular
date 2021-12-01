@@ -71,5 +71,9 @@ export class RootComponent implements OnInit {
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile)
       );
+
+    if (this.router.url === '/500') {
+      this.shouldShowRouteLoader = false;
+    }
   }
 }
