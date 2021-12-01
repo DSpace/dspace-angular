@@ -26,17 +26,20 @@ describe('CrisLayoutSidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutSidebarComponent);
     component = fixture.componentInstance;
-    component.tabs = [];
     de = fixture.debugElement;
-    component.ngOnInit();
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   describe('when no tabs', () => {
+
+    beforeEach(() => {
+      component.tabs = [];
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
     it('should not show sidebar', () => {
       expect(de.query(By.css('#sidebar'))).toBeNull();
@@ -51,9 +54,13 @@ describe('CrisLayoutSidebarComponent', () => {
   describe('when there are tabs', () => {
     beforeEach(() => {
       component.tabs = loaderMultilevelTabs;
-      component.ngOnInit();
       fixture.detectChanges();
     });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
     it('should show sidebar', () => {
       expect(de.query(By.css('#sidebar'))).toBeTruthy();
     });
