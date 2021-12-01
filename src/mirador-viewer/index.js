@@ -122,6 +122,36 @@ windowSettings.manifestId = manifest;
       miradorDownloadPlugin: {
         restrictDownloadOnSizeDefinition: false
       },
+      requests: {
+        preprocessors: [ // Functions that receive HTTP requests and manipulate them (e.g. to add headers)
+          (url, options) => {
+            let authToken = document.cookie.split('; ')
+              .find(c => c.startsWith('dsAuthInfo='))
+              .split('=')[1]
+              .split('%22')[3];
+
+            if (url.match('/server/iiif') && authToken) {
+              return url, { ...options,
+                method: 'GET',
+                headers: {'accept': 'application/json',
+                  'content-type': 'application/json',
+                  'authorization': 'Bearer ' + authToken
+                   },
+              };
+            }
+            return url, options;
+          }
+
+        ],
+        postprocessors: [ // Functions that receive HTTP responses and manipulates them before adding to store
+          // An example of manipulating the response for an annotation request
+          // (url, action) => {
+          //   if (action.annotationId) {
+          //     action.annotationJson = {};
+          //   }
+          // }
+        ]
+      },
       window: {
         allowClose: false,
         // sideBarOpenByDefault: false,
