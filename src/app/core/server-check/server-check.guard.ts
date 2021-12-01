@@ -1,26 +1,37 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { RootDataService } from '../data/root-data.service';
 import { map, tap } from 'rxjs/operators';
+
+import { RootDataService } from '../data/root-data.service';
 import { RemoteData } from '../data/remote-data';
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
-import { Router } from '@angular/router';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * A guard that checks if root api endpoint is reachable.
+ * If not redirect to 500 error page
+ */
 export class ServerCheckGuard implements CanActivate {
-  constructor(private router: Router,private rootDataService: RootDataService) {}
+  constructor(private router: Router, private rootDataService: RootDataService) {
+  }
 
+  /**
+   * True when root api endpoint is reachable.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot): Observable<boolean> {
 
     return this.rootDataService.findRoot().pipe(
-      map( (res: RemoteData<any>) => res.hasSucceeded ),
-      tap( (responsehasSucceeded: boolean) => {
-        if (!responsehasSucceeded) {
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<any>) => res.hasSucceeded),
+      tap((hasSucceeded: boolean) => {
+        if (!hasSucceeded) {
           this.router.navigateByUrl(getPageInternalServerErrorRoute());
         }
       }),

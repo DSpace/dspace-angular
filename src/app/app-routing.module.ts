@@ -11,10 +11,12 @@ import {
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   INFO_MODULE_PATH,
+  INTERNAL_SERVER_ERROR,
+  LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
+  REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
-  LEGACY_BITSTREAM_MODULE_PATH, REQUEST_COPY_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
@@ -29,167 +31,171 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 
-
 @NgModule({
   imports: [
-    RouterModule.forRoot([{
-      path: '', canActivate: [AuthBlockingGuard],
+    RouterModule.forRoot([
+      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+      {
+        path: '', canActivate: [ServerCheckGuard, AuthBlockingGuard],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
-          { path: 'reload/:rnd', component: ThemedPageNotFoundComponent, pathMatch: 'full', canActivate: [ServerCheckGuard, ReloadGuard] },
+          {
+            path: 'reload/:rnd',
+            component: ThemedPageNotFoundComponent,
+            pathMatch: 'full',
+            canActivate: [ReloadGuard]
+          },
           {
             path: 'home',
             loadChildren: () => import('./home-page/home-page.module')
               .then((m) => m.HomePageModule),
             data: { showBreadcrumbs: false },
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'community-list',
             loadChildren: () => import('./community-list-page/community-list-page.module')
               .then((m) => m.CommunityListPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'id',
             loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
               .then((m) => m.LookupIdModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'handle',
             loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
               .then((m) => m.LookupIdModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: REGISTER_PATH,
             loadChildren: () => import('./register-page/register-page.module')
               .then((m) => m.RegisterPageModule),
-            canActivate: [ServerCheckGuard, SiteRegisterGuard]
+            canActivate: [SiteRegisterGuard]
           },
           {
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: COMMUNITY_MODULE_PATH,
             loadChildren: () => import('./community-page/community-page.module')
               .then((m) => m.CommunityPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: COLLECTION_MODULE_PATH,
             loadChildren: () => import('./collection-page/collection-page.module')
               .then((m) => m.CollectionPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: ITEM_MODULE_PATH,
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
-          { path: 'entities/:entity-type',
+          {
+            path: 'entities/:entity-type',
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: LEGACY_BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'mydspace',
             loadChildren: () => import('./my-dspace-page/my-dspace-page.module')
               .then((m) => m.MyDSpacePageModule),
-            canActivate: [ServerCheckGuard, AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'search',
             loadChildren: () => import('./search-page/search-page-routing.module')
               .then((m) => m.SearchPageRoutingModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'browse',
             loadChildren: () => import('./browse-by/browse-by-page.module')
               .then((m) => m.BrowseByPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [ServerCheckGuard, SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
-              .then((m) => m.LoginPageModule),
-              canActivate: [ServerCheckGuard]
+              .then((m) => m.LoginPageModule)
           },
           {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
-              .then((m) => m.LogoutPageModule),
-              canActivate: [ServerCheckGuard]
+              .then((m) => m.LogoutPageModule)
           },
           {
             path: 'submit',
             loadChildren: () => import('./submit-page/submit-page.module')
               .then((m) => m.SubmitPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'import-external',
             loadChildren: () => import('./import-external-page/import-external-page.module')
               .then((m) => m.ImportExternalPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'workspaceitems',
             loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page.module')
               .then((m) => m.WorkspaceitemsEditPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: WORKFLOW_ITEM_MODULE_PATH,
             loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page.module')
               .then((m) => m.WorkflowItemsEditPageModule),
-            canActivate: [ServerCheckGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: PROFILE_MODULE_PATH,
             loadChildren: () => import('./profile-page/profile-page.module')
               .then((m) => m.ProfilePageModule),
-            canActivate: [ServerCheckGuard, AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: PROCESS_MODULE_PATH,
             loadChildren: () => import('./process-page/process-page.module')
               .then((m) => m.ProcessPageModule),
-            canActivate: [ServerCheckGuard, AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: INFO_MODULE_PATH,
-            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule),
-            canActivate: [ServerCheckGuard]
+            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [ServerCheckGuard, AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,
@@ -198,18 +204,17 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
           {
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
-              .then((m) => m.StatisticsPageRoutingModule),
-            canActivate: [ServerCheckGuard]
+              .then((m) => m.StatisticsPageRoutingModule)
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
-            canActivate: [ServerCheckGuard, GroupAdministratorGuard],
+            canActivate: [GroupAdministratorGuard],
           },
-          { path: '500', component: ThemedPageInternalServerErrorComponent },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
-      ]}
-    ],{
+        ]
+      }
+    ], {
       onSameUrlNavigation: 'reload',
     })
   ],

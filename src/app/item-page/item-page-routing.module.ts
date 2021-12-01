@@ -15,6 +15,7 @@ import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
+import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 
 @NgModule({
   imports: [
@@ -47,7 +48,7 @@ import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-
             canActivate: [AuthenticatedGuard]
           },
           {
-            path: ':request-a-copy',
+            path: REQUEST_COPY_MODULE_PATH,
             component: BitstreamRequestACopyPageComponent,
           }
         ],
