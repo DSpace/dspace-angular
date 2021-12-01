@@ -30,6 +30,7 @@ import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
 import { existsSync } from 'fs';
+import { ngExpressEngine } from '@nguniversal/express-engine';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
@@ -37,15 +38,16 @@ import { hasValue, hasNoValue } from './src/app/shared/empty.util';
 import { APP_BASE_HREF } from '@angular/common';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
+import { ServerAppModule } from './src/main.server';
+
 /*
  * Set path for the browser application's dist folder
  */
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
+// Set path fir IIIF viewer.
+const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
 const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
-
-// * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { ServerAppModule, ngExpressEngine } = require('./dist/server/main');
 
 const cookieParser = require('cookie-parser');
 
@@ -56,7 +58,6 @@ export function app() {
    * Create a new express application
    */
   const server = express();
-
 
   /*
    * If production mode is enabled in the environment file:
@@ -135,6 +136,10 @@ export function app() {
    * Serve static resources (images, i18n messages, …)
    */
   server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  /*
+  * Fallthrough to the IIIF viewer (must be included in the build).
+  */
+  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
 
   // Register the ngApp callback function to handle incoming requests
   server.get('*', ngApp);
@@ -221,47 +226,59 @@ function run() {
   });
 }
 
-/*
- * If SSL is enabled
- * - Read credentials from configuration files
- * - Call script to start an HTTPS server with these credentials
- * When SSL is disabled
- * - Start an HTTP server on the configured port and host
- */
-if (environment.ui.ssl) {
-  let serviceKey;
-  try {
-    serviceKey = fs.readFileSync('./config/ssl/key.pem');
-  } catch (e) {
-    console.warn('Service key not found at ./config/ssl/key.pem');
-  }
+function start() {
+  /*
+  * If SSL is enabled
+  * - Read credentials from configuration files
+  * - Call script to start an HTTPS server with these credentials
+  * When SSL is disabled
+  * - Start an HTTP server on the configured port and host
+  */
+  if (environment.ui.ssl) {
+    let serviceKey;
+    try {
+      serviceKey = fs.readFileSync('./config/ssl/key.pem');
+    } catch (e) {
+      console.warn('Service key not found at ./config/ssl/key.pem');
+    }
 
-  let certificate;
-  try {
-    certificate = fs.readFileSync('./config/ssl/cert.pem');
-  } catch (e) {
-    console.warn('Certificate not found at ./config/ssl/key.pem');
-  }
+    let certificate;
+    try {
+      certificate = fs.readFileSync('./config/ssl/cert.pem');
+    } catch (e) {
+      console.warn('Certificate not found at ./config/ssl/key.pem');
+    }
 
-  if (serviceKey && certificate) {
-    createHttpsServer({
-      serviceKey: serviceKey,
-      certificate: certificate
-    });
+    if (serviceKey && certificate) {
+      createHttpsServer({
+        serviceKey: serviceKey,
+        certificate: certificate
+      });
+    } else {
+      console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
+
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
+
+      pem.createCertificate({
+        days: 1,
+        selfSigned: true
+      }, (error, keys) => {
+        createHttpsServer(keys);
+      });
+    }
   } else {
-    console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
-
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
-
-    pem.createCertificate({
-      days: 1,
-      selfSigned: true
-    }, (error, keys) => {
-      createHttpsServer(keys);
-    });
+    run();
   }
-} else {
-  run();
+}
+
+// Webpack will replace 'require' with '__webpack_require__'
+// '__non_webpack_require__' is a proxy to Node 'require'
+// The below code is to ensure that the server is run only when not requiring the bundle.
+declare const __non_webpack_require__: NodeRequire;
+const mainModule = __non_webpack_require__.main;
+const moduleFilename = (mainModule && mainModule.filename) || '';
+if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
+  start();
 }
 
 export * from './src/main.server';

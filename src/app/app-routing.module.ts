@@ -14,7 +14,7 @@ import {
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
-  LEGACY_BITSTREAM_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH, REQUEST_COPY_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
@@ -179,6 +179,11 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
           {
             path: INFO_MODULE_PATH,
             loadChildren: () => import('./info/info.module').then((m) => m.InfoModule),
+          },
+          {
+            path: REQUEST_COPY_MODULE_PATH,
+            loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,

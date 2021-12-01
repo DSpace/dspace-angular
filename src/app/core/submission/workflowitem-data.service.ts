@@ -9,7 +9,7 @@ import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest } from '../data/request.models';
+import { DeleteByIDRequest, FindListOptions } from '../data/request.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
@@ -19,6 +19,9 @@ import { hasValue } from '../../shared/empty.util';
 import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { WorkspaceItem } from './models/workspaceitem.model';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.
@@ -27,6 +30,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 @dataService(WorkflowItem.type)
 export class WorkflowItemDataService extends DataService<WorkflowItem> {
   protected linkPath = 'workflowitems';
+  protected searchByItemLinkPath = 'item';
   protected responseMsToLive = 10 * 1000;
 
   constructor(
@@ -86,4 +90,23 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
+
+  /**
+   * Return the WorkflowItem object found through the UUID of an item
+   *
+   * @param uuid           The uuid of the item
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param options        The {@link FindListOptions} object
+   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
+    const findListOptions = new FindListOptions();
+    findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
+    const href$ = this.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
 }

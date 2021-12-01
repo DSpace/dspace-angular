@@ -41,6 +41,8 @@ describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
   let fixture: ComponentFixture<BrowseByComponent>;
 
+  let themeService: ThemeService;
+
   const mockItems = [
     Object.assign(new Item(), {
       id: 'fakeId-1',
@@ -74,8 +76,10 @@ describe('BrowseByComponent', () => {
   let themeService: SpyObj<ThemeService>;
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('ThemeService', ['getThemeName', 'getThemeName$']);
-
+    themeService = jasmine.createSpyObj('themeService', {
+      getThemeName: 'dspace',
+      getThemeName$: observableOf('dspace'),
+    });
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -96,7 +100,7 @@ describe('BrowseByComponent', () => {
       providers: [
         {provide: PaginationService, useValue: paginationService},
         {provide: MockThemedBrowseEntryListElementComponent},
-        {provide: ThemeService, useValue: themeService},
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

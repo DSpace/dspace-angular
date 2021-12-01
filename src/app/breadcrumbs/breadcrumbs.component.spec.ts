@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { DebugElement } from '@angular/core';
 
 describe('BreadcrumbsComponent', () => {
