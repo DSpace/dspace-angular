@@ -1,0 +1,5 @@
+<ng-container *ngIf="isEnabled$ | async">
+  <div *ngIf="route$ | async as route" class="d-inline-block float-right margin-right">
+    <a [href]="route" class="btn btn-secondary"><i class="fas fa-rss-square"></i></a>
+  </div>
+</ng-container>
