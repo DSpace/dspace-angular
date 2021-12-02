@@ -32,6 +32,7 @@ describe('CrisLayoutVerticalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutVerticalComponent);
     component = fixture.componentInstance;
+    component.tabs = loaderTabs;
     fixture.detectChanges();
   });
 
@@ -40,8 +41,6 @@ describe('CrisLayoutVerticalComponent', () => {
   });
 
   it('should show sidebar', () => {
-    component.tabs = loaderTabs;
-    fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('ds-cris-layout-sidebar'))).toBeTruthy();
   });
 });

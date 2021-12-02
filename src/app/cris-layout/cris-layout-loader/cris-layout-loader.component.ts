@@ -78,6 +78,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     (this.componentRef.instance as any).item = this.item;
     (this.componentRef.instance as any).tabs = this.tabs;
     (this.componentRef.instance as any).showContextMenu = this.showContextMenu;
+    this.componentRef.changeDetectorRef.detectChanges();
   }
 
   /**
