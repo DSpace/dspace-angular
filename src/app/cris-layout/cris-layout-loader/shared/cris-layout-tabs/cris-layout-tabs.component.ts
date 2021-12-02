@@ -5,7 +5,7 @@ import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
-import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 /**
  * This component render the sidebar of the tabs layout
