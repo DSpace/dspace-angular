@@ -58,8 +58,7 @@ export function getRequest(transferState: TransferState): any {
     useHash: false,
     scrollPositionRestoration: 'enabled',
     anchorScrolling: 'enabled',
-    preloadingStrategy: NoPreloading,
-    relativeLinkResolution: 'legacy'
+    preloadingStrategy: NoPreloading
 }),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
