@@ -201,7 +201,8 @@ export class SubmissionObjectEffects {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
-        'sections').pipe(
+        'sections',
+        true).pipe(
         map((response: SubmissionObject[]) => {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);

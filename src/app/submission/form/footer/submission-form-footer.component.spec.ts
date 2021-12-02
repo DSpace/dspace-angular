@@ -201,6 +201,15 @@ describe('SubmissionFormFooterComponent Component', () => {
       });
     });
 
+    it('should not have deposit button disabled when submission is not valid', () => {
+      comp.showDepositAndDiscard = observableOf(true);
+      compAsAny.submissionIsInvalid = observableOf(true);
+      fixture.detectChanges();
+      const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
+
+      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+    });
+
     it('should not have deposit button disabled when submission is valid', () => {
       comp.showDepositAndDiscard = observableOf(true);
       compAsAny.submissionIsInvalid = observableOf(false);

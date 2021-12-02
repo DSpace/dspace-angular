@@ -879,6 +879,36 @@ describe('SubmissionObjectEffects test suite', () => {
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
     });
 
+    it('should return a SAVE_SUBMISSION_FORM_SUCCESS action when there are errors', () => {
+      store.nextState({
+        submission: {
+          objects: submissionState
+        }
+      } as any);
+
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      const response = [Object.assign({}, mockSubmissionRestResponse[0], {
+        sections: mockSectionsData,
+        errors: mockSectionsErrors
+      })];
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
+
+      const expected = cold('--b-', {
+        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[])
+      });
+
+      expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
+    });
+
     it('should catch errors and return a SAVE_SUBMISSION_FORM_ERROR', () => {
       actions = hot('--a-', {
         a: {
