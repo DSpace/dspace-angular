@@ -287,7 +287,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     // create new head tags (not yet added to DOM)
-    const headTagFragment = document.createDocumentFragment();
+    const headTagFragment = this.document.createDocumentFragment();
     this.createHeadTags(themeName)
       .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
 
