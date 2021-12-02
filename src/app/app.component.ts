@@ -36,7 +36,7 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-import { hasValue, isEmpty, isNotEmpty } from './shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -246,7 +246,7 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   private setThemeCss(themeName: string): void {
     const head = this.document.getElementsByTagName('head')[0];
-    if (isEmpty(head)) {
+    if (hasNoValue(head)) {
       return;
     }
 
@@ -276,13 +276,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private setHeadTags(themeName: string): void {
     const head = this.document.getElementsByTagName('head')[0];
-    if (isEmpty(head)) {
+    if (hasNoValue(head)) {
       return;
     }
 
     // clear head tags
     const currentHeadTags = Array.from(head.getElementsByClassName('theme-head-tag'));
-    if (isNotEmpty(currentHeadTags)) {
+    if (hasValue(currentHeadTags)) {
       currentHeadTags.forEach((currentHeadTag: any) => currentHeadTag.remove());
     }
 
@@ -299,16 +299,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     const themeConfig = this.themeService.getThemeConfigFor(themeName);
     const headTagConfigs = themeConfig?.headTags;
 
-    if (isEmpty(headTagConfigs)) {
+    if (hasNoValue(headTagConfigs)) {
       const parentThemeName = themeConfig?.extends;
-      if (isNotEmpty(parentThemeName)) {
+      if (hasValue(parentThemeName)) {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
       }
 
       const defaultThemeName = DEFAULT_THEME_CONFIG.name;
       if (
-        isEmpty(defaultThemeName) ||
+        hasNoValue(defaultThemeName) ||
         themeName === defaultThemeName ||
         themeName === BASE_THEME_NAME
       ) {
@@ -335,7 +335,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private createHeadTag(headTagConfig: HeadTagConfig): HTMLElement {
     const tag = this.document.createElement(headTagConfig.tagName);
 
-    if (isNotEmpty(headTagConfig.attributes)) {
+    if (hasValue(headTagConfig.attributes)) {
       Object.entries(headTagConfig.attributes)
         .forEach(([key, value]) => tag.setAttribute(key, value));
     }
