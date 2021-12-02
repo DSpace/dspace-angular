@@ -37,7 +37,7 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
     public router: Router,
     public route: ActivatedRoute,
     public windowService: HostWindowService) {
-    super(location,router,route);
+    super(location, router, route);
   }
 
   ngOnInit(): void {
@@ -46,6 +46,7 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
 
   getTabSelected(tab) {
     this.selectedTabChange.emit(tab);
+    this.selectFromTabName(tab.shortname);
   }
 
   toggleNavbar() {

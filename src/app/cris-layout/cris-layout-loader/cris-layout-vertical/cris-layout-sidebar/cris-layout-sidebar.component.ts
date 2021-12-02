@@ -41,7 +41,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
-    super(location,router,route);
+    super(location, router, route);
   }
 
   ngOnInit(): void {
@@ -62,6 +62,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
    * @param tab
    */
   emitSelectTab(tab: CrisLayoutTab) {
+    this.selectFromTabName(tab.shortname);
     this.selectedTabChange.emit(tab);
   }
 
