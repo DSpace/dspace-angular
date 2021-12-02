@@ -25,23 +25,24 @@ export class EndUserAgreementComponent implements OnInit {
    * Whether or not the user agreement has been accepted
    */
   accepted = false;
+  /**
+   * Whether or not the user agreement has already been accepted
+   */
+  alreadyAccepted = false;
 
   constructor(protected endUserAgreementService: EndUserAgreementService,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService,
-              protected authService: AuthService,
-              protected store: Store<AppState>,
-              protected router: Router,
-              protected route: ActivatedRoute) {
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected authService: AuthService,
+    protected store: Store<AppState>,
+    protected router: Router,
+    protected route: ActivatedRoute) {
   }
 
   /**
    * Initialize the component
    */
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'));
-    });
     this.initAccepted();
   }
 
@@ -50,7 +51,11 @@ export class EndUserAgreementComponent implements OnInit {
    */
   initAccepted() {
     this.endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false).subscribe((accepted) => {
+      if (!accepted) {
+        this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'));
+      }
       this.accepted = accepted;
+      this.alreadyAccepted = accepted;
     });
   }
 
