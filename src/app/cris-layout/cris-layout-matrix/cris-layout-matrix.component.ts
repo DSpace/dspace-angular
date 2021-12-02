@@ -25,4 +25,9 @@ export class CrisLayoutMatrixComponent {
    */
   @Input() item: Item;
 
+  /**
+   * A boolean representing if to use an internal padding for the cells
+   */
+  @Input() showCellPadding = true;
+
 }
