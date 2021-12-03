@@ -124,22 +124,25 @@ windowSettings.manifestId = manifest;
       },
       requests: {
         preprocessors: [ // Functions that receive HTTP requests and manipulate them (e.g. to add headers)
+          // Adds authorization token to request header.
           (url, options) => {
-            let authToken = document.cookie.split('; ')
-              .find(c => c.startsWith('dsAuthInfo='))
-              .split('=')[1]
-              .split('%22')[3];
-
+            let authToken;
+            if (document.cookie.includes('dsAuthInfo')) {
+              authToken = document.cookie.split('; ')
+                .find(c => c.startsWith('dsAuthInfo='))
+                .split('=')[1]
+                .split('%22')[3];
+            }
             if (url.match('/server/iiif') && authToken) {
-              return url, { ...options,
+              return { ...options,
                 method: 'GET',
                 headers: {'accept': 'application/json',
                   'content-type': 'application/json',
                   'authorization': 'Bearer ' + authToken
-                   },
+                   }
               };
             }
-            return url, options;
+            return options;
           }
 
         ],
