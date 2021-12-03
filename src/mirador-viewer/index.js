@@ -124,7 +124,7 @@ windowSettings.manifestId = manifest;
       },
       requests: {
         preprocessors: [ // Functions that receive HTTP requests and manipulate them (e.g. to add headers)
-          // Adds authorization token to request header.
+          // Adds DSpace authorization token to request header.
           (url, options) => {
             let authToken;
             if (document.cookie.includes('dsAuthInfo')) {
