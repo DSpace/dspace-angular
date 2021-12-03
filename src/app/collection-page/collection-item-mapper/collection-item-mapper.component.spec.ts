@@ -27,7 +27,7 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';

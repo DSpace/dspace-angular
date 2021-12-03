@@ -11,18 +11,16 @@ import {
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { RequestService } from '../../../../core/data/request.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { Process } from '../../../../process-page/processes/process.model';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * Component that contains the controls to run, reset and test the harvest

@@ -20,7 +20,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { hasValue, isNotEmpty } from '../../../empty.util';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
 import { ThemeService } from '../../../theme-support/theme.service';

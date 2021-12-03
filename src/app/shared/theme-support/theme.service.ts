@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { EMPTY, Observable, of as observableOf } from 'rxjs';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
 import { expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
@@ -12,7 +12,6 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload
 } from '../../core/shared/operators';
-import { EMPTY, of as observableOf } from 'rxjs';
 import { Theme, ThemeConfig, themeFactory } from '../../../config/theme.model';
 import { NO_OP_ACTION_TYPE, NoOpAction } from '../ngrx/no-op.action';
 import { followLink } from '../utils/follow-link-config.model';

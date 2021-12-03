@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import {
   getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
   redirectOn4xx
