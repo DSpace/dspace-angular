@@ -582,6 +582,23 @@
 
   "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
 
+  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+
+  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image",
+
+  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+
+  "bitstream.edit.form.iiifToc.hint": "Add label to make this image the start of a new range.",
+
+  "bitstream.edit.form.iiifWidth.label": "IIIF canvas width",
+
+  "bitstream.edit.form.iiifWidth.hint": "The canvas width should match the image width.",
+
+  "bitstream.edit.form.iiifHeight.label": "IIIF canvas height",
+
+  "bitstream.edit.form.iiifHeight.hint": "The canvas height should match the image height.",
+
+
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
   "bitstream.edit.notifications.saved.title": "Bitstream saved",

@@ -148,9 +148,33 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   });
 
   /**
+   * The Dynamic TextArea Model for the file's description
+   */
+  iiifLabelModel = new DynamicInputModel({
+    id: 'iiifLabel',
+    name: 'iiifLabel'
+  });
+
+  iiifTocModel = new DynamicInputModel({
+    id: 'iiifToc',
+    name: 'iiifToc'
+  });
+
+  iiifWidthModel = new DynamicInputModel({
+    id: 'iiifWidth',
+    name: 'iiifWidth'
+  });
+
+  iiifHeightModel = new DynamicInputModel({
+    id: 'iiifHeight',
+    name: 'iiifHeight'
+  });
+
+  /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.selectedFormatModel, this.newFormatModel];
+  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.selectedFormatModel,
+    this.newFormatModel, this.iiifLabelModel, this.iiifTocModel, this.iiifWidthModel, this.iiifHeightModel];
 
   /**
    * The dynamic form fields used for editing the information of a bitstream
@@ -175,6 +199,30 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       group: [
         this.selectedFormatModel,
         this.newFormatModel
+      ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'iiifLabelContainer',
+      group: [
+        this.iiifLabelModel
+      ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'iiifTocContainer',
+      group: [
+        this.iiifTocModel
+      ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'iiifWidthContainer',
+      group: [
+        this.iiifWidthModel
+      ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'iiifHeightContainer',
+      group: [
+        this.iiifHeightModel
       ]
     })
   ];
@@ -218,6 +266,26 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: this.newFormatBaseLayout + ' invisible'
       }
     },
+    iiifLabel: {
+      grid: {
+        host: 'd-none'
+      }
+    },
+    iiifToc: {
+      grid: {
+        host: 'd-none'
+      }
+    },
+    iiifWidth: {
+      grid: {
+        host: 'd-none'
+      }
+    },
+    iiifHeight: {
+      grid: {
+        host: 'd-none'
+      }
+    },
     fileNamePrimaryContainer: {
       grid: {
         host: 'row position-relative'
@@ -232,7 +300,27 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       grid: {
         host: 'row'
       }
-    }
+    },
+    iiifLabelContainer: {
+      grid: {
+        host: 'row'
+      }
+    },
+    iiifTocContainer: {
+      grid: {
+        host: 'row'
+      }
+    },
+    iiifWidthContainer: {
+      grid: {
+        host: 'row'
+      }
+    },
+    iiifHeightContainer: {
+      grid: {
+        host: 'row'
+      }
+    },
   };
 
   /**
@@ -253,6 +341,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * This will determine the route of the item edit page to return to
    */
   entityType: string;
+
+  isIIIF: boolean;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -303,6 +393,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.formats = allFormats.page;
         this.updateFormatModel();
         this.updateForm(this.bitstream);
+        this.setIiifStatus(this.bitstream);
       })
     );
 
@@ -467,6 +558,12 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    if (this.isIIIF) {
+      Metadata.setFirstValue(newMetadata, 'iiif.label', rawForm.iiifLabelContainer.iiifLabel);
+      Metadata.setFirstValue(newMetadata, 'iiif.toc', rawForm.iiifTocContainer.iiifToc);
+      Metadata.setFirstValue(newMetadata, 'iiif.image.width', rawForm.iiifWidthContainer.iiifWidth);
+      Metadata.setFirstValue(newMetadata, 'iiif.image.height', rawForm.iiifHeightContainer.iiifHeight);
+    }
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {
       Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.newFormat);
     }
@@ -495,6 +592,39 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
             this.router.navigate(([getItemEditRoute(item), 'bitstreams']));
           });
     }
+  }
+
+  /**
+   * If the parent item is iiif-enabled, the update boolean isIIIF property and show
+   * iiif fields in the form.
+   * @param bitstream
+   */
+  setIiifStatus(bitstream: Bitstream) {
+    this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
+      mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload())))
+      .subscribe((item) => {
+        if (item.firstMetadataValue('dspace.iiif.enabled').match('true') !== null) {
+          this.isIIIF = true;
+          this.formLayout.iiifLabel.grid.host = this.newFormatBaseLayout;
+          this.formLayout.iiifToc.grid.host = this.newFormatBaseLayout;
+          this.formLayout.iiifWidth.grid.host = this.newFormatBaseLayout;
+          this.formLayout.iiifHeight.grid.host = this.newFormatBaseLayout;
+          this.formGroup.patchValue({
+            iiifLabelContainer: {
+              iiifLabel: bitstream.firstMetadataValue('iiif.label')
+            },
+            iiifTocContainer: {
+              iiifToc: bitstream.firstMetadataValue('iiif.toc')
+            },
+            iiifWidthContainer: {
+              iiifWidth: bitstream.firstMetadataValue('iiif.image.width')
+            },
+            iiifHeightContainer: {
+              iiifHeight: bitstream.firstMetadataValue('iiif.image.height')
+            }
+          });
+        }
+      });
   }
 
   /**
