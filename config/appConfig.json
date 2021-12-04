@@ -1,0 +1,14 @@
+{
+  "ui": {
+    "ssl": false,
+    "host": "localhost",
+    "port": 4000,
+    "nameSpace": "/"
+  },
+  "rest": {
+    "ssl": true,
+    "host": "api7.dspace.org",
+    "port": 443,
+    "nameSpace": "/server"
+  }
+}

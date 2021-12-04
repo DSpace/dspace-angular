@@ -1,6 +1,6 @@
 import { writeFile } from 'fs';
 import { environment as commonEnv } from '../src/environments/environment.common';
-import { GlobalConfig } from '../src/config/global-config.interface';
+import { AppConfig } from '../src/config/app-config.interface';
 import { ServerConfig } from '../src/config/server-config.interface';
 import { hasValue } from '../src/app/shared/empty.util';
 
@@ -42,7 +42,7 @@ const processEnv = {
     process.env.DSPACE_REST_PORT,
     process.env.DSPACE_REST_NAMESPACE,
     process.env.DSPACE_REST_SSL)
-} as GlobalConfig;
+} as AppConfig;
 
 import(environmentFilePath)
   .then((file) => generateEnvironmentFile(merge.all([commonEnv, file.environment, processEnv], mergeOptions)))
@@ -51,7 +51,7 @@ import(environmentFilePath)
     generateEnvironmentFile(merge(commonEnv, processEnv, mergeOptions))
   });
 
-function generateEnvironmentFile(file: GlobalConfig): void {
+function generateEnvironmentFile(file: AppConfig): void {
   file.production = production;
   buildBaseUrls(file);
   const contents = `export const environment = ` + JSON.stringify(file);
@@ -86,7 +86,7 @@ function createServerConfig(host?: string, port?: string, nameSpace?: string, ss
   return result;
 }
 
-function buildBaseUrls(config: GlobalConfig): void {
+function buildBaseUrls(config: AppConfig): void {
   for (const key in config) {
     if (config.hasOwnProperty(key) && config[key].host) {
       config[key].baseUrl = [
