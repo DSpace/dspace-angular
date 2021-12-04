@@ -276,7 +276,27 @@ describe('EditBitstreamPageComponent', () => {
               {
                 value: 'Bitstream title'
               }
-            ]
+            ],
+            'iiif.label': [
+              {
+                value: 'chapter one'
+              }
+              ],
+            'iiif.toc': [
+              {
+                value: 'chapter one'
+              }
+            ],
+            'iiif.image.width': [
+              {
+                value: '2400'
+              }
+            ],
+            'iiif.image.height': [
+              {
+                value: '2800'
+              }
+            ],
           },
           format: createSuccessfulRemoteDataObject$(selectedFormat),
           _links: {
@@ -334,6 +354,11 @@ describe('EditBitstreamPageComponent', () => {
 
     });
     describe('on startup', () => {
+      let rawForm;
+
+      beforeEach(() => {
+        rawForm = comp.formGroup.getRawValue();
+      });
       it('should set isIIIF to true', () => {
         expect(comp.isIIIF).toBeTrue();
       });
@@ -348,6 +373,18 @@ describe('EditBitstreamPageComponent', () => {
       });
       it('should put the \"IIIF Height\" input to be shown', () => {
         expect(comp.formLayout.iiifHeight.grid.host).toContain('col');
+      });
+      it('should fill in the iiif label', () => {
+        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('chapter one');
+      });
+      it('should fill in the iiif toc', () => {
+        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('chapter one');
+      });
+      it('should fill in the iiif width', () => {
+        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('2400');
+      });
+      it('should fill in the iiif height', () => {
+        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('2800');
       });
     });
 
