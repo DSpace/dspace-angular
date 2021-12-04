@@ -1,46 +1,66 @@
-// This configuration is only used for unit tests, end-to-end tests use environment.prod.ts
+// This configuration is only used for unit tests, end-to-end tests use environment.e2e.ts
 import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { AppConfig } from '../config/app-config.interface';
 
-export const environment: Partial<AppConfig> = {
-  rest: {
-    ssl: true,
-    host: 'rest.com',
-    port: 443,
-    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/api',
-    baseUrl: 'https://rest.api/'
+export const environment: AppConfig = {
+  production: false,
+
+  // Angular Universal settings
+  universal: {
+    preboot: true,
+    async: true,
+    time: false
   },
+
+  // Angular Universal server settings.
   ui: {
     ssl: false,
     host: 'dspace.com',
     port: 80,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/angular-dspace',
-    rateLimiter: undefined
+    baseUrl: 'http://dspace.com/angular-dspace',
+    // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+    rateLimiter: {
+      windowMs: 1 * 60 * 1000, // 1 minute
+      max: 500 // limit each IP to 500 requests per windowMs
+    }
   },
-    // Caching settings
+
+  // The REST API server settings.
+  rest: {
+    ssl: true,
+    host: 'rest.com',
+    port: 443,
+    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+    nameSpace: '/api',
+    baseUrl: 'https://rest.com/api'
+  },
+
+  // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
     msToLive: {
       default: 15 * 60 * 1000, // 15 minutes
     },
     // msToLive: 1000, // 15 minutes
-    control: 'max-age=60', // revalidate browser
+    control: 'max-age=60',
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
-      timePerMethod: {[RestRequestMethod.PATCH]: 3} as any // time in seconds
+      timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
     }
   },
+
   // Authentication settings
   auth: {
     // Authentication UI settings
     ui: {
       // the amount of time before the idle warning is shown
-      timeUntilIdle: 20000, // 20 sec
+      timeUntilIdle: 20000,
+
       // the amount of time the user has to react after the idle warning is shown before they are logged out.
       idleGracePeriod: 20000, // 20 sec
     },
@@ -51,6 +71,7 @@ export const environment: Partial<AppConfig> = {
       timeLeftBeforeTokenRefresh: 20000, // 20 sec
     },
   },
+
   // Form settings
   form: {
     // NOTE: Map server-side validators to comparative Angular form validators
@@ -59,17 +80,19 @@ export const environment: Partial<AppConfig> = {
       regex: 'pattern'
     }
   },
+
   // Notifications
   notifications: {
     rtl: false,
     position: ['top', 'right'],
     maxStack: 8,
     // NOTE: after how many seconds notification is closed automatically. If set to zero notifications are not closed automatically
-    timeOut: 5000, // 5 second
+    timeOut: 5000,
     clickToClose: true,
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
     animate: NotificationAnimationsType.Scale
   },
+
   // Submission settings
   submission: {
     autosave: {
@@ -115,21 +138,17 @@ export const environment: Partial<AppConfig> = {
             value: 'default',
             style: 'text-muted'
           },
-
         ]
       }
     }
   },
-  // Angular Universal settings
-  universal: {
-    preboot: true,
-    async: true,
-    time: false
-  },
+
   // NOTE: will log all redux actions and transfers in console
   debug: false,
+
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
   defaultLanguage: 'en',
+
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: [{
@@ -161,6 +180,7 @@ export const environment: Partial<AppConfig> = {
     label: 'Latviešu',
     active: true,
   }],
+
   // Browse-By Pages
   browseBy: {
     // Amount of years to display using jumps of one year (current year - oneYearLimit)
@@ -234,5 +254,5 @@ export const environment: Partial<AppConfig> = {
   mediaViewer: {
     image: true,
     video: true
-  },
+  }
 };

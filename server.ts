@@ -40,6 +40,9 @@ import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 import { ServerAppModule } from './src/main.server';
 
+// import { buildAppConfig } from './src/config/config.server';
+// import { AppConfig, APP_CONFIG } from './src/config/app-config.interface';
+
 /*
  * Set path for the browser application's dist folder
  */
@@ -50,6 +53,8 @@ const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
 
 const cookieParser = require('cookie-parser');
+
+// const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/appConfig.json'));
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -100,7 +105,11 @@ export function app() {
           provide: RESPONSE,
           useValue: (options as any).req.res,
         },
-      ],
+        // {
+        //   provide: APP_CONFIG,
+        //   useValue: appConfig
+        // }
+      ]
     })(_, (options as any), callback)
   );
 

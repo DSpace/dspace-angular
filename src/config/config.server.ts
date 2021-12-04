@@ -1,10 +1,15 @@
 import * as colors from 'colors';
 import * as fs from 'fs';
 import { join } from 'path';
+
+import { environment } from '../environments/environment';
+
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
+import { extendConfig, extendEnvironmentWithAppConfig } from './config.util';
+import { isNotEmpty } from '../app/shared/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -12,9 +17,17 @@ const APP_CONFIG_PATH = join(CONFIG_PATH, 'appConfig.json');
 
 type Environment = 'production' | 'development' | 'test';
 
+const getBooleanFromString = (variable: string): boolean => {
+  return variable === 'true' || variable === '1';
+};
+
+const getNumberFromString = (variable: string): number => {
+  return Number(variable);
+};
+
 const getEnvironment = (): Environment => {
   let environment: Environment = 'development';
-  if (!!process.env.NODE_ENV) {
+  if (isNotEmpty(process.env.NODE_ENV)) {
     switch (process.env.NODE_ENV) {
       case 'prod':
       case 'production':
@@ -34,7 +47,10 @@ const getEnvironment = (): Environment => {
   return environment;
 };
 
-const getDistConfigPath = (env: Environment) => {
+const getLocalConfigPath = (env: Environment) => {
+  // default to config/appConfig.json
+  let localConfigPath = APP_CONFIG_PATH;
+
   // determine app config filename variations
   let envVariations;
   switch (env) {
@@ -53,19 +69,18 @@ const getDistConfigPath = (env: Environment) => {
   for (const envVariation of envVariations) {
     const altDistConfigPath = join(CONFIG_PATH, `appConfig.${envVariation}.json`);
     if (fs.existsSync(altDistConfigPath)) {
-      return altDistConfigPath;
+      localConfigPath = altDistConfigPath;
     }
   }
 
-  // return default config/appConfig.json
-  return APP_CONFIG_PATH;
+  return localConfigPath;
 };
 
 const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
     const externalConfig = fs.readFileSync(pathToConfig, 'utf8');
-    Object.assign(config, JSON.parse(externalConfig));
+    extendConfig(config, JSON.parse(externalConfig));
   } catch (err) {
     console.error(err);
   }
@@ -73,15 +88,27 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
 
 const overrideWithEnvironment = (config: Config, key: string = '') => {
   for (const property in config) {
-    const variable = `${key}${!!key ? '_' : ''}${property.toUpperCase()}`;
+    const variable = `${key}${isNotEmpty(key) ? '_' : ''}${property.toUpperCase()}`;
     const innerConfig = config[property];
-    if (!!innerConfig) {
+    if (isNotEmpty(innerConfig)) {
       if (typeof innerConfig === 'object') {
         overrideWithEnvironment(innerConfig, variable);
       } else {
-        if (!!process.env[variable]) {
+        if (isNotEmpty(process.env[variable])) {
           console.log(`Applying environment variable ${variable} with value ${process.env[variable]}`);
-          config[property] = process.env[variable];
+          switch (typeof innerConfig) {
+            case 'number':
+              config[property] = getNumberFromString(process.env[variable]);
+              break;
+            case 'boolean':
+              config[property] = getBooleanFromString(process.env[variable]);
+              break;
+            case 'string':
+              config[property] = process.env[variable];
+            default:
+              console.warn(`Unsupported environment variable type ${typeof innerConfig} ${variable}`);
+          }
+          
         }
       }
     }
@@ -97,7 +124,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
   ].join('');
 };
 
-export const buildAppConfig = (destConfigPath: string): AppConfig => {
+export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
 
@@ -116,7 +143,7 @@ export const buildAppConfig = (destConfigPath: string): AppConfig => {
   }
 
   // override with dist config
-  const distConfigPath = getDistConfigPath(env);
+  const distConfigPath = getLocalConfigPath(env);
   if (fs.existsSync(distConfigPath)) {
     overrideWithConfig(appConfig, distConfigPath);
   } else {
@@ -125,7 +152,7 @@ export const buildAppConfig = (destConfigPath: string): AppConfig => {
 
   // override with external config if specified by environment variable `APP_CONFIG_PATH`
   const externalConfigPath = process.env.APP_CONFIG_PATH;
-  if (!!externalConfigPath) {
+  if (isNotEmpty(externalConfigPath)) {
     if (fs.existsSync(externalConfigPath)) {
       overrideWithConfig(appConfig, externalConfigPath);
     } else {
@@ -136,6 +163,18 @@ export const buildAppConfig = (destConfigPath: string): AppConfig => {
   // override with environment variables
   overrideWithEnvironment(appConfig);
 
+  // apply existing non convention UI environment variables
+  appConfig.ui.host = isNotEmpty(process.env.DSPACE_HOST) ? process.env.DSPACE_HOST : appConfig.ui.host;
+  appConfig.ui.port = isNotEmpty(process.env.DSPACE_PORT) ? getNumberFromString(process.env.DSPACE_PORT) : appConfig.ui.port;
+  appConfig.ui.nameSpace = isNotEmpty(process.env.DSPACE_NAMESPACE) ? process.env.DSPACE_NAMESPACE : appConfig.ui.nameSpace;
+  appConfig.ui.ssl = isNotEmpty(process.env.DSPACE_SSL) ? getBooleanFromString(process.env.DSPACE_SSL) : appConfig.ui.ssl;
+
+  // apply existing non convention REST environment variables
+  appConfig.rest.host = isNotEmpty(process.env.DSPACE_REST_HOST) ? process.env.DSPACE_REST_HOST : appConfig.rest.host;
+  appConfig.rest.port = isNotEmpty(process.env.DSPACE_REST_PORT) ? getNumberFromString(process.env.DSPACE_REST_PORT) : appConfig.rest.port;
+  appConfig.rest.nameSpace = isNotEmpty(process.env.DSPACE_REST_NAMESPACE) ? process.env.DSPACE_REST_NAMESPACE : appConfig.rest.nameSpace;
+  appConfig.rest.ssl = isNotEmpty(process.env.DSPACE_REST_SSL) ? getBooleanFromString(process.env.DSPACE_REST_SSL) : appConfig.rest.ssl;
+
   // apply build defined production
   appConfig.production = env === 'production';
 
@@ -143,9 +182,14 @@ export const buildAppConfig = (destConfigPath: string): AppConfig => {
   buildBaseUrl(appConfig.ui);
   buildBaseUrl(appConfig.rest);
 
-  fs.writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+  // extend environment with app config for server side use
+  extendEnvironmentWithAppConfig(environment, appConfig);
 
-  console.log(`Angular ${colors.bold('appConfig.json')} file generated correctly at ${colors.bold(destConfigPath)} \n`);
+  if (isNotEmpty(destConfigPath)) {
+    fs.writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+
+    console.log(`Angular ${colors.bold('appConfig.json')} file generated correctly at ${colors.bold(destConfigPath)} \n`);
+  }
 
   return appConfig;
-}
+};

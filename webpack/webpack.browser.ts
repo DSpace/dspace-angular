@@ -1,6 +1,7 @@
-import { buildAppConfig } from '../src/config/config';
+// import { join } from 'path';
+
+// import { buildAppConfig } from '../src/config/config.server';
 import { commonExports } from './webpack.common';
-import { join } from 'path';
 
 module.exports = Object.assign({}, commonExports, {
   target: 'web',
@@ -9,7 +10,7 @@ module.exports = Object.assign({}, commonExports, {
   },
   devServer: {
     before(app, server) {
-      buildAppConfig(join(process.cwd(), 'src/assets/appConfig.json'));
+      // buildAppConfig(join(process.cwd(), 'src/assets/appConfig.json'));
     }
  }
 });

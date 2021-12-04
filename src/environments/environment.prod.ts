@@ -1,47 +1,60 @@
-import { AppConfig } from '../config/app-config.interface';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
+import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { AppConfig } from '../config/app-config.interface';
 
 export const environment: AppConfig = {
   production: true,
+
+  // Angular Universal settings
+  universal: {
+    preboot: true,
+    async: true,
+    time: false
+  },
+
   // Angular Universal server settings.
-  // NOTE: these must be "synced" with the 'dspace.ui.url' setting in your backend's local.cfg.
+  // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: {
     ssl: false,
     host: 'localhost',
     port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
-    // The rateLimiter settings limit each IP to a "max" of 500 requests per "windowMs" (1 minute).
+    baseUrl: 'http://localhost:4000/',
+
+    // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
-      windowMs: 1 * 60 * 1000,   // 1 minute
+      windowMs: 1 * 60 * 1000, // 1 minute
       max: 500 // limit each IP to 500 requests per windowMs
     }
   },
+
   // The REST API server settings.
-  // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
+  // NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
   rest: {
     ssl: true,
     host: 'api7.dspace.org',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server',
+    baseUrl: 'https://api7.dspace.org/server'
   },
+
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
     msToLive: {
-      default: 15 * 60 * 1000, // 15 minutes
+      default: 15 * 60 * 1000 // 15 minutes
     },
-    // msToLive: 1000, // 15 minutes
     control: 'max-age=60', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
-      timePerMethod: {[RestRequestMethod.PATCH]: 3} as any // time in seconds
+      timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
     }
   },
+
   // Authentication settings
   auth: {
     // Authentication UI settings
@@ -49,15 +62,16 @@ export const environment: AppConfig = {
       // the amount of time before the idle warning is shown
       timeUntilIdle: 15 * 60 * 1000, // 15 minutes
       // the amount of time the user has to react after the idle warning is shown before they are logged out.
-      idleGracePeriod: 5 * 60 * 1000, // 5 minutes
+      idleGracePeriod: 5 * 60 * 1000 // 5 minutes
     },
     // Authentication REST settings
     rest: {
       // If the rest token expires in less than this amount of time, it will be refreshed automatically.
       // This is independent from the idle warning.
-      timeLeftBeforeTokenRefresh: 2 * 60 * 1000, // 2 minutes
-    },
+      timeLeftBeforeTokenRefresh: 2 * 60 * 1000 // 2 minutes
+    }
   },
+
   // Form settings
   form: {
     // NOTE: Map server-side validators to comparative Angular form validators
@@ -66,6 +80,7 @@ export const environment: AppConfig = {
       regex: 'pattern'
     }
   },
+
   // Notifications
   notifications: {
     rtl: false,
@@ -77,6 +92,7 @@ export const environment: AppConfig = {
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
     animate: NotificationAnimationsType.Scale
   },
+
   // Submission settings
   submission: {
     autosave: {
@@ -136,69 +152,35 @@ export const environment: AppConfig = {
           {
             value: 'default',
             style: 'text-muted'
-          },
+          }
 
         ]
       }
     }
   },
-  // Angular Universal settings
-  universal: {
-    preboot: true,
-    async: true,
-    time: false
-  },
+
   // NOTE: will log all redux actions and transfers in console
   debug: false,
+
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
   defaultLanguage: 'en',
+
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
-  languages: [{
-    code: 'en',
-    label: 'English',
-    active: true,
-  }, {
-    code: 'cs',
-    label: 'Čeština',
-    active: true,
-  }, {
-    code: 'de',
-    label: 'Deutsch',
-    active: true,
-  }, {
-    code: 'es',
-    label: 'Español',
-    active: true,
-  }, {
-    code: 'fr',
-    label: 'Français',
-    active: true,
-  }, {
-    code: 'lv',
-    label: 'Latviešu',
-    active: true,
-  }, {
-    code: 'hu',
-    label: 'Magyar',
-    active: true,
-  }, {
-    code: 'nl',
-    label: 'Nederlands',
-    active: true,
-  }, {
-    code: 'pt-PT',
-    label: 'Português',
-    active: true,
-  },{
-    code: 'pt-BR',
-    label: 'Português do Brasil',
-    active: true,
-  },{
-    code: 'fi',
-    label: 'Suomi',
-    active: true,
-  }],
+  languages: [
+    { code: 'en', label: 'English', active: true },
+    { code: 'cs', label: 'Čeština', active: true },
+    { code: 'de', label: 'Deutsch', active: true },
+    { code: 'es', label: 'Español', active: true },
+    { code: 'fr', label: 'Français', active: true },
+    { code: 'lv', label: 'Latviešu', active: true },
+    { code: 'hu', label: 'Magyar', active: true },
+    { code: 'nl', label: 'Nederlands', active: true },
+    { code: 'pt-PT', label: 'Português', active: true },
+    { code: 'pt-BR', label: 'Português do Brasil', active: true },
+    { code: 'fi', label: 'Suomi', active: true }
+  ],
+
   // Browse-By Pages
   browseBy: {
     // Amount of years to display using jumps of one year (current year - oneYearLimit)
@@ -234,16 +216,22 @@ export const environment: AppConfig = {
       }
     ]
   },
+
+  // Item Page Config
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
   },
+
+  // Collection Page Config
   collection: {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
   },
+
+  // Theme Config
   themes: [
     // Add additional themes here. In the case where multiple themes match a route, the first one
     // in this list will get priority. It is advisable to always have a theme that matches
@@ -274,12 +262,12 @@ export const environment: AppConfig = {
     //   name: 'custom-A',
     //   extends: 'custom-B',
     //   // Any of the matching properties above can be used
-    //   handle: '10673/34',
+    //   handle: '10673/34'
     // },
     // {
     //   name: 'custom-B',
     //   extends: 'custom',
-    //   handle: '10673/12',
+    //   handle: '10673/12'
     // },
     // {
     //   // A theme with only a name will match every route
@@ -293,13 +281,14 @@ export const environment: AppConfig = {
     {
       // The default dspace theme
       name: 'dspace'
-    },
+    }
   ],
-  // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
+
+  // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with 'image' or 'video').
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
   mediaViewer: {
     image: false,
-    video: false,
-  },
+    video: false
+  }
 };

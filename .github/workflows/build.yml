@@ -73,7 +73,7 @@ jobs:
         run: yarn run lint
 
       - name: Run build
-        run: yarn run build:prod
+        run: yarn run build:ssr:ci
 
       - name: Run specs (unit tests)
         run: yarn run test:headless

@@ -1,6 +1,8 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
@@ -37,7 +39,6 @@ import { NotificationsBoardComponent } from './shared/notifications/notification
 import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { environment } from '../environments/environment';
-import { BrowserModule } from '@angular/platform-browser';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
@@ -56,7 +57,8 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
 import { UUIDService } from './core/shared/uuid.service';
 import { CookieService } from './core/services/cookie.service';
-import { AbstractControl } from '@angular/forms';
+
+// import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -100,11 +102,13 @@ IMPORTS.push(
 const PROVIDERS = [
   {
     provide: APP_BASE_HREF,
-    useFactory: (getBase)
+    useFactory: getBase,
+    // deps: [APP_CONFIG]
   },
   {
     provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
+    // deps: [APP_CONFIG]
   },
   {
     provide: RouterStateSerializer,
@@ -117,7 +121,7 @@ const PROVIDERS = [
     useFactory: (store: Store<AppState>,) => {
       return () => store.dispatch(new CheckAuthenticationTokenAction());
     },
-    deps: [ Store ],
+    deps: [Store],
     multi: true
   },
   // register AuthInterceptor as HttpInterceptor
@@ -146,7 +150,7 @@ const PROVIDERS = [
   },
   // insert the unique id of the user that is using the application utilizing cookies
   {
-   provide: APP_INITIALIZER,
+    provide: APP_INITIALIZER,
     useFactory: (cookieService: CookieService, uuidService: UUIDService) => {
       const correlationId = cookieService.get('CORRELATION-ID');
 
@@ -156,8 +160,8 @@ const PROVIDERS = [
       }
       return () => true;
     },
-   multi: true,
-   deps: [ CookieService, UUIDService ]
+    multi: true,
+    deps: [CookieService, UUIDService]
   },
   {
     provide: DYNAMIC_ERROR_MESSAGES_MATCHER,

@@ -1,13 +1,19 @@
 import * as http from 'http';
 import * as https from 'https';
+
 import { environment } from '../src/environments/environment';
+
+// import { AppConfig } from '../src/config/app-config.interface';
+// import { buildAppConfig } from '../src/config/config.server';
+ 
+// const appConfig: AppConfig = buildAppConfig();
 
 /**
  * Script to test the connection with the configured REST API (in the 'rest' settings of your environment.*.ts)
  *
  * This script is useful to test for any Node.js connection issues with your REST API.
  *
- * Usage (see package.json): yarn test:rest-api
+ * Usage (see package.json): yarn test:rest
  */
 
 // Get root URL of configured REST API

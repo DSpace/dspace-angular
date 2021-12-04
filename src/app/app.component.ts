@@ -1,4 +1,5 @@
 import { distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -19,6 +20,7 @@ import {
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
@@ -39,13 +41,11 @@ import { LocaleService } from './core/locale/locale.service';
 import { hasValue, isNotEmpty } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { GoogleAnalyticsService } from './statistics/google-analytics.service';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
-import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { getDefaultThemeConfig } from '../config/config.util';
 
 @Component({
   selector: 'ds-app',
@@ -116,10 +116,13 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       if (hasValue(themeName)) {
         this.setThemeCss(themeName);
-      } else if (hasValue(DEFAULT_THEME_CONFIG)) {
-        this.setThemeCss(DEFAULT_THEME_CONFIG.name);
       } else {
-        this.setThemeCss(BASE_THEME_NAME);
+        const defaultThemeConfig = getDefaultThemeConfig();
+        if (hasValue(defaultThemeConfig)) {
+          this.setThemeCss(defaultThemeConfig.name);
+        } else {
+          this.setThemeCss(BASE_THEME_NAME);
+        }
       }
     });
 
