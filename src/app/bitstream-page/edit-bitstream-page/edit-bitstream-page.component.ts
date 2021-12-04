@@ -342,7 +342,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   entityType: string;
 
-  isIIIF: boolean;
+  /**
+   * Set to true when the parent item supports IIIF.
+   */
+  isIIIF = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
