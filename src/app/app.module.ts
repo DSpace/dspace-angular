@@ -58,14 +58,18 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { UUIDService } from './core/shared/uuid.service';
 import { CookieService } from './core/services/cookie.service';
 
-// import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
+import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
 
-export function getBase() {
-  return environment.ui.nameSpace;
+export function getConfig() {
+  return environment;
 }
 
-export function getMetaReducers(): MetaReducer<AppState>[] {
-  return environment.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
+export function getBase(appConfig: AppConfig) {
+  return appConfig.ui.nameSpace;
+}
+
+export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
+  return appConfig.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
 /**
@@ -101,14 +105,18 @@ IMPORTS.push(
 
 const PROVIDERS = [
   {
+    provide: APP_CONFIG,
+    useFactory: getConfig
+  },
+  {
     provide: APP_BASE_HREF,
     useFactory: getBase,
-    // deps: [APP_CONFIG]
+    deps: [APP_CONFIG]
   },
   {
     provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
-    // deps: [APP_CONFIG]
+    deps: [APP_CONFIG]
   },
   {
     provide: RouterStateSerializer,
@@ -199,7 +207,7 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
     ...IMPORTS
   ],
   providers: [

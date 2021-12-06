@@ -2,13 +2,11 @@ import * as colors from 'colors';
 import * as fs from 'fs';
 import { join } from 'path';
 
-import { environment } from '../environments/environment';
-
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { extendConfig, extendEnvironmentWithAppConfig } from './config.util';
+import { extendConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
@@ -181,9 +179,6 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // build base URLs
   buildBaseUrl(appConfig.ui);
   buildBaseUrl(appConfig.rest);
-
-  // extend environment with app config for server side use
-  extendEnvironmentWithAppConfig(environment, appConfig);
 
   if (isNotEmpty(destConfigPath)) {
     fs.writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));

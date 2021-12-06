@@ -14,6 +14,7 @@ import { ThemeConfig } from './theme.model';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { makeStateKey } from '@angular/platform-browser';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -37,7 +38,10 @@ interface AppConfig extends Config {
 
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
+const APP_CONFIG_STATE = makeStateKey('APP_CONFIG_STATE');
+
 export {
   AppConfig,
-  APP_CONFIG
+  APP_CONFIG,
+  APP_CONFIG_STATE
 };

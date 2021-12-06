@@ -1,4 +1,4 @@
-// This configuration is only used for unit tests, end-to-end tests use environment.e2e.ts
+// This configuration is only used for unit tests, end-to-end tests use environment.prod.ts
 import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';

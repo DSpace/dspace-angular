@@ -36,6 +36,8 @@ import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { environment } from '../environments/environment';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -83,6 +85,7 @@ describe('App component', () => {
         { provide: LocaleService, useValue: getMockLocaleService() },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
+        { provide: APP_CONFIG, useValue: environment },
         provideMockStore({ initialState }),
         AppComponent,
         RouteService

@@ -18,6 +18,7 @@ import {
   Router,
 } from '@angular/router';
 
+import { isEqual } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -46,6 +47,7 @@ import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { getDefaultThemeConfig } from '../config/config.util';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-app',
@@ -59,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
   theme: Observable<ThemeConfig> = of({} as any);
-  notificationOptions = environment.notifications;
+  notificationOptions;
   models;
 
   /**
@@ -88,6 +90,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: any,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
     private themeService: ThemeService,
     private translate: TranslateService,
     private store: Store<HostWindowState>,
@@ -105,6 +108,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Optional() private cookiesService: KlaroService,
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
+
+    console.log(this.appConfig);
+
+    if (!isEqual(environment, this.appConfig)) {
+      throw new Error('environment does not match app config!');
+    }
+
+    this.notificationOptions = environment.notifications;
 
     /* Use models object so all decorators are actually called */
     this.models = models;

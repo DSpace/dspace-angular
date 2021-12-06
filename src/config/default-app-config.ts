@@ -18,7 +18,7 @@ import { UIServerConfig } from './ui-server-config.interface';
 import { UniversalConfig } from './universal-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
-  production: boolean = false;
+  production = false;
 
   // Angular Universal server settings.
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
@@ -172,10 +172,10 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   // NOTE: will log all redux actions and transfers in console
-  debug: boolean = false;
+  debug = false;
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
-  defaultLanguage: string = 'en';
+  defaultLanguage = 'en';
 
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
