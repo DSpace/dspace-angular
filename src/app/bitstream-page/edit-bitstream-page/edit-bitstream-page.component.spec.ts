@@ -22,6 +22,7 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
+import { MetadataValueFilter } from '../../core/shared/metadata.models';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -30,17 +31,16 @@ const successNotification: INotification = new Notification('id', NotificationTy
 let notificationsService: NotificationsService;
 let formService: DynamicFormService;
 let bitstreamService: BitstreamDataService;
-let bitstreamServiceIIIF: BitstreamDataService;
 let bitstreamFormatService: BitstreamFormatDataService;
 let bitstream: Bitstream;
-let bitstreamIIIFItem: Bitstream;
 let selectedFormat: BitstreamFormat;
 let allFormats: BitstreamFormat[];
 let router: Router;
 
+let comp: EditBitstreamPageComponent;
+let fixture: ComponentFixture<EditBitstreamPageComponent>;
+
 describe('EditBitstreamPageComponent', () => {
-  let comp: EditBitstreamPageComponent;
-  let fixture: ComponentFixture<EditBitstreamPageComponent>;
 
   beforeEach(waitForAsync(() => {
     allFormats = [
@@ -92,302 +92,293 @@ describe('EditBitstreamPageComponent', () => {
         return undefined;
       }
     });
-
-    describe('EditBitstreamPageComponent without IIIF fields', () => {
-      beforeEach(waitForAsync(() => {
-        bitstream = Object.assign(new Bitstream(), {
-          metadata: {
-            'dc.description': [
-              {
-                value: 'Bitstream description'
-              }
-            ],
-            'dc.title': [
-              {
-                value: 'Bitstream title'
-              }
-            ]
+    bitstream = Object.assign(new Bitstream(), {
+      metadata: {
+        'dc.description': [
+          {
+            value: 'Bitstream description'
+          }
+        ],
+        'dc.title': [
+          {
+            value: 'Bitstream title'
+          }
+        ]
+      },
+      format: createSuccessfulRemoteDataObject$(selectedFormat),
+      _links: {
+        self: 'bitstream-selflink'
+      },
+      bundle: createSuccessfulRemoteDataObject$({
+        item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
+          uuid: 'some-uuid',
+          firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+            return undefined;
           },
-          format: createSuccessfulRemoteDataObject$(selectedFormat),
-          _links: {
-            self: 'bitstream-selflink'
-          },
-          bundle: createSuccessfulRemoteDataObject$({
-            item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
-              uuid: 'some-uuid',
-              firstMetadataValue: () => '',
-            }))
-          })
-        });
-
-        bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-          findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
-        });
-
-        TestBed.configureTestingModule({
-          imports: [TranslateModule.forRoot(), RouterTestingModule],
-          declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
-          providers: [
-            {provide: NotificationsService, useValue: notificationsService},
-            {provide: DynamicFormService, useValue: formService},
-            {provide: ActivatedRoute,
-              useValue: {
-                data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-                snapshot: {queryParams: {}}
-              }
-            },
-            {provide: BitstreamDataService, useValue: bitstreamService},
-            {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
-            ChangeDetectorRef
-          ],
-          schemas: [NO_ERRORS_SCHEMA]
-        }).compileComponents();
-      }));
-
-      beforeEach(() => {
-        fixture = TestBed.createComponent(EditBitstreamPageComponent);
-        comp = fixture.componentInstance;
-        fixture.detectChanges();
-        router = TestBed.inject(Router);
-        spyOn(router, 'navigate');
-      });
-
-      describe('on startup', () => {
-        let rawForm;
-
-        beforeEach(() => {
-          rawForm = comp.formGroup.getRawValue();
-        });
-
-        it('should fill in the bitstream\'s title', () => {
-          expect(rawForm.fileNamePrimaryContainer.fileName).toEqual(bitstream.name);
-        });
-
-        it('should fill in the bitstream\'s description', () => {
-          expect(rawForm.descriptionContainer.description).toEqual(bitstream.firstMetadataValue('dc.description'));
-        });
-
-        it('should select the correct format', () => {
-          expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.id);
-        });
-
-        it('should put the \"New Format\" input on invisible', () => {
-          expect(comp.formLayout.newFormat.grid.host).toContain('invisible');
-        });
-        it('should put the \"IIIF Label\" input to be display: none', () => {
-          expect(comp.formLayout.iiifLabel.grid.host).toContain('d-none');
-        });
-        it('should set isIIIF to false', () => {
-          expect(comp.isIIIF).toBeFalse();
-        });
-      });
-
-      describe('when an unknown format is selected', () => {
-        beforeEach(() => {
-          comp.updateNewFormatLayout(allFormats[0].id);
-        });
-
-        it('should remove the invisible class from the \"New Format\" input', () => {
-          expect(comp.formLayout.newFormat.grid.host).not.toContain('invisible');
-        });
-      });
-
-      describe('onSubmit', () => {
-        describe('when selected format hasn\'t changed', () => {
-          beforeEach(() => {
-            comp.onSubmit();
-          });
-
-          it('should call update', () => {
-            expect(bitstreamService.update).toHaveBeenCalled();
-          });
-
-          it('should commit the updates', () => {
-            expect(bitstreamService.commitUpdates).toHaveBeenCalled();
-          });
-        });
-
-        describe('when selected format has changed', () => {
-          beforeEach(() => {
-            comp.formGroup.patchValue({
-              formatContainer: {
-                selectedFormat: allFormats[2].id
-              }
-            });
-            fixture.detectChanges();
-            comp.onSubmit();
-          });
-
-          it('should call update', () => {
-            expect(bitstreamService.update).toHaveBeenCalled();
-          });
-
-          it('should call updateFormat', () => {
-            expect(bitstreamService.updateFormat).toHaveBeenCalled();
-          });
-
-          it('should commit the updates', () => {
-            expect(bitstreamService.commitUpdates).toHaveBeenCalled();
-          });
-        });
-      });
-      describe('when the cancel button is clicked', () => {
-        it('should call navigateToItemEditBitstreams method', () => {
-          spyOn(comp, 'navigateToItemEditBitstreams');
-          comp.onCancel();
-          expect(comp.navigateToItemEditBitstreams).toHaveBeenCalled();
-        });
-      });
-      describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
-        it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
-          comp.itemId = 'some-uuid1';
-          comp.navigateToItemEditBitstreams();
-          expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid1'), 'bitstreams']);
-        });
-      });
-      describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
-        it('should redirect to the item edit page on the bitstreams tab with the itemId from the bundle links ', () => {
-          comp.itemId = undefined;
-          comp.navigateToItemEditBitstreams();
-          expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid'), 'bitstreams']);
-        });
-      });
-
+        }))
+      })
+    });
+    bitstreamService = jasmine.createSpyObj('bitstreamService', {
+      findById: createSuccessfulRemoteDataObject$(bitstream),
+      update: createSuccessfulRemoteDataObject$(bitstream),
+      updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+      commitUpdates: {},
+      patch: {}
+    });
+    bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
     });
 
-    describe('EditBitstreamPageComponent with IIIF', () => {
-
-      beforeEach(waitForAsync(() => {
-        bitstreamService = jasmine.createSpyObj('bitstreamService', {
-          findById: createSuccessfulRemoteDataObject$(bitstream),
-          update: createSuccessfulRemoteDataObject$(bitstream),
-          updateFormat: createSuccessfulRemoteDataObject$(bitstream),
-          commitUpdates: {},
-          patch: {}
-        });
-        bitstreamIIIFItem = Object.assign(new Bitstream(), {
-          metadata: {
-            'dc.description': [
-              {
-                value: 'Bitstream description'
-              }
-            ],
-            'dc.title': [
-              {
-                value: 'Bitstream title'
-              }
-            ],
-            'iiif.label': [
-              {
-                value: 'chapter one'
-              }
-              ],
-            'iiif.toc': [
-              {
-                value: 'chapter one'
-              }
-            ],
-            'iiif.image.width': [
-              {
-                value: '2400'
-              }
-            ],
-            'iiif.image.height': [
-              {
-                value: '2800'
-              }
-            ],
-          },
-          format: createSuccessfulRemoteDataObject$(selectedFormat),
-          _links: {
-            self: 'bitstream-selflink'
-          },
-          bundle: createSuccessfulRemoteDataObject$({
-            item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
-              uuid: 'some-uuid',
-              firstMetadataValue: () => 'true',
-              metadata: {
-                'dspace.iiif.enabled': [
-                  {
-                    language: null,
-                    value: 'true'
-                  }
-                ]
-              }
-            }))
-          })
-        });
-        bitstreamServiceIIIF = jasmine.createSpyObj('bitstreamService', {
-          findById: createSuccessfulRemoteDataObject$(bitstreamIIIFItem),
-          update: createSuccessfulRemoteDataObject$(bitstreamIIIFItem),
-          updateFormat: createSuccessfulRemoteDataObject$(bitstreamIIIFItem),
-          commitUpdates: {},
-          patch: {}
-        });
-
-        TestBed.configureTestingModule({
-          imports: [TranslateModule.forRoot(), RouterTestingModule],
-          declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
-          providers: [
-            {provide: NotificationsService, useValue: notificationsService},
-            {provide: DynamicFormService, useValue: formService},
-            {provide: ActivatedRoute,
-              useValue: {
-                data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
-                snapshot: {queryParams: {}}
-              }
-            },
-            {provide: BitstreamDataService, useValue: bitstreamServiceIIIF},
-            {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
-            ChangeDetectorRef
-          ],
-          schemas: [NO_ERRORS_SCHEMA]
-        }).compileComponents();
-      }));
-      beforeEach(() => {
-        fixture = TestBed.createComponent(EditBitstreamPageComponent);
-        comp = fixture.componentInstance;
-        fixture.detectChanges();
-        router = TestBed.inject(Router);
-        spyOn(router, 'navigate');
-      });
-
-    });
-    describe('on startup', () => {
-      let rawForm;
-
-      beforeEach(() => {
-        rawForm = comp.formGroup.getRawValue();
-      });
-      it('should set isIIIF to true', () => {
-        expect(comp.isIIIF).toBeTrue();
-      });
-      it('should put the \"IIIF Label\" input to be shown', () => {
-        expect(comp.formLayout.iiifLabel.grid.host).toContain('col');
-      });
-      it('should put the \"IIIF Toc\" input to be shown', () => {
-        expect(comp.formLayout.iiifToc.grid.host).toContain('col');
-      });
-      it('should put the \"IIIF width\" input to be shown', () => {
-        expect(comp.formLayout.iiifWidth.grid.host).toContain('col');
-      });
-      it('should put the \"IIIF Height\" input to be shown', () => {
-        expect(comp.formLayout.iiifHeight.grid.host).toContain('col');
-      });
-      it('should fill in the iiif label', () => {
-        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('chapter one');
-      });
-      it('should fill in the iiif toc', () => {
-        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('chapter one');
-      });
-      it('should fill in the iiif width', () => {
-        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('2400');
-      });
-      it('should fill in the iiif height', () => {
-        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual('2800');
-      });
-    });
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), RouterTestingModule],
+      declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+      providers: [
+        {provide: NotificationsService, useValue: notificationsService},
+        {provide: DynamicFormService, useValue: formService},
+        {provide: ActivatedRoute,
+          useValue: {
+            data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
+            snapshot: {queryParams: {}}
+          }
+        },
+        {provide: BitstreamDataService, useValue: bitstreamService},
+        {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+        ChangeDetectorRef
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(EditBitstreamPageComponent);
+    comp = fixture.componentInstance;
+    fixture.detectChanges();
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigate');
+  });
+
+  describe('on startup', () => {
+    let rawForm;
+
+    beforeEach(() => {
+      rawForm = comp.formGroup.getRawValue();
+    });
+
+    it('should fill in the bitstream\'s title', () => {
+      expect(rawForm.fileNamePrimaryContainer.fileName).toEqual(bitstream.name);
+    });
+
+    it('should fill in the bitstream\'s description', () => {
+      expect(rawForm.descriptionContainer.description).toEqual(bitstream.firstMetadataValue('dc.description'));
+    });
+
+    it('should select the correct format', () => {
+      expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.id);
+    });
+
+    it('should put the \"New Format\" input on invisible', () => {
+      expect(comp.formLayout.newFormat.grid.host).toContain('invisible');
+    });
+  });
+
+  describe('when an unknown format is selected', () => {
+    beforeEach(() => {
+      comp.updateNewFormatLayout(allFormats[0].id);
+    });
+
+    it('should remove the invisible class from the \"New Format\" input', () => {
+      expect(comp.formLayout.newFormat.grid.host).not.toContain('invisible');
+    });
+  });
+
+  describe('onSubmit', () => {
+    describe('when selected format hasn\'t changed', () => {
+      beforeEach(() => {
+        comp.onSubmit();
+      });
+
+      it('should call update', () => {
+        expect(bitstreamService.update).toHaveBeenCalled();
+      });
+
+      it('should commit the updates', () => {
+        expect(bitstreamService.commitUpdates).toHaveBeenCalled();
+      });
+    });
+
+    describe('when selected format has changed', () => {
+      beforeEach(() => {
+        comp.formGroup.patchValue({
+          formatContainer: {
+            selectedFormat: allFormats[2].id
+          }
+        });
+        fixture.detectChanges();
+        comp.onSubmit();
+      });
+
+      it('should call update', () => {
+        expect(bitstreamService.update).toHaveBeenCalled();
+      });
+
+      it('should call updateFormat', () => {
+        expect(bitstreamService.updateFormat).toHaveBeenCalled();
+      });
+
+      it('should commit the updates', () => {
+        expect(bitstreamService.commitUpdates).toHaveBeenCalled();
+      });
+    });
+  });
+  describe('when the cancel button is clicked', () => {
+    it('should call navigateToItemEditBitstreams method', () => {
+      spyOn(comp, 'navigateToItemEditBitstreams');
+      comp.onCancel();
+      expect(comp.navigateToItemEditBitstreams).toHaveBeenCalled();
+    });
+  });
+  describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
+    it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
+      comp.itemId = 'some-uuid1';
+      comp.navigateToItemEditBitstreams();
+      expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid1'), 'bitstreams']);
+    });
+  });
+  describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
+    it('should redirect to the item edit page on the bitstreams tab with the itemId from the bundle links ', () => {
+      comp.itemId = undefined;
+      comp.navigateToItemEditBitstreams();
+      expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid'), 'bitstreams']);
+    });
+  });
+});
+
+describe('EditBitstreamPageComponent with IIIF', () => {
+
+  beforeEach(waitForAsync(() => {
+    bitstreamService = jasmine.createSpyObj('bitstreamService', {
+      findById: createSuccessfulRemoteDataObject$(bitstream),
+      update: createSuccessfulRemoteDataObject$(bitstream),
+      updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+      commitUpdates: {},
+      patch: {}
+    });
+    bitstream = Object.assign(new Bitstream(), {
+      metadata: {
+        'dc.description': [
+          {
+            value: 'Bitstream description'
+          }
+        ],
+        'dc.title': [
+          {
+            value: 'Bitstream title'
+          }
+        ],
+        'iiif.label': [
+          {
+            value: 'chapter one'
+          }
+        ],
+        'iiif.toc': [
+          {
+            value: 'chapter one'
+          }
+        ],
+        'iiif.image.width': [
+          {
+            value: '2400'
+          }
+        ],
+        'iiif.image.height': [
+          {
+            value: '2800'
+          }
+        ],
+      },
+      format: createSuccessfulRemoteDataObject$(selectedFormat),
+      _links: {
+        self: 'bitstream-selflink'
+      },
+      bundle: createSuccessfulRemoteDataObject$({
+        item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
+          uuid: 'some-uuid',
+          firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+            return 'True';
+          }
+        }))
+      })
+    });
+    bitstreamService = jasmine.createSpyObj('bitstreamService', {
+      findById: createSuccessfulRemoteDataObject$(bitstream),
+      update: createSuccessfulRemoteDataObject$(bitstream),
+      updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+      commitUpdates: {},
+      patch: {}
+    });
+
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), RouterTestingModule],
+      declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+      providers: [
+        {provide: NotificationsService, useValue: notificationsService},
+        {provide: DynamicFormService, useValue: formService},
+        {provide: ActivatedRoute,
+          useValue: {
+            data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
+            snapshot: {queryParams: {}}
+          }
+        },
+        {provide: BitstreamDataService, useValue: bitstreamService},
+        {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+        ChangeDetectorRef
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(EditBitstreamPageComponent);
+    comp = fixture.componentInstance;
+    fixture.detectChanges();
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigate');
+  });
+
+
+  describe('on startup', () => {
+    let rawForm;
+
+    beforeEach(() => {
+      rawForm = comp.formGroup.getRawValue();
+    });
+    it('should set isIIIF to true', () => {
+      expect(comp.isIIIF).toBeTrue();
+    });
+    it('should put the \"IIIF Label\" input to be shown', () => {
+      expect(comp.formLayout.iiifLabel.grid.host).toContain('col');
+    });
+    it('should put the \"IIIF Toc\" input to be shown', () => {
+      expect(comp.formLayout.iiifToc.grid.host).toContain('col');
+    });
+    it('should put the \"IIIF width\" input to be shown', () => {
+      expect(comp.formLayout.iiifWidth.grid.host).toContain('col');
+    });
+    it('should put the \"IIIF Height\" input to be shown', () => {
+      expect(comp.formLayout.iiifHeight.grid.host).toContain('col');
+    });
+    it('should fill in the iiif label', () => {
+      expect(rawForm.iiifLabelContainer.iiifLabel).toEqual('chapter one');
+    });
+    it('should fill in the iiif toc', () => {
+      expect(rawForm.iiifTocContainer.iiifToc).toEqual('chapter one');
+    });
+    it('should fill in the iiif width', () => {
+      expect(rawForm.iiifWidthContainer.iiifWidth).toEqual('2400');
+    });
+    it('should fill in the iiif height', () => {
+      expect(rawForm.iiifHeightContainer.iiifHeight).toEqual('2800');
+    });
+  });
 });
