@@ -606,7 +606,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
       mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload())))
       .subscribe((item) => {
-        if (item.firstMetadataValue('dspace.iiif.enabled').match('true') !== null) {
+        const regex = /(true|yes)/i;
+        if (item.firstMetadataValue('dspace.iiif.enabled') &&
+          item.firstMetadataValue('dspace.iiif.enabled').match(regex) !== null) {
           this.isIIIF = true;
           this.formLayout.iiifLabel.grid.host = this.newFormatBaseLayout;
           this.formLayout.iiifToc.grid.host = this.newFormatBaseLayout;
