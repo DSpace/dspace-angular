@@ -133,6 +133,8 @@ windowSettings.manifestId = manifest;
                 .split('=')[1]
                 .split('%22')[3];
             }
+            // Matches on the path to the DSpace iiif endpoint.
+            // Update here if the path is different for your environment.
             if (url.match('/server/iiif') && authToken) {
               return { ...options,
                 method: 'GET',
