@@ -8,11 +8,11 @@ import { AppConfig } from './app-config.interface';
 import { ThemeConfig } from './theme.model';
 
 const extendEnvironmentWithAppConfig = (env: any, appConfig: AppConfig): void => {
-  extendConfig(env, appConfig);
+  mergeConfig(env, appConfig);
   console.log(`Environment extended with app config`);
 };
 
-const extendConfig = (config: any, appConfig: AppConfig): void => {
+const mergeConfig = (config: any, appConfig: AppConfig): void => {
   const mergeOptions = {
     arrayMerge: (destinationArray, sourceArray, options) => sourceArray
   };
@@ -32,6 +32,6 @@ const getDefaultThemeConfig = (): ThemeConfig => {
 
 export {
   extendEnvironmentWithAppConfig,
-  extendConfig,
+  mergeConfig,
   getDefaultThemeConfig
 };

@@ -6,7 +6,7 @@ import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { extendConfig } from './config.util';
+import { mergeConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
@@ -78,7 +78,7 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
     const externalConfig = fs.readFileSync(pathToConfig, 'utf8');
-    extendConfig(config, JSON.parse(externalConfig));
+    mergeConfig(config, JSON.parse(externalConfig));
   } catch (err) {
     console.error(err);
   }
