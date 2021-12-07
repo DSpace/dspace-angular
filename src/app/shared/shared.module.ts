@@ -241,6 +241,7 @@ import { ItemVersionsSummaryModalComponent } from './item/item-versions/item-ver
 import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
+import { SearchExportCsvComponent } from './search/search-export-csv/search-export-csv.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -387,6 +388,7 @@ const COMPONENTS = [
   SearchSettingsComponent,
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
+  SearchExportCsvComponent,
   SearchFiltersComponent,
   SearchFilterComponent,
   SearchFacetFilterComponent,

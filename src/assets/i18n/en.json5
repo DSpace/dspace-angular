@@ -2528,6 +2528,11 @@
   "menu.section.workflow": "Administer Workflow",
 
 
+  "metadata-export-search.tooltip": "Export search results as CSV",
+  "metadata-export-search.submit.success": "The export was started successfully",
+  "metadata-export-search.submit.error": "Starting the export has failed",
+
+
   "mydspace.breadcrumbs": "MyDSpace",
 
   "mydspace.description": "",
