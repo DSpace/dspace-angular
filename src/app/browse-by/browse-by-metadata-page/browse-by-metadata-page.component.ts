@@ -17,6 +17,7 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -175,7 +176,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * @param value          The value of the browse-entry to display items for
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
-    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
+    const embedMetrics = followLink('metrics');
+    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions, embedMetrics);
   }
 
   /**
@@ -188,7 +190,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * @param authority         The authority of the browse-entry to display items for
    */
   updatePageWithAuthority(searchOptions: BrowseEntrySearchOptions, authority: string) {
-    this.items$ = this.browseService.getBrowseItemsForAuthority(authority, searchOptions);
+    const embedMetrics = followLink('metrics');
+    this.items$ = this.browseService.getBrowseItemsForAuthority(authority, searchOptions, embedMetrics);
   }
 
   /**
