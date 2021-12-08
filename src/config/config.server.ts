@@ -11,8 +11,6 @@ import { isNotEmpty } from '../app/shared/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
-const APP_CONFIG_PATH = join(CONFIG_PATH, 'appConfig.json');
-
 type Environment = 'production' | 'development' | 'test';
 
 const getBooleanFromString = (variable: string): boolean => {
@@ -47,7 +45,7 @@ const getEnvironment = (): Environment => {
 
 const getLocalConfigPath = (env: Environment) => {
   // default to config/appConfig.json
-  let localConfigPath = APP_CONFIG_PATH;
+  let localConfigPath = join(CONFIG_PATH, 'appConfig.json');
 
   // determine app config filename variations
   let envVariations;
@@ -65,9 +63,9 @@ const getLocalConfigPath = (env: Environment) => {
 
   // check if any environment variations of app config exist
   for (const envVariation of envVariations) {
-    const altDistConfigPath = join(CONFIG_PATH, `appConfig.${envVariation}.json`);
-    if (fs.existsSync(altDistConfigPath)) {
-      localConfigPath = altDistConfigPath;
+    const envLocalConfigPath = join(CONFIG_PATH, `appConfig.${envVariation}.json`);
+    if (fs.existsSync(envLocalConfigPath)) {
+      localConfigPath = envLocalConfigPath;
     }
   }
 
@@ -106,7 +104,6 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
             default:
               console.warn(`Unsupported environment variable type ${typeof innerConfig} ${variable}`);
           }
-          
         }
       }
     }
@@ -122,6 +119,16 @@ const buildBaseUrl = (config: ServerConfig): void => {
   ].join('');
 };
 
+/**
+ * Build app config with the following chain of override.
+ *
+ * local config -> environment local config -> external config -> environment variable
+ *
+ * Optionally save to file.
+ *
+ * @param destConfigPath optional path to save config file
+ * @returns app config
+ */
 export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
@@ -141,11 +148,11 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   }
 
   // override with dist config
-  const distConfigPath = getLocalConfigPath(env);
-  if (fs.existsSync(distConfigPath)) {
-    overrideWithConfig(appConfig, distConfigPath);
+  const localConfigPath = getLocalConfigPath(env);
+  if (fs.existsSync(localConfigPath)) {
+    overrideWithConfig(appConfig, localConfigPath);
   } else {
-    console.warn(`Unable to find dist config file at ${distConfigPath}`);
+    console.warn(`Unable to find dist config file at ${localConfigPath}`);
   }
 
   // override with external config if specified by environment variable `APP_CONFIG_PATH`
