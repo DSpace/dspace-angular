@@ -1,1 +1,2 @@
-appConfig.*.json
+config.*.yml
+!config.example.yml

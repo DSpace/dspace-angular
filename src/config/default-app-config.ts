@@ -20,7 +20,17 @@ import { UniversalConfig } from './universal-config.interface';
 export class DefaultAppConfig implements AppConfig {
   production = false;
 
-  // Angular Universal server settings.
+  // Angular Universal settings
+  universal: UniversalConfig = {
+    preboot: true,
+    async: true,
+    time: false
+  };
+
+  // NOTE: will log all redux actions and transfers in console
+  debug = false;
+
+  // Angular Universal server settings
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: UIServerConfig = {
     ssl: false,
@@ -36,7 +46,7 @@ export class DefaultAppConfig implements AppConfig {
     }
   };
 
-  // The REST API server settings.
+  // The REST API server settings
   // NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
   rest: ServerConfig = {
     ssl: false,
@@ -163,16 +173,6 @@ export class DefaultAppConfig implements AppConfig {
       }
     }
   };
-
-  // Angular Universal settings
-  universal: UniversalConfig = {
-    preboot: true,
-    async: true,
-    time: false
-  };
-
-  // NOTE: will log all redux actions and transfers in console
-  debug = false;
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
   defaultLanguage = 'en';

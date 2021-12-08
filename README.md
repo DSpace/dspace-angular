@@ -104,10 +104,10 @@ Installing
 
 Default configuration file is located in `config/` folder.
 
-To change the default configuration values, create local files that override the parameters you need to change. You can use `appConfig.json` as a starting point.
+To override the default configuration values, create local files that override the parameters you need to change. You can use `config.example.yml` as a starting point.
 
--	Create a new `appConfig.(dev or development).json` file in `config/` for a `development` environment;
--	Create a new `appConfig.(prod or production).ts` file in `config/` for a `production` environment;
+-	Create a new `config.(dev or development).yml` file in `config/` for a `development` environment;
+-	Create a new `config.(prod or production).yml` file in `config/` for a `production` environment;
 
 The settings can also be overwritten using an environment file or environment variables.
 
@@ -144,9 +144,9 @@ The same settings can also be overwritten by setting system environment variable
 export DSPACE_HOST=api7.dspace.org
 ```
 
-The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `APP_CONFIG_PATH` overrides **`appConfig.(prod or dev).json`**
+The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
 
-These configuration sources are collected **at run time**, and written to `dist/browser/assets/appConfig.json` for production and `src/app/assets/appConfig.json` for development.
+These configuration sources are collected **at run time**, and written to `dist/browser/assets/config.json` for production and `src/app/assets/config.json` for development.
 
 The configuration file can be externalized by using environment variable `APP_CONFIG_PATH`.
 
@@ -251,7 +251,7 @@ E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Con
 
 The test files can be found in the `./cypress/integration/` folder.
 
-Before you can run e2e tests, you MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `appConfig.prod.json` or `appConfig.json`. You may override this using env variables, see [Configuring](#configuring).
+Before you can run e2e tests, you MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `config.prod.yml` or `config.yml`. You may override this using env variables, see [Configuring](#configuring).
 
 Run `ng e2e` to kick off the tests. This will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
 
@@ -331,7 +331,7 @@ File Structure
 ```
 dspace-angular
 ├── config                                              *
-│   └── appConfig.json                                  * Default app config
+│   └── config.yml                                      * Default app config
 ├── cypress                                             * Folder for Cypress (https://cypress.io/) / e2e tests
 │   ├── downloads                                       *
 │   ├── fixtures                                        * Folder for e2e/integration test files

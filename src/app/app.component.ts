@@ -109,8 +109,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
 
-    console.log(this.appConfig);
-
     if (!isEqual(environment, this.appConfig)) {
       throw new Error('environment does not match app config!');
     }

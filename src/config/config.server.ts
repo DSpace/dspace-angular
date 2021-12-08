@@ -1,5 +1,6 @@
 import * as colors from 'colors';
 import * as fs from 'fs';
+import * as yaml from 'js-yaml';
 import { join } from 'path';
 
 import { AppConfig } from './app-config.interface';
@@ -44,8 +45,12 @@ const getEnvironment = (): Environment => {
 };
 
 const getLocalConfigPath = (env: Environment) => {
-  // default to config/appConfig.json
-  let localConfigPath = join(CONFIG_PATH, 'appConfig.json');
+  // default to config/config.yml
+  let localConfigPath = join(CONFIG_PATH, 'config.yml');
+
+  if (!fs.existsSync(localConfigPath)) {
+    localConfigPath = join(CONFIG_PATH, 'config.yaml');
+  }
 
   // determine app config filename variations
   let envVariations;
@@ -63,9 +68,16 @@ const getLocalConfigPath = (env: Environment) => {
 
   // check if any environment variations of app config exist
   for (const envVariation of envVariations) {
-    const envLocalConfigPath = join(CONFIG_PATH, `appConfig.${envVariation}.json`);
+    let envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yml`);
     if (fs.existsSync(envLocalConfigPath)) {
       localConfigPath = envLocalConfigPath;
+      break;
+    } else {
+      envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yaml`);
+      if (fs.existsSync(envLocalConfigPath)) {
+        localConfigPath = envLocalConfigPath;
+        break;
+      }
     }
   }
 
@@ -76,7 +88,7 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
     const externalConfig = fs.readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, JSON.parse(externalConfig));
+    mergeConfig(config, yaml.load(externalConfig));
   } catch (err) {
     console.error(err);
   }
@@ -190,7 +202,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   if (isNotEmpty(destConfigPath)) {
     fs.writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
 
-    console.log(`Angular ${colors.bold('appConfig.json')} file generated correctly at ${colors.bold(destConfigPath)} \n`);
+    console.log(`Angular ${colors.bold('config.json')} file generated correctly at ${colors.bold(destConfigPath)} \n`);
   }
 
   return appConfig;

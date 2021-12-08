@@ -1,15 +1,15 @@
 # Configuration
 
-Default configuration file is located in `config/` folder. All configuration options should be listed in the default configuration file `src/config/default-app-config.ts`. Please do not change this file directly! To change the default configuration values, create local files that override the parameters you need to change. You can use `appConfig.json` as a starting point.
+Default configuration file is located at `config/config.yml`. All configuration options should be listed in the default typescript file `src/config/default-app-config.ts`. Please do not change this file directly! To override the default configuration values, create local files that override the parameters you need to change. You can use `config.example.yml` as a starting point.
 
--	Create a new `appConfig.(dev or development).json` file in `config/` for `development` environment;
--	Create a new `appConfig.(prod or production).json` file in `config/` for `production` environment;
+-	Create a new `config.(dev or development).yml` file in `config/` for `development` environment;
+-	Create a new `config.(prod or production).yml` file in `config/` for `production` environment;
 
 Alternatively, create a desired app config file at an external location and set the path as environment variable `APP_CONFIG_PATH`.
 
 e.g.
 ```
-APP_CONFIG_PATH=/usr/local/dspace/config/appConfig.json
+APP_CONFIG_PATH=/usr/local/dspace/config/config.yml
 ```
 
 Configuration options can be overridden by setting environment variables.

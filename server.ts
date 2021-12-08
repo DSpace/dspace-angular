@@ -58,7 +58,7 @@ const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : '
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/appConfig.json'));
+const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
 
 // extend environment with app config for server
 extendEnvironmentWithAppConfig(environment, appConfig);

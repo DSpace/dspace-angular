@@ -22,7 +22,7 @@
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
     "e2e": "ng e2e",
-    "clean:dev:config": "rimraf src/assets/appConfig.json",
+    "clean:dev:config": "rimraf src/assets/config.json",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
     "clean:doc": "rimraf doc",
@@ -35,7 +35,8 @@
     "build:mirador": "webpack --config webpack/webpack.mirador.config.ts",
     "merge-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "env:yaml": "ts-node --project ./tsconfig.ts-node.json scripts/env-to-yaml.ts"
   },
   "browser": {
     "fs": false,
@@ -90,6 +91,7 @@
     "http-proxy-middleware": "^1.0.5",
     "https": "1.0.0",
     "js-cookie": "2.2.1",
+    "js-yaml": "^4.1.0",
     "json5": "^2.1.3",
     "jsonschema": "1.4.0",
     "jwt-decode": "^3.1.2",

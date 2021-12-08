@@ -10,7 +10,7 @@ module.exports = Object.assign({}, commonExports, {
   },
   devServer: {
     before(app, server) {
-      buildAppConfig(join(process.cwd(), 'src/assets/appConfig.json'));
+      buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
     }
  }
 });

@@ -34,7 +34,7 @@ const main = () => {
     return bootstrap();
   } else {
 
-    return fetch('assets/appConfig.json')
+    return fetch('assets/config.json')
       .then((response) => response.json())
       .then((appConfig: AppConfig) => {
 
