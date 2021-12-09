@@ -35,7 +35,7 @@ const mergeConfig = (destinationConfig: any, sourceConfig: AppConfig): void => {
 };
 
 /**
- * Get default them config from environment.
+ * Get default theme config from environment.
  *
  * @returns default theme config
  */
