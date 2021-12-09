@@ -34,7 +34,8 @@ describe('SearchExportCsvComponent', () => {
     query: 'test-query',
     filters: [
       new SearchFilter('f.filter1', ['filter1value1,equals', 'filter1value2,equals']),
-      new SearchFilter('f.filter2', ['filter2value1,contains'])
+      new SearchFilter('f.filter2', ['filter2value1,contains']),
+      new SearchFilter('f.filter3', ['[2000 TO 2001]'], 'equals')
     ]
   });
 
@@ -134,8 +135,10 @@ describe('SearchExportCsvComponent', () => {
           {name: '-q', value: searchConfig.query},
           {name: '-s', value: searchConfig.scope},
           {name: '-c', value: searchConfig.configuration},
-          {name: '-f', value: 'filter1,equals=filter1value1,filter1value2'},
+          {name: '-f', value: 'filter1,equals=filter1value1'},
+          {name: '-f', value: 'filter1,equals=filter1value2'},
           {name: '-f', value: 'filter2,contains=filter2value1'},
+          {name: '-f', value: 'filter3,equals=[2000 TO 2001]'},
         ], []);
 
       component.searchConfig = null;

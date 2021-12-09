@@ -3,7 +3,7 @@ import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { hasValue, isNotEmpty } from '../../empty.util';
@@ -56,7 +56,6 @@ export class SearchExportCsvComponent implements OnInit {
     const isAuthorized$ = this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
 
     this.shouldShowButton$ = observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
-      tap((v) => console.log('showbutton', v)),
       map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized)
     );
   }
@@ -78,12 +77,21 @@ export class SearchExportCsvComponent implements OnInit {
       }
       if (isNotEmpty(this.searchConfig.filters)) {
         this.searchConfig.filters.forEach((filter) => {
-          let operator = 'equals';
           if (hasValue(filter.values)) {
-            operator = filter.values[0].substring(filter.values[0].indexOf(',') + 1);
+            filter.values.forEach((value) => {
+              let operator;
+              let filterValue;
+              if (hasValue(filter.operator)) {
+                operator = filter.operator;
+                filterValue = value;
+              } else {
+                operator = value.substring(value.indexOf(',') + 1);
+                filterValue = value.substring(0, value.indexOf(','));
+              }
+              const valueToAdd = `${filter.key.substring(2)},${operator}=${filterValue}`;
+              parameters.push({name: '-f', value: valueToAdd});
+            });
           }
-          const filterValue = `${filter.key.substring(2)},${operator}=${filter.values.map((v) => v.substring(0, v.indexOf(','))).join()}`;
-          parameters.push({name: '-f', value: filterValue});
         });
       }
     }
