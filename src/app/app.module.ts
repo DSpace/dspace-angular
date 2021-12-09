@@ -71,7 +71,7 @@ export function getMetaReducers(): MetaReducer<AppState>[] {
  */
 export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
   (control: AbstractControl, model: any, hasFocus: boolean) => {
-    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
+    return (control.touched && !hasFocus) || (control.errors ?.emailTaken && hasFocus);
   };
 
 const IMPORTS = [
@@ -114,10 +114,10 @@ const PROVIDERS = [
   // Check the authentication token when the app initializes
   {
     provide: APP_INITIALIZER,
-    useFactory: (store: Store<AppState>,) => {
+    useFactory: (store: Store<AppState>, ) => {
       return () => store.dispatch(new CheckAuthenticationTokenAction());
     },
-    deps: [ Store ],
+    deps: [Store],
     multi: true
   },
   // register AuthInterceptor as HttpInterceptor
@@ -146,7 +146,7 @@ const PROVIDERS = [
   },
   // insert the unique id of the user that is using the application utilizing cookies
   {
-   provide: APP_INITIALIZER,
+    provide: APP_INITIALIZER,
     useFactory: (cookieService: CookieService, uuidService: UUIDService) => {
       const correlationId = cookieService.get('CORRELATION-ID');
 
@@ -156,8 +156,8 @@ const PROVIDERS = [
       }
       return () => true;
     },
-   multi: true,
-   deps: [ CookieService, UUIDService ]
+    multi: true,
+    deps: [CookieService, UUIDService]
   },
   {
     provide: DYNAMIC_ERROR_MESSAGES_MATCHER,

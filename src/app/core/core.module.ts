@@ -77,6 +77,7 @@ import { MetadataSchema } from './metadata/metadata-schema.model';
 import { MetadataService } from './metadata/metadata.service';
 import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
+import { FeedbackDataService } from './feedback/feedback-data.service';
 
 import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
@@ -163,6 +164,7 @@ import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { SequenceService } from './shared/sequence.service';
+import { FeedbackGuard } from './feedback/feedback.guard';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -285,6 +287,8 @@ const PROVIDERS = [
   VocabularyService,
   VocabularyTreeviewService,
   SequenceService,
+  FeedbackDataService,
+  // FeedbackGuard
 ];
 
 /**

@@ -8,6 +8,11 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyContentComponent } from './privacy/privacy-content/privacy-content.component';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { FeedbackContentComponent } from './feedback/feedback-content/feedback-content.component';
+import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 const DECLARATIONS = [
   EndUserAgreementComponent,
@@ -15,14 +20,17 @@ const DECLARATIONS = [
   EndUserAgreementContentComponent,
   PrivacyComponent,
   PrivacyContentComponent,
-  ThemedPrivacyComponent
+  ThemedPrivacyComponent,
+  FeedbackComponent,
+  FeedbackContentComponent,
+  ThemedFeedbackComponent
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    InfoRoutingModule
+    InfoRoutingModule,
   ],
   declarations: [
     ...DECLARATIONS

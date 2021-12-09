@@ -1370,6 +1370,8 @@
 
   "footer.link.end-user-agreement":"End User Agreement",
 
+  "footer.link.feedback":"Send Feedback",
+
 
 
   "forgot-email.form.header": "Forgot Password",
@@ -1568,6 +1570,27 @@
 
   "info.privacy.title": "Privacy Statement",
 
+  "info.feedback.breadcrumbs": "Feedback",
+
+  "info.feedback.head": "Feedback",
+
+  "info.feedback.title": "Feedback",
+
+  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+
+  "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+
+  "info.feedback.send": "Send Feedback",
+
+  "info.feedback.comments": "Comments",
+  
+  "info.feedback.create.success" : "Feedback Sent Successfully!",
+
+  "info.feedback.error.email.required" : "Email is required",
+  
+  "info.feedback.error.email.pattern" : "Valid Email is required",
+
+  "info.feedback.error.message.required" : "Comment is required",
 
 
   "item.alerts.private": "This item is private",

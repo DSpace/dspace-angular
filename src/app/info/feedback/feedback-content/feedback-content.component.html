@@ -1,0 +1,40 @@
+<div class="row row-offcanvas row-offcanvas-right">
+  <div class="col-xs-12 col-sm-12 col-md-9 main-content">
+    <form class="primary" [formGroup]="feedbackForm" (ngSubmit)="createFeedback()">
+      <h2>{{ 'info.feedback.head' | translate }}</h2>
+      <p>{{ 'info.feedback.info' | translate }}</p>
+      <fieldset class="col p-0">
+        <div class="row">
+          <div class="control-group col-sm-12">
+            <label class="control-label" for="email">Your Email:&nbsp;</label>
+            <input id="email" class="form-control" name="email" type="text" value="" formControlName="email" autofocus="autofocus" title="{{ 'info.feedback.email_help' | translate }}">
+            <p class="help-block">{{ 'info.feedback.email_help' | translate }}</p>
+          </div>
+        </div>
+
+        <ng-container *ngIf="feedbackForm.controls.email.invalid && (feedbackForm.controls.email.dirty || feedbackForm.controls.email.touched)"
+          class="alert">
+          <ds-error *ngIf="feedbackForm.controls.email.errors?.required" message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
+          <ds-error *ngIf="feedbackForm.controls.email.errors?.pattern" message="{{'info.feedback.error.email.pattern' | translate}}"></ds-error>
+        </ng-container>
+        <div class="row">
+          <div class="control-group col-sm-12">
+            <label class="control-label" for="comments">{{ 'info.feedback.comments' | translate }}:&nbsp;</label>
+            <textarea id="comments" formControlName="message" class="form-control" name="message" cols="20" rows="5"> </textarea>
+          </div>
+        </div>
+        <ng-container *ngIf="feedbackForm.controls.message.invalid && (feedbackForm.controls.message.dirty || feedbackForm.controls.message.touched)"
+          class="alert">
+          <ds-error *ngIf="feedbackForm.controls.message.errors?.required" message="{{'info.feedback.error.message.required' | translate}}"></ds-error>
+        </ng-container>
+        <input class="form-control" formControlName="page" name="page" type="hidden" value="{{routeService.getPreviousUrl() | async}}"
+        />
+        <div class="row">
+          <div class="control-group col-sm-12">
+            <button [disabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
