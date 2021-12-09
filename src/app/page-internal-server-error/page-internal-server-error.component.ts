@@ -1,5 +1,4 @@
-import { ServerResponseService } from '../core/services/server-response.service';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
  * This component representing the `PageNotFound` DSpace page.
