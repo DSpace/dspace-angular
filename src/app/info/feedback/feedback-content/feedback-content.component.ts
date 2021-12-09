@@ -19,6 +19,9 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
  */
 export class FeedbackContentComponent implements OnInit {
 
+  /**
+   * Form builder created used from the feedback from
+   */
   feedbackForm = this.fb.group({
     email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
     message: ['', Validators.required],
@@ -34,6 +37,9 @@ export class FeedbackContentComponent implements OnInit {
     private authService: AuthService) {
   }
 
+  /**
+   * On init check if user is logged in and use its email if so
+   */
   ngOnInit() {
     this.authService.getAuthenticatedUserFromStore().subscribe((user: EPerson) => {
       if (!!user) {
@@ -42,6 +48,9 @@ export class FeedbackContentComponent implements OnInit {
     });
   }
 
+  /**
+   * Function to create the feedback from form values
+   */
   createFeedback() {
     this.feedbackDataService.createFeedback(this.feedbackForm.value).subscribe((response: Feedback) => {
       this.notificationsService.success(this.translate.instant('info.feedback.create.success'));

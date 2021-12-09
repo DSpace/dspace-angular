@@ -20,7 +20,7 @@ export class Feedback extends DSpaceObject {
   public email: string;
 
   /**
-   * A ring representing message the user inserted
+   * A string representing message the user inserted
    */
   @autoserialize
   public message: string;

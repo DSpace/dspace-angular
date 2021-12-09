@@ -11,7 +11,7 @@ import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackContentComponent } from './feedback/feedback-content/feedback-content.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FeedbackGuard } from '../core/feedback/feedback.guard';
 
 
 const DECLARATIONS = [
@@ -37,7 +37,8 @@ const DECLARATIONS = [
   ],
   exports: [
     ...DECLARATIONS
-  ]
+  ],
+  providers: [FeedbackGuard]
 })
 export class InfoModule {
 }
