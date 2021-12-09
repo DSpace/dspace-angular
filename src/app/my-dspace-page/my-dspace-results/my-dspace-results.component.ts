@@ -59,11 +59,11 @@ export class MyDSpaceResultsComponent {
     return !this.searchResults || isEmpty(this.searchResults) || this.searchResults.isLoading;
   }
 
-  showError(searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>): boolean {
-    return searchResults?.hasFailed && (!searchResults?.errorMessage || searchResults?.statusCode !== 400);
+  showError(): boolean {
+    return this.searchResults?.hasFailed && (!this.searchResults?.errorMessage || this.searchResults?.statusCode !== 400);
   }
 
-  errorMessageLabel(searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>): string {
-    return (searchResults?.statusCode  === 422) ? 'error.invalid-search-query' : 'error.search-results';
+  errorMessageLabel(): string {
+    return (this.searchResults?.statusCode  === 422) ? 'error.invalid-search-query' : 'error.search-results';
   }
 }
