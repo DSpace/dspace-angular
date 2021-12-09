@@ -27,7 +27,7 @@
           class="alert">
           <ds-error *ngIf="feedbackForm.controls.message.errors?.required" message="{{'info.feedback.error.message.required' | translate}}"></ds-error>
         </ng-container>
-        <input class="form-control" formControlName="page" name="page" type="hidden" value="{{routeService.getPreviousUrl() | async}}"
+        <input class="form-control" formControlName="page" name="page" type="hidden" [value]="routeService.getPreviousUrl() | async"
         />
         <div class="row">
           <div class="control-group col-sm-12">

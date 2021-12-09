@@ -1,3 +1,6 @@
+import { isSuccess } from './../../../core/data/request.reducer';
+import { RemoteData } from './../../../core/data/remote-data';
+import { NoContent } from './../../../core/shared/NoContent.model';
 import { FeedbackDataService } from './../../../core/feedback/feedback-data.service';
 import { Component, OnInit } from '@angular/core';
 import { RouteService } from 'src/app/core/services/route.service';
@@ -41,20 +44,30 @@ export class FeedbackContentComponent implements OnInit {
    * On init check if user is logged in and use its email if so
    */
   ngOnInit() {
+
     this.authService.getAuthenticatedUserFromStore().subscribe((user: EPerson) => {
       if (!!user) {
         this.feedbackForm.patchValue({ email: user.email });
       }
     });
+
+    this.routeService.getPreviousUrl().subscribe((url: string) => {
+      this.feedbackForm.patchValue({ page: url });
+    });
+
   }
 
   /**
    * Function to create the feedback from form values
    */
-  createFeedback() {
-    this.feedbackDataService.createFeedback(this.feedbackForm.value).subscribe((response: Feedback) => {
-      this.notificationsService.success(this.translate.instant('info.feedback.create.success'));
-      this.feedbackForm.reset();
+  createFeedback(): void {
+    this.feedbackDataService.createFeedback(this.feedbackForm.value).subscribe((response: RemoteData<NoContent>) => {
+      if (response.isSuccess) {
+        this.notificationsService.success(this.translate.instant('info.feedback.create.success'));
+        this.feedbackForm.reset();
+      } else {
+        this.notificationsService.error(response.errorMessage);
+      }
     });
   }
 

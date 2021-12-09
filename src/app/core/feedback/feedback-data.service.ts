@@ -18,6 +18,7 @@ import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service
 import { getFirstSucceededRemoteData, getRemoteDataPayload, getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PostRequest } from 'src/app/core/data/request.models';
+import { RemoteData } from 'src/app/core/data/remote-data';
 
 /**
  * Service for checking and managing the status of the current end user agreement
@@ -58,7 +59,7 @@ export class FeedbackDataService extends DataService<Feedback> {
      * @return Observable<Feedback>
      *     server response
      */
-    createFeedback(payoload: Feedback): Observable<Feedback> {
+    createFeedback(payoload: Feedback): Observable<RemoteData<Feedback>> {
         return this.postToEndpoint(this.linkPath, payoload);
     }
 
@@ -74,7 +75,7 @@ export class FeedbackDataService extends DataService<Feedback> {
      * @return Observable<Feedback>
      *     server response
      */
-    public postToEndpoint(linkName: string, body: any, options?: HttpOptions): Observable<Feedback> {
+    public postToEndpoint(linkName: string, body: any, options?: HttpOptions): Observable<RemoteData<Feedback>> {
         const requestId = this.requestService.generateRequestId();
         const href$ = this.halService.getEndpoint(linkName).pipe(
             filter((href: string) => isNotEmpty(href)),
@@ -87,7 +88,7 @@ export class FeedbackDataService extends DataService<Feedback> {
 
         return this.rdbService.buildFromRequestUUID<Feedback>(requestId).pipe(
             getFirstCompletedRemoteData(),
-            getRemoteDataPayload(),
+            // getRemoteDataPayload(),
         );
     }
 
