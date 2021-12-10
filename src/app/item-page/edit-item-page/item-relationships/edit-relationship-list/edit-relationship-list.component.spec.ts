@@ -23,6 +23,12 @@ import { PaginationComponent } from '../../../../shared/pagination/pagination.co
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { LinkHeadService } from '../../../../core/services/link-head.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -174,6 +180,25 @@ describe('EditRelationshipListComponent', () => {
 
     hostWindowService = new HostWindowServiceStub(1200);
 
+    const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+      addTag: ''
+    });
+
+    const groupDataService = jasmine.createSpyObj('groupsDataService', {
+      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      getGroupRegistryRouterLink: '',
+      getUUIDFromString: '',
+    });
+
+    const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'test',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = test'
+        ]
+      }))
+    });
+
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
       declarations: [EditRelationshipListComponent],
@@ -185,6 +210,10 @@ describe('EditRelationshipListComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: HostWindowService, useValue: hostWindowService },
         { provide: RelationshipTypeService, useValue: relationshipTypeService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

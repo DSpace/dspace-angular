@@ -15,6 +15,7 @@ import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { RSSComponent } from './rss.component';
 import { of as observableOf } from 'rxjs';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 
 
 
@@ -61,11 +62,11 @@ describe('RssComponent', () => {
               currentPage: 1
             }),
             sort: new SortOptions('dc.title', SortDirection.ASC),
-            scope: mockCollection.id
           }));
         groupDataService = jasmine.createSpyObj('groupsDataService', {
             findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-            getGroupRegistryRouterLink: ''
+            getGroupRegistryRouterLink: '',
+            getUUIDFromString: '',
           });
         paginationService = new PaginationServiceStub();
         const searchConfigService = {
@@ -76,7 +77,7 @@ describe('RssComponent', () => {
             { provide: GroupDataService, useValue: groupDataService },
             { provide: LinkHeadService, useValue: linkHeadService },
             { provide: ConfigurationDataService, useValue: configurationDataService },
-            { provide: SearchConfigurationService, useValue: searchConfigService},
+            { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
             { provide: PaginationService, useValue: paginationService }
           ],
           declarations: [RSSComponent]
