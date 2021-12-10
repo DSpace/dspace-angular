@@ -54,6 +54,8 @@ import { Item } from '../../core/shared/item.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -63,6 +65,7 @@ describe('SubmissionObjectEffects test suite', () => {
   let notificationsServiceStub;
   let submissionServiceStub;
   let submissionJsonPatchOperationsServiceStub;
+  let submissionObjectDataServiceStub;
   const collectionId: string = mockSubmissionCollectionId;
   const submissionId: string = mockSubmissionId;
   const submissionDefinitionResponse: any = mockSubmissionDefinitionResponse;
@@ -75,6 +78,9 @@ describe('SubmissionObjectEffects test suite', () => {
     notificationsServiceStub = new NotificationsServiceStub();
     submissionServiceStub =  new SubmissionServiceStub();
     submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
+    submissionObjectDataServiceStub = mockSubmissionObjectDataService;
+
+    submissionServiceStub.hasUnsavedModification.and.returnValue(observableOf(true));
 
     TestBed.configureTestingModule({
       imports: [
@@ -99,6 +105,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
+        { provide: SubmissionObjectDataService, useValue: submissionObjectDataServiceStub },
       ],
     });
 

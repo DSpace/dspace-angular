@@ -196,13 +196,21 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
-    withLatestFrom(this.store$),
-    switchMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
-      return this.operationsService.jsonPatchByResourceType(
-        this.submissionService.getSubmissionObjectLinkName(),
-        action.payload.submissionId,
-        'sections',
-        true).pipe(
+    withLatestFrom(this.submissionService.hasUnsavedModification()),
+    switchMap(([action, hasUnsavedModification]: [SaveAndDepositSubmissionAction, boolean]) => {
+      let response$: Observable<SubmissionObject[]>;
+      if (hasUnsavedModification) {
+        response$ = this.operationsService.jsonPatchByResourceType(
+          this.submissionService.getSubmissionObjectLinkName(),
+          action.payload.submissionId,
+          'sections') as Observable<SubmissionObject[]>;
+      } else {
+        response$ = this.submissionObjectService.findById(action.payload.submissionId).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          map((submissionObject: SubmissionObject) => [submissionObject])
+        );
+      }
+      return response$.pipe(
         map((response: SubmissionObject[]) => {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);

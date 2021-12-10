@@ -40,15 +40,13 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
    *    The resource type value
    * @param resourceId
    *    The resource id value
-   * @param allowEmptyRequest
-   *    Allow an empty list of operations in the request's body
    * @return Observable<ResponseDefinitionDomain>
    *    observable of response
    */
-  protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string, allowEmptyRequest = false): Observable<ResponseDefinitionDomain> {
+  protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string): Observable<ResponseDefinitionDomain> {
     const requestId = this.requestService.generateRequestId();
     let startTransactionTime = null;
-    const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => allowEmptyRequest || isNotEmpty(request.body))(hrefObs.pipe(
+    const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => isNotEmpty(request.body))(hrefObs.pipe(
       mergeMap((endpointURL: string) => {
         return this.store.select(jsonPatchOperationsByResourceType(resourceType)).pipe(
           take(1),
@@ -81,11 +79,11 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
 
     return observableMerge(
       emptyRequest$.pipe(
-        filter((request: PatchRequestDefinition) => !allowEmptyRequest && isEmpty(request.body)),
+        filter((request: PatchRequestDefinition) => isEmpty(request.body)),
         tap(() => startTransactionTime = null),
         map(() => null)),
       patchRequest$.pipe(
-        filter((request: PatchRequestDefinition) => allowEmptyRequest || isNotEmpty(request.body)),
+        filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
         tap((request: PatchRequestDefinition) => this.requestService.send(request)),
         mergeMap(() => {
@@ -143,18 +141,16 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
    *    The scope id
    * @param resourceType
    *    The resource type value
-   * @param allowEmptyRequest
-   *    Allow an empty list of operations in the request's body
    * @return Observable<ResponseDefinitionDomain>
    *    observable of response
    */
-  public jsonPatchByResourceType(linkPath: string, scopeId: string, resourceType: string, allowEmptyRequest = false): Observable<ResponseDefinitionDomain> {
+  public jsonPatchByResourceType(linkPath: string, scopeId: string, resourceType: string): Observable<ResponseDefinitionDomain> {
     const href$ = this.halService.getEndpoint(linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)));
 
-    return this.submitJsonPatchOperations(href$, resourceType, undefined, allowEmptyRequest);
+    return this.submitJsonPatchOperations(href$, resourceType);
   }
 
   /**
