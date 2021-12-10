@@ -142,6 +142,49 @@ export class BrowseService {
   }
 
   /**
+   * Get all items linked to a certain metadata authority
+   * @param {string} filterAuthority      metadata authority to filter by (e.g. author's authority)
+   * @param options                   Options to narrow down your search
+   * @returns {Observable<RemoteData<PaginatedList<Item>>>}
+   */
+  getBrowseItemsForAuthority(filterAuthority: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
+    const href$ = this.getBrowseDefinitions().pipe(
+      getBrowseDefinitionLinks(options.metadataDefinition),
+      hasValueOperator(),
+      map((_links: any) => {
+        const itemsLink = _links.items.href || _links.items;
+        return itemsLink;
+      }),
+      hasValueOperator(),
+      map((href: string) => {
+        const args = [];
+        if (isNotEmpty(options.scope)) {
+          args.push(`scope=${options.scope}`);
+        }
+        if (isNotEmpty(options.sort)) {
+          args.push(`sort=${options.sort.field},${options.sort.direction}`);
+        }
+        if (isNotEmpty(options.pagination)) {
+          args.push(`page=${options.pagination.currentPage - 1}`);
+          args.push(`size=${options.pagination.pageSize}`);
+        }
+        if (isNotEmpty(options.startsWith)) {
+          args.push(`startsWith=${options.startsWith}`);
+        }
+        if (isNotEmpty(filterAuthority)) {
+          args.push(`filterValue=${filterAuthority}`);
+          args.push(`filterAuthority=${filterAuthority}`);
+        }
+        if (isNotEmpty(args)) {
+          href = new URLCombiner(href, `?${args.join('&')}`).toString();
+        }
+        return href;
+      }),
+    );
+    return this.hrefOnlyDataService.findAllByHref<Item>(href$);
+  }
+
+  /**
    * Get the first item for a metadata definition in an optional scope
    * @param definition
    * @param scope
