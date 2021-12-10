@@ -8,7 +8,7 @@ import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue, isEmpty } from '../shared/empty.util';
-import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
@@ -126,12 +126,12 @@ export class SearchComponent implements OnInit {
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
       switchMap((options) => this.service.search(
-          options, undefined, true, true, followLink<Item>('thumbnail', { isOptional: true })
-        ).pipe(getFirstSucceededRemoteData(), startWith(undefined))
+          options, undefined, false, true, followLink<Item>('thumbnail', { isOptional: true })
+        ).pipe(getFirstCompletedRemoteData(), startWith(undefined))
       )
     ).subscribe((results) => {
-        this.resultsRD$.next(results);
-      });
+      this.resultsRD$.next(results);
+    });
 
     if (isEmpty(this.configuration$)) {
       this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
