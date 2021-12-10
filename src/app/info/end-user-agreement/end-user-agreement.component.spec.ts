@@ -88,9 +88,53 @@ describe('EndUserAgreementComponent', () => {
       const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
       expect(button.disabled).toBeTruthy();
     });
+
+    describe('when user checks the chcexbox ', () => {
+
+      beforeEach(() => {
+        component.accepted = true;
+        fixture.detectChanges();
+      });
+
+      it('button should be enabled', () => {
+        const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
+        expect(button.disabled).toBeFalse();
+      });
+
+      describe('submit', () => {
+        describe('when accepting the agreement was successful', () => {
+          beforeEach(() => {
+            (endUserAgreementService.setUserAcceptedAgreement as jasmine.Spy).and.returnValue(observableOf(true));
+            component.submit();
+          });
+
+          it('should display a success notification', () => {
+            expect(notificationsService.success).toHaveBeenCalled();
+          });
+
+          it('should refresh the token and navigate the user to the redirect url', () => {
+            expect(store.dispatch).toHaveBeenCalledWith(new RefreshTokenAndRedirectAction(token, redirectUrl));
+          });
+        });
+
+        describe('when accepting the agreement was unsuccessful', () => {
+          beforeEach(() => {
+            (endUserAgreementService.setUserAcceptedAgreement as jasmine.Spy).and.returnValue(observableOf(false));
+            component.submit();
+          });
+
+          it('should display an error notification', () => {
+            expect(notificationsService.error).toHaveBeenCalled();
+          });
+        });
+      });
+
+    });
+
   });
 
-  describe('when the user has accepted the agreement', () => {
+  describe('when the user has already accepted the agreement', () => {
+
     beforeEach(() => {
       (endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement as jasmine.Spy).and.returnValue(observableOf(true));
       component.ngOnInit();
@@ -101,38 +145,15 @@ describe('EndUserAgreementComponent', () => {
       expect(component.accepted).toEqual(true);
     });
 
-    it('should enable the save button', () => {
-      const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
-      expect(button.disabled).toBeFalsy();
+    it('should initialize the alreadyAccepted property', () => {
+      expect(component.alreadyAccepted).toEqual(true);
     });
 
-    describe('submit', () => {
-      describe('when accepting the agreement was successful', () => {
-        beforeEach(() => {
-          (endUserAgreementService.setUserAcceptedAgreement as jasmine.Spy).and.returnValue(observableOf(true));
-          component.submit();
-        });
-
-        it('should display a success notification', () => {
-          expect(notificationsService.success).toHaveBeenCalled();
-        });
-
-        it('should refresh the token and navigate the user to the redirect url', () => {
-          expect(store.dispatch).toHaveBeenCalledWith(new RefreshTokenAndRedirectAction(token, redirectUrl) );
-        });
-      });
-
-      describe('when accepting the agreement was unsuccessful', () => {
-        beforeEach(() => {
-          (endUserAgreementService.setUserAcceptedAgreement as jasmine.Spy).and.returnValue(observableOf(false));
-          component.submit();
-        });
-
-        it('should display an error notification', () => {
-          expect(notificationsService.error).toHaveBeenCalled();
-        });
-      });
+    it('should not show form', () => {
+      const form = fixture.debugElement.query(By.css('.form-user-agreement-accept'));
+      expect(form).toBeNull();
     });
+
   });
 
   describe('cancel', () => {
