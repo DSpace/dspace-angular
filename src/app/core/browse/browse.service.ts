@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -22,6 +22,8 @@ import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../data/item-data.service';
+import { of } from 'rxjs/internal/observable/of';
 
 /**
  * The service handling all browse requests
@@ -48,7 +50,7 @@ export class BrowseService {
     protected halService: HALEndpointService,
     private browseDefinitionDataService: BrowseDefinitionDataService,
     private hrefOnlyDataService: HrefOnlyDataService,
-    private rdb: RemoteDataBuildService,
+    private rdb: RemoteDataBuildService
   ) {
   }
 
@@ -145,12 +147,13 @@ export class BrowseService {
 
   /**
    * Get all items linked to a certain metadata authority
+   * @param itemDataService   the service to be used to search individual items
    * @param {string} filterAuthority      metadata authority to filter by (e.g. author's authority)
    * @param options                   Options to narrow down your search
    * @param linksToFollow             The array of [[FollowLinkConfig]]
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsForAuthority(filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsForAuthority(itemDataService: ItemDataService, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
@@ -184,7 +187,29 @@ export class BrowseService {
         return href;
       }),
     );
-    return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, true, false, ...linksToFollow);
+    return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, true, false, ...linksToFollow)
+      .pipe(switchMap((itemsRD: RemoteData<PaginatedList<Item>>) => {
+        if (itemsRD.isSuccess) {
+          return this.fetchAuthors(itemDataService, itemsRD.payload.page).pipe(map(() => {
+            return itemsRD;
+          }));
+        }
+        return of(itemsRD);
+      }));
+  }
+
+  /**
+   * Fetch items regarding authors related to the browsing result.
+   * @param itemDataService   the service to be used to search individual items
+   * @param items             the browsing result
+   */
+  fetchAuthors(itemDataService: ItemDataService, items: Item[]): Observable<RemoteData<PaginatedList<Item>>> {
+    const authors = [];
+    items.forEach((item) => {
+      item.allMetadata('dc.contributor.author')
+        .filter((value) => value.authority).forEach((value) => authors.push(value.authority));
+    });
+    return itemDataService.searchByObjects(authors).pipe(getFirstSucceededRemoteData());
   }
 
   /**

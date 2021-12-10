@@ -16,8 +16,9 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../../core/data/item-data.service';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -112,6 +113,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
+                     protected itemService: ItemDataService,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router) {
@@ -177,7 +179,11 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
     const embedMetrics = followLink('metrics');
-    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions, embedMetrics);
+    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions, embedMetrics).pipe(
+      tap((items) => {
+        console.log(items);
+      })
+    );
   }
 
   /**
@@ -191,7 +197,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   updatePageWithAuthority(searchOptions: BrowseEntrySearchOptions, authority: string) {
     const embedMetrics = followLink('metrics');
-    this.items$ = this.browseService.getBrowseItemsForAuthority(authority, searchOptions, embedMetrics);
+    this.items$ = this.browseService.getBrowseItemsForAuthority(this.itemService, authority, searchOptions, embedMetrics);
   }
 
   /**

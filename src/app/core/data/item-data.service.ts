@@ -35,11 +35,16 @@ import { Metric } from '../shared/metric.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
+import { of } from 'rxjs/internal/observable/of';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ItemSearchParams } from './item-search-params';
 
 @Injectable()
 @dataService(ITEM)
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
+  protected searchByObjectsPath = 'objects';
 
   constructor(
     protected requestService: RequestService,
@@ -325,6 +330,47 @@ export class ItemDataService extends DataService<Item> {
    */
   invalidateItemCache(itemUUID: string) {
     this.requestService.setStaleByHrefSubstring('item/' + itemUUID);
+  }
+
+  /**
+   * Search for a list of {@link Authorization}s using the "objects" search endpoint and providing optional objects url,
+   * {@link EPerson} uuid and/or {@link Feature} id
+   * @param featureId                   ID of the {@link Feature} to search {@link Authorization}s for. Required.
+   * @param objectsUr                   URL to the objects to search {@link Authorization}s for. Required.
+   * @param ePersonUuid                 UUID of the {@link EPerson} to search {@link Authorization}s for.
+   *                                    If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
+   * @param options                     {@link FindListOptions} to provide pagination and/or additional arguments
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  searchByObjects(uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return of(new ItemSearchParams(uuidList)).pipe(
+      switchMap((params: ItemSearchParams) => {
+        return this.searchBy(this.searchByObjectsPath, this.createSearchOptionsObjects(params.uuidList, options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      })
+    );
+  }
+
+  /**
+   * Create {@link FindListOptions} with {@link RequestParam}s containing a "uri" list
+   * @param objectsUrl  Required parameter values to add to {@link RequestParam} "uri"
+   * @param options     Optional initial {@link FindListOptions} to add parameters to
+   */
+  private createSearchOptionsObjects(objectsUrl: string[], options: FindListOptions = {}): FindListOptions {
+    let params = [];
+    if (isNotEmpty(options.searchParams)) {
+      params = [...options.searchParams];
+    }
+    objectsUrl.forEach((objectUrl) => {
+      params.push(new RequestParam('uuid', objectUrl));
+    });
+    return Object.assign(new FindListOptions(), options, {
+      searchParams: [...params]
+    });
   }
 
 }
