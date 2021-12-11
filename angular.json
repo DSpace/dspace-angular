@@ -68,7 +68,7 @@
           },
           "configurations": {
             "production": {
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
               "extractCss": true,
               "namedChunks": false,
@@ -79,8 +79,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "25mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -183,7 +183,10 @@
           "configurations": {
             "production": {
               "sourceMap": false,
-              "optimization": true
+              "optimization": {
+                "scripts": false,
+                "styles": true
+              }
             }
           }
         },
