@@ -6,10 +6,6 @@ import {NotificationsService} from '../../shared/notifications/notifications.ser
 import {TranslateService} from '@ngx-translate/core';
 import {Operation} from 'fast-json-patch';
 
-interface HomePageMetadata {
-  languageLabel: string;
-  text: string;
-}
 /**
  * Component representing the page to edit cms metadata for site.
  */
@@ -22,19 +18,22 @@ export class EditCmsMetadataComponent implements OnInit {
   /**
    * default value of the select options
    */
-  metadataSelectedTobeEdited = '0';
+  selectedMetadata: string;
   /**
    * default true to show the select options
    */
-  selectMode = true;
+  // selectMode = true;
+  editMode = false;
   /**
    * languages available
    */
-  languages: object[] = [];
+  // languages: object[] = [];
+
+  languageMap: Map<string, string> = new Map();
   /**
    * key value pair map with language and value of metadata
    */
-  metadataValueHomePage: Map<string, HomePageMetadata> = new Map();
+  selectedMetadataValues: Map<string, string> = new Map();
   /**
    * the owner object of the metadataList
    */
@@ -44,37 +43,37 @@ export class EditCmsMetadataComponent implements OnInit {
    */
   metadataList: string[] = [];
   // tslint:disable-next-line:no-empty
-  constructor(private siteService: SiteDataService,
-              private notificationsService: NotificationsService,
-              private translateService: TranslateService) {
+  constructor(
+    private siteService: SiteDataService,
+    private notificationsService: NotificationsService,
+    private translateService: TranslateService,
+  ) {
   }
 
   ngOnInit(): void {
+    environment.languages.filter((language) => language.active).forEach((language) => {
+      this.languageMap.set(language.code, language.label);
+    });
     environment.cms.metadataList.forEach((md) => {
       this.metadataList.push(md);
     });
-    environment.languages.filter((language) => language.active)
-      .forEach((language) => {
-        this.metadataValueHomePage.set(language.code, {
-          languageLabel: language.label,
-          text: ''
-        });
-      });
     this.siteService.find().subscribe((site) => {
       this.site = site;
     });
   }
 
   /**
-   * edit the metadata
-   * @param content the modal content
+   * Save metadata values
    */
-  edit() {
+  saveMetadata() {
     const operations = this.getOperationsToEditText();
+    this.siteService.setStale();
     this.siteService.patch(this.site, operations).subscribe((restResponse) => {
       if (restResponse.isSuccess) {
         this.site = restResponse.payload;
         this.notificationsService.success(this.translateService.get('admin.edit-cms-metadata.success'));
+        this.selectedMetadata = undefined;
+        this.editMode = false;
       } else {
         if (restResponse.isError) {
           this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
@@ -83,24 +82,33 @@ export class EditCmsMetadataComponent implements OnInit {
     });
   }
 
+  back() {
+    this.selectedMetadata = undefined;
+    this.editMode = false;
+  }
+
+  languageLabel(key: string) {
+    return this.languageMap.get(key) ?? key;
+  }
+
   private getOperationsToEditText(): Operation[] {
-    const firstLanguage = this.metadataValueHomePage.keys().next().value;
+    const firstLanguage = this.selectedMetadataValues.keys().next().value;
     const operations = [];
     operations.push({
       op: 'replace',
-      path: '/metadata/' + this.metadataSelectedTobeEdited,
+      path: '/metadata/' + this.selectedMetadata,
       value: {
-        value: this.metadataValueHomePage.get(firstLanguage).text,
+        value: this.selectedMetadataValues.get(firstLanguage),
         language: firstLanguage
       }
     });
-    this.metadataValueHomePage.forEach((value, key) => {
+    this.selectedMetadataValues.forEach((value, key) => {
       if (key !== firstLanguage) {
         operations.push({
           op: 'add',
-          path: '/metadata/' + this.metadataSelectedTobeEdited,
+          path: '/metadata/' + this.selectedMetadata,
           value: {
-            value: value.text,
+            value: value,
             language: key
           }
         });
@@ -109,10 +117,12 @@ export class EditCmsMetadataComponent implements OnInit {
     return operations;
   }
 
-  selectMetadataToEdit() {
-    if (this.metadataSelectedTobeEdited !== '0') {
-      this.selectMode = false;
-    }
+  editSelectedMetadata() {
+    environment.languages.filter((language) => language.active).forEach((language) => {
+      const text = this.site.firstMetadataValue(this.selectedMetadata, { language: language.code });
+      this.selectedMetadataValues.set(language.code, text);
+    });
+    this.editMode = true;
   }
 }
 

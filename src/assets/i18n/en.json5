@@ -66,6 +66,8 @@
 
   "admin.edit-cms-metadata.save-button": "Save",
 
+  "admin.edit-cms-metadata.back-button": "Back",
+
   "admin.edit-cms-metadata.success": "Metadata successfully updated",
 
   "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",

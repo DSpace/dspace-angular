@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EditCmsMetadataComponent } from './edit-cms-metadata.component';
-import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {NotificationsServiceStub} from '../../shared/testing/notifications-service.stub';
 import {NotificationsService} from '../../shared/notifications/notifications.service';
 import {Observable, of} from 'rxjs';
@@ -10,7 +10,7 @@ import {TranslateLoaderMock} from '../../shared/mocks/translate-loader.mock';
 import {By} from '@angular/platform-browser';
 import {environment} from '../../../environments/mock-environment';
 
-describe('EditCmsMetadataComponent', () => {
+fdescribe('EditCmsMetadataComponent', () => {
   let component: EditCmsMetadataComponent;
   let fixture: ComponentFixture<EditCmsMetadataComponent>;
   let siteServiceStub;
@@ -45,7 +45,7 @@ describe('EditCmsMetadataComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditCmsMetadataComponent);
     component = fixture.componentInstance;
-    component.selectMode = true;
+    component.editMode = false;
     fixture.detectChanges();
   });
 
@@ -59,7 +59,7 @@ describe('EditCmsMetadataComponent', () => {
   });
   describe('when the edit button is clicked', () => {
     beforeEach(() => {
-      spyOn(component, 'selectMetadataToEdit');
+      spyOn(component, 'editSelectedMetadata');
       const editButton = fixture.debugElement.query(By.css('button'));
       editButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
@@ -67,31 +67,33 @@ describe('EditCmsMetadataComponent', () => {
       });
     });
     it('should call selectMetadataToEdit', () => {
-      expect(component.selectMetadataToEdit).toHaveBeenCalled();
+      expect(component.editSelectedMetadata).toHaveBeenCalled();
     });
   });
   describe('after the button edit is clicked', () => {
     beforeEach(() => {
-      component.selectMode = false;
+      component.editMode = true;
       fixture.detectChanges();
     });
     it('should render textareas of the languages', () => {
-      const languagesLength = environment.languages.length;
-      const textareas = fixture.debugElement.queryAll(By.css('textarea'));
-      expect(textareas).toHaveSize(languagesLength);
+      fixture.whenStable().then(() => {
+        const languagesLength = environment.languages.length;
+        const textareas = fixture.debugElement.queryAll(By.css('textarea'));
+        expect(textareas).toHaveSize(languagesLength);
+      });
     });
     describe('after the button save is clicked', () => {
-      it('should call method edit', () => {
+      it('should call method edit', waitForAsync(() => {
         const saveButton = fixture.debugElement.query(By.css('button'));
-        spyOn(component, 'edit');
+        spyOn(component, 'saveMetadata');
         saveButton.triggerEventHandler('click', {
           preventDefault: () => {/**/
           }
         });
-        expect(component.edit).toHaveBeenCalled();
-      });
+        expect(component.saveMetadata).toHaveBeenCalled();
+      }));
       it('should call method patch of service', () => {
-        component.metadataSelectedTobeEdited = environment.cms.metadataList[0];
+        component.selectedMetadata = environment.cms.metadataList[0];
         spyOn(siteServiceStub, 'patch');
         const saveButton = fixture.debugElement.query(By.css('button'));
         saveButton.triggerEventHandler('click', {
@@ -101,19 +103,19 @@ describe('EditCmsMetadataComponent', () => {
         const operations = [];
         operations.push({
           op: 'replace',
-          path: '/metadata/' + component.metadataSelectedTobeEdited,
+          path: '/metadata/' + component.selectedMetadata,
           value: {
-            value: component.metadataValueHomePage.get(environment.languages[0].code).text,
+            value: component.selectedMetadataValues.get(environment.languages[0].code),
             language: environment.languages[0].code
           }
         });
-        component.metadataValueHomePage.forEach((value, key) => {
+        component.selectedMetadataValues.forEach((value, key) => {
           if (key !== environment.languages[0].code) {
             operations.push({
               op: 'add',
-              path: '/metadata/' + component.metadataSelectedTobeEdited,
+              path: '/metadata/' + component.selectedMetadata,
               value: {
-                value: value.text,
+                value: value,
                 language: key
               }
             });
