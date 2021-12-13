@@ -6,7 +6,7 @@ import {
 } from './metadata-representation.decorator';
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { Context } from '../../core/shared/context.model';
-import * as uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { environment } from '../../../environments/environment';
 
 let ogEnvironmentThemes;

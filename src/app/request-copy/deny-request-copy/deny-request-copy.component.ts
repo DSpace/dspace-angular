@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -11,7 +11,6 @@ import {
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';

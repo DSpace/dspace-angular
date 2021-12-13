@@ -6,9 +6,8 @@ import {
   FieldUpdates,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { Observable } from 'rxjs/internal/Observable';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';

@@ -60,6 +60,21 @@ ds-admin-sidebar {
   }
 }
 
+ngb-modal-backdrop {
+  // ng-bootsrap animates opacity, causing the fully opaque background to flash briefly before the transition starts
+  // animating background-color between transparent & a RGBA color instead looks smoother
+  &.fade {
+    opacity: 1 !important;
+    background-color: transparent;
+    transition: background-color 0.15s linear;
+
+    &.show {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+
 button.switch{
   outline:none;
 }

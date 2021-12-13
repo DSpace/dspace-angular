@@ -255,8 +255,9 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{
-      onSameUrlNavigation: 'reload',
-    })
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy'
+})
   ],
   exports: [RouterModule],
 })
