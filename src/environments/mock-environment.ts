@@ -200,6 +200,12 @@ export const environment: Partial<GlobalConfig> = {
         id: 'subject',
         type: BrowseByType.Metadata
       }
+    ],
+    followMetadata: [
+      {
+        type: 'Publication',
+        metadata: ['dc.contributor.author']
+      }
     ]
   },
   item: {

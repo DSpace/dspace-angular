@@ -287,6 +287,15 @@ export const environment: GlobalConfig = {
         id: 'eqtitle',
         type: BrowseByType.Title
       }
+    ],
+    // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+    // Referenced items will be fetched with a find by ids strategy to avoid individual rest requests
+    // to efficiently display the search results.
+    followMetadata: [
+      {
+        type: 'Publication',
+        metadata: ['dc.contributor.author']
+      }
     ]
   },
   item: {

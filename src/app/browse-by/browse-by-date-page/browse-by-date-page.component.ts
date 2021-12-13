@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { BrowseManager } from '../../core/browse/browse.manager';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -40,12 +41,12 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
+                     protected browseManager: BrowseManager,
                      protected dsoService: DSpaceObjectDataService,
-                     protected itemService: ItemDataService,
                      protected router: Router,
                      protected paginationService: PaginationService,
                      protected cdRef: ChangeDetectorRef) {
-    super(route, browseService, itemService, dsoService, paginationService, router);
+    super(route, browseService, browseManager, dsoService, paginationService, router);
   }
 
   ngOnInit(): void {

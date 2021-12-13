@@ -1,5 +1,6 @@
 import { Config } from './config.interface';
 import { BrowseByTypeConfig } from './browse-by-type-config.interface';
+import { BrowseByFollowMetadata } from './browse-by-follow-metadata.interface';
 
 /**
  * Config that determines how the dropdown list of years are created for browse-by-date components
@@ -24,4 +25,10 @@ export interface BrowseByConfig extends Config {
    * A list of all the active Browse-By pages
    */
   types: BrowseByTypeConfig[];
+
+  /**
+   * The list of follow metadata definitions. Used to fetch related items of browse by dspace object results.
+   */
+  followMetadata: BrowseByFollowMetadata[];
+
 }
