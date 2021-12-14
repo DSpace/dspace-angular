@@ -67,7 +67,7 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     SharedModule,
-    ContextMenuModule
+    ContextMenuModule.withEntryComponents(),
   ],
   declarations: [
     ...COMPONENTS,

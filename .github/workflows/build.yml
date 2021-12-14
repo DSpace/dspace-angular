@@ -29,11 +29,11 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -82,7 +82,7 @@ jobs:
       # Upload coverage reports to Codecov (for Node v12 only)
       # https://github.com/codecov/codecov-action
       - name: Upload coverage to Codecov.io
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         if: matrix.node-version == '12.x'
 
       # Using docker-compose start backend using CI configuration

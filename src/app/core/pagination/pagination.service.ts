@@ -10,7 +10,6 @@ import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { difference } from '../../shared/object.util';
 import { isNumeric } from 'rxjs/internal-compatibility';
 
-
 @Injectable({
   providedIn: 'root',
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, take } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { ItemExportFormat } from '../../core/itemexportformat/model/item-export-format.model';
 import { Item } from '../../core/shared/item.model';
 import { isEmpty } from '../empty.util';

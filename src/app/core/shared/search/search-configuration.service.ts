@@ -7,6 +7,7 @@ import {
   combineLatest as observableCombineLatest,
   merge as observableMerge,
   Observable,
+  of,
   Subscription
 } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -23,7 +24,6 @@ import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../s
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
-import { of } from 'rxjs/internal/observable/of';
 import { PaginationService } from '../../pagination/pagination.service';
 
 /**

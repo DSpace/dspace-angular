@@ -28,7 +28,7 @@ const DECLARATIONS = [CommunityPageComponent,
     CommunityPageRoutingModule,
     StatisticsModule.forRoot(),
     CommunityFormModule,
-    ContextMenuModule
+    ContextMenuModule.withEntryComponents(),
   ],
   declarations: [
     ...DECLARATIONS

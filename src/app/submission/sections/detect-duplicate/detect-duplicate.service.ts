@@ -8,7 +8,7 @@ import { SetDuplicateDecisionAction } from '../../objects/submission-objects.act
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 
 /**
  * A service that provides methods used in the deduplication process.

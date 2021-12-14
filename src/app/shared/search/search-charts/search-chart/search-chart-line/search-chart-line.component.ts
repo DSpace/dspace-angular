@@ -6,7 +6,7 @@ import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 import { filter, map } from 'rxjs/operators';
 import { ChartData } from '../../../../../charts/models/chart-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { FacetValue } from '../../../facet-value.model';

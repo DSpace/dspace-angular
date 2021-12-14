@@ -2,11 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../core/shared/item.model';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { CrisLayoutTab } from '../core/layout/models/tab.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
 import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { isNotEmpty } from '../shared/empty.util';
 
 /**

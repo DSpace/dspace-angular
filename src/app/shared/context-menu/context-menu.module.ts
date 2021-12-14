@@ -42,6 +42,7 @@ const ENTRY_COMPONENTS = [
   ExportItemMenuComponent,
   ExportCollectionMenuComponent,
   EditItemRelationshipsMenuComponent,
+  RequestCorrectionMenuComponent,
   ClaimItemMenuComponent,
   StatisticsMenuComponent,
   SubscriptionMenuComponent
@@ -69,5 +70,14 @@ const MODULE = [
   ]
 })
 export class ContextMenuModule {
-
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: ContextMenuModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

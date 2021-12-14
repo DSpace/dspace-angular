@@ -317,15 +317,15 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   DragDropModule,
-  CdkTreeModule,
-  ChartsModule
+  CdkTreeModule
 ];
 
 const ROOT_MODULES = [
   TranslateModule.forChild({
     missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
     useDefaultLang: true
-  })
+  }),
+  ChartsModule.withEntryComponents()
 ];
 
 const PIPES = [
@@ -636,7 +636,12 @@ const ENTRY_COMPONENTS = [
   SearchSectionComponent,
   TextSectionComponent,
   CountersSectionComponent,
-  MultiColumnTopSectionComponent
+  MultiColumnTopSectionComponent,
+  SearchChartBarComponent,
+  SearchChartBarToLeftComponent,
+  SearchChartBarToRightComponent,
+  SearchChartPieComponent,
+  SearchChartLineComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [

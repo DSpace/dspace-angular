@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -33,7 +33,6 @@ import {
 } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
 import { RouteService } from '../../../../core/services/route.service';
-import { of } from 'rxjs';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { VersionDataService } from '../../../../core/data/version-data.service';
