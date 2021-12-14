@@ -58,4 +58,12 @@ export class MyDSpaceResultsComponent {
   isLoading() {
     return !this.searchResults || isEmpty(this.searchResults) || this.searchResults.isLoading;
   }
+
+  showError(): boolean {
+    return this.searchResults?.hasFailed && (!this.searchResults?.errorMessage || this.searchResults?.statusCode !== 400);
+  }
+
+  errorMessageLabel(): string {
+    return (this.searchResults?.statusCode  === 422) ? 'error.invalid-search-query' : 'error.search-results';
+  }
 }
