@@ -13,7 +13,8 @@ describe('ServerCheckGuard', () => {
   let rootDataServiceStub: SpyObj<RootDataService>;
 
   rootDataServiceStub = jasmine.createSpyObj('RootDataService', {
-    findRoot: jasmine.createSpy('findRoot')
+    findRoot: jasmine.createSpy('findRoot'),
+    invalidateRootCache: jasmine.createSpy('invalidateRootCache')
   });
   router = jasmine.createSpyObj('Router', {
     navigateByUrl: jasmine.createSpy('navigateByUrl')
@@ -37,10 +38,11 @@ describe('ServerCheckGuard', () => {
     });
 
     it('should not redirect to error page', () => {
-      guard.canActivate({} as any, {} as any).pipe(
+      guard.canActivateChild({} as any, {} as any).pipe(
         take(1)
       ).subscribe((canActivate: boolean) => {
         expect(canActivate).toEqual(true);
+        expect(rootDataServiceStub.invalidateRootCache).not.toHaveBeenCalled();
         expect(router.navigateByUrl).not.toHaveBeenCalled();
       });
     });
@@ -52,10 +54,11 @@ describe('ServerCheckGuard', () => {
     });
 
     it('should redirect to error page', () => {
-      guard.canActivate({} as any, {} as any).pipe(
+      guard.canActivateChild({} as any, {} as any).pipe(
         take(1)
       ).subscribe((canActivate: boolean) => {
         expect(canActivate).toEqual(false);
+        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalled();
         expect(router.navigateByUrl).toHaveBeenCalledWith(getPageInternalServerErrorRoute());
       });
     });

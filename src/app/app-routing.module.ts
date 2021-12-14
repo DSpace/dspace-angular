@@ -36,7 +36,9 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
       {
-        path: '', canActivate: [ServerCheckGuard, AuthBlockingGuard],
+        path: '',
+        canActivate: [AuthBlockingGuard],
+        canActivateChild: [ServerCheckGuard],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
           {

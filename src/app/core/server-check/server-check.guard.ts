@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -16,18 +16,18 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
  * A guard that checks if root api endpoint is reachable.
  * If not redirect to 500 error page
  */
-export class ServerCheckGuard implements CanActivate {
+export class ServerCheckGuard implements CanActivateChild {
   constructor(private router: Router, private rootDataService: RootDataService) {
   }
 
   /**
    * True when root api endpoint is reachable.
    */
-  canActivate(
+  canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
 
-    return this.rootDataService.findRoot().pipe(
+    return this.rootDataService.findRoot(false).pipe(
       getFirstCompletedRemoteData(),
       map((res: RemoteData<any>) => res.hasSucceeded),
       tap((hasSucceeded: boolean) => {
