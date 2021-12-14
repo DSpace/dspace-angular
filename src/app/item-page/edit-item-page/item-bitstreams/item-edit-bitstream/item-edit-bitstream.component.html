@@ -1,8 +1,10 @@
 <ng-template #bitstreamView>
   <div class="{{columnSizes.columns[0].buildClasses()}} row-element d-flex">
     <ng-content select="[slot=drag-handle]"></ng-content>
-    <div class="float-left d-flex align-items-center">
-      {{ bitstreamName }}
+    <div class="float-left d-flex align-items-center overflow-hidden">
+      <span class="text-truncate">
+        {{ bitstreamName }}
+      </span>
     </div>
   </div>
   <div class="{{columnSizes.columns[1].buildClasses()}} row-element d-flex align-items-center">
