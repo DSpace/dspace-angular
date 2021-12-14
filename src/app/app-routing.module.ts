@@ -203,7 +203,6 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
       ]}
     ],{
     onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy'
 })
   ],
   exports: [RouterModule],
