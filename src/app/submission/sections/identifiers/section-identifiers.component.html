@@ -1,0 +1,35 @@
+<!--
+Template for the identifiers submission section component
+@author Kim Shepherd
+-->
+<!-- Main identifier data -->
+<!--<ng-container *ngVar="(getIdentifierData() | async) as identifierData">-->
+<ng-container *ngVar="(getIdentifierData() | async) as identifierData">
+<div>
+  <span>{{'submission.sections.identifiers.info' | translate}}</span>
+  <ul>
+    <!-- Handles -->
+    <ng-container *ngIf="!(identifierData && identifierData.handle)">
+      <li>{{'submission.sections.identifiers.no_handle' | translate}}</li>
+    </ng-container>
+    <ng-container *ngIf="(identifierData && identifierData.handle)">
+      <li>{{'submission.sections.identifiers.handle_label' | translate}}{{identifierData.handle}}</li>
+    </ng-container>
+    <!-- DOIs -->
+    <ng-container *ngIf="!(identifierData && identifierData.doi)">
+      <li>{{'submission.sections.identifiers.no_doi' | translate}}</li>
+    </ng-container>
+    <ng-container *ngIf="(identifierData && identifierData.doi)">
+      <li>{{'submission.sections.identifiers.doi_label' | translate}}
+        {{identifierData.doi}}
+      </li>
+    </ng-container>
+    <!-- Other identifiers -->
+    <ng-container *ngIf="(identifierData && identifierData.otherIdentifiers && identifierData.otherIdentifiers.length > 0)">
+      <li>{{'submission.sections.identifiers.otherIdentifiers_label' | translate}}
+        {{identifierData.otherIdentifiers.join(',')}}
+      </li>
+    </ng-container>
+  </ul>
+ </div>
+ </ng-container>
