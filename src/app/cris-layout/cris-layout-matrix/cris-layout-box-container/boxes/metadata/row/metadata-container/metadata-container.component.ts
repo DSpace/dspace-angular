@@ -16,7 +16,7 @@ import { map, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-metadata-container',

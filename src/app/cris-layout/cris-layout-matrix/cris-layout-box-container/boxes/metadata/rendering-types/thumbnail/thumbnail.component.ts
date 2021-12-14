@@ -9,7 +9,7 @@ import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   // tslint:disable-next-line: component-selector

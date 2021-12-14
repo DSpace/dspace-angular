@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,7 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
+import { catchError, debounceTime, filter, map, switchMap, take } from 'rxjs/operators';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
@@ -45,6 +45,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 @Component({
   selector: 'ds-group-form',
@@ -126,6 +127,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   public AlertTypeEnum = AlertType;
 
+  /**
+   * Subscription to email field value change
+   */
+  groupNameValueChangeSubscribe: Subscription;
+
+
   constructor(public groupDataService: GroupDataService,
     private ePersonDataService: EPersonDataService,
     private dSpaceObjectDataService: DSpaceObjectDataService,
@@ -136,7 +143,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     protected router: Router,
     private authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
-    public requestService: RequestService) {
+    public requestService: RequestService,
+    protected changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -192,6 +200,14 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+
+      if (!!this.formGroup.controls.groupName) {
+        this.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(this.groupDataService));
+        this.groupNameValueChangeSubscribe = this.groupName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+          this.changeDetectorRef.detectChanges();
+        });
+      }
+
       this.subs.push(
         observableCombineLatest(
           this.groupDataService.getActiveGroup(),
@@ -201,6 +217,10 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         ).subscribe(([activeGroup, canEdit, linkedObject]) => {
 
           if (activeGroup != null) {
+
+            // Disable group name exists validator
+            this.formGroup.controls.groupName.clearAsyncValidators();
+
             this.groupBeingEdited = activeGroup;
 
             if (linkedObject?.name) {
@@ -436,6 +456,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.groupDataService.cancelEditGroup();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+
+    if ( hasValue(this.groupNameValueChangeSubscribe) ) {
+      this.groupNameValueChangeSubscribe.unsubscribe();
+    }
+
   }
 
   /**

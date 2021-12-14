@@ -5,7 +5,7 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 import { isNotEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 
 export interface NestedMetadataGroupEntry {

@@ -10,7 +10,7 @@ import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { FieldRenderingType } from '../metadata-box.decorator';
 
 describe('DateComponent', () => {

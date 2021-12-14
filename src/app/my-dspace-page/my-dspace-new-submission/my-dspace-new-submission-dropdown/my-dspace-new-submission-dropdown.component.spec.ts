@@ -1,5 +1,5 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -79,7 +79,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
   };
 
   describe('With only one Entity', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
@@ -130,7 +130,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
   });
 
   describe('With more than one Entity', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
           CommonModule,

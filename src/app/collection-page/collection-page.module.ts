@@ -24,7 +24,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
     StatisticsModule.forRoot(),
     EditItemPageModule,
     CollectionFormModule,
-    ContextMenuModule
+    ContextMenuModule.withEntryComponents(),
   ],
   declarations: [
     CollectionPageComponent,

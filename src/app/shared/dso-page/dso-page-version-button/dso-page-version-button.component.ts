@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of } from 'rxjs';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'ds-dso-page-version-button',

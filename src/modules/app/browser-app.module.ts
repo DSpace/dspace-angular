@@ -30,7 +30,7 @@ import {
 } from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { RouterModule, NoPreloading } from '@angular/router';
+import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
 
@@ -54,12 +54,12 @@ export function getRequest(transferState: TransferState): any {
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
     RouterModule.forRoot([], {
-      // enableTracing: true,
-      useHash: false,
-      scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled',
-      preloadingStrategy: NoPreloading
-    }),
+    // enableTracing: true,
+    useHash: false,
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling: 'enabled',
+    preloadingStrategy: NoPreloading
+}),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,

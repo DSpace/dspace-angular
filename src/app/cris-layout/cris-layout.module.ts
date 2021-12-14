@@ -120,7 +120,7 @@ const ENTRY_COMPONENTS = [
     SharedModule,
     SearchPageModule,
     MyDSpacePageModule,
-    ContextMenuModule,
+    ContextMenuModule.withEntryComponents(),
   ],
   exports: [
     CrisLayoutComponent,

@@ -4,7 +4,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Context } from '../../core/shared/context.model';
 import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-relationships-sort-list',
