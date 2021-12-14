@@ -1,20 +1,20 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SearchComponent} from './search.component';
-import {LuckySearchService} from '../lucky-search.service';
-import {SearchConfigurationService} from '../../core/shared/search/search-configuration.service';
-import {Router, UrlTree} from '@angular/router';
-import {createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
-import {createPaginatedList} from '../../shared/testing/utils.test';
-import {Item} from '../../core/shared/item.model';
-import {of as observableOf} from 'rxjs/internal/observable/of';
-import {PaginatedSearchOptions} from '../../shared/search/paginated-search-options.model';
-import {PaginationComponentOptions} from '../../shared/pagination/pagination-component-options.model';
-import {SortDirection, SortOptions} from '../../core/cache/models/sort-options.model';
-import {TranslateModule} from '@ngx-translate/core';
-import {By} from '@angular/platform-browser';
-import {SearchResult} from '../../shared/search/search-result.model';
-import {DSpaceObject} from '../../core/shared/dspace-object.model';
+import { SearchComponent } from './search.component';
+import { LuckySearchService } from '../lucky-search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { Router, UrlTree } from '@angular/router';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { Item } from '../../core/shared/item.model';
+import { of as observableOf } from 'rxjs';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { By } from '@angular/platform-browser';
+import { SearchResult } from '../../shared/search/search-result.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
