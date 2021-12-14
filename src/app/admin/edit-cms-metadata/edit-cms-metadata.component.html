@@ -1,4 +1,4 @@
-<ng-container *ngIf="editMode; then editMetadataTemplate else selectMetadataTemplate"></ng-container>
+<ng-container *ngIf="(editMode | async); then editMetadataTemplate else selectMetadataTemplate"></ng-container>
 
 <ng-template #selectMetadataTemplate>
   <div class="container">
@@ -9,10 +9,8 @@
         <option *ngFor="let md of metadataList" [value]="md">{{md}}</option>
       </select>
       <span class="input-group-btn">
-        <button class="btn btn-primary" (click)="editSelectedMetadata()" [disabled]="!selectedMetadata">
-          <span>
-            {{'admin.edit-cms-metadata.edit-button' | translate}}
-          </span>
+        <button id="edit-metadata-btn" class="btn btn-primary" (click)="editSelectedMetadata()" [disabled]="!selectedMetadata">
+          {{'admin.edit-cms-metadata.edit-button' | translate}}
         </button>
     </span>
     </div>
@@ -39,16 +37,16 @@
 <ng-template #editMetadataButtonsTemplate>
   <div class="row">
     <div class="col-md">
-      <button class="btn btn-secondary float-left m-2" (click)="back()">
-          <span>
-            <i class="fas fa-arrow-left"></i>
-            &nbsp;{{ 'admin.edit-cms-metadata.back-button' | translate }}
-          </span>
-      </button>
-      <button class="btn btn-primary float-right m-2" (click)="saveMetadata()">
+      <button id="save-metadata-btn" class="btn btn-primary float-right m-2" (click)="saveMetadata()">
           <span>
             <i class="fas fa-edit"></i>
             &nbsp;{{ 'admin.edit-cms-metadata.save-button' | translate }}
+          </span>
+      </button>
+      <button id="back-metadata-btn" class="btn btn-outline-secondary float-right m-2" (click)="back()">
+          <span>
+            <i class="fas fa-arrow-left"></i>
+            &nbsp;{{ 'admin.edit-cms-metadata.back-button' | translate }}
           </span>
       </button>
     </div>

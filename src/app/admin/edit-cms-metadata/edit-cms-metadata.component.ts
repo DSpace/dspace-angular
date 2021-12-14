@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {SiteDataService} from '../../core/data/site-data.service';
-import {Site} from '../../core/shared/site.model';
-import {NotificationsService} from '../../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
-import {Operation} from 'fast-json-patch';
+import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { Site } from '../../core/shared/site.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * Component representing the page to edit cms metadata for site.
@@ -22,12 +23,10 @@ export class EditCmsMetadataComponent implements OnInit {
   /**
    * default true to show the select options
    */
-  // selectMode = true;
-  editMode = false;
+  editMode: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /**
    * languages available
    */
-  // languages: object[] = [];
 
   languageMap: Map<string, string> = new Map();
   /**
@@ -42,6 +41,7 @@ export class EditCmsMetadataComponent implements OnInit {
    * list of the metadata to be edited by the user
    */
   metadataList: string[] = [];
+
   // tslint:disable-next-line:no-empty
   constructor(
     private siteService: SiteDataService,
@@ -73,7 +73,7 @@ export class EditCmsMetadataComponent implements OnInit {
         this.site = restResponse.payload;
         this.notificationsService.success(this.translateService.get('admin.edit-cms-metadata.success'));
         this.selectedMetadata = undefined;
-        this.editMode = false;
+        this.editMode.next(false);
       } else {
         if (restResponse.isError) {
           this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
@@ -84,11 +84,19 @@ export class EditCmsMetadataComponent implements OnInit {
 
   back() {
     this.selectedMetadata = undefined;
-    this.editMode = false;
+    this.editMode.next(false);
   }
 
   languageLabel(key: string) {
     return this.languageMap.get(key) ?? key;
+  }
+
+  editSelectedMetadata() {
+    environment.languages.filter((language) => language.active).forEach((language) => {
+      const text = this.site.firstMetadataValue(this.selectedMetadata, {language: language.code});
+      this.selectedMetadataValues.set(language.code, text);
+    });
+    this.editMode.next(true);
   }
 
   private getOperationsToEditText(): Operation[] {
@@ -115,14 +123,6 @@ export class EditCmsMetadataComponent implements OnInit {
       }
     });
     return operations;
-  }
-
-  editSelectedMetadata() {
-    environment.languages.filter((language) => language.active).forEach((language) => {
-      const text = this.site.firstMetadataValue(this.selectedMetadata, { language: language.code });
-      this.selectedMetadataValues.set(language.code, text);
-    });
-    this.editMode = true;
   }
 }
 
