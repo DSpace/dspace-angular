@@ -32,6 +32,7 @@ export class ServerCheckGuard implements CanActivate {
       map((res: RemoteData<any>) => res.hasSucceeded),
       tap((hasSucceeded: boolean) => {
         if (!hasSucceeded) {
+          this.rootDataService.invalidateRootCache();
           this.router.navigateByUrl(getPageInternalServerErrorRoute());
         }
       }),

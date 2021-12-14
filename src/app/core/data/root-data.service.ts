@@ -106,5 +106,12 @@ export class RootDataService {
   findAllByHref(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Root>[]): Observable<RemoteData<PaginatedList<Root>>> {
     return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
+
+  /**
+   * Set to sale the root endpoint cache hit
+   */
+  invalidateRootCache() {
+    this.requestService.setStaleByHrefSubstring('server/api');
+  }
 }
 /* tslint:enable:max-classes-per-file */
