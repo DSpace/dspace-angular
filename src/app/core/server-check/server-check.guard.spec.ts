@@ -26,6 +26,8 @@ describe('ServerCheckGuard', () => {
 
   afterEach(() => {
     router.navigateByUrl.calls.reset();
+    rootDataServiceStub.invalidateRootCache.calls.reset();
+    rootDataServiceStub.findRoot.calls.reset();
   });
 
   it('should be created', () => {
