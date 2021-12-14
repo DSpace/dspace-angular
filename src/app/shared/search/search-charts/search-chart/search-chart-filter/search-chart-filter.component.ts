@@ -30,7 +30,7 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
   /**
    * Used to set width and height of the chart
    */
-  view: any[] = null;
+  view: any[] = [];
 
   /**
    * Emits an array of ChartSeries with values found for this chart
@@ -42,9 +42,28 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
     this.results = this.getInitData();
   }
 
+  /**
+   * Navigate to route containing selected filter values
+   * @param data
+   */
+  select(data) {
+    const decoded = decodeURI(data.extra._links.search.href);
+    const links = decoded.split('?');
+    if (links && links.length > 1) {
+      const queryParam: any = {};
+      links[1].split('&').forEach(res => {
+        const str = res.split('=');
+        queryParam[str[0]] = queryParam[str[0]] ? [...queryParam[str[0]], str[1]] : [str[1]];
+      });
+      this.router.navigate(this.getSearchLinkParts(), {
+        queryParams: queryParam,
+        queryParamsHandling: 'merge',
+      });
+    }
+  }
+
   protected getInitData(): Observable<ChartSeries[] | ChartData[]> {
     return this.filterValues$.pipe(
-      // filter((rd: RemoteData<PaginatedList<FacetValue>[]>) => isNotEmpty(rd.payload)),
       getAllCompletedRemoteData(),
       map((facetValues: RemoteData<PaginatedList<FacetValue>[]>) => {
         const values = [];
@@ -58,25 +77,5 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
         return values;
       }),
     );
-  }
-
-  /**
-   * Navigate to route containing selected filter values
-   * @param data
-   */
-  select(data) {
-    const decoded =  decodeURI(data.extra._links.search.href);
-    const links = decoded.split('?');
-    if (links && links.length > 1) {
-      const queryParam: any = {};
-      links[1].split('&').forEach(res => {
-        const str = res.split('=');
-        queryParam[str[0]] = queryParam[str[0]] ? [...queryParam[str[0]], str[1]] : [str[1]];
-      });
-      this.router.navigate(this.getSearchLinkParts(), {
-        queryParams: queryParam,
-        queryParamsHandling: 'merge',
-      });
-    }
   }
 }
