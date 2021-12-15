@@ -7,7 +7,7 @@ import { buildAppConfig } from '../src/config/config.server';
 const appConfig: AppConfig = buildAppConfig();
 
 /**
- * Script to test the connection with the configured REST API (in the 'rest' settings of your appConfig.*.json)
+ * Script to test the connection with the configured REST API (in the 'rest' settings of your config.*.yaml)
  *
  * This script is useful to test for any Node.js connection issues with your REST API.
  *
