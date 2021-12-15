@@ -204,7 +204,7 @@ describe('ProfilePageComponent', () => {
     });
   });
 
-  fdescribe('canChangePassword$', () => {
+  describe('canChangePassword$', () => {
     describe('when the user is allowed to change their password', () => {
       beforeEach(() => {
         canChangePassword.next(true);
