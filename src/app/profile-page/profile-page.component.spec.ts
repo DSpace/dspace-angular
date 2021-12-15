@@ -204,7 +204,7 @@ describe('ProfilePageComponent', () => {
     });
   });
 
-  describe('canChangePassword$', () => {
+  fdescribe('canChangePassword$', () => {
     describe('when the user is allowed to change their password', () => {
       beforeEach(() => {
         canChangePassword.next(true);
@@ -229,9 +229,10 @@ describe('ProfilePageComponent', () => {
         getTestScheduler().expectObservable(component.canChangePassword$).toBe('(a)', { a: false });
       });
 
-      it('should not show the security section on the page', fakeAsync(() => {
+      it('should not show the security section on the page', () => {
+        fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('.security-section'))).toBeNull();
-      }));
+      });
     });
   });
 });
