@@ -2182,7 +2182,7 @@
   "item.edit.bitstreams.headers.name": "Name",
   
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.bitstreams.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um Ihre Änderungen wiederherzustellen, klicken Sie auf die Schaltfläche 'Rückgängig',
+  "item.edit.bitstreams.notifications.discarded.content": "Ihre Änderungen wurden verworfen. Um Ihre Änderungen wiederherzustellen, klicken Sie auf die Schaltfläche 'Rückgängig'",
   
   // "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
   "item.edit.bitstreams.notifications.discarded.title": "Änderungen verworfen",
