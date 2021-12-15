@@ -87,7 +87,7 @@ export class ProfilePageComponent implements OnInit {
       tap((user: EPerson) => this.currentUser = user)
     );
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
-    this.canChangePassword$ = this.user$.pipe(switchMap((user:EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
+    this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
   }
 
   /**

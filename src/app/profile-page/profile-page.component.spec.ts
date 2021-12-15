@@ -1,5 +1,5 @@
 import { ProfilePageComponent } from './profile-page.component';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -31,7 +31,7 @@ describe('ProfilePageComponent', () => {
   let epersonService;
   let notificationsService;
 
-  let canChangePassword = new BehaviorSubject(true);
+  const canChangePassword = new BehaviorSubject(true);
 
   function init() {
     user = Object.assign(new EPerson(), {
