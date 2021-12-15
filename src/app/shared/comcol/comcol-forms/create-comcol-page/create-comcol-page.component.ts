@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { mergeMap, take } from 'rxjs/operators';
-import { ComColDataService } from '../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RouteService } from '../../../core/services/route.service';
-import { Community } from '../../../core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../empty.util';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { RouteService } from '../../../../core/services/route.service';
+import { Community } from '../../../../core/shared/community.model';
+import { getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators';
+import { ResourceType } from '../../../../core/shared/resource-type';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { RequestParam } from '../../../../core/cache/models/request-param.model';
+import { RequestService } from '../../../../core/data/request.service';
+import { Collection } from '../../../../core/shared/collection.model';
 
 /**
  * Component representing the create page for communities and collections

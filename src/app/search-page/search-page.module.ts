@@ -14,6 +14,7 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedSearchPageComponent } from './themed-search-page.component';
+import { SearchModule } from '../shared/search/search.module';
 
 const components = [
   SearchPageComponent,
@@ -25,6 +26,7 @@ const components = [
 @NgModule({
   imports: [
     CommonModule,
+    SearchModule,
     SharedModule.withEntryComponents(),
     CoreModule.forRoot(),
     StatisticsModule.forRoot(),

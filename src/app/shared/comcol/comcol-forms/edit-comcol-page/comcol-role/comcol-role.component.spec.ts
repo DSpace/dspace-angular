@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ComcolRoleComponent } from './comcol-role.component';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../../shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RequestService } from '../../../../core/data/request.service';
+import { RequestService } from '../../../../../core/data/request.service';
 import { of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComcolModule } from '../../../comcol.module';
 
 describe('ComcolRoleComponent', () => {
 
@@ -32,7 +32,7 @@ describe('ComcolRoleComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
+        ComcolModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule

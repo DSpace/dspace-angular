@@ -5,16 +5,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { Community } from '../../../../core/shared/community.model';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { SharedModule } from '../../../shared.module';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { ComColDataService } from '../../../../../core/data/comcol-data.service';
+import { Community } from '../../../../../core/shared/community.model';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import { SharedModule } from '../../../../shared.module';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
-} from '../../../remote-data.utils';
+} from '../../../../remote-data.utils';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {

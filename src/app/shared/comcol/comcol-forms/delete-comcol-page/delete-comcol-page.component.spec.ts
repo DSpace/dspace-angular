@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CommunityDataService } from '../../../core/data/community-data.service';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { Community } from '../../../core/shared/community.model';
-import { SharedModule } from '../../shared.module';
+import { Community } from '../../../../core/shared/community.model';
+import { SharedModule } from '../../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RequestService } from '../../../core/data/request.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { RequestService } from '../../../../core/data/request.service';
 import { getTestScheduler } from 'jasmine-marbles';
-import { ComColDataService } from '../../../core/data/comcol-data.service';
-import { createFailedRemoteDataObject$, createNoContentRemoteDataObject$ } from '../../remote-data.utils';
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { createFailedRemoteDataObject$, createNoContentRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('DeleteComColPageComponent', () => {
   let comp: DeleteComColPageComponent<any>;

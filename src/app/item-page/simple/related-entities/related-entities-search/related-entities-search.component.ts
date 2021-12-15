@@ -10,7 +10,7 @@ import { getFilterByRelation } from '../../../../shared/utils/relation-query.uti
 })
 /**
  * A component to show related items as search results.
- * Related items can be facetted, or queried using an
+ * Related items can be faceted, or queried using an
  * optional search box.
  */
 export class RelatedEntitiesSearchComponent implements OnInit {

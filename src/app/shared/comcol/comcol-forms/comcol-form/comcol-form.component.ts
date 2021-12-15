@@ -1,39 +1,27 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-  DynamicInputModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { AuthService } from '../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { ComColDataService } from '../../../core/data/comcol-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Collection } from '../../../core/shared/collection.model';
-import { Community } from '../../../core/shared/community.model';
-import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { UploaderOptions } from '../../uploader/uploader-options.model';
-import { UploaderComponent } from '../../uploader/uploader.component';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { RequestService } from '../../../../core/data/request.service';
+import { RestRequestMethod } from '../../../../core/data/rest-request-method';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Collection } from '../../../../core/shared/collection.model';
+import { Community } from '../../../../core/shared/community.model';
+import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
+import { ResourceType } from '../../../../core/shared/resource-type';
+import { hasValue, isNotEmpty } from '../../../empty.util';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { UploaderOptions } from '../../../uploader/uploader-options.model';
+import { UploaderComponent } from '../../../uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { NoContent } from '../../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
  * A form for creating and editing Communities or Collections
