@@ -6,6 +6,11 @@ import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interf
 import { environment } from '../../../environments/environment';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { BrowseService } from '../../core/browse/browse.service';
 
 export interface ComColPageNavOption {
   id: string;
@@ -40,30 +45,38 @@ export class ComcolPageBrowseByComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    public browseService: BrowseService
+  ) {
   }
 
   ngOnInit(): void {
-    this.allOptions = environment.browseBy.types
-      .map((config: BrowseByTypeConfig) => ({
-        id: config.id,
-        label: `browse.comcol.by.${config.id}`,
-        routerLink: `/browse/${config.id}`,
-        params: { scope: this.id }
-      }));
+    this.browseService.getBrowseDefinitions()
+      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
+      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+        if (browseDefListRD.hasSucceeded) {
+          this.allOptions = browseDefListRD.payload.page
+            .map((config: BrowseDefinition) => ({
+              id: config.id,
+              label: `browse.comcol.by.${config.id}`,
+              routerLink: `/browse/${config.id}`,
+              params: { scope: this.id }
+            }));
+        }
+      });
 
     if (this.contentType === 'collection') {
-      this.allOptions = [ {
+      this.allOptions = [{
         id: this.id,
         label: 'collection.page.browse.recent.head',
         routerLink: getCollectionPageRoute(this.id)
-      }, ...this.allOptions ];
+      }, ...this.allOptions];
     } else if (this.contentType === 'community') {
       this.allOptions = [{
-          id: this.id,
-          label: 'community.all-lists.head',
-          routerLink: getCommunityPageRoute(this.id)
-        }, ...this.allOptions ];
+        id: this.id,
+        label: 'community.all-lists.head',
+        routerLink: getCommunityPageRoute(this.id)
+      }, ...this.allOptions];
     }
 
     this.currentOptionId$ = this.route.params.pipe(
