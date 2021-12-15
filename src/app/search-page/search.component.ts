@@ -21,6 +21,7 @@ import { Context } from '../core/shared/context.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { Item } from '../core/shared/item.model';
+import { SearchManager } from '../core/browse/search-manager';
 
 @Component({
   selector: 'ds-search',
@@ -119,6 +120,7 @@ export class SearchComponent implements OnInit {
    */
   @Input() showSidebar = true;
   constructor(protected service: SearchService,
+              protected searchManager: SearchManager,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -135,6 +137,7 @@ export class SearchComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    debugger;
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
@@ -143,7 +146,7 @@ export class SearchComponent implements OnInit {
         const opts = Object.assign(options, {
           forcedEmbeddedKeys: ['metrics']
         });
-        return this.service.search(
+        return this.searchManager.search(
           opts, undefined, true, true, followLink<Item>('thumbnail', { isOptional: true })
         ).pipe(getFirstSucceededRemoteData(), startWith(undefined));
       }))

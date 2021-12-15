@@ -25,7 +25,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { BrowseManager } from '../../core/browse/browse.manager';
+import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -100,7 +100,7 @@ describe('BrowseByMetadataPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
-        { provide: BrowseManager, useValue: mockBrowseManager},
+        { provide: SearchManager, useValue: mockBrowseManager},
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() }

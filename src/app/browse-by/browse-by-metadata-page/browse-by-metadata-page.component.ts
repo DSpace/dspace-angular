@@ -18,8 +18,7 @@ import { BrowseByType, rendersBrowseBy } from '../browse-by-switcher/browse-by-d
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map, tap } from 'rxjs/operators';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { BrowseManager } from '../../core/browse/browse.manager';
+import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -114,7 +113,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
-                     protected browseManager: BrowseManager,
+                     protected searchManager: SearchManager,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router) {
@@ -180,7 +179,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
     const embedMetrics = followLink('metrics');
-    this.items$ = this.browseManager.getBrowseItemsFor(value, searchOptions, embedMetrics).pipe(
+    this.items$ = this.searchManager.getBrowseItemsFor(value, searchOptions, embedMetrics).pipe(
       tap((items) => {
         console.log(items);
       })
@@ -198,7 +197,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   updatePageWithAuthority(searchOptions: BrowseEntrySearchOptions, authority: string) {
     const embedMetrics = followLink('metrics');
-    this.items$ = this.browseManager.getBrowseItemsForAuthority(authority, searchOptions, embedMetrics);
+    this.items$ = this.searchManager.getBrowseItemsForAuthority(authority, searchOptions, embedMetrics);
   }
 
   /**

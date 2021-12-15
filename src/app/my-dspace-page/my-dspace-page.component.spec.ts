@@ -29,6 +29,7 @@ import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
+import { SearchManager } from '../core/browse/search-manager';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -49,12 +50,14 @@ describe('MyDSpacePageComponent', () => {
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
   const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
-    search: mockResults,
     getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
     setServiceOptions: {},
     getSearchConfigurationFor: createSuccessfulRemoteDataObject$({ sortOptions: [sortOption]})
+  });
+  const searchManagerStub = jasmine.createSpyObj('SearchManager', {
+    search: mockResults,
   });
   const configurationParam = 'default';
   const queryParam = 'test query';
@@ -85,6 +88,7 @@ describe('MyDSpacePageComponent', () => {
       declarations: [MyDSpacePageComponent, RoleDirective],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchManager, useValue: searchManagerStub },
         {
           provide: CommunityDataService,
           useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])

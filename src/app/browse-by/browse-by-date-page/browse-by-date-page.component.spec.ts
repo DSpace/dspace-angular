@@ -23,7 +23,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { BrowseManager } from '../../core/browse/browse.manager';
+import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -84,7 +84,7 @@ describe('BrowseByDatePageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
-        { provide: BrowseManager, useValue: mockBrowseManager },
+        { provide: SearchManager, useValue: mockBrowseManager },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },

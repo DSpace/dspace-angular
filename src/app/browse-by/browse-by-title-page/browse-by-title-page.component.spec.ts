@@ -19,7 +19,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { BrowseManager } from '../../core/browse/browse.manager';
+import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -75,7 +75,7 @@ describe('BrowseByTitlePageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
-        { provide: BrowseManager, useValue: mockBrowseManager },
+        { provide: SearchManager, useValue: mockBrowseManager },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() }

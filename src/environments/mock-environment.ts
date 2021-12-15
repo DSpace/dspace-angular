@@ -200,14 +200,14 @@ export const environment: Partial<GlobalConfig> = {
         id: 'subject',
         type: BrowseByType.Metadata
       }
-    ],
-    followMetadata: [
-      {
-        type: 'Publication',
-        metadata: ['dc.contributor.author']
-      }
     ]
   },
+  followAuthorityMetadata: [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author']
+    }
+  ],
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds

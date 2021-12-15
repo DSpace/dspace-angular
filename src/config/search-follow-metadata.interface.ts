@@ -1,9 +1,9 @@
 import { Config } from './config.interface';
 
 /**
- * Config that determines how to follow metadata of search by results.
+ * Config that determines how to follow metadata of search results.
  */
-export interface BrowseByFollowMetadata extends Config {
+export interface FollowAuthorityMetadata extends Config {
 
   /**
    * The type of the browse by dspace object result.

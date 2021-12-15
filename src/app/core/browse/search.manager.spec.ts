@@ -3,16 +3,16 @@ import { TestScheduler } from 'rxjs/testing';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { BrowseManager } from './browse.manager';
+import { SearchManager } from './search-manager';
 import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { Item } from '../shared/item.model';
 import { FindListOptions } from '../data/request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { of } from 'rxjs/internal/observable/of';
 
-describe('BrowseManager', () => {
+describe('SearchManager', () => {
   let scheduler: TestScheduler;
-  let service: BrowseManager;
+  let service: SearchManager;
 
   const firstPublication = Object.assign(new Item(), {
     id: 'first-publication-id',
@@ -74,12 +74,17 @@ describe('BrowseManager', () => {
   };
 
   const mockItemService: any = {
-    searchByObjects: (uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
+    findAllById: (uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
+      of(createSuccessfulRemoteDataObject(createPaginatedList([])))
+  };
+
+  const mockSearchService: any = {
+    search: (options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
       of(createSuccessfulRemoteDataObject(createPaginatedList([])))
   };
 
   function initTestService() {
-    return new BrowseManager(mockItemService, mockBrowseService);
+    return new SearchManager(mockItemService, mockBrowseService, mockSearchService);
   }
 
   beforeEach(() => {
@@ -91,7 +96,7 @@ describe('BrowseManager', () => {
     beforeEach(() => {
       service = initTestService();
       spyOn(mockBrowseService, 'getBrowseItemsFor').and.callThrough();
-      spyOn(mockItemService, 'searchByObjects').and.callThrough();
+      spyOn(mockItemService, 'findAllById').and.callThrough();
     });
 
     it('should proxy to browseService and follow metadata', () => {
@@ -104,7 +109,7 @@ describe('BrowseManager', () => {
       scheduler.flush();
 
       expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterAuthority, options, followLink);
-      expect(mockItemService.searchByObjects).toHaveBeenCalledWith(['author1-id', 'author2-id']);
+      expect(mockItemService.findAllById).toHaveBeenCalledWith(['author1-id', 'author2-id']);
 
     });
   });
@@ -114,7 +119,7 @@ describe('BrowseManager', () => {
     beforeEach(() => {
       service = initTestService();
       spyOn(mockBrowseService, 'getBrowseItemsForAuthority').and.callThrough();
-      spyOn(mockItemService, 'searchByObjects').and.callThrough();
+      spyOn(mockItemService, 'findAllById').and.callThrough();
     });
 
     it('should proxy to browseService and follow metadata', () => {
@@ -127,7 +132,7 @@ describe('BrowseManager', () => {
       scheduler.flush();
 
       expect(mockBrowseService.getBrowseItemsForAuthority).toHaveBeenCalledWith(filterAuthority, options, followLink);
-      expect(mockItemService.searchByObjects).toHaveBeenCalledWith(['author1-id', 'author2-id']);
+      expect(mockItemService.findAllById).toHaveBeenCalledWith(['author1-id', 'author2-id']);
 
     });
   });
