@@ -23,9 +23,9 @@
     <h2 class=" mb-5">{{'admin.edit-cms-metadata.title' | translate}} '{{selectedMetadata}}'</h2>
     <div class="row">
       <div class="col-md">
-        <div *ngFor="let lang of languageMap.keys()" class="form-group">
-          <label>{{languageMap.get(lang)}}</label>
-          <textarea id="" class="col-md-12 m-2" [ngModel]="selectedMetadataValues.get(lang)" (ngModelChange)="selectedMetadataValues.set(lang, $event)" rows="10"></textarea>
+        <div *ngFor="let lang of languageList" class="form-group">
+          <label>{{languageLabel(lang)}}</label>
+          <textarea class="col-md-12 m-2" [ngModel]="selectedMetadataValues.get(lang)" (ngModelChange)="selectedMetadataValues.set(lang, $event)" rows="10"></textarea>
         </div>
       </div>
     </div>

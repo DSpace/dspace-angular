@@ -1,33 +1,43 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EditCmsMetadataComponent } from './edit-cms-metadata.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { Site } from '../../core/shared/site.model';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { environment } from '../../../environments/mock-environment';
+import { FormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('EditCmsMetadataComponent', () => {
 
   let component: EditCmsMetadataComponent;
   let fixture: ComponentFixture<EditCmsMetadataComponent>;
-  let siteServiceStub;
-  const site = new Site();
+  const site = Object.assign(new Site(), {
+    metadata: { }
+  });
 
-  beforeEach(async () => {
-    siteServiceStub = {
-      find(): Observable<Site> {
-        return of(site);
-      },
-      patch(): Observable<Site> {
-        return of(site);
-      }
-    };
-    await TestBed.configureTestingModule({
+  const siteServiceStub = jasmine.createSpyObj('SiteDataService', {
+    find: jasmine.createSpy('find'),
+    patch: jasmine.createSpy('patch'),
+  });
+
+  const metadataValueMap = new Map([
+    ['en', ''],
+    ['de', ''],
+    ['cs', ''],
+    ['nl', ''],
+    ['pt', ''],
+    ['fr', ''],
+    ['lv', '']
+  ]);
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       imports: [
+        FormsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -37,15 +47,18 @@ describe('EditCmsMetadataComponent', () => {
       ],
       declarations: [EditCmsMetadataComponent],
       providers: [
-        {provide: NotificationsService, useValue: NotificationsServiceStub},
-        {provide: SiteDataService, useValue: siteServiceStub}
+        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: SiteDataService, useValue: siteServiceStub }
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditCmsMetadataComponent);
     component = fixture.componentInstance;
+    siteServiceStub.find.and.returnValue(of(site));
+    siteServiceStub.patch.and.returnValue(of(site));
   });
 
   describe('', () => {
@@ -79,21 +92,19 @@ describe('EditCmsMetadataComponent', () => {
     });
   });
 
-  xdescribe('after the button edit is clicked', () => {
+  describe('after the button edit is clicked', () => {
 
     beforeEach(() => {
-      console.log(component.languageMap);
-      fixture.detectChanges();
+      component.selectedMetadata = environment.cms.metadataList[0];
+      component.selectedMetadataValues = metadataValueMap;
       component.editMode.next(true);
+      fixture.detectChanges();
     });
 
     it('should render textareas of the languages', () => {
-      fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        const languagesLength = environment.languages.length;
-        const textareas = fixture.debugElement.queryAll(By.css('textarea'));
-        expect(textareas).toHaveSize(languagesLength);
-      });
+      const languagesLength = environment.languages.length;
+      const textareas = fixture.debugElement.queryAll(By.css('textarea'));
+      expect(textareas).toHaveSize(languagesLength);
     });
 
     describe('after the button save is clicked', () => {
@@ -107,7 +118,6 @@ describe('EditCmsMetadataComponent', () => {
 
       it('should call method patch of service', () => {
         component.selectedMetadata = environment.cms.metadataList[0];
-        spyOn(siteServiceStub, 'patch');
         const saveButton = fixture.debugElement.query(By.css('#save-metadata-btn'));
         saveButton.nativeElement.click();
         const operations = [];

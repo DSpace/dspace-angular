@@ -6,6 +6,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { BehaviorSubject } from 'rxjs';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
 /**
  * Component representing the page to edit cms metadata for site.
@@ -25,10 +26,13 @@ export class EditCmsMetadataComponent implements OnInit {
    */
   editMode: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /**
-   * languages available
+   * The map between language codes available and their label
    */
-
   languageMap: Map<string, string> = new Map();
+  /**
+   * The list of languages available
+   */
+  languageList: string[] = [];
   /**
    * key value pair map with language and value of metadata
    */
@@ -42,7 +46,6 @@ export class EditCmsMetadataComponent implements OnInit {
    */
   metadataList: string[] = [];
 
-  // tslint:disable-next-line:no-empty
   constructor(
     private siteService: SiteDataService,
     private notificationsService: NotificationsService,
@@ -53,6 +56,7 @@ export class EditCmsMetadataComponent implements OnInit {
   ngOnInit(): void {
     environment.languages.filter((language) => language.active).forEach((language) => {
       this.languageMap.set(language.code, language.label);
+      this.languageList.push(language.code);
     });
     environment.cms.metadataList.forEach((md) => {
       this.metadataList.push(md);
@@ -67,19 +71,21 @@ export class EditCmsMetadataComponent implements OnInit {
    */
   saveMetadata() {
     const operations = this.getOperationsToEditText();
-    this.siteService.setStale();
-    this.siteService.patch(this.site, operations).subscribe((restResponse) => {
-      if (restResponse.isSuccess) {
-        this.site = restResponse.payload;
-        this.notificationsService.success(this.translateService.get('admin.edit-cms-metadata.success'));
-        this.selectedMetadata = undefined;
-        this.editMode.next(false);
-      } else {
-        if (restResponse.isError) {
-          this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
+
+    this.siteService.patch(this.site, operations).pipe(getFirstCompletedRemoteData())
+      .subscribe((restResponse) => {
+        if (restResponse.isSuccess) {
+          this.site = restResponse.payload;
+          this.notificationsService.success(this.translateService.get('admin.edit-cms-metadata.success'));
+          this.selectedMetadata = undefined;
+          this.editMode.next(false);
+        } else {
+          if (restResponse.isError) {
+            this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
+          }
         }
-      }
-    });
+        this.siteService.setStale();
+      });
   }
 
   back() {
@@ -92,10 +98,12 @@ export class EditCmsMetadataComponent implements OnInit {
   }
 
   editSelectedMetadata() {
-    environment.languages.filter((language) => language.active).forEach((language) => {
-      const text = this.site.firstMetadataValue(this.selectedMetadata, {language: language.code});
-      this.selectedMetadataValues.set(language.code, text);
-    });
+    if (this.selectedMetadata) {
+      this.languageList.forEach((languageCode: string) => {
+        const text = this.site.firstMetadataValue(this.selectedMetadata, { language: languageCode });
+        this.selectedMetadataValues.set(languageCode, text);
+      });
+    }
     this.editMode.next(true);
   }
 
