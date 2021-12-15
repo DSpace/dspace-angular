@@ -218,7 +218,6 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
       }
     ], {
       onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy'
 })
   ],
   exports: [RouterModule],

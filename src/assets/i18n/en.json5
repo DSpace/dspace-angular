@@ -1336,6 +1336,8 @@
 
   "error.search-results": "Error fetching search results",
 
+  "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+
   "error.sub-collections": "Error fetching sub-collections",
 
   "error.sub-communities": "Error fetching sub-communities",

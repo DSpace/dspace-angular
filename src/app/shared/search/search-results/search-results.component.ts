@@ -78,6 +78,14 @@ export class SearchResultsComponent {
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  showError(): boolean {
+    return this.searchResults?.hasFailed && (!this.searchResults?.errorMessage || this.searchResults?.statusCode !== 400);
+  }
+
+  errorMessageLabel(): string {
+    return (this.searchResults?.statusCode  === 422) ? 'error.invalid-search-query' : 'error.search-results';
+  }
+
   /**
    * Method to change the given string by surrounding it by quotes if not already present.
    */
