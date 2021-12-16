@@ -2,6 +2,7 @@
 
 <div *ngIf="vocabularyExists$ | async"
      id="show-{{filterConfig.name}}-tree"
+     class="text-lowercase"
      (click)="showVocabularyTree()">
-  {{'search.filters.filter.show-tree' | translate: {name: filterConfig.name} }}
+  {{'search.filters.filter.show-tree' | translate: {name: ('search.filters.filter.' + filterConfig.name + '.head' | translate)} }}
 </div>
