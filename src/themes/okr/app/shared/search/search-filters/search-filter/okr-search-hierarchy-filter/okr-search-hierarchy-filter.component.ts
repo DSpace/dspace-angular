@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { renderFacetFor } from 'src/app/shared/search/search-filters/search-filter/search-filter-type-decorator';
+import { renderFacetFor } from '../../../../../../../../app/shared/search/search-filters/search-filter/search-filter-type-decorator';
 import { FilterType } from '../../../../../../../../app/shared/search/filter-type.model';
 import { facetLoad } from '../../../../../../../../app/shared/search/search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchHierarchyFilterComponent } from '../../../../../../../../app/shared/search/search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
