@@ -1,0 +1,7 @@
+<ds-search-hierarchy-filter></ds-search-hierarchy-filter>
+
+<div *ngIf="vocabularyExists$ | async"
+     id="show-{{filterConfig.name}}-tree"
+     (click)="showVocabularyTree()">
+  {{'search.filters.filter.show-tree' | translate: {name: filterConfig.name} }}
+</div>

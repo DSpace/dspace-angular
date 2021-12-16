@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { VocabularyTreeviewComponent } from '../../../../../app/shared/vocabulary-treeview/vocabulary-treeview.component';
-import { filter, find, startWith } from 'rxjs/operators';
+import { filter, startWith } from 'rxjs/operators';
 import { PageInfo } from '../../../../../app/core/shared/page-info.model';
 
 /**
- * Component that show a hierarchical vocabulary in a tree view
+ * Component that show a hierarchical vocabulary in a tree view.
+ * Worldbank customization which omits the authentication check.
  */
 @Component({
   selector: 'ds-okr-vocabulary-treeview',
@@ -32,16 +33,8 @@ export class OkrVocabularyTreeviewComponent extends VocabularyTreeviewComponent 
       startWith('')
     );
 
-    // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
-
     this.loading = this.vocabularyTreeviewService.isLoading();
 
-    this.isAuthenticated.pipe(
-      find((isAuth) => isAuth)
-    ).subscribe(() => {
-      const entryId: string = (this.selectedItem) ? this.getEntryId(this.selectedItem) : null;
-      this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), entryId);
-    });
+    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), null);
   }
 }

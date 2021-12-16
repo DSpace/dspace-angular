@@ -13,6 +13,6 @@ import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/se
 /**
  * Component that represents a hierarchy facet for a specific filter configuration
  */
-@renderFacetFor(FilterType.hierarchy)
+// @renderFacetFor(FilterType.hierarchy)
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
 }
