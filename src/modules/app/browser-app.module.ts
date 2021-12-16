@@ -36,6 +36,7 @@ import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-requ
 import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
+import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 
 import { environment } from '../../environments/environment';
 
@@ -81,16 +82,21 @@ export function getRequest(transferState: TransferState): any {
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: (transferState: TransferState) => {
+      useFactory: (
+        transferState: TransferState,
+        dspaceTransferState: DSpaceTransferState,
+        correlationIdService: CorrelationIdService
+      ) => {
         if (transferState.hasKey<AppConfig>(APP_CONFIG_STATE)) {
           const appConfig = transferState.get<AppConfig>(APP_CONFIG_STATE, new DefaultAppConfig());
           // extend environment with app config for browser
           extendEnvironmentWithAppConfig(environment, appConfig);
         }
-
+        dspaceTransferState.transfer();
+        correlationIdService.initCorrelationId();
         return () => true;
       },
-      deps: [TransferState],
+      deps: [TransferState, DSpaceTransferState, CorrelationIdService],
       multi: true
     },
     {
@@ -137,9 +143,4 @@ export function getRequest(transferState: TransferState): any {
   ]
 })
 export class BrowserAppModule {
-  constructor(
-    private transferState: DSpaceTransferState,
-  ) {
-    this.transferState.transfer();
-  }
 }

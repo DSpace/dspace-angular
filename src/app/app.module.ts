@@ -156,21 +156,6 @@ const PROVIDERS = [
     useClass: LogInterceptor,
     multi: true
   },
-  // insert the unique id of the user that is using the application utilizing cookies
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (cookieService: CookieService, uuidService: UUIDService) => {
-      const correlationId = cookieService.get('CORRELATION-ID');
-
-      // Check if cookie exists, if don't, set it with unique id
-      if (!correlationId) {
-        cookieService.set('CORRELATION-ID', uuidService.generate());
-      }
-      return () => true;
-    },
-    multi: true,
-    deps: [CookieService, UUIDService]
-  },
   {
     provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
     useValue: ValidateEmailErrorStateMatcher
