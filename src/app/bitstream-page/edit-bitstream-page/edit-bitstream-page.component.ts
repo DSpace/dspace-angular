@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
   DynamicFormControlModel,
@@ -35,6 +35,10 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getEntityEditRoute, getItemEditRoute } from '../../item-page/item-page-routing-paths';
 import { Bundle } from '../../core/shared/bundle.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../core/shared/collection.model';
+import { Item } from '../../core/shared/item.model';
+import { Format } from '@angular-devkit/build-angular/src/extract-i18n/schema';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -359,6 +363,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
+              private dsoNameService: DSONameService,
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService) {
   }
@@ -598,38 +603,60 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * If the parent item is iiif-enabled, the update boolean isIIIF property and show
-   * iiif fields in the form.
+   * Checks bitstream mimetype to be sure it's an image, excludes bitstreams in the OTHERCONTENT bundle
+   * since even if the bitstream is an image it will not be displayed within the viewer,
+   * and finally verifies that the parent item itself is iiif-enabled.
    * @param bitstream
    */
   setIiifStatus(bitstream: Bitstream) {
-    this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
-      mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload())))
-      .subscribe((item) => {
-        const regex = /(true|yes)/i;
-        if (item.firstMetadataValue('dspace.iiif.enabled') &&
-          item.firstMetadataValue('dspace.iiif.enabled').match(regex) !== null) {
-          this.isIIIF = true;
-          this.formLayout.iiifLabel.grid.host = this.newFormatBaseLayout;
-          this.formLayout.iiifToc.grid.host = this.newFormatBaseLayout;
-          this.formLayout.iiifWidth.grid.host = this.newFormatBaseLayout;
-          this.formLayout.iiifHeight.grid.host = this.newFormatBaseLayout;
-          this.formGroup.patchValue({
-            iiifLabelContainer: {
-              iiifLabel: bitstream.firstMetadataValue('iiif.label')
-            },
-            iiifTocContainer: {
-              iiifToc: bitstream.firstMetadataValue('iiif.toc')
-            },
-            iiifWidthContainer: {
-              iiifWidth: bitstream.firstMetadataValue('iiif.image.width')
-            },
-            iiifHeightContainer: {
-              iiifHeight: bitstream.firstMetadataValue('iiif.image.height')
-            }
-          });
-        }
-      });
+
+    const iiifCheck$ = this.bitstream.format.pipe(
+      getFirstSucceededRemoteData(),
+      filter((format: RemoteData<BitstreamFormat>) => format.payload.mimetype.includes('image/')),
+      mergeMap((format: RemoteData<BitstreamFormat>) =>
+        this.bitstream.bundle.pipe(
+          getFirstSucceededRemoteData(),
+          filter((bundle: RemoteData<Bundle>) =>
+            this.dsoNameService.getName(bundle.payload) !== 'OTHERCONTENT'),
+          mergeMap((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
+            getFirstSucceededRemoteData(),
+            map((remoteData: RemoteData<Item>) => {
+              const regex = /(true|yes)/i;
+              return (remoteData.payload.firstMetadataValue('dspace.iiif.enabled') &&
+                remoteData.payload.firstMetadataValue('dspace.iiif.enabled').match(regex) !== null);
+            })
+          ))
+        )
+      )
+    );
+
+    // If iiifCheck$ returns true, enable the IIIF form elements.
+    const iiifSub = iiifCheck$.subscribe((iiif: boolean) => {
+          if (iiif) {
+            this.isIIIF = true;
+            this.formLayout.iiifLabel.grid.host = this.newFormatBaseLayout;
+            this.formLayout.iiifToc.grid.host = this.newFormatBaseLayout;
+            this.formLayout.iiifWidth.grid.host = this.newFormatBaseLayout;
+            this.formLayout.iiifHeight.grid.host = this.newFormatBaseLayout;
+            this.formGroup.patchValue({
+              iiifLabelContainer: {
+                iiifLabel: bitstream.firstMetadataValue('iiif.label')
+              },
+              iiifTocContainer: {
+                iiifToc: bitstream.firstMetadataValue('iiif.toc')
+              },
+              iiifWidthContainer: {
+                iiifWidth: bitstream.firstMetadataValue('iiif.image.width')
+              },
+              iiifHeightContainer: {
+                iiifHeight: bitstream.firstMetadataValue('iiif.image.height')
+              }
+            });
+          }
+        });
+
+    this.subs.push(iiifSub);
+
   }
 
   /**

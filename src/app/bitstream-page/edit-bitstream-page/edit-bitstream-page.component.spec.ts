@@ -23,6 +23,7 @@ import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -32,6 +33,7 @@ let notificationsService: NotificationsService;
 let formService: DynamicFormService;
 let bitstreamService: BitstreamDataService;
 let bitstreamFormatService: BitstreamFormatDataService;
+let dsoNameService: DSONameService;
 let bitstream: Bitstream;
 let selectedFormat: BitstreamFormat;
 let allFormats: BitstreamFormat[];
@@ -49,6 +51,7 @@ describe('EditBitstreamPageComponent', () => {
         shortDescription: 'Unknown',
         description: 'Unknown format',
         supportLevel: BitstreamFormatSupportLevel.Unknown,
+        mimetype: 'application/octet-stream',
         _links: {
           self: {href: 'format-selflink-1'}
         }
@@ -58,6 +61,7 @@ describe('EditBitstreamPageComponent', () => {
         shortDescription: 'PNG',
         description: 'Portable Network Graphics',
         supportLevel: BitstreamFormatSupportLevel.Known,
+        mimetype: 'image/png',
         _links: {
           self: {href: 'format-selflink-2'}
         }
@@ -67,6 +71,7 @@ describe('EditBitstreamPageComponent', () => {
         shortDescription: 'GIF',
         description: 'Graphics Interchange Format',
         supportLevel: BitstreamFormatSupportLevel.Known,
+        mimetype: 'image/gif',
         _links: {
           self: {href: 'format-selflink-3'}
         }
@@ -104,6 +109,8 @@ describe('EditBitstreamPageComponent', () => {
 
     beforeEach(waitForAsync(() => {
 
+      const bundleName = 'ORIGINAL';
+
       bitstream = Object.assign(new Bitstream(), {
         metadata: {
           'dc.description': [
@@ -140,6 +147,9 @@ describe('EditBitstreamPageComponent', () => {
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
         findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
       });
+      dsoNameService = jasmine.createSpyObj('dsoNameService', {
+        getName: bundleName
+      });
 
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule],
@@ -154,6 +164,7 @@ describe('EditBitstreamPageComponent', () => {
             }
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
+          {provide: DSONameService, useValue: dsoNameService},
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
           ChangeDetectorRef
         ],
@@ -268,7 +279,10 @@ describe('EditBitstreamPageComponent', () => {
 
   describe('EditBitstreamPageComponent with IIIF fields', () => {
 
+    const bundleName = 'ORIGINAL';
+
     beforeEach(waitForAsync(() => {
+
       bitstream = Object.assign(new Bitstream(), {
         metadata: {
           'dc.description': [
@@ -302,7 +316,7 @@ describe('EditBitstreamPageComponent', () => {
             }
           ],
         },
-        format: createSuccessfulRemoteDataObject$(selectedFormat),
+        format: createSuccessfulRemoteDataObject$(allFormats[1]),
         _links: {
           self: 'bitstream-selflink'
         },
@@ -323,19 +337,25 @@ describe('EditBitstreamPageComponent', () => {
         patch: {}
       });
 
+      dsoNameService = jasmine.createSpyObj('dsoNameService', {
+        getName: bundleName
+      });
+
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule],
         declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           {provide: NotificationsService, useValue: notificationsService},
           {provide: DynamicFormService, useValue: formService},
-          {provide: ActivatedRoute,
+          {
+            provide: ActivatedRoute,
             useValue: {
               data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
               snapshot: {queryParams: {}}
             }
           },
           {provide: BitstreamDataService, useValue: bitstreamService},
+          {provide: DSONameService, useValue: dsoNameService},
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
           ChangeDetectorRef
         ],
@@ -387,4 +407,114 @@ describe('EditBitstreamPageComponent', () => {
       });
     });
   });
+
+    describe('ignore OTHERCONTENT bundle', () => {
+
+      const bundleName = 'OTHERCONTENT';
+
+      beforeEach(waitForAsync(() => {
+
+        bitstream = Object.assign(new Bitstream(), {
+          metadata: {
+            'dc.description': [
+              {
+                value: 'Bitstream description'
+              }
+            ],
+            'dc.title': [
+              {
+                value: 'Bitstream title'
+              }
+            ],
+            'iiif.label': [
+              {
+                value: 'chapter one'
+              }
+            ],
+            'iiif.toc': [
+              {
+                value: 'chapter one'
+              }
+            ],
+            'iiif.image.width': [
+              {
+                value: '2400'
+              }
+            ],
+            'iiif.image.height': [
+              {
+                value: '2800'
+              }
+            ],
+          },
+          format: createSuccessfulRemoteDataObject$(allFormats[2]),
+          _links: {
+            self: 'bitstream-selflink'
+          },
+          bundle: createSuccessfulRemoteDataObject$({
+            item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
+              uuid: 'some-uuid',
+              firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+                return 'True';
+              }
+            }))
+          })
+        });
+        bitstreamService = jasmine.createSpyObj('bitstreamService', {
+          findById: createSuccessfulRemoteDataObject$(bitstream),
+          update: createSuccessfulRemoteDataObject$(bitstream),
+          updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+          commitUpdates: {},
+          patch: {}
+        });
+
+        dsoNameService = jasmine.createSpyObj('dsoNameService', {
+          getName: bundleName
+        });
+
+        TestBed.configureTestingModule({
+          imports: [TranslateModule.forRoot(), RouterTestingModule],
+          declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+          providers: [
+            {provide: NotificationsService, useValue: notificationsService},
+            {provide: DynamicFormService, useValue: formService},
+            {provide: ActivatedRoute,
+              useValue: {
+                data: observableOf({bitstream: createSuccessfulRemoteDataObject(bitstream)}),
+                snapshot: {queryParams: {}}
+              }
+            },
+            {provide: BitstreamDataService, useValue: bitstreamService},
+            {provide: DSONameService, useValue: dsoNameService},
+            {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
+            ChangeDetectorRef
+          ],
+          schemas: [NO_ERRORS_SCHEMA]
+        }).compileComponents();
+      }));
+
+      beforeEach(() => {
+        fixture = TestBed.createComponent(EditBitstreamPageComponent);
+        comp = fixture.componentInstance;
+        fixture.detectChanges();
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
+      });
+
+      describe('EditBitstreamPageComponent with IIIF fields', () => {
+        let rawForm;
+
+        beforeEach(() => {
+          rawForm = comp.formGroup.getRawValue();
+        });
+
+        it('should NOT set isIIIF to true', () => {
+          expect(comp.isIIIF).toBeFalse();
+        });
+        it('should put the \"IIIF Label\" input not to be shown', () => {
+          expect(comp.formLayout.iiifLabel.grid.host).toContain('d-none');
+        });
+      });
+  });
+
 });
