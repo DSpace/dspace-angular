@@ -14,6 +14,14 @@ const CONFIG_PATH = join(process.cwd(), 'config');
 
 type Environment = 'production' | 'development' | 'test';
 
+const DSPACE = (key: string): string => {
+  return `DSPACE_${key}`;
+};
+
+const ENV = (key: string, prefix = false): any => {
+  return prefix ? process.env[DSPACE(key)] : process.env[key];
+};
+
 const getBooleanFromString = (variable: string): boolean => {
   return variable === 'true' || variable === '1';
 };
@@ -24,8 +32,8 @@ const getNumberFromString = (variable: string): number => {
 
 const getEnvironment = (): Environment => {
   let environment: Environment = 'development';
-  if (isNotEmpty(process.env.NODE_ENV)) {
-    switch (process.env.NODE_ENV) {
+  if (isNotEmpty(ENV('NODE_ENV'))) {
+    switch (ENV('NODE_ENV')) {
       case 'prod':
       case 'production':
         environment = 'production';
@@ -37,7 +45,7 @@ const getEnvironment = (): Environment => {
       case 'development':
         break;
       default:
-        console.warn(`Unknown NODE_ENV ${process.env.NODE_ENV}. Defaulting to development`);
+        console.warn(`Unknown NODE_ENV ${ENV('NODE_ENV')}. Defaulting to development`);
     }
   }
 
@@ -102,25 +110,28 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
       if (typeof innerConfig === 'object') {
         overrideWithEnvironment(innerConfig, variable);
       } else {
-        if (isNotEmpty(process.env[variable])) {
-          console.log(`Applying environment variable ${variable} with value ${process.env[variable]}`);
+        const value = ENV(variable, true);
+        if (isNotEmpty(value)) {
+          console.log(`Applying environment variable ${DSPACE(variable)} with value ${value}`);
           switch (typeof innerConfig) {
             case 'number':
-              config[property] = getNumberFromString(process.env[variable]);
+              config[property] = getNumberFromString(value);
               break;
             case 'boolean':
-              config[property] = getBooleanFromString(process.env[variable]);
+              config[property] = getBooleanFromString(value);
               break;
             case 'string':
-              config[property] = process.env[variable];
+              config[property] = value;
             default:
-              console.warn(`Unsupported environment variable type ${typeof innerConfig} ${variable}`);
+              console.warn(`Unsupported environment variable type ${typeof innerConfig} ${DSPACE(variable)}`);
           }
         }
       }
     }
   }
 };
+
+
 
 const buildBaseUrl = (config: ServerConfig): void => {
   config.baseUrl = [
@@ -168,7 +179,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   }
 
   // override with external config if specified by environment variable `APP_CONFIG_PATH`
-  const externalConfigPath = process.env.APP_CONFIG_PATH;
+  const externalConfigPath = ENV('APP_CONFIG_PATH', true);
   if (isNotEmpty(externalConfigPath)) {
     if (fs.existsSync(externalConfigPath)) {
       overrideWithConfig(appConfig, externalConfigPath);
@@ -181,16 +192,16 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   overrideWithEnvironment(appConfig);
 
   // apply existing non convention UI environment variables
-  appConfig.ui.host = isNotEmpty(process.env.DSPACE_HOST) ? process.env.DSPACE_HOST : appConfig.ui.host;
-  appConfig.ui.port = isNotEmpty(process.env.DSPACE_PORT) ? getNumberFromString(process.env.DSPACE_PORT) : appConfig.ui.port;
-  appConfig.ui.nameSpace = isNotEmpty(process.env.DSPACE_NAMESPACE) ? process.env.DSPACE_NAMESPACE : appConfig.ui.nameSpace;
-  appConfig.ui.ssl = isNotEmpty(process.env.DSPACE_SSL) ? getBooleanFromString(process.env.DSPACE_SSL) : appConfig.ui.ssl;
+  appConfig.ui.host = isNotEmpty(ENV('HOST', true)) ? ENV('HOST', true) : appConfig.ui.host;
+  appConfig.ui.port = isNotEmpty(ENV('PORT', true)) ? getNumberFromString(ENV('PORT', true)) : appConfig.ui.port;
+  appConfig.ui.nameSpace = isNotEmpty(ENV('NAMESPACE', true)) ? ENV('NAMESPACE', true) : appConfig.ui.nameSpace;
+  appConfig.ui.ssl = isNotEmpty(ENV('SSL', true)) ? getBooleanFromString(ENV('SSL', true)) : appConfig.ui.ssl;
 
   // apply existing non convention REST environment variables
-  appConfig.rest.host = isNotEmpty(process.env.DSPACE_REST_HOST) ? process.env.DSPACE_REST_HOST : appConfig.rest.host;
-  appConfig.rest.port = isNotEmpty(process.env.DSPACE_REST_PORT) ? getNumberFromString(process.env.DSPACE_REST_PORT) : appConfig.rest.port;
-  appConfig.rest.nameSpace = isNotEmpty(process.env.DSPACE_REST_NAMESPACE) ? process.env.DSPACE_REST_NAMESPACE : appConfig.rest.nameSpace;
-  appConfig.rest.ssl = isNotEmpty(process.env.DSPACE_REST_SSL) ? getBooleanFromString(process.env.DSPACE_REST_SSL) : appConfig.rest.ssl;
+  appConfig.rest.host = isNotEmpty(ENV('REST_HOST', true)) ? ENV('REST_HOST', true) : appConfig.rest.host;
+  appConfig.rest.port = isNotEmpty(ENV('REST_PORT', true)) ? getNumberFromString(ENV('REST_PORT', true)) : appConfig.rest.port;
+  appConfig.rest.nameSpace = isNotEmpty(ENV('REST_NAMESPACE', true)) ? ENV('REST_NAMESPACE', true) : appConfig.rest.nameSpace;
+  appConfig.rest.ssl = isNotEmpty(ENV('REST_SSL', true)) ? getBooleanFromString(ENV('REST_SSL', true)) : appConfig.rest.ssl;
 
   // apply build defined production
   appConfig.production = env === 'production';

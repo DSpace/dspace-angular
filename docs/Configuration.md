@@ -5,11 +5,11 @@ Default configuration file is located at `config/config.yml`. All configuration 
 -	Create a new `config.(dev or development).yml` file in `config/` for `development` environment;
 -	Create a new `config.(prod or production).yml` file in `config/` for `production` environment;
 
-Alternatively, create a desired app config file at an external location and set the path as environment variable `APP_CONFIG_PATH`.
+Alternatively, create a desired app config file at an external location and set the path as environment variable `DSPACE_APP_CONFIG_PATH`.
 
 e.g.
 ```
-APP_CONFIG_PATH=/usr/local/dspace/config/config.yml
+DSPACE_APP_CONFIG_PATH=/usr/local/dspace/config/config.yml
 ```
 
 Configuration options can be overridden by setting environment variables.
@@ -36,10 +36,10 @@ Alternately you can set the following environment variables. If any of these are
 ```
 or
 ```
-  UI_SSL=true
-  UI_HOST=localhost
-  UI_PORT=4000
-  UI_NAMESPACE=/
+  DSPACE_UI_SSL=true
+  DSPACE_UI_HOST=localhost
+  DSPACE_UI_PORT=4000
+  DSPACE_UI_NAMESPACE=/
 ```
 
 ## DSpace's REST endpoint
@@ -60,13 +60,6 @@ Alternately you can set the following environment variables. If any of these are
   DSPACE_REST_HOST=api7.dspace.org
   DSPACE_REST_PORT=443
   DSPACE_REST_NAMESPACE=/server
-```
-or
-```
-  REST_SSL=true
-  REST_HOST=api7.dspace.org
-  REST_PORT=443
-  REST_NAMESPACE=/server
 ```
 
 ## Environment variable naming convention

@@ -120,11 +120,6 @@ DSPACE_HOST # The host name of the angular application
 DSPACE_PORT # The port number of the angular application
 DSPACE_NAMESPACE # The namespace of the angular application
 DSPACE_SSL # Whether the angular application uses SSL [true/false]
-
-DSPACE_REST_HOST # The host name of the REST application
-DSPACE_REST_PORT # The port number of the REST application
-DSPACE_REST_NAMESPACE # The namespace of the REST application
-DSPACE_REST_SSL # Whether the angular REST uses SSL [true/false]
 ```
 
 All other settings can be set using the following convention for naming the environment variables:
@@ -134,14 +129,36 @@ All other settings can be set using the following convention for naming the envi
 
 e.g.
 
-```
+```bash
+# The host name of the REST application
+dspace.rest.host => DSPACE_REST_HOST
+
+# The port number of the REST application
+dspace.rest.port => DSPACE_REST_PORT
+
+# The namespace of the REST application
+dspace.rest.nameSpace => DSPACE_REST_NAMESPACE
+
+# Whether the angular REST uses SSL [true/false]
+dspace.rest.ssl => DSPACE_REST_SSL
+
 cache.msToLive.default => CACHE_MSTOLIVE_DEFAULT
 auth.ui.timeUntilIdle => AUTH_UI_TIMEUNTILIDLE
+```
+
+The equavelant to the non-conventional legacy settings:
+
+```bash
+DSPACE_UI_HOST => DSPACE_HOST
+DSPACE_UI_PORT => DSPACE_PORT
+DSPACE_UI_NAMESPACE => DSPACE_NAMESPACE
+DSPACE_UI_SSL => DSPACE_SSL
 ```
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash
 export DSPACE_HOST=api7.dspace.org
+export DSPACE_UI_PORT=4200
 ```
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
