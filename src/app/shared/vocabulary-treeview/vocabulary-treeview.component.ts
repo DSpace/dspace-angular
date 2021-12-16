@@ -98,7 +98,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
-  private subs: Subscription[] = [];
+  protected subs: Subscription[] = [];
 
   /**
    * Initialize instance variables
@@ -110,9 +110,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    */
   constructor(
     public activeModal: NgbActiveModal,
-    private vocabularyTreeviewService: VocabularyTreeviewService,
-    private store: Store<CoreState>,
-    private translate: TranslateService
+    protected vocabularyTreeviewService: VocabularyTreeviewService,
+    protected store: Store<CoreState>,
+    protected translate: TranslateService
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
@@ -301,7 +301,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Return an id for a given {@link VocabularyEntry}
    */
-  private getEntryId(entry: VocabularyEntry): string {
+  protected getEntryId(entry: VocabularyEntry): string {
     return entry.authority || entry.otherInformation.id || undefined;
   }
 }
