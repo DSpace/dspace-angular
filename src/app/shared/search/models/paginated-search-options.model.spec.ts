@@ -1,7 +1,7 @@
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { SearchFilter } from './search-filter.model';
 
 describe('PaginatedSearchOptions', () => {

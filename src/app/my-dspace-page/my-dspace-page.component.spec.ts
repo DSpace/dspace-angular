@@ -21,7 +21,7 @@ import { routeServiceStub } from '../shared/testing/route-service.stub';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service.stub';
 import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { RoleDirective } from '../shared/roles/role.directive';

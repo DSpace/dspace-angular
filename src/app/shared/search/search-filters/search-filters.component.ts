@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../search-filter-config.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';

@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  InjectionToken,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, InjectionToken, Input, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -15,7 +8,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
@@ -27,10 +20,10 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
-import { SearchResult } from '../shared/search/search-result.model';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import { Context } from '../core/shared/context.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
-import { SearchObjects } from '../shared/search/search-objects.model';
+import { SearchObjects } from '../shared/search/models/search-objects.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');

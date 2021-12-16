@@ -5,7 +5,16 @@
         </div>
     </div>
 </div>
-<ds-page-with-sidebar [id]="'search-page'" [sidebarContent]="sidebarContent">
+
+<div *ngIf="!showSidebar">
+  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+</div>
+
+<ds-page-with-sidebar *ngIf="showSidebar" [id]="'search-page'" [sidebarContent]="sidebarContent">
+  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+</ds-page-with-sidebar>
+
+<ng-template #searchContent>
     <div class="row">
         <div class="col-12" *ngIf="!(isXsOrSm$ | async)">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
@@ -26,7 +35,7 @@
                                [context]="context"></ds-search-results>
         </div>
     </div>
-</ds-page-with-sidebar>
+</ng-template>
 
 <ng-template #sidebarContent>
     <ds-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"

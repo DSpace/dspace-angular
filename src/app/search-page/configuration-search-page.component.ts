@@ -1,13 +1,7 @@
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchComponent } from './search.component';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  Input,
-  OnInit
-} from '@angular/core';
+import { SearchComponent } from '../shared/search/search.component';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -21,8 +15,8 @@ import { Router } from '@angular/router';
  */
 @Component({
   selector: 'ds-configuration-search-page',
-  styleUrls: ['./search.component.scss'],
-  templateUrl: './search.component.html',
+  styleUrls: ['../shared/search/search.component.scss'],
+  templateUrl: '../shared/search/search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
   providers: [

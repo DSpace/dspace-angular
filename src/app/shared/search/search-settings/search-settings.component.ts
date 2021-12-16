@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';

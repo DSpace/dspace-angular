@@ -1,9 +1,9 @@
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { isNotEmpty } from '../empty.util';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { isNotEmpty } from '../../empty.util';
 import { SearchOptions } from './search-options.model';
 import { SearchFilter } from './search-filter.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 
 /**
  * This model class represents all parameters needed to request information about a certain page of a search request, in a certain order

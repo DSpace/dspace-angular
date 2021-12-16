@@ -19,16 +19,18 @@ import { SearchSidebarComponent } from './search-sidebar/search-sidebar.componen
 import { SearchSettingsComponent } from './search-settings/search-settings.component';
 import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
 import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
-import { SearchObjects } from './search-objects.model';
-import { FacetConfigResponse } from './facet-config-response.model';
-import { FacetValues } from './facet-values.model';
-import { SearchResult } from './search-result.model';
+import { SearchObjects } from './models/search-objects.model';
+import { FacetConfigResponse } from './models/facet-config-response.model';
+import { FacetValues } from './models/facet-values.model';
+import { SearchResult } from './models/search-result.model';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { MissingTranslationHelper } from '../translate/missing-translation.helper';
 import { SharedModule } from '../shared.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { SearchComponent } from './search.component';
 
 const COMPONENTS = [
+  SearchComponent,
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,

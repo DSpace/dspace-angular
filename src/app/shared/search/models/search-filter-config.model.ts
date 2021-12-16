@@ -1,14 +1,14 @@
 import { FilterType } from './filter-type.model';
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { HALLink } from '../../core/shared/hal-link.model';
-import { typedObject } from '../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../core/cache/object-cache.reducer';
-import { excludeFromEquals } from '../../core/utilities/equals.decorators';
-import { SEARCH_FILTER_CONFIG } from './search-filter-config.resource-type';
+import { HALLink } from '../../../core/shared/hal-link.model';
+import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/object-cache.reducer';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
 
-  /**
-   * The configuration for a search filter
-   */
+/**
+ * The configuration for a search filter
+ */
 @typedObject
   export class SearchFilterConfig implements CacheableObject {
     static type = SEARCH_FILTER_CONFIG;

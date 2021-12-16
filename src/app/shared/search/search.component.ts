@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { hasValue, isEmpty } from '../shared/empty.util';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { RouteService } from '../core/services/route.service';
-import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
-import { SearchResult } from '../shared/search/search-result.model';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { currentPath } from '../shared/utils/route.utils';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { pushInOut } from '../animations/push';
+import { HostWindowService } from '../host-window.service';
+import { SidebarService } from '../sidebar/sidebar.service';
+import { hasValue, isEmpty } from '../empty.util';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { RouteService } from '../../core/services/route.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
+import { SearchResult } from './models/search-result.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchService } from '../../core/shared/search/search.service';
+import { currentPath } from '../utils/route.utils';
 import { Router } from '@angular/router';
-import { Context } from '../core/shared/context.model';
-import { SortOptions } from '../core/cache/models/sort-options.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
-import { Item } from '../core/shared/item.model';
+import { Context } from '../../core/shared/context.model';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { followLink } from '../utils/follow-link-config.model';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-search',
@@ -104,6 +104,10 @@ export class SearchComponent implements OnInit {
    */
   isSidebarCollapsed$: Observable<boolean>;
 
+  /**
+   * A boolean representing if show search sidebar button
+   */
+  @Input() showSidebar = true;
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,

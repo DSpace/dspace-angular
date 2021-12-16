@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { Observable } from 'rxjs';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 /**

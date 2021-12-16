@@ -7,26 +7,23 @@ import {
   combineLatest as observableCombineLatest,
   merge as observableMerge,
   Observable,
+  of,
   Subscription
 } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../../shared/search/search-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { SearchFilter } from '../../../shared/search/search-filter.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { RemoteData } from '../../data/remote-data';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteData
-} from '../operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
-import { of } from 'rxjs';
 import { PaginationService } from '../../pagination/pagination.service';
 
 /**

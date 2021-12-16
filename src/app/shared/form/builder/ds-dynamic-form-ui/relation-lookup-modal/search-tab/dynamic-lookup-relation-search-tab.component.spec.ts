@@ -10,7 +10,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
@@ -21,9 +21,7 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
-import { RelationshipTypeService } from '../../../../../../core/data/relationship-type.service';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-
 
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {

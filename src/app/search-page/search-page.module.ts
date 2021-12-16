@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { SearchComponent } from './search.component';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { SearchTrackerComponent } from './search-tracker.component';
@@ -18,7 +17,6 @@ import { SearchModule } from '../shared/search/search.module';
 
 const components = [
   SearchPageComponent,
-  SearchComponent,
   SearchTrackerComponent,
   ThemedSearchPageComponent
 ];

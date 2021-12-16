@@ -9,7 +9,7 @@ import { SelectableListService } from '../../../../object-list/selectable-list/s
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { SearchResult } from '../../../../search/search-result.model';
+import { SearchResult } from '../../../../search/models/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
   AddRelationshipAction,

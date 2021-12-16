@@ -1,8 +1,8 @@
-import { hasValue, isNotEmpty } from '../empty.util';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { hasValue, isNotEmpty } from '../../empty.util';
+import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { SearchFilter } from './search-filter.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 /**
  * This model class represents all parameters needed to request information about a certain search request

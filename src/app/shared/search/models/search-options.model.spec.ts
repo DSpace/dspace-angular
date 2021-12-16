@@ -1,7 +1,6 @@
-import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchOptions } from './search-options.model';
 import { SearchFilter } from './search-filter.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 
 describe('SearchOptions', () => {
   let options: SearchOptions;

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { pushInOut } from '../../../../app/shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
@@ -7,9 +7,9 @@ import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../a
 @Component({
   selector: 'ds-configuration-search-page',
   // styleUrls: ['./configuration-search-page.component.scss'],
-  styleUrls: ['../../../../app/search-page/search.component.scss'],
+  styleUrls: ['../../../../app/shared/search/search.component.scss'],
   // templateUrl: './configuration-search-page.component.html'
-  templateUrl: '../../../../app/search-page/search.component.html',
+  templateUrl: '../../../../app/shared/search/search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
   providers: [
