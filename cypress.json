@@ -6,7 +6,10 @@
   "pluginsFile": "cypress/plugins/index.ts",
   "fixturesFolder": "cypress/fixtures",
   "baseUrl": "http://localhost:4000",
-  "retries": 2,
+  "retries":  {
+    "runMode": 2,
+    "openMode": 0
+  },
   "env": {
     "DSPACE_TEST_COMMUNITY": "0958c910-2037-42a9-81c7-dca80e3892b4",
     "DSPACE_TEST_COLLECTION": "282164f5-d325-4740-8dd1-fa4d6d3e7200",
