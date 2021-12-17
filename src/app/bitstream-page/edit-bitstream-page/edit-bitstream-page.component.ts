@@ -36,9 +36,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getEntityEditRoute, getItemEditRoute } from '../../item-page/item-page-routing-paths';
 import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
-import { Format } from '@angular-devkit/build-angular/src/extract-i18n/schema';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
