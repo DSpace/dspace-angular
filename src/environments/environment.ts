@@ -1,5 +1,5 @@
 // This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --configuration production` replaces `environment.ts` with `environment.prod.ts`.
+// `ng build --configuration production` replaces `environment.ts` with `environment.production.ts`.
 // `ng test --configuration test` replaces `environment.ts` with `environment.test.ts`.
 // The list of file replacements can be found in `angular.json`.
 

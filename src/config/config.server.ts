@@ -178,7 +178,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
     console.warn(`Unable to find dist config file at ${localConfigPath}`);
   }
 
-  // override with external config if specified by environment variable `APP_CONFIG_PATH`
+  // override with external config if specified by environment variable `DSPACE_APP_CONFIG_PATH`
   const externalConfigPath = ENV('APP_CONFIG_PATH', true);
   if (isNotEmpty(externalConfigPath)) {
     if (fs.existsSync(externalConfigPath)) {

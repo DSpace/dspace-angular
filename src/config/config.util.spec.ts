@@ -1,4 +1,4 @@
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment.production';
 import { extendEnvironmentWithAppConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
 import { HandleThemeConfig } from './theme.model';

@@ -384,7 +384,7 @@ dspace-angular
 │   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server
 │   ├── config                                          *
 │   ├── environments                                    *
-│   │   ├── environment.prod.ts                         * Production configuration files
+│   │   ├── environment.production.ts                   * Production configuration files
 │   │   ├── environment.test.ts                         * Test configuration files
 │   │   └── environment.ts                              * Default (development) configuration files
 │   ├── mirador-viewer                                  *
