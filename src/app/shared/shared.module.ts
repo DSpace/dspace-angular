@@ -276,6 +276,7 @@ import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts
 import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
 import { BrowseSectionComponent } from './explore/section-component/browse-section/browse-section.component';
 import { TopSectionComponent } from './explore/section-component/top-section/top-section.component';
+import { ThemedTopSectionComponent } from './explore/section-component/top-section/themed-top-section.component';
 import { FacetSectionComponent } from './explore/section-component/facet-section/facet-section.component';
 import { SearchSectionComponent } from './explore/section-component/search-section/search-section.component';
 import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
@@ -554,6 +555,7 @@ const COMPONENTS = [
   BrowseMostElementsComponent,
   BrowseSectionComponent,
   TopSectionComponent,
+  ThemedTopSectionComponent,
   FacetSectionComponent,
   SearchSectionComponent,
   TextSectionComponent,
@@ -634,6 +636,7 @@ const ENTRY_COMPONENTS = [
   ScopeSelectorModalComponent,
   BrowseSectionComponent,
   TopSectionComponent,
+  ThemedTopSectionComponent,
   FacetSectionComponent,
   SearchSectionComponent,
   TextSectionComponent,
