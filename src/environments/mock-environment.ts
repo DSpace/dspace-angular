@@ -306,9 +306,9 @@ export const environment: Partial<GlobalConfig> = {
   },
   cms: {
     metadataList: [
-      'cms.homepage.header',
-      'cms.homepage.footer',
-      'cms.homepage.sidebar'
+      'cris.cms.home-header',
+      'cris.cms.home-news',
+      'cris.cms.footer',
     ]
   }
 };
