@@ -34,7 +34,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
@@ -573,10 +573,29 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
     if (this.isIIIF) {
-      Metadata.setFirstValue(newMetadata, 'iiif.label', rawForm.iiifLabelContainer.iiifLabel);
-      Metadata.setFirstValue(newMetadata, 'iiif.toc', rawForm.iiifTocContainer.iiifToc);
-      Metadata.setFirstValue(newMetadata, 'iiif.image.width', rawForm.iiifWidthContainer.iiifWidth);
-      Metadata.setFirstValue(newMetadata, 'iiif.image.height', rawForm.iiifHeightContainer.iiifHeight);
+      // It's helpful to remove these metadata elements entirely when the form value is empty.
+      // This avoids potential issues on the REST side and makes it possible to do things like
+      // remove an existing "table of contents" entry.
+      if (isEmpty(rawForm.iiifLabelContainer.iiifLabel)) {
+        delete newMetadata['iiif.label'];
+      } else {
+        Metadata.setFirstValue(newMetadata, 'iiif.label', rawForm.iiifLabelContainer.iiifLabel);
+      }
+     if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
+       delete newMetadata['iiif.toc'];
+     } else {
+        Metadata.setFirstValue(newMetadata, 'iiif.toc', rawForm.iiifTocContainer.iiifToc);
+     }
+      if (isEmpty(rawForm.iiifHeightContainer.iiifWidth)) {
+        delete newMetadata['iiif.image.width'];
+      } else {
+        Metadata.setFirstValue(newMetadata, 'iiif.image.width', rawForm.iiifWidthContainer.iiifWidth);
+      }
+      if (isEmpty(rawForm.iiifHeightContainer.iiifHeight)) {
+        delete newMetadata['iiif.image.height'];
+      } else {
+        Metadata.setFirstValue(newMetadata, 'iiif.image.height', rawForm.iiifHeightContainer.iiifHeight);
+      }
     }
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {
       Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.newFormat);
@@ -609,10 +628,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Checks bitstream mimetype to be sure it's an image, excludes any bitstream in the
-   * THUMBNAIL bundle or in the OTHERCONTENT bundle since in that case the image bitstream
-   * it will never be displayed in the viewer, and finally verifies that the parent item
-   * is iiif-enabled.
+   * Verifies that the parent item is iiif-enabled. Checks bitstream mimetype to be
+   * sure it's an image, excluding bitstreams in the THUMBNAIL or OTHERCONTENT bundles.
    * @param bitstream
    */
   setIiifStatus(bitstream: Bitstream) {
@@ -661,7 +678,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
                 iiifHeight: bitstream.firstMetadataValue('iiif.image.height')
               }
             });
-            // Assure that the form always detects the iiif addition.
+            // Assures that the form always includes the iiif additions.
             this.changeDetectorRef.detectChanges();
           }
         });
