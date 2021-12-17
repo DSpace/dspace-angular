@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
@@ -44,14 +43,10 @@ export class RelatedEntitiesSearchComponent implements OnInit {
   @Input() sideBarWidth = 4;
 
   fixedFilter: string;
-  configuration$: Observable<string>;
 
   ngOnInit(): void {
     if (isNotEmpty(this.relationType) && isNotEmpty(this.item)) {
       this.fixedFilter = getFilterByRelation(this.relationType, this.item.id);
-    }
-    if (isNotEmpty(this.configuration)) {
-      this.configuration$ = of(this.configuration);
     }
   }
 
