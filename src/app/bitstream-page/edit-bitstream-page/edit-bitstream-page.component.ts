@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
@@ -355,8 +361,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
+
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private changeDetectorRef: ChangeDetectorRef,
               private location: Location,
               private formService: DynamicFormService,
               private translate: TranslateService,
@@ -397,9 +405,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       ).subscribe(([bitstream, allFormats]) => {
         this.bitstream = bitstream as Bitstream;
         this.formats = allFormats.page;
+        this.setIiifStatus(this.bitstream); // testing
         this.updateFormatModel();
         this.updateForm(this.bitstream);
-        this.setIiifStatus(this.bitstream);
       })
     );
 
@@ -601,12 +609,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Checks bitstream mimetype to be sure it's an image, excludes bitstreams in the OTHERCONTENT bundle
-   * since even if the bitstream is an image it will not be displayed within the viewer,
-   * and finally verifies that the parent item itself is iiif-enabled.
+   * Checks bitstream mimetype to be sure it's an image, excludes any bitstream in the
+   * THUMBNAIL bundle or in the OTHERCONTENT bundle since in that case the image bitstream
+   * it will never be displayed in the viewer, and last verifies that the parent item
+   * is iiif-enabled.
    * @param bitstream
    */
   setIiifStatus(bitstream: Bitstream) {
+
+    const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL/;
+    const regexIIIFItem = /(true|yes)/i;
 
     const iiifCheck$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
@@ -615,14 +627,13 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.bitstream.bundle.pipe(
           getFirstSucceededRemoteData(),
           filter((bundle: RemoteData<Bundle>) =>
-            this.dsoNameService.getName(bundle.payload) !== 'OTHERCONTENT'),
+            this.dsoNameService.getName(bundle.payload).match(regexExcludeBundles) == null),
           mergeMap((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
             getFirstSucceededRemoteData(),
-            map((remoteData: RemoteData<Item>) => {
-              const regex = /(true|yes)/i;
-              return (remoteData.payload.firstMetadataValue('dspace.iiif.enabled') &&
-                remoteData.payload.firstMetadataValue('dspace.iiif.enabled').match(regex) !== null);
-            })
+            map((remoteData: RemoteData<Item>) =>
+               (remoteData.payload.firstMetadataValue('dspace.iiif.enabled') &&
+                remoteData.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
+            )
           ))
         )
       )
@@ -650,6 +661,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
                 iiifHeight: bitstream.firstMetadataValue('iiif.image.height')
               }
             });
+            // Assure that the form always detects the iiif addition.
+            this.changeDetectorRef.detectChanges();
           }
         });
 
