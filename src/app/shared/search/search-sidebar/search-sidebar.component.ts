@@ -23,9 +23,19 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 export class SearchSidebarComponent {
 
   /**
+   * The configuration to use for the search options
+   */
+  @Input() configuration;
+
+  /**
    * The list of available configuration options
    */
   @Input() configurationList: SearchConfigurationOption[];
+
+  /**
+   * The current sort option used
+   */
+  @Input() currentSortOption: SortOptions;
 
   /**
    * The total amount of results
@@ -55,7 +65,7 @@ export class SearchSidebarComponent {
   /**
    * All sort options that are shown in the settings
    */
-  @Input() sortOptions: SortOptions[];
+  @Input() sortOptionsList: SortOptions[];
 
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
@@ -66,5 +76,10 @@ export class SearchSidebarComponent {
    * Emits event when the user clicks a button to open or close the sidebar
    */
   @Output() toggleSidebar = new EventEmitter<boolean>();
+
+  /**
+   * Emits event when the user select a new configuration
+   */
+  @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter<SearchConfigurationOption>();
 
 }

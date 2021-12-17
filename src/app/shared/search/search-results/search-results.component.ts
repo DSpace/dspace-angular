@@ -78,6 +78,13 @@ export class SearchResultsComponent {
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * Check if search results are loading
+   */
+  isLoading() {
+    return !this.showError() && (hasNoValue(this.searchResults) || hasNoValue(this.searchResults.payload) || this.searchResults.isLoading);
+  }
+
   showError(): boolean {
     return this.searchResults?.hasFailed && (!this.searchResults?.errorMessage || this.searchResults?.statusCode !== 400);
   }

@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { uniqueId } from 'lodash';
+
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue, isEmpty } from '../empty.util';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { hasValue } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -16,11 +19,15 @@ import { SearchResult } from './models/search-result.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
-import { Router } from '@angular/router';
 import { Context } from '../../core/shared/context.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { followLink } from '../utils/follow-link-config.model';
 import { Item } from '../../core/shared/item.model';
+import { SearchObjects } from './models/search-objects.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-search',
@@ -28,18 +35,82 @@ import { Item } from '../../core/shared/item.model';
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
-  providers: [
-    {
-      provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
 })
 
 /**
  * This component renders a sidebar, a search input bar and the search results.
  */
 export class SearchComponent implements OnInit {
+
+  /**
+   * The list of available configuration options
+   */
+  @Input() configurationList: SearchConfigurationOption[] = [];
+
+  /**
+   * The current context
+   * If empty, 'search' is used
+   */
+  @Input() context: Context = Context.Search;
+
+  /**
+   * The configuration to use for the search options
+   * If empty, 'default' is used
+   */
+  @Input() configuration = 'default';
+
+  /**
+   * The actual query for the fixed filter.
+   * If empty, the query will be determined by the route parameter called 'filter'
+   */
+  @Input() fixedFilterQuery: string;
+
+  /**
+   * If this is true, the request will only be sent if there's
+   * no valid cached version. Defaults to true
+   */
+  @Input() useCachedVersionIfAvailable = true;
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch = true;
+
+  /**
+   * The pagination id used in the search
+   */
+  @Input() paginationId = 'spc';
+
+  /**
+   * Whether or not the search bar should be visible
+   */
+  @Input() searchEnabled = true;
+
+  /**
+   * The width of the sidebar (bootstrap columns)
+   */
+  @Input() sideBarWidth = 3;
+
+  /**
+   * A boolean representing if show search sidebar button
+   */
+  @Input() showSidebar = true;
+
+  /**
+   * List of available view mode
+   */
+  @Input() viewModeList: ViewMode[];
+
+  /**
+   * The current configuration used during the search
+   */
+  currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  /**
+   * The current context used during the search
+   */
+  currentContext$: BehaviorSubject<Context> = new BehaviorSubject<Context>(null);
+
   /**
    * The current search results
    */
@@ -48,56 +119,17 @@ export class SearchComponent implements OnInit {
   /**
    * The current paginated search options
    */
-  searchOptions$: Observable<PaginatedSearchOptions>;
+  searchOptions$: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject<PaginatedSearchOptions>(null);
 
   /**
-   * The current available sort options
+   * The available sort options list
    */
-  sortOptions$: Observable<SortOptions[]>;
+  sortOptionsList$: BehaviorSubject<SortOptions[]> = new BehaviorSubject<SortOptions[]>([]);
 
   /**
-   * Emits true if were on a small screen
+   * The current sort options used
    */
-  isXsOrSm$: Observable<boolean>;
-
-  /**
-   * Subscription to unsubscribe from
-   */
-  sub: Subscription;
-
-  /**
-   * True when the search component should show results on the current page
-   */
-  @Input() inPlaceSearch = true;
-
-  /**
-   * Whether or not the search bar should be visible
-   */
-  @Input()
-  searchEnabled = true;
-
-  /**
-   * The width of the sidebar (bootstrap columns)
-   */
-  @Input()
-  sideBarWidth = 3;
-
-  /**
-   * The currently applied configuration (determines title of search)
-   */
-  @Input()
-  configuration$: Observable<string>;
-
-  /**
-   * The current context
-   */
-  @Input()
-  context: Context;
-
-  /**
-   * Link to the search page
-   */
-  searchLink: string;
+  currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
 
   /**
    * Observable for whether or not the sidebar is currently collapsed
@@ -105,9 +137,20 @@ export class SearchComponent implements OnInit {
   isSidebarCollapsed$: Observable<boolean>;
 
   /**
-   * A boolean representing if show search sidebar button
+   * Emits true if were on a small screen
    */
-  @Input() showSidebar = true;
+  isXsOrSm$: Observable<boolean>;
+
+  /**
+   * Link to the search page
+   */
+  searchLink: string;
+
+  /**
+   * Subscription to unsubscribe from
+   */
+  sub: Subscription;
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -125,35 +168,67 @@ export class SearchComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    this.isSidebarCollapsed$ = this.isSidebarCollapsed();
-    this.searchLink = this.getSearchLink();
-    this.searchOptions$ = this.getSearchOptions();
-    this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(
-          options, undefined, false, true, followLink<Item>('thumbnail', { isOptional: true })
-        ).pipe(getFirstCompletedRemoteData(), startWith(undefined))
-      )
-    ).subscribe((results) => {
-      this.resultsRD$.next(results);
-    });
+    // Create an unique pagination id related to the instance of the SearchComponent
+    this.paginationId = uniqueId(this.paginationId);
+    this.searchConfigService.setPaginationId(this.paginationId);
 
-    if (isEmpty(this.configuration$)) {
-      this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
+    if (hasValue(this.fixedFilterQuery)) {
+      this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
 
-    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(this.configuration$, this.service);
+    this.isSidebarCollapsed$ = this.isSidebarCollapsed();
+    this.searchLink = this.getSearchLink();
+    this.currentContext$.next(this.context);
 
-    this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(searchConfig$);
-    this.searchConfigService.initializeSortOptionsFromConfiguration(searchConfig$);
+    // Determinate PaginatedSearchOptions and listen to any update on it
+    const configuration$: Observable<string> = this.searchConfigService
+      .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
+    const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
+      switchMap((configuration: string) => this.searchConfigService
+        .getConfigurationSearchConfig(configuration, this.service)),
+      map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
+      distinctUntilChanged()
+    );
+    const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
+      switchMap((searchSortOptions: SortOptions[]) => {
+        const defaultSort: SortOptions = searchSortOptions[0];
+        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
+      }),
+      distinctUntilChanged()
+    );
+    const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
+    this.sub = combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
+      filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
+        // filter for search options related to instanced paginated id
+        return searchOptions.pagination.id === this.paginationId;
+      })
+    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
+      // Build the PaginatedSearchOptions object
+      const combinedOptions = Object.assign({}, searchOptions,
+        {
+          configuration: searchOptions.configuration || configuration,
+          sort: sortOption || searchOptions.sort
+        });
+      const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
+
+      // Initialize variables
+      this.currentConfiguration$.next(configuration);
+      this.currentSortOptions$.next(newSearchOptions.sort);
+      this.sortOptionsList$.next(searchSortOptions);
+      this.searchOptions$.next(newSearchOptions);
+
+      // retrieve results
+      this.retrieveSearchResults(newSearchOptions);
+    });
   }
 
   /**
-   * Get the current paginated search options
-   * @returns {Observable<PaginatedSearchOptions>}
+   * Change the current context
+   * @param context
    */
-  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
-    return this.searchConfigService.paginatedSearchOptions;
+  public changeContext(context: Context) {
+    this.currentContext$.next(context);
   }
 
   /**
@@ -168,6 +243,43 @@ export class SearchComponent implements OnInit {
    */
   public openSidebar(): void {
     this.sidebarService.expand();
+  }
+
+  /**
+   * Unsubscribe from the subscription
+   */
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+  }
+
+  /**
+   * Get the current paginated search options
+   * @returns {Observable<PaginatedSearchOptions>}
+   */
+  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
+    return this.searchConfigService.paginatedSearchOptions;
+  }
+
+  /**
+   * Retrieve search result by the given search options
+   * @param searchOptions
+   * @private
+   */
+  private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
+    this.resultsRD$.next(null);
+    this.service.search(
+      searchOptions,
+      undefined,
+      this.useCachedVersionIfAvailable,
+      true,
+      followLink<Item>('thumbnail', { isOptional: true })
+    ).pipe(getFirstCompletedRemoteData())
+      .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
+        console.log('results ', results);
+        this.resultsRD$.next(results);
+      });
   }
 
   /**
@@ -188,12 +300,4 @@ export class SearchComponent implements OnInit {
     return this.service.getSearchLink();
   }
 
-  /**
-   * Unsubscribe from the subscription
-   */
-  ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
-  }
 }
