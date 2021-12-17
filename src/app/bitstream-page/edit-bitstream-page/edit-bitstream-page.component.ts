@@ -405,7 +405,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       ).subscribe(([bitstream, allFormats]) => {
         this.bitstream = bitstream as Bitstream;
         this.formats = allFormats.page;
-        this.setIiifStatus(this.bitstream); // testing
+        this.setIiifStatus(this.bitstream);
         this.updateFormatModel();
         this.updateForm(this.bitstream);
       })
@@ -611,19 +611,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * Checks bitstream mimetype to be sure it's an image, excludes any bitstream in the
    * THUMBNAIL bundle or in the OTHERCONTENT bundle since in that case the image bitstream
-   * it will never be displayed in the viewer, and last verifies that the parent item
+   * it will never be displayed in the viewer, and finally verifies that the parent item
    * is iiif-enabled.
    * @param bitstream
    */
   setIiifStatus(bitstream: Bitstream) {
 
     const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL/;
-    const regexIIIFItem = /(true|yes)/i;
+    const regexIIIFItem = /true|yes/i;
 
     const iiifCheck$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
       filter((format: RemoteData<BitstreamFormat>) => format.payload.mimetype.includes('image/')),
-      mergeMap((format: RemoteData<BitstreamFormat>) =>
+      mergeMap(() =>
         this.bitstream.bundle.pipe(
           getFirstSucceededRemoteData(),
           filter((bundle: RemoteData<Bundle>) =>
