@@ -49,7 +49,6 @@ export class HomeNewsComponent implements OnInit {
           {language: this.locale.getCurrentLanguageCode()}));
       }
     );
-    console.log(this.locale.getCurrentLanguageCode());
   }
 
 }
