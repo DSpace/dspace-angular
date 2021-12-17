@@ -4019,7 +4019,11 @@
 
 
 
+  "workspace.search.results.head": "Your submissions",
+
   "workflowAdmin.search.results.head": "Administer Workflow",
+
+  "workflow.search.results.head": "All tasks",
 
 
 
