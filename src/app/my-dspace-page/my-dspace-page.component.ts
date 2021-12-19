@@ -1,11 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
 import { SearchService } from '../core/shared/search/search.service';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -25,7 +22,6 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   styleUrls: ['./my-dspace-page.component.scss'],
   templateUrl: './my-dspace-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [pushInOut],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
@@ -55,15 +51,7 @@ export class MyDSpacePageComponent implements OnInit {
    */
   viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
 
-
-  /**
-   * Emit an event every time search sidebars must refresh their contents.
-   */
-  refreshFilters: Subject<any> = new Subject<any>();
-
   constructor(private service: SearchService,
-              private sidebarService: SidebarService,
-              private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }

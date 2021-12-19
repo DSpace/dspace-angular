@@ -20,7 +20,7 @@ import { RouteService } from '../../services/route.service';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchConfig, SortOption } from './search-filters/search-config.model';
+import { SearchConfig, SortConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
 import { PaginationService } from '../../pagination/pagination.service';
 
@@ -204,7 +204,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @param searchConfig The SearchConfig object
    */
   getConfigurationSortOptions(searchConfig: SearchConfig): SortOptions[] {
-    return searchConfig.sortOptions.map((entry: SortOption) => ({
+    return searchConfig.sortOptions.map((entry: SortConfig) => ({
       field: entry.name,
       direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC
     }));

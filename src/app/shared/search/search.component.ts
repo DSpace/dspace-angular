@@ -204,6 +204,7 @@ export class SearchComponent implements OnInit {
         return searchOptions.pagination.id === this.paginationId;
       })
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
+
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
@@ -211,7 +212,6 @@ export class SearchComponent implements OnInit {
           sort: sortOption || searchOptions.sort
         });
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
-
       // Initialize variables
       this.currentConfiguration$.next(configuration);
       this.currentSortOptions$.next(newSearchOptions.sort);
@@ -277,7 +277,6 @@ export class SearchComponent implements OnInit {
       followLink<Item>('thumbnail', { isOptional: true })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
-        console.log('results ', results);
         this.resultsRD$.next(results);
       });
   }

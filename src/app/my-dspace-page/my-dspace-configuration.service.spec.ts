@@ -10,6 +10,7 @@ import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { Context } from '../core/shared/context.model';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;
@@ -241,11 +242,13 @@ describe('MyDSpaceConfigurationService', () => {
         b: [
           {
             value: MyDSpaceConfigurationValueType.Workspace,
-            label: `mydspace.show.${MyDSpaceConfigurationValueType.Workspace}`
+            label: `mydspace.show.${MyDSpaceConfigurationValueType.Workspace}`,
+            context: Context.Workspace
           },
           {
             value: MyDSpaceConfigurationValueType.Workflow,
-            label: `mydspace.show.${MyDSpaceConfigurationValueType.Workflow}`
+            label: `mydspace.show.${MyDSpaceConfigurationValueType.Workflow}`,
+            context: Context.Workflow
           }
         ]
       }));

@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -21,11 +21,10 @@ import { SearchFilterService } from '../../core/shared/search/search-filter.serv
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../../core/services/route.service';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SearchConfig, SortConfig } from '../../core/shared/search/search-filters/search-config.model';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -37,23 +36,29 @@ const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* tslint:enable:no-empty */
   select: observableOf(true)
 });
-const sortOptionsList = [
+const sortConfigList: SortConfig[] = [
+  { name: 'score', sortOrder: SortDirection.DESC },
+  { name: 'dc.title', sortOrder: SortDirection.ASC },
+  { name: 'dc.title', sortOrder: SortDirection.DESC }
+];
+const sortOptionsList: SortOptions[] = [
   new SortOptions('score', SortDirection.DESC),
   new SortOptions('dc.title', SortDirection.ASC),
   new SortOptions('dc.title', SortDirection.DESC)
 ];
 const searchConfig = Object.assign(new SearchConfig(), {
-  sortOptions: sortOptionsList
+  sortOptions: sortConfigList
 });
+const paginationId = 'search-test-page-id';
 const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-pagination.id = 'search-results-pagination';
+pagination.id = paginationId;
 pagination.currentPage = 1;
 pagination.pageSize = 10;
-const sortOption = { name: 'score', sortOrder: 'DESC', metadata: null };
+
 const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
+const mockResults$ = createSuccessfulRemoteDataObject$(['test', 'data']);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
-  search: mockResults,
+  search: mockResults$,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig)
@@ -62,6 +67,11 @@ const configurationParam = 'default';
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const fixedFilter = 'fixed filter';
+
+const defaultSearchOptions = new PaginatedSearchOptions({ pagination });
+
+const paginatedSearchOptions$ = new BehaviorSubject(defaultSearchOptions);
+
 const paginatedSearchOptions = new PaginatedSearchOptions({
   configuration: configurationParam,
   query: queryParam,
@@ -97,12 +107,14 @@ const routeServiceStub = {
 
 
 const searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
+  getConfigurationSortOptions: jasmine.createSpy('getConfigurationSortOptions'),
   getConfigurationSearchConfig: jasmine.createSpy('getConfigurationSearchConfig'),
   getCurrentConfiguration: jasmine.createSpy('getCurrentConfiguration'),
   getCurrentScope: jasmine.createSpy('getCurrentScope'),
+  getCurrentSort: jasmine.createSpy('getCurrentSort'),
   updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
   setPaginationId: jasmine.createSpy('setPaginationId')
-});
+}, ['paginatedSearchOptions']);
 
 export function configureSearchComponentTestingModule(compType, additionalDeclarations: any[] = []) {
   TestBed.configureTestingModule({
@@ -146,7 +158,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   }).compileComponents();
 }
 
-fdescribe('SearchComponent', () => {
+describe('SearchComponent', () => {
   beforeEach(waitForAsync(() => {
     configureSearchComponentTestingModule(SearchComponent);
   }));
@@ -155,17 +167,25 @@ fdescribe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     comp = fixture.componentInstance; // SearchComponent test instance
     comp.inPlaceSearch = false;
+    comp.paginationId = paginationId;
 
-    // searchConfigurationServiceStub.paginatedSearchOptions.and.returnValue(observableOf(paginatedSearchOptions));
     searchConfigurationServiceStub.getConfigurationSearchConfig.and.returnValue(observableOf(searchConfig));
+    searchConfigurationServiceStub.getConfigurationSortOptions.and.returnValue(sortOptionsList);
     searchConfigurationServiceStub.getCurrentConfiguration.and.returnValue(observableOf('default'));
     searchConfigurationServiceStub.getCurrentScope.and.returnValue(observableOf('test-id'));
+    searchConfigurationServiceStub.getCurrentSort.and.returnValue(observableOf(sortOptionsList[0]));
+    searchConfigurationServiceStub.setPaginationId.and.callFake((pageId) => {
+      paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
+        pagination: Object.assign(new PaginationComponentOptions(), {
+          id: pageId
+        })
+      }));
+    });
+    spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
 
-    searchServiceObject =  TestBed.inject(SearchService);
+    searchServiceObject = TestBed.inject(SearchService);
     searchConfigurationServiceObject = TestBed.inject(SEARCH_CONFIG_SERVICE);
-    searchConfigurationServiceObject.paginatedSearchOptions = new BehaviorSubject(paginatedSearchOptions);
 
-    fixture.detectChanges();
   });
 
   afterEach(() => {
@@ -174,44 +194,51 @@ fdescribe('SearchComponent', () => {
     searchConfigurationServiceObject = null;
   });
 
-  it('should get the scope and query from the route parameters', () => {
+  it('should init search parameters properly and call retrieveSearchResults', fakeAsync(() => {
+    spyOn((comp as any), 'retrieveSearchResults').and.callThrough();
+    fixture.detectChanges();
+    flush();
 
-    expect(comp.searchOptions$).toBeObservable(cold('b', {
-      b: paginatedSearchOptions
+    const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
+      configuration: 'default',
+      sort: sortOptionsList[0]
+    });
+    expect(comp.currentConfiguration$).toBeObservable(cold('b', {
+      b: 'default'
     }));
+    expect(comp.currentSortOptions$).toBeObservable(cold('b', {
+      b: sortOptionsList[0]
+    }));
+    expect(comp.sortOptionsList$).toBeObservable(cold('b', {
+      b: sortOptionsList
+    }));
+    expect(comp.searchOptions$).toBeObservable(cold('b', {
+      b: expectedSearchOptions
+    }));
+    expect((comp as any).retrieveSearchResults).toHaveBeenCalledWith(expectedSearchOptions);
+  }));
 
-  });
+  it('should retrieve SearchResults', fakeAsync(() => {
+    fixture.detectChanges();
+    flush();
+    const expectedResults = createSuccessfulRemoteDataObject(['test', 'data']);
+    expect(comp.resultsRD$).toBeObservable(cold('b', {
+      b: expectedResults
+    }));
+  }));
 
-  xdescribe('when the open sidebar button is clicked in mobile view', () => {
+  describe('when the open sidebar button is clicked in mobile view', () => {
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       spyOn(comp, 'openSidebar');
+      fixture.detectChanges();
+      flush();
       const openSidebarButton = fixture.debugElement.query(By.css('.open-sidebar'));
       openSidebarButton.triggerEventHandler('click', null);
-    });
+    }));
 
     it('should trigger the openSidebar function', () => {
       expect(comp.openSidebar).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('when stable', () => {
-
-    beforeEach(() => {
-      fixture.detectChanges();
-    });
-
-    it('should have initialized the sortOptions$ observable', (done) => {
-
-      comp.sortOptionsList$.subscribe((sortOptions) => {
-
-        expect(sortOptions.length).toEqual(2);
-        expect(sortOptions[0]).toEqual(new SortOptions('score', SortDirection.ASC));
-        expect(sortOptions[1]).toEqual(new SortOptions('score', SortDirection.DESC));
-        done();
-      });
-
     });
 
   });
