@@ -31,7 +31,8 @@ const getNumberFromString = (variable: string): number => {
 };
 
 const getEnvironment = (): Environment => {
-  let environment: Environment = 'development';
+  // default to production
+  let environment: Environment = 'production';
   if (isNotEmpty(ENV('NODE_ENV'))) {
     switch (ENV('NODE_ENV')) {
       case 'prod':
@@ -43,6 +44,7 @@ const getEnvironment = (): Environment => {
         break;
       case 'dev':
       case 'development':
+        environment = 'development';
         break;
       default:
         console.warn(`Unknown NODE_ENV ${ENV('NODE_ENV')}. Defaulting to development`);
