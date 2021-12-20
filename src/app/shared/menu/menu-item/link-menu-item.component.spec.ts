@@ -19,7 +19,7 @@ describe('LinkMenuItemComponent', () => {
 
   function init() {
     text = 'HELLO';
-    link = 'http://google.com';
+    link = '/world/hello';
     queryParams = {params: true};
   }
 
