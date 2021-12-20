@@ -230,7 +230,9 @@ E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Con
 
 The test files can be found in the `./cypress/integration/` folder.
 
-Before you can run e2e tests, you MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `environment.prod.ts` or `environment.common.ts`. You may override this using env variables, see [Configuring](#configuring).
+Before you can run e2e tests, two things are required:
+1. You MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `environment.prod.ts` or `environment.common.ts`. You may override this using env variables, see [Configuring](#configuring).
+2. Your backend MUST include our Entities Test Data set. Some tests run against a (currently hardcoded) Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set. The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
 
 Run `ng e2e` to kick off the tests. This will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
 
