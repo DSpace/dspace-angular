@@ -72,8 +72,8 @@ Settings can be set using the following convention for naming the environment va
 e.g.
 
 ```
-cache.msToLive.default => CACHE_MSTOLIVE_DEFAULT
-auth.ui.timeUntilIdle => AUTH_UI_TIMEUNTILIDLE
+cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
+auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
 ```
 
 ## Supporting analytics services other than Google Analytics

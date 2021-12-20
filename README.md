@@ -126,6 +126,7 @@ All other settings can be set using the following convention for naming the envi
 
 1. replace all `.` with `_`
 2. convert all characters to upper case
+3. prefix with `DSPACE_`
 
 e.g.
 
@@ -161,11 +162,11 @@ export DSPACE_HOST=api7.dspace.org
 export DSPACE_UI_PORT=4200
 ```
 
-The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
+The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `DSPACE_APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
 
 These configuration sources are collected **at run time**, and written to `dist/browser/assets/config.json` for production and `src/app/assets/config.json` for development.
 
-The configuration file can be externalized by using environment variable `APP_CONFIG_PATH`.
+The configuration file can be externalized by using environment variable `DSPACE_APP_CONFIG_PATH`.
 
 #### Using environment variables in code
 To use environment variables in a UI component, use:
