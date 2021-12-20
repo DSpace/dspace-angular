@@ -169,7 +169,7 @@ export class SearchFilterComponent implements OnInit {
                 return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
                   map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0;
+                    return valuesRD.payload?.totalElements > 0;
                   }),);
               }
             ));

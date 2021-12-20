@@ -9111,12 +9111,12 @@ mirador-dl-plugin@^0.13.0:
   resolved "https://registry.yarnpkg.com/mirador-dl-plugin/-/mirador-dl-plugin-0.13.0.tgz#9a6cb0fa3c566a2a1ebe1ad9caa1ff590ff22689"
   integrity sha512-I/6etIvpTtO1zgjxx2uEUFoyB9NxQ43JWg8CMkKmZqblW7AAeFqRn1/zUlQH7N8KFZft9Rah6D8qxtuNAo9jmA==
 
-mirador-share-plugin@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/mirador-share-plugin/-/mirador-share-plugin-0.10.0.tgz#82cde27faedc440fab648db137e62849d6542420"
-  integrity sha512-hC9hG0H04WAR6JNfLDnQICtxwWV3K+cmqnArtOvAIGGnbgXWs5tmQyfdY55z05jzbeL40rd7z1K094hHV3R4WQ==
+mirador-share-plugin@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/mirador-share-plugin/-/mirador-share-plugin-0.11.0.tgz#13e2f654e38839044382acad42d9329e91a8cd5e"
+  integrity sha512-fHcdDXyrtfy5pn1zdQNX9BvE5Tjup66eQwyNippE5PMaP8ImUcrFaSL+mStdn+v6agsHcsdRqLhseZ0XWgEuAw==
 
-mirador@^3.0.0:
+mirador@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/mirador/-/mirador-3.3.0.tgz#7a957a1db1a5388b2b8cafab00db4eb9f97557b9"
   integrity sha512-BmGfRnWJ45B+vtiAwcFT7n9nKialfejE9UvuUK0NorO37ShArpsKr3yVSD4jQASwSR4DRRpPEG21jOk4WN7H3w==
