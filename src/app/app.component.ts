@@ -31,12 +31,12 @@ import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { HostWindowService } from './shared/host-window.service';
-import { ThemeConfig } from '../config/theme.model';
+import { HeadTagConfig, ThemeConfig } from '../config/theme.model';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-import { hasValue, isNotEmpty } from './shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { GoogleAnalyticsService } from './statistics/google-analytics.service';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -115,11 +115,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.isThemeCSSLoading$.next(true);
       }
       if (hasValue(themeName)) {
-        this.setThemeCss(themeName);
+        this.loadGlobalThemeConfig(themeName);
       } else if (hasValue(DEFAULT_THEME_CONFIG)) {
-        this.setThemeCss(DEFAULT_THEME_CONFIG.name);
+        this.loadGlobalThemeConfig(DEFAULT_THEME_CONFIG.name);
       } else {
-        this.setThemeCss(BASE_THEME_NAME);
+        this.loadGlobalThemeConfig(BASE_THEME_NAME);
       }
     });
 
@@ -233,6 +233,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private loadGlobalThemeConfig(themeName: string): void {
+    this.setThemeCss(themeName);
+    this.setHeadTags(themeName);
+  }
+
   /**
    * Update the theme css file in <head>
    *
@@ -241,9 +246,13 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   private setThemeCss(themeName: string): void {
     const head = this.document.getElementsByTagName('head')[0];
+    if (hasNoValue(head)) {
+      return;
+    }
+
     // Array.from to ensure we end up with an array, not an HTMLCollection, which would be
     // automatically updated if we add nodes later
-    const currentThemeLinks = Array.from(this.document.getElementsByClassName('theme-css'));
+    const currentThemeLinks = Array.from(head.getElementsByClassName('theme-css'));
     const link = this.document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
@@ -263,6 +272,78 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.isThemeCSSLoading$.next(false);
     };
     head.appendChild(link);
+  }
+
+  private setHeadTags(themeName: string): void {
+    const head = this.document.getElementsByTagName('head')[0];
+    if (hasNoValue(head)) {
+      return;
+    }
+
+    // clear head tags
+    const currentHeadTags = Array.from(head.getElementsByClassName('theme-head-tag'));
+    if (hasValue(currentHeadTags)) {
+      currentHeadTags.forEach((currentHeadTag: any) => currentHeadTag.remove());
+    }
+
+    // create new head tags (not yet added to DOM)
+    const headTagFragment = this.document.createDocumentFragment();
+    this.createHeadTags(themeName)
+      .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
+
+    // add new head tags to DOM
+    head.appendChild(headTagFragment);
+  }
+
+  private createHeadTags(themeName: string): HTMLElement[] {
+    const themeConfig = this.themeService.getThemeConfigFor(themeName);
+    const headTagConfigs = themeConfig?.headTags;
+
+    if (hasNoValue(headTagConfigs)) {
+      const parentThemeName = themeConfig?.extends;
+      if (hasValue(parentThemeName)) {
+        // inherit the head tags of the parent theme
+        return this.createHeadTags(parentThemeName);
+      }
+
+      const defaultThemeName = DEFAULT_THEME_CONFIG.name;
+      if (
+        hasNoValue(defaultThemeName) ||
+        themeName === defaultThemeName ||
+        themeName === BASE_THEME_NAME
+      ) {
+        // last resort, use fallback favicon.ico
+        return [
+          this.createHeadTag({
+            'tagName': 'link',
+            'attributes': {
+              'rel': 'icon',
+              'href': 'assets/images/favicon.ico',
+              'sizes': 'any',
+            }
+          })
+        ];
+      }
+
+      // inherit the head tags of the default theme
+      return this.createHeadTags(DEFAULT_THEME_CONFIG.name);
+    }
+
+    return headTagConfigs.map(this.createHeadTag.bind(this));
+  }
+
+  private createHeadTag(headTagConfig: HeadTagConfig): HTMLElement {
+    const tag = this.document.createElement(headTagConfig.tagName);
+
+    if (hasValue(headTagConfig.attributes)) {
+      Object.entries(headTagConfig.attributes)
+        .forEach(([key, value]) => tag.setAttribute(key, value));
+    }
+
+    // 'class' attribute should always be 'theme-head-tag' for removal
+    tag.setAttribute('class', 'theme-head-tag');
+
+    return tag;
   }
 
   private trackIdleModal() {

@@ -171,7 +171,8 @@ describe('App component', () => {
       TestBed.configureTestingModule(getDefaultTestBedConf());
       TestBed.overrideProvider(ThemeService, {useValue: getMockThemeService('custom')});
       document = TestBed.inject(DOCUMENT);
-      headSpy = jasmine.createSpyObj('head', ['appendChild']);
+      headSpy = jasmine.createSpyObj('head', ['appendChild', 'getElementsByClassName']);
+      headSpy.getElementsByClassName.and.returnValue([]);
       spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
       fixture = TestBed.createComponent(AppComponent);
       comp = fixture.componentInstance;
