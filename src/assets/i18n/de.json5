@@ -768,31 +768,28 @@
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
   // TODO New key - Add a translation
   "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  // Der erste Tag, ab wann der Zugriff möglich ist. Dieses Datum kann in dieser Form nicht verändert werden. Um eine Embargo-Frist für eine Datei festzulegen, zu dem ()-Tab gehen, auf () klicken, die ()-Richtline für die Datei erstellen oder verändern und das Startdatum wie gewünscht einstellen.
   
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
   "bitstream.edit.form.embargo.label": "Embargo bis zu einem bestimmten Datum",
   
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "Ändern Sie den Dateinamen für die Datei. Beachten Sie, dass sich dadurch die angezeigte Datei-URL ändert, aber alte Links weiterhin funktionieren, solange sich die Sequenz-ID nicht ändert.",
   
   // "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.label": "Dateiname",
   
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "Neues Format beschreiben",
   
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "Die Anwendung, mit der Sie die Datei erstellt haben, und die Versionsnummer (zum Beispiel, \"<i>ACMESoft SuperApp version 1.5</i>\").",
   
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
   "bitstream.edit.form.primaryBitstream.label": "Primäre Datei",
   
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "Wenn das Format nicht in der obigen Liste enthalten ist, <b>wählen Sie \"Format in der Liste\"</b> und beschreiben Sie es unter \"Neues Format beschreiben\".",
   
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Ausgewähltes Format",
@@ -1153,23 +1150,19 @@
   
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
   // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "Itemvorlage für Collection \"{{ collection }}\" bearbeiten",
   
   // "collection.edit.template.label": "Template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "Itemvorlage",
   
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "Löschen der Itemvorlage fehlgeschlagen",
   
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "Die Itemvorlage wurde erfolgreich gelöscht",
   
   // "collection.edit.template.title": "Edit Template Item",
-  // TODO New key - Add a translation
-  "collection.edit.template.title": "Edit Template Item",
+  "collection.edit.template.title": "Itemvorlage bearbeiten",
   
   
   
@@ -1393,8 +1386,7 @@
   
   
   // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "Einreichende",
   
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   // TODO New key - Add a translation
@@ -1410,21 +1402,18 @@
   "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
   
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+  "comcol-role.edit.item_read.anonymous-group": "Die Standardeinstellung für das Lesen eingehender Items ist derzeit auf Anonym eingestellt.",
   
   
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "Standard-Lesezugriff Datei",
   
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   // TODO New key - Add a translation
   "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "Die Standardeinstellung für das Lesen eingehender Dateien ist derzeit auf Anonym eingestellt.",
   
   
   // "comcol-role.edit.editor.name": "Editors",
@@ -1435,21 +1424,17 @@
   
   
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
+  "comcol-role.edit.finaleditor.name": "Endredakteure",
   
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+  "comcol-role.edit.finaleditor.description": "Die Endredakteure können die Metadaten der eingehenden Beiträge bearbeiten, sie können sie jedoch nicht ablehnen.",
   
   
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
+  "comcol-role.edit.reviewer.name": "Prüfer",
   
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
+  "comcol-role.edit.reviewer.description": "Die Prüfer können eingehende Beiträge annehmen oder ablehnen. Sie können jedoch nicht die Metadaten der Einreichung bearbeiten.",
   
   
   
@@ -1509,16 +1494,13 @@
   "cookies.consent.app.opt-out.title": "(opt-out)",
   
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "Verwendungszweck",
   
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "Dieser Eintrag ist immer erforderlich.",
   
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(immer erforderlich)",
   
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Seit Ihrem letzten Besuch haben sich Änderungen ergeben, bitte aktualisieren Sie Ihr Einverständnis.",
@@ -1569,33 +1551,27 @@
   "cookies.consent.app.title.acknowledgement": "Bestätigung",
   
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
-  // TODO New key - Add a translation
   "cookies.consent.app.description.acknowledgement": "Erforderlich für die Speicherung Ihrer Bestätigungen und Einwilligungen",
   
   
   
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.google-analytics": "Google Analytics",
   
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
+  "cookies.consent.app.description.google-analytics": "Erlaubt uns, statistische Daten zu erfassen",
   
   
   
   // "cookies.consent.purpose.functional": "Functional",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.functional": "Functional",
+  "cookies.consent.purpose.functional": "Funktionell",
   
   // "cookies.consent.purpose.statistical": "Statistical",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.statistical": "Statistical",
+  "cookies.consent.purpose.statistical": "Statistisch",
   
   
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label":  "Links in Metadaten prüfen",
   
   // "curation-task.task.noop.label": "NOOP",
   // TODO New key - Add a translation
@@ -1606,45 +1582,35 @@
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
   
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
-  // TODO New key - Add a translation
-  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+  "curation-task.task.requiredmetadata.label": "Prüfung auf erforderliche Metadaten",
   
   // "curation-task.task.translate.label": "Microsoft Translator",
-  // TODO New key - Add a translation
-  "curation-task.task.translate.label": "Microsoft Translator",
+  "curation-task.task.translate.label": "Microsoft Übersetzer",
   
   // "curation-task.task.vscan.label": "Virus Scan",
-  // TODO New key - Add a translation
-  "curation-task.task.vscan.label": "Virus Scan",
+  "curation-task.task.vscan.label": "Viren-Scan",
   
   
   
   // "curation.form.task-select.label": "Task:",
-  // TODO New key - Add a translation
-  "curation.form.task-select.label": "Task:",
+  "curation.form.task-select.label": "Aufgabe:",
   
   // "curation.form.submit": "Start",
-  // TODO New key - Add a translation
   "curation.form.submit": "Start",
   
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.head": "The curation task has been started successfully",
+  "curation.form.submit.success.head": "Die Datenpflegeroutine wurde erfolgreich gestartet",
   
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
-  // TODO New key - Add a translation
-  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+  "curation.form.submit.success.content": "Sie werden auf die entsprechende Prozessseite weitergeleitet.",
   
   // "curation.form.submit.error.head": "Running the curation task failed",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.head": "Running the curation task failed",
+  "curation.form.submit.error.head": "Die Ausführung der Datenpflegeroutine ist fehlgeschlagen",
   
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-  // TODO New key - Add a translation
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "Beim Versuch, die Datenpflegeroutine zu starten, ist ein Fehler aufgetreten.",
   
   // "curation.form.handle.label": "Handle:",
-  // TODO New key - Add a translation
   "curation.form.handle.label": "Handle:",
   
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
