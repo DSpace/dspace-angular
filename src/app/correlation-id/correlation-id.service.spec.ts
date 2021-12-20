@@ -7,7 +7,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { appReducers, AppState, storeModuleConfig } from '../app.reducer';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 
-fdescribe('CorrelationIdService', () => {
+describe('CorrelationIdService', () => {
   let service: CorrelationIdService;
 
   let cookieService;
