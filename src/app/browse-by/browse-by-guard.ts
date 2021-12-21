@@ -50,7 +50,7 @@ export class BrowseByGuard implements CanActivate {
           return observableOf(true);
         }
       })
-    )
+    );
   }
 
   private createData(title, id, browseDefinition, collection, field, value, route) {

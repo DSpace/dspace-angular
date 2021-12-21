@@ -18,7 +18,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -34,9 +33,9 @@ import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   /**
-   * The default metadata-field to use for determining the lower limit of the StartsWith dropdown options
+   * The default metadata keys to use for determining the lower limit of the StartsWith dropdown options
    */
-  defaultBrowseDefinition = Object.assign(new BrowseDefinition(), {metadataKeys: ['dc.date.issued']});
+  defaultMetadataKeys = ['dc.date.issued'];
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -60,13 +59,13 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           return [Object.assign({}, routeParams, queryParams, data), currentPage, currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-        const browseDefinition = params.browseDefinition || this.defaultBrowseDefinition;
-        this.browseId = params.id || this.defaultBrowseId;
-        this.startsWith = +params.startsWith || params.startsWith;
+        const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
+        this.browseId = params.id || this.defaultBrowseId;
+        this.startsWith = +params.startsWith || params.startsWith;
         const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
         this.updatePageWithItems(searchOptions, this.value);
         this.updateParent(params.scope);
-        this.updateStartsWithOptions(this.browseId, browseDefinition, params.scope);
+        this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);
       }));
   }
 
@@ -77,15 +76,15 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
    * extremely long lists with a one-year difference.
    * To determine the change in years, the config found under GlobalConfig.BrowseBy is used for this.
    * @param definition      The metadata definition to fetch the first item for
-   * @param metadataField   The metadata field to fetch the earliest date from (expects a date field)
+   * @param metadataKeys    The metadata fields to fetch the earliest date from (expects a date field)
    * @param scope           The scope under which to fetch the earliest item for
    */
-  updateStartsWithOptions(definition: string, browseDefinition: BrowseDefinition, scope?: string) {
+  updateStartsWithOptions(definition: string, metadataKeys: string[], scope?: string) {
     this.subs.push(
       this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
         let lowerLimit = environment.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
-          const date = firstItemRD.payload.firstMetadataValue(browseDefinition.metadataKeys);
+          const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
           if (hasValue(date)) {
             const dateObj = new Date(date);
             // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
@@ -121,5 +120,4 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
       })
     );
   }
-
 }

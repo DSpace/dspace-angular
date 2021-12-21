@@ -34,7 +34,7 @@ export class BrowseDefinition extends CacheableObject {
   @autoserializeAs('metadata')
   metadataKeys: string[];
 
-  @autoserializeAs('dataType')
+  @autoserialize
   dataType: BrowseByDataType;
 
   get self(): string {

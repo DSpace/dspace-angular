@@ -88,13 +88,13 @@ export class NavbarComponent extends MenuComponent {
                 type: MenuItemType.TEXT,
                 text: 'menu.section.browse_global'
               } as TextMenuItemModel,
-            },)
+            }
+          );
         }
         menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
           shouldPersistOnRouteChange: true
         })));
       });
-
 
   }
 }
