@@ -5,5 +5,5 @@ export enum SectionsType {
   License = 'license',
   CcLicense = 'cclicense',
   collection = 'collection',
-  Accesses = 'accesses',
+  AccessesCondition = 'accessCondition',
 }

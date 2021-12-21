@@ -174,10 +174,10 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
       this.subscriptions.push(
         this.uploadService
           .getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
-          filter((bitstream) => isNotUndefined(bitstream)))
+            filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
-              this.fileData = bitstream;
-            }
+            this.fileData = bitstream;
+          }
           )
       );
     }
@@ -251,12 +251,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
 
   protected loadFormMetadata() {
     this.configMetadataForm.rows.forEach((row) => {
-        row.fields.forEach((field) => {
-          field.selectableMetadata.forEach((metadatum) => {
-            this.formMetadata.push(metadatum.metadata);
-          });
+      row.fields.forEach((field) => {
+        field.selectableMetadata.forEach((metadatum) => {
+          this.formMetadata.push(metadatum.metadata);
         });
-      }
+      });
+    }
     );
   }
 

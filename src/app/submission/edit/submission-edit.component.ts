@@ -6,6 +6,7 @@ import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionAccessesObject } from '../../core/submission/models/workspaceitem-section-accesses.model';
 import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SubmissionService } from '../submission.service';
@@ -97,13 +98,13 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @param {SubmissionJsonPatchOperationsService} submissionJsonPatchOperationsService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private notificationsService: NotificationsService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private itemDataService: ItemDataService,
-              private submissionService: SubmissionService,
-              private translate: TranslateService,
-              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
+    private notificationsService: NotificationsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private itemDataService: ItemDataService,
+    private submissionService: SubmissionService,
+    private translate: TranslateService,
+    private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -127,6 +128,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
             this.selfUrl = submissionObjectRD.payload._links.self.href;
             this.sections = submissionObjectRD.payload.sections;
+
+
             this.itemLink$.next(submissionObjectRD.payload._links.item.href);
             this.item = submissionObjectRD.payload.item;
             this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);

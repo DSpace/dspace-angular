@@ -1,1 +1,2 @@
-<p>section-accesses works!</p>
+<ds-form *ngIf="!!formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayCancel]="false"
+    (submitForm)="onSubmit()" (dfChange)="onChange($event)"></ds-form>
