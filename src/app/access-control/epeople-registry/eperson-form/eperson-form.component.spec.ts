@@ -28,8 +28,9 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FormArray, FormControl, FormGroup,Validators, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 
 
 describe('EPersonFormComponent', () => {
@@ -42,6 +43,7 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+  let epersonRegistrationService: EpersonRegistrationService;
 
   let paginationService;
 
@@ -204,6 +206,10 @@ describe('EPersonFormComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
+
+  epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
+    registerEmail: createSuccessfulRemoteDataObject$(null)
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EPersonFormComponent);
@@ -512,6 +518,26 @@ describe('EPersonFormComponent', () => {
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);
+    });
+  });
+
+
+  describe('Reset Password', () => {
+    let ePersonId;
+    let ePersonEmail;
+
+    beforeEach(() => {
+      ePersonId = 'testEPersonId';
+      ePersonEmail = 'person.email@4science.it';
+      component.epersonInitial = Object.assign(new EPerson(), {
+        id: ePersonId,
+        email: ePersonEmail
+      });
+      component.resetPassword();
+    });
+
+    it('should call epersonRegistrationService.registerEmail', () => {
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail);
     });
   });
 });
