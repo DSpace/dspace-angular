@@ -315,11 +315,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.canDelete$ = activeEPerson$.pipe(
         switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined))
       );
-      this.canReset$ = activeEPerson$.pipe(
-        switchMap((eperson) => {
-          return observableOf(true);
-        })
-      );
+      this.canReset$ = observableOf(true);
     });
   }
 
