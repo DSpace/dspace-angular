@@ -1,43 +1,49 @@
 // ***********************************************
-// This example namespace declaration will help
-// with Intellisense and code completion in your
-// IDE or Text Editor.
+// This File is for Custom Cypress commands.
+// See docs at https://docs.cypress.io/api/cypress-api/custom-commands
 // ***********************************************
-// declare namespace Cypress {
-//   interface Chainable<Subject = any> {
-//     customCommand(param: any): typeof customCommand;
-//   }
-// }
-//
-// function customCommand(param: any): void {
-//   console.warn(param);
-// }
-//
-// NOTE: You can use it like so:
-// Cypress.Commands.add('customCommand', customCommand);
-//
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+// Declare Cypress namespace to help with Intellisense & code completion in IDEs
+// ALL custom commands MUST be listed here for code completion to work
+// tslint:disable-next-line:no-namespace
+declare namespace Cypress {
+    interface Chainable<Subject = any> {
+        login(email: string, password: string): typeof login;
+        logout(): typeof logout;
+    }
+}
+
+/**
+ * Login from any page via DSpace's header menu
+ * @param email email to login as
+ * @param password password to login as
+ */
+function login(email: string, password: string): void {
+    // Click the closed "Log In" dropdown menu (to open Login menu)
+    cy.get('ds-auth-nav-menu.navbar-collapsed').click();
+    // Enter email
+    cy.get('ds-themed-navbar ds-log-in-password input[type = "email"]').type(email);
+    // Enter password
+    cy.get('ds-themed-navbar ds-log-in-password input[type = "password"]').type(password);
+    // Click login button
+    cy.get('ds-themed-navbar ds-log-in-password button[type = "submit"]').click();
+}
+// Add as a Cypress command (i.e. assign to 'cy.login')
+Cypress.Commands.add('login', login);
+
+
+/**
+ * Logout from any page via DSpace's header menu.
+ * NOTE: Also waits until logout completes before next command will be run.
+ */
+ function logout(): void {
+    // Click the closed User dropdown menu (to open user menu in header)
+    cy.get('ds-auth-nav-menu.navbar-collapsed').click();
+    // This is the POST command that will actually log us out
+    cy.intercept('POST', '/server/api/authn/logout').as('logout');
+    // Click logout button
+    cy.get('ds-themed-navbar ds-log-out button').click();
+    // Wait until above POST command responds before continuing
+    cy.wait('@logout');
+}
+// Add as a Cypress command (i.e. assign to 'cy.logout')
+Cypress.Commands.add('logout', logout);
