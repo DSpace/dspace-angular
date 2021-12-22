@@ -9,6 +9,8 @@ import { SectionDataService } from '../core/layout/section-data.service';
 import { getFirstSucceededRemoteListPayload } from '../core/shared/operators';
 import { Section } from '../core/layout/models/section.model';
 
+export const COMMUNITY_COLLECTION_MENU_SHOW = false;
+
 /**
  * Component representing the public navbar
  */
@@ -42,20 +44,24 @@ export class NavbarComponent extends MenuComponent {
    * Initialize all menu sections and items for this menu
    */
   createMenu() {
-    const menuList: any[] = [
-      /* Communities & Collections tree */
-      {
-        id: `browse_global_communities_and_collections`,
-        active: false,
-        visible: true,
-        index: 0,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.communities_and_collections`,
-          link: `/community-list`
-        } as LinkMenuItemModel
-      },
-    ];
+    const menuList: any[] = [];
+
+    /* Communities & Collections tree */
+    const CommunityCollectionMenuItem = {
+      id: `browse_global_communities_and_collections`,
+      active: false,
+      visible: COMMUNITY_COLLECTION_MENU_SHOW,
+      index: 0,
+      model: {
+        type: MenuItemType.LINK,
+        text: `menu.section.communities_and_collections`,
+        link: `/community-list`
+      } as LinkMenuItemModel
+    };
+
+    if (COMMUNITY_COLLECTION_MENU_SHOW) {
+      menuList.push(CommunityCollectionMenuItem);
+    }
 
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
@@ -66,20 +72,20 @@ export class NavbarComponent extends MenuComponent {
       .subscribe( (sections: Section[]) => {
         sections
           .forEach( (section) => {
-          const menuSection = {
-            id: `explore_${section.id}`,
-            active: false,
-            visible: true,
-            model: {
-              type: MenuItemType.LINK,
-              text: `menu.section.explore_${section.id}`,
-              link: `/explore/${section.id}`
-            } as LinkMenuItemModel
-          };
-          this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-            shouldPersistOnRouteChange: true
-          }));
-        });
+            const menuSection = {
+              id: `explore_${section.id}`,
+              active: false,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: `menu.section.explore_${section.id}`,
+                link: `/explore/${section.id}`
+              } as LinkMenuItemModel
+            };
+            this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+              shouldPersistOnRouteChange: true
+            }));
+          });
       });
 
   }
