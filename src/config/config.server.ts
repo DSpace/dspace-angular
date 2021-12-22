@@ -47,7 +47,7 @@ const getEnvironment = (): Environment => {
         environment = 'development';
         break;
       default:
-        console.warn(`Unknown NODE_ENV ${ENV('NODE_ENV')}. Defaulting to development`);
+        console.warn(`Unknown NODE_ENV ${ENV('NODE_ENV')}. Defaulting to production.`);
     }
   }
 
