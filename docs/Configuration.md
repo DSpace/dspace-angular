@@ -68,6 +68,7 @@ Settings can be set using the following convention for naming the environment va
 
 1. replace all `.` with `_`
 2. convert all characters to upper case
+3. prefix with `DSPACE_`
 
 e.g.
 
