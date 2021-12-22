@@ -1,6 +1,5 @@
 import { GlobalConfig } from '../config/global-config.interface';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 
 export const environment: GlobalConfig = {
@@ -207,32 +206,6 @@ export const environment: GlobalConfig = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
-    // List of all the active Browse-By types
-    // Adding a type will activate their Browse-By page and add them to the global navigation menu,
-    // as well as community and collection pages
-    // Allowed fields and their purpose:
-    //    id:             The browse id to use for fetching info from the rest api
-    //    type:           The type of Browse-By page to display
-    //    metadataField:  The metadata-field used to create starts-with options (only necessary when the type is set to 'date')
-    types: [
-      {
-        id: 'title',
-        type: BrowseByType.Title,
-      },
-      {
-        id: 'dateissued',
-        type: BrowseByType.Date,
-        metadataField: 'dc.date.issued'
-      },
-      {
-        id: 'author',
-        type: BrowseByType.Metadata
-      },
-      {
-        id: 'subject',
-        type: BrowseByType.Metadata
-      }
-    ]
   },
   item: {
     edit: {
