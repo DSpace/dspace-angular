@@ -33,7 +33,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerComponent } from './mirador-viewer/mirador-viewer.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
-import { ThemedFileSectionComponent} from './simple/field-components/file-section/themed-file-section.component';
+import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -91,7 +91,7 @@ const DECLARATIONS = [
 export class ItemPageModule {
   /**
    * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during CSR otherwise
+   * which are not loaded during SSR otherwise
    */
   static withEntryComponents() {
     return {

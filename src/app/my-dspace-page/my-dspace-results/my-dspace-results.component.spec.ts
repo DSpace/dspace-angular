@@ -40,9 +40,19 @@ describe('MyDSpaceResultsComponent', () => {
     expect(fixture.debugElement.query(By.css('a'))).toBeNull();
   });
 
-  it('should display error message if error is != 400', () => {
-    (comp as any).searchResults = { hasFailed: true, error: { statusCode: 500 } };
+  it('should display error message if error is 500', () => {
+    (comp as any).searchResults = { hasFailed: true, statusCode: 500 };
     fixture.detectChanges();
+    expect(comp.showError()).toBeTrue();
+    expect(comp.errorMessageLabel()).toBe('error.search-results');
+    expect(fixture.debugElement.query(By.css('ds-error'))).not.toBeNull();
+  });
+
+  it('should display error message if error is 422', () => {
+    (comp as any).searchResults = { hasFailed: true, statusCode: 422 };
+    fixture.detectChanges();
+    expect(comp.showError()).toBeTrue();
+    expect(comp.errorMessageLabel()).toBe('error.invalid-search-query');
     expect(fixture.debugElement.query(By.css('ds-error'))).not.toBeNull();
   });
 

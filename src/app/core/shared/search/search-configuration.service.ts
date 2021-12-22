@@ -26,7 +26,7 @@ import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../s
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SearchConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { PaginationService } from '../../pagination/pagination.service';
 
 /**

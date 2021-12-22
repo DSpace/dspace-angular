@@ -243,12 +243,12 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
 
       // Clear previous state
-      startDateControl.markAsUntouched();
-      endDateControl.markAsUntouched();
+      startDateControl?.markAsUntouched();
+      endDateControl?.markAsUntouched();
 
-      startDateControl.setValue(null);
+      startDateControl?.setValue(null);
       control.parent.markAsDirty();
-      endDateControl.setValue(null);
+      endDateControl?.setValue(null);
 
       if (showGroups) {
         if (accessCondition.hasStartDate) {

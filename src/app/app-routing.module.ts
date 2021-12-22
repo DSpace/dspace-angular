@@ -202,8 +202,8 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{
-      onSameUrlNavigation: 'reload',
-    })
+    onSameUrlNavigation: 'reload',
+})
   ],
   exports: [RouterModule],
 })
