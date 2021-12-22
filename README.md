@@ -132,19 +132,19 @@ e.g.
 
 ```bash
 # The host name of the REST application
-dspace.rest.host => DSPACE_REST_HOST
+rest.host => DSPACE_REST_HOST
 
 # The port number of the REST application
-dspace.rest.port => DSPACE_REST_PORT
+rest.port => DSPACE_REST_PORT
 
 # The namespace of the REST application
-dspace.rest.nameSpace => DSPACE_REST_NAMESPACE
+rest.nameSpace => DSPACE_REST_NAMESPACE
 
 # Whether the angular REST uses SSL [true/false]
-dspace.rest.ssl => DSPACE_REST_SSL
+rest.ssl => DSPACE_REST_SSL
 
-cache.msToLive.default => CACHE_MSTOLIVE_DEFAULT
-auth.ui.timeUntilIdle => AUTH_UI_TIMEUNTILIDLE
+cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
+auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
 ```
 
 The equavelant to the non-conventional legacy settings:
