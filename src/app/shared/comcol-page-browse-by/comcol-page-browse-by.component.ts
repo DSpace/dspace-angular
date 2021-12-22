@@ -2,10 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
-import { environment } from '../../../environments/environment';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { BrowseService } from '../../core/browse/browse.service';
 
 export interface ComColPageNavOption {
   id: string;
@@ -29,10 +32,6 @@ export class ComcolPageBrowseByComponent implements OnInit {
    */
   @Input() id: string;
   @Input() contentType: string;
-  /**
-   * List of currently active browse configurations
-   */
-  types: BrowseByTypeConfig[];
 
   allOptions: ComColPageNavOption[];
 
@@ -40,31 +39,39 @@ export class ComcolPageBrowseByComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private browseService: BrowseService
+  ) {
   }
 
   ngOnInit(): void {
-    this.allOptions = environment.browseBy.types
-      .map((config: BrowseByTypeConfig) => ({
-        id: config.id,
-        label: `browse.comcol.by.${config.id}`,
-        routerLink: `/browse/${config.id}`,
-        params: { scope: this.id }
-      }));
+    this.browseService.getBrowseDefinitions()
+      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
+      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+        if (browseDefListRD.hasSucceeded) {
+          this.allOptions = browseDefListRD.payload.page
+            .map((config: BrowseDefinition) => ({
+              id: config.id,
+              label: `browse.comcol.by.${config.id}`,
+              routerLink: `/browse/${config.id}`,
+              params: { scope: this.id }
+            }));
 
-    if (this.contentType === 'collection') {
-      this.allOptions = [ {
-        id: this.id,
-        label: 'collection.page.browse.recent.head',
-        routerLink: getCollectionPageRoute(this.id)
-      }, ...this.allOptions ];
-    } else if (this.contentType === 'community') {
-      this.allOptions = [{
-          id: this.id,
-          label: 'community.all-lists.head',
-          routerLink: getCommunityPageRoute(this.id)
-        }, ...this.allOptions ];
-    }
+          if (this.contentType === 'collection') {
+            this.allOptions = [{
+              id: this.id,
+              label: 'collection.page.browse.recent.head',
+              routerLink: getCollectionPageRoute(this.id)
+            }, ...this.allOptions];
+          } else if (this.contentType === 'community') {
+            this.allOptions = [{
+              id: this.id,
+              label: 'community.all-lists.head',
+              routerLink: getCommunityPageRoute(this.id)
+            }, ...this.allOptions];
+          }
+        }
+      });
 
     this.currentOptionId$ = this.route.params.pipe(
       map((params: Params) => params.id)
