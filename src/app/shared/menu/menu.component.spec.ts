@@ -7,9 +7,12 @@ import { MenuComponent } from './menu.component';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { MenuSection } from './menu.reducer';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuID } from './initial-menus-state';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { Item } from '../../core/shared/item.model';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
@@ -19,13 +22,38 @@ describe('MenuComponent', () => {
 
   const mockMenuID = 'mock-menuID' as MenuID;
 
+  const authorizationService = jasmine.createSpyObj('authorizationService', {
+    isAuthorized: observableOf(true)
+  });
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
+  });
+
+  const routeStub = {
+    data: observableOf({
+      dso: createSuccessfulRemoteDataObject(mockItem)
+    }),
+    children: []
+  };
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [MenuComponent],
       providers: [
         Injector,
-        { provide: MenuService, useClass: MenuServiceStub }
+        { provide: MenuService, useClass: MenuServiceStub },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MenuComponent, {
@@ -95,4 +123,38 @@ describe('MenuComponent', () => {
       expect(menuService.collapseMenuPreview).toHaveBeenCalledWith(comp.menuID);
     }));
   });
+
+  describe('when unauthorized statistics', () => {
+
+    beforeEach(() => {
+      comp.sections = observableOf([{ 'id': 'browse_global_communities_and_collections', 'active': false, 'visible': true, 'index': 0, 'model': { 'type': 1, 'text': 'menu.section.browse_global_communities_and_collections', 'link': '/community-list' }, 'shouldPersistOnRouteChange': true }, { 'id': 'browse_global', 'active': false, 'visible': true, 'index': 1, 'model': { 'type': 0, 'text': 'menu.section.browse_global' }, 'shouldPersistOnRouteChange': true }, { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } }]);
+      authorizationService.isAuthorized().and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+
+    it('when authorized statistics', (done => {
+      comp.sections.subscribe((sections) => {
+        expect(sections.length).toEqual(2);
+        done();
+      });
+    }));
+  });
+
+  describe('get authorized statistics', () => {
+
+    beforeEach(() => {
+      comp.sections = observableOf([{ 'id': 'browse_global_communities_and_collections', 'active': false, 'visible': true, 'index': 0, 'model': { 'type': 1, 'text': 'menu.section.browse_global_communities_and_collections', 'link': '/community-list' }, 'shouldPersistOnRouteChange': true }, { 'id': 'browse_global', 'active': false, 'visible': true, 'index': 1, 'model': { 'type': 0, 'text': 'menu.section.browse_global' }, 'shouldPersistOnRouteChange': true }, { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } }]);
+      fixture.detectChanges();
+    });
+
+    it('get authorized statistics', (done => {
+      comp.sections.subscribe((sections) => {
+        expect(sections.length).toEqual(3);
+        done();
+      });
+    }));
+  });
+
+
+
 });
