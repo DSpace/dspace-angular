@@ -6,9 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { RemoteData } from '../core/data/remote-data';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
 
 @Injectable()
