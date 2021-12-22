@@ -124,6 +124,7 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
               break;
             case 'string':
               config[property] = value;
+              break;
             default:
               console.warn(`Unsupported environment variable type ${typeof innerConfig} ${DSPACE(variable)}`);
           }
