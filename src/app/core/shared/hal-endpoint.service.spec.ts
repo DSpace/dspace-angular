@@ -89,7 +89,7 @@ describe('HALEndpointService', () => {
   describe('getRootEndpointMap', () => {
     it('should send a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl + 'api');
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), `${environment.rest.baseUrl}/api`);
       expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 
