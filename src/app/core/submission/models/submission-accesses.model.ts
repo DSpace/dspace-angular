@@ -3,7 +3,7 @@ import { typedObject } from '../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { HALResource } from '../../shared/hal-resource.model';
-import { SUBMISSION_ACCESSES } from 'src/app/core/submission/models/submission-accesses.resource-type';
+import { SUBMISSION_ACCESSES } from './submission-accesses.resource-type';
 
 @typedObject
 @inheritSerialization(HALResource)

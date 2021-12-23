@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { Collection } from '../../core/shared/collection.model';
@@ -131,7 +131,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     if ((changes.collectionId && this.collectionId) && (changes.submissionId && this.submissionId)) {
       this.isActive = true;
 
-
       // retrieve submission's section list
       this.submissionSections = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),
@@ -144,9 +143,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           } else {
             return observableOf([]);
           }
-        }),
-        tap((res) => { console.log(res); }));
-
+        }));
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
 
       // check if is submission loading
@@ -233,8 +230,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   protected getSectionsList(): Observable<any> {
     return this.submissionService.getSubmissionSections(this.submissionId).pipe(
       filter((sections: SectionDataObject[]) => isNotEmpty(sections)),
-      map((sections: SectionDataObject[]) => sections
-      ));
-
+      map((sections: SectionDataObject[]) => sections));
   }
 }

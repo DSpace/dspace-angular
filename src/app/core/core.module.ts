@@ -2,11 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import {
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -163,7 +159,7 @@ import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { SequenceService } from './shared/sequence.service';
-import { SubmissionAccessesModel } from 'src/app/core/config/models/config-submission-accesses.model';
+import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

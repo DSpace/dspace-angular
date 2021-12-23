@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { SubmissionState } from '../../submission.reducers';
 import { isUndefined } from 'util';
-import { submissionSectionFromIdSelector, submissionSectionDataFromIdSelector } from 'src/app/submission/selectors';
+import { submissionSectionDataFromIdSelector } from '../../selectors';
 
 
 /**
@@ -30,8 +30,6 @@ export class SectionAccessesService {
    *    The submission id
    * @param sectionId
    *    The section id
-   * @param fileUUID
-   *    The bitstream UUID
    * @returns {Observable}
    *    Emits bitstream's metadata
    */

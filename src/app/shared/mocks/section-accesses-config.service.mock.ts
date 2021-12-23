@@ -1,6 +1,6 @@
 import { SubmissionFormsConfigService } from '../../core/config/submission-forms-config.service';
-import { SubmissionFormsModel } from 'src/app/core/config/models/config-submission-forms.model';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 const configRes = Object.assign(new SubmissionFormsModel(), {
   'id': 'AccessConditionDefaultConfiguration',

@@ -37,9 +37,9 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
-import { SubmissionSectionAccessesComponent } from 'src/app/submission/sections/accesses/section-accesses.component';
-import { SubmissionAccessesConfigService } from 'src/app/core/config/submission-accesses-config.service';
-import { SectionAccessesService } from 'src/app/submission/sections/accesses/section-accesses.service';
+import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
+import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
+import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 
 const DECLARATIONS = [
   SubmissionSectionUploadAccessConditionsComponent,

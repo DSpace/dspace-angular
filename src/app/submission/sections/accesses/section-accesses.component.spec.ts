@@ -1,29 +1,34 @@
-import { FormService } from './../../../shared/form/form.service';
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { FormService } from '../../../shared/form/form.service';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
-import { SectionsService } from 'src/app/submission/sections/sections.service';
-import { SectionsServiceStub } from 'src/app/shared/testing/sections-service.stub';
+import { SectionsService } from '../sections.service';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 
-import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from 'src/app/shared/mocks/form-builder-service.mock';
-import { SubmissionAccessesConfigService } from 'src/app/core/config/submission-accesses-config.service';
-import { getSubmissionAccessesConfigService } from 'src/app/shared/mocks/section-accesses-config.service.mock';
-import { SectionAccessesService } from 'src/app/submission/sections/accesses/section-accesses.service';
-import { SectionFormOperationsService } from 'src/app/submission/sections/form/section-form-operations.service';
-import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { SubmissionJsonPatchOperationsService } from 'src/app/core/submission/submission-json-patch-operations.service';
-import { getSectionAccessesService } from 'src/app/shared/mocks/section-accesses.service.mock';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
+import { getSubmissionAccessesConfigService } from '../../../shared/mocks/section-accesses-config.service.mock';
+import { SectionAccessesService } from './section-accesses.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
 import { getMockFormOperationsService } from 'src/app/shared/mocks/form-operations-service.mock';
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from 'src/app/shared/testing/submission-json-patch-operations-service.stub';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { Observable, of as observableOf, observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { FormComponent } from 'src/app/shared/form/form.component';
-import { DynamicFormControlModel, DynamicCheckboxModel, DynamicFormArrayGroupModel, DynamicSelectModel, DynamicDatePickerModel, DynamicFormArrayModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicCheckboxModel,
+  DynamicDatePickerModel,
+  DynamicFormArrayModel,
+  DynamicSelectModel
+} from '@ng-dynamic-forms/core';
 import { AppState } from 'src/app/app.reducer';
 import { getMockFormService } from 'src/app/shared/mocks/form-service.mock';
 import { mockAccessesFormData } from 'src/app/shared/mocks/submission.mock';

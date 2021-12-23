@@ -1,4 +1,4 @@
-import { SubmissionFormsModel } from 'src/app/core/config/models/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
 import { of as observableOf } from 'rxjs';
 
 const dataRes = Object.assign(new SubmissionFormsModel(), {
