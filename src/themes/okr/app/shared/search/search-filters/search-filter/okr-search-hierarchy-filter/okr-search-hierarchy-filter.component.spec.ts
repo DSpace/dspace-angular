@@ -82,7 +82,7 @@ describe('OkrSearchHierarchyFilterComponent', () => {
   function init() {
     fixture = TestBed.createComponent(OkrSearchHierarchyFilterComponent);
     fixture.detectChanges();
-    showVocabularyTreeLink = fixture.debugElement.query(By.css('div#show-test-search-filter-tree'));
+    showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
   }
 
   describe('if the vocabulary doesn\'t exist', () => {

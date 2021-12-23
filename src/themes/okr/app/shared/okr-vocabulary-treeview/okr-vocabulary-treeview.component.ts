@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { VocabularyTreeviewComponent } from '../../../../../app/shared/vocabulary-treeview/vocabulary-treeview.component';
-import { filter, startWith } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { PageInfo } from '../../../../../app/core/shared/page-info.model';
+import { lowerCase } from 'lodash';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view.
@@ -27,10 +28,10 @@ export class OkrVocabularyTreeviewComponent extends VocabularyTreeviewComponent 
       })
     );
 
-    const descriptionLabel = 'vocabulary-treeview.tree.description.' + this.vocabularyOptions.name;
-    this.description = this.translate.get(descriptionLabel).pipe(
-      filter((msg) => msg !== descriptionLabel),
-      startWith('')
+    this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
+      map((type) => lowerCase(type)),
+    ).subscribe(
+      (type) => this.description = this.translate.get('okr-vocabulary-treeview.info', { type })
     );
 
     this.loading = this.vocabularyTreeviewService.isLoading();
