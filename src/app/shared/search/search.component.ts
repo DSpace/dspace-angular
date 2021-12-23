@@ -112,6 +112,16 @@ export class SearchComponent implements OnInit {
   currentContext$: BehaviorSubject<Context> = new BehaviorSubject<Context>(null);
 
   /**
+   * The current sort options used
+   */
+  currentScope$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  /**
+   * The current sort options used
+   */
+  currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
+
+  /**
    * The current search results
    */
   resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
@@ -127,9 +137,9 @@ export class SearchComponent implements OnInit {
   sortOptionsList$: BehaviorSubject<SortOptions[]> = new BehaviorSubject<SortOptions[]>([]);
 
   /**
-   * The current sort options used
+   * TRUE if the search option are initialized
    */
-  currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
+  initialized$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Observable for whether or not the sidebar is currently collapsed
@@ -204,7 +214,6 @@ export class SearchComponent implements OnInit {
         return searchOptions.pagination.id === this.paginationId;
       })
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
-
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
@@ -215,9 +224,10 @@ export class SearchComponent implements OnInit {
       // Initialize variables
       this.currentConfiguration$.next(configuration);
       this.currentSortOptions$.next(newSearchOptions.sort);
+      this.currentScope$.next(newSearchOptions.scope);
       this.sortOptionsList$.next(searchSortOptions);
       this.searchOptions$.next(newSearchOptions);
-
+      this.initialized$.next(true);
       // retrieve results
       this.retrieveSearchResults(newSearchOptions);
     });

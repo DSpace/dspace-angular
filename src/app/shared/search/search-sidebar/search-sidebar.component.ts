@@ -33,6 +33,11 @@ export class SearchSidebarComponent {
   @Input() configurationList: SearchConfigurationOption[];
 
   /**
+   * The current search scope
+   */
+  @Input() currentScope: string;
+
+  /**
    * The current sort option used
    */
   @Input() currentSortOption: SortOptions;

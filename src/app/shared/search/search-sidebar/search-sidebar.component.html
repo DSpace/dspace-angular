@@ -15,7 +15,10 @@
                                             [defaultConfiguration]="configuration"
                                             [inPlaceSearch]="inPlaceSearch"
                                             (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
-            <ds-search-filters [refreshFilters]="refreshFilters" [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+            <ds-search-filters [currentScope]="currentScope"
+                               [currentConfiguration]="configuration"
+                               [refreshFilters]="refreshFilters"
+                               [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
             <ds-search-settings [currentSortOption]="currentSortOption" [sortOptionsList]="sortOptionsList"></ds-search-settings>
         </div>
     </div>

@@ -6,11 +6,11 @@
     </div>
 </div>
 
-<div *ngIf="!showSidebar">
+<div *ngIf="!showSidebar && (initialized$ | async)">
   <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
 
-<ds-page-with-sidebar *ngIf="showSidebar" [id]="'search-page'" [sidebarContent]="sidebarContent">
+<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)" [id]="'search-page'" [sidebarContent]="sidebarContent">
   <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </ds-page-with-sidebar>
 
@@ -41,6 +41,7 @@
     <ds-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
+                       [currentScope]="(currentScope$ | async)"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
@@ -50,6 +51,7 @@
     <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
+                       [currentScope]="(currentScope$ | async)"
                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                        [searchOptions]="(searchOptions$ | async)"
                        [sortOptionsList]="(sortOptionsList$ | async)"
