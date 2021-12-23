@@ -55,9 +55,6 @@ import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.com
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
-import { UUIDService } from './core/shared/uuid.service';
-import { CookieService } from './core/services/cookie.service';
-
 import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
 
 export function getConfig() {
