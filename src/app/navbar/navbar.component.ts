@@ -7,11 +7,8 @@ import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { environment } from '../../environments/environment';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { map, take } from 'rxjs/operators';
-import { RemoteData } from '../core/data/remote-data';
-import { Collection } from 'src/app/core/shared/collection.model';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 /**
  * Component representing the public navbar

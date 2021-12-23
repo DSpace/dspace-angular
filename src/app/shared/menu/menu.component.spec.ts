@@ -10,9 +10,9 @@ import { MenuSection } from './menu.reducer';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuID } from './initial-menus-state';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
@@ -21,6 +21,8 @@ describe('MenuComponent', () => {
   let router: any;
 
   const mockMenuID = 'mock-menuID' as MenuID;
+
+  const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
 
   const authorizationService = jasmine.createSpyObj('authorizationService', {
     isAuthorized: observableOf(true)
@@ -37,6 +39,7 @@ describe('MenuComponent', () => {
       }
     }
   });
+
 
   const routeStub = {
     data: observableOf({
@@ -125,36 +128,15 @@ describe('MenuComponent', () => {
   });
 
   describe('when unauthorized statistics', () => {
-
-    beforeEach(() => {
-      comp.sections = observableOf([{ 'id': 'browse_global_communities_and_collections', 'active': false, 'visible': true, 'index': 0, 'model': { 'type': 1, 'text': 'menu.section.browse_global_communities_and_collections', 'link': '/community-list' }, 'shouldPersistOnRouteChange': true }, { 'id': 'browse_global', 'active': false, 'visible': true, 'index': 1, 'model': { 'type': 0, 'text': 'menu.section.browse_global' }, 'shouldPersistOnRouteChange': true }, { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } }]);
-      authorizationService.isAuthorized().and.returnValue(observableOf(false));
-      fixture.detectChanges();
+    it('should get observable of empty object', () => {
+      expect(comp.getAuthorizedStatistics(mockStatisticSection)).toBeObservable({});
     });
-
-    it('when authorized statistics', (done => {
-      comp.sections.subscribe((sections) => {
-        expect(sections.length).toEqual(2);
-        done();
-      });
-    }));
   });
 
   describe('get authorized statistics', () => {
-
-    beforeEach(() => {
-      comp.sections = observableOf([{ 'id': 'browse_global_communities_and_collections', 'active': false, 'visible': true, 'index': 0, 'model': { 'type': 1, 'text': 'menu.section.browse_global_communities_and_collections', 'link': '/community-list' }, 'shouldPersistOnRouteChange': true }, { 'id': 'browse_global', 'active': false, 'visible': true, 'index': 1, 'model': { 'type': 0, 'text': 'menu.section.browse_global' }, 'shouldPersistOnRouteChange': true }, { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } }]);
-      fixture.detectChanges();
+    it('should get observable of empty object', () => {
+      expect(comp.getAuthorizedStatistics(mockStatisticSection)).toBeObservable(mockStatisticSection);
     });
-
-    it('get authorized statistics', (done => {
-      comp.sections.subscribe((sections) => {
-        expect(sections.length).toEqual(3);
-        done();
-      });
-    }));
   });
-
-
 
 });

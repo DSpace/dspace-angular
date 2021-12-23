@@ -10,7 +10,7 @@ import { ThemedCommunityStatisticsPageComponent } from './community-statistics-p
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 import { ItemResolver } from '../item-page/item.resolver';
-import { StatisticsAdministratorGuard } from 'src/app/core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
 @NgModule({
   imports: [

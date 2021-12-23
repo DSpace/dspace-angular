@@ -13,9 +13,38 @@ import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Item } from '../core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { By } from '@angular/platform-browser';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
+
+const authorizationService = jasmine.createSpyObj('authorizationService', {
+  isAuthorized: observableOf(true)
+});
+
+const mockItem = Object.assign(new Item(), {
+  id: 'fake-id',
+  uuid: 'fake-id',
+  handle: 'fake/handle',
+  lastModified: '2018',
+  _links: {
+    self: {
+      href: 'https://localhost:8000/items/fake-id'
+    }
+  }
+});
+
+const routeStub = {
+  data: observableOf({
+    dso: createSuccessfulRemoteDataObject(mockItem)
+  }),
+  children: []
+};
+
+
 
 describe('NavbarComponent', () => {
   const menuService = new MenuServiceStub();
@@ -33,7 +62,8 @@ describe('NavbarComponent', () => {
         Injector,
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: ActivatedRoute, useValue: {} }
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -42,7 +72,6 @@ describe('NavbarComponent', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
 
     fixture = TestBed.createComponent(NavbarComponent);
 
@@ -53,4 +82,6 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(comp).toBeTruthy();
   });
+
+
 });

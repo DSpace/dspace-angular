@@ -9,9 +9,9 @@ import { hasValue, isNotEmpty, hasValueOperator, isNotEmptyOperator } from '../e
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
 import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 /**
  * A basic implementation of a MenuComponent
@@ -87,7 +87,6 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     this.subs.push(
       this.sections.pipe(
-        tap(t => console.log(t)),
         // if you return an array from a switchMap it will emit each element as a separate event.
         // So this switchMap is equivalent to a subscribe with a forEach inside
         switchMap((sections: MenuSection[]) => sections),
