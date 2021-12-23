@@ -1,5 +1,5 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
