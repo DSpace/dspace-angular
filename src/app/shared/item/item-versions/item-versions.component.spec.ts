@@ -24,8 +24,9 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
-describe('ItemVersionsComponent', () => {
+fdescribe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
   let fixture: ComponentFixture<ItemVersionsComponent>;
   let authenticationService: AuthService;
@@ -109,6 +110,10 @@ describe('ItemVersionsComponent', () => {
     findById: EMPTY,
   });
 
+  const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
+    findByPropertyName: of(true),
+  });
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -125,6 +130,7 @@ describe('ItemVersionsComponent', () => {
         {provide: VersionDataService, useValue: versionServiceSpy},
         {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
+        {provide: ConfigurationDataService, useValue: configurationServiceSpy()},
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
