@@ -17,12 +17,16 @@ import { Router } from '@angular/router';
   templateUrl: './view-mode-switch.component.html'
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
-  @Input() viewModeList: ViewMode[];
 
   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
+
+  /**
+   * List of available view mode
+   */
+  @Input() viewModeList: ViewMode[];
 
   /**
    * The current view mode

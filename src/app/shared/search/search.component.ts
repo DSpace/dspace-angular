@@ -99,6 +99,11 @@ export class SearchComponent implements OnInit {
   /**
    * List of available view mode
    */
+  @Input() useUniquePageId: false;
+
+  /**
+   * List of available view mode
+   */
   @Input() viewModeList: ViewMode[];
 
   /**
@@ -178,8 +183,11 @@ export class SearchComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    // Create an unique pagination id related to the instance of the SearchComponent
-    this.paginationId = uniqueId(this.paginationId);
+    if (this.useUniquePageId) {
+      // Create an unique pagination id related to the instance of the SearchComponent
+      this.paginationId = uniqueId(this.paginationId);
+    }
+
     this.searchConfigService.setPaginationId(this.paginationId);
 
     if (hasValue(this.fixedFilterQuery)) {

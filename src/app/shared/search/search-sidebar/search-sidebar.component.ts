@@ -4,6 +4,7 @@ import { SearchConfigurationOption } from '../search-switch-configuration/search
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 /**
  * This component renders a simple item page.
@@ -50,7 +51,7 @@ export class SearchSidebarComponent {
   /**
    * The list of available view mode options
    */
-  @Input() viewModeList;
+  @Input() viewModeList: ViewMode[];
 
   /**
    * Whether to show the view mode switch
