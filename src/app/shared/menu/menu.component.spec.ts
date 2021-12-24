@@ -24,9 +24,7 @@ describe('MenuComponent', () => {
 
   const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
 
-  const authorizationService = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true)
-  });
+  let authorizationService: AuthorizationDataService;
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
@@ -49,6 +47,11 @@ describe('MenuComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
+
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(false)
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [MenuComponent],
@@ -128,14 +131,32 @@ describe('MenuComponent', () => {
   });
 
   describe('when unauthorized statistics', () => {
-    it('should get observable of empty object', () => {
-      expect(comp.getAuthorizedStatistics(mockStatisticSection)).toBeObservable({});
+
+    beforeEach(() => {
+      (authorizationService as any).isAuthorized.and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+
+    it('should return observable of empty object', done => {
+      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
+        expect(res).toEqual({});
+        done();
+      });
     });
   });
 
   describe('get authorized statistics', () => {
-    it('should get observable of empty object', () => {
-      expect(comp.getAuthorizedStatistics(mockStatisticSection)).toBeObservable(mockStatisticSection);
+
+    beforeEach(() => {
+      (authorizationService as any).isAuthorized.and.returnValue(observableOf(true));
+      fixture.detectChanges();
+    });
+
+    it('should return observable of statistics section menu', done => {
+      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
+        expect(res).toEqual(mockStatisticSection);
+        done();
+      });
     });
   });
 
