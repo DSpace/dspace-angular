@@ -4449,6 +4449,8 @@
 
   "search.filters.applied.f.personorgunits": "Organisation",
 
+  "search.filters.applied.f.personOrgUnits": "Organisation",
+
   "search.filters.applied.f.projectorgunits": "Organisation",
 
   "search.filters.applied.f.subject": "Subject",
@@ -4617,6 +4619,8 @@
   "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
 
   "search.filters.filter.personOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.label" : "Search organizations",
 
   "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
 
