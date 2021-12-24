@@ -10,6 +10,7 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { Context } from '../core/shared/context.model';
+import { RoleType } from '../core/roles/role-types';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -45,6 +46,11 @@ export class MyDSpacePageComponent implements OnInit {
    * The start configuration to use in the search: workspace or workflow
    */
   configuration: string;
+
+  /**
+   * Variable for enumeration RoleType
+   */
+  roleTypeEnum = RoleType;
 
   /**
    * List of available view mode
