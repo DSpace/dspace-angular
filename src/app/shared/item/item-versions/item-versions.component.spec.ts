@@ -26,7 +26,7 @@ import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
-fdescribe('ItemVersionsComponent', () => {
+describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
   let fixture: ComponentFixture<ItemVersionsComponent>;
   let authenticationService: AuthService;
@@ -35,6 +35,7 @@ fdescribe('ItemVersionsComponent', () => {
   let workspaceItemDataService: WorkspaceitemDataService;
   let workflowItemDataService: WorkflowItemDataService;
   let versionService: VersionDataService;
+  let configurationService: ConfigurationDataService;
 
   const versionHistory = Object.assign(new VersionHistory(), {
     id: '1',
@@ -130,7 +131,7 @@ fdescribe('ItemVersionsComponent', () => {
         {provide: VersionDataService, useValue: versionServiceSpy},
         {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
-        {provide: ConfigurationDataService, useValue: configurationServiceSpy()},
+        {provide: ConfigurationDataService, useValue: configurationServiceSpy},
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -141,6 +142,7 @@ fdescribe('ItemVersionsComponent', () => {
     workspaceItemDataService = TestBed.inject(WorkspaceitemDataService);
     workflowItemDataService = TestBed.inject(WorkflowItemDataService);
     versionService = TestBed.inject(VersionDataService);
+    configurationService = TestBed.inject(ConfigurationDataService);
 
   }));
 
