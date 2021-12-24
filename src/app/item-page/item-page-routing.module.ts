@@ -58,7 +58,6 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
               id: 'statistics_item_:id',
               active: true,
               visible: true,
-              type: 'statistics',
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',

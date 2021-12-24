@@ -21,7 +21,6 @@ import { ThemedHomePageComponent } from './themed-home-page.component';
               active: true,
               visible: true,
               index: 2,
-              type: 'statistics',
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',

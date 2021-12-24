@@ -72,7 +72,6 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
               id: 'statistics_collection_:id',
               active: true,
               visible: true,
-              type: 'statistics',
               model: {
                 type: MenuItemType.LINK,
                 text: 'menu.section.statistics',

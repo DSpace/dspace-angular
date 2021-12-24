@@ -5,7 +5,6 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { AuthService } from '../../../auth/auth.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { FeatureID } from '../feature-id';
-import { tap } from 'rxjs/operators';
 
 /**
  * Prevent unauthorized activating and loading of routes when the current authenticated user doesn't have group
