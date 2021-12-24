@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,19 +17,37 @@ import { SubmissionService } from '../../../../submission.service';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import {
-  mockGroup,
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
-  mockUploadFiles
+  mockUploadFiles,
+  mockFileFormData,
+  mockSubmissionObject,
 } from '../../../../../shared/mocks/submission.mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
-import { Group } from '../../../../../core/eperson/models/group.model';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { SectionUploadService } from '../../section-upload.service';
+import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
+import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { dateToISOFormat } from '../../../../../shared/date.util';
+import { of } from 'rxjs';
+
+const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
+  add: jasmine.createSpy('add'),
+  replace: jasmine.createSpy('replace'),
+  remove: jasmine.createSpy('remove'),
+});
+
+const formMetadataMock = ['dc.title', 'dc.description'];
 
 describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
@@ -38,7 +56,12 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   let fixture: ComponentFixture<SubmissionSectionUploadFileEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let formbuilderService: any;
+  let operationsBuilder: any;
+  let operationsService: any;
+  let formService: any;
+  let uploadService: any;
 
+  const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
   const submissionId = mockSubmissionId;
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
@@ -48,6 +71,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const fileIndex = '0';
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];
+  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -66,9 +90,15 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       providers: [
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
+        { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
+        { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         FormBuilderService,
         ChangeDetectorRef,
-        SubmissionSectionUploadFileEditComponent
+        SubmissionSectionUploadFileEditComponent,
+        NgbModal,
+        NgbActiveModal,
+        FormComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -114,6 +144,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       formbuilderService = TestBed.inject(FormBuilderService);
+      operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
+      operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);
+      formService = TestBed.inject(FormService);
+      uploadService = TestBed.inject(SectionUploadService);
 
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
@@ -123,6 +157,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
       comp.configMetadataForm = configMetadataForm;
+      comp.formMetadata = formMetadataMock;
+
+      formService.isValid.and.returnValue(of(true));
     });
 
     afterEach(() => {
@@ -135,7 +172,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
-      comp.ngOnChanges();
+      comp.ngOnInit();
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(2);
@@ -165,7 +202,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
-      comp.ngOnChanges();
+      comp.ngOnInit();
 
       const model: DynamicSelectModel<string> = formbuilderService.findById('name', comp.formModel, 0);
       const formGroup = formbuilderService.createFormGroup(comp.formModel);
@@ -186,6 +223,82 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.setOptions(model, control);
       expect(formbuilderService.findById).toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
     });
+
+    it('should retrieve Value From Field properly', () => {
+      let field;
+      expect(compAsAny.retrieveValueFromField(field)).toBeUndefined();
+
+      field = new FormFieldMetadataValueObject('test');
+      expect(compAsAny.retrieveValueFromField(field)).toBe('test');
+
+      field = [new FormFieldMetadataValueObject('test')];
+      expect(compAsAny.retrieveValueFromField(field)).toBe('test');
+    });
+
+    it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
+      compAsAny.formRef = {formGroup: null};
+      compAsAny.fileData = fileData;
+      compAsAny.pathCombiner = pathCombiner;
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockFileFormData));
+
+      const response = [
+        Object.assign(mockSubmissionObject, {
+          sections: {
+            upload: {
+              files: mockUploadFiles
+            }
+          }
+        })
+      ];
+      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+
+      const accessConditionsToSave = [
+        { name: 'openaccess' },
+        { name: 'lease', endDate: dateToISOFormat('2019-01-16T00:00:00Z') },
+        { name: 'embargo', startDate: dateToISOFormat('2019-01-16T00:00:00Z') },
+      ];
+      comp.saveBitstreamData();
+      tick();
+
+      let path = 'metadata/dc.title';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath(path),
+        mockFileFormData.metadata['dc.title'],
+        true
+      );
+
+      path = 'metadata/dc.description';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath(path),
+        mockFileFormData.metadata['dc.description'],
+        true
+      );
+
+      path = 'accessConditions';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath(path),
+        accessConditionsToSave,
+        true
+      );
+
+      expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
+
+    }));
+
+    it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
+      compAsAny.formRef = {formGroup: null};
+      compAsAny.pathCombiner = pathCombiner;
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(of(false));
+      comp.saveBitstreamData();
+      tick();
+
+      expect(uploadService.updateFileData).not.toHaveBeenCalled();
+
+    }));
+
   });
 });
 

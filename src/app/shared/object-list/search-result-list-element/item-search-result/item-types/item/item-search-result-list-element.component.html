@@ -2,9 +2,9 @@
 
 <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
-       [routerLink]="[itemPageRoute]" class="lead item-list-title"
+       [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
        [innerHTML]="dsoTitle"></a>
-    <span *ngIf="linkType == linkTypes.None" class="lead item-list-title"
+    <span *ngIf="linkType == linkTypes.None" class="lead item-list-title dont-break-out"
           [innerHTML]="dsoTitle"></span>
     <span class="text-muted">
       <ds-truncatable-part [id]="dso.id" [minLines]="1">
