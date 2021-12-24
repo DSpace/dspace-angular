@@ -2,13 +2,13 @@ import { hasNoValue } from '../../shared/empty.util';
 import { InjectionToken } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 
-export enum BrowseByType {
+export enum BrowseByDataType {
   Title = 'title',
-  Metadata = 'metadata',
+  Metadata = 'text',
   Date = 'date'
 }
 
-export const DEFAULT_BROWSE_BY_TYPE = BrowseByType.Metadata;
+export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 
 export const BROWSE_BY_COMPONENT_FACTORY = new InjectionToken<(browseByType) => GenericConstructor<any>>('getComponentByBrowseByType', {
   providedIn: 'root',
@@ -21,7 +21,7 @@ const map = new Map();
  * Decorator used for rendering Browse-By pages by type
  * @param browseByType  The type of page
  */
-export function rendersBrowseBy(browseByType: BrowseByType) {
+export function rendersBrowseBy(browseByType: BrowseByDataType) {
   return function decorator(component: any) {
     if (hasNoValue(map.get(browseByType))) {
       map.set(browseByType, component);

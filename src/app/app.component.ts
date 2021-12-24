@@ -1,4 +1,5 @@
 import { distinctUntilChanged, filter, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -17,8 +18,10 @@ import {
   Router,
 } from '@angular/router';
 
+import { isEqual } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
@@ -39,13 +42,12 @@ import { LocaleService } from './core/locale/locale.service';
 import { hasNoValue, hasValue, isNotEmpty } from './shared/empty.util';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { GoogleAnalyticsService } from './statistics/google-analytics.service';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { BASE_THEME_NAME } from './shared/theme-support/theme.constants';
-import { DEFAULT_THEME_CONFIG } from './shared/theme-support/theme.effects';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { getDefaultThemeConfig } from '../config/config.util';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-app',
@@ -59,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
   theme: Observable<ThemeConfig> = of({} as any);
-  notificationOptions = environment.notifications;
+  notificationOptions;
   models;
 
   /**
@@ -88,6 +90,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: any,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
     private themeService: ThemeService,
     private translate: TranslateService,
     private store: Store<HostWindowState>,
@@ -106,6 +109,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Optional() private googleAnalyticsService: GoogleAnalyticsService,
   ) {
 
+    if (!isEqual(environment, this.appConfig)) {
+      throw new Error('environment does not match app config!');
+    }
+
+    this.notificationOptions = environment.notifications;
+
     /* Use models object so all decorators are actually called */
     this.models = models;
 
@@ -116,10 +125,13 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
-      } else if (hasValue(DEFAULT_THEME_CONFIG)) {
-        this.loadGlobalThemeConfig(DEFAULT_THEME_CONFIG.name);
       } else {
-        this.loadGlobalThemeConfig(BASE_THEME_NAME);
+        const defaultThemeConfig = getDefaultThemeConfig();
+        if (hasValue(defaultThemeConfig)) {
+          this.loadGlobalThemeConfig(defaultThemeConfig.name);
+        } else {
+          this.loadGlobalThemeConfig(BASE_THEME_NAME);
+        }
       }
     });
 
@@ -305,8 +317,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
       }
-
-      const defaultThemeName = DEFAULT_THEME_CONFIG.name;
+      const defaultThemeConfig = getDefaultThemeConfig();
+      const defaultThemeName = defaultThemeConfig.name;
       if (
         hasNoValue(defaultThemeName) ||
         themeName === defaultThemeName ||
@@ -326,7 +338,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
 
       // inherit the head tags of the default theme
-      return this.createHeadTags(DEFAULT_THEME_CONFIG.name);
+      return this.createHeadTags(defaultThemeConfig.name);
     }
 
     return headTagConfigs.map(this.createHeadTag.bind(this));

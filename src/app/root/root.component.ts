@@ -32,7 +32,7 @@ export class RootComponent implements OnInit {
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
   theme: Observable<ThemeConfig> = of({} as any);
-  notificationOptions = environment.notifications;
+  notificationOptions;
   models;
 
   /**
@@ -58,6 +58,7 @@ export class RootComponent implements OnInit {
     private menuService: MenuService,
     private windowService: HostWindowService
   ) {
+    this.notificationOptions = environment.notifications;
   }
 
   ngOnInit() {
