@@ -23,7 +23,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from '../admin-notifications/admin-notifications-routing-paths';
 import { MenuSection } from '../../shared/menu/menu.reducer';
-import { COMMUNITY_COLLECTION_MENU_SHOW } from '../../navbar/navbar.component';
+import { environment } from '../../../environments/environment';
 
 /**
  * Component representing the admin sidebar
@@ -330,7 +330,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         index: 11
       },
     ];
-    if (!COMMUNITY_COLLECTION_MENU_SHOW) {
+    if (!environment.layout.navbar.showCommunityCollection) {
       /* Communities & Collections tree */
       const CommunityCollectionMenuItem = {
         id: `browse_global_communities_and_collections`,

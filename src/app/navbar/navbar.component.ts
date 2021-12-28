@@ -8,8 +8,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { SectionDataService } from '../core/layout/section-data.service';
 import { getFirstSucceededRemoteListPayload } from '../core/shared/operators';
 import { Section } from '../core/layout/models/section.model';
-
-export const COMMUNITY_COLLECTION_MENU_SHOW = false;
+import { environment } from '../../environments/environment';
 
 /**
  * Component representing the public navbar
@@ -50,7 +49,7 @@ export class NavbarComponent extends MenuComponent {
     const CommunityCollectionMenuItem = {
       id: `browse_global_communities_and_collections`,
       active: false,
-      visible: COMMUNITY_COLLECTION_MENU_SHOW,
+      visible: environment.layout.navbar.showCommunityCollection,
       index: 0,
       model: {
         type: MenuItemType.LINK,
@@ -59,7 +58,7 @@ export class NavbarComponent extends MenuComponent {
       } as LinkMenuItemModel
     };
 
-    if (COMMUNITY_COLLECTION_MENU_SHOW) {
+    if (environment.layout.navbar.showCommunityCollection) {
       menuList.push(CommunityCollectionMenuItem);
     }
 
