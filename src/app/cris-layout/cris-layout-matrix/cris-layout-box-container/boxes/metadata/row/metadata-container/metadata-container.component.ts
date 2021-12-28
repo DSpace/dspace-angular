@@ -25,7 +25,6 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetadataContainerComponent implements OnInit {
-
   /**
    * Current DSpace Item
    */
@@ -113,7 +112,7 @@ export class MetadataContainerComponent implements OnInit {
 
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering === FieldRenderingType.ATTACHMENT) {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
           this.initRenderOptions(rendering);
@@ -188,5 +187,4 @@ export class MetadataContainerComponent implements OnInit {
   trackUpdate(index, value: string) {
     return value;
   }
-
 }
