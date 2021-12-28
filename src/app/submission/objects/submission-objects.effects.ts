@@ -11,7 +11,7 @@ import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/w
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import {isEmpty, isNotEmpty, isNotUndefined, isUndefined} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
@@ -19,6 +19,7 @@ import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import {
+  CleanDetectDuplicateAction,
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
@@ -59,6 +60,9 @@ import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionE
 import { FormState } from '../../shared/form/form.reducer';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import {
+  WorkspaceitemSectionDetectDuplicateObject
+} from '../../core/submission/models/workspaceitem-section-deduplication.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -476,6 +480,10 @@ export class SubmissionObjectEffects {
           const sectionForm = getForm(forms, currentState, sectionId);
           const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
+        }
+        if (isNotEmpty((currentState.sections['detect-duplicate'].data as WorkspaceitemSectionDetectDuplicateObject).matches)
+          && isUndefined(sections['detect-duplicate'])) {
+          mappedActions.push(new CleanDetectDuplicateAction(submissionId));
         }
       });
     }
