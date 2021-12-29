@@ -1,6 +1,6 @@
 <ng-template #template>
   <ng-container *ngIf="(isAuthenticated() | async) as authenticated">
-    <button class="btn btn-outline-primary h-100 ml-4 flex-grow-0" (click)="open()"><i class="fas fa-file-export"></i>
+    <button class="btn btn-outline-primary h-100 ml-2 flex-grow-0" (click)="open()"><i class="fas fa-file-export"></i>
       <span *ngIf="item">{{ 'item-export.modal-launcher.single.btn' | translate }}</span>
       <span *ngIf="!item">{{ 'item-export.modal-launcher.multiple.btn' | translate }}</span>
     </button>

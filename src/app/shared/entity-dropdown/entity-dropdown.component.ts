@@ -1,7 +1,17 @@
-import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ElementRef, Input } from '@angular/core';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
-import { startWith, switchMap, reduce } from 'rxjs/operators';
+import { reduce, startWith, switchMap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginatedList } from '../../core/data/paginated-list.model';

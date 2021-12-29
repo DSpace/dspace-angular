@@ -104,6 +104,11 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   startsWith: string;
 
+  /**
+   * authority of the item we are browsing for
+   */
+  authority = '';
+
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
@@ -124,9 +129,12 @@ export class BrowseByMetadataPageComponent implements OnInit {
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.value = +params.value || params.value || '';
+          this.authority = +params.authority || params.authority || '';
           this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
-          if (isNotEmpty(this.value)) {
+          if (isNotEmpty(this.authority)) {
+            this.updatePageWithAuthority(searchOptions, this.authority);
+          } else if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
           } else {
             this.updatePage(searchOptions);
@@ -168,6 +176,19 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
     this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
+  }
+
+  /**
+   * Updates the current page with searchOptions and display items linked to the given authority
+   * @param searchOptions   Options to narrow down your search:
+   *                        { metadata: string
+   *                          pagination: PaginationComponentOptions,
+   *                          sort: SortOptions,
+   *                          scope: string }
+   * @param authority         The authority of the browse-entry to display items for
+   */
+  updatePageWithAuthority(searchOptions: BrowseEntrySearchOptions, authority: string) {
+    this.items$ = this.browseService.getBrowseItemsForAuthority(authority, searchOptions);
   }
 
   /**

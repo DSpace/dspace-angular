@@ -1,25 +1,24 @@
-import { ProcessOverviewComponent } from './process-overview.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf, of } from 'rxjs';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { Process } from '../processes/process.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { By } from '@angular/platform-browser';
-import { ProcessStatus } from '../processes/process-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { DatePipe } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessStatus } from '../processes/process-status.model';
+import { Process } from '../processes/process.model';
+import { ProcessOverviewComponent } from './process-overview.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -34,27 +33,29 @@ describe('ProcessOverviewComponent', () => {
   let noAdminProcesses: Process[];
   let ePerson: EPerson;
 
+  const pipe = new DatePipe('en-US');
+
   function init() {
     adminProcesses = [
       Object.assign(new Process(), {
         processId: 1,
         scriptName: 'script-name',
-        startTime: '2020-03-19',
-        endTime: '2020-03-19',
+        startTime: '2020-03-19 00:30:00',
+        endTime: '2020-03-19 23:30:00',
         processStatus: ProcessStatus.COMPLETED
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-name',
-        startTime: '2020-03-20',
-        endTime: '2020-03-20',
+        startTime: '2020-03-20 00:30:00',
+        endTime: '2020-03-20 23:30:00',
         processStatus: ProcessStatus.FAILED
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'another-script-name',
-        startTime: '2020-03-21',
-        endTime: '2020-03-21',
+        startTime: '2020-03-21 00:30:00',
+        endTime: '2020-03-21 23:30:00',
         processStatus: ProcessStatus.RUNNING
       })
     ];
@@ -92,7 +93,9 @@ describe('ProcessOverviewComponent', () => {
     });
     processService = jasmine.createSpyObj('processService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(adminProcesses)),
-      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(noAdminProcesses))
+      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(noAdminProcesses)),
+      delete: createSuccessfulRemoteDataObject$(null),
+      setStale: observableOf(true)
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       findById: createSuccessfulRemoteDataObject$(ePerson)
@@ -111,7 +114,8 @@ describe('ProcessOverviewComponent', () => {
         { provide: ProcessDataService, useValue: processService },
         { provide: EPersonDataService, useValue: ePersonService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -163,14 +167,14 @@ describe('ProcessOverviewComponent', () => {
       it('should display the start time in the fourth column', () => {
         rowElements.forEach((rowElement, index) => {
           const el = rowElement.query(By.css('td:nth-child(4)')).nativeElement;
-          expect(el.textContent).toContain(adminProcesses[index].startTime);
+        expect(el.textContent).toContain(pipe.transform(adminProcesses[index].startTime, component.dateFormat, 'UTC'));
         });
       });
 
       it('should display the end time in the fifth column', () => {
         rowElements.forEach((rowElement, index) => {
           const el = rowElement.query(By.css('td:nth-child(5)')).nativeElement;
-          expect(el.textContent).toContain(adminProcesses[index].endTime);
+        expect(el.textContent).toContain(pipe.transform(adminProcesses[index].endTime, component.dateFormat, 'UTC'));
         });
       });
 
@@ -180,6 +184,13 @@ describe('ProcessOverviewComponent', () => {
           expect(el.textContent).toContain(adminProcesses[index].processStatus);
         });
       });
+
+      it('should delete the selected process if the related button is clicked', fakeAsync(() => {
+        component.delete(adminProcesses[0]);
+        tick();
+        expect(processService.delete).toHaveBeenCalledWith(adminProcesses[0].processId);
+      }));
+
     });
 
   });
@@ -230,14 +241,14 @@ describe('ProcessOverviewComponent', () => {
       it('should display the start time in the fourth column', () => {
         rowElements.forEach((rowElement, index) => {
           const el = rowElement.query(By.css('td:nth-child(4)')).nativeElement;
-          expect(el.textContent).toContain(noAdminProcesses[index].startTime);
+          expect(el.textContent).toContain(pipe.transform(noAdminProcesses[index].startTime, component.dateFormat, 'UTC'));
         });
       });
 
       it('should display the end time in the fifth column', () => {
         rowElements.forEach((rowElement, index) => {
           const el = rowElement.query(By.css('td:nth-child(5)')).nativeElement;
-          expect(el.textContent).toContain(noAdminProcesses[index].endTime);
+          expect(el.textContent).toContain(pipe.transform(noAdminProcesses[index].endTime, component.dateFormat, 'UTC'));
         });
       });
 
@@ -247,6 +258,12 @@ describe('ProcessOverviewComponent', () => {
           expect(el.textContent).toContain(noAdminProcesses[index].processStatus);
         });
       });
+
+      it('should delete the selected process if the related button is clicked', fakeAsync(() => {
+        component.delete(noAdminProcesses[0]);
+        tick();
+        expect(processService.delete).toHaveBeenCalledWith(noAdminProcesses[0].processId);
+      }));
 
     });
   });

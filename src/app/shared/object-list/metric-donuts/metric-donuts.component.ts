@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of } from 'rxjs';
 import { Metric } from '../../../core/shared/metric.model';
 import { hasValue } from '../../empty.util';
-import { of } from 'rxjs/internal/observable/of';
 import { getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../utils/follow-link-config.model';

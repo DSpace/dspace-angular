@@ -10,7 +10,7 @@ export class NotificationsServiceStub {
   remove = jasmine.createSpy('remove');
   removeAll = jasmine.createSpy('removeAll');
   process = jasmine.createSpy('process');
-  
+
   private _claimedProfile = new BehaviorSubject<any>(true);
 
   get claimedProfile(): BehaviorSubject<any> {

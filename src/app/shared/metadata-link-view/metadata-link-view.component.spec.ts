@@ -4,10 +4,9 @@ import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { of } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
-import { LayoutField } from '../../core/layout/models/metadata-component.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MetadataLinkViewComponent', () => {
@@ -143,7 +142,6 @@ describe('MetadataLinkViewComponent', () => {
     });
 
     it('should have link', () => {
-      console.log(component);
       const link = fixture.debugElement.query(By.css('a'));
 
       expect(link).toBeTruthy();

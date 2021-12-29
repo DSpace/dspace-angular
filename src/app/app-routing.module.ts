@@ -13,10 +13,11 @@ import {
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   INFO_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
+  REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
-  LEGACY_BITSTREAM_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
@@ -211,6 +212,11 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             loadChildren: () => import('./info/info.module').then((m) => m.InfoModule),
           },
           {
+            path: REQUEST_COPY_MODULE_PATH,
+            loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          {
             path: FORBIDDEN_PATH,
             component: ThemedForbiddenComponent
           },
@@ -236,11 +242,22 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
           },
+          {
+            path: 'lucky-search',
+            loadChildren: () => import('./lucky-search/search-routing.module')
+              .then((m) => m.SearchRoutingModule)
+          },
+          {
+            path: 'invitation',
+            loadChildren: () => import('./invitation/invitation.module')
+              .then((m) => m.InvitationModule)
+          },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{
-      onSameUrlNavigation: 'reload',
-    })
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy'
+})
   ],
   exports: [RouterModule],
 })

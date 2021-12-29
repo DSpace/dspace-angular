@@ -9,6 +9,7 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { CollectionFormModule } from '../collection-form/collection-form.module';
+import { CollectionSourceControlsComponent } from './collection-source/collection-source-controls/collection-source-controls.component';
 
 /**
  * Module that contains all components related to the Edit Collection page administrator functionality
@@ -26,6 +27,8 @@ import { CollectionFormModule } from '../collection-form/collection-form.module'
     CollectionRolesComponent,
     CollectionCurateComponent,
     CollectionSourceComponent,
+
+    CollectionSourceControlsComponent,
     CollectionAuthorizationsComponent
   ]
 })

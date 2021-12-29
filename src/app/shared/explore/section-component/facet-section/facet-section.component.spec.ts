@@ -15,6 +15,12 @@ import { FacetValue } from '../../../search/facet-value.model';
 import { FilterType } from '../../../search/filter-type.model';
 import { SearchFilterConfig } from '../../../search/search-filter-config.model';
 import { FacetSectionComponent } from './facet-section.component';
+import {SEARCH_CONFIG_SERVICE} from '../../../../my-dspace-page/my-dspace-page.component';
+import {SearchConfigurationServiceStub} from '../../../testing/search-configuration-service.stub';
+import {StoreModule} from '@ngrx/store';
+import {authReducer} from '../../../../core/auth/auth.reducer';
+import {storeModuleConfig} from '../../../../app.reducer';
+import {isNotNull} from '../../../empty.util';
 
 describe('FacetSectionComponent', () => {
   let component: FacetSectionComponent;
@@ -75,12 +81,43 @@ describe('FacetSectionComponent', () => {
       values: [dateIssuedValue]
     }
   });
-
+  const barChartFacetValue: FacetValue = {
+    label: '2007',
+    value: '2007',
+    count: 13,
+    _links: {
+      self: { href: 'fa-selectedValue-self-link' },
+      search: { href: '' }
+    }
+  };
+  const mockGraphBarChartFilterConfig = Object.assign(new SearchFilterConfig(), {
+    name: 'dateIssued',
+    filterType: FilterType['chart.bar'],
+    _embedded: {
+      values: [barChartFacetValue]
+    }
+  });
+  const pieChartFacetValue: FacetValue = {
+    label: 'Other',
+    value: 'Other',
+    count: 13,
+    _links: {
+      self: { href: 'fa-selectedValue-self-link' },
+      search: { href: '' }
+    }
+  };
+  const mockGraphPieChartFilterConfig = Object.assign(new SearchFilterConfig(), {
+    name: 'dateIssued',
+    filterType: FilterType['chart.pie'],
+    _embedded: {
+      values: [pieChartFacetValue]
+    }
+  });
   beforeEach(async(() => {
 
     searchServiceStub = {
       searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-        return createSuccessfulRemoteDataObject$([mockAuthorFilterConfig, mockSubjectFilterConfig, mockDateIssuedFilterConfig]);
+        return createSuccessfulRemoteDataObject$([mockAuthorFilterConfig, mockSubjectFilterConfig, mockDateIssuedFilterConfig, mockGraphBarChartFilterConfig, mockGraphPieChartFilterConfig]);
       },
       getSearchLink(): string {
         return '/search';
@@ -89,6 +126,7 @@ describe('FacetSectionComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -98,7 +136,8 @@ describe('FacetSectionComponent', () => {
       ],
       declarations: [FacetSectionComponent],
       providers: [FacetSectionComponent,
-        { provide: SearchService, useValue: searchServiceStub }],
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
@@ -124,6 +163,20 @@ describe('FacetSectionComponent', () => {
   }));
 
   it('should create a facet section foreach not empty filter configs',  () => {
+    // graph facets control
+    const graphFacets = fixture.debugElement.queryAll(By.css('.col-6.mb-4'));
+    expect(graphFacets.length).toEqual(2);
+    const barChartFacet = graphFacets[0];
+    expect(barChartFacet.name).toEqual('div');
+    expect(barChartFacet.children.length).toEqual(2);
+    const barChartComponent = barChartFacet.query(By.css('ds-search-chart'));
+    expect(isNotNull(barChartComponent)).toBe(true);
+    const pieChartFacet = graphFacets[1];
+    expect(pieChartFacet.children.length).toEqual(2);
+    expect(pieChartFacet.name).toEqual('div');
+    const pieChartComponent = pieChartFacet.query(By.css('ds-search-chart'));
+    expect(isNotNull(pieChartComponent)).toBe(true);
+
     const facets = fixture.debugElement.queryAll(By.css('.col-3.mb-4'));
     expect(facets.length).toEqual(2);
 

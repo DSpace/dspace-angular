@@ -188,6 +188,7 @@ import { MissingTranslationHelper } from './translate/missing-translation.helper
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
+import { FileSectionComponent } from '../item-page/simple/field-components/file-section/file-section.component';
 import { ExistingRelationListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
@@ -214,6 +215,7 @@ import { CollectionSidebarSearchListElementComponent } from './object-list/sideb
 import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
+import { DsoPageVersionButtonComponent } from './dso-page/dso-page-version-button/dso-page-version-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
@@ -255,6 +257,10 @@ import { RelationshipsItemsActionsComponent } from './object-list/relationships-
 import { RelationshipsItemsListPreviewComponent } from './object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { ItemVersionsSummaryModalComponent } from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
+import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
+import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
+import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { DsDynamicRelationGroupModalComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
 import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
@@ -278,6 +284,8 @@ import { MultiColumnTopSectionComponent } from './explore/section-component/mult
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
 import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
+import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { MetricPlumxComponent } from './metric/metric-plumx/metric-plumx.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -310,15 +318,15 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   DragDropModule,
-  CdkTreeModule,
-  ChartsModule
+  CdkTreeModule
 ];
 
 const ROOT_MODULES = [
   TranslateModule.forChild({
     missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
     useDefaultLang: true
-  })
+  }),
+  ChartsModule.withEntryComponents()
 ];
 
 const PIPES = [
@@ -369,6 +377,7 @@ const COMPONENTS = [
   DsDatePickerInlineComponent,
   DsSelectComponent,
   ErrorComponent,
+  FileSectionComponent,
   FormComponent,
   LangSwitchComponent,
   LoadingComponent,
@@ -469,6 +478,7 @@ const COMPONENTS = [
   ExistingRelationListElementComponent,
   LogInShibbolethComponent,
   LogInOrcidComponent,
+  LogInOidcComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -485,6 +495,7 @@ const COMPONENTS = [
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
@@ -514,6 +525,8 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
+  SearchNavbarComponent,
+  ScopeSelectorModalComponent,
   ItemExportComponent,
   ItemExportAlertComponent,
   ItemExportModalLauncherComponent,
@@ -597,6 +610,7 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   LogInOrcidComponent,
+  LogInOidcComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
@@ -605,6 +619,7 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
@@ -616,6 +631,7 @@ const ENTRY_COMPONENTS = [
   LinkMenuItemComponent,
   OnClickMenuItemComponent,
   TextMenuItemComponent,
+  ScopeSelectorModalComponent,
   BrowseSectionComponent,
   TopSectionComponent,
   FacetSectionComponent,
@@ -623,7 +639,11 @@ const ENTRY_COMPONENTS = [
   TextSectionComponent,
   CountersSectionComponent,
   MultiColumnTopSectionComponent,
-  ExportExcelSelectorComponent,
+  SearchChartBarComponent,
+  SearchChartBarToLeftComponent,
+  SearchChartBarToRightComponent,
+  SearchChartPieComponent,
+  SearchChartLineComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
@@ -635,6 +655,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
   DsoPageEditButtonComponent,
+  DsoPageVersionButtonComponent,
   ItemAlertsComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
@@ -686,7 +707,10 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...SHARED_SEARCH_PAGE_COMPONENTS,
+    ItemVersionsSummaryModalComponent,
+    ItemVersionsDeleteModalComponent,
     ItemExportAlertComponent,
+    MetricPlumxComponent,
   ],
   providers: [
     ...PROVIDERS

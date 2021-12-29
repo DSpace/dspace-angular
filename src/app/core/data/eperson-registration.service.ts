@@ -101,11 +101,31 @@ export class EpersonRegistrationService {
       getFirstSucceededRemoteData(),
       map((restResponse: RemoteData<Registration>) => {
         return Object.assign(new Registration(), {
-          email: restResponse.payload.email, token: token, user: restResponse.payload.user
+          email: restResponse.payload.email, token: token, user: restResponse.payload.user,
+          groupNames: restResponse.payload.groupNames ? restResponse.payload.groupNames : [],
+          groups: restResponse.payload.groups ? restResponse.payload.groups : []
+
         });
       }),
     );
 
   }
+  searchByTokenAndHandleError(token: string): Observable<RemoteData<Registration>> {
+    const requestId = this.requestService.generateRequestId();
 
+    const href$ = this.getTokenSearchEndpoint(token).pipe(
+      find((href: string) => hasValue(href)),
+    );
+
+    href$.subscribe((href: string) => {
+      const request = new GetRequest(requestId, href);
+      Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return RegistrationResponseParsingService;
+        }
+      });
+      this.requestService.send(request, true);
+    });
+    return this.rdbService.buildSingle<Registration>(href$);
+  }
 }

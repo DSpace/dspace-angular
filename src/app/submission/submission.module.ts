@@ -70,6 +70,14 @@ const DECLARATIONS = [
   DuplicateMatchComponent
 ];
 
+const ENTRY_COMPONENTS = [
+  SubmissionSectionUploadComponent,
+  SubmissionSectionformComponent,
+  SubmissionSectionLicenseComponent,
+  SubmissionSectionCcLicensesComponent,
+  SubmissionSectionDetectDuplicateComponent
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -94,4 +102,14 @@ const DECLARATIONS = [
  * This module handles all components that are necessary for the submission process
  */
 export class SubmissionModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: SubmissionModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

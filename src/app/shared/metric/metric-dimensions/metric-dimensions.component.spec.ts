@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetricDimensionsComponent } from './metric-dimensions.component';
-import { metricDimensionsMock } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { metricDimensionsMock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 

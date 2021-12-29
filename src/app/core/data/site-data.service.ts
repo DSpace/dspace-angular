@@ -49,4 +49,11 @@ export class SiteDataService extends DataService<Site> {
       map((list: PaginatedList<Site>) => list.page[0])
     );
   }
+
+  /**
+   * Set the processes stale
+   */
+  setStale(): Observable<boolean> {
+    return this.requestService.setStaleByHrefSubstring(this.linkPath);
+  }
 }

@@ -8,7 +8,8 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import {NotificationsService} from '../../notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 @Component({
   selector: 'ds-dso-page-edit-menu',
@@ -42,11 +43,11 @@ export class DsoPageEditMenuComponent extends ContextMenuEntryComponent implemen
     protected authorizationService: AuthorizationDataService,
     private notificationService: NotificationsService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditDSO);
   }
 
   ngOnInit() {
-    this.notificationService.claimedProfile.subscribe(res => {
+    this.notificationService.claimedProfile.subscribe(() => {
       this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self, undefined, false);
     });
   }

@@ -14,6 +14,7 @@ export enum FeatureID {
   IsCollectionAdmin = 'isCollectionAdmin',
   IsCommunityAdmin = 'isCommunityAdmin',
   CanDownload = 'canDownload',
+  CanRequestACopy = 'canRequestACopy',
   CanManageVersions = 'canManageVersions',
   CanManageBitstreamBundles = 'canManageBitstreamBundles',
   CanManageRelationships = 'canManageRelationships',
@@ -21,7 +22,11 @@ export enum FeatureID {
   CanManagePolicies = 'canManagePolicies',
   CanMakePrivate = 'canMakePrivate',
   CanMove = 'canMove',
+  CanEditVersion = 'canEditVersion',
+  CanDeleteVersion = 'canDeleteVersion',
+  CanCreateVersion = 'canCreateVersion',
   ShowClaimItem = 'showClaimItem',
   CanClaimItem = 'canClaimItem',
-  CanCorrectItem = 'canCorrectItem'
+  CanCorrectItem = 'canCorrectItem',
+  CanSubscribe = 'canSubscribeDso'
 }

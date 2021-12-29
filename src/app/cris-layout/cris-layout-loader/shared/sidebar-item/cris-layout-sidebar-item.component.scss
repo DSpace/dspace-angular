@@ -1,0 +1,101 @@
+
+:host ::ng-deep {
+
+  a{
+    cursor: pointer;
+  }
+
+  height: 100%;
+
+  .fa-chevron-right {
+    padding: calc(var(--bs-spacer) / 2);
+    font-size: 0.5rem;
+  }
+
+  .sidebar-sub-level-items {
+    list-style: none;
+    overflow: hidden;
+
+    li .nav-item {
+      background: transparent;
+    }
+  }
+
+  .sidebar-collapsible {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li.sidebar-section.expanded {
+    display: block;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  ul li.active > .nav-item, .sidebar-section.active > div > .nav-item {
+    color: var(--ds-cris-layout-sidebar-menu-active-color);
+    background: var(--ds-cris-layout-sidebar-menu-active-background);
+  }
+
+  .sidebar-section.active > .sidebar-collapsible > .nav-item {
+    background-color: transparent;
+  }
+
+}
+
+.nav-item {
+  padding: 10px 0;
+  color: var(--ds-cris-layout-navbar-link-color);
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.vertical {
+  .icon-wrapper {
+    border-bottom: var(--ds-cris-layout-sidebar-link-border-bottom);
+  }
+
+  .sidebar-collapsible {
+    border-bottom: var(--ds-cris-layout-sidebar-link-border-bottom);
+  }
+
+  .nav-item:hover{
+    background-color: var(--ds-cris-layout-sidebar-tab-color-hover);
+  }
+}
+
+.horizontal {
+  .icon-wrapper {
+    border-bottom: var(--ds-cris-layout-navbar-link-border-bottom);
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-item {
+    padding: 10px;
+  }
+
+  .sidebar-collapsible {
+    display: block;
+  }
+
+  .sidebar-sub-level-items {
+    background-color: var(--ds-cris-layout-navbar-sub-level-backround-color);
+  }
+
+  ul li.active > .nav-item, .sidebar-section.active > div > .nav-item {
+    color: var(--ds-cris-layout-sidebar-menu-active-color);
+    background: var(--ds-cris-layout-sidebar-menu-active-background);
+  }
+
+  .nav-item:hover{
+    background-color: var(--ds-cris-layout-navbar-tab-color-hover);
+  }
+
+}
+
+.active.horizontal {
+  border-bottom: 2px solid var(--ds-cris-layout-navbar-tab-color-active);
+}

@@ -27,12 +27,7 @@ import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import {
-  ContentSourceRequest,
-  FindListOptions,
-  UpdateContentSourceRequest,
-  RestRequest
-} from './request.models';
+import { ContentSourceRequest, FindListOptions, RestRequest, UpdateContentSourceRequest } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
 
@@ -106,6 +101,31 @@ export class CollectionDataService extends ComColDataService<Collection> {
   }
 
   /**
+   * Get all collections the user is admin selected by entityType
+   *
+   * @param query limit the returned collection to those with metadata values matching the query terms.
+   * @param entityType mandatory, the label of the entity type field the collection must have.
+   * @param options The [[FindListOptions]] object
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow The array of [[FollowLinkConfig]]
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAdministeredCollectionByEntityType(query: string, entityType: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAdministeredByEntityType';
+    options = Object.assign({}, options, {
+      searchParams: [
+        new RequestParam('query', query),
+        new RequestParam('entityType', entityType),
+      ]
+    });
+
+    return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+  }
+
+  /**
    * Get all collections the user is authorized to submit to
    *
    * @param query limit the returned collection to those with metadata values matching the query terms.
@@ -141,6 +161,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @param communityId The community id
    * @param query limit the returned collection to those with metadata values matching the query terms.
    * @param options The [[FindListOptions]] object
+   * @param reRequestOnStale Whether or not the request should automatically be re-
+   *                         requested after the response becomes stale
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
@@ -220,7 +242,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get the collection's content harvester
    * @param collectionId
    */
-  getContentSource(collectionId: string): Observable<RemoteData<ContentSource>> {
+  getContentSource(collectionId: string, useCachedVersionIfAvailable = true): Observable<RemoteData<ContentSource>> {
     const href$ = this.getHarvesterEndpoint(collectionId).pipe(
       isNotEmptyOperator(),
       take(1)
@@ -228,7 +250,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
 
     href$.subscribe((href: string) => {
       const request = new ContentSourceRequest(this.requestService.generateRequestId(), href);
-      this.requestService.send(request, true);
+      this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
     return this.rdbService.buildSingle<ContentSource>(href$);
@@ -290,11 +312,20 @@ export class CollectionDataService extends ComColDataService<Collection> {
   }
 
   /**
-   * Returns {@link RemoteData} of {@link Collection} that is the owing collection of the given item
+   * Returns {@link RemoteData} of {@link Collection} that is the owning collection of the given item
    * @param item  Item we want the owning collection of
    */
   findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
     return this.findByHref(item._links.owningCollection.href);
+  }
+
+  /**
+   * Get a list of mapped collections for the given item.
+   * @param item  Item for which the mapped collections should be retrieved.
+   * @param findListOptions Pagination and search options.
+   */
+  findMappedCollectionsFor(item: Item, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<Collection>>> {
+    return this.findAllByHref(item._links.mappedCollections.href, findListOptions);
   }
 
 }

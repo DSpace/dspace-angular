@@ -17,6 +17,7 @@ import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 import { By } from '@angular/platform-browser';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {AuthService} from '../../core/auth/auth.service';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -25,6 +26,7 @@ describe('ForgotPasswordFormComponent', () => {
   let router;
   let route;
   let ePersonDataService: EPersonDataService;
+  let authService: AuthService;
   let notificationsService;
   let store: Store<CoreState>;
 
@@ -44,6 +46,8 @@ describe('ForgotPasswordFormComponent', () => {
       patchPasswordWithToken: createSuccessfulRemoteDataObject$({})
     });
 
+    authService = jasmine.createSpyObj('authService', ['setRedirectUrlIfNotSet']);
+
     store = jasmine.createSpyObj('store', {
       dispatch: {},
     });
@@ -58,6 +62,7 @@ describe('ForgotPasswordFormComponent', () => {
         {provide: EPersonDataService, useValue: ePersonDataService},
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
+        {provide: AuthService, useValue: authService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -86,7 +91,6 @@ describe('ForgotPasswordFormComponent', () => {
 
       expect(ePersonDataService.patchPasswordWithToken).toHaveBeenCalledWith('test-uuid', 'test-token', 'password');
       expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
-      expect(router.navigate).toHaveBeenCalledWith(['/home']);
       expect(notificationsService.success).toHaveBeenCalled();
     });
 

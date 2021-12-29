@@ -1,23 +1,23 @@
-import {of, of as observableOf} from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
-import { NotificationsService } from './../../notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 import { ResearcherProfileService } from '../../../core/profile/researcher-profile.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClaimItemMenuComponent } from './claim-item-menu.component';
-import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../testing/translate-loader.mock';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TestScheduler } from 'rxjs/internal/testing/TestScheduler';
+import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EventEmitter } from '@angular/core';
-import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('ClaimItemMenuComponent', () => {
   let component: ClaimItemMenuComponent;
@@ -48,7 +48,7 @@ describe('ClaimItemMenuComponent', () => {
     });
     authService = new AuthServiceStub();
     translateService = {
-      get: () => of('test'),
+      get: () => observableOf('test'),
       onTranslationChange: new EventEmitter(),
       onLangChange: new EventEmitter(),
       onDefaultLangChange: new EventEmitter()

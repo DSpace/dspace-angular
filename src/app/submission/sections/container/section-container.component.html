@@ -16,15 +16,15 @@
         <span class="float-left section-title" tabindex="0">{{ 'submission.sections.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
           <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-warning mr-3"
-             aria-hidden="true" title="{{'submission.sections.status.warnings.title' | translate}}"></i>
+             title="{{'submission.sections.status.warnings.title' | translate}}" role="img" [attr.aria-label]="'submission.sections.status.warnings.aria' | translate"></i>
           <i *ngIf="(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-danger mr-3"
-             aria-hidden="true" title="{{'submission.sections.status.errors.title' | translate}}"></i>
+             title="{{'submission.sections.status.errors.title' | translate}}" role="img" [attr.aria-label]="'submission.sections.status.errors.aria' | translate"></i>
           <i *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-check-circle text-success mr-3"
-             aria-hidden="true" title="{{'submission.sections.status.valid.title' | translate}}"></i>
+             title="{{'submission.sections.status.valid.title' | translate}}" role="img" [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
           <a class="close"
              tabindex="0"
              role="button"
-             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate"
+             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.aria.close' : 'submission.sections.toggle.aria.open') | translate: {sectionHeader: ('submission.sections.'+sectionData.header | translate)}"
              [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
             <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"></span>
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>

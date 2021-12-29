@@ -1,0 +1,22 @@
+<div *ngIf="(initialized | async)" [class]="'table-container d-flex flex-column ' + valueStyle">
+  <div class="table-responsive">
+    <table class='table table-borderless'>
+      <tr>
+        <td *ngFor="let field of metadataGroup" class="table-light {{field.styleLabel}}">
+          <span>
+            {{getLabel(field)}}
+          </span>
+        </td>
+      </tr>
+      <tr *ngFor="let index of componentsToBeRenderedMap.keys();">
+        <td *ngFor="let mdg of componentsToBeRenderedMap.get(index)">
+          <ds-metadata-render class="w-100"
+                              [item]="item"
+                              [field]="mdg.field"
+                              [metadataValue]="mdg.value"></ds-metadata-render>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+

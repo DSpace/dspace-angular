@@ -3,7 +3,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { Component } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from './base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { metricAltmetricMock } from '../../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { metricAltmetricMock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 
 describe('BaseEmbeddedMetricComponent', () => {
   let component: TestEmbeddedMetricComponent;

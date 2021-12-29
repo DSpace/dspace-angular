@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Tab } from './models/tab.model';
+import { CrisLayoutTab } from './models/tab.model';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -22,7 +22,7 @@ import { RequestParam } from '../cache/models/request-param.model';
 
 /* tslint:disable:max-classes-per-file */
 
-class DataServiceImpl extends DataService<Tab> {
+class DataServiceImpl extends DataService<CrisLayoutTab> {
   protected linkPath = 'tabs';
 
   constructor(
@@ -33,7 +33,7 @@ class DataServiceImpl extends DataService<Tab> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<Tab>) {
+    protected comparator: ChangeAnalyzer<CrisLayoutTab>) {
     super();
   }
 }
@@ -55,7 +55,7 @@ export class TabDataService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Tab>) {
+    protected comparator: DefaultChangeAnalyzer<CrisLayoutTab>) {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
@@ -63,7 +63,7 @@ export class TabDataService {
    * Provide detailed information about a specific tab.
    * @param id id of tab
    */
-  findById(id: string): Observable<RemoteData<Tab>> {
+  findById(id: string): Observable<RemoteData<CrisLayoutTab>> {
     return this.dataService.findById(id);
   }
 
@@ -75,7 +75,7 @@ export class TabDataService {
    * @param useCachedVersionIfAvailable
    * @param linkToFollow
    */
-  findByItem(itemUuid: string, useCachedVersionIfAvailable, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
+  findByItem(itemUuid: string, useCachedVersionIfAvailable, linkToFollow?: FollowLinkConfig<CrisLayoutTab>): Observable<RemoteData<PaginatedList<CrisLayoutTab>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', itemUuid)];
     return this.dataService.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
@@ -86,7 +86,7 @@ export class TabDataService {
    * This endpoint is reserved to system administrators
    * @param entityType label of the entity type
    */
-  findByEntityType(entityType: string): Observable<RemoteData<PaginatedList<Tab>>> {
+  findByEntityType(entityType: string): Observable<RemoteData<PaginatedList<CrisLayoutTab>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('type', entityType)];
     return this.dataService.searchBy(this.searchFindByEntityType, options);

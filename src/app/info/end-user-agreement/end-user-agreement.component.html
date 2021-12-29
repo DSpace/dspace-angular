@@ -1,7 +1,7 @@
 <div class="container">
   <ds-end-user-agreement-content></ds-end-user-agreement-content>
 
-  <form class="form-user-agreement-accept mt-4" (ngSubmit)="submit()" novalidate>
+  <form *ngIf="!alreadyAccepted" class="form-user-agreement-accept mt-4" (ngSubmit)="submit()" novalidate>
     <input class="ml-1 mr-2" type="checkbox" id="user-agreement-accept" [(ngModel)]="accepted" [ngModelOptions]="{standalone: true}">
     <label class="col-form-label-lg" for="user-agreement-accept">{{ 'info.end-user-agreement.accept' | translate }}</label>
 

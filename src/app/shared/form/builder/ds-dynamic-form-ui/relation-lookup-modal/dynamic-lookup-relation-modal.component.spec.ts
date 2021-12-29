@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf, Subscription } from 'rxjs';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -23,10 +23,12 @@ import { LookupRelationService } from '../../../../../core/data/lookup-relation.
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { Collection } from '../../../../../core/shared/collection.model';
+import { By } from '@angular/platform-browser';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
   let fixture: ComponentFixture<DsDynamicLookupRelationModalComponent>;
+  let debugElement: DebugElement;
   let item;
   let item1;
   let item2;
@@ -136,12 +138,17 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DsDynamicLookupRelationModalComponent);
+    debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     component.listId = listID;
     component.relationshipOptions = relationship;
     component.item = item;
     component.metadataFields = metadataField;
     component.submissionId = submissionId;
+    component.isEditRelationship = true;
+    component.currentItemIsLeftItem$ = observableOf(true);
+    component.toAdd = [];
+    component.toRemove = [];
     fixture.detectChanges();
   });
 
@@ -191,4 +198,59 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
     });
   });
+
+
+  describe('when initialized and is relationship show the list of buttons', () => {
+    it('should show buttons container', () => {
+      expect(debugElement.query(By.css('.button-row'))).toBeTruthy();
+    });
+    it('submit button should be disabled', () => {
+      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
+    });
+    it('discard button should be disabled', () => {
+      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
+    });
+  });
+
+  describe('when changes happen', () => {
+    beforeEach(() => {
+      component.toAdd.push(searchResult1);
+      component.toRemove.push(searchResult2);
+      fixture.detectChanges();
+    });
+    it('submit button should be enabled', () => {
+      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeFalse();
+    });
+    it('discard button should be enabled', () => {
+      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeFalse();
+    });
+    it('should call submitEv when submit clicked', () => {
+      const submitFunct = spyOn((component as any), 'submitEv');
+      debugElement.query(By.css('.submit')).nativeElement.click();
+      expect(submitFunct).toHaveBeenCalled();
+    });
+    it('should call discardEv when discard clicked', () => {
+      const discardFunct = spyOn((component as any), 'discardEv');
+      debugElement.query(By.css('.discard')).nativeElement.click();
+      expect(discardFunct).toHaveBeenCalled();
+    });
+  });
+
+
+  describe('when request starts and isPending changes', () => {
+
+    beforeEach(() => {
+      component.isPending = true;
+      fixture.detectChanges();
+    });
+
+    it('there should show 1 spinner and disable all 3 buttons', () => {
+      expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(1);
+      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.close')).nativeElement?.disabled).toBeTrue();
+    });
+
+  });
+
 });

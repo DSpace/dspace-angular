@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 
 import {
   DynamicFormControlComponent,
+  DynamicFormControlCustomEvent,
+  DynamicFormControlModel,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
@@ -11,7 +13,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
@@ -38,6 +40,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   @Output() abstract blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() abstract change: EventEmitter<any> = new EventEmitter<any>();
   @Output() abstract focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() abstract customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   /**
    * The vocabulary entry
@@ -186,7 +189,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * @param updateValue
    */
   dispatchUpdate(updateValue: any) {
-      this.model.value = updateValue;
+    this.model.value = updateValue;
     this.change.emit(updateValue);
     this.updateOtherInformation(updateValue);
   }
@@ -240,27 +243,48 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       (value instanceof VocabularyEntry || value instanceof FormFieldMetadataValueObject)) {
       const otherInformation = value.otherInformation;
       if (hasValue(otherInformation)) {
+        const updatedModels = [];
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key)) {
             const fieldId = key.replace('data-', '');
-            const newValue = this.getOtherInformationValue(otherInformation[key]);
-            this.formBuilderService.updateValue(fieldId, newValue);
+            const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key]);
+            if (isNotEmpty(newValue)) {
+              const updatedModel = this.formBuilderService.updateModelValue(fieldId, newValue);
+              if (isNotEmpty(updatedModel)) {
+                updatedModels.push(updatedModel);
+              }
+            }
           }
         }
+        this.createChangeEventOnUpdate(updatedModels);
       }
     }
   }
 
-  getOtherInformationValue(value: string): string | VocabularyEntry {
-    if (!value || value.indexOf('::') === -1) {
-      return value;
+  protected createChangeEventOnUpdate(models: DynamicFormControlModel[]) {
+    if (models.length > 0) {
+      this.onCustomEvent({ updatedModels: models }, 'authorityEnrichment');
+    }
+  }
+
+  getOtherInformationValue(value: string): FormFieldMetadataValueObject {
+    if (isEmpty(value)) {
+      return null;
     }
 
-    const newValue = new VocabularyEntry();
-    newValue.value = value.substring(0, value.lastIndexOf('::'));
-    newValue.display = newValue.value;
-    newValue.authority = value.substring(value.lastIndexOf('::') + 2);
-    return newValue;
+    let returnValue;
+    if (value.indexOf('::') === -1) {
+      returnValue = new FormFieldMetadataValueObject(value);
+    } else {
+      returnValue = new FormFieldMetadataValueObject(
+        value.substring(0, value.lastIndexOf('::')),
+        null,
+        null,
+        value.substring(value.lastIndexOf('::') + 2)
+      );
+    }
+
+    return returnValue;
   }
 
   private hasValidAuthority(value: FormFieldMetadataValueObject) {

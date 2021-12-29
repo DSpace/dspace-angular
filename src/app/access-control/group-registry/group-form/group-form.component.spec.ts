@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,6 +34,7 @@ import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mo
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { Operation } from 'fast-json-patch';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -117,7 +118,69 @@ describe('GroupFormComponent', () => {
         return null;
       }
     };
-    builderService = getMockFormBuilderService();
+    builderService = Object.assign(getMockFormBuilderService(),{
+      createFormGroup(formModel, options = null) {
+        const controls = {};
+        formModel.forEach( model => {
+            model.parent = parent;
+            const controlModel = model;
+            const controlState = { value: controlModel.value, disabled: controlModel.disabled };
+            const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
+            controls[model.id] = new FormControl(controlState, controlOptions);
+        });
+        return new FormGroup(controls, options);
+      },
+      createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
+        return {
+            validators: validatorsConfig !== null ? this.getValidators(validatorsConfig) : null,
+        };
+      },
+      getValidators(validatorsConfig) {
+          return this.getValidatorFns(validatorsConfig);
+      },
+      getValidatorFns(validatorsConfig, validatorsToken = this._NG_VALIDATORS) {
+        let validatorFns = [];
+        if (this.isObject(validatorsConfig)) {
+            validatorFns = Object.keys(validatorsConfig).map(validatorConfigKey => {
+                const validatorConfigValue = validatorsConfig[validatorConfigKey];
+                if (this.isValidatorDescriptor(validatorConfigValue)) {
+                    const descriptor = validatorConfigValue;
+                    return this.getValidatorFn(descriptor.name, descriptor.args, validatorsToken);
+                }
+                return this.getValidatorFn(validatorConfigKey, validatorConfigValue, validatorsToken);
+            });
+        }
+        return validatorFns;
+      },
+      getValidatorFn(validatorName, validatorArgs = null, validatorsToken = this._NG_VALIDATORS) {
+        let validatorFn;
+        if (Validators.hasOwnProperty(validatorName)) { // Built-in Angular Validators
+            validatorFn = Validators[validatorName];
+        } else { // Custom Validators
+            if (this._DYNAMIC_VALIDATORS && this._DYNAMIC_VALIDATORS.has(validatorName)) {
+                validatorFn = this._DYNAMIC_VALIDATORS.get(validatorName);
+            } else if (validatorsToken) {
+                validatorFn = validatorsToken.find(validator => validator.name === validatorName);
+            }
+        }
+        if (validatorFn === undefined) { // throw when no validator could be resolved
+            throw new Error(`validator '${validatorName}' is not provided via NG_VALIDATORS, NG_ASYNC_VALIDATORS or DYNAMIC_FORM_VALIDATORS`);
+        }
+        if (validatorArgs !== null) {
+            return validatorFn(validatorArgs);
+        }
+        return validatorFn;
+    },
+      isValidatorDescriptor(value) {
+          if (this.isObject(value)) {
+              return value.hasOwnProperty('name') && value.hasOwnProperty('args');
+          }
+          return false;
+      },
+      isObject(value) {
+        return typeof value === 'object' && value !== null;
+      }
+    });
     translateService = getMockTranslateService();
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
@@ -214,6 +277,74 @@ describe('GroupFormComponent', () => {
     it('does NOT call router.navigate', () => {
       component.ngOnDestroy();
       expect(router.navigate).toHaveBeenCalledTimes(0);
+    });
+  });
+
+
+  describe('check form validation', () => {
+    let groupCommunity;
+
+    beforeEach(() => {
+      groupName = 'testName';
+      groupCommunity = 'testgroupCommunity';
+      groupDescription = 'testgroupDescription';
+
+      expected = Object.assign(new Group(), {
+        name: groupName,
+        metadata: {
+          'dc.description': [
+            {
+              value: groupDescription
+            }
+          ],
+        },
+      });
+      spyOn(component.submitForm, 'emit');
+
+      fixture.detectChanges();
+      component.initialisePage();
+      fixture.detectChanges();
+    });
+    describe('groupName, groupCommunity and groupDescription should be required', () => {
+      it('form should be invalid because the groupName is required', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.groupName.valid).toBeFalse();
+          expect(component.formGroup.controls.groupName.errors.required).toBeTrue();
+        });
+      }));
+    });
+
+    describe('after inserting information groupName,groupCommunity and groupDescription not required', () => {
+      beforeEach(() => {
+        component.formGroup.controls.groupName.setValue('test');
+        fixture.detectChanges();
+      });
+      it('groupName should be valid because the groupName is set', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.groupName.valid).toBeTrue();
+          expect(component.formGroup.controls.groupName.errors).toBeNull();
+        });
+      }));
+    });
+
+    describe('after already utilized groupName', () => {
+      beforeEach(() => {
+        const groupsDataServiceStubWithGroup = Object.assign(groupsDataServiceStub,{
+          searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [expected]));
+          }
+        });
+        component.formGroup.controls.groupName.setValue('testName');
+        component.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(groupsDataServiceStubWithGroup));
+        fixture.detectChanges();
+      });
+
+      it('groupName should not be valid because groupName is already taken', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.groupName.valid).toBeFalse();
+          expect(component.formGroup.controls.groupName.errors.groupExists).toBeTruthy();
+        });
+      }));
     });
   });
 

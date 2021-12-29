@@ -1,9 +1,14 @@
-<ds-themed-home-news></ds-themed-home-news>
+<ds-text-section *ngIf="hasHomeHeaderMetadata; else dsHomeNews"
+                 [sectionId]="'site'"
+                 [textRowSection]="homeHeaderSection"
+                 [site]="(site$ | async)"></ds-text-section>
+<ng-template #dsHomeNews>
+  <ds-themed-home-news></ds-themed-home-news>
+</ng-template>
 <div class="container">
   <ng-container *ngIf="(site$ | async) as site">
     <ds-view-tracker [object]="site"></ds-view-tracker>
   </ng-container>
-
   <div *ngFor="let sectionComponents of ( sectionComponentRows | async )" class="row mb-3">
     <div *ngFor="let sectionComponent of sectionComponents" [ngSwitch]="sectionComponent.componentType"
          [ngClass]="sectionComponent.style">
@@ -20,11 +25,15 @@
                         [sectionId]=sectionId
                         [facetSection]=sectionComponent></ds-facet-section>
       <ds-text-section *ngSwitchCase="'text-row'"
-                       [sectionId] = sectionId
-                       [textRowSection] = sectionComponent ></ds-text-section>
+                       [sectionId]=sectionId
+                       [textRowSection]=sectionComponent></ds-text-section>
       <ds-counters-section *ngSwitchCase="'counters'"
-                           [sectionId] = sectionId
-                           [countersSection] = sectionComponent ></ds-counters-section>
+                           [sectionId]=sectionId
+                           [countersSection]=sectionComponent></ds-counters-section>
+      <ds-text-section *ngSwitchCase="'text-row'"
+                       [sectionId]=sectionId
+                       [textRowSection]=sectionComponent
+                       [site]="$any(sectionComponent).contentType === 'text-metadata' ?  (site$ | async): null"></ds-text-section>
     </div>
   </div>
 

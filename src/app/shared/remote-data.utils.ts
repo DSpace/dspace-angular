@@ -1,7 +1,7 @@
 import { RemoteData } from '../core/data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { RequestEntryState } from '../core/data/request.reducer';
+import { PathableObjectError, RequestEntryState } from '../core/data/request.reducer';
 
 /**
  * A fixed timestamp to use in tests
@@ -40,8 +40,9 @@ export function createSuccessfulRemoteDataObject$<T>(object: T, timeCompleted?: 
  * @param errorMessage  the error message
  * @param statusCode    the status code
  * @param timeCompleted the moment when the remoteData was completed
+ * @param errors the list of pathable errors
  */
-export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCode?: number, timeCompleted = 1577836800000): RemoteData<T> {
+export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCode?: number, timeCompleted = 1577836800000, errors: PathableObjectError[] = []): RemoteData<T> {
   return new RemoteData(
     timeCompleted,
     environment.cache.msToLive.default,
@@ -49,7 +50,8 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
     RequestEntryState.Error,
     errorMessage,
     undefined,
-    statusCode
+    statusCode,
+    errors
   );
 }
 
@@ -59,9 +61,10 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
  * @param errorMessage  the error message
  * @param statusCode    the status code
  * @param timeCompleted the moment when the remoteData was completed
+ * @param errors the list of pathable errors
  */
-export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCode?: number, timeCompleted?: number): Observable<RemoteData<T>> {
-  return observableOf(createFailedRemoteDataObject(errorMessage, statusCode, timeCompleted));
+export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCode?: number, timeCompleted?: number, errors?: PathableObjectError[]): Observable<RemoteData<T>> {
+  return observableOf(createFailedRemoteDataObject(errorMessage, statusCode, timeCompleted, errors));
 }
 
 /**

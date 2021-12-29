@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ClaimItemSelectorComponent } from './claim-item-selector.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 
 describe('ClaimItemSelectorComponent', () => {
   let component: ClaimItemSelectorComponent;

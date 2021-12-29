@@ -1,91 +1,95 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
-import { BOX } from './box.resource-type';
-import { link, typedObject } from '../../cache/builders/build-decorators';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { ResourceType } from '../../shared/resource-type';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { HALLink } from '../../shared/hal-link.model';
-import { SEARCH_COMPONENT } from './search-component.resource-type';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { SearchComponent } from './search-component.model';
+export interface MetadataGroup {
+    leading: string;
+    elements: LayoutField[];
+}
+
+export interface LayoutBitstream {
+    bundle: string;
+    metadataField: string;
+    metadataValue: string;
+}
+
+export enum LayoutFieldType {
+  METADATA = 'METADATA',
+  METADATAGROUP = 'METADATAGROUP',
+  BITSTREAM = 'BITSTREAM'
+}
+export interface LayoutField {
+    metadata?: string;
+    bitstream?: LayoutBitstream;
+    label?: string;
+    rendering: string;
+    fieldType: LayoutFieldType|string;
+    style?: string;
+    styleLabel?: string;
+    styleValue?: string;
+    metadataGroup?: MetadataGroup;
+    labelAsHeading: boolean;
+    valuesInline: boolean;
+}
+
+export interface MetadataBoxConfiguration extends BoxConfiguration {
+    id: string;
+    rows: MetadataBoxRow[];
+}
+
+export interface BoxConfiguration {
+    type: string;
+}
+
+export interface RelationBoxConfiguration extends BoxConfiguration {
+    'discovery-configuration': string;
+}
+
+export interface MetricsBoxConfiguration extends BoxConfiguration {
+    maxColumns: null;
+    metrics: string[];
+}
+
+export interface MetadataBoxCell {
+    style: string;
+    fields: LayoutField[];
+}
+
+export interface MetadataBoxRow {
+    style: string;
+    cells: MetadataBoxCell[];
+}
 
 /**
- * Describes a type of Box
+ * Describes the CrisLayoutBox model
  */
-@typedObject
-export class Box extends CacheableObject {
-  static type = BOX;
+export class CrisLayoutBox {
 
-  /**
-   * The object type
-   */
-  @excludeFromEquals
-  @autoserialize
-  type: ResourceType;
+    /**
+     * The identifier of this CrisLayoutBox
+     */
+    id: number;
 
-  /**
-   * The identifier of this Box
-   */
-  @autoserialize
-  id: number;
+    shortname: string;
 
-  /**
-   * The universally unique identifier of this Tab
-   * This UUID is generated client-side and isn't used by the backend.
-   * It is based on the ID, so it will be the same for each refresh.
-   */
-  @deserializeAs(new IDToUUIDSerializer(Box.type.value), 'id')
-  uuid: string;
+    header: string;
 
-  @autoserialize
-  shortname: string;
+    entityType: string;
 
-  @autoserialize
-  header: string;
+    collapsed: boolean;
 
-  @autoserialize
-  entityType: string;
+    minor: boolean;
 
-  @autoserialize
-  collapsed: boolean;
+    style: string;
 
-  @autoserialize
-  minor: boolean;
+    clear: boolean;
 
-  @autoserialize
-  style: string;
+    maxColumn: number;
 
-  @autoserialize
-  priority: number;
+    container: boolean;
 
-  @autoserialize
-  clear: boolean;
+    metadataSecurityFields?: string[];
 
-  @autoserialize
-  maxColumns: number;
+    security: number;
 
-  @autoserialize
-  security: number;
+    boxType: string;
 
-  @autoserialize
-  boxType: string;
-
-  /**
-   * The {@link HALLink}s for this Tab
-   */
-  @deserialize
-  _links: {
-    self: HALLink,
-    configuration: HALLink
-  };
-
-  /**
-   * The configuration for this Box
-   * Will be undefined unless the configuration {@link HALLink} has been resolved.
-   */
-  @link(SEARCH_COMPONENT)
-  configuration?: Observable<RemoteData<SearchComponent>>;
+    configuration?: RelationBoxConfiguration | MetadataBoxConfiguration | MetricsBoxConfiguration;
 
 }

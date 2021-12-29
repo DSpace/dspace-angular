@@ -13,7 +13,7 @@ import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
-import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
@@ -26,11 +26,7 @@ import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import {
-  getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload
-} from '../operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../operators';
 import { RouteService } from '../../services/route.service';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
