@@ -142,4 +142,10 @@ export class ChipsComponent implements OnChanges {
       this.isShowToolTip = text.length > TOOLTIP_TEXT_LIMIT;
     }
   }
+  textTruncate(text: string): string {
+    if (text.length >= TOOLTIP_TEXT_LIMIT) {
+      text = `${text.substring(0,TOOLTIP_TEXT_LIMIT)}...`;
+    }
+    return text;
+  }
 }
