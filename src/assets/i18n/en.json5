@@ -3233,6 +3233,8 @@
 
   "menu.section.icon.import": "Import menu section",
 
+  "menu.section.icon.metadata_cms_edit": "Edit CMS metadata",
+
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
@@ -3242,6 +3244,8 @@
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
+
+  "menu.section.icon.user_agreement_edit": "Edit User Agreement",
 
   "menu.section.icon.workflow": "Administer workflow menu section",
 
