@@ -16,6 +16,7 @@ import { MediaViewerConfig } from './media-viewer-config.interface';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { CmsMetadata } from './cms-metadata';
+import { AddThisPluginConfig } from './addThisPlugin-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 
 export interface GlobalConfig extends Config {
@@ -41,5 +42,6 @@ export interface GlobalConfig extends Config {
   security: MetadataSecurityConfig;
   cms: CmsMetadata;
   suggestion: SuggestionConfig[];
+  addThisPlugin: AddThisPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
 }

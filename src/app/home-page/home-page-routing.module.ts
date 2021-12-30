@@ -27,7 +27,7 @@ import { ThemedHomePageComponent } from './themed-home-page.component';
                 link: 'statistics',
               } as LinkMenuItemModel,
             }],
-          },
+          }, showSocialButtons: true
         },
         resolve: {
           site: HomePageResolver

@@ -450,5 +450,10 @@ export const environment: GlobalConfig = {
       'cris.cms.home-news',
       'cris.cms.footer',
     ]
+  },
+  addThisPlugin: {
+    siteId: '',
+    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
+    socialNetworksEnabled: false
   }
 };
