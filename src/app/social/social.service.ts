@@ -52,7 +52,7 @@ export class SocialService {
       // console.log('HTML Element found, setting display to block');
       socialButtons.style.display = 'block';
     }
-    console.error('No HTML Elements to show');
+    // console.error('No HTML Elements to show');
   }
 
   protected initialize(activatedRoute: ActivatedRoute) {
