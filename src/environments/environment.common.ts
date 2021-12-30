@@ -294,6 +294,19 @@ export const environment: GlobalConfig = {
       undoTimeout: 10000 // 10 seconds
     }
   },
+  // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+  // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+  // to efficiently display the search results.
+  followAuthorityMetadata: [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author']
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author']
+    }
+  ],
   collection: {
     edit: {
       undoTimeout: 10000 // 10 seconds

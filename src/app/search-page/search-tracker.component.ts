@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { SearchManager } from '../core/browse/search-manager';
 
 /**
  * This component triggers a page view statistic
@@ -33,6 +34,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
 
   constructor(
     protected service: SearchService,
+    protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -40,7 +42,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
     public angulartics2: Angulartics2,
     protected router: Router
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router);
+    super(service, searchManager, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   ngOnInit(): void {

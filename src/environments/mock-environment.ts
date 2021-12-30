@@ -202,6 +202,12 @@ export const environment: Partial<GlobalConfig> = {
       }
     ]
   },
+  followAuthorityMetadata: [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author']
+    }
+  ],
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds

@@ -24,4 +24,5 @@ export interface BrowseByConfig extends Config {
    * A list of all the active Browse-By pages
    */
   types: BrowseByTypeConfig[];
+
 }
