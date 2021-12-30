@@ -634,7 +634,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         {
           id: 'metadata_cms_edit',
           active: false,
-          visible: false,
+          visible: authorized,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.cms_metadata_edit',
