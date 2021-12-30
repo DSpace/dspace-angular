@@ -45,9 +45,11 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
     protected translateService: TranslateService
   ) {
     super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
+    console.log(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
   }
 
   getIdentifierFromValue() {
+    console.log(this.renderingSubType, this.metadataValue.value, this.resolver.managedUrn);
     let identifier: MetadataLinkValue;
     if (isNotEmpty(this.renderingSubType)) {
       identifier = this.composeLink(this.metadataValue.value, this.renderingSubType);
@@ -65,6 +67,12 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
             identifier = this.composeLink(this.metadataValue.value, urn);
             break;
           }
+        }
+        if (!identifier) {
+          identifier = {
+            href: this.metadataValue.value,
+            text: this.metadataValue.value
+          };
         }
       }
     }
@@ -94,5 +102,6 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
 
   ngOnInit(): void {
     this.identifier = this.getIdentifierFromValue();
+    console.log(this.identifier);
   }
 }
