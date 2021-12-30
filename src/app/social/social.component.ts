@@ -41,7 +41,6 @@ export class SocialComponent implements OnInit, OnDestroy {
   }
 
   showSocialButtons() {
-    // console.log('Showing social buttons');
     if (!this.script) {
       this.script = this.socialService.initializeAddThisScript(this._document);
     }
@@ -53,7 +52,7 @@ export class SocialComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe()
+    this.subscription?.unsubscribe();
   }
 
 }

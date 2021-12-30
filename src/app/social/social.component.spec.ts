@@ -1,142 +1,73 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {SocialComponent} from './social.component';
-import {DOCUMENT} from '@angular/common';
-import {CookieService} from '../core/services/cookie.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {StoreModule} from '@ngrx/store';
-import {of as observableOf, ReplaySubject} from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SocialComponent } from './social.component';
+import { DOCUMENT } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { SocialService } from './social.service';
 
 describe('SocialComponent', () => {
   let component: SocialComponent;
   let fixture: ComponentFixture<SocialComponent>;
   let document: Document;
-  const cookieServiceMock = {
-    getAll: () => {
-      return {};
-    }
-  };
-  const routeStub = {
-    outlet: 'primary',
-    data: observableOf({showSocialButtons: true}),
-  };
-  const routeStubWithNoSocialButtons = {
-    outlet: 'primary',
-    data: observableOf({showSocialButtons: false}),
-  };
-  const events = new ReplaySubject();
-  events.next(new NavigationEnd(1, '', ''));
-  const routerStub = {
-    events: events.asObservable()
-  };
-  const cookieServiceMockWithAddThis = {
-    getAll: () => {
-      return {
-        'klaro-anonymous': {
-          'add-this': true
-        }
-      };
-    }
-  };
-  describe('Social Component when no cookies defined', () => {
-    beforeEach(async () => {
-      await TestBed.configureTestingModule({
-        declarations: [SocialComponent],
-        imports: [StoreModule.forRoot({})],
-        providers: [{provide: CookieService, useValue: cookieServiceMock},
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: Router, useValue: routerStub},
-          Document]
-      }).compileComponents();
-      fixture = TestBed.createComponent(SocialComponent);
-      component = fixture.componentInstance;
-      document = TestBed.inject(DOCUMENT);
-      fixture.detectChanges();
-    });
-    it('should create socialComponent', (done) => {
-      expect(component).toBeTruthy();
-      done();
-    });
-  });
-  describe('Social Component when cookies defined for addThis and public page', () => {
-    beforeEach(async () => {
-      await TestBed.configureTestingModule({
-        declarations: [SocialComponent],
-        imports: [StoreModule.forRoot({})],
-        providers: [{provide: CookieService, useValue: cookieServiceMockWithAddThis},
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: Router, useValue: routerStub},
-          Document]
-      }).compileComponents();
-      fixture = TestBed.createComponent(SocialComponent);
-      component = fixture.componentInstance;
-      document = TestBed.inject(DOCUMENT);
-      spyOn(document.body, 'appendChild');
-      spyOn(component, 'initializeScript');
-      fixture.detectChanges();
-    });
-    it('should render the script', (done) => {
-      expect(component.shareAccepted).toBeTrue();
-      expect(component.initializeScript).toHaveBeenCalled();
-      expect(document.body.appendChild).toHaveBeenCalled();
-      expect(component.appended).toBeTrue();
-      done();
-    });
-  });
-  describe('Social Component when cookies defined for addThis and private page', () => {
-    beforeEach(async () => {
+  const script = {} as any;
 
-      await TestBed.configureTestingModule({
-        declarations: [SocialComponent],
-        imports: [StoreModule.forRoot({})],
-        providers: [{provide: CookieService, useValue: cookieServiceMockWithAddThis},
-          {provide: ActivatedRoute, useValue: routeStubWithNoSocialButtons},
-          {provide: Router, useValue: routerStub},
-          Document]
-      }).compileComponents();
-      fixture = TestBed.createComponent(SocialComponent);
-      component = fixture.componentInstance;
-      document = TestBed.inject(DOCUMENT);
-      spyOn(document.body, 'appendChild');
-      spyOn(component, 'initializeScript');
-      spyOn(component, 'showOrHideSocialButtons');
-      fixture.detectChanges();
-    });
-    it('should remove the social buttons', (done) => {
-      expect(component.shareAccepted).toBeTrue();
-      expect(component.initializeScript).toHaveBeenCalled();
-      expect(component.showOrHideSocialButtons).toHaveBeenCalledWith('none');
-      done();
-    });
-  });
-  describe('Social Component when cookies defined for addThis and undefined route data', () => {
+  const showSocialButtonsSubject = new Subject<boolean>();
+  const socialServiceStub = {
+    showSocialButtons: (activatedRoute) => showSocialButtonsSubject.asObservable(),
+    initializeAddThisScript: (_document) => script,
+    show: (_document) => null,
+    hide: (_document) => null,
+  };
+
+  const activatedRouteStub = {} as ActivatedRoute;
+
+  describe('Social Component when no cookies defined', () => {
+
     beforeEach(async () => {
-      const routeStubWithSocialUndefined = {
-        outlet: 'primary',
-        data: observableOf({showSocialButtons: undefined}),
-      };
       await TestBed.configureTestingModule({
         declarations: [SocialComponent],
         imports: [StoreModule.forRoot({})],
-        providers: [{provide: CookieService, useValue: cookieServiceMockWithAddThis},
-          {provide: ActivatedRoute, useValue: routeStubWithSocialUndefined},
-          {provide: Router, useValue: routerStub},
-          Document]
+        providers: [
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
+          { provide: SocialService, useValue: socialServiceStub}
+        ]
       }).compileComponents();
       fixture = TestBed.createComponent(SocialComponent);
       component = fixture.componentInstance;
-      document = TestBed.inject(DOCUMENT);
-      const socialButtons = document.createElement('div');
-      socialButtons.id = '#at-expanding-share-button';
-      component.socialButtons = socialButtons;
-      spyOn(document.body, 'appendChild');
-      spyOn(document, 'querySelector').and.returnValue(socialButtons);
-      spyOn(component, 'initializeScript');
-      spyOn(component, 'showOrHideSocialButtons');
+      document = TestBed.inject(DOCUMENT) as any;
+
+      spyOn(socialServiceStub, 'showSocialButtons').and.callThrough();
+      spyOn(socialServiceStub, 'show').and.callThrough();
+      spyOn(socialServiceStub, 'initializeAddThisScript').and.callThrough();
+      spyOn(socialServiceStub, 'hide').and.callThrough();
+
       fixture.detectChanges();
     });
-    it('should remove the social buttons', (done) => {
-      expect(component.socialButtons.style.display).toEqual('none');
-      done();
+
+    it('should create socialComponent', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should subscribe to showSocialButtons with activatedRoute', () => {
+      expect(socialServiceStub.showSocialButtons).toHaveBeenCalledWith(activatedRouteStub);
+    });
+
+    it('when showSocialButtons emit true should initialize the script and show social buttons', () => {
+
+      showSocialButtonsSubject.next(true);
+
+      expect(socialServiceStub.initializeAddThisScript).toHaveBeenCalledWith(document);
+      expect(component.script).toEqual(script);
+      expect(socialServiceStub.show).toHaveBeenCalledWith(document);
+    });
+
+    it('when showSocialButtons emit false should hide social buttons', () => {
+
+      showSocialButtonsSubject.next(false);
+
+      expect(socialServiceStub.hide).toHaveBeenCalledWith(document);
     });
   });
+
 });
