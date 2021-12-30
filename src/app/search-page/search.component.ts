@@ -137,7 +137,7 @@ export class SearchComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    debugger;
+
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
