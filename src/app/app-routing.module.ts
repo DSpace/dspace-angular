@@ -42,7 +42,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'home',
             loadChildren: () => import('./home-page/home-page.module')
               .then((m) => m.HomePageModule),
-            data: { showBreadcrumbs: false },
+            data: { showBreadcrumbs: false},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
@@ -131,7 +131,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           {
             path: 'explore',
             loadChildren: () => import('./+explore/explore.module')
-              .then((m) => m.ExploreModule)
+              .then((m) => m.ExploreModule),
           },
           {
             path: ADMIN_MODULE_PATH,
@@ -255,8 +255,9 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
       ]}
     ],{
-      onSameUrlNavigation: 'reload',
-    })
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy'
+})
   ],
   exports: [RouterModule],
 })

@@ -11,7 +11,7 @@ import { EndUserAgreementCurrentUserGuard } from '../core/end-user-agreement/end
         path: ':id',
         component: ExploreComponent,
         resolve: { breadcrumb: ExploreI18nBreadcrumbResolver },
-        data: { title: 'explore.title', breadcrumbKey: 'explore' },
+        data: { title: 'explore.title', breadcrumbKey: 'explore', showSocialButtons: true },
         canActivate: [EndUserAgreementCurrentUserGuard]
       },
     ])

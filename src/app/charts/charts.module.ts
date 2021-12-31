@@ -22,7 +22,6 @@ const COMPONENTS = [
 ];
 
 const ENTRY_COMPONENTS = [
-  ChartComponent,
   LineChartComponent,
   PieChartComponent,
   BarChartComponent,
@@ -33,8 +32,7 @@ const ENTRY_COMPONENTS = [
     ...MODULES
   ],
   declarations: [
-    ...COMPONENTS,
-    ...ENTRY_COMPONENTS
+    ...COMPONENTS
   ],
   exports: [
     ...COMPONENTS
@@ -45,4 +43,14 @@ const ENTRY_COMPONENTS = [
  * This module handles all components that are necessary for the Chart components
  */
 export class ChartsModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: ChartsModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

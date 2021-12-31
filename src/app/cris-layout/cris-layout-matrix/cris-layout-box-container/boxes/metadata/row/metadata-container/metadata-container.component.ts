@@ -16,7 +16,7 @@ import { map, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-metadata-container',
@@ -25,7 +25,6 @@ import { Observable } from 'rxjs/internal/Observable';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetadataContainerComponent implements OnInit {
-
   /**
    * Current DSpace Item
    */
@@ -85,7 +84,7 @@ export class MetadataContainerComponent implements OnInit {
    * Returns a string representing the label of field if exists
    */
   get label(): string {
-    const fieldLabelI18nKey = this.fieldI18nPrefix + this.field.label;
+    const fieldLabelI18nKey = this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata;
     const header: string = this.translateService.instant(fieldLabelI18nKey);
     if (header === fieldLabelI18nKey) {
       // if translation does not exist return the value present in the header property
@@ -113,7 +112,7 @@ export class MetadataContainerComponent implements OnInit {
 
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering === FieldRenderingType.ATTACHMENT) {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM && rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
         if (hasBitstream) {
           this.initRenderOptions(rendering);
@@ -188,5 +187,4 @@ export class MetadataContainerComponent implements OnInit {
   trackUpdate(index, value: string) {
     return value;
   }
-
 }

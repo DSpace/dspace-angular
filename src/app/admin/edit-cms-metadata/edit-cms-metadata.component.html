@@ -1,37 +1,53 @@
-<div *ngIf="selectMode;else edit_mode">
+<ng-container *ngIf="(editMode | async); then editMetadataTemplate else selectMetadataTemplate"></ng-container>
+
+<ng-template #selectMetadataTemplate>
   <div class="container">
     <h3 class="mb-4">{{'menu.section.cms.edit.metadata.head' | translate}}</h3>
     <div class="input-group">
-      <select class="form-control col-md-4 mr-3 mb-2" aria-label="Select metadata"
-              [(ngModel)]="metadataSelectedTobeEdited">
-        <option value="0">{{'admin.edit-cms-metadata.select-metadata' | translate}}</option>
+      <select class="form-control col-md-4 mr-3 mb-2" aria-label="Select metadata" [(ngModel)]="selectedMetadata">
+        <option [ngValue]="undefined" disabled selected>{{'admin.edit-cms-metadata.select-metadata' | translate}}</option>
         <option *ngFor="let md of metadataList" [value]="md">{{md}}</option>
       </select>
       <span class="input-group-btn">
-     <button class="btn btn-primary" (click)="selectMetadataToEdit()">
-      <span>
-        {{'admin.edit-cms-metadata.edit-button' | translate}}
-      </span>
-     </button>
+        <button id="edit-metadata-btn" class="btn btn-primary" (click)="editSelectedMetadata()" [disabled]="!selectedMetadata">
+          {{'admin.edit-cms-metadata.edit-button' | translate}}
+        </button>
     </span>
     </div>
   </div>
-</div>
+</ng-template>
 
 
-<ng-template #edit_mode>
+<ng-template #editMetadataTemplate>
   <div class="container">
-    <h2>{{'admin.edit-cms-metadata.title' | translate}}</h2>
-    <div *ngFor="let metadata of ($any(metadataValueHomePage) | keyvalue)" class="form-group">
-      <label>{{metadata.value.languageLabel}}</label>
-      <textarea class="col-md-12 m-2" [(ngModel)]="metadata.value.text" rows="10"></textarea>
+    <h2 class=" mb-5">{{'admin.edit-cms-metadata.title' | translate}} '{{selectedMetadata}}'</h2>
+    <div class="row">
+      <div class="col-md">
+        <div *ngFor="let lang of languageList" class="form-group">
+          <label>{{languageLabel(lang)}}</label>
+          <textarea class="col-md-12 m-2" [ngModel]="selectedMetadataValues.get(lang)" (ngModelChange)="selectedMetadataValues.set(lang, $event)" rows="10"></textarea>
+        </div>
+      </div>
     </div>
+    <ng-container *ngTemplateOutlet="editMetadataButtonsTemplate"></ng-container>
+  </div>
+</ng-template>
+
+
+<ng-template #editMetadataButtonsTemplate>
+  <div class="row">
     <div class="col-md">
-      <button class="btn btn-primary float-right m-2" (click)="edit()">
-      <span>
-        <i class="fas fa-edit"></i>
-        &nbsp;{{ 'admin.edit-cms-metadata.save-button' | translate }}
-      </span>
+      <button id="save-metadata-btn" class="btn btn-primary float-right m-2" (click)="saveMetadata()">
+          <span>
+            <i class="fas fa-edit"></i>
+            &nbsp;{{ 'admin.edit-cms-metadata.save-button' | translate }}
+          </span>
+      </button>
+      <button id="back-metadata-btn" class="btn btn-outline-secondary float-right m-2" (click)="back()">
+          <span>
+            <i class="fas fa-arrow-left"></i>
+            &nbsp;{{ 'admin.edit-cms-metadata.back-button' | translate }}
+          </span>
       </button>
     </div>
   </div>

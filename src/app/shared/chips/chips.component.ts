@@ -4,11 +4,11 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { isObject } from 'lodash';
 
 import { Chips } from './models/chips.model';
+import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { ChipsItem } from './models/chips-item.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-chips',

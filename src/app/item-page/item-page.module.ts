@@ -84,7 +84,7 @@ const DECLARATIONS = [
     NgxGalleryModule,
     CrisItemPageModule,
     SubmissionModule,
-    ContextMenuModule
+    ContextMenuModule.withEntryComponents(),
   ],
   declarations: [
     ...DECLARATIONS,

@@ -3,6 +3,7 @@ import { differenceWith, findKey, isEqual, uniqWith } from 'lodash';
 
 import {
   ChangeSubmissionCollectionAction,
+  CleanDetectDuplicateAction,
   CompleteInitSubmissionFormAction,
   DeleteSectionErrorsAction,
   DeleteUploadedFileAction,
@@ -369,6 +370,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_ERROR: {
       return endSaveDecision(state, action as SetDuplicateDecisionErrorAction);
+    }
+
+    case SubmissionObjectActionTypes.CLEAN_DETECT_DUPLICATE: {
+      return cleanDetectDuplicateSection(state, action as CleanDetectDuplicateAction);
     }
 
     default: {
@@ -1089,6 +1094,23 @@ function endSaveDecision(state: SubmissionObjectState, action: SetDuplicateDecis
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         saveDecisionPending: false,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+function cleanDetectDuplicateSection(state: SubmissionObjectState, action: CleanDetectDuplicateAction): SubmissionObjectState {
+  if (isNotEmpty(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ 'detect-duplicate' ]: Object.assign({}, state[ action.payload.submissionId ].sections [ 'detect-duplicate' ], {
+            enabled: false,
+            data: {}
+          })
+        })
       })
     });
   } else {

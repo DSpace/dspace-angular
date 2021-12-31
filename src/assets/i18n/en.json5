@@ -66,6 +66,8 @@
 
   "admin.edit-cms-metadata.save-button": "Save",
 
+  "admin.edit-cms-metadata.back-button": "Back",
+
   "admin.edit-cms-metadata.success": "Metadata successfully updated",
 
   "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
@@ -688,6 +690,7 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}..." ,
 
+  "bitstream.download.page.back": "Back" ,
 
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -1549,6 +1552,8 @@
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "cookies.consent.purpose.sharing": "Sharing",
+
   "cris-layout.toggle.open": "Open section",
 
   "cris-layout.toggle.close": "Close section",
@@ -1738,6 +1743,8 @@
   "error.validation.NotValidEmail": "This E-mail is not a valid email",
 
   "error.validation.emailTaken": "This E-mail is already taken",
+
+  "error.validation.groupExists": "This group already exists",
 
   "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
 
@@ -3214,7 +3221,7 @@
 
   "menu.section.icon.control_panel": "Control Panel menu section",
 
-  "menu.section.icon.curation_task": "Curation Task menu section",
+  "menu.section.icon.curation_tasks": "Curation Task menu section",
 
   "menu.section.icon.edit": "Edit menu section",
 
@@ -3226,6 +3233,8 @@
 
   "menu.section.icon.import": "Import menu section",
 
+  "menu.section.icon.metadata_cms_edit": "Edit CMS metadata",
+
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
@@ -3235,6 +3244,10 @@
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
+
+  "menu.section.icon.user_agreement_edit": "Edit User Agreement",
+
+  "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
@@ -3960,13 +3973,13 @@
 
   "process.overview.delete.success" : "Process deleted with success",
 
-  "process.overview.table.finish" : "Finish time",
+  "process.overview.table.finish" : "Finish time (UTC)",
 
   "process.overview.table.id" : "Process ID",
 
   "process.overview.table.name" : "Name",
 
-  "process.overview.table.start" : "Start time",
+  "process.overview.table.start" : "Start time (UTC)",
 
   "process.overview.table.status" : "Status",
 
@@ -4443,6 +4456,8 @@
 
   "search.filters.applied.f.personorgunits": "Organisation",
 
+  "search.filters.applied.f.personOrgUnits": "Organisation",
+
   "search.filters.applied.f.projectorgunits": "Organisation",
 
   "search.filters.applied.f.subject": "Subject",
@@ -4467,7 +4482,7 @@
 
   "search.filters.applied.f.organization": "Organisation",
 
-
+  "search.filters.applied.charts.defaultConfiguration.title": "Search Output",
 
   "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
 
@@ -4612,6 +4627,8 @@
 
   "search.filters.filter.personOrgUnits.head" : "Organizations",
 
+  "search.filters.filter.personOrgUnits.label" : "Search organizations",
+
   "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
 
   "search.filters.filter.namedresourcetype.head": "Status",
@@ -4670,7 +4687,11 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.types.head": "Type",
 
+  "search.filters.filter.types.label": "Search Type",
+
+  "search.filters.filter.types.placeholder": "Type",
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -4711,6 +4732,8 @@
   "search.results.head": "Search Results",
 
   "default.search.results.head": "Search Results",
+
+  "defaultConfiguration.search.results.head": "Search Results",
 
   "infrastructure.search.results.head": "Infrastructures Search Results",
 
@@ -5743,4 +5766,5 @@
   "invitation.accept-btn": "Accept",
 
   "invitation.ignore-btn": "Ignore",
+
 }

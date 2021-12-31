@@ -294,6 +294,19 @@ export const environment: GlobalConfig = {
       undoTimeout: 10000 // 10 seconds
     }
   },
+  // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+  // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+  // to efficiently display the search results.
+  followAuthorityMetadata: [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author']
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author']
+    }
+  ],
   collection: {
     edit: {
       undoTimeout: 10000 // 10 seconds
@@ -399,6 +412,12 @@ export const environment: GlobalConfig = {
       defaultMetadataValueColStyle: 'col-9'
     }
   },
+  layout: {
+    navbar: {
+      // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+      showCommunityCollection: true,
+    }
+  },
   security: {
     levels: [
       {
@@ -427,9 +446,14 @@ export const environment: GlobalConfig = {
   ],
   cms: {
     metadataList: [
-      'cms.homepage.header',
-      'cms.homepage.footer',
-      'cms.homepage.sidebar'
+      'cris.cms.home-header',
+      'cris.cms.home-news',
+      'cris.cms.footer',
     ]
+  },
+  addThisPlugin: {
+    siteId: '',
+    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
+    socialNetworksEnabled: false
   }
 };

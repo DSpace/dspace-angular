@@ -21,9 +21,8 @@ import { EntityTypeService } from '../core/data/entity-type.service';
 import { Context } from '../core/shared/context.model';
 import { HostWindowService } from '../shared/host-window.service';
 
-import { BehaviorSubject, Observable, } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, } from 'rxjs';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 

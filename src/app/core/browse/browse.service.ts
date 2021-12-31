@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -21,6 +21,9 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../data/item-data.service';
+import { of } from 'rxjs/internal/observable/of';
 
 /**
  * The service handling all browse requests
@@ -47,7 +50,7 @@ export class BrowseService {
     protected halService: HALEndpointService,
     private browseDefinitionDataService: BrowseDefinitionDataService,
     private hrefOnlyDataService: HrefOnlyDataService,
-    private rdb: RemoteDataBuildService,
+    private rdb: RemoteDataBuildService
   ) {
   }
 
@@ -103,9 +106,10 @@ export class BrowseService {
    * Get all items linked to a certain metadata value
    * @param {string} filterValue      metadata value to filter by (e.g. author's name)
    * @param options                   Options to narrow down your search
+   * @param linksToFollow             The array of [[FollowLinkConfig]]
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
@@ -138,7 +142,51 @@ export class BrowseService {
         return href;
       }),
     );
-    return this.hrefOnlyDataService.findAllByHref<Item>(href$);
+    return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, true, false, ...linksToFollow);
+  }
+
+  /**
+   * Get all items linked to a certain metadata authority
+   * @param {string} filterAuthority      metadata authority to filter by (e.g. author's authority)
+   * @param options                   Options to narrow down your search
+   * @param linksToFollow             The array of [[FollowLinkConfig]]
+   * @returns {Observable<RemoteData<PaginatedList<Item>>>}
+   */
+  getBrowseItemsForAuthority(filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    const href$ = this.getBrowseDefinitions().pipe(
+      getBrowseDefinitionLinks(options.metadataDefinition),
+      hasValueOperator(),
+      map((_links: any) => {
+        const itemsLink = _links.items.href || _links.items;
+        return itemsLink;
+      }),
+      hasValueOperator(),
+      map((href: string) => {
+        const args = [];
+        if (isNotEmpty(options.scope)) {
+          args.push(`scope=${options.scope}`);
+        }
+        if (isNotEmpty(options.sort)) {
+          args.push(`sort=${options.sort.field},${options.sort.direction}`);
+        }
+        if (isNotEmpty(options.pagination)) {
+          args.push(`page=${options.pagination.currentPage - 1}`);
+          args.push(`size=${options.pagination.pageSize}`);
+        }
+        if (isNotEmpty(options.startsWith)) {
+          args.push(`startsWith=${options.startsWith}`);
+        }
+        if (isNotEmpty(filterAuthority)) {
+          args.push(`filterValue=${filterAuthority}`);
+          args.push(`filterAuthority=${filterAuthority}`);
+        }
+        if (isNotEmpty(args)) {
+          href = new URLCombiner(href, `?${args.join('&')}`).toString();
+        }
+        return href;
+      }),
+    );
+    return this.hrefOnlyDataService.findAllByHref<Item>(href$, {}, true, false, ...linksToFollow);
   }
 
   /**

@@ -2,7 +2,7 @@
     <div class="d-flex">
         <h2 class="flex-grow-1">{{'process.detail.title' | translate:{id: process?.processId, name: process?.scriptName} }}</h2>
         <div>
-            <a class="btn btn-light" [routerLink]="'/processes/new'" [queryParams]="{id: process?.processId}">{{'process.detail.create' | translate}}</a>
+            <button class="btn btn-lg btn-success " routerLink="/processes/new" [queryParams]="{id: process?.processId}"><i class="fas fa-plus pr-2"></i>{{'process.detail.create' | translate}}</button>
         </div>
     </div>
     <ds-process-detail-field id="process-name" [title]="'process.detail.script'">
@@ -23,11 +23,11 @@
     </div>
 
     <ds-process-detail-field *ngIf="process && process.startTime" id="process-start-time" [title]="'process.detail.start-time' | translate">
-        <div>{{ process.startTime }}</div>
+        <div>{{ process.startTime | date:dateFormat:'UTC' }}</div>
     </ds-process-detail-field>
 
     <ds-process-detail-field *ngIf="process && process.endTime" id="process-end-time" [title]="'process.detail.end-time' | translate">
-        <div>{{ process.endTime }}</div>
+        <div>{{ process.endTime | date:dateFormat:'UTC' }}</div>
     </ds-process-detail-field>
 
     <ds-process-detail-field *ngIf="process && process.processStatus" id="process-status" [title]="'process.detail.status' | translate">
@@ -35,7 +35,7 @@
     </ds-process-detail-field>
 
     <ds-process-detail-field *ngIf="isProcessFinished(process)" id="process-output" [title]="'process.detail.output'">
-      <button *ngIf="!showOutputLogs && process?._links?.output?.href != undefined" id="showOutputButton" class="btn btn-light" (click)="showProcessOutputLogs()">
+      <button *ngIf="!showOutputLogs && process?._links?.output?.href != undefined" id="showOutputButton" class="btn btn-primary" (click)="showProcessOutputLogs()">
         {{ 'process.detail.logs.button' | translate }}
       </button>
       <ds-loading *ngIf="retrievingOutputLogs$ | async" class="ds-loading" message="{{ 'process.detail.logs.loading' | translate }}"></ds-loading>
@@ -47,7 +47,7 @@
       </p>
     </ds-process-detail-field>
 
-    <div>
-      <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
+    <div style="text-align: right;">
+      <a class="btn btn-outline-secondary mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
     </div>
 </div>

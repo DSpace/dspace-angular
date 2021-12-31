@@ -1,5 +1,10 @@
 
 :host ::ng-deep {
+
+  a{
+    cursor: pointer;
+  }
+
   height: 100%;
 
   .fa-chevron-right {
@@ -54,6 +59,10 @@
   .sidebar-collapsible {
     border-bottom: var(--ds-cris-layout-sidebar-link-border-bottom);
   }
+
+  .nav-item:hover{
+    background-color: var(--ds-cris-layout-sidebar-tab-color-hover);
+  }
 }
 
 .horizontal {
@@ -81,8 +90,12 @@
     background: var(--ds-cris-layout-sidebar-menu-active-background);
   }
 
+  .nav-item:hover{
+    background-color: var(--ds-cris-layout-navbar-tab-color-hover);
+  }
+
 }
 
 .active.horizontal {
-  border-bottom: 1px solid var(--ds-cris-layout-navbar-tab-color-active);
+  border-bottom: 2px solid var(--ds-cris-layout-navbar-tab-color-active);
 }

@@ -69,6 +69,7 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
               } as LinkMenuItemModel,
             }],
           },
+          showSocialButtons: true
         },
       },
       {

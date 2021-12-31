@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UUIDService {

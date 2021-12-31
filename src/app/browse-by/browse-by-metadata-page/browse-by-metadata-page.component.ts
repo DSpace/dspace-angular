@@ -16,7 +16,9 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -104,8 +106,14 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   startsWith: string;
 
+  /**
+   * authority of the item we are browsing for
+   */
+  authority = '';
+
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
+                     protected searchManager: SearchManager,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router) {
@@ -124,9 +132,12 @@ export class BrowseByMetadataPageComponent implements OnInit {
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.value = +params.value || params.value || '';
+          this.authority = +params.authority || params.authority || '';
           this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId);
-          if (isNotEmpty(this.value)) {
+          if (isNotEmpty(this.authority)) {
+            this.updatePageWithAuthority(searchOptions, this.authority);
+          } else if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
           } else {
             this.updatePage(searchOptions);
@@ -167,7 +178,26 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * @param value          The value of the browse-entry to display items for
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
-    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
+    const embedMetrics = followLink('metrics');
+    this.items$ = this.searchManager.getBrowseItemsFor(value, searchOptions, embedMetrics).pipe(
+      tap((items) => {
+        console.log(items);
+      })
+    );
+  }
+
+  /**
+   * Updates the current page with searchOptions and display items linked to the given authority
+   * @param searchOptions   Options to narrow down your search:
+   *                        { metadata: string
+   *                          pagination: PaginationComponentOptions,
+   *                          sort: SortOptions,
+   *                          scope: string }
+   * @param authority         The authority of the browse-entry to display items for
+   */
+  updatePageWithAuthority(searchOptions: BrowseEntrySearchOptions, authority: string) {
+    const embedMetrics = followLink('metrics');
+    this.items$ = this.searchManager.getBrowseItemsForAuthority(authority, searchOptions, embedMetrics);
   }
 
   /**

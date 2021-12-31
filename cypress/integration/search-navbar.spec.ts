@@ -13,7 +13,7 @@ const page = {
     }
 };
 
-describe('Search from Navigation Bar', () => {
+xdescribe('Search from Navigation Bar', () => {
     // NOTE: these tests currently assume this query will return results!
     const query = 'test';
 

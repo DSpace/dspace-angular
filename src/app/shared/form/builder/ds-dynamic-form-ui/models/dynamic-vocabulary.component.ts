@@ -13,7 +13,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
@@ -247,7 +247,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key)) {
             const fieldId = key.replace('data-', '');
-            const newValue: string = this.getOtherInformationValue(otherInformation[key]) as string;
+            const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key]);
             if (isNotEmpty(newValue)) {
               const updatedModel = this.formBuilderService.updateModelValue(fieldId, newValue);
               if (isNotEmpty(updatedModel)) {
@@ -267,16 +267,24 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     }
   }
 
-  getOtherInformationValue(value: string): string | VocabularyEntry {
-    if (!value || value.indexOf('::') === -1) {
-      return value;
+  getOtherInformationValue(value: string): FormFieldMetadataValueObject {
+    if (isEmpty(value)) {
+      return null;
     }
 
-    const newValue = new VocabularyEntry();
-    newValue.value = value.substring(0, value.lastIndexOf('::'));
-    newValue.display = newValue.value;
-    newValue.authority = value.substring(value.lastIndexOf('::') + 2);
-    return newValue;
+    let returnValue;
+    if (value.indexOf('::') === -1) {
+      returnValue = new FormFieldMetadataValueObject(value);
+    } else {
+      returnValue = new FormFieldMetadataValueObject(
+        value.substring(0, value.lastIndexOf('::')),
+        null,
+        null,
+        value.substring(value.lastIndexOf('::') + 2)
+      );
+    }
+
+    return returnValue;
   }
 
   private hasValidAuthority(value: FormFieldMetadataValueObject) {

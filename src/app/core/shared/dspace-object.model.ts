@@ -108,7 +108,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * Gets all matching metadata in this DSpaceObject.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
   allMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue[] {
@@ -119,7 +119,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * Like [[allMetadata]], but only returns string values.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string[] {
@@ -130,7 +130,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * Gets the first matching MetadataValue object in this DSpaceObject, or `undefined`.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
   firstMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue {
@@ -152,7 +152,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * Checks for a matching metadata value in this DSpaceObject.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {boolean} whether a match is found.
    */
   hasMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): boolean {
@@ -161,7 +161,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
 
   /**
    * Find metadata on a specific field and order all of them using their "place" property.
-   * @param key
+   * @param keyOrKeys
    */
   findMetadataSortedByPlace(keyOrKeys: string | string[]): MetadataValue[] {
     return this.allMetadata(keyOrKeys).sort((a: MetadataValue, b: MetadataValue) => {

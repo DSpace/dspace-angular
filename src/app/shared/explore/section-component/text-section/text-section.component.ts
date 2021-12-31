@@ -1,8 +1,7 @@
-import {TextRowSection} from '../../../../core/layout/models/section.model';
-import {Component, Input} from '@angular/core';
-import {Site} from '../../../../core/shared/site.model';
-import {MetadataValue} from '../../../../core/shared/metadata.models';
-import {environment} from '../../../../../environments/environment';
+import { TextRowSection } from '../../../../core/layout/models/section.model';
+import { Component, Input } from '@angular/core';
+import { Site } from '../../../../core/shared/site.model';
+import { LocaleService } from '../../../../core/locale/locale.service';
 
 
 @Component({
@@ -22,18 +21,17 @@ export class TextSectionComponent {
   @Input()
   site: Site;
 
+  constructor(
+    private locale: LocaleService,
+  ) {
+  }
+
   ngOnChanges(changes) {
     if (changes.site && this.site) {
       if (this.site.metadata && this.textRowSection.content) {
-        const mdv = this.site.metadata[this.textRowSection.content];
-        if (mdv && mdv.length > 0) {
-          mdv.forEach((el: MetadataValue) => {
-            // set the metadata value of the default language of the user
-            if (el.language === environment.defaultLanguage) {
-              this.content = el.value;
-            }
-          });
-        }
+        const mdv = this.site.firstMetadataValue(this.textRowSection.content,
+          { language: this.locale.getCurrentLanguageCode() });
+        this.content = mdv ?? '';
       }
     }
   }

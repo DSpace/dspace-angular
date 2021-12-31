@@ -5,6 +5,7 @@ import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 /**
  * This component render the sidebar of the tabs layout
@@ -40,7 +41,7 @@ export class CrisLayoutTabsComponent {
   }
 
   init(): void {
-    if ( this.tabs && this.tabs.length > 0 ) {
+    if (this.tabs && this.tabs.length > 0) {
       this.parseTabs();
       // Check if the location contains a specific tab to show
       const tabName = this.getCurrentTabFromUrl();
@@ -48,9 +49,9 @@ export class CrisLayoutTabsComponent {
         this.selectFromTabName(tabName);
       } else {
         if (this.tabs[0].children && this.tabs[0].children.length > 0) {
-          this.selectTab(0,0);
+          this.selectTab(0, 0);
         } else {
-          this.selectTab(0,null);
+          this.selectTab(0, null);
         }
       }
     }
@@ -58,28 +59,28 @@ export class CrisLayoutTabsComponent {
 
   selectFromTabName(tabName): void {
     let result = null;
-    this.tabs.forEach( (tab,i) => {
+    this.tabs.forEach((tab, i) => {
       if (!!tab.children && tab.children.length > 0) {
-        tab.children.forEach( (subtab,j) => {
+        tab.children.forEach((subtab, j) => {
           if (subtab.shortname === tabName) {
-            result = [i,j];
-            this.selectTab(i,j);
+            result = [i, j];
+            this.selectTab(i, j);
             return;
           }
         });
       } else {
         if (tab.shortname === tabName) {
-          result = [i,null];
-          this.selectTab(i,null);
+          result = [i, null];
+          this.selectTab(i, null);
           return;
         }
       }
     });
     if (result == null) {
       if (this.tabs[0].children && this.tabs[0].children.length > 0) {
-        this.selectTab(0,0);
+        this.selectTab(0, 0);
       } else {
-        this.selectTab(0,null);
+        this.selectTab(0, null);
       }
     }
   }
@@ -90,11 +91,11 @@ export class CrisLayoutTabsComponent {
    * @param idx id of tab
    * @param idy id of nested tab
    */
-  selectTab(idx: number,idy?: number) {
+  selectTab(idx: number, idy?: number) {
     this.tabs.forEach((tabElm) => {
       tabElm.isActive = false;
       if (!!tabElm.children && tabElm.children.length > 0) {
-        tabElm.children.forEach((subtab,j) => {
+        tabElm.children.forEach((subtab, j) => {
           subtab.isActive = false;
         });
       }
@@ -109,21 +110,7 @@ export class CrisLayoutTabsComponent {
     }
     const tabName = this.getCurrentTabFromUrl();
     if (tabName) {
-      if (tabName === this.item.uuid) {
-        this.router.navigate(
-          [selectedTab.shortname],
-          {
-            replaceUrl: true,
-            relativeTo: this.route
-          });
-      } else if (tabName !== selectedTab.shortname) {
-        this.router.navigate(
-          ['../', selectedTab.shortname],
-          {
-            replaceUrl: true,
-            relativeTo: this.route
-          });
-      }
+      this.location.replaceState(getItemPageRoute(this.item) + '/' + selectedTab.shortname);
     }
     // Notify selected tab at parent
     this.selectedTab.emit(selectedTab);
@@ -144,35 +131,35 @@ export class CrisLayoutTabsComponent {
   }
 
   public parseTabs(): void {
-      const tabs = [];
-      this.tabs.forEach((tab) => {
-          // create children where tab has "::"
-          if (tab.shortname.includes('::')) {
-            const splitedTabs = tab.shortname.split('::');
-            const splitedHeaderTabs = tab.header.split('::');
-            const previousTab = tabs.find((seltab) => seltab.shortname === splitedTabs[0]);
+    const tabs = [];
+    this.tabs.forEach((tab) => {
+      // create children where tab has "::"
+      if (tab.shortname.includes('::')) {
+        const splitedTabs = tab.shortname.split('::');
+        const splitedHeaderTabs = tab.header.split('::');
+        const previousTab = tabs.find((seltab) => seltab.shortname === splitedTabs[0]);
 
-            if (!previousTab) {
-              const parentTab = Object.assign({},tab);
-              parentTab.header = splitedHeaderTabs[0];
-              parentTab.shortname = splitedTabs[0];
-              const childTab = Object.assign(tab,{
-                header:splitedHeaderTabs[1],
-                shortname:splitedTabs[1]
-              });
-              parentTab.children = [];
-              parentTab.children.push(childTab);
-              tabs.push(parentTab);
-            } else {
-              tab.header = splitedHeaderTabs[1];
-              tab.shortname = splitedTabs[1];
-              previousTab.children.push(tab);
-            }
-          } else {
-            tabs.push(tab);
-          }
-      });
-      this.tabs = tabs;
+        if (!previousTab) {
+          const parentTab = Object.assign({}, tab);
+          parentTab.header = splitedHeaderTabs[0];
+          parentTab.shortname = splitedTabs[0];
+          const childTab = Object.assign(tab, {
+            header: splitedHeaderTabs[1],
+            shortname: splitedTabs[1]
+          });
+          parentTab.children = [];
+          parentTab.children.push(childTab);
+          tabs.push(parentTab);
+        } else {
+          tab.header = splitedHeaderTabs[1];
+          tab.shortname = splitedTabs[1];
+          previousTab.children.push(tab);
+        }
+      } else {
+        tabs.push(tab);
+      }
+    });
+    this.tabs = tabs;
   }
 
   getTabSelected(tab) {

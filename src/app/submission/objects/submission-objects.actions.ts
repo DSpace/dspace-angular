@@ -70,6 +70,9 @@ export const SubmissionObjectActionTypes = {
   ADD_SECTION_ERROR: type('dspace/submission/ADD_SECTION_ERROR'),
   DELETE_SECTION_ERROR: type('dspace/submission/DELETE_SECTION_ERROR'),
   REMOVE_SECTION_ERRORS: type('dspace/submission/REMOVE_SECTION_ERRORS'),
+
+  // Clean detect duplicate section
+  CLEAN_DETECT_DUPLICATE: type('dspace/submission/CLEAN_DETECT_DUPLICATE')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -252,6 +255,25 @@ export class DisableSectionErrorAction implements Action {
    */
   constructor(submissionId: string, sectionId: string) {
     this.payload = { submissionId, sectionId };
+  }
+}
+
+/**
+ * Removes data and makes 'detect-duplicate' section not visible.
+ */
+export class CleanDetectDuplicateAction implements Action {
+  type = SubmissionObjectActionTypes.CLEAN_DETECT_DUPLICATE;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * creates a new CleanDetectDuplicateAction
+   *
+   * @param submissionId Id of the submission on which perform the action
+   */
+  constructor(submissionId: string ) {
+    this.payload = { submissionId };
   }
 }
 

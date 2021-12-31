@@ -32,15 +32,16 @@ export class FooterComponent implements OnInit {
    */
   section: TextRowSection;
 
-  constructor(@Optional() private cookies: KlaroService,
-              private locale: LocaleService,
-              private siteService: SiteDataService
+  constructor(
+    @Optional() private cookies: KlaroService,
+    private locale: LocaleService,
+    private siteService: SiteDataService
   ) {
   }
 
   ngOnInit() {
     this.section = {
-      content: 'cms.homepage.footer',
+      content: 'cris.cms.footer',
       contentType: 'text-metadata',
       componentType: 'text-row',
       style: ''
