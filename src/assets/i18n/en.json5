@@ -1653,6 +1653,8 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.export-item.item.head": "Export",
+
   "dso-selector.select.collection.head": "Select a collection",
 
   "dso-selector.set-scope.community.head": "Select a search scope",
@@ -1662,6 +1664,7 @@
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
 
+  "dso-selector.export-item.sub-level": "Export to excel items in",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -3213,7 +3216,9 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.import_from_excel": "Import from excel",
 
+  "menu.section.export_to_excel": "Export to excel",
 
   "menu.section.icon.access_control": "Access Control menu section",
 

@@ -283,6 +283,7 @@ import { CountersSectionComponent } from './explore/section-component/counters-s
 import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
+import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { MetricPlumxComponent } from './metric/metric-plumx/metric-plumx.component';
 
@@ -559,7 +560,8 @@ const COMPONENTS = [
   CountersSectionComponent,
   MultiColumnTopSectionComponent,
   EditMetadataSecurityComponent,
-  MetadataLinkViewComponent
+  MetadataLinkViewComponent,
+  ExportExcelSelectorComponent,
 ];
 
 const ENTRY_COMPONENTS = [

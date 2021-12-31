@@ -11,7 +11,8 @@ export enum SelectorActionType {
   EDIT = 'edit',
   EXPORT_METADATA = 'export-metadata',
   SET_SCOPE = 'set-scope',
-  IMPORT_ITEM = 'import-item'
+  IMPORT_ITEM = 'import-item',
+  EXPORT_ITEM = 'export-item'
 }
 
 /**

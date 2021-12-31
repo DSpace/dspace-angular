@@ -23,6 +23,8 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from '../admin-notifications/admin-notifications-routing-paths';
 import { MenuSection } from '../../shared/menu/menu.reducer';
+import { BulkImportSelectorComponent } from '../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+import { ExportExcelSelectorComponent } from '../../shared/dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
 import { environment } from '../../../environments/environment';
 
 /**
@@ -359,61 +361,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * the export scripts exist and the current user is allowed to execute them
    */
   createExportMenuSections() {
-    const menuList = [
-      /* Export */
-      {
-        id: 'export',
-        active: false,
-        visible: false,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.export'
-        } as TextMenuItemModel,
-        icon: 'file-export',
-        index: 3,
-        shouldPersistOnRouteChange: true
-      },
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'export_community',
-      //   parentID: 'export',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.export_community',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      //   shouldPersistOnRouteChange: true
-      // },
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'export_collection',
-      //   parentID: 'export',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.export_collection',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      //   shouldPersistOnRouteChange: true
-      // },
-      // TODO: enable this menu item once the feature has been implemented
-      // {
-      //   id: 'export_item',
-      //   parentID: 'export',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.export_item',
-      //     link: ''
-      //   } as LinkMenuItemModel,
-      //   shouldPersistOnRouteChange: true
-      // },
-    ];
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
     observableCombineLatest(
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
@@ -423,20 +370,79 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       // filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
     ).subscribe(([isAuthorized]) => {
-      this.menuService.addSection(this.menuID, {
-        id: 'export_metadata',
-        parentID: 'export',
-        active: true,
-        visible: isAuthorized,
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: 'menu.section.export_metadata',
-          function: () => {
-            this.modalService.open(ExportMetadataSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-        shouldPersistOnRouteChange: true
-      });
+
+        const menuList = [
+        /* Export */
+        {
+          id: 'export',
+          active: true,
+          visible: isAuthorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.export'
+          } as TextMenuItemModel,
+          icon: 'file-export',
+          index: 3,
+          shouldPersistOnRouteChange: true
+        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'export_community',
+        //   parentID: 'export',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.export_community',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        //   shouldPersistOnRouteChange: true
+        // },
+        // TODO: enable this menu item once the feature has been implemented
+        {
+          id: 'export_to_excel',
+          parentID: 'export',
+          active: true,
+          visible: isAuthorized,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: 'menu.section.export_to_excel',
+            function: () => {
+              this.modalService.open(ExportExcelSelectorComponent);
+            }
+          } as OnClickMenuItemModel,
+          shouldPersistOnRouteChange: true
+        },
+        // TODO: enable this menu item once the feature has been implemented
+        // {
+        //   id: 'export_item',
+        //   parentID: 'export',
+        //   active: false,
+        //   visible: true,
+        //   model: {
+        //     type: MenuItemType.LINK,
+        //     text: 'menu.section.export_item',
+        //     link: ''
+        //   } as LinkMenuItemModel,
+        //   shouldPersistOnRouteChange: true
+        // },
+      ];
+      menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
+
+      // this.menuService.addSection(this.menuID, {
+      //   id: 'export_metadata',
+      //   parentID: 'export',
+      //   active: true,
+      //   visible: isAuthorized,
+      //   model: {
+      //     type: MenuItemType.ONCLICK,
+      //     text: 'menu.section.export_metadata',
+      //     function: () => {
+      //       this.modalService.open(ExportMetadataSelectorComponent);
+      //     }
+      //   } as OnClickMenuItemModel,
+      //   shouldPersistOnRouteChange: true
+      // });
     });
   }
 
@@ -498,6 +504,22 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         } as LinkMenuItemModel,
         shouldPersistOnRouteChange: true
       });
+
+      this.menuService.addSection(this.menuID, {
+        id: 'import_from_excel',
+        parentID: 'import',
+        active: true,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.import_from_excel',
+          function: () => {
+            this.modalService.open(BulkImportSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+
     });
   }
 

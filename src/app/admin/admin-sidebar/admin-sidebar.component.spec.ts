@@ -214,6 +214,18 @@ describe('AdminSidebarComponent', () => {
         }));
 
       });
+
+      it('should not show import', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: false,
+        }));
+      });
+
+      it('should not show export', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: false,
+        }));
+      });
     });
 
     describe('for site admin', () => {
@@ -242,6 +254,18 @@ describe('AdminSidebarComponent', () => {
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
             id: 'workflow', visible: true,
+        }));
+      });
+
+      it('should show import', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+      });
+
+      it('should show export', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: true,
         }));
       });
     });
