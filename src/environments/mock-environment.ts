@@ -202,6 +202,12 @@ export const environment: Partial<GlobalConfig> = {
       }
     ]
   },
+  followAuthorityMetadata: [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author']
+    }
+  ],
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
@@ -286,6 +292,12 @@ export const environment: Partial<GlobalConfig> = {
       defaultMetadataValueColStyle: 'col-9'
     }
   },
+  layout: {
+    navbar: {
+      // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+      showCommunityCollection: false,
+    }
+  },
   security: {
     levels: [
       {
@@ -310,5 +322,10 @@ export const environment: Partial<GlobalConfig> = {
       'cris.cms.home-news',
       'cris.cms.footer',
     ]
+  },
+  addThisPlugin: {
+    siteId: '',
+    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
+    socialNetworksEnabled: false
   }
 };

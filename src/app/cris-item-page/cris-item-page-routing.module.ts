@@ -26,7 +26,8 @@ const routes: Routes = [
             link: 'statistics/items/:id/',
           } as LinkMenuItemModel,
         }],
-      },
+      }
+    , showSocialButtons: true
     }
   },
   { // used for activate specific tab
@@ -48,7 +49,7 @@ const routes: Routes = [
             link: 'statistics/items/:id/',
           } as LinkMenuItemModel,
         }],
-      },
+      },showSocialButtons: true
     }
   }
 ];

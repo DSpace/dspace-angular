@@ -23,6 +23,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -53,8 +54,11 @@ describe('BrowseByDatePageComponent', () => {
 
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
-    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
     getFirstItemFor: () => createSuccessfulRemoteDataObject$(firstItem)
+  };
+
+  const mockBrowseManager = {
+    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
   };
 
   const mockDsoService = {
@@ -80,6 +84,7 @@ describe('BrowseByDatePageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
+        { provide: SearchManager, useValue: mockBrowseManager },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },

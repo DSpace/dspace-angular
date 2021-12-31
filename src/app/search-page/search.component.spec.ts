@@ -25,6 +25,7 @@ import { SearchConfigurationServiceStub } from '../shared/testing/search-configu
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
+import { SearchManager } from '../core/browse/search-manager';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -44,10 +45,12 @@ const sortOption = { name: 'score', sortOrder: 'DESC', metadata: null };
 const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
 const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
-  search: mockResults,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$({ sortOptions: [sortOption]})
+});
+const searchManagerStub = jasmine.createSpyObj('SearchManager', {
+  search: mockResults,
 });
 const configurationParam = 'default';
 const queryParam = 'test query';
@@ -92,6 +95,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     declarations: [compType, ...additionalDeclarations],
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
+      { provide: SearchManager, useValue: searchManagerStub },
       {
         provide: CommunityDataService,
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])

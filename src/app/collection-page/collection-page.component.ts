@@ -110,7 +110,8 @@ export class CollectionPageComponent implements OnInit {
                 scope: id,
                 pagination: currentPagination,
                 sort: currentSort,
-                dsoTypes: [DSpaceObjectType.ITEM]
+                dsoTypes: [DSpaceObjectType.ITEM],
+                forcedEmbeddedKeys: ['metrics']
               })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
         startWith(undefined) // Make sure switching pages shows loading component

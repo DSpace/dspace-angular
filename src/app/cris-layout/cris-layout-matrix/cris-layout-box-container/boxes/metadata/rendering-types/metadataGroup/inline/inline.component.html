@@ -1,10 +1,11 @@
-<div *ngIf="(initialized | async)" class="px-0 col d-flex flex-column">
-  <div *ngFor="let index of componentsToBeRenderedMap.keys();" class="d-flex metadata-group-entry">
+<div *ngIf="(initialized | async)" [ngClass]="field.valuesInline ? 'px-0 col d-flex flex-row flex-wrap' : 'px-0 col d-flex flex-column'">
+   <div *ngFor="let index of componentsToBeRenderedMap.keys();" class="d-flex metadata-group-entry">
     <span *ngFor="let mdg of componentsToBeRenderedMap.get(index); let first = first" class="metadata-group-entry-value" [class.ml-3]="!first">
       <ds-metadata-render class="w-100"
                           [item]="item"
                           [field]="mdg.field"
-                          [metadataValue]="mdg.value"></ds-metadata-render>
+                          [metadataValue]="mdg.value"></ds-metadata-render> 
     </span>
+    <span *ngIf='field.valuesInline && index!=componentsToBeRenderedMap.size-1' class="px-3">&bull;</span >
   </div>
 </div>

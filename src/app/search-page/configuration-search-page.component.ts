@@ -9,6 +9,7 @@ import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
+import { SearchManager } from '../core/browse/search-manager';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -52,12 +53,13 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
   @Input() customData: any;
 
   constructor(protected service: SearchService,
+              protected searchManager: SearchManager,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
               protected router: Router) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router);
+    super(service, searchManager, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   /**

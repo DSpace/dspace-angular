@@ -11,23 +11,19 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { BrowseByTitlePageComponent } from './browse-by-title-page.component';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/request.models';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
   let fixture: ComponentFixture<BrowseByTitlePageComponent>;
-  let itemDataService: ItemDataService;
   let route: ActivatedRoute;
 
   const mockCommunity = Object.assign(new Community(), {
@@ -53,6 +49,10 @@ describe('BrowseByTitlePageComponent', () => {
   ];
 
   const mockBrowseService = {
+    getBrowseEntriesFor: () => toRemoteData([])
+  };
+
+  const mockBrowseManager = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
     getBrowseEntriesFor: () => toRemoteData([])
   };
@@ -75,6 +75,7 @@ describe('BrowseByTitlePageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
+        { provide: SearchManager, useValue: mockBrowseManager },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() }
@@ -87,7 +88,6 @@ describe('BrowseByTitlePageComponent', () => {
     fixture = TestBed.createComponent(BrowseByTitlePageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
-    itemDataService = (comp as any).itemDataService;
     route = (comp as any).route;
   });
 

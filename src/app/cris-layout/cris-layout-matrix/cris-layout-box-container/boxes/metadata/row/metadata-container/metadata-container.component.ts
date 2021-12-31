@@ -84,7 +84,7 @@ export class MetadataContainerComponent implements OnInit {
    * Returns a string representing the label of field if exists
    */
   get label(): string {
-    const fieldLabelI18nKey = this.fieldI18nPrefix + this.field.label;
+    const fieldLabelI18nKey = this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata;
     const header: string = this.translateService.instant(fieldLabelI18nKey);
     if (header === fieldLabelI18nKey) {
       // if translation does not exist return the value present in the header property

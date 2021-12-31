@@ -1552,6 +1552,8 @@
 
   "cookies.consent.purpose.statistical": "Statistical",
 
+  "cookies.consent.purpose.sharing": "Sharing",
+
   "cris-layout.toggle.open": "Open section",
 
   "cris-layout.toggle.close": "Close section",
@@ -3236,6 +3238,8 @@
 
   "menu.section.icon.import": "Import menu section",
 
+  "menu.section.icon.metadata_cms_edit": "Edit CMS metadata",
+
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
@@ -3245,6 +3249,8 @@
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
+
+  "menu.section.icon.user_agreement_edit": "Edit User Agreement",
 
   "menu.section.icon.workflow": "Administer workflow menu section",
 
@@ -4481,7 +4487,7 @@
 
   "search.filters.applied.f.organization": "Organisation",
 
-
+  "search.filters.applied.charts.defaultConfiguration.title": "Search Output",
 
   "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
 
@@ -4686,7 +4692,11 @@
 
   "search.filters.filter.submitter.label": "Search submitter",
 
+  "search.filters.filter.types.head": "Type",
 
+  "search.filters.filter.types.label": "Search Type",
+
+  "search.filters.filter.types.placeholder": "Type",
 
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -4727,6 +4737,8 @@
   "search.results.head": "Search Results",
 
   "default.search.results.head": "Search Results",
+
+  "defaultConfiguration.search.results.head": "Search Results",
 
   "infrastructure.search.results.head": "Infrastructures Search Results",
 
@@ -5759,4 +5771,5 @@
   "invitation.accept-btn": "Accept",
 
   "invitation.ignore-btn": "Ignore",
+
 }
