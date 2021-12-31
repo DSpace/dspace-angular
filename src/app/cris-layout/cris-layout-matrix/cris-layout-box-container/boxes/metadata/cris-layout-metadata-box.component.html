@@ -1,10 +1,12 @@
 <div class="{{box.style}}">
   <!-- PRINT ROWS -->
-  <div ds-row
-    *ngFor="let row of metadataBoxConfiguration?.rows"
-    [row]="row"
-    [item]="item"
-    [box]="box"
-    class="row">
+  <div *ngIf="!box.minor">
+    <div ds-row
+      *ngFor="let row of metadataBoxConfiguration?.rows"
+      [row]="row"
+      [item]="item"
+      [box]="box"
+      class="row">
+    </div>
   </div>
 </div>
