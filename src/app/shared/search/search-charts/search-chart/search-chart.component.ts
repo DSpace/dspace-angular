@@ -67,12 +67,11 @@ export class SearchChartComponent implements OnInit {
    * 'search.filters.applied.charts.caption.<TYPE>.<NAME>'
    */
   ngOnInit() {
-    const captionTranslationLabel = ['search.filters.applied.charts.caption', this.filter.name].join('.');
-    this.translate.get(captionTranslationLabel).pipe(take(1)).subscribe((translation) => {
-      this.caption = translation;
-      this.showCaption = !(translation === '' || translation === captionTranslationLabel);
-    });
-    console.log(JSON.stringify(this.filter));
+    const captionTranslationLabel = `search.filters.applied.charts.caption.${this.filter.name}`;
+    this.caption = this.translate.instant(captionTranslationLabel);
+    this.showCaption = this.caption !== captionTranslationLabel;
+
+    // console.log(JSON.stringify(this.filter));
     this.selectedValues$ = this.getSelectedValues();
     this.active$ = this.isActive();
     this.initializeFilter();
