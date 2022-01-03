@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
+import { DataReportService } from '../../../core/statistics/data-report.service';
 
 @Component({
   selector: 'ds-statistics-chart',
@@ -30,6 +31,8 @@ export class StatisticsChartComponent implements OnInit {
    */
   selectedReport: UsageReport;
 
+  constructor(private dataReportService: DataReportService) {}
+
   /**
    * Requests the current set values for this chart
    * If the chart config is open by default OR the chart has at least one value, the chart should be initially expanded
@@ -37,9 +40,13 @@ export class StatisticsChartComponent implements OnInit {
    */
   ngOnInit() {
     if (!!this.reports && this.reports.length > 0) {
+     if (!this.dataReportService.getReport()) {
       this.selectedReport = this.reports[0];
+      this.dataReportService.setReport(this.reports[0]);
+     } else {
+      this.selectedReport = this.dataReportService.getReport();
+     }
     }
-    // this.dataReportService.setReport(this.selectedReport);
   }
 
   /**
@@ -48,7 +55,7 @@ export class StatisticsChartComponent implements OnInit {
    */
   changeReport(report) {
     this.selectedReport = report;
-    // this.dataReportService.setReport(report);
+    this.dataReportService.setReport(report);
   }
 
 
