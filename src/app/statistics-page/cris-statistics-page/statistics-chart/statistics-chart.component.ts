@@ -39,14 +39,7 @@ export class StatisticsChartComponent implements OnInit {
    * Else, the chart should initially be collapsed
    */
   ngOnInit() {
-    if (!!this.reports && this.reports.length > 0) {
-     if (!this.dataReportService.getReport()) {
-      this.selectedReport = this.reports[0];
-      this.dataReportService.setReport(this.reports[0]);
-     } else {
-      this.selectedReport = this.dataReportService.getReport();
-     }
-    }
+   this.setReport();
   }
 
   /**
@@ -58,5 +51,22 @@ export class StatisticsChartComponent implements OnInit {
     this.dataReportService.setReport(report);
   }
 
-
+  /**
+   * set the default report in case if no report is present otherwise it's set previous report
+   */
+  setReport() {
+      if (!!this.reports && this.reports.length > 0) {
+        if (!this.dataReportService.getReport()) {
+        this.selectedReport = this.reports[0];
+        this.dataReportService.setReport(this.reports[0]);
+        } else {
+        this.selectedReport = this.dataReportService.getReport();
+        this.selectedReport = this.reports.find(report => report.id === this.selectedReport.id);
+        if (!this.selectedReport) {
+        this.selectedReport = this.reports[0];
+        this.dataReportService.setReport(this.reports[0]);
+        }
+      }
+    }
+  }
 }
