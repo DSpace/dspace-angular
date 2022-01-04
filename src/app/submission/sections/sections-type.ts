@@ -5,5 +5,6 @@ export enum SectionsType {
   License = 'license',
   CcLicense = 'cclicense',
   collection = 'collection',
-  DetectDuplicate = 'detect-duplicate'
+  DetectDuplicate = 'detect-duplicate',
+  CustomUrl = 'custom-url',
 }

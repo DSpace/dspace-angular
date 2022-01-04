@@ -40,6 +40,7 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+import { SubmissionSectionCustomUrlComponent } from './sections/custom-url/submission-section-custom-url.component';
 
 const DECLARATIONS = [
   SubmissionSectionUploadAccessConditionsComponent,
@@ -67,7 +68,8 @@ const DECLARATIONS = [
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
   SubmissionSectionDetectDuplicateComponent,
-  DuplicateMatchComponent
+  DuplicateMatchComponent,
+  SubmissionSectionCustomUrlComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -109,7 +111,7 @@ export class SubmissionModule {
   static withEntryComponents() {
     return {
       ngModule: SubmissionModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 }

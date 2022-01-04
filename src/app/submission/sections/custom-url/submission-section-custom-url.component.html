@@ -1,0 +1,14 @@
+<ng-container>
+    <div style="display: flex;align-items: center;">
+        <span class="frontend-url"> {{frontendUrl}}/c/</span>
+        <ds-form *ngIf="formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayCancel]="false"
+            (dfChange)="onChange($event)"></ds-form>
+    </div>
+
+    <div *ngIf="!!submissionCustomUrl && !!submissionCustomUrl['redirected-urls']">
+        <h4>{{'submission.sections.custom-url.label.previous-urls' | translate}}</h4>
+        <p *ngFor="let redirectedUrl of submissionCustomUrl['redirected-urls']">
+            {{redirectedUrl}}
+        </p>
+    </div>
+</ng-container>
