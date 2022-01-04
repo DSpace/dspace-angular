@@ -16,9 +16,11 @@ import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 import { CrisStatisticsPageModule } from './cris-statistics-page/cris-statistics-page.module';
 import { StatisticsCategoriesService } from '../core/statistics/statistics-categories.service';
+import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
 
 const components = [
   StatisticsTableComponent,
+  LoginStatisticsPageComponent,
   SiteStatisticsPageComponent,
   ItemStatisticsPageComponent,
   CollectionStatisticsPageComponent,

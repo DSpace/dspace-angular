@@ -3300,9 +3300,27 @@
 
   "menu.section.statistics": "Statistics",
 
+  "menu.section.statistics.login": "Login statistics",
+
   "menu.section.statistics_task": "Statistics Task",
 
   "statistics": "Statistics",
+
+  "statistics.login.breadcrumbs": "Login Statistics",
+
+  "statistics.login.page.header": "Login Statistics",
+
+  "statistics.login.page.table.user": "User",
+
+  "statistics.login.page.table.email": "Email",
+
+  "statistics.login.page.table.count": "Login",
+
+  "statistics.login.page.max": "Max",
+
+  "statistics.login.page.endDate": "End date",
+
+  "statistics.login.page.startDate": "Start date",
 
   "manage.relations": "Manage Relations",
 

@@ -1,0 +1,62 @@
+import { Component, OnInit } from '@angular/core';
+import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
+import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../app/core/shared/operators';
+import { LoginStatisticsService } from '../../../app/core/statistics/login-statistics.service';
+import { LoginStatistics } from '../../../app/core/statistics/models/login-statistics.model';
+
+@Component({
+  selector: 'ds-login-statistics',
+  templateUrl: './login-statistics-page.component.html',
+  styleUrls: ['./login-statistics-page.component.scss']
+})
+export class LoginStatisticsPageComponent implements OnInit {
+
+  logins$ = new BehaviorSubject<LoginStatistics[]>([]);
+
+  dateFrom: NgbDateStruct;
+
+  dateTo: NgbDateStruct;
+
+  max: number;
+
+  public processing$ = new BehaviorSubject<boolean>(false);
+
+  constructor( private loginStatisticsService: LoginStatisticsService,
+    private ngbDateParserFormatter: NgbDateParserFormatter) {
+
+  }
+
+  ngOnInit(): void {
+    this.searchByDateRange(null, null, this.max);
+  }
+
+  onSearchFilterChange() {
+    console.log(this.max);
+    this.searchByDateRange(this.parseDate(this.dateFrom),this.parseDate(this.dateTo), this.max);
+  }
+
+  private searchByDateRange(startDate: string, endDate: string, limit: number) {
+    this.processing$.next(true);
+    this.loginStatisticsService.searchByDateRange(startDate, endDate, limit).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      take(1),
+      tap(() => this.processing$.next(false))
+    ).subscribe((logins) => {
+      this.logins$.next(logins);
+    });
+  }
+
+  parseDate(dateObject: NgbDateStruct) {
+    if ( !dateObject ) {
+      return null;
+    }
+    console.log(dateObject);
+    const date: NgbDate = new NgbDate(dateObject.year, dateObject.month, dateObject.day);
+    return this.ngbDateParserFormatter.format(date);
+  }
+
+}
