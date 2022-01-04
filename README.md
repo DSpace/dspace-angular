@@ -359,7 +359,7 @@ dspace-angular
 │   ├── plugins                                         * Folder for Cypress plugins (if any)
 │   ├── support                                         * Folder for global e2e test actions/commands (run for all tests)
 │   └── tsconfig.json                                   * TypeScript configuration file for e2e tests
-├── docker                                              *
+├── docker                                              * See docker/README.md for details
 │   ├── cli.assetstore.yml                              *
 │   ├── cli.ingest.yml                                  *
 │   ├── cli.yml                                         *
@@ -367,8 +367,6 @@ dspace-angular
 │   ├── docker-compose-ci.yml                           *
 │   ├── docker-compose-rest.yml                         *
 │   ├── docker-compose.yml                              *
-│   ├── environment.dev.ts                              *
-│   ├── local.cfg                                       *
 │   └── README.md                                       *
 ├── docs                                                * Folder for documentation
 │   └── Configuration.md                                * Configuration documentation
