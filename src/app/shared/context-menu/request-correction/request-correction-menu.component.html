@@ -1,6 +1,6 @@
 <button *ngIf="canCreateCorrection() | async" class="dropdown-item"
+        [innerHTML]="'context-menu.actions.request-correction.btn' | translate"
         (click)="$event.preventDefault();openRequestModal(requestCorrectionModal);">
-  {{'context-menu.actions.request-correction.btn' | translate}}
 </button>
 
 <ng-template #requestCorrectionModal let-c="close" let-d="dismiss">
