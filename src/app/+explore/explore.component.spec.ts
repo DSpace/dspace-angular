@@ -111,7 +111,7 @@ describe('ExploreComponent', () => {
 
     const secondRow = container.children[1];
     expect(secondRow.children.length).toEqual(1);
-    expect(secondRow.children[0].children[0].name).toEqual('ds-top-section');
+    expect(secondRow.children[0].children[0].name).toEqual('ds-themed-top-section');
 
     const thirdRow = container.children[2];
     expect(thirdRow.children.length).toEqual(1);
