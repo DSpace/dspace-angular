@@ -130,11 +130,8 @@ windowSettings.manifestId = manifest;
             if (document.cookie.includes('dsAuthInfo')) {
               authToken = document.cookie.split('; ')
                 .find(c => c.startsWith('dsAuthInfo='))
-                .split('=')[1]
-                .split('%22')[3];
+                .split('=')[1].split('%22')[3];
             }
-            // Matches on the path to the DSpace iiif endpoint.
-            // Update here if the path is different for your environment.
             if (url.match('/server/iiif') && authToken) {
               return { ...options,
                 method: 'GET',
@@ -143,6 +140,19 @@ windowSettings.manifestId = manifest;
                   'authorization': 'Bearer ' + authToken
                    }
               };
+            }
+            else if (url.match('http://localhost:8182') && authToken) {
+              console.log(url)
+              console.log('sending token: ')
+              let tobj = { ...options,
+                method: 'GET',
+                // credentials: 'include',
+                headers: {
+                  'cookie': document.cookie
+                }
+              };
+              console.log(tobj)
+              return tobj;
             }
             return options;
           }
