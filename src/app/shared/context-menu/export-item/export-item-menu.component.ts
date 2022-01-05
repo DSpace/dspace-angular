@@ -16,7 +16,7 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
   selector: 'ds-context-menu-export-item',
   templateUrl: './export-item-menu.component.html'
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
+@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM, true)
 export class ExportItemMenuComponent extends ContextMenuEntryComponent {
 
   /**
