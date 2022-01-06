@@ -90,7 +90,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    * Initialize the section.
    */
   onSectionInit(): void {
-
+    console.log(this.sectionData);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
     this.subscriptions.push(
@@ -108,7 +108,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
           validators: {
             required: null,
           },
-          required: true,
+          required: false,
           value: data.url
         })];
 
