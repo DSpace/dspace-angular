@@ -62,13 +62,13 @@ export class StatisticsChartComponent implements OnInit {
     report$.subscribe((data: UsageReportState ) => {
         if (!!this.reports && this.reports.length > 0) {
           if (!data.reportId) {
-          this.selectedReport = this.reports[0];
-          this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
+            this.selectedReport = this.reports[0];
+            this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
           } else {
-          this.selectedReport = this.reports.find(report => report.id === data.reportId);
-          if (!this.selectedReport) {
-          this.selectedReport = this.reports[0];
-          this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
+            this.selectedReport = this.reports.find(report => report.id === data.reportId);
+            if (!this.selectedReport) {
+              this.selectedReport = this.reports[0];
+              this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
           }
         }
       }
