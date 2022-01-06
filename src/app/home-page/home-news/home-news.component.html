@@ -3,13 +3,13 @@
     <div class="background-image">
       <div class="container">
         <div class="jumbotron jumbotron-fluid">
-          <ds-text-section *ngIf="hasHomeNewsMetadata; else dsDefaultHomeNews"
-                           [sectionId]="'site'"
-                           [textRowSection]="homeNewsSection"
-                           [site]="(site$ | async)"></ds-text-section>
+          <ds-themed-text-section *ngIf="hasHomeNewsMetadata; else dsDefaultHomeNews" [sectionId]="'site'" [textRowSection]="homeNewsSection"
+            [site]="(site$ | async)"></ds-themed-text-section>
         </div>
       </div>
-      <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a></small>
+      <small class="credits">Photo by
+        <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a>
+      </small>
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
     </li>
     <li>issue permanent urls and trustworthy identifiers, including optional integrations with handle.net and DataCite DOI</li>
   </ul>
-  <p>Join an international community of <a href="https://wiki.lyrasis.org/display/DSPACE/DSpace+Positioning"
-                                           target="_blank">leading institutions using DSpace</a>.
+  <p>Join an international community of
+    <a href="https://wiki.lyrasis.org/display/DSPACE/DSpace+Positioning" target="_blank">leading institutions using DSpace</a>.
   </p>
 </ng-template>
