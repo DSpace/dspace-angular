@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
-import { DataReportService } from '../../../core/statistics/data-report.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { UsageReportState } from 'src/app/core/statistics/statistics.reducer';
+import { SetReportAction } from 'src/app/core/statistics/statistics.action';
 
 @Component({
   selector: 'ds-statistics-chart',
@@ -31,7 +34,7 @@ export class StatisticsChartComponent implements OnInit {
    */
   selectedReport: UsageReport;
 
-  constructor(private dataReportService: DataReportService) {}
+  constructor(private store: Store<{statistics: UsageReportState}>) {}
 
   /**
    * Requests the current set values for this chart
@@ -48,25 +51,27 @@ export class StatisticsChartComponent implements OnInit {
    */
   changeReport(report) {
     this.selectedReport = report;
-    this.dataReportService.setReport(report);
+    this.store.dispatch(new SetReportAction({reportId: report.id}));
   }
 
   /**
    * set the default report in case if no report is present otherwise it's set previous report
    */
   setReport() {
-      if (!!this.reports && this.reports.length > 0) {
-        if (!this.dataReportService.getReport()) {
-        this.selectedReport = this.reports[0];
-        this.dataReportService.setReport(this.reports[0]);
-        } else {
-        this.selectedReport = this.dataReportService.getReport();
-        this.selectedReport = this.reports.find(report => report.id === this.selectedReport.id);
-        if (!this.selectedReport) {
-        this.selectedReport = this.reports[0];
-        this.dataReportService.setReport(this.reports[0]);
+    const report$: Observable<UsageReportState> = this.store.select(state => state.statistics);
+    report$.subscribe((data: UsageReportState ) => {
+        if (!!this.reports && this.reports.length > 0) {
+          if (!data.reportId) {
+          this.selectedReport = this.reports[0];
+          this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
+          } else {
+          this.selectedReport = this.reports.find(report => report.id === data.reportId);
+          if (!this.selectedReport) {
+          this.selectedReport = this.reports[0];
+          this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
+          }
         }
       }
-    }
+    });
   }
 }
