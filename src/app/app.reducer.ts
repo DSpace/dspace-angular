@@ -49,7 +49,7 @@ import {
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
-import { StatisticsReducer, UsageReportState } from './core/statistics/statistics.reducer';
+import { StatisticsReducer, UserReportState } from './core/statistics/statistics.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -70,7 +70,7 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
-  statistics: UsageReportState;
+  statistics: UserReportState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {

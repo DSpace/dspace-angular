@@ -3,7 +3,7 @@ import { UsageReport } from '../../../core/statistics/models/usage-report.model'
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { UsageReportState } from 'src/app/core/statistics/statistics.reducer';
+import { UserReportState } from 'src/app/core/statistics/statistics.reducer';
 import { SetReportAction } from 'src/app/core/statistics/statistics.action';
 
 @Component({
@@ -34,7 +34,7 @@ export class StatisticsChartComponent implements OnInit {
    */
   selectedReport: UsageReport;
 
-  constructor(private store: Store<{statistics: UsageReportState}>) {}
+  constructor(private store: Store<{statistics: UserReportState}>) {}
 
   /**
    * Requests the current set values for this chart
@@ -58,8 +58,8 @@ export class StatisticsChartComponent implements OnInit {
    * set the default report in case if no report is present otherwise it's set previous report
    */
   setReport() {
-    const report$: Observable<UsageReportState> = this.store.select(state => state.statistics);
-    report$.subscribe((data: UsageReportState ) => {
+    const report$: Observable<UserReportState> = this.store.select(state => state.statistics);
+    report$.subscribe((data: UserReportState ) => {
         if (!!this.reports && this.reports.length > 0) {
           if (!data.reportId) {
             this.selectedReport = this.reports[0];
