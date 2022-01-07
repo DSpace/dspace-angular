@@ -15,7 +15,7 @@ describe('SearchManager', () => {
   let service: SearchManager;
 
   const firstPublication = Object.assign(new Item(), {
-    id: 'first-publication-id',
+    id: '13a4a8c3-3b94-4797-863d-b831f360cc60',
     entityType: 'Publication',
     metadata: {
       'dc.contributor.author': [
@@ -28,7 +28,7 @@ describe('SearchManager', () => {
   });
 
   const secondPublication = Object.assign(new Item(), {
-    id: 'second-publication-id',
+    id: 'fea951e1-7e5d-4b10-a152-ddeb3daec0ea',
     entityType: 'Publication',
     metadata: {
       'dc.contributor.author': [
@@ -41,7 +41,7 @@ describe('SearchManager', () => {
   });
 
   const firstProject = Object.assign(new Item(), {
-    id: 'first-project-id',
+    id: '32df7096-f161-40d0-b283-6fff6ffe8507',
     entityType: 'Project',
     metadata: {
       'dc.contributor.author': [
@@ -54,7 +54,7 @@ describe('SearchManager', () => {
   });
 
   const thirdPublication = Object.assign(new Item(), {
-    id: 'third-publication-id',
+    id: '13c81669-0468-41af-b8c9-cdc51779c983',
     entityType: 'Publication',
     metadata: {
       'dc.contributor.author': [
