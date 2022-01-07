@@ -66,6 +66,12 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
             break;
           }
         }
+        if (!identifier) {
+          identifier = {
+            href: this.metadataValue.value,
+            text: this.metadataValue.value
+          };
+        }
       }
     }
 
