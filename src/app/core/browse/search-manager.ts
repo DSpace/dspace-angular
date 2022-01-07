@@ -103,6 +103,13 @@ export class SearchManager {
     });
   }
 
+  /* Check if string is valid UUID */
+ checkIfValidUUID(str) {
+  // Regular expression to check if string is a valid UUID
+  const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+
+  return regexExp.test(str);
+}
 
   protected fetchExtraData<T extends DSpaceObject>(objects: T[]): Observable<any> {
 
@@ -115,7 +122,8 @@ export class SearchManager {
           return object as Item;
         }
       })
-      .filter((item) => hasValue(item));
+      .filter((item) => hasValue(item))
+      .filter((item) => {return this.checkIfValidUUID(item);});
 
     const uuidList = this.extractUUID(items, environment.followAuthorityMetadata);
 
