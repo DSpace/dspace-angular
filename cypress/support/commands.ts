@@ -19,13 +19,13 @@ declare namespace Cypress {
  */
 function login(email: string, password: string): void {
     // Click the closed "Log In" dropdown menu (to open Login menu)
-    cy.get('ds-auth-nav-menu.navbar-collapsed').click();
+    cy.get('ds-themed-navbar [data-e2e="login-menu"]').click();
     // Enter email
-    cy.get('ds-themed-navbar ds-log-in-password input[type = "email"]').type(email);
+    cy.get('ds-themed-navbar [data-e2e="email"]').type(email);
     // Enter password
-    cy.get('ds-themed-navbar ds-log-in-password input[type = "password"]').type(password);
+    cy.get('ds-themed-navbar [data-e2e="password"]').type(password);
     // Click login button
-    cy.get('ds-themed-navbar ds-log-in-password button[type = "submit"]').click();
+    cy.get('ds-themed-navbar [data-e2e="login-button"]').click();
 }
 // Add as a Cypress command (i.e. assign to 'cy.login')
 Cypress.Commands.add('login', login);
@@ -37,11 +37,11 @@ Cypress.Commands.add('login', login);
  */
  function logout(): void {
     // Click the closed User dropdown menu (to open user menu in header)
-    cy.get('ds-auth-nav-menu.navbar-collapsed').click();
+    cy.get('ds-themed-navbar [data-e2e="user-menu"]').click();
     // This is the POST command that will actually log us out
     cy.intercept('POST', '/server/api/authn/logout').as('logout');
     // Click logout button
-    cy.get('ds-themed-navbar ds-log-out button').click();
+    cy.get('ds-themed-navbar [data-e2e="logout-button"]').click();
     // Wait until above POST command responds before continuing
     cy.wait('@logout');
 }
