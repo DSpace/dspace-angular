@@ -11,6 +11,7 @@
     "openMode": 0
   },
   "env": {
+    "DSPACE_TEST_REST_BASE_URL": "http://localhost:8080",
     "DSPACE_TEST_ADMIN_USER": "dspacedemo+admin@gmail.com",
     "DSPACE_TEST_ADMIN_PASSWORD": "dspace",
     "DSPACE_TEST_COMMUNITY": "0958c910-2037-42a9-81c7-dca80e3892b4",

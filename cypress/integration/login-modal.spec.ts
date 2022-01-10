@@ -9,24 +9,48 @@ const page = {
         // Once logged in, click the User menu in header
         cy.get('ds-themed-navbar [data-e2e="user-menu"]').click();
     },
+    submitLoginAndPasswordByPressingButton(email, password) {
+        // Enter email
+        cy.get('ds-themed-navbar [data-e2e="email"]').type(email);
+        // Enter password
+        cy.get('ds-themed-navbar [data-e2e="password"]').type(password);
+        // Click login button
+        cy.get('ds-themed-navbar [data-e2e="login-button"]').click();
+    },
     submitLoginAndPasswordByPressingEnter(email, password) {
         // In opened Login modal, fill out email & password, then click Enter
         cy.get('ds-themed-navbar [data-e2e="email"]').type(email);
         cy.get('ds-themed-navbar [data-e2e="password"]').type(password);
         cy.get('ds-themed-navbar [data-e2e="password"]').type('{enter}');
+    },
+    submitLogoutByPressingButton() {
+        // This is the POST command that will actually log us out
+        cy.intercept('POST', '/server/api/authn/logout').as('logout');
+        // Click logout button
+        cy.get('ds-themed-navbar [data-e2e="logout-button"]').click();
+        // Wait until above POST command responds before continuing
+        // (This ensures next action waits until logout completes)
+        cy.wait('@logout');
     }
 };
 
 describe('Login Modal', () => {
-    it('should login when clicking button', () => {
-        cy.visit('/');
+    it('should login when clicking button & stay on same page', () => {
+        const ENTITYPAGE = '/entities/publication/' + TEST_ENTITY_PUBLICATION;
+        cy.visit(ENTITYPAGE);
 
         // Login menu should exist
         cy.get('ds-log-in').should('exist');
 
         // Login, and the <ds-log-in> tag should no longer exist
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        page.openLoginMenu();
+        cy.get('.form-login').should('be.visible');
+
+        page.submitLoginAndPasswordByPressingButton(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
         cy.get('ds-log-in').should('not.exist');
+
+        // Verify we are still on the same page
+        cy.url().should('include', ENTITYPAGE);
 
         // Open user menu, verify user menu & logout button now available
         page.openUserMenu();
@@ -34,8 +58,8 @@ describe('Login Modal', () => {
         cy.get('ds-log-out').should('be.visible');
     });
 
-    it('should login when clicking enter key', () => {
-        cy.visit('/');
+    it('should login when clicking enter key & stay on same page', () => {
+        cy.visit('/home');
 
         // Open login menu in header & verify <ds-log-in> tag is visible
         page.openLoginMenu();
@@ -45,39 +69,29 @@ describe('Login Modal', () => {
         page.submitLoginAndPasswordByPressingEnter(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
         cy.get('.form-login').should('not.exist');
 
+        // Verify we are still on homepage
+        cy.url().should('include', '/home');
+
         //  Open user menu, verify user menu & logout button now available
         page.openUserMenu();
         cy.get('ds-user-menu').should('be.visible');
         cy.get('ds-log-out').should('be.visible');
     });
 
-    it('should stay on same page after login', () => {
-        const ENTITYPAGE = '/entities/publication/' + TEST_ENTITY_PUBLICATION;
-        cy.visit(ENTITYPAGE);
-
-        // Login, and the <ds-log-in> tag should no longer exist
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
-        cy.get('ds-log-in').should('not.exist');
-
-        // Verify we are still on the same page
-        cy.url().should('include', ENTITYPAGE);
-    });
-
     it('should support logout', () => {
+        // First authenticate & access homepage
+        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
         cy.visit('/');
 
-        cy.get('ds-log-in').should('exist');
-        cy.get('ds-log-out').should('not.exist');
-
-        // Click login
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
-
+        // Verify ds-log-in tag doesn't exist, but ds-log-out tag does exist
         cy.get('ds-log-in').should('not.exist');
         cy.get('ds-log-out').should('exist');
 
-        // Click logout
-        cy.logout();
+        // Click logout button
+        page.openUserMenu();
+        page.submitLogoutByPressingButton();
 
+        // Verify ds-log-in tag now exists
         cy.get('ds-log-in').should('exist');
         cy.get('ds-log-out').should('not.exist');
     });

@@ -33,6 +33,7 @@ before(() => {
 // Default UUIDs listed here are all in the Demo Entities Data set available at
 // https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
 // (This is the data set used in our CI environment)
+export const TEST_REST_BASE_URL = Cypress.env('DSPACE_TEST_REST_BASE_URL') || 'http://localhost:8080';
 export const TEST_ADMIN_USER = Cypress.env('DSPACE_TEST_ADMIN_USER') || 'dspacedemo+admin@gmail.com';
 export const TEST_ADMIN_PASSWORD = Cypress.env('DSPACE_TEST_ADMIN_PASSWORD') || 'dspace';
 export const TEST_COLLECTION = Cypress.env('DSPACE_TEST_COLLECTION') || '282164f5-d325-4740-8dd1-fa4d6d3e7200';

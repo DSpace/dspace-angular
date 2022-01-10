@@ -2,48 +2,63 @@
 // This File is for Custom Cypress commands.
 // See docs at https://docs.cypress.io/api/cypress-api/custom-commands
 // ***********************************************
+
+import { AuthTokenInfo, TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
+import { TEST_REST_BASE_URL } from '.';
+
 // Declare Cypress namespace to help with Intellisense & code completion in IDEs
 // ALL custom commands MUST be listed here for code completion to work
 // tslint:disable-next-line:no-namespace
-declare namespace Cypress {
-    interface Chainable<Subject = any> {
-        login(email: string, password: string): typeof login;
-        logout(): typeof logout;
+declare global {
+    namespace Cypress {
+        interface Chainable<Subject = any> {
+            /**
+             * Login to backend before accessing the next page. Ensures that the next
+             * call to "cy.visit()" will be authenticated as this user.
+             * @param email email to login as
+             * @param password password to login as
+             */
+            login(email: string, password: string): typeof login;
+        }
     }
 }
 
 /**
- * Login from any page via DSpace's header menu
+ * Login user via REST API directly, and pass authentication token to UI via
+ * the UI's dsAuthInfo cookie.
  * @param email email to login as
  * @param password password to login as
  */
 function login(email: string, password: string): void {
-    // Click the closed "Log In" dropdown menu (to open Login menu)
-    cy.get('ds-themed-navbar [data-e2e="login-menu"]').click();
-    // Enter email
-    cy.get('ds-themed-navbar [data-e2e="email"]').type(email);
-    // Enter password
-    cy.get('ds-themed-navbar [data-e2e="password"]').type(password);
-    // Click login button
-    cy.get('ds-themed-navbar [data-e2e="login-button"]').click();
+    // To login via REST, first we have to do a GET to obtain a valid CSRF token
+    cy.request( TEST_REST_BASE_URL + '/server/api/authn/status' )
+    .then((response) => {
+        // We should receive a CSRF token returned in a response header
+        expect(response.headers).to.have.property('dspace-xsrf-token');
+        const csrfToken = response.headers['dspace-xsrf-token'];
+
+        // Now, send login POST request including that CSRF token
+        cy.request({
+            method: 'POST',
+            url: TEST_REST_BASE_URL + '/server/api/authn/login',
+            headers: { 'X-XSRF-TOKEN' : csrfToken},
+            form: true, // indicates the body should be form urlencoded
+            body: { user: email, password: password }
+        }).then((resp) => {
+            // We expect a successful login
+            expect(resp.status).to.eq(200);
+            // We expect to have a valid authorization header returned (with our auth token)
+            expect(resp.headers).to.have.property('authorization');
+
+            // Initialize our AuthTokenInfo object from the authorization header.
+            const authheader = resp.headers.authorization as string;
+            const authinfo: AuthTokenInfo = new AuthTokenInfo(authheader);
+
+            // Save our AuthTokenInfo object to our dsAuthInfo UI cookie
+            // This ensures the UI will recognize we are logged in on next "visit()"
+            cy.setCookie(TOKENITEM, JSON.stringify(authinfo));
+        });
+    });
 }
 // Add as a Cypress command (i.e. assign to 'cy.login')
 Cypress.Commands.add('login', login);
-
-
-/**
- * Logout from any page via DSpace's header menu.
- * NOTE: Also waits until logout completes before next command will be run.
- */
- function logout(): void {
-    // Click the closed User dropdown menu (to open user menu in header)
-    cy.get('ds-themed-navbar [data-e2e="user-menu"]').click();
-    // This is the POST command that will actually log us out
-    cy.intercept('POST', '/server/api/authn/logout').as('logout');
-    // Click logout button
-    cy.get('ds-themed-navbar [data-e2e="logout-button"]').click();
-    // Wait until above POST command responds before continuing
-    cy.wait('@logout');
-}
-// Add as a Cypress command (i.e. assign to 'cy.logout')
-Cypress.Commands.add('logout', logout);
