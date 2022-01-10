@@ -275,6 +275,7 @@ import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-downlo
 import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts.component';
 import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
 import { BrowseSectionComponent } from './explore/section-component/browse-section/browse-section.component';
+import { ThemedBrowseSectionComponent } from './explore/section-component/browse-section/themed-browse-section.component';
 import { TopSectionComponent } from './explore/section-component/top-section/top-section.component';
 import { ThemedTopSectionComponent } from './explore/section-component/top-section/themed-top-section.component';
 import { FacetSectionComponent } from './explore/section-component/facet-section/facet-section.component';
@@ -288,6 +289,10 @@ import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-vi
 import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 import { MetricPlumxComponent } from './metric/metric-plumx/metric-plumx.component';
+import { ThemedFacetSectionComponent } from './explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedMultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/themed-multi-column-top-section.component';
+import { ThemedSearchSectionComponent } from './explore/section-component/search-section/themed-search-section.component';
+import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -554,10 +559,12 @@ const COMPONENTS = [
   MetricEmbeddedViewComponent,
   MetricEmbeddedDownloadComponent,
   BrowseMostElementsComponent,
+  ThemedBrowseSectionComponent,
   BrowseSectionComponent,
   TopSectionComponent,
   ThemedTopSectionComponent,
   FacetSectionComponent,
+  ThemedFacetSectionComponent,
   SearchSectionComponent,
   TextSectionComponent,
   CountersSectionComponent,
@@ -566,6 +573,9 @@ const COMPONENTS = [
   EditMetadataSecurityComponent,
   MetadataLinkViewComponent,
   ExportExcelSelectorComponent,
+  ThemedMultiColumnTopSectionComponent,
+  ThemedSearchSectionComponent,
+  ThemedTextSectionComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -636,10 +646,12 @@ const ENTRY_COMPONENTS = [
   OnClickMenuItemComponent,
   TextMenuItemComponent,
   ScopeSelectorModalComponent,
+  ThemedBrowseSectionComponent,
   BrowseSectionComponent,
   TopSectionComponent,
   ThemedTopSectionComponent,
   FacetSectionComponent,
+  ThemedFacetSectionComponent,
   SearchSectionComponent,
   TextSectionComponent,
   CountersSectionComponent,
@@ -650,6 +662,9 @@ const ENTRY_COMPONENTS = [
   SearchChartBarToRightComponent,
   SearchChartPieComponent,
   SearchChartLineComponent,
+  ThemedMultiColumnTopSectionComponent,
+  ThemedSearchSectionComponent,
+  ThemedTextSectionComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
@@ -703,10 +718,10 @@ const DIRECTIVES = [
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES,
-        ...ROOT_MODULES,
-    ],
+  imports: [
+    ...MODULES,
+    ...ROOT_MODULES,
+  ],
   declarations: [
     ...PIPES,
     ...COMPONENTS,
@@ -743,7 +758,7 @@ export class SharedModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 }
