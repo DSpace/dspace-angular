@@ -1505,6 +1505,10 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
+  "cookies.consent.app.title.add-this": "AddThis",
+
+  "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
+
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
