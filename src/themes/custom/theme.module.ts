@@ -84,6 +84,7 @@ import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-na
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -175,7 +176,8 @@ const DECLARATIONS = [
     ContextMenuModule,
     OpenaireModule,
     CrisItemPageModule,
-    CrisStatisticsPageModule
+    CrisStatisticsPageModule,
+    MiradorViewerModule,
   ],
   declarations: DECLARATIONS
 })

@@ -43,6 +43,7 @@ import { ValuepairComponent } from './cris-layout-matrix/cris-layout-box-contain
 import { TagComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/tag/tag.component';
 import { MetadataContainerComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-container.component';
 import { MetadataRenderComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-render/metadata-render.component';
+import { MiradorViewerModule } from '../item-page/mirador-viewer/mirador-viewer.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -121,6 +122,7 @@ const ENTRY_COMPONENTS = [
     SearchPageModule,
     MyDSpacePageModule,
     ContextMenuModule.withEntryComponents(),
+    MiradorViewerModule,
   ],
   exports: [
     CrisLayoutComponent,

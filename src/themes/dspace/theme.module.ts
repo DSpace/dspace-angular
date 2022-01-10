@@ -43,6 +43,7 @@ import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.modu
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 
 const DECLARATIONS = [
   HomeNewsComponent,
@@ -94,6 +95,7 @@ const DECLARATIONS = [
     SubmissionModule,
     MyDSpacePageModule,
     MyDspaceSearchModule,
+    MiradorViewerModule,
   ],
   declarations: DECLARATIONS
 })
