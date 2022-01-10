@@ -396,7 +396,6 @@ export class ItemVersionsComponent implements OnInit {
         return isCollectionAdmin || isCommunityAdmin || isSiteAdmin;
       }),
       take(1),
-      tap((res) => { console.log('isAdmin = ' + res); })
     );
 
     return combineLatest([includeSubmitter$, isAdmin$]).pipe(
