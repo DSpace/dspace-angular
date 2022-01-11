@@ -6,7 +6,9 @@
     color: white;
     background-color: var(--bs-info);
     position: relative;
-    background-image: url('/assets/dspace/images/banner.jpg');
+    // Starting this url with a caret (^) allows it to be a relative path based on UI's deployment path
+    // See https://github.com/angular/angular-cli/issues/12797#issuecomment-598534241
+    background-image: url('^assets/dspace/images/banner.jpg');
     background-size: cover;
 
     .container {
