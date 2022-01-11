@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('CrisLayoutIIIFViewerBoxComponent', () => {
+xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
   let component: CrisLayoutIIIFViewerBoxComponent;
   let fixture: ComponentFixture<CrisLayoutIIIFViewerBoxComponent>;
 
