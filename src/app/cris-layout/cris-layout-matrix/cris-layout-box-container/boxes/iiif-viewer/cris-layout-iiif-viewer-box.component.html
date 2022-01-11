@@ -1,1 +1,6 @@
-<ds-mirador-viewer [object]="item"></ds-mirador-viewer>
+<ds-mirador-viewer
+  id="iiif-viewer"
+  [object]="item"
+  [searchable]="isSearchable"
+  [query]="query$ | async"
+></ds-mirador-viewer>
