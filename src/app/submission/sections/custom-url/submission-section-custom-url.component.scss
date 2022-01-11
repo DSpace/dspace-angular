@@ -5,3 +5,12 @@
 .frontend-url{
   margin-bottom: 1.3rem;
 }
+
+.list-group{
+  max-width: 600px;
+}
+
+.list-group-item{
+  display: flex;
+  justify-content: space-between;
+}

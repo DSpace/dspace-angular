@@ -76,7 +76,7 @@ export class ItemDataService extends DataService<Item> {
     return this.bs.getBrowseURLFor(field, linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
-      distinctUntilChanged(),);
+      distinctUntilChanged());
   }
 
   /**
@@ -369,5 +369,34 @@ export class ItemDataService extends DataService<Item> {
       searchParams: [...params]
     });
   }
+
+
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its CustomURL or ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          CustomUrl or UUID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+    const searchHref = 'findByCustomURL';
+
+    const options = Object.assign({}, {
+      searchParams: [
+        new RequestParam('q', id),
+      ]
+    });
+
+    const hrefObs = this.getSearchByHref(searchHref, options, ...linksToFollow);
+
+    return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+
 
 }

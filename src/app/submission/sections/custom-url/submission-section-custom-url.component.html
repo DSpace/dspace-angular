@@ -1,14 +1,19 @@
 <ng-container>
     <div style="display: flex;align-items: center;">
-        <span class="frontend-url"> {{frontendUrl}}/c/</span>
+        <span class="frontend-url"> {{frontendUrl}}/</span>
         <ds-form *ngIf="formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayCancel]="false"
             (dfChange)="onChange($event)"></ds-form>
     </div>
 
-    <div *ngIf="!!submissionCustomUrl && !!submissionCustomUrl['redirected-urls']">
+    <div *ngIf="isEditItemScope && !!submissionCustomUrl && !!redirectedUrls">
         <h4>{{'submission.sections.custom-url.label.previous-urls' | translate}}</h4>
-        <p *ngFor="let redirectedUrl of submissionCustomUrl['redirected-urls']">
-            {{redirectedUrl}}
-        </p>
+        <ul class="list-group">
+            <li *ngFor="let redirectedUrl of redirectedUrls;let i = index" class="list-group-item">
+                <span>{{frontendUrl+'/'+redirectedUrl}}</span>
+                <a href="javascript:;" (click)="remove(i)">
+                    <i class="fa fa-times "></i>
+                </a>
+            </li>
+        </ul>
     </div>
 </ng-container>

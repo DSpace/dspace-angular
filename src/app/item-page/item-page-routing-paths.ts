@@ -46,6 +46,24 @@ export function getItemVersionRoute(versionId: string) {
   return new URLCombiner(getItemModuleRoute(), ITEM_VERSION_PATH, versionId).toString();
 }
 
+
+/**
+ * Get the route to an item's page
+ * Depending on the item's entity type and custom url, the route will either start /entities
+ * @param item  The item to retrieve the route for
+ */
+export function getCustomURLItemPageRoute(item: Item) {
+  const type = item.firstMetadataValue('dspace.entity.type');
+  let url = item.uuid;
+
+  if (isNotEmpty(item.metadata['cris.customurl'])) {
+    url = item.metadata['cris.customurl'][0].value;
+  }
+
+  return getEntityPageRoute(type, url);
+}
+
+
 export const ITEM_EDIT_PATH = 'edit';
 export const ITEM_EDIT_VERSIONHISTORY_PATH = 'versionhistory';
 export const ITEM_VERSION_PATH = 'version';

@@ -44,7 +44,7 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    const itemRD$ = this.itemService.findById(route.params.id,
+    const itemRD$ = this.itemService.findByCustomUrl(route.params.id,
       true,
       false,
       ...ITEM_PAGE_LINKS_TO_FOLLOW

@@ -15,7 +15,7 @@ import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { BitstreamRequestACopyPageComponent } from '../shared/bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
-import { CrisItemPageTabResolver } from '../cris-item-page/cris-item-page-tab.resolver';
+import { CrisItemPageTabResolver } from '../item-page/cris-item-page-tab.resolver';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 
 @NgModule({
@@ -54,6 +54,24 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
           {
             path: REQUEST_COPY_MODULE_PATH,
             component: BitstreamRequestACopyPageComponent,
+          },
+          { // used for activate specific tab
+            path: ':tab',
+            component: ThemedItemPageComponent,
+            data: {
+              menu: {
+                public: [{
+                  id: 'statistics_item_:id',
+                  active: true,
+                  visible: true,
+                  model: {
+                    type: MenuItemType.LINK,
+                    text: 'menu.section.statistics',
+                    link: 'statistics/items/:id/',
+                  } as LinkMenuItemModel,
+                }],
+              }, showSocialButtons: true
+            }
           }
         ],
         data: {
@@ -93,6 +111,7 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
     LinkService,
     ItemPageAdministratorGuard,
     VersionResolver,
+    CrisItemPageTabResolver
   ]
 
 })
