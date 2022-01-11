@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cris-layout-iiif-viewer-box.component.scss']
 })
 @RenderCrisLayoutBoxFor(LayoutBox.IIIFVIEWER)
-export class CrisLayoutIIIFViewerBoxComponent extends CrisLayoutBoxModelComponent  implements OnInit {
+export class CrisLayoutIIIFViewerBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   isSearchable: boolean;
   query$: Observable<string>;
