@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { interval, Observable, race } from 'rxjs';
+import { map, mergeMapTo, tap } from 'rxjs/operators';
 
 import { RootDataService } from '../data/root-data.service';
 import { RemoteData } from '../data/remote-data';
@@ -27,7 +27,11 @@ export class ServerCheckGuard implements CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
 
-    return this.rootDataService.findRoot(false).pipe(
+    const uncachedCheck$ = this.rootDataService.findRoot(false);
+    // fallback observable used if the uncached one hangs and doesn't emit value
+    const cachedCheck$ = interval(200).pipe(mergeMapTo((this.rootDataService.findRoot())));
+
+    return race([uncachedCheck$, cachedCheck$]).pipe(
       getFirstCompletedRemoteData(),
       map((res: RemoteData<any>) => res.hasSucceeded),
       tap((hasSucceeded: boolean) => {
