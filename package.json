@@ -30,7 +30,7 @@
     "clean:json": "rimraf *.records.json",
     "clean:node": "rimraf node_modules",
     "clean:prod": "yarn run clean:dist && yarn run clean:log && yarn run clean:doc && yarn run clean:coverage && yarn run clean:json",
-    "clean": "yarn run clean:prod && yarn run clean:node && yarn run clean:dev:config",
+    "clean": "yarn run clean:prod && yarn run clean:dev:config && yarn run clean:node",
     "sync-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts",
     "build:mirador": "webpack --config webpack/webpack.mirador.config.ts",
     "merge-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
