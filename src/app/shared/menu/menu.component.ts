@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { MenuService } from './menu.service';
 import { MenuID } from './initial-menus-state';
 import { MenuSection } from './menu.reducer';
-import { distinctUntilChanged, map, switchMap, mergeMap, tap, isEmpty } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue, isNotEmpty, hasValueOperator, isNotEmptyOperator } from '../empty.util';
+import { hasValue, isNotEmptyOperator } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
 import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
@@ -90,7 +90,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         // if you return an array from a switchMap it will emit each element as a separate event.
         // So this switchMap is equivalent to a subscribe with a forEach inside
         switchMap((sections: MenuSection[]) => sections),
-        switchMap((section: MenuSection) => {
+        mergeMap((section: MenuSection) => {
           if (section.id.includes('statistics')) {
             return this.getAuthorizedStatistics(section);
           }
