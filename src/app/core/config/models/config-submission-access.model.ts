@@ -19,6 +19,9 @@ export class SubmissionAccessModel extends ConfigObject {
   @autoserialize
   discoverable: boolean;
 
+  @autoserialize
+  canChangeDiscoverable: boolean;
+
   @deserialize
   _links: {
     self: HALLink

@@ -114,6 +114,12 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   protected fieldsOnTheirWayToBeRemoved: Map<string, number[]> = new Map();
 
   /**
+   * Defines if the access discoverable property can be managed
+   */
+  public canChangeDiscoverable: boolean;
+
+
+  /**
    * Initialize instance variables
    *
    * @param {SectionsService} sectionService
@@ -282,6 +288,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
     combineLatest(config$, accessData$).subscribe(([config, accessData]) => {
       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
+      this.canChangeDiscoverable = !!config.canChangeDiscoverable;
       this.accessesData = accessData;
       this.formModel = this.buildFileEditForm();
     });
@@ -305,14 +312,17 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   protected buildFileEditForm() {
 
     const formModel: DynamicFormControlModel[] = [];
-    formModel.push(
-      new DynamicCheckboxModel({
-        id: 'discoverable',
-        label: this.translate.instant('submission.sections.accesses.form.discoverable-label'),
-        name: 'discoverable',
-        value: this.accessesData.discoverable
-      })
-    );
+    if (this.canChangeDiscoverable) {
+      formModel.push(
+        new DynamicCheckboxModel({
+          id: 'discoverable',
+          label: this.translate.instant('submission.sections.accesses.form.discoverable-label'),
+          name: 'discoverable',
+          value: this.accessesData.discoverable
+        })
+      );
+    }
+
 
     const accessConditionTypeModelConfig = Object.assign({}, FORM_ACCESS_CONDITION_TYPE_CONFIG);
     const accessConditionsArrayConfig = Object.assign({}, ACCESS_CONDITIONS_FORM_ARRAY_CONFIG);

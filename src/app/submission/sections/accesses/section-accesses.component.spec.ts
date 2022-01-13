@@ -8,7 +8,7 @@ import { SectionsServiceStub } from '../../../shared/testing/sections-service.st
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
-import { getSubmissionAccessesConfigService } from '../../../shared/mocks/section-accesses-config.service.mock';
+import { getSubmissionAccessesConfigService, getSubmissionAccessesConfigNotChangeDiscoverableService } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { SectionAccessesService } from './section-accesses.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -72,78 +72,130 @@ describe('SubmissionSectionAccessesComponent', () => {
     isValid: true
   };
 
+  describe('First with canChangeDiscoverable true', () => {
+
+    beforeEach(async () => {
+      await TestBed.configureTestingModule({
+        imports: [
+          BrowserModule,
+          TranslateModule.forRoot()
+        ],
+        declarations: [SubmissionSectionAccessesComponent, FormComponent],
+        providers: [
+          { provide: SectionsService, useValue: sectionsServiceStub },
+          { provide: FormBuilderService, useValue: builderService },
+          { provide: SubmissionAccessesConfigService, useValue: submissionAccessesConfigService },
+          { provide: SectionAccessesService, useValue: sectionAccessesService },
+          { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
+          { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+          { provide: TranslateService, useValue: getMockTranslateService() },
+          { provide: FormService, useValue: getMockFormService() },
+          { provide: Store, useValue: storeStub },
+          { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
+          { provide: 'sectionDataProvider', useValue: sectionData },
+          { provide: 'submissionIdProvider', useValue: '1508' },
+        ]
+      })
+        .compileComponents();
+    });
+
+    beforeEach(inject([Store], (store: Store<AppState>) => {
+      fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
+      component = fixture.componentInstance;
+      formService = TestBed.inject(FormService);
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(observableOf(true));
+      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      fixture.detectChanges();
+    }));
 
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        BrowserModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [SubmissionSectionAccessesComponent, FormComponent],
-      providers: [
-        { provide: SectionsService, useValue: sectionsServiceStub },
-        { provide: FormBuilderService, useValue: builderService },
-        { provide: SubmissionAccessesConfigService, useValue: submissionAccessesConfigService },
-        { provide: SectionAccessesService, useValue: sectionAccessesService },
-        { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
-        { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-        { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: FormService, useValue: getMockFormService() },
-        { provide: Store, useValue: storeStub },
-        { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
-        { provide: 'sectionDataProvider', useValue: sectionData },
-        { provide: 'submissionIdProvider', useValue: '1508' },
-      ]
-    })
-      .compileComponents();
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should have created formModel', () => {
+      expect(component.formModel).toBeTruthy();
+    });
+
+    it('should have formModel length should be 2', () => {
+      expect(component.formModel.length).toEqual(2);
+    });
+
+    it('formModel should have 1 model type checkbox and 1 model type array', () => {
+      expect(component.formModel[0] instanceof DynamicCheckboxModel).toBeTrue();
+      expect(component.formModel[1] instanceof DynamicFormArrayModel).toBeTrue();
+    });
+
+    it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
+      const formModel: any = component.formModel[1];
+      const formGroup = formModel.groupFactory()[0].group;
+      expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
+      expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
+      expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
+    });
+
+    it('when checkbox changed it should call operationsBuilder replace function', () => {
+      component.onChange(checkboxChangeEvent);
+      fixture.detectChanges();
+
+      expect(operationsBuilder.replace).toHaveBeenCalled();
+    });
+
+    it('when dropdown select changed it should call operationsBuilder add function', () => {
+      component.onChange(accessConditionChangeEvent);
+      fixture.detectChanges();
+      expect(operationsBuilder.add).toHaveBeenCalled();
+    });
   });
 
-  beforeEach(inject([Store], (store: Store<AppState>) => {
-    fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
-    component = fixture.componentInstance;
-    formService = TestBed.inject(FormService);
-    formService.validateAllFormFields.and.callFake(() => null);
-    formService.isValid.and.returnValue(observableOf(true));
-    formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-    fixture.detectChanges();
-  }));
+  describe('when canDescoverable is false', () => {
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 
-  it('should have created formModel', () => {
-    expect(component.formModel).toBeTruthy();
-  });
 
-  it('should have formModel length should be 2', () => {
-    expect(component.formModel.length).toEqual(2);
-  });
+    beforeEach(async () => {
+      await TestBed.configureTestingModule({
+        imports: [
+          BrowserModule,
+          TranslateModule.forRoot()
+        ],
+        declarations: [SubmissionSectionAccessesComponent, FormComponent],
+        providers: [
+          { provide: SectionsService, useValue: sectionsServiceStub },
+          { provide: FormBuilderService, useValue: builderService },
+          { provide: SubmissionAccessesConfigService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
+          { provide: SectionAccessesService, useValue: sectionAccessesService },
+          { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
+          { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+          { provide: TranslateService, useValue: getMockTranslateService() },
+          { provide: FormService, useValue: getMockFormService() },
+          { provide: Store, useValue: storeStub },
+          { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
+          { provide: 'sectionDataProvider', useValue: sectionData },
+          { provide: 'submissionIdProvider', useValue: '1508' },
+        ]
+      })
+        .compileComponents();
+    });
 
-  it('formModel should have 1 model type checkbox and 1 model type array', () => {
-    expect(component.formModel[0] instanceof DynamicCheckboxModel).toBeTrue();
-    expect(component.formModel[1] instanceof DynamicFormArrayModel).toBeTrue();
-  });
+    beforeEach(inject([Store], (store: Store<AppState>) => {
+      fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
+      component = fixture.componentInstance;
+      formService = TestBed.inject(FormService);
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(observableOf(true));
+      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      fixture.detectChanges();
+    }));
 
-  it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
-    const formModel: any = component.formModel[1];
-    const formGroup = formModel.groupFactory()[0].group;
-    expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
-    expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
-    expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
-  });
 
-  it('when checkbox changed it should call operationsBuilder replace function', () => {
-    component.onChange(checkboxChangeEvent);
-    fixture.detectChanges();
+    it('should have formModel length should be 1', () => {
+      expect(component.formModel.length).toEqual(1);
+    });
 
-    expect(operationsBuilder.replace).toHaveBeenCalled();
-  });
+    it('formModel should have only 1 model type array', () => {
+      expect(component.formModel[0] instanceof DynamicFormArrayModel).toBeTrue();
+    });
 
-  it('when dropdown select changed it should call operationsBuilder add function', () => {
-    component.onChange(accessConditionChangeEvent);
-    fixture.detectChanges();
-    expect(operationsBuilder.add).toHaveBeenCalled();
   });
 });
