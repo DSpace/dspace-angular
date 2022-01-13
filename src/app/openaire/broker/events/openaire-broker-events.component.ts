@@ -25,7 +25,10 @@ import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
@@ -236,7 +239,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public executeAction(action: string, eventData: OpenaireBrokerEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(take(1))
+      this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
           if (rd.isSuccess && rd.statusCode === 200) {
             this.notificationsService.success(
@@ -268,7 +271,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public boundProject(eventData: OpenaireBrokerEventData, projectId: string, projectTitle: string, projectHandle: string): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(take(1))
+      this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
           if (rd.isSuccess) {
             this.notificationsService.success(
@@ -297,7 +300,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public removeProject(eventData: OpenaireBrokerEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(take(1))
+      this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
           if (rd.isSuccess) {
             this.notificationsService.success(
