@@ -25,6 +25,12 @@ export class FacetValue implements HALResource {
   count: number;
 
   /**
+   * The Authority Value for this facet
+   */
+  @autoserialize
+  authorityKey?: string;
+
+  /**
    * The {@link HALLink}s for this FacetValue
    */
   @deserialize
