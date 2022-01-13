@@ -21,7 +21,7 @@ import { PostRequest } from 'src/app/core/data/request.models';
 import { RemoteData } from 'src/app/core/data/remote-data';
 
 /**
- * Service for checking and managing the status of the current end user agreement
+ * Service for checking and managing the feedback
  */
 @Injectable()
 @dataService(FEEDBACK)
@@ -37,7 +37,7 @@ export class FeedbackDataService extends DataService<Feedback> {
         protected notificationsService: NotificationsService,
         protected http: HttpClient,
         protected comparator: DSOChangeAnalyzer<Feedback>,
-        protected authService: AuthService, ) {
+    ) {
         super();
     }
 

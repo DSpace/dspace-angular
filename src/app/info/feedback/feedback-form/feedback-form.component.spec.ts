@@ -1,7 +1,7 @@
 import { EPersonMock } from './../../../shared/testing/eperson.mock';
 import { FeedbackDataService } from './../../../core/feedback/feedback-data.service';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FeedbackContentComponent } from './feedback-content.component';
+import { FeedbackFormComponent } from './feedback-form.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -16,9 +16,9 @@ import { of } from 'rxjs/internal/observable/of';
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 
 
-describe('FeedbackContentComponent', () => {
-  let component: FeedbackContentComponent;
-  let fixture: ComponentFixture<FeedbackContentComponent>;
+describe('FeedbackFormComponent', () => {
+  let component: FeedbackFormComponent;
+  let fixture: ComponentFixture<FeedbackFormComponent>;
   let de: DebugElement;
   const notificationService = new NotificationsServiceStub();
   const feedbackDataServiceStub = jasmine.createSpyObj('feedbackDataService', {
@@ -33,7 +33,7 @@ describe('FeedbackContentComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [FeedbackContentComponent],
+      declarations: [FeedbackFormComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: FormBuilder, useValue: new FormBuilder() },
@@ -46,7 +46,7 @@ describe('FeedbackContentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FeedbackContentComponent);
+    fixture = TestBed.createComponent(FeedbackFormComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
     fixture.detectChanges();

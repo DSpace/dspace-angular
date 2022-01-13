@@ -13,14 +13,14 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
 @Component({
-  selector: 'ds-feedback-content',
-  templateUrl: './feedback-content.component.html',
-  styleUrls: ['./feedback-content.component.scss']
+  selector: 'ds-feedback-form',
+  templateUrl: './feedback-form.component.html',
+  styleUrls: ['./feedback-form.component.scss']
 })
 /**
  * Component displaying the contents of the Feedback Statement
  */
-export class FeedbackContentComponent implements OnInit {
+export class FeedbackFormComponent implements OnInit {
 
   /**
    * Form builder created used from the feedback from

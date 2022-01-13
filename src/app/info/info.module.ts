@@ -9,7 +9,7 @@ import { PrivacyContentComponent } from './privacy/privacy-content/privacy-conte
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { FeedbackComponent } from './feedback/feedback.component';
-import { FeedbackContentComponent } from './feedback/feedback-content/feedback-content.component';
+import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 
@@ -22,7 +22,7 @@ const DECLARATIONS = [
   PrivacyContentComponent,
   ThemedPrivacyComponent,
   FeedbackComponent,
-  FeedbackContentComponent,
+  FeedbackFormComponent,
   ThemedFeedbackComponent
 ];
 
