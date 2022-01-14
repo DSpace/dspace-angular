@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
-import { map, filter, distinctUntilChanged, tap, mergeMap } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged} from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DataService } from '../data/data.service';
 import { Feedback } from './models/feedback.model';
@@ -77,7 +77,7 @@ export class FeedbackDataService extends DataService<Feedback> {
      */
     public postToEndpoint(linkName: string, body: any, options?: HttpOptions): Observable<RemoteData<Feedback>> {
         const requestId = this.requestService.generateRequestId();
-        const href$ = this.halService.getEndpoint(linkName).pipe(
+        this.halService.getEndpoint(linkName).pipe(
             filter((href: string) => isNotEmpty(href)),
             distinctUntilChanged(),
             map((endpointURL: string) => {
@@ -88,7 +88,6 @@ export class FeedbackDataService extends DataService<Feedback> {
 
         return this.rdbService.buildFromRequestUUID<Feedback>(requestId).pipe(
             getFirstCompletedRemoteData(),
-            // getRemoteDataPayload(),
         );
     }
 

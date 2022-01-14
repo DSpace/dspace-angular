@@ -1,14 +1,11 @@
-import { isSuccess } from './../../../core/data/request.reducer';
 import { RemoteData } from './../../../core/data/remote-data';
 import { NoContent } from './../../../core/shared/NoContent.model';
 import { FeedbackDataService } from './../../../core/feedback/feedback-data.service';
 import { Component, OnInit } from '@angular/core';
 import { RouteService } from 'src/app/core/services/route.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from 'src/app/core/eperson/eperson-data.service';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
