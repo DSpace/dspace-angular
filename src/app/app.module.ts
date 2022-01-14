@@ -55,9 +55,6 @@ import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.com
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
-import { UUIDService } from './core/shared/uuid.service';
-import { CookieService } from './core/services/cookie.service';
-
 import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
 
 export function getConfig() {
@@ -155,21 +152,6 @@ const PROVIDERS = [
     provide: HTTP_INTERCEPTORS,
     useClass: LogInterceptor,
     multi: true
-  },
-  // insert the unique id of the user that is using the application utilizing cookies
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (cookieService: CookieService, uuidService: UUIDService) => {
-      const correlationId = cookieService.get('CORRELATION-ID');
-
-      // Check if cookie exists, if don't, set it with unique id
-      if (!correlationId) {
-        cookieService.set('CORRELATION-ID', uuidService.generate());
-      }
-      return () => true;
-    },
-    multi: true,
-    deps: [CookieService, UUIDService]
   },
   {
     provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
