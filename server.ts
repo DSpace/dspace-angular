@@ -70,6 +70,8 @@ export function app() {
    * Create a new express application
    */
   const server = express();
+  // We use a router when defining application paths in order to support deployments on subpaths (e.g. http://localhost:4000/dspace)
+  const router = express.Router();
 
   /*
    * If production mode is enabled in the environment file:
@@ -133,7 +135,7 @@ export function app() {
   /**
    * Proxy the sitemaps
    */
-  server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
+  router.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
 
   /**
    * Checks if the rateLimiter property is present
@@ -151,14 +153,17 @@ export function app() {
   /*
    * Serve static resources (images, i18n messages, …)
    */
-  server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+  router.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
   /*
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
-  server.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
+  router.use('/iiif', express.static(IIIF_VIEWER, {index:false}));
 
   // Register the ngApp callback function to handle incoming requests
-  server.get('*', ngApp);
+  router.get('*', ngApp);
+
+  // Ensure all router paths are prefixed with our configured namespace (i.e. subpath)
+  server.use(environment.ui.nameSpace, router);
 
   return server;
 }
