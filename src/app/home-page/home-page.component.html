@@ -5,8 +5,8 @@
 <ng-template #dsHomeNews>
   <ds-themed-home-news></ds-themed-home-news>
 </ng-template>
-<div class="container">
-  <ng-container *ngIf="(site$ | async) as site">
+<div class="container" *ngIf="(site$ | async) as site">
+  <ng-container>
     <ds-view-tracker [object]="site"></ds-view-tracker>
   </ng-container>
   <div *ngFor="let sectionComponents of ( sectionComponentRows | async )" class="row mb-3">
