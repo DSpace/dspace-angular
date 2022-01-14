@@ -257,6 +257,13 @@ export class SearchComponent implements OnInit {
   }
 
   /**
+   * Reset result list on view mode change
+   */
+  public changeViewMode() {
+    this.resultsRD$.next(null);
+  }
+
+  /**
    * Set the sidebar to an expanded state
    */
   public openSidebar(): void {

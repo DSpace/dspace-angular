@@ -88,4 +88,9 @@ export class SearchSidebarComponent {
    */
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter<SearchConfigurationOption>();
 
+  /**
+   * Emits event when the user select a new view mode
+   */
+  @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
+
 }

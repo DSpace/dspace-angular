@@ -48,7 +48,8 @@
                        [currentSortOption]="(currentSortOptions$ | async)"
                        [inPlaceSearch]="inPlaceSearch"
                        [viewModeList]="viewModeList"
-                       (changeConfiguration)="changeContext($event.context)"></ds-search-sidebar>
+                       (changeConfiguration)="changeContext($event.context)"
+                       (changeViewMode)="changeViewMode()"></ds-search-sidebar>
     <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
@@ -59,7 +60,8 @@
                        [currentSortOption]="(currentSortOptions$ | async)"
                        [viewModeList]="viewModeList"
                        (toggleSidebar)="closeSidebar()"
-                       (changeConfiguration)="changeContext($event.context)">
+                       (changeConfiguration)="changeContext($event.context)"
+                       (changeViewMode)="changeViewMode()">
     </ds-search-sidebar>
 </ng-template>
 
