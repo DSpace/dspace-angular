@@ -68,7 +68,7 @@ export class MiradorViewerComponent implements OnInit {
     const manifestApiEndpoint = encodeURIComponent(environment.rest.baseUrl + '/iiif/'
       + this.object.id + '/manifest');
     // The Express path to Mirador viewer.
-    let viewerPath = '/iiif/mirador/index.html?manifest=' + manifestApiEndpoint;
+    let viewerPath = environment.ui.nameSpace + '/iiif/mirador/index.html?manifest=' + manifestApiEndpoint;
     if (this.searchable) {
       // Tell the viewer add search to menu.
       viewerPath += '&searchable=' + this.searchable;
