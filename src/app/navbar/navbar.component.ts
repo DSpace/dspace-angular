@@ -9,6 +9,11 @@ import { SectionDataService } from '../core/layout/section-data.service';
 import { getFirstSucceededRemoteListPayload } from '../core/shared/operators';
 import { Section } from '../core/layout/models/section.model';
 import { environment } from '../../environments/environment';
+import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
+import { Observable } from 'rxjs';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { take } from 'rxjs/operators';
 
 /**
  * Component representing the public navbar
@@ -29,7 +34,8 @@ export class NavbarComponent extends MenuComponent {
   constructor(protected menuService: MenuService,
               protected injector: Injector,
               public windowService: HostWindowService,
-              protected sectionDataService: SectionDataService
+              protected sectionDataService: SectionDataService,
+              protected authorizationService: AuthorizationDataService
   ) {
     super(menuService, injector);
   }
@@ -62,6 +68,40 @@ export class NavbarComponent extends MenuComponent {
       menuList.push(CommunityCollectionMenuItem);
     }
 
+
+    this.isCurrentUserAdmin().subscribe(((isAdmin) => {
+
+        if (isAdmin) {
+
+          menuList.push(
+            {
+              id: 'statistics',
+              active: false,
+              visible: true,
+              index: 1,
+              model: {
+                type: MenuItemType.TEXT,
+                text: 'menu.section.statistics'
+              } as TextMenuItemModel,
+            }
+          );
+
+          menuList.push({
+            id: 'statistics_workflow',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.workflow',
+              link: '/statistics/workflow'
+            } as LinkMenuItemModel
+          });
+        }
+      }
+
+    ));
+
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
     })));
@@ -87,5 +127,12 @@ export class NavbarComponent extends MenuComponent {
           });
       });
 
+  }
+
+  isCurrentUserAdmin(): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined)
+      .pipe(
+        take(1)
+      );
   }
 }

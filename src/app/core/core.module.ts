@@ -193,6 +193,10 @@ import { EditItemRelationsGuard } from '../edit-item-relationships/guards/edit-i
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { SequenceService } from './shared/sequence.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { WorkflowStepStatisticsService } from './statistics/workflow-step-statistics.service';
+import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
+import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-statistics.service';
+import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -330,6 +334,8 @@ const PROVIDERS = [
   EditItemModeDataService,
   EditItemRelationsGuard,
   SequenceService,
+  WorkflowStepStatisticsService,
+  WorkflowOwnerStatisticsService,
 ];
 
 /**
@@ -407,7 +413,9 @@ export const models =
     StatisticsCategory,
     Root,
     SearchConfig,
-    Subscription
+    Subscription,
+    WorkflowStepStatistics,
+    WorkflowOwnerStatistics
   ];
 
 @NgModule({
