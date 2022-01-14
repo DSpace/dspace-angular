@@ -4,18 +4,15 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Observable } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue } from '../../../../../empty.util';
-import { map, mapTo, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { map, mapTo, switchMap, take, tap } from 'rxjs/operators';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
@@ -24,6 +21,9 @@ import { RelationshipService } from '../../../../../../core/data/relationship.se
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
+import { SearchObjects } from '../../../../../search/models/search-objects.model';
+import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 
 @Component({
@@ -107,7 +107,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   /**
    * Search results
    */
-  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
+  resultsRD$: BehaviorSubject<SearchObjects<DSpaceObject>> = new BehaviorSubject<SearchObjects<DSpaceObject>>(null);
 
   /**
    * Are all results selected?
@@ -142,13 +142,15 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   linkTypes = CollectionElementLinkType;
 
+  /**
+   * Emits an event with the current search result entries
+   */
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+
   constructor(
     private searchService: SearchService,
-    private router: Router,
-    private route: ActivatedRoute,
     private selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
-    private routeService: RouteService,
     public lookupRelationService: LookupRelationService,
     private relationshipService: RelationshipService,
     private paginationService: PaginationService
@@ -160,21 +162,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   ngOnInit(): void {
     this.resetRoute();
-    this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
-    this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
-    this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(
-        tap( res => {
-          if ( !!res && res.hasSucceeded && this.isEditRelationship ) {
-            const idOfItems = res.payload.page.map( itemSearchResult => {
-              return itemSearchResult.indexableObject.uuid;
-            });
-            this.setSelectedIds(idOfItems,res.payload.page);
-          }
-        }),
-        startWith(undefined),
-      ))
-    );
   }
 
   /**
@@ -188,7 +175,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Selects a page in the store
    * @param page The page to select
    */
-  selectPage(page: SearchResult<Item>[]) {
+  selectPage(page: SearchResult<DSpaceObject>[]) {
     this.selection$
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
@@ -202,7 +189,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Deselects a page in the store
    * @param page the page to deselect
    */
-  deselectPage(page: SearchResult<Item>[]) {
+  deselectPage(page: SearchResult<DSpaceObject>[]) {
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
@@ -304,6 +291,18 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   ngOnDestroy(): void {
     if (hasValue(this.subscription)) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  onResultFound($event: SearchObjects<DSpaceObject>) {
+    console.log($event);
+    this.resultsRD$.next($event);
+    this.resultFound.emit($event);
+    if (this.isEditRelationship ) {
+      const idOfItems = $event.page.map( itemSearchResult => {
+        return itemSearchResult.indexableObject.uuid;
+      });
+      this.setSelectedIds(idOfItems, $event);
     }
   }
 }
