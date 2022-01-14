@@ -30,15 +30,21 @@ import { PaginationService } from '../../pagination/pagination.service';
 @Injectable()
 export class SearchConfigurationService implements OnDestroy {
 
+  /**
+   * Default pagination id
+   */
   public paginationID = 'spc';
+
   /**
    * Emits the current search options
    */
   public searchOptions: BehaviorSubject<SearchOptions>;
+
   /**
    * Emits the current search options including pagination and sort
    */
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions>;
+
   /**
    * Default pagination settings
    */
@@ -47,14 +53,22 @@ export class SearchConfigurationService implements OnDestroy {
     pageSize: 10,
     currentPage: 1
   });
+
   /**
    * Default scope setting
    */
   protected defaultScope = '';
+
   /**
    * Default query setting
    */
   protected defaultQuery = '';
+
+  /**
+   * Emits the current default values
+   */
+  protected _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
+
   /**
    * A map of subscriptions to unsubscribe from on destroy
    */
@@ -72,11 +86,6 @@ export class SearchConfigurationService implements OnDestroy {
 
     this.initDefaults();
   }
-
-  /**
-   * Emits the current default values
-   */
-  protected _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
 
   /**
    * Default values for the Search Options
@@ -97,10 +106,10 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string) {
-    return observableCombineLatest(
+    return observableCombineLatest([
       this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
       this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
-    ).pipe(
+    ]).pipe(
       map(([queryConfig, routeConfig]) => {
         return queryConfig || routeConfig || defaultConfiguration;
       })
@@ -190,7 +199,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Creates an observable of SearchConfig every time the configuration stream emits.
    * @param configuration The search configuration
-   * @param service The serach service to use
+   * @param service The search service to use
    * @param scope The search scope if exists
    */
   getConfigurationSearchConfig(configuration: string, service: SearchService, scope?: string): Observable<SearchConfig> {
@@ -292,9 +301,9 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private subscribeToPaginatedSearchOptions(paginationId: string, defaults: PaginatedSearchOptions): Subscription {
     return observableMerge(
+      this.getConfigurationPart(defaults.configuration),
       this.getPaginationPart(paginationId, defaults.pagination),
       this.getSortPart(paginationId, defaults.sort),
-      this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),

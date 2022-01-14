@@ -12,6 +12,11 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 
+export interface SelectionConfig {
+  repeatable: boolean;
+  listId: string;
+}
+
 @Component({
   selector: 'ds-search-results',
   templateUrl: './search-results.component.html',
@@ -63,6 +68,9 @@ export class SearchResultsComponent {
    */
   @Input() disableHeader = false;
 
+  /**
+   * A boolean representing if result entries are selectable
+   */
   @Input() selectable = false;
 
   @Input() context: Context;
@@ -72,7 +80,10 @@ export class SearchResultsComponent {
    */
   @Input() hidePaginationDetail = false;
 
-  @Input() selectionConfig: {repeatable: boolean, listId: string};
+  /**
+   * The config option used for selection functionality
+   */
+  @Input() selectionConfig: SelectionConfig = null;
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 

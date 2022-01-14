@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { uniqueId } from 'lodash';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -28,6 +28,9 @@ import { followLink } from '../utils/follow-link-config.model';
 import { Item } from '../../core/shared/item.model';
 import { SearchObjects } from './models/search-objects.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { SelectionConfig } from './search-results/search-results.component';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 
 @Component({
   selector: 'ds-search',
@@ -77,6 +80,11 @@ export class SearchComponent implements OnInit {
   @Input() inPlaceSearch = true;
 
   /**
+   * The link type of the listed search results
+   */
+  @Input() linkType: CollectionElementLinkType;
+
+  /**
    * The pagination id used in the search
    */
   @Input() paginationId = 'spc';
@@ -90,6 +98,21 @@ export class SearchComponent implements OnInit {
    * The width of the sidebar (bootstrap columns)
    */
   @Input() sideBarWidth = 3;
+
+  /**
+   * The placeholder of the search form input
+   */
+  @Input() searchFormPlaceholder = 'search.search-form.placeholder';
+
+  /**
+   * A boolean representing if result entries are selectable
+   */
+  @Input() selectable = false;
+
+  /**
+   * The config option used for selection functionality
+   */
+  @Input() selectionConfig: SelectionConfig;
 
   /**
    * A boolean representing if show search sidebar button
@@ -166,6 +189,21 @@ export class SearchComponent implements OnInit {
    */
   sub: Subscription;
 
+  /**
+   * Emits an event with the current search result entries
+   */
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+
+  /**
+   * Emits event when the user deselect result entry
+   */
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Emits event when the user select result entry
+   */
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -190,6 +228,9 @@ export class SearchComponent implements OnInit {
 
     this.searchConfigService.setPaginationId(this.paginationId);
 
+    if (hasValue(this.configuration)) {
+      this.routeService.setParameter('configuration', this.configuration);
+    }
     if (hasValue(this.fixedFilterQuery)) {
       this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
@@ -220,7 +261,8 @@ export class SearchComponent implements OnInit {
       filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
-      })
+      }),
+      debounceTime(100)
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
@@ -229,15 +271,19 @@ export class SearchComponent implements OnInit {
           sort: sortOption || searchOptions.sort
         });
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
-      // Initialize variables
-      this.currentConfiguration$.next(configuration);
-      this.currentSortOptions$.next(newSearchOptions.sort);
-      this.currentScope$.next(newSearchOptions.scope);
-      this.sortOptionsList$.next(searchSortOptions);
-      this.searchOptions$.next(newSearchOptions);
-      this.initialized$.next(true);
-      // retrieve results
-      this.retrieveSearchResults(newSearchOptions);
+      // check if search options are changed
+      // if so retrieve new related results otherwise skip it
+      if (JSON.stringify(newSearchOptions) !== JSON.stringify(this.searchOptions$.value)) {
+        // Initialize variables
+        this.currentConfiguration$.next(configuration);
+        this.currentSortOptions$.next(newSearchOptions.sort);
+        this.currentScope$.next(newSearchOptions.scope);
+        this.sortOptionsList$.next(searchSortOptions);
+        this.searchOptions$.next(newSearchOptions);
+        this.initialized$.next(true);
+        // retrieve results
+        this.retrieveSearchResults(newSearchOptions);
+      }
     });
   }
 
@@ -302,6 +348,9 @@ export class SearchComponent implements OnInit {
       followLink<Item>('thumbnail', { isOptional: true })
     ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
+        if (results.hasSucceeded && results.payload?.page?.length > 0) {
+          this.resultFound.emit(results.payload);
+        }
         this.resultsRD$.next(results);
       });
   }
@@ -323,5 +372,6 @@ export class SearchComponent implements OnInit {
     }
     return this.service.getSearchLink();
   }
+
 
 }

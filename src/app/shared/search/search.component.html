@@ -18,6 +18,7 @@
     <div class="row">
         <div class="col-12" *ngIf="!(isXsOrSm$ | async)">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
+            <ng-content select="[additionalSearchOptions]"></ng-content>
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">
@@ -32,7 +33,12 @@
                                [searchConfig]="searchOptions$ | async"
                                [configuration]="(currentConfiguration$ | async)"
                                [disableHeader]="!searchEnabled"
-                               [context]="(currentContext$ | async)"></ds-search-results>
+                               [linkType]="linkType"
+                               [context]="(currentContext$ | async)"
+                               [selectable]="selectable"
+                               [selectionConfig]="selectionConfig"
+                               (deselectObject)="deselectObject.emit($event)"
+                               (selectObject)="selectObject.emit($event)"></ds-search-results>
         </div>
     </div>
 </ng-template>
@@ -72,7 +78,7 @@
                     [currentUrl]="searchLink"
                     [showScopeSelector]="true"
                     [inPlaceSearch]="inPlaceSearch"
-                    [searchPlaceholder]="'search.search-form.placeholder' | translate">
+                    [searchPlaceholder]="searchFormPlaceholder | translate">
     </ds-search-form>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">

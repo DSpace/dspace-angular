@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,6 +25,11 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { SearchConfig, SortConfig } from '../../core/shared/search/search-filters/search-config.model';
+import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { SearchObjects } from './models/search-objects.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -54,11 +59,45 @@ const pagination: PaginationComponentOptions = new PaginationComponentOptions();
 pagination.id = paginationId;
 pagination.currentPage = 1;
 pagination.pageSize = 10;
+const mockDso = Object.assign(new Item(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Item nr 1'
+      }
+    ]
+  },
+  _links: {
+    self: {
+      href: 'selfLink1'
+    }
+  }
+});
 
+const mockDso2 = Object.assign(new Item(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Item nr 2'
+      }
+    ]
+  },
+  _links: {
+    self: {
+      href: 'selfLink2'
+    }
+  }
+});
 const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-const mockResults$ = createSuccessfulRemoteDataObject$(['test', 'data']);
+const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
+  page: [mockDso, mockDso2]
+});
+const mockResultsRD: RemoteData<SearchObjects<DSpaceObject>> = createSuccessfulRemoteDataObject(mockSearchResults);
+const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = observableOf(mockResultsRD);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
-  search: mockResults$,
+  search: mockResultsRD$,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig)
@@ -102,6 +141,9 @@ const routeServiceStub = {
   },
   getQueryParamsWithPrefix: () => {
     return observableOf('');
+  },
+  setParameter: () => {
+    return;
   }
 };
 
@@ -197,7 +239,7 @@ describe('SearchComponent', () => {
   it('should init search parameters properly and call retrieveSearchResults', fakeAsync(() => {
     spyOn((comp as any), 'retrieveSearchResults').and.callThrough();
     fixture.detectChanges();
-    flush();
+    tick(100);
 
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
@@ -220,26 +262,35 @@ describe('SearchComponent', () => {
 
   it('should retrieve SearchResults', fakeAsync(() => {
     fixture.detectChanges();
-    flush();
-    const expectedResults = createSuccessfulRemoteDataObject(['test', 'data']);
+    tick(100);
+    const expectedResults = mockResultsRD;
     expect(comp.resultsRD$).toBeObservable(cold('b', {
       b: expectedResults
     }));
   }));
 
+  it('should emit resultFound event', fakeAsync(() => {
+    spyOn(comp.resultFound, 'emit');
+    const expectedResults = mockSearchResults;
+    fixture.detectChanges();
+    tick(100);
+    expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
+  }));
+
   describe('when the open sidebar button is clicked in mobile view', () => {
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
       spyOn(comp, 'openSidebar');
+    });
+
+    it('should trigger the openSidebar function', fakeAsync(() => {
       fixture.detectChanges();
-      flush();
+      tick(100);
+      fixture.detectChanges();
       const openSidebarButton = fixture.debugElement.query(By.css('.open-sidebar'));
       openSidebarButton.triggerEventHandler('click', null);
-    }));
-
-    it('should trigger the openSidebar function', () => {
       expect(comp.openSidebar).toHaveBeenCalled();
-    });
+    }));
 
   });
 });
