@@ -11,7 +11,6 @@ const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
 
-const imageHost = 'http://localhost:8182';
 const dspaceRestPath = 'server/iiif';
 
 let windowSettings = {};
@@ -137,8 +136,8 @@ windowSettings.manifestId = manifest;
                 .split('=')[1].split('%22')[3];
             }
             if (url.match(dspaceRestPath) && authToken) {
-              // For DSpace REST API requests set the authorization header.
-              // This allows authorized users to retrieve the manifest for an item
+              // For DSpace REST API requests, set the authorization header.
+              // Allows authorized users to retrieve the manifest
               // when access restrictions have been added to the Item.
               return { ...options,
                 method: 'GET',
@@ -146,26 +145,6 @@ windowSettings.manifestId = manifest;
                   'content-type': 'application/json',
                   'authorization': 'Bearer ' + authToken
                    }
-              };
-            }
-            else if (url.match(imageHost) && authToken) {
-              // Bitstream access is via the image server (Cantaloupe).
-              // A custom header can be used to pre-authorize the initial
-              // request. The dsAuthInfo cookie will be used to authorize
-              // subsequent image requests provided that the dspace
-              // Angular UI and image server share the same cookie domain.
-              // IMPORTANT: The current CORS configuration for
-              // Cantaloupe does not allow custom headers. Until
-              // this is changed you will need to do a custom build
-              // of Cantaloupe for this to work.
-              // IMPORTANT: You will need to use a Cantaloupe delegate
-              // script with 'pre_authorize' and 'httpsource_resource_info'
-              // methods. ≤link to dspace documentation>
-              return { ...options,
-                method: 'GET',
-                headers: {
-                  'REMOTE_AUTH_TOKEN': authToken
-                }
               };
             }
             return options;
