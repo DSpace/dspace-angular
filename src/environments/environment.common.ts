@@ -408,11 +408,14 @@ export const environment: GlobalConfig = {
       }
     ],
     itemPage: {
-      Person: {
-          orientation: 'horizontal'
+      OrgUnit: {
+          orientation: 'vertical'
+      },
+      Project: {
+        orientation: 'vertical'
       },
       default: {
-          orientation: 'vertical'
+          orientation: 'horizontal'
       },
     },
     metadataBox: {
