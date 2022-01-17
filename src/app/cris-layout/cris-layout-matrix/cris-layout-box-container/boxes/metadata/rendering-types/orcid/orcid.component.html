@@ -12,11 +12,11 @@
 
       <ng-template #withOrcidUrl>
         <a *ngIf="(orcidUrl$ | async); else withoutOrcidUrl" href="{{(orcidUrl$ | async)}}/{{metadataValue.value}}" target="_blank">
-          {{ normalizeValue(metadataValue.value) | dsDate }}
+          {{ normalizeValue(metadataValue.value) }}
         </a>
       </ng-template>
 
-      <ng-template #withoutOrcidUrl>{{ normalizeValue(metadataValue.value) | dsDate }}</ng-template>
+      <ng-template #withoutOrcidUrl>{{ normalizeValue(metadataValue.value) }}</ng-template>
 
     </span>
 </div>
