@@ -7,7 +7,7 @@ import { SUBMISSION_CUSTOM_URL } from './submission-custom-url.resource-type';
 
 @typedObject
 @inheritSerialization(HALResource)
-export class SubmissionCcLicenceUrl extends HALResource {
+export class SubmissionCustomUrl extends HALResource {
 
   static type = SUBMISSION_CUSTOM_URL;
 
