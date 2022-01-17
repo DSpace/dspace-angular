@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -8,7 +8,6 @@ import { getFirstSucceededRemoteData } from '../shared/operators';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
-import { of } from 'rxjs/internal/observable/of';
 import { BrowseService } from './browse.service';
 import { environment } from '../../../environments/environment';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -19,7 +18,7 @@ import { WorkspaceItem } from '../submission/models/workspaceitem.model';
 import { WorkflowItem } from '../submission/models/workflowitem.model';
 import { hasValue } from '../../shared/empty.util';
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
-
+import { MetadataValue } from '../shared/metadata.models';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
@@ -103,14 +102,6 @@ export class SearchManager {
     });
   }
 
-  /* Check if string is valid UUID */
- checkIfValidUUID(str) {
-  // Regular expression to check if string is a valid UUID
-  const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-
-  return regexExp.test(str);
-}
-
   protected fetchExtraData<T extends DSpaceObject>(objects: T[]): Observable<any> {
 
     const items: Item[] = objects
@@ -122,8 +113,7 @@ export class SearchManager {
           return object as Item;
         }
       })
-      .filter((item) => hasValue(item))
-      .filter((item) => {return this.checkIfValidUUID(item);});
+      .filter((item) => hasValue(item));
 
     const uuidList = this.extractUUID(items, environment.followAuthorityMetadata);
 
@@ -138,7 +128,8 @@ export class SearchManager {
         if (item.entityType === followMetadata.type) {
           followMetadata.metadata.forEach((metadata) => {
             item.allMetadata(metadata)
-              .filter((value) => value.authority).forEach((value) => uuidMap[value.authority] = value);
+              .filter((value: MetadataValue) => value.hasValidAuthority)
+              .forEach((value: MetadataValue) => uuidMap[value.authority] = value);
           });
         }
       });
