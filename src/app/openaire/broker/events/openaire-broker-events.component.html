@@ -48,6 +48,7 @@
                   <td><a *ngIf="(eventElement?.event?.target|async)?.payload"
                          target="_blank"
                          [routerLink]="['/items', (eventElement?.event?.target|async)?.payload?.id]">{{eventElement.title}}</a>
+                    <span *ngIf="!(eventElement?.event?.target|async)?.payload">{{eventElement.title}}</span>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
                     <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
