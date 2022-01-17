@@ -1,7 +1,7 @@
 <div [class]="field.styleValue">
     <span class="d-flex align-items-center txt-value">
 
-      <ng-container *ngIf="orcidUrl$; then withOrcidUrl else withoutOrcidUrl"></ng-container>
+      <ng-container *ngIf="(orcidUrl$ | async); then withOrcidUrl else withoutOrcidUrl"></ng-container>
 
       <img *ngIf="hasOrcidBadge()"
            placement="top"
