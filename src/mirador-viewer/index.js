@@ -3,7 +3,6 @@ import miradorShareDialogPlugin from 'mirador-share-plugin/es/MiradorShareDialog
 import miradorSharePlugin from 'mirador-share-plugin/es/miradorSharePlugin';
 import miradorDownloadPlugin from 'mirador-dl-plugin/es/miradorDownloadPlugin';
 import miradorDownloadDialog from 'mirador-dl-plugin/es/MiradorDownloadDialog';
-import { ErrorDialog } from "mirador/dist/es/src/components/ErrorDialog";
 
 const params = new URLSearchParams(location.search);
 const manifest = params.get('manifest');
