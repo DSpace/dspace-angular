@@ -11,7 +11,7 @@ export function getMockFormBuilderService(): FormBuilderService {
     findById: {},
     getPath: ['test', 'path'],
     getId: 'path',
-    clearAllModelsValue : {},
+    clearAllModelsValue: {},
     insertFormArrayGroup: {},
     isQualdrop: false,
     isQualdropGroup: false,
@@ -20,7 +20,8 @@ export function getMockFormBuilderService(): FormBuilderService {
     hasArrayGroupValue: true,
     removeFormModel: {},
     addFormModel: {},
-    updateValue: {}
+    updateValue: {},
+    addFormGroups: {},
   });
 
 }

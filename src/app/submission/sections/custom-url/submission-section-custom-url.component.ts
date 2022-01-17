@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionModelComponent } from '../models/section.model';
@@ -110,10 +110,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    * Get current informations and build the form
    */
   onSectionInit(): void {
-
-    if (this.submissionService.getSubmissionScope() === SubmissionScopeType.EditItem) {
-      this.isEditItemScope = true;
-    }
+    this.setSubmissionScope();
 
     this.frontendUrl = new URLCombiner(window.location.origin, '/entities', encodeURIComponent(this.entityType.toLowerCase())).toString();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
@@ -126,7 +123,6 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
         distinctUntilChanged(),
         map((sectionState) => sectionState.data as WorkspaceitemSectionCustomUrlObject),
       ).subscribe((data) => {
-
         this.formModel = [new DynamicInputModel({
           id: 'url',
           name: 'url',
@@ -146,6 +142,12 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
         }
       })
     );
+  }
+
+  setSubmissionScope() {
+    if (this.submissionService.getSubmissionScope() === SubmissionScopeType.EditItem) {
+      this.isEditItemScope = true;
+    }
   }
 
   /**

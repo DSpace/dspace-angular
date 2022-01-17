@@ -194,4 +194,15 @@ describe('ItemDataService', () => {
     });
   });
 
+
+  describe('when cache is invalidated', () => {
+    beforeEach(() => {
+      service = initTestService();
+    });
+    it('should call setStaleByHrefSubstring', () => {
+      service.findByCustomUrl('custom-url');
+      expect(service.findByHref).toHaveBeenCalled();
+    });
+  });
+
 });

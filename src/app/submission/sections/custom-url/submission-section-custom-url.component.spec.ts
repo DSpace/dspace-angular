@@ -1,27 +1,64 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SubmissionSectionCustomUrlComponent } from './submission-section-custom-url.component';
-import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
 import { of as observableOf } from 'rxjs';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '../../../shared/shared.module';
 import { SectionsService } from '../sections.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
 import { TranslateModule } from '@ngx-translate/core';
-import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { cold } from 'jasmine-marbles';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { SubmissionService } from '../../submission.service';
+import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsType } from '../sections-type';
+import { DynamicFormArrayModel, DynamicInputModel, DynamicSelectModel, DynamicFormControlEvent } from '@ng-dynamic-forms/core';
+import { tap } from 'rxjs/operators';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { FormService } from '../../../shared/form/form.service';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { RelationshipService } from '../../../core/data/relationship.service';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { StoreModule } from '@ngrx/store';
+import { formReducer } from '../../../shared/form/form.reducer';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { FormControl, FormGroup } from '@angular/forms';
+
+
 
 describe('SubmissionSectionCustomUrlComponent', () => {
 
   let component: SubmissionSectionCustomUrlComponent;
   let fixture: ComponentFixture<SubmissionSectionCustomUrlComponent>;
   let de: DebugElement;
+
+  const builderService: FormBuilderService = getMockFormBuilderService();
+  const sectionFormOperationsService = getMockFormOperationsService();
+  const customUrlData = {
+    'url': 'test',
+    'redirected-urls': [
+      'redirected1',
+      'redirected2'
+    ]
+  } as WorkspaceitemSectionCustomUrlObject;
+
+  let formService: any;
+
+  const sectionService = jasmine.createSpyObj('sectionService', {
+    getSectionState: observableOf({ data: customUrlData }),
+    setSectionStatus: () => undefined,
+    updateSectionData: (submissionId, sectionId, updatedData) => {
+      component.sectionData.data = updatedData;
+    }
+  });
 
   const sectionObject: SectionDataObject = {
     config: 'test config',
@@ -32,146 +69,88 @@ describe('SubmissionSectionCustomUrlComponent', () => {
     serverValidationErrors: [],
     header: 'test header',
     id: 'test section id',
-    sectionType: SectionsType.SubmissionForm,
+    sectionType: SectionsType.CustomUrl,
     sectionVisibility: null
-  };
-
-  const submissionCcLicenses: SubmissionCcLicence[] = [
-    {
-      id: 'test license id 1',
-      type: SUBMISSION_CC_LICENSE,
-      name: 'test license name 1',
-      fields: [
-        {
-          id: 'test-field-id-1a',
-          label: 'test field label 1a',
-          description: 'test field description 1a',
-          enums: [
-            {
-              id: 'test enum id 1a I',
-              label: 'test enum label 1a I',
-              description: 'test enum description 1a I',
-            },
-            {
-              id: 'test enum id 1a II',
-              label: 'test enum label 1a II',
-              description: 'test enum description 1a II',
-            },
-          ],
-        },
-        {
-          id: 'test-field-id-1b',
-          label: 'test field label 1b',
-          description: 'test field description 1b',
-          enums: [
-            {
-              id: 'test enum id 1b I',
-              label: 'test enum label 1b I',
-              description: 'test enum description 1b I',
-            },
-            {
-              id: 'test enum id 1b II',
-              label: 'test enum label 1b II',
-              description: 'test enum description 1b II',
-            },
-          ],
-        },
-      ],
-      _links: {
-        self: {
-          href: 'test link',
-        },
-      },
-    },
-    {
-      id: 'test license id 2',
-      type: SUBMISSION_CC_LICENSE,
-      name: 'test license name 2',
-      fields: [
-        {
-          id: 'test-field-id-2a',
-          label: 'test field label 2a',
-          description: 'test field description 2a',
-          enums: [
-            {
-              id: 'test enum id 2a I',
-              label: 'test enum label 2a I',
-              description: 'test enum description 2a I'
-            },
-            {
-              id: 'test enum id 2a II',
-              label: 'test enum label 2a II',
-              description: 'test enum description 2a II'
-            },
-          ],
-        },
-        {
-          id: 'test-field-id-2b',
-          label: 'test field label 2b',
-          description: 'test field description 2b',
-          enums: [
-            {
-              id: 'test enum id 2b I',
-              label: 'test enum label 2b I',
-              description: 'test enum description 2b I'
-            },
-            {
-              id: 'test enum id 2b II',
-              label: 'test enum label 2b II',
-              description: 'test enum description 2b II'
-            },
-          ],
-        },
-      ],
-      _links: {
-        self: {
-          href: 'test link',
-        },
-      },
-    },
-  ];
-
-  const submissionCcLicensesDataService = jasmine.createSpyObj('submissionCcLicensesDataService', {
-    findAll: createSuccessfulRemoteDataObject$(createPaginatedList(submissionCcLicenses)),
-  });
-
-  const submissionCcLicenseUrlDataService = jasmine.createSpyObj('submissionCcLicenseUrlDataService', {
-    getCcLicenseLink: createSuccessfulRemoteDataObject$(
-      {
-        url: 'test cc license link',
-      }
-    ),
-  });
-
-  const sectionService = {
-    getSectionState: () => {
-      return observableOf({});
-    },
-    setSectionStatus: () => undefined,
-    updateSectionData: (submissionId, sectionId, updatedData) => {
-      component.sectionData.data = updatedData;
-    }
   };
 
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {
     add: undefined,
     remove: undefined,
+    replace: undefined
   });
+
+
+  const submissionService = jasmine.createSpyObj('SubmissionService', {
+    getSubmissionScope: jasmine.createSpy('getSubmissionScope')
+  });
+
+  const changeEvent: DynamicFormControlEvent = {
+    $event: {
+      bubbles: true,
+      cancelBubble: false,
+      cancelable: false,
+      composed: false,
+      currentTarget: null,
+      defaultPrevented: false,
+      eventPhase: 0,
+      isTrusted: true,
+      path: ['input#accessCondition-0-endDate.form-control.ng-touched.ng-dirty.ng-valid', 'div.input-group.ng-touched.ng-valid.ng-pristine', 'ds-dynamic-date-picker-inline.ng-star-inserted, div, div, div, div.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-control-container.col-6.ng-star-inserted, div#accessCondition-0-accessConditionGroup.form-row.ng-star-inserted.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-group.ng-star-inserted, div, div, div, div.pl-1.pr-1.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-control-container.form-group.flex-fill.access-condition-group.ng-star-inserted.ng-to…, div.cdk-drag.cdk-drag-handle.form-row.cdk-drag-disabled.ng-star-inserted.ng-touched.ng-valid.ng-pris…, div#cdk-drop-list-5.cdk-drop-list, div#accessCondition.ng-star-inserted.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-array.ng-star-inserted, div, div, div, div.form-group.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-control-container.ng-star-inserted, ds-dynamic-form.ng-touched.ng-valid.ng-pristine, form.form-horizontal.ng-touched.ng-valid.ng-pristine, div.container-fluid, ds-form.ng-star-inserted, ds-section-accesses.ng-star-inserted, div#sectionContent_AccessConditionDefaultConfiguration.ng-star-inserted, div.card-body, div#AccessConditionDefaultConfiguration.collapse.show.ng-star-inserted, div.card.ng-star-inserted, ngb-accordion.accordion, div#section_AccessConditionDefaultConfiguration.section-focus, ds-submission-section-container.ng-star-inserted, div.submission-form-content, div.container-fluid, ds-submission-form, div.submission-submit-container, ds-submission-edit.ng-star-inserted, ds-themed-submission-edit.ng-star-inserted, div.ng-tns-c392-0, main.main-content.ng-tns-c392-0, div.inner-wrapper.ng-tns-c392-0.ng-trigger.ng-trigger-slideSidebarPadding, div.outer-wrapper.ng-tns-c392-0.ng-star-inserted, ds-root.ng-tns-c392-0.ng-star-inserted, ds-themed-root, ds-app, body, html.wf-droidsans-n4-active.wf-active, document, Window'],
+      returnValue: true,
+      srcElement: 'input#accessCondition-0-endDate.form-control.ng-touched.ng-dirty.ng-valid',
+      target: 'input#accessCondition-0-endDate.form-control.ng-touched.ng-dirty.ng-valid',
+      timeStamp: 143042.8999999999,
+      type: 'change',
+    },
+    context: null,
+    control: new FormControl({
+      errors: null,
+      pristine: false,
+      status: 'VALID',
+      statusChanges: { _isScalar: false, observers: [], closed: false, isStopped: false, hasError: false },
+      touched: true,
+      value: 'test-url',
+      valueChanges: { _isScalar: false, observers: [], closed: false, isStopped: false, hasError: false },
+      _updateOn: 'change',
+    }),
+    group: new FormGroup({}),
+    model: new DynamicInputModel({
+      additional: null,
+      asyncValidators: null,
+      controlTooltip: null,
+      errorMessages: null,
+      hidden: false,
+      hint: null,
+      id: 'url',
+      label: 'Url',
+      labelTooltip: null,
+      name: 'url',
+      relations: [],
+      required: false,
+      tabIndex: null,
+      updateOn: null,
+      validators: { required: null },
+    }),
+    type: 'change'
+  };
+
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionSectionCustomUrlComponent,
+        FormComponent
       ],
       providers: [
-        { provide: SubmissionCcLicenseDataService, useValue: submissionCcLicensesDataService },
-        { provide: SubmissionCcLicenseUrlDataService, useValue: submissionCcLicenseUrlDataService },
         { provide: SectionsService, useValue: sectionService },
+        { provide: SubmissionService, useValue: submissionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+        { provide: FormBuilderService, useValue: builderService },
+        { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
+        { provide: FormService, useValue: getMockFormService() },
+        { provide: 'entityType', useValue: 'Person' },
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
@@ -183,90 +162,64 @@ describe('SubmissionSectionCustomUrlComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmissionSectionCustomUrlComponent);
     component = fixture.componentInstance;
+
+    formService = TestBed.inject(FormService);
+    formService.validateAllFormFields.and.callFake(() => null);
+    formService.isValid.and.returnValue(observableOf(true));
+    formService.getFormData.and.returnValue(observableOf({}));
+
     de = fixture.debugElement;
     fixture.detectChanges();
   });
 
-  it('should display a dropdown with the different cc licenses', () => {
-    expect(
-      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(1)')).nativeElement.innerText
-    ).toContain('test license name 1');
-    expect(
-      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(2)')).nativeElement.innerText
-    ).toContain('test license name 2');
+  it('should display custom url section', () => {
+    expect(de.query(By.css('.custom-url'))).toBeTruthy();
   });
 
-  describe('when a license is selected', () => {
-
-    const ccLicence = submissionCcLicenses[1];
-
-    beforeEach(() => {
-      component.selectCcLicense(ccLicence);
-      fixture.detectChanges();
-    });
-
-    it('should display the selected cc license', () => {
-      expect(
-        de.query(By.css('.ccLicense-select ds-select button.selection')).nativeElement.innerText
-      ).toContain('test license name 2');
-    });
-
-    it('should display all field labels of the selected cc license only', () => {
-      expect(de.query(By.css('div.test-field-id-1a'))).toBeNull();
-      expect(de.query(By.css('div.test-field-id-1b'))).toBeNull();
-      expect(de.query(By.css('div.test-field-id-2a'))).toBeTruthy();
-      expect(de.query(By.css('div.test-field-id-2b'))).toBeTruthy();
-    });
-
-    it('should not display a cc license link', () => {
-      expect(de.query(By.css('.license-link'))).toBeNull();
-    });
-
-    it('should have section status incomplete', () => {
-      expect(component.getSectionStatus()).toBeObservable(cold('(a|)', { a: false }));
-    });
-
-    describe('when all options have a value selected', () => {
-
-      beforeEach(() => {
-        component.selectOption(ccLicence, ccLicence.fields[0], ccLicence.fields[0].enums[1]);
-        component.selectOption(ccLicence, ccLicence.fields[1], ccLicence.fields[1].enums[0]);
-        fixture.detectChanges();
-      });
-
-      it('should call the submission cc licenses data service getCcLicenseLink method', () => {
-        expect(submissionCcLicenseUrlDataService.getCcLicenseLink).toHaveBeenCalledWith(
-          ccLicence,
-          new Map([
-            [ccLicence.fields[0], ccLicence.fields[0].enums[1]],
-            [ccLicence.fields[1], ccLicence.fields[1].enums[0]],
-          ])
-        );
-      });
-
-      it('should display a cc license link', () => {
-        expect(de.query(By.css('.license-link'))).toBeTruthy();
-      });
-
-      it('should not be accepted', () => {
-        expect(component.accepted).toBeFalse();
-      });
-
-      it('should have section status incomplete', () => {
-        expect(component.getSectionStatus()).toBeObservable(cold('(a|)', { a: false }));
-      });
-
-      describe('when the cc license is accepted', () => {
-
-        beforeEach(() => {
-          component.setAccepted(true);
-          fixture.detectChanges();
-        });
-
-        it('should have section status complete', () => {
-          expect(component.getSectionStatus()).toBeObservable(cold('(a|)', { a: true }));
-        });
-      });
-    });
+  it('should have the right url formed', () => {
+    expect(component.frontendUrl).toContain('/entities/person');
   });
+
+  it('formModel should have length of 1', () => {
+    expect(component.formModel.length).toEqual(1);
+  });
+
+  it('formModel should have 1 DynamicInputModel', () => {
+    expect(component.formModel[0] instanceof DynamicInputModel).toBeTrue();
+  });
+
+  it('if edit item true should show redirected urls managment', () => {
+    expect(de.query(By.css('.previous-urls'))).toBeFalsy();
+  });
+
+  it('if edit item true should show redirected urls managment', () => {
+    component.isEditItemScope = true;
+    fixture.detectChanges();
+    expect(de.query(By.css('.previous-urls'))).toBeTruthy();
+  });
+
+
+  it('when input changed it should call operationsBuilder replace', () => {
+    component.onChange(changeEvent);
+    fixture.detectChanges();
+
+    expect(operationsBuilder.replace).toHaveBeenCalled();
+  });
+
+  it('when input changed it should call operationsBuilder add function for redirected urls', () => {
+    component.isEditItemScope = true;
+    component.submissionCustomUrl.url = 'url';
+    component.onChange(changeEvent);
+    fixture.detectChanges();
+
+    expect(operationsBuilder.add).toHaveBeenCalled();
+  });
+
+
+  it('when remove button clicked it should call operationsBuilder remove function for redirected urls', () => {
+    component.remove(1);
+    fixture.detectChanges();
+    expect(operationsBuilder.remove).toHaveBeenCalled();
+  });
+
 });
