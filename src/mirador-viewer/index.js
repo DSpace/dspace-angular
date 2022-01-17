@@ -3,6 +3,7 @@ import miradorShareDialogPlugin from 'mirador-share-plugin/es/MiradorShareDialog
 import miradorSharePlugin from 'mirador-share-plugin/es/miradorSharePlugin';
 import miradorDownloadPlugin from 'mirador-dl-plugin/es/miradorDownloadPlugin';
 import miradorDownloadDialog from 'mirador-dl-plugin/es/MiradorDownloadDialog';
+import { ErrorDialog } from "mirador/dist/es/src/components/ErrorDialog";
 
 const params = new URLSearchParams(location.search);
 const manifest = params.get('manifest');
@@ -152,12 +153,16 @@ windowSettings.manifestId = manifest;
 
         ],
         postprocessors: [ // Functions that receive HTTP responses and manipulates them before adding to store
-          // An example of manipulating the response for an annotation request
-          // (url, action) => {
-          //   if (action.annotationId) {
-          //     action.annotationJson = {};
-          //   }
-          // }
+          // Check the DSpace manifest response. If no canvases are available, throw an error.
+          (uri, action) => {
+            if (action.manifestJson) {
+              if (action.manifestJson.sequences[0].canvases.length === 0) {
+                alert("There are no images for this item. Try logging in to DSpace. " +
+                  "Contact the DSpace administrator if the problem persists.")
+                throw Error("No images available.");
+              }
+            }
+          }
         ]
       },
       window: {
