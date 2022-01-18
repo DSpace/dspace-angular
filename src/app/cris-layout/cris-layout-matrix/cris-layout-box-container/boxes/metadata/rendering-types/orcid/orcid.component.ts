@@ -1,15 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
 import { ConfigurationProperty } from '../../../../../../../core/shared/configuration-property.model';
-import { TranslateService } from '@ngx-translate/core';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 /**
  * This component renders the text metadata fields
@@ -28,7 +30,7 @@ export class OrcidComponent extends RenderingTypeValueModelComponent implements 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     private configurationService: ConfigurationDataService,
     protected translateService: TranslateService

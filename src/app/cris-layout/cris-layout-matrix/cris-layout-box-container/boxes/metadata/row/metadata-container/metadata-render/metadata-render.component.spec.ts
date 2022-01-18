@@ -25,6 +25,22 @@ describe('MetadataRenderComponent', () => {
     'place': 0
   });
 
+  const metadataValueWithPlaceholder = Object.assign(new MetadataValue(), {
+    'value': 'PLACEHOLDER_PARENT_METADATAe',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+
+  const normalizedMetadataValue = Object.assign(new MetadataValue(), {
+    'value': 'PLACEHOLDER_PARENT_METADATAe',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+
   const testItem = Object.assign(new Item(),
     {
       type: 'item',
@@ -139,6 +155,12 @@ describe('MetadataRenderComponent', () => {
 
     it('should create', () => {
       expect(component).toBeTruthy();
+    });
+
+    it('should normalize metadata value with placeholder', () => {
+      component.metadataValue = metadataValueWithPlaceholder;
+      fixture.detectChanges();
+      expect(component.metadataValue).toBeTruthy(normalizedMetadataValue);
     });
   });
 
