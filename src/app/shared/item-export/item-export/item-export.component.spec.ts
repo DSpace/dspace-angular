@@ -31,23 +31,23 @@ describe('ItemExportComponent', () => {
   });
 
   const modal: any = jasmine.createSpyObj('NgbActiveModal', {
-    close: jasmine.createSpy('close').and.callFake(() => { /**/})
+    close: jasmine.createSpy('close').and.callFake(() => { /**/ })
   });
 
   const router = new RouterMock();
 
-  const itemType = Object.assign(new ItemType(),{
+  const itemType = Object.assign(new ItemType(), {
     'type': 'entitytype',
     'id': 1,
     'label': 'Person',
     'uuid': 'entitytype-1',
     '_links': {
-        'self': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1'
-        },
-        'relationshiptypes': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes'
-        }
+      'self': {
+        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1'
+      },
+      'relationshiptypes': {
+        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes'
+      }
     }
   });
 
@@ -55,7 +55,7 @@ describe('ItemExportComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader,  useClass: TranslateLoaderMock }}),
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
         FormsModule,
         ReactiveFormsModule
       ],
@@ -83,7 +83,7 @@ describe('ItemExportComponent', () => {
       component.itemType = itemType;
 
       // data
-      configuration = { format: 'format', entityType: 'entityType'} as any;
+      configuration = { format: 'format', entityType: 'entityType' } as any;
       exportForm = new FormGroup({
         format: new FormControl(configuration.format, [Validators.required]),
         entityType: new FormControl(configuration.entityType, [Validators.required]),
@@ -91,9 +91,9 @@ describe('ItemExportComponent', () => {
 
       // spies
       itemExportService.initialItemExportFormConfiguration.and.returnValue(observableOf(configuration));
-      spyOn(component, 'initForm').and.returnValue(exportForm);
+      spyOn(component, 'initFormItemType').and.returnValue(exportForm);
       spyOn(exportForm.controls.entityType.valueChanges, 'subscribe').and.callThrough();
-      spyOn(component, 'onEntityTypeChange').and.callFake(() => { /****/});
+      spyOn(component, 'onEntityTypeChange').and.callFake(() => { /****/ });
 
       fixture.detectChanges();
     });
@@ -103,9 +103,9 @@ describe('ItemExportComponent', () => {
     });
 
     it('should initialize the exportForm calling initialItemExportFormConfiguration', () => {
-      expect(itemExportService.initialItemExportFormConfiguration).toHaveBeenCalledWith( 'item');
+      expect(itemExportService.initialItemExportFormConfiguration).toHaveBeenCalledWith('item');
       expect(component.configuration).toBe(configuration);
-      expect(component.initForm).toHaveBeenCalledWith(configuration);
+      expect(component.initFormItemType).toHaveBeenCalledWith(configuration);
       expect(component.exportForm).toBe(exportForm);
     });
 
@@ -118,7 +118,7 @@ describe('ItemExportComponent', () => {
       component = fixture.componentInstance;
       component.itemType = itemType;
 
-      configuration = { format: 'format', entityType: 'Person'} as any;
+      configuration = { format: 'format', entityType: 'Person' } as any;
     });
 
     it('should create the export form with configuration format and entityType', () => {
