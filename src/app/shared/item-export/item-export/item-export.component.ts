@@ -26,18 +26,26 @@ export class ItemExportComponent implements OnInit {
   public exportForm: FormGroup;
 
   constructor(protected itemExportService: ItemExportService,
-              protected router: Router,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService,
-              public activeModal: NgbActiveModal) {
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    public activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {
     this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1))
       .subscribe((configuration: ItemExportFormConfiguration) => {
         this.configuration = configuration;
-        this.exportForm = this.initForm(configuration);
-        this.onEntityTypeChange(this.itemType.label);
+        if (!!this.itemType) {
+          this.exportForm = this.initFormItemType(configuration);
+          this.onEntityTypeChange(this.itemType.label);
+        } else {
+          this.exportForm = this.initForm(configuration);
+          // listen for entityType selections in order to update the available formats
+          this.exportForm.controls.entityType.valueChanges.subscribe((entityType) => {
+            this.onEntityTypeChange(entityType);
+          });
+        }
       });
   }
 
@@ -47,27 +55,37 @@ export class ItemExportComponent implements OnInit {
       this.exportForm.controls.format.patchValue(this.configuration.format);
     });
   }
+
   initForm(configuration: ItemExportFormConfiguration): FormGroup {
     return new FormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
-      entityType: new FormControl({value: this.itemType.label, disabled: true}, [Validators.required] ),
+      entityType: new FormControl(configuration.entityType, [Validators.required]),
+    });
+  }
+
+  initFormItemType(configuration: ItemExportFormConfiguration): FormGroup {
+    return new FormGroup({
+      format: new FormControl(configuration.format, [Validators.required]),
+      entityType: new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]),
     });
   }
 
   onSubmit() {
     if (this.exportForm.valid) {
+
+
       this.itemExportService.submitForm(
         this.molteplicity,
         this.item,
         this.searchOptions,
-        this.exportForm.controls.entityType.value,
+        this.itemType ? this.exportForm.controls.entityType.value : this.exportForm.value.entityType,
         this.exportForm.value.format).pipe(take(1)).subscribe((processId) => {
 
-        const title = this.translate.get('item-export.process.title');
-        this.notificationsService.process(processId.toString(),5000, title);
+          const title = this.translate.get('item-export.process.title');
+          this.notificationsService.process(processId.toString(), 5000, title);
 
-        this.activeModal.close();
-      });
+          this.activeModal.close();
+        });
     }
   }
 
