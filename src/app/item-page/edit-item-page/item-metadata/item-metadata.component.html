@@ -34,17 +34,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
+    <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
         ds-edit-in-place-field
         [fieldUpdate]="updateValue || {}"
         [url]="url"
-            (selectNewMetadata) ="addMetadata($event)"
         [ngClass]="{
                 'table-warning': updateValue.changeType === 0,
                 'table-danger': updateValue.changeType === 2,
                 'table-success': updateValue.changeType === 1
-            }">
-      </tr>
+            }"
+        (selectMetadata)="addMetadata($event)">
+    </tr>
     </tbody>
   </table>
   <div *ngIf="((updates$ | async)| dsObjectValues).length == 0">
