@@ -13,7 +13,8 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
  * Defines the list of subtypes for this rendering
  */
 enum TYPES {
-  LABEL = 'LABEL'
+  LABEL = 'LABEL',
+  EMAIL = 'EMAIL'
 }
 
 /**
@@ -56,8 +57,13 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
     const linkText = (hasValue(this.renderingSubType) &&
       this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
 
+    let metadataValue = this.metadataValue.value;
+    if (hasValue(this.renderingSubType) && this.renderingSubType.toUpperCase() === TYPES.EMAIL) {
+        metadataValue = 'mailto:' + this.metadataValue.value;
+    }
+
     return {
-      href: this.metadataValue.value,
+      href: metadataValue,
       text: linkText
     };
   }
