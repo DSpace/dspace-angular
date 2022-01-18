@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
-import { find } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
+import { Observable } from 'rxjs';
 import { Audit } from '../core/audit/model/audit.model';
 import { AuditDataService } from '../core/audit/audit-data.service';
-import { getAllSucceededRemoteData, getFirstSucceededRemoteData } from '../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific audit before the route is activated

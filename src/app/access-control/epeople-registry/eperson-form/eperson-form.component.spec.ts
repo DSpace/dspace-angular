@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -29,6 +29,7 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 
 describe('EPersonFormComponent', () => {
@@ -102,12 +103,78 @@ describe('EPersonFormComponent', () => {
           }
         });
         return createSuccessfulRemoteDataObject$(ePerson);
+      },
+      getEPersonByEmail(email): Observable<RemoteData<EPerson>> {
+        return createSuccessfulRemoteDataObject$(null);
       }
     };
-    builderService = getMockFormBuilderService();
+    builderService = Object.assign(getMockFormBuilderService(),{
+      createFormGroup(formModel, options = null) {
+        const controls = {};
+        formModel.forEach( model => {
+            model.parent = parent;
+            const controlModel = model;
+            const controlState = { value: controlModel.value, disabled: controlModel.disabled };
+            const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
+            controls[model.id] = new FormControl(controlState, controlOptions);
+        });
+        return new FormGroup(controls, options);
+      },
+      createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
+        return {
+            validators: validatorsConfig !== null ? this.getValidators(validatorsConfig) : null,
+        };
+      },
+      getValidators(validatorsConfig) {
+          return this.getValidatorFns(validatorsConfig);
+      },
+      getValidatorFns(validatorsConfig, validatorsToken = this._NG_VALIDATORS) {
+        let validatorFns = [];
+        if (this.isObject(validatorsConfig)) {
+            validatorFns = Object.keys(validatorsConfig).map(validatorConfigKey => {
+                const validatorConfigValue = validatorsConfig[validatorConfigKey];
+                if (this.isValidatorDescriptor(validatorConfigValue)) {
+                    const descriptor = validatorConfigValue;
+                    return this.getValidatorFn(descriptor.name, descriptor.args, validatorsToken);
+                }
+                return this.getValidatorFn(validatorConfigKey, validatorConfigValue, validatorsToken);
+            });
+        }
+        return validatorFns;
+      },
+      getValidatorFn(validatorName, validatorArgs = null, validatorsToken = this._NG_VALIDATORS) {
+        let validatorFn;
+        if (Validators.hasOwnProperty(validatorName)) { // Built-in Angular Validators
+            validatorFn = Validators[validatorName];
+        } else { // Custom Validators
+            if (this._DYNAMIC_VALIDATORS && this._DYNAMIC_VALIDATORS.has(validatorName)) {
+                validatorFn = this._DYNAMIC_VALIDATORS.get(validatorName);
+            } else if (validatorsToken) {
+                validatorFn = validatorsToken.find(validator => validator.name === validatorName);
+            }
+        }
+        if (validatorFn === undefined) { // throw when no validator could be resolved
+            throw new Error(`validator '${validatorName}' is not provided via NG_VALIDATORS, NG_ASYNC_VALIDATORS or DYNAMIC_FORM_VALIDATORS`);
+        }
+        if (validatorArgs !== null) {
+            return validatorFn(validatorArgs);
+        }
+        return validatorFn;
+    },
+      isValidatorDescriptor(value) {
+          if (this.isObject(value)) {
+              return value.hasOwnProperty('name') && value.hasOwnProperty('args');
+          }
+          return false;
+      },
+      isObject(value) {
+        return typeof value === 'object' && value !== null;
+      }
+    });
     authService = new AuthServiceStub();
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
+
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
       findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -156,6 +223,131 @@ describe('EPersonFormComponent', () => {
     expect(component).toBeDefined();
   });
 
+  describe('check form validation', () => {
+    let firstName;
+    let lastName;
+    let email;
+    let canLogIn;
+    let requireCertificate;
+
+    let expected;
+    beforeEach(() => {
+      firstName = 'testName';
+      lastName = 'testLastName';
+      email = 'testEmail@test.com';
+      canLogIn = false;
+      requireCertificate = false;
+
+      expected = Object.assign(new EPerson(), {
+        metadata: {
+          'eperson.firstname': [
+            {
+              value: firstName
+            }
+          ],
+          'eperson.lastname': [
+            {
+              value: lastName
+            },
+          ],
+        },
+        email: email,
+        canLogIn: canLogIn,
+        requireCertificate: requireCertificate,
+      });
+      spyOn(component.submitForm, 'emit');
+      component.canLogIn.value = canLogIn;
+      component.requireCertificate.value = requireCertificate;
+
+      fixture.detectChanges();
+      component.initialisePage();
+      fixture.detectChanges();
+    });
+    describe('firstName, lastName and email should be required', () => {
+      it('form should be invalid because the firstName is required', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.firstName.valid).toBeFalse();
+          expect(component.formGroup.controls.firstName.errors.required).toBeTrue();
+        });
+      }));
+      it('form should be invalid because the lastName is required', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.lastName.valid).toBeFalse();
+          expect(component.formGroup.controls.lastName.errors.required).toBeTrue();
+        });
+      }));
+      it('form should be invalid because the email is required', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.email.valid).toBeFalse();
+          expect(component.formGroup.controls.email.errors.required).toBeTrue();
+        });
+      }));
+    });
+
+    describe('after inserting information firstName,lastName and email not required', () => {
+      beforeEach(() => {
+        component.formGroup.controls.firstName.setValue('test');
+        component.formGroup.controls.lastName.setValue('test');
+        component.formGroup.controls.email.setValue('test@test.com');
+        fixture.detectChanges();
+      });
+      it('firstName should be valid because the firstName is set', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.firstName.valid).toBeTrue();
+          expect(component.formGroup.controls.firstName.errors).toBeNull();
+        });
+      }));
+      it('lastName should be valid because the lastName is set', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.lastName.valid).toBeTrue();
+          expect(component.formGroup.controls.lastName.errors).toBeNull();
+        });
+      }));
+      it('email should be valid because the email is set', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.email.valid).toBeTrue();
+          expect(component.formGroup.controls.email.errors).toBeNull();
+        });
+      }));
+    });
+
+
+    describe('after inserting email wrong should show pattern validation error', () => {
+      beforeEach(() => {
+        component.formGroup.controls.email.setValue('test@test');
+        fixture.detectChanges();
+      });
+      it('email should not be valid because the email pattern', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.email.valid).toBeFalse();
+          expect(component.formGroup.controls.email.errors.pattern).toBeTruthy();
+        });
+      }));
+    });
+
+    describe('after already utilized email', () => {
+      beforeEach(() => {
+        const ePersonServiceWithEperson = Object.assign(ePersonDataServiceStub,{
+          getEPersonByEmail(): Observable<RemoteData<EPerson>> {
+            return createSuccessfulRemoteDataObject$(EPersonMock);
+          }
+        });
+        component.formGroup.controls.email.setValue('test@test.com');
+        component.formGroup.controls.email.setAsyncValidators(ValidateEmailNotTaken.createValidator(ePersonServiceWithEperson));
+        fixture.detectChanges();
+      });
+
+      it('email should not be valid because email is already taken', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.formGroup.controls.email.valid).toBeFalse();
+          expect(component.formGroup.controls.email.errors.emailTaken).toBeTruthy();
+        });
+      }));
+    });
+
+
+
+  });
   describe('when submitting the form', () => {
     let firstName;
     let lastName;

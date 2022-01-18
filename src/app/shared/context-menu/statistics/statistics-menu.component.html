@@ -1,4 +1,4 @@
-<button *ngIf="isAuthorized$ | async" class="dropdown-item"
+<button *ngIf="isAuthorized$ | async" class="btn btn-primary"
+        [innerHTML]="'context-menu.actions.statistics.btn' | translate"
         [routerLink]="['/statistics/' + getPageRoutePrefix(), contextMenuObject.id]">
-  {{'context-menu.actions.statistics.btn' | translate}}
 </button>

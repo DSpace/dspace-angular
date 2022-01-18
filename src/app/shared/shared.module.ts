@@ -188,6 +188,7 @@ import { MissingTranslationHelper } from './translate/missing-translation.helper
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
+import { FileSectionComponent } from '../item-page/simple/field-components/file-section/file-section.component';
 import { ExistingRelationListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
@@ -214,6 +215,7 @@ import { CollectionSidebarSearchListElementComponent } from './object-list/sideb
 import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
+import { DsoPageVersionButtonComponent } from './dso-page/dso-page-version-button/dso-page-version-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
@@ -255,6 +257,10 @@ import { RelationshipsItemsActionsComponent } from './object-list/relationships-
 import { RelationshipsItemsListPreviewComponent } from './object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { ItemVersionsSummaryModalComponent } from './item/item-versions/item-versions-summary-modal/item-versions-summary-modal.component';
+import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-versions-delete-modal/item-versions-delete-modal.component';
+import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
+import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { LogInOrcidComponent } from './log-in/methods/orcid/log-in-orcid.component';
 import { DsDynamicRelationGroupModalComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
 import { ClaimItemSelectorComponent } from './dso-selector/modal-wrappers/claim-item-selector/claim-item-selector.component';
@@ -269,14 +275,24 @@ import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-downlo
 import { MetricDonutsComponent } from './object-list/metric-donuts/metric-donuts.component';
 import { BrowseMostElementsComponent } from './browse-most-elements/browse-most-elements.component';
 import { BrowseSectionComponent } from './explore/section-component/browse-section/browse-section.component';
+import { ThemedBrowseSectionComponent } from './explore/section-component/browse-section/themed-browse-section.component';
 import { TopSectionComponent } from './explore/section-component/top-section/top-section.component';
+import { ThemedTopSectionComponent } from './explore/section-component/top-section/themed-top-section.component';
 import { FacetSectionComponent } from './explore/section-component/facet-section/facet-section.component';
 import { SearchSectionComponent } from './explore/section-component/search-section/search-section.component';
 import { TextSectionComponent } from './explore/section-component/text-section/text-section.component';
 import { CountersSectionComponent } from './explore/section-component/counters-section/counters-section.component';
+import { ThemedCountersSectionComponent } from './explore/section-component/counters-section/themed-counters-section.component';
 import { MultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/multi-column-top-section.component';
 import { EditMetadataSecurityComponent } from '../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { MetadataLinkViewComponent } from './metadata-link-view/metadata-link-view.component';
+import { ExportExcelSelectorComponent } from './dso-selector/modal-wrappers/export-excel-selector/export-excel-selector.component';
+import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
+import { MetricPlumxComponent } from './metric/metric-plumx/metric-plumx.component';
+import { ThemedFacetSectionComponent } from './explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedMultiColumnTopSectionComponent } from './explore/section-component/multi-column-top-section/themed-multi-column-top-section.component';
+import { ThemedSearchSectionComponent } from './explore/section-component/search-section/themed-search-section.component';
+import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -309,15 +325,15 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   DragDropModule,
-  CdkTreeModule,
-  ChartsModule
+  CdkTreeModule
 ];
 
 const ROOT_MODULES = [
   TranslateModule.forChild({
     missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
     useDefaultLang: true
-  })
+  }),
+  ChartsModule.withEntryComponents()
 ];
 
 const PIPES = [
@@ -368,6 +384,7 @@ const COMPONENTS = [
   DsDatePickerInlineComponent,
   DsSelectComponent,
   ErrorComponent,
+  FileSectionComponent,
   FormComponent,
   LangSwitchComponent,
   LoadingComponent,
@@ -468,6 +485,7 @@ const COMPONENTS = [
   ExistingRelationListElementComponent,
   LogInShibbolethComponent,
   LogInOrcidComponent,
+  LogInOidcComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -484,6 +502,7 @@ const COMPONENTS = [
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CollectionDropdownComponent,
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
@@ -513,6 +532,8 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
+  SearchNavbarComponent,
+  ScopeSelectorModalComponent,
   ItemExportComponent,
   ItemExportAlertComponent,
   ItemExportModalLauncherComponent,
@@ -538,15 +559,23 @@ const COMPONENTS = [
   MetricEmbeddedViewComponent,
   MetricEmbeddedDownloadComponent,
   BrowseMostElementsComponent,
+  ThemedBrowseSectionComponent,
   BrowseSectionComponent,
   TopSectionComponent,
+  ThemedTopSectionComponent,
   FacetSectionComponent,
+  ThemedFacetSectionComponent,
   SearchSectionComponent,
   TextSectionComponent,
   CountersSectionComponent,
+  ThemedCountersSectionComponent,
   MultiColumnTopSectionComponent,
   EditMetadataSecurityComponent,
-  MetadataLinkViewComponent
+  MetadataLinkViewComponent,
+  ExportExcelSelectorComponent,
+  ThemedMultiColumnTopSectionComponent,
+  ThemedSearchSectionComponent,
+  ThemedTextSectionComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -595,6 +624,7 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   LogInOrcidComponent,
+  LogInOidcComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
@@ -603,6 +633,7 @@ const ENTRY_COMPONENTS = [
   CollectionDropdownComponent,
   FileDownloadLinkComponent,
   BitstreamDownloadPageComponent,
+  BitstreamRequestACopyPageComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
@@ -614,13 +645,26 @@ const ENTRY_COMPONENTS = [
   LinkMenuItemComponent,
   OnClickMenuItemComponent,
   TextMenuItemComponent,
+  ScopeSelectorModalComponent,
+  ThemedBrowseSectionComponent,
   BrowseSectionComponent,
   TopSectionComponent,
+  ThemedTopSectionComponent,
   FacetSectionComponent,
+  ThemedFacetSectionComponent,
   SearchSectionComponent,
   TextSectionComponent,
   CountersSectionComponent,
-  MultiColumnTopSectionComponent
+  ThemedCountersSectionComponent,
+  MultiColumnTopSectionComponent,
+  SearchChartBarComponent,
+  SearchChartBarToLeftComponent,
+  SearchChartBarToRightComponent,
+  SearchChartPieComponent,
+  SearchChartLineComponent,
+  ThemedMultiColumnTopSectionComponent,
+  ThemedSearchSectionComponent,
+  ThemedTextSectionComponent,
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
@@ -632,6 +676,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
   DsoPageEditButtonComponent,
+  DsoPageVersionButtonComponent,
   ItemAlertsComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
@@ -673,17 +718,20 @@ const DIRECTIVES = [
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES,
-        ...ROOT_MODULES,
-    ],
+  imports: [
+    ...MODULES,
+    ...ROOT_MODULES,
+  ],
   declarations: [
     ...PIPES,
     ...COMPONENTS,
     ...DIRECTIVES,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...SHARED_SEARCH_PAGE_COMPONENTS,
+    ItemVersionsSummaryModalComponent,
+    ItemVersionsDeleteModalComponent,
     ItemExportAlertComponent,
+    MetricPlumxComponent,
   ],
   providers: [
     ...PROVIDERS
@@ -710,7 +758,7 @@ export class SharedModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 }

@@ -17,10 +17,11 @@
                               [query]="(searchOptions$ | async)?.query"
                               [scope]="(searchOptions$ | async)?.scope"
                               [currentUrl]="getSearchLink()"
-                              [scopes]="(scopeListRD$ | async)"
+                              [showScopeSelector]="true"
                               [inPlaceSearch]="inPlaceSearch"
                               [searchPlaceholder]="'mydspace.search-form.placeholder' | translate">
               </ds-search-form>
+              <ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>
               <ds-item-export-modal-launcher [searchOptions$]="searchOptions$"></ds-item-export-modal-launcher>
           </div>
           <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>

@@ -12,9 +12,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
+  getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  redirectOn4xx,
-  getFirstSucceededRemoteData
+  redirectOn4xx
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/aletr-type';
@@ -65,6 +65,11 @@ export class ProcessDetailComponent implements OnInit {
    * When it's retrieving the output logs from backend, to show loading component
    */
   retrievingOutputLogs$: BehaviorSubject<boolean>;
+
+  /**
+   * Date format to use for start and end time of processes
+   */
+  dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZ';
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,

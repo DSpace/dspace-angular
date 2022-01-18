@@ -9,6 +9,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import {NotificationsService} from '../../notifications/notifications.service';
+import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
 
 describe('DsoPageEditMenuComponent', () => {
   let component: DsoPageEditMenuComponent;
@@ -16,7 +18,8 @@ describe('DsoPageEditMenuComponent', () => {
 
   let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
-
+  // tslint:disable-next-line:prefer-const
+  let notificationService = new NotificationsServiceStub();
   beforeEach(async(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
@@ -34,6 +37,7 @@ describe('DsoPageEditMenuComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
+        { provide: NotificationsService, useValue: notificationService },
       ]
     }).compileComponents();
   }));
@@ -46,7 +50,7 @@ describe('DsoPageEditMenuComponent', () => {
   });
 
   it('should check the authorization of the current user', () => {
-    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanEditMetadata, dso.self);
+    expect(authorizationService.isAuthorized).toHaveBeenCalledWith(FeatureID.CanEditMetadata, dso.self, undefined, false);
   });
 
   describe('when the user is authorized', () => {

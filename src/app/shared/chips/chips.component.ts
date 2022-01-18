@@ -4,11 +4,11 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { isObject } from 'lodash';
 
 import { Chips } from './models/chips.model';
+import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { ChipsItem } from './models/chips-item.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-chips',
@@ -21,6 +21,7 @@ export class ChipsComponent implements OnChanges {
   @Input() wrapperClass: string;
   @Input() readOnly = false;
   @Input() showIcons = false;
+  @Input() clickable = true;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
@@ -81,7 +82,6 @@ export class ChipsComponent implements OnChanges {
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const chipsItem = this.chips.getChipByIndex(index);
-    console.log(chipsItem, field);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {

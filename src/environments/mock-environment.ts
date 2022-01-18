@@ -202,6 +202,12 @@ export const environment: Partial<GlobalConfig> = {
       }
     ]
   },
+  followAuthorityMetadata: [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author']
+    }
+  ],
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
@@ -241,7 +247,7 @@ export const environment: Partial<GlobalConfig> = {
     image: true,
     video: true
   },
-  layout: {
+  crisLayout: {
     urn: [
       {
         name: 'doi',
@@ -269,7 +275,28 @@ export const environment: Partial<GlobalConfig> = {
         entityType: 'ORGUNIT',
         icon: 'fa fa-university'
       }
-    ]
+    ],
+    itemPage: {
+      Person: {
+        orientation: 'horizontal'
+      },
+      OrgUnit: {
+        orientation: 'horizontal'
+      },
+      default: {
+        orientation: 'vertical'
+      },
+    },
+    metadataBox: {
+      defaultMetadataLabelColStyle: 'col-3',
+      defaultMetadataValueColStyle: 'col-9'
+    }
+  },
+  layout: {
+    navbar: {
+      // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+      showCommunityCollection: false,
+    }
   },
   security: {
     levels: [
@@ -288,5 +315,17 @@ export const environment: Partial<GlobalConfig> = {
         icon: 'fa fa-lock',
         color: 'red'
       }]
+  },
+  cms: {
+    metadataList: [
+      'cris.cms.home-header',
+      'cris.cms.home-news',
+      'cris.cms.footer',
+    ]
+  },
+  addThisPlugin: {
+    siteId: '',
+    scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
+    socialNetworksEnabled: false
   }
 };

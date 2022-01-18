@@ -1,6 +1,27 @@
-<button class="btn btn-lg btn-outline-primary mt-1 ml-2" type="button"
+  <div class="add" *ngIf="!(moreThanOne$ | async)">
+    <button class="btn btn-md btn-outline-primary ml-2" type="button"
         attr.aria-label="{{'mydspace.new-bulk-import' | translate}}"
         title="{{'mydspace.new-bulk-import' | translate}}"
-        (click)="openDialog()">
-  <i class="fa fa-file-upload" aria-hidden="true"></i>
-</button>
+        (click)="openDialog(singleEntity)">
+        <i class="fa fa-file-upload" aria-hidden="true"></i>
+        {{'mydspace.new-bulk-import' | translate}}
+    </button>
+  </div>
+  <div class="add w-100" display="dynamic" placement="bottom-right"
+       ngbDropdown
+       *ngIf="(moreThanOne$ | async)">
+    <button class="btn btn-md btn-outline-primary ml-2" id="dropdownSubmission" ngbDropdownToggle
+            type="button" [disabled]="!(initialized$|async)"
+            attr.aria-label="{{'mydspace.new-bulk-import' | translate}}"
+            title="{{'mydspace.new-bulk-import' | translate}}">
+      <i class="fa fa-file-upload" aria-hidden="true"></i>
+      {{'mydspace.import' | translate}}
+      <span class="caret"></span>
+    </button>
+    <div ngbDropdownMenu
+         class="dropdown-menu"
+         id="entityControlsDropdownMenu"
+         aria-labelledby="dropdownSubmission">
+      <ds-entity-dropdown [isSubmission]="false" (selectionChange)="openDialog($event)"></ds-entity-dropdown>
+    </div>
+  </div>

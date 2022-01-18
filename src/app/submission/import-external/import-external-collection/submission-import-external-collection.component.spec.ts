@@ -1,5 +1,5 @@
-import { Component, NO_ERRORS_SCHEMA, EventEmitter } from '@angular/core';
-import { waitForAsync, TestBed, ComponentFixture, inject, fakeAsync } from '@angular/core/testing';
+import { Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
@@ -78,25 +78,23 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       expect(compAsAny.activeModal.dismiss).toHaveBeenCalled();
     });
 
-    it('should be in loading state when hasChoice variable is different to true', () => {
-      comp.hasChoice = null;
+    it('should be in loading state when search is not completed', () => {
+      comp.loading = null;
+      expect(comp.isLoading()).toBeFalse();
+
+      comp.loading = true;
       expect(comp.isLoading()).toBeTrue();
 
-      comp.hasChoice = false;
-      expect(comp.isLoading()).toBeTrue();
-
-      comp.hasChoice = true;
+      comp.loading = false;
       expect(comp.isLoading()).toBeFalse();
     });
 
-    it('should set hasChoice variable on hasChoice event', () => {
-      comp.hasChoice = null;
+    it('should set loading variable to false on searchComplete event', () => {
+      comp.loading = null;
 
-      comp.onHasChoice(true);
-      expect(comp.hasChoice).toBe(true);
+      comp.searchComplete();
+      expect(comp.loading).toBe(false);
 
-      comp.onHasChoice(false);
-      expect(comp.hasChoice).toBe(false);
     });
 
     it('should emit theOnlySelectable', () => {

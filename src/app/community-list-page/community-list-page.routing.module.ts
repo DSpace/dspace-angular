@@ -19,7 +19,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList' }
+        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList', showSocialButtons: true}
       }
     ]),
     CdkTreeModule,

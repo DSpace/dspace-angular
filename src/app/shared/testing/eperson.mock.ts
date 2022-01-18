@@ -11,9 +11,9 @@ export const EPersonMock: EPerson = Object.assign(new EPerson(), {
   selfRegistered: false,
   _links: {
     self: {
-      href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid',
+      href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/testid',
     },
-    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid/groups' }
+    groups: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/testid/groups' }
   },
   id: 'testid',
   uuid: 'testid',
@@ -57,9 +57,9 @@ export const EPersonMock2: EPerson = Object.assign(new EPerson(), {
   selfRegistered: true,
   _links: {
     self: {
-      href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid2',
+      href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/testid2',
     },
-    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid2/groups' }
+    groups: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/testid2/groups' }
   },
   id: 'testid2',
   uuid: 'testid2',

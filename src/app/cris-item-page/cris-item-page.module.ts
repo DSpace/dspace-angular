@@ -4,9 +4,9 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CrisItemPageRoutingModule } from './cris-item-page-routing.module';
 import { CrisItemPageComponent } from './cris-item-page.component';
-import { LayoutModule } from '../layout/layout.module';
+import { CrisLayoutModule } from '../cris-layout/cris-layout.module';
 import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
-import {StatisticsModule} from '../statistics/statistics.module';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import {StatisticsModule} from '../statistics/statistics.module';
     CommonModule,
     SharedModule,
     CrisItemPageRoutingModule,
-    LayoutModule,
+    CrisLayoutModule,
     StatisticsModule
   ],
   exports: [

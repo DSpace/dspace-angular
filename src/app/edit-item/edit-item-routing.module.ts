@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
-import { EDIT_ITEM_PATH } from './edit-item-routing-paths';
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
+import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 
 @NgModule({
   imports: [
@@ -14,7 +14,8 @@ import { EDIT_ITEM_PATH } from './edit-item-routing-paths';
           {
             path: '',
             canActivate: [AuthenticatedGuard],
-            component: SubmissionEditComponent,
+            canDeactivate: [PendingChangesGuard],
+            component: ThemedSubmissionEditComponent,
             data: { title: 'submission.edit.title' }
           }
         ],

@@ -49,14 +49,14 @@
 
 
           <ng-container *ngIf="!!categories && categories.length > 1">
-            <ngb-tabset id="categories-tabs" (tabChange)="changeCategoryType($event)" [destroyOnHide]="true">
-              <ngb-tab *ngFor="let category of categories"
+            <ul ngbNav class="nav-tabs" id="categories-tabs" (navChange)="changeCategoryType($event)" [destroyOnHide]="true">
+              <li ngbNavItem *ngFor="let category of categories"
                        title="{{'statistics.categories.' + category.categoryType + '.tab' | translate}}"
                        [id]="category.id">
-                <ng-template ngbTabContent>
+                <ng-template ngbNavContent>
                 </ng-template>
-              </ngb-tab>
-            </ngb-tabset>
+              </li>
+            </ul>
           </ng-container>
 
           <ng-container *ngVar="(reports$ | async) as reports">

@@ -8,15 +8,17 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 @Component({
   selector: 'ds-statistics-menu',
   templateUrl: './statistics-menu.component.html',
   styleUrls: ['./statistics-menu.component.scss']
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY)
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
+@rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY, true)
+@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION, true)
+@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM, true)
 /**
  * Display a button linking to the edit page of a DSpaceObject
  */
@@ -33,17 +35,21 @@ export class StatisticsMenuComponent extends ContextMenuEntryComponent implement
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {AuthorizationDataService} authorizationService
+   * @param notificationService
    */
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    protected authorizationService: AuthorizationDataService
+    protected authorizationService: AuthorizationDataService,
+    private notificationService: NotificationsService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.Statistics);
   }
 
   ngOnInit() {
-    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self);
+    this.notificationService.claimedProfile.subscribe(() => {
+      this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self, undefined, false);
+    });
   }
 
   /**

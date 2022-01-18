@@ -1,16 +1,7 @@
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchComponent } from './search.component';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -18,6 +9,7 @@ import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
+import { SearchManager } from '../core/browse/search-manager';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -36,7 +28,7 @@ import { Router } from '@angular/router';
   ]
 })
 
-export class ConfigurationSearchPageComponent extends SearchComponent implements OnInit, OnDestroy {
+export class ConfigurationSearchPageComponent extends SearchComponent implements OnInit {
   /**
    * The configuration to use for the search options
    * If empty, the configuration will be determined by the route parameter called 'configuration'
@@ -61,12 +53,13 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
   @Input() customData: any;
 
   constructor(protected service: SearchService,
+              protected searchManager: SearchManager,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
               protected router: Router) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router);
+    super(service, searchManager, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   /**
@@ -84,18 +77,5 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
       this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
     super.ngOnInit();
-  }
-
-  /**
-   * Reset the updated query/configuration set in ngOnInit()
-   */
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-    if (hasValue(this.configuration)) {
-      this.routeService.setParameter('configuration', undefined);
-    }
-    if (hasValue(this.fixedFilterQuery)) {
-      this.routeService.setParameter('fixedFilterQuery', undefined);
-    }
   }
 }

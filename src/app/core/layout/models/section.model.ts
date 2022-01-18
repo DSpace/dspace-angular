@@ -30,7 +30,7 @@ export class Section extends CacheableObject {
   componentRows: SectionComponent[][];
 
   /**
-   * The {@link HALLink}s for this Tab
+   * The {@link HALLink}s for this section
    */
   @deserialize
   _links: {

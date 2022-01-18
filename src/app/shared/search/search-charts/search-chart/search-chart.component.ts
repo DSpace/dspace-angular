@@ -8,6 +8,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';
 import { SearchFilterConfig } from '../../search-filter-config.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-search-chart',
@@ -40,18 +41,37 @@ export class SearchChartComponent implements OnInit {
    */
   active$: Observable<boolean>;
 
+  /**
+   * True if the caption is present in the language file
+   */
+  showCaption: boolean;
+
+  /**
+   * The text to be shown below the graph
+   */
+  caption: string;
+
   constructor(
     private filterService: SearchFilterService,
     private searchService: SearchService,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService
+    private translate: TranslateService,
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
   ) {}
 
   /**
    * Requests the current set values for this filter
    * If the filter config is open by default OR the filter has at least one value, the filter should be initially expanded
    * Else, the filter should initially be collapsed
+   *
+   * It is possible to define a caption to be shown below the chart by creating a translation key
+   * 'search.filters.applied.charts.caption.<TYPE>.<NAME>'
    */
   ngOnInit() {
+    const captionTranslationLabel = `search.filters.applied.charts.caption.${this.filter.name}`;
+    this.caption = this.translate.instant(captionTranslationLabel);
+    this.showCaption = this.caption !== captionTranslationLabel;
+
+    // console.log(JSON.stringify(this.filter));
     this.selectedValues$ = this.getSelectedValues();
     this.active$ = this.isActive();
     this.initializeFilter();

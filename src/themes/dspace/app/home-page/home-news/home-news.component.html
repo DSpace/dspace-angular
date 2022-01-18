@@ -1,34 +1,44 @@
 <div class="background-image">
   <div class="container">
     <div class="jumbotron jumbotron-fluid">
-      <div class="d-flex flex-wrap">
-        <div>
-          <h1 class="display-3">DSpace-CRIS 7</h1>
-          <p class="lead">DSpace-CRIS is the first <b>free and open-source extension</b> of DSpace for Research Data and Information Management ever developed.</p>
-        </div>
-      </div>
-      <p>DSpace-CRIS has the institutional repository as its core component, providing high visibility online of the collected
-        information and objects. DSpace-CRIS broadens DSpace functionality and expands its data model while remaining aligned
-        with its code base.</p>
-      <p>
-        DSpace-CRIS adopts and ensures compliance with international standards and practices to facilitate interoperability,
-        data transfer and sharing.
-        Key features:
-      </p>
-
-      <ul>
-        <li>Full ORCID v3 integration (push/pull information)
-        </li>
-        <li>Integration with dozen external data sources, including commercial ones, to retrieve bibliographic and bibliometric data
-        </li>
-        <li>Support for decentralised management, self-service researcher profile management and approval workflows
-        </li>
-        <li>Aligned to the latest OpenAIRE Guidelines for Literature Repositories, Data Archives and CRIS Managers
-        </li>
-        <li>Data quality tools ensure that your information is always complete and accurate</li>
-      </ul>
-      <p>Join the international community of <a href="https://wiki.lyrasis.org/display/DSPACECRIS/DSpace-CRIS+Users" target="_blank">leading institutions using DSpace-CRIS</a>.</p>
+      <ds-themed-text-section *ngIf="hasHomeNewsMetadata; else dsDefaultHomeNews" [sectionId]="'site'" [textRowSection]="homeNewsSection"
+        [site]="(site$ | async)"></ds-themed-text-section>
     </div>
   </div>
-  <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a></small>
+  <small class="credits">Photo by
+    <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a>
+  </small>
 </div>
+
+<ng-template #dsDefaultHomeNews>
+  <div class="d-flex flex-wrap">
+    <div>
+      <h1 class="display-3">DSpace-CRIS 7</h1>
+      <p class="lead">DSpace-CRIS is the first
+        <b>free and open-source extension</b> of DSpace for Research Data and Information Management ever developed.</p>
+    </div>
+  </div>
+  <p>DSpace-CRIS has the institutional repository as its core component, providing high visibility online of the collected information
+    and objects. DSpace-CRIS broadens DSpace functionality and expands its data model while remaining aligned with its code
+    base.
+  </p>
+  <p>
+    DSpace-CRIS adopts and ensures compliance with international standards and practices to facilitate interoperability, data
+    transfer and sharing. Key features:
+  </p>
+
+  <ul>
+    <li>Full ORCID v3 integration (push/pull information)
+    </li>
+    <li>Integration with dozen external data sources, including commercial ones, to retrieve bibliographic and bibliometric data
+    </li>
+    <li>Support for decentralised management, self-service researcher profile management and approval workflows
+    </li>
+    <li>Aligned to the latest OpenAIRE Guidelines for Literature Repositories, Data Archives and CRIS Managers
+    </li>
+    <li>Data quality tools ensure that your information is always complete and accurate</li>
+  </ul>
+  <p>Join the international community of
+    <a href="https://wiki.lyrasis.org/display/DSPACECRIS/DSpace-CRIS+Users" target="_blank">leading institutions using DSpace-CRIS</a>.</p>
+
+</ng-template>

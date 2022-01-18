@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -10,6 +10,8 @@ import { Collection } from '../../../core/shared/collection.model';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -19,7 +21,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
   templateUrl: './bulk-import-menu.component.html'
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
-export class BulkImportMenuComponent extends ContextMenuEntryComponent {
+export class BulkImportMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
   /**
    * Initialize instance variables
@@ -27,13 +29,20 @@ export class BulkImportMenuComponent extends ContextMenuEntryComponent {
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
    * @param {AuthorizationDataService} authorizationService
+   * @param notificationService
    */
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    protected authorizationService: AuthorizationDataService
+    protected authorizationService: AuthorizationDataService,
+    private notificationService: NotificationsService
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.BulkImport);
+  }
+  ngOnInit() {
+    this.notificationService.claimedProfile.subscribe(() => {
+      this.isCollectionAdmin(false);
+    });
   }
 
   /**
@@ -46,7 +55,7 @@ export class BulkImportMenuComponent extends ContextMenuEntryComponent {
   /**
    * Check if user is administrator for this collection
    */
-  isCollectionAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, this.contextMenuObject.self, undefined);
+  isCollectionAdmin(useCacheVersion = true): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, this.contextMenuObject.self, undefined, useCacheVersion);
   }
 }

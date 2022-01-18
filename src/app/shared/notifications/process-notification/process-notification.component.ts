@@ -137,7 +137,6 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
     .pipe(getFirstCompletedRemoteData())
     .subscribe( (res) => {
       this.process = res.payload;
-      console.log(this.process);
       this.zone.run(() => this.cdr.detectChanges());
       if (this.process.processStatus.toString() === 'COMPLETED' || this.process.processStatus.toString() === 'FAILED') {
         this.sub.unsubscribe();

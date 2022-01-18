@@ -20,7 +20,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { hasValue } from '../../../empty.util';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 
-import { take } from 'rxjs/operators';
+import { filter, switchMap, take } from 'rxjs/operators';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 
 @Component({
@@ -38,7 +38,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * EPerson of which to get the subscriptions
    */
-  @Input() eperson: string;
+  @Input() epersonId: string;
 
 
   /**
@@ -76,30 +76,38 @@ export class SubscriptionModalComponent implements OnInit {
    * Types of subscription to be shown on select
    */
   types = [
-    {name: 'Content' ,value: 'content'},
-    {name: 'Statistics' ,value: 'statistics'},
+    { name: 'Content', value: 'content' },
+    { name: 'Statistics', value: 'statistics' },
   ];
 
   /**
    * Frequencies to be shown as checkboxes
    */
   frequencies = [
-    {name: 'daily' ,value: 'D'},
-    {name: 'monthly' ,value: 'M'},
-    {name: 'weekly' ,value: 'W'},
+    { name: 'daily', value: 'D' },
+    { name: 'monthly', value: 'M' },
+    { name: 'weekly', value: 'W' },
   ];
 
   constructor(private formGroup: FormBuilder,
-    private modalService: NgbModal,
-    private notificationsService: NotificationsService,
-    private subscriptionService: SubscriptionService
-  ) { }
+              private modalService: NgbModal,
+              private notificationsService: NotificationsService,
+              private subscriptionService: SubscriptionService
+  ) {
+  }
+
+  /**
+   * Function to get subscriptionParameterList form array cleaner
+   */
+  get subscriptionParameterList(): FormArray {
+    return this.subscriptionForm.get('subscriptionParameterList') as FormArray;
+  }
 
   /**
    * When component starts initialize starting functionality
    */
   ngOnInit(): void {
-      this.initSubscription();
+    this.initSubscription();
   }
 
   /**
@@ -107,8 +115,9 @@ export class SubscriptionModalComponent implements OnInit {
    * If no subscription start with an empty form
    */
   initSubscription(): void {
+    this.subscriptions = [];
     this.processing$.next(true);
-    this.getSubscription(this.eperson, this.dso?.uuid).subscribe( (subscriptionsRes: PaginatedList<Subscription>) => {
+    this.getSubscription(this.epersonId, this.dso?.uuid).subscribe((subscriptionsRes: PaginatedList<Subscription>) => {
 
       if (subscriptionsRes.pageInfo.totalElements > 0) {
         this.subscriptions = subscriptionsRes.page;
@@ -118,7 +127,7 @@ export class SubscriptionModalComponent implements OnInit {
 
       this.processing$.next(false);
     }, err => {
-        this.processing$.next(false);
+      this.processing$.next(false);
     });
   }
 
@@ -129,7 +138,7 @@ export class SubscriptionModalComponent implements OnInit {
    * @param uuid DSpaceObject id that subscriptions are related to
    */
   getSubscription(epersonId: string, uuid: string): Observable<PaginatedList<Subscription>> {
-    return this.subscriptionService.getSubscriptionByPersonDSO(epersonId,uuid);
+    return this.subscriptionService.getSubscriptionByPersonDSO(epersonId, uuid);
   }
 
   /**
@@ -139,18 +148,10 @@ export class SubscriptionModalComponent implements OnInit {
    */
   initEmptyForm(subscriptionType): void {
     this.subscriptionForm = this.formGroup.group({
-        type: subscriptionType,
-        subscriptionParameterList: this.formGroup.array([], Validators.required)
+      type: subscriptionType,
+      subscriptionParameterList: this.formGroup.array([], Validators.required)
     });
   }
-
-  /**
-   * Function to get subscriptionParameterList form array cleaner
-   */
-  get subscriptionParameterList(): FormArray {
-    return this.subscriptionForm.get('subscriptionParameterList') as FormArray;
-  }
-
 
   /**
    * When add button is clicked, if there is no subscription being added it will add a new form
@@ -168,12 +169,12 @@ export class SubscriptionModalComponent implements OnInit {
    */
   editForm(subscription): void {
     this.subscriptionForm = this.formGroup.group({
-        id: subscription.id,
-        type: subscription.subscriptionType,
-        subscriptionParameterList: this.formGroup.array([], Validators.required)
+      id: subscription.id,
+      type: subscription.subscriptionType,
+      subscriptionParameterList: this.formGroup.array([], Validators.required)
     });
 
-    subscription.subscriptionParameterList.forEach( (parameter) => {
+    subscription.subscriptionParameterList.forEach((parameter) => {
       this.addFrequency(parameter.value);
     });
   }
@@ -191,7 +192,7 @@ export class SubscriptionModalComponent implements OnInit {
   /**
    * When frequency checkboxes are being changed we add/remove frequencies from subscriptionParameterList
    */
-  selectCheckbox(event,frequency): void {
+  selectCheckbox(event, frequency): void {
     if (event.target.checked) {
       this.addFrequency(frequency);
     } else {
@@ -205,7 +206,7 @@ export class SubscriptionModalComponent implements OnInit {
    * @param event Event of changing selectbox
    */
   changed(event): void {
-    this.subscriptionForm.patchValue( { 'type': event.target.value } );
+    this.subscriptionForm.patchValue({ 'type': event.target.value });
   }
 
   /**
@@ -214,8 +215,8 @@ export class SubscriptionModalComponent implements OnInit {
   addFrequency(frequency): void {
     this.subscriptionParameterList.push(
       this.formGroup.group({
-          name: 'frequency',
-          value: frequency
+        name: 'frequency',
+        value: frequency
       })
     );
   }
@@ -247,7 +248,7 @@ export class SubscriptionModalComponent implements OnInit {
    * Sends request to create a new subscription, refreshes the table of subscriptions and notifies about summary page
    */
   createForm(body): void {
-    this.subscriptionService.createSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
+    this.subscriptionService.createSubscription(body, this.epersonId, this.dso.uuid).subscribe((res) => {
         this.refresh();
         this.notify();
         this.processing$.next(false);
@@ -262,7 +263,7 @@ export class SubscriptionModalComponent implements OnInit {
    * Sends request to update a subscription, refreshes the table of subscriptions and notifies about summary page
    */
   updateForm(body) {
-    this.subscriptionService.updateSubscription(body,this.eperson,this.dso.uuid).subscribe( (res) => {
+    this.subscriptionService.updateSubscription(body, this.epersonId, this.dso.uuid).subscribe((res) => {
         this.refresh();
         this.notify();
         this.processing$.next(false);
@@ -336,13 +337,15 @@ export class SubscriptionModalComponent implements OnInit {
       modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-subscription.confirm';
       modalRef.componentInstance.brandColor = 'danger';
       modalRef.componentInstance.confirmIcon = 'fas fa-trash';
-      modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
-        if (confirm) {
-          this.deleteSubscription(subscription.id).subscribe( (res: NoContent) => {
-            this.refresh();
-          });
-        }
+
+      modalRef.componentInstance.response.pipe(
+        take(1),
+        filter((confirm: boolean) => confirm),
+        switchMap(() => this.deleteSubscription(subscription.id))
+      ).subscribe(() => {
+        this.refresh();
       });
+
     }
   }
 }

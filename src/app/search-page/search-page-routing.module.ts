@@ -13,11 +13,11 @@ import { ThemedConfigurationSearchPageComponent } from './themed-configuration-s
     SearchPageModule,
     RouterModule.forChild([{
         path: '',
-        resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'search' },
+        resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'search', showSocialButtons: true },
         children: [
           { path: '', component: ThemedSearchPageComponent },
           { path: ':configuration', component: ThemedConfigurationSearchPageComponent, canActivate: [ConfigurationSearchPageGuard] }
-        ]
+        ],
       }]
     )
   ],

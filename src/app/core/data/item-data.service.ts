@@ -35,11 +35,16 @@ import { Metric } from '../shared/metric.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
+import { of } from 'rxjs/internal/observable/of';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ItemSearchParams } from './item-search-params';
 
 @Injectable()
 @dataService(ITEM)
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
+  protected searchFindAllByIdPath = 'findAllById';
 
   constructor(
     protected requestService: RequestService,
@@ -60,6 +65,7 @@ export class ItemDataService extends DataService<Item> {
    * Get the endpoint for browsing items
    *  (When options.sort.field is empty, the default field to browse by will be 'dc.date.issued')
    * @param {FindListOptions} options
+   * @param linkPath
    * @returns {Observable<string>}
    */
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
@@ -317,4 +323,51 @@ export class ItemDataService extends DataService<Item> {
       switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
     );
   }
+
+  /**
+   * Invalidate the cache of the item
+   * @param itemUUID
+   */
+  invalidateItemCache(itemUUID: string) {
+    this.requestService.setStaleByHrefSubstring('item/' + itemUUID);
+  }
+
+  /**
+   * Search for a list of {@link Item}s using the "findAllById" search endpoint.
+   * @param uuidList                    UUID to the objects to search {@link Item}s for. Required.
+   * @param options                     {@link FindListOptions} to provide pagination and/or additional arguments
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findAllById(uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return of(new ItemSearchParams(uuidList)).pipe(
+      switchMap((params: ItemSearchParams) => {
+        return this.searchBy(this.searchFindAllByIdPath,
+          this.createSearchOptionsObjectsFindAllByID(params.uuidList, options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      })
+    );
+  }
+
+  /**
+   * Create {@link FindListOptions} with {@link RequestParam}s containing a "uuid" list
+   * @param uuidList  Required parameter values to add to {@link RequestParam} "id"
+   * @param options     Optional initial {@link FindListOptions} to add parameters to
+   */
+  private createSearchOptionsObjectsFindAllByID(uuidList: string[], options: FindListOptions = {}): FindListOptions {
+    let params = [];
+    if (isNotEmpty(options.searchParams)) {
+      params = [...options.searchParams];
+    }
+    uuidList.forEach((uuid) => {
+      params.push(new RequestParam('id', uuid));
+    });
+    return Object.assign(new FindListOptions(), options, {
+      searchParams: [...params]
+    });
+  }
+
 }

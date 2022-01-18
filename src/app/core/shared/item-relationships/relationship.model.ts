@@ -76,6 +76,8 @@ export class Relationship implements CacheableObject {
     relationshipType: HALLink;
   };
 
+  relationType: any;
+
   /**
    * The item on the left side of this relationship
    * Will be undefined unless the leftItem {@link HALLink} has been resolved.

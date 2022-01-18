@@ -6,9 +6,13 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { ConfigurationDataService } from '../data/configuration-data.service';
+import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
+export const END_USER_AGREEMENT_ENABLED_PROPERTY = 'user-agreement.enabled';
+export const END_USER_AGREEMENT_ENABLED_PROPERTY_DEFAULT = true;
 
 /**
  * Service for checking and managing the status of the current end user agreement
@@ -16,9 +20,29 @@ export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
 @Injectable()
 export class EndUserAgreementService {
 
-  constructor(protected cookie: CookieService,
-              protected authService: AuthService,
-              protected ePersonService: EPersonDataService) {
+  constructor(
+    protected cookie: CookieService,
+    protected authService: AuthService,
+    protected ePersonService: EPersonDataService,
+    protected configurationDataService: ConfigurationDataService,
+  ) {
+  }
+
+  /**
+   * Check in remote configuration if user agreements are enabled
+   */
+  isUserAgreementEnabled(): Observable<boolean> {
+    return this.configurationDataService.findByPropertyName(END_USER_AGREEMENT_ENABLED_PROPERTY).pipe(
+      getFirstCompletedRemoteData(),
+      // if property is undefined (or truthy but not 'true') return default value
+      map((res) => {
+        switch (res?.payload?.values[0]) {
+          case 'true': return true;
+          case 'false': return false;
+          default: return END_USER_AGREEMENT_ENABLED_PROPERTY_DEFAULT;
+        }
+      }),
+    );
   }
 
   /**

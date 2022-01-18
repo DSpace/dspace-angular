@@ -113,25 +113,10 @@ describe('AdminSidebarComponent', () => {
     });
   });
 
-  describe('when the collapse icon is clicked', () => {
-    beforeEach(() => {
-      spyOn(menuService, 'toggleMenu');
-      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('a.shortcut-icon'));
-      sidebarToggler.triggerEventHandler('click', {
-        preventDefault: () => {/**/
-        }
-      });
-    });
-
-    it('should call toggleMenu on the menuService', () => {
-      expect(menuService.toggleMenu).toHaveBeenCalled();
-    });
-  });
-
   describe('when the collapse link is clicked', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleMenu');
-      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('.sidebar-collapsible')).query(By.css('a'));
+      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle > a'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }
@@ -229,6 +214,18 @@ describe('AdminSidebarComponent', () => {
         }));
 
       });
+
+      it('should not show import', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: false,
+        }));
+      });
+
+      it('should not show export', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: false,
+        }));
+      });
     });
 
     describe('for site admin', () => {
@@ -257,6 +254,18 @@ describe('AdminSidebarComponent', () => {
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
             id: 'workflow', visible: true,
+        }));
+      });
+
+      it('should show import', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+      });
+
+      it('should show export', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: true,
         }));
       });
     });

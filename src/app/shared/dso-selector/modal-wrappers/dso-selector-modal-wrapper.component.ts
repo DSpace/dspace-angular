@@ -10,7 +10,9 @@ export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
   EXPORT_METADATA = 'export-metadata',
-  IMPORT_ITEM = 'import-item'
+  SET_SCOPE = 'set-scope',
+  IMPORT_ITEM = 'import-item',
+  EXPORT_ITEM = 'export-item'
 }
 
 /**
@@ -94,6 +96,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
       }
     }
   }
+
   /**
    * Method called when an object has been selected
    * @param dso The selected DSpaceObject

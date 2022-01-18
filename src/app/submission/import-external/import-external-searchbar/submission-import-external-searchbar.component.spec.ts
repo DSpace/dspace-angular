@@ -15,7 +15,7 @@ import {
   getMockExternalSourceService
 } from '../../../shared/mocks/external-source.service.mock';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { FindListOptions } from '../../../core/data/request.models';

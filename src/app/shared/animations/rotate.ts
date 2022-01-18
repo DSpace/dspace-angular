@@ -37,3 +37,17 @@ export const rotate = trigger('rotate',
     ])
 
   ]);
+
+
+
+const expandedStyleNav = { transform: 'rotate(270deg)' };
+const collapsedStyleNav = { transform: 'rotate(90deg)' };
+export const rotateNavbar = trigger('rotateNavbar',
+  [
+    state('expanded', style(expandedStyleNav)),
+    state('collapsed', style(collapsedStyleNav)),
+    transition('expanded <=> collapsed', [
+      animate('200ms')
+    ])
+
+  ]);

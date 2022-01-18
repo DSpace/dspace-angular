@@ -19,6 +19,10 @@ import { ActivatedRoute } from '@angular/router';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { RelationshipService } from '../../../../../../core/data/relationship.service';
+import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
+import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
+
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let component: DsDynamicLookupRelationSearchTabComponent;
@@ -39,6 +43,21 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let results;
   let selectableListService;
   let lookupRelationService;
+  const relationshipService = jasmine.createSpyObj('searchByItemsAndType',{
+    searchByItemsAndType: observableOf(relatedRelationships)
+  });
+
+  const relationshipType = {
+      'type': 'relationshiptype',
+      'id': 1,
+      'uuid': 'relationshiptype-1',
+      'leftwardType': 'isAuthorOfPublication',
+      'leftMaxCardinality': null,
+      'leftMinCardinality': 0,
+      'rightwardType': 'isPublicationOfAuthor',
+      'rightMaxCardinality': null,
+      'rightMinCardinality': 0,
+  };
 
   function init() {
     relationship = Object.assign(new RelationshipOptions(), {
@@ -91,7 +110,9 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
         },
         { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
         { provide: LookupRelationService, useValue: lookupRelationService },
-        { provide: PaginationService, useValue: new PaginationServiceStub() }
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
+        { provide: RelationshipService, useValue: relationshipService }
+
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -104,6 +125,10 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     component.relationship = relationship;
     component.selection$ = selection$;
     component.listId = listID;
+    component.isLeft = true;
+    component.isEditRelationship = true;
+    component.item = Object.assign(new Item(),{ uuid: 'e2c31c49-846d-45dc-8651-1d6f2ad8519e' });
+    component.relationshipType = Object.assign(new RelationshipType(),relationshipType);
     fixture.detectChanges();
   });
 
@@ -156,6 +181,12 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     it('should emit the page filtered from not yet selected objects and call select on the service for all objects', () => {
       expect((component.deselectObject as any).emit).toHaveBeenCalledWith(searchResult1, searchResult2);
       expect(selectableListService.deselectAll).toHaveBeenCalledWith(listID);
+    });
+  });
+
+  describe('check searchByItemsAndType', () => {
+    it('should call relationshipService.searchByItemsAndType', () => {
+      expect(relationshipService.searchByItemsAndType).toHaveBeenCalled();
     });
   });
 });

@@ -32,7 +32,8 @@ describe('ExportCollectionMenuComponent', () => {
   let requestService: any;
   let router: any;
   let scriptDataService: any;
-
+  // tslint:disable-next-line:prefer-const
+  let notificationService = new NotificationsServiceStub();
   beforeEach(async(() => {
     dso = Object.assign(new Collection(), {
       id: 'test-collection',
@@ -71,7 +72,8 @@ describe('ExportCollectionMenuComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: router },
         { provide: RequestService, useValue: requestService },
-        { provide: ScriptDataService, useValue: scriptDataService }
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: NotificationsService, useValue: notificationService },
       ]
     }).compileComponents();
   }));

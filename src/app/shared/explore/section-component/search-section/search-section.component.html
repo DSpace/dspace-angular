@@ -1,4 +1,4 @@
-    <div class="container">
+<div class="container">
     <h2 *ngIf="searchSection.displayTitle">{{ 'explore.search-section.' + sectionId + '.title' | translate }}</h2>
     <form *ngIf="searchSection.searchType !== 'basic' || !searchSection.searchType" class="container" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
         <div formArrayName="queryArray" *ngFor="let queryStatement of queryArray.controls; let i = index; let isLast = last">

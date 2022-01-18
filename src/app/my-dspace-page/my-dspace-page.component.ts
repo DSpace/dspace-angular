@@ -24,6 +24,7 @@ import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { SearchObjects } from '../shared/search/search-objects.model';
+import { SearchManager } from '../core/browse/search-manager';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -72,11 +73,6 @@ export class MyDSpacePageComponent implements OnInit {
   sortOptions$: Observable<SortOptions[]>;
 
   /**
-   * The current relevant scopes
-   */
-  scopeListRD$: Observable<DSpaceObject[]>;
-
-  /**
    * Emits true if were on a small screen
    */
   isXsOrSm$: Observable<boolean>;
@@ -107,6 +103,7 @@ export class MyDSpacePageComponent implements OnInit {
   refreshFilters: Subject<any> = new Subject<any>();
 
   constructor(private service: SearchService,
+              private searchManager: SearchManager,
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
@@ -131,14 +128,13 @@ export class MyDSpacePageComponent implements OnInit {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getFirstCompletedRemoteData())))
+      switchMap((options: PaginatedSearchOptions) => {
+        options.projection = 'preventMetadataSecurity';
+        return this.searchManager.search(options).pipe(getFirstCompletedRemoteData());
+      }))
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         this.resultsRD$.next(results);
       });
-
-    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
-      switchMap((scopeId) => this.service.getScopes(scopeId))
-    );
 
     this.context$ = this.searchConfigService.getCurrentConfiguration('workspace')
       .pipe(

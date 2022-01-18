@@ -1,5 +1,6 @@
 import { Group } from '../../core/eperson/models/group.model';
 import { EPersonMock } from './eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export const GroupMock2: Group = Object.assign(new Group(), {
     handle: null,
@@ -9,16 +10,17 @@ export const GroupMock2: Group = Object.assign(new Group(), {
     selfRegistered: false,
     _links: {
         self: {
-            href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2',
+            href: 'https://rest.api/server/api/eperson/groups/testgroupid2',
         },
-        subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/subgroups' },
-        object: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/object' },
-        epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons' }
+        subgroups: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/subgroups' },
+        object: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/object' },
+        epersons: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/epersons' }
     },
     _name: 'testgroupname2',
     id: 'testgroupid2',
     uuid: 'testgroupid2',
     type: 'group',
+    object: createSuccessfulRemoteDataObject$({ name: 'testgroupid2objectName'})
 });
 
 export const GroupMock: Group = Object.assign(new Group(), {
@@ -29,11 +31,11 @@ export const GroupMock: Group = Object.assign(new Group(), {
     permanent: false,
     _links: {
         self: {
-            href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid',
+            href: 'https://rest.api/server/api/eperson/groups/testgroupid',
         },
-        subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/subgroups' },
-        object: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/object' },
-        epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons' }
+        subgroups: { href: 'https://rest.api/server/api/eperson/groups/testgroupid/subgroups' },
+        object: { href: 'https://rest.api/server/api/eperson/groups/testgroupid2/object' },
+        epersons: { href: 'https://rest.api/server/api/eperson/groups/testgroupid/epersons' }
     },
     _name: 'testgroupname',
     id: 'testgroupid',

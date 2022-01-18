@@ -16,6 +16,31 @@ describe('DspaceRestService', () => {
     message: 'Http failure response for http://www.dspace.org/: 0 '
   };
 
+  const pathableErrors = [
+    {
+      message: 'error.validation.required',
+      paths: [
+        '/sections/traditionalpageone/dc.contributor.author',
+        '/sections/traditionalpageone/dc.title',
+        '/sections/traditionalpageone/dc.date.issued'
+      ]
+    },
+    {
+      message: 'error.validation.license.notgranted',
+      paths: [
+        '/sections/license'
+      ]
+    }
+  ];
+
+  const mockErrorResponse = { status: 422, statusText: 'Unprocessable Entity' };
+  const mockErrorWithPathableErrorList: any = {
+    statusCode: 422,
+    statusText: 'Unprocessable Entity',
+    message: 'Http failure response for http://www.dspace.org/: 422 Unprocessable Entity',
+    errors: pathableErrors
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -114,6 +139,14 @@ describe('DspaceRestService', () => {
 
       const req = httpMock.expectOne(url);
       expect(req.request.headers.get('Content-Type')).toContain(DEFAULT_CONTENT_TYPE);
+    });
+
+    it('should throw an error with pathable error list', () => {
+      let response: any;
+      let errResponse: any;
+      dspaceRestService.request(RestRequestMethod.PATCH, url, {}).subscribe(res => response = res, err => errResponse = err);
+      httpMock.expectOne(url).flush(pathableErrors, mockErrorResponse);
+      expect(errResponse).toEqual(mockErrorWithPathableErrorList);
     });
   });
 
