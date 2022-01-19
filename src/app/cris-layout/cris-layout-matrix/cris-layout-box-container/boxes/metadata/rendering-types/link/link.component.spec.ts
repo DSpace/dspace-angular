@@ -102,7 +102,7 @@ describe('LinkComponent', () => {
     });
   });
 
-  fdescribe('with sub-type label', () => {
+  describe('with sub-type label', () => {
     beforeEach(() => {
       component.renderingSubType = 'LABEL';
       spyOn(translateService, 'instant').and.returnValue(i18nLabel);
@@ -132,7 +132,7 @@ describe('LinkComponent', () => {
     });
   });
 
-  fdescribe('with sub-type email', () => {
+  describe('with sub-type email', () => {
     beforeEach(() => {
       component.renderingSubType = 'EMAIL';
       spyOn(translateService, 'instant').and.returnValue(i18nLabel);
