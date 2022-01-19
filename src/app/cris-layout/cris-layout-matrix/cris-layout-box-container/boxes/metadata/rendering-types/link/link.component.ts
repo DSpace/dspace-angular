@@ -54,12 +54,17 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
    */
   getLinkFromValue(): MetadataLinkValue {
     // If the component has label subtype get the text from translate service
-    const linkText = (hasValue(this.renderingSubType) &&
-      this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+    let linkText: string;
+    let metadataValue: string;
 
-    let metadataValue = this.metadataValue.value;
     if (hasValue(this.renderingSubType) && this.renderingSubType.toUpperCase() === TYPES.EMAIL) {
         metadataValue = 'mailto:' + this.metadataValue.value;
+        linkText = (hasValue(this.renderingSubType) &&
+        this.renderingSubType.toUpperCase() === TYPES.EMAIL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+    } else {
+        metadataValue = this.metadataValue.value;
+        linkText = (hasValue(this.renderingSubType) &&
+        this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
     }
 
     return {
