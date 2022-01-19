@@ -9,19 +9,19 @@
 <div class="dropdown-divider"></div>
 <div class="scrollable-menu"
      aria-labelledby="dropdownMenuButton"
-    (scroll)="onScroll($event)"
+     (scroll)="onScroll($event)"
      infiniteScroll
-    [infiniteScrollDistance]="5"
-     [infiniteScrollThrottle]="300"
+     [infiniteScrollDistance]="1.5"
+     [infiniteScrollThrottle]="0"
      [infiniteScrollUpDistance]="1.5"
      [fromRoot]="true"
-    [scrollWindow]="false"
+     [scrollWindow]="false"
      (scrolled)="onScrollDown()">
 
   <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoading | async)">
     {{'submission.sections.general.no-collection' | translate}}
   </button>
-  <ng-container *ngIf="searchListCollection?.length > 0 && !(isLoading | async)">
+  <ng-container *ngIf="searchListCollection?.length > 0">
     <button *ngFor="let listItem of searchListCollection"
             class="dropdown-item collection-item"
             title="{{ listItem.collection.name }}"

@@ -113,7 +113,6 @@ export class ObjectUpdatesService {
         return this.getFieldUpdatesExclusive(url, initialFields).pipe(
           map((fieldUpdatesExclusive) => {
             Object.keys(fieldUpdatesExclusive).forEach((uuid) => {
-
               fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
             });
             return fieldUpdates;
@@ -194,7 +193,6 @@ export class ObjectUpdatesService {
    * @param field An updated field for the page's object
    */
   saveAddFieldUpdate(url: string, field: Identifiable) {
-    (field as any).new = true;
     this.saveFieldUpdate(url, field, FieldChangeType.ADD);
   }
 
@@ -211,14 +209,9 @@ export class ObjectUpdatesService {
    * Calls the saveFieldUpdate method with FieldChangeType.UPDATE
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
-   * @param updatedSecurityConfig
    */
-  saveChangeFieldUpdate(url: string, field: Identifiable, updatedSecurityConfig = false) {
-    if (!updatedSecurityConfig) {
-      this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
-    } else {
-      this.saveFieldUpdate(url, field, undefined);
-    }
+  saveChangeFieldUpdate(url: string, field: Identifiable) {
+    this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
   }
 
   /**
@@ -235,7 +228,7 @@ export class ObjectUpdatesService {
       .pipe(
         select(virtualMetadataSourceSelector(url, relationship)),
         map((virtualMetadataSource) => virtualMetadataSource && virtualMetadataSource[item]),
-      );
+    );
   }
 
   /**

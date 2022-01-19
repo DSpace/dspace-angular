@@ -47,10 +47,11 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The metadatum of this field
    */
   @Input() metadata: MetadatumViewModel;
+
   /**
-   * Emits a new selection
+   * Emits when a suggested metadata is selected
    */
-  @Output() selectNewMetadata = new EventEmitter();
+  @Output() selectMetadata = new EventEmitter();
 
   /**
    * Emits whether or not this field is currently editable
@@ -63,7 +64,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   valid: Observable<boolean>;
 
   /**
-   * The current suggestions for the metadatafield when editing
+   * The current suggestions for the metadata field when editing
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
@@ -81,8 +82,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
     this.ref.detectChanges();
-
-
   }
 
 
@@ -229,6 +228,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   }
 
   selectSuggestionMetadata(suggestionControl) {
-     this.selectNewMetadata.next(suggestionControl);
+     this.selectMetadata.emit(suggestionControl);
   }
 }

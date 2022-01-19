@@ -1505,6 +1505,10 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
+  "cookies.consent.app.title.add-this": "AddThis",
+
+  "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
+
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
@@ -1653,6 +1657,8 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.export-item.item.head": "Export",
+
   "dso-selector.select.collection.head": "Select a collection",
 
   "dso-selector.set-scope.community.head": "Select a search scope",
@@ -1662,6 +1668,7 @@
   "dso-selector.set-scope.community.input-header": "Search for a community or collection",
 
 
+  "dso-selector.export-item.sub-level": "Export to excel items in",
 
   "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
 
@@ -3213,7 +3220,9 @@
 
   "menu.section.export_metadata": "Metadata",
 
+  "menu.section.import_from_excel": "Import from excel",
 
+  "menu.section.export_to_excel": "Export to excel",
 
   "menu.section.icon.access_control": "Access Control menu section",
 
@@ -3233,6 +3242,8 @@
 
   "menu.section.icon.import": "Import menu section",
 
+  "menu.section.icon.metadata_cms_edit": "Edit CMS metadata",
+
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
@@ -3242,6 +3253,8 @@
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
+
+  "menu.section.icon.user_agreement_edit": "Edit User Agreement",
 
   "menu.section.icon.workflow": "Administer workflow menu section",
 

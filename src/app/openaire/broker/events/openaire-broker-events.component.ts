@@ -25,8 +25,10 @@ import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * Component to display the OpenAIRE Broker event list.
@@ -236,7 +238,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public executeAction(action: string, eventData: OpenaireBrokerEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(take(1))
+      this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
           if (rd.isSuccess && rd.statusCode === 200) {
             this.notificationsService.success(
@@ -268,7 +270,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public boundProject(eventData: OpenaireBrokerEventData, projectId: string, projectTitle: string, projectHandle: string): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(take(1))
+      this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
           if (rd.isSuccess) {
             this.notificationsService.success(
@@ -297,7 +299,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public removeProject(eventData: OpenaireBrokerEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(take(1))
+      this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
           if (rd.isSuccess) {
             this.notificationsService.success(
@@ -377,9 +379,14 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs.push(
       from(events).pipe(
         mergeMap((event: OpenaireBrokerEventObject) => {
-          return event.related.pipe(
-            getFirstSucceededRemoteDataPayload(),
-            map((subRelated) => {
+          const related$ = event.related.pipe(
+            getFirstCompletedRemoteData(),
+          );
+          const target$ = event.target.pipe(
+            getFirstCompletedRemoteData()
+          );
+          return combineLatest([related$, target$]).pipe(
+            map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
               const data: OpenaireBrokerEventData = {
                 event: event,
                 id: event.id,
@@ -389,13 +396,14 @@ export class OpenaireBrokerEventsComponent implements OnInit {
                 projectId: null,
                 handle: null,
                 reason: null,
-                isRunning: false
+                isRunning: false,
+                target: (targetItemRD?.hasSucceeded) ? targetItemRD.payload : null,
               };
-              if (subRelated && subRelated.id) {
+              if (relatedItemRD?.hasSucceeded && relatedItemRD?.payload?.id) {
                 data.hasProject = true;
                 data.projectTitle = event.message.title;
-                data.projectId = subRelated.id;
-                data.handle = subRelated.handle;
+                data.projectId = relatedItemRD?.payload?.id;
+                data.handle = relatedItemRD?.payload?.handle;
               }
               return data;
             })

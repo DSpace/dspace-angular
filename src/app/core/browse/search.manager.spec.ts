@@ -8,63 +8,83 @@ import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-
 import { Item } from '../shared/item.model';
 import { FindListOptions } from '../data/request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
+import { MetadataValue } from '../shared/metadata.models';
+import { v4 as uuidv4 } from 'uuid';
 
 describe('SearchManager', () => {
   let scheduler: TestScheduler;
   let service: SearchManager;
+  const validAuthority = uuidv4();
+  const validAuthority2 = uuidv4();
+  const validAuthority3 = uuidv4();
 
   const firstPublication = Object.assign(new Item(), {
-    id: 'first-publication-id',
+    id: '13a4a8c3-3b94-4797-863d-b831f360cc60',
     entityType: 'Publication',
     metadata: {
       'dc.contributor.author': [
-        {
-          authority: 'author1-id',
+        Object.assign(new MetadataValue(), {
+          authority: validAuthority,
           value: 'author1'
-        }
+        })
+
       ]
     }
   });
 
   const secondPublication = Object.assign(new Item(), {
-    id: 'second-publication-id',
+    id: 'fea951e1-7e5d-4b10-a152-ddeb3daec0ea',
     entityType: 'Publication',
     metadata: {
       'dc.contributor.author': [
-        {
-          authority: 'author2-id',
+        Object.assign(new MetadataValue(), {
+          authority: validAuthority2,
           value: 'author2'
-        }
+        })
       ]
     }
   });
 
   const firstProject = Object.assign(new Item(), {
-    id: 'first-project-id',
+    id: '32df7096-f161-40d0-b283-6fff6ffe8507',
     entityType: 'Project',
     metadata: {
       'dc.contributor.author': [
-        {
-          authority: 'author3-id',
+        Object.assign(new MetadataValue(), {
+          authority: validAuthority3,
           value: 'author3'
-        }
+        })
       ]
     }
   });
 
   const thirdPublication = Object.assign(new Item(), {
-    id: 'third-publication-id',
+    id: '13c81669-0468-41af-b8c9-cdc51779c983',
     entityType: 'Publication',
     metadata: {
       'dc.contributor.author': [
-        {
+        Object.assign(new MetadataValue(),{
           value: 'author4'
-        }
+        })
+
       ]
     }
   });
 
+  const invalidAuthorityPublication = Object.assign(new Item(), {
+    id: '13c81669-0468-41af-b8c9-cdc51779c983',
+    entityType: 'Publication',
+    metadata: {
+      'dc.contributor.author': [
+        Object.assign(new MetadataValue(),{
+          authority: 'invalid',
+          value: 'author4'
+        })
+
+      ]
+    }
+  });
 
   const mockBrowseService: any = {
     getBrowseItemsFor: (options: BrowseEntrySearchOptions) =>
@@ -109,7 +129,7 @@ describe('SearchManager', () => {
       scheduler.flush();
 
       expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterAuthority, options, followLink);
-      expect(mockItemService.findAllById).toHaveBeenCalledWith(['author1-id', 'author2-id']);
+      expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });
   });
@@ -132,7 +152,7 @@ describe('SearchManager', () => {
       scheduler.flush();
 
       expect(mockBrowseService.getBrowseItemsForAuthority).toHaveBeenCalledWith(filterAuthority, options, followLink);
-      expect(mockItemService.findAllById).toHaveBeenCalledWith(['author1-id', 'author2-id']);
+      expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });
   });
@@ -148,6 +168,11 @@ describe('SearchManager', () => {
       expect(uuidList).toEqual([]);
     });
 
+    it('should extract uuid only from from valid authority', () => {
+      const uuidList = (service as any).extractUUID([firstPublication, secondPublication, invalidAuthorityPublication], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
+      expect(uuidList).toEqual([validAuthority, validAuthority2]);
+    });
+
     it('should extract uuid only from item with the specified type', () => {
       const uuidList = (service as any).extractUUID([firstProject], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
       expect(uuidList).toEqual([]);
@@ -155,7 +180,7 @@ describe('SearchManager', () => {
 
     it('should not duplicate extracted uuid', () => {
       const uuidList = (service as any).extractUUID([firstPublication, firstPublication], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
-      expect(uuidList).toEqual(['author1-id']);
+      expect(uuidList).toEqual([validAuthority]);
     });
   });
 

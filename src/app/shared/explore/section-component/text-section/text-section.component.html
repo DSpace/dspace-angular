@@ -1,4 +1,4 @@
-<div [ngClass]="textRowSection.style">
+<div *ngIf="textRowSection">
   <div [ngClass]="{'container' : textRowSection.contentType != 'text-metadata'}">
     <div *ngIf="textRowSection.contentType == 'image'"><img [src]="textRowSection.content" style="width: 100%"></div>
     <div *ngIf="textRowSection.contentType == 'text-key'">{{ 'explore.text-section.' + textRowSection.content | translate }}</div>

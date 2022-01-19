@@ -8,6 +8,7 @@ import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 /**
  * Defines the list of subtypes for this rendering
@@ -37,7 +38,7 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected translateService: TranslateService
   ) {

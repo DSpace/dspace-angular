@@ -481,7 +481,7 @@ export class SubmissionObjectEffects {
           const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
         }
-        if (isNotEmpty((currentState.sections['detect-duplicate'].data as WorkspaceitemSectionDetectDuplicateObject).matches)
+        if (isNotEmpty((currentState.sections['detect-duplicate']?.data as WorkspaceitemSectionDetectDuplicateObject)?.matches)
           && isUndefined(sections['detect-duplicate'])) {
           mappedActions.push(new CleanDetectDuplicateAction(submissionId));
         }

@@ -13,7 +13,7 @@ import { FilterType } from '../../filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 
-xdescribe('SearchChartComponent', () => {
+describe('SearchChartComponent', () => {
   let comp: SearchChartComponent;
   let fixture: ComponentFixture<SearchChartComponent>;
   const filterName1 = 'test name';
@@ -54,10 +54,7 @@ xdescribe('SearchChartComponent', () => {
       declarations: [SearchChartComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
-        {
-          provide: SearchFilterService,
-          useValue: mockFilterService
-        },
+        { provide: SearchFilterService, useValue: mockFilterService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]

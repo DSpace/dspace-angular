@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "2021.03.00-SNAPSHOT",
+  "version": "2021.03.01-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "config:dev": "ts-node --project ./tsconfig.ts-node.json scripts/set-env.ts --dev",
@@ -52,10 +52,10 @@
     "postinstall": "ngcc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "deploy": "pm2 start dist/server.js",
+    "deploy": "pm2 start dist/server/main.js",
     "predeploy": "npm run build:prod",
-    "preundeploy": "pm2 stop dist/server.js",
-    "undeploy": "pm2 delete dist/server.js",
+    "preundeploy": "pm2 stop dist/server/main.js",
+    "undeploy": "pm2 delete dist/server/main.js",
     "postundeploy": "npm run clean:dist",
     "view-stats": "webpack-bundle-analyzer dist/browser/stats.json"
   },

@@ -11,6 +11,7 @@ import { createPaginatedList } from '../../../testing/utils.test';
 import { VarDirective } from '../../../utils/var.directive';
 import { AdministeredCollectionSelectorComponent } from './administered-collection-selector.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { FindListOptions } from '../../../../core/data/request.models';
 
 describe('AdministeredCollectionSelectorComponent', () => {
   let component: AdministeredCollectionSelectorComponent;
@@ -21,12 +22,15 @@ describe('AdministeredCollectionSelectorComponent', () => {
 
   let notificationsService: NotificationsService;
 
+  const findOptions: FindListOptions = { currentPage: 1, elementsPerPage: 10 };
+
   beforeEach(waitForAsync(() => {
     collection = Object.assign(new Collection(), {
       id: 'admin-collection'
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getAdministeredCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
+      getAdministeredCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
@@ -39,23 +43,44 @@ describe('AdministeredCollectionSelectorComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AdministeredCollectionSelectorComponent);
     component = fixture.componentInstance;
     component.types = [DSpaceObjectType.COLLECTION];
-    fixture.detectChanges();
-  });
+  }));
 
-  describe('search', () => {
-      it('should call getAdministeredCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
-        component.search('', 1).subscribe((resultRD) => {
-          expect(collectionService.getAdministeredCollectionByEntityType).toHaveBeenCalled();
-          expect(resultRD.payload.page.length).toEqual(1);
-          expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
-          done();
-        });
+
+
+  describe('search without provided entityTpe', () => {
+
+    it('should call getAdministeredCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
+
+      fixture.detectChanges();
+
+      component.search('', 1).subscribe((resultRD) => {
+        expect(collectionService.getAdministeredCollection).toHaveBeenCalledWith('',  findOptions);
+        expect(resultRD.payload.page.length).toEqual(1);
+        expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
+        done();
       });
     });
+  });
+
+  describe('search with provided entityTpe', () => {
+
+
+    it('should call getAdministeredCollection and return the authorized collection in a SearchResult', (done) => {
+
+      component.entityType = 'Publication';
+      fixture.detectChanges();
+
+      component.search('', 1).subscribe((resultRD) => {
+        expect(collectionService.getAdministeredCollectionByEntityType).toHaveBeenCalledWith('', 'Publication',  findOptions);
+        expect(resultRD.payload.page.length).toEqual(1);
+        expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
+        done();
+      });
+    });
+  });
+
 });

@@ -1,5 +1,5 @@
 import { TextRowSection } from '../../../../core/layout/models/section.model';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Site } from '../../../../core/shared/site.model';
 import { LocaleService } from '../../../../core/locale/locale.service';
 
@@ -9,7 +9,7 @@ import { LocaleService } from '../../../../core/locale/locale.service';
   templateUrl: './text-section.component.html',
   styleUrls: ['./text-section.component.scss'],
 })
-export class TextSectionComponent {
+export class TextSectionComponent implements OnInit {
 
   content: string;
   @Input()
@@ -26,13 +26,11 @@ export class TextSectionComponent {
   ) {
   }
 
-  ngOnChanges(changes) {
-    if (changes.site && this.site) {
-      if (this.site.metadata && this.textRowSection.content) {
-        const mdv = this.site.firstMetadataValue(this.textRowSection.content,
-          { language: this.locale.getCurrentLanguageCode() });
-        this.content = mdv ?? '';
-      }
+  ngOnInit() {
+    if (this.site.metadata && this.textRowSection.content) {
+      const mdv = this.site.firstMetadataValue(this.textRowSection.content,
+        { language: this.locale.getCurrentLanguageCode() });
+      this.content = mdv ?? '';
     }
   }
 }
