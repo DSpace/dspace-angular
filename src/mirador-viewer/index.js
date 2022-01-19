@@ -10,8 +10,7 @@ const searchOption = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
-
-const dspaceRestPath = 'server/iiif';
+const host = params.get('h');
 
 let windowSettings = {};
 let sidbarPanel = 'info';
@@ -135,7 +134,7 @@ windowSettings.manifestId = manifest;
                 .find(c => c.startsWith('dsAuthInfo='))
                 .split('=')[1].split('%22')[3];
             }
-            if (url.match(dspaceRestPath) && authToken) {
+            if (url.match(host) && authToken) {
               // For DSpace REST API requests, set the authorization header.
               // Allows authorized users to retrieve the manifest
               // when access restrictions have been added to the Item.
@@ -152,16 +151,6 @@ windowSettings.manifestId = manifest;
 
         ],
         postprocessors: [ // Functions that receive HTTP responses and manipulates them before adding to store
-          // Check the DSpace manifest response. If no canvases are available, throw an error.
-          (uri, action) => {
-            if (action.manifestJson) {
-              if (action.manifestJson.sequences[0].canvases.length === 0) {
-                alert("There are no images for this item. Try logging in to DSpace. " +
-                  "Contact the DSpace administrator if the problem persists.")
-                throw Error("No images available.");
-              }
-            }
-          }
         ]
       },
       window: {

@@ -84,6 +84,7 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
+    viewerPath += '&h=' + environment.rest.baseUrl;
 
     // TODO: Should the query term be trusted here?
     return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
@@ -109,27 +110,16 @@ export class MiradorViewerComponent implements OnInit {
 
       // We need to set the multi property to true if the
       // item is searchable or when the ORIGINAL bundle contains more
-      // than 1 image. (The multi property determines whether the
-      // Mirador side thumbnail navigation panel is shown.)
-      if (this.searchable) {
-        this.multi = true;
-        const observable = of('');
-        this.iframeViewerUrl = observable.pipe(
-          map((val) => {
-            return this.setURL();
-          })
-        );
-      } else {
-        // Sets the multi value based on the image count.
-        this.iframeViewerUrl = this.viewerService.getImageCount(this.object, this.bitstreamDataService).pipe(
-          map(c => {
-            if (c > 1) {
-              this.multi = true;
-            }
-            return this.setURL();
-          })
-        );
-      }
+      // than 1 image.
+      this.iframeViewerUrl = this.viewerService.getImageCount(this.object, this.bitstreamDataService).pipe(
+        map(c => {
+          if (c > 1 || this.searchable) {
+            this.multi = true;
+          }
+          return this.setURL();
+        })
+      );
     }
+
   }
 }
