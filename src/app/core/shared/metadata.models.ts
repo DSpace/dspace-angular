@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
 import { autoserialize, Deserialize, Serialize } from 'cerialize';
-import { validate as uuidValidate } from 'uuid';
 import { hasValue } from '../../shared/empty.util';
 /* tslint:disable:max-classes-per-file */
 
@@ -130,7 +129,6 @@ export class MetadatumViewModel {
 
   /** The authority confidence value */
   confidence: number;
-
 
   /** The security level value */
   securityLevel: number;
