@@ -36,6 +36,7 @@ describe('MiradorViewerComponent with search', () => {
 
   beforeEach(waitForAsync(() => {
     viewerService.showEmbeddedViewer.and.returnValue(true);
+    viewerService.getImageCount.and.returnValue(observableOf(2));
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -81,10 +82,6 @@ describe('MiradorViewerComponent with search', () => {
         .nativeElement.querySelector('#mirador-viewer').src;
       expect(value).toContain('searchable=true');
     }));
-
-    it('should not call mirador service image count', () => {
-      expect(viewerService.getImageCount).not.toHaveBeenCalled();
-    });
 
   });
 });
