@@ -120,6 +120,11 @@ export class SearchComponent implements OnInit {
   @Input() showSidebar = true;
 
   /**
+   * Whether to show the view mode switch
+   */
+  @Input() showViewModes = true;
+
+  /**
    * List of available view mode
    */
   @Input() useUniquePageId: false;
