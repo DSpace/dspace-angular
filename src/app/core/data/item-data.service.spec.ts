@@ -32,6 +32,9 @@ describe('ItemDataService', () => {
     removeByHrefSubstring(href: string) {
       // Do nothing
     },
+    setStaleByHrefSubstring() {
+      // Do nothing
+    }
   }) as RequestService;
   const rdbService = getMockRemoteDataBuildService();
 
@@ -190,7 +193,7 @@ describe('ItemDataService', () => {
     });
     it('should call setStaleByHrefSubstring', () => {
       service.invalidateItemCache('uuid');
-      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('item/uuid');
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalled();
     });
   });
 
