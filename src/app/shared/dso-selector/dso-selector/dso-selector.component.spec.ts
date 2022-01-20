@@ -7,7 +7,7 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { hasValue } from '../../empty.util';
 import { createPaginatedList } from '../../testing/utils.test';
 import { NotificationsService } from '../../notifications/notifications.service';

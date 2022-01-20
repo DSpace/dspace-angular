@@ -22,7 +22,7 @@ import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../empty.util';

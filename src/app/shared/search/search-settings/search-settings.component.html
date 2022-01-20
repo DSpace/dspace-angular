@@ -1,16 +1,14 @@
-<ng-container *ngVar="searchOptions as config">
+<ng-container>
     <h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
     <div class="result-order-settings">
-    <ds-sidebar-dropdown
-            *ngIf="config?.sort"
-            [id]="'search-sidebar-sort'"
-            [label]="'search.sidebar.settings.sort-by'"
-            (change)="reloadOrder($event)"
-    >
-        <option *ngFor="let sortOption of sortOptions"
-                [value]="sortOption.field + ',' + sortOption.direction.toString()"
-                [selected]="sortOption.field === config?.sort.field && sortOption.direction === (config?.sort.direction)? 'selected': null">
-            {{'sorting.' + sortOption.field + '.' + sortOption.direction | translate}}
+    <ds-sidebar-dropdown *ngIf="sortOptionsList"
+                         [id]="'search-sidebar-sort'"
+                         [label]="'search.sidebar.settings.sort-by'"
+                         (change)="reloadOrder($event)">
+        <option *ngFor="let sortOptionsEntry of sortOptionsList"
+                [value]="sortOptionsEntry.field + ',' + sortOptionsEntry.direction.toString()"
+                [selected]="sortOptionsEntry.field === currentSortOption?.field && sortOptionsEntry.direction === (currentSortOption?.direction)? 'selected': null">
+            {{'sorting.' + sortOptionsEntry.field + '.' + sortOptionsEntry.direction | translate}}
         </option>
     </ds-sidebar-dropdown>
     </div>
