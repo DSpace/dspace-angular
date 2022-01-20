@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
-import { SubmissionSectionformComponent } from './sections/form/section-form.component';
+import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';
 import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
@@ -44,7 +44,7 @@ import { SectionAccessesService } from './sections/accesses/section-accesses.ser
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   SubmissionSectionUploadComponent,
-  SubmissionSectionformComponent,
+  SubmissionSectionFormComponent,
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent
