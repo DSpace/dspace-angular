@@ -26,4 +26,5 @@ export enum FeatureID {
   CanEditVersion = 'canEditVersion',
   CanDeleteVersion = 'canDeleteVersion',
   CanCreateVersion = 'canCreateVersion',
+  CanViewUsageStatistics = 'canViewUsageStatistics',
 }

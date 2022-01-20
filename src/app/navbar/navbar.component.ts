@@ -11,6 +11,8 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { RemoteData } from '../core/data/remote-data';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 /**
  * Component representing the public navbar
@@ -29,11 +31,13 @@ export class NavbarComponent extends MenuComponent {
   menuID = MenuID.PUBLIC;
 
   constructor(protected menuService: MenuService,
-              protected injector: Injector,
+    protected injector: Injector,
               public windowService: HostWindowService,
-              public browseService: BrowseService
+              public browseService: BrowseService,
+              public authorizationService: AuthorizationDataService,
+              public route: ActivatedRoute
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route);
   }
 
   ngOnInit(): void {

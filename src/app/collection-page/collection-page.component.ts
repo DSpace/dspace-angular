@@ -103,20 +103,20 @@ export class CollectionPageComponent implements OnInit {
     const currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, this.sortConfig);
 
     this.itemRD$ = observableCombineLatest([currentPagination$, currentSort$]).pipe(
-      switchMap(([currentPagination, currentSort ]) => this.collectionRD$.pipe(
+      switchMap(([currentPagination, currentSort]) => this.collectionRD$.pipe(
         getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
           return this.searchService.search(
-              new PaginatedSearchOptions({
-                scope: id,
-                pagination: currentPagination,
-                sort: currentSort,
-                dsoTypes: [DSpaceObjectType.ITEM]
-              })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
+            new PaginatedSearchOptions({
+              scope: id,
+              pagination: currentPagination,
+              sort: currentSort,
+              dsoTypes: [DSpaceObjectType.ITEM]
+            })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
         startWith(undefined) // Make sure switching pages shows loading component
-        )
+      )
       )
     );
 
