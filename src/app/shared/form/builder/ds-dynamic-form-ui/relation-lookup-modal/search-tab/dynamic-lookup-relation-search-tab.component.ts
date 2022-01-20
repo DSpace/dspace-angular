@@ -234,7 +234,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * @param idOfItems the uuid of items that are being checked
    * @param resultListOfItems the list of results of the items
    */
-  setSelectedIds(idOfItems, resultListOfItems) {
+  setSelectedIds(idOfItems: string[], resultListOfItems: SearchResult<DSpaceObject>[]) {
     let relationType = this.relationshipType.rightwardType;
     if ( this.isLeft ) {
       relationType = this.relationshipType.leftwardType;
@@ -254,7 +254,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           }
           const uuid = arrUrl[ arrUrl.length - 1 ];
 
-          return this.getRelatedItem(uuid,resultListOfItems);
+          return this.getRelatedItem(uuid, resultListOfItems);
         });
 
         selectableObject = selectableObject.filter( (selObject) => {
@@ -274,11 +274,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: SearchResult<Item>[]) => this.deselectObject.emit(...selection));
+      .subscribe((selection: SearchResult<DSpaceObject>[]) => this.deselectObject.emit(...selection));
     this.selectableListService.deselectAll(this.listId);
   }
 
-  getRelatedItem(uuid: string, resultList: SearchResult<Item>[]) {
+  getRelatedItem(uuid: string, resultList: SearchResult<DSpaceObject>[]) {
     return resultList.find( (resultItem) => {
       return resultItem.indexableObject.uuid === uuid;
     });
@@ -295,14 +295,13 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   onResultFound($event: SearchObjects<DSpaceObject>) {
-    console.log($event);
     this.resultsRD$.next($event);
     this.resultFound.emit($event);
     if (this.isEditRelationship ) {
       const idOfItems = $event.page.map( itemSearchResult => {
         return itemSearchResult.indexableObject.uuid;
       });
-      this.setSelectedIds(idOfItems, $event);
+      this.setSelectedIds(idOfItems, $event.page);
     }
   }
 }
