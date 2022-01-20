@@ -41,12 +41,18 @@ import { SubmissionSectionAccessesComponent } from './sections/accesses/section-
 import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 
-const DECLARATIONS = [
-  SubmissionSectionUploadAccessConditionsComponent,
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
   SubmissionSectionUploadComponent,
   SubmissionSectionformComponent,
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
+  SubmissionSectionAccessesComponent
+];
+
+const DECLARATIONS = [
+  ...ENTRY_COMPONENTS,
+  SubmissionSectionUploadAccessConditionsComponent,
   SectionsDirective,
   SubmissionEditComponent,
   ThemedSubmissionEditComponent,
@@ -66,14 +72,6 @@ const DECLARATIONS = [
   SubmissionImportExternalSearchbarComponent,
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
-  SubmissionSectionAccessesComponent
-];
-
-const ENTRY_COMPONENTS = [
-  SubmissionSectionUploadComponent,
-  SubmissionSectionformComponent,
-  SubmissionSectionLicenseComponent,
-  SubmissionSectionCcLicensesComponent
 ];
 
 @NgModule({
