@@ -14,6 +14,11 @@
 
   "403.forbidden": "forbidden",
 
+  "500.page-internal-server-error": "Service Unavailable",
+
+  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+
+  "500.link.home-page": "Take me to the home page",
 
 
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
