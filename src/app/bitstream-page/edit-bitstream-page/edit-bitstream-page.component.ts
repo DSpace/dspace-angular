@@ -43,6 +43,8 @@ import { getEntityEditRoute, getItemEditRoute } from '../../item-page/item-page-
 import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
+import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -103,6 +105,26 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
 
   /**
+   * IIIF image width metadata key
+   */
+  IMAGE_WIDTH_METADATA = 'iiif.image.width';
+
+  /**
+   * IIIF image height metadata key
+   */
+  IMAGE_HEIGHT_METADATA = 'iiif.image.height'
+
+  /**
+   * IIIF table of contents metadata key
+   */
+  IIIF_TOC_METADATA = 'iiif.toc';
+
+  /**
+   * IIIF label metadata key
+   */
+  IIIF_LABEL_METADATA = 'iiif.label'
+
+  /**
    * Options for fetching all bitstream formats
    */
   findAllOptions = { elementsPerPage: 9999 };
@@ -110,7 +132,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The Dynamic Input Model for the file's name
    */
-  fileNameModel = new DynamicInputModel({
+  fileNameModel = new DsDynamicInputModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'fileName',
     name: 'fileName',
     required: true,
@@ -133,7 +156,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The Dynamic TextArea Model for the file's description
    */
-  descriptionModel = new DynamicTextAreaModel({
+  descriptionModel = new DsDynamicTextAreaModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'description',
     name: 'description',
     rows: 10
@@ -156,24 +180,31 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * The Dynamic TextArea Model for the file's description
+   * The Dynamic Input Model for the iiif label
    */
-  iiifLabelModel = new DynamicInputModel({
+  iiifLabelModel = new DsDynamicInputModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifLabel',
-    name: 'iiifLabel'
+    name: 'iiifLabel',
+    hint: 'bitstream.edit.form.iiifLabel.hint'
   });
 
-  iiifTocModel = new DynamicInputModel({
+  iiifTocModel = new DsDynamicInputModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifToc',
-    name: 'iiifToc'
+    name: 'iiifToc',
+    hint: 'bitstream.edit.form.iiifLabel.hint'
   });
 
-  iiifWidthModel = new DynamicInputModel({
+  iiifWidthModel = new DsDynamicInputModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifWidth',
-    name: 'iiifWidth'
+    name: 'iiifWidth',
+    hint: 'bitstream.edit.form.iiifLabel.hint'
   });
 
-  iiifHeightModel = new DynamicInputModel({
+  iiifHeightModel = new DsDynamicInputModel({
+    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifHeight',
     name: 'iiifHeight'
   });
@@ -577,24 +608,24 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       // This avoids potential issues on the REST side and makes it possible to do things like
       // remove an existing "table of contents" entry.
       if (isEmpty(rawForm.iiifLabelContainer.iiifLabel)) {
-        delete newMetadata['iiif.label'];
+        delete newMetadata[this.IIIF_LABEL_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, 'iiif.label', rawForm.iiifLabelContainer.iiifLabel);
+        Metadata.setFirstValue(newMetadata, this.IIIF_LABEL_METADATA, rawForm.iiifLabelContainer.iiifLabel);
       }
      if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
-       delete newMetadata['iiif.toc'];
+       delete newMetadata[this.IIIF_TOC_METADATA];
      } else {
-        Metadata.setFirstValue(newMetadata, 'iiif.toc', rawForm.iiifTocContainer.iiifToc);
+        Metadata.setFirstValue(newMetadata, this.IIIF_TOC_METADATA, rawForm.iiifTocContainer.iiifToc);
      }
-      if (isEmpty(rawForm.iiifHeightContainer.iiifWidth)) {
-        delete newMetadata['iiif.image.width'];
+      if (isEmpty(rawForm.iiifWidthContainer.iiifWidth)) {
+        delete newMetadata[this.IMAGE_WIDTH_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, 'iiif.image.width', rawForm.iiifWidthContainer.iiifWidth);
+        Metadata.setFirstValue(newMetadata, this.IMAGE_WIDTH_METADATA, rawForm.iiifWidthContainer.iiifWidth);
       }
       if (isEmpty(rawForm.iiifHeightContainer.iiifHeight)) {
-        delete newMetadata['iiif.image.height'];
+        delete newMetadata[this.IMAGE_HEIGHT_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, 'iiif.image.height', rawForm.iiifHeightContainer.iiifHeight);
+        Metadata.setFirstValue(newMetadata, this.IMAGE_HEIGHT_METADATA, rawForm.iiifHeightContainer.iiifHeight);
       }
     }
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {
@@ -666,16 +697,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
             this.formLayout.iiifHeight.grid.host = this.newFormatBaseLayout;
             this.formGroup.patchValue({
               iiifLabelContainer: {
-                iiifLabel: bitstream.firstMetadataValue('iiif.label')
+                iiifLabel: bitstream.firstMetadataValue(this.IIIF_LABEL_METADATA)
               },
               iiifTocContainer: {
-                iiifToc: bitstream.firstMetadataValue('iiif.toc')
+                iiifToc: bitstream.firstMetadataValue(this.IIIF_TOC_METADATA)
               },
               iiifWidthContainer: {
-                iiifWidth: bitstream.firstMetadataValue('iiif.image.width')
+                iiifWidth: bitstream.firstMetadataValue(this.IMAGE_WIDTH_METADATA)
               },
               iiifHeightContainer: {
-                iiifHeight: bitstream.firstMetadataValue('iiif.image.height')
+                iiifHeight: bitstream.firstMetadataValue(this.IMAGE_HEIGHT_METADATA)
               }
             });
             // Assures that the form always includes the iiif additions.

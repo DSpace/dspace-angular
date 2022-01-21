@@ -14,3 +14,7 @@
   -moz-appearance: none;
   appearance: none;
 }
+
+label {
+  margin-top: calc(0.7 * var(--ds-content-spacing));
+}
