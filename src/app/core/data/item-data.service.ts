@@ -39,6 +39,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ItemSearchParams } from './item-search-params';
+import { validate as uuidValidate } from 'uuid';
 
 @Injectable()
 @dataService(ITEM)
@@ -371,6 +372,15 @@ export class ItemDataService extends DataService<Item> {
   }
 
 
+  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+
+    if (uuidValidate(id)) {
+      const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
+      return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    } else {
+      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    }
+  }
 
   /**
    * Returns an observable of {@link RemoteData} of an object, based on its CustomURL or ID, with a list of
@@ -396,7 +406,5 @@ export class ItemDataService extends DataService<Item> {
 
     return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
-
-
 
 }

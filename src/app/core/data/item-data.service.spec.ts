@@ -31,9 +31,6 @@ describe('ItemDataService', () => {
     },
     removeByHrefSubstring(href: string) {
       // Do nothing
-    },
-    setStaleByHrefSubstring() {
-      // Do nothing
     }
   }) as RequestService;
   const rdbService = getMockRemoteDataBuildService();
@@ -76,6 +73,8 @@ describe('ItemDataService', () => {
       getBrowseURLFor: obs
     });
   }
+
+  let serviceSpy;
 
   function initTestService() {
     return new ItemDataService(
@@ -198,14 +197,32 @@ describe('ItemDataService', () => {
   });
 
 
-  describe('when cache is invalidated', () => {
+  describe('when id is passed when calling findById', () => {
     beforeEach(() => {
       service = initTestService();
     });
-    it('should call setStaleByHrefSubstring', () => {
-      service.findByCustomUrl('custom-url');
+    it('should call find by href if valid uuid', () => {
+      serviceSpy = spyOn(service, 'findByHref');
+      service.findById('092b59e8-8159-4e70-98b5-93ec60bd3431');
       expect(service.findByHref).toHaveBeenCalled();
     });
+    it('should call findByCustomUrl if not valid uuid', () => {
+      serviceSpy = spyOn(service, 'findByCustomUrl');
+      service.findById('custom url');
+      expect(serviceSpy).toHaveBeenCalled();
+    });
   });
+
+  describe('when findByCustom url is called', () => {
+    beforeEach(() => {
+      service = initTestService();
+    });
+    it('should call findByHref ', () => {
+      serviceSpy = spyOn(service, 'findByCustomUrl');
+      service.findById('custom url');
+      expect(serviceSpy).toHaveBeenCalled();
+    });
+  });
+
 
 });
