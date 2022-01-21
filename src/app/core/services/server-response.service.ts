@@ -31,8 +31,4 @@ export class ServerResponseService {
   setNotFound(message = 'Not found'): this {
     return this.setStatus(404, message);
   }
-
-  setInternalServerError(message = 'Internal Server Error'): this {
-    return this.setStatus(500, message);
-  }
 }
