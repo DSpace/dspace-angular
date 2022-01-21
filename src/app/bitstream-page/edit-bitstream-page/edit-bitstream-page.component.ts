@@ -112,7 +112,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * IIIF image height metadata key
    */
-  IMAGE_HEIGHT_METADATA = 'iiif.image.height'
+  IMAGE_HEIGHT_METADATA = 'iiif.image.height';
 
   /**
    * IIIF table of contents metadata key
@@ -122,7 +122,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * IIIF label metadata key
    */
-  IIIF_LABEL_METADATA = 'iiif.label'
+  IIIF_LABEL_METADATA = 'iiif.label';
 
   /**
    * Options for fetching all bitstream formats
