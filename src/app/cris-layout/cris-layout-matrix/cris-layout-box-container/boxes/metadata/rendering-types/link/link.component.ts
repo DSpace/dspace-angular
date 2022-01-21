@@ -35,6 +35,8 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
    */
   link: MetadataLinkValue;
 
+  isEmail = false;
+
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
@@ -58,9 +60,10 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
     let metadataValue: string;
 
     if (hasValue(this.renderingSubType) && this.renderingSubType.toUpperCase() === TYPES.EMAIL) {
+        this.isEmail = true;
         metadataValue = 'mailto:' + this.metadataValue.value;
         linkText = (hasValue(this.renderingSubType) &&
-        this.renderingSubType.toUpperCase() === TYPES.EMAIL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+        this.renderingSubType.toUpperCase() === TYPES.EMAIL) ? this.metadataValue.value : this.translateService.instant(this.field.label);
     } else {
         metadataValue = this.metadataValue.value;
         linkText = (hasValue(this.renderingSubType) &&
