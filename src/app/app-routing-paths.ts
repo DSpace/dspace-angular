@@ -89,12 +89,6 @@ export function getPageNotFoundRoute() {
   return `/${PAGE_NOT_FOUND_PATH}`;
 }
 
-export const INTERNAL_SERVER_ERROR = '500';
-
-export function getPageInternalServerErrorRoute() {
-  return `/${INTERNAL_SERVER_ERROR}`;
-}
-
 export const INFO_MODULE_PATH = 'info';
 export function getInfoModulePath() {
   return `/${INFO_MODULE_PATH}`;
