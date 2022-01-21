@@ -1,5 +1,5 @@
-import { FacetValue } from './facet-value.model';
-import { SearchFilterConfig } from './search-filter-config.model';
+import { FacetValue } from './models/facet-value.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
 import { isNotEmpty } from '../empty.util';
 
 /**
@@ -16,6 +16,10 @@ export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig:
       return values[1];
     }
   }
+  if (facetValue.authorityKey) {
+    return addOperatorToFilterValue(facetValue.authorityKey, 'authority');
+  }
+
   return addOperatorToFilterValue(facetValue.value, 'equals');
 }
 

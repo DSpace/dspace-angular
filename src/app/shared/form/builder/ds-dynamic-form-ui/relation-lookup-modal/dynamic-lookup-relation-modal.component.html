@@ -26,6 +26,7 @@
                             [toRemove]="toRemove"
                             (selectObject)="select($event)"
                             (deselectObject)="deselect($event)"
+                            (resultFound)="setTotalInternals($event.pageInfo.totalElements)"
                             class="d-block pt-3">
                     </ds-dynamic-lookup-relation-search-tab>
                 </ng-template>
@@ -81,7 +82,7 @@
                   <i class="fas fa-times"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
           </button>
-          <button class="btn btn-primary submit" 
+          <button class="btn btn-primary submit"
                 [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
                   (click)="submitEv()">
                   <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"

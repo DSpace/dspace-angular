@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -13,6 +12,7 @@ import { getProcessDetailRoute } from '../../../process-page/process-page-routin
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 
 @Component({
   selector: 'ds-search-export-csv',

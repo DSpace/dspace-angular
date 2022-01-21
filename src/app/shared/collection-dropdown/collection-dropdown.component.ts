@@ -223,20 +223,20 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         switchMap((collectionsRD: RemoteData<PaginatedList<Collection>>) => {
           this.searchComplete.emit();
           if (collectionsRD.hasSucceeded && collectionsRD.payload.totalElements > 0) {
-            if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collectionsRD.payload.totalElements ) {
+            if (this.searchListCollection.length >= collectionsRD.payload.totalElements) {
               this.hasNextPage = false;
-              this.emitSelectionEvents(collectionsRD);
-              return observableFrom(collectionsRD.payload.page).pipe(
-                mergeMap((collection: Collection) => collection.parentCommunity.pipe(
-                  getFirstSucceededRemoteDataPayload(),
-                  map((community: Community) => ({
-                      communities: [{ id: community.id, name: community.name }],
-                      collection: { id: collection.id, uuid: collection.id, name: collection.name }
-                    })
-                  ))),
-                reduce((acc: any, value: any) => [...acc, value], []),
-              );
             }
+            this.emitSelectionEvents(collectionsRD);
+            return observableFrom(collectionsRD.payload.page).pipe(
+              mergeMap((collection: Collection) => collection.parentCommunity.pipe(
+                getFirstSucceededRemoteDataPayload(),
+                map((community: Community) => ({
+                    communities: [{ id: community.id, name: community.name }],
+                    collection: { id: collection.id, uuid: collection.id, name: collection.name }
+                  })
+                ))),
+              reduce((acc: any, value: any) => [...acc, value], []),
+            );
           } else {
             this.hasNextPage = false;
             return observableOf([]);

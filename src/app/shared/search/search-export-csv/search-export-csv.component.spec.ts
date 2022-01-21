@@ -12,9 +12,9 @@ import { NotificationsServiceStub } from '../../testing/notifications-service.st
 import { NotificationsService } from '../../notifications/notifications.service';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { SearchFilter } from '../search-filter.model';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
+import { SearchFilter } from '../models/search-filter.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 
 describe('SearchExportCsvComponent', () => {
   let component: SearchExportCsvComponent;
