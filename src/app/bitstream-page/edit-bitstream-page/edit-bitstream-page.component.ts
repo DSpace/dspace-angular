@@ -268,6 +268,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   newFormatBaseLayout = 'col col-sm-6 d-inline-block';
 
   /**
+   * Base layout for iiif options
+   */
+  iiifOptionsBaseLayout = 'col col-sm-6';
+
+  /**
    * Layout used for structuring the form inputs
    */
   formLayout: DynamicFormLayout = {
@@ -687,10 +692,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const iiifSub = iiifCheck$.subscribe((iiif: boolean) => {
           if (iiif) {
             this.isIIIF = true;
-            this.formLayout.iiifLabel.grid.host = this.newFormatBaseLayout;
-            this.formLayout.iiifToc.grid.host = this.newFormatBaseLayout;
-            this.formLayout.iiifWidth.grid.host = this.newFormatBaseLayout;
-            this.formLayout.iiifHeight.grid.host = this.newFormatBaseLayout;
+            this.formLayout.iiifLabel.grid.host = this.iiifOptionsBaseLayout;
+            this.formLayout.iiifToc.grid.host = this.iiifOptionsBaseLayout;
+            this.formLayout.iiifWidth.grid.host = this.iiifOptionsBaseLayout;
+            this.formLayout.iiifHeight.grid.host = this.iiifOptionsBaseLayout;
             this.formGroup.patchValue({
               iiifLabelContainer: {
                 iiifLabel: bitstream.firstMetadataValue(this.IIIF_LABEL_METADATA)

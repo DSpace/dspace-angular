@@ -584,11 +584,11 @@
 
   "bitstream.edit.form.iiifLabel.label": "IIIF Label",
 
-  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image",
+  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
 
   "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
 
-  "bitstream.edit.form.iiifToc.hint": "Adding label makes this image the start of a new table of contents range.",
+  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
 
   "bitstream.edit.form.iiifWidth.label": "IIIF canvas width",
 
