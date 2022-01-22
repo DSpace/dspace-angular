@@ -15,8 +15,7 @@ import {
   DynamicFormLayout,
   DynamicFormService,
   DynamicInputModel,
-  DynamicSelectModel,
-  DynamicTextAreaModel
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -185,22 +184,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   iiifLabelModel = new DsDynamicInputModel({
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifLabel',
-    name: 'iiifLabel',
-    hint: 'bitstream.edit.form.iiifLabel.hint'
+    name: 'iiifLabel'
   });
 
   iiifTocModel = new DsDynamicInputModel({
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifToc',
     name: 'iiifToc',
-    hint: 'bitstream.edit.form.iiifLabel.hint'
   });
 
   iiifWidthModel = new DsDynamicInputModel({
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifWidth',
     name: 'iiifWidth',
-    hint: 'bitstream.edit.form.iiifLabel.hint'
   });
 
   iiifHeightModel = new DsDynamicInputModel({
