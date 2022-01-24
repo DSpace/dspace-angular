@@ -1587,14 +1587,12 @@
   "info.feedback.comments": "Comments",
 
   "info.feedback.email-label": "Your Email",
-  
+
   "info.feedback.create.success" : "Feedback Sent Successfully!",
 
-  "info.feedback.error.email.required" : "Email is required",
-  
-  "info.feedback.error.email.pattern" : "Valid Email is required",
+  "info.feedback.error.email.required" : "A valid email address is required",
 
-  "info.feedback.error.message.required" : "Comment is required",
+  "info.feedback.error.message.required" : "A comment is required",
 
 
   "item.alerts.private": "This item is private",

@@ -15,7 +15,7 @@
         <ng-container *ngIf="feedbackForm.controls.email.invalid && (feedbackForm.controls.email.dirty || feedbackForm.controls.email.touched)"
           class="alert">
           <ds-error *ngIf="feedbackForm.controls.email.errors?.required" message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
-          <ds-error *ngIf="feedbackForm.controls.email.errors?.pattern" message="{{'info.feedback.error.email.pattern' | translate}}"></ds-error>
+          <ds-error *ngIf="feedbackForm.controls.email.errors?.pattern" message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
         </ng-container>
         <div class="row">
           <div class="control-group col-sm-12">
@@ -29,7 +29,7 @@
         </ng-container>
         <input class="form-control" formControlName="page" name="page" type="hidden" [value]="routeService.getPreviousUrl() | async"
         />
-        <div class="row">
+        <div class="row py-2">
           <div class="control-group col-sm-12">
             <button [disabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
           </div>
