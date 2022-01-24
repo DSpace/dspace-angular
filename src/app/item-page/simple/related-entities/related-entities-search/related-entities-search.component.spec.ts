@@ -38,10 +38,4 @@ describe('RelatedEntitiesSearchComponent', () => {
     expect(comp.fixedFilter).toEqual(mockFilter);
   });
 
-  it('should create a configuration$', () => {
-    comp.configuration$.subscribe((configuration) => {
-      expect(configuration).toEqual(mockConfiguration);
-    });
-  });
-
 });

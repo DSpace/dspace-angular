@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgZone, NO_ERRORS_SCHEMA, DebugElement, EventEmitter } from '@angular/core';
+import { DebugElement, NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf, Subscription } from 'rxjs';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,7 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { createPaginatedList } from '../../../../testing/utils.test';

@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterType } from '../../../filter-type.model';
-import {
-  facetLoad,
-  SearchFacetFilterComponent
-} from '../search-facet-filter/search-facet-filter.component';
+import { FilterType } from '../../../models/filter-type.model';
+import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import {
-  addOperatorToFilterValue,
-} from '../../../search.utils';
+import { addOperatorToFilterValue, } from '../../../search.utils';
 
 /**
  * This component renders a simple item page.

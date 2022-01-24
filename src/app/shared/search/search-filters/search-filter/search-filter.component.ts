@@ -3,7 +3,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
-import { SearchFilterConfig } from '../../search-filter-config.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';

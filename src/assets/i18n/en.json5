@@ -2588,7 +2588,7 @@
 
   "mydspace.search-form.placeholder": "Search in mydspace...",
 
-  "mydspace.show.workflow": "All tasks",
+  "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your Submissions",
 
@@ -4024,7 +4024,11 @@
 
 
 
+  "workspace.search.results.head": "Your submissions",
+
   "workflowAdmin.search.results.head": "Administer Workflow",
+
+  "workflow.search.results.head": "Workflow tasks",
 
 
 

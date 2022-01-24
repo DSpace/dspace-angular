@@ -159,6 +159,7 @@ import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { SequenceService } from './shared/sequence.service';
+import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 
 /**
@@ -282,6 +283,7 @@ const PROVIDERS = [
   VocabularyService,
   VocabularyTreeviewService,
   SequenceService,
+  GroupDataService
 ];
 
 /**

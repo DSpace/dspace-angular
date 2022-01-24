@@ -125,8 +125,8 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-          map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -139,8 +139,8 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-          map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -179,8 +179,8 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId).pipe(
-          map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-          catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+        map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
+        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -196,22 +196,29 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
-    withLatestFrom(this.store$),
-    switchMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
-      return this.operationsService.jsonPatchByResourceType(
-        this.submissionService.getSubmissionObjectLinkName(),
-        action.payload.submissionId,
-        'sections').pipe(
-          map((response: SubmissionObject[]) => {
-            if (this.canDeposit(response)) {
-              return new DepositSubmissionAction(action.payload.submissionId);
-            } else {
-              this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
-              return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
-                response, action.payload.submissionId, currentState.forms);
-            }
-          }),
-          catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+    withLatestFrom(this.submissionService.hasUnsavedModification()),
+    switchMap(([action, hasUnsavedModification]: [SaveAndDepositSubmissionAction, boolean]) => {
+      let response$: Observable<SubmissionObject[]>;
+      if (hasUnsavedModification) {
+        response$ = this.operationsService.jsonPatchByResourceType(
+          this.submissionService.getSubmissionObjectLinkName(),
+          action.payload.submissionId,
+          'sections') as Observable<SubmissionObject[]>;
+      } else {
+        response$ = this.submissionObjectService.findById(action.payload.submissionId).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          map((submissionObject: SubmissionObject) => [submissionObject])
+        );
+      }
+      return response$.pipe(
+        map((response: SubmissionObject[]) => {
+          if (this.canDeposit(response)) {
+            return new DepositSubmissionAction(action.payload.submissionId);
+          } else {
+            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response);
+          }
+        }),
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
   /**
@@ -310,13 +317,13 @@ export class SubmissionObjectEffects {
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice'))));
 
   constructor(private actions$: Actions,
-    private notificationsService: NotificationsService,
-    private operationsService: SubmissionJsonPatchOperationsService,
-    private sectionService: SectionsService,
-    private store$: Store<any>,
-    private submissionService: SubmissionService,
-    private submissionObjectService: SubmissionObjectDataService,
-    private translate: TranslateService) {
+              private notificationsService: NotificationsService,
+              private operationsService: SubmissionJsonPatchOperationsService,
+              private sectionService: SectionsService,
+              private store$: Store<any>,
+              private submissionService: SubmissionService,
+              private submissionObjectService: SubmissionObjectDataService,
+              private translate: TranslateService) {
   }
 
   /**

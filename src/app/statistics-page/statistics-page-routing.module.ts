@@ -10,64 +10,69 @@ import { ThemedCommunityStatisticsPageComponent } from './community-statistics-p
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 import { ItemResolver } from '../item-page/item.resolver';
+import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
 @NgModule({
   imports: [
     StatisticsPageModule,
     RouterModule.forChild([
-        {
-          path: '',
-          resolve: {
-            breadcrumb: I18nBreadcrumbResolver
-          },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          children: [
-            {
-              path: '',
-              component: ThemedSiteStatisticsPageComponent,
-            },
-          ]
+      {
+        path: '',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
         },
-        {
-          path: `items/:id`,
-          resolve: {
-            scope: ItemResolver,
-            breadcrumb: I18nBreadcrumbResolver
-          },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          component: ThemedItemStatisticsPageComponent,
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
         },
-        {
-          path: `collections/:id`,
-          resolve: {
-            scope: CollectionPageResolver,
-            breadcrumb: I18nBreadcrumbResolver
+        children: [
+          {
+            path: '',
+            component: ThemedSiteStatisticsPageComponent,
           },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          component: ThemedCollectionStatisticsPageComponent,
+        ],
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+        path: `items/:id`,
+        resolve: {
+          scope: ItemResolver,
+          breadcrumb: I18nBreadcrumbResolver
         },
-        {
-          path: `communities/:id`,
-          resolve: {
-            scope: CommunityPageResolver,
-            breadcrumb: I18nBreadcrumbResolver
-          },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          component: ThemedCommunityStatisticsPageComponent,
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
         },
-      ]
+        component: ThemedItemStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+        path: `collections/:id`,
+        resolve: {
+          scope: CollectionPageResolver,
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
+        },
+        component: ThemedCollectionStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+        path: `communities/:id`,
+        resolve: {
+          scope: CommunityPageResolver,
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
+        },
+        component: ThemedCommunityStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+    ]
     )
   ],
   providers: [

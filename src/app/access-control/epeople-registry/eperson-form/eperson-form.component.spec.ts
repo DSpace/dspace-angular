@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
 import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -28,9 +29,8 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FormArray, FormControl, FormGroup,Validators, NG_VALIDATORS, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -42,6 +42,7 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+  let epersonRegistrationService: EpersonRegistrationService;
 
   let paginationService;
 
@@ -199,11 +200,17 @@ describe('EPersonFormComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
+        { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
+
+  epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
+    registerEmail: createSuccessfulRemoteDataObject$(null)
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EPersonFormComponent);
@@ -512,6 +519,25 @@ describe('EPersonFormComponent', () => {
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);
+    });
+  });
+
+  describe('Reset Password', () => {
+    let ePersonId;
+    let ePersonEmail;
+
+    beforeEach(() => {
+      ePersonId = 'testEPersonId';
+      ePersonEmail = 'person.email@4science.it';
+      component.epersonInitial = Object.assign(new EPerson(), {
+        id: ePersonId,
+        email: ePersonEmail
+      });
+      component.resetPassword();
+    });
+
+    it('should call epersonRegistrationService.registerEmail', () => {
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail);
     });
   });
 });

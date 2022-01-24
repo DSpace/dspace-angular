@@ -28,7 +28,7 @@
             <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"></span>
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
           </a>
-          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
+          <a href="javascript:void(0);" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
              (click)="removeSection($event)">
             <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
           </a>
