@@ -47,9 +47,6 @@ describe('LinkComponent', () => {
 
   const i18nLabel = 'Default Label';
 
-
-
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
