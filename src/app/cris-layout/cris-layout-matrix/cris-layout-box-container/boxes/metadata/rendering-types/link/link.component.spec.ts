@@ -147,7 +147,7 @@ describe('LinkComponent', () => {
       const valueFound = fixture.debugElement.queryAll(By.css('a'));
       expect(valueFound.length).toBe(1);
 
-      expect(valueFound[0].nativeElement.textContent).toContain(i18nLabel);
+      expect(valueFound[0].nativeElement.textContent).toContain(metadataValue.value);
       expect(valueFound[0].nativeElement.href).toBe('mailto:' + metadataValue.value);
       done();
     });
