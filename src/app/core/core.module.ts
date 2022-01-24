@@ -287,9 +287,8 @@ const PROVIDERS = [
   VocabularyService,
   VocabularyTreeviewService,
   SequenceService,
-  GroupDataService
+  GroupDataService,
   FeedbackDataService,
-  // FeedbackGuard
 ];
 
 /**

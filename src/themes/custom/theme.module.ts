@@ -83,7 +83,6 @@ import { FileSectionComponent } from './app/item-page/simple/field-components/fi
 import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
-import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 
 const DECLARATIONS = [
