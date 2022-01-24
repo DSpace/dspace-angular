@@ -21,6 +21,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /**
  * Component representing the admin sidebar
@@ -63,14 +64,15 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   inFocus$: BehaviorSubject<boolean>;
 
   constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              private variableService: CSSVariableService,
-              private authService: AuthService,
-              private modalService: NgbModal,
-              private authorizationService: AuthorizationDataService,
-              private scriptDataService: ScriptDataService,
+    protected injector: Injector,
+    private variableService: CSSVariableService,
+    private authService: AuthService,
+    private modalService: NgbModal,
+    public authorizationService: AuthorizationDataService,
+    private scriptDataService: ScriptDataService,
+    public route: ActivatedRoute
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route);
     this.inFocus$ = new BehaviorSubject(false);
   }
 
@@ -144,7 +146,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             type: MenuItemType.TEXT,
             text: 'menu.section.new'
           } as TextMenuItemModel,
-        icon: 'plus',
+          icon: 'plus',
           index: 0
         },
         {

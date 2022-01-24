@@ -17,7 +17,7 @@ import { createPaginatedList, createTestComponent } from '../../shared/testing/u
 import { RouterStub } from '../../shared/testing/router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';

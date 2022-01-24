@@ -10,13 +10,11 @@ import { SearchFilterService } from '../../../../../../core/shared/search/search
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { RouterStub } from '../../../../../testing/router.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
-import { FacetValue } from '../../../../facet-value.model';
-import { FilterType } from '../../../../filter-type.model';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { FilterType } from '../../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../../core/data/request.models';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 

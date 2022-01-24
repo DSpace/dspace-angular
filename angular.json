@@ -68,6 +68,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "extractCss": true,
@@ -139,6 +145,16 @@
               }
             ],
             "scripts": []
+          },
+          "configurations": {
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            }
           }
         },
         "lint": {
@@ -183,7 +199,13 @@
           "configurations": {
             "production": {
               "sourceMap": false,
-              "optimization": true
+              "optimization": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ]
             }
           }
         },

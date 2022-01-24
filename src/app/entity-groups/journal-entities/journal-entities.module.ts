@@ -19,6 +19,7 @@ import { JournalVolumeSearchResultGridElementComponent } from './item-grid-eleme
 import { JournalVolumeSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-volume/journal-volume-sidebar-search-list-element.component';
 import { JournalIssueSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-issue/journal-issue-sidebar-search-list-element.component';
 import { JournalSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal/journal-sidebar-search-list-element.component';
+import { ItemSharedModule } from '../../item-page/item-shared.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -45,6 +46,7 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
+    ItemSharedModule,
     SharedModule
   ],
   declarations: [

@@ -32,11 +32,11 @@ import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-p
 import { EPersonMock } from '../../testing/eperson.mock';
 import { isNotEmptyOperator } from '../../empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from 'src/app/core/data/remote-data';
+import { RemoteData } from '../../../core/data/remote-data';
 import { RouterMock } from '../../mocks/router.mock';
 import { Store } from '@ngrx/store';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreMock } from '../../testing/store.mock';
 

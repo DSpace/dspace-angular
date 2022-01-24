@@ -24,7 +24,7 @@ const ENTRY_COMPONENTS = [
     AccessControlModule,
     AdminSearchModule.withEntryComponents(),
     AdminWorkflowModuleModule.withEntryComponents(),
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     AdminCurationTasksComponent,

@@ -37,6 +37,8 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+import { FormModule } from '../shared/form/form.module';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 const DECLARATIONS = [
   SubmissionSectionUploadAccessConditionsComponent,
@@ -73,15 +75,17 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule.forRoot(),
-    SharedModule,
-    StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-    EffectsModule.forFeature(submissionEffects),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents(),
-  ],
+    imports: [
+        CommonModule,
+        CoreModule.forRoot(),
+        SharedModule,
+        StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+        EffectsModule.forFeature(submissionEffects),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        FormModule,
+        NgbAccordionModule
+    ],
   declarations: DECLARATIONS,
   exports: DECLARATIONS,
   providers: [

@@ -163,6 +163,7 @@ import { RootDataService } from './data/root-data.service';
 import { Root } from './data/root.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { SequenceService } from './shared/sequence.service';
+import { GroupDataService } from './eperson/group-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -285,6 +286,7 @@ const PROVIDERS = [
   VocabularyService,
   VocabularyTreeviewService,
   SequenceService,
+  GroupDataService
 ];
 
 /**

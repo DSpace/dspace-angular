@@ -49,6 +49,7 @@ import {
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
+import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -69,6 +70,7 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
+  correlationId: string;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -90,6 +92,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
+  correlationId: correlationIdReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

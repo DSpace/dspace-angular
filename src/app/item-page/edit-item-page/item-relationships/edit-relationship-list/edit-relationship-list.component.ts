@@ -3,7 +3,13 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { combineLatest as observableCombineLatest, from as observableFrom, BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  from as observableFrom,
+  Observable,
+  Subscription
+} from 'rxjs';
 import {
   FieldUpdate,
   FieldUpdates,
@@ -25,7 +31,7 @@ import { ItemType } from '../../../../core/shared/item-relationships/item-type.m
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../../shared/search/search-result.model';
+import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';

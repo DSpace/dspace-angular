@@ -36,9 +36,10 @@ export class ItemComponent implements OnInit {
    */
   iiifQuery$: Observable<string>;
 
-  mediaViewer = environment.mediaViewer;
+  mediaViewer;
 
   constructor(protected routeService: RouteService) {
+    this.mediaViewer = environment.mediaViewer;
   }
 
   ngOnInit(): void {
