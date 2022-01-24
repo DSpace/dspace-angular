@@ -9,7 +9,7 @@ import { SelectableListService } from '../../../../object-list/selectable-list/s
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { SearchResult } from '../../../../search/search-result.model';
+import { SearchResult } from '../../../../search/models/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
   AddRelationshipAction,
@@ -29,6 +29,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -111,7 +112,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * The total amount of internal items for the current options
    */
-  totalInternal$: Observable<number>;
+  totalInternal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   /**
    * The total amount of results for each external source using the current options
@@ -219,7 +220,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   select(...selectableObjects: SearchResult<Item>[]) {
     this.zone.runOutsideAngular(
       () => {
-        const obs: Observable<any[]> = observableCombineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
+        const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.map((sri: SearchResult<Item>) => {
             this.addNameVariantSubscription(sri);
             return this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid)
               .pipe(
@@ -232,7 +233,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
                 })
               );
           })
-        );
+        ]);
         obs
           .subscribe((arr: any[]) => {
             return arr.forEach((object: any) => {
@@ -281,19 +282,20 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Calculate and set the total entries available for each tab
    */
   setTotals() {
-    this.totalInternal$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      switchMap((options) => this.lookupRelationService.getTotalLocalResults(this.relationshipOptions, options))
-    );
-
-    const externalSourcesAndOptions$ = observableCombineLatest(
+    const externalSourcesAndOptions$ = observableCombineLatest([
       this.externalSourcesRD$,
       this.searchConfigService.paginatedSearchOptions
-    );
+    ]);
 
     this.totalExternal$ = externalSourcesAndOptions$.pipe(
       switchMap(([sources, options]) =>
-        observableCombineLatest(...sources.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))))
+        observableCombineLatest([...sources.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))]))
     );
+  }
+
+
+  setTotalInternals(totalPages: number) {
+    this.totalInternal$.next(totalPages);
   }
 
   ngOnDestroy() {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,7 +25,7 @@ import { ObjectSelectService } from '../../../shared/object-select/object-select
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';

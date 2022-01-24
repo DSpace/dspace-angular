@@ -15,14 +15,11 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
-import {
-  FieldUpdate,
-  FieldUpdates
-} from '../../../core/data/object-updates/object-updates.reducer';
+import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { NoContent } from '../../../core/shared/NoContent.model';

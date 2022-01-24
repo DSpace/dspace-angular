@@ -1,6 +1,8 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
@@ -37,7 +39,6 @@ import { NotificationsBoardComponent } from './shared/notifications/notification
 import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { environment } from '../environments/environment';
-import { BrowserModule } from '@angular/platform-browser';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
@@ -54,16 +55,18 @@ import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.com
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 
-import { UUIDService } from './core/shared/uuid.service';
-import { CookieService } from './core/services/cookie.service';
-import { AbstractControl } from '@angular/forms';
+import { AppConfig, APP_CONFIG } from '../config/app-config.interface';
 
-export function getBase() {
-  return environment.ui.nameSpace;
+export function getConfig() {
+  return environment;
 }
 
-export function getMetaReducers(): MetaReducer<AppState>[] {
-  return environment.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
+export function getBase(appConfig: AppConfig) {
+  return appConfig.ui.nameSpace;
+}
+
+export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
+  return appConfig.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
 /**
@@ -71,7 +74,7 @@ export function getMetaReducers(): MetaReducer<AppState>[] {
  */
 export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
   (control: AbstractControl, model: any, hasFocus: boolean) => {
-    return (control.touched && !hasFocus) || (control.errors ?.emailTaken && hasFocus);
+    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
   };
 
 const IMPORTS = [
@@ -99,12 +102,18 @@ IMPORTS.push(
 
 const PROVIDERS = [
   {
+    provide: APP_CONFIG,
+    useFactory: getConfig
+  },
+  {
     provide: APP_BASE_HREF,
-    useFactory: (getBase)
+    useFactory: getBase,
+    deps: [APP_CONFIG]
   },
   {
     provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
+    deps: [APP_CONFIG]
   },
   {
     provide: RouterStateSerializer,
@@ -114,7 +123,7 @@ const PROVIDERS = [
   // Check the authentication token when the app initializes
   {
     provide: APP_INITIALIZER,
-    useFactory: (store: Store<AppState>, ) => {
+    useFactory: (store: Store<AppState>,) => {
       return () => store.dispatch(new CheckAuthenticationTokenAction());
     },
     deps: [Store],
@@ -143,21 +152,6 @@ const PROVIDERS = [
     provide: HTTP_INTERCEPTORS,
     useClass: LogInterceptor,
     multi: true
-  },
-  // insert the unique id of the user that is using the application utilizing cookies
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (cookieService: CookieService, uuidService: UUIDService) => {
-      const correlationId = cookieService.get('CORRELATION-ID');
-
-      // Check if cookie exists, if don't, set it with unique id
-      if (!correlationId) {
-        cookieService.set('CORRELATION-ID', uuidService.generate());
-      }
-      return () => true;
-    },
-    multi: true,
-    deps: [CookieService, UUIDService]
   },
   {
     provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
@@ -195,7 +189,7 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
     ...IMPORTS
   ],
   providers: [

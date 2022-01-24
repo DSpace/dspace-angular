@@ -14,24 +14,24 @@ import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../../shared/empty.util';
-import { SearchOptions } from '../../../shared/search/search-options.model';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
-import { SearchObjects } from '../../../shared/search/search-objects.model';
+import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
 import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../operators';
 import { RouteService } from '../../services/route.service';
-import { SearchResult } from '../../../shared/search/search-result.model';
+import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { FacetConfigResponse } from '../../../shared/search/facet-config-response.model';
-import { FacetValues } from '../../../shared/search/facet-values.model';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { FacetValues } from '../../../shared/search/models/facet-values.model';
 import { SearchConfig } from './search-filters/search-config.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
@@ -407,6 +407,7 @@ export class SearchService implements OnDestroy {
   /**
    * Changes the current view mode in the current URL
    * @param {ViewMode} viewMode Mode to switch to
+   * @param {string[]} searchLinkParts
    */
   setViewMode(viewMode: ViewMode, searchLinkParts?: string[]) {
     this.paginationService.getCurrentPagination(this.searchConfigurationService.paginationID, new PaginationComponentOptions()).pipe(take(1))
