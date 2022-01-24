@@ -5,12 +5,12 @@ import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { SubmissionState } from '../../submission.reducers';
-import { isUndefined } from 'util';
+import { isNotUndefined } from '../../../shared/empty.util';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
-
+import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
 
 /**
- * A service that provides methods to handle submission's bitstream state.
+ * A service that provides methods to handle submission item's accesses condition state.
  */
 @Injectable()
 export class SectionAccessesService {
@@ -24,7 +24,7 @@ export class SectionAccessesService {
 
 
   /**
-   * Return bitstream's metadata
+   * Return item's accesses condition state.
    *
    * @param submissionId
    *    The submission id
@@ -33,10 +33,10 @@ export class SectionAccessesService {
    * @returns {Observable}
    *    Emits bitstream's metadata
    */
-  public getAccessesData(submissionId: string, sectionId: string): Observable<any> {
+  public getAccessesData(submissionId: string, sectionId: string): Observable<WorkspaceitemSectionAccessesObject> {
 
     return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId)).pipe(
-      filter((state) => !isUndefined(state)),
+      filter((state) => isNotUndefined(state)),
       distinctUntilChanged());
   }
 }

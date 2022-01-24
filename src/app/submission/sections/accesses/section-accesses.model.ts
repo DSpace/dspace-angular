@@ -7,19 +7,22 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { DynamicCheckboxModelConfig } from '@ng-dynamic-forms/core/lib/model/checkbox/dynamic-checkbox.model';
 
 
-export const ACCESS_FORM_CHECKBOX_LAYOUT: DynamicFormControlLayout = {
-  element: {
-    host: 'form-group flex-fill access-condition-group',
-    id: 'discoverable',
-    // disabled: false,
-    label: 'submission.sections.accesses.form.discoverable-label',
-    name: 'discoverable',
-  }
+export const ACCESS_FORM_CHECKBOX_CONFIG: DynamicCheckboxModelConfig = {
+  id: 'discoverable',
+  name: 'discoverable'
 };
 
+export const ACCESS_FORM_CHECKBOX_LAYOUT = {
 
+  element: {
+    container: 'custom-control custom-checkbox pl-1',
+    control: 'custom-control-input',
+    label: 'custom-control-label pt-1'
+  }
+};
 
 export const ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'accessConditionGroup',
@@ -28,7 +31,7 @@ export const ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
 
 export const ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'form-group flex-fill access-condition-group',
+    host: 'form-group flex-fill',
     container: 'pl-1 pr-1',
     control: 'form-row '
   }

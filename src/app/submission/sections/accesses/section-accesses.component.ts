@@ -1,11 +1,15 @@
 import { SectionAccessesService } from './section-accesses.service';
 import { Component, Inject, ViewChild } from '@angular/core';
+
+import { filter, map, mergeMap, take } from 'rxjs/operators';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionModelComponent } from '../models/section.model';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -19,13 +23,15 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,
   ACCESS_CONDITION_GROUP_LAYOUT,
   ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
   ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
+  ACCESS_FORM_CHECKBOX_CONFIG,
+  ACCESS_FORM_CHECKBOX_LAYOUT,
   FORM_ACCESS_CONDITION_END_DATE_CONFIG,
   FORM_ACCESS_CONDITION_END_DATE_LAYOUT,
   FORM_ACCESS_CONDITION_START_DATE_CONFIG,
@@ -37,17 +43,18 @@ import { hasValue, isNotEmpty, isNotNull } from '../../../shared/empty.util';
 import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
 import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
-import { TranslateService } from '@ngx-translate/core';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../shared/date.util';
 
+/**
+ * This component represents a section for managing item's access conditions.
+ */
 @Component({
   selector: 'ds-section-accesses',
   templateUrl: './section-accesses.component.html',
@@ -62,7 +69,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   @ViewChild('formRef') public formRef: FormComponent;
 
   /**
-   * List of available access conditions that could be set to files
+   * List of available access conditions that could be set to item
    */
   public availableAccessConditionOptions: AccessesConditionOption[];  // List of accessConditions that an user can select
 
@@ -73,51 +80,33 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   public formId: string;
 
   /**
-   * The accesses metadata data
+   * The accesses section data
    * @type {WorkspaceitemSectionAccessesObject}
    */
   public accessesData: WorkspaceitemSectionAccessesObject;
-  /**
-   * The collection name this submission belonging to
-   * @type {string}
-   */
-  public collectionName: string;
-  /**
-   * Is the upload required
-   * @type {boolean}
-   */
-  public required$ = new BehaviorSubject<boolean>(true);
+
   /**
    * The form model
    * @type {DynamicFormControlModel[]}
    */
-  formModel: DynamicFormControlModel[];
+  public formModel: DynamicFormControlModel[];
+
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
   protected subs: Subscription[] = [];
+
   /**
    * The [[JsonPatchOperationPathCombiner]] object
    * @type {JsonPatchOperationPathCombiner}
    */
   protected pathCombiner: JsonPatchOperationPathCombiner;
-  /**
-   * A map representing all field prevous values
-   * @type {Map}
-   */
-  protected previousValue: Map<string, number[]> = new Map();
-  /**
-   * A map representing all field on their way to be removed
-   * @type {Map}
-   */
-  protected fieldsOnTheirWayToBeRemoved: Map<string, number[]> = new Map();
 
   /**
    * Defines if the access discoverable property can be managed
    */
   public canChangeDiscoverable: boolean;
-
 
   /**
    * Initialize instance variables
@@ -234,36 +223,6 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   }
 
   /**
-   * Check if the specified form field has already a value stored
-   *
-   * @param fieldId
-   *    the section data retrieved from the serverù
-   * @param index
-   *    the section data retrieved from the server
-   */
-  hasStoredValue(fieldId, index): boolean {
-    if (isNotEmpty(this.sectionData.data)) {
-      return this.sectionData.data.hasOwnProperty(fieldId) &&
-        isNotEmpty(this.sectionData.data[fieldId][index]) &&
-        !this.isFieldToRemove(fieldId, index);
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Check if the specified field is on the way to be removed
-   *
-   * @param fieldId
-   *    the section data retrieved from the serverù
-   * @param index
-   *    the section data retrieved from the server
-   */
-  isFieldToRemove(fieldId, index) {
-    return this.fieldsOnTheirWayToBeRemoved.has(fieldId) && this.fieldsOnTheirWayToBeRemoved.get(fieldId).includes(index);
-  }
-
-  /**
    * Unsubscribe from all subscriptions
    */
   onSectionDestroy() {
@@ -286,7 +245,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
     const accessData$ = this.accessesService.getAccessesData(this.submissionId, this.sectionData.id);
 
-    combineLatest(config$, accessData$).subscribe(([config, accessData]) => {
+    combineLatest([config$, accessData$]).subscribe(([config, accessData]) => {
       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
       this.canChangeDiscoverable = !!config.canChangeDiscoverable;
       this.accessesData = accessData;
@@ -313,16 +272,15 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
     const formModel: DynamicFormControlModel[] = [];
     if (this.canChangeDiscoverable) {
+      const discoverableCheckboxConfig = Object.assign({}, ACCESS_FORM_CHECKBOX_CONFIG, {
+        label: this.translate.instant('submission.sections.accesses.form.discoverable-label'),
+        hint: this.translate.instant('submission.sections.accesses.form.discoverable-description'),
+        value: this.accessesData.discoverable
+      });
       formModel.push(
-        new DynamicCheckboxModel({
-          id: 'discoverable',
-          label: this.translate.instant('submission.sections.accesses.form.discoverable-label'),
-          name: 'discoverable',
-          value: this.accessesData.discoverable
-        })
+        new DynamicCheckboxModel(discoverableCheckboxConfig, ACCESS_FORM_CHECKBOX_LAYOUT)
       );
     }
-
 
     const accessConditionTypeModelConfig = Object.assign({}, FORM_ACCESS_CONDITION_TYPE_CONFIG);
     const accessConditionsArrayConfig = Object.assign({}, ACCESS_CONDITIONS_FORM_ARRAY_CONFIG);

@@ -1,7 +1,5 @@
-import { autoserialize } from 'cerialize';
-
 /**
- * Model class for an Access Condition
+ * Model class for an Item Access Condition
  */
 export class AccessesConditionOption {
 
@@ -14,7 +12,6 @@ export class AccessesConditionOption {
      * The groupName for this Access Condition
      */
     groupName: string;
-
 
     /**
      * A boolean representing if this Access Condition has a start date
