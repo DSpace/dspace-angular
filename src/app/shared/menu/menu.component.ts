@@ -145,8 +145,8 @@ export class MenuComponent implements OnInit, OnDestroy {
    *  Get statistics route dso data
    */
   getObjectUrl(data) {
-    const object = data.site ? data.site : data.dso.payload;
-    return object._links.self.href;
+    const object = data.site ? data.site : data.dso?.payload;
+    return object?._links?.self?.href;
   }
 
   /**
