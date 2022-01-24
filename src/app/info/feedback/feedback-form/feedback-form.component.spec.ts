@@ -1,5 +1,5 @@
-import { EPersonMock } from './../../../shared/testing/eperson.mock';
-import { FeedbackDataService } from './../../../core/feedback/feedback-data.service';
+import { EPersonMock } from '../../../shared/testing/eperson.mock';
+import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FeedbackFormComponent } from './feedback-form.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,7 +22,7 @@ describe('FeedbackFormComponent', () => {
   let de: DebugElement;
   const notificationService = new NotificationsServiceStub();
   const feedbackDataServiceStub = jasmine.createSpyObj('feedbackDataService', {
-    createFeedback: of(new Feedback())
+    create: of(new Feedback())
   });
   const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
     getAuthenticatedUserFromStore: () => {
@@ -82,7 +82,7 @@ describe('FeedbackFormComponent', () => {
     it('on submit should call createFeedback of feedbackDataServiceStub service', () => {
       component.createFeedback();
       fixture.detectChanges();
-      expect(feedbackDataServiceStub.createFeedback).toHaveBeenCalled();
+      expect(feedbackDataServiceStub.create).toHaveBeenCalled();
     });
   });
 

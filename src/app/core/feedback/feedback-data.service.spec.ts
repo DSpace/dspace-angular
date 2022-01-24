@@ -1,5 +1,3 @@
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FeedbackDataService } from './feedback-data.service';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
@@ -32,8 +30,6 @@ describe('FeedbackDataService', () => {
     message: 'message',
     page: '/home'
   });
-
-  const linkName = 'feedbacks';
 
 
   function initTestService(): FeedbackDataService {
@@ -92,12 +88,12 @@ describe('FeedbackDataService', () => {
 
   describe('createFeedback', () => {
     beforeEach(() => {
-      spyOn(service, 'postToEndpoint');
+      spyOn(service, 'create');
       service.createFeedback(feedbackPayload);
     });
 
-    it('should call postToEndpoint with the linkName and payload', () => {
-      expect(service.postToEndpoint).toHaveBeenCalledWith(linkName, feedbackPayload);
+    it('should call postToEndpoint with the payload', () => {
+      expect(service.create).toHaveBeenCalledWith(feedbackPayload);
     });
   });
 

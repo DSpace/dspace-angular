@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
-import { map, filter, distinctUntilChanged} from 'rxjs/operators';
-import { isNotEmpty } from '../../shared/empty.util';
 import { DataService } from '../data/data.service';
 import { Feedback } from './models/feedback.model';
 import { FEEDBACK } from './models/feedback.resource-type';
@@ -15,9 +12,7 @@ import { HALEndpointService } from 'src/app/core/shared/hal-endpoint.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PostRequest } from 'src/app/core/data/request.models';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 
 /**
@@ -55,40 +50,12 @@ export class FeedbackDataService extends DataService<Feedback> {
 
     /**
      * Create feedback
-     * @param uuid string the id of the feedback
-     * @return Observable<Feedback>
+     * @param payload feedback to be sent
+     * @return Observable<RemoteData<Feedback>
      *     server response
      */
-    createFeedback(payoload: Feedback): Observable<RemoteData<Feedback>> {
-        return this.postToEndpoint(this.linkPath, payoload);
-    }
-
-    /**
-     * Make a new post request
-     *
-     * @param linkName
-     *    The endpoint link name
-     * @param body
-     *    The post request body
-     * @param options
-     *    The [HttpOptions] object
-     * @return Observable<Feedback>
-     *     server response
-     */
-    public postToEndpoint(linkName: string, body: any, options?: HttpOptions): Observable<RemoteData<Feedback>> {
-        const requestId = this.requestService.generateRequestId();
-        this.halService.getEndpoint(linkName).pipe(
-            filter((href: string) => isNotEmpty(href)),
-            distinctUntilChanged(),
-            map((endpointURL: string) => {
-                const request = new PostRequest(requestId, endpointURL, body, options);
-                return this.requestService.send(request);
-            }),
-        ).subscribe();
-
-        return this.rdbService.buildFromRequestUUID<Feedback>(requestId).pipe(
-            getFirstCompletedRemoteData(),
-        );
+    createFeedback(payload: Feedback): Observable<RemoteData<Feedback>> {
+        return this.create(payload);
     }
 
 }
