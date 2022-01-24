@@ -2,11 +2,11 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
 import { Component, OnInit } from '@angular/core';
-import { RouteService } from 'src/app/core/services/route.service';
+import { RouteService } from '../../../core/services/route.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 

@@ -6,5 +6,4 @@ import { ResourceType } from '../../shared/resource-type';
  * Needs to be in a separate file to prevent circular
  * dependencies in webpack.
  */
-
 export const FEEDBACK = new ResourceType('feedback');

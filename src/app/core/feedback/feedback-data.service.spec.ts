@@ -8,7 +8,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { Feedback } from './models/feedback.model';
 
 describe('FeedbackDataService', () => {
@@ -82,18 +82,6 @@ describe('FeedbackDataService', () => {
 
     it('should call getFeedback with the feedback link', () => {
       expect(service.getFeedback).toHaveBeenCalledWith('3');
-    });
-  });
-
-
-  describe('createFeedback', () => {
-    beforeEach(() => {
-      spyOn(service, 'create');
-      service.createFeedback(feedbackPayload);
-    });
-
-    it('should call postToEndpoint with the payload', () => {
-      expect(service.create).toHaveBeenCalledWith(feedbackPayload);
     });
   });
 

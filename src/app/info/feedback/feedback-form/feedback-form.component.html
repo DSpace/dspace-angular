@@ -30,7 +30,7 @@
         <input class="form-control" formControlName="page" name="page" type="hidden" [value]="routeService.getPreviousUrl() | async"
         />
         <div class="row py-2">
-          <div class="control-group col-sm-12">
+          <div class="control-group col-sm-12 text-right">
             <button [disabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
           </div>
         </div>

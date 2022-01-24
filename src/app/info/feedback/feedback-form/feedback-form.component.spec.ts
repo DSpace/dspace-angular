@@ -3,16 +3,16 @@ import { FeedbackDataService } from '../../../core/feedback/feedback-data.servic
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FeedbackFormComponent } from './feedback-form.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { RouteService } from 'src/app/core/services/route.service';
-import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
+import { RouteService } from '../../../core/services/route.service';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { FormBuilder } from '@angular/forms';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthServiceStub } from 'src/app/shared/testing/auth-service.stub';
-import { of } from 'rxjs/internal/observable/of';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
+import { of } from 'rxjs';
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 
 
