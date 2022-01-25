@@ -111,7 +111,6 @@ export class CrisLayoutTabsComponent {
     const tabName = this.getCurrentTabFromUrl();
     if (tabName) {
       this.router.navigateByUrl(getItemPageRoute(this.item) + '/' + selectedTab.shortname);
-      // this.location.replaceState(getItemPageRoute(this.item) + '/' + selectedTab.shortname);
     }
     // Notify selected tab at parent
     this.selectedTab.emit(selectedTab);
