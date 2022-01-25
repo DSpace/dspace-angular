@@ -16,8 +16,6 @@ import { SubmissionAccessesModel } from './models/config-submission-accesses.mod
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { map, switchMap } from 'rxjs/operators';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.

@@ -8,31 +8,34 @@ import { SectionsServiceStub } from '../../../shared/testing/sections-service.st
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
-import { getSubmissionAccessesConfigService, getSubmissionAccessesConfigNotChangeDiscoverableService } from '../../../shared/mocks/section-accesses-config.service.mock';
+import {
+  getSubmissionAccessesConfigNotChangeDiscoverableService,
+  getSubmissionAccessesConfigService
+} from '../../../shared/mocks/section-accesses-config.service.mock';
 import { SectionAccessesService } from './section-accesses.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
-import { getMockFormOperationsService } from 'src/app/shared/mocks/form-operations-service.mock';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from 'src/app/shared/testing/submission-json-patch-operations-service.stub';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { FormComponent } from 'src/app/shared/form/form.component';
+import { FormComponent } from '../../../shared/form/form.component';
 import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
-import { AppState } from 'src/app/app.reducer';
-import { getMockFormService } from 'src/app/shared/mocks/form-service.mock';
-import { mockAccessesFormData } from 'src/app/shared/mocks/submission.mock';
-import { accessConditionChangeEvent, checkboxChangeEvent } from 'src/app/shared/testing/form-event.stub';
+import { AppState } from '../../../app.reducer';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
+import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
 
 describe('SubmissionSectionAccessesComponent', () => {
   let component: SubmissionSectionAccessesComponent;
