@@ -129,7 +129,7 @@ export class RootDataService {
    * Set to sale the root endpoint cache hit
    */
   invalidateRootCache() {
-    this.requestService.setStaleByHrefSubstring('server/api');
+    this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
   }
 }
 /* tslint:enable:max-classes-per-file */
