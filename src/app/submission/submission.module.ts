@@ -38,7 +38,7 @@ import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.com
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
 import { FormModule } from '../shared/form/form.module';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
@@ -49,12 +49,12 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionFormComponent,
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
-  SubmissionSectionAccessesComponent
+  SubmissionSectionAccessesComponent,
+  SubmissionSectionUploadFileEditComponent
 ];
 
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
-  SubmissionSectionUploadAccessConditionsComponent,
   SectionsDirective,
   SubmissionEditComponent,
   ThemedSubmissionEditComponent,
@@ -66,6 +66,7 @@ const DECLARATIONS = [
   ThemedSubmissionSubmitComponent,
   SubmissionUploadFilesComponent,
   SubmissionSectionContainerComponent,
+  SubmissionSectionUploadAccessConditionsComponent,
   SubmissionSectionUploadFileComponent,
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionUploadFileViewComponent,
@@ -77,17 +78,18 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CoreModule.forRoot(),
-        SharedModule,
-        StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-        EffectsModule.forFeature(submissionEffects),
-        JournalEntitiesModule.withEntryComponents(),
-        ResearchEntitiesModule.withEntryComponents(),
-        FormModule,
-        NgbAccordionModule
-    ],
+  imports: [
+    CommonModule,
+    CoreModule.forRoot(),
+    SharedModule,
+    StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+    EffectsModule.forFeature(submissionEffects),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents(),
+    FormModule,
+    NgbAccordionModule,
+    NgbModalModule
+  ],
   declarations: DECLARATIONS,
   exports: DECLARATIONS,
   providers: [
@@ -110,7 +112,7 @@ export class SubmissionModule {
   static withEntryComponents() {
     return {
       ngModule: SubmissionModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 }
