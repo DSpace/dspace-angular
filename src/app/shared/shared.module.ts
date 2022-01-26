@@ -178,16 +178,6 @@ import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-p
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 
-/**
- * Declaration needed to make sure all decorator functions are called in time
- */
-export const MODELS = [
-  SearchObjects,
-  FacetConfigResponse,
-  FacetValues,
-  SearchResult
-];
-
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
