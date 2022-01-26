@@ -186,7 +186,6 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.searchText = searchText;
     let search$: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
     if (searchText) {
-      // this.updatePageInfo(this.pageInfo.elementsPerPage, 0);
       const searchPageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: this.pageInfo.elementsPerPage,
         currentPage: 1,
