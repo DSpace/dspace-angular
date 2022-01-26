@@ -14,6 +14,8 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { of } from 'rxjs';
 import { Feedback } from '../../../core/feedback/models/feedback.model';
+import { Router } from '@angular/router';
+import { RouterMock } from '../../../shared/mocks/router.mock';
 
 
 describe('FeedbackFormComponent', () => {
@@ -29,6 +31,7 @@ describe('FeedbackFormComponent', () => {
       return of(EPersonMock);
     }
   });
+  const routerStub = new RouterMock();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -40,6 +43,7 @@ describe('FeedbackFormComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: FeedbackDataService, useValue: feedbackDataServiceStub },
         { provide: AuthService, useValue: authService },
+        { provide: Router, useValue: routerStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -57,7 +61,7 @@ describe('FeedbackFormComponent', () => {
   });
 
   it('should have page value', () => {
-    expect(de.query(By.css('input[name=page]')).nativeElement.value).toEqual('/home');
+    expect(component.feedbackForm.controls.page.value).toEqual('/home');
   });
 
   it('should have email if ePerson', () => {
