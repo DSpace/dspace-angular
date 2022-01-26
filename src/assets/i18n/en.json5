@@ -1594,6 +1594,11 @@
 
   "info.feedback.error.message.required" : "A comment is required",
 
+  "info.feedback.page-label" : "Page",
+
+  "info.feedback.page_help" : "Tha page related to your feedback",
+
+
 
   "item.alerts.private": "This item is private",
 

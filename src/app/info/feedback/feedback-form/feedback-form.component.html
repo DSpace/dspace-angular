@@ -8,7 +8,7 @@
           <div class="control-group col-sm-12">
             <label class="control-label" for="email">{{ 'info.feedback.email-label' | translate }}&nbsp;</label>
             <input id="email" class="form-control" name="email" type="text" value="" formControlName="email" autofocus="autofocus" title="{{ 'info.feedback.email_help' | translate }}">
-            <p class="help-block">{{ 'info.feedback.email_help' | translate }}</p>
+            <small class="text-muted">{{ 'info.feedback.email_help' | translate }}</small>
           </div>
         </div>
 
@@ -27,12 +27,11 @@
           class="alert">
           <ds-error *ngIf="feedbackForm.controls.message.errors?.required" message="{{'info.feedback.error.message.required' | translate}}"></ds-error>
         </ng-container>
-        <!-- <input class="form-control" readonly formControlName="page" name="page" type="text" [value]="routeService.getPreviousUrl() | async"/> -->
         <div class="row">
           <div class="control-group col-sm-12">
             <label class="control-label" for="page">{{ 'info.feedback.page-label' | translate }}&nbsp;</label>
             <input id="page" readonly class="form-control" name="page" type="text" value="" formControlName="page" autofocus="autofocus" title="{{ 'info.feedback.page_help' | translate }}">
-            <p class="help-block">{{ 'info.feedback.page_help' | translate }}</p>
+            <small class="text-muted">{{ 'info.feedback.page_help' | translate }}</small>
           </div>
         </div>
         <div class="row py-2">

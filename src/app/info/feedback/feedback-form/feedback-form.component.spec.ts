@@ -16,6 +16,8 @@ import { of } from 'rxjs';
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { Router } from '@angular/router';
 import { RouterMock } from '../../../shared/mocks/router.mock';
+import { NativeWindowService } from '../../../core/services/window.service';
+import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 
 
 describe('FeedbackFormComponent', () => {
@@ -43,6 +45,7 @@ describe('FeedbackFormComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: FeedbackDataService, useValue: feedbackDataServiceStub },
         { provide: AuthService, useValue: authService },
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: routerStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -61,7 +64,7 @@ describe('FeedbackFormComponent', () => {
   });
 
   it('should have page value', () => {
-    expect(component.feedbackForm.controls.page.value).toEqual('/home');
+    expect(component.feedbackForm.controls.page.value).toEqual('http://localhost/home');
   });
 
   it('should have email if ePerson', () => {

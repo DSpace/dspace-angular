@@ -1,7 +1,7 @@
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouteService } from '../../../core/services/route.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -10,6 +10,10 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Router } from '@angular/router';
+import { getHomePageRoute } from '../../../app-routing-paths';
+import { take } from 'rxjs/operators';
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 
 @Component({
   selector: 'ds-feedback-form',
@@ -31,6 +35,7 @@ export class FeedbackFormComponent implements OnInit {
   });
 
   constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
     public routeService: RouteService,
     private fb: FormBuilder,
     protected notificationsService: NotificationsService,
@@ -45,17 +50,18 @@ export class FeedbackFormComponent implements OnInit {
    */
   ngOnInit() {
 
-    this.authService.getAuthenticatedUserFromStore().subscribe((user: EPerson) => {
+    this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe((user: EPerson) => {
       if (!!user) {
         this.feedbackForm.patchValue({ email: user.email });
       }
     });
 
-    this.routeService.getPreviousUrl().subscribe((url: string) => {
+    this.routeService.getPreviousUrl().pipe(take(1)).subscribe((url: string) => {
       if (!url) {
-        url = '/home';
+        url = getHomePageRoute();
       }
-      this.feedbackForm.patchValue({ page: url });
+      const relatedUrl = new URLCombiner(this._window.nativeWindow.origin, url).toString();
+      this.feedbackForm.patchValue({ page: relatedUrl });
     });
 
   }
