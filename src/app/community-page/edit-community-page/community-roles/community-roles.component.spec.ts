@@ -12,6 +12,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComcolModule } from '../../../shared/comcol/comcol.module';
 
 describe('CommunityRolesComponent', () => {
 
@@ -50,6 +51,7 @@ describe('CommunityRolesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        ComcolModule,
         SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),

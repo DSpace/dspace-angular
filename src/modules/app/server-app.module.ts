@@ -32,6 +32,7 @@ import { ServerHardRedirectService } from '../../app/core/services/server-hard-r
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
+import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
 
 import { environment } from '../../environments/environment';
@@ -65,11 +66,17 @@ export function createTranslateLoader() {
     // Initialize app config and extend environment
     {
       provide: APP_INITIALIZER,
-      useFactory: (transferState: TransferState) => {
+      useFactory: (
+        transferState: TransferState,
+        dspaceTransferState: DSpaceTransferState,
+        correlationIdService: CorrelationIdService,
+      ) => {
         transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
+        dspaceTransferState.transfer();
+        correlationIdService.initCorrelationId();
         return () => true;
       },
-      deps: [TransferState],
+      deps: [TransferState, DSpaceTransferState, CorrelationIdService],
       multi: true
     },
     {
@@ -117,9 +124,4 @@ export function createTranslateLoader() {
   ]
 })
 export class ServerAppModule {
-  constructor(
-    private transferState: DSpaceTransferState,
-  ) {
-    this.transferState.transfer();
-  }
 }

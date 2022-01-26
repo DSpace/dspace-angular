@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { configureSearchComponentTestingModule } from './search.component.spec';
+import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { Component, ViewChild } from '@angular/core';

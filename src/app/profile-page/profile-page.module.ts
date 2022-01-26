@@ -6,12 +6,14 @@ import { ProfilePageComponent } from './profile-page.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
+import { FormModule } from '../shared/form/form.module';
 
 @NgModule({
   imports: [
     ProfilePageRoutingModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    FormModule
   ],
   exports: [
     ProfilePageSecurityFormComponent,

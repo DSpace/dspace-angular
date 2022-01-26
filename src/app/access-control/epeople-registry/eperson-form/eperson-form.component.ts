@@ -34,6 +34,8 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
+import { Registration } from '../../../core/shared/registration.model';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -121,7 +123,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Observable whether or not the admin is allowed to reset the EPerson's password
    * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
    */
-  canReset$: Observable<boolean> = observableOf(false);
+  canReset$: Observable<boolean>;
 
   /**
    * Observable whether or not the admin is allowed to delete the EPerson
@@ -167,17 +169,20 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   emailValueChangeSubscribe: Subscription;
 
-  constructor(protected changeDetectorRef: ChangeDetectorRef,
-              public epersonService: EPersonDataService,
-              public groupsDataService: GroupDataService,
-              private formBuilderService: FormBuilderService,
-              private translateService: TranslateService,
-              private notificationsService: NotificationsService,
-              private authService: AuthService,
-              private authorizationService: AuthorizationDataService,
-              private modalService: NgbModal,
-              private paginationService: PaginationService,
-              public requestService: RequestService) {
+  constructor(
+    protected changeDetectorRef: ChangeDetectorRef,
+    public epersonService: EPersonDataService,
+    public groupsDataService: GroupDataService,
+    private formBuilderService: FormBuilderService,
+    private translateService: TranslateService,
+    private notificationsService: NotificationsService,
+    private authService: AuthService,
+    private authorizationService: AuthorizationDataService,
+    private modalService: NgbModal,
+    private paginationService: PaginationService,
+    public requestService: RequestService,
+    private epersonRegistrationService: EpersonRegistrationService,
+  ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
       if (hasValue(eperson)) {
@@ -310,6 +315,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.canDelete$ = activeEPerson$.pipe(
         switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined))
       );
+      this.canReset$ = observableOf(true);
     });
   }
 
@@ -477,6 +483,26 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   stopImpersonating() {
     this.authService.stopImpersonatingAndRefresh();
     this.isImpersonated = false;
+  }
+
+  /**
+   * Sends an email to current eperson address with the information
+   * to reset password
+   */
+  resetPassword() {
+    if (hasValue(this.epersonInitial.email)) {
+      this.epersonRegistrationService.registerEmail(this.epersonInitial.email).pipe(getFirstCompletedRemoteData())
+        .subscribe((response: RemoteData<Registration>) => {
+            if (response.hasSucceeded) {
+              this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
+                this.translateService.get('forgot-email.form.success.content', {email: this.epersonInitial.email}));
+            } else {
+              this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
+                this.translateService.get('forgot-email.form.error.content', {email: this.epersonInitial.email}));
+            }
+          }
+        );
+    }
   }
 
   /**

@@ -14,13 +14,40 @@ import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowseService } from '../core/browse/browse.service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
+import { Item } from '../core/shared/item.model';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
+
+const authorizationService = jasmine.createSpyObj('authorizationService', {
+  isAuthorized: observableOf(true)
+});
+
+const mockItem = Object.assign(new Item(), {
+  id: 'fake-id',
+  uuid: 'fake-id',
+  handle: 'fake/handle',
+  lastModified: '2018',
+  _links: {
+    self: {
+      href: 'https://localhost:8000/items/fake-id'
+    }
+  }
+});
+
+const routeStub = {
+  data: observableOf({
+    dso: createSuccessfulRemoteDataObject(mockItem)
+  }),
+  children: []
+};
+
+
 
 describe('NavbarComponent', () => {
   const menuService = new MenuServiceStub();
@@ -66,8 +93,9 @@ describe('NavbarComponent', () => {
         Injector,
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: ActivatedRoute, useValue: {} },
-        { provide: BrowseService, useValue: { getBrowseDefinitions: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, browseDefinitions)) } }
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: BrowseService, useValue: { getBrowseDefinitions: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, browseDefinitions)) } },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -76,7 +104,6 @@ describe('NavbarComponent', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
 
     fixture = TestBed.createComponent(NavbarComponent);
 
@@ -87,4 +114,6 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(comp).toBeTruthy();
   });
+
+
 });
