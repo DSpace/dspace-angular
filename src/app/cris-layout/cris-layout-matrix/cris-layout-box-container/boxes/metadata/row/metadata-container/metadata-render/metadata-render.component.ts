@@ -18,6 +18,8 @@ import {
   getMetadataBoxFieldRendering,
   MetadataBoxFieldRenderOptions
 } from '../../../rendering-types/metadata-box.decorator';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { MetadataValue } from '../../../../../../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-metadata-render',
@@ -41,7 +43,7 @@ export class MetadataRenderComponent implements OnInit {
   /**
    * The metadata value
    */
-  @Input() metadataValue: any;
+  @Input() metadataValue: MetadataValue;
   /**
    * The rendering sub type, if exists
    */
@@ -97,7 +99,8 @@ export class MetadataRenderComponent implements OnInit {
       { provide: 'renderingSubTypeProvider', useValue: this.renderingSubType, deps: [] }
     ];
     if (isNotEmpty(this.metadataValue)) {
-      providers.push({ provide: 'metadataValueProvider', useValue: this.metadataValue, deps: [] });
+      this.metadataValue = this.normalizeMetadataValue(this.metadataValue);
+      providers.push({ provide: 'metadataValueProvider', useValue: (this.metadataValue as any), deps: [] });
     }
 
     return Injector.create({
@@ -132,6 +135,22 @@ export class MetadataRenderComponent implements OnInit {
       renderOptions = getMetadataBoxFieldRendering(FieldRenderingType.TEXT);
     }
     return renderOptions;
+  }
+
+  /**
+   * Normalize value to display.
+   * In case the value contains a PLACEHOLDER returns it as blank
+   * @param metadataValue
+   */
+  private normalizeMetadataValue(metadataValue: MetadataValue): MetadataValue {
+    const value = metadataValue.value;
+    if (isNotEmpty(value) && value.includes(PLACEHOLDER_PARENT_METADATA)) {
+      return Object.assign( new MetadataValue(), metadataValue, {
+        value: ''
+      });
+    } else {
+      return metadataValue;
+    }
   }
 
 }

@@ -3306,6 +3306,8 @@
 
   "menu.section.statistics.workflow": "Workflow statistics",
 
+  "menu.section.statistics.site": "Site",
+
   "menu.section.statistics_task": "Statistics Task",
 
   "statistics": "Statistics",
@@ -4915,6 +4917,10 @@
   "statistics.table.title.TotalVisitsAndDownloads": "Items and file Visits",
 
   "statistics.table.title.TopCountries": "Top country views",
+
+  "statistics.table.title.TopContinents": "Top region views",
+
+  "statistics.table.title.TopCategories": "Categories",
 
   "statistics.table.title.TopCities": "Top city views",
 

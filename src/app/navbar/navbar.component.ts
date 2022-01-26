@@ -87,6 +87,18 @@ export class NavbarComponent extends MenuComponent {
           );
 
           menuList.push({
+            id: 'statistics_site',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.site',
+              link: '/statistics'
+            } as LinkMenuItemModel
+          });
+
+          menuList.push({
             id: 'statistics_workflow',
             parentID: 'statistics',
             active: false,

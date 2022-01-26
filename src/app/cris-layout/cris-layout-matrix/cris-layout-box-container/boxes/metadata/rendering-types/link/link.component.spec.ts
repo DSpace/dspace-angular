@@ -99,7 +99,7 @@ describe('LinkComponent', () => {
     });
   });
 
-  describe('with sub-type', () => {
+  describe('with sub-type label', () => {
     beforeEach(() => {
       component.renderingSubType = 'LABEL';
       spyOn(translateService, 'instant').and.returnValue(i18nLabel);
@@ -129,6 +129,34 @@ describe('LinkComponent', () => {
     });
   });
 
+  describe('with sub-type email', () => {
+    beforeEach(() => {
+      component.renderingSubType = 'EMAIL';
+      spyOn(translateService, 'instant').and.returnValue(i18nLabel);
+      fixture.detectChanges();
+    });
 
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('check metadata rendering', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('span.link-value'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('a'));
+      expect(valueFound.length).toBe(1);
+
+      expect(valueFound[0].nativeElement.textContent).toContain(metadataValue.value);
+      expect(valueFound[0].nativeElement.href).toBe('mailto:' + metadataValue.value);
+      done();
+    });
+
+    it('check value style', (done) => {
+      const valueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
+      expect(valueFound.length).toBe(1);
+      done();
+    });
+  });
 });
 
