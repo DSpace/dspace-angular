@@ -381,18 +381,6 @@ describe('EditBitstreamPageComponent', () => {
       it('should set isIIIF to true', () => {
         expect(comp.isIIIF).toBeTrue();
       });
-      it('should put the \"IIIF Label\" input to be shown', () => {
-        expect(comp.formLayout.iiifLabel.grid.host).toContain('col');
-      });
-      it('should put the \"IIIF Toc\" input to be shown', () => {
-        expect(comp.formLayout.iiifToc.grid.host).toContain('col');
-      });
-      it('should put the \"IIIF width\" input to be shown', () => {
-        expect(comp.formLayout.iiifWidth.grid.host).toContain('col');
-      });
-      it('should put the \"IIIF Height\" input to be shown', () => {
-        expect(comp.formLayout.iiifHeight.grid.host).toContain('col');
-      });
       it('should fill in the iiif label', () => {
         expect(rawForm.iiifLabelContainer.iiifLabel).toEqual('chapter one');
       });
@@ -512,7 +500,7 @@ describe('EditBitstreamPageComponent', () => {
           expect(comp.isIIIF).toBeFalse();
         });
         it('should put the \"IIIF Label\" input not to be shown', () => {
-          expect(comp.formLayout.iiifLabel.grid.host).toContain('d-none');
+          expect(rawForm.iiifLabelContainer).toBeFalsy();
         });
       });
   });
