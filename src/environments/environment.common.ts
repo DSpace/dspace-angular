@@ -381,6 +381,14 @@ export const environment: GlobalConfig = {
         baseUrl: 'https://hdl.handle.net/'
       },
       {
+        name: 'scopus',
+        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId='
+      },
+      {
+        name: 'researcherid',
+        baseUrl: 'http://www.researcherid.com/rid/'
+      },
+      {
         name: 'mailto',
         baseUrl: 'mailto:'
       }
@@ -400,11 +408,14 @@ export const environment: GlobalConfig = {
       }
     ],
     itemPage: {
-      Person: {
-          orientation: 'horizontal'
+      OrgUnit: {
+          orientation: 'vertical'
+      },
+      Project: {
+        orientation: 'vertical'
       },
       default: {
-          orientation: 'vertical'
+          orientation: 'horizontal'
       },
     },
     metadataBox: {

@@ -29,9 +29,9 @@ export class BrowseMostElementsComponent implements OnInit {
     this.searchService.search(this.paginatedSearchOptions).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-          this.searchResults = response as any;
-          this.cdr.detectChanges();
-      });
+      this.searchResults = response as any;
+      this.cdr.detectChanges();
+    });
   }
 
 }

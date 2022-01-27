@@ -7,7 +7,7 @@ import { CoreState } from '../../core/core.reducers';
 import { isAuthenticated } from '../../core/auth/selectors';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { getContextMenuEntriesForDSOType } from './context-menu.decorator';
+import { ContextMenuEntryRenderOptions, getContextMenuEntriesForDSOType } from './context-menu.decorator';
 import { concatMap, filter, map, mapTo, reduce, take } from 'rxjs/operators';
 import { ContextMenuEntryComponent } from './context-menu-entry.component';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
@@ -80,9 +80,21 @@ export class ContextMenuComponent implements OnInit {
    * Get the menu entries based on the DSO's type
    */
   getContextMenuEntries(): Observable<any[]> {
+    return this.retrieveSelectedContextMenuEntries(false);
+  }
+
+  /**
+   * Get the stand alone menu entries based on the DSO's type
+   */
+  getStandAloneMenuEntries(): Observable<any[]> {
+    return this.retrieveSelectedContextMenuEntries(true);
+  }
+
+  private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((constructor: GenericConstructor<ContextMenuEntryComponent>) => isNotEmpty(constructor)),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
+      map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();
         return this.isDisabled(entryComp.menuEntryType).pipe(
