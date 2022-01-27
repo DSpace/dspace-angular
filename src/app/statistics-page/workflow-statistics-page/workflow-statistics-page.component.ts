@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload
+} from '../../core/shared/operators';
 import { WorkflowStepStatisticsService } from '../../core/statistics/workflow-step-statistics.service';
 import { WorkflowStepStatistics } from '../../core/statistics/models/workflow-step-statistics.model';
 import { CollectionSelectorComponent } from '../../my-dspace-page/collection-selector/collection-selector.component';
@@ -90,7 +95,7 @@ export class WorkflowStatisticsPageComponent implements OnInit {
   private searchByDateRange(startDate: string, endDate: string, collectionId: string, limit: number) {
 
     this.workflowStepStatisticsService.searchByDateRange(startDate, endDate, collectionId, limit).pipe(
-      getFirstCompletedRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       take(1)
@@ -99,7 +104,7 @@ export class WorkflowStatisticsPageComponent implements OnInit {
     });
 
     this.workflowOwnerStatisticsService.searchByDateRange(startDate, endDate, collectionId, limit).pipe(
-      getFirstCompletedRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       take(1)
@@ -115,7 +120,7 @@ export class WorkflowStatisticsPageComponent implements OnInit {
    */
   private searchCurrentWorkflow() {
     this.workflowStepStatisticsService.searchCurrent().pipe(
-      getFirstCompletedRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       take(1)
