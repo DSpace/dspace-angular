@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../app/core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload
+} from '../../../app/core/shared/operators';
 import { LoginStatisticsService } from '../../../app/core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../../app/core/statistics/models/login-statistics.model';
 import {AlertType} from "../../shared/alert/aletr-type";
@@ -53,7 +58,7 @@ export class LoginStatisticsPageComponent implements OnInit {
   private searchByDateRange(startDate: string, endDate: string, limit: number) {
     this.processing$.next(true);
     this.loginStatisticsService.searchByDateRange(startDate, endDate, limit).pipe(
-      getFirstCompletedRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       take(1),
