@@ -5,6 +5,7 @@ import { take, tap } from 'rxjs/operators';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../app/core/shared/operators';
 import { LoginStatisticsService } from '../../../app/core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../../app/core/statistics/models/login-statistics.model';
+import {AlertType} from "../../shared/alert/aletr-type";
 
 @Component({
   selector: 'ds-login-statistics',
@@ -21,6 +22,8 @@ export class LoginStatisticsPageComponent implements OnInit {
 
   max: number;
 
+  AlertTypeEnum = AlertType;
+
   public processing$ = new BehaviorSubject<boolean>(false);
 
   constructor( private loginStatisticsService: LoginStatisticsService,
@@ -32,11 +35,21 @@ export class LoginStatisticsPageComponent implements OnInit {
     this.searchByDateRange(null, null, this.max);
   }
 
+  /**
+   * Perform a search when the search filters change.
+   */
   onSearchFilterChange() {
     console.log(this.max);
     this.searchByDateRange(this.parseDate(this.dateFrom),this.parseDate(this.dateTo), this.max);
   }
 
+  /**
+   * Search for login statistics using the provided filters.
+   * @param startDate the start date to search for
+   * @param endDate the end date to search for
+   * @param limit the limit to apply
+   * @private
+   */
   private searchByDateRange(startDate: string, endDate: string, limit: number) {
     this.processing$.next(true);
     this.loginStatisticsService.searchByDateRange(startDate, endDate, limit).pipe(
@@ -50,11 +63,24 @@ export class LoginStatisticsPageComponent implements OnInit {
     });
   }
 
+  /**
+   * Reset all the search filters.
+   */
+  resetFilters(): void {
+    this.dateFrom = null;
+    this.dateTo = null;
+    this.max = null;
+    this.searchByDateRange(null, null, this.max);
+  }
+
+  /**
+   * Parse the incoming date object.
+   * @param dateObject the date to parse
+   */
   parseDate(dateObject: NgbDateStruct) {
     if ( !dateObject ) {
       return null;
     }
-    console.log(dateObject);
     const date: NgbDate = new NgbDate(dateObject.year, dateObject.month, dateObject.day);
     return this.ngbDateParserFormatter.format(date);
   }

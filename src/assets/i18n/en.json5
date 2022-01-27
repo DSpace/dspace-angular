@@ -3316,6 +3316,8 @@
 
   "statistics.login.page.header": "Login Statistics",
 
+  "statistics.login.page.reset": "Reset filters",
+
   "statistics.login.page.table.user": "User",
 
   "statistics.login.page.table.email": "Email",
@@ -3327,6 +3329,8 @@
   "statistics.login.page.endDate": "End date",
 
   "statistics.login.page.startDate": "Start date",
+
+  "statistics.login.page.no-data-found": "No data found",
 
   "manage.relations": "Manage Relations",
 

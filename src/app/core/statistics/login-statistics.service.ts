@@ -71,7 +71,13 @@ import { LOGIN_STATISTICS } from './models/login-statistics.resource-type';
 
   }
 
-
+  /**
+   * Search for login statistics in the given date range.
+   *
+   * @param startDate the start date
+   * @param endDate the end date
+   * @param limit the limit to apply
+   */
   searchByDateRange(startDate: string, endDate: string, limit: number): Observable<RemoteData<PaginatedList<LoginStatistics>>> {
 
     const searchParams: RequestParam[] = [];
