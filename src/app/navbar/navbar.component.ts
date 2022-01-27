@@ -109,6 +109,18 @@ export class NavbarComponent extends MenuComponent {
               link: '/statistics/login'
             } as LinkMenuItemModel
           });
+
+          menuList.push({
+            id: 'statistics_workflow',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.workflow',
+              link: '/statistics/workflow'
+            } as LinkMenuItemModel
+          });
         }
       }
 

@@ -193,6 +193,10 @@ import { EditItemRelationsGuard } from '../edit-item-relationships/guards/edit-i
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { SequenceService } from './shared/sequence.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { WorkflowStepStatisticsService } from './statistics/workflow-step-statistics.service';
+import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
+import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-statistics.service';
+import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
 import { LoginStatisticsService } from './statistics/login-statistics.service';
 import { LoginStatistics } from './statistics/models/login-statistics.model';
 
@@ -332,6 +336,8 @@ const PROVIDERS = [
   EditItemModeDataService,
   EditItemRelationsGuard,
   SequenceService,
+  WorkflowStepStatisticsService,
+  WorkflowOwnerStatisticsService,
   LoginStatisticsService,
 ];
 
@@ -411,6 +417,8 @@ export const models =
     Root,
     SearchConfig,
     Subscription,
+    WorkflowStepStatistics,
+    WorkflowOwnerStatistics,
     LoginStatistics
   ];
 
