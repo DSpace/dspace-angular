@@ -1,10 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { UserReportState } from 'src/app/core/statistics/statistics.reducer';
-import { SetReportAction } from 'src/app/core/statistics/statistics.action';
+
 
 @Component({
   selector: 'ds-statistics-chart',
@@ -30,11 +27,19 @@ export class StatisticsChartComponent implements OnInit {
   @Input() reports: UsageReport[];
 
   /**
+   * Represents selected report id
+   */
+  @Input() selectedReportId: string;
+
+  /**
    * Emits all currently selected values for this chart
    */
   selectedReport: UsageReport;
 
-  constructor(private store: Store<{statistics: UserReportState}>) {}
+  /**
+   * emit the event when report is changed
+   */
+  @Output() changeReportEvent = new EventEmitter<string>();
 
   /**
    * Requests the current set values for this chart
@@ -42,7 +47,16 @@ export class StatisticsChartComponent implements OnInit {
    * Else, the chart should initially be collapsed
    */
   ngOnInit() {
-   this.setReport();
+    if (!!this.reports && this.reports.length > 0) {
+      let report = this.reports.find((report) => { return report.id === this.selectedReportId});
+      if (report) {
+        this.selectedReport = report;
+      } else {
+        this.selectedReport = this.reports[0];
+        this.changeReportEvent.emit(this.reports[0].id)
+      }
+    }
+    // this.dataReportService.setReport(this.selectedReport);
   }
 
   /**
@@ -51,27 +65,9 @@ export class StatisticsChartComponent implements OnInit {
    */
   changeReport(report) {
     this.selectedReport = report;
-    this.store.dispatch(new SetReportAction({reportId: report.id}));
+    this.changeReportEvent.emit(report.id);
+    // this.dataReportService.setReport(report);
   }
 
-  /**
-   * set the default report in case if no report is present otherwise it's set previous report
-   */
-  setReport() {
-    const report$: Observable<UserReportState> = this.store.select(state => state.statistics);
-    report$.subscribe((data: UserReportState ) => {
-        if (!!this.reports && this.reports.length > 0) {
-          if (!data.reportId) {
-            this.selectedReport = this.reports[0];
-            this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
-          } else {
-            this.selectedReport = this.reports.find(report => report.id === data.reportId);
-            if (!this.selectedReport) {
-              this.selectedReport = this.reports[0];
-              this.store.dispatch(new SetReportAction({reportId:this.reports[0].id}));
-          }
-        }
-      }
-    });
-  }
+
 }

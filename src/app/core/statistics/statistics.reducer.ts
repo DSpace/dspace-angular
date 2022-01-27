@@ -3,25 +3,28 @@ import { StatisticsAction, StatisticsActionTypes } from './statistics.action';
 /**
  * Interface that represents the state of the user report state
  */
-export interface UserReportState {
+export interface StatisticsState {
     reportId: string;
+    categoryId: string;
   }
 
-const initialState: UserReportState = {
-    reportId: null
+const initialState: StatisticsState = {
+    reportId: null,
+    categoryId: null
   };
 
 /**
  * Performs a sidebar action on the current state
- * @param {UserReportState} state The state before the action is performed
- * @param {UserReportState} action The action that should be performed
- * @returns {UserReportState} The state after the action is performed
+ * @param {StatisticsState} state The state before the action is performed
+ * @param {StatisticsState} action The action that should be performed
+ * @returns {StatisticsState} The state after the action is performed
  */
-export function StatisticsReducer(state: UserReportState = initialState , action: StatisticsAction) {
+export function StatisticsReducer(state: StatisticsState = initialState , action: StatisticsAction) {
     switch (action.type) {
-        case StatisticsActionTypes.SET_REPORT :
+        case StatisticsActionTypes.SET_CATEGORY_REPORT :
             return  Object.assign({}, state,{
-                reportId : action.payload.reportId
+                reportId : action.payload.reportId,
+                categoryId : action.payload.categoryId
             });
         default:
             return state;

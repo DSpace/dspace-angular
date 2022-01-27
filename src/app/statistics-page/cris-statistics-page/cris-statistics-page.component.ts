@@ -13,6 +13,11 @@ import { StatisticsCategoriesService } from '../../core/statistics/statistics-ca
 import { SiteDataService } from '../../core/data/site-data.service';
 
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { select, Store } from '@ngrx/store';
+import { StatisticsState } from 'src/app/core/statistics/statistics.reducer';
+import { SetCategoryReportAction } from 'src/app/core/statistics/statistics.action';
+import { getCategoryId, getReportId } from 'src/app/core/statistics/statistics-selector';
+
 
 @Component({
   selector: 'ds-cris-statistics-page',
@@ -62,6 +67,12 @@ export class CrisStatisticsPageComponent implements OnInit {
    */
   dateTo: NgbDateStruct;
 
+  /**
+   * This property holds a selected report id
+   */
+   selectedReportId: string;
+
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -70,7 +81,8 @@ export class CrisStatisticsPageComponent implements OnInit {
     protected nameService: DSONameService,
     protected authService: AuthService,
     protected siteService: SiteDataService,
-    private ngbDateParserFormatter: NgbDateParserFormatter
+    private ngbDateParserFormatter: NgbDateParserFormatter,
+    private store: Store<{statistics: StatisticsState}>
   ) {
   }
 
@@ -115,9 +127,14 @@ export class CrisStatisticsPageComponent implements OnInit {
       switchMap((scope) => {
         return this.statisticsCategoriesService.getCategoriesStatistics(scope._links.self.href,0,50,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
       }),
-      tap( (categories: StatisticsCategory[]) => {
+      tap(async (categories: StatisticsCategory[]) => {
         this.categorieList = categories;
-        this.selectedCategory = categories[0];
+        const {reportId, categoryId} = await this.getStatisticsState();
+        if (categoryId) {
+          this.selectedCategory =  this.categorieList.find((cat) => { return cat.id === categoryId; });
+        } else {
+          this.selectedCategory = categories[0];
+        }
         this.getUserReports(this.selectedCategory);
       })
     );
@@ -132,14 +149,15 @@ export class CrisStatisticsPageComponent implements OnInit {
   }
 
 
-
   /**
    * When tab changed ,need to refresh information.
    * @param category the that is being selected
    */
-  changeCategoryType(event) {
+  async changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
     this.selectedCategory = category;
+    const {reportId, categoryId} = await this.getStatisticsState();   
+    this.setStatisticsState(reportId, category.id);
     this.getUserReports(category);
   }
 
@@ -150,6 +168,15 @@ export class CrisStatisticsPageComponent implements OnInit {
    */
    getUserReports(category) {
      this.reports$ = this.getReports$(category.id);
+     this.reports$.subscribe(async (data) => {   
+      const {reportId, categoryId} = await this.getStatisticsState();
+      if (!reportId && !categoryId) {
+        this.setStatisticsState(data[0].id, category.id);
+         this.selectedReportId = data[0].id;
+      } else {
+        this.setStatisticsState(reportId, categoryId);
+      }
+     });
    }
 
   /**
@@ -181,6 +208,28 @@ export class CrisStatisticsPageComponent implements OnInit {
     }
     const date: NgbDate = new NgbDate(dateObject.year, dateObject.month, dateObject.day);
     return this.ngbDateParserFormatter.format(date);
+  }
+
+
+  setStatisticsState(reportId: string ,categoryId: string) {
+    this.store.dispatch(new SetCategoryReportAction({reportId: reportId, categoryId: categoryId}));
+  }
+
+  getStatisticsState(): Promise<StatisticsState>{
+    return new Promise((resolve, reject) => {
+        this.store.select(state => state.statistics).subscribe((data) => {
+            resolve({
+              reportId: data.reportId,
+              categoryId: data.categoryId
+            })
+        });
+    });
+  }
+
+  async changeReport(report_Id) {
+    const {reportId, categoryId} = await this.getStatisticsState();
+    this.setStatisticsState(report_Id,categoryId);
+    this.selectedReportId = report_Id;
   }
 
 }
