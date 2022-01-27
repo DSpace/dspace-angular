@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { Router } from '@angular/router';
+import { Router, UrlSegmentGroup } from '@angular/router';
 import { getHomePageRoute } from '../../../app-routing-paths';
 import { take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
@@ -70,7 +70,7 @@ export class FeedbackFormComponent implements OnInit {
    * Function to create the feedback from form values
    */
   createFeedback(): void {
-    const url = this.feedbackForm.value.page;
+    const url = this.feedbackForm.value.page.replace(this._window.nativeWindow.origin, '');
     this.feedbackDataService.create(this.feedbackForm.value).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<NoContent>) => {
       if (response.isSuccess) {
         this.notificationsService.success(this.translate.instant('info.feedback.create.success'));
