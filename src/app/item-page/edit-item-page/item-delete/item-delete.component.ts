@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {defaultIfEmpty, filter, map, switchMap, take} from 'rxjs/operators';
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
+import {
+  AbstractSimpleItemActionComponent
+} from '../simple-item-action/abstract-simple-item-action.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,
@@ -32,6 +34,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-delete',
@@ -60,7 +63,7 @@ export class ItemDeleteComponent
    * A list of the relationship types for which this item has relations as an observable.
    * The list doesn't contain duplicates.
    */
-  types$: Observable<RelationshipType[]>;
+  types$: BehaviorSubject<RelationshipType[]> = new BehaviorSubject([]);
 
   /**
    * A map which stores the relationships of this item for each type as observable lists
@@ -113,8 +116,8 @@ export class ItemDeleteComponent
     this.url = this.router.url;
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
-    if (label !== undefined) {
-      this.types$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
+    if (isNotEmpty(label)) {
+      this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
@@ -138,9 +141,9 @@ export class ItemDeleteComponent
             ),
           );
         })
-      );
+      ).subscribe((types: RelationshipType[]) => this.types$.next(types));
     } else {
-      this.types$ = observableOf([]);
+      this.types$.next([]);
     }
 
     this.types$.pipe(
