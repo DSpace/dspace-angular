@@ -31,7 +31,7 @@ export const ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
 
 export const ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'form-group flex-fill',
+    host: 'form-group flex-fill access-condition-group',
     container: 'pl-1 pr-1',
     control: 'form-row '
   }
@@ -43,7 +43,7 @@ export const ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = 
 };
 export const ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
   grid: {
-    group: 'form-row',
+    group: 'form-row pt-4',
   }
 };
 
