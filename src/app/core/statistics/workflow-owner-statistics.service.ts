@@ -71,7 +71,14 @@ import { WORKFLOW_OWNER_STATISTICS } from './models/workflow-owner-statistics.re
 
   }
 
-
+  /**
+   * Search for the workflow step by the given filters.
+   *
+   * @param startDate the start date
+   * @param endDate the end date
+   * @param collectionId the collection id
+   * @param limit the limit to apply
+   */
   searchByDateRange(startDate: string, endDate: string, collectionId: string, limit: number): Observable<RemoteData<PaginatedList<WorkflowOwnerStatistics>>> {
 
     const searchParams: RequestParam[] = [];

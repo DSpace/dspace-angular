@@ -28,21 +28,18 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <div class="input-group ml-2">
+    <div class="form-group ">
+      <div class="btn-group ml-2 mr-2" role="group">
         <button class="btn btn-outline-secondary" (click)="onCollectionFilterButtonClick()" type="button">
           {{ collectionName }}
         </button>
-
-        <div class="input-group-append" *ngIf="collectionId">
-          <button class="btn btn-outline-secondary" (click)="resetCollectionFilter()" type="button">
-            <i class="fas fa-eraser"></i>
-          </button>
-        </div>
+        <button class="btn btn-outline-secondary" (click)="resetCollectionFilter()" type="button" [disabled]="!collectionId">
+          <i class="fas fa-eraser"></i>
+        </button>
       </div>
     </div>
     <div class="form-group">
-      <div class="input-group ml-2 mr-2">
+      <div class="input-group mr-2">
         <input type="number" min="1" class="form-control filter-input" placeholder="{{ 'statistics.workflow.page.max' | translate }}"
           name="max" [(ngModel)]="max" (ngModelChange)="onSearchFilterChange()" />
       </div>
@@ -55,6 +52,8 @@
       </div>
     </div>
   </div>
+
+  <h3 class="mt-4">{{'statistics.workflow.page.step-table.header' | translate}}</h3>
 
   <div class="table-responsive">
     <table id="workflowSteps" class="table table-striped table-hover table-bordered table-sm">
@@ -74,6 +73,10 @@
       </tbody>
     </table>
   </div>
+  <ds-alert *ngIf="(workflowSteps$ | async).length === 0"
+    [type]="AlertTypeEnum.Info"
+    [content]="'statistics.workflow.page.no-data-found'">
+  </ds-alert>
 
   <h3 class="mt-4">{{'statistics.workflow.page.owner-table.header' | translate}}</h3>
 
@@ -100,7 +103,11 @@
         </tr>
       </tbody>
     </table>
-  </div>  
+  </div>
+  <ds-alert *ngIf="(workflowOwners$ | async).length === 0"
+    [type]="AlertTypeEnum.Info"
+    [content]="'statistics.workflow.page.no-data-found'">
+  </ds-alert>
 
   <h3 class="mt-4">{{'statistics.workflow.page.current-table.header' | translate}}</h3>
 
@@ -122,6 +129,10 @@
       </tbody>
     </table>
   </div>
+  <ds-alert *ngIf="(currentWorkflowSteps$ | async).length === 0"
+    [type]="AlertTypeEnum.Info"
+    [content]="'statistics.workflow.page.no-data-found'">
+  </ds-alert>
 
 </div>
 

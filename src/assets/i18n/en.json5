@@ -3304,7 +3304,7 @@
 
   "menu.section.statistics": "Statistics",
 
-  "menu.section.statistics.workflow": "Workflow statistics",
+  "menu.section.statistics.workflow": "Workflow",
 
   "menu.section.statistics.site": "Site",
 
@@ -3316,13 +3316,15 @@
 
   "statistics.workflow.page.header": "Workflow Statistics",
 
-  "statistics.workflow.page.current-table.header": "Current workflow",
+  "statistics.workflow.page.current-table.header": "Current workflows",
 
-  "statistics.workflow.page.owner-table.header": "Workflow performed",
+  "statistics.workflow.page.owner-table.header": "Actions performed by actor",
 
   "statistics.workflow.page.owner-table.count": "Performed",
 
   "statistics.workflow.page.owner-table.email": "Email",
+
+  "statistics.workflow.page.step-table.header": "Workflow steps performed",
 
   "statistics.workflow.page.step-table.step": "Step",
 
@@ -3385,6 +3387,8 @@
   "statistics.workflow.page.action-table.reviewaction": "Review",
 
   "statistics.workflow.page.action-table.claimaction" : "Claim",
+
+  "statistics.workflow.page.no-data-found": "No data found",
 
   "manage.relations": "Manage Relations",
 
@@ -4937,6 +4941,8 @@
   "statistics.categories.publicationsReports.tab": "Publications Reports",
 
   "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
+
+  "statistics.categories.downloadReports.tab": "Download Reports",
 
   "statistics.reports.title": "Reports",
 

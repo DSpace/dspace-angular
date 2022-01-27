@@ -71,7 +71,14 @@ import { WORKFLOW_STEP_STATISTICS } from './models/workflow-step-statistics.reso
 
   }
 
-
+  /**
+   * Search for the workflow step by the given filters.
+   *
+   * @param startDate the start date
+   * @param endDate the end date
+   * @param collectionId the collection id
+   * @param limit the limit to apply
+   */
   searchByDateRange(startDate: string, endDate: string, collectionId: string, limit: number): Observable<RemoteData<PaginatedList<WorkflowStepStatistics>>> {
 
     const searchParams: RequestParam[] = [];
@@ -98,6 +105,9 @@ import { WORKFLOW_STEP_STATISTICS } from './models/workflow-step-statistics.reso
 
   }
 
+  /**
+   * Search for the current workflow steps.
+   */
   searchCurrent(): Observable<RemoteData<PaginatedList<WorkflowStepStatistics>>> {
     return this.dataService.searchBy('current');
   }
