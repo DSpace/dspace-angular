@@ -197,6 +197,8 @@ import { WorkflowStepStatisticsService } from './statistics/workflow-step-statis
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
 import { WorkflowOwnerStatisticsService } from './statistics/workflow-owner-statistics.service';
 import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
+import { LoginStatisticsService } from './statistics/login-statistics.service';
+import { LoginStatistics } from './statistics/models/login-statistics.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -336,6 +338,7 @@ const PROVIDERS = [
   SequenceService,
   WorkflowStepStatisticsService,
   WorkflowOwnerStatisticsService,
+  LoginStatisticsService,
 ];
 
 /**
@@ -415,7 +418,8 @@ export const models =
     SearchConfig,
     Subscription,
     WorkflowStepStatistics,
-    WorkflowOwnerStatistics
+    WorkflowOwnerStatistics,
+    LoginStatistics
   ];
 
 @NgModule({
