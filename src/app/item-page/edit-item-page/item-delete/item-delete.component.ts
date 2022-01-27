@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 import {
   AbstractSimpleItemActionComponent
@@ -8,7 +8,7 @@ import {
   combineLatest as observableCombineLatest,
   combineLatest,
   Observable,
-  of as observableOf
+  of as observableOf, Subscription
 } from 'rxjs';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
@@ -45,7 +45,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
  */
 export class ItemDeleteComponent
   extends AbstractSimpleItemActionComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
   /**
    * The current url of this page
@@ -87,6 +87,11 @@ export class ItemDeleteComponent
    */
   public modalRef: NgbModalRef;
 
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   */
+  private subs: Subscription[] = [];
+
   constructor(protected route: ActivatedRoute,
               protected router: Router,
               protected notificationsService: NotificationsService,
@@ -117,7 +122,7 @@ export class ItemDeleteComponent
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (isNotEmpty(label)) {
-      this.entityTypeService.getEntityTypeByLabel(label).pipe(
+      this.subs.push(this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
@@ -141,16 +146,14 @@ export class ItemDeleteComponent
             ),
           );
         })
-      ).subscribe((types: RelationshipType[]) => this.types$.next(types));
-    } else {
-      this.types$.next([]);
+      ).subscribe((types: RelationshipType[]) => this.types$.next(types)));
     }
 
-    this.types$.pipe(
+    this.subs.push(this.types$.pipe(
       take(1),
     ).subscribe((types) =>
       this.objectUpdatesService.initialize(this.url, types, this.item.lastModified)
-    );
+    ));
   }
 
   /**
@@ -330,7 +333,7 @@ export class ItemDeleteComponent
    */
   performAction() {
 
-    this.types$.pipe(
+    this.subs.push(this.types$.pipe(
       switchMap((types) =>
         combineLatest(
           types.map((type) => this.isSelected(type))
@@ -342,13 +345,14 @@ export class ItemDeleteComponent
           map((selectedTypes) => selectedTypes.map((type) => type.id)),
         )
       ),
-    ).subscribe((types) => {
-      this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData()).subscribe(
-        (rd: RemoteData<NoContent>) => {
-          this.notify(rd.hasSucceeded);
-        }
-      );
-    });
+      switchMap((types) =>
+        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData())
+      )
+    ).subscribe(
+      (rd: RemoteData<NoContent>) => {
+        this.notify(rd.hasSucceeded);
+      }
+    ));
   }
 
   /**
@@ -364,4 +368,14 @@ export class ItemDeleteComponent
       this.router.navigate([getItemEditRoute(this.item)]);
     }
   }
+
+  /**
+   * Unsubscribe from all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
+  }
+
 }
