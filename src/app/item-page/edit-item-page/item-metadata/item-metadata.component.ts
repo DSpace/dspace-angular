@@ -18,6 +18,7 @@ import { Operation } from 'fast-json-patch';
 import { MetadataPatchOperationService } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { MetadataSecurityConfigurationService } from '../../../core/submission/metadatasecurityconfig-data.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -29,23 +30,31 @@ import { MetadataSecurityConfigurationService } from '../../../core/submission/m
  */
 export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   /**
-   * Configuration levels of security to be sent to child component
+   * A custom update service to use for adding and committing patches
+   * This will default to the ItemDataService
    */
-  securityConfigLevels: any = {};
+  @Input() updateService: UpdateDataService<Item>;
+
   /**
    * The AlertType enumeration
    * @type {AlertType}
    */
   public AlertTypeEnum = AlertType;
+
   /**
-   * A custom update service to use for adding and committing patches
-   * This will default to the ItemDataService
+   * A boolean representing if component's updates values are initialized
    */
-  @Input() updateService: UpdateDataService<Item>;
+  public initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   /**
    * The metadata security configuration for the entity.
    */
   public metadataSecurityConfiguration: MetadataSecurityConfiguration;
+
+  /**
+   * Configuration levels of security to be sent to child component
+   */
+  public securityConfigLevels: any = {};
 
   constructor(
     public itemService: ItemDataService,
@@ -67,40 +76,40 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     if (hasNoValue(this.updateService)) {
       this.updateService = this.itemService;
     }
-    // ensure that entity type is not null|undefined and not empty
-    if (this.item.entityType && this.item.entityType !== '') {
-      // get security configuration based on entity type
-      this.metadataSecurityConfigDataService.findById(this.item.entityType).pipe(
-        getFirstCompletedRemoteData()
-      ).subscribe(res => {
-        this.metadataSecurityConfiguration = res.payload;
-        const securityLevel = [];
-        this.item.metadataAsList.forEach((el, index) => {
-          if (res.payload.metadataCustomSecurity[el.key]) {
-            el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];
-            this.securityConfigLevels[el.key] = res.payload.metadataCustomSecurity[el.key];
-            securityLevel.push(el);
-          } else {
-            el.securityConfigurationLevelLimit = res.payload.metadataSecurityDefault;
-            this.securityConfigLevels[el.key] = res.payload.metadataSecurityDefault;
-            securityLevel.push(el);
-          }
-        });
-        this.objectUpdatesService.initialize(this.url, securityLevel, this.item.lastModified, MetadataPatchOperationService);
-        this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevel);
-      });
-    }
   }
 
   /**
    * Initialize the values and updates of the current item's metadata fields
    */
   public initializeUpdates(): void {
-    const securityLevels = this.item.metadataAsList.map(el => {
-      el.securityConfigurationLevelLimit = this.securityConfigLevels[el.key];
-      return el;
-    });
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, securityLevels);
+    // ensure that entity type is not null|undefined and not empty
+    if (this.item.entityType && this.item.entityType !== '') {
+      // get security configuration based on entity type
+      this.metadataSecurityConfigDataService.findById(this.item.entityType).pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe((res: RemoteData<MetadataSecurityConfiguration>) => {
+        if (res.hasSucceeded) {
+          this.metadataSecurityConfiguration = res.payload;
+          const metadataListWithSecurityLevel = [];
+          this.item.metadataAsList.forEach((el, index) => {
+            if (res.payload.metadataCustomSecurity[el.key]) {
+              el.securityConfigurationLevelLimit = res.payload.metadataCustomSecurity[el.key];
+              this.securityConfigLevels[el.key] = res.payload.metadataCustomSecurity[el.key];
+              metadataListWithSecurityLevel.push(el);
+            } else {
+              el.securityConfigurationLevelLimit = res.payload.metadataSecurityDefault;
+              this.securityConfigLevels[el.key] = res.payload.metadataSecurityDefault;
+              metadataListWithSecurityLevel.push(el);
+            }
+          });
+          this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, metadataListWithSecurityLevel);
+        } else {
+          this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+        }
+        this.initialized.next(true);
+      });
+    }
+
   }
 
   /**
@@ -172,36 +181,5 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     });
     this.item.metadata = metadata;
   }
-  /**
-   * Checks in metadata security configuration object for new metadata security configuration value
-   */
-  addMetadata(suggestionControl) {
-    if (this.metadataSecurityConfiguration) {
-      let security = null;
-      if (this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel]) {
-        security = this.metadataSecurityConfiguration.metadataCustomSecurity[suggestionControl.viewModel];
-      } else {
-        security = this.metadataSecurityConfiguration.metadataSecurityDefault;
-      }
-      let found = false;
-      this.item.metadataAsList.forEach(el => {
-        if (el.uuid === suggestionControl.valueAccessor.metadata.uuid) {
-          found = true;
-          el.securityConfigurationLevelLimit = security;
-          el.key = suggestionControl.viewModel;
-          // if new metadata value set the most restricted option of security
-          this.objectUpdatesService.saveChangeFieldUpdate(this.url, el);
-        }
-      });
-      if (!found) {
-        suggestionControl.valueAccessor.metadata.securityConfigurationLevelLimit = security;
-        if (security && security.length > 0) {
-          suggestionControl.valueAccessor.metadata.securityLevel = security[security.length - 1];
-        }
-        this.objectUpdatesService.saveChangeFieldUpdate(this.url, suggestionControl.valueAccessor.metadata);
-      }
-      this.securityConfigLevels[suggestionControl.valueAccessor.metadata.key] = security;
-    }
 
-  }
 }

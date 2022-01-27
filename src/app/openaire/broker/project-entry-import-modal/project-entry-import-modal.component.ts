@@ -14,6 +14,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/openaire-broker-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * The possible types of import for the external entry
@@ -66,6 +67,10 @@ export interface OpenaireBrokerEventData {
    * Contains the boolean that indicates if there is a running operation (REST call)
    */
   isRunning: boolean;
+  /**
+   * The related publication DSpace item
+   */
+  target?: Item;
 }
 
 @Component({

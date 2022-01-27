@@ -83,7 +83,7 @@ describe('Footer component', () => {
   it('should render TextSectionComponent', () => {
     comp.showTopFooter = true;
     fixture.detectChanges();
-    const textComponent = fixture.debugElement.queryAll(By.css('ds-text-section'));
+    const textComponent = fixture.debugElement.queryAll(By.css('ds-themed-text-section'));
     expect(textComponent).toHaveSize(1);
   });
 });

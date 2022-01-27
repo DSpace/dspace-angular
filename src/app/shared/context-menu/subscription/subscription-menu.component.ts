@@ -20,9 +20,9 @@ import { isNotEmpty } from '../../empty.util';
   templateUrl: './subscription-menu.component.html',
   styleUrls: ['./subscription-menu.component.scss']
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY)
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
+@rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY, true)
+@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION, true)
+@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM, true)
 /**
  * Display a button linking to the subscription of a DSpaceObject
  */

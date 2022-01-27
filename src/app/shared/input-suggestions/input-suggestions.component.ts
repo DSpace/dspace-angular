@@ -10,9 +10,9 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {hasValue, isNotEmpty} from '../empty.util';
-import {ControlValueAccessor} from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { hasValue, isNotEmpty } from '../empty.util';
+import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'ds-input-suggestions',
@@ -67,10 +67,6 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
    * Output for when a suggestion is clicked
    */
   @Output() clickSuggestion = new EventEmitter();
-  /**
-   * Output for when a suggestion is selected
-   */
-  @Output() selectSuggestionMetadata = new EventEmitter();
 
   /**
    * Output for when something is typed in the input field

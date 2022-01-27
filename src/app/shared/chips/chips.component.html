@@ -52,7 +52,7 @@
               </span>
 
             </ng-container>
-            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p>
+           <p class="d-table-cell">{{textTruncate(c.display)}}</p>
             <i *ngIf="!readOnly" class="fas fa-times ml-2"
                (click)="removeChips($event, i)"
                [title]="'chips.remove' | translate"></i>

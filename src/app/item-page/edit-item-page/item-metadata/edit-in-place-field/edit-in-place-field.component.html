@@ -9,9 +9,8 @@
                                  [(ngModel)]="metadata.key"
                                  [url]="this.url"
                                  [metadata]="this.metadata"
-                                 (submitSuggestion)="update(suggestionControl)"
-                                 (clickSuggestion)="update(suggestionControl)"
-                                 (selectSuggestionMetadata)="selectSuggestionMetadata(suggestionControl)"
+                                 (submitSuggestion)="update(suggestionControl, true)"
+                                 (clickSuggestion)="update(suggestionControl, true)"
                                  (typeSuggestion)="update(suggestionControl)"
                                  (dsClickOutside)="checkValidity(suggestionControl)"
                                  (findSuggestions)="findMetadataFieldSuggestions($event)"
@@ -49,8 +48,10 @@
 </td>
 <td class="text-center">
   <div class="btn-group edit-field">
-    <ds-edit-metadata-security   [securityLevel]="metadata.securityLevel" [securityConfigLevel]="$any(fieldUpdate.field).securityConfigurationLevelLimit"
-                                 (changeSecurityLevel)="changeSelectedSecurity($event)">
+    <ds-edit-metadata-security *ngIf="metadata.securityConfigurationLevelLimit && metadata.securityConfigurationLevelLimit.length > 1"
+                               [securityLevel]="metadata.securityLevel"
+                               [securityConfigLevel]="metadata.securityConfigurationLevelLimit"
+                               (changeSecurityLevel)="changeSelectedSecurity($event)">
     </ds-edit-metadata-security>
   </div>
 </td>

@@ -1505,6 +1505,10 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
+  "cookies.consent.app.title.add-this": "AddThis",
+
+  "cookies.consent.app.description.add-this" : "Allows us to enable sharing via AddThis",
+
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
@@ -3300,6 +3304,8 @@
 
   "menu.section.statistics": "Statistics",
 
+  "menu.section.statistics.site": "Site",
+
   "menu.section.statistics_task": "Statistics Task",
 
   "statistics": "Statistics",
@@ -4835,6 +4841,10 @@
   "statistics.table.title.TotalVisitsAndDownloads": "Items and file Visits",
 
   "statistics.table.title.TopCountries": "Top country views",
+
+  "statistics.table.title.TopContinents": "Top region views",
+
+  "statistics.table.title.TopCategories": "Categories",
 
   "statistics.table.title.TopCities": "Top city views",
 

@@ -45,9 +45,10 @@
                 <tr *ngFor="let eventElement of (eventsUpdated$ | async); let i = index">
                   <td>{{eventElement?.event?.trust}}
                   </td>
-                  <td><a *ngIf="(eventElement?.event?.target|async)?.payload"
+                  <td><a *ngIf="eventElement?.target"
                          target="_blank"
-                         [routerLink]="['/items', (eventElement?.event?.target|async)?.payload?.id]">{{eventElement.title}}</a>
+                         [routerLink]="['/items', eventElement?.target?.id]">{{eventElement.title}}</a>
+                    <span *ngIf="!eventElement?.target">{{eventElement.title}}</span>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
                     <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
