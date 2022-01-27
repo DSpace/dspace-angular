@@ -193,6 +193,8 @@ import { EditItemRelationsGuard } from '../edit-item-relationships/guards/edit-i
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { SequenceService } from './shared/sequence.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { LoginStatisticsService } from './statistics/login-statistics.service';
+import { LoginStatistics } from './statistics/models/login-statistics.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -330,6 +332,7 @@ const PROVIDERS = [
   EditItemModeDataService,
   EditItemRelationsGuard,
   SequenceService,
+  LoginStatisticsService,
 ];
 
 /**
@@ -407,7 +410,8 @@ export const models =
     StatisticsCategory,
     Root,
     SearchConfig,
-    Subscription
+    Subscription,
+    LoginStatistics
   ];
 
 @NgModule({

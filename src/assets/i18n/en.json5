@@ -3304,11 +3304,33 @@
 
   "menu.section.statistics": "Statistics",
 
+  "menu.section.statistics.login": "Login",
+
   "menu.section.statistics.site": "Site",
 
   "menu.section.statistics_task": "Statistics Task",
 
   "statistics": "Statistics",
+
+  "statistics.login.breadcrumbs": "Login Statistics",
+
+  "statistics.login.page.header": "Login Statistics",
+
+  "statistics.login.page.reset": "Reset filters",
+
+  "statistics.login.page.table.user": "User",
+
+  "statistics.login.page.table.email": "Email",
+
+  "statistics.login.page.table.count": "Login",
+
+  "statistics.login.page.max": "Max",
+
+  "statistics.login.page.endDate": "End date",
+
+  "statistics.login.page.startDate": "Start date",
+
+  "statistics.login.page.no-data-found": "No data found",
 
   "manage.relations": "Manage Relations",
 
