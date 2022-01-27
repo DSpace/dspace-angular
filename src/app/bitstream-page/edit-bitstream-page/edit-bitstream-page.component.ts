@@ -10,9 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
-  DynamicFormControlLayout,
   DynamicFormControlModel,
-  DynamicFormGroupModel, DynamicFormGroupModelConfig,
+  DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicFormService,
   DynamicInputModel,
@@ -44,12 +43,9 @@ import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
 import {
-  DsDynamicInputModel,
-  DsDynamicInputModelConfig
+  DsDynamicInputModel
 } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { Simulate } from 'react-dom/test-utils';
-import input = Simulate.input;
 
 @Component({
   selector: 'ds-edit-bitstream-page',
