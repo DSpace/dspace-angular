@@ -10,8 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
+  DynamicFormControlLayout,
   DynamicFormControlModel,
-  DynamicFormGroupModel,
+  DynamicFormGroupModel, DynamicFormGroupModelConfig,
   DynamicFormLayout,
   DynamicFormService,
   DynamicInputModel,
@@ -42,8 +43,13 @@ import { getEntityEditRoute, getItemEditRoute } from '../../item-page/item-page-
 import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
-import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig
+} from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { Simulate } from 'react-dom/test-utils';
+import input = Simulate.input;
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -148,9 +154,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The Dynamic Switch Model for the file's name
    */
   primaryBitstreamModel = new DynamicCustomSwitchModel({
-    id: 'primaryBitstream',
-    name: 'primaryBitstream'
-  });
+      id: 'primaryBitstream',
+      name: 'primaryBitstream'
+    }
+  );
 
   /**
    * The Dynamic TextArea Model for the file's description
@@ -185,31 +192,80 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifLabel',
     name: 'iiifLabel'
+  },
+    {
+        grid: {
+          host: 'col col-lg-6 d-inline-block'
+        }
+    });
+  iiifLabelContainer = new DynamicFormGroupModel({
+    id: 'iiifLabelContainer',
+    group: [this.iiifLabelModel]
+  },{
+    grid: {
+      host: 'form-row'
+    }
   });
 
   iiifTocModel = new DsDynamicInputModel({
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifToc',
     name: 'iiifToc',
+  },{
+    grid: {
+      host: 'col col-lg-6 d-inline-block'
+    }
+  });
+  iiifTocContainer = new DynamicFormGroupModel({
+    id: 'iiifTocContainer',
+    group: [this.iiifTocModel]
+  },{
+    grid: {
+      host: 'form-row'
+    }
   });
 
   iiifWidthModel = new DsDynamicInputModel({
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifWidth',
     name: 'iiifWidth',
+  },{
+    grid: {
+      host: 'col col-lg-6 d-inline-block'
+    }
+  });
+  iiifWidthContainer = new DynamicFormGroupModel({
+    id: 'iiifWidthContainer',
+    group: [this.iiifWidthModel]
+  },{
+    grid: {
+      host: 'form-row'
+    }
   });
 
   iiifHeightModel = new DsDynamicInputModel({
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifHeight',
     name: 'iiifHeight'
+  },{
+    grid: {
+      host: 'col col-lg-6 d-inline-block'
+    }
+  });
+  iiifHeightContainer = new DynamicFormGroupModel({
+    id: 'iiifHeightContainer',
+    group: [this.iiifHeightModel]
+  },{
+    grid: {
+      host: 'form-row'
+    }
   });
 
   /**
    * All input models in a simple array for easier iterations
    */
   inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.selectedFormatModel,
-    this.newFormatModel, this.iiifLabelModel, this.iiifTocModel, this.iiifWidthModel, this.iiifHeightModel];
+    this.newFormatModel];
 
   /**
    * The dynamic form fields used for editing the information of a bitstream
@@ -222,7 +278,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.fileNameModel,
         this.primaryBitstreamModel
       ]
-    }),
+    },{
+        grid: {
+          host: 'form-row'
+        }
+      }),
     new DynamicFormGroupModel({
       id: 'descriptionContainer',
       group: [
@@ -235,30 +295,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.selectedFormatModel,
         this.newFormatModel
       ]
-    }),
-    new DynamicFormGroupModel({
-      id: 'iiifLabelContainer',
-      group: [
-        this.iiifLabelModel
-      ]
-    }),
-    new DynamicFormGroupModel({
-      id: 'iiifTocContainer',
-      group: [
-        this.iiifTocModel
-      ]
-    }),
-    new DynamicFormGroupModel({
-      id: 'iiifWidthContainer',
-      group: [
-        this.iiifWidthModel
-      ]
-    }),
-    new DynamicFormGroupModel({
-      id: 'iiifHeightContainer',
-      group: [
-        this.iiifHeightModel
-      ]
     })
   ];
 
@@ -266,11 +302,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The base layout of the "Other Format" input
    */
   newFormatBaseLayout = 'col col-sm-6 d-inline-block';
-
-  /**
-   * Base layout for iiif options
-   */
-  iiifOptionsBaseLayout = 'col col-sm-6';
 
   /**
    * Layout used for structuring the form inputs
@@ -306,26 +337,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: this.newFormatBaseLayout + ' invisible'
       }
     },
-    iiifLabel: {
-      grid: {
-        host: 'd-none'
-      }
-    },
-    iiifToc: {
-      grid: {
-        host: 'd-none'
-      }
-    },
-    iiifWidth: {
-      grid: {
-        host: 'd-none'
-      }
-    },
-    iiifHeight: {
-      grid: {
-        host: 'd-none'
-      }
-    },
     fileNamePrimaryContainer: {
       grid: {
         host: 'row position-relative'
@@ -340,27 +351,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       grid: {
         host: 'row'
       }
-    },
-    iiifLabelContainer: {
-      grid: {
-        host: 'row'
-      }
-    },
-    iiifTocContainer: {
-      grid: {
-        host: 'row'
-      }
-    },
-    iiifWidthContainer: {
-      grid: {
-        host: 'row'
-      }
-    },
-    iiifHeightContainer: {
-      grid: {
-        host: 'row'
-      }
-    },
+    }
   };
 
   /**
@@ -386,6 +377,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Set to true when the parent item supports IIIF.
    */
   isIIIF = false;
+
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -413,7 +405,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * - Translate the form labels and hints
    */
   ngOnInit(): void {
-    this.formGroup = this.formService.createFormGroup(this.formModel);
 
     this.itemId = this.route.snapshot.queryParams.itemId;
     this.entityType = this.route.snapshot.queryParams.entityType;
@@ -437,13 +428,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       ).subscribe(([bitstream, allFormats]) => {
         this.bitstream = bitstream as Bitstream;
         this.formats = allFormats.page;
+        this.setForm();
         this.setIiifStatus(this.bitstream);
-        this.updateFormatModel();
-        this.updateForm(this.bitstream);
       })
     );
-
-    this.updateFieldTranslations();
 
     this.subs.push(
       this.translate.onLangChange
@@ -451,6 +439,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.updateFieldTranslations();
       })
     );
+  }
+
+  /**
+   * Initializes the form.
+   */
+  setForm() {
+    this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.updateFormatModel();
+    this.updateForm(this.bitstream);
+    this.updateFieldTranslations();
   }
 
   /**
@@ -470,6 +468,22 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined
       }
     });
+    if (this.isIIIF) {
+      this.formGroup.patchValue({
+        iiifLabelContainer: {
+          iiifLabel: bitstream.firstMetadataValue(this.IIIF_LABEL_METADATA)
+        },
+        iiifTocContainer: {
+          iiifToc: bitstream.firstMetadataValue(this.IIIF_TOC_METADATA)
+        },
+        iiifWidthContainer: {
+          iiifWidth: bitstream.firstMetadataValue(this.IMAGE_WIDTH_METADATA)
+        },
+        iiifHeightContainer: {
+          iiifHeight: bitstream.firstMetadataValue(this.IMAGE_HEIGHT_METADATA)
+        }
+      });
+    }
     this.bitstream.format.pipe(
       getAllSucceededRemoteDataPayload()
     ).subscribe((format: BitstreamFormat) => {
@@ -604,13 +618,17 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    console.log(this.isIIIF);
     if (this.isIIIF) {
+      console.log(rawForm);
       // It's helpful to remove these metadata elements entirely when the form value is empty.
       // This avoids potential issues on the REST side and makes it possible to do things like
       // remove an existing "table of contents" entry.
       if (isEmpty(rawForm.iiifLabelContainer.iiifLabel)) {
+
         delete newMetadata[this.IIIF_LABEL_METADATA];
       } else {
+        console.log(rawForm.iiifLabelContainer.iiifLabel);
         Metadata.setFirstValue(newMetadata, this.IIIF_LABEL_METADATA, rawForm.iiifLabelContainer.iiifLabel);
       }
      if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
@@ -690,30 +708,21 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     // If iiifCheck$ returns true, enable the IIIF form elements.
     const iiifSub = iiifCheck$.subscribe((iiif: boolean) => {
-          if (iiif) {
-            this.isIIIF = true;
-            this.formLayout.iiifLabel.grid.host = this.iiifOptionsBaseLayout;
-            this.formLayout.iiifToc.grid.host = this.iiifOptionsBaseLayout;
-            this.formLayout.iiifWidth.grid.host = this.iiifOptionsBaseLayout;
-            this.formLayout.iiifHeight.grid.host = this.iiifOptionsBaseLayout;
-            this.formGroup.patchValue({
-              iiifLabelContainer: {
-                iiifLabel: bitstream.firstMetadataValue(this.IIIF_LABEL_METADATA)
-              },
-              iiifTocContainer: {
-                iiifToc: bitstream.firstMetadataValue(this.IIIF_TOC_METADATA)
-              },
-              iiifWidthContainer: {
-                iiifWidth: bitstream.firstMetadataValue(this.IMAGE_WIDTH_METADATA)
-              },
-              iiifHeightContainer: {
-                iiifHeight: bitstream.firstMetadataValue(this.IMAGE_HEIGHT_METADATA)
-              }
-            });
-            // Assures that the form always includes the iiif additions.
-            this.changeDetectorRef.detectChanges();
-          }
-        });
+      if (iiif) {
+        this.isIIIF = true;
+        this.inputModels.push(this.iiifLabelModel);
+        this.formModel.push(this.iiifLabelContainer);
+        this.inputModels.push(this.iiifTocModel);
+        this.formModel.push(this.iiifTocContainer);
+        this.inputModels.push(this.iiifWidthModel);
+        this.formModel.push(this.iiifWidthContainer);
+        this.inputModels.push(this.iiifHeightModel);
+        this.formModel.push(this.iiifHeightContainer);
+      }
+      // re-initialize the form and detect the change.
+      this.setForm();
+      this.changeDetectorRef.detectChanges();
+    });
 
     this.subs.push(iiifSub);
 

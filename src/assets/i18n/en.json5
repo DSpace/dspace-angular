@@ -590,11 +590,11 @@
 
   "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
 
-  "bitstream.edit.form.iiifWidth.label": "IIIF canvas width",
+  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
 
   "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
 
-  "bitstream.edit.form.iiifHeight.label": "IIIF canvas height",
+  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
