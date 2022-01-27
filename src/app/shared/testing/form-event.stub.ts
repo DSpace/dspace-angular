@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DynamicCheckboxModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 
 export const accessConditionChangeEvent = {
@@ -11,10 +11,7 @@ export const accessConditionChangeEvent = {
         defaultPrevented: false,
         eventPhase: 0,
         isTrusted: true,
-        path: ['input#accessCondition-0-endDate.form-control.ng-touched.ng-dirty.ng-valid', 'div.input-group.ng-touched.ng-valid.ng-pristine', 'ds-dynamic-date-picker-inline.ng-star-inserted, div, div, div, div.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-control-container.col-6.ng-star-inserted, div#accessCondition-0-accessConditionGroup.form-row.ng-star-inserted.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-group.ng-star-inserted, div, div, div, div.pl-1.pr-1.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-control-container.form-group.flex-fill.access-condition-group.ng-star-inserted.ng-to…, div.cdk-drag.cdk-drag-handle.form-row.cdk-drag-disabled.ng-star-inserted.ng-touched.ng-valid.ng-pris…, div#cdk-drop-list-5.cdk-drop-list, div#accessCondition.ng-star-inserted.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-array.ng-star-inserted, div, div, div, div.form-group.ng-touched.ng-valid.ng-pristine, ds-dynamic-form-control-container.ng-star-inserted, ds-dynamic-form.ng-touched.ng-valid.ng-pristine, form.form-horizontal.ng-touched.ng-valid.ng-pristine, div.container-fluid, ds-form.ng-star-inserted, ds-section-accesses.ng-star-inserted, div#sectionContent_AccessConditionDefaultConfiguration.ng-star-inserted, div.card-body, div#AccessConditionDefaultConfiguration.collapse.show.ng-star-inserted, div.card.ng-star-inserted, ngb-accordion.accordion, div#section_AccessConditionDefaultConfiguration.section-focus, ds-submission-section-container.ng-star-inserted, div.submission-form-content, div.container-fluid, ds-submission-form, div.submission-submit-container, ds-submission-edit.ng-star-inserted, ds-themed-submission-edit.ng-star-inserted, div.ng-tns-c392-0, main.main-content.ng-tns-c392-0, div.inner-wrapper.ng-tns-c392-0.ng-trigger.ng-trigger-slideSidebarPadding, div.outer-wrapper.ng-tns-c392-0.ng-star-inserted, ds-root.ng-tns-c392-0.ng-star-inserted, ds-themed-root, ds-app, body, html.wf-droidsans-n4-active.wf-active, document, Window'],
         returnValue: true,
-        srcElement: 'input#accessCondition-0-endDate.form-control.ng-touched.ng-dirty.ng-valid',
-        target: 'input#accessCondition-0-endDate.form-control.ng-touched.ng-dirty.ng-valid',
         timeStamp: 143042.8999999999,
         type: 'change',
     },
@@ -64,10 +61,7 @@ export const checkboxChangeEvent = {
         defaultPrevented: false,
         eventPhase: 0,
         isTrusted: true,
-        path: ['input#discoverable.form-check-input.ng-valid.ng-touched.ng-pristine', 'label.form-check-label', 'div.form-check.ng-touched.ng-valid.ng-pristine', 'dynamic-ng-bootstrap-checkbox.ng-star-inserted', 'div', 'div', 'div', 'div.form-group.ng-touched.ng-valid.ng-pristine', 'ds-dynamic-form-control-container.ng-star-inserted', 'ds-dynamic-form.ng-touched.ng-valid.ng-pristine', 'form.form-horizontal.ng-touched.ng-valid.ng-pristine', 'div.container-fluid', 'ds-form.ng-star-inserted', 'ds-section-accesses.ng-star-inserted', 'div#sectionContent_AccessConditionDefaultConfiguration.ng-star-inserted', 'div.card-body', 'div#AccessConditionDefaultConfiguration.collapse.show.ng-star-inserted', 'div.card.ng-star-inserted', 'ngb-accordion.accordion', 'div#section_AccessConditionDefaultConfiguration.section-focus', 'ds-submission-section-container.ng-star-inserted', 'div.submission-form-content', 'div.container-fluid', 'ds-submission-form', 'div.submission-submit-container', 'ds-submission-edit.ng-star-inserted', 'ds-themed-submission-edit.ng-star-inserted', 'div.ng-tns-c392-0', 'main.main-content.ng-tns-c392-0', 'div.inner-wrapper.ng-tns-c392-0.ng-trigger.ng-trigger-slideSidebarPadding', 'div.outer-wrapper.ng-tns-c392-0.ng-star-inserted', 'ds-root.ng-tns-c392-0.ng-star-inserted', 'ds-themed-root', 'ds-app', 'body', 'html.wf-droidsans-n4-active.wf-active', 'document', 'Window'],
         returnValue: true,
-        srcElement: 'input#discoverable.form-check-input.ng-valid.ng-touched.ng-pristine',
-        target: 'input#discoverable.form-check-input.ng-valid.ng-touched.ng-pristine',
         timeStamp: 143042.8999999999,
         type: 'change',
     },
