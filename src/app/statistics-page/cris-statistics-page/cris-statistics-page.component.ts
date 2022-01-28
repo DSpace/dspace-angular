@@ -90,6 +90,8 @@ export class CrisStatisticsPageComponent implements OnInit {
    * Get the scope from site or from dso.
    */
   ngOnInit(): void {
+    console.log("----");
+    
     this.route.data.subscribe((res) => {
       if ( res.type === 'site' ) {
         this.scope$ = this.getSiteScope$();
@@ -210,11 +212,19 @@ export class CrisStatisticsPageComponent implements OnInit {
     return this.ngbDateParserFormatter.format(date);
   }
 
-
+/**
+ * stores a report id and cetegory id into state
+ * @param reportId 
+ * @param categoryId 
+ */
   setStatisticsState(reportId: string ,categoryId: string) {
     this.store.dispatch(new SetCategoryReportAction({reportId: reportId, categoryId: categoryId}));
   }
 
+  /**
+   * 
+   * @returns {Promise<StatisticsState>} which is contains a report id and category id 
+   */
   getStatisticsState(): Promise<StatisticsState>{
     return new Promise((resolve, reject) => {
         this.store.select(state => state.statistics).subscribe((data) => {
@@ -226,7 +236,11 @@ export class CrisStatisticsPageComponent implements OnInit {
     });
   }
 
-  async changeReport(report_Id) {
+  /**
+   * This function called when the report is changed
+   * @param report_Id 
+   */
+  async changeReport(report_Id: string) {
     const {reportId, categoryId} = await this.getStatisticsState();
     this.setStatisticsState(report_Id,categoryId);
     this.selectedReportId = report_Id;
