@@ -714,10 +714,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.formModel.push(this.iiifWidthContainer);
         this.inputModels.push(this.iiifHeightModel);
         this.formModel.push(this.iiifHeightContainer);
+        // re-initialize the form and detect the change.
+        this.setForm();
+        this.changeDetectorRef.detectChanges();
       }
-      // re-initialize the form and detect the change.
-      this.setForm();
-      this.changeDetectorRef.detectChanges();
     });
 
     this.subs.push(iiifSub);
