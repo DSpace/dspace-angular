@@ -33,6 +33,12 @@ export class DsoPageVersionButtonComponent implements OnInit {
   @Input() tooltipMsgHasDraft: string;
 
   /**
+   * A message for the tooltip on the button (when is disabled)
+   * Supports i18n keys
+   */
+  @Input() isContextMenu = false;
+
+  /**
    * Emits an event that triggers the creation of the new version
    */
   @Output() newVersionEvent = new EventEmitter();
@@ -60,6 +66,7 @@ export class DsoPageVersionButtonComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.isContextMenu);
     this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.dso.self);
 
     this.disableNewVersionButton$ = this.versionHistoryService.hasDraftVersion$(this.dso._links.version.href).pipe(

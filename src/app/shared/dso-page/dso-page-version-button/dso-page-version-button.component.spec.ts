@@ -93,4 +93,18 @@ describe('DsoPageVersionButtonComponent', () => {
     });
   });
 
+
+  describe('when the user is authorized and is in context menu', () => {
+    beforeEach(() => {
+      authorizationServiceSpy.isAuthorized.and.returnValue(observableOf(true));
+      component.isContextMenu = true;
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
+
+    it('should render a button', () => {
+      const button = fixture.debugElement.query(By.css('.dropdown-item'));
+      expect(button).not.toBeNull();
+    });
+  });
 });

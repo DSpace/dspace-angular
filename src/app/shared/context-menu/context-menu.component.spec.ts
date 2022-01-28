@@ -27,6 +27,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPersonMock } from '../testing/eperson.mock';
+import { SharedModule } from '../shared.module';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -91,7 +92,8 @@ describe('ContextMenuComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
-        NgbDropdownModule
+        NgbDropdownModule,
+        SharedModule
       ],
       declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
