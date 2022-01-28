@@ -1,5 +1,6 @@
 import { SectionAccessesService } from './section-accesses.service';
 import { Component, Inject, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
@@ -176,6 +177,20 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
       const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
       this.operationsBuilder.replace(this.pathCombiner.getPath(path), value.value, true);
     } else {
+      if (event.model.id === FORM_ACCESS_CONDITION_TYPE_CONFIG.id) {
+        // Clear previous state when switching through different access conditions
+
+        const startDateControl: FormControl = event.control.parent.get('startDate') as FormControl;
+        const endDateControl: FormControl = event.control.parent.get('endDate') as FormControl;
+
+        startDateControl?.markAsUntouched();
+        endDateControl?.markAsUntouched();
+
+        startDateControl?.setValue(null);
+        endDateControl?.setValue(null);
+        event.control.parent.markAsDirty();
+      }
+
       // validate form
       this.formService.validateAllFormFields(this.formRef.formGroup);
       this.formService.isValid(this.formId).pipe(
@@ -360,4 +375,5 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     const temp = Array.isArray(field) ? field[0] : field;
     return (temp) ? temp.value : undefined;
   }
+
 }
