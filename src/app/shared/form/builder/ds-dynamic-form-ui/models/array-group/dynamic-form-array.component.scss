@@ -6,7 +6,7 @@
 .drag-disable {
   visibility: hidden !important;
   &:hover, &:focus {
-    cursor: grab;
+    cursor: default;
     .drag-icon {
       visibility: hidden !important;
     }
