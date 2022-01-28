@@ -20,12 +20,12 @@ import { StatisticsCategoriesServiceStub } from '../../shared/testing/statistics
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { StatisticsState } from 'src/app/core/statistics/statistics.reducer';
 
 describe('CrisStatisticsPageComponent', () => {
 
-  let initialState = { reportId: '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits', categoryId: 'mainReports' };
+  let initialState: StatisticsState = { reportId: '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits', categoryId: 'mainReports' };
   let component: CrisStatisticsPageComponent;
   let fixture: ComponentFixture<CrisStatisticsPageComponent>;
   let de: DebugElement;
