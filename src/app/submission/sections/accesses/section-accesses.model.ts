@@ -31,7 +31,7 @@ export const ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
 
 export const ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'form-group flex-fill access-condition-group',
+    host: 'form-group access-condition-group col',
     container: 'pl-1 pr-1',
     control: 'form-row '
   }
@@ -49,7 +49,8 @@ export const ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
 
 export const FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
   id: 'name',
-  label: 'submission.sections.upload.form.access-condition-label',
+  label: 'submission.sections.accesses.form.access-condition-label',
+  hint: 'submission.sections.accesses.form.access-condition-hint',
   options: []
 };
 export const FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
@@ -61,8 +62,9 @@ export const FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
 
 export const FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'startDate',
-  label: 'submission.sections.upload.form.from-label',
-  placeholder: 'submission.sections.upload.form.from-placeholder',
+  label: 'submission.sections.accesses.form.from-label',
+  hint: 'submission.sections.accesses.form.from-hint',
+  placeholder: 'submission.sections.accesses.form.from-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
   relations: [
@@ -77,7 +79,7 @@ export const FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConf
     required: null
   },
   errorMessages: {
-    required: 'submission.sections.upload.form.date-required-from'
+    required: 'submission.sections.accesses.form.date-required-from'
   }
 };
 export const FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
@@ -91,8 +93,9 @@ export const FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout =
 
 export const FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'endDate',
-  label: 'submission.sections.upload.form.until-label',
-  placeholder: 'submission.sections.upload.form.until-placeholder',
+  label: 'submission.sections.accesses.form.until-label',
+  hint: 'submission.sections.accesses.form.until-hint',
+  placeholder: 'submission.sections.accesses.form.until-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
   relations: [
@@ -107,7 +110,7 @@ export const FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerModelConfig
     required: null
   },
   errorMessages: {
-    required: 'submission.sections.upload.form.date-required-until'
+    required: 'submission.sections.accesses.form.date-required-until'
   }
 };
 export const FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
