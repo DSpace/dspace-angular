@@ -223,6 +223,17 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   }
 
   /**
+   * Method called when a form removeArrayItem event is fired.
+   * Dispatch remove form operations based on changes.
+   */
+  onRemove(event: DynamicFormControlEvent) {
+    const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
+    const fieldPath = 'accessConditions/' + fieldIndex;
+
+    this.operationsBuilder.remove(this.pathCombiner.getPath(fieldPath));
+  }
+
+  /**
    * Unsubscribe from all subscriptions
    */
   onSectionDestroy() {
