@@ -4934,31 +4934,15 @@
 
   "statistics.table.no-data": "No data available",
 
-//  "statistics.table.title.TotalVisits": "Total visits",
-//
-//  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
-//
-//  "statistics.table.title.TotalDownloads": "File Visits",
-//
-//  "statistics.table.title.TotalVisitsAndDownloads": "Items and file Visits",
-//
-//  "statistics.table.title.TopCountries": "Top country views",
-//
-//  "statistics.table.title.TopContinents": "Top region views",
-//
-//  "statistics.table.title.TopCategories": "Categories",
-//
-//  "statistics.table.title.TopCities": "Top city views",
-
   "statistics.table.mainReports.title.TotalVisits": "Most viewed",
 
   "statistics.table.mainReports.title.TotalVisitsPerMonth": "Most viewed per month",
 
   "statistics.table.mainReports.title.TotalDownloads": "File Visits",
 
-//  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file Visits",
 
-//  "statistics.table.mainReports.title.TopCountries": "Top country views",
+  "statistics.table.mainReports.title.TopCountries": "Top country views",
 
   "statistics.table.mainReports.title.TopContinents": "Top region views",
 
@@ -4970,15 +4954,15 @@
 
   "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Most downloaded per month",
 
-//  "statistics.table.downloadReports.title.TotalDownloads": "File Visits",
+  "statistics.table.downloadReports.title.TotalDownloads": "Most downloaded",
 
-//  "statistics.table.downloadReports.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Most downloaded per month",
 
-//  "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
+  "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
 
   "statistics.table.downloadReports.title.TopContinents": "Top region downloads",
 
-//  "statistics.table.downloadReports.title.TopCategories": "Categories",
+  "statistics.table.downloadReports.title.TopCategories": "Categories",
 
   "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
