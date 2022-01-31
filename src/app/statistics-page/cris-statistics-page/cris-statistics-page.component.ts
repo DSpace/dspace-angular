@@ -11,68 +11,54 @@ import { AuthService } from '../../core/auth/auth.service';
 import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
 import { StatisticsCategoriesService } from '../../core/statistics/statistics-categories.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
 import { StatisticsState } from 'src/app/core/statistics/statistics.reducer';
 import { SetCategoryReportAction } from 'src/app/core/statistics/statistics.action';
 import { getCategoryId, getReportId } from 'src/app/core/statistics/statistics-selector';
-
-
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'ds-cris-statistics-page',
   templateUrl: './cris-statistics-page.component.html',
   styleUrls: ['./cris-statistics-page.component.scss']
 })
 export class CrisStatisticsPageComponent implements OnInit {
-
   /**
    * The scope dso for this statistics page, as an Observable.
    */
   scope$: Observable<DSpaceObject>;
-
   /**
    * The report types to show on this statistics page.
    */
   @Input() types: string[];
-
   /**
    * The usage report types to show on this statistics page, as an Observable list.
    */
   reports$: Observable<any[]>;
-
   /**
    * The statistics categories to show on this statistics page, as an Observable list.
    */
   categories$: Observable<StatisticsCategory[]>;
-
   /**
    * List of categories, utilized when tab is selected.
    */
   categorieList: StatisticsCategory[];
-
   /**
    * The selected category that will be changed from tabs
    */
   selectedCategory: StatisticsCategory;
-
-
   /**
    * The date from to filter
    */
   dateFrom: NgbDateStruct;
-
   /**
    * The date from to filter
    */
   dateTo: NgbDateStruct;
-
   /**
    * This property holds a selected report id
    */
    selectedReportId: string;
-
-
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -85,13 +71,10 @@ export class CrisStatisticsPageComponent implements OnInit {
     private store: Store<{statistics: StatisticsState}>
   ) {
   }
-
   /**
    * Get the scope from site or from dso.
    */
   ngOnInit(): void {
-    console.log("----");
-    
     this.route.data.subscribe((res) => {
       if ( res.type === 'site' ) {
         this.scope$ = this.getSiteScope$();
@@ -101,14 +84,12 @@ export class CrisStatisticsPageComponent implements OnInit {
       this.categories$ = this.getCategories$();
     });
   }
-
   /**
    * Get the scope from site.
    */
   public getSiteScope$() {
     return this.siteService.find();
   }
-
   /**
    * Get the scope dso for this statistics page, as an Observable.
    */
@@ -120,7 +101,6 @@ export class CrisStatisticsPageComponent implements OnInit {
       getRemoteDataPayload()
     );
   }
-
   /**
    * Get the categories for this statistics page, as an Observable list
    */
@@ -131,17 +111,20 @@ export class CrisStatisticsPageComponent implements OnInit {
       }),
       tap(async (categories: StatisticsCategory[]) => {
         this.categorieList = categories;
-        const {reportId, categoryId} = await this.getStatisticsState();
-        if (categoryId) {
-          this.selectedCategory =  this.categorieList.find((cat) => { return cat.id === categoryId; });
-        } else {
-          this.selectedCategory = categories[0];
-        }
-        this.getUserReports(this.selectedCategory);
+        this.store.pipe(
+          select(getCategoryId),
+          take(1)
+        ).subscribe((categoryId) => {
+          if (categoryId) {
+            this.selectedCategory =  this.categorieList.find((cat) => { return cat.id === categoryId; });
+          } else {
+            this.selectedCategory = categories[0];
+          }
+          this.getUserReports(this.selectedCategory);
+        });
       })
     );
   }
-
   /**
    * Get the name of the scope dso.
    * @param scope the scope dso to get the name for
@@ -149,8 +132,6 @@ export class CrisStatisticsPageComponent implements OnInit {
   getName(scope: DSpaceObject): string {
     return this.nameService.getName(scope);
   }
-
-
   /**
    * When tab changed ,need to refresh information.
    * @param category the that is being selected
@@ -158,29 +139,31 @@ export class CrisStatisticsPageComponent implements OnInit {
   async changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
     this.selectedCategory = category;
-    const {reportId, categoryId} = await this.getStatisticsState();   
-    this.setStatisticsState(reportId, category.id);
-    this.getUserReports(category);
+    this.store.pipe(
+      select(getReportId),
+      take(1)
+    ).subscribe((reportId) => {
+      this.setStatisticsState(reportId, category.id);
+      this.getUserReports(category);
+    });
   }
-
-
   /**
    * Get the user reports for the specific category.
    * @param category the that is being selected
    */
    getUserReports(category) {
      this.reports$ = this.getReports$(category.id);
-     this.reports$.subscribe(async (data) => {   
-      const {reportId, categoryId} = await this.getStatisticsState();
-      if (!reportId && !categoryId) {
-        this.setStatisticsState(data[0].id, category.id);
-         this.selectedReportId = data[0].id;
-      } else {
-        this.setStatisticsState(reportId, categoryId);
-      }
+     this.reports$.subscribe(async (data) => {
+        this.store.pipe(select('statistics'),take(1)).subscribe((stateData) => {
+            if (!stateData.reportId && !stateData.categoryId) {
+              this.setStatisticsState(data[0].id, category.id);
+              this.selectedReportId = data[0].id;
+            } else {
+              this.setStatisticsState(stateData.reportId, stateData.categoryId);
+            }
+        });
      });
    }
-
   /**
    * Get the user reports for the specific category.
    * @param categoryId the that is being selected
@@ -192,14 +175,12 @@ export class CrisStatisticsPageComponent implements OnInit {
        }),
      );
    }
-
   /**
    * Refresh categories when the date from or date to is changed.
    */
     dateChanged() {
       this.categories$ = this.getCategories$();
     }
-
   /**
    * Parse date object type and return a string of year and day YY-MM.
    * @param dateObject: NgbDateStruct that is being parsed.
@@ -211,39 +192,25 @@ export class CrisStatisticsPageComponent implements OnInit {
     const date: NgbDate = new NgbDate(dateObject.year, dateObject.month, dateObject.day);
     return this.ngbDateParserFormatter.format(date);
   }
-
 /**
  * stores a report id and cetegory id into state
- * @param reportId 
- * @param categoryId 
+ * @param reportId
+ * @param categoryId
  */
   setStatisticsState(reportId: string ,categoryId: string) {
     this.store.dispatch(new SetCategoryReportAction({reportId: reportId, categoryId: categoryId}));
   }
-
-  /**
-   * 
-   * @returns {Promise<StatisticsState>} which is contains a report id and category id 
-   */
-  getStatisticsState(): Promise<StatisticsState>{
-    return new Promise((resolve, reject) => {
-        this.store.select(state => state.statistics).subscribe((data) => {
-            resolve({
-              reportId: data.reportId,
-              categoryId: data.categoryId
-            })
-        });
-    });
-  }
-
   /**
    * This function called when the report is changed
-   * @param report_Id 
+   * @param report_Id
    */
-  async changeReport(report_Id: string) {
-    const {reportId, categoryId} = await this.getStatisticsState();
-    this.setStatisticsState(report_Id,categoryId);
-    this.selectedReportId = report_Id;
+  async changeReport(newReportId: string) {
+    this.store.pipe(
+      select(getCategoryId),
+      take(1),
+    ).subscribe((categoryId) => {
+      this.setStatisticsState(newReportId,categoryId);
+      this.selectedReportId = newReportId;
+    });
   }
-
 }
