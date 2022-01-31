@@ -109,7 +109,7 @@ export class CrisStatisticsPageComponent implements OnInit {
       switchMap((scope) => {
         return this.statisticsCategoriesService.getCategoriesStatistics(scope._links.self.href,0,50,this.parseDate(this.dateFrom),this.parseDate(this.dateTo));
       }),
-      tap(async (categories: StatisticsCategory[]) => {
+      tap((categories: StatisticsCategory[]) => {
         this.categorieList = categories;
         this.store.pipe(
           select(getCategoryId),
@@ -136,7 +136,7 @@ export class CrisStatisticsPageComponent implements OnInit {
    * When tab changed ,need to refresh information.
    * @param category the that is being selected
    */
-  async changeCategoryType(event) {
+  changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
     this.selectedCategory = category;
     this.store.pipe(
@@ -153,7 +153,7 @@ export class CrisStatisticsPageComponent implements OnInit {
    */
    getUserReports(category) {
      this.reports$ = this.getReports$(category.id);
-     this.reports$.subscribe(async (data) => {
+     this.reports$.subscribe((data) => {
         this.store.pipe(select('statistics'),take(1)).subscribe((stateData) => {
             if (!stateData.reportId && !stateData.categoryId) {
               this.setStatisticsState(data[0].id, category.id);
@@ -204,7 +204,7 @@ export class CrisStatisticsPageComponent implements OnInit {
    * This function called when the report is changed
    * @param report_Id
    */
-  async changeReport(newReportId: string) {
+  changeReport(newReportId: string) {
     this.store.pipe(
       select(getCategoryId),
       take(1),
