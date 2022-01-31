@@ -1,9 +1,10 @@
-import { createSelector } from "@ngrx/store";
-import { StatisticsState } from "./statistics.reducer";
+import { createSelector } from '@ngrx/store';
+import { StatisticsState } from './statistics.reducer';
 
 /**
  * Returns the statistic state.
- * @param state Top level state.
+ * @function getStatisticState
+ * @param {State} state Top level state.
  * @returns  {StatisticsState}
  */
 const getStatisticState = (state: any) => state.statistics;
@@ -11,7 +12,7 @@ const getStatisticState = (state: any) => state.statistics;
 /**
  * Returns a category id.
  * @function _getCategoryId
- * @param {State} state 
+ * @param {StatisticsState} state
  * @returns {string}
  */
 const _getCategoryId = (state: StatisticsState) => state.categoryId;
@@ -19,13 +20,13 @@ const _getCategoryId = (state: StatisticsState) => state.categoryId;
 /**
  * Returns a report id.
  * @function _getReportId
- * @param {State} state 
- * @returns {string}
+ * @param {StatisticsState} state
+ * @returns {string} reportId
  */
 const _getReportId = (state: StatisticsState) => state.reportId;
 
 /**
- * Returns the authentication error.
+ * Returns the category id.
  * @function getCategoryId
  * @param {StatisticsState} state
  * @param {any} props
@@ -34,7 +35,7 @@ const _getReportId = (state: StatisticsState) => state.reportId;
 export const getCategoryId = createSelector(getStatisticState, _getCategoryId);
 
 /**
- * Returns the authentication error.
+ * Returns the report id.
  * @function getReportId
  * @param {StatisticsState} state
  * @param {any} props
