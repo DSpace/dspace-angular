@@ -614,9 +614,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
-    console.log(this.isIIIF);
     if (this.isIIIF) {
-      console.log(rawForm);
       // It's helpful to remove these metadata elements entirely when the form value is empty.
       // This avoids potential issues on the REST side and makes it possible to do things like
       // remove an existing "table of contents" entry.
@@ -624,7 +622,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
         delete newMetadata[this.IIIF_LABEL_METADATA];
       } else {
-        console.log(rawForm.iiifLabelContainer.iiifLabel);
         Metadata.setFirstValue(newMetadata, this.IIIF_LABEL_METADATA, rawForm.iiifLabelContainer.iiifLabel);
       }
      if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
