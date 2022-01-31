@@ -48,15 +48,14 @@ export class StatisticsChartComponent implements OnInit {
    */
   ngOnInit() {
     if (!!this.reports && this.reports.length > 0) {
-      let report = this.reports.find((report) => { return report.id === this.selectedReportId});
+      const report = this.reports.find((reportData) => { return reportData.id === this.selectedReportId;});
       if (report) {
         this.selectedReport = report;
       } else {
         this.selectedReport = this.reports[0];
-        this.changeReportEvent.emit(this.reports[0].id)
+        this.changeReportEvent.emit(this.reports[0].id);
       }
     }
-    // this.dataReportService.setReport(this.selectedReport);
   }
 
   /**
@@ -66,8 +65,6 @@ export class StatisticsChartComponent implements OnInit {
   changeReport(report) {
     this.selectedReport = report;
     this.changeReportEvent.emit(report.id);
-    // this.dataReportService.setReport(report);
   }
-
 
 }
