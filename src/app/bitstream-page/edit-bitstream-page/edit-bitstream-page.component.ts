@@ -7,8 +7,14 @@ import {
 } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
+import {
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription
+} from 'rxjs';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -424,7 +430,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       ).subscribe(([bitstream, allFormats]) => {
         this.bitstream = bitstream as Bitstream;
         this.formats = allFormats.page;
-        this.setForm();
         this.setIiifStatus(this.bitstream);
       })
     );
@@ -677,31 +682,33 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   setIiifStatus(bitstream: Bitstream) {
 
-    const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL/;
+    const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL|LICENSE/;
     const regexIIIFItem = /true|yes/i;
 
-    const iiifCheck$ = this.bitstream.format.pipe(
+    const isImage$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
-      filter((format: RemoteData<BitstreamFormat>) => format.payload.mimetype.includes('image/')),
-      mergeMap(() =>
-        this.bitstream.bundle.pipe(
-          getFirstSucceededRemoteData(),
-          filter((bundle: RemoteData<Bundle>) =>
-            this.dsoNameService.getName(bundle.payload).match(regexExcludeBundles) == null),
-          mergeMap((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
-            getFirstSucceededRemoteData(),
-            map((remoteData: RemoteData<Item>) =>
-               (remoteData.payload.firstMetadataValue('dspace.iiif.enabled') &&
-                remoteData.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
-            )
-          ))
-        )
-      )
-    );
+      map((format: RemoteData<BitstreamFormat>) => format.payload.mimetype.includes('image/')));
 
-    // If iiifCheck$ returns true, enable the IIIF form elements.
-    const iiifSub = iiifCheck$.subscribe((iiif: boolean) => {
-      if (iiif) {
+    const isIIIFBundle$ = this.bitstream.bundle.pipe(
+      getFirstSucceededRemoteData(),
+      map((bundle: RemoteData<Bundle>) =>
+        this.dsoNameService.getName(bundle.payload).match(regexExcludeBundles) == null));
+
+    const isEnabled$ = this.bitstream.bundle.pipe(
+      getFirstSucceededRemoteData(),
+      map((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
+          getFirstSucceededRemoteData(),
+          map((item: RemoteData<Item>) =>
+            (item.payload.firstMetadataValue('dspace.iiif.enabled') &&
+              item.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
+      ))));
+
+    const iiifSub = combineLatest(
+      isImage$,
+      isIIIFBundle$,
+      isEnabled$
+    ).subscribe(([isImage, isIIIFBundle, isEnabled]) => {
+      if (isImage && isIIIFBundle && isEnabled) {
         this.isIIIF = true;
         this.inputModels.push(this.iiifLabelModel);
         this.formModel.push(this.iiifLabelContainer);
@@ -711,10 +718,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.formModel.push(this.iiifWidthContainer);
         this.inputModels.push(this.iiifHeightModel);
         this.formModel.push(this.iiifHeightContainer);
-        // re-initialize the form and detect the change.
-        this.setForm();
-        this.changeDetectorRef.detectChanges();
       }
+      this.setForm();
+      this.changeDetectorRef.detectChanges();
     });
 
     this.subs.push(iiifSub);
