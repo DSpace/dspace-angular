@@ -14,7 +14,8 @@ const initialState: StatisticsState = {
   };
 
 /**
- * Performs a sidebar action on the current state
+ * Performs a statistic action on the current state
+ * @function StatisticsReducer
  * @param {StatisticsState} state The state before the action is performed
  * @param {StatisticsState} action The action that should be performed
  * @returns {StatisticsState} The state after the action is performed
