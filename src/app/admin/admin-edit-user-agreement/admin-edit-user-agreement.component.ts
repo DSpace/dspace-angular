@@ -8,6 +8,7 @@ import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
 /**
  * Component that represents the user agreement edit page for administrators.
@@ -68,7 +69,9 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
         return;
       }
       const operations = this.getOperationsToEditText();
-      this.subs.push(this.siteService.patch(this.site, operations).subscribe((restResponse) => {
+      this.subs.push(this.siteService.patch(this.site, operations).pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((restResponse) => {
         if (restResponse.isSuccess) {
           this.notificationsService.success(this.translateService.get('admin.edit-user-agreement.success'));
           if ( result === 'edit-with-reset' ) {
