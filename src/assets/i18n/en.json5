@@ -5369,6 +5369,8 @@
 
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom url",
+
   "submission.sections.submit.progressbar.describe.equipment": "Equipment basic information",
 
   "submission.sections.submit.progressbar.describe.event": "Event basic information",
