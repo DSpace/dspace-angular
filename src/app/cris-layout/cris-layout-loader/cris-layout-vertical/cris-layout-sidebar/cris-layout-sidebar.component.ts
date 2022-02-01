@@ -28,6 +28,11 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   /**
    * Item that is being viewed
    */
+  @Input() showNav: boolean;
+
+  /**
+   * Item that is being viewed
+   */
   @Output() selectedTabChange = new EventEmitter<CrisLayoutTab>();
 
   /**
@@ -50,7 +55,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
     this.hasSidebar$.next(!!this.tabs && this.tabs.length > 1);
 
     if (!this.hasSidebar$.value && !!this.tabs && this.tabs.length === 1) {
-      this.emitSelectTab(this.tabs[0]);
+      this.selectTabEv(this.tabs[0]);
     }
 
     // Init the sidebar status
@@ -61,9 +66,12 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
    * Emit a new selectedTabChange Event
    * @param tab
    */
-  emitSelectTab(tab: CrisLayoutTab) {
+  selectTabEv(tab: CrisLayoutTab) {
     this.selectFromTabName(tab.shortname);
-    this.selectedTabChange.emit(tab);
+  }
+
+  emitSelected(selectedTab) {
+    this.selectedTabChange.emit(selectedTab);
   }
 
   /**

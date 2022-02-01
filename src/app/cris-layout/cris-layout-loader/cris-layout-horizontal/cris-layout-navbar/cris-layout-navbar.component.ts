@@ -25,6 +25,8 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
    */
   @Input() item: Item;
 
+  @Input() showNav: boolean;
+
   menuCollapsed = true;
 
   /**
@@ -45,8 +47,12 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
   }
 
   getTabSelected(tab) {
-    this.selectedTabChange.emit(tab);
+    // this.selectedTabChange.emit(tab);
     this.selectFromTabName(tab.shortname);
+  }
+
+  emitSelected(selectedTab) {
+    this.selectedTabChange.emit(selectedTab);
   }
 
   toggleNavbar() {

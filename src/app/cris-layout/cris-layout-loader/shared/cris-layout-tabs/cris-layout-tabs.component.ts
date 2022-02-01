@@ -114,6 +114,7 @@ export class CrisLayoutTabsComponent {
     }
     // Notify selected tab at parent
     this.selectedTab.emit(selectedTab);
+    this.emitSelected(selectedTab);
   }
 
   public getCurrentTabFromUrl() {
@@ -166,5 +167,8 @@ export class CrisLayoutTabsComponent {
     this.selectFromTabName(tab.shortname);
   }
 
+  emitSelected(selectedTab) {
+    // ovveride by children
+  }
 
 }

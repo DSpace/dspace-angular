@@ -35,6 +35,8 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
   layoutConfiguration: CrisLayoutTypeConfig;
 
 
+  @Input() leadingTabs: CrisLayoutTab[];
+
   /**
    * Directive hook used to place the dynamic child component
    */
@@ -56,7 +58,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
    * Get tabs for the specific item and the configuration for the item
    */
   getConfiguration(): void {
-    const itemType = this.item?.firstMetadataValue('dspace.entity.type');
+    const itemType = this.item ?.firstMetadataValue('dspace.entity.type');
     const def = 'default';
 
     if (!!environment.crisLayout.itemPage && !!environment.crisLayout.itemPage[itemType]) {
@@ -78,6 +80,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     (this.componentRef.instance as any).item = this.item;
     (this.componentRef.instance as any).tabs = this.tabs;
     (this.componentRef.instance as any).showContextMenu = this.showContextMenu;
+    (this.componentRef.instance as any).leadingTabs = this.leadingTabs;
     this.componentRef.changeDetectorRef.detectChanges();
   }
 
