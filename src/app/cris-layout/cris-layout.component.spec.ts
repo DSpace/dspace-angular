@@ -39,7 +39,7 @@ const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
 
 // to FIX
 // tslint:disable-next-line:prefer-const
-describe('CrisLayoutComponent', () => {
+fdescribe('CrisLayoutComponent', () => {
   let component: CrisLayoutComponent;
   let fixture: ComponentFixture<CrisLayoutComponent>;
 
@@ -151,6 +151,17 @@ describe('CrisLayoutComponent', () => {
       expect(fixture.debugElement.query(By.css('ds-cris-layout-loader'))).toBeTruthy();
       expect(fixture.debugElement.query(By.css('ds-cris-layout-leading'))).toBeTruthy();
 
+    });
+
+    it('it should not return a tab if box cointain a minor as true', () => {
+      tabDataServiceMock.findByItem.and.returnValue(observableOf(bothTabs));
+      component.tabs$ = observableOf(bothTabs);
+      component.leadingTabs$ = observableOf(leadingTabs);
+      component.loaderTabs$ = observableOf(loaderTabs);
+      component.getLeadingTabs();
+      fixture.detectChanges();
+      const loaderTabsData = fixture.debugElement.queryAll(By.css('ds-cris-layout-loader'));
+      expect(loaderTabsData.length).toBe(1);
     });
 
   });
