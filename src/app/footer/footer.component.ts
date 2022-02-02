@@ -49,7 +49,7 @@ export class FooterComponent implements OnInit {
     this.site = this.siteService.find().pipe(take(1));
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
-        this.hasSiteFooterSections = !isEmpty(site.firstMetadataValue('cms.homepage.footer',
+        this.hasSiteFooterSections = !isEmpty(site.firstMetadataValue('cris.cms.footer',
           { language: this.locale.getCurrentLanguageCode() }));
       }
     );

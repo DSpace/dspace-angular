@@ -66,7 +66,8 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
         linkText = (hasValue(this.renderingSubType) &&
         this.renderingSubType.toUpperCase() === TYPES.EMAIL) ? this.metadataValue.value : this.translateService.instant(this.field.label);
     } else {
-        metadataValue = this.metadataValue.value;
+        const startsWithProtocol = [/^https?:\/\//, /^ftp:\/\//];
+        metadataValue = startsWithProtocol.some(rx => rx.test(this.metadataValue.value)) ? this.metadataValue.value : 'http://' + this.metadataValue.value;
         linkText = (hasValue(this.renderingSubType) &&
         this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
     }
