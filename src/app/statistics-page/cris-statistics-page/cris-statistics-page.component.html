@@ -69,7 +69,7 @@
               </ng-container>
 
               <div>
-                <ds-statistics-chart (changeReportEvent)="changeReport($event)" *ngIf="!!selectedCategory" [category]="selectedCategory" [reports]="reports" [selectedReportId]="selectedReportId"></ds-statistics-chart>
+                <ds-statistics-chart (changeReportEvent)="changeReport($event)" [categoryType]="categoryType"  *ngIf="!!selectedCategory" [category]="selectedCategory" [reports]="reports" [selectedReportId]="selectedReportId"></ds-statistics-chart>
               </div>
 
             </ng-container>

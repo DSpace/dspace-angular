@@ -13,10 +13,10 @@ import { StatisticsCategoriesService } from '../../core/statistics/statistics-ca
 import { SiteDataService } from '../../core/data/site-data.service';
 import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
-import { StatisticsState } from 'src/app/core/statistics/statistics.reducer';
-import { SetCategoryReportAction } from 'src/app/core/statistics/statistics.action';
-import { getCategoryId, getReportId } from 'src/app/core/statistics/statistics-selector';
+import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
+import { SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { take } from 'rxjs/operators';
+import { AppState } from '../../app.reducer';
 @Component({
   selector: 'ds-cris-statistics-page',
   templateUrl: './cris-statistics-page.component.html',
@@ -47,6 +47,12 @@ export class CrisStatisticsPageComponent implements OnInit {
    * The selected category that will be changed from tabs
    */
   selectedCategory: StatisticsCategory;
+
+  /**
+   * The category type
+   */
+  categoryType: string;
+
   /**
    * The date from to filter
    */
@@ -68,7 +74,7 @@ export class CrisStatisticsPageComponent implements OnInit {
     protected authService: AuthService,
     protected siteService: SiteDataService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
-    private store: Store<{statistics: StatisticsState}>
+    private store: Store<AppState>
   ) {
   }
   /**
@@ -117,8 +123,10 @@ export class CrisStatisticsPageComponent implements OnInit {
         ).subscribe((categoryId) => {
           if (categoryId) {
             this.selectedCategory =  this.categorieList.find((cat) => { return cat.id === categoryId; });
+            this.categoryType = this.selectedCategory.categoryType;
           } else {
             this.selectedCategory = categories[0];
+            this.categoryType = this.selectedCategory.categoryType;
           }
           this.getUserReports(this.selectedCategory);
         });
@@ -134,11 +142,12 @@ export class CrisStatisticsPageComponent implements OnInit {
   }
   /**
    * When tab changed ,need to refresh information.
-   * @param category the that is being selected
+   * @param event the that is being selected
    */
   changeCategoryType(event) {
     const category = this.categorieList.find((cat) => { return cat.id === event.nextId; });
     this.selectedCategory = category;
+    this.categoryType = this.selectedCategory.categoryType;
     this.store.pipe(
       select(getReportId),
       take(1)

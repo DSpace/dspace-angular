@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { type } from 'src/app/shared/ngrx/type';
+import { type } from '../../shared/ngrx/type';
 import { StatisticsState } from './statistics.reducer';
 
 /**

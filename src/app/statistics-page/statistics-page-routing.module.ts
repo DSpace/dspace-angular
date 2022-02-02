@@ -11,6 +11,8 @@ import { ThemedCommunityStatisticsPageComponent } from './community-statistics-p
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-breadcrumb.resolver';
+import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
+import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,38 @@ import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-br
             {
               path: '',
               component: ThemedSiteStatisticsPageComponent,
+            },
+          ]
+        },
+        {
+          path: 'login',
+          resolve: {
+            breadcrumb: I18nBreadcrumbResolver
+          },
+          data: {
+            title: 'statistics.login.title',
+            breadcrumbKey: 'statistics.login',
+          },
+          children: [
+            {
+              path: '',
+              component: LoginStatisticsPageComponent,
+           },
+          ]
+        },
+        {
+          path: 'workflow',
+          resolve: {
+            breadcrumb: I18nBreadcrumbResolver
+          },
+          data: {
+            title: 'statistics.workflow.title',
+            breadcrumbKey: 'statistics.workflow',
+          },
+          children: [
+            {
+              path: '',
+              component: WorkflowStatisticsPageComponent,
             },
           ]
         },

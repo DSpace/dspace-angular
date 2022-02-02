@@ -22,6 +22,11 @@ export class StatisticsChartComponent implements OnInit {
   @Input() category: StatisticsCategory;
 
   /**
+   * Represents selected category type
+   */
+  @Input() categoryType: string;
+
+  /**
    * Represents list of reports for the selected category
    */
   @Input() reports: UsageReport[];
