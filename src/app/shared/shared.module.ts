@@ -176,6 +176,7 @@ import { ItemVersionsDeleteModalComponent } from './item/item-versions/item-vers
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page/bitstream-request-a-copy-page.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { LogInOidcComponent } from './log-in/methods/oidc/log-in-oidc.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -307,6 +308,7 @@ const COMPONENTS = [
   ImportableListItemControlComponent,
 
   LogInShibbolethComponent,
+  LogInOidcComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
@@ -378,6 +380,7 @@ const ENTRY_COMPONENTS = [
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent,
+  LogInOidcComponent,
   BundleListElementComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
