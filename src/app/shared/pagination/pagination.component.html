@@ -1,7 +1,7 @@
 <div *ngIf="currentPageState == undefined || currentPageState == (currentPage$|async)" [id]="'p-' + id">
   <div *ngIf="(!hidePaginationDetail && collectionSize > 0) || !hideGear" class="pagination-masked clearfix top">
     <div class="row">
-      <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">
+      <div *ngIf="!hidePaginationDetail && collectionSize > 0 && showPaginator" class="col-auto pagination-info">
           <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
           <span class="align-middle">{{ 'pagination.showing.detail' | translate:(getShowingDetails(collectionSize)|async)}}</span>
       </div>
@@ -20,16 +20,31 @@
   </div>
   <ng-content></ng-content>
 
-  <div *ngIf="shouldShowBottomPager |async" class="pagination justify-content-center clearfix bottom">
-    <ngb-pagination [boundaryLinks]="paginationOptions.boundaryLinks"
-                    [collectionSize]="collectionSize"
-                    [disabled]="paginationOptions.disabled"
-                    [ellipses]="paginationOptions.ellipses"
-                    [maxSize]="(isXs)?5:paginationOptions.maxSize"
-                    [page]="(currentPage$|async)"
-                    (pageChange)="doPageChange($event)"
-                    [pageSize]="(pageSize$ |async)"
-                    [rotate]="paginationOptions.rotate"
-                    [size]="(isXs)?'sm':paginationOptions.size"></ngb-pagination>
+  <div *ngIf="shouldShowBottomPager | async" class="pagination justify-content-center clearfix bottom">
+    <div *ngIf="showPaginator">
+      <ngb-pagination [boundaryLinks]="paginationOptions.boundaryLinks"
+                      [collectionSize]="collectionSize"
+                      [disabled]="paginationOptions.disabled"
+                      [ellipses]="paginationOptions.ellipses"
+                      [maxSize]="(isXs)?5:paginationOptions.maxSize"
+                      [page]="(currentPage$|async)"
+                      (pageChange)="doPageChange($event)"
+                      [pageSize]="(pageSize$ |async)"
+                      [rotate]="paginationOptions.rotate"
+                      [size]="(isXs)?'sm':paginationOptions.size">
+      </ngb-pagination>
+    </div>
+    
+    <div *ngIf="!showPaginator">     
+      <ul class="list-unstyled">
+        <li *ngFor="let object of objects?.payload?.page" class="mt-4 mb-4">
+          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode"></ds-listable-object-component-loader>
+        </li>
+      </ul>
+      <div>
+        <button id="nav-prev" type="button" class="btn btn-outline-primary float-left" (click)="goPrev()" [disabled]="objects?.payload?.currentPage <= 1"><i class="fas fa-angle-left"></i> {{'browse.previous.button' |translate}}</button>
+        <button id="nav-next" type="button" class="btn btn-outline-primary float-right" (click)="goNext()" [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages"><i class="fas fa-angle-right"></i> {{'browse.next.button' |translate}}</button>       
+      </div>
+    </div>
   </div>
 </div>

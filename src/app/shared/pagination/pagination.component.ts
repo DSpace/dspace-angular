@@ -20,6 +20,10 @@ import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ViewMode } from 'src/app/core/shared/view-mode.model';
 
 /**
  * The default pagination controls component.
@@ -33,6 +37,11 @@ import { map } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class PaginationComponent implements OnDestroy, OnInit {
+  /**
+   * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
+   */
+  viewMode: ViewMode = ViewMode.ListElement;
+
   /**
    * Number of items in collection.
    */
@@ -52,6 +61,26 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Sort configuration for this component.
    */
   @Input() sortOptions: SortOptions;
+
+  /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
+  @Input() showPaginator = true;
+
+  /**
+   * The current pagination configuration
+   */
+   @Input() config?: PaginationComponentOptions;
+
+  /**
+   * The list of listable objects to render in this component
+   */
+  @Input() objects: RemoteData<PaginatedList<ListableObject>>;
+
+  /**
+   * The current sorting configuration
+   */
+  @Input() sortConfig: SortOptions;
 
   /**
    * An event fired when the page is changed.
@@ -163,6 +192,15 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
+  /**
+   * If showPaginator is set to true, emit when the previous button is clicked
+   */
+  @Output() prev = new EventEmitter<boolean>();
+
+  /**
+   * If showPaginator is set to true, emit when the next button is clicked
+   */
+  @Output() next = new EventEmitter<boolean>();
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
@@ -347,4 +385,19 @@ export class PaginationComponent implements OnDestroy, OnInit {
       map((hasMultiplePages) => hasMultiplePages || !this.hidePagerWhenSinglePage)
     );
   }
+
+  /**
+   * Go to the previous page
+   */
+   goPrev() {
+    this.prev.emit(true);
+  }
+
+  /**
+   * Go to the next page
+   */
+  goNext() {
+    this.next.emit(true);
+  }
+
 }

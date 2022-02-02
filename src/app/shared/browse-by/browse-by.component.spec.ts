@@ -129,9 +129,9 @@ describe('BrowseByComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-viewable-collection'))).toBeDefined();
   });
 
-  describe('when enableArrows is true and objects are defined', () => {
+  describe('when showPaginator is true and objects are defined', () => {
     beforeEach(() => {
-      comp.enableArrows = true;
+      comp.showPaginator = true;
       comp.objects$ = mockItemsRD$;
 
       comp.paginationConfig = paginationConfig;
@@ -188,7 +188,7 @@ describe('BrowseByComponent', () => {
     });
   });
 
-  describe('when enableArrows is true and browseEntries are provided', () => {
+  describe('when showPaginator is true and browseEntries are provided', () => {
     let browseEntries;
 
     beforeEach(() => {
@@ -209,7 +209,7 @@ describe('BrowseByComponent', () => {
         }),
       ];
 
-      comp.enableArrows = true;
+      comp.showPaginator = true;
       comp.objects$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), browseEntries));
       comp.paginationConfig = paginationConfig;
       comp.sortConfig = Object.assign(new SortOptions('dc.title', SortDirection.ASC));
