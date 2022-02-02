@@ -4970,7 +4970,7 @@
 
   "statistics.categories.title": "Statistics by Category",
 
-  "statistics.categories.mainReports.tab": "Main Reports",
+  "statistics.categories.mainReports.tab": "Views Reports",
 
   "statistics.categories.projectsReports.tab": "Project Reports",
 
@@ -4980,7 +4980,7 @@
 
   "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
 
-  "statistics.categories.downloadReports.tab": "Download Reports",
+  "statistics.categories.downloadReports.tab": "Downloads Reports",
 
   "statistics.reports.title": "Reports",
 
