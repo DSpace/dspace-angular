@@ -206,23 +206,6 @@ describe('ItemDataService', () => {
       service.findById('092b59e8-8159-4e70-98b5-93ec60bd3431');
       expect(service.findByHref).toHaveBeenCalled();
     });
-    // it('should call findByCustomUrl if not valid uuid', () => {
-    //   serviceSpy = spyOn(service, 'findByCustomUrl');
-    //   service.findById('custom url');
-    //   expect(serviceSpy).toHaveBeenCalled();
-    // });
   });
-
-  // describe('when findByCustom url is called', () => {
-  //   beforeEach(() => {
-  //     service = initTestService();
-  //   });
-  //   it('should call findByHref ', () => {
-  //     serviceSpy = spyOn(service, 'findByCustomUrl');
-  //     service.findById('custom url');
-  //     expect(serviceSpy).toHaveBeenCalled();
-  //   });
-  // });
-
 
 });
