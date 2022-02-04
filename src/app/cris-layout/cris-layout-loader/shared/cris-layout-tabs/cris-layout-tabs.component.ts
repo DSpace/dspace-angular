@@ -14,7 +14,7 @@ import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths'
   selector: 'ds-cris-layout-tabs-sidebar',
   template: ''
 })
-export class CrisLayoutTabsComponent {
+export abstract class CrisLayoutTabsComponent {
 
   /**
    * The item object related to the page
@@ -167,8 +167,6 @@ export class CrisLayoutTabsComponent {
     this.selectFromTabName(tab.shortname);
   }
 
-  emitSelected(selectedTab) {
-    // ovveride by children
-  }
+  abstract emitSelected(selectedTab): void;
 
 }

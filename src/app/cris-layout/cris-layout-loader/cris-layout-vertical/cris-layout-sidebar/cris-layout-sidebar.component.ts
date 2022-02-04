@@ -26,12 +26,12 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   @Input() item: Item;
 
   /**
-   * Item that is being viewed
+   * If the navigation bar should be visible or not
    */
   @Input() showNav: boolean;
 
   /**
-   * Item that is being viewed
+   * The new tab selection event
    */
   @Output() selectedTabChange = new EventEmitter<CrisLayoutTab>();
 
