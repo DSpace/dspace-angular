@@ -29,6 +29,12 @@ export class CrisLayoutVerticalComponent {
    */
   @Input() showContextMenu: boolean;
 
+  /**
+   * leadingTabs to understand if to show navbar
+   */
+  @Input() leadingTabs: CrisLayoutTab[];
+
+
   selectedTab$: BehaviorSubject<CrisLayoutTab> = new BehaviorSubject<CrisLayoutTab>(null);
 
   constructor(public windowService: HostWindowService) {

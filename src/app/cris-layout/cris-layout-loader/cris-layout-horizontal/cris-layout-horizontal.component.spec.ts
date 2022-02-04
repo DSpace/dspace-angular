@@ -13,18 +13,20 @@ describe('CrisLayoutHorizontalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutHorizontalComponent ],
+      declarations: [CrisLayoutHorizontalComponent],
       providers: [
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutHorizontalComponent);
     component = fixture.componentInstance;
+    component.leadingTabs = [];
+    component.tabs = loaderTabs;
     fixture.detectChanges();
   });
 
@@ -33,7 +35,6 @@ describe('CrisLayoutHorizontalComponent', () => {
   });
 
   it('should show navbar', () => {
-    component.tabs = loaderTabs;
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('ds-cris-layout-navbar'))).toBeTruthy();
   });
