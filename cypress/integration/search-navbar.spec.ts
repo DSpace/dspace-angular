@@ -1,3 +1,5 @@
+import { TEST_SEARCH_TERM } from 'cypress/support';
+
 const page = {
     fillOutQueryInNavBar(query) {
         // Click the magnifying glass
@@ -15,7 +17,7 @@ const page = {
 
 describe('Search from Navigation Bar', () => {
     // NOTE: these tests currently assume this query will return results!
-    const query = 'test';
+    const query = TEST_SEARCH_TERM;
 
     it('should go to search page with correct query if submitted (from home)', () => {
         cy.visit('/');

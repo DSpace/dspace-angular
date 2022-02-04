@@ -17,11 +17,14 @@ describe('Search Page', () => {
         cy.url().should('include', 'query=' + encodeURI(queryString));
     });
 
-    it('should pass accessibility tests', () => {
+    it('should load results and pass accessibility tests', () => {
         cy.visit('/search');
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
+
+        // At least one search result should be displayed
+        cy.get('ds-item-search-result-list-element').should('be.visible');
 
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
@@ -45,7 +48,7 @@ describe('Search Page', () => {
         );
     });
 
-    it('should pass accessibility tests in Grid view', () => {
+    it('should have a working grid view that passes accessibility tests', () => {
         cy.visit('/search');
 
         // Click button in sidebar to display grid view
@@ -53,6 +56,9 @@ describe('Search Page', () => {
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
+
+        // At least one grid element (card) should be displayed
+        cy.get('ds-item-search-result-grid-element').should('be.visible');
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y('ds-search-page',
