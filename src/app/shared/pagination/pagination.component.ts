@@ -19,7 +19,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
@@ -391,6 +391,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
    goPrev() {
     this.prev.emit(true);
+    this.updatePagination(-1);
   }
 
   /**
@@ -398,6 +399,17 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   goNext() {
     this.next.emit(true);
+    this.updatePagination(1);
+  }
+
+  /**
+   * Update page when next or prev button is clicked
+   * @param value
+   */
+  updatePagination(value: number) {
+    this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(take(1)).subscribe((currentPaginationOptions) => {
+      this.updateParams({page: (currentPaginationOptions.currentPage + value).toString()});
+    });
   }
 
 }
