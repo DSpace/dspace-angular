@@ -33,6 +33,7 @@ describe('CrisLayoutVerticalComponent', () => {
     fixture = TestBed.createComponent(CrisLayoutVerticalComponent);
     component = fixture.componentInstance;
     component.tabs = loaderTabs;
+    component.leadingTabs = [];
     fixture.detectChanges();
   });
 

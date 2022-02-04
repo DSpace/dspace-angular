@@ -13,7 +13,6 @@ import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-
 import { CrisLayoutNavbarComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-navbar/cris-layout-navbar.component';
 import { CrisLayoutSidebarItemComponent } from './cris-layout-loader/shared/sidebar-item/cris-layout-sidebar-item.component';
 import { CrisLayoutBoxContainerComponent } from './cris-layout-matrix/cris-layout-box-container/cris-layout-box-container.component';
-import { CrisLayoutTabsComponent } from './cris-layout-loader/shared/cris-layout-tabs/cris-layout-tabs.component';
 
 import { RowComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/row.component';
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/cris-layout-metadata-box.component';
@@ -84,7 +83,6 @@ const ENTRY_COMPONENTS = [
     MetricRowComponent,
     DsDatePipe,
     RowComponent,
-    CrisLayoutTabsComponent,
     MetadataContainerComponent,
     MetadataRenderComponent
   ],
@@ -107,7 +105,7 @@ export class CrisLayoutModule {
   static withEntryComponents() {
     return {
       ngModule: CrisLayoutModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 }
