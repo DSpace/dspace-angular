@@ -4,7 +4,6 @@ import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ItemMetadataComponent } from './item-metadata.component';
 import { TestScheduler } from 'rxjs/testing';
-import { SharedModule } from '../../../shared/shared.module';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -25,6 +24,8 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOSuccessResponse } from '../../../core/cache/response.models';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { MetadataSecurityConfigurationService } from '../../../core/submission/metadatasecurityconfig-data.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 
 let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -55,13 +56,13 @@ const metadataSecurity = {
 let routeStub;
 let objectCacheService;
 let metadataSecurityService;
-const mdSchema = Object.assign(new MetadataSchema(), {prefix: 'dc'});
+const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' });
 const mdField1 = Object.assign(new MetadataField(), {
   schema: mdSchema,
   element: 'contributor',
   qualifier: 'author'
 });
-const mdField2 = Object.assign(new MetadataField(), {schema: mdSchema, element: 'title'});
+const mdField2 = Object.assign(new MetadataField(), { schema: mdSchema, element: 'title' });
 const mdField3 = Object.assign(new MetadataField(), {
   schema: mdSchema,
   element: 'description',
@@ -81,7 +82,7 @@ const metadatum1 = Object.assign(new MetadatumViewModel(), {
   value: 'Example abstract',
   language: 'en',
   securityLevel: 0,
-  securityConfigurationLevelLimit: undefined
+  securityConfigurationLevelLimit: [0, 1]
 });
 
 const metadatum2 = Object.assign(new MetadatumViewModel(), {
@@ -89,14 +90,14 @@ const metadatum2 = Object.assign(new MetadatumViewModel(), {
   value: 'Title test',
   language: 'de',
   securityLevel: 0,
-  securityConfigurationLevelLimit: undefined,
+  securityConfigurationLevelLimit: [0, 1],
 });
 
 const metadatum3 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.contributor.author',
   value: 'Shakespeare, William',
   securityLevel: 0,
-  securityConfigurationLevelLimit: undefined,
+  securityConfigurationLevelLimit: [0, 1],
 });
 
 const url = 'http://test-url.com/test-url';
@@ -118,7 +119,7 @@ const fieldUpdate3 = {
   changeType: undefined
 };
 
-const operation1 = {op: 'remove', path: '/metadata/dc.title/1'};
+const operation1 = { op: 'remove', path: '/metadata/dc.title/1' };
 
 let scheduler: TestScheduler;
 let item;
@@ -130,6 +131,7 @@ describe('ItemMetadataComponent', () => {
             [metadatum2.key]: [metadatum2],
             [metadatum3.key]: [metadatum3]
           },
+          entityType: 'Publication',
           _links: {
             self: {
               href: 'https://rest.api/core/items/a36d8bd2-8e8c-4969-9b1f-a574c2064983'
@@ -155,11 +157,11 @@ describe('ItemMetadataComponent', () => {
       };
       paginatedMetadataFields = createPaginatedList([mdField1, mdField2, mdField3]);
 
-      metadataFieldService = jasmine.createSpyObj('RegistryService',{
+      metadataFieldService = jasmine.createSpyObj('RegistryService', {
         getAllMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields)
       });
 
-      metadataSecurityService = jasmine.createSpyObj('MetadataSecurityConfigurationService',{
+      metadataSecurityService = jasmine.createSpyObj('MetadataSecurityConfigurationService', {
         findById: createSuccessfulRemoteDataObject$(metadataSecurity)
       });
 
@@ -174,7 +176,7 @@ describe('ItemMetadataComponent', () => {
           saveAddFieldUpdate: {},
           discardFieldUpdates: {},
           reinstateFieldUpdates: observableOf(true),
-          saveChangeFieldUpdate:{},
+          saveChangeFieldUpdate: {},
           initialize: {},
           getUpdatedFields: observableOf([metadatum1, metadatum2, metadatum3]),
           getLastModified: observableOf(date),
@@ -189,17 +191,17 @@ describe('ItemMetadataComponent', () => {
       objectCacheService = jasmine.createSpyObj('objectCacheService', ['addPatch']);
 
       TestBed.configureTestingModule({
-        imports: [SharedModule, TranslateModule.forRoot()],
-        declarations: [ItemMetadataComponent],
+        imports: [TranslateModule.forRoot(), NoopAnimationsModule],
+        declarations: [ItemMetadataComponent, ObjectValuesPipe],
         providers: [
-          {provide: ItemDataService, useValue: itemService},
-          {provide: ObjectUpdatesService, useValue: objectUpdatesService},
-          {provide: Router, useValue: router},
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: NotificationsService, useValue: notificationsService},
-          {provide: RegistryService, useValue: metadataFieldService},
-          {provide: ObjectCacheService, useValue: objectCacheService},
-          {provide: MetadataSecurityConfigurationService, useValue: metadataSecurityService},
+          { provide: ItemDataService, useValue: itemService },
+          { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+          { provide: Router, useValue: router },
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: RegistryService, useValue: metadataFieldService },
+          { provide: ObjectCacheService, useValue: objectCacheService },
+          { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityService },
         ], schemas: [
           NO_ERRORS_SCHEMA
         ]

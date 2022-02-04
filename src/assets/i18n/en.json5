@@ -3304,9 +3304,113 @@
 
   "menu.section.statistics": "Statistics",
 
+  "menu.section.statistics.workflow": "Workflow",
+
+  "menu.section.statistics.login": "Login",
+
+  "menu.section.statistics.site": "Site",
+
   "menu.section.statistics_task": "Statistics Task",
 
   "statistics": "Statistics",
+
+  "statistics.workflow.breadcrumbs": "Workflow Statistics",
+
+  "statistics.workflow.page.header": "Workflow Statistics",
+
+  "statistics.workflow.page.current-table.header": "Current workflows",
+
+  "statistics.workflow.page.owner-table.header": "Actions performed by actor",
+
+  "statistics.workflow.page.owner-table.count": "Performed",
+
+  "statistics.workflow.page.owner-table.email": "Email",
+
+  "statistics.workflow.page.step-table.header": "Workflow steps performed",
+
+  "statistics.workflow.page.step-table.step": "Step",
+
+  "statistics.workflow.page.step-table.count": "Performed",
+
+  "statistics.workflow.page.step-table.submit" : "Submit",
+
+  "statistics.workflow.page.step-table.reviewstep" : "Review",
+
+  "statistics.workflow.page.step-table.editstep" : "Edit",
+
+  "statistics.workflow.page.step-table.finaleditstep" : "Final edit",
+
+  "statistics.workflow.page.step-table.item" : "Archive",
+
+  "statistics.workflow.page.step-table.workspace" : "Reject",
+
+  "statistics.workflow.page.current-table.reviewstep" : "Review",
+
+  "statistics.workflow.page.current-table.editstep" : "Edit",
+
+  "statistics.workflow.page.current-table.finaleditstep" : "Final edit",
+
+  "statistics.workflow.page.current-table.step": "Step",
+
+  "statistics.workflow.page.current-table.count": "Count",
+
+  "statistics.workflow.page.max": "Max",
+
+  "statistics.workflow.page.collection": "Collection",
+
+  "statistics.workflow.page.endDate": "End date",
+
+  "statistics.workflow.page.startDate": "Start date",
+
+  "statistics.workflow.page.reset": "Reset filters",
+
+  "statistics.workflow.page.actions.title": "Actions",
+
+  "statistics.workflow.page.action-table.action": "Action",
+
+  "statistics.workflow.page.action-table.count": "Count",
+
+  "statistics.workflow.page.action-table.editstep.editaction": "Edit",
+
+  "statistics.workflow.page.action-table.finaleditstep.finaleditaction": "Final Edit",
+
+  "statistics.workflow.page.action-table.reviewstep.reviewaction": "Review",
+
+  "statistics.workflow.page.action-table.submit": "Submit",
+
+  "statistics.workflow.page.action-table.approve": "Approve",
+
+  "statistics.workflow.page.action-table.reject": "Reject",
+
+  "statistics.workflow.page.action-table.editaction": "Edit",
+
+  "statistics.workflow.page.action-table.finaleditaction": "Final Edit",
+
+  "statistics.workflow.page.action-table.reviewaction": "Review",
+
+  "statistics.workflow.page.action-table.claimaction" : "Claim",
+
+  "statistics.workflow.page.no-data-found": "No data found",
+
+  "statistics.login.breadcrumbs": "Login Statistics",
+
+  "statistics.login.page.header": "Login Statistics",
+
+  "statistics.login.page.reset": "Reset filters",
+
+  "statistics.login.page.table.user": "User",
+
+  "statistics.login.page.table.email": "Email",
+
+  "statistics.login.page.table.count": "Login",
+
+  "statistics.login.page.max": "Max",
+
+  "statistics.login.page.endDate": "End date",
+
+  "statistics.login.page.startDate": "Start date",
+
+  "statistics.login.page.no-data-found": "No data found",
 
   "manage.relations": "Manage Relations",
 
@@ -4830,23 +4934,43 @@
 
   "statistics.table.no-data": "No data available",
 
-  "statistics.table.title.TotalVisits": "Total visits",
+  "statistics.table.mainReports.title.TotalVisits": "Most viewed",
 
-  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+  "statistics.table.mainReports.title.TotalVisitsPerMonth": "Most viewed per month",
 
-  "statistics.table.title.TotalDownloads": "File Visits",
+  "statistics.table.mainReports.title.TotalDownloads": "File Visits",
 
-  "statistics.table.title.TotalVisitsAndDownloads": "Items and file Visits",
+  "statistics.table.mainReports.title.TotalVisitsAndDownloads": "Items and file Visits",
 
-  "statistics.table.title.TopCountries": "Top country views",
+  "statistics.table.mainReports.title.TopCountries": "Top country views",
 
-  "statistics.table.title.TopCities": "Top city views",
+  "statistics.table.mainReports.title.TopContinents": "Top region views",
+
+  "statistics.table.mainReports.title.TopCategories": "Categories",
+
+  "statistics.table.mainReports.title.TopCities": "Top city views",
+
+  "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
+
+  "statistics.table.downloadReports.title.TotalVisitsPerMonth": "Most downloaded per month",
+
+  "statistics.table.downloadReports.title.TotalDownloads": "Most downloaded",
+
+  "statistics.table.downloadReports.title.TotalDownloadsPerMonth": "Most downloaded per month",
+
+  "statistics.table.downloadReports.title.TopCountries": "Top country downloads",
+
+  "statistics.table.downloadReports.title.TopContinents": "Top region downloads",
+
+  "statistics.table.downloadReports.title.TopCategories": "Categories",
+
+  "statistics.table.downloadReports.title.TopCities": "Top city downloads",
 
   "statistics.table.header.views": "Views",
 
   "statistics.categories.title": "Statistics by Category",
 
-  "statistics.categories.mainReports.tab": "Main Reports",
+  "statistics.categories.mainReports.tab": "Views Reports",
 
   "statistics.categories.projectsReports.tab": "Project Reports",
 
@@ -4855,6 +4979,8 @@
   "statistics.categories.publicationsReports.tab": "Publications Reports",
 
   "statistics.categories.rppublicationsReports.tab": "Researchers Publication Reports",
+
+  "statistics.categories.downloadReports.tab": "Downloads Reports",
 
   "statistics.reports.title": "Reports",
 

@@ -11,7 +11,7 @@
           <li class="nav-item mr-3" *ngFor="let report of (reports | dsFilterMap : false)">
             <a class="nav-link" [ngClass]="{'active' : !!selectedReport && selectedReport.id == report.id}"
                routerLink="./" (click)="$event.preventDefault();changeReport(report)">
-              {{'statistics.table.title.' + report.reportType | translate}}
+              {{'statistics.table.' + categoryType + '.title.' + report.reportType | translate}}
             </a>
           </li>
         </ul>
