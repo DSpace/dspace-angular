@@ -22,23 +22,32 @@ export class PendingChangesGuard implements CanDeactivate<PendingChangesGuardCom
   }
 
   canDeactivate(): Observable<boolean> {
-    return this.canDeactivateService.canDeactivate().pipe(
-      switchMap((canDeactivate) => {
-        if (canDeactivate) {
-          return of(true);
-        } else {
-          const modalRef = this.modalService.open(ConfirmationModalComponent);
-          const labelPrefix = 'confirmation-modal.pending-changes.';
-          modalRef.componentInstance.headerLabel = labelPrefix + 'header';
-          modalRef.componentInstance.infoLabel = labelPrefix + 'info';
-          modalRef.componentInstance.cancelLabel = labelPrefix + 'cancel';
-          modalRef.componentInstance.confirmLabel = labelPrefix + 'confirm';
-          modalRef.componentInstance.brandColor = 'danger';
-          modalRef.componentInstance.confirmIcon = 'fas fa-trash';
-          return modalRef.componentInstance.response as Observable<boolean>;
+    return this.canDeactivateService.checkForSubmissionDiscard().pipe(
+      switchMap((isDiscard) => {
+        if (isDiscard){
+          return of(isDiscard);
         }
+        return this.canDeactivateService.canDeactivate().pipe(
+          switchMap((canDeactivate) => {
+            if (canDeactivate) {
+              this.canDeactivateService.updateDiscardStatus(false)
+              return of(true);
+            } else {
+              const modalRef = this.modalService.open(ConfirmationModalComponent);
+              const labelPrefix = 'confirmation-modal.pending-changes.';
+              modalRef.componentInstance.headerLabel = labelPrefix + 'header';
+              modalRef.componentInstance.infoLabel = labelPrefix + 'info';
+              modalRef.componentInstance.cancelLabel = labelPrefix + 'cancel';
+              modalRef.componentInstance.confirmLabel = labelPrefix + 'confirm';
+              modalRef.componentInstance.brandColor = 'danger';
+              modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+              return modalRef.componentInstance.response as Observable<boolean>;
+            }
+          })
+        );
       })
     );
+
   }
 
 }

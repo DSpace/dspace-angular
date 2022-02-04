@@ -12,6 +12,7 @@ import {
   DepositSubmissionSuccessAction,
   DisableSectionAction,
   DisableSectionErrorAction,
+  DiscardSubmissionSuccessAction,
   EditFileDataAction,
   EnableSectionAction,
   InertSectionErrorsAction,
@@ -214,6 +215,8 @@ export interface SubmissionObjectEntry {
    * Configurations of security levels for metadatas of an entity type
    */
   metadataSecurityConfiguration?: MetadataSecurityConfiguration;
+
+  isDiscard?: boolean;
 }
 
 /**
@@ -284,7 +287,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
-      return initialState;
+      return Object.assign({},initialState,{isDiscard:(action as DiscardSubmissionSuccessAction).payload.isDiscard});;
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {

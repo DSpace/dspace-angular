@@ -795,6 +795,7 @@ export class DiscardSubmissionSuccessAction implements Action {
   type = SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS;
   payload: {
     submissionId: string;
+    isDiscard: boolean
   };
 
   /**
@@ -802,9 +803,11 @@ export class DiscardSubmissionSuccessAction implements Action {
    *
    * @param submissionId
    *    the submission's ID to discard
+   * @param isDiscard
+   *    the status is discard or not
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string,isDiscard: boolean) {
+    this.payload = { submissionId , isDiscard};
   }
 }
 

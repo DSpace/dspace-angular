@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
 import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
@@ -13,6 +13,7 @@ import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
   DiscardSubmissionAction,
+  DiscardSubmissionSuccessAction,
   InitSubmissionFormAction,
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
@@ -50,7 +51,6 @@ import { NotificationOptions } from '../shared/notifications/models/notification
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { SubmissionVisibility } from './utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
-
 /**
  * A service that provides methods used in submission process.
  */
@@ -276,6 +276,20 @@ export class SubmissionService {
    */
   dispatchDiscard(submissionId) {
     this.store.dispatch(new DiscardSubmissionAction(submissionId));
+  }
+  /**
+   * get a state isDiscard or not.
+   */
+  getDiscard(): Observable<SubmissionState> {
+   return this.store.pipe(take(1),select(submissionSelector));
+  }
+
+/**
+ * boolean value for is discard or not
+ * @param isDiscard
+ */
+   updateIsDiscardStatus(isDiscard: boolean) {
+    this.store.dispatch(new DiscardSubmissionSuccessAction(null,isDiscard));
   }
 
   /**

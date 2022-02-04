@@ -334,7 +334,7 @@ export class SubmissionObjectEffects {
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION),
     switchMap((action: DepositSubmissionAction) => {
       return this.submissionService.discardSubmission(action.payload.submissionId).pipe(
-        map(() => new DiscardSubmissionSuccessAction(action.payload.submissionId)),
+        map(() => new DiscardSubmissionSuccessAction(action.payload.submissionId,true)),
         catchError(() => observableOf(new DiscardSubmissionErrorAction(action.payload.submissionId))));
     }));
 
