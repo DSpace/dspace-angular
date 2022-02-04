@@ -13,7 +13,6 @@ import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
   DiscardSubmissionAction,
-  DiscardSubmissionSuccessAction,
   InitSubmissionFormAction,
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
@@ -282,14 +281,6 @@ export class SubmissionService {
    */
   getDiscard(): Observable<SubmissionState> {
    return this.store.pipe(take(1),select(submissionSelector));
-  }
-
-/**
- * boolean value for is discard or not
- * @param isDiscard
- */
-   updateIsDiscardStatus(isDiscard: boolean) {
-    this.store.dispatch(new DiscardSubmissionSuccessAction(null,isDiscard));
   }
 
   /**

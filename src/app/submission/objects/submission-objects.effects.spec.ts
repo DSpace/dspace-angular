@@ -1353,8 +1353,7 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionServiceStub.discardSubmission.and.returnValue(observableOf(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new DiscardSubmissionSuccessAction(
-          submissionId,
-          true
+          submissionId
         )
       });
 

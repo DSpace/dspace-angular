@@ -23,14 +23,13 @@ export class PendingChangesGuard implements CanDeactivate<PendingChangesGuardCom
 
   canDeactivate(): Observable<boolean> {
     return this.canDeactivateService.checkForSubmissionDiscard().pipe(
-      switchMap((isDiscard) => {
-        if (isDiscard){
-          return of(isDiscard);
+      switchMap((submissionStatus) => {
+        if (submissionStatus.isDiscarding){
+          return of(true);
         }
         return this.canDeactivateService.canDeactivate().pipe(
           switchMap((canDeactivate) => {
             if (canDeactivate) {
-              this.canDeactivateService.updateDiscardStatus(false)
               return of(true);
             } else {
               const modalRef = this.modalService.open(ConfirmationModalComponent);

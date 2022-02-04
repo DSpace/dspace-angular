@@ -4,6 +4,7 @@ import { PendingChangesGuardComponentInterface } from './pending-changes/pending
 import { SubmissionService } from '../submission.service';
 import { map } from 'rxjs/operators';
 import { SubmissionState } from '../submission.reducers';
+import { SubmissionObjectState } from '../objects/submission-objects.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +24,8 @@ export class SubmissionEditCanDeactivateService implements PendingChangesGuardCo
    * get value from redux for discard submission
    * @returns Observable boolen
    */
-  public checkForSubmissionDiscard(): Observable<boolean> {
-   return this.submissionService.getDiscard().pipe(map( (data: SubmissionState) => data.objects.isDiscard as boolean));
+  public checkForSubmissionDiscard(): Observable<SubmissionObjectState> {
+   return this.submissionService.getDiscard().pipe(map( (data: SubmissionState) => data.objects));
   }
 
-  /**
-   * update isDiscard value in state
-   * @param isDiscard
-   */
-  public updateDiscardStatus(isDiscard: boolean) {
-    this.submissionService.updateIsDiscardStatus(isDiscard);
-  }
 }

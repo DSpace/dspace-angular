@@ -215,8 +215,6 @@ export interface SubmissionObjectEntry {
    * Configurations of security levels for metadatas of an entity type
    */
   metadataSecurityConfiguration?: MetadataSecurityConfiguration;
-
-  isDiscard?: boolean;
 }
 
 /**
@@ -287,7 +285,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
-      return Object.assign({},initialState,{isDiscard:(action as DiscardSubmissionSuccessAction).payload.isDiscard});;
+      return Object.assign({},initialState,{isDiscarding:true });;
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {
