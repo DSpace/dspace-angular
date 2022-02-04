@@ -3,14 +3,13 @@ import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng
 import { BehaviorSubject } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import {
-  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload
-} from '../../../app/core/shared/operators';
-import { LoginStatisticsService } from '../../../app/core/statistics/login-statistics.service';
-import { LoginStatistics } from '../../../app/core/statistics/models/login-statistics.model';
-import {AlertType} from "../../shared/alert/aletr-type";
+} from '../../core/shared/operators';
+import { LoginStatisticsService } from '../../core/statistics/login-statistics.service';
+import { LoginStatistics } from '../../core/statistics/models/login-statistics.model';
+import { AlertType } from '../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-login-statistics',
