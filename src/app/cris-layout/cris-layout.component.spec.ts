@@ -39,7 +39,7 @@ const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
 
 // to FIX
 // tslint:disable-next-line:prefer-const
-fdescribe('CrisLayoutComponent', () => {
+describe('CrisLayoutComponent', () => {
   let component: CrisLayoutComponent;
   let fixture: ComponentFixture<CrisLayoutComponent>;
 
