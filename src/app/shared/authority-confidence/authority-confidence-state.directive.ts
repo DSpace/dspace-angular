@@ -38,30 +38,41 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    * A boolean representing if to show html icon if authority value is empty
    */
   @Input() visibleWhenAuthorityEmpty = true;
-
+  /**
+   * An event fired when click on element that has a confidence value empty or different from CF_ACCEPTED
+   */
+  @Output() whenClickOnConfidenceNotAccepted: EventEmitter<ConfidenceType> = new EventEmitter<ConfidenceType>();
   /**
    * The css class applied before directive changes
    */
   private previousClass: string = null;
-
   /**
    * The css class applied after directive changes
    */
   private newClass: string;
 
   /**
-   * An event fired when click on element that has a confidence value empty or different from CF_ACCEPTED
+   * Initialize instance variables
+   *
+   * @param {ElementRef} elem
+   * @param {Renderer2} renderer
+   * @param {TranslateService} translate
    */
-  @Output() whenClickOnConfidenceNotAccepted: EventEmitter<ConfidenceType> = new EventEmitter<ConfidenceType>();
+  constructor(
+    private elem: ElementRef,
+    private renderer: Renderer2,
+    private translate: TranslateService
+  ) {
+    // show the cursor pointer on hover
+    this.elem.nativeElement.classList.add('authority-confidence-clickable');
+  }
 
   /**
    * Listener to click event
    */
   @HostListener('click') onClick() {
     if (isNotEmpty(this.authorityValue)) {
-      this.whenClickOnConfidenceNotAccepted.emit(
-        this.getConfidenceByValue(this.authorityValue)
-      );
+      this.whenClickOnConfidenceNotAccepted.emit(this.getConfidenceByValue(this.authorityValue));
     }
   }
 
@@ -74,21 +85,6 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
       'title',
       this.translate.instant('authority-confidence.search-label')
     );
-  }
-
-  /**
-   * Initialize instance variables
-   *
-   * @param {ElementRef} elem
-   * @param {Renderer2} renderer
-   */
-  constructor(
-    private elem: ElementRef,
-    private renderer: Renderer2,
-    private translate: TranslateService
-  ) {
-    /**show the cursor pointer on hover */
-    this.elem.nativeElement.classList.add('clickable');
   }
 
   /**
