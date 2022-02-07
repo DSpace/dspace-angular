@@ -485,6 +485,54 @@ Object.assign(new CrisLayoutTab(), {
           ]
         }
       ]
+    },
+    {
+      'style': 'col-md-12',
+      'cells': [
+        {
+          'style': 'col-md-12',
+          'boxes': [
+            {
+              'shortname': 'metrics',
+              'header': 'Metrics',
+              'entityType': 'Person',
+              'collapsed': false,
+              'minor': false,
+              'style': null,
+              'clear': true,
+              'maxColumn': 2,
+              'security': 0,
+              'boxType': 'METRICS',
+              'type': 'box',
+              'metadataSecurityFields': [],
+              'configuration': {
+                'id': 4,
+                'numColumns': 2,
+                'metrics': ['views', 'downloads']
+              }
+            },
+            {
+              'shortname': 'metrics',
+              'header': 'Metrics',
+              'entityType': 'Person',
+              'collapsed': false,
+              'minor': true,
+              'style': null,
+              'clear': true,
+              'maxColumn': 2,
+              'security': 0,
+              'boxType': 'METRICS',
+              'type': 'box',
+              'metadataSecurityFields': [],
+              'configuration': {
+                'id': 4,
+                'numColumns': 2,
+                'metrics': ['views', 'downloads']
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 })
