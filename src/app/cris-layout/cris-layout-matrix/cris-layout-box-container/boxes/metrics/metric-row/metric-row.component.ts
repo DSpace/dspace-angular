@@ -52,6 +52,8 @@ export class MetricRowComponent {
 	 */
 	getMetricClasses(metric: Metric): any {
 		if (metric) {
+			console.log(metric);
+
 			let metricClass = 'alert-info'; // default style
 			if (this.metricComp) {
 				this.metricComp.toArray().forEach((e) => {
@@ -59,10 +61,10 @@ export class MetricRowComponent {
 					// if so , set the style (class) and icon from the configuration file to the metric
 					const component = this.metricTypes.find((x) => x.component == e.componentType);
 					if (component) {
-						const metricType = this.style.find((x) => x.type == component.id);
-						if (metricType) {
-							metric.icon = metricType.icon;
-							metricClass = metricType.class;
+						const metricTypeConfig = this.style.find((x) => x.type == component.id);
+						if (metricTypeConfig) {
+							metric.icon = metricTypeConfig.icon;
+							metricClass = metricTypeConfig.class;
 						}
 					}
 				});
