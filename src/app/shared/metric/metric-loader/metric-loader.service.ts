@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { MetricAltmetricComponent } from '../metric-altmetric/metric-altmetric.component';
 import { MetricDimensionsComponent } from '../metric-dimensions/metric-dimensions.component';
 import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-googlescholar.component';
-import { MetricDspacecrisComponent } from '../metric-dspacecris/metric-dspacecris.component';
+import { MetricDefaultComponent } from '../metric-dspacecris/metric-default.component';
 import { MetricEmbeddedViewComponent } from '../metric-embedded-view/metric-embedded-view.component';
 import { MetricEmbeddedDownloadComponent } from '../metric-embedded-download/metric-embedded-download.component';
 import { MetricPlumxComponent } from '../metric-plumx/metric-plumx.component';
@@ -88,7 +88,7 @@ export class MetricLoaderService {
     if (config) {
       return config.component;
     }
-    return MetricDspacecrisComponent;
+    return MetricDefaultComponent;
   }
 
 	/**

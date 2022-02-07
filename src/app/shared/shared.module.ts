@@ -203,7 +203,7 @@ import { MetricBadgesComponent } from './object-list/metric-badges/metric-badges
 import { MetricLoaderComponent } from './metric/metric-loader/metric-loader.component';
 import { MetricAltmetricComponent } from './metric/metric-altmetric/metric-altmetric.component';
 import { MetricDimensionsComponent } from './metric/metric-dimensions/metric-dimensions.component';
-import { MetricDspacecrisComponent } from './metric/metric-dspacecris/metric-dspacecris.component';
+import { MetricDefaultComponent } from './metric/metric-dspacecris/metric-default.component';
 import { MetricGooglescholarComponent } from './metric/metric-googlescholar/metric-googlescholar.component';
 import { MetricEmbeddedViewComponent } from './metric/metric-embedded-view/metric-embedded-view.component';
 import { MetricEmbeddedDownloadComponent } from './metric/metric-embedded-download/metric-embedded-download.component';
@@ -255,25 +255,28 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TranslateModule.forChild({
-    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-    useDefaultLang: true
-  }),
-  ChartsModule.withEntryComponents()
+	TranslateModule.forChild({
+		missingTranslationHandler: {
+			provide: MissingTranslationHandler,
+			useClass: MissingTranslationHelper,
+		},
+		useDefaultLang: true,
+	}),
+	ChartsModule.withEntryComponents(),
 ];
 
 const PIPES = [
-  // put shared pipes here
-  EnumKeysPipe,
-  FileSizePipe,
-  SafeUrlPipe,
-  TruncatePipe,
-  EmphasizePipe,
-  CapitalizePipe,
-  ObjectKeysPipe,
-  ObjectValuesPipe,
-  ConsolePipe,
-  ObjNgFor
+	// put shared pipes here
+	EnumKeysPipe,
+	FileSizePipe,
+	SafeUrlPipe,
+	TruncatePipe,
+	EmphasizePipe,
+	CapitalizePipe,
+	ObjectKeysPipe,
+	ObjectValuesPipe,
+	ConsolePipe,
+	ObjNgFor,
 ];
 
 const COMPONENTS = [
@@ -426,7 +429,7 @@ const COMPONENTS = [
   MetricLoaderComponent,
   MetricAltmetricComponent,
   MetricDimensionsComponent,
-  MetricDspacecrisComponent,
+  MetricDefaultComponent,
   MetricGooglescholarComponent,
   MetricEmbeddedViewComponent,
   MetricEmbeddedDownloadComponent,
@@ -549,23 +552,23 @@ const PROVIDERS = [
 ];
 
 const DIRECTIVES = [
-  VarDirective,
-  DragClickDirective,
-  DebounceDirective,
-  ClickOutsideDirective,
-  AuthorityConfidenceStateDirective,
-  InListValidator,
-  AutoFocusDirective,
-  RoleDirective,
-  MetadataRepresentationDirective,
-  ListableObjectDirective,
-  ClaimedTaskActionsDirective,
-  FileValueAccessorDirective,
-  FileValidator,
-  ClaimedTaskActionsDirective,
-  NgForTrackByIdDirective,
-  MetadataFieldValidator,
-  HoverClassDirective
+	VarDirective,
+	DragClickDirective,
+	DebounceDirective,
+	ClickOutsideDirective,
+	AuthorityConfidenceStateDirective,
+	InListValidator,
+	AutoFocusDirective,
+	RoleDirective,
+	MetadataRepresentationDirective,
+	ListableObjectDirective,
+	ClaimedTaskActionsDirective,
+	FileValueAccessorDirective,
+	FileValidator,
+	ClaimedTaskActionsDirective,
+	NgForTrackByIdDirective,
+	MetadataFieldValidator,
+	HoverClassDirective,
 ];
 
 @NgModule({
