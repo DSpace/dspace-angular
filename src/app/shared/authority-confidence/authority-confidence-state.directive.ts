@@ -61,9 +61,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
 	 */
 	@HostListener('click') onClick() {
 		if (isNotEmpty(this.authorityValue)) {
-			this.whenClickOnConfidenceNotAccepted.emit(
-				this.getConfidenceByValue(this.authorityValue)
-			);
+			this.whenClickOnConfidenceNotAccepted.emit(this.getConfidenceByValue(this.authorityValue));
 		}
 	}
 
