@@ -20,6 +20,7 @@ import { CmsMetadata } from './cms-metadata';
 import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
+import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -470,4 +471,37 @@ export class DefaultAppConfig implements AppConfig {
     scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
     socialNetworksEnabled: false
   };
+
+  metricVisualizationConfig: MetricVisualizationConfig[] = [
+		{
+			type: 'altmetric',
+			icon: 'fa fa-atom',
+			class: 'alert-danger',
+		},
+		{
+			type: 'plumX',
+			icon: 'fa fa-globe',
+			class: 'alert-warning',
+		},
+		{
+			type: 'dimensions',
+			icon: 'fa fa-cubes',
+			class: 'alert-secondary',
+		},
+		{
+			type: 'google-scholar',
+			icon: 'fa fa-scroll',
+			class: 'alert-primary',
+		},
+		{
+			type: 'embedded-view',
+			icon: 'fa fa-expand',
+			class: 'alert-dark',
+		},
+		{
+			type: 'embedded-download',
+			icon: 'fa fa-download',
+			class: 'alert-success',
+		},
+	]
 }
