@@ -21,7 +21,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { FieldRenderingType } from '../metadata-box.decorator';
 
-fdescribe('AttachmentComponent', () => {
+describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
   let fixture: ComponentFixture<AttachmentComponent>;
 
@@ -105,6 +105,7 @@ fdescribe('AttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
+    mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
     // component.item = testItem;
     fixture.detectChanges();
   });
