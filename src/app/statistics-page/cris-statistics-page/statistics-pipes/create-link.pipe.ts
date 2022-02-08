@@ -8,31 +8,31 @@ import { getCommunityPageRoute } from 'src/app/community-page/community-page-rou
 import { getCollectionPageRoute } from 'src/app/collection-page/collection-page-routing-paths';
 
 @Pipe({
-	name: 'createLink',
+  name: 'dsCreateLink',
 })
 export class CreateLinkPipe implements PipeTransform {
-	transform(value: Point): string {
-		if (value) {
-			let link = '';
-			switch (value.type) {
-				case EntityTypeEnum.Community:
-					link = getCommunityPageRoute(value.id);
-					break;
-				case EntityTypeEnum.Collection:
-					link = getCollectionPageRoute(value.id);
-					break;
-				case EntityTypeEnum.Item:
-					const item = new Item();
-					item.id = value.id;
-					link = getItemPageRoute(item);
-					break;
-				case EntityTypeEnum.Bitstream:
-					link = getBitstreamDownloadRoute(value);
-					break;
-				default:
-					return link;
-			}
-			return link;
-		}
-	}
+  transform(value: Point): string {
+    if (value) {
+      let link = '';
+      switch (value.type) {
+        case EntityTypeEnum.Community:
+          link = getCommunityPageRoute(value.id);
+          break;
+        case EntityTypeEnum.Collection:
+          link = getCollectionPageRoute(value.id);
+          break;
+        case EntityTypeEnum.Item:
+          const item = new Item();
+          item.id = value.id;
+          link = getItemPageRoute(item);
+          break;
+        case EntityTypeEnum.Bitstream:
+          link = getBitstreamDownloadRoute(value);
+          break;
+        default:
+          return link;
+      }
+      return link;
+    }
+  }
 }

@@ -6,9 +6,9 @@ import { CreateLinkPipe } from './create-link.pipe';
 const pipes = [FilterMapPipe, CreateLinkPipe];
 
 @NgModule({
-	declarations: pipes,
-	imports: [CommonModule],
-	exports: pipes,
-	// entryComponents:[CrisStatisticsPageComponent]
+  declarations: pipes,
+  imports: [CommonModule],
+  exports: pipes,
+  // entryComponents:[CrisStatisticsPageComponent]
 })
-export class StatisticsPipesPageModule {}
+export class StatisticsPipesPageModule { }

@@ -41,7 +41,7 @@
 					<ng-container
 						*ngIf="point && point.type && entityTypesToConvertToLink.includes(point.type); else showLabel"
 					>
-						<a [href]="point | createLink">{{ point.label }} </a>
+						<a [href]="point | dsCreateLink">{{ point.label }} </a>
 					</ng-container>
 					<ng-template #showLabel>
 						<span>
