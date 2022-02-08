@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Bitstream } from '../../../../../../core/shared/bitstream.model';
@@ -61,7 +61,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
             return response.hasSucceeded ? response.payload.page : [];
           }
         }),
-        switchMap((previewRes) => {
+        switchMap((previewRes: Bitstream[]) => {
           if (previewRes.length === 0) {
             return originalRequest;
           }
@@ -74,14 +74,12 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
-          {
-            return response.hasSucceeded ? response.payload.page : [];
-          }
+          return response.hasSucceeded ? response.payload.page : [];
         })
       );
 
     return thumbnailRequest.pipe(
-      switchMap((thumbnailRes) => {
+      switchMap((thumbnailRes: Bitstream[]) => {
         if (thumbnailRes.length === 0) {
           return previewRequest;
         }
