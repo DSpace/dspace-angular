@@ -19,103 +19,103 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
  * bitstream field render component
  */
 @Component({
-	template: '',
+  template: '',
 })
 export abstract class BitstreamRenderingModelComponent extends RenderingTypeStructuredModelComponent {
-	private TITLE_METADATA = 'dc.title';
-	private SOURCE_METADATA = 'dc.source';
-	private TYPE_METADATA = 'dc.type';
+  private TITLE_METADATA = 'dc.title';
+  private SOURCE_METADATA = 'dc.source';
+  private TYPE_METADATA = 'dc.type';
 
-	constructor(
-		@Inject('fieldProvider') public fieldProvider: LayoutField,
-		@Inject('itemProvider') public itemProvider: Item,
-		@Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
-		protected bitstreamDataService: BitstreamDataService,
-		protected translateService: TranslateService
-	) {
-		super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
-	}
+  constructor(
+    @Inject('fieldProvider') public fieldProvider: LayoutField,
+    @Inject('itemProvider') public itemProvider: Item,
+    @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    protected bitstreamDataService: BitstreamDataService,
+    protected translateService: TranslateService
+  ) {
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
+  }
 
-	/** If there is available any THUMBNAIL/PREVIEW bundle use one of them,
-	 *  otherwise the ORIGINAL bundle(the default value)
-	 */
+  /** If there is available any THUMBNAIL/PREVIEW bundle use one of them,
+   *  otherwise the ORIGINAL bundle(the default value)
+   */
 
-	getBitstreams(): Observable<Bitstream[]> {
-		const thumbnailRequest = this.bitstreamDataService
-			.findAllByItemAndBundleName(this.item, 'THUMBNAIL')
-			.pipe(
-				getFirstCompletedRemoteData(),
-				map((response: RemoteData<PaginatedList<Bitstream>>) => {
-					{
-						return response.hasSucceeded ? response.payload.page : [];
-					}
-				})
-			);
+  getBitstreams(): Observable<Bitstream[]> {
+    const thumbnailRequest = this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, 'THUMBNAIL')
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          {
+            return response.hasSucceeded ? response.payload.page : [];
+          }
+        })
+      );
 
-		const previewRequest = this.bitstreamDataService
-			.findAllByItemAndBundleName(this.item, 'PREVIEW')
-			.pipe(
-				getFirstCompletedRemoteData(),
-				map((response: RemoteData<PaginatedList<Bitstream>>) => {
-					{
-						return response.hasSucceeded ? response.payload.page : [];
-					}
-				}),
-				switchMap((previewRes) => {
-					if (previewRes.length == 0) {
-						return originalRequest;
-					}
-					return of(previewRes);
-				})
-			);
+    const previewRequest = this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, 'PREVIEW')
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          {
+            return response.hasSucceeded ? response.payload.page : [];
+          }
+        }),
+        switchMap((previewRes) => {
+          if (previewRes.length === 0) {
+            return originalRequest;
+          }
+          return of(previewRes);
+        })
+      );
 
-		const originalRequest = this.bitstreamDataService
-			.findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
-			.pipe(
-				getFirstCompletedRemoteData(),
-				map((response: RemoteData<PaginatedList<Bitstream>>) => {
-					{
-						return response.hasSucceeded ? response.payload.page : [];
-					}
-				})
-			);
+    const originalRequest = this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, this.field.bitstream.bundle)
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<PaginatedList<Bitstream>>) => {
+          {
+            return response.hasSucceeded ? response.payload.page : [];
+          }
+        })
+      );
 
-		return thumbnailRequest.pipe(
-			switchMap((thumbnailRes) => {
-				if (thumbnailRes.length == 0) {
-					return previewRequest;
-				}
-				return of(thumbnailRes);
-			})
-		);
-	}
+    return thumbnailRequest.pipe(
+      switchMap((thumbnailRes) => {
+        if (thumbnailRes.length === 0) {
+          return previewRequest;
+        }
+        return of(thumbnailRes);
+      })
+    );
+  }
 
-	/**
-	 * Returns the filename of given bitstream
-	 * @param bitstream
-	 */
-	fileName(bitstream: Bitstream): string {
-		const title = bitstream.firstMetadataValue(this.TITLE_METADATA);
-		return hasValue(title) ? title : bitstream.firstMetadataValue(this.SOURCE_METADATA);
-	}
+  /**
+   * Returns the filename of given bitstream
+   * @param bitstream
+   */
+  fileName(bitstream: Bitstream): string {
+    const title = bitstream.firstMetadataValue(this.TITLE_METADATA);
+    return hasValue(title) ? title : bitstream.firstMetadataValue(this.SOURCE_METADATA);
+  }
 
-	/**
-	 * Returns the size of given bitstreams in bytes
-	 * @param bitstream
-	 */
-	getSize(bitstream: Bitstream): number {
-		return bitstream.sizeBytes;
-	}
+  /**
+   * Returns the size of given bitstreams in bytes
+   * @param bitstream
+   */
+  getSize(bitstream: Bitstream): number {
+    return bitstream.sizeBytes;
+  }
 
-	/**
-	 * Returns type of given bistream
-	 * @param bitstream
-	 */
-	getType(bitstream: Bitstream): string {
-		return bitstream.firstMetadataValue(this.TYPE_METADATA);
-	}
+  /**
+   * Returns type of given bistream
+   * @param bitstream
+   */
+  getType(bitstream: Bitstream): string {
+    return bitstream.firstMetadataValue(this.TYPE_METADATA);
+  }
 
-	getLink(bitstream: Bitstream): string {
-		return bitstream._links.content.href;
-	}
+  getLink(bitstream: Bitstream): string {
+    return bitstream._links.content.href;
+  }
 }
