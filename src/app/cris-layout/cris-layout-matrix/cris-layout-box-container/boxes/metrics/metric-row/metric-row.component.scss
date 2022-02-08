@@ -2,5 +2,7 @@
 	.container {
 		text-align: center !important;
     height: 10rem;
+    max-height: fit-content;
+    min-width: fit-content;
 	}
 }
