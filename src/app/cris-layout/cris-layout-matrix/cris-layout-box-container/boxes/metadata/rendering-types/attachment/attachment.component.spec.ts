@@ -106,7 +106,7 @@ describe('AttachmentComponent', () => {
     fixture = TestBed.createComponent(AttachmentComponent);
     component = fixture.componentInstance;
     mockAuthorizedService.isAuthorized.and.returnValues(of(true), of(true));
-    // component.item = testItem;
+    component.item = testItem;
     fixture.detectChanges();
   });
 
