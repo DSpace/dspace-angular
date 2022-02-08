@@ -255,28 +255,28 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-	TranslateModule.forChild({
-		missingTranslationHandler: {
-			provide: MissingTranslationHandler,
-			useClass: MissingTranslationHelper,
-		},
-		useDefaultLang: true,
-	}),
-	ChartsModule.withEntryComponents(),
+  TranslateModule.forChild({
+    missingTranslationHandler: {
+      provide: MissingTranslationHandler,
+      useClass: MissingTranslationHelper,
+    },
+    useDefaultLang: true,
+  }),
+  ChartsModule.withEntryComponents(),
 ];
 
 const PIPES = [
-	// put shared pipes here
-	EnumKeysPipe,
-	FileSizePipe,
-	SafeUrlPipe,
-	TruncatePipe,
-	EmphasizePipe,
-	CapitalizePipe,
-	ObjectKeysPipe,
-	ObjectValuesPipe,
-	ConsolePipe,
-	ObjNgFor,
+  // put shared pipes here
+  EnumKeysPipe,
+  FileSizePipe,
+  SafeUrlPipe,
+  TruncatePipe,
+  EmphasizePipe,
+  CapitalizePipe,
+  ObjectKeysPipe,
+  ObjectValuesPipe,
+  ConsolePipe,
+  ObjNgFor,
 ];
 
 const COMPONENTS = [
@@ -542,7 +542,6 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
   RelatedItemsComponent,
-
 ];
 
 const PROVIDERS = [
@@ -552,23 +551,23 @@ const PROVIDERS = [
 ];
 
 const DIRECTIVES = [
-	VarDirective,
-	DragClickDirective,
-	DebounceDirective,
-	ClickOutsideDirective,
-	AuthorityConfidenceStateDirective,
-	InListValidator,
-	AutoFocusDirective,
-	RoleDirective,
-	MetadataRepresentationDirective,
-	ListableObjectDirective,
-	ClaimedTaskActionsDirective,
-	FileValueAccessorDirective,
-	FileValidator,
-	ClaimedTaskActionsDirective,
-	NgForTrackByIdDirective,
-	MetadataFieldValidator,
-	HoverClassDirective,
+  VarDirective,
+  DragClickDirective,
+  DebounceDirective,
+  ClickOutsideDirective,
+  AuthorityConfidenceStateDirective,
+  InListValidator,
+  AutoFocusDirective,
+  RoleDirective,
+  MetadataRepresentationDirective,
+  ListableObjectDirective,
+  ClaimedTaskActionsDirective,
+  FileValueAccessorDirective,
+  FileValidator,
+  ClaimedTaskActionsDirective,
+  NgForTrackByIdDirective,
+  MetadataFieldValidator,
+  HoverClassDirective,
 ];
 
 @NgModule({

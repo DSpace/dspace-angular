@@ -11,59 +11,59 @@ import { HALLink } from './hal-link.model';
  */
 @typedObject
 export class Metric implements CacheableObject {
-	static type = METRIC;
+  static type = METRIC;
 
-	/**
-	 * The object type
-	 */
-	@excludeFromEquals
-	@autoserialize
-	type: ResourceType;
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
-	/**
-	 * The identifier of this Metric
-	 */
-	@autoserialize
-	id: string;
+  /**
+   * The identifier of this Metric
+   */
+  @autoserialize
+  id: string;
 
-	@autoserialize
-	metricType: string;
+  @autoserialize
+  metricType: string;
 
-	@autoserialize
-	metricCount: number;
+  @autoserialize
+  metricCount: number;
 
-	@autoserialize
-	acquisitionDate: Date;
+  @autoserialize
+  acquisitionDate: Date;
 
-	@autoserialize
-	startDate: Date;
+  @autoserialize
+  startDate: Date;
 
-	@autoserialize
-	endDate: Date;
+  @autoserialize
+  endDate: Date;
 
-	@autoserialize
-	last: boolean;
+  @autoserialize
+  last: boolean;
 
-	@autoserialize
-	remark: string;
+  @autoserialize
+  remark: string;
 
-	@autoserialize
-	deltaPeriod1: number;
+  @autoserialize
+  deltaPeriod1: number;
 
-	@autoserialize
-	deltaPeriod2: number;
+  @autoserialize
+  deltaPeriod2: number;
 
-	@autoserialize
-	rank: number;
+  @autoserialize
+  rank: number;
 
-	@autoserialize
-	icon?: string;
+  @autoserialize
+  icon?: string;
 
-	/**
-	 * The {@link HALLink}s for this Metric
-	 */
-	@deserialize
-	_links: {
-		self: HALLink;
-	};
+  /**
+   * The {@link HALLink}s for this Metric
+   */
+  @deserialize
+  _links: {
+    self: HALLink;
+  };
 }

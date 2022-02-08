@@ -5,21 +5,21 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 
 @Component({
-	selector: 'ds-metric-googlescholar',
-	templateUrl: './metric-googlescholar.component.html',
-	styleUrls: ['./metric-googlescholar.component.scss'],
+  selector: 'ds-metric-googlescholar',
+  templateUrl: './metric-googlescholar.component.html',
+  styleUrls: ['./metric-googlescholar.component.scss'],
 })
 export class MetricGooglescholarComponent extends BaseMetricComponent implements OnInit {
-	remark: JSON;
-	sanitizedInnerHtml;
-	public style: MetricVisualizationConfig[] = environment.metricVisualizationConfig;
+  remark: JSON;
+  sanitizedInnerHtml;
+  public style: MetricVisualizationConfig[] = environment.metricVisualizationConfig;
 
-	constructor(protected sr: DomSanitizer) {
-		super();
-	}
+  constructor(protected sr: DomSanitizer) {
+    super();
+  }
 
-	ngOnInit() {
-		this.remark = JSON.parse(this.metric.remark);
-		this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
-	}
+  ngOnInit() {
+    this.remark = JSON.parse(this.metric.remark);
+    this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
+  }
 }

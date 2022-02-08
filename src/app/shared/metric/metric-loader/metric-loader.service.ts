@@ -12,52 +12,52 @@ import { MetricEmbeddedDownloadComponent } from '../metric-embedded-download/met
 import { MetricPlumxComponent } from '../metric-plumx/metric-plumx.component';
 
 interface Script {
-	loaded: boolean;
-	src: string;
+  loaded: boolean;
+  src: string;
 }
 
 export interface MetricTypeConf {
-	id: string;
-	component: any;
-	script: string;
+  id: string;
+  component: any;
+  script: string;
 }
 
 export const MetricTypesConfig: MetricTypeConf[] = [
-	{
-		id: 'altmetric',
-		component: MetricAltmetricComponent,
-		script: 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js',
-	},
-	{
-		id: 'dimensions',
-		component: MetricDimensionsComponent,
-		script: 'https://badge.dimensions.ai/badge.js',
-	},
-	{
-		id: 'google-scholar',
-		component: MetricGooglescholarComponent,
-		script: null,
-	},
-	{
-		id: 'embedded-view',
-		component: MetricEmbeddedViewComponent,
-		script: null,
-	},
-	{
-		id: 'embedded-download',
-		component: MetricEmbeddedDownloadComponent,
-		script: null,
-	},
-	{
-		id: 'plumX',
-		component: MetricPlumxComponent,
-		script: '',
-	},
+  {
+    id: 'altmetric',
+    component: MetricAltmetricComponent,
+    script: 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js',
+  },
+  {
+    id: 'dimensions',
+    component: MetricDimensionsComponent,
+    script: 'https://badge.dimensions.ai/badge.js',
+  },
+  {
+    id: 'google-scholar',
+    component: MetricGooglescholarComponent,
+    script: null,
+  },
+  {
+    id: 'embedded-view',
+    component: MetricEmbeddedViewComponent,
+    script: null,
+  },
+  {
+    id: 'embedded-download',
+    component: MetricEmbeddedDownloadComponent,
+    script: null,
+  },
+  {
+    id: 'plumX',
+    component: MetricPlumxComponent,
+    script: '',
+  },
 ];
 
 @Injectable({ providedIn: 'root' })
 export class MetricLoaderService {
-	protected metricTypesConfig = MetricTypesConfig;
+  protected metricTypesConfig = MetricTypesConfig;
 
   protected scripts: { [metricType: string]: Script } = {};
 
@@ -91,19 +91,19 @@ export class MetricLoaderService {
     return MetricDefaultComponent;
   }
 
-	/**
-	 * Get the Script to run for the metric type.
-	 * @param metricType
-	 */
-	protected getScript(metricType: string): string {
-		const config: MetricTypeConf = this.metricTypesConfig.find(
-			(conf) => conf.id === metricType
-		);
-		if (config) {
-			return config.script;
-		}
-		return null;
-	}
+  /**
+   * Get the Script to run for the metric type.
+   * @param metricType
+   */
+  protected getScript(metricType: string): string {
+    const config: MetricTypeConf = this.metricTypesConfig.find(
+      (conf) => conf.id === metricType
+    );
+    if (config) {
+      return config.script;
+    }
+    return null;
+  }
 
     /**
    * Set the Script to run for the metric type.

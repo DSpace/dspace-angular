@@ -12,22 +12,22 @@ import { MetricsComponentsDataService } from '../../../../../core/layout/metrics
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import {
-	CrisLayoutBox,
-	MetricsBoxConfiguration,
+  CrisLayoutBox,
+  MetricsBoxConfiguration,
 } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 export interface MetricRow {
-	metrics: Metric[];
+  metrics: Metric[];
 }
 
 /**
  * This component renders the metadata boxes of items
  */
 @Component({
-	selector: 'ds-cris-layout-metrics-box',
-	templateUrl: './cris-layout-metrics-box.component.html',
-	styleUrls: ['./cris-layout-metrics-box.component.scss'],
+  selector: 'ds-cris-layout-metrics-box',
+  templateUrl: './cris-layout-metrics-box.component.html',
+  styleUrls: ['./cris-layout-metrics-box.component.scss'],
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
@@ -35,60 +35,60 @@ export interface MetricRow {
  */
 @RenderCrisLayoutBoxFor(LayoutBox.METRICS, true)
 export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent
-	implements OnInit, OnDestroy {
-	/**
-	 * Contains the metrics configuration for current box
-	 */
-	metricsBoxConfiguration: MetricsBoxConfiguration;
+  implements OnInit, OnDestroy {
+  /**
+   * Contains the metrics configuration for current box
+   */
+  metricsBoxConfiguration: MetricsBoxConfiguration;
 
-	/**
-	 * Computed metric rows for the item and the current box
-	 */
-	metricRows: BehaviorSubject<MetricRow[]> = new BehaviorSubject<MetricRow[]>([]);
+  /**
+   * Computed metric rows for the item and the current box
+   */
+  metricRows: BehaviorSubject<MetricRow[]> = new BehaviorSubject<MetricRow[]>([]);
 
-	/**
-	 * true if the item has a thumbnail, false otherwise
-	 */
-	hasThumbnail = false;
+  /**
+   * true if the item has a thumbnail, false otherwise
+   */
+  hasThumbnail = false;
 
-	/**
-	 * List of subscriptions
-	 */
-	subs: Subscription[] = [];
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
-	constructor(
-		protected metricsComponentService: MetricsComponentsDataService,
-		protected itemService: ItemDataService,
-		protected translateService: TranslateService,
-		@Inject('boxProvider') public boxProvider: CrisLayoutBox,
-		@Inject('itemProvider') public itemProvider: Item
-	) {
-		super(translateService, boxProvider, itemProvider);
-	}
+  constructor(
+    protected metricsComponentService: MetricsComponentsDataService,
+    protected itemService: ItemDataService,
+    protected translateService: TranslateService,
+    @Inject('boxProvider') public boxProvider: CrisLayoutBox,
+    @Inject('itemProvider') public itemProvider: Item
+  ) {
+    super(translateService, boxProvider, itemProvider);
+  }
 
-	ngOnInit() {
-		super.ngOnInit();
+  ngOnInit() {
+    super.ngOnInit();
 
-		this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
-		this.subs.push(
-			this.itemService
-				.getMetrics(this.item.uuid)
-				.pipe(getFirstSucceededRemoteDataPayload())
-				.subscribe((result) => {
-					const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
-						result.page,
-						this.metricsBoxConfiguration.maxColumns,
-						this.metricsBoxConfiguration.metrics
-					);
-					this.metricRows.next(matchingMetrics);
-				})
-		);
-	}
+    this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
+    this.subs.push(
+      this.itemService
+        .getMetrics(this.item.uuid)
+        .pipe(getFirstSucceededRemoteDataPayload())
+        .subscribe((result) => {
+          const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
+            result.page,
+            this.metricsBoxConfiguration.maxColumns,
+            this.metricsBoxConfiguration.metrics
+          );
+          this.metricRows.next(matchingMetrics);
+        })
+    );
+  }
 
-	/**
-	 * Unsubscribes all subscriptions
-	 */
-	ngOnDestroy(): void {
-		this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-	}
+  /**
+   * Unsubscribes all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
 }

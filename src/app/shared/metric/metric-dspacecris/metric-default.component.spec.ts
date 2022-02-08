@@ -7,32 +7,32 @@ import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MetricDspacecrisComponent', () => {
-	let component: MetricDefaultComponent;
-	let fixture: ComponentFixture<MetricDefaultComponent>;
+  let component: MetricDefaultComponent;
+  let fixture: ComponentFixture<MetricDefaultComponent>;
 
-	beforeEach(async(() => {
-		TestBed.configureTestingModule({
-			imports: [
-				TranslateModule.forRoot({
-					loader: {
-						provide: TranslateLoader,
-						useClass: TranslateLoaderMock,
-					},
-				}),
-			],
-			declarations: [MetricDefaultComponent],
-			schemas: [NO_ERRORS_SCHEMA],
-		}).compileComponents();
-	}));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+      ],
+      declarations: [MetricDefaultComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(MetricDefaultComponent);
-		component = fixture.componentInstance;
-		component.metric = metric1Mock;
-		fixture.detectChanges();
-	});
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MetricDefaultComponent);
+    component = fixture.componentInstance;
+    component.metric = metric1Mock;
+    fixture.detectChanges();
+  });
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
-	});
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
