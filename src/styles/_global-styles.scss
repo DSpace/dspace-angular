@@ -1,88 +1,91 @@
 html {
-	position: relative;
-	min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-	overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 // Sticky Footer
 .outer-wrapper {
-	display: flex;
-	margin: 0;
+  display: flex;
+  margin: 0;
 }
 
 .inner-wrapper {
-	flex: 1 1 auto;
-	flex-flow: column nowrap;
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-	width: 100%;
-	position: relative;
+  flex: 1 1 auto;
+  flex-flow: column nowrap;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
 }
 
 .main-content {
-	z-index: var(--ds-main-z-index);
-	flex: 1 1 100%;
-	margin-top: var(--ds-content-spacing);
-	margin-bottom: var(--ds-content-spacing);
+  z-index: var(--ds-main-z-index);
+  flex: 1 1 100%;
+  margin-top: var(--ds-content-spacing);
+  margin-bottom: var(--ds-content-spacing);
 }
 
 .alert.hide {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 ds-admin-sidebar {
-	position: fixed;
-	z-index: var(--ds-sidebar-z-index);
+  position: fixed;
+  z-index: var(--ds-sidebar-z-index);
 }
 
 .sticky-top {
-	z-index: 0;
+  z-index: 0;
 }
 
-.media-viewer .change-gallery .ngx-gallery ngx-gallery-preview.ngx-gallery-active {
-	right: 0;
-	left: auto;
-	width: calc(100% - 53px);
+.media-viewer
+  .change-gallery
+  .ngx-gallery
+  ngx-gallery-preview.ngx-gallery-active {
+  right: 0;
+  left: auto;
+  width: calc(100% - 53px);
 }
 
 .ds-submission-reorder-dragging {
-	.ds-hint,
-	button {
-		display: none;
-	}
+  .ds-hint,
+  button {
+    display: none;
+  }
 }
 
 ngb-modal-backdrop {
-	// ng-bootsrap animates opacity, causing the fully opaque background to flash briefly before the transition starts
-	// animating background-color between transparent & a RGBA color instead looks smoother
-	&.fade {
-		opacity: 1 !important;
-		background-color: transparent;
-		transition: background-color 0.15s linear;
+  // ng-bootsrap animates opacity, causing the fully opaque background to flash briefly before the transition starts
+  // animating background-color between transparent & a RGBA color instead looks smoother
+  &.fade {
+    opacity: 1 !important;
+    background-color: transparent;
+    transition: background-color 0.15s linear;
 
-		&.show {
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-	}
+    &.show {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 
 button.switch {
-	outline: none;
+  outline: none;
 }
 
 .switch-label-checked {
-	color: #fff;
-	font-weight: 600;
+  color: #fff;
+  font-weight: 600;
 }
 .switch-label-unchecked {
-	font-weight: 500;
+  font-weight: 500;
 }
 
 .clickable {
-	cursor: pointer;
+  cursor: pointer;
 }
