@@ -14,7 +14,7 @@ import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths'
   selector: 'ds-cris-layout-tabs-sidebar',
   template: ''
 })
-export class CrisLayoutTabsComponent {
+export abstract class CrisLayoutTabsComponent {
 
   /**
    * The item object related to the page
@@ -110,10 +110,11 @@ export class CrisLayoutTabsComponent {
     }
     const tabName = this.getCurrentTabFromUrl();
     if (tabName) {
-      this.location.replaceState(getItemPageRoute(this.item) + '/' + selectedTab.shortname);
+      this.router.navigateByUrl(getItemPageRoute(this.item) + '/' + selectedTab.shortname);
     }
     // Notify selected tab at parent
     this.selectedTab.emit(selectedTab);
+    this.emitSelected(selectedTab);
   }
 
   public getCurrentTabFromUrl() {
@@ -166,5 +167,6 @@ export class CrisLayoutTabsComponent {
     this.selectFromTabName(tab.shortname);
   }
 
+  abstract emitSelected(selectedTab): void;
 
 }

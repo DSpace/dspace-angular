@@ -8,7 +8,8 @@
 
 	<ng-container *ngIf="!!tabs$">
 		<ng-container *ngVar="(loaderTabs$ | async) as loaderTabs">
-			<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0" [tabs]="loaderTabs" [item]="item" [showContextMenu]="!(hasLeadingTab$ | async)"></ds-cris-layout-loader>
+			<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0" [leadingTabs]="(leadingTabs$ | async)" [tabs]="loaderTabs"
+			 [item]="item" [showContextMenu]="!(hasLeadingTab$ | async)"></ds-cris-layout-loader>
 		</ng-container>
 	</ng-container>
 </div>

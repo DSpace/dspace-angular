@@ -22,10 +22,10 @@ describe('CrisLayoutSidebarComponent', () => {
       imports: [
         RouterTestingModule
       ],
-      declarations: [ CrisLayoutSidebarComponent ],
+      declarations: [CrisLayoutSidebarComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -59,6 +59,7 @@ describe('CrisLayoutSidebarComponent', () => {
   describe('when there are tabs', () => {
     beforeEach(() => {
       component.tabs = tabs;
+      component.showNav = true;
       fixture.detectChanges();
     });
 

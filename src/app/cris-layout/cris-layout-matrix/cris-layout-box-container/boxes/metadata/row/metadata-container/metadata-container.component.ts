@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { CrisLayoutBox, LayoutField, LayoutFieldType } from '../../../../../../../core/layout/models/box.model';
 import {
@@ -62,7 +62,8 @@ export class MetadataContainerComponent implements OnInit {
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    protected cd: ChangeDetectorRef
   ) {
   }
 
@@ -127,6 +128,7 @@ export class MetadataContainerComponent implements OnInit {
     this.renderingSubType = this.computeSubType(this.field);
     this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
+    this.cd.detectChanges();
   }
 
   hasBitstream(): Observable<boolean> {
