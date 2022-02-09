@@ -1,8 +1,17 @@
 :host {
-	.container {
-		text-align: center !important;
-    height: 10rem;
-    max-height: fit-content;
+  .container {
+    text-align: center !important;
+    height: fit-content;
     min-width: fit-content;
-	}
+  }
+
+  .container.altmetric.alert.metric-container {
+    // .altmetric -> metricType
+    border: 1px lightgray solid;
+  }
+
+  .container.plumX.alert.metric-container {
+     // .plumX -> metricType
+    display: contents;
+  }
 }

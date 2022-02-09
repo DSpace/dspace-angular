@@ -474,34 +474,44 @@ export class DefaultAppConfig implements AppConfig {
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
 		{
-			type: 'altmetric',
-			icon: 'fa fa-atom',
-			class: 'alert-danger',
-		},
-		{
-			type: 'plumX',
-			icon: 'fa fa-globe',
-			class: 'alert-warning',
-		},
-		{
-			type: 'dimensions',
-			icon: 'fa fa-cubes',
-			class: 'alert-secondary',
-		},
-		{
-			type: 'google-scholar',
-			icon: 'fa fa-scroll',
-			class: 'alert-primary',
-		},
-		{
-			type: 'embedded-view',
-			icon: 'fa fa-expand',
-			class: 'alert-dark',
-		},
-		{
-			type: 'embedded-download',
-			icon: 'fa fa-download',
-			class: 'alert-success',
-		},
+      type: 'altmetric',
+      icon: null,
+      class: 'alert-light',
+    },
+    {
+      type: 'plumX',
+      icon: null,
+      class: null,
+    },
+    {
+      type: 'dimensions',
+      icon: 'fa fa-cubes',
+      class: 'alert-secondary',
+    },
+    {
+      type: 'google-scholar',
+      icon: '/assets/images/google-scholar.svg',
+      class: 'alert-info',
+    },
+    {
+      type: 'embedded-view',
+      icon: 'fa fa-expand',
+      class: 'alert-dark',
+    },
+    {
+      type: 'embedded-download',
+      icon: 'fa fa-cloud-download-alt',
+      class: 'alert-danger',
+    },
+    {
+      type: 'view',
+      icon: 'fa fa-eye',
+      class: 'alert-success',
+    },
+    {
+      type: 'download',
+      icon: 'fa fa-cloud-download-alt',
+      class: 'alert-danger',
+    },
 	]
 }

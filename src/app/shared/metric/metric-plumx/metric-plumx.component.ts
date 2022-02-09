@@ -1,5 +1,6 @@
+import { PlumXConfig } from './../../../../config/metric-visualization-config.interfaces';
 import { Component, Injector, OnInit } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { MetricLoaderService } from '../metric-loader/metric-loader.service';
 import { hasValue } from '../../empty.util';
@@ -10,6 +11,7 @@ import { hasValue } from '../../empty.util';
 })
 export class MetricPlumxComponent extends BaseMetricComponent implements OnInit {
   remark: JSON;
+  plumXConfig: PlumXConfig;
   private metricLoaderService: MetricLoaderService;
 
   constructor(protected sr: DomSanitizer, protected injector: Injector) {
@@ -24,5 +26,6 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit 
       this.metricLoaderService = this.injector.get(MetricLoaderService);
       this.metricLoaderService.setScript('plumX', script);
     }
+    this.plumXConfig = this.metric.plumXConfig;
   }
 }

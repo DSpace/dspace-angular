@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import { environment } from 'src/environments/environment';
 import { MetricVisualizationConfig } from './../../../../config/metric-visualization-config.interfaces';
 import { Metric } from './../../../core/shared/metric.model';
@@ -16,16 +17,21 @@ export class MetricStyleConfigPipe implements PipeTransform {
 
   transform(metric: Metric): unknown {
     if (metric) {
-      let metricClass = 'alert-info'; // default style
+      let metricClass = 'alert-warning'; // default style
 
       // check if metric has a preconfiguerd style
-      const metricTypeConfig = this.style.find((x) => x.type === metric.metricType);
+      const metricTypeConfig = this.style.find((x) => isEqual(x.type, metric.metricType));
       if (metricTypeConfig) {
         metric.icon = metricTypeConfig.icon;
         metricClass = metricTypeConfig.class;
+        if (metricTypeConfig.plumXConfig) {
+          // configurations set only for metric type plumX
+          metric.plumXConfig = metricTypeConfig.plumXConfig;
+        }
       }
 
       const classes: any = {};
+      // classes used to set rules related to metric type behavoir
       classes[metric.metricType] = true;
       const classlist = {
         ...classes,
