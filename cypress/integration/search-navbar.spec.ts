@@ -31,7 +31,7 @@ describe('Search from Navigation Bar', () => {
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
+        cy.get('[data-e2e="list-object"]').should('be.visible');
     });
 
     it('should go to search page with correct query if submitted (from search)', () => {
@@ -46,7 +46,7 @@ describe('Search from Navigation Bar', () => {
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
+        cy.get('[data-e2e="list-object"]').should('be.visible');
     });
 
     it('should allow user to also submit query by clicking icon', () => {
@@ -61,6 +61,6 @@ describe('Search from Navigation Bar', () => {
         // Wait for search results to come back from the above GET command
         cy.wait('@search-results');
         // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
+        cy.get('[data-e2e="list-object"]').should('be.visible');
     });
 });

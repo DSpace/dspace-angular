@@ -1,13 +1,8 @@
 import { Options } from 'cypress-axe';
+import { TEST_SEARCH_TERM } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Search Page', () => {
-    it('should contain query value when navigating to page with query parameter', () => {
-        const queryString = 'test query';
-        cy.visit('/search?query=' + queryString);
-        cy.get('[data-e2e="search-box"]').should('have.value', queryString);
-    });
-
     it('should redirect to the correct url when query was set and submit button was triggered', () => {
         const queryString = 'Another interesting query string';
         cy.visit('/search');
@@ -18,13 +13,14 @@ describe('Search Page', () => {
     });
 
     it('should load results and pass accessibility tests', () => {
-        cy.visit('/search');
+        cy.visit('/search?query=' + TEST_SEARCH_TERM);
+        cy.get('[data-e2e="search-box"]').should('have.value', TEST_SEARCH_TERM);
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
 
         // At least one search result should be displayed
-        cy.get('ds-item-search-result-list-element').should('be.visible');
+        cy.get('[data-e2e="list-object"]').should('be.visible');
 
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
@@ -49,7 +45,7 @@ describe('Search Page', () => {
     });
 
     it('should have a working grid view that passes accessibility tests', () => {
-        cy.visit('/search');
+        cy.visit('/search?query=' + TEST_SEARCH_TERM);
 
         // Click button in sidebar to display grid view
         cy.get('ds-search-sidebar [data-e2e="grid-view"]').click();
@@ -57,8 +53,8 @@ describe('Search Page', () => {
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');
 
-        // At least one grid element (card) should be displayed
-        cy.get('ds-item-search-result-grid-element').should('be.visible');
+        // At least one grid object (card) should be displayed
+        cy.get('[data-e2e="grid-object"]').should('be.visible');
 
         // Analyze <ds-search-page> for accessibility issues
         testA11y('ds-search-page',
