@@ -1,5 +1,5 @@
 import { Options } from 'cypress-axe';
-import { TEST_ADMIN_USER, TEST_ADMIN_PASSWORD, TEST_COLLECTION_NAME } from 'cypress/support';
+import { TEST_ADMIN_USER, TEST_ADMIN_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
 describe('My DSpace page', () => {
@@ -37,7 +37,7 @@ describe('My DSpace page', () => {
 
     it('should have a working detailed view that passes accessibility tests', () => {
         cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
-        
+
         cy.visit('/mydspace');
 
         cy.get('ds-my-dspace-page').should('exist');
@@ -59,8 +59,8 @@ describe('My DSpace page', () => {
         );
     });
 
-
-    it('should let you start a new submission', () => {
+    // NOTE: Deleting existing submissions is exercised by submission.spec.ts
+    it('should let you start a new submission & edit in-progress submissions', () => {
         cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
         cy.visit('/mydspace');
 
@@ -73,10 +73,10 @@ describe('My DSpace page', () => {
         cy.get('ds-create-item-parent-selector').should('be.visible');
 
         // Type in a known Collection name in the search box
-        cy.get('ds-authorized-collection-selector input[type="search"]').type(TEST_COLLECTION_NAME);
+        cy.get('ds-authorized-collection-selector input[type="search"]').type(TEST_SUBMIT_COLLECTION_NAME);
 
         // Click on the button matching that known Collection name
-        cy.get('ds-authorized-collection-selector button[title="' + TEST_COLLECTION_NAME + '"]').click();
+        cy.get('ds-authorized-collection-selector button[title="' + TEST_SUBMIT_COLLECTION_NAME + '"]').click();
 
         // New URL should include /workspaceitems, as we've started a new submission
         cy.url().should('include', '/workspaceitems');
@@ -84,8 +84,44 @@ describe('My DSpace page', () => {
         // The Submission edit form tag should be visible
         cy.get('ds-submission-edit').should('be.visible');
 
-        // A Collection menu button should exist & it's value should be the selected collection
-        cy.get('#collectionControlsMenuButton span').should('have.text', TEST_COLLECTION_NAME);
+        // A Collection menu button should exist & its value should be the selected collection
+        cy.get('#collectionControlsMenuButton span').should('have.text', TEST_SUBMIT_COLLECTION_NAME);
+
+        // Now that we've created a submission, we'll test that we can go back and Edit it.
+        // Get our Submission URL, to parse out the ID of this new submission
+        cy.location().then(fullUrl => {
+            // This will be the full path (/workspaceitems/[id]/edit)
+            const path = fullUrl.pathname;
+            // Split on the slashes
+            const subpaths = path.split('/');
+            // Part 2 will be the [id] of the submission
+            const id = subpaths[2];
+
+            // Go back to the MyDSpace page
+            cy.visit('/mydspace');
+
+            // This is the GET command that will actually run the search
+            cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
+            // On MyDSpace, find the submission we just created via its ID
+            cy.get('[data-e2e="search-box"]').type(id);
+            cy.get('[data-e2e="search-button"]').click();
+
+            // Wait for search results to come back from the above GET command
+            cy.wait('@search-results');
+
+            // Click the Edit button for this in-progress submission
+            cy.get('#edit_' + id).click();
+
+            // Should send us back to the submission form
+            cy.url().should('include', '/workspaceitems/' + id + '/edit');
+
+            // Discard our new submission by clicking Discard in Submission form & confirming
+            cy.get('button#discard').click();
+            cy.get('button#discard_submit').click();
+
+            // Discarding should send us back to MyDSpace
+            cy.url().should('include', '/mydspace');
+        });
     });
 
     it('should let you import from external sources', () => {

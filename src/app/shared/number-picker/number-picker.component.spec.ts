@@ -48,6 +48,7 @@ describe('NumberPickerComponent test suite', () => {
         [disabled]="disabled"
         [min]="min"
         [max]="max"
+        [id]="'ds_test_field'"
         [name]="'test'"
         [size]="size"
         [(ngModel)]="initValue"

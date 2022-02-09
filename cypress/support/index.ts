@@ -32,8 +32,8 @@ before(() => {
 // Borrowed from: https://glebbahmutov.com/blog/visit-blank-page-between-tests/
 afterEach(() => {
     cy.window().then((win) => {
-      win.location.href = 'about:blank'
-    })
+      win.location.href = 'about:blank';
+    });
 });
 
 
