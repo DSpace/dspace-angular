@@ -174,7 +174,7 @@ export class CrisStatisticsPageComponent implements OnInit {
    */
   getUserReports(category) {
     this.reports$ = this.getReports$(category.id);
-    combineLatest(this.reports$, this.getReportId(), this.getCategoryId()).subscribe(([report,reportId,categoryId]) => {
+    combineLatest(this.reports$, this.getReportId(), this.getCategoryId()).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
           this.setStatisticsState(report[0].id, category.id);
           this.selectedReportId = report[0].id;
