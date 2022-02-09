@@ -102,13 +102,11 @@ describe('SearchSettingsComponent', () => {
     fixture = TestBed.createComponent(SearchSettingsComponent);
     comp = fixture.componentInstance;
 
-    comp.sortOptions = [
+    comp.sortOptionsList = [
       new SortOptions('score', SortDirection.DESC),
       new SortOptions('dc.title', SortDirection.ASC),
       new SortOptions('dc.title', SortDirection.DESC)
     ];
-
-    comp.searchOptions = paginatedSearchOptions;
 
     // SearchPageComponent test instance
     fixture.detectChanges();
@@ -123,7 +121,7 @@ describe('SearchSettingsComponent', () => {
     const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
     expect(orderSetting).toBeDefined();
     const childElements = orderSetting.queryAll(By.css('option'));
-    expect(childElements.length).toEqual(comp.sortOptions.length);
+    expect(childElements.length).toEqual(comp.sortOptionsList.length);
   });
 
   it('it should show the size settings', () => {

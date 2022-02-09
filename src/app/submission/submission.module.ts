@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
-import { SubmissionSectionformComponent } from './sections/form/section-form.component';
+import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';
 import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
@@ -37,13 +37,24 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+import { FormModule } from '../shared/form/form.module';
+import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
+import { SubmissionAccessesConfigService } from '../core/config/submission-accesses-config.service';
+import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 
-const DECLARATIONS = [
-  SubmissionSectionUploadAccessConditionsComponent,
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
   SubmissionSectionUploadComponent,
-  SubmissionSectionformComponent,
+  SubmissionSectionFormComponent,
   SubmissionSectionLicenseComponent,
   SubmissionSectionCcLicensesComponent,
+  SubmissionSectionAccessesComponent,
+  SubmissionSectionUploadFileEditComponent
+];
+
+const DECLARATIONS = [
+  ...ENTRY_COMPONENTS,
   SectionsDirective,
   SubmissionEditComponent,
   ThemedSubmissionEditComponent,
@@ -55,6 +66,7 @@ const DECLARATIONS = [
   ThemedSubmissionSubmitComponent,
   SubmissionUploadFilesComponent,
   SubmissionSectionContainerComponent,
+  SubmissionSectionUploadAccessConditionsComponent,
   SubmissionSectionUploadFileComponent,
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionUploadFileViewComponent,
@@ -62,7 +74,7 @@ const DECLARATIONS = [
   ThemedSubmissionImportExternalComponent,
   SubmissionImportExternalSearchbarComponent,
   SubmissionImportExternalPreviewComponent,
-  SubmissionImportExternalCollectionComponent
+  SubmissionImportExternalCollectionComponent,
 ];
 
 @NgModule({
@@ -74,13 +86,18 @@ const DECLARATIONS = [
     EffectsModule.forFeature(submissionEffects),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
+    FormModule,
+    NgbAccordionModule,
+    NgbModalModule
   ],
   declarations: DECLARATIONS,
   exports: DECLARATIONS,
   providers: [
     SectionUploadService,
     SectionsService,
-    SubmissionUploadsConfigService
+    SubmissionUploadsConfigService,
+    SubmissionAccessesConfigService,
+    SectionAccessesService
   ]
 })
 
@@ -88,4 +105,14 @@ const DECLARATIONS = [
  * This module handles all components that are necessary for the submission process
  */
 export class SubmissionModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during SSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: SubmissionModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    };
+  }
 }

@@ -11,10 +11,12 @@ import {
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   INFO_MODULE_PATH,
+  INTERNAL_SERVER_ERROR,
+  LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
+  REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
-  LEGACY_BITSTREAM_MODULE_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
@@ -26,14 +28,25 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import { ServerCheckGuard } from './core/server-check/server-check.guard';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot([{
-      path: '', canActivate: [AuthBlockingGuard],
+    RouterModule.forRoot([
+      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+      {
+        path: '',
+        canActivate: [AuthBlockingGuard],
+        canActivateChild: [ServerCheckGuard],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
-          { path: 'reload/:rnd', component: ThemedPageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
+          {
+            path: 'reload/:rnd',
+            component: ThemedPageNotFoundComponent,
+            pathMatch: 'full',
+            canActivate: [ReloadGuard]
+          },
           {
             path: 'home',
             loadChildren: () => import('./home-page/home-page.module')
@@ -89,7 +102,8 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
-          { path: 'entities/:entity-type',
+          {
+            path: 'entities/:entity-type',
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
@@ -133,12 +147,12 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
-              .then((m) => m.LoginPageModule),
+              .then((m) => m.LoginPageModule)
           },
           {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
-              .then((m) => m.LogoutPageModule),
+              .then((m) => m.LogoutPageModule)
           },
           {
             path: 'submit',
@@ -178,7 +192,12 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
           },
           {
             path: INFO_MODULE_PATH,
-            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule),
+            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
+          },
+          {
+            path: REQUEST_COPY_MODULE_PATH,
+            loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,
@@ -187,7 +206,7 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
           {
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
-              .then((m) => m.StatisticsPageRoutingModule),
+              .then((m) => m.StatisticsPageRoutingModule)
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
@@ -195,10 +214,11 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
             canActivate: [GroupAdministratorGuard],
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
-      ]}
-    ],{
+        ]
+      }
+    ], {
       onSameUrlNavigation: 'reload',
-    })
+})
   ],
   exports: [RouterModule],
 })

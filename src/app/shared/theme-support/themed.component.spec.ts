@@ -5,6 +5,7 @@ import { VarDirective } from '../utils/var.directive';
 import { ThemeService } from './theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TestComponent } from './test/test.component.spec';
+import { ThemeConfig } from '../../../config/theme.model';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -32,8 +33,8 @@ describe('ThemedComponent', () => {
   let fixture: ComponentFixture<TestThemedComponent>;
   let themeService: ThemeService;
 
-  function setupTestingModuleForTheme(theme: string) {
-    themeService = getMockThemeService(theme);
+  function setupTestingModuleForTheme(theme: string, themes?: ThemeConfig[]) {
+    themeService = getMockThemeService(theme, themes);
     TestBed.configureTestingModule({
       imports: [],
       declarations: [TestThemedComponent, VarDirective],
@@ -44,17 +45,20 @@ describe('ThemedComponent', () => {
     }).compileComponents();
   }
 
+  function initComponent() {
+    fixture = TestBed.createComponent(TestThemedComponent);
+    component = fixture.componentInstance;
+    spyOn(component as any, 'importThemedComponent').and.callThrough();
+    component.testInput = 'changed';
+    fixture.detectChanges();
+  }
+
   describe('when the current theme matches a themed component', () => {
     beforeEach(waitForAsync(() => {
       setupTestingModuleForTheme('custom');
     }));
 
-    beforeEach(() => {
-      fixture = TestBed.createComponent(TestThemedComponent);
-      component = fixture.componentInstance;
-      component.testInput = 'changed';
-      fixture.detectChanges();
-    });
+    beforeEach(initComponent);
 
     it('should set compRef to the themed component', waitForAsync(() => {
       fixture.whenStable().then(() => {
@@ -70,28 +74,127 @@ describe('ThemedComponent', () => {
   });
 
   describe('when the current theme doesn\'t match a themed component', () => {
-    beforeEach(waitForAsync(() => {
-      setupTestingModuleForTheme('non-existing-theme');
-    }));
+    describe('and it doesn\'t extend another theme', () => {
+      beforeEach(waitForAsync(() => {
+        setupTestingModuleForTheme('non-existing-theme');
+      }));
 
-    beforeEach(() => {
-      fixture = TestBed.createComponent(TestThemedComponent);
-      component = fixture.componentInstance;
-      component.testInput = 'changed';
-      fixture.detectChanges();
+      beforeEach(initComponent);
+
+      it('should set compRef to the default component', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect((component as any).compRef.instance.type).toEqual('default');
+        });
+      }));
+
+      it('should sync up this component\'s input with the default component', waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect((component as any).compRef.instance.testInput).toEqual('changed');
+        });
+      }));
     });
 
-    it('should set compRef to the default component', waitForAsync(() => {
-      fixture.whenStable().then(() => {
-        expect((component as any).compRef.instance.type).toEqual('default');
-      });
-    }));
+    describe('and it extends another theme', () => {
+      describe('that doesn\'t match it either', () => {
+        beforeEach(waitForAsync(() => {
+          setupTestingModuleForTheme('current-theme', [
+            { name: 'current-theme', extends: 'non-existing-theme' },
+          ]);
+        }));
 
-    it('should sync up this component\'s input with the default component', waitForAsync(() => {
-      fixture.whenStable().then(() => {
-        expect((component as any).compRef.instance.testInput).toEqual('changed');
+        beforeEach(initComponent);
+
+        it('should set compRef to the default component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('current-theme');
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('non-existing-theme');
+            expect((component as any).compRef.instance.type).toEqual('default');
+          });
+        }));
+
+        it('should sync up this component\'s input with the default component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
       });
-    }));
+
+      describe('that does match it', () => {
+        beforeEach(waitForAsync(() => {
+          setupTestingModuleForTheme('current-theme', [
+            { name: 'current-theme', extends: 'custom' },
+          ]);
+        }));
+
+        beforeEach(initComponent);
+
+        it('should set compRef to the themed component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('current-theme');
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('custom');
+            expect((component as any).compRef.instance.type).toEqual('themed');
+          });
+        }));
+
+        it('should sync up this component\'s input with the themed component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
+      });
+
+      describe('that extends another theme that doesn\'t match it either', () => {
+        beforeEach(waitForAsync(() => {
+          setupTestingModuleForTheme('current-theme', [
+            { name: 'current-theme', extends: 'parent-theme' },
+            { name: 'parent-theme', extends: 'non-existing-theme' },
+          ]);
+        }));
+
+        beforeEach(initComponent);
+
+        it('should set compRef to the default component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('current-theme');
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('parent-theme');
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('non-existing-theme');
+            expect((component as any).compRef.instance.type).toEqual('default');
+          });
+        }));
+
+        it('should sync up this component\'s input with the default component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
+      });
+
+      describe('that extends another theme that does match it', () => {
+        beforeEach(waitForAsync(() => {
+          setupTestingModuleForTheme('current-theme', [
+            { name: 'current-theme', extends: 'parent-theme' },
+            { name: 'parent-theme', extends: 'custom' },
+          ]);
+        }));
+
+        beforeEach(initComponent);
+
+        it('should set compRef to the themed component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('current-theme');
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('parent-theme');
+            expect((component as any).importThemedComponent).toHaveBeenCalledWith('custom');
+            expect((component as any).compRef.instance.type).toEqual('themed');
+          });
+        }));
+
+        it('should sync up this component\'s input with the themed component', waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
+      });
+    });
   });
 });
 /* tslint:enable:max-classes-per-file */

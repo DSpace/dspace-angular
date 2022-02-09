@@ -3,7 +3,7 @@
            class="form-control"
            (click)="$event.stopPropagation();"
            placeholder="{{'dso-selector.placeholder' | translate: { type: typesString } }}"
-           [formControl]="input" dsAutoFocus (keyup.enter)="selectSingleResult()">
+           [formControl]="input" ngbAutofocus (keyup.enter)="selectSingleResult()">
 </div>
 <div class="dropdown-divider"></div>
 <div class="scrollable-menu list-group">
