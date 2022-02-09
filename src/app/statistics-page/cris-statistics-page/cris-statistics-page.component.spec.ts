@@ -20,6 +20,7 @@ import { StatisticsCategoriesServiceStub } from '../../shared/testing/statistics
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+
 import { provideMockStore } from '@ngrx/store/testing';
 import { StatisticsState } from '../../core/statistics/statistics.reducer';
 
