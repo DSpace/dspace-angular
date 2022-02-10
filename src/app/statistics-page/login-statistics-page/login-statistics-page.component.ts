@@ -30,7 +30,7 @@ export class LoginStatisticsPageComponent implements OnInit {
 
   public processing$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private loginStatisticsService: LoginStatisticsService,
+  constructor( private loginStatisticsService: LoginStatisticsService,
     private ngbDateParserFormatter: NgbDateParserFormatter) {
 
   }
@@ -44,7 +44,7 @@ export class LoginStatisticsPageComponent implements OnInit {
    */
   onSearchFilterChange() {
     console.log(this.max);
-    this.searchByDateRange(this.parseDate(this.dateFrom), this.parseDate(this.dateTo), this.max);
+    this.searchByDateRange(this.parseDate(this.dateFrom),this.parseDate(this.dateTo), this.max);
   }
 
   /**
@@ -82,7 +82,7 @@ export class LoginStatisticsPageComponent implements OnInit {
    * @param dateObject the date to parse
    */
   parseDate(dateObject: NgbDateStruct) {
-    if (!dateObject) {
+    if ( !dateObject ) {
       return null;
     }
     const date: NgbDate = new NgbDate(dateObject.year, dateObject.month, dateObject.day);
