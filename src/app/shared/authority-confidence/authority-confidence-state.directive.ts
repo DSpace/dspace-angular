@@ -8,7 +8,7 @@ import {
   OnChanges,
   Output,
   Renderer2,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 
 import { findIndex } from 'lodash';
@@ -20,6 +20,7 @@ import { isNotEmpty, isNull } from '../empty.util';
 import { ConfidenceIconConfig } from '../../../config/submission-config.interface';
 import { environment } from '../../../environments/environment';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
@@ -58,7 +59,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    * Listener to click event
    */
   @HostListener('click') onClick() {
-    if (isNotEmpty(this.authorityValue) && this.getConfidenceByValue(this.authorityValue) !== ConfidenceType.CF_ACCEPTED) {
+    if (isNotEmpty(this.authorityValue)) {
       this.whenClickOnConfidenceNotAccepted.emit(this.getConfidenceByValue(this.authorityValue));
     }
   }
@@ -68,11 +69,26 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    *
    * @param {ElementRef} elem
    * @param {Renderer2} renderer
+   * @param {TranslateService} translate
    */
   constructor(
     private elem: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private translate: TranslateService
   ) {
+    // show the cursor pointer on hover
+    this.elem.nativeElement.classList.add('authority-confidence-clickable');
+  }
+
+  /**
+   * Listener to hover event
+   */
+  @HostListener('mouseover') onHover() {
+    this.renderer.setAttribute(
+      this.elem.nativeElement,
+      'title',
+      this.translate.instant('authority-confidence.search-label')
+    );
   }
 
   /**
@@ -140,8 +156,8 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
 
     const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
 
-    const defaultconfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as  any});
-    const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].style : '';
+    const defaultConfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as any});
+    const defaultClass: string = (defaultConfidenceIndex !== -1) ? confidenceIcons[defaultConfidenceIndex].style : '';
 
     return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;
   }
