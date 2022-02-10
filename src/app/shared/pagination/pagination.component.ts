@@ -20,10 +20,10 @@ import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map, take } from 'rxjs/operators';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { ViewMode } from 'src/app/core/shared/view-mode.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 /**
  * The default pagination controls component.
