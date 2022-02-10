@@ -8,6 +8,8 @@ import { CommunityMetadataComponent } from './community-metadata/community-metad
 import { CommunityRolesComponent } from './community-roles/community-roles.component';
 import { CommunityAuthorizationsComponent } from './community-authorizations/community-authorizations.component';
 import { CommunityFormModule } from '../community-form/community-form.module';
+import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
+import { ComcolModule } from '../../shared/comcol/comcol.module';
 
 /**
  * Module that contains all components related to the Edit Community page administrator functionality
@@ -17,7 +19,9 @@ import { CommunityFormModule } from '../community-form/community-form.module';
     CommonModule,
     SharedModule,
     EditCommunityPageRoutingModule,
-    CommunityFormModule
+    CommunityFormModule,
+    ComcolModule,
+    ResourcePoliciesModule
   ],
   declarations: [
     EditCommunityPageComponent,

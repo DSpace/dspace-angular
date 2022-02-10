@@ -1,5 +1,5 @@
-import { FacetValue } from './facet-value.model';
-import { SearchFilterConfig } from './search-filter-config.model';
+import { FacetValue } from './models/facet-value.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
 import { isNotEmpty } from '../empty.util';
 
 /**
@@ -9,7 +9,7 @@ import { isNotEmpty } from '../empty.util';
  * @param searchFilterConfig
  */
 export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.value);
+  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.value, facetValue.authorityKey);
 }
 
 /**
@@ -19,10 +19,10 @@ export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig:
  * @param searchFilterConfig
  */
 export function getFacetValueForTypeAndLabel(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.label);
+  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.label, facetValue.authorityKey);
 }
 
-function _createValue(paramName: string, facetValueLinks, value) {
+function _createValue(paramName: string, facetValueLinks, value, authorityKey) {
   const regex = new RegExp(`[?|&]${escapeRegExp(paramName)}=(${escapeRegExp(value)}[^&]*)`, 'g');
   if (isNotEmpty(facetValueLinks)) {
     const values = regex.exec(facetValueLinks.search.href);
@@ -30,6 +30,10 @@ function _createValue(paramName: string, facetValueLinks, value) {
       return values[1];
     }
   }
+  if (authorityKey) {
+    return addOperatorToFilterValue(authorityKey, 'authority');
+  }
+
   return addOperatorToFilterValue(value, 'equals');
 }
 

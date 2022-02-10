@@ -83,7 +83,7 @@ import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipService } from '../../../../core/data/relationship.service';
@@ -443,7 +443,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     const modalComp = this.modalRef.componentInstance;
 
-    if (hasValue(this.model.value) && !this.model.readOnly) {
+    if (hasValue(this.model.value) && !this.model.editable) {
       if (typeof this.model.value === 'string') {
         modalComp.query = this.model.value;
       } else if (typeof this.model.value.value === 'string') {

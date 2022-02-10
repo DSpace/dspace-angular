@@ -10,7 +10,7 @@ import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { BrowseByType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType, rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -24,7 +24,7 @@ import { SearchManager } from '../../core/browse/search-manager';
 /**
  * Component for browsing items by title (dc.title)
  */
-@rendersBrowseBy(BrowseByType.Title)
+@rendersBrowseBy(BrowseByDataType.Title)
 export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
 
   public constructor(protected route: ActivatedRoute,
@@ -48,7 +48,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
-        this.updatePageWithItems(browseParamsToOptions(params, currentPage, currentSort, this.browseId), undefined);
+        this.updatePageWithItems(browseParamsToOptions(params, currentPage, currentSort, this.browseId), undefined, undefined);
         this.updateParent(params.scope);
       }));
     this.updateStartsWithTextOptions();

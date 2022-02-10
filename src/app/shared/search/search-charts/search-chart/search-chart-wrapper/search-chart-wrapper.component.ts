@@ -1,8 +1,8 @@
 import { Component, Injector, Input, OnInit, SimpleChanges } from '@angular/core';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { FILTER_CONFIG, IN_PLACE_SEARCH } from '../../../../../core/shared/search/search-filter.service';
-import { FilterType } from '../../../filter-type.model';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFilterType } from '../../chart-search-result-element-decorator';
 

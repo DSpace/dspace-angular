@@ -1,11 +1,14 @@
-import { environment } from '../src/environments/environment';
-
 import * as child from 'child_process';
 
+import { AppConfig } from '../src/config/app-config.interface';
+import { buildAppConfig } from '../src/config/config.server';
+
+const appConfig: AppConfig = buildAppConfig();
+
 /**
- * Calls `ng serve` with the following arguments configured for the UI in the environment file: host, port, nameSpace, ssl
+ * Calls `ng serve` with the following arguments configured for the UI in the app config: host, port, nameSpace, ssl
  */
 child.spawn(
-  `npm run ng-high-memory -- serve --host ${environment.ui.host} --port ${environment.ui.port} --servePath ${environment.ui.nameSpace} --ssl ${environment.ui.ssl}` ,
-  { stdio:'inherit', shell: true }
+  `npm run ng-high-memory -- serve --host ${appConfig.ui.host} --port ${appConfig.ui.port} --serve-path ${appConfig.ui.nameSpace} --ssl ${appConfig.ui.ssl}`,
+  { stdio: 'inherit', shell: true }
 );

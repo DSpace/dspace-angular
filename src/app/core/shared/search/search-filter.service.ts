@@ -16,7 +16,7 @@ import {
   SearchFilterToggleAction
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

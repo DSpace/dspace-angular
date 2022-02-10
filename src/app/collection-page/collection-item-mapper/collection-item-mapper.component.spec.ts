@@ -33,7 +33,7 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../core/shared/search/search.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,

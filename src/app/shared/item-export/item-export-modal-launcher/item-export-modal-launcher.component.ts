@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
-import { SearchOptions } from '../../search/search-options.model';
+import { SearchOptions } from '../../search/models/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';

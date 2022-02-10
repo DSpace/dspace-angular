@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../animations/fade';
-import { SearchResult } from '../search-result.model';
+import { SearchResult } from '../models/search-result.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { hasNoValue, isNotEmpty } from '../../empty.util';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
@@ -10,7 +10,12 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+
+export interface SelectionConfig {
+  repeatable: boolean;
+  listId: string;
+}
 
 @Component({
   selector: 'ds-search-results',
@@ -63,6 +68,9 @@ export class SearchResultsComponent {
    */
   @Input() disableHeader = false;
 
+  /**
+   * A boolean representing if result entries are selectable
+   */
   @Input() selectable = false;
 
   @Input() context: Context;
@@ -72,7 +80,10 @@ export class SearchResultsComponent {
    */
   @Input() hidePaginationDetail = false;
 
-  @Input() selectionConfig: {repeatable: boolean, listId: string};
+  /**
+   * The config option used for selection functionality
+   */
+  @Input() selectionConfig: SelectionConfig = null;
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
@@ -87,6 +98,21 @@ export class SearchResultsComponent {
    * Pass custom data to the component for custom utilization
    */
   @Input() customData: any;
+
+  /**
+   * Check if search results are loading
+   */
+  isLoading() {
+    return !this.showError() && (hasNoValue(this.searchResults) || hasNoValue(this.searchResults.payload) || this.searchResults.isLoading);
+  }
+
+  showError(): boolean {
+    return this.searchResults?.hasFailed && (!this.searchResults?.errorMessage || this.searchResults?.statusCode !== 400);
+  }
+
+  errorMessageLabel(): string {
+    return (this.searchResults?.statusCode  === 422) ? 'error.invalid-search-query' : 'error.search-results';
+  }
 
   /**
    * Method to change the given string by surrounding it by quotes if not already present.

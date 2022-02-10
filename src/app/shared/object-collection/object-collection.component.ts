@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ListableObject } from './shared/listable-object.model';
-import { isNotEmpty } from '../empty.util';
+import { isEmpty } from '../empty.util';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -146,9 +146,8 @@ export class ObjectCollectionComponent implements OnInit {
     this.currentMode$ = this.route
       .queryParams
       .pipe(
-        filter((params) => isNotEmpty(params.view)),
-        map((params) => params.view),
-        startWith(ViewMode.ListElement)
+        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
+        distinctUntilChanged()
       );
   }
 
