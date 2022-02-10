@@ -4915,6 +4915,22 @@
 
   "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
+  "sorting.organization.legalName.ASC" : "Legal Name Ascending",
+
+  "sorting.organization.legalName.DESC" : "Legal Name Descending",
+
+  "sorting.organisation.address.addressCountry.ASC" : "Country Ascending",
+
+  "sorting.organisation.address.addressCountry.DESC" : "Country Descending",
+
+  "sorting.organisation.address.addressLocality.ASC" : "Locality Ascending",
+
+  "sorting.organisation.address.addressLocality.DESC" : "Locality Descending",
+
+  "sorting.organisation.address.foundingDate.ASC" : "Founding Date Ascending",
+
+  "sorting.organisation.address.foundingDate.DESC" : "Founding Date Descending",
+
 
   "statistics.export.csv": "Export CSV",
 
