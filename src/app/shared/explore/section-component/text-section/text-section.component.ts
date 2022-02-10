@@ -27,7 +27,7 @@ export class TextSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.site?.metadata && this.textRowSection.content) {
+    if (this.site && this.site.metadata && this.textRowSection.content) {
       const mdv = this.site.firstMetadataValue(this.textRowSection.content,
         { language: this.locale.getCurrentLanguageCode() });
       this.content = mdv ?? '';
