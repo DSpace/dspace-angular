@@ -26,9 +26,10 @@ import { TranslateService } from '@ngx-translate/core';
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
  */
 @Directive({
-  selector: '[dsAuthorityConfidenceState]',
+  selector: '[dsAuthorityConfidenceState]'
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
+
   /**
    * The metadata value
    */
@@ -38,18 +39,30 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    * A boolean representing if to show html icon if authority value is empty
    */
   @Input() visibleWhenAuthorityEmpty = true;
-  /**
-   * An event fired when click on element that has a confidence value empty or different from CF_ACCEPTED
-   */
-  @Output() whenClickOnConfidenceNotAccepted: EventEmitter<ConfidenceType> = new EventEmitter<ConfidenceType>();
+
   /**
    * The css class applied before directive changes
    */
   private previousClass: string = null;
+
   /**
    * The css class applied after directive changes
    */
   private newClass: string;
+
+  /**
+   * An event fired when click on element that has a confidence value empty or different from CF_ACCEPTED
+   */
+  @Output() whenClickOnConfidenceNotAccepted: EventEmitter<ConfidenceType> = new EventEmitter<ConfidenceType>();
+
+  /**
+   * Listener to click event
+   */
+  @HostListener('click') onClick() {
+    if (isNotEmpty(this.authorityValue)) {
+      this.whenClickOnConfidenceNotAccepted.emit(this.getConfidenceByValue(this.authorityValue));
+    }
+  }
 
   /**
    * Initialize instance variables
@@ -65,15 +78,6 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   ) {
     // show the cursor pointer on hover
     this.elem.nativeElement.classList.add('authority-confidence-clickable');
-  }
-
-  /**
-   * Listener to click event
-   */
-  @HostListener('click') onClick() {
-    if (isNotEmpty(this.authorityValue)) {
-      this.whenClickOnConfidenceNotAccepted.emit(this.getConfidenceByValue(this.authorityValue));
-    }
   }
 
   /**
@@ -94,13 +98,9 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.authorityValue.firstChange) {
-      this.previousClass = this.getClassByConfidence(
-        this.getConfidenceByValue(changes.authorityValue.previousValue)
-      );
+      this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue));
     }
-    this.newClass = this.getClassByConfidence(
-      this.getConfidenceByValue(changes.authorityValue.currentValue)
-    );
+    this.newClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
 
     if (isNull(this.previousClass)) {
       this.renderer.addClass(this.elem.nativeElement, this.newClass);
@@ -130,11 +130,8 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   private getConfidenceByValue(value: any): ConfidenceType {
     let confidence: ConfidenceType = ConfidenceType.CF_UNSET;
 
-    if (
-      isNotEmpty(value) &&
-      (value instanceof VocabularyEntry || value instanceof VocabularyEntryDetail) &&
-      value.hasAuthority()
-    ) {
+    if (isNotEmpty(value) && (value instanceof VocabularyEntry || value instanceof VocabularyEntryDetail)
+      && value.hasAuthority()) {
       confidence = ConfidenceType.CF_ACCEPTED;
     }
 
@@ -155,17 +152,14 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
       return 'd-none';
     }
 
-    const confidenceIcons: ConfidenceIconConfig[] =
-      environment.submission.icons.authority.confidence;
+    const confidenceIcons: ConfidenceIconConfig[] = environment.submission.icons.authority.confidence;
 
-    const confidenceIndex: number = findIndex(confidenceIcons, { value: confidence });
+    const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
 
-    const defaultconfidenceIndex: number = findIndex(confidenceIcons, {
-      value: 'default' as any,
-    });
-    const defaultClass: string =
-      defaultconfidenceIndex !== -1 ? confidenceIcons[defaultconfidenceIndex].style : '';
+    const defaultConfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as any});
+    const defaultClass: string = (defaultConfidenceIndex !== -1) ? confidenceIcons[defaultConfidenceIndex].style : '';
 
-    return confidenceIndex !== -1 ? confidenceIcons[confidenceIndex].style : defaultClass;
+    return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;
   }
+
 }
