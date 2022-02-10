@@ -49,11 +49,10 @@ export class CrisLayoutComponent implements OnInit {
    * Get tabs for the specific item
    */
   ngOnInit(): void {
-    this.router.data.subscribe((res) => console.log(res));
+    // this.router.data.subscribe((res) => console.log(res));
     // this.getTabsByItem();
     this.tabs$ = this.router.data.pipe(
       map((res: any) => {
-        console.log(res);
         return res.tabs.payload.page;
       })
     );
