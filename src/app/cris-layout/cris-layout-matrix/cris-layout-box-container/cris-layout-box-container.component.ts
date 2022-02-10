@@ -73,8 +73,6 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.entityType + '.' + this.box.shortname;
     this.boxHeaderGenericI18nKey = this.boxI18nPrefix + this.box.shortname;
 
-    console.log(`KEYS:\n${this.boxHeaderI18nKey}\n${this.boxHeaderGenericI18nKey}`);
-
     if (hasNoValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }
