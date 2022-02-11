@@ -15,6 +15,11 @@ import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.model';
 import { UIServerConfig } from './ui-server-config.interface';
 import { UniversalConfig } from './universal-config.interface';
+import { AddThisPluginConfig } from './addThisPlugin-config';
+import { CmsMetadata } from './cms-metadata';
+import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
+import { MetadataSecurityConfig } from './metadata-security-config';
+import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -239,7 +244,7 @@ export class DefaultAppConfig implements AppConfig {
   // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
   // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
   // to efficiently display the search results.
-  followAuthorityMetadata: [
+  followAuthorityMetadata: FollowAuthorityMetadata[] = [
     {
       type: 'Publication',
       metadata: ['dc.contributor.author']
@@ -363,7 +368,7 @@ export class DefaultAppConfig implements AppConfig {
     video: false
   };
 
-  crisLayout: {
+  crisLayout: CrisLayoutConfig = {
     urn: [
       {
         name: 'doi',
@@ -417,14 +422,14 @@ export class DefaultAppConfig implements AppConfig {
     }
   };
 
-  layout: {
+  layout: LayoutConfig = {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
     }
   };
 
-  security: {
+  security: MetadataSecurityConfig = {
     levels: [
       {
         value: 0,
@@ -444,7 +449,7 @@ export class DefaultAppConfig implements AppConfig {
     ]
   };
 
-  suggestion: [
+  suggestion: SuggestionConfig[] = [
     // {
     //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
     //   source: 'suggestionSource',
@@ -452,7 +457,7 @@ export class DefaultAppConfig implements AppConfig {
     // }
   ];
 
-  cms: {
+  cms: CmsMetadata = {
     metadataList: [
       'cris.cms.home-header',
       'cris.cms.home-news',
@@ -460,7 +465,7 @@ export class DefaultAppConfig implements AppConfig {
     ]
   };
 
-  addThisPlugin: {
+  addThisPlugin: AddThisPluginConfig = {
     siteId: '',
     scriptUrl: 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=',
     socialNetworksEnabled: false

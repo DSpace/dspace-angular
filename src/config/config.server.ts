@@ -73,7 +73,7 @@ const getLocalConfigPath = (env: Environment) => {
       break;
     case 'development':
     default:
-      envVariations = ['dev', 'development']
+      envVariations = ['dev', 'development'];
   }
 
   // check if any environment variations of app config exist
