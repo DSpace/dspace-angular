@@ -363,7 +363,7 @@ export class SearchComponent implements OnInit {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     if (this.projection) {
-      searchOptions = Object.assign({}, searchOptions, {
+      searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
         projection: this.projection
       });
     }

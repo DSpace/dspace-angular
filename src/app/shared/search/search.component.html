@@ -74,14 +74,17 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <ds-search-form *ngIf="searchEnabled" id="search-form"
-                    [query]="(searchOptions$ | async)?.query"
-                    [scope]="(searchOptions$ | async)?.scope"
-                    [currentUrl]="searchLink"
-                    [showScopeSelector]="true"
-                    [inPlaceSearch]="inPlaceSearch"
-                    [searchPlaceholder]="searchFormPlaceholder | translate">
-    </ds-search-form>
+    <div class="d-flex">
+        <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
+                        [query]="(searchOptions$ | async)?.query"
+                        [scope]="(searchOptions$ | async)?.scope"
+                        [currentUrl]="searchLink"
+                        [showScopeSelector]="true"
+                        [inPlaceSearch]="inPlaceSearch"
+                        [searchPlaceholder]="searchFormPlaceholder | translate">
+        </ds-search-form>
+        <ng-content select="[additionalSearchFormOptions]"></ng-content>
+    </div>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">
             <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
