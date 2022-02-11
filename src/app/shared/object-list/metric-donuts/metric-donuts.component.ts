@@ -40,7 +40,7 @@ export class MetricDonutsComponent implements OnInit {
     return this.item.metrics.pipe(
       getFirstSucceededRemoteListPayload(),
       map((metrics: Metric[]) => {
-        let metricstoReturn = metrics.filter((metric) =>
+        const metricstoReturn = metrics.filter((metric) =>
           allowedDonuts.includes(metric.metricType)
         );
         metricstoReturn.forEach((metric) => {
