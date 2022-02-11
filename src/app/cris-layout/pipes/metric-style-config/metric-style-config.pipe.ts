@@ -24,10 +24,6 @@ export class MetricStyleConfigPipe implements PipeTransform {
       if (metricTypeConfig) {
         metric.icon = metricTypeConfig.icon;
         metricClass = metricTypeConfig.class;
-        if (metricTypeConfig.plumXConfig) {
-          // configurations set only for metric type plumX
-          metric.plumXConfig = metricTypeConfig.plumXConfig;
-        }
       }
 
       const classes: any = {};

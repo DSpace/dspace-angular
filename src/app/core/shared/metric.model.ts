@@ -1,4 +1,3 @@
-import { PlumXConfig } from './../../../config/metric-visualization-config.interfaces';
 import { autoserialize, deserialize } from 'cerialize';
 import { METRIC } from './metric.resource-type';
 import { typedObject } from '../cache/builders/build-decorators';
@@ -59,9 +58,6 @@ export class Metric implements CacheableObject {
 
   @autoserialize
   icon?: string;
-
-  @autoserialize
-  plumXConfig?: PlumXConfig;
 
   /**
    * The {@link HALLink}s for this Metric

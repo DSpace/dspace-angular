@@ -5,16 +5,16 @@
       [href]="$any(remark).href"
       class="plumx-person"
       data-site="plum"
-      [attr.data-lang]="plumXConfig.language"
-      [attr.data-no-name]="plumXConfig.hideName"
-      [attr.data-num-artifacts]="plumXConfig.artifactsNumber"
-      [attr.data-width]="plumXConfig.width"
-      [attr.data-no-description]="plumXConfig.hideDescription"
-      [attr.data-no-stats]="plumXConfig.hideStatus"
-      [attr.data-no-thumbnail]="plumXConfig.hideThumbnail"
-      [attr.data-no-artifacts]="plumXConfig.hideArtifacts"
+      [attr.data-lang]="$any(remark).language"
+      [attr.data-no-name]="$any(remark).hideName"
+      [attr.data-num-artifacts]="$any(remark).artifactsNumber"
+      [attr.data-width]="$any(remark).width"
+      [attr.data-no-description]="$any(remark).hideDescription"
+      [attr.data-no-stats]="$any(remark).hideStatus"
+      [attr.data-no-thumbnail]="$any(remark).hideThumbnail"
+      [attr.data-no-artifacts]="$any(remark).hideArtifacts"
     >
-      {{plumXConfig.placeholder}}
+      {{$any(remark).placeholder}}
     </a>
   </div>
 
