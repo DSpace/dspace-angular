@@ -59,6 +59,9 @@ export class Metric implements CacheableObject {
   @autoserialize
   icon?: string;
 
+  @autoserialize
+  isListElement: boolean = false;
+
   /**
    * The {@link HALLink}s for this Metric
    */

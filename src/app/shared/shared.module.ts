@@ -229,6 +229,7 @@ import { ThemedSearchSectionComponent } from './explore/section-component/search
 import { ThemedTextSectionComponent } from './explore/section-component/text-section/themed-text-section.component';
 import { ThemedBrowseMostElementsComponent } from './browse-most-elements/themed-browse-most-elements.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { ListMetricPropsPipe } from './utils/list-metric-props/list-metric-props.pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -277,6 +278,7 @@ const PIPES = [
   ObjectValuesPipe,
   ConsolePipe,
   ObjNgFor,
+  ListMetricPropsPipe
 ];
 
 const COMPONENTS = [

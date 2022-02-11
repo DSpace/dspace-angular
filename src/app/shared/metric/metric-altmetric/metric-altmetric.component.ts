@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { hasValue } from '../../empty.util';
 
 declare var _altmetric_embed_init: any;
 
@@ -15,7 +16,9 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
     super(sr);
   }
   ngOnInit() {
-    this.remark = JSON.parse(this.metric.remark);
+    if (hasValue(this.metric.remark)) {
+        this.remark = JSON.parse(this.metric.remark);
+    }
   }
   applyScript(): void {
     _altmetric_embed_init(this.metricChild.nativeElement);

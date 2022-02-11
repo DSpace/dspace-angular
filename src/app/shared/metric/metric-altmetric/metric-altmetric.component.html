@@ -1,12 +1,13 @@
 <div class="row d-flex align-items-center mb-2" *ngIf="remark">
+
   <div class="col-1">
     <div #metricChild>
       <div
         class="altmetric-embed"
         data-badge-type="donut"
-        [attr.data-badge-popover]="$any(remark).popover"
-        [attr.data-doi]="$any(remark).doiAttr"
-        [attr.data-pmid]="$any(remark).pmidAttr"
+        [attr.data-badge-popover]="remark | dsListMetricProps : 'popover' : metric.isListElement"
+        [attr.data-doi]="remark | dsListMetricProps : 'doiAttr' : metric.isListElement"
+        [attr.data-pmid]="remark | dsListMetricProps : 'pmidAttr' : metric.isListElement"
       ></div>
     </div>
   </div>
