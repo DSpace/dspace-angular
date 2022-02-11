@@ -8,12 +8,12 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { SearchResult } from '../../shared/search/search-result.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 describe('SearchComponent', () => {

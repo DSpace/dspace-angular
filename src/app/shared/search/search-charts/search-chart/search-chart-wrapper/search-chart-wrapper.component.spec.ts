@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FILTER_CONFIG, IN_PLACE_SEARCH } from '../../../../../core/shared/search/search-filter.service';
-import { FilterType } from '../../../filter-type.model';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchChartFilterWrapperComponent } from './search-chart-wrapper.component';
 
 xdescribe('SearchChartFilterWrapperComponent', () => {

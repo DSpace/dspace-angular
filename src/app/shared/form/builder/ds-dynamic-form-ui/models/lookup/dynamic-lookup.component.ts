@@ -264,7 +264,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
    * Callback functions for whenClickOnConfidenceNotAccepted event
    */
   public whenClickOnConfidenceNotAccepted(sdRef: NgbDropdown, confidence: ConfidenceType) {
-    if (!this.model.editable) {
+    if (!this.model.readOnly) {
       sdRef.open();
       this.search();
     }

@@ -11,7 +11,17 @@ describe('Config Util', () => {
       expect(appConfig.ui.rateLimiter.windowMs).toEqual(1 * 60 * 1000); // 1 minute
       expect(appConfig.ui.rateLimiter.max).toEqual(500);
 
-      expect(appConfig.submission.autosave.metadata).toEqual([]);
+      expect(appConfig.submission.autosave.metadata).toEqual([
+        'dc.title',
+        'dc.identifier.doi',
+        'dc.identifier.pmid',
+        'dc.identifier.arxiv',
+        'dc.identifier.patentno',
+        'dc.identifier.scopus',
+        'dc.identifier.isi',
+        'dcterms.dateSubmitted',
+        'dc.identifier.applicationnumber'
+      ]);
 
       expect(appConfig.themes.length).toEqual(1);
       expect(appConfig.themes[0].name).toEqual('dspace');

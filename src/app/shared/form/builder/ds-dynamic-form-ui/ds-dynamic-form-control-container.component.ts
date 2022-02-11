@@ -443,7 +443,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     const modalComp = this.modalRef.componentInstance;
 
-    if (hasValue(this.model.value) && !this.model.editable) {
+    if (hasValue(this.model.value) && !this.model.readOnly) {
       if (typeof this.model.value === 'string') {
         modalComp.query = this.model.value;
       } else if (typeof this.model.value.value === 'string') {

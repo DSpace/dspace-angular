@@ -52,7 +52,7 @@
 
             </ng-container>
            <p class="d-table-cell">{{textTruncate(c.display)}}</p>
-            <i *ngIf="!editable" class="fas fa-times ml-2"
+            <i *ngIf="editable" class="fas fa-times ml-2"
                (click)="removeChips($event, i)"
                [title]="'chips.remove' | translate"></i>
           </span>

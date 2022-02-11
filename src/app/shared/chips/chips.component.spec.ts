@@ -13,7 +13,7 @@ import { AuthorityConfidenceStateDirective } from '../authority-confidence/autho
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfidenceType } from '../../core/shared/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.test';
 
 describe('ChipsComponent test suite', () => {
 
@@ -82,7 +82,7 @@ describe('ChipsComponent test suite', () => {
       chipsComp = null;
     });
 
-    it('should emit when a chip item is removed', fakeAsync(() => {
+    it('should emit when a chip item is removed and editable is true', fakeAsync(() => {
 
       spyOn(chipsComp.chips, 'remove');
 

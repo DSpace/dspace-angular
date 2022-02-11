@@ -30,6 +30,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Observable } from 'rxjs/internal/Observable';
+import { SearchManager } from '../../core/browse/search-manager';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -97,10 +98,12 @@ const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchO
 const mockResultsRD: RemoteData<SearchObjects<DSpaceObject>> = createSuccessfulRemoteDataObject(mockSearchResults);
 const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = observableOf(mockResultsRD);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
-  search: mockResultsRD$,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig)
+});
+const searchManagerStub = jasmine.createSpyObj('SearchManager', {
+  search: mockResultsRD$,
 });
 const configurationParam = 'default';
 const queryParam = 'test query';
@@ -164,6 +167,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     declarations: [compType, ...additionalDeclarations],
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
+      { provide: SearchManager, useValue: searchManagerStub },
       {
         provide: CommunityDataService,
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])

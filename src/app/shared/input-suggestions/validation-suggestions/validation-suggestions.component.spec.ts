@@ -70,7 +70,7 @@ describe('ValidationSuggestionsComponent', () => {
         fixture.detectChanges();
         const input = fixture.debugElement.query(By.css('input'));
         const element = input.nativeElement;
-        expect(element.editable).toBe(true);
+        expect(element.readOnly).toBe(true);
       });
     });
     describe('test input field readonly property when input disable is false', () => {
@@ -82,7 +82,7 @@ describe('ValidationSuggestionsComponent', () => {
         fixture.detectChanges();
         const input = fixture.debugElement.query(By.css('input'));
         const element = input.nativeElement;
-        expect(element.editable).toBe(false);
+        expect(element.readOnly).toBe(false);
       });
     });
   });

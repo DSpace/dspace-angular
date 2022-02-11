@@ -12,7 +12,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
-import { SearchResult } from '../search/search-result.model';
+import { SearchResult } from '../search/models/search-result.model';
 import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
 
 // REST Mock ---------------------------------------------------------------------
