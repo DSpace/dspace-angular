@@ -79,6 +79,7 @@ const DECLARATIONS = [
   SubmissionImportExternalSearchbarComponent,
   SubmissionImportExternalPreviewComponent,
   SubmissionImportExternalCollectionComponent,
+  DuplicateMatchComponent
 ];
 
 @NgModule({

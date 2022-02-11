@@ -30,6 +30,8 @@ import { ExistingRelationListElementComponent } from './builder/ds-dynamic-form-
 import { ExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { CustomSwitchComponent } from './builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { DsDynamicRelationGroupModalComponent } from './builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
+import { DsDynamicRelationInlineGroupComponent } from './builder/ds-dynamic-form-ui/models/relation-inline-group/dynamic-relation-inline-group.components';
 
 const COMPONENTS = [
   CustomSwitchComponent,
@@ -42,6 +44,8 @@ const COMPONENTS = [
   DsDynamicLookupRelationExternalSourceTabComponent,
   DsDynamicDisabledComponent,
   DsDynamicLookupRelationModalComponent,
+  DsDynamicRelationGroupModalComponent,
+  DsDynamicRelationInlineGroupComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicOneboxComponent,
