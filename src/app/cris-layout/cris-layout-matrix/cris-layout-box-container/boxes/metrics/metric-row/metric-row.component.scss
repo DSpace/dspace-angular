@@ -5,13 +5,8 @@
     min-width: fit-content;
   }
 
-  .container.altmetric.alert.metric-container {
-    // .altmetric -> metricType
-    border: 1px lightgray solid;
-  }
-
-  .container.plumX.alert.metric-container {
-     // .plumX -> metricType
+  .container.plumX.alert.metric-container, .container.altmetric.alert.metric-container {
+     // .plumX & .altmetric -> metricType
     display: contents;
   }
 }
