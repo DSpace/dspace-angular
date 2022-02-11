@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchComponent } from './search.component';
+import { LuckySearchComponent } from './lucky-search.component';
 import { LuckySearchService } from '../lucky-search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { Router, UrlTree } from '@angular/router';
@@ -17,7 +17,7 @@ import { SearchResult } from '../../shared/search/search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 describe('SearchComponent', () => {
-  let fixture: ComponentFixture<SearchComponent>;
+  let fixture: ComponentFixture<LuckySearchComponent>;
   const collection1 = Object.assign(new Item(), {
     uuid: 'item-uuid-1',
     name: 'Test item 1'
@@ -50,7 +50,7 @@ describe('SearchComponent', () => {
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
   };
-  let component: SearchComponent;
+  let component: LuckySearchComponent;
 
   const itemPageUrl = '/lucky-search?index=xxx&value=yyyy';
   const urlTree = new UrlTree();
@@ -67,7 +67,7 @@ describe('SearchComponent', () => {
   });
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchComponent],
+      declarations: [LuckySearchComponent],
       imports: [TranslateModule.forRoot()],
       providers: [
         {provide: Router, useValue: routerStub},
@@ -80,7 +80,7 @@ describe('SearchComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchComponent);
+    fixture = TestBed.createComponent(LuckySearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -99,7 +99,7 @@ describe('SearchComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchComponent);
+    fixture = TestBed.createComponent(LuckySearchComponent);
     component = fixture.componentInstance;
     const firstSearchResult = Object.assign(new SearchResult(), {
       indexableObject: Object.assign(new DSpaceObject(), {
@@ -127,7 +127,7 @@ describe('SearchComponent', () => {
 
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchComponent);
+    fixture = TestBed.createComponent(LuckySearchComponent);
     component = fixture.componentInstance;
     const data = createSuccessfulRemoteDataObject(createPaginatedList([]));
     component.resultsRD$.next(data as any);

@@ -16,11 +16,11 @@ import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
 
 @Component({
-  selector: 'ds-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'ds-lucky-search',
+  templateUrl: './lucky-search.component.html',
+  styleUrls: ['./lucky-search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class LuckySearchComponent implements OnInit {
   /**
    * The current search results
    */

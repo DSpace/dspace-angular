@@ -257,8 +257,8 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           },
           {
             path: 'lucky-search',
-            loadChildren: () => import('./lucky-search/search-routing.module')
-              .then((m) => m.SearchRoutingModule)
+            loadChildren: () => import('./lucky-search/lucky-search.module')
+              .then((m) => m.LuckySearchModule)
           },
           {
             path: 'invitation',
