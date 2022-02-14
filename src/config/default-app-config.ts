@@ -473,7 +473,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
-		{
+    {
       type: 'altmetric',
       icon: null,
       class: 'alert-light',
@@ -513,5 +513,5 @@ export class DefaultAppConfig implements AppConfig {
       icon: 'fa fa-cloud-download-alt',
       class: 'alert-danger',
     },
-	]
+  ];
 }
