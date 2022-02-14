@@ -91,6 +91,10 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
     return this.componentLoader?.componentRef;
   }
 
+  /**
+   * get the translation for the i18n key
+   * @param key the i18n key
+   */
   getTranslation(key: string): string {
     const value = this.translateService.instant(key);
     return value === key ? null : value;
