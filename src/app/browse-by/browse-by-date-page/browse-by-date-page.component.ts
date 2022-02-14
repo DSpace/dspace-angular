@@ -88,7 +88,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           if (hasValue(date)) {
             const dateObj = new Date(date);
             // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
-            lowerLimit = dateObj.getUTCFullYear();
+            lowerLimit = isNaN(dateObj.getUTCFullYear()) ? lowerLimit : dateObj.getUTCFullYear();
           }
         }
         const options = [];
