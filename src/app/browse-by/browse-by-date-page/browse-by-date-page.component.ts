@@ -18,7 +18,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
@@ -91,7 +90,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           if (hasValue(date)) {
             const dateObj = new Date(date);
             // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
-            lowerLimit = dateObj.getUTCFullYear();
+            lowerLimit = isNaN(dateObj.getUTCFullYear()) ? lowerLimit : dateObj.getUTCFullYear();
           }
         }
         const options = [];
