@@ -22,7 +22,7 @@ export class MetricLoaderComponent implements OnInit {
 
   @ViewChild('container', { read: ViewContainerRef, static: false }) container: ViewContainerRef;
 
-  @Input() isListElement: boolean = false;
+  @Input() isListElement = false;
 
   public componentType: any;
 

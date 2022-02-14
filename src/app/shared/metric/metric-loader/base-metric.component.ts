@@ -10,5 +10,5 @@ export abstract class BaseMetricComponent {
 
   @Input() hideLabel = false;
 
-  @Input() isListElement: boolean = false;
+  @Input() isListElement = false;
 }
