@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EditItemRelationshipsRoutingModule } from './edit-item-relationships-routing.module';
 import { RelationshipsSortListComponent } from './relationships-sort-list/relationships-sort-list.component';
 import { MyDspaceSearchModule } from '../my-dspace-page/my-dspace-search.module';
+import { SearchModule } from '../shared/search/search.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { MyDspaceSearchModule } from '../my-dspace-page/my-dspace-search.module'
     CommonModule,
     SharedModule.withEntryComponents(),
     MyDspaceSearchModule.withEntryComponents(),
-    EditItemRelationshipsRoutingModule
+    EditItemRelationshipsRoutingModule,
+    SearchModule.withEntryComponents()
   ]
 })
 export class EditItemRelationshipsModule { }

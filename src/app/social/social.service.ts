@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.common';
+import { environment } from '../../environments/environment';
 import { CookieService } from '../core/services/cookie.service';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';

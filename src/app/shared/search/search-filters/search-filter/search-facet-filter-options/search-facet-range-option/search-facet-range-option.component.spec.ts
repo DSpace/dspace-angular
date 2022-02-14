@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
-import { FilterType } from '../../../../filter-type.model';
-import { FacetValue } from '../../../../facet-value.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { FilterType } from '../../../../models/filter-type.model';
+import { FacetValue } from '../../../../models/facet-value.model';
 import { FormsModule } from '@angular/forms';
 import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -20,8 +20,6 @@ import {
   RANGE_FILTER_MIN_SUFFIX
 } from '../../search-range-filter/search-range-filter.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../../core/data/request.models';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 

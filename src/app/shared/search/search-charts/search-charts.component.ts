@@ -7,7 +7,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.co
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchFilterConfig } from '../search-filter-config.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 
 @Component({

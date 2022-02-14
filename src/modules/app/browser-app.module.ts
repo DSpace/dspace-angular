@@ -1,7 +1,8 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, NoPreloading } from '@angular/router';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -30,9 +31,14 @@ import {
 } from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
+import { AppConfig, APP_CONFIG_STATE } from '../../config/app-config.interface';
+import { DefaultAppConfig } from '../../config/default-app-config';
+import { extendEnvironmentWithAppConfig } from '../../config/config.util';
+import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
+
+import { environment } from '../../environments/environment';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -54,12 +60,12 @@ export function getRequest(transferState: TransferState): any {
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
     RouterModule.forRoot([], {
-    // enableTracing: true,
-    useHash: false,
-    scrollPositionRestoration: 'enabled',
-    anchorScrolling: 'enabled',
-    preloadingStrategy: NoPreloading
-}),
+      // enableTracing: true,
+      useHash: false,
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      preloadingStrategy: NoPreloading
+    }),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
@@ -74,6 +80,25 @@ export function getRequest(transferState: TransferState): any {
     AppModule
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (
+        transferState: TransferState,
+        dspaceTransferState: DSpaceTransferState,
+        correlationIdService: CorrelationIdService
+      ) => {
+        if (transferState.hasKey<AppConfig>(APP_CONFIG_STATE)) {
+          const appConfig = transferState.get<AppConfig>(APP_CONFIG_STATE, new DefaultAppConfig());
+          // extend environment with app config for browser
+          extendEnvironmentWithAppConfig(environment, appConfig);
+        }
+        dspaceTransferState.transfer();
+        correlationIdService.initCorrelationId();
+        return () => true;
+      },
+      deps: [TransferState, DSpaceTransferState, CorrelationIdService],
+      multi: true
+    },
     {
       provide: REQUEST,
       useFactory: getRequest,
@@ -118,9 +143,4 @@ export function getRequest(transferState: TransferState): any {
   ]
 })
 export class BrowserAppModule {
-  constructor(
-    private transferState: DSpaceTransferState,
-  ) {
-    this.transferState.transfer();
-  }
 }

@@ -181,15 +181,15 @@ export class FormComponent implements OnDestroy, OnInit {
         map((formState) => formState.errors),
         distinctUntilChanged())
         .subscribe((errors: FormError[]) => {
-          const {formGroup, formModel} = this;
+          const { formGroup, formModel } = this;
           errors
             .filter((error: FormError) => findIndex(this.formErrors, {
               fieldId: error.fieldId,
               fieldIndex: error.fieldIndex
             }) === -1)
             .forEach((error: FormError) => {
-              const {fieldId} = error;
-              const {fieldIndex} = error;
+              const { fieldId } = error;
+              const { fieldIndex } = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
@@ -211,8 +211,8 @@ export class FormComponent implements OnDestroy, OnInit {
               fieldIndex: error.fieldIndex
             }) === -1)
             .forEach((error: FormError) => {
-              const {fieldId} = error;
-              const {fieldIndex} = error;
+              const { fieldId } = error;
+              const { fieldIndex } = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
@@ -375,6 +375,6 @@ export class FormComponent implements OnDestroy, OnInit {
     }
     const model = context.group[0] as DynamicFormControlModel;
     const control = group.controls[index] as FormControl;
-    return {$event, context, control, group, model, type};
+    return { $event, context, control, group, model, type };
   }
 }

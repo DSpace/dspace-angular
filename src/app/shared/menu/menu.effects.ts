@@ -19,7 +19,7 @@ export class MenuEffects {
   /**
    * On route change, build menu sections for every menu type depending on the current route data
    */
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public buildRouteMenuSections$: Observable<Action> = this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATED),
@@ -31,8 +31,8 @@ export class MenuEffects {
     );
 
   constructor(private actions$: Actions,
-              private menuService: MenuService,
-              private route: ActivatedRoute) {
+    private menuService: MenuService,
+    private route: ActivatedRoute) {
   }
 
   /**
@@ -74,7 +74,6 @@ export class MenuEffects {
     const last: boolean = hasNoValue(route.firstChild);
 
     if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[menuID])) {
-
       let menuSections: MenuSection[] | MenuSection = data.menu[menuID];
       menuSections = this.resolveSubstitutions(menuSections, params);
 
@@ -122,4 +121,5 @@ export class MenuEffects {
     }
     return resolved;
   }
+
 }

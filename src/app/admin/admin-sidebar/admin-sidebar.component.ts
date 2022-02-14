@@ -21,6 +21,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from '../admin-notifications/admin-notifications-routing-paths';
 import { MenuSection } from '../../shared/menu/menu.reducer';
 import { BulkImportSelectorComponent } from '../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
@@ -68,14 +69,15 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   inFocus$: BehaviorSubject<boolean>;
 
   constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              private variableService: CSSVariableService,
-              private authService: AuthService,
-              private modalService: NgbModal,
-              private authorizationService: AuthorizationDataService,
-              private scriptDataService: ScriptDataService,
+    protected injector: Injector,
+    private variableService: CSSVariableService,
+    private authService: AuthService,
+    private modalService: NgbModal,
+    public authorizationService: AuthorizationDataService,
+    private scriptDataService: ScriptDataService,
+    public route: ActivatedRoute
   ) {
-    super(menuService, injector);
+    super(menuService, injector, authorizationService, route);
     this.inFocus$ = new BehaviorSubject(false);
   }
 

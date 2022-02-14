@@ -3,18 +3,17 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import {
   BehaviorSubject,
-  combineLatest,
   combineLatest as observableCombineLatest,
   merge as observableMerge,
   Observable,
   of,
   Subscription
 } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../../shared/search/search-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { SearchFilter } from '../../../shared/search/search-filter.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { RemoteData } from '../../data/remote-data';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
@@ -22,9 +21,10 @@ import { RouteService } from '../../services/route.service';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchConfig } from './search-filters/search-config.model';
+import { SearchConfig, SortConfig } from './search-filters/search-config.model';
 import { SearchService } from './search.service';
 import { PaginationService } from '../../pagination/pagination.service';
+import { ViewMode } from '../view-mode.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -32,7 +32,21 @@ import { PaginationService } from '../../pagination/pagination.service';
 @Injectable()
 export class SearchConfigurationService implements OnDestroy {
 
+  /**
+   * Default pagination id
+   */
   public paginationID = 'spc';
+
+  /**
+   * Emits the current search options
+   */
+  public searchOptions: BehaviorSubject<SearchOptions>;
+
+  /**
+   * Emits the current search options including pagination and sort
+   */
+  public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions>;
+
   /**
    * Default pagination settings
    */
@@ -41,16 +55,6 @@ export class SearchConfigurationService implements OnDestroy {
     pageSize: 10,
     currentPage: 1
   });
-
-  /**
-   * Default sort settings
-   */
-  protected defaultSort = new SortOptions('score', SortDirection.DESC);
-
-  /**
-   * Default configuration parameter setting
-   */
-  protected defaultConfiguration;
 
   /**
    * Default scope setting
@@ -68,23 +72,14 @@ export class SearchConfigurationService implements OnDestroy {
   protected _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
 
   /**
-   * Emits the current search options
+   * A map of subscriptions to unsubscribe from on destroy
    */
-  public searchOptions: BehaviorSubject<SearchOptions>;
-
-  /**
-   * Emits the current search options including pagination and sort
-   */
-  public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions>;
-
-  /**
-   * List of subscriptions to unsubscribe from on destroy
-   */
-  protected subs: Subscription[] = [];
+  protected subs: Map<string, Subscription[]> = new Map<string, Subscription[]>(null);
 
   /**
    * Initialize the search options
    * @param {RouteService} routeService
+   * @param {PaginationService} paginationService
    * @param {ActivatedRoute} route
    */
   constructor(protected routeService: RouteService,
@@ -95,29 +90,28 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Initialize the search options
+   * Default values for the Search Options
    */
-  protected initDefaults() {
-    this.defaults
-      .pipe(getFirstSucceededRemoteData())
-      .subscribe((defRD: RemoteData<PaginatedSearchOptions>) => {
-          const defs = defRD.payload;
-          this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
-          this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
-          this.subs.push(this.subscribeToSearchOptions(defs));
-          this.subs.push(this.subscribeToPaginatedSearchOptions(defs.pagination.id, defs));
-        }
-      );
+  get defaults(): Observable<RemoteData<PaginatedSearchOptions>> {
+    if (hasNoValue(this._defaults)) {
+      const options = new PaginatedSearchOptions({
+        pagination: this.defaultPagination,
+        scope: this.defaultScope,
+        query: this.defaultQuery
+      });
+      this._defaults = createSuccessfulRemoteDataObject$(options, new Date().getTime());
+    }
+    return this._defaults;
   }
 
   /**
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string) {
-    return observableCombineLatest(
+    return observableCombineLatest([
       this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
       this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
-    ).pipe(
+    ]).pipe(
       map(([queryConfig, routeConfig]) => {
         return queryConfig || routeConfig || defaultConfiguration;
       })
@@ -205,57 +199,89 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Creates an observable of SearchConfig every time the configuration$ stream emits.
-   * @param configuration$
-   * @param service
+   * @returns {Observable<string>} Emits the current view mode
    */
-  getConfigurationSearchConfigObservable(configuration$: Observable<string>, service: SearchService): Observable<SearchConfig> {
-    return configuration$.pipe(
-      distinctUntilChanged(),
-      switchMap((configuration) => service.getSearchConfigurationFor(null, configuration)),
-      getAllSucceededRemoteDataPayload());
-  }
-
-  /**
-   * Every time searchConfig change (after a configuration change) it update the navigation with the default sort option
-   * and emit the new paginateSearchOptions value.
-   * @param configuration$
-   * @param service
-   */
-  initializeSortOptionsFromConfiguration(searchConfig$: Observable<SearchConfig>) {
-    const subscription = searchConfig$.pipe(switchMap((searchConfig) => combineLatest([
-      of(searchConfig),
-      this.paginatedSearchOptions
-    ]))).pipe(take(1)).subscribe(([searchConfig, searchOptions]) => {
-      const field = searchConfig.sortOptions[0].name;
-      const direction = searchConfig.sortOptions[0].sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC;
-      const updateValue = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
-        sort: new SortOptions(field, direction)
-      });
-      this.paginationService.updateRoute(this.paginationID,
-        {
-          sortDirection: updateValue.sort.direction,
-          sortField: updateValue.sort.field,
-        });
-      this.paginatedSearchOptions.next(updateValue);
-    });
-    this.subs.push(subscription);
-  }
-
-  /**
-   * Creates an observable of available SortOptions[] every time the searchConfig$ stream emits.
-   * @param searchConfig$
-   * @param service
-   */
-  getConfigurationSortOptionsObservable(searchConfig$: Observable<SearchConfig>): Observable<SortOptions[]> {
-    return searchConfig$.pipe(map((searchConfig) => {
-      const sortOptions = [];
-      searchConfig.sortOptions.forEach(sortOption => {
-        sortOptions.push(new SortOptions(sortOption.name, SortDirection.ASC));
-        sortOptions.push(new SortOptions(sortOption.name, SortDirection.DESC));
-      });
-      return sortOptions;
+  getCurrentViewMode(defaultViewMode: ViewMode) {
+    return this.routeService.getQueryParameterValue('view').pipe(map((viewMode) => {
+      return viewMode || defaultViewMode;
     }));
+  }
+
+  /**
+   * Creates an observable of SearchConfig every time the configuration stream emits.
+   * @param configuration The search configuration
+   * @param service The search service to use
+   * @param scope The search scope if exists
+   */
+  getConfigurationSearchConfig(configuration: string, service: SearchService, scope?: string): Observable<SearchConfig> {
+    return service.getSearchConfigurationFor(scope, configuration).pipe(
+      getAllSucceededRemoteDataPayload()
+    );
+  }
+
+  /**
+   * Return the SortOptions list available for the given SearchConfig
+   * @param searchConfig The SearchConfig object
+   */
+  getConfigurationSortOptions(searchConfig: SearchConfig): SortOptions[] {
+    return searchConfig.sortOptions.map((entry: SortConfig) => ({
+      field: entry.name,
+      direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC
+    }));
+  }
+
+  setPaginationId(paginationId): void {
+    if (isNotEmpty(paginationId)) {
+      const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, {
+        pagination: Object.assign({}, currentValue.pagination, {
+          id: paginationId
+        })
+      });
+      // unsubscribe from subscription related to old pagination id
+      this.unsubscribeFromSearchOptions(this.paginationID);
+
+      // change to the new pagination id
+      this.paginationID = paginationId;
+      this.paginatedSearchOptions.next(updatedValue);
+      this.setSearchSubscription(this.paginationID, this.paginatedSearchOptions.value);
+    }
+  }
+
+  /**
+   * Make sure to unsubscribe from all existing subscription to prevent memory leaks
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .forEach((subs: Subscription[]) => subs
+        .filter((sub) => hasValue(sub))
+        .forEach((sub) => sub.unsubscribe())
+      );
+
+    this.subs = new Map<string, Subscription[]>(null);
+  }
+
+  /**
+   * Initialize the search options
+   */
+  protected initDefaults() {
+    this.defaults
+      .pipe(getFirstSucceededRemoteData())
+      .subscribe((defRD: RemoteData<PaginatedSearchOptions>) => {
+        const defs = defRD.payload;
+        this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
+        this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
+        this.setSearchSubscription(this.paginationID, defs);
+      });
+  }
+
+  private setSearchSubscription(paginationID: string, defaults: PaginatedSearchOptions) {
+    this.unsubscribeFromSearchOptions(paginationID);
+    const subs = [
+      this.subscribeToSearchOptions(defaults),
+      this.subscribeToPaginatedSearchOptions(paginationID || defaults.pagination.id, defaults)
+    ];
+    this.subs.set(this.paginationID, subs);
   }
 
   /**
@@ -270,7 +296,8 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
+      this.getFixedFilterPart(),
+      this.getViewModePart(defaults.view)
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -280,19 +307,21 @@ export class SearchConfigurationService implements OnDestroy {
 
   /**
    * Sets up a subscription to all necessary parameters to make sure the paginatedSearchOptions emits a new value every time they update
+   * @param {string} paginationId The pagination ID
    * @param {PaginatedSearchOptions} defaults Default values for when no parameters are available
    * @returns {Subscription} The subscription to unsubscribe from
    */
   private subscribeToPaginatedSearchOptions(paginationId: string, defaults: PaginatedSearchOptions): Subscription {
     return observableMerge(
+      this.getConfigurationPart(defaults.configuration),
       this.getPaginationPart(paginationId, defaults.pagination),
       this.getSortPart(paginationId, defaults.sort),
-      this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
+      this.getFixedFilterPart(),
+      this.getViewModePart(defaults.view)
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -301,30 +330,16 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Default values for the Search Options
+   * Unsubscribe from all subscriptions related to the given paginationID
+   * @param paginationId The pagination id
    */
-  get defaults(): Observable<RemoteData<PaginatedSearchOptions>> {
-    if (hasNoValue(this._defaults)) {
-      const options = new PaginatedSearchOptions({
-        pagination: this.defaultPagination,
-        configuration: this.defaultConfiguration,
-        sort: this.defaultSort,
-        scope: this.defaultScope,
-        query: this.defaultQuery
-      });
-      this._defaults = createSuccessfulRemoteDataObject$(options, new Date().getTime());
+  private unsubscribeFromSearchOptions(paginationId: string): void {
+    if (this.subs.has(this.paginationID)) {
+      this.subs.get(this.paginationID)
+        .filter((sub) => hasValue(sub))
+        .forEach((sub) => sub.unsubscribe());
+      this.subs.delete(paginationId);
     }
-    return this._defaults;
-  }
-
-  /**
-   * Make sure to unsubscribe from all existing subscription to prevent memory leaks
-   */
-  ngOnDestroy(): void {
-    this.subs.forEach((sub) => {
-      sub.unsubscribe();
-    });
-    this.subs = [];
   }
 
   /**
@@ -400,5 +415,14 @@ export class SearchConfigurationService implements OnDestroy {
         return { fixedFilter };
       }),
     );
+  }
+
+  /**
+   * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object
+   */
+  private getViewModePart(defaultViewMode: ViewMode): Observable<any> {
+    return this.getCurrentViewMode(defaultViewMode).pipe(map((view) => {
+      return { view };
+    }));
   }
 }
