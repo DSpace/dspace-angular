@@ -22,6 +22,8 @@ export class MetricLoaderComponent implements OnInit {
 
   @ViewChild('container', { read: ViewContainerRef, static: false }) container: ViewContainerRef;
 
+  @Input() isListElement: boolean = false;
+
   public componentType: any;
 
   constructor(
@@ -49,6 +51,7 @@ export class MetricLoaderComponent implements OnInit {
     const componentInstance = ref.instance as BaseMetricComponent;
     componentInstance.metric = metric;
     componentInstance.hideLabel = this.hideLabel;
+    componentInstance.isListElement = this.isListElement;
     ref.changeDetectorRef.detectChanges();
   }
 }

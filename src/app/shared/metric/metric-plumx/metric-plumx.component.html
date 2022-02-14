@@ -1,23 +1,26 @@
 <div class="justify-content-center" *ngIf="remark">
-  <div *ngIf="(remark | dsListMetricProps : 'type' : metric.isListElement )== 'Person'; else publication">
+  <div *ngIf="(remark | dsListMetricProps: 'type':isListElement) == 'Person'; else publication">
     <a
-      [href]="remark | dsListMetricProps : 'href' : metric.isListElement"
+      [href]="remark | dsListMetricProps: 'href':isListElement"
       class="plumx-person"
       data-site="plum"
-      [attr.data-lang]="remark | dsListMetricProps : 'language' : metric.isListElement"
-      [attr.data-no-name]="remark | dsListMetricProps : 'hideName' : metric.isListElement "
-      [attr.data-num-artifacts]="remark | dsListMetricProps : 'artifactsNumber' : metric.isListElement"
-      [attr.data-width]=" remark| dsListMetricProps : 'width' : metric.isListElement"
-      [attr.data-no-description]="remark | dsListMetricProps : 'hideDescription' : metric.isListElement"
-      [attr.data-no-stats]="remark | dsListMetricProps : 'hideStatus' : metric.isListElement "
-      [attr.data-no-thumbnail]="remark | dsListMetricProps : 'hideThumbnail' : metric.isListElement"
-      [attr.data-no-artifacts]="remark | dsListMetricProps : 'hideArtifacts' : metric.isListElement"
+      [attr.data-lang]="remark | dsListMetricProps: 'language':isListElement"
+      [attr.data-no-name]="remark | dsListMetricProps: 'hideName':isListElement"
+      [attr.data-num-artifacts]="remark | dsListMetricProps: 'artifactsNumber':isListElement"
+      [attr.data-width]="remark | dsListMetricProps: 'width':isListElement"
+      [attr.data-no-description]="remark | dsListMetricProps: 'hideDescription':isListElement"
+      [attr.data-no-stats]="remark | dsListMetricProps: 'hideStatus':isListElement"
+      [attr.data-no-thumbnail]=" remark | dsListMetricProps: 'hideThumbnail':isListElement"
+      [attr.data-no-artifacts]="remark | dsListMetricProps: 'hideArtifacts':isListElement"
     >
-      {{remark | dsListMetricProps : 'placeholder' : metric.isListElement }}
+      {{ remark | dsListMetricProps: "placeholder":isListElement }}
     </a>
   </div>
 
   <ng-template #publication>
-    <a [href]="$any(remark).href" class="plumx-plum-print-popup"></a>
+    <a
+      [href]="remark | dsListMetricProps: 'href':isListElement"
+      class="plumx-plum-print-popup"
+    ></a>
   </ng-template>
 </div>
