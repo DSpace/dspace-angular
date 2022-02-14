@@ -128,6 +128,9 @@ export class SubmissionSectionContainerComponent implements OnInit {
       this.isRemoving.next(true);
       this.operationsBuilder.remove(this.pathCombiner.getPath());
       this.sectionRef.removeSection(this.submissionId, this.sectionData.id);
+      setTimeout(() => {
+        this.isRemoving.next(false);
+      }, 1000);
     }
   }
 

@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, interval, Observable, race, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, mapTo, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { findIndex, isEqual } from 'lodash';
 
@@ -172,9 +172,13 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       mergeMap(() =>
         observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+          race([this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
             getRemoteDataPayload()),
+            interval(1000).pipe(mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')).pipe(
+              getFirstSucceededRemoteData(),
+              getRemoteDataPayload())))]
+              ),
           this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1))
         ])),
       take(1))
