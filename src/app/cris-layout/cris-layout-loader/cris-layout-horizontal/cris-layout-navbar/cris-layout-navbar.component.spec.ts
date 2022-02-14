@@ -70,6 +70,7 @@ describe('CrisLayoutNavbarComponent', () => {
     component = fixture.componentInstance;
     component.item = mockItem;
     component.tabs = [];
+    component.showNav = true;
     de = fixture.debugElement;
     fixture.detectChanges();
   });

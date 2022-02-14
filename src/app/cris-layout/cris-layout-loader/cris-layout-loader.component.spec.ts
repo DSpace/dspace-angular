@@ -13,6 +13,7 @@ import { HostWindowServiceStub } from '../../shared/testing/host-window-service.
 import { CommonModule } from '@angular/common';
 import { CrisLayoutVerticalComponent } from './cris-layout-vertical/cris-layout-vertical.component';
 import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal/cris-layout-horizontal.component';
+import { loaderTabs } from '../../shared/testing/layout-tab.mocks';
 
 describe('CrisLayoutLoaderComponent', () => {
   let component: CrisLayoutLoaderComponent;
@@ -64,6 +65,8 @@ describe('CrisLayoutLoaderComponent', () => {
     fixture = TestBed.createComponent(CrisLayoutLoaderComponent);
     component = fixture.componentInstance;
     component.item = mockItem;
+    component.leadingTabs = [];
+    component.tabs = loaderTabs;
     fixture.detectChanges();
   });
 
