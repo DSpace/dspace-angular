@@ -1,3 +1,4 @@
+import { MetricStyleConfigPipe } from './../../../../../pipes/metric-style-config/metric-style-config.pipe';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -21,7 +22,8 @@ describe('MetricRowComponent', () => {
         }
       }), BrowserAnimationsModule],
       declarations: [
-        MetricRowComponent
+        MetricRowComponent,
+        MetricStyleConfigPipe
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

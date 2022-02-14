@@ -4,6 +4,7 @@ import {Injector} from '@angular/core';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateLoaderMock} from '../../mocks/translate-loader.mock';
 import {By} from '@angular/platform-browser';
+import { ListMetricPropsPipe } from '../../utils/list-metric-props/list-metric-props.pipe';
 
 describe('MetricPlumxComponent', () => {
   let component: MetricPlumxComponent;
@@ -25,7 +26,7 @@ describe('MetricPlumxComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MetricPlumxComponent],
+      declarations: [MetricPlumxComponent, ListMetricPropsPipe],
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
