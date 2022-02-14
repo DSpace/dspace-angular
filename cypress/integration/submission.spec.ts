@@ -1,12 +1,12 @@
 import { Options } from 'cypress-axe';
-import { TEST_ADMIN_USER, TEST_ADMIN_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID } from 'cypress/support';
+import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
 describe('New Submission page', () => {
     // NOTE: We already test that new submissions can be started from MyDSpace in my-dspace.spec.ts
 
-    it('should create a new submission when using /submit path', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+    it('should create a new submission when using /submit path & pass accessibility', () => {
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         // Test that calling /submit with collection & entityType will create a new submission
         cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');
@@ -33,7 +33,7 @@ describe('New Submission page', () => {
     });
 
     it('should block submission & show errors if required fields are missing', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         // Create a new submission
         cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');
@@ -91,7 +91,7 @@ describe('New Submission page', () => {
     });
 
     it('should allow for deposit if all required fields completed & file uploaded', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         // Create a new submission
         cy.visit('/submit?collection=' + TEST_SUBMIT_COLLECTION_UUID + '&entityType=none');

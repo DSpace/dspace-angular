@@ -1,17 +1,17 @@
 import { Options } from 'cypress-axe';
-import { TEST_ADMIN_USER, TEST_ADMIN_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support';
+import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support';
 import { testA11y } from 'cypress/support/utils';
 
 describe('My DSpace page', () => {
     it('should display recent submissions and pass accessibility tests', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         cy.visit('/mydspace');
 
         cy.get('ds-my-dspace-page').should('exist');
 
         // At least one recent submission should be displayed
-        cy.get('ds-item-search-result-list-element-submission').should('be.visible');
+        cy.get('[data-e2e="list-object"]').should('be.visible');
 
         // Click each filter toggle to open *every* filter
         // (As we want to scan filter section for accessibility issues as well)
@@ -36,7 +36,7 @@ describe('My DSpace page', () => {
     });
 
     it('should have a working detailed view that passes accessibility tests', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
 
         cy.visit('/mydspace');
 
@@ -61,7 +61,7 @@ describe('My DSpace page', () => {
 
     // NOTE: Deleting existing submissions is exercised by submission.spec.ts
     it('should let you start a new submission & edit in-progress submissions', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
         cy.visit('/mydspace');
 
         // Open the New Submission dropdown
@@ -97,8 +97,14 @@ describe('My DSpace page', () => {
             // Part 2 will be the [id] of the submission
             const id = subpaths[2];
 
-            // Go back to the MyDSpace page
-            cy.visit('/mydspace');
+            // Click the "Save for Later" button to save this submission
+            cy.get('button#saveForLater').click();
+
+            // "Save for Later" should send us to MyDSpace
+            cy.url().should('include', '/mydspace');
+
+            // Close any open notifications, to make sure they don't get in the way of next steps
+            cy.get('[data-dismiss="alert"]').click({multiple: true});
 
             // This is the GET command that will actually run the search
             cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
@@ -125,7 +131,7 @@ describe('My DSpace page', () => {
     });
 
     it('should let you import from external sources', () => {
-        cy.login(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
+        cy.login(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
         cy.visit('/mydspace');
 
         // Open the New Import dropdown

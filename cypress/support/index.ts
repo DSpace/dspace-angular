@@ -54,3 +54,5 @@ export const TEST_SEARCH_TERM = Cypress.env('DSPACE_TEST_SEARCH_TERM') || 'test'
 // Collection used for submission tests
 export const TEST_SUBMIT_COLLECTION_NAME = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME') || 'Sample Collection';
 export const TEST_SUBMIT_COLLECTION_UUID = Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_UUID') || '9d8334e9-25d3-4a67-9cea-3dffdef80144';
+export const TEST_SUBMIT_USER = Cypress.env('DSPACE_TEST_SUBMIT_USER') || 'dspacedemo+submit@gmail.com';
+export const TEST_SUBMIT_USER_PASSWORD = Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD') || 'dspace';
