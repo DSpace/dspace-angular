@@ -6,6 +6,7 @@ import { BROWSE_DEFINITION } from './browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { SortOption } from './sort-option.model';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
 
 @typedObject
 export class BrowseDefinition extends CacheableObject {
@@ -32,6 +33,9 @@ export class BrowseDefinition extends CacheableObject {
 
   @autoserializeAs('metadata')
   metadataKeys: string[];
+
+  @autoserialize
+  dataType: BrowseByDataType;
 
   get self(): string {
     return this._links.self.href;

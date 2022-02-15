@@ -1,6 +1,6 @@
 <div id="cris-layout-loader">
   <div *ngIf="!(windowService.isXsOrSm() | async)" class="vertical-layout">
-    <ds-cris-layout-sidebar (selectedTabChange)="selectedTabChanged($event)" [tabs]="tabs" [item]="item">
+    <ds-cris-layout-sidebar (selectedTabChange)="selectedTabChanged($event)" [showNav]="tabs.length > 1" [tabs]="tabs" [item]="item">
       <div *ngIf="showContextMenu" class="container text-right mb-3" [class.px-0]="tabs?.length > 1">
         <ds-context-menu [contextMenuObject]="item" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
       </div>

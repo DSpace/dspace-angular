@@ -13,7 +13,7 @@ You can find additional information on the DSpace 7 Angular UI on the [wiki](htt
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v12.x` or `v14.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) >= `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v12.x`, `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
 
 ```bash
 # clone the repo
@@ -68,60 +68,98 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v12.x` or `v14.x` and yarn >= `v1.x`
+-	Ensure you're running node `v12.x`, `v14.x` or `v16.x` and yarn == `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
 Installing
 ----------
 
--	`yarn run global` to install the required global dependencies
 -	`yarn install` to install the local dependencies
 
 ### Configuring
 
-Default configuration file is located in `src/environments/` folder.
+Default configuration file is located in `config/` folder.
 
-To change the default configuration values, create local files that override the parameters you need to change. You can use `environment.template.ts` as a starting point.
+To override the default configuration values, create local files that override the parameters you need to change. You can use `config.example.yml` as a starting point.
 
--	Create a new `environment.dev.ts` file in `src/environments/` for a `development` environment;
--	Create a new `environment.prod.ts` file in `src/environments/` for a `production` environment;
+-	Create a new `config.(dev or development).yml` file in `config/` for a `development` environment;
+-	Create a new `config.(prod or production).yml` file in `config/` for a `production` environment;
 
-The server settings can also be overwritten using an environment file.
+The settings can also be overwritten using an environment file or environment variables.
 
 This file should be called `.env` and be placed in the project root.
 
-The following settings can be overwritten in this file:
+The following non-convention settings:
 
 ```bash
 DSPACE_HOST # The host name of the angular application
 DSPACE_PORT # The port number of the angular application
 DSPACE_NAMESPACE # The namespace of the angular application
 DSPACE_SSL # Whether the angular application uses SSL [true/false]
+```
 
-DSPACE_REST_HOST # The host name of the REST application
-DSPACE_REST_PORT # The port number of the REST application
-DSPACE_REST_NAMESPACE # The namespace of the REST application
-DSPACE_REST_SSL # Whether the angular REST uses SSL [true/false]
+All other settings can be set using the following convention for naming the environment variables:
+
+1. replace all `.` with `_`
+2. convert all characters to upper case
+3. prefix with `DSPACE_`
+
+e.g.
+
+```bash
+# The host name of the REST application
+rest.host => DSPACE_REST_HOST
+
+# The port number of the REST application
+rest.port => DSPACE_REST_PORT
+
+# The namespace of the REST application
+rest.nameSpace => DSPACE_REST_NAMESPACE
+
+# Whether the angular REST uses SSL [true/false]
+rest.ssl => DSPACE_REST_SSL
+
+cache.msToLive.default => DSPACE_CACHE_MSTOLIVE_DEFAULT
+auth.ui.timeUntilIdle => DSPACE_AUTH_UI_TIMEUNTILIDLE
+```
+
+The equavelant to the non-conventional legacy settings:
+
+```bash
+DSPACE_UI_HOST => DSPACE_HOST
+DSPACE_UI_PORT => DSPACE_PORT
+DSPACE_UI_NAMESPACE => DSPACE_NAMESPACE
+DSPACE_UI_SSL => DSPACE_SSL
 ```
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash
 export DSPACE_HOST=api7.dspace.org
+export DSPACE_UI_PORT=4200
 ```
 
-The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides **`environment.(prod, dev or test).ts`** overrides **`environment.common.ts`**
+The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `DSPACE_APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
 
-These configuration sources are collected **at build time**, and written to `src/environments/environment.ts`.  At runtime the configuration is fixed, and neither `.env` nor the process' environment will be consulted.
+These configuration sources are collected **at run time**, and written to `dist/browser/assets/config.json` for production and `src/app/assets/config.json` for development.
+
+The configuration file can be externalized by using environment variable `DSPACE_APP_CONFIG_PATH`.
 
 #### Using environment variables in code
 To use environment variables in a UI component, use:
 
 ```typescript
-import { environment } from '../environment.ts';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+...
+constructor(@Inject(APP_CONFIG) private appConfig: AppConfig) {}
+...
 ```
 
-This file is generated by the script located in `scripts/set-env.ts`. This script will run automatically before every build, or can be manually triggered using the appropriate `config` script in `package.json`
+or
+
+```typescript
+import { environment } from '../environment.ts';
+```
 
 
 Running the app
@@ -208,7 +246,9 @@ E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Con
 
 The test files can be found in the `./cypress/integration/` folder.
 
-Before you can run e2e tests, you MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `environment.prod.ts` or `environment.common.ts`. You may override this using env variables, see [Configuring](#configuring).
+Before you can run e2e tests, two things are required:
+1. You MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `config.prod.yml` or `config.yml`. You may override this using env variables, see [Configuring](#configuring).
+2. Your backend MUST include our Entities Test Data set. Some tests run against a (currently hardcoded) Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set. The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
 
 Run `ng e2e` to kick off the tests. This will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
 
@@ -287,49 +327,85 @@ File Structure
 
 ```
 dspace-angular
-├── README.md                                           * This document
-├── app.yaml                                            * Application manifest file
-├── config                                              * Folder for configuration files
-│   ├── environment.default.js                          * Default configuration files
-│   └── environment.test.js                             * Test configuration files
-├── docs                                                * Folder for documentation
+├── config                                              *
+│   └── config.yml                                      * Default app config
 ├── cypress                                             * Folder for Cypress (https://cypress.io/) / e2e tests
-│   ├── integration                                     * Folder for e2e/integration test files
-│   ├── fixtures                                        * Folder for any fixtures needed by e2e tests
-│   ├── plugins                                         * Folder for Cypress plugins (if any)
-│   ├── support                                         * Folder for global e2e test actions/commands (run for all tests)
-│   └── tsconfig.json                                   * TypeScript configuration file for e2e tests
+│   ├── downloads                                       *
+│   ├── fixtures                                        * Folder for e2e/integration test files
+│   ├── integration                                     * Folder for any fixtures needed by e2e tests
+│   ├── plugins                                         * Folder for Cypress plugins (if any)
+│   ├── support                                         * Folder for global e2e test actions/commands (run for all tests)
+│   └── tsconfig.json                                   * TypeScript configuration file for e2e tests
+├── docker                                              * See docker/README.md for details
+│   ├── cli.assetstore.yml                              *
+│   ├── cli.ingest.yml                                  *
+│   ├── cli.yml                                         *
+│   ├── db.entities.yml                                 *
+│   ├── docker-compose-ci.yml                           *
+│   ├── docker-compose-rest.yml                         *
+│   ├── docker-compose.yml                              *
+│   └── README.md                                       *
+├── docs                                                * Folder for documentation
+│   └── Configuration.md                                * Configuration documentation
+├── scripts                                             *
+│   ├── merge-i18n-files.ts                             *
+│   ├── serve.ts                                        *
+│   ├── sync-i18n-files.ts                              *
+│   ├── test-rest.ts                                    *
+│   └── webpack.js                                      *
+├── src                                                 * The source of the application
+│   ├── app                                             * The source code of the application, subdivided by module/page.
+│   ├── assets                                          * Folder for static resources
+│   │   ├── fonts                                       * Folder for fonts
+│   │   ├── i18n                                        * Folder for i18n translations
+│   │   └── images                                      * Folder for images
+│   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server
+│   ├── config                                          *
+│   ├── environments                                    *
+│   │   ├── environment.production.ts                   * Production configuration files
+│   │   ├── environment.test.ts                         * Test configuration files
+│   │   └── environment.ts                              * Default (development) configuration files
+│   ├── mirador-viewer                                  *
+│   ├── modules                                         *
+│   ├── ngx-translate-loaders                           *
+│   ├── styles                                          * Folder containing global styles
+│   ├── themes                                          * Folder containing available themes
+│   │   ├── custom                                      * Template folder for creating a custom theme
+│   │   └── dspace                                      * Default 'dspace' theme
+│   ├── index.csr.html                                  * The index file for client side rendering fallback
+│   ├── index.html                                      * The index file
+│   ├── main.browser.ts                                 * The bootstrap file for the client
+│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server
+│   ├── polyfills.ts                                    *
+│   ├── robots.txt                                      * The robots.txt file
+│   ├── test.ts                                         *
+│   └── typings.d.ts                                    *
+├── webpack                                             *
+│   ├── helpers.ts                                      * Webpack helpers
+│   ├── webpack.browser.ts                              * Webpack (https://webpack.github.io/) config for browser build
+│   ├── webpack.common.ts                               * Webpack (https://webpack.github.io/) common build config
+│   ├── webpack.mirador.config.ts                       * Webpack (https://webpack.github.io/) config for mirador config build
+│   ├── webpack.prod.ts                                 * Webpack (https://webpack.github.io/) config for prod build
+│   └── webpack.test.ts                                 * Webpack (https://webpack.github.io/) config for test build
+├── angular.json                                        * Angular CLI (https://angular.io/cli) configuration
+├── cypress.json                                        * Cypress Test (https://www.cypress.io/) configuration
+├── Dockerfile                                          *
 ├── karma.conf.js                                       * Karma configuration file for Unit Test
+├── LICENSE                                             *
+├── LICENSES_THIRD_PARTY                                *
 ├── nodemon.json                                        * Nodemon (https://nodemon.io/) configuration
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
-├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration file
-├── src                                                 * The source of the application
-│   ├── app                                             * The source code of the application, subdivided by module/page.
-│   ├── assets                                          * Folder for static resources
-│   │   ├── fonts                                       * Folder for fonts
-│   │   ├── i18n                                        * Folder for i18n translations
-│   |       └── en.json5                                * i18n translations for English
-│   │   └── images                                      * Folder for images
-│   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server
-│   ├── config                                          *
-│   ├── index.csr.html                                  * The index file for client side rendering fallback
-│   ├── index.html                                      * The index file
-│   ├── main.browser.ts                                 * The bootstrap file for the client
-│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server
-│   ├── robots.txt                                      * The robots.txt file
-│   ├── modules                                         *
-│   ├── styles                                          * Folder containing global styles
-│   └── themes                                          * Folder containing available themes
-│       ├── custom                                      * Template folder for creating a custom theme
-│       └── dspace                                      * Default 'dspace' theme
-├── tsconfig.json                                       * TypeScript config
+├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration
+├── README.md                                           * This document
+├── SECURITY.md                                         *
+├── server.ts                                           * Angular Universal Node.js Express server
+├── tsconfig.app.json                                   * TypeScript config for browser (app)
+├── tsconfig.json                                       * TypeScript common config
+├── tsconfig.server.json                                * TypeScript config for server
+├── tsconfig.spec.json                                  * TypeScript config for tests
+├── tsconfig.ts-node.json                               * TypeScript config for using ts-node directly
 ├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
 ├── typedoc.json                                        * TYPEDOC configuration
-├── webpack                                             * Webpack (https://webpack.github.io/) config directory
-│   ├── webpack.browser.ts                              * Webpack (https://webpack.github.io/) config for client build
-│   ├── webpack.common.ts                               *
-│   ├── webpack.prod.ts                                 * Webpack (https://webpack.github.io/) config for production build
-│   └── webpack.test.ts                                 * Webpack (https://webpack.github.io/) config for test build
 └── yarn.lock                                           * Yarn lockfile (https://yarnpkg.com/en/docs/yarn-lock)
 ```
 

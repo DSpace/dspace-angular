@@ -83,7 +83,7 @@ import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipService } from '../../../../core/data/relationship.service';

@@ -7,6 +7,7 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/p
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
+import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { OpenaireModule } from '../openaire/openaire.module';
 
@@ -15,6 +16,7 @@ import { OpenaireModule } from '../openaire/openaire.module';
     ProfilePageRoutingModule,
     CommonModule,
     SharedModule,
+    FormModule,
     UiSwitchModule,
     OpenaireModule
   ],

@@ -20,7 +20,8 @@ export function getMockFormBuilderService(): FormBuilderService {
     hasArrayGroupValue: true,
     removeFormModel: {},
     addFormModel: {},
-    updateValue: {}
+    updateValue: {},
+    addFormGroups: {}
   });
 
 }

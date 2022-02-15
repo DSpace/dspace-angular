@@ -29,7 +29,10 @@ export const routeServiceStub: any = {
     return observableOf({});
   },
   getHistory: () => {
-    return observableOf(['/home','/collection/123','/home']);
+    return observableOf(['/home', '/collection/123', '/home']);
+  },
+  getPreviousUrl: () => {
+    return observableOf('/home');
   }
   /* tslint:enable:no-empty */
 };

@@ -129,6 +129,7 @@ describe('BrowseService', () => {
   describe('getBrowseEntriesFor and findList', () => {
     // should contain special characters such that url encoding can be tested as well
     const mockAuthorName = 'Donald Smith & Sons';
+    const mockAuthorityKey = 'some authority key ?=;';
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
@@ -155,7 +156,7 @@ describe('BrowseService', () => {
       it('should call hrefOnlyDataService.findAllByHref with the expected href', () => {
         const expected = browseDefinitions[1]._links.items.href + '?filterValue=' + encodeURIComponent(mockAuthorName);
 
-        scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
+        scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, undefined, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findAllByHref)).toBeObservable(cold('(a|)', {
@@ -164,33 +165,20 @@ describe('BrowseService', () => {
       });
 
     });
-  });
-
-  describe('getBrowseItemsForAuthority and findList', () => {
-    // should contain special characters such that url encoding can be tested as well
-
-    beforeEach(() => {
-      requestService = getMockRequestService(getRequestEntry$(true));
-      rdbService = getMockRemoteDataBuildService();
-      service = initTestService();
-      spyOn(rdbService, 'buildList').and.callThrough();
-    });
-
-    describe('when getBrowseItemsForAuthority is called with a valid browse definition id and an authority value', () => {
+    describe('when getBrowseItemsFor is called with a valid filter value and authority key', () => {
       it('should call hrefOnlyDataService.findAllByHref with the expected href', () => {
-        const browseDefinition = browseDefinitions[1]._links.entries.href;
-        const expectedHref = 'https://rest.api/discover/browses/author/items?filterValue=authorityValue&filterAuthority=authorityValue';
+        const expected = browseDefinitions[1]._links.items.href +
+          '?filterValue=' + encodeURIComponent(mockAuthorName) +
+          '&filterAuthority=' + encodeURIComponent(mockAuthorityKey);
 
-        scheduler.schedule(() => service.getBrowseItemsForAuthority('authorityValue', new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
+        scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, mockAuthorityKey, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findAllByHref)).toBeObservable(cold('(a|)', {
-          a: expectedHref
+          a: expected
         }));
       });
-
     });
-
   });
 
   describe('getBrowseURLFor', () => {

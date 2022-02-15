@@ -11,7 +11,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { NotificationsService } from '../../../notifications/notifications.service';

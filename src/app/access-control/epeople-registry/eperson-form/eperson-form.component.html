@@ -42,7 +42,7 @@
   <h5>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h5>
 
   <ds-loading [showMessage]="false" *ngIf="!(groups | async)"></ds-loading>
-  
+
   <ds-pagination
     *ngIf="(groups | async)?.payload?.totalElements > 0"
     [paginationOptions]="config"
