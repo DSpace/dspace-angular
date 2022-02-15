@@ -34,6 +34,8 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -223,7 +225,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
+      if (this.sectionMetadata && this.sectionMetadata.includes(key) && this.inCurrentSubmissionScope(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     });
@@ -244,6 +246,28 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         });
       });
     return isNotEmpty(diffResult);
+  }
+
+  /**
+   * Whether a specific field is editable in the current scope. Unscoped fields always return true.
+   * @private
+   */
+  private inCurrentSubmissionScope(field: string): boolean {
+    const scope = this.formConfig?.rows.find(row => {
+      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    }).fields?.[0]?.scope;
+
+    switch (scope) {
+      case SubmissionScopeType.WorkspaceItem: {
+        return this.workspaceItem.type === WorkspaceItem.type;
+      }
+      case SubmissionScopeType.WorkflowItem: {
+        return this.workspaceItem.type === WorkflowItem.type;
+      }
+      default: {
+        return true;
+      }
+    }
   }
 
   /**
