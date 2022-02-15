@@ -15,14 +15,18 @@ import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
 import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
-import { FacetValue } from '../../../facet-value.model';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
+import { FacetValue } from '../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { SearchOptions } from '../../../search-options.model';
+import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';

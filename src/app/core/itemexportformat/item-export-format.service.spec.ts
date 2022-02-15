@@ -16,8 +16,8 @@ import {
   ScriptDataService
 } from '../data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { SearchFilter } from '../../shared/search/search-filter.model';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { SearchFilter } from '../../shared/search/models/search-filter.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

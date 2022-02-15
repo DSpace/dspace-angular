@@ -63,7 +63,7 @@ export class MetadataLinkViewComponent implements OnInit {
   ngOnInit(): void {
     this.metadata$ = observableOf(this.metadata).pipe(
         concatMap((metadataValue: MetadataValue) => {
-          if (hasValue(metadataValue.authority)) {
+          if (metadataValue.hasValidAuthority) {
             return this.itemService.findById(metadataValue.authority).pipe(
               getFirstCompletedRemoteData(),
               map((itemRD: RemoteData<Item>) => {

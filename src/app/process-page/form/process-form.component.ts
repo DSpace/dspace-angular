@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import {hasValue, isUndefined} from '../../shared/empty.util';
+import { hasValue, isEmpty, isUndefined } from '../../shared/empty.util';
 
 /**
  * Component to create a new script
@@ -36,7 +36,7 @@ export class ProcessFormComponent implements OnInit {
   /**
    * The parameter values to use to start the process
    */
-  @Input() public parameters: ProcessParameter[];
+  @Input() public parameters: ProcessParameter[] = [];
 
   /**
    * Optional files that are used as parameter values
@@ -70,6 +70,9 @@ export class ProcessFormComponent implements OnInit {
    * @param form
    */
   submitForm(form: NgForm) {
+    if (isEmpty(this.parameters)) {
+      this.parameters = [];
+    }
     if (!this.validateForm(form) || this.isRequiredMissing()) {
       return;
     }

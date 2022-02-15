@@ -1,5 +1,5 @@
 <h2 *ngIf="!disableHeader">{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h2>
-<div *ngIf="searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0" @fadeIn>
+<div *ngIf="searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0" @fadeIn>
     <ds-viewable-collection
             [config]="searchConfig.pagination"
             [sortConfig]="searchConfig.sort"
@@ -18,12 +18,10 @@
             >
     </ds-viewable-collection>
 </div>
-<ds-loading
-        *ngIf="hasNoValue(searchResults) || hasNoValue(searchResults.payload) || searchResults.isLoading"
-        message="{{'loading.search-results' | translate}}"></ds-loading>
+<ds-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}"></ds-loading>
 <ds-error
-        *ngIf="searchResults?.hasFailed && (!searchResults?.errorMessage || searchResults?.statusCode != 400)"
-        message="{{'error.search-results' | translate}}"></ds-error>
+        *ngIf="showError()"
+        message="{{errorMessageLabel() | translate}}"></ds-error>
 <div *ngIf="searchResults?.payload?.page.length == 0 || searchResults?.statusCode == 400">
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"

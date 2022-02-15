@@ -5,7 +5,7 @@ import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { TrackRequest } from './track-request.model';
 import { isEqual } from 'lodash';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
-import { SearchOptions } from '../shared/search/search-options.model';
+import { SearchOptions } from '../shared/search/models/search-options.model';
 
 describe('StatisticsService', () => {
   let service: StatisticsService;

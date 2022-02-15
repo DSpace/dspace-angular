@@ -25,6 +25,7 @@ import { SuggestionActionsComponent } from './reciter-suggestions/suggestion-act
 import { SuggestionsPopupComponent } from './reciter-suggestions/suggestions-popup/suggestions-popup.component';
 import { SuggestionsNotificationComponent } from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SearchModule } from '../shared/search/search.module';
 
 const MODULES = [
   CommonModule,
@@ -63,9 +64,10 @@ const PROVIDERS = [
 ];
 
 @NgModule({
-  imports: [
-    ...MODULES
-  ],
+    imports: [
+        ...MODULES,
+        SearchModule
+    ],
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,

@@ -74,6 +74,7 @@ import { MetadataSchema } from './metadata/metadata-schema.model';
 import { MetadataService } from './metadata/metadata.service';
 import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
+import { FeedbackDataService } from './feedback/feedback-data.service';
 
 import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
@@ -192,6 +193,8 @@ import { SearchConfig } from '../shared/search/search-filters/search-config.mode
 import { EditItemRelationsGuard } from '../edit-item-relationships/guards/edit-item-relationships.guard';
 import { ProfileClaimService } from '../profile-page/profile-claim/profile-claim.service';
 import { SequenceService } from './shared/sequence.service';
+import { GroupDataService } from './eperson/group-data.service';
+import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { WorkflowStepStatisticsService } from './statistics/workflow-step-statistics.service';
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
@@ -336,6 +339,8 @@ const PROVIDERS = [
   EditItemModeDataService,
   EditItemRelationsGuard,
   SequenceService,
+  GroupDataService,
+  FeedbackDataService,
   WorkflowStepStatisticsService,
   WorkflowOwnerStatisticsService,
   LoginStatisticsService,
@@ -416,6 +421,7 @@ export const models =
     StatisticsCategory,
     Root,
     SearchConfig,
+    SubmissionAccessesModel,
     Subscription,
     WorkflowStepStatistics,
     WorkflowOwnerStatistics,

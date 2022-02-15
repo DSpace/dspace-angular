@@ -29,13 +29,13 @@ export class AuthMethod {
         this.authMethodType = AuthMethodType.Password;
         break;
       }
-      case 'orcid': {
-        this.authMethodType = AuthMethodType.Orcid;
+      case 'oidc': {
+        this.authMethodType = AuthMethodType.Oidc;
         this.location = location;
         break;
       }
-      case 'oidc': {
-        this.authMethodType = AuthMethodType.Oidc;
+      case 'orcid': {
+        this.authMethodType = AuthMethodType.Orcid;
         this.location = location;
         break;
       }

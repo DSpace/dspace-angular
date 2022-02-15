@@ -226,20 +226,26 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
-    withLatestFrom(this.store$),
-    concatMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
-      return this.operationsService.jsonPatchByResourceType(
-        this.submissionService.getSubmissionObjectLinkName(),
-        action.payload.submissionId,
-        'sections'
-      ).pipe(
+    withLatestFrom(this.submissionService.hasUnsavedModification()),
+    concatMap(([action, hasUnsavedModification]: [SaveAndDepositSubmissionAction, boolean]) => {
+      let response$: Observable<SubmissionObject[]>;
+      if (hasUnsavedModification) {
+        response$ = this.operationsService.jsonPatchByResourceType(
+          this.submissionService.getSubmissionObjectLinkName(),
+          action.payload.submissionId,
+          'sections') as Observable<SubmissionObject[]>;
+      } else {
+        response$ = this.submissionObjectService.findById(action.payload.submissionId, false, true).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          map((submissionObject: SubmissionObject) => [submissionObject])
+        );
+      }
+      return response$.pipe(
         map((response: SubmissionObject[]) => {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);
           } else {
-            this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
-            return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
-              response, action.payload.submissionId, currentState.forms);
+            return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response);
           }
         }),
         catchError((rd: RemoteData<any>) => observableFrom(
@@ -427,6 +433,8 @@ export class SubmissionObjectEffects {
    *    The submission object retrieved from REST
    * @param submissionId
    *    The submission id
+   * @param forms
+   *    The forms state
    * @param notify
    *    A boolean that indicate if show notification or not
    * @return SubmissionObjectAction[]
@@ -436,7 +444,7 @@ export class SubmissionObjectEffects {
     currentState: SubmissionObjectEntry,
     response: SubmissionObject[],
     submissionId: string,
-    forms,
+    forms: FormState,
     notify: boolean = true): SubmissionObjectAction[] {
 
     const mappedActions = [];

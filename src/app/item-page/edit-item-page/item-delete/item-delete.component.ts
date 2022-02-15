@@ -1,12 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {defaultIfEmpty, filter, map, switchMap, take} from 'rxjs/operators';
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
+import {
+  AbstractSimpleItemActionComponent
+} from '../simple-item-action/abstract-simple-item-action.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,
   combineLatest,
   Observable,
-  of as observableOf
+  of as observableOf, Subscription
 } from 'rxjs';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
@@ -32,6 +34,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-delete',
@@ -42,7 +45,7 @@ import { NoContent } from '../../../core/shared/NoContent.model';
  */
 export class ItemDeleteComponent
   extends AbstractSimpleItemActionComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
   /**
    * The current url of this page
@@ -60,7 +63,7 @@ export class ItemDeleteComponent
    * A list of the relationship types for which this item has relations as an observable.
    * The list doesn't contain duplicates.
    */
-  types$: Observable<RelationshipType[]>;
+  types$: BehaviorSubject<RelationshipType[]> = new BehaviorSubject([]);
 
   /**
    * A map which stores the relationships of this item for each type as observable lists
@@ -83,6 +86,11 @@ export class ItemDeleteComponent
    * Reference to NgbModal
    */
   public modalRef: NgbModalRef;
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   */
+  private subs: Subscription[] = [];
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,
@@ -113,8 +121,8 @@ export class ItemDeleteComponent
     this.url = this.router.url;
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
-    if (label !== undefined) {
-      this.types$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
+    if (isNotEmpty(label)) {
+      this.subs.push(this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
@@ -138,16 +146,14 @@ export class ItemDeleteComponent
             ),
           );
         })
-      );
-    } else {
-      this.types$ = observableOf([]);
+      ).subscribe((types: RelationshipType[]) => this.types$.next(types)));
     }
 
-    this.types$.pipe(
+    this.subs.push(this.types$.pipe(
       take(1),
     ).subscribe((types) =>
       this.objectUpdatesService.initialize(this.url, types, this.item.lastModified)
-    );
+    ));
   }
 
   /**
@@ -327,7 +333,7 @@ export class ItemDeleteComponent
    */
   performAction() {
 
-    this.types$.pipe(
+    this.subs.push(this.types$.pipe(
       switchMap((types) =>
         combineLatest(
           types.map((type) => this.isSelected(type))
@@ -339,13 +345,14 @@ export class ItemDeleteComponent
           map((selectedTypes) => selectedTypes.map((type) => type.id)),
         )
       ),
-    ).subscribe((types) => {
-      this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData()).subscribe(
-        (rd: RemoteData<NoContent>) => {
-          this.notify(rd.hasSucceeded);
-        }
-      );
-    });
+      switchMap((types) =>
+        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData())
+      )
+    ).subscribe(
+      (rd: RemoteData<NoContent>) => {
+        this.notify(rd.hasSucceeded);
+      }
+    ));
   }
 
   /**
@@ -361,4 +368,14 @@ export class ItemDeleteComponent
       this.router.navigate([getItemEditRoute(this.item)]);
     }
   }
+
+  /**
+   * Unsubscribe from all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
+  }
+
 }

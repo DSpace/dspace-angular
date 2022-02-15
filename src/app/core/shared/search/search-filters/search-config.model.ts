@@ -29,7 +29,7 @@ export class SearchConfig implements CacheableObject {
    * The configured sort options.
    */
   @autoserialize
-  sortOptions: SortOption[];
+  sortOptions: SortConfig[];
 
   /**
    * The object type.
@@ -63,7 +63,7 @@ export interface FilterConfig {
 /**
  * Interface to model sort option's configuration.
  */
-export interface SortOption {
+export interface SortConfig {
   name: string;
   sortOrder: string;
 }

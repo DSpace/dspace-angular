@@ -116,14 +116,11 @@ export class SearchFormComponent implements OnInit {
    */
   updateSearch(data: any) {
     const queryParams = Object.assign({}, data);
-    const pageParam = this.paginationService.getPageParam(this.searchConfig.paginationID);
-    queryParams[pageParam] = 1;
 
     this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
       queryParamsHandling: 'merge'
     });
-    this.paginationService.updateRouteWithUrl(this.searchConfig.paginationID, this.getSearchLinkParts(), { page: 1 }, data);
   }
 
   /**
