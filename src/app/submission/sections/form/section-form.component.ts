@@ -36,6 +36,7 @@ import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -114,7 +115,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    */
   protected subs: Subscription[] = [];
 
-  protected workspaceItem: WorkspaceItem;
+  protected submissionObject: SubmissionObject;
   /**
    * The FormComponent reference
    */
@@ -175,10 +176,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
             getRemoteDataPayload())
         ])),
       take(1))
-      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
+      .subscribe(([sectionData, submissionObject]: [WorkspaceitemSectionFormObject, SubmissionObject]) => {
         if (isUndefined(this.formModel)) {
           // this.sectionData.errorsToShow = [];
-          this.workspaceItem = workspaceItem;
+          this.submissionObject = submissionObject;
           // Is the first loading so init form
           this.initForm(sectionData);
           this.sectionData.data = sectionData;
@@ -259,10 +260,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     switch (scope) {
       case SubmissionScopeType.WorkspaceItem: {
-        return this.workspaceItem.type === WorkspaceItem.type;
+        return this.submissionObject.type === WorkspaceItem.type;
       }
       case SubmissionScopeType.WorkflowItem: {
-        return this.workspaceItem.type === WorkflowItem.type;
+        return this.submissionObject.type === WorkflowItem.type;
       }
       default: {
         return true;
