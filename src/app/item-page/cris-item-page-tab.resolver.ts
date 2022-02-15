@@ -32,7 +32,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       map((item: Item) => {
-        if (!item.uuid) {
+        if (!item || (!!item && !item.uuid)) {
           this.router.navigate(['/404']);
         }
         return item;
