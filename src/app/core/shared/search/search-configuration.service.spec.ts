@@ -2,8 +2,8 @@ import { SearchConfigurationService } from './search-configuration.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { SearchFilter } from '../../../shared/search/search-filter.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { of as observableOf } from 'rxjs';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 

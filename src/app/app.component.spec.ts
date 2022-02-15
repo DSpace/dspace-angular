@@ -37,6 +37,8 @@ import { ThemeService } from './shared/theme-support/theme.service';
 import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { of } from 'rxjs';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { environment } from '../environments/environment';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -89,6 +91,7 @@ describe('App component', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
         { provide: RouteService, useValue: routeServiceMock },
+        { provide: APP_CONFIG, useValue: environment },
         provideMockStore({ initialState }),
         AppComponent,
         // RouteService
@@ -177,7 +180,8 @@ describe('App component', () => {
       TestBed.configureTestingModule(getDefaultTestBedConf());
       TestBed.overrideProvider(ThemeService, {useValue: getMockThemeService('custom')});
       document = TestBed.inject(DOCUMENT);
-      headSpy = jasmine.createSpyObj('head', ['appendChild']);
+      headSpy = jasmine.createSpyObj('head', ['appendChild', 'getElementsByClassName']);
+      headSpy.getElementsByClassName.and.returnValue([]);
       spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
       fixture = TestBed.createComponent(AppComponent);
       comp = fixture.componentInstance;

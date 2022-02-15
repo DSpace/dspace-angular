@@ -1,13 +1,13 @@
 import { NativeWindowService, NativeWindowRef } from '../../../../core/services/window.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchObjects } from '../../../search/search-objects.model';
+import { SearchObjects } from '../../../search/models/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { Component, Input, OnInit, Inject } from '@angular/core';
-import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
 import { hasValue } from '../../../empty.util';
 

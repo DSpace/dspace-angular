@@ -46,7 +46,7 @@ import { MetadataSecurityConfiguration } from '../../../core/submission/models/m
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class SubmissionSectionformComponent extends SectionModelComponent implements OnDestroy {
+export class SubmissionSectionFormComponent extends SectionModelComponent implements OnDestroy {
 
   /**
    * The form id

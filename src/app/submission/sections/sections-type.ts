@@ -5,5 +5,6 @@ export enum SectionsType {
   License = 'license',
   CcLicense = 'cclicense',
   collection = 'collection',
+  AccessesCondition = 'accessCondition',
   DetectDuplicate = 'detect-duplicate'
 }

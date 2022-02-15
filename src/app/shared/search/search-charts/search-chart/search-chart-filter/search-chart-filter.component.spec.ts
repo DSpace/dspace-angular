@@ -7,9 +7,9 @@ import {
   IN_PLACE_SEARCH,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
-import { FilterType } from '../../../filter-type.model';
-import { FacetValue } from '../../../facet-value.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { FacetValue } from '../../../models/facet-value.model';
 import { FormsModule } from '@angular/forms';
 import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';

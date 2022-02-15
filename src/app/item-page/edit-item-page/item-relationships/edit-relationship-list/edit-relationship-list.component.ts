@@ -31,7 +31,7 @@ import { ItemType } from '../../../../core/shared/item-relationships/item-type.m
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../../shared/search/search-result.model';
+import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';

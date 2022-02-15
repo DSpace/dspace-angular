@@ -22,7 +22,7 @@ import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
@@ -30,7 +30,7 @@ import { Context } from '../../../core/shared/context.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../../search/models/search-result.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';

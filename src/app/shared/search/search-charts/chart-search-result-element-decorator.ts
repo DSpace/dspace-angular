@@ -1,4 +1,4 @@
-import { FilterType } from '../filter-type.model';
+import { FilterType } from '../models/filter-type.model';
 
 /**
  * Contains the mapping between a chart component and a FilterType

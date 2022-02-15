@@ -2,18 +2,14 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 
 import { SearchNavbarComponent } from './search-navbar.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SearchNavbarComponent', () => {
   let component: SearchNavbarComponent;
@@ -41,6 +37,7 @@ describe('SearchNavbarComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
+        RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -49,10 +46,7 @@ describe('SearchNavbarComponent', () => {
         })],
       declarations: [SearchNavbarComponent],
       providers: [
-        { provide: SearchService, useValue: mockSearchService },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: routerStub },
-        { provide: SearchConfigurationService, useValue: {paginationID: 'page-id'} }
+        { provide: SearchService, useValue: mockSearchService }
       ]
     })
       .compileComponents();
@@ -61,8 +55,8 @@ describe('SearchNavbarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchNavbarComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
-    router = (component as any).router;
   });
 
   it('should create', () => {
@@ -73,7 +67,7 @@ describe('SearchNavbarComponent', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'expand').and.callThrough();
       spyOn(component, 'onSubmit').and.callThrough();
-      spyOn(router, 'navigate').and.callThrough();
+      spyOn(router, 'navigate');
       const searchIcon = fixture.debugElement.query(By.css('#search-navbar-container form .submit-icon'));
       searchIcon.triggerEventHandler('click', {
         preventDefault: () => {/**/
@@ -99,8 +93,9 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with empty query', () => {
+          const extras: NavigationExtras = {queryParams: { query: '' }, queryParamsHandling: 'merge'};
           expect(component.onSubmit).toHaveBeenCalledWith({ query: '' });
-          expect(paginationService.updateRouteWithUrl).toHaveBeenCalled();
+          expect(router.navigate).toHaveBeenCalledWith(['search'], extras);
         });
       });
     });
@@ -123,8 +118,10 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with query', async () => {
+          const extras: NavigationExtras = { queryParams: { query: 'test' }, queryParamsHandling: 'merge'};
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
-          expect(paginationService.updateRouteWithUrl).toHaveBeenCalled();
+
+          expect(router.navigate).toHaveBeenCalledWith(['search'], extras);
         });
       });
     });

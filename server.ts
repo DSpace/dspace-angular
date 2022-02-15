@@ -19,26 +19,33 @@ import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs';
 
-import * as fs from 'fs';
-import { existsSync } from 'fs';
 import * as pem from 'pem';
 import * as https from 'https';
 import * as morgan from 'morgan';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
+
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
+import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode } from '@angular/core';
+
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasNoValue, hasValue } from './src/app/shared/empty.util';
-import { APP_BASE_HREF } from '@angular/common';
+import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 import { ServerAppModule } from './src/main.server';
+
+import { buildAppConfig } from './src/config/config.server';
+import { AppConfig, APP_CONFIG } from './src/config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 
 /*
  * Set path for the browser application's dist folder
@@ -50,6 +57,11 @@ const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
 
 const cookieParser = require('cookie-parser');
+
+const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+
+// extend environment with app config for server
+extendEnvironmentWithAppConfig(environment, appConfig);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -100,7 +112,11 @@ export function app() {
           provide: RESPONSE,
           useValue: (options as any).req.res,
         },
-      ],
+        {
+          provide: APP_CONFIG,
+          useValue: environment
+        }
+      ]
     })(_, (options as any), callback)
   );
 
@@ -237,14 +253,14 @@ function start() {
   if (environment.ui.ssl) {
     let serviceKey;
     try {
-      serviceKey = fs.readFileSync('./config/ssl/key.pem');
+      serviceKey = readFileSync('./config/ssl/key.pem');
     } catch (e) {
       console.warn('Service key not found at ./config/ssl/key.pem');
     }
 
     let certificate;
     try {
-      certificate = fs.readFileSync('./config/ssl/cert.pem');
+      certificate = readFileSync('./config/ssl/cert.pem');
     } catch (e) {
       console.warn('Certificate not found at ./config/ssl/key.pem');
     }

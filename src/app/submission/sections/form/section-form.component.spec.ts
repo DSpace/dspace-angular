@@ -12,7 +12,7 @@ import { SubmissionServiceStub } from '../../../shared/testing/submission-servic
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { SectionsService } from '../sections.service';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionSectionformComponent } from './section-form.component';
+import { SubmissionSectionFormComponent } from './section-form.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
@@ -139,11 +139,11 @@ const dynamicFormControlEvent: DynamicFormControlEvent = {
   type: DynamicFormControlEventType.Change
 };
 
-describe('SubmissionSectionformComponent test suite', () => {
+describe('SubmissionSectionFormComponent test suite', () => {
 
-  let comp: SubmissionSectionformComponent;
+  let comp: SubmissionSectionFormComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<SubmissionSectionformComponent>;
+  let fixture: ComponentFixture<SubmissionSectionFormComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let notificationsServiceStub: NotificationsServiceStub;
   let formService: any = getMockFormService();
@@ -169,7 +169,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       ],
       declarations: [
         FormComponent,
-        SubmissionSectionformComponent,
+        SubmissionSectionFormComponent,
         TestComponent
       ],
       providers: [
@@ -189,7 +189,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: 'entityType', useValue: 'Publication' },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
-        SubmissionSectionformComponent
+        SubmissionSectionFormComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -218,7 +218,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionSectionformComponent', inject([SubmissionSectionformComponent], (app: SubmissionSectionformComponent) => {
+    it('should create SubmissionSectionFormComponent', inject([SubmissionSectionFormComponent], (app: SubmissionSectionFormComponent) => {
 
       expect(app).toBeDefined();
 
@@ -227,7 +227,7 @@ describe('SubmissionSectionformComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(SubmissionSectionformComponent);
+      fixture = TestBed.createComponent(SubmissionSectionFormComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
