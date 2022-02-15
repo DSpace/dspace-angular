@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseMostElementsComponent } from './browse-most-elements.component';
 import { Context } from 'vm';
-import { PaginatedSearchOptions } from '../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 /**
  * Themed wrapper for BrowseMostElementsComponent

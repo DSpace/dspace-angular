@@ -28,7 +28,7 @@ const site: Site = Object.assign(new Site(), {
     self: { href: 'test-site-href' }
   },
   metadata: {
-    'cms.homepage.footer': [
+    'cris.cms.footer': [
       {
         value: 'Test footer',
         language: 'en'

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../../ngrx/type';
-import { SearchFilterConfig } from '../../search-filter-config.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
 
 /**
  * For each action type in an action group, make a simple

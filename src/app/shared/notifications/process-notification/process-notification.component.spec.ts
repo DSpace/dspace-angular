@@ -11,7 +11,6 @@ import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationOptions } from '../models/notification-options.model';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
@@ -20,6 +19,7 @@ import { IProcessNotification } from '../models/process-notification.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
+import { AppConfig } from '../../../../config/app-config.interface';
 
 xdescribe('ProcessNotificationComponent', () => {
 
@@ -40,7 +40,7 @@ xdescribe('ProcessNotificationComponent', () => {
       /* tslint:disable:no-empty */
       notifications: []
     });
-    const envConfig: GlobalConfig = {
+    const envConfig: Partial<AppConfig> = {
       notifications: {
         rtl: false,
         position: ['top', 'right'],

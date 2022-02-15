@@ -16,7 +16,7 @@
         <ds-profile-page-metadata-form [user]="user"></ds-profile-page-metadata-form>
       </div>
     </div>
-    <div class="card mb-4">
+    <div *ngIf="canChangePassword$ | async" class="card mb-4 security-section">
       <div class="card-header">{{'profile.card.security' | translate}}</div>
       <div class="card-body">
         <ds-profile-page-security-form

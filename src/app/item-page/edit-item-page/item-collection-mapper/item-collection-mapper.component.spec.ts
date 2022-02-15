@@ -25,7 +25,7 @@ import { ObjectSelectService } from '../../../shared/object-select/object-select
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';

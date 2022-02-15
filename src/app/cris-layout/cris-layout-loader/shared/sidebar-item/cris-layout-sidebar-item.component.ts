@@ -69,15 +69,25 @@ export class CrisLayoutSidebarItemComponent {
     }
   }
 
+  /**
+   * get the translation for the i18n key
+   * @param key the i18n key
+   */
+  getTranslation(key: string): string {
+    const value = this.translateService.instant(key);
+    return value === key ? null : value;
+  }
+
   getTabHeader(tab: CrisLayoutTab): string {
-    const tabHeaderI18nKey = this.tabI18nPrefix + tab.shortname;
-    const header: string = this.translateService.instant(tabHeaderI18nKey);
-    if (header === tabHeaderI18nKey) {
-      // if translation does not exist return the value present in the header property
-      return this.translateService.instant(tab.header || header);
-    } else {
-      return header;
-    }
+
+    const tabHeaderI18nKey = this.tabI18nPrefix + this.tab.entityType + '.' + tab.shortname;
+    const tabHeaderGenericI18nKey = this.tabI18nPrefix + tab.shortname;
+
+    return this.getTranslation(tabHeaderI18nKey) ??
+      this.getTranslation(tabHeaderGenericI18nKey) ??
+      this.getTranslation(this.tab.header) ??
+      this.tab.header ??
+      '';
   }
 
   toggleSection(event): void {

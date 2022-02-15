@@ -8,8 +8,8 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { hasValue } from '../../shared/empty.util';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
-import { SearchResult } from '../../shared/search/search-result.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from './../../core/shared/operators';
 
 @Injectable()

@@ -15,6 +15,7 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { ComcolModule } from '../shared/comcol/comcol.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
     StatisticsModule.forRoot(),
     EditItemPageModule,
     CollectionFormModule,
+    ComcolModule,
     ContextMenuModule.withEntryComponents(),
   ],
   declarations: [
