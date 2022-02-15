@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { getRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
@@ -26,6 +26,9 @@ export class BitstreamDownloadPageComponent implements OnInit {
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
 
+  fileName$: Observable<string>;
+
+  hasHistory = window.history.length > 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +46,13 @@ export class BitstreamDownloadPageComponent implements OnInit {
     this.location.back();
   }
 
+  close(): void {
+    close();
+  }
+
   ngOnInit(): void {
+
+    console.log('LEN = ' + window.history.length);
 
     this.bitstreamRD$ = this.route.data.pipe(
       map((data) => data.bitstream));
@@ -51,6 +60,11 @@ export class BitstreamDownloadPageComponent implements OnInit {
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
       getRemoteDataPayload()
+    );
+
+    this.fileName$ = this.bitstream$.pipe(
+      map((bitstream) => bitstream.name),
+      startWith('file'),
     );
 
     this.bitstream$.pipe(
