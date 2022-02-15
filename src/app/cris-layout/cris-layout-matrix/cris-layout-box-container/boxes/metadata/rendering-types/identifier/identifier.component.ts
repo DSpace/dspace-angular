@@ -7,6 +7,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
 import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 /**
  * This component renders the identifier metadata fields.
@@ -39,7 +40,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected resolver: ResolverStrategyService,
     protected translateService: TranslateService
@@ -65,6 +66,12 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
             identifier = this.composeLink(this.metadataValue.value, urn);
             break;
           }
+        }
+        if (!identifier) {
+          identifier = {
+            href: this.metadataValue.value,
+            text: this.metadataValue.value
+          };
         }
       }
     }

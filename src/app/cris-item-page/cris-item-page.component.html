@@ -1,6 +1,3 @@
-<div *ngVar="(itemRD$ | async) as itemRD">
-  <!-- <ds-cris-page-loader *ngIf="!itemRD?.isLoading" [item]="itemRD?.payload"></ds-cris-page-loader> -->
-  <ds-cris-layout *ngIf="!itemRD?.isLoading" [item]="itemRD?.payload"></ds-cris-layout>
-  <ds-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
-  <ds-view-tracker [object]="itemRD?.payload"></ds-view-tracker>
-</div>
+<ds-view-tracker [object]="(itemRD$ | async)?.payload"></ds-view-tracker>
+<ds-loading *ngIf="(itemRD$ | async)?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
+<ds-cris-layout [item]="(itemRD$ | async)?.payload"></ds-cris-layout>

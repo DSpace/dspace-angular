@@ -10,26 +10,62 @@ import { ThemedCollectionStatisticsPageComponent } from './collection-statistics
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-breadcrumb.resolver';
+import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
+import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
 
 @NgModule({
   imports: [
     StatisticsPageModule,
     RouterModule.forChild([
-        {
-          path: '',
+      {
+        path: '',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: {
+          title: 'statistics.title',
+            breadcrumbKey: 'statistics',
+            type: 'site'
+        },
+        children: [
+          {
+            path: '',
+            component: ThemedSiteStatisticsPageComponent,
+          },
+        ],
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+          path: 'login',
           resolve: {
             breadcrumb: I18nBreadcrumbResolver
           },
           data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics',
-            type: 'site'
+            title: 'statistics.login.title',
+            breadcrumbKey: 'statistics.login',
           },
           children: [
             {
               path: '',
-              component: ThemedSiteStatisticsPageComponent,
+              component: LoginStatisticsPageComponent,
+           },
+          ]
+        },
+        {
+          path: 'workflow',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+          data: {
+            title: 'statistics.workflow.title',
+            breadcrumbKey: 'statistics.workflow',
+          },
+          children: [
+            {
+              path: '',
+              component: WorkflowStatisticsPageComponent,
             },
           ]
         },
@@ -39,37 +75,40 @@ import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-br
             scope: StatisticsItemPageResolver,
             breadcrumb: DsoContextBreadcrumbResolver
           },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          component: ThemedItemStatisticsPageComponent,
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
         },
-        {
-          path: `collections/:id`,
-          resolve: {
-            scope: CollectionPageResolver,
+        component: ThemedItemStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+        path: `collections/:id`,
+        resolve: {
+          scope: CollectionPageResolver,
             breadcrumb: DsoContextBreadcrumbResolver
-          },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          component: ThemedCollectionStatisticsPageComponent,
         },
-        {
-          path: `communities/:id`,
-          resolve: {
-            scope: CommunityPageResolver,
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
+        },
+        component: ThemedCollectionStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+        path: `communities/:id`,
+        resolve: {
+          scope: CommunityPageResolver,
             breadcrumb: DsoContextBreadcrumbResolver
-          },
-          data: {
-            title: 'statistics.title',
-            breadcrumbKey: 'statistics'
-          },
-          component: ThemedCommunityStatisticsPageComponent,
         },
-      ]
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
+        },
+        component: ThemedCommunityStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+    ]
     )
   ],
   providers: [

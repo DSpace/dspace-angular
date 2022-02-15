@@ -11,7 +11,7 @@
     <ds-chips
       *ngIf="chips && chips.hasItems()"
       [chips]="chips"
-      [readOnly]="model.readOnly"
+      [editable]="!model.readOnly"
       [showIcons]="true"
       (selected)="onChipSelected($event)"></ds-chips>
     <button type="button" class="ds-form-add-more btn btn-link"

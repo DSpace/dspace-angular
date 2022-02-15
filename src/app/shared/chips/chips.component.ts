@@ -9,17 +9,16 @@ import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Options } from 'sortablejs';
 import { BehaviorSubject } from 'rxjs';
-
+const TOOLTIP_TEXT_LIMIT = 21;
 @Component({
   selector: 'ds-chips',
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
 })
-
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
   @Input() wrapperClass: string;
-  @Input() readOnly = false;
+  @Input() editable = false;
   @Input() showIcons = false;
   @Input() clickable = true;
 
@@ -31,6 +30,7 @@ export class ChipsComponent implements OnChanges {
   options: Options;
   dragged = -1;
   tipText: string[];
+  isShowToolTip = false;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -42,7 +42,7 @@ export class ChipsComponent implements OnChanges {
       chosenClass: 'm-0',
       dragClass: 'm-0',
       filter: '.chips-sort-ignore',
-      ghostClass: 'm-0'
+      ghostClass: 'm-0',
     };
   }
 
@@ -81,12 +81,14 @@ export class ChipsComponent implements OnChanges {
 
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
+    this.isShowToolTip = false;
     const chipsItem = this.chips.getChipByIndex(index);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
         if (isObject(chipsItem.item[field])) {
           textToDisplay.push(chipsItem.item[field].display);
+          this.toolTipVisibleCheck(chipsItem.item[field].display);
           if (chipsItem.item[field].hasOtherInformation()) {
             Object.keys(chipsItem.item[field].otherInformation)
               .forEach((otherField) => {
@@ -94,6 +96,7 @@ export class ChipsComponent implements OnChanges {
                   .subscribe((label) => {
                     const otherInformationText = chipsItem.item[field].otherInformation[otherField].split('::')[0];
                     textToDisplay.push(label + ': ' + otherInformationText);
+                    this.toolTipVisibleCheck(label + ': ' + otherInformationText);
                   });
             });
           }
@@ -102,17 +105,17 @@ export class ChipsComponent implements OnChanges {
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);
+          this.toolTipVisibleCheck(chipsItem.item[field]);
         }
       } else {
         textToDisplay.push(chipsItem.display);
+        this.toolTipVisibleCheck(chipsItem.display);
       }
-
       this.cdr.detectChanges();
-      if (!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field) {
+      if ((!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field ) && this.isShowToolTip) {
         this.tipText = textToDisplay;
         tooltip.open();
       }
-
     }
   }
 
@@ -134,4 +137,15 @@ export class ChipsComponent implements OnChanges {
     return metadataValue?.authority?.substring(metadataValue?.authority.indexOf('::') + 2);
   }
 
+  toolTipVisibleCheck(text: string) {
+    if (!this.isShowToolTip) {
+      this.isShowToolTip = text.length > TOOLTIP_TEXT_LIMIT;
+    }
+  }
+  textTruncate(text: string): string {
+    if (text.length >= TOOLTIP_TEXT_LIMIT) {
+      text = `${text.substring(0,TOOLTIP_TEXT_LIMIT)}...`;
+    }
+    return text;
+  }
 }

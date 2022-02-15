@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { SharedModule } from '../../shared/shared.module';
 import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
 import { EditItemPageComponent } from './edit-item-page.component';
@@ -31,6 +34,7 @@ import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.co
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
+import { ResourcePoliciesModule } from '../../shared/resource-policies/resource-policies.module';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
 
@@ -41,9 +45,11 @@ import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-met
   imports: [
     CommonModule,
     SharedModule,
+    NgbTooltipModule,
     EditItemPageRoutingModule,
     SearchPageModule,
-    DragDropModule
+    DragDropModule,
+    ResourcePoliciesModule
   ],
   declarations: [
     EditItemPageComponent,

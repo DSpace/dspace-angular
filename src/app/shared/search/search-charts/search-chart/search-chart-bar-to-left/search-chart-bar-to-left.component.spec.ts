@@ -21,9 +21,9 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { FacetValue } from '../../../facet-value.model';
-import { FilterType } from '../../../filter-type.model';
-import { SearchFilterConfig } from '../../../search-filter-config.model';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchChartBarToLeftComponent } from './search-chart-bar-to-left.component';
 
 xdescribe('SearchChartBarToLeftComponent', () => {

@@ -1,6 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA, Provider } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
@@ -14,6 +13,7 @@ import { StatisticsTableComponent } from './statistics-table/statistics-table.co
 import { StatisticsChartDataComponent } from './statistics-chart-data/statistics-chart-data.component';
 import { ExportService } from '../../../core/export-service/export.service';
 import { ServerExportService } from '../../../core/export-service/server-export.service';
+import { ChartsModule } from '../../../charts/charts.module';
 
 const ENTRY_COMPONENTS = [
   StatisticsChartPieComponent,
@@ -26,6 +26,7 @@ const imports = [
   CommonModule,
   SharedModule.withEntryComponents(),
   StatisticsPipesPageModule,
+  ChartsModule.withEntryComponents()
 ];
 const components = [
   StatisticsChartComponent,

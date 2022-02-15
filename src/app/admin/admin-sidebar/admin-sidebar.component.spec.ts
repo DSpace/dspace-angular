@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import createSpy = jasmine.createSpy;
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { Item } from '../../core/shared/item.model';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -25,6 +27,28 @@ describe('AdminSidebarComponent', () => {
   const menuService = new MenuServiceStub();
   let authorizationService: AuthorizationDataService;
   let scriptService;
+
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
+  });
+
+
+  const routeStub = {
+    data: observableOf({
+      dso: createSuccessfulRemoteDataObject(mockItem)
+    }),
+    children: []
+  };
+
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -42,6 +66,7 @@ describe('AdminSidebarComponent', () => {
         { provide: ActivatedRoute, useValue: {} },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: ActivatedRoute, useValue: routeStub },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
@@ -214,6 +239,18 @@ describe('AdminSidebarComponent', () => {
         }));
 
       });
+
+      it('should not show import', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: false,
+        }));
+      });
+
+      it('should not show export', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: false,
+        }));
+      });
     });
 
     describe('for site admin', () => {
@@ -229,19 +266,31 @@ describe('AdminSidebarComponent', () => {
 
       it('should contain site admin section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'admin_search', visible: true,
+          id: 'admin_search', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'registries', visible: true,
+          id: 'registries', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            parentID: 'registries', visible: true,
+          parentID: 'registries', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'curation_tasks', visible: true,
+          id: 'curation_tasks', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'workflow', visible: true,
+          id: 'workflow', visible: true,
+        }));
+      });
+
+      it('should show import', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'import', visible: true,
+        }));
+      });
+
+      it('should show export', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
+          id: 'export', visible: true,
         }));
       });
     });
@@ -259,7 +308,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should show edit_community', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'edit_community', visible: true,
+          id: 'edit_community', visible: true,
         }));
       });
     });
@@ -277,7 +326,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should show edit_collection', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'edit_collection', visible: true,
+          id: 'edit_collection', visible: true,
         }));
       });
     });
@@ -295,10 +344,10 @@ describe('AdminSidebarComponent', () => {
 
       it('should show access control section', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            id: 'access_control', visible: true,
+          id: 'access_control', visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(comp.menuID, jasmine.objectContaining({
-            parentID: 'access_control', visible: true,
+          parentID: 'access_control', visible: true,
         }));
       });
     });

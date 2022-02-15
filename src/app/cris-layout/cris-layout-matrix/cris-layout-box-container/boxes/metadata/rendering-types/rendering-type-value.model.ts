@@ -22,7 +22,7 @@ export abstract class RenderingTypeValueModelComponent extends RenderingTypeMode
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject('metadataValueProvider') public metadataValueProvider: any,
+    @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected translateService: TranslateService
   ) {

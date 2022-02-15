@@ -113,7 +113,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *    collection list
    */
   getAdministeredCollectionByEntityType(query: string, entityType: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findAdministeredByEntityType';
+
+    const searchHref = 'findAdminAuthorizedByEntityType';
     options = Object.assign({}, options, {
       searchParams: [
         new RequestParam('query', query),

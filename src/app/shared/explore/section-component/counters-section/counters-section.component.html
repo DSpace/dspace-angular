@@ -1,28 +1,26 @@
 <div class="container">
   <div class="card">
-    <div [ngClass] = "countersSection.style">
-      <div class = "row d-flex justify-content-center">
-        <div *ngIf="isLoading$ | async">
-          <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
-        </div>
-       <div *ngFor="let counter of (counterData$ | async)"
-          class="px-4 py-1 d-flex flex-column" style="flex: 1 0 100px">
-            <div (click)="goToLink(counter.link)"
-              [ngStyle]="{'cursor': counter.link? 'pointer' : 'inherit'}"
-              class="col d-flex justify-content-center text-center align-items-center">
-                <i [ngClass]="counter.icon"></i>
-            </div>
-            <div (click)="goToLink(counter.link)"
-              [ngStyle]="{'cursor': counter.link? 'pointer' : 'inherit'}"
-              class="col d-flex justify-content-center text-center align-items-center">
-                {{'explore.counters-section.' + counter.label | translate}}
-            </div>
-            <div (click)="goToLink(counter.link)"
-              [ngStyle]="{'cursor': counter.link? 'pointer' : 'inherit'}"
-              class="col d-flex justify-content-center text-center align-items-center">
-                <b>{{counter.count}}</b>
-             </div>
-        </div>
+    <div class = "row d-flex justify-content-center">
+      <div *ngIf="isLoading$ | async">
+        <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+      </div>
+     <div *ngFor="let counter of (counterData$ | async)"
+        class="px-4 py-1 d-flex flex-column" style="flex: 1 0 100px">
+          <div (click)="goToLink(counter.link)"
+            [ngStyle]="{'cursor': counter.link? 'pointer' : 'inherit'}"
+            class="col d-flex justify-content-center text-center align-items-center">
+              <i [ngClass]="counter.icon"></i>
+          </div>
+          <div (click)="goToLink(counter.link)"
+            [ngStyle]="{'cursor': counter.link? 'pointer' : 'inherit'}"
+            class="col d-flex justify-content-center text-center align-items-center">
+              {{'explore.counters-section.' + counter.label | translate}}
+          </div>
+          <div (click)="goToLink(counter.link)"
+            [ngStyle]="{'cursor': counter.link? 'pointer' : 'inherit'}"
+            class="col d-flex justify-content-center text-center align-items-center">
+              <b>{{counter.count}}</b>
+           </div>
       </div>
     </div>
   </div>

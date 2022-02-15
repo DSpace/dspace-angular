@@ -3,8 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../../../shared/search/search-result.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { SearchResult } from '../../../shared/search/models/search-result.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
 import { Context } from '../../../core/shared/context.model';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
@@ -14,6 +14,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/openaire-broker-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * The possible types of import for the external entry
@@ -66,6 +67,10 @@ export interface OpenaireBrokerEventData {
    * Contains the boolean that indicates if there is a running operation (REST call)
    */
   isRunning: boolean;
+  /**
+   * The related publication DSpace item
+   */
+  target?: Item;
 }
 
 @Component({

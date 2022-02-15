@@ -1,10 +1,7 @@
 <footer class="text-lg-start">
   <div *ngIf="showTopFooter" class="top-footer">
     <!-- Grid container -->
-    <ds-text-section *ngIf="hasSiteFooterSections"
-                     [sectionId]="'site'"
-                     [textRowSection]=section
-                     [site]="(site | async)"></ds-text-section>
+    <ds-themed-text-section *ngIf="hasSiteFooterSections" [sectionId]="'site'" [textRowSection]=section [site]="(site | async)"></ds-themed-text-section>
     <div *ngIf="!hasSiteFooterSections" class=" container p-4">
       <!--Grid row-->
       <div class="row">
@@ -15,13 +12,16 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="https://github.com/4Science/DSpace/tree/dspace-cris-7"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
+              <a href="https://github.com/4Science/DSpace/tree/dspace-cris-7">
+                <i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
             </li>
             <li>
-              <a href="https://wiki.lyrasis.org/display/DSPACECRIS/"><i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
+              <a href="https://wiki.lyrasis.org/display/DSPACECRIS/">
+                <i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
             </li>
             <li>
-              <a href="https://dspace-org.slack.com/messages/dspace-cris/"><i class="fab fa-slack" aria-hidden="true"></i> Slack Channel</a>
+              <a href="https://dspace-org.slack.com/messages/dspace-cris/">
+                <i class="fab fa-slack" aria-hidden="true"></i> Slack Channel</a>
             </li>
           </ul>
         </div>
@@ -40,8 +40,10 @@
         <!--Grid column-->
         <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
           <h5 class="text-uppercase">Need professional help?</h5>
-          <p>The original creators of DSpace-CRIS at <a href="https://www.4science.it/en/">4Science</a> can take your project to
-            the next level, <a href="https://www.4science.it/en/contact-us/">get in touch!</a></p>
+          <p>The original creators of DSpace-CRIS at
+            <a href="https://www.4science.it/en/">4Science</a> can take your project to the next level,
+            <a href="https://www.4science.it/en/contact-us/">get in touch!</a>
+          </p>
         </div>
         <!--Grid column-->
       </div>
@@ -58,18 +60,24 @@
         <a class="text-white" href="https://wiki.lyrasis.org/display/DSPACECRIS/">{{ 'footer.link.dspace-cris' | translate}}</a>
         {{ 'footer.extension-by' | translate }}
         <a class="text-white" href="https://www.4science.it/en/">
-          <img src="assets/images/logo-4science-small.png" alt="{{ 'footer.link.4science' | translate}}"/>
+          <img src="assets/images/logo-4science-small.png" alt="{{ 'footer.link.4science' | translate}}" />
         </a>
       </p>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
         <li>
-          <a class="text-white" href="#" (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+          <a class="text-white" href="javascript:void(0);"
+             (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
         </li>
         <li>
           <a class="text-white" routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
         <li>
-          <a class="text-white" routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+          <a class="text-white"
+             routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white"
+             routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
         </li>
       </ul>
     </div>

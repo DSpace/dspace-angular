@@ -10,6 +10,8 @@ import { OpenaireBrokerEventsComponent } from './openaire-broker-events.componen
 import {
   getMockOpenaireBrokerEventRestService,
   ItemMockPid10,
+  ItemMockPid8,
+  ItemMockPid9,
   openaireBrokerEventObjectMissingProjectFound,
   openaireBrokerEventObjectMissingProjectNotFound,
   OpenaireMockDspaceObject
@@ -75,7 +77,8 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
       projectId: ItemMockPid10.id,
       handle: ItemMockPid10.handle,
       reason: null,
-      isRunning: false
+      isRunning: false,
+      target: ItemMockPid8
     };
   }
 
@@ -89,7 +92,8 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
       projectId: null,
       handle: null,
       reason: null,
-      isRunning: false
+      isRunning: false,
+      target: ItemMockPid9
     };
   }
 

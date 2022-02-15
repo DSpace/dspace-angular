@@ -8,15 +8,15 @@
       <div class="float-left w-75">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>
-      <div *ngIf="!readOnly" class="float-right w-15" [class.sticky-buttons]="!readMode">
-        <ng-container *ngIf="readMode">
+      <div *ngIf="!readOnly" class="float-right w-15">
+        <ng-container>
           <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
           </ds-file-download-link>
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
                   title="{{ 'submission.sections.upload.edit.title' | translate }}"
-                  (click)="$event.preventDefault();switchMode();">
+                  (click)="$event.preventDefault();editBitstreamData();">
             <i class="fa fa-edit fa-2x text-normal"></i>
           </button>
           <button class="btn btn-link-focus"
@@ -28,40 +28,9 @@
             <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
           </button>
         </ng-container>
-        <ng-container *ngIf="!readMode">
-          <button class="btn btn-link-focus"
-                  [attr.aria-label]="'submission.sections.upload.save-metadata' | translate"
-                  title="{{ 'submission.sections.upload.save-metadata' | translate }}"
-                  (click)="saveBitstreamData($event);">
-            <i class="fa fa-save fa-2x text-success"></i>
-          </button>
-          <button class="btn btn-link-focus"
-                  [attr.aria-label]="'submission.sections.upload.undo' | translate"
-                  title="{{ 'submission.sections.upload.undo' | translate }}"
-                  (click)="$event.preventDefault();switchMode();"><i class="fa fa-ban fa-2x text-warning"></i></button>
-          <button class="btn btn-link-focus"
-                  [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
-                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
-                  [disabled]="(processingDelete$ | async)"
-                  (click)="$event.preventDefault();confirmDelete(content);">
-            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
-          </button>
-        </ng-container>
       </div>
       <div class="clearfix"></div>
-      <ds-submission-section-upload-file-view *ngIf="readMode"
-                                              [fileData]="fileData"></ds-submission-section-upload-file-view>
-      <ds-submission-section-upload-file-edit *ngIf="!readMode"
-                                              [availableAccessConditionOptions]="availableAccessConditionOptions"
-                                              [collectionId]="collectionId"
-                                              [collectionPolicyType]="collectionPolicyType"
-                                              [configMetadataForm]="configMetadataForm"
-                                              [fileData]="fileData"
-                                              [fileId]="fileId"
-                                              [fileIndex]="fileIndex"
-                                              [formId]="formId"
-                                              [sectionId]="sectionId"></ds-submission-section-upload-file-edit>
+      <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
     </div>
   </div>
 </ng-container>

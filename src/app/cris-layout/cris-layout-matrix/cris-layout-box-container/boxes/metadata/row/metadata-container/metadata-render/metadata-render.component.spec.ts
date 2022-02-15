@@ -12,6 +12,7 @@ import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
 import { FieldRenderingType } from '../../../rendering-types/metadata-box.decorator';
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { TableComponent } from '../../../rendering-types/metadataGroup/table/table.component';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 describe('MetadataRenderComponent', () => {
   let component: MetadataRenderComponent;
@@ -23,6 +24,18 @@ describe('MetadataRenderComponent', () => {
     'authority': null,
     'confidence': -1,
     'place': 0
+  });
+
+  const metadataValueWithPlaceholder = Object.assign(new MetadataValue(), {
+    'value': PLACEHOLDER_PARENT_METADATA,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+
+  const normalizedMetadataValue = Object.assign(new MetadataValue(), metadataValueWithPlaceholder,{
+    'value': ''
   });
 
   const testItem = Object.assign(new Item(),
@@ -133,13 +146,31 @@ describe('MetadataRenderComponent', () => {
   describe('When field rendering type is not structured', () => {
     beforeEach(() => {
       component.field = fieldMock;
-      component.metadataValue = metadataValue;
-      fixture.detectChanges();
     });
 
-    it('should create', () => {
-      expect(component).toBeTruthy();
+    describe('When field rendering type is not structured', () => {
+      beforeEach(() => {
+        component.metadataValue = metadataValue;
+        fixture.detectChanges();
+      });
+
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
     });
+
+    describe('and metadata value has placeholder', () => {
+      beforeEach(() => {
+        component.metadataValue = metadataValueWithPlaceholder;
+        fixture.detectChanges();
+      });
+
+      it('should normalize metadata value', () => {
+
+        expect(component.metadataValue).toEqual(normalizedMetadataValue);
+      });
+    });
+
   });
 
   describe('When field rendering type is structured', () => {

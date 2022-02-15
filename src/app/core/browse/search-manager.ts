@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -8,18 +8,17 @@ import { getFirstSucceededRemoteData } from '../shared/operators';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
-import { of } from 'rxjs/internal/observable/of';
 import { BrowseService } from './browse.service';
 import { environment } from '../../../environments/environment';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
-import { SearchObjects } from '../../shared/search/search-objects.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { SearchService } from '../shared/search/search.service';
 import { WorkspaceItem } from '../submission/models/workspaceitem.model';
 import { WorkflowItem } from '../submission/models/workflowitem.model';
 import { hasValue } from '../../shared/empty.util';
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
-
+import { MetadataValue } from '../shared/metadata.models';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
@@ -36,25 +35,14 @@ export class SearchManager {
 
   /**
    * Get all items linked to a certain metadata value
-   * @param {string} filterValue      metadata value to filter by (e.g. author's name)
-   * @param options                   Options to narrow down your search
-   * @param linksToFollow             The array of [[FollowLinkConfig]]
+   * @param filterValue       metadata value to filter by (e.g. author's name)
+   * @param filterAuthority   metadata authority to filter
+   * @param options           Options to narrow down your search
+   * @param linksToFollow     The array of [[FollowLinkConfig]]
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.browseService.getBrowseItemsFor(filterValue, options, ...linksToFollow)
-      .pipe(this.completeWithExtraData());
-  }
-
-  /**
-   * Get all items linked to a certain metadata authority
-   * @param {string} filterAuthority      metadata authority to filter by (e.g. author's authority)
-   * @param options                   Options to narrow down your search
-   * @param linksToFollow             The array of [[FollowLinkConfig]]
-   * @returns {Observable<RemoteData<PaginatedList<Item>>>}
-   */
-  getBrowseItemsForAuthority(filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.browseService.getBrowseItemsForAuthority(filterAuthority, options, ...linksToFollow)
+  getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, options, ...linksToFollow)
       .pipe(this.completeWithExtraData());
   }
 
@@ -103,7 +91,6 @@ export class SearchManager {
     });
   }
 
-
   protected fetchExtraData<T extends DSpaceObject>(objects: T[]): Observable<any> {
 
     const items: Item[] = objects
@@ -130,7 +117,8 @@ export class SearchManager {
         if (item.entityType === followMetadata.type) {
           followMetadata.metadata.forEach((metadata) => {
             item.allMetadata(metadata)
-              .filter((value) => value.authority).forEach((value) => uuidMap[value.authority] = value);
+              .filter((value: MetadataValue) => value.hasValidAuthority)
+              .forEach((value: MetadataValue) => uuidMap[value.authority] = value);
           });
         }
       });
