@@ -4,7 +4,11 @@
 <div
   #metricChild
   class="dimensions_badge_embed"
-  [attr.data-pmid]="remark | dsListMetricProps: 'data-pmid':isListElement"
+  [attr.data-pmid]="
+    remark['data-doi']
+      ? null
+      : (remark | dsListMetricProps: 'data-pmid':isListElement)
+  "
   [attr.data-doi]="remark | dsListMetricProps: 'data-doi':isListElement"
   [attr.data-style]="remark | dsListMetricProps: 'data-style':isListElement"
   [attr.data-legend]="remark | dsListMetricProps: 'data-legend':isListElement"
