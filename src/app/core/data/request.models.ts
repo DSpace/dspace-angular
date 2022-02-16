@@ -275,8 +275,4 @@ export class MyDSpaceRequest extends GetRequest {
   public responseMsToLive = 10 * 1000;
 }
 
-export class RequestError extends Error {
-  statusCode: number;
-  statusText: string;
-}
 /* tslint:enable:max-classes-per-file */

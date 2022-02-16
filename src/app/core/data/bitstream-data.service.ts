@@ -25,10 +25,10 @@ import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { sendRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { sendRequest } from '../shared/request.operators';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API

@@ -9,10 +9,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload} from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 /**
  * This component renders a simple item page.

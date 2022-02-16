@@ -14,7 +14,6 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -34,6 +33,8 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
 import { ConfigObject } from '../../../core/config/models/config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 
 /**
  * This component represents a section that contains a Form.

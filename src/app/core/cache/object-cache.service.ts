@@ -22,11 +22,12 @@ import {
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 
-import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
+import { ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { IndexName } from '../index/index.reducer';
 import { HALLink } from '../shared/hal-link.model';
+import { CacheableObject } from './cacheable-object.model';
+import { IndexName } from '../index/index-name.model';
 
 /**
  * The base selector function to select the object cache in the store

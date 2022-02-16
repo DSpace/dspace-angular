@@ -1,10 +1,11 @@
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FindListOptions } from '../core/data/request.models';
 import { hasValue } from '../shared/empty.util';
-import { CommunityListService, FlatNode } from './community-list-service';
+import { CommunityListService} from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { FlatNode } from './flat-node.model';
 
 /**
  * DataSource object needed by a CDK Tree to render its nodes.

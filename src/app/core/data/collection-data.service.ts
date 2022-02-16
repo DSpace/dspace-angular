@@ -214,4 +214,12 @@ export class CollectionDataService extends ComColDataService<Collection> {
   findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
     return this.findByHref(item._links.owningCollection.href);
   }
+
+  protected getScopeCommunityHref(options: FindListOptions) {
+    return this.cds.getEndpoint().pipe(
+      map((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
+      filter((href: string) => isNotEmpty(href)),
+      take(1)
+    );
+  }
 }

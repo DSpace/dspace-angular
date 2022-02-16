@@ -16,7 +16,6 @@ import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import { sendRequest } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
 import { DataService } from './data.service';
@@ -34,6 +33,7 @@ import { NoContent } from '../shared/NoContent.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
+import { sendRequest } from '../shared/request.operators';
 
 @Injectable()
 @dataService(ITEM)

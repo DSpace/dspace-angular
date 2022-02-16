@@ -9,7 +9,8 @@ import {
   ResetResponseTimestampsAction
 } from './request.actions';
 import { GetRequest } from './request.models';
-import { RequestEntryState, requestReducer, RequestState } from './request.reducer';
+import { requestReducer, RequestState } from './request.reducer';
+import { RequestEntryState } from './request-entry-state.model';
 
 class NullAction extends RequestSuccessAction {
   type = null;

@@ -16,10 +16,11 @@ import {
   RequestSuccessAction,
   ResetResponseTimestampsAction
 } from './request.actions';
-import { RequestError, RestRequest } from './request.models';
+import { RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { ParsedResponse } from '../cache/response.models';
+import { RequestError } from './request-error.model';
 
 @Injectable()
 export class RequestEffects {

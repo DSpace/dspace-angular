@@ -1,6 +1,5 @@
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { Serializer } from '../serializer';
 import { PageInfo } from '../shared/page-info.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -17,6 +16,7 @@ import { ParsedResponse } from '../cache/response.models';
 import { RestRequestMethod } from './rest-request-method';
 import { getUrlWithoutEmbedParams, getEmbedSizeParams } from '../index/index.selectors';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /* tslint:disable:max-classes-per-file */
 

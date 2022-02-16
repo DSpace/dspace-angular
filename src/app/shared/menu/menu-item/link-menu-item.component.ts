@@ -1,9 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { LinkMenuItemModel } from './models/link.model';
-import { MenuItemType } from '../initial-menus-state';
 import { rendersMenuItemForType } from '../menu-item.decorator';
 import { isNotEmpty } from '../../empty.util';
 import { environment } from '../../../../environments/environment';
+import { MenuItemType } from '../menu-item-type.model';
 
 /**
  * Component that renders a menu section of type LINK

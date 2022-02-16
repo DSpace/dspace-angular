@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import {
   DeleteRelationship,
-  FieldUpdate,
-  FieldUpdates,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
@@ -28,10 +26,12 @@ import { RequestService } from '../../../core/data/request.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { hasValue } from '../../../shared/empty.util';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 
 @Component({
   selector: 'ds-item-relationships',

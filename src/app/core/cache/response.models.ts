@@ -1,9 +1,9 @@
-import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
+import { RequestError } from '../data/request-error.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {

@@ -21,7 +21,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
@@ -45,6 +44,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { UpdateDataService } from './update-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NoContent } from '../shared/NoContent.model';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 export abstract class DataService<T extends CacheableObject> implements UpdateDataService<T> {
   protected abstract requestService: RequestService;

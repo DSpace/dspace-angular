@@ -22,7 +22,7 @@ import { FindListOptions, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
-import { RequestEntryState } from './request.reducer';
+import { RequestEntryState } from './request-entry-state.model';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

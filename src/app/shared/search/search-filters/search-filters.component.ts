@@ -83,7 +83,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
 
   initFilters() {
     this.filters = this.searchConfigService.searchOptions.pipe(
-      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getFirstSucceededRemoteData())),
+      switchMap((options) => this.searchConfigService.getConfig(options.scope, options.configuration).pipe(getFirstSucceededRemoteData())),
     );
   }
 

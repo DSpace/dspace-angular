@@ -3,7 +3,6 @@ import { CoreState } from '../../core.reducers';
 import { ObjectUpdatesService } from './object-updates.service';
 import {
   DiscardObjectUpdatesAction,
-  FieldChangeType,
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
@@ -16,6 +15,7 @@ import { NotificationType } from '../../../shared/notifications/models/notificat
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { Injector } from '@angular/core';
+import { FieldChangeType } from './field-change-type.model';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;

@@ -11,8 +11,8 @@ import { RestRequest } from './request.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { environment } from '../../../environments/environment';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * ResponseParsingService able to deal with HAL Endpoints that are only needed as steps

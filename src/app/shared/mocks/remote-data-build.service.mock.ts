@@ -28,7 +28,8 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       }
     },
-    buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({})
+    buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
+    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
   } as RemoteDataBuildService;
 
 }
@@ -64,7 +65,8 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
         })
       );
     },
-    buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({})
+    buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
+    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
   } as RemoteDataBuildService;
 
 }

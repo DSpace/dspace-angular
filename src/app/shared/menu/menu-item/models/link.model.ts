@@ -1,5 +1,5 @@
 import { MenuItemModel } from './menu-item.model';
-import { MenuItemType } from '../../initial-menus-state';
+import { MenuItemType } from '../../menu-item-type.model';
 
 /**
  * Model representing an Link Menu Section

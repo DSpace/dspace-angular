@@ -2,9 +2,9 @@ import { autoserialize, deserialize } from 'cerialize';
 
 import { SEARCH_CONFIG } from './search-config.resource-type';
 import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { HALLink } from '../../hal-link.model';
 import { ResourceType } from '../../resource-type';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
 
 /**
  * The configuration for a search

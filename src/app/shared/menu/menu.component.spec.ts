@@ -6,10 +6,10 @@ import { MenuService } from './menu.service';
 import { MenuComponent } from './menu.component';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
-import { MenuSection } from './menu.reducer';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuID } from './initial-menus-state';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;

@@ -16,8 +16,6 @@ import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
-import { RouteService } from '../core/services/route.service';
-import { routeServiceStub } from '../shared/testing/route-service.stub';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service.stub';
 import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -90,7 +88,6 @@ describe('MyDSpacePageComponent', () => {
           useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
         },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: RouteService, useValue: routeServiceStub },
         {
           provide: Store, useValue: store
         },
@@ -109,9 +106,14 @@ describe('MyDSpacePageComponent', () => {
         {
           provide: SearchFilterService,
           useValue: {}
-        }, {
+        },
+        {
           provide: SEARCH_CONFIG_SERVICE,
-          useValue: new SearchConfigurationServiceStub()
+          useFactory: () => new SearchConfigurationServiceStub()
+        },
+        {
+          provide: SearchConfigurationService,
+          useFactory: new SearchConfigurationServiceStub()
         },
         {
           provide: RoleService,
@@ -120,7 +122,14 @@ describe('MyDSpacePageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MyDSpacePageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: {
+        changeDetection: ChangeDetectionStrategy.Default,
+        providers: [
+          {
+            provide: SEARCH_CONFIG_SERVICE,
+            useClass: SearchConfigurationServiceStub
+          }
+        ] }
     }).compileComponents();
   }));
 
@@ -130,6 +139,7 @@ describe('MyDSpacePageComponent', () => {
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;
+    console.log(searchConfigurationServiceObject)
   });
 
   afterEach(() => {
@@ -198,9 +208,7 @@ describe('MyDSpacePageComponent', () => {
     });
 
     it('should have initialized the sortOptions$ observable', (done) => {
-
       comp.sortOptions$.subscribe((sortOptions) => {
-
         expect(sortOptions.length).toEqual(2);
         expect(sortOptions[0]).toEqual(new SortOptions('score', SortDirection.ASC));
         expect(sortOptions[1]).toEqual(new SortOptions('score', SortDirection.DESC));

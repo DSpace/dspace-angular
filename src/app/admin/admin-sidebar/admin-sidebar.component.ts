@@ -12,7 +12,6 @@ import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { ExportMetadataSelectorComponent } from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
-import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
 import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model';
@@ -21,6 +20,8 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { MenuID } from '../../shared/menu/menu-id.model';
+import { MenuItemType } from '../../shared/menu/menu-item-type.model';
 
 /**
  * Component representing the admin sidebar

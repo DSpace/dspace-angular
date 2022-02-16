@@ -13,12 +13,9 @@ import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import {
   RequestEntry,
-  ResponseState,
-  RequestEntryState,
-  hasSucceeded
+  ResponseState
 } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/operators';
 import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
 import { HALLink } from '../../shared/hal-link.model';
@@ -28,6 +25,8 @@ import { HALResource } from '../../shared/hal-resource.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
+import { hasSucceeded, RequestEntryState } from '../../data/request-entry-state.model';
+import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/request.operators';
 
 @Injectable()
 export class RemoteDataBuildService {

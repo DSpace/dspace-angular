@@ -1,11 +1,11 @@
 import { autoserializeAs, deserializeAs, deserialize } from 'cerialize';
 import { HALLink } from './hal-link.model';
 import { MetadataConfig } from './metadata-config.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CONTENT_SOURCE } from './content-source.resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * The type of content harvesting used

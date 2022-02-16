@@ -4,8 +4,6 @@ import { CoreState } from '../../core.reducers';
 import { coreSelector } from '../../core.selectors';
 import {
   FieldState,
-  FieldUpdates,
-  Identifiable,
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
   ObjectUpdatesState,
@@ -15,7 +13,6 @@ import { Observable } from 'rxjs';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
-  FieldChangeType,
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
@@ -35,6 +32,9 @@ import { INotification } from '../../../shared/notifications/models/notification
 import { Operation } from 'fast-json-patch';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 import { GenericConstructor } from '../../shared/generic-constructor';
+import { Identifiable } from './identifiable.model';
+import { FieldUpdates } from './field-updates.model';
+import { FieldChangeType } from './field-change-type.model';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);

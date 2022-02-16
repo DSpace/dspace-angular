@@ -25,6 +25,12 @@ import { BitstreamDataService } from './bitstream-data.service';
 
 const LINK_NAME = 'test';
 
+const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
+
+const communitiesEndpoint = 'https://rest.api/core/communities';
+
+const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
+
 class TestService extends ComColDataService<any> {
 
   constructor(
@@ -47,6 +53,11 @@ class TestService extends ComColDataService<any> {
     // implementation in subclasses for communities/collections
     return undefined;
   }
+
+  protected getScopeCommunityHref(options: FindListOptions): Observable<string> {
+    // implementation in subclasses for communities/collections
+    return observableOf(communityEndpoint);
+  }
 }
 
 // tslint:disable:no-shadowed-variable
@@ -66,12 +77,9 @@ describe('ComColDataService', () => {
   const http = {} as HttpClient;
   const comparator = {} as any;
 
-  const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindListOptions(), {
     scopeID: scopeID
   });
-  const communitiesEndpoint = 'https://rest.api/core/communities';
-  const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   const mockHalService = {

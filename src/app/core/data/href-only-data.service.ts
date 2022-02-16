@@ -18,7 +18,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedList } from './paginated-list.model';
 import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
 import { LICENSE } from '../shared/license.resource-type';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<any> {

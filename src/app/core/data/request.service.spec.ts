@@ -19,11 +19,12 @@ import {
   PutRequest,
   RestRequest
 } from './request.models';
-import { RequestEntry, RequestEntryState } from './request.reducer';
+import { RequestEntry} from './request.reducer';
 import { RequestService } from './request.service';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { storeModuleConfig } from '../../app.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { RequestEntryState } from './request-entry-state.model';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

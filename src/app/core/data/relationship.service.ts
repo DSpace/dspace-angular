@@ -29,7 +29,6 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
-  sendRequest,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -42,8 +41,9 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { RequestService } from './request.service';
-import { RequestEntryState } from './request.reducer';
 import { NoContent } from '../shared/NoContent.model';
+import { RequestEntryState } from './request-entry-state.model';
+import { sendRequest } from '../shared/request.operators';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 

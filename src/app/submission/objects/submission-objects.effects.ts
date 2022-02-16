@@ -43,7 +43,7 @@ import {
   UpdateSectionDataAction,
   UpdateSectionDataSuccessAction
 } from './submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject } from './submission-objects.reducer';
+import { SubmissionObjectEntry} from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
@@ -51,6 +51,8 @@ import { SubmissionObjectDataService } from '../../core/submission/submission-ob
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormState } from '../../shared/form/form.reducer';
+import { SubmissionSectionObject } from './submission-section-object.model';
+import { SubmissionSectionError } from './submission-section-error.model';
 
 @Injectable()
 export class SubmissionObjectEffects {

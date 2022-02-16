@@ -4,8 +4,6 @@ import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
 import { HALLink } from '../shared/hal-link.model';
-import { CommunityDataService } from './community-data.service';
-
 import { DataService } from './data.service';
 import { FindListOptions } from './request.models';
 import { PaginatedList } from './paginated-list.model';
@@ -21,7 +19,6 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 export abstract class ComColDataService<T extends Community | Collection> extends DataService<T> {
-  protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
   protected abstract bitstreamDataService: BitstreamDataService;
@@ -40,11 +37,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     if (isEmpty(options.scopeID)) {
       return this.halService.getEndpoint(linkPath);
     } else {
-      const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
-        map((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
-        filter((href: string) => isNotEmpty(href)),
-        take(1)
-      );
+      const scopeCommunityHrefObs = this.getScopeCommunityHref(options);
 
       this.createAndSendGetRequest(scopeCommunityHrefObs, true);
 
@@ -64,6 +57,8 @@ export abstract class ComColDataService<T extends Community | Collection> extend
       );
     }
   }
+
+  protected abstract getScopeCommunityHref(options: FindListOptions): Observable<string>;
 
   protected abstract getFindByParentHref(parentUUID: string): Observable<string>;
 

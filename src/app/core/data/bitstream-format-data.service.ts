@@ -19,12 +19,12 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { Bitstream } from '../shared/bitstream.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { sendRequest } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { PostRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
+import { sendRequest } from '../shared/request.operators';
 
 const bitstreamFormatsStateSelector = createSelector(
   coreSelector,

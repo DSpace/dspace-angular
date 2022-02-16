@@ -47,7 +47,7 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
   search: mockResults,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
-  getSearchConfigurationFor: createSuccessfulRemoteDataObject$({ sortOptions: [sortOption]})
+  getSearchConfigurationFor: createSuccessfulRemoteDataObject$({ sortOptions: [sortOption] })
 });
 const configurationParam = 'default';
 const queryParam = 'test query';
@@ -137,7 +137,13 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     ],
     schemas: [NO_ERRORS_SCHEMA]
   }).overrideComponent(compType, {
-    set: { changeDetection: ChangeDetectionStrategy.Default }
+    set: {
+      changeDetection: ChangeDetectionStrategy.Default,
+      providers: [{
+        provide: SEARCH_CONFIG_SERVICE,
+        useValue: new SearchConfigurationServiceStub()
+      }]
+    }
   }).compileComponents();
 }
 

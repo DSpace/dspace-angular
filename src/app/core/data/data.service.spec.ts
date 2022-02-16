@@ -22,7 +22,7 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from './remote-data';
-import { RequestEntryState } from './request.reducer';
+import { RequestEntryState } from './request-entry-state.model';
 
 const endpoint = 'https://rest.api/core';
 

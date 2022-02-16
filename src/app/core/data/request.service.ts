@@ -18,10 +18,11 @@ import {
   RequestStaleAction
 } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
-import { RequestEntry, RequestState, isStale, isLoading } from './request.reducer';
+import { RequestEntry, RequestState} from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { coreSelector } from '../core.selectors';
+import { isLoading, isStale } from './request-entry-state.model';
 
 /**
  * The base selector function to select the request state in the store

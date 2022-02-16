@@ -144,7 +144,7 @@ export class SearchComponent implements OnInit {
       this.configuration$ = this.searchConfigService.getCurrentConfiguration('default');
     }
 
-    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(this.configuration$, this.service);
+    const searchConfig$ = this.searchConfigService.getConfigurationSearchConfigObservable(this.configuration$);
 
     this.sortOptions$ = this.searchConfigService.getConfigurationSortOptionsObservable(searchConfig$);
     this.searchConfigService.initializeSortOptionsFromConfiguration(searchConfig$);

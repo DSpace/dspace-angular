@@ -8,10 +8,10 @@ import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ITEM_EDIT_PATH, UPLOAD_BITSTREAM_PATH } from './item-page-routing-paths';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
-import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
 
 @NgModule({
   imports: [

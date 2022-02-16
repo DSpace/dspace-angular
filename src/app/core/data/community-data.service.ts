@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -20,13 +20,13 @@ import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamDataService } from './bitstream-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
 @dataService(COMMUNITY)
 export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'search/top';
-  protected cds = this;
 
   constructor(
     protected requestService: RequestService,
@@ -58,4 +58,11 @@ export class CommunityDataService extends ComColDataService<Community> {
     );
   }
 
+  protected getScopeCommunityHref(options: FindListOptions) {
+    return this.getEndpoint().pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, options.scopeID)),
+      filter((href: string) => isNotEmpty(href)),
+      take(1)
+    );
+  }
 }

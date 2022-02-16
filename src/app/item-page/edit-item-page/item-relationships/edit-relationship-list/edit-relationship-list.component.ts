@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import {
   combineLatest as observableCombineLatest,
@@ -10,8 +9,6 @@ import {
   from as observableFrom
 } from 'rxjs';
 import {
-  FieldUpdate,
-  FieldUpdates,
   RelationshipIdentifiable
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
@@ -49,6 +46,9 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',

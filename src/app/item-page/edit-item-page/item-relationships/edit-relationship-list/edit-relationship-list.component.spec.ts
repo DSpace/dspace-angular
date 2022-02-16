@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
@@ -22,6 +21,7 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;

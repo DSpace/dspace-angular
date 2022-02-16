@@ -11,9 +11,9 @@ import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.servi
 import { LinkService } from '../core/cache/builders/link.service';
 import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-routing-paths';
 import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
-import { MenuItemType } from '../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
 
 @NgModule({
   imports: [
