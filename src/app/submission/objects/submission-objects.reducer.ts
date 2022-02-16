@@ -290,7 +290,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
-      return Object.assign({}, initialState, { isDiscarded: true });
+      return discardSuccess(state, action as DiscardSubmissionSuccessAction);
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {
@@ -533,6 +533,28 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         isLoading: false
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set submission discard to true.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a DiscardSubmissionSuccessAction
+ * @return SubmissionObjectState
+ *    the new state, with the discard success.
+ */
+ function discardSuccess(state: SubmissionObjectState, action: DiscardSubmissionSuccessAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        isDiscarded: true
       })
     });
   } else {
