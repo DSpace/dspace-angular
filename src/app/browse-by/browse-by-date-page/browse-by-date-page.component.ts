@@ -87,7 +87,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         let lowerLimit = environment.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataKeys);
-          if (hasValue(date)) {
+          if (isNotEmpty(new Date(date))) {
             const dateObj = new Date(date);
             // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
             lowerLimit = isNaN(dateObj.getUTCFullYear()) ? lowerLimit : dateObj.getUTCFullYear();
