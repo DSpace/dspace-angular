@@ -215,6 +215,11 @@ export interface SubmissionObjectEntry {
    * Configurations of security levels for metadatas of an entity type
    */
   metadataSecurityConfiguration?: MetadataSecurityConfiguration;
+
+  /**
+   * A boolean representing if a submission is discarded or not
+   */
+   isDiscarded?: boolean;
 }
 
 /**
@@ -285,7 +290,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
-      return Object.assign({},initialState,{isDiscarding:true });;
+      return Object.assign({}, initialState, { isDiscarded: true });
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {
@@ -484,7 +489,8 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     savePending: false,
     saveDecisionPending: false,
     depositPending: false,
-    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration
+    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration,
+    isDiscarded: false
   };
   return newState;
 }
