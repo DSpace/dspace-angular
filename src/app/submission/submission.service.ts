@@ -276,12 +276,6 @@ export class SubmissionService {
   dispatchDiscard(submissionId) {
     this.store.dispatch(new DiscardSubmissionAction(submissionId));
   }
-  /**
-   * get a state isDiscard or not.
-   */
-  getDiscard(): Observable<SubmissionState> {
-   return this.store.pipe(take(1),select(submissionSelector));
-  }
 
   /**
    * Dispatch a new [SaveSubmissionFormAction]
