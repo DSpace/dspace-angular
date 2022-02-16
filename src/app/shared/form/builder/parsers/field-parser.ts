@@ -17,6 +17,7 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
+import { environment } from '../../../../../environments/environment';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -26,6 +27,11 @@ export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<
 export abstract class FieldParser {
 
   protected fieldId: string;
+  /**
+   * This is the field to use for type binding
+   * @protected
+   */
+  protected typeField: string;
 
   constructor(
     @Inject(SUBMISSION_ID) protected submissionId: string,
@@ -33,6 +39,8 @@ export abstract class FieldParser {
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
   ) {
+    // Replace . with _ in configured type field here, to make configuration more simple and user-friendly
+    this.typeField = environment.submission.typeBind.field.replace('\.', '_');
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
@@ -315,14 +323,14 @@ export abstract class FieldParser {
     const bindValues = [];
     configuredTypeBindValues.forEach((value) => {
       bindValues.push({
-        id: 'dc_type',
+        id: this.typeField,
         value: value
       });
     });
     // match: MATCH_VISIBLE means that if true, the field / component will be visible
     // operator: OR means that all the values in the 'when' condition will be compared with OR, not AND
     // when: the list of values to match against, in this case the list of strings from <type-bind>...</type-bind>
-    // Example: Field [x] will be VISIBLE if dc_type = book OR dc_type = book_part
+    // Example: Field [x] will be VISIBLE if item type = book OR item type = book_part
     //
     // The opposing match value will be the dc.type for the workspace item
     return [{

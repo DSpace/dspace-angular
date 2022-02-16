@@ -33,6 +33,7 @@ import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -49,6 +50,11 @@ export class FormBuilderService extends DynamicFormService {
    */
   private formGroups: Map<string, FormGroup>;
 
+  /**
+   * This is the field to use for type binding
+   */
+  private typeField: string;
+
   constructor(
     componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
@@ -57,6 +63,8 @@ export class FormBuilderService extends DynamicFormService {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
+    // Replace . with _ in configured type field here, to make configuration more simple and user-friendly
+    this.typeField = environment.submission.typeBind.field.replace('\.', '_');
   }
 
   createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
@@ -274,7 +282,7 @@ export class FormBuilderService extends DynamicFormService {
     }
 
     if (isNull(typeBindModel)) {
-      typeBindModel = this.findById('dc_type', rows);
+      typeBindModel = this.findById(this.typeField, rows);
     }
 
     if (typeBindModel !== null) {
