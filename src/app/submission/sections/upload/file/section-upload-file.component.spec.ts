@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormService } from '../../../../shared/form/form.service';
@@ -17,10 +17,8 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import {
-  mockFileFormData,
   mockSubmissionCollectionId,
   mockSubmissionId,
-  mockSubmissionObject,
   mockUploadConfigResponse,
   mockUploadFiles
 } from '../../../../shared/mocks/submission.mock';
@@ -32,17 +30,25 @@ import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
-import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { dateToISOFormat } from '../../../../shared/date.util';
+
+const configMetadataFormMock = {
+  rows: [{
+    fields: [{
+      selectableMetadata: [
+        {metadata: 'dc.title', label: null, closed: false},
+        {metadata: 'dc.description', label: null, closed: false}
+      ]
+    }]
+  }]
+};
 
 describe('SubmissionSectionUploadFileComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
-  let de: DebugElement;
   let submissionServiceStub: SubmissionServiceStub;
   let uploadService: any;
   let formService: any;
@@ -118,6 +124,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+
     });
 
     afterEach(() => {
@@ -125,9 +132,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     });
 
     it('should create SubmissionSectionUploadFileComponent', inject([SubmissionSectionUploadFileComponent], (app: SubmissionSectionUploadFileComponent) => {
-
       expect(app).toBeDefined();
-
     }));
   });
 
@@ -135,8 +140,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileComponent);
       comp = fixture.componentInstance;
-      de = fixture.debugElement;
       compAsAny = comp;
+      compAsAny.configMetadataForm = configMetadataFormMock;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       uploadService = TestBed.inject(SectionUploadService);
       formService = TestBed.inject(FormService);
@@ -181,7 +186,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       fixture.detectChanges();
 
-      const button = de.query(By.css('.btn'));
+      const button = fixture.debugElement.query(By.css('.btn'));
       expect(button).toBeNull();
       expect(comp.fileData).toEqual(fileData);
     });
@@ -222,96 +227,20 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         pathCombiner.subRootElement);
     });
 
-    it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
-      compAsAny.fileEditComp.formRef = {formGroup: null};
-      compAsAny.pathCombiner = pathCombiner;
-      const event = new Event('click', null);
-      spyOn(comp, 'switchMode');
-      formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockFileFormData));
+    it('should open edit modal when edit button is clicked', () => {
+      spyOn(compAsAny, 'editBitstreamData').and.callThrough();
+      comp.fileData = fileData;
 
-      const response = [
-        Object.assign(mockSubmissionObject, {
-          sections: {
-            upload: {
-              files: mockUploadFiles
-            }
-          }
-        })
-      ];
-      operationsService.jsonPatchByResourceID.and.returnValue(observableOf(response));
+      fixture.detectChanges();
 
-      const accessConditionsToSave = [
-        { name: 'openaccess' },
-        { name: 'lease', endDate: dateToISOFormat('2019-01-16T00:00:00Z') },
-        { name: 'embargo', startDate: dateToISOFormat('2019-01-16T00:00:00Z') },
-      ];
-      comp.saveBitstreamData(event);
-      tick();
+      const modalBtn = fixture.debugElement.query(By.css('.fa-edit '));
 
-      let path = 'metadata/dc.title';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
-        mockFileFormData.metadata['dc.title'],
-        true
-      );
+      modalBtn.nativeElement.click();
+      fixture.detectChanges();
 
-      path = 'metadata/dc.description';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
-        mockFileFormData.metadata['dc.description'],
-        true
-      );
-
-      path = 'accessConditions';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
-        accessConditionsToSave,
-        true
-      );
-
-      expect(comp.switchMode).toHaveBeenCalled();
-      expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
-
-    }));
-
-    it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
-      compAsAny.fileEditComp.formRef = {formGroup: null};
-      compAsAny.pathCombiner = pathCombiner;
-      const event = new Event('click', null);
-      spyOn(comp, 'switchMode');
-      formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(false));
-
-      expect(comp.switchMode).not.toHaveBeenCalled();
-      expect(uploadService.updateFileData).not.toHaveBeenCalled();
-
-    }));
-
-    it('should retrieve Value From Field properly', () => {
-      let field;
-      expect(compAsAny.retrieveValueFromField(field)).toBeUndefined();
-
-      field = new FormFieldMetadataValueObject('test');
-      expect(compAsAny.retrieveValueFromField(field)).toBe('test');
-
-      field = [new FormFieldMetadataValueObject('test')];
-      expect(compAsAny.retrieveValueFromField(field)).toBe('test');
+      expect(compAsAny.editBitstreamData).toHaveBeenCalled();
     });
 
-    it('should switch read mode', () => {
-      comp.readMode = false;
-
-      comp.switchMode();
-      expect(comp.readMode).toBeTruthy();
-
-      comp.switchMode();
-
-      expect(comp.readMode).toBeFalsy();
-    });
   });
 });
 
@@ -326,7 +255,7 @@ class TestComponent {
   availableAccessConditionOptions;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
-  configMetadataForm$;
+  configMetadataForm$ = of(configMetadataFormMock);
   fileIndexes = [];
   fileList = [];
   fileNames = [];

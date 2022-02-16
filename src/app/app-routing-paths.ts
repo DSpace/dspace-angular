@@ -32,6 +32,12 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   };
 }
 
+export const HOME_PAGE_PATH = 'admin';
+
+export function getHomePageRoute() {
+  return `/${HOME_PAGE_PATH}`;
+}
+
 export const ADMIN_MODULE_PATH = 'admin';
 
 export function getAdminModuleRoute() {
@@ -93,6 +99,12 @@ export const PAGE_NOT_FOUND_PATH = '404';
 
 export function getPageNotFoundRoute() {
   return `/${PAGE_NOT_FOUND_PATH}`;
+}
+
+export const INTERNAL_SERVER_ERROR = '500';
+
+export function getPageInternalServerErrorRoute() {
+  return `/${INTERNAL_SERVER_ERROR}`;
 }
 
 export const INFO_MODULE_PATH = 'info';

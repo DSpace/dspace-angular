@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { SearchResult } from '../../../search/search-result.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { followLink } from '../../../utils/follow-link-config.model';

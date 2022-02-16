@@ -50,7 +50,7 @@ describe('Search Page', () => {
 
         // Click to display grid view
         // TODO: These buttons should likely have an easier way to uniquely select
-        cy.get('#search-sidebar-content > ds-view-mode-switch > .btn-group > [href="/search?spc.sf=score&spc.sd=DESC&view=grid"] > .fas').click();
+        cy.get('#search-sidebar-content > ds-view-mode-switch > .btn-group > [href="/search?view=grid"] > .fas').click();
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('exist');

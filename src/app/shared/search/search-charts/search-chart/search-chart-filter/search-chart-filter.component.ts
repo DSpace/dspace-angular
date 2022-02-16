@@ -7,10 +7,10 @@ import { ChartType } from '../../../../../charts/models/chart-type';
 import { SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { ChartData } from '../../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../../charts/models/chart-series';
-import { FacetValue } from '../../../facet-value.model';
+import { FacetValue } from '../../../models/facet-value.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { FacetValues } from '../../../facet-values.model';
+import { FacetValues } from '../../../models/facet-values.model';
 import { getAllCompletedRemoteData } from '../../../../../core/shared/operators';
 
 @Component({

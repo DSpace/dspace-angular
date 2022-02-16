@@ -1,7 +1,7 @@
-<span class="{{valueStyle}}">
+<div class="{{valueStyle}}">
   <ng-container *ngFor="let attachment of (bitstreams$ | async)">
-     <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="false">
+     <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="true" [item]="item">
        <span>{{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})</span>
      </ds-file-download-link>
   </ng-container>
-</span>
+</div>

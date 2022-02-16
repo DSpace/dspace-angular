@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FacetValue } from '../../shared/search/facet-value.model';
+import { FacetValue } from '../../shared/search/models/facet-value.model';
 import { ParsedResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RestRequest } from './request.models';
-import { FacetValues } from '../../shared/search/facet-values.model';
+import { FacetValues } from '../../shared/search/models/facet-values.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 
 @Injectable()

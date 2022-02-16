@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DeleteComColPageComponent } from '../../shared/comcol-forms/delete-comcol-page/delete-comcol-page.component';
+import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import {RequestService} from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 
 /**
  * Component that represents the page where a user can delete an existing Community

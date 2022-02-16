@@ -13,7 +13,7 @@ import { AuthorityConfidenceStateDirective } from '../authority-confidence/autho
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfidenceType } from '../../core/shared/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.test';
 
 describe('ChipsComponent test suite', () => {
 
@@ -72,6 +72,7 @@ describe('ChipsComponent test suite', () => {
       chips = new Chips(['a', 'b', 'c']);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.editable = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();
     });
@@ -81,7 +82,7 @@ describe('ChipsComponent test suite', () => {
       chipsComp = null;
     });
 
-    it('should emit when a chip item is removed', fakeAsync(() => {
+    it('should emit when a chip item is removed and editable is true', fakeAsync(() => {
 
       spyOn(chipsComp.chips, 'remove');
 
@@ -124,6 +125,7 @@ describe('ChipsComponent test suite', () => {
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
+      chipsComp.editable = true;
       chipsComp.showIcons = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();

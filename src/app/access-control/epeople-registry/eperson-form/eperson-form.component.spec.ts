@@ -213,6 +213,10 @@ describe('EPersonFormComponent', () => {
     }).compileComponents();
   }));
 
+  epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
+    registerEmail: createSuccessfulRemoteDataObject$(null)
+  });
+
   beforeEach(() => {
     fixture = TestBed.createComponent(EPersonFormComponent);
     component = fixture.componentInstance;

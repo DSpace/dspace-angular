@@ -1,10 +1,10 @@
 import { Metadata } from '../../../../core/shared/metadata.utils';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 import { TopSectionColumn } from '../../../../core/layout/models/section.model';
-import { SearchResult } from '../../../search/search-result.model';
-import { SearchObjects } from '../../../search/search-objects.model';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { SearchObjects } from '../../../search/models/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../search/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { Component, OnInit, Input } from '@angular/core';
