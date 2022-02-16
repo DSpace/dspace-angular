@@ -589,10 +589,10 @@ export class SubmissionService {
    *    observable with submission discard status
    */
   isSubmissionDiscarded(submissionId: string): Observable<boolean> {
-  return this.store.pipe(
-    take(1),
-    select(submissionSelector),
-    map((submission: SubmissionState) => { return submission.objects.isDiscarded as boolean; }));
+    return this.store.pipe(
+      take(1),
+      select(submissionSelector),
+      map((submission: SubmissionState) => { return submission.objects.isDiscarded as boolean; }));
   }
 
   /**
