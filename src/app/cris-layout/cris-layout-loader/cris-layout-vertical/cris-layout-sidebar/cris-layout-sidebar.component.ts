@@ -67,7 +67,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
    * @param tab
    */
   selectTabEv(tab: CrisLayoutTab) {
-    this.selectFromTabName(tab.shortname);
+    this.setActiveTab(tab);
   }
 
   emitSelected(selectedTab) {

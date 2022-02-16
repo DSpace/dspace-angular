@@ -1,3 +1,4 @@
+import { CrisItemPageRoutingModule } from './cris-item-page-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
@@ -14,7 +15,8 @@ import { StatisticsModule } from '../statistics/statistics.module';
     CommonModule,
     SharedModule,
     CrisLayoutModule,
-    StatisticsModule
+    StatisticsModule,
+    CrisItemPageRoutingModule
   ],
   exports: [
     CrisItemPageComponent

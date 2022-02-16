@@ -42,6 +42,9 @@ export class CrisLayoutSidebarItemComponent {
    */
   @Output() tabSelectedChange = new EventEmitter<CrisLayoutTab>();
 
+
+  @Input() activeTab: CrisLayoutTab;
+
   /**
    * Emits true when the menu section is expanded, else emits false
    * This is true when the section is active AND either the sidebar or it's preview is open
@@ -52,17 +55,15 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   ngOnInit() {
-    if (this.tab.isActive) {
-      this.tabSelectedChange.emit(this.tab);
-    }
     if (!!this.tab && !!this.tab.children && this.tab.children.length > 0) {
+      this.tab.isActive = false;
+      this.expanded = false;
       this.tab.children.forEach((subtab) => {
-        if (subtab.isActive) {
+        if (subtab.id === this.activeTab.id) {
           if (this.layout !== 'horizontal') {
             this.expanded = true;
           }
           this.tab.isActive = true;
-          this.tabSelectedChange.emit(subtab);
           return;
         }
       });
@@ -85,9 +86,9 @@ export class CrisLayoutSidebarItemComponent {
 
     return this.getTranslation(tabHeaderI18nKey) ??
       this.getTranslation(tabHeaderGenericI18nKey) ??
-      this.getTranslation(this.tab.header) ??
-      this.tab.header ??
-      '';
+        this.getTranslation(this.tab.header) ??
+          this.tab.header ??
+            '';
   }
 
   toggleSection(event): void {

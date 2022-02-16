@@ -37,101 +37,19 @@ export abstract class CrisLayoutTabsComponent {
    */
   @Output() selectedTab = new EventEmitter<CrisLayoutTab>();
 
+  activeTab: CrisLayoutTab;
+
   constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
   }
 
   init(): void {
     if (this.tabs && this.tabs.length > 0) {
-      this.parseTabs();
-      // Check if the location contains a specific tab to show
-      const tabName = this.getCurrentTabFromUrl();
-      if (hasValue(tabName)) {
-        this.selectFromTabName(tabName);
-      } else {
-        if (this.tabs[0].children && this.tabs[0].children.length > 0) {
-          this.selectTab(0, 0);
-        } else {
-          this.selectTab(0, null);
-        }
-      }
+      this.parseTabs(this.route.snapshot.paramMap.get('tab'));
+      this.emitSelected(this.activeTab);
     }
   }
 
-  selectFromTabName(tabName): void {
-    let result = null;
-    this.tabs.forEach((tab, i) => {
-      if (!!tab.children && tab.children.length > 0) {
-        tab.children.forEach((subtab, j) => {
-          if (subtab.shortname === tabName) {
-            result = [i, j];
-            this.selectTab(i, j);
-            return;
-          }
-        });
-      } else {
-        if (tab.shortname === tabName) {
-          result = [i, null];
-          this.selectTab(i, null);
-          return;
-        }
-      }
-    });
-    if (result == null) {
-      if (this.tabs[0].children && this.tabs[0].children.length > 0) {
-        this.selectTab(0, 0);
-      } else {
-        this.selectTab(0, null);
-      }
-    }
-  }
-
-  /**
-   * This method selects new tab, change the location with its shortname and
-   * notify the change at parent component
-   * @param idx id of tab
-   * @param idy id of nested tab
-   */
-  selectTab(idx: number, idy?: number) {
-    this.tabs.forEach((tabElm) => {
-      tabElm.isActive = false;
-      if (!!tabElm.children && tabElm.children.length > 0) {
-        tabElm.children.forEach((subtab, j) => {
-          subtab.isActive = false;
-        });
-      }
-    });
-    let selectedTab = null;
-    if (idy != null) {
-      selectedTab = this.tabs[idx].children[idy];
-      this.tabs[idx].children[idy].isActive = true;
-    } else {
-      selectedTab = this.tabs[idx];
-      this.tabs[idx].isActive = true;
-    }
-    const tabName = this.getCurrentTabFromUrl();
-    if (tabName) {
-      this.location.replaceState(getItemPageRoute(this.item) + '/' + selectedTab.shortname);
-    }
-    // Notify selected tab at parent
-    this.selectedTab.emit(selectedTab);
-    this.emitSelected(selectedTab);
-  }
-
-  public getCurrentTabFromUrl() {
-    let currentTab = null;
-    const locationParts = this.location.path().split('/');
-    if (locationParts) {
-      const lastPart = locationParts.pop();
-      currentTab = lastPart;
-      if (lastPart.includes('?')) {
-        const paramsParts = lastPart.split('?');
-        currentTab = paramsParts[0];
-      }
-    }
-    return currentTab;
-  }
-
-  public parseTabs(): void {
+  public parseTabs(shortname): void {
     const tabs = [];
     this.tabs.forEach((tab) => {
       // create children where tab has "::"
@@ -151,22 +69,35 @@ export abstract class CrisLayoutTabsComponent {
           parentTab.children = [];
           parentTab.children.push(childTab);
           tabs.push(parentTab);
+          if (shortname === parentTab.shortname) {
+            this.activeTab = parentTab;
+          }
+          if (shortname === childTab.shortname) {
+            this.activeTab = childTab;
+          }
         } else {
           tab.header = splitedHeaderTabs[1];
           tab.shortname = splitedTabs[1];
           previousTab.children.push(tab);
         }
+        if (shortname === tab.shortname) {
+          this.activeTab = tab;
+        }
       } else {
         tabs.push(tab);
+        if (shortname === tab.shortname) {
+          this.activeTab = tab;
+        }
       }
     });
     this.tabs = tabs;
   }
 
-  getTabSelected(tab) {
-    this.selectFromTabName(tab.shortname);
-  }
-
   abstract emitSelected(selectedTab): void;
+
+  setActiveTab(tab) {
+    this.activeTab = tab;
+    this.router.navigateByUrl(getItemPageRoute(this.item) + '/' + tab.shortname);
+  }
 
 }
