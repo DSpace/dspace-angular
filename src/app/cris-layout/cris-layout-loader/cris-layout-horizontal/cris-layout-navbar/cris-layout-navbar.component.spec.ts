@@ -13,6 +13,7 @@ import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mock
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { Item } from '../../../../core/shared/item.model';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 
 
 describe('CrisLayoutNavbarComponent', () => {
@@ -22,7 +23,16 @@ describe('CrisLayoutNavbarComponent', () => {
 
   const windowServiceStub = new HostWindowServiceStub(1000);
 
-  const activatedRouteStub = new ActivatedRouteStub();
+  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
+    snapshot: {
+      paramMap: {
+        get(name) {
+          return new CrisLayoutTab();
+        }
+      }
+    }
+
+  });
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
