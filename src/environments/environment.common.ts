@@ -194,6 +194,10 @@ export const environment: GlobalConfig = {
     code: 'hu',
     label: 'magyar',
     active: true,
+  },{
+    code: 'es',
+    label: 'Español',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
@@ -272,7 +276,10 @@ export const environment: GlobalConfig = {
     //   // This theme will use the default bootstrap styling for DSpace components
     //   name: BASE_THEME_NAME
     // },
-
+    {
+      // Nuevo tema de dspace creado
+      name: 'custom-unpsjb'
+    },
     {
       // The default dspace theme
       name: 'dspace'

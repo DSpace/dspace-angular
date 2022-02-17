@@ -2,7 +2,7 @@
   
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
-  "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+  "401.help": "No está autorizado a acceder a esta página. Puede usar el botón de abajo para regresar a la página de inicio.",
   
   // "401.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
@@ -10,21 +10,21 @@
   
   // "401.unauthorized": "unauthorized",
   // TODO New key - Add a translation
-  "401.unauthorized": "unauthorized",
+  "401.unauthorized": "desautorizado",
   
   
   
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
-  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+  "403.help": "No tiene permiso para acceder a esta página. Puede usar el botón de abajo para regresar a la página de inicio.",
   
   // "403.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "403.link.home-page": "Take me to the home page",
+  "403.link.home-page": "Ir a la página de inicio",
   
   // "403.forbidden": "forbidden",
   // TODO New key - Add a translation
-  "403.forbidden": "forbidden",
+  "403.forbidden": "prohibido",
   
   
   
@@ -193,7 +193,7 @@
   
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+  "admin.registries.metadata.breadcrumbs": "Registro de metadatos",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   "admin.registries.metadata.description": "El registro de metadatos mantiene una lista de todos los campos de metadatos disponibles en el repositorio.  Estos campos pueden dividirse entre múltiples esquemas. Sin embargo, DSpace requiere el esquema calificado de Dublin Core.",
@@ -235,7 +235,7 @@
   
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs": "Esquema de metadatos",
   
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Este es el esquema de metadatos para \"{{namespace}}\".",
@@ -313,19 +313,19 @@
   
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "Eliminar EPerson",
   
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "Personificar EPerson",
   
   // "admin.access-control.epeople.actions.reset": "Reset password",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "Resetear contraseña",
   
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "Finalizar personalización EPerson",
   
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
   // TODO New key - Add a translation
@@ -337,15 +337,15 @@
   
   // "admin.access-control.epeople.search.head": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "Buscar",
   
   // "admin.access-control.epeople.button.see-all": "Browse All",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "Mostrar todo",
   
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+  "admin.access-control.epeople.search.scope.metadata": "Metadatos",
   
   // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
   // TODO New key - Add a translation
@@ -353,11 +353,11 @@
   
   // "admin.access-control.epeople.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.search.button": "Search",
+  "admin.access-control.epeople.search.button": "Buscar",
   
   // "admin.access-control.epeople.button.add": "Add EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "Agregar EPerson",
   
   // "admin.access-control.epeople.table.id": "ID",
   // TODO New key - Add a translation
@@ -365,7 +365,7 @@
   
   // "admin.access-control.epeople.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "Nombre",
   
   // "admin.access-control.epeople.table.email": "E-mail (exact)",
   // TODO New key - Add a translation
@@ -373,11 +373,11 @@
   
   // "admin.access-control.epeople.table.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit": "Edit",
+  "admin.access-control.epeople.table.edit": "Editar",
   
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Editar \"{{name}}\"",
   
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   // TODO New key - Add a translation
@@ -385,23 +385,23 @@
   
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "No hay EPeople para mostrar.",
   
   // "admin.access-control.epeople.form.create": "Create EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "Crear EPerson",
   
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "Editar EPerson",
   
   // "admin.access-control.epeople.form.firstName": "First name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Nombre",
   
   // "admin.access-control.epeople.form.lastName": "Last name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Apellido",
   
   // "admin.access-control.epeople.form.email": "E-mail",
   // TODO New key - Add a translation
@@ -409,51 +409,51 @@
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Debe ser una dirección de correo electrónico válida",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "Puede iniciar sesión",
   
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "Requiere certificado",
   
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "Se creó de forma exitosa EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "Error al crear EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Error al crear EPerson \"{{name}}\", email \"{{email}}\" ya en uso.",
   
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Error al editar EPerson \"{{name}}\", email \"{{email}}\" ya en uso.",
   
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "De editó de forma exitosa EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Error al editar EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "Se eliminó de forma exitosa EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "Error al eliminar EPerson \"{{name}}\"",
   
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Miembros de estos grupos:",
   
   // "admin.access-control.epeople.form.table.id": "ID",
   // TODO New key - Add a translation
@@ -461,57 +461,57 @@
   
   // "admin.access-control.epeople.form.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "Nombre",
   
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Esta EPerson no es miembro de ningún grupo",
   
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "Añadir a grupos",
   
   // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Error al eliminar EPerson: \"{{name}}\"",
   
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "Se eliminó de forma exitosa EPerson: \"{{name}}\"",
   
   
   
   // "admin.access-control.groups.title": "DSpace Angular :: Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+  "admin.access-control.groups.title": "DSpace Angular :: Grupos",
   
   // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Editar Group",
   
   // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: Nuevo Grupo",
   
   // "admin.access-control.groups.head": "Groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "Grupos",
   
   // "admin.access-control.groups.button.add": "Add group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "Agregar Grupo",
   
   // "admin.access-control.groups.search.head": "Search groups",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "Buscar Grupo",
   
   // "admin.access-control.groups.button.see-all": "Browse all",
   // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "Mostrar todo",
   
   // "admin.access-control.groups.search.button": "Search",
   // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "Buscar",
   
   // "admin.access-control.groups.table.id": "ID",
   // TODO New key - Add a translation
@@ -519,45 +519,45 @@
   
   // "admin.access-control.groups.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "Nombre",
   
   // "admin.access-control.groups.table.members": "Members",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "Miembros",
   
   // "admin.access-control.groups.table.edit": "Edit",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "Editar",
   
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "Editar \"{{name}}\"",
   
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Eliminar \"{{name}}\"",
   
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
   // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "No se encontró ningún grupo con esto en su nombre o esto como UUID",
   
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "Se eliminó de forma existosa el grupo \"{{name}}\"",
   
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Error al eliminar el grupo \"{{name}}\"",
   
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+  "admin.access-control.groups.notification.deleted.failure.content": "Causa: \"{{cause}}\"",
   
   
   
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.permanent": "Este grupo es permanente, por lo que no se puede editar ni eliminar. Aún puede agregar y quitar miembros del grupo mediante esta página.",
   
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
   // TODO New key - Add a translation
@@ -565,39 +565,39 @@
   
   // "admin.access-control.groups.form.head.create": "Create group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "Crear grupo",
   
   // "admin.access-control.groups.form.head.edit": "Edit group",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "Editar grupo",
   
   // "admin.access-control.groups.form.groupName": "Group name",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "Nombre del Grupo",
   
   // "admin.access-control.groups.form.groupDescription": "Description",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupDescription": "Description",
+  "admin.access-control.groups.form.groupDescription": "Descripción",
   
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "Se creó de forma existosa el grupo \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "Error al crear el grupo \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Error al crear el grupo con nombre: \"{{name}}\", asegúrese de que el nombre no está ya en uso.",
   
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "Error al editar el grupo \"{{name}}\"",
   
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "El nombre \"{{name}}\" ya está en uso!",
   
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
   // TODO New key - Add a translation
@@ -5877,15 +5877,15 @@
   
   // "vocabulary-treeview.load-more": "Load more",
   // TODO New key - Add a translation
-  "vocabulary-treeview.load-more": "Load more",
+  "vocabulary-treeview.load-more": "Cargar más",
   
   // "vocabulary-treeview.search.form.reset": "Reset",
   // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.reset": "Reset",
+  "vocabulary-treeview.search.form.reset": "Resetear",
   
   // "vocabulary-treeview.search.form.search": "Search",
   // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.search": "Search",
+  "vocabulary-treeview.search.form.search": "Buscar",
   
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   // TODO New key - Add a translation
@@ -5902,7 +5902,7 @@
   
   
   // "uploader.browse": "browse",
-  "uploader.browse": "navegar",
+  "uploader.browse": "Navegar",
   
   // "uploader.drag-message": "Drag & Drop your files here",
   "uploader.drag-message": "Arrastrar y soltar sus archivos aquí",
@@ -5933,7 +5933,7 @@
   
   // "workflowAdmin.search.results.head": "Administer Workflow",
   // TODO New key - Add a translation
-  "workflowAdmin.search.results.head": "Administer Workflow",
+  "workflowAdmin.search.results.head": "Administrar Workflow",
   
   
   
@@ -5963,11 +5963,11 @@
   
   // "workflow-item.delete.button.cancel": "Cancel",
   // TODO New key - Add a translation
-  "workflow-item.delete.button.cancel": "Cancel",
+  "workflow-item.delete.button.cancel": "Cancelar",
   
   // "workflow-item.delete.button.confirm": "Delete",
   // TODO New key - Add a translation
-  "workflow-item.delete.button.confirm": "Delete",
+  "workflow-item.delete.button.confirm": "Eliminar",
   
   
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
@@ -5996,7 +5996,7 @@
   
   // "workflow-item.send-back.button.cancel": "Cancel",
   // TODO New key - Add a translation
-  "workflow-item.send-back.button.cancel": "Cancel",
+  "workflow-item.send-back.button.cancel": "Cancelar",
   
   // "workflow-item.send-back.button.confirm": "Send back"
   // TODO New key - Add a translation
