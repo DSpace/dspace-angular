@@ -584,7 +584,7 @@ export class SubmissionService {
    */
   isSubmissionDiscarded(submissionId: string): Observable<boolean> {
     return this.getSubmissionObject(submissionId).pipe(
-      map((submission: SubmissionObjectEntry) => submission?.isDiscarded),
+      map((submission: SubmissionObjectEntry) => submission?.isDiscarding),
       distinctUntilChanged());
   }
 

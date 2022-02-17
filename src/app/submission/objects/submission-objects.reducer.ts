@@ -219,7 +219,7 @@ export interface SubmissionObjectEntry {
   /**
    * A boolean representing if a submission is discarded or not
    */
-   isDiscarded?: boolean;
+   isDiscarding?: boolean;
 }
 
 /**
@@ -490,7 +490,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     saveDecisionPending: false,
     depositPending: false,
     metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration,
-    isDiscarded: false
+    isDiscarding: false
   };
   return newState;
 }
@@ -554,7 +554,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        isDiscarded: true
+        isDiscarding: true
       })
     });
   } else {

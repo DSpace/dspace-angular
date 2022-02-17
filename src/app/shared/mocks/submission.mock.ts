@@ -2951,7 +2951,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
       } as any
     },
     isLoading: false,
-    isDiscarded: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false
   }
@@ -3072,7 +3072,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
       } as any
     },
     isLoading: false,
-    isDiscarded: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false
   }
@@ -3158,7 +3158,7 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
       } as any
     },
     isLoading: false,
-    isDiscarded: false,
+    isDiscarding: false,
     savePending: false,
     depositPending: false
   }

@@ -26,9 +26,9 @@ export class PendingChangesGuard implements CanDeactivate<ThemedSubmissionEditCo
 
   canDeactivate(component?: ThemedSubmissionEditComponent, route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<boolean> {
     return this.submissionService.isSubmissionDiscarded(route?.params?.id).pipe(take(1),
-      switchMap((isDiscarded) => {
-        if (isDiscarded) {
-          return of(isDiscarded);
+      switchMap((isDiscarding) => {
+        if (isDiscarding) {
+          return of(isDiscarding);
         }
         return this.canDeactivateService.canDeactivate().pipe(
           switchMap((canDeactivate) => {
