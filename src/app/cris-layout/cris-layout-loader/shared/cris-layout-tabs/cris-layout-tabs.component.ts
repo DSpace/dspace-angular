@@ -90,6 +90,7 @@ export abstract class CrisLayoutTabsComponent {
         }
       }
     });
+    console.log(tabs);
     this.tabs = tabs;
   }
 

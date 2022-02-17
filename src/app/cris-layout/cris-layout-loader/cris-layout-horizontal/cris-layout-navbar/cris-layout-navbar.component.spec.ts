@@ -23,16 +23,7 @@ describe('CrisLayoutNavbarComponent', () => {
 
   const windowServiceStub = new HostWindowServiceStub(1000);
 
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    snapshot: {
-      paramMap: {
-        get(name) {
-          return new CrisLayoutTab();
-        }
-      }
-    }
-
-  });
+  const activatedRouteStub = new ActivatedRouteStub();
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',

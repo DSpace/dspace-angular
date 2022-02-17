@@ -80,7 +80,6 @@ export class CrisLayoutSidebarItemComponent {
   }
 
   getTabHeader(tab: CrisLayoutTab): string {
-
     const tabHeaderI18nKey = this.tabI18nPrefix + this.tab.entityType + '.' + tab.shortname;
     const tabHeaderGenericI18nKey = this.tabI18nPrefix + tab.shortname;
 

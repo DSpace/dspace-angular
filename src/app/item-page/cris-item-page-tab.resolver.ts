@@ -44,7 +44,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
         getFirstCompletedRemoteData(),
         map((tabs: RemoteData<PaginatedList<CrisLayoutTab>>) => {
           // By splititng the url with uuid we can understand if the item is primary item page or a tab
-          const urlSplited = state.url.split(item.uuid);
+          const urlSplited = state.url.split(route.params.id);
           if (!!tabs.payload && !!tabs.payload.page && tabs.payload.page.length > 0 && !urlSplited[1]) {
             const selectedTab = tabs.payload.page.filter((tab) => !tab.leading)[0];
             if (!!selectedTab) {
