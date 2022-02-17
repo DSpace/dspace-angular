@@ -150,7 +150,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       submissionId: '1234',
       id: 'relationGroup',
       formConfiguration: [],
-      isInlineGroup: false,
       mandatoryField: '',
       name: 'relationGroup',
       relationFields: [],

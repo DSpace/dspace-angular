@@ -197,7 +197,7 @@ describe('FormBuilderService test suite', () => {
         repeatable: false,
         metadataFields: [],
         submissionId: '1234',
-        hasSelectableMetadata: false
+        hasSelectableMetadata: false,
       }),
 
       new DynamicScrollableDropdownModel({
@@ -233,6 +233,7 @@ describe('FormBuilderService test suite', () => {
             hints: 'Enter the name of the author.',
             input: { type: 'onebox' },
             label: 'Authors',
+            typeBind: [],
             languageCodes: [],
             mandatory: 'true',
             mandatoryMessage: 'Required field!',
@@ -304,7 +305,9 @@ describe('FormBuilderService test suite', () => {
           required: false,
           metadataKey: 'dc.contributor.author',
           metadataFields: ['dc.contributor.author'],
-          hasSelectableMetadata: true
+          hasSelectableMetadata: true,
+          showButtons: true,
+          typeBindRelations: []
         },
       ),
     ];
